@@ -54,7 +54,7 @@ The attached CSV has **{ROW_COUNT} rows ({ACTIVE_COUNT} active)**, and **{ST_ACT
 
 ## Reminders
 - **Asking Taylor:** work it out yourself first. If you're unsure, ask Taylor in the chat right then, with a recommendation (rule 76). Never ask Taylor for landlord experience outside Colorado, or to buy a lease.
-- **Groups:** use only the group names already in the CSV.
+- **Groups:** a lease clause uses one of the twelve clause groups only: Rent & Payment, Security Deposit, Tenant Responsibilities, Landlord Responsibilities, Access & Entry, Default & Termination, Notices & General, Pets, Parking & Storage, Rules & Regulations, Disclosures, Other / Miscellaneous. Education rows use group names already in the CSV ("Building & Safety" is an education group, never a clause group).
 - **Variables:** reuse existing `{{variables}}`; list any new one in the log.
 
 ## Deliver

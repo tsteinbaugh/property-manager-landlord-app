@@ -1305,3 +1305,2018 @@ Note that the pre-settled Indiana/Pennsylvania branch — "if the edit would onl
 - `smoking-policy`: Tenant pays for smoking damage caused by "Tenant, an occupant, or a guest or invitee of Tenant", no longer by anyone's smoking.
 - `no-alterations`: the last sentence adds that the clause "does not change who owns an installation that applicable law makes Tenant's property".
 - `addendum-precedence`: a disclosure, notice or addendum "that applicable law says controls over this Lease" now controls, as one the law requires already did.
+
+
+---
+
+## Topic gaps pass (end-of-run consistency pass, Claude Desktop, 2026-10-24)
+
+**Pass:** end-of-run consistency pass, 253 topics Wyoming had no row for, plus the six Wyoming items. One visit, 2026-10-24 (Taylor).  
+**Deliverable pair:** `lease-clauses-WY-gaps-delta.csv` (new rows + tagged existing rows) and this log.
+
+
+---
+
+## §1 Sources, channel and currency
+
+**Channel.** `corpus-WY-20261024.tar.xz`, downloaded by Claude Code from wyoleg.gov on 2026-10-24.
+Archive SHA-256 verified against the supplied `.sha256` before unpacking; `verify_wy.py` then reported
+**603 files match, 41 PDFs listed but not shipped, 0 problems**. Holds every Wyoming title as text
+(`pdftotext -layout`), plus Title 97 (constitution) and Title 99 (noncodified), and the enrolled act of
+every 2025 (171) and 2026 (107) act. The Legislature's download page states the text "contains changes
+from the 2026 Budget Session and reflects the contents of the statutes as they exist as of July 1, 2026."
+
+**This is the first Wyoming pass with a code-wide corpus.** Every earlier Wyoming pass, including the
+2026-09-30 and 2026-10-04 retros, recorded that no statute-wide search was possible — the organization's
+egress proxy returns 403 to every statute host, Justia is behind a bot challenge, and the site publishes
+no bulk text. Those passes reached statutes by guessing gateway node numbers, and every absence row they
+produced carries the boundary phrase "Articles 10, 12 and 13 read whole." That boundary is superseded by
+this pass's batteries — and was, in fact, one article short (see Article 14, §6 finding 1).
+
+### Limits of this corpus, each found during the pass and each bounding an absence claim
+
+1. **Title 34.1 — the Uniform Commercial Code — is NOT in the corpus.** The manifest holds titles 01
+   through 42 plus 97 and 99. Wyoming codifies its UCC separately as "Title 34.1", which was never
+   downloaded; Title 34 chapter 21 is 527 "Renumbered by order of management council" stubs marking where
+   it used to sit, and `34.1-` returns 76 hits that are all cross-references *from* other titles. So **no
+   absence of UCC subject matter — goods, sales, warranties, secured transactions, leases of goods — is
+   proved by this corpus.** For a residential real-property library the practical reach is small, but any
+   row touching a security interest in a tenant's goods, a waterbed or furnishings warranty, or the
+   UCC/UCCC boundary should say the UCC was not searched. (The Uniform Consumer Credit Code is a
+   different act, in Title 40, and IS in the corpus.)
+2. **No agency rules.** rules.wyo.gov is outside the corpus. This bites hardest on the Public Service
+   Commission (landlord submetering under § 37-1-101(a)(vi)(H)), the Department of Revenue (the 2026
+   EV-charging tax), and the Department of Agriculture (public pool and spa standards under
+   §§ 35-28-101 to 35-28-110). Rows on those topics state the statutory position and the cautious course,
+   never a predicted enforcement outcome.
+3. **No court rules, forms or case law.** W.R.C.P. and W.R.C.P.C.C. are cited where a statute points at
+   them (for example § 1-21-1210(a)(i)(B)) but were not read. Several rows turn on questions only case law
+   can settle — waiver of forfeiture during an unexpired term, the reach of § 1-21-1202(d), whether a
+   § 1-21-1208(c) claim is a statutory liability (eight years) or a penalty (one year). Each says so.
+4. **No municipal or county ordinances**, consistent with SOP rule 3. This matters more in Wyoming than
+   in most states: Wyoming is a constitutional home-rule state (Wyo. Const. art. 13, § 1(b)), nothing in
+   the code preempts local rental regulation, and § 35-9-121(b) expressly makes a *more stringent* local
+   code prevail. Plumbing in particular has no state floor at all (§ 35-9-106(a)(i)'s model-code list is
+   exhaustive and omits a plumbing code), so it is purely local under § 15-1-119.
+
+### Search-engine defects found and fixed during the pass
+
+Recorded because each produced false zeros or false hits before it was caught, and each is now a proposed
+SOP rule.
+
+- **Line wraps.** `pdftotext -layout` breaks statutory phrases across lines. The first harness normalised
+  spaces and tabs but not newlines, so every multi-word literal returned false zeros — caught when
+  `Condominium Ownership Act` returned 0 though Wyoming has one at § 34-20-101. Fixed by searching a
+  whitespace-collapsed view; revalidated with the nonsense control still at 0 and `residential rental
+  unit` rising 20 → 23. Every battery run before the fix was re-run.
+- **Unescaped number style.** Wyoming writes `seven (7) days`; unescaped parentheses make that a regex
+  group matching nothing. Found by an agent re-running its own numeric patterns escaped.
+- **Bare section numbers are substrings.** `1-3-119` returns 7 hits of which 6 are really `41-3-119` and
+  `21-3-119`; `1-3-111` returns 9 of which 8 are false — and in a currency check they look exactly like
+  live amendments. Fixed by adding an anchored `cite` command reporting anchored and unanchored counts
+  side by side.
+- **Phrase traps in Wyoming's own wording.** `hot water` does not match § 1-21-1203(a)(iii), which says
+  "hot and cold water". `data breach` returns 0 because Wyoming says "breach of the security of the data
+  system". `terminate the lease` returns 0 because Wyoming says "rental agreement". `Section 8` returns
+  170 hits that are almost all bill-section numbering. `security device` returns 23 hits that are all
+  financial surety devices. Title 23 uses "lessee" and never "tenant"; Title 37 never uses "landlord".
+
+---
+
+## §2 Topics answered
+
+**253 of 253 topics answered.** One line each: topic — row id(s) — Present / Absent / Tagged — citation.
+
+- Abandonment and mitigation - edu-abandonment-and-mitigation-wy - Absent (no mitigation statute; abandonment is a statutory 'termination') - Wyo. Stat. §§ 1-21-1201(a)(v), 1-21-1208(a), 1-21-1210, 1-21-1211(b)
+- Casualty and mitigation waivable - edu-casualty-and-mitigation-waivable-wy - Present (no casualty or mitigation statute; Wyo. Stat. § 1-21-1202(d) expressly permits modifying article duties by explicit signed writing, Safe Homes Act § 1-21-1304 is the one non-waivable floor) - Wyo. Stat. §§ 1-21-1202(d), 1-21-1304
+- Cure and eviction grounds - edu-cure-and-eviction-grounds-wy - Present (closed list of FED grounds plus a bare 3-day notice to quit; no statutory right to cure) - Wyo. Stat. §§ 1-21-1002(a), 1-21-1003, 1-21-1204(a)(vii)
+- Dv qualifying documents - edu-dv-qualifying-documents-wy - Present (only 'medical, court or police evidence'; no third-party certification, no form; delivery to landlord required on the 1-21-1303(b) track only) - Wyo. Stat. §§ 1-21-1303(a)(i), 1-21-1303(b)(ii)
+- Exculpatory clauses - edu-exculpatory-clauses-wy - Absent (no anti-exculpation statute; two statutory liability limits already favor the owner) - Wyo. Stat. §§ 1-21-1203(e), 1-21-1210(c), 1-21-1202(d)
+- Frozen standard incorporation - edu-frozen-standard-incorporation-wy - Present (frozen 2012 IBC accessibility and 1997 UBC fees; rolling NFPA 58 and ADA; most International codes named with no edition, with the operative edition set by agency rule or local IRC adoption) - Wyo. Stat. §§ 16-6-501, 35-9-106, 35-9-108(d), 35-9-120(a), 35-9-121, 35-9-163, 16-13-101
+- Homestead waiver - edu-homestead-waiver-wy - Absent as a lease mechanism (statutory waiver words exist only for conveyances under Wyo. Stat. § 34-2-121; exemption is constitutional and requires joint spousal consent) - Wyo. Const. art. 19, § 9; Wyo. Stat. §§ 34-2-121, 1-20-106, 1-20-108
+- Lead state notices - edu-no-lead-state-notices-wy - Absent (Wyoming has no lead statute of any kind; federal Title X disclosure is the whole obligation) - No Wyoming statute; FEDERAL: 42 U.S.C. S 4852d
+- Mold disclosure - edu-no-mold-disclosure-wy - Absent (no Wyoming mold statute; mold runs through the general habitability duty and the 1-21-1203(c) tenant-cause defense) - No Wyoming mold statute; Wyo. Stat. §§ 1-21-1202(a),(c), 1-21-1203
+- Pet eviction fact sheet - edu-no-pet-eviction-fact-sheet-wy - Absent (no Wyoming pet disclosure of any kind; pets are a lease matter, and 1-21-1207 is the only disclosure a pet fee triggers) - No Wyoming statute; related Wyo. Stat. §§ 1-21-1207, 35-13-201(c)
+- Recycling notice - edu-no-recycling-notice-wy - Absent (no Wyoming recycling duty or notice; tenant waste duties in 1-21-1204(a)(ii) and (a)(viii) are what exists) - No Wyoming statute; Wyo. Stat. § 1-21-1204(a)
+- Required disclosures - edu-required-disclosures-wy + nonrefundable-deposit-disclosure-wy - Present (Wyo. Stat. § 1-21-1207 is the only required lease disclosure; no state form, font or placement rule; 34-1-151 seller disclosure cannot reach a dwelling lease-option) - Wyo. Stat. § 1-21-1207
+- Sfr occupancy disclosure - edu-no-sfr-occupancy-disclosure-wy - Absent (no SFR notice, no occupancy standard, no font or placement rule; 1-21-1204(a)(v)'s ceiling is whatever the lease specifies) - No Wyoming statute; Wyo. Stat. § 1-21-1204(a)(v)
+- Student housing - edu-no-student-housing-rule-wy - Absent (no Wyoming student-housing law; the only statutory mentions are capital-construction funding exclusions) - No Wyoming statute; Wyo. Stat. § 1-21-1201(a)(iv)
+- Tenant repair agreement - edu-tenant-repair-agreement-wy + tenant-repair-agreement-wy - Present (Wyo. Stat. § 1-21-1202(d) permits assigning any article duty by explicit signed writing, with no separate-writing, consideration, good-faith or dwelling-type condition; § 1-21-1203(a)(iv) is a separate opt-in for appliances) - Wyo. Stat. §§ 1-21-1202(d), 1-21-1203(a)(iv)
+- Utility disclosure attachment - edu-no-utility-disclosure-attachment-wy - Absent (no attachment required, but metered sales of a utility commodity to tenants forfeit the public-utility exemption except fee-free water allocation) - No Wyoming statute; Wyo. Stat. §§ 37-1-101(a)(vi)(H)(VI),(VIII), 1-21-1208(b)
+- accessory-dwelling-unit — edu-no-accessory-dwelling-unit-statute-wy — Absent — Wyo. Stat. § 15-1-601(a); § 18-5-201(a)
+- actual-notice-method — edu-no-agreed-actual-notice-method-wy — Absent — Wyo. Stat. §§ 1-21-1203(b), 1-21-1003, 1-21-1210(a)(i); 40-21-108(b)(ii)
+- adverse-proceeding-notice — edu-no-adverse-proceeding-notice-wy + adverse-proceeding-notice-wy — Absent (no landlord disclosure duty, no attornment statute; foreclosing mortgagee must notify the person in possession) — Wyo. Stat. §§ 34-4-103(a)(iv), 34-4-104(a)
+- alarm-tampering-fee — edu-no-alarm-tampering-fee-wy — Absent — Wyo. Stat. § 1-21-1205(a)(i); § 6-3-201(a)
+- animal-care-access — animal-care-access-wy + edu-animal-care-access-wy — Absent — Wyo. Stat. § 1-21-1205(a)(iii); § 1-21-1202(d)
+- appliances-excluded — appliances-excluded-wy + edu-appliances-excluded-wy — Present — Wyo. Stat. § 1-21-1203(a)(iv)
+- application-fees — edu-no-application-fee-rule-wy — Absent — no Wyoming statute; nearest Wyo. Stat. § 40-12-505(d), § 1-21-1207
+- asbestos-hazards — edu-asbestos-hazards-wy — Absent — Wyo. Stat. §§ 1-1-131 through 1-1-137 (successor liability only; no landlord duty)
+- association-obligations-disclosure — edu-no-association-disclosure-wy — Absent — Wyo. Stat. §§ 34-20-101 to 34-20-104
+- automatic-renewal - edu-automatic-renewal-wy + lease-renewal-and-holdover-wy - Present - Wyo. Stat. §§ 34-2-128, 34-2-129
+- balcony-inspection — edu-no-balcony-inspection-mandate-wy — Absent (no inspection mandate; §§ 35-9-501/504/506/507 fire-escape duty fills the gap) — Wyo. Stat. §§ 35-9-501 to 35-9-507
+- bed-bug-cooperation — edu-no-bed-bug-rule-wy + pest-cooperation-wy — Absent — Wyo. Stat. §§ 1-21-1203, 1-21-1204
+- binding-arbitration — edu-lease-arbitration-wy + arbitration-agreement-wy — Present — Wyo. Stat. §§ 1-36-101 to 1-36-119
+- cannabis — edu-cannabis-wy — Present — Wyo. Stat. §§ 35-7-1031(c), 35-7-1039, 35-7-1063(a)(i)
+- carpet-cleaning — edu-carpet-cleaning-wy + carpet-cleaning-wy — Present — Wyo. Stat. § 1-21-1208(a)
+- certificate-of-occupancy-disclosure — edu-no-certificate-of-occupancy-disclosure-wy — Absent — Wyo. Stat. § 35-9-108(n) (CO exists, no disclosure duty)
+- children-occupancy — edu-children-occupancy-wy — Absent (no required lease content; Wyo. Fair Housing Act constrains) — Wyo. Stat. §§ 40-26-103, 40-26-113; 1-21-1204(a)(v)
+- cold-weather-vacate-notice — edu-no-cold-weather-vacate-notice-wy + cold-weather-vacate-notice-wy — Absent (no Wyoming cold-weather rule; only hook is § 1-21-1204(a)(iv) reasonable use of heating facilities) — Wyo. Stat. § 1-21-1204
+- collection-fee — collection-fee-wy + edu-collection-fee-wy — Present — Wyo. Stat. § 1-1-115; § 1-21-1008(b); § 33-11-101(b)(v)
+- common-area-lighting — edu-common-area-lighting-wy + common-area-lighting-tenant-meter-wy — Present — Wyo. Stat. § 1-21-1203(a)(ii); § 35-9-504
+- communal-land-lease-approval — edu-communal-land-lease-approval-wy + communal-land-lease-approval-wy — Present — Wyo. Stat. § 36-5-116
+- condemned-premises-rent-bar — edu-no-condemned-rent-bar-wy — Absent — no rent bar; Wyo. Stat. § 35-9-156(d)-(h), § 15-1-103(a)(xxvi)
+- condition-inspection — edu-condition-inspection-wy + tag move-in-condition-report-as — Present — Wyo. Stat. §§ 1-21-1204(a)(viii), 1-21-1208(a)
+- confession-of-judgment — edu-confession-of-judgment-wy — Present — Wyo. Stat. §§ 1-16-201, 1-16-202; § 40-14-249
+- confirmed-absences-habitability - edu-confirmed-absences-habitability-wy - Present - Wyo. Stat. §§ 1-21-1202(d), 1-21-1203, 1-21-1206
+- confirmed-absences-misc — edu-confirmed-absences-misc-wy — Absent (no alarm statute, no payment-method fee rule, no false-application termination, no rental licence) — Wyo. Stat. § 1-1-115 fills the dishonored-rent-check gap
+- confirmed-absences-outside-title — edu-confirmed-absences-outside-title-wy — Present — Wyo. Stat. §§ 1-21-1401 to 1-21-1403
+- construction-liens — edu-construction-liens-wy + tag no-liens-ar — Present — Wyo. Stat. § 29-2-105
+- conversion-notice — edu-no-conversion-notice-wy — Absent — Wyo. Stat. §§ 34-20-101 to 34-20-104 (silent)
+- criminal-activity — edu-criminal-activity-wy + criminal-activity-wy — Absent (no crime-specific eviction statute; clause lawful as contract) — Wyo. Stat. §§ 1-21-1002(a)(vi), 1-21-1204(a)(vii), 40-26-103(c)
+- defective-drywall-disclosure — edu-no-defective-drywall-disclosure-wy — Absent — Wyo. Stat. § 1-21-1202(a); § 1-21-1203(a)(i)
+- deposit-cost-schedule — deposit-cost-schedule-wy — Present — Wyo. Stat. § 1-21-1208(a)
+- deposit-escheat — edu-deposit-escheat-wy — Present (security deposits named in the act; 5-year dormancy, Nov. 1 report, 120-day owner notice, $100/day and 25% penalties; contract forfeiture deadlines ineffective) — Wyo. Stat. §§ 34-24-102(a)(x)(B), 34-24-103(a), 34-24-118, 34-24-135
+- deposit-last-month-rent — deposit-last-month-rent-wy + edu-deposit-last-month-rent-wy — Present — Wyo. Stat. § 1-21-1208(a)
+- deposit-surrender-notice — edu-deposit-surrender-notice-wy + deposit-surrender-notice-wy — Present — Wyo. Stat. § 1-21-1208(a)
+- designated-repairer — designated-repairer-wy + edu-designated-repairer-wy — Present — Wyo. Stat. § 1-21-1203(b)
+- disability-accommodation — edu-disability-accommodation-wy + disability-modification-restoration-wy — Present — Wyo. Stat. § 40-26-107, § 35-13-201(c)
+- disaster-displaced-guests — edu-disaster-displaced-guests-wy — Absent — Wyo. Stat. § 1-21-1204(a)(v) (lease-specified occupant cap is the only control)
+- disaster-duties — edu-disaster-duties-wy — Absent — Wyo. Stat. § 1-21-1203(d) fills the gap
+- double-letting - edu-no-double-letting-rule-wy - Absent - no Wyoming statute (nearest Wyo. Stat. §§ 1-21-1204(a)(v), 34-2-128)
+- drug-free-housing-addendum — edu-drug-free-housing-addendum-wy + drug-free-housing-addendum-wy — Absent (no addendum statute; nuisance and clandestine-lab liability fill the gap) — Wyo. Stat. §§ 6-6-201, 35-9-158(a)(ii), 1-21-1002(a)(vi)
+- dv-confidentiality — edu-no-dv-confidentiality-rule-wy — Absent — Wyo. Stat. §§ 1-21-1301 to 1-21-1304; § 35-21-112
+- dv-deposit-timing — edu-no-dv-deposit-timing-wy — Absent — Wyo. Stat. §§ 1-21-1301 to 1-21-1304 silent; § 1-21-1208 governs
+- dv-lockchange — edu-no-dv-lock-change-wy — Absent — Wyo. Stat. §§ 1-21-1301 to 1-21-1304 (silent); § 35-21-105(a)(i) fills the gap
+- dv-protection-order-chapter-moved — edu-dv-law-citations-wy — Present (nothing moved; § 1-21-1302(a)(i)'s cross-reference to § 35-21-102(a)(iii) verified live) — Wyo. Stat. §§ 1-21-1301 to 1-21-1304, 35-21-102(a)(iii)
+- electric-submetering-disclosure — edu-electric-submetering-wy — Present — Wyo. Stat. § 37-1-101(a)(vi)(H)(VI), (VIII)
+- emergency-contact — edu-no-emergency-contact-rule-wy — Absent — Wyo. Stat. § 1-21-1201(a)(i) (agent counts as owner for notice)
+- eminent-domain — edu-eminent-domain-wy + eminent-domain-wy — Present (§ 1-26-711 is a lease-displaceable default covering partial takings only) — Wyo. Stat. § 1-26-711
+- employee-screening — edu-no-employee-screening-mandate-wy — Absent — Wyo. Stat. § 33-28-103(a); § 33-28-106(a)
+- energy-data-release — edu-no-energy-data-release-wy + energy-data-release-wy — Absent — no Wyoming statute; Wyo. Stat. § 9-12-1201 et seq. is public facilities only
+- entity-landlord-court-representation — edu-entity-landlord-court-representation-wy — Present — Wyo. Stat. § 1-21-1017
+- environmental-event-termination — edu-no-environmental-event-termination-wy + environmental-event-termination-wy — Absent — no casualty statute; nearest Wyo. Stat. § 1-21-1203(d)
+- ev-charging-end-of-tenancy — edu-ev-charging-end-of-tenancy-wy — Absent (no end-of-tenancy rule) but surrounding WY EV law is live — Wyo. Stat. §§ 37-1-101(a)(vi)(H)(X), 39-17-304(a)(iv), 40-26-107(c)(i)
+- ev-charging-requirements — ev-charging-requirements-wy + edu-ev-charging-requirements-wy — Absent (no tenant right; two regulatory traps on selling the power) — Wyo. Stat. § 37-1-101(a)(vi)(H)(VI); § 39-17-304(a)(iv)
+- ev-charging-shared-area - edu-no-ev-charging-shared-area-wy - Absent - no WY shared-area statute; Wyo. Stat. § 37-1-101(a)(vi)(H)(X) governs the billing question
+- eviction-hardship-stay — edu-no-eviction-hardship-stay-wy — Absent (no hardship stay; §§ 1-21-1007, 1-21-1014(b), 1-21-1015 are bond-conditioned delays only) — Wyo. Stat. §§ 1-21-1007 to 1-21-1015
+- eviction-penalty-clause-ban — edu-no-eviction-penalty-rule-wy — Absent — Wyo. Stat. §§ 1-21-1008, 1-21-1202(d), 40-12-105
+- eviction-process — edu-eviction-process-wy — Present — Wyo. Stat. §§ 1-21-1001 to 1-21-1017
+- eviction-record-sealing — edu-no-eviction-record-sealing-wy — Absent — no Wyoming provision; §§ 7-13-1401 et seq. are criminal only
+- eviction-service-party — edu-no-eviction-service-party-wy — Absent (no lease-named service party, no address confidentiality program) — Wyo. Stat. §§ 1-21-1003, 1-21-1004
+- expedited-criminal-eviction — edu-no-expedited-criminal-eviction-wy — Absent — Wyo. Stat. § 1-21-1002(a); § 1-21-1003; § 1-21-1004
+- expedited-deposit-disposition — edu-no-expedited-deposit-disposition-wy — Absent — Wyo. Stat. § 1-21-1208(a)-(c)
+- extended-absence-notice — edu-no-extended-absence-notice-wy + extended-absence-notice-wy — Absent (no absence-notice duty; § 1-21-1204's eight renter duties are exhaustive and abandonment is undefined) — Wyo. Stat. §§ 1-21-1204, 1-21-1201(a)(v)
+- fair-housing — edu-fair-housing-wy + edu-fair-housing-exemptions-wy — Present — Wyo. Stat. §§ 40-26-101 to 40-26-145
+- family-child-care — edu-family-child-care-wy + family-child-care-wy — Present — Wyo. Stat. § 34-1-501
+- farmland-hunting-rights — farmland-hunting-rights-wy + edu-farmland-hunting-rights-wy — Present — Wyo. Stat. § 23-3-305(b), (e)
+- fee-in-lieu-of-deposit — edu-no-fee-in-lieu-of-deposit-rule-wy — Absent — no statute; nearest Wyo. Stat. § 1-21-1207, § 1-21-1208(a)
+- fee-unprovided-service — edu-fee-unprovided-service-wy — Present — Wyo. Stat. §§ 40-12-105(a)(v) and (a)(xv), 40-12-102(a)(ii) and (vi), 40-12-108, 40-12-109
+- fire-code-standard — edu-fire-code-standard-wy — Present — Wyo. Stat. §§ 35-9-106(a)(i), 35-9-108(a), 35-9-121(a)
+- fire-sprinkler-duty - edu-no-fire-sprinkler-duty-wy - Absent - no WY statutory duty; Wyo. Stat. §§ 35-9-106(a)(i), 35-9-108(a), 35-9-121 are the framework
+- firearms — edu-firearms-wy + firearm-rules-wy — Present (private landlord may restrict; governmental landlord may not) — Wyo. Stat. § 6-8-105(d)(ii), § 6-8-401(c)
+- flood-disclosure — edu-no-flood-disclosure-wy + flood-disclosure-wy — Absent — no flood statute; Wyo. Stat. §§ 33-28-102(b)(viii), 33-28-310(a)(i)(F)
+- foreclosure-disclosure — edu-no-foreclosure-disclosure-wy — Absent — no Wyoming statute; § 34-4-104(a) notifies the tenant instead
+- foreign-ownership — edu-foreign-ownership-wy — Present — Wyo. Stat. §§ 19-13-501 to 19-13-502 (reporting only); alien land law repealed 2001
+- forfeiture-redemption — edu-no-forfeiture-redemption-wy — Absent (no tenant redemption or reinstatement right) — Wyo. Stat. §§ 1-21-1002(a)(i), 1-21-1008
+- furnishings-included — furnishings-included-la (tagged WY) — Tagged — Wyo. Stat. § 1-21-1204(a)(viii); § 1-21-1205(a)(i); § 1-21-1208(a)
+- good-cause-notice — edu-no-good-cause-notice-wy — Absent — Wyo. Stat. §§ 1-21-1002(a), 1-21-1003; 34-2-128, 34-2-129
+- government-fee-reimbursement — edu-government-fee-reimbursement-wy + government-fee-reimbursement-wy — Absent (no state rental registration/licensing and no pass-through rule; 30-day transient-guest line keeps residential rent out of sales and lodging tax) — Wyo. Stat. §§ 39-15-101(a)(xiv), 39-15-103(a)(i)(G)
+- governmental-fines — edu-governmental-fines-wy — Absent — Wyo. Stat. § 15-1-103(a)(xix); § 18-2-115
+- guarantor-renewal — edu-guarantor-renewal-wy + guaranty-wy — Present — Wyo. Stat. § 1-23-105(a)(ii); §§ 34-2-128, 34-2-129
+- guest-rights — edu-no-guest-rights-statute-wy + guest-policy-wy — Absent — no Wyoming statute; Wyo. Stat. § 1-21-1204(a)(v) and § 1-21-1205(a) are the only levers
+- habitability-presumption — edu-no-habitability-presumption-wy — Absent — no presumption; Wyo. Stat. § 1-21-1203(b) puts the burden on the renter
+- habitability-statement — edu-habitability-statement-wy — Absent — Wyo. Stat. § 1-21-1207 is Wyoming's ONLY mandatory lease recital and it concerns nonrefundable deposits
+- hazardous-contamination-disclosure — edu-no-contamination-disclosure-wy — Absent — § 35-9-156(d) and §§ 35-11-1601 et seq. are buyer-facing only
+- health-district-rental-rules - edu-no-health-district-rental-rules-wy - Absent - no WY rental rule; Wyo. Stat. §§ 35-1-105(a)(vii), 35-1-303, 35-1-310 are the framework
+- heating — edu-heating-wy + tenant-supplied-heat-wy — Present (heat is a § 1-21-1203(a)(iii) duty, no temperature standard, shiftable under § 1-21-1202(d)) — Wyo. Stat. §§ 1-21-1202, 1-21-1203
+- hoa — edu-hoa-wy — Absent — Wyo. Stat. §§ 34-20-101 to 34-20-104; § 34-1-154
+- holding-deposit — edu-holding-deposit-wy + holding-deposit-credited-wy — Absent — no Wyoming statute; Wyo. Stat. §§ 1-21-1207, 1-21-1208 take over at signature
+- holdover-rate — holdover-rate-wy + edu-holdover-rate-wy — Present — Wyo. Stat. §§ 34-2-128, 34-2-129, 1-21-1002(a)(i), 1-21-1008(b), 1-21-1208(a)
+- home-business — edu-home-business-wy + home-business-wy — Present (§ 34-1-501 child-care covenant rule; no general home-business statute) — Wyo. Stat. § 34-1-501
+- infirmity-termination — edu-no-infirmity-termination-wy — Absent — Wyo. Stat. § 1-21-1201(a)(v); § 1-21-1208(a)
+- informal-dispute-resolution — tagged informal-dispute-resolution-or — Tagged — Wyo. Stat. §§ 1-21-1202(d), 1-21-1002(a), 1-36-104(c)
+- inspection-condemnation-disclosure — edu-no-inspection-condemnation-disclosure-wy — Absent (no state housing code and no landlord disclosure duty; narrow contaminated-property regime at § 35-9-156 discloses only to a purchaser, and serves the order on occupants directly) — Wyo. Stat. § 35-9-156(d)-(h)
+- inspection-notice-penalty — edu-no-inspection-notice-penalty-wy — Absent — Wyo. Stat. § 1-21-1208(a), (c)
+- jury-waiver — edu-jury-waiver-wy + jury-waiver-possession-wy — Absent — no Wyoming statute; Wyo. Const. art. 1, § 9; Wyo. Stat. § 1-21-1008(a)
+- key-control-policy — edu-no-key-control-mandate-wy — Absent — no Wyoming statute; nearest is Wyo. Stat. § 33-28-106(a) licensee background check
+- knowing-use-penalty — edu-no-knowing-use-penalty-wy — Absent — no prohibited-terms list; Wyo. Stat. § 1-21-1202(d), WCPA §§ 40-12-105(a)(viii), (xv)
+- landlord-breach-remedy — edu-landlord-breach-remedy-wy — Present — Wyo. Stat. §§ 1-21-1203(b)-(e), 1-21-1206(a)-(d)
+- landlord-liability-insurance — edu-no-landlord-insurance-mandate-wy — Absent — no mandate; cf. Wyo. Stat. § 33-28-401(a)
+- landlord-lien - edu-landlord-lien-wy - Present (house trailer sites only) - Wyo. Stat. § 29-7-301; no general landlord lien
+- landlord-registration — edu-landlord-registration-wy — Absent (no rental registration; foreign-entity certificate of authority, registered agent and short-term lodging sales tax licence fill the gap) — Wyo. Stat. §§ 17-16-1501, 17-16-1502(a),(d), 39-15-106(a)
+- landlord-remedies-termination — edu-landlord-remedies-termination-wy — Present — Wyo. Stat. §§ 1-21-1001 to 1-21-1017, 5-9-128, 34-2-128
+- late-fee-limit — edu-no-late-fee-limit-wy — Absent — no Wyoming statute; lease governs, Wyo. Stat. § 1-21-1208(a) makes it deductible
+- law-enforcement-cooperation — edu-law-enforcement-cooperation-wy — Present — Wyo. Stat. §§ 14-3-205, 35-20-103, 35-20-111
+- lead-safe-certification — edu-no-lead-safe-certification-wy — Absent (no Wyoming lead law at all) — FEDERAL: 42 U.S.C. § 4852d
+- lease-content-requirements — edu-lease-content-requirements-wy — Present — Wyo. Stat. § 1-21-1207; § 1-23-105(a)(v)
+- lease-copy — edu-no-lease-copy-duty-wy — Absent — Wyo. Stat. § 1-23-105(a)(v); §§ 1-21-1202(d), 1-21-1207
+- lease-notice-initial-requirement — edu-no-lease-initials-requirement-wy — Absent (no initialing, bold-type or point-size rule; the only writing rules are the statute of frauds at § 1-23-105(a)(v) and the written-renewal rule at § 34-2-129) — Wyo. Stat. §§ 1-23-105, 34-2-128, 34-2-129
+- lease-registration — edu-lease-registration-wy — Absent — Wyo. Stat. § 34-1-102; § 34-1-120; § 1-23-105(a)(v)
+- lease-term-limitation — edu-lease-term-limitation-wy + lease-term-and-recording-wy — Present — Wyo. Stat. § 1-23-105(a)(v); § 34-1-102; § 34-1-120
+- lease-type-parity — edu-no-lease-type-parity-wy — Absent — no Wyoming statute; Wyo. Stat. §§ 34-2-128, 34-2-129 govern instead
+- lease-type-size — edu-no-lease-type-size-wy — Absent — no type-size or evidentiary rule; only content duty is Wyo. Stat. § 1-21-1207
+- limitation-of-actions — edu-limitation-of-actions-wy — Present — Wyo. Stat. §§ 1-3-105(a)(i) (ten years on a written lease), 1-3-119 (partial payment restarts the clock)
+- liquidated-damages — edu-liquidated-damages-wy — Absent — no statute; § 1-21-1208(a) and (c) are the operative constraint
+- lockout-for-rent-delinquency - edu-no-lockout-for-rent-wy - Absent (and effectively prohibited) - Wyo. Stat. §§ 6-3-306, 1-21-1001, 1-21-1003
+- maintenance-duty-shift — edu-maintenance-duty-shift-wy + maintenance-duty-shift-wy — Present (§ 1-21-1202(d) permits assigning any Article 12 duty by explicit written signed agreement; no anti-waiver) — Wyo. Stat. § 1-21-1202(d)
+- meter-conservation-charge — edu-no-meter-conservation-charge-wy — Absent — no statute; Wyo. Stat. §§ 42-2-501, 37-18-102
+- meth-disclosure — edu-meth-disclosure-wy — Absent (no tenant disclosure) — Wyo. Stat. §§ 35-9-156, 35-9-158 govern instead
+- military-air-zone-disclosure — edu-no-military-zone-disclosure-wy — Absent — no Wyoming provision; § 10-5-301 is a local airport-zoning enabling act only
+- minor-tenant-filing — edu-minor-tenant-filing-wy — Present (minors over 14 MAY be sued, with a court-appointed guardian) — Wyo. Stat. § 1-1-102
+- municipal-utility-lien — edu-municipal-utility-lien-wy — Present — Wyo. Stat. § 35-3-122; § 16-10-110; § 15-4-204
+- nonpayment-notice — edu-nonpayment-notice-wy — Present — Wyo. Stat. §§ 1-21-1002(a)(i), 1-21-1003, 1-21-1004
+- nonresident-owner-agent — edu-no-nonresident-owner-agent-wy + nonresident-owner-agent-wy — Absent (no nonresident-landlord agent statute and no income tax to withhold; the real in-state agent duty is § 17-28-101 for entity owners) — Wyo. Stat. §§ 1-21-1201(a)(i), 5-1-107, 17-28-101(a)
+- notice-service-fee — edu-no-notice-service-fee-wy — Absent — Wyo. Stat. § 1-21-1003; § 1-21-1008(b)
+- notice-to-quit-waiver — edu-notice-to-quit-waiver-wy + notice-to-quit-preserved-wy — Present — Wyo. Stat. § 1-21-1003 (not waivable); § 1-21-1202(d) does not reach article 10
+- notice-to-vacate-additional-terms — edu-no-notice-to-vacate-terms-rule-wy — Absent — no Wyoming statute; Wyo. Stat. § 1-21-1003 sets the only notice requirement
+- nuisance — edu-nuisance-wy + nuisance-and-unlawful-use-wy — Present — Wyo. Stat. §§ 6-6-201 to 6-6-208, §§ 35-9-111 to 35-9-113, § 35-1-105(a)(vii), § 18-2-115
+- optional-lease-terms — edu-optional-lease-terms-wy — Present — Wyo. Stat. § 1-21-1202(d) plus seven lease-dependent hooks in Article 12 and § 1-23-105
+- ordnance-demolition-meter-disclosures — edu-no-ordnance-demolition-meter-disclosure-wy — Absent — §§ 16-7-101 to 16-7-121 and § 37-1-101(a)(vi)(H)(VI) fill the gap
+- other-landlord-facilities - edu-other-landlord-facilities-wy - Present - Wyo. Stat. §§ 35-9-501, 35-9-502, 35-9-504, 35-9-506, 35-9-507
+- owner-move-in-reservation — edu-owner-move-in-reservation-wy, plus WY tagged onto owner-occupancy-termination-ar — Absent (no owner move-in statute; §§ 34-2-128/129 make end-of-term termination automatic) — Wyo. Stat. §§ 34-2-128, 34-2-129, 1-21-1002(a)(i)
+- parking-rules-notice — edu-no-parking-rules-notice-wy — Absent — Wyo. Stat. §§ 31-5-111, 31-5-501, 31-13-109
+- part5-nonwaivable — edu-nonwaivable-rights-wy — Absent — Wyo. Stat. § 1-21-1202(d) makes Article 12 waivable; § 1-21-1304 is the only floor
+- periodic-services-entry — scheduled-services-entry-wy + edu-periodic-services-entry-wy — Present — Wyo. Stat. §§ 1-21-1205(a)(iii), 1-21-1202(d)
+- pest-control-notice — edu-no-pest-control-notice-wy — Absent (schools only; local notice ordinances expressly preempted) — Wyo. Stat. §§ 35-7-375, 35-7-374(c)
+- pet-fees — edu-pet-fees-wy — Present — Wyo. Stat. § 1-21-1207; § 1-21-1208(a); § 35-13-201(c)
+- plain-language — edu-no-plain-language-rule-wy — Absent — Wyo. Stat. §§ 40-12-102, 40-12-105 (no drafting rules); § 1-21-1202(d)
+- plain-language-consumer-statement — edu-no-plain-language-statement-wy — Absent (no readability or plain-language rule for leases; the only backstop is the Wyoming Consumer Protection Act's knowing-misrepresentation provision) — Wyo. Stat. §§ 40-12-102, 40-12-105(a)(viii)
+- political-access — edu-no-political-access-rule-wy — Absent — Wyo. Stat. § 6-3-303(a); § 22-25-115
+- pool-safety — edu-pool-safety-wy + pool-and-spa-use-wy — Present — Wyo. Stat. §§ 35-28-101 to 35-28-110
+- portable-cooling-device — edu-no-portable-cooling-rule-wy + portable-cooling-device-wy — Absent — no Wyoming statute; Wyo. Stat. § 1-21-1203(a)(iii)-(iv) makes cooling opt-in
+- portable-solar — edu-no-portable-solar-right-wy + portable-solar-consent-wy — Absent — no tenant right; Wyo. Stat. §§ 34-22-101 to 34-22-106, §§ 37-16-101 to 37-16-104
+- portfolio-thresholds — edu-portfolio-thresholds-wy — Present — Wyo. Stat. § 40-26-110(a) (three single family houses) and § 40-26-110(b) (four families, owner-occupied); no unit-count threshold anywhere in Title 1
+- possession-bond — edu-no-possession-bond-wy — Absent — Wyo. Stat. §§ 1-21-1012 to 1-21-1015 are the Wyoming substitute
+- private-well-testing - edu-private-well-testing-wy + well-water-disclosure-wy - Present (no disclosure act; monthly sampling at 10+ connections) - Wyo. Stat. §§ 35-4-220(a)(ii), 35-4-221
+- promises-to-repair — edu-promises-to-repair-wy + promised-repairs-wy — Absent (no written-promise rule; § 1-21-1203(a)(iv) and the WCPA supply the consequences) — Wyo. Stat. § 1-21-1203(a)(iv), §§ 40-12-105, 40-12-109
+- prop65-rental-warning — edu-no-chemical-warning-rule-wy — Absent — no state statute; FEDERAL 42 U.S.C. § 4852d
+- property-tax-rent-disclosure — edu-no-property-tax-rent-statement-wy — Absent — no Wyoming statute; § 39-13-107(J) is the only tax/renter link
+- protected-class-inquiry-ban — edu-no-protected-class-inquiry-ban-wy — Absent — no Wyoming inquiry ban; § 40-26-104 reaches a question that states an intention
+- purpose-limitation — edu-purpose-limitation-wy + purpose-limitation-wy — Present (statutory use duty at § 1-21-1204(a)(v); no lease-voiding statute) — Wyo. Stat. § 1-21-1204(a)(v)
+- redemption — edu-no-tenant-redemption-wy — Absent — Wyo. Stat. § 1-21-1013; § 1-21-1014(b); § 1-21-1015
+- religious-cultural-display — edu-no-religious-display-rule-wy — Absent — Wyo. Stat. § 40-26-103(b); §§ 1-21-1205(a)(i), 1-21-1208(a)
+- rent-concession — edu-no-rent-concession-rule-wy + rent-concession-wy — Absent (no concession statute at all; clawback enforceable as a lease obligation via §§ 1-21-1204(a)(vii) and 1-21-1002(a)(vi)) — Wyo. Stat. §§ 1-21-1002, 1-21-1204(a)(vii)
+- rent-control — edu-rent-control-wy — Absent — Wyo. Const. art. 13, § 1(b); no preemption statute
+- rent-demand-bar — edu-no-rent-demand-bar-wy + rent-paid-without-deduction-wy — Absent — no bar; Wyo. Stat. § 1-21-1206(c) allows a retrospective clawback
+- rent-escalation — TAG rent-escalation-la + new edu-rent-escalation-wy — Tagged — no Wyoming rent regulation; Wyo. Stat. § 1-21-1202(d), § 40-26-144(b)
+- rent-installments — tagged rent-installments-or — Tagged — no Wyoming statute; Wyo. Stat. § 1-21-1002(a)(i), § 1-21-1003
+- rent-into-court-counterclaim — edu-rent-into-court-counterclaim-wy — Present — Wyo. Stat. §§ 1-21-1007, 1-21-1014(b), 1-21-1015(a)-(b)
+- rent-receipt-anti-waiver — edu-rent-receipt-anti-waiver-wy — Present — Wyo. Stat. §§ 34-2-128, 34-2-129; no Kansas-style split prohibited
+- rent-receipts - edu-no-rent-receipt-duty-wy - Absent - no Wyoming receipt statute
+- rent-reporting — edu-no-rent-reporting-rule-wy — Absent (no Wyoming rent-reporting statute; FCRA governs, WCPA polices the description, § 40-12-502 polices the data) — FEDERAL 15 U.S.C. § 1681s-2; Wyo. Stat. §§ 40-12-105, 40-12-502, 40-12-505
+- rent-tax — edu-rent-tax-wy — Present — Wyo. Stat. §§ 39-15-101(a)(i) and (xiv), 39-15-103(a)(i)(G), 39-15-104(h)
+- rental-inspection — edu-rental-inspection-wy + rental-inspection-access-wy — Absent — no Wyoming program; §§ 35-9-111, 35-1-105(a)(vii), 35-9-121 and local ordinance fill the gap
+- renters-insurance-rules — renters-insurance-requirement-wy + edu-no-renters-insurance-rules-wy — Absent — no Wyoming regulation; cf. §§ 1-21-1202(d), 1-21-1208(a), 26-9-203
+- repair-escrow-exemption-notice — edu-no-repair-escrow-exemption-wy — Absent (no escrow or repair-and-deduct remedy, so no exemption and no notice) — Wyo. Stat. §§ 1-21-1203, 1-21-1206
+- required-fees — edu-required-fees-wy — Present — Wyo. Stat. § 1-21-1208(a); § 1-21-1207; § 1-1-115
+- rights-responsibilities-guide — edu-no-rights-guide-wy — Absent — Wyo. Stat. § 40-26-114 (duty is on the agency, not the landlord)
+- rules-regulations — edu-rules-regulations-wy + rules-regulations-wy — Present (rules are rental-agreement material by definition and evictable, but no reasonableness, uniformity or notice standard; mid-term changes need a reserved power) — Wyo. Stat. §§ 1-21-1201(a)(ii), 1-21-1204(a)(vii), 1-21-1002(a)(vi)
+- sanitary-code-variance — edu-no-sanitary-code-variance-wy — Absent — Wyo. Stat. § 35-9-121(d); § 1-21-1202(a)
+- seasonal-tenancy — edu-seasonal-tenancy-wy + seasonal-tenancy-wy — Present — Wyo. Stat. § 1-21-1201(a)(iv); § 1-21-1202(a)
+- security-deposit-holding — edu-security-deposit-holding-wy + security-deposit-holding-wy — Present — Wyo. Stat. § 1-21-1208(a); § 33-28-122
+- security-deposit-interest — edu-no-security-deposit-interest-wy — Absent — Wyo. Stat. § 1-21-1208(a) returns the deposit "without interest"
+- security-deposit-standards — edu-security-deposit-standards-wy — Present — no standards on a self-managing owner, but Wyo. Stat. § 33-28-122 governs a broker-held deposit
+- security-devices — edu-no-security-device-rule-wy + security-devices-wy — Absent — no mandate; § 1-21-1203(a)(i) is the only hook
+- senior-housing-work-card - edu-no-senior-housing-work-card-wy - Absent - no WY work card; Wyo. Stat. §§ 40-26-112, 40-12-111 are the live senior-housing law
+- service-animal-denial-penalty — edu-service-animal-denial-penalty-wy — Present (denying an assistance animal in a rental is a misdemeanor) — Wyo. Stat. § 35-13-203(a) with § 35-13-201(c)
+- service-animal-misrepresentation — edu-service-animal-misrepresentation-wy — Present — Wyo. Stat. § 35-13-203(b), reaching housing via § 35-13-201(a)(iii) and (c)
+- servicemember-rights — edu-servicemember-rights-wy — Present — Wyo. Stat. §§ 19-11-122, 19-11-123, 19-11-125 (no state lease-termination right; federal SCRA extended to the Guard)
+- sex-offender-disclosure — edu-no-sex-offender-disclosure-wy — Absent — no disclosure duty; §§ 6-2-320(a)(iv)-(v) and 7-19-303 are the operative law
+- sex-offender-occupancy — edu-sex-offender-occupancy-wy + sex-offender-occupancy-wy — Present (1,000-ft restrictions on the offender; no landlord duty) — Wyo. Stat. § 6-2-320(a)(iv)-(v); 2026 Wyo. Sess. Laws ch. 52 (SF0088)
+- shoreline-access-disclosure — edu-no-shoreline-access-disclosure-wy — Absent — Wyo. Const. art. 8, § 1; Wyo. Stat. § 18-5-306
+- showing-notice-waiver — tagged showing-notice-la — Tagged (nothing to waive: Wyoming sets no entry-notice period) — Wyo. Stat. § 1-21-1205(a)(iii); § 6-3-303
+- shutdown-rent-protection — edu-no-shutdown-rent-protection-wy — Absent (no shutdown, moratorium or emergency rent statute of any kind; the adjacent live rule is the SCRA extension for state-activated National Guard) — Wyo. Stat. § 19-11-122
+- single-family-zone-lease-limit — edu-no-single-family-zone-lease-limit-wy — Absent — Wyo. Stat. § 15-1-601(a); § 18-5-201(a)
+- smart-access — edu-no-smart-access-law-wy + smart-access-system-wy — Absent — no smart-access statute; Wyo. Stat. § 40-12-502 applies to the data
+- smoke-drift-waiver — edu-no-smoke-drift-rule-wy + smoke-drift-waiver-wy — Absent — no Wyoming smoking statute of any kind
+- social-security-defense — edu-no-benefit-delay-defense-wy — Absent — no defence; Wyo. Stat. § 1-21-1007 runs the other way
+- special-district-representation — edu-special-district-representation-wy — Absent — no lease recital required; Wyo. Stat. § 15-6-406(a) makes the assessment an owner's lien
+- sprinkler-disclosure — edu-no-sprinkler-disclosure-wy — Absent — §§ 35-9-107(a)(iii)(F) and 35-9-108(s) are the only statutory sprinkler provisions
+- statute-of-frauds-lease-term - edu-statute-of-frauds-lease-term-wy - Present - Wyo. Stat. § 1-23-105(a)(v) (1 year, validity); § 34-1-102 with § 34-1-120 (3 years, recording)
+- statutory-caps — edu-statutory-caps-wy — Absent (no residential deposit, late-fee, application-fee or holdover cap; the real Wyoming numbers listed) — Wyo. Stat. §§ 1-21-1208, 1-16-102, 1-1-115, 1-21-1008(b)
+- statutory-early-termination — edu-statutory-early-termination-wy — Present — Wyo. Stat. §§ 1-21-1303, 1-21-1206, 1-21-1203(d), 19-11-122
+- steam-radiator-covers — edu-steam-radiator-covers-na-wy — Absent — no Wyoming statute; §§ 1-21-1202(a), 1-21-1203(a)(iii) and adopted model codes fill the gap
+- stigmatized-property — edu-stigmatized-property-wy — Absent — no stigma statute and no safe harbour; §§ 33-28-311(a) and 33-28-303(c) govern a licensed manager
+- stove-refrigerator — edu-no-stove-refrigerator-rule-wy — Absent (no supply duty; § 1-21-1203(a)(iv) makes any appliance duty opt-in) — Wyo. Stat. § 1-21-1203(a)(iii)-(iv)
+- subsidized-inspection-refusal — edu-no-subsidized-inspection-refusal-wy — Absent — Wyo. Stat. § 40-26-103; § 1-21-1205(a)(iii)
+- subsidy-habitability-proration — edu-no-subsidy-proration-rule-wy — Absent — Wyo. Stat. §§ 1-21-1203(d), 1-21-1206(c)
+- subsidy-late-fee — edu-no-subsidy-late-fee-rule-wy — Absent (no subsidy late-fee rule and no residential late-fee statute at all; the constraint is federal and contractual via the HAP contract) — no Wyoming statute; cf. Wyo. Stat. §§ 1-21-1002(a)(i), 40-26-103
+- substandard-property-receivership — edu-no-substandard-receivership-wy — Absent — Wyo. Stat. § 15-1-103(a)(xxvi); § 18-2-115; § 1-21-1206(c)
+- tax-escalation — edu-tax-escalation-wy + tag tax-insurance-escalation-la — Absent (no WY statute) — Wyo. Stat. § 1-21-1208(a); § 39-11-105(a)(xliii)-(xlv)
+- telecom-access — edu-no-telecom-access-rule-wy + telecom-access-wy — Absent — no Wyoming statute; FEDERAL 47 C.F.R. § 1.4000 is the only real constraint
+- tenancy-at-will — edu-tenancy-at-will-wy + holdover-tenancy-by-sufferance-wy — Present — Wyo. Stat. §§ 34-2-128, 34-2-129
+- tenant-bankruptcy — edu-tenant-bankruptcy-wy — Absent (no WY landlord-tenant bankruptcy rule) — but Wyo. Stat. § 1-20-109 opts Wyoming out of the federal exemptions
+- tenant-confidential-information — edu-tenant-confidential-information-wy — Absent (no confidentiality rule) — Wyo. Stat. § 40-12-502 breach duty applies
+- tenant-display-rights - edu-no-tenant-display-rights-wy + display-and-signage-rules-wy - Absent - no WY display right; Wyo. Stat. § 8-3-110 is protocol only
+- tenant-employee-housing — edu-tenant-employee-housing-wy + tenant-employee-housing-wy — Absent (no employee-housing statute, and no employee carve-out from Article 12 either) — Wyo. Stat. §§ 1-21-1201(a)(ii)-(iv), 27-4-104(a)
+- tenant-forward-proceedings — edu-no-tenant-forward-proceedings-wy + tag tenant-forward-proceedings-ca — Absent — no statute; Wyo. Stat. § 34-4-103(a)(iv)
+- tenant-insurance-claims — edu-no-tenant-insurance-claims-wy — Absent — no Wyoming statute; lease governs, § 1-21-1211(b) is the clean route to tenant-caused damage
+- tenant-portal — electronic-communications-and-portal-wy + edu-tenant-portal-wy — Present — Wyo. Stat. §§ 40-21-105(b)-(c), 40-21-107, 40-21-115(b)
+- tenant-records — edu-tenant-records-wy — Present (no ledger duty; breach statute DOES reach landlords) — Wyo. Stat. §§ 40-12-501, 40-12-502
+- tenant-right-to-organize — edu-no-tenant-organizing-right-wy — Absent — Wyo. Stat. § 1-21-1002(a); Wyo. Const. art. 1, § 21
+- tenant-rights-statement — edu-no-tenant-rights-statement-wy — Absent — Wyo. Stat. §§ 1-21-1003, 1-21-1207
+- term-change-notice — edu-no-term-change-notice-rule-wy + term-change-notice-wy — Absent (no rent-increase or term-change notice statute; §§ 34-2-128/129 bar implied renewal and § 1-21-1202(d) requires an explicit signed writing to modify) — Wyo. Stat. §§ 1-21-1202(d), 34-2-128, 34-2-129
+- tpa-exemption-notice — edu-no-tpa-exemption-notice-wy — Absent — Wyo. Stat. § 1-21-1002(a)(i); §§ 34-2-128, 34-2-129
+- tpa-notice — edu-no-tpa-notice-wy + sale-of-property-wy — Absent — no Wyoming tenant purchase right; Wyo. Stat. § 1-21-1209 governs what travels on a sale
+- tpa-sunset — edu-no-tpa-sunset-wy — Absent — no Wyoming landlord-tenant or fair housing statute carries a sunset
+- translation-duty — edu-no-translation-duty-wy — Absent — no duty; Wyo. Stat. § 8-6-101 makes English the official language
+- trespass-notice — edu-trespass-notice-wy — Present — Wyo. Stat. § 6-3-303(a)-(c)
+- truth-in-renting — edu-no-truth-in-renting-wy — Absent — § 1-21-1202(d) and § 40-12-105(a)(viii) fill the gap
+- unauthorized-occupant-removal - edu-unauthorized-occupant-removal-wy + occupants-and-guests-wy - Present - Wyo. Stat. §§ 1-21-1401 to 1-21-1403 (2025 Wyo. Sess. Laws ch. 20 (SF0006)); § 6-5-309; § 6-3-201(b)(iv)
+- unbundled-parking — edu-no-unbundled-parking-rule-wy + unbundled-parking-wy — Absent (no unbundling rule; § 31-5-111(a) gives the owner broad control) — Wyo. Stat. §§ 31-5-111, 31-5-501(b), 40-26-107(c)(ii)
+- unconscionability — edu-unconscionability-wy — Absent — Wyo. Stat. § 40-14-508 (UCCC only); common law otherwise
+- usufructuary-lessor — edu-usufructuary-lessor-wy + life-tenant-lessor-status-wy — Absent (no usufruct) — Wyo. Stat. § 34-1-111 is the Wyoming analog
+- utility-allowance-cap — utility-cost-allocation-wy + edu-utility-allowance-cap-wy — Present — Wyo. Stat. § 37-1-101(a)(vi)(H)(VI) and (VIII)
+- utility-apportionment — edu-utility-apportionment-wy + utility-apportionment-wy — Present (no landlord-tenant rule; the limit is the § 37-1-101(a)(vi)(H) public-utility exemption) — Wyo. Stat. § 37-1-101(a)(vi)(H)(VI), (VIII)
+- utility-disconnection-notice-authorization — edu-no-utility-disconnection-notice-authorization-wy — Absent — Wyo. Stat. § 1-21-1202(a); § 1-21-1208(b); § 35-3-122
+- utility-interruption-submeter — edu-no-submeter-interruption-rule-wy — Absent (no authority to interrupt; owner's habitability duties forbid it) — Wyo. Stat. §§ 1-21-1202(a), 1-21-1203(a)(iii); § 37-1-101(a)(vi)(H)(VI)
+- utility-landlord-account — edu-utility-landlord-account-wy + utility-landlord-account-wy — Absent on tenant shutoff protections, pay-and-deduct and master metering; Present on the submetering exemption withdrawal — Wyo. Stat. § 37-1-101(a)(vi)(H)(VI), (VIII), (IX)
+- utility-shutoff-statute — edu-utility-shutoff-wy — Absent — Wyo. Stat. § 1-21-1202(a); § 6-3-306; § 37-12-401(a)(iv)
+- utility-submetering-disclosure — edu-utility-submetering-disclosure-wy + utility-responsibility-and-allocation-wy — Present — Wyo. Stat. § 37-1-101(a)(vi)(H)(VI), (VIII), (IX)
+- utility-transfer — edu-no-utility-transfer-cutoff-wy + utility-transfer-wy — Absent — no Wyoming cutoff right; Wyo. Stat. § 37-12-401(a)(iv), § 37-12-402(c) are the exposure
+- veterans-incentive — edu-no-veterans-incentive-wy — Absent — no incentive; Wyo. Stat. § 39-13-105 benefits the veteran only, § 19-11-122 imposes duties
+- waiver-by-acceptance — edu-waiver-by-acceptance-wy — Present — Wyo. Stat. §§ 34-2-128, 34-2-129
+- water-heater-temperature — edu-no-water-heater-temperature-rule-wy — Absent — § 1-21-1203(a)(i) and (a)(iii) are the only hooks
+- waterbed - edu-no-waterbed-rule-wy + waterbed-and-liquid-filled-furniture-wy - Absent - no Wyoming statute; Wyo. Stat. §§ 1-21-1202(d), 1-21-1203(c), 1-21-1207, 1-21-1208(a) fill the gap
+- window-guards — edu-no-window-guard-rule-wy — Absent (no statute; model codes via § 35-9-106(a)(i) and local enforcement under § 35-9-121 fill the gap) — Wyo. Stat. §§ 35-9-106(a)(i), 35-9-121(a)
+- written-notice-required — edu-written-notice-required-wy — Present — Wyo. Stat. §§ 1-21-1003, 1-21-1203(b) and (d), 1-21-1207, 1-21-1208(a), 1-21-1210(a)
+
+---
+
+## §3 Batteries for every absence
+
+Every ABSENT verdict is backed by a battery run against the corpus: the statute's own words and the everyday term, singular and plural, word boundaries on short words, both apostrophe forms, the statute's number style, proximity in **both** word orders, a nonsense **control** proving the search surface returns true empties, and a labelled **known positive** proving the pattern shape fires. Multi-word patterns were run against a whitespace-collapsed view of the corpus so a phrase survives a `pdftotext -layout` line break (see §1).
+
+
+**167 topics, 2,352 recorded patterns.** Batteries for Present and Tagged topics are not repeated here — they are in each row's `notes` column in the delta.
+
+
+**`abandonment-and-mitigation`** (Absent) — `mitigat` **3** *(Title 1 - all off-topic (hazardous materials, habeas bail))* · `mitigat` **0** *(Title 34 - term)* · `relet` **0** *(Title 1 - everyday term)* · `[Rr]e-?let` **0** *(Title 1 - hyphen and case variants)* · `re-?let\b` **0** *(Title 34 - word boundary)* · `re-?rent` **0** *(Title 1 - everyday term)* · `duty to mitigate` **0** *(Title 1 - phrase (fixed harness))* · `duty to mitigate` **0** *(corpus-wide (fixed harness))* · `mitigate damages` **2** *(corpus-wide (fixed harness) - 31-16-110(o) dealership lessor, 41-2-122 water commission; neither landlord-tenant. Negative implication: legislature knows the phrase)* · `mitigate his damages` **0** *(corpus-wide (fixed harness))* · `reasonable efforts to re-rent` **0** *(Title 1 (fixed harness))* · `fair rental value` **0** *(Title 1 (fixed harness))* · `make reasonable` **3** *(Title 1 (fixed harness) - one is 1-21-1206(c) repairs order (renter's remedy, not mitigation), two eminent domain)* · `reasonable effort` **4** *(Title 1 (fixed harness) - adoption, condemnation, wrongful death, crime-victim comp; none landlord-tenant)* · `minimize .{0,40}damages` **0** *(proximity order A)* · `damages .{0,40}minimize` **0** *(proximity order B)* · `mitigat\w*[^.]{0,120}(rent\|lease\|tenan\|landlord)` **8** *(corpus-wide proximity order A - all environmental/agricultural, inspected)* · `(rent\|lease\|tenan\|landlord)[^.]{0,120}mitigat` **5** *(corpus-wide proximity order B - all off-topic, inspected)* · `avoidable` **2** *(Title 1 - 'unavoidable casualty/accident' only)* · `1-21-1` **6** *(currency, session-laws/2025 - all SF0006 Article 14, already codified)* · `1-21-1` **0** *(currency, session-laws/2026)* · `landlord` **0** *(currency, session-laws/2025 and /2026 both 0)*
+  
+**control** `zxqvwomble` **0** *(nonsense control (fixed harness) - engine reports true empties)*  ·  **known positive** `residential rental unit` **23** *(known positive (fixed harness) - multi-word phrase survives line wraps)* · `Condominium Ownership Act` **1** *(known positive (fixed harness) - line-wrap regression check)* · `abandon` **19** *(known positive, Title 1 - abandonment is addressed, just not mitigation)*
+
+**`accessory-dwelling-unit`** (Absent) — `accessory dwelling` **0** *(statute term)* · `accessory dwellings?` **0** *(plural variant)* · `accessory apartment` **0** *(alternate statutory term (CT style))* · `additional dwelling unit` **0** *(everyday term)* · `second dwelling unit` **0** *(everyday term)* · `detached dwelling unit` **0** *(everyday term)* · `granny flat` **0** *(colloquial term)* · `casita` **0** *(colloquial term)* · `guesthouse\|guest house` **0** *(colloquial term, both spellings)* · `\baccessory (structure\|building\|use\|unit)` **2** *(proximity, zoning-verb order; both hits are the Title 16 / 2026 HB0002 residential building permit timeline, a section heading context only - not ADU law)* · `single.family dwelling` **5** *(reverse-order proximity anchor; Title 39 tax definitions x3, Title 42 foster care, 2025 SF0069 tax - off point)*
+  
+**control** `zxqvwomble` **0** *(nonsense control - engine reports true empties)*  ·  **known positive** `\bzoning\b` **95** *(known positive - proves pattern shape matches)* · `residential rental unit` **23** *(known positive, multi-word phrase - proves the corrected harness matches across line wraps)*
+
+**`actual-notice-method`** (Absent) — `actual notice (Title 1)` **5** *(term — all read; none landlord-tenant)* · `actual notice (whole corpus)` **32** *(term — none in Art. 12 or Art. 13)* · `actual knowledge (Title 1)` **1** *(everyday variant — not landlord-tenant)* · `text message (Title 1)` **0** *(everyday term)* · `electronic mail (Title 1)` **1** *(eminent domain only)* · `electronic record (Title 1)` **0** *(statute's own term)* · `reasonably calculated (Title 1)` **0** *(proximity/standard phrasing)* · `agreed notice (Title 1)` **0** *(word order A)* · `method of notice (Title 1)` **0** *(word order B)* · `notice is given (Title 1)` **1** *(verb form — not landlord-tenant)* · `1-21-120 (session-laws 2025+2026)` **0** *(currency check)* · `1-21-100 (session-laws 2025+2026)` **0** *(currency check)* · `40-21-1 (session-laws 2025+2026)` **6** *(currency check — all cross-references in 2025 SF0025, no amendment)*
+  
+**control** `zxqvwomble` **0** *(nonsense control — engine reports true empties)*  ·  **known positive** `certified mail (Title 1)` **12** *(known positive — service-method language does match in this title)*
+
+**`adverse-proceeding-notice`** (Absent) — `attornment` **0** *(term - no Wyoming attornment statute)* · `\battorn(ment\|ments\|ed\|s)\b` **0** *(term, word-boundary variant (bare 'attorn' = 2763 false hits inside 'attorney'))* · `foreclos.{0,200}tenant` **1** *(proximity, order A - sole hit is § 29-2-105 heading/text on tenant improvements, excluded)* · `tenant.{0,200}foreclos` **0** *(proximity, order B)* · `foreclos.{0,250}occupan` **0** *(proximity, everyday term, order A)* · `occupan.{0,250}foreclos` **0** *(proximity, order B)* · `notice of (sale\|foreclosure).{0,120}occupant` **0** *(statute's likely verbs)* · `bona fide tenan` **0** *(federal-style term absent from state code)* · `Protecting Tenants` **0** *(no state adoption of PTFA language)* · `disclos.{0,150}foreclos` **0** *(landlord-disclosure angle, order A)* · `foreclos.{0,150}disclos` **1** *(order B - Title 39 tax provision, not on point)* · `notify the (landlord\|lessor)` **0** *(tenant-duty angle)* · `shall (notify\|inform) the owner.{0,120}(claim\|proceeding\|suit\|action)` **0** *(tenant-duty angle, statute's likely verbs)* · `34-4-10` **0** *(currency - session-laws/2025 and /2026 both 0)*
+  
+**control** `zxqvwomble` **0** *(nonsense control - engine reports true empties)*  ·  **known positive** `person in possession` **3** *(known positive (Title 34) - located the controlling text)* · `foreclos` **288** *(known positive, corpus-wide)* · `\btenant\b` **36** *(known positive, Title 01)*
+
+**`alarm-tampering-fee`** (Absent) — `smoke detector\|smoke alarm\|carbon monoxide` **1** *(term - sole hit is § 6-3-1003 animal euthanasia gas chamber, not an alarm)* · `\bsmoke\b` **14** *(everyday term, word-bounded - none about dwelling alarms)* · `detector` **6** *(term - Title 30 oil/gas and § 35-11-1430 tank leak detectors only)* · `fire alarm` **7** *(term - state buildings, schools, plan review; no residential rental rule)* · `tamper` **41** *(statute verb - Title 6 hits are the corrections-officer contamination offense only)* · `fire extinguisher` **2** *(proximate term - Titles 30 and 41, non-residential)* · `building code` **20** *(gap-filler - IFC/IBC adopted by rule under § 35-9-106(a)(i))* · `\bsmoke\b (session-laws/2025 + /2026)` **1** *(currency - 2026 SF0046 'smoke shop' tobacco definition only)*
+  
+**control** `zxqvwomble` **0** *(nonsense control - engine reports true empties)*  ·  **known positive** `rental agreement` **37** *(known positive - pattern shape matches live text)*
+
+**`animal-care-access`** (Absent) — `\banimals?\b (title01)` **0** *(term)* · `\bpets?\b (title01)` **0** *(everyday term)* · `companion animal (title01)` **0** *(statutory term)* · `household pet (title01)` **0** *(statutory term)* · `animal left` **0** *(term)* · `animal in distress` **0** *(term)* · `enter.{0,120}animal` **11** *(proximity order 1 - all livestock/brands/veterinary, none landlord-tenant)* · `animal.{0,120}enter the` **0** *(proximity order 2)* · `abandoned animal` **1** *(§ 33-30-215, veterinary custody only)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `refuse entry to (title01)` **1**
+
+**`application-fees`** (Absent) — `application fee` **79** *(term — all licensing/permit fees; Title 1 hit is structured settlements, none residential)* · `screening fee` **0** *(everyday term)* · `rental application` **0** *(statute's own likely term)* · `prospective tenant` **0** *(term)* · `prospective renter` **0** *(term, Wyoming uses 'renter')* · `holding fee` **0** *(term)* · `holding deposit` **1** *(term — Title 26 insurance only)* · `non-refundable` **0** *(hyphen variant)* · `nonrefundable` **26** *(variant — Title 1 hits are Wyo. Stat. § 1-21-1207 deposit notice, not application fees)* · `tenant screening` **2** *(term — both Wyo. Stat. § 40-12-505(d) security-freeze exemptions)* · `application.{0,80}(fee\|charge).{0,120}(rent\|tenant\|lease)` **13** *(proximity, order A — none residential)* · `(rent\|tenant\|lease).{0,120}application.{0,80}(fee\|charge)` **7** *(proximity, order B — none residential)* · `fee.{0,60}(screen\|background check)` **4** *(proximity with likely verb — professional licensing only)* · `credit (report\|check).{0,100}(tenant\|renter\|lease)` **0** *(proximity)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `residential rental unit` **23** *(known positive — multi-word phrase matches across line wrap)*
+
+**`asbestos-hazards`** (Absent) — `asbestos` **21** *(statutory term - all 21 inside the successor-liability act, Title 1)* · `[Aa]sbestos` **21** *(case-insensitive, same 21)* · `asbestos-containing` **1** *(same act)* · `friable` **0** *(everyday/regulatory term)* · `ACM` **0** *(industry abbreviation)* · `asbestos abatement` **0** *(statute's likely term)* · `abatement contractor` **0** *(licensing term)* · `certified asbestos` **0** *(licensing term)* · `one percent asbestos` **0** *(threshold phrasing used by other states)* · `asbestos disclosure` **0** *(disclosure term)* · `disclose asbestos` **0** *(disclosure term, verb form)* · `asbestos.{0,80}tenant` **0** *(proximity, order 1)* · `tenant.{0,80}asbestos` **0** *(proximity, order 2)* · `asbestos.{0,80}landlord` **0** *(proximity, order 1)* · `landlord.{0,80}asbestos` **0** *(proximity, order 2)* · `asbestos.{0,120}dwelling` **0** *(proximity, subject not role)* · `hazardous material.{0,60}disclos` **0** *(broader disclosure family)* · `encapsulat` **1** *(Title 35 drug scheduling (gelatin capsule), not asbestos)* · `indoor air` **0** *(no clean-indoor-air act)* · `lead-based paint` **0** *(sibling hazard - also purely federal in WY)* · `[Ll]ead.based paint` **0** *(same, hyphen-tolerant)* · `asbestos (session-laws/2025 + /2026)` **0** *(currency check, 278 enrolled acts)*
+  
+**control** `zxqvwomble` **0** *(nonsense control - engine reports true empties)*  ·  **known positive** `Successor Corporation Asbestos` **1** *(known positive, multi-word, survives the pdftotext line wrap)* · `environmental quality` **146** *(known positive, multi-word, 23 documents)* · `air quality` **15** *(known positive, multi-word)* · `residential rental unit` **23** *(known positive, multi-word landlord-tenant term)*
+
+**`association-obligations-disclosure`** (Absent) — `34-20-10[0-9]` **5** *(term — 4 in Title 34, confirming the Act is only 4 sections; 1 cross-ref in Title 18)* · `bylaws (scoped title34)` **0** *(term — 0 in Title 34, though 718 corpus-wide, so the word is findable)* · `resale certificate` **0** *(term — statute's own words in other states' acts)* · `public offering statement` **0** *(term)* · `planned community` **0** *(everyday term)* · `common interest community` **0** *(everyday term)* · `protective covenants` **0** *(everyday term)* · `restrictive covenants` **5** *(term — present but all subdivision open-space/mineral context, none lease-facing)* · `copy of the declaration` **0** *(likely statutory phrase)* · `lease.{0,120}declaration (title34)` **0** *(proximity, order 1)* · `declaration.{0,120}lease (title34)` **0** *(proximity, order 2)* · `tenant.{0,160}association (title34)` **0** *(proximity, order 1)* · `association.{0,160}tenant (title34)` **0** *(proximity, order 2)* · `lessee.{0,120}declaration (title34)` **0** *(proximity, statute's role word)* · `furnish.{0,80}declaration (title34)` **0** *(proximity with the statute's likely verb)* · `unit owners' association\|homeowners association\|homeowners' association\|owners association` **2** *(term — both in Title 18 subdivision permits, pinned to § 18-5-306(a)(xii) and § 18-5-316(a)(x))*
+  
+**control** `zxqvwomble` **0** *(nonsense control — engine reports true empties)*  ·  **known positive** `Condominium Ownership Act` **1** *(multi-word known positive — phrase matching survives PDF line wraps)*
+
+**`balcony-inspection`** (Absent) — `balcon` **0** *(root term, corpus-wide)* · `balconies` **0** *(plural)* · `exterior elevated` **0** *(CA statutory term)* · `elevated element` **0** *(CA statutory term)* · `porch` **0** *(everyday term)* · `exterior stair` **0** *(everyday term)* · `structural observation` **0** *(code term)* · `inspect.{0,40}balcon` **0** *(proximity, order 1)* · `balcon.{0,40}inspect` **0** *(proximity, order 2)* · `\bdecks\b` **1** *(Title 36 only, unrelated)* · `periodic inspection` **2** *(Titles 35/41, DEQ water and unrelated)* · `guard rail` **3** *(all Title 35 fire-escape stairs)* · `stairway` **13** *(no inspection schedule)* · `cite 35-9-501 session-laws/2025 and /2026` **0** *(currency, anchored)* · `cite 35-9-504 session-laws/2026` **0** *(currency, anchored)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `apartment house` **3** *(multi-word known positive)*
+
+**`bed-bug-cooperation`** (Absent) — `bed bugs?` **0** *(everyday term, singular and plural)* · `bedbugs?` **0** *(closed-compound variant)* · `\bvermin\b` **0** *(older statutory term, word-bounded)* · `cockroach` **0** *(species term)* · `exterminat` **2** *(stem; both Title 11 agriculture, none housing)* · `infestation` **11** *(10 Title 11 agriculture, 1 Title 26 insurance)* · `infested` **12** *(all Title 11)* · `\bpests?\b` **124** *(word-bounded; 85 Title 11, 10 Title 35 all inside Pesticide Act purpose/definitions)* · `rodents?` **15** *(9 Title 11, 6 Title 35 FIFRA cross-refs and bait-station exemption)* · `pest control` **28** *(two-word proximity; weed-and-pest districts, none housing)* · `cite 1-21-1203 session-laws` **0** *(currency, anchored)* · `cite 35-7-375 session-laws` **0** *(currency, anchored)*
+  
+**control** `zxqvwomble` **0** *(nonsense control — engine reports true empties)*  ·  **known positive** `apartment house` **3** *(multi-word known positive — phrase shape matches across line wrap)*
+
+**`certificate-of-occupancy-disclosure`** (Absent) — `certificate of occupancy` **7** *(statute term; all seven reviewed in context, none a tenant disclosure)* · `certificates of occupancy` **0** *(plural)* · `occupancy certificate` **0** *(reverse word order)* · `occupancy permit` **0** *(everyday term)* · `disclos\w+[^.]{0,120}certificate of occupancy` **0** *(proximity, order 1)* · `certificate of occupancy[^.]{0,120}disclos\w+` **0** *(proximity, order 2)* · `renter[^.]{0,100}certificate of occupancy` **0** *(proximity with the landlord-tenant act's own word 'renter')*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `\bdisclos` **1260** · `fit for human occupancy` **1** *(known positive, Title 1 § 1-21-1203(a)(i))*
+
+**`children-occupancy`** (Absent) — `children (Title 1)` **7** *(term — none landlord-tenant)* · `\bchild\b (Title 1)` **136** *(singular with word boundary — none in Art. 12)* · `minor child (Title 1)` **4** *(variant — none landlord-tenant)* · `familial status (Title 1)` **0** *(statute's own term, wrong title)* · `fair housing (Title 1)` **0** *(term)* · `discriminat (Title 1)` **0** *(stem)* · `occupancy (Title 1)` **6** *(term — all read, none sets a limit)* · `occupancy limit (Title 1)` **0** *(word order A)* · `occupancy standard (Title 1)` **0** *(word order B)* · `persons per bedroom (Title 1)` **0** *(everyday term)* · `per bedroom (Title 1)` **0** *(everyday term)* · `number of occupants (Title 1)` **1** *(= 1-21-1204(a)(v) itself)* · `40-26-1 (session-laws 2025+2026)` **0** *(currency check)* · `1-21-120 (session-laws 2025+2026)` **0** *(currency check)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `familial status (whole corpus)` **15** *(known positive — all Title 40 ch. 26)*
+
+**`cold-weather-vacate-notice`** (Absent) — `cold weather` **0** *(everyday term)* · `winteriz` **0** *(everyday term)* · `frozen pipe` **0** *(everyday term)* · `\bpipes?\b.{0,200}(freez\|frozen\|burst)` **0** *(proximity, order A, singular and plural)* · `(freez\|frozen\|burst).{0,200}\bpipes?\b` **0** *(proximity, order B)* · `freez` **59** *(stem - all in Titles 11/17/27/40, none landlord-tenant)* · `extended absence` **0** *(statute's likely term (URLTA))* · `prolonged absence` **0** *(variant term)* · `\babsence\b.{0,150}(notify\|notice)` **13** *(proximity, order A - none in a tenancy context)* · `(notify\|notice).{0,150}\babsence\b` **13** *(proximity, order B - sole Title 1 hit is criminal evidence return)* · `minimum temperature` **0** *(heat-standard angle)* · `unoccupied` **6** *(everyday term - Titles 30/31/35/40 only)* · `heat.{0,150}vacat` **1** *(proximity order A - Title 15, not on point)* · `vacat.{0,150}heat` **1** *(proximity order B - Title 31, not on point)* · `1-21-12` **0** *(currency - 0 in session-laws/2025 and /2026)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `\babsence\b` **304** *(known positive, corpus-wide)* · `renter.s duties` **1** *(known positive - located § 1-21-1204)*
+
+**`condemned-premises-rent-bar`** (Absent) — `unfit for human habitation` **0** *(statute's own likely words)* · `unfit for occupancy` **0** *(variant)* · `unsafe building` **0** *(everyday term)* · `order to vacate` **0** *(term)* · `vacate order` **0** *(term, reversed)* · `dilapidated` **0** *(term)* · `placarded` **6** *(term — Title 31 motor vehicles only)* · `\braze\b` **1** *(short word, boundaries — Title 4, unrelated)* · `unsafe structure` **1** *(term — Title 41 water)* · `dangerous building` **1** *(term — Wyo. Stat. § 15-1-103(a)(xxvi) municipal delegation, no rent rule)* · `uninhabitable` **12** *(statute's own word — all Wyo. Stat. §§ 35-9-153(h), 35-9-156(d), 1-40-208(a))* · `condemn` **293** *(root term — Title 1 hits are the Eminent Domain Act; no building-condemnation rent rule)* · `rent.{0,200}condemn` **2** *(proximity, order A — eminent domain)* · `condemn.{0,200}\brent\b` **1** *(proximity, order B — Title 41)* · `(collect\|accept\|demand).{0,60}rent.{0,120}(condemn\|vacate\|unfit\|uninhabit)` **0** *(proximity with statute's likely verbs)* · `shall not (collect\|accept\|demand).{0,80}rent` **1** *(prohibition shape — Title 11 agriculture)* · `abate.{0,120}rent` **0** *(proximity, order A)* · `rent.{0,120}abate` **0** *(proximity, order B)* · `treble` **4** *(penalty shape — none in Title 1)* · `three times the amount` **0** *(penalty shape, spelled-out variant)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `residential rental unit` **23**
+
+**`confirmed-absences-misc`** (Absent) — `smoke detector` **0** *(everyday + statutory term)* · `smoke alarm` **0** *(alternate statutory term)* · `carbon monoxide` **1** *(Title 6 animal euthanasia, not alarms)* · `detector` **6** *(Titles 30/35, mine gas detectors)* · `\bsmoke\b` **14** *(no dwelling alarm mandate)* · `fire alarm` **7** *(no residential mandate)* · `convenience fee` **0** *(everyday term)* · `checkout fee` **0** *(statutory term elsewhere)* · `imposes? a surcharge` **0** *(proximity/verb form)* · `surcharge` **86** *(0 in Title 40; none a merchant rule)* · `payment card` **27** *(Titles 6/9 only, card fraud)* · `rental application` **0** *(subject term)* · `application for.{0,20}rental` **0** *(reverse word order)* · `false statement.{0,60}applicat` **16** *(none landlord-tenant)* · `innkeeper` **0** *(alternate role term)* · `theft of services` **2** *(§ 1-1-116, licensed service providers only)* · `cite 1-1-115 session-laws/2025 and /2026` **0** *(currency, anchored)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `rental agreement` **37** *(multi-word known positive)*
+
+**`conversion-notice`** (Absent) — `conver(t\|sion\|ted\|ting).{0,60}condominium` **0** *(proximity, order A)* · `condominium.{0,60}conver` **0** *(proximity, REVERSE order)* · `right of first refusal` **2** *(read — Title 31 dealer, Title 34 transfer fee; not tenant)* · `first refusal` **3** *(looser form)* · `notice to vacate.{0,80}sale` **0** *(proximity, order A)* · `sale.{0,80}notice to vacate` **0** *(proximity, REVERSE order)* · `ninety \(90\) days.{0,120}tenant` **1** *(read — Relocation Assistance Act, agency duty)* · `tenant.{0,120}ninety \(90\) days` **0** *(REVERSE order)* · `34-20-1[0-9]+\.` **4** *(enumeration — whole Act is 4 sections)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `Condominium Ownership Act` **1** *(multi-word known positive — short title)* · `cooperative housing` **2** *(multi-word known positive; neither a conversion rule)*
+
+**`criminal-activity`** (Absent) — `crime.free` **0** *(term — everyday name for the addendum)* · `expedited evict` **0** *(term — the fast-track other states name)* · `criminal activity` **39** *(term — ZERO in Title 1; all hits read and excluded (Titles 6/7/9/11/13/19/35 and 2026 HB0043 money laundering))* · `unlawful activit` **1** *(term — Title 4 only, not leasing)* · `immediate.{0,60}termination of the rental` **0** *(term — Wyoming says 'rental agreement', so the phrase is tested in Wyoming's own style)* · `evict.{0,120}drug` **0** *(proximity, order 1)* · `drug.{0,120}evict` **1** *(proximity, REVERSE order — Title 11 § 11-25-205(d), pari-mutuel event ejection; excluded)* · `reasonable effort.{0,80}eject` **0** *(proximity, order 1 — the prostitution-ejection duty other states impose)* · `eject.{0,80}reasonable effort` **0** *(proximity, REVERSE order)* · `prostitution` **31** *(term — none imposes a landlord ejection duty; Title 15 hit is § 15-1-103(a)(xvi)(B) municipal power, read)* · `disparate` **0** *(term — Wyoming's Fair Housing Act codifies no effects test)* · `illegal manufacture or distribution` **1** *(term — the single corpus-wide occurrence is § 40-26-103(c) itself)* · `cite 1-21-1002 / 1-21-1204 / 1-21-1205 / 40-26-103, session-laws 2025 and 2026` **0** *(currency, anchored — 0 anchored and 0 unanchored for each)*
+  
+**control** `zxqvwomble` **0** *(NONSENSE CONTROL — engine reports true empties)*  ·  **known positive** `forcible entry and detainer` **7** *(KNOWN POSITIVE, multi-word — 5 in Title 1, 2 in Title 5)* · `notice to quit` **1** *(KNOWN POSITIVE, multi-word — § 1-21-1003)* · `discriminatory housing practice` **36** *(KNOWN POSITIVE, multi-word — all 36 in Title 40, proving phrases survive the line wrap)*
+
+**`defective-drywall-disclosure`** (Absent) — `drywall` **0** *(everyday and statutory term)* · `wallboard` **0** *(alternate term)* · `defective drywall` **0** *(statutory phrase used by VA/FL)* · `Chinese` **0** *(colloquial term)* · `corrosive` **1** *(Title 35, unrelated to dwellings)* · `gypsum` **2** *(material term; Title 30 mining, Title 35)* · `sulfur` **19** *(off-gassing term; all mineral/air-quality contexts)* · `hydrogen sulfide` **4** *(off-gassing term; oil and gas / air quality)* · `property condition disclosure` **0** *(would-be umbrella statute)* · `residential real property disclosure` **0** *(would-be umbrella statute)* · `latent defect` **0** *(common-law term)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `residential rental unit` **23** *(known positive, multi-word)* · `\bdisclos` **1260**
+
+**`disaster-displaced-guests`** (Absent) — `evacuee` **11** *(present but all Title 19 interstate emergency management compact)* · `displaced` **62** *(present but 38 are Title 16 ch. 7 public-acquisition relocation assistance; none landlord-tenant)* · `emergency shelter` **2** *(Titles 9 and 14, child welfare only)* · `sheltering` **1** *(Title 19 only)* · `disaster.{0,80}guest` **0** *(proximity, order 1)* · `guest.{0,80}disaster` **0** *(proximity, order 2)* · `disaster.{0,120}lease` **0** *(proximity, order 1)* · `lease.{0,120}disaster` **0** *(proximity, order 2)* · `disaster.{0,120}tenan` **0** *(proximity, order 1, stem)* · `tenan.{0,120}disaster` **0** *(proximity, order 2, stem)* · `rent.{0,60}state of emergency` **0** *(proximity, order 1)* · `state of emergency.{0,60}rent` **0** *(proximity, order 2)* · `disaster.{0,60}displaced` **0** *(proximity, order 1)* · `displaced by.{0,60}disaster` **0** *(proximity, order 2)* · `temporary occupant` **0** *(statute-style term)* · `temporarily displaced` **0** *(statute-style term)* · `emergency housing` **0** *(everyday term)* · `state of emergency.{0,100}hous` **0** *(proximity to housing stem)* · `natural disaster.{0,100}rent` **0** *(proximity)* · `wildfire.{0,100}rent` **0** *(proximity, WY-specific hazard)* · `price gouging` **0** *(no emergency price law)* · `host.{0,40}displaced` **0** *(proximity, host-liability shield)* · `Good Samaritan.{0,80}hous` **0** *(host-liability shield)* · `\bguest\b` **0** *(Title 1, singular, word boundary)* · `\bguests\b` **2** *(Title 1, plural, word boundary - §§ 1-21-1203(c), 1-21-1204(a)(viii) only)* · `additional occupant` **0** *(Title 1)* · `occupancy limit` **0** *(Title 1)* · `1-21-1204 (session-laws/2025 + /2026)` **0** *(currency check)* · `1-21-1402 (session-laws/2025 + /2026)` **1** *(currency check - 2025 SF0006, the act that created Article 14, already in the title text)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `natural disaster` **43** *(known positive, multi-word)* · `state of emergency` **6** *(known positive, multi-word)* · `take in` **73** *(known positive, multi-word)* · `residential rental unit` **23** *(known positive, multi-word)*
+
+**`disaster-duties`** (Absent) — `natural disaster` **43** *(term — present but enumerated by title; none landlord-tenant)* · `declared disaster` **0** *(term)* · `disaster emergency` **0** *(term)* · `untenantable` **0** *(statute's own word in other states)* · `destroyed by fire` **0** *(everyday term)* · `uninhabitable` **12** *(term — Titles 1 and 35 only; led to § 35-9-156(d))* · `rent shall abate` **0** *(statutory phrase, both number/person forms checked)* · `abatement of rent` **0** *(statutory phrase)* · `abate the rent` **0** *(verb form)* · `rent abatement` **0** *(everyday term)* · `apportionment of rent` **0** *(statutory phrase)* · `rent is suspended` **0** *(variant)* · `terminate the lease` **0** *(likely statutory verb phrase)* · `lease shall terminate` **0** *(variant)* · `tenancy shall terminate` **0** *(variant)* · `lease is terminated` **0** *(variant)* · `surrender the premises` **0** *(everyday term)* · `price gouging` **0** *(term)* · `gouging` **0** *(single-word fallback)* · `disaster.{0,200}(tenant\|lease\|rent\|landlord)` **0** *(proximity, order 1)* · `(tenant\|lease\|rent\|landlord).{0,200}disaster` **1** *(proximity, order 2 — excluded on reading, Title 33 nurse licensure)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `Condominium Ownership Act` **1** *(multi-word known positive — phrase matching survives PDF line wraps)*
+
+**`double-letting`** (Absent) — `double let` **0** *(term)* · `double-let` **0** *(hyphenated variant)* · `doubly let` **0** *(variant)* · `let to (two\|more than one)` **0** *(statute's likely verb)* · `same (room\|premises\|unit)[^.]{0,60}(two\|more than one)` **0** *(proximity, order A)* · `two or more (persons\|tenants)[^.]{0,60}same room` **0** *(proximity, order B)* · `part of a room` **0** *(operative field-code phrase)* · `whole room` **0** *(operative field-code phrase)* · `entitled to the whole` **0** *(operative field-code phrase)* · `more than one family` **0** *(operative field-code phrase)* · `rent abatement` **0** *(remedy term)* · `abatement of rent` **0** *(remedy term, reversed)* · `abate[^.]{0,30}rent` **0** *(verb form)* · `roomer` **0** *(everyday term)* · `relieved of all obligation` **1** *(excluded - Title 15, municipal, not a letting rule)* · `relieved[^.]{0,40}rent` **1** *(excluded - Title 3, unrelated)* · `rooming house` **2** *(excluded - definitional only (T18 subdivision, T35 boarding home))* · `lodging house` **3** *(excluded - T33 licensing x2, T35 health x1)* · `overlapping` **7** *(none about lettings)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `tenancy by sufferance` **2** *(KNOWN POSITIVE, multi-word)* · `landlord and tenant` **2** *(KNOWN POSITIVE, multi-word)*
+
+**`drug-free-housing-addendum`** (Absent) — `drug.free` **3** *(Titles 27/35 and 2026 SF0009, none a lease addendum)* · `drug free` **2** *(spaced variant)* · `crime.free` **0** *(everyday term)* · `addendum` **5** *(none landlord-tenant)* · `controlled substance.{0,80}premises` **2** *(proximity order 1, neither landlord-tenant)* · `premises.{0,80}controlled substance` **0** *(proximity order 2)* · `nuisance.{0,60}controlled substance` **0** *(proximity; § 6-6-201 words it in the opposite order)* · `clandestine` **38** *(Titles 1/6/35, the Emergency Response Act)* · `methamphetamine` **24** *(Titles 6/9/35)* · `cite 6-6-201 / 6-6-204 / 6-6-207 / 35-9-158 / 1-21-1002, session-laws 2025+2026` **0** *(currency, anchored)* · `cite 35-9-156 session-laws/2026` **2** *(currency, anchored: 2026 ch. 23 SF0071, office-to-department rename only)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `rental agreement` **37** *(multi-word known positive)*
+
+**`dv-confidentiality`** (Absent) — `address confidentiality` **0** *(program term)* · `substitute address` **0** *(program term)* · `shall not disclose.{0,160}(tenant\|victim)` **0** *(proximity order A, statute's likely verb)* · `(tenant\|victim).{0,160}shall not disclose` **0** *(proximity order B)* · `confidential.{0,120}(domestic abuse\|domestic violence\|sexual violence)` **7** *(proximity order A; 4 all in § 35-21-112)* · `(domestic abuse\|domestic violence\|sexual violence).{0,120}confidential` **7** *(proximity order B; identical set)* · `program participant` **17** *(ACP-style scheme; none DV address)* · `cite 1-21-1303 session-laws` **0** *(currency, anchored)* · `cite 35-21-112 session-laws` **1** *(currency, anchored; 2025 HB0137 conforming only)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `domestic abuse` **>0** *(multi-word known positive, matches across line wrap)*
+
+**`dv-deposit-timing`** (Absent) — `(domestic abuse\|sexual violence\|domestic violence).{0,300}deposit` **0** *(proximity, order 1, statute's own words)* · `deposit.{0,300}(domestic abuse\|sexual violence\|domestic violence)` **0** *(proximity, order 2)* · `vacate.{0,200}deposit` **4** *(likely-verb proximity; all four inspected and excluded as non-DV)* · `domestic violence` **48** *(term is well represented in the corpus)* · `\bdeposit\b` **1018** *(word-bounded term)* · `1-21-1302 / 1-21-1303 / 1-21-1208 (anchored cite, session-laws/2025 and /2026)` **0** *(currency check)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `held as a deposit` **2** *(multi-word known positive (§ 1-21-1208(a) and (b)))* · `Safe Homes` **2** *(multi-word known positive)*
+
+**`dv-lockchange`** (Absent) — `\block\b` **22** *(word-boundary term; 0 in Title 1)* · `locks\b` **29** *(plural; exactly 1 in Title 1 = § 1-21-1403(a), read)* · `change.{0,60}lock` **3** *(proximity, order A — all read, none a DV duty)* · `lock.{0,60}chang` **2** *(proximity, REVERSE order)* · `rekey\|re-key` **0** *(everyday term, both spellings)* · `exclude.{0,80}perpetrator` **0** *(proximity)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `perpetrator` **29** *(known positive — the word exists, the proximity does not)* · `order not to affect title to property` **2** *(multi-word known positive)*
+
+**`emergency-contact`** (Absent) — `emergency contact (Title 1)` **0** *(everyday term)* · `emergency (Title 1)` **27** *(term — none in Art. 12 or 13)* · `emergency.{0,200}(renter\|rental unit\|lessor) (Title 1)` **0** *(proximity, word order A)* · `(renter\|rental unit\|lessor).{0,200}emergency (Title 1)` **0** *(proximity, word order B)* · `contact information (Title 1)` **1** *(not landlord-tenant)* · `name and address of (Title 1)` **0** *(disclosure phrasing)* · `telephone number (Title 1)` **7** *(none in Art. 12)* · `twenty-four (24) hour (Title 1)` **1** *(statute's number style — DV services, not landlord-tenant)* · `after hours (Title 1)` **0** *(everyday term)* · `authorized to manage (Title 1)` **0** *(word order A)* · `person authorized (Title 1)` **4** *(word order B — none landlord-tenant)* · `resident manager (Title 1)` **4** *(one is 1-21-1201(a)(i))* · `designated agent (Title 1)` **3** *(all Art. 12, no disclosure duty)* · `1-21-120 / 1-21-100 (session-laws 2025+2026)` **0** *(currency check)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `(renter\|rental unit).{0,200}deposit (Title 1)` **10** *(known positive — proximity shape matches)*
+
+**`employee-screening`** (Absent) — `employee screening` **0** *(exact term - absent corpus-wide)* · `screening.*employee\|employee.*screening` **19** *(proximity, both word orders - none about rental staff)* · `background check` **97** *(everyday term - occupational licensing, schools, child care; no rental mandate)* · `criminal background` **34** *(variant - same, no rental mandate)* · `criminal history record` **185** *(statute term - Titles 7 and 33; § 33-28-106(a) is the only route touching property managers)* · `fingerprint` **141** *(statute term - no rental-housing provision)* · `apartment` **11** *(subject term - only rental-staff use is § 33-28-103(a)(vi))* · `property manage` **3** *(subject term - all Title 33)* · `consumer report` **66** *(FCRA-adjacent - 51 in Title 40, none a rental-employee duty)* · `33-28 (session-laws/2025 + /2026)` **4** *(currency - 2026 SF0105 amends only § 33-28-102(b)(xiii) and § 33-28-306)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `resident manager` **19** *(known positive - 13 in Title 33)*
+
+**`energy-data-release`** (Absent) — `energy usage` **0** *(everyday term)* · `usage data` **0** *(term)* · `energy use data` **0** *(statutory term)* · `consumption data` **0** *(term)* · `energy (data\|record)` **0** *(term)* · `smart meter` **0** *(term)* · `advanced metering` **0** *(term)* · `release.{0,100}usage` **0** *(proximity order 1)* · `usage.{0,100}release` **0** *(proximity order 2)* · `tenant.{0,120}(utility\|energy) (data\|record)` **0** *(proximity)* · `benchmark` **56** *(all off point - state facilities, schools, telecom price benchmark)* · `energy performance` **19** *(all Title 9 art. 12, public facilities)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `Condominium Ownership Act` **1** *(known positive - engine matches multi-word phrases across line wraps)*
+
+**`environmental-event-termination`** (Absent) — `fire or other casualty` **0** *(statute's own likely words)* · `destroyed by fire` **0** *(term)* · `impossible or unlawful` **0** *(the Colorado formulation)* · `force majeure` **0** *(everyday term)* · `frustration of purpose` **0** *(doctrine term)* · `casualty` **128** *(root term — 105 Title 26 insurance; Title 1 hit is vacating a judgment)* · `act of God` **8** *(term — Title 1 hits are Wyo. Stat. § 1-1-140, utility liability)* · `natural disaster` **43** *(term — none in Title 1 or 34)* · `wildfire` **115** *(term — utility and fire management only)* · `quarantine` **113** *(term — livestock and public health only)* · `public health (event\|emergency)` **29** *(term — Title 1 hits are the COVID-19 shield at § 1-1-141)* · `shall be excused` **4** *(excuse shape — no rent provision)* · `flood.{0,100}terminat` **0** *(proximity, order A)* · `terminat.{0,100}(fire\|flood\|casualty)` **11** *(proximity, order B — none a lease)* · `casualty.{0,150}(lease\|tenan\|rent)` **3** *(proximity, order A — insurance)* · `(lease\|tenan\|rent).{0,150}casualty` **3** *(proximity, order B — insurance and municipal)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `residential rental unit` **23**
+
+**`ev-charging-end-of-tenancy`** (Absent) — `charging.{0,80}vehicle` **9** *(present; Titles 37, 39 + HB0145)* · `vehicle.{0,80}charging` **5** *(present, reverse order; Titles 31, 39 + HB0145)* · `charging.{0,100}tenant` **0** *(proximity, order 1)* · `tenant.{0,100}charging` **0** *(proximity, order 2)* · `charging.{0,100}lease` **1** *(proximity, order 1; Title 33 licensing, excluded on reading)* · `lease.{0,100}charging` **1** *(proximity, order 2; Title 35, excluded on reading)* · `charging.{0,100}landlord` **0** *(proximity)* · `electric vehicle.{0,150}tenant` **0** *(proximity, wide window)* · `remove.{0,80}charging` **0** *(end-of-tenancy removal verb)* · `restore.{0,80}charging` **0** *(end-of-tenancy restoration verb)* · `EVSE` **0** *(industry abbreviation)* · `electric vehicle supply` **0** *(statutory term used by other states)* · `zero.emission vehicle` **0** *(alternate statutory term)* · `\bfixture\b (Title 1)` **0** *(singular, word boundary - no tenant-fixture rule)* · `\bfixtures\b (Title 1)` **3** *(plural, word boundary - all plumbing fixtures in renter's duties)* · `trade fixture (Titles 1 and 34)` **0** *(common-law removal term)* · `\bfixture\b (Title 34)` **2** *(neither a tenant-removal rule)* · `electric vehicle (Title 34)` **0** *(Condominium Ownership Act does not address charging)* · `electric vehicle (session-laws/2025 + /2026)` **present** *(currency check - 2025 SF0106 and 2026 HB0145; HB0145 is eff. July 1, 2026 and IS in the title text)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `electric vehicle` **42** *(known positive, multi-word; Titles 31, 37, 39 + 2025 SF0106, 2026 HB0145)* · `charging station` **13** *(known positive, multi-word; Titles 30, 39 + 2026 HB0145)* · `plug.in` **55** · `three and one-half cents` **2** *(known positive; confirms the new §.035 rate is in the Title 39 text AND in HB0145)* · `residential rental unit` **23** *(known positive, multi-word landlord-tenant term)*
+
+**`ev-charging-requirements`** (Absent) — `electric vehicle` **42** *(term — Titles 31, 37, 39 and session laws; 0 in Titles 1, 34, 35)* · `charging station` **13** *(term — Titles 30, 39 and 2026 HB0145 only)* · `electric vehicle charging` **0** *(compound term)* · `EVSE` **0** *(industry abbreviation)* · `charging equipment` **0** *(everyday term)* · `electric vehicle supply` **0** *(statutory term in other states)* · `zero emission vehicle` **0** *(term)* · `plug-in` **16** *(term — all vehicle-tax context, Titles 31, 39, HB0145)* · `right to install` **0** *(tenant-right phrase)* · `install a charging` **0** *(tenant-right phrase)* · `parking space.{0,200}charging` **0** *(proximity, order 1)* · `charging.{0,200}parking space` **0** *(proximity, order 2)* · `tenant.{0,200}charging` **0** *(proximity, order 1)* · `charging.{0,200}tenant` **0** *(proximity, order 2)* · `landlord.{0,200}charging` **0** *(proximity, role word)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `Condominium Ownership Act` **1** *(multi-word known positive — phrase matching survives PDF line wraps)* · `DC fast charging station` **4** *(second multi-word known positive, inside the title actually searched (Title 39))*
+
+**`ev-charging-shared-area`** (Absent) — `charging system` **0** *(term used by CO/IL statutes)* · `charging equipment` **0** *(term)* · `EVSE` **0** *(industry abbreviation)* · `common area[^.]{0,80}charg` **0** *(proximity, order A)* · `charg[^.]{0,80}common area` **0** *(proximity, order B)* · `parking space[^.]{0,80}electric` **0** *(proximity)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `electric vehicle` **42** *(KNOWN POSITIVE, multi-word - tax/motor-vehicle only, no rental rule)* · `charging station` **13** *(KNOWN POSITIVE, multi-word - tax/mine only, no rental rule)*
+
+**`eviction-hardship-stay`** (Absent) — `substantial hardship` **0** *(ND/WI statutory term)* · `extreme hardship` **1** *(Title 31 only)* · `hardship` **62** *(7 in Title 1, none in the FED article)* · `stay the writ` **0** *(everyday term)* · `stay execution` **0** *(verb form)* · `stay.{0,40}restitution` **0** *(proximity, order 1, statute's own noun)* · `restitution.{0,40}stay` **0** *(proximity, order 2)* · `postpone.{0,40}eviction` **0** *(alternate verb)* · `rental assistance` **1** *(Title 14, not an eviction pause)* · `cite 1-21-1007 / 1-21-1013 / 1-21-1014 / 1-21-1015 / 1-17-201 / 19-11-122, session-laws 2025+2026` **0** *(currency, anchored)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `stay of execution` **25** *(19 in Title 1, all ch. 17 art. 2; also serves as a multi-word known positive)* · `rental agreement` **37** *(multi-word known positive)*
+
+**`eviction-penalty-clause-ban`** (Absent) — `eviction fee` **0** *(everyday term)* · `\bpenalt.{0,120}(lease\|rental agreement)` **20** *(proximity order A)* · `(lease\|rental agreement).{0,120}\bpenalt` **31** *(proximity order B)* · `void and unenforceable` **12** *(statute's likely phrasing; 0 in Title 1)* · `unenforceable` **46** *(broad stem; 0 in Title 1)* · `void.{0,80}(lease\|rental agreement)` **22** *(proximity order A)* · `(lease\|rental agreement).{0,80}\bvoid\b` **7** *(proximity order B)* · `cite 1-21-1008 session-laws` **0** *(currency, anchored)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `liquidated damages` **14** *(statute's term + multi-word known positive; none a lease rule)*
+
+**`eviction-record-sealing`** (Absent) — `expunge` **118** *(statute's own word; 1 in Title 1, read, irrelevant)* · `seal.{0,60}record` **42** *(proximity, order A; 1 in Title 1, read)* · `record.{0,60}seal` **34** *(proximity, REVERSE order; 1 in Title 1, read)* · `forcible entry and detainer.{0,120}(seal\|expunge\|confidential)` **0** *(subject proximity)* · `public (access\|inspection).{0,80}court record` **0** *(alternative phrasing)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `consumer reporting agency` **54** *(multi-word known positive)* · `tenant screening\|screening report` **3** *(multi-word known positive — § 40-12-505(d))*
+
+**`eviction-service-party`** (Absent) — `address confidentiality` **0** *(term — Wyoming has no ACP, so no Secretary-of-State redirection)* · `substitute address` **0** *(term — the ACP's own vocabulary)* · `agent for service of process` **47** *(term — present corpus-wide, ZERO in Title 1; all entity/insurance registration, excluded)* · `accept service` **16** *(term — everyday phrasing, none in Title 1)* · `authorized by appointment` **2** *(term — the rules-of-civil-procedure phrase; Titles 9 and 17 only, neither landlord-tenant)* · `rental agreement.{0,150}service of process` **0** *(proximity, order 1, using Wyoming's own term 'rental agreement')* · `service of process.{0,150}rental agreement` **0** *(proximity, REVERSE order)* · `lease.{0,120}accept service` **0** *(proximity, order 1)* · `accept service.{0,120}lease` **0** *(proximity, REVERSE order)* · `designate.{0,80}service of process` **8** *(proximity, order 1 — Titles 3/5/26/27/40, none landlord-tenant)* · `service of process.{0,80}designat` **5** *(proximity, REVERSE order — same titles, excluded)* · `service of process` **235** *(broad term present corpus-wide; 4 in Title 1, each read and excluded — the zeros above are real)* · `cite 1-21-1003 / 1-21-1004 / 1-21-1201, session-laws 2025 and 2026` **0** *(currency, anchored — 0 anchored and 0 unanchored for each)*
+  
+**control** `zxqvwomble` **0** *(NONSENSE CONTROL — engine reports true empties)*  ·  **known positive** `usual place of abode` **14** *(KNOWN POSITIVE, multi-word — 2 in Title 1, the exact § 1-21-1003 wording)*
+
+**`exculpatory-clauses`** (Absent) — `exculpat` **0** *(Title 1 and Title 34 both 0)* · `own negligence` **0** *(Title 1 and Title 34 both 0 (fixed harness))* · `hold harmless` **1** *(Title 1 (fixed harness), inspected, not lease-related; Title 34 = 0)* · `release from liability` **0** *(Title 1 and Title 34 both 0 (fixed harness))* · `limit the liability` **0** *(Title 1 and Title 34 both 0 (fixed harness))* · `exempt .{0,40}liability` **1** *(proximity order A - Title 1 = 1, Title 34 = 1, both inspected and off-topic)* · `liability .{0,40}exempt` **0** *(proximity order B - Title 1 and Title 34 both 0)* · `indemnif` **8** *(Title 1 - all inspected, civil-procedure and governmental claims; Title 34 = 7)* · `agreement to indemnify` **1** *(corpus-wide, Title 9 only (fixed harness))* · `indemnity agreement` **1** *(corpus-wide, Title 40 only (fixed harness))* · `against public policy` **6** *(corpus-wide (fixed harness) - none reaching residential leases)* · `contrary to public policy` **5** *(corpus-wide (fixed harness) - Titles 4, 17, 35)* · `invalid and unenforceable` **0** *(corpus-wide phrase (fixed harness))* · `not liable` **14** *(Title 1 (fixed harness) - includes the 1-21-1203(e) grant)*
+  
+**control** `zxqvwomble` **0** *(nonsense control - engine reports true empties)*  ·  **known positive** `exculpatory` **4** *(known positive corpus-wide - Title 4 trust code, Title 7 DNA; none in Title 1 or 34)* · `hold harmless` **22** *(known positive corpus-wide, six titles (fixed harness))* · `void and unenforceable` **12** *(known positive corpus-wide; Title 34's four are restrictive-covenant removal, not lease terms)* · `residential rental unit` **23** *(known positive (fixed harness))* · `Condominium Ownership Act` **1** *(known positive, line-wrap regression check)*
+
+**`expedited-criminal-eviction`** (Absent) — `criminal activity` **39** *(0 in Title 1; all corpus hits reviewed, none an eviction provision)* · `expedited` **3** *(Title 1 only; malpractice screening and victim compensation)* · `drug house` **0** *(everyday term)* · `controlled substance[^.]{0,250}(evict\|tenan\|lease\|landlord\|premises)` **6** *(proximity order 1; all off point)* · `evict\w*[^.]{0,250}controlled substance` **0** *(proximity order 2)* · `nuisance[^.]{0,120}evict` **0** *(proximity)* · `nuisance abatement` **1** *(Title 18 county authority)* · `abate\w*[^.]{0,120}nuisance` **10** *(public nuisance padlock action, not a landlord remedy)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `forcible entry and detainer` **5** *(known positive, multi-word)* · `forcible entry` **18** · `unlawful detainer` **1**
+
+**`expedited-deposit-disposition`** (Absent) — `expedit (Title 1)` **10** *(stem — none in Art. 12 or 13)* · `administrative fee (Title 1)` **0** *(term)* · `processing fee (Title 1)` **0** *(everyday term)* · `request in writing (Title 1)` **0** *(word order A)* · `earlier than (Title 1)` **0** *(word order B)* · `sooner (Title 1)` **5** *(only Art. 12 hit is 1-21-1206(d) vacate window)* · `security deposit (Title 1)` **0** *(statute uses bare 'deposit')* · `1-21-120 (session-laws 2025+2026)` **0** *(currency check)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `administrative fee (whole corpus)` **24** *(known positive — phrase matches where Wyoming uses it)*
+
+**`extended-absence-notice`** (Absent) — `extended absence` **0** *(statute's own term in URLTA states)* · `prolonged absence` **0** *(variant term)* · `\babsence\b.{0,150}(notify\|notice)` **13** *(proximity, order A - no tenancy hit; sole Title 1 hit is criminal evidence)* · `(notify\|notice).{0,150}\babsence\b` **13** *(proximity, order B - same)* · `notify the (landlord\|lessor)` **0** *(everyday phrasing of the duty)* · `unoccupied` **6** *(everyday term - Titles 30/31/35/40 only)* · `1-21-12` **0** *(currency - 0 in session-laws/2025 and /2026)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `\babsence\b` **304** *(known positive, corpus-wide)* · `\babandon` **19** *(known positive, Title 01 - located §§ 1-21-1201(a)(v) and 1-21-1210)* · `renter.s duties` **1** *(known positive - located § 1-21-1204)*
+
+**`fee-in-lieu-of-deposit`** (Absent) — `in lieu of a security deposit` **0** *(statute's own likely words)* · `rental security insurance` **0** *(product term)* · `deposit waiver` **0** *(everyday term)* · `rent guaranty\|rent guarantee` **0** *(product term, both spellings)* · `lease insurance` **0** *(product term)* · `credit bureau` **0** *(reporting term)* · `in lieu of.{0,40}deposit` **10** *(proximity, order A — bail, bonding, banking; none residential)* · `deposit.{0,60}in lieu` **9** *(proximity, order B — none residential)* · `surety bond.{0,100}(tenant\|renter\|lease)` **6** *(proximity — none residential)* · `security deposit` **12** *(term — 0 in Title 1, confirming the established fact)* · `consumer reporting agency` **54** *(reporting term — no landlord notice duty)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `held as a deposit` **2** *(known positive — both Wyo. Stat. § 1-21-1208(a))*
+
+**`fire-sprinkler-duty`** (Absent) — `sprinkler` **10** *(term - no hit imposes an install/retrofit duty; T35 hits are acceptance testing, phased plan submission, lawn sprinklers under 90V)* · `retrofit` **3** *(everyday term - T99 x1, 2025 SF0064 x2, none about sprinklers in rentals)* · `standpipe` **1** *(term of art - Title 99 noncodified only)* · `fire suppression` **24** *(multi-word term - none a rental duty)* · `fire code` **6** *(term)* · `Uniform Building Code` **2** *(T35 fee schedule only)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `International Fire Code` **4** *(KNOWN POSITIVE, multi-word)* · `International Building Code` **6** *(KNOWN POSITIVE, multi-word)* · `building code` **20** *(KNOWN POSITIVE, multi-word)*
+
+**`flood-disclosure`** (Absent) — `floodplain` **0** *(closed-compound term)* · `flood plain` **1** *(open-compound term; only § 16-10-102(a)(v), drainage districts)* · `flood hazard` **0** *(FEMA term)* · `flood zone` **0** *(everyday term)* · `special flood` **0** *('special flood hazard area' stem)* · `flood insurance` **1** *(§ 40-23-123 mortgage lending fee only)* · `\bflood` **95** *(broadest stem; 0 in Titles 1 and 34)* · `disclos.{0,100}flood` **4** *(proximity order A; all Title 31 vehicle titles)* · `flood.{0,100}disclos` **3** *(proximity order B; all Title 31)* · `inundat` **1** *(alternative term; Title 41 water)* · `cite 33-28-310 session-laws` **0** *(currency, anchored)* · `cite 33-28-102 session-laws` **2** *(currency, anchored; 2026 SF0105 amends (b)(xiii) and § 33-28-306 only)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `adverse material facts` **14** *(multi-word known positive, matches across line wrap)*
+
+**`foreclosure-disclosure`** (Absent) — `foreclos.{0,250}(tenant\|renter\|lessee\|occupant)` **1** *(proximity order 1; sole hit excluded as a § 29-2-105 heading adjacency)* · `(tenant\|renter\|lessee\|occupant).{0,250}foreclos` **3** *(proximity order 2; all three inspected and excluded)* · `foreclos.{0,200}disclos` **1** *(excluded — Title 39 tax voluntary-disclosure agreements)* · `disclos.{0,200}foreclos` **0** *(reverse order)* · `notice of (default\|foreclosure)` **11** *(statute's own words; none is a tenant disclosure)* · `34-4-104 / 1-18-103 / 1-18-104 (anchored cite, session-laws/2025 and /2026)` **0** *(currency check)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `foreclosure by advertisement` **5** *(multi-word known positive)*
+
+**`forfeiture-redemption`** (Absent) — `relief from forfeiture` **0** *(term — the equitable doctrine's own name)* · `redemption` **333** *(term — 50 in Title 1, all located to Chapter 18 execution sales (§§ 1-18-103 to 1-18-106); none in the FED chapter)* · `redeem` **183** *(term, alternate form — 12 in Title 1, same chapter)* · `forcible entry.{0,400}redem` **0** *(proximity, order 1 — no redemption provision near the FED chapter)* · `redem.{0,400}forcible entry` **0** *(proximity, REVERSE order)* · `reinstate.{0,100}(lease\|tenancy\|rental agreement)` **1** *(proximity, order 1 — Title 19 only, employment reinstatement; excluded)* · `(lease\|tenancy\|rental agreement).{0,100}reinstate` **2** *(proximity, REVERSE order — Title 19 §§ 19-11-110/111, employment and insurance; excluded)* · `right to cure` **8** *(term — 6 Title 40 consumer credit, 2 in 2025 SF0146; none landlord-tenant)* · `cure the (default\|breach)` **14** *(term — none in Title 1)* · `pay.{0,80}into court` **4** *(proximity — Titles 16/39/41, none landlord-tenant)* · `cite 1-21-1007 / 1-21-1008 / 1-21-1015 / 34-2-128 / 34-2-129, session-laws 2025 and 2026` **0** *(currency, anchored — 0 anchored and 0 unanchored for each)*
+  
+**control** `zxqvwomble` **0** *(NONSENSE CONTROL — engine reports true empties)*  ·  **known positive** `tenancy by sufferance` **2** *(KNOWN POSITIVE, multi-word — the exact § 34-2-128 wording)* · `writ of restitution` **6** *(KNOWN POSITIVE, multi-word — all 6 in Title 1)* · `restitution of the premises` **1** *(KNOWN POSITIVE, multi-word — the exact § 1-21-1008(a) wording)*
+
+**`furnishings-included`** (Tagged) — `furnished (unit\|apartment\|dwelling\|premises\|room\|rental\|house)` **0** *(statutory phrasings used elsewhere)* · `furniture deposit` **0** *(deposit variant)* · `furnitur\w*[^.]{0,200}(renter\|tenant\|lessee\|landlord\|lessor\|owner)` **0** *(proximity order 1)* · `(renter\|tenant\|lessee\|landlord\|lessor)[^.]{0,200}furnitur\w*` **0** *(proximity order 2)* · `inventory of furnish` **0** *(inventory requirement)* · `inventory[^.]{0,150}(furnitur\|furnish)` **1** *(Title 40 equipment dealer repurchase - off point)* · `furniture` **1** *(Title 1 exemption statute - off point)* · `furnished` **10** *(Title 1; all the ordinary verb)* · `appliance` **2** *(Title 1; § 1-21-1203(a)(iii)-(iv) and § 1-21-1204(a)(iv))*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `wear and tear` **12** *(known positive, multi-word; includes Title 1 deposit section)* · `residential rental unit` **23** *(known positive, multi-word)*
+
+**`good-cause-notice`** (Absent) — `good cause (Title 1)` **19** *(term — none in Art. 10 or Art. 12)* · `good cause.{0,200}(evict\|tenan\|renter\|lease) (Title 1)` **0** *(proximity, word order A)* · `(evict\|tenan\|renter\|lease).{0,200}good cause (Title 1)` **0** *(proximity, word order B)* · `just cause (Title 1)` **0** *(everyday term)* · `cause for eviction (Title 1)` **0** *(everyday term)* · `reason for terminat (Title 1)` **0** *(stem)* · `nonrenewal\|non-renewal (Title 1)` **0** *(both spellings)* · `refuse to renew (Title 1)` **0** *(verb form)* · `month to month\|month-to-month (whole corpus)` **4** *(none landlord-tenant)* · `periodic tenancy (whole corpus)` **0** *(term)* · `tenancy at will / tenant at will (whole corpus)` **0** *(singular and variant)* · `1-21-100 / 1-21-120 / 34-2-12 (session-laws 2025+2026)` **0** *(currency check)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `good cause (whole corpus)` **397** *(known positive — phrase matches freely across 36 titles)* · `holding over (whole corpus)` **4** *(known positive — located 34-2-128)*
+
+**`government-fee-reimbursement`** (Absent) — `rental (registration\|license\|licensing)` **0** *(core term - no state rental registration or licensing scheme exists)* · `(tenant\|renter).{0,200}registration fee` **0** *(proximity, order A)* · `registration fee.{0,200}(tenant\|renter\|rent)` **14** *(proximity, order B - Titles 31/39 and HB0004 only, all motor-vehicle or tax, none rental housing)* · `pass(ed)? (on\|through).{0,150}tenant` **0** *(everyday phrasing, order A)* · `tenant.{0,150}pass(ed)? (on\|through)` **0** *(everyday phrasing, order B)* · `reimburs.{0,150}(tax\|fee).{0,100}tenant` **0** *(statute's likely verb)* · `business license.{0,200}(rent\|landlord\|dwelling)` **0** *(adjacent licensing angle)* · `\bordinance\b.{0,200}(rental\|dwelling unit)` **0** *(local-authority angle, order A)* · `(rental\|dwelling unit).{0,200}\bordinance\b` **0** *(local-authority angle, order B)* · `preempt.{0,200}(rent\|landlord\|tenant)` **2** *(preemption angle - both Title 17, business entities)* · `(rent\|landlord\|tenant).{0,200}preempt` **3** *(preemption angle, reverse order - all Title 17)* · `absorb.{0,100}tax` **0** *(tax pass-through angle)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `[Ll]odging tax` **18** *(known positive - located the lodging tax regime)* · `inspection fee` **30** *(known positive - none in a rental-housing context)* · `\bsurcharge\b` **79** *(known positive, corpus-wide)* · `vendor shall (collect\|add)` **4** *(known positive - located § 39-15-107(b))*
+
+**`governmental-fines`** (Absent) — `governmental fine` **0** *(exact term - absent)* · `municipal fine` **0** *(variant - absent)* · `code violation` **0** *(everyday term - absent)* · `chronic nuisance` **0** *(program term - absent)* · `crime free` **0** *(program term - absent)* · `fine.*tenant\|tenant.*fine` **27** *(proximity, both word orders - no pass-through rule)* · `pass.*fine\|fine.*pass` **47** *(proximity, both word orders - none on point)* · `reimburse.*penalty\|penalty.*reimburse` **39** *(proximity, both word orders - none landlord-tenant)* · `emergency assistance\|calls for police\|police response` **6** *(nuisance-call protection - absent; Title 1 hit is § 1-1-120 Good Samaritan)* · `18-2-115\|15-1-103 (session-laws)` **1** *(currency - 2025 HB0172 cites § 15-1-103(a)(xviii) on firearms only)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `nuisance` **94** *(known positive - § 15-1-103(a)(xix), § 18-2-101(a)(viii), § 18-2-115)* · `abatement` **54** · `civil penalty` **210** *(known positive - pattern shape matches)*
+
+**`guest-rights`** (Absent) — `\bguest\b` **13** *(Titles 12, 33, 39 and 2025 SF0042 — liquor and lodging tax, no tenant right)* · `\bguests\b` **19** *(only 2 in Title 1 (§ 1-21-1203(c), § 1-21-1204(a)(viii)), 0 in Title 34)* · `\binvitee` **2** *(Titles 1 and 34)* · `visitor` **17** *(none landlord-tenant)* · `overnight` **25** *(none a guest right)* · `guest fee` **0** *(no guest-fee prohibition anywhere)* · `social guest` **0** *(term variant)* · `roommate\|room-mate` **1** *(Title 35, unrelated)* · `three \(3\) or more.{0,40}household\|three or more.{0,40}household` **0** *(the comparator rule's threshold, in Wyoming's number style with escaped parens and in plain form)* · `supplier` **360** *(0 in Title 1 and 0 in Title 34 — none landlord-tenant)* · `tradesmen\|tradespeople` **0** *(supplier limb absent)* · `deliveryman\|delivery person` **4** *(Titles 27, 39 and two session laws — none landlord-tenant)* · `\bguest (title34)` **0** *(nothing in the property title either)* · `1-21-120 (session-laws)` **0** *(currency)* · `landlord\|renter (session-laws/2026)` **0** *(currency)*
+  
+**control** `zxqvwomble` **0** *(nonsense control — engine reports true empties)*  ·  **known positive** `residential rental unit (title01)` **23** · `household` **228** *(known positive — the short word does match corpus-wide)*
+
+**`habitability-presumption`** (Absent) — `warranty of habitability` **0** *(statute's own likely words)* · `housing code` **0** *(the California/Massachusetts trigger term)* · `implied warranty` **7** *(term — none in Title 1)* · `habitab` **15** *(root term — only 1 in Title 1, at § 1-40-208(a); absent from the landlord-tenant article)* · `presumed` **16** *(statute's word, Title 1 scope)* · `presumption` **4** *(noun form, Title 1 scope)* · `prima facie` **12** *(alternative formulation, Title 1 scope)* · `rebuttable` **1** *(variant, Title 1 scope — not landlord-tenant)* · `conclusive evidence` **0** *(variant, Title 1 scope)* · `presum.{0,200}(habitab\|rental unit\|renter\|owner)` **19** *(proximity, order A — Title 1 hits are § 1-21-1210(a) and eminent domain)* · `(habitab\|rental unit\|renter).{0,200}presum` **1** *(proximity, order B — § 1-21-1210(a) only)* · `prima facie.{0,200}(rent\|tenan\|habitab)` **2** *(proximity — Titles 17 and 34, neither residential)* · `building code` **20** *(term — none in Title 1)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `reasonable cause supported by evidence` **1** *(known positive — § 1-21-1203(b), long phrase matched across line wrap)*
+
+**`habitability-statement`** (Absent) — `rental agreement shall.{0,80}state` **1** *(§ 1-21-1207 - the one mandatory recital, about nonrefundable deposits)* · `warranty of habitability` **0** *(the doctrine's own name)* · `statement of habitability` **0** *(recital term used by mandating states)* · `warrant.{0,60}habitab` **0** *(proximity, order 1)* · `habitab.{0,60}warrant` **0** *(proximity, order 2)* · `lease.{0,80}habitab` **0** *(proximity, order 1)* · `habitab.{0,80}lease` **1** *(proximity, order 2 - § 1-21-1202(a) duty, not a recital)* · `disclos.{0,60}habitab` **0** *(proximity, order 1)* · `habitab.{0,60}disclos` **0** *(proximity, order 2)* · `shall be stated in the lease` **0** *(recital phrasing)* · `in the rental agreement.{0,60}habitab` **0** *(proximity, statute's own term)* · `writing.{0,60}fit for` **0** *(proximity)* · `1-21-1202 / 1-21-1203 / 1-21-1207 (session-laws/2025 + /2026)` **0** *(currency check, 278 enrolled acts)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `fit for human habitation` **1** *(known positive, multi-word - § 1-21-1202(a))* · `habitab` **15** *(known positive stem; Titles 1, 22, 34, 35)* · `implied warranty` **7** *(known positive, multi-word; Titles 12, 31, 35 - none landlord-tenant)* · `shall contain.{0,60}statement` **52** *(known positive - the required-recital pattern shape matches where such a duty exists)* · `lease shall.{0,80}state` **4** *(known positive; Titles 19, 23, 34, 36 - none residential)* · `residential rental unit` **23** *(known positive, multi-word)*
+
+**`hazardous-contamination-disclosure`** (Absent) — `contaminat.{0,250}(tenant\|renter\|lessee)` **0** *(DECISIVE proximity, order 1, corpus-wide)* · `(tenant\|renter\|lessee).{0,250}contaminat` **0** *(DECISIVE proximity, order 2, corpus-wide)* · `brownfield` **0** *(term)* · `environmental covenant` **0** *(term — no Uniform Environmental Covenants Act)* · `deed notice` **1** *(term — only inside the § 35-11-103(g)(vii) definition)* · `notice.{0,150}prospective purchaser` **0** *(proximity)* · `prospective purchaser` **11** *(term — present, but buyer-facing only)* · `(tenant\|lessee\|renter\|lease).{0,200}disclos (title35)` **1** *(proximity, order 2 — read and excluded, coroner records)* · `contamination` **62** *(term — present, none tenant-facing)* · `contaminated` **40** *(singular/other form)* · `hazardous substance` **15** *(statute's own words)* · `institutional control` **10** *(statute's own words)* · `voluntary remediation` **14** *(statute's own words)* · `clandestine laboratory` **37** *(statute's own words)* · `methamphetamine` **24** *(everyday term)* · `cleanup` **5** *(everyday term)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `Condominium Ownership Act` **1** *(multi-word known positive — phrase matching survives PDF line wraps)* · `use control area` **24** *(second multi-word known positive, inside Title 35, the title searched)* · `disclos.{0,200}(tenant\|lessee\|renter\|lease) (title35)` **3** *(proximity, order 1 — all read, all excluded as 'release'/'please' false positives)*
+
+**`health-district-rental-rules`** (Absent) — `rental dwelling` **0** *(Nevada statute's own term)* · `tenant[^.]{0,80}health officer` **0** *(proximity, order A)* · `health officer[^.]{0,80}tenant` **0** *(proximity, order B)* · `landlord[^.]{0,60}board of health` **0** *(proximity)* · `sanitation regulations` **0** *(term)* · `housing code` **0** *(term - 0 corpus-wide)* · `upon request[^.]{0,60}regulation` **1** *(excluded - Title 11 agriculture)* · `regulation[^.]{0,60}upon request` **2** *(excluded - Titles 9, 26; reversed order)* · `provide[^.]{0,60}copy[^.]{0,60}regulation` **1** *(excluded - Title 42)* · `copy of (the\|such) (rules\|regulations)` **4** *(excluded - Titles 28, 41, 42, 2026 SF0127)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `health district` **5** *(KNOWN POSITIVE, multi-word)* · `district board of health` **7** *(KNOWN POSITIVE, multi-word)* · `county health officer` **35** *(KNOWN POSITIVE, multi-word)* · `health hazard` **10** *(KNOWN POSITIVE, multi-word)*
+
+**`hoa`** (Absent) — `unit owners' association` **0** *(UCIOA term)* · `common interest community` **0** *(UCIOA term)* · `declaration of covenants` **0** *(everyday term)* · `home owners.? association` **0** *(open-compound variant)* · `homeowners.? association` **2** *(closed-compound; both Title 18 subdivision permits)* · `property owners.? association` **1** *(Title 34 transfer-fee list only)* · `association.{0,140}\brent\b` **0** *(proximity order A — no rent-diversion right)* · `\brent\b.{0,140}association` **0** *(proximity order B)* · `association.{0,120}lease` **9** *(proximity order A; none residential approval)* · `lease.{0,120}association` **13** *(proximity order B; none residential approval)* · `association.{0,100}lien` **9** *(no assessment lien)* · `assessment.{0,80}lien` **53** *(proximity order A; municipal and water districts)* · `lien.{0,80}assessment` **50** *(proximity order B)* · `34-20-` **4** *(section enumeration — the whole Condominium Ownership Act)* · `cite 34-20-104 session-laws` **0** *(currency, anchored)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `Wyoming Nonprofit Corporation Act` **7** *(multi-word known positive)*
+
+**`holding-deposit`** (Absent) — `holding deposit` **1** *(exact term; sole hit § 26-8-102 insurer deposits — excluded)* · `earnest money` **6** *(everyday term; all real estate sales or brokerage — excluded)* · `reservation fee` **0** *(alternative term)* · `good faith deposit` **0** *(alternative term)* · `prospective (tenant\|renter\|lessee)` **0** *(the party a holding-deposit rule would name)* · `applicant.{0,200}deposit` **31** *(proximity order 1, corpus-wide; scoped to Title 1 the union with the reverse is 1, excluded (§ 1-9-102))* · `deposit.{0,200}applicant` **27** *(proximity order 2, corpus-wide; none in Title 1 ch. 21)* · `1-21-1207 / 33-28-122 / 34-24-130 (anchored cite, session-laws/2025 and /2026)` **0** *(currency check)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `application fee` **79** *(multi-word known positive)* · `nonrefundable` **26** *(known positive — the § 1-21-1207 term)*
+
+**`homestead-waiver`** (Absent) — `waive the exemption` **0** *(corpus-wide phrase (fixed harness))* · `waive any exemption` **0** *(corpus-wide phrase (fixed harness))* · `cannot be waived` **0** *(corpus-wide phrase (fixed harness))* · `waiver of exemption` **2** *(corpus-wide - Titles 27 and 42, inspected, neither reaches leases (fixed harness))* · `waiv\w*(?:.\|\n){0,160}exempt` **24** *(corpus-wide proximity order A, newline-crossing)* · `exempt(?:.\|\n){0,160}waiv` **17** *(corpus-wide proximity order B, newline-crossing)* · `waiv\w*(?:.\|\n){0,160}homestead` **6** *(proximity order A - all 7 distinct hits inspected; only 34-2-121 is on point)* · `homestead(?:.\|\n){0,160}waiv` **3** *(proximity order B - Title 2 probate and Title 34 only)* · `releasing and waiving` **1** *(corpus-wide - locates the statutory words in 34-2-121 (fixed harness))* · `exemption laws of this state` **2** *(corpus-wide - 34-2-121 and Title 2 probate (fixed harness))* · `unconscionable` **23** *(Title 40 - checked for a consumer-contract override; none reaches leases)*
+  
+**control** `zxqvwomble` **0** *(nonsense control - engine reports true empties)*  ·  **known positive** `homestead` **79** *(known positive corpus-wide; Title 1 = 13, Title 34 = 10)* · `homestead exemption` **12** *(known positive, multi-word (fixed harness))* · `exempt from levy` **7** *(known positive, multi-word (fixed harness))* · `waive` **35** *(known positive, Title 1)* · `residential rental unit` **23** *(known positive (fixed harness))* · `Condominium Ownership Act` **1** *(known positive, line-wrap regression check)*
+
+**`infirmity-termination`** (Absent) — `infirmity` **4** *(statute's own word; none about tenancies)* · `early termination` **0** *(everyday term)* · `unable to live independently` **0** *(MI/NY statutory phrasing)* · `incapable of living independently` **0** *(MI statutory phrasing)* · `accessible unit` **0** *(MN statutory phrasing)* · `death of (the \|a )?(tenant\|renter\|lessee)` **0** *(adjacent NV rule)* · `public housing[^.]{0,150}(terminat\|lease)` **0** *(TN statutory route)* · `physician[^.]{0,200}(lease\|rental agreement\|tenan)` **1** *(Title 27 workers comp - off point)* · `terminate[^.]{0,200}(health\|medical\|disab\|incapacit)` **26** *(proximity order 1; none in Title 1)* · `(health\|medical\|disab\|incapacit)\w*[^.]{0,200}terminate the (lease\|rental)` **0** *(proximity order 2)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `nursing home` **84** *(known positive, multi-word)* · `assisted living` **28** *(known positive, multi-word)* · `long.term care` **181** · `senior citizen` **75** *(known positive, multi-word)*
+
+**`informal-dispute-resolution`** (Tagged) — `mediation (Title 1)` **22** *(term — none in Art. 10 or Art. 12 of ch. 21)* · `informal (Title 1)` **8** *(term — each read: equine activities, prejudgment-attachment hearing, adoption consent, eminent-domain ADR, and the Art. 6 informal claims procedure in ch. 26; none landlord-tenant)* · `alternative dispute (Title 1)` **0** *(term)* · `dispute resolution (Title 1)` **1** *(eminent domain, not landlord-tenant)* · `meet and confer (Title 1)` **0** *(everyday term)* · `before (commencing\|filing) (an action\|suit) (Title 1)` **1** *(not landlord-tenant)* · `(mediat\|arbitrat\|informal).{0,250}(renter\|rental unit\|landlord\|lease) (Title 1)` **1** *(proximity word order A — the single hit is the eminent-domain ADR sentence)* · `(renter\|rental unit\|landlord\|lease).{0,250}(mediat\|arbitrat\|informal) (Title 1)` **4** *(proximity word order B — none in Art. 10 or Art. 12)* · `1-21-100 / 1-21-120 / 1-36-1 (session-laws 2025+2026)` **0** *(currency check)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `arbitration (Title 1)` **28** *(known positive — all in Art. 8 of ch. 21 and ch. 36, none landlord-tenant)*
+
+**`inspection-condemnation-disclosure`** (Absent) — `unfit for human habitation` **0** *(sister-state term of art)* · `unfit.{0,100}habitation` **0** *(proximity, order A)* · `habitation.{0,100}unfit` **0** *(proximity, order B)* · `housing code` **0** *(core term - no state housing code)* · `property maintenance code` **0** *(core term)* · `unsafe building` **0** *(everyday term)* · `dilapidated` **0** *(everyday term)* · `prospective (tenant\|renter\|lessee)` **0** *(applicant-disclosure angle - the disclosure duty runs only to a 'prospective purchaser')* · `[Rr]eal [Ee]state [Dd]isclosure` **0** *(no Wyoming seller-disclosure act)* · `\bdisclose\b.{0,200}(violation\|order\|condemn)` **22** *(proximity, order A - no landlord-to-tenant duty among them)* · `(violation\|order\|condemn).{0,200}\bdisclose\b` **27** *(proximity, order B - same)* · `code (violation\|enforcement)` **7** *(term - Titles 7/15/16/35)* · `notice of violation` **23** *(term - none landlord-tenant)* · `35-9-156` **2** *(currency - 0 in session-laws/2025; 2 in /2026 (SF0071), amending subsection (a) only)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `uninhabitable` **12** *(known positive - 11 in Title 35, located § 35-9-156)* · `clandestine laboratory` **37** · `dangerous building` **1** *(known positive - located § 15-1-103(a)(xxvi))*
+
+**`inspection-notice-penalty`** (Absent) — `walk.through` **0** *(everyday term, hyphen and space - absent)* · `move.out` **0** *(everyday term - absent)* · `move.in` **1** *(everyday term - Title 34, not a rental inspection)* · `joint inspection` **0** *(statute term - absent)* · `checklist` **5** *(term - all Title 9 state government)* · `condition of the premises` **1** *(term - Title 26 insurance)* · `inventory` **152** *(synonym - none a rental condition inventory)* · `inspect (scoped title01)` **19** *(each hit reviewed; only § 1-21-1205(a)(iii) is rental)* · `1-21-120 (session-laws/2025 + /2026)` **0** *(currency - no 2025 or 2026 act)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `inspect` **1953** *(known positive - pattern shape matches)*
+
+**`jury-waiver`** (Absent) — `waiver of.{0,40}jury` **0** *(term)* · `waive.{0,120}jury` **7** *(proximity order 1, none contractual)* · `jury.{0,120}waive` **11** *(proximity order 2, none contractual)* · `standard form contract` **0** *(Vermont's term)* · `adhesion` **0** *(term)* · `class action waiver` **0** *(term)* · `unconscionab` **27** *(all Title 40 UCCC; 0 in Title 34; § 40-14-206 limits 'consumer lease' to goods)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `jury trial` **30** · `\bjur(y\|ies)\b (Title97)` **9** *(known positive - all read, only art. 1 §§ 9 and 10)*
+
+**`key-control-policy`** (Absent) — `\bkeys\b` **11** *(0 in Title 1; both Title 34 hits are digital-asset private keys)* · `rekey\|re-key\|rekeying` **0** *(no rekeying duty anywhere)* · `master key` **0** *(no master-key rule)* · `keyless` **0** *(no electronic-key rule)* · `\block\b\|\blocks\b` **29** *(single Title 1 hit is § 1-21-1403(a), the unauthorized-occupant lock change)* · `deadbolt\|dead bolt` **0** *(no security-device standard)* · `criminal history.{0,60}employ\|employ.{0,60}criminal history` **9** *(proximity, both word orders — Titles 7, 15, 21 only; no residential-property staff rule)* · `background check (title01 / title34)` **0** *(scoped — nothing in either property-relevant title)* · `33-28-10\|1-21-140 (session-laws)` **8** *(currency — 2025 SF0006 created §§ 1-21-1401 to 1-21-1403 (in corpus); 2026 SF0105 touched § 33-28-102(b)(xiii) and § 33-28-306 only)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `\bkey\b` **87** *(known positive — short-word boundary pattern matches; all 12 Title 1 hits are 'key witness' in the crime-victims chapter)* · `background check` **97** *(known positive — but 0 in Title 1 and 0 in Title 34)*
+
+**`knowing-use-penalty`** (Absent) — `knowingly uses` **2** *(statute's own likely words — both Title 6 criminal code)* · `prohibited provision` **3** *(term — no lease-term list)* · `contrary to public policy` **5** *(the Minnesota formulation — none in Title 1)* · `void and unenforceable` **12** *(voidness shape — none in Title 1)* · `shall be void` **33** *(voidness shape — Title 1 hits are the statute of frauds and noncompetes)* · `unconscionable` **23** *(term — all Title 40, none a prohibited lease term)* · `waive.{0,80}(right\|remedy)` **82** *(proximity — no anti-waiver rule in Article 12)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `deceptive trade practice` **18** *(known positive — locates the Wyoming Consumer Protection Act)*
+
+**`landlord-liability-insurance`** (Absent) — `landlord.{0,250}insurance` **1** *(DECISIVE proximity, order 1 — read and excluded, § 33-28-311 abutting an article heading)* · `insurance.{0,250}landlord` **0** *(DECISIVE proximity, order 2, corpus-wide)* · `rental registration` **0** *(term)* · `landlord registration` **0** *(term)* · `renters insurance` **0** *(everyday term, no apostrophe)* · `renter's insurance` **0** *(everyday term, apostrophe form)* · `shall carry insurance` **0** *(likely statutory verb phrase)* · `shall maintain insurance` **0** *(verb variant)* · `shall obtain insurance` **1** *(verb variant — Title 13 banking, excluded)* · `minimum coverage` **0** *(term)* · `require the tenant to.{0,100}insurance` **0** *(proximity, landlord-facing)* · `liability insurance.{0,250}(rental\|dwelling\|tenant)` **2** *(proximity, order 1 — Title 26 rental cars, excluded)* · `(rental\|dwelling\|tenant).{0,250}liability insurance` **2** *(proximity, order 2 — same, excluded)* · `owner.{0,150}shall.{0,150}liability insurance` **2** *(proximity with statutory verb — Titles 31, 40, excluded)* · `liability insurance` **94** *(term — present corpus-wide, 14 in Title 1, 0 in Title 34, none landlord-facing)* · `general liability` **4** *(term)* · `proof of insurance` **7** *(term)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `Condominium Ownership Act` **1** *(multi-word known positive — phrase matching survives PDF line wraps)* · `certificate of insurance` **41** *(second multi-word known positive — insurance phrases of this shape are findable)*
+
+**`landlord-registration`** (Absent) — `rental registration` **0** *(subject term)* · `register.{0,60}rental` **1** *(Title 31, vehicle registration)* · `residential rental property` **1** *(Title 1, not a registration provision)* · `business license` **19** *(none reaches a residential landlord)* · `may not maintain a proceeding` **2** *(both § 17-16-1502)* · `lodging service (scoped title39)` **17** *(short-term rental tax)* · `sales tax license (scoped title39)` **3** *(§ 39-15-106(a))* · `thirty \(30\) continuous days (scoped title39)` **1** *(transient-guest line, escaped parentheses)* · `cite 17-16-1501 / 17-16-1502 / 17-29-114, session-laws 2025+2026` **0** *(currency, anchored)* · `cite 39-15-104 / 39-15-106, session-laws 2026` **14** *(currency, anchored: HB0107 and SF0079, both effective 2026-07-01 except SF0079 § 2 (2027, vehicle liens only))*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `certificate of authority` **385** *(multi-word known positive; found the real duty)* · `transacting business` **52** *(multi-word known positive)* · `rental agreement` **37** *(multi-word known positive)*
+
+**`late-fee-limit`** (Absent) — `late fee` **29** *(corpus-wide; ZERO in Title 1; all inspected hits are plate or licence fees)* · `late charge` **2** *(corpus-wide; ZERO in Title 1)* · `delinquency charge` **21** *(the statute's own term — all Title 40 UCCC (20) and Title 9 (1); none reaches a residential lease)* · `late payment` **7** *(corpus-wide; 1 in Title 1, not a fee rule)* · `(rent\|rental agreement).{0,200}late` **143** *(proximity order 1; 7 in Title 1, all 'related'/'appellate' false matches)* · `late.{0,200}rent\b` **104** *(proximity order 2; 4 in Title 1, same false matches)* · `late fee (scope session-laws)` **3** *(currency check — all 'license plate fee', no residential rule in 2025 or 2026)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `accrued rent` **1** *(multi-word known positive in Title 1 (§ 1-21-1007))* · `liquidated damages` **14** *(multi-word known positive; 2 in Title 1)*
+
+**`lead-safe-certification`** (Absent) — `lead.based paint` **0** *(term — the federal statute's own phrase)* · `lead paint` **0** *(term — everyday phrasing)* · `lead poisoning` **0** *(term — the public-health framing)* · `lead hazard` **0** *(term — the abatement framing)* · `lead.safe` **0** *(term — the certificate's own name, hyphen or space)* · `blood lead` **0** *(term — the screening framing)* · `lead level` **0** *(term — the screening framing, alternate)* · `certificate of (lead\|compliance)` **2** *(term — Titles 9 and 23, neither about lead)* · `\blead\b.{0,60}(abat\|hazard\|paint\|poison)` **0** *(proximity, order 1, word-bounded on the short word)* · `(abat\|hazard\|paint\|poison).{0,60}\blead\b` **0** *(proximity, REVERSE order)* · `\blead\b.{0,120}(child\|dwelling\|residen\|rental)` **1** *(proximity, order 1 — read; verb 'lead to' in Title 14, excluded)* · `(child\|dwelling\|residen\|rental).{0,120}\blead\b` **2** *(proximity, REVERSE order — read; both verb 'lead to', Titles 14 and 35, excluded)*
+  
+**control** `\blead\b` **114** *(single-word control — the word is abundant corpus-wide, so every phrase zero above is real)* · `zxqvwomble` **0** *(NONSENSE CONTROL — engine reports true empties)*  ·  **known positive** `asbestos` **21** *(KNOWN POSITIVE — a hazardous-material term that DOES register (all 21 in Title 1))* · `pamphlet` **19** *(KNOWN POSITIVE, disclosure vocabulary present in corpus without attaching to lead)* · `renovat` **74** *(KNOWN POSITIVE, renovation vocabulary present without attaching to lead)*
+
+**`lead-state-notices`** (Absent) — `lead-based paint` **0** *(corpus-wide, statute's own term (fixed harness))* · `lead based paint` **0** *(corpus-wide, unhyphenated variant (fixed harness))* · `lead-?based` **0** *(corpus-wide, hyphen-optional)* · `leadbased` **0** *(corpus-wide, closed-up variant)* · `lead paint` **0** *(corpus-wide, everyday term (fixed harness))* · `lead poisoning` **0** *(corpus-wide (fixed harness))* · `lead-poisoning` **0** *(corpus-wide, hyphenated)* · `lead hazard` **0** *(corpus-wide (fixed harness))* · `lead abatement` **0** *(corpus-wide (fixed harness))* · `blood lead` **0** *(corpus-wide (fixed harness))* · `elevated blood` **0** *(corpus-wide (fixed harness))* · `\bpaints\b` **0** *(corpus-wide, plural with word boundary)* · `painting` **5** *(corpus-wide, inflected form)* · `\blead\b(?:.\|\n){0,120}paint` **0** *(proximity order A, newline-crossing)* · `paint(?:.\|\n){0,120}\blead\b` **0** *(proximity order B, newline-crossing)* · `\blead\b(?:.\|\n){0,120}(hazard\|poison\|child)` **1** *(proximity order A - inspected, verb 'lead' in Title 14)* · `(hazard\|poison\|child)(?:.\|\n){0,120}\blead\b` **2** *(proximity order B - inspected, verb 'lead' in Titles 14 and 35)* · `lead-based paint` **0** *(currency - session-laws/2025 and /2026 both 0)*
+  
+**control** `zxqvwomble` **0** *(nonsense control - engine reports true empties)*  ·  **known positive** `\bpaint\b` **11** *(known positive, corpus-wide, word boundary - eight titles, none housing)* · `residential rental unit` **23** *(known positive (fixed harness))* · `Condominium Ownership Act` **1** *(known positive, line-wrap regression check)* · `International Building Code` **6** *(known positive - corpus-wide multi-word scoping works)*
+
+**`lease-copy`** (Absent) — `copy of the lease (whole corpus)` **0** *(statute's likely term)* · `copy of the rental agreement (whole corpus)` **0** *(Wyoming's own noun)* · `copy of the (written )?(lease\|agreement\|contract) (Title 1)` **2** *(both read; neither landlord-tenant)* · `copy.{0,80}(renter\|tenant\|lessee) (Title 1)` **1** *(proximity word order A)* · `furnish.{0,80}copy (Title 1)` **0** *(proximity word order B with likely verb)* · `duplicate (Title 1)` **6** *(everyday variant — none landlord-tenant)* · `copy of the lease / copy of any (lease\|contract) / legible copy / copy of all (Title 33)` **0** *(broker and property-manager duty check)* · `copy.{0,120}(lease\|rental)\|( lease\|rental).{0,120}copy (Title 33)` **2** *(proximity both orders — military orders and optometry, no lease duty)* · `1-21-120 / 1-23-105 / 34-2-12 (session-laws 2025+2026)` **0** *(currency check)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `copy (Title 33)` **102** *(known positive — term matches abundantly)*
+
+**`lease-notice-initial-requirement`** (Absent) — `separately initial` **0** *(statute's own term in states that have the rule)* · `\binitial(ed\|ing\|s)? by\b` **2** *(word-boundary variants - Titles 22 and 32, not landlord-tenant)* · `initialed` **4** *(term - Titles 3/9/22/32, none landlord-tenant)* · `shall initial` **14** *(statute's likely verb - none in Title 1 or Title 34, none about a lease)* · `capital letters` **19** *(typography angle - none in Title 1 or Title 34)* · `point type\|point font` **8** *(typography angle - none in Title 1 or Title 34)* · `conspicuous` **166** *(typography/notice angle - only 5 in Title 1, all about posting a writ or fee list)* · `copy of the (lease\|rental agreement)` **0** *(adjacent duty to furnish a copy - none)* · `acknowledg.{0,150}(receipt\|copy).{0,150}(lease\|rental agreement)` **2** *(acknowledgment angle - both Title 16, public records)* · `1-23-105` **0** *(currency - 0 in session-laws/2025 and /2026)* · `34-2-12` **0** *(currency - 0 in session-laws/2025 and /2026)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `boldface\|bold face\|bold type\|boldfaced` **22** *(typography angle - sole Title 1 hit is Wyo. Stat. § 1-16-603(a), a structured-settlement disclosure, which doubles as a known positive showing Wyoming does impose type requirements where it wants to)* · `\bsigned\b` **23** *(known positive, Title 01)* · `in writing and signed` **1** *(known positive, Title 01 - multi-word phrase survives the line-wrap)*
+
+**`lease-registration`** (Absent) — `rental registration` **0** *(program term - absent)* · `rental license` **0** *(program term - absent)* · `landlord registr` **0** *(stem, catches registration/registry - absent)* · `registration of rental` **1** *(reversed word order - § 31-19-104 rental VEHICLES, off-subject)* · `memorandum of lease` **0** *(short-form recording term - absent)* · `short form lease` **0** *(variant - absent)* · `record.*lease\|lease.*record` **53** *(proximity, both word orders - no registration duty)* · `34-1-1 / 1-23-105 (session-laws)` **3** *(currency - 2025 HB0097 and 2026 SF0099 touch neither the recording nor the frauds sections)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `leases for a term` **1** *(positive - the § 34-1-102 three-year exception)* · `statute of frauds` **3** *(positive - Titles 1 and 34)* · `register of deeds\|county clerk` **1146** *(known positive - pattern shape matches)*
+
+**`lease-type-parity`** (Absent) — `month-to-month\|month to month` **4** *(0 in Title 1 and 0 in Title 34 — Titles 26, 40 and the 2026 budget bill)* · `from month to month` **2** *(both Title 40)* · `periodic tenancy` **0** *(no statutory periodic tenancy)* · `tenancy at will` **0** *(no tenancy at will)* · `term of the tenancy` **0** *(term variant)* · `fixed term\|fixed-term` **3** *(Titles 9 and 35 only)* · `rent control\|rent stabiliz` **0** *(no rent regulation, so no cap on a lease-type rent differential)* · `1-21-120 (session-laws)` **0** *(currency)* · `landlord\|renter (session-laws/2026)` **0** *(currency)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `residential rental unit (title01)` **23** · `more burdensome\|less favorable\|less favourable` **12** *(known positive for the phrase shape — all Titles 9, 13, 26, 27, 37; none landlord-tenant)*
+
+**`lease-type-size`** (Absent) — `typeface` **0** *(term)* · `10-point\|12-point\|8-point` **0** *(hyphenated numeral style — Wyoming writes 'ten (10) point')* · `type size` **9** *(term — 0 in Titles 1 and 34)* · `point type` **5** *(statute's own style — 0 in Titles 1 and 34)* · `point font` **3** *(variant — 0 in Titles 1 and 34)* · `boldface` **13** *(term — 0 in Titles 1 and 34)* · `bold face` **2** *(two-word spelling — Title 29 only)* · `capital letters` **19** *(term — 0 in Titles 1 and 34)* · `legible` **36** *(term — 0 in Title 1)* · `conspicuous` **166** *(term — Title 1 hits are physical posting, not print format)* · `received in evidence` **17** *(evidentiary-sanction shape — no lease print rule)* · `admissible in evidence` **17** *(evidentiary-sanction shape)* · `shall not be.{0,60}evidence` **26** *(evidentiary-sanction shape, proximity)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `rental agreement shall` **3** *(known positive — all Title 1; locates the only content duty, § 1-21-1207)*
+
+**`liquidated-damages`** (Absent) — `liquidated damages (title34)` **0** *(0 in Title 34 — consistent with the UCC having been renumbered out to W.S. 34.1)* · `penalty clause` **0** *(everyday term)* · `liquidated` **39** *(shorter root form)* · `actual damages` **53** *(contrasting term — present, none landlord-tenant)* · `reasonable in light of` **2** *(statutory test phrase — one is § 1-21-1203(d) repair costs, not damages)* · `unconscionable` **23** *(term — all Title 40 consumer credit code; no general unconscionability statute)* · `34\.1-2-718\|34\.1-2A-504\|34\.1-2-719` **0** *(UCC sections — absent because Title 34.1 is not in this corpus)* · `Renumbered by order of management council` **527** *(all in Title 34 — proves the UCC chapter is stubs only)* · `34\.1-` **76** *(cross-references to the missing title, from 12 other titles)* · `1-21-1208 / 1-21-1202 / 40-14-248 / 40-14-508 (session-laws)` **0** *(currency — 0 each across 2025 and 2026)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `Condominium Ownership Act` **1** *(multi-word known positive — phrase matching survives PDF line wraps)* · `liquidated damages` **14** *(second multi-word positive — the exact phrase IS findable; all 14 located and none is a lease provision)*
+
+**`lockout-for-rent-delinquency`** (Absent) — `lockout` **3** *(excluded - Titles 27 (labor lockout) and 31)* · `lock ?out` **3** *(spaced variant, same hits)* · `chang(e\|ing) the locks` **0** *(everyday term, both inflections)* · `change the lock` **0** *(singular)* · `exclude the tenant` **0** *(statute's likely verb)* · `self-?help` **0** *(term of art, both spellings)* · `forcible detainer` **0** *(as a standalone phrase)* · `shut off[^.]{0,40}utilit` **0** *(proximity, order A)* · `utilit[^.]{0,40}shut off` **0** *(proximity, order B)* · `interrupt[^.]{0,40}(service\|utilit)` **9** *(none landlord-tenant)* · `\block (Title 1 scope)` **1** *(the single hit IS § 1-21-1403(a) - proves no other lock power in Title 1)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `forcible entry` **18** *(KNOWN POSITIVE, multi-word - T1 x10, T5 x3, T6 x3, T20 x2)*
+
+**`meter-conservation-charge`** (Absent) — `conservation (charge\|improvement)` **8** *(statute's term; all Title 9 program)* · `energy conservation` **13** *(everyday term; all Title 9)* · `weatheriz` **5** *(stem; all § 42-2-501 LIHEAP)* · `energy efficien` **6** *(stem; none a rental charge)* · `conservation.{0,100}meter` **0** *(proximity order A)* · `meter.{0,100}conservation` **3** *(proximity order B; none a utility charge)* · `rent deduction` **0** *(remedy term)* · `deduct.{0,100}\brent\b` **0** *(remedy, verb form, word-bounded)* · `conservation (Title 37 scope)` **3** *(utility title; none a conservation charge)* · `surcharge (Title 37 scope)` **1** *(§ 37-18-102 low-carbon mechanism only)* · `cite 42-2-501 session-laws` **0** *(currency, anchored)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `energy conservation` **13** *(multi-word known positive)*
+
+**`meth-disclosure`** (Absent) — `disclos.{0,250}(clandestine\|methamphetamine)` **0** *(proximity order 1 — no meth disclosure duty anywhere)* · `(clandestine\|methamphetamine).{0,250}disclos` **0** *(proximity order 2)* · `(clandestine\|methamphetamine\|contaminat).{0,300}(tenant\|renter\|lessee\|lease\|rental)` **14** *(all inspected and excluded — 'lease' inside 'release')* · `(tenant\|renter\|lessee\|lease\|rental).{0,300}(clandestine\|methamphetamine)` **6** *(reverse order; all inspected and excluded)* · `illegal drug (lab\|manufactur)` **0** *(everyday term variant)* · `methamphetamine` **24** *(term is well represented (Titles 6, 9, 35 and 2025 SF0009))*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `clandestine laboratory operation` **29** *(multi-word known positive)* · `uninhabitable or contaminated` **7** *(multi-word known positive from § 35-9-156(d))*
+
+**`military-air-zone-disclosure`** (Absent) — `accident potential zone\|clear zone\|noise zone` **0** *(sister-state terms of art)* · `airport (zoning\|hazard\|influence)` **0** *(term)* · `airport hazard` **0** *(model-act phrase)* · `airport approach` **0** *(model-act phrase)* · `military impact` **0** *(sister-state term)* · `avigation` **22** *(TRAP — all are the tail of 'navigation')* · `\bavigation` **0** *(same term with word boundary — the true zero)* · `zoning.{0,80}airport` **0** *(proximity, order A)* · `airport.{0,80}zoning` **1** *(proximity, REVERSE order — read, § 10-5-301, not a disclosure)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `military (installation\|base\|airport)` **16** *(multi-word known positive)* · `F\.E\. Warren\|Warren Air Force` **2** *(multi-word known positive)*
+
+**`mold-disclosure`** (Absent) — `\bmold\b` **0** *(corpus-wide, word boundary on the short word)* · `\bmould\b` **0** *(corpus-wide, British spelling)* · `mildew` **0** *(corpus-wide, everyday term)* · `toxic mold` **0** *(corpus-wide (fixed harness))* · `mold remediation` **0** *(corpus-wide (fixed harness))* · `mold assessment` **0** *(corpus-wide (fixed harness))* · `indoor air quality` **0** *(corpus-wide (fixed harness))* · `dampness` **0** *(corpus-wide)* · `fungus` **2** *(corpus-wide - Title 11 agriculture only)* · `fungi` **8** *(corpus-wide - Title 34's three are 'fungible' digital-asset custody, inspected)* · `moisture` **4** *(corpus-wide - Titles 9, 31, 35, 40, none housing)* · `microbial` **6** *(corpus-wide - none housing)* · `mold(?:.\|\n){0,140}(disclos\|tenan\|rental\|lease\|dwelling)` **0** *(proximity order A, newline-crossing)* · `(disclos\|tenan\|rental\|lease\|dwelling)(?:.\|\n){0,140}\bmold` **0** *(proximity order B, newline-crossing)* · `shall disclose` **1** *(Title 1 (fixed harness) - not mold)* · `written disclosure` **0** *(Title 1 (fixed harness))* · `\bmold` **0** *(currency - session-laws/2025 and /2026 both 0)*
+  
+**control** `zxqvwomble` **0** *(nonsense control - engine reports true empties)*  ·  **known positive** `\bmolds\b` **3** *(corpus-wide plural - all inspected: obscenity molds, dental molds, ear molds; none fungal. Also serves as the known positive for this shape)* · `disclos` **20** *(known positive, Title 1 - none concerns mold)* · `residential rental unit` **23** *(known positive (fixed harness))* · `Condominium Ownership Act` **1** *(known positive, line-wrap regression check)*
+
+**`nonresident-owner-agent`** (Absent) — `nonresident (owner\|landlord\|lessor)` **12** *(core term - Titles 31/37/39/41 only, none rental housing)* · `non-resident (owner\|landlord\|lessor)` **0** *(hyphenated variant)* · `out-of-state (owner\|landlord)` **0** *(everyday term)* · `nonresident.{0,200}(service of process\|agent)` **25** *(proximity, order A - no landlord-tenant hit)* · `(service of process\|agent).{0,200}nonresident` **19** *(proximity, order B - sole Title 1 hit is the motor-vehicle implied-appointment statute)* · `real property.{0,200}registered agent` **0** *(property-specific agent angle)* · `withhold.{0,200}nonresident` **4** *(withholding angle - Titles 31 and 39, none about rent)* · `(individual\|personal) income tax` **4** *(no Wyoming income tax is imposed)* · `tax on (the )?income` **1** *(sole hit is Wyo. Const. art. 15, § 18, which conditions a future income tax)* · `long.arm` **0** *(everyday term - Wyoming's provision is captioned differently)* · `designate.{0,150}agent.{0,150}(property\|premises\|rental)` **3** *(designation-duty angle - Title 1 hits are §§ 1-21-1208(a), 1-21-1209, which presuppose rather than require an agent)* · `17-28-101` **0** *(currency - 0 in session-laws/2025 and /2026)* · `5-1-107` **0** *(currency - 0 in session-laws/2025 and /2026)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `registered agent` **270** *(known positive - 240 in Title 17, located § 17-28-101)* · `agent for service of process` **47** · `\bagent\b` **54** *(known positive, Title 01)*
+
+**`notice-service-fee`** (Absent) — `notice fee` **2** *(exact term - both Title 17 business organizations)* · `posting fee` **0** *(variant - absent)* · `service fee` **13** *(term - none landlord-tenant)* · `cost of service` **8** *(everyday phrasing - none landlord-tenant)* · `sheriff.s fee` **1** *(apostrophe both ways - Title 29 liens only)* · `notice.*fee\|fee.*notice` **67** *(proximity, both word orders - no landlord notice charge)* · `1-21-10 (session-laws/2025 + /2026)` **0** *(currency - no 2025 or 2026 act)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `service of notice` **25** *(known positive - 4 in Title 1, none chargeable)* · `rental agreement` **37** *(known positive - pattern shape matches)*
+
+**`notice-to-vacate-additional-terms`** (Absent) — `notice to vacate` **0** *(the Kansas phrase does not exist in Wyoming law)* · `intent to vacate` **0** *(term variant)* · `additional terms` **2** *(Titles 9 and 17 — neither landlord-tenant)* · `notice to quit` **1** *(§ 1-21-1003 — read in full, not relied on as a heading)* · `uninhabitable\|unfit for habitation` **12** *(11 in Title 35, 1 in Title 1 (§ 1-40-208(a), crime victims, cross-referencing § 35-9-156(d)))* · `1-21-120 (session-laws)` **0** *(currency)* · `landlord\|renter (session-laws/2026)` **0** *(currency)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `boldface\|bold face\|bold type` **22** *(known positive — Wyoming does use type-format mandates elsewhere; the one Title 1 hit is § 1-16-603(a), structured settlements)* · `point type\|10-point\|ten \(10\) point` **16** *(known positive in Wyoming's own number style with escaped parentheses — none landlord-tenant)* · `alteration.{0,60}vacate\|vacate.{0,60}alteration` **1** *(proximity, both word orders — the single hit is § 34-12-107 on vacating platted streets, a false positive, excluded)*
+
+**`ordnance-demolition-meter-disclosures`** (Absent) — `ordnance` **0** *(ORDNANCE strand — statute's own word, absent corpus-wide)* · `unexploded` **0** *(everyday term)* · `munitions` **0** *(everyday term, plural)* · `military ordnance` **0** *(multi-word variant)* · `ordnance location` **0** *(the California statutory phrase)* · `explosive ordnance` **0** *(multi-word variant)* · `former military` **0** *(everyday term)* · `demolition` **45** *(DEMOLITION strand — subject present and findable)* · `demolish` **8** *(verb form)* · `demolition.{0,250}(tenant\|renter\|lessee\|rental)` **0** *(proximity, order 1)* · `(tenant\|renter\|lessee\|rental).{0,250}demolition` **1** *(proximity, order 2 — read; it is § 16-7-102(a), relied on in the row)* · `notice to vacate.{0,200}demol` **0** *(proximity with the landlord-facing verb)* · `shared meter` **0** *(METER strand — the California statutory term)* · `shared utility` **0** *(variant)* · `submeter` **0** *(everyday term)* · `single meter` **0** *(variant)* · `individually metered` **0** *(variant)* · `ratio utility` **0** *(industry term (RUBS))* · `master meter` **4** *(term — all Title99 Gillette water pipeline, excluded)* · `common area.{0,200}meter` **0** *(proximity, order 1)* · `meter.{0,200}common area` **0** *(proximity, order 2)* · `37-1-101 (session-laws)` **2** *(currency — both opened and read; 2025 HB0192 and 2026 SF0099 only CROSS-REFERENCE the section, neither amends it)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `Condominium Ownership Act` **1** *(multi-word known positive — phrase matching survives PDF line wraps)*
+
+**`owner-move-in-reservation`** (Absent) — `owner occupancy` **0** *(subject term)* · `intends? to occupy` **0** *(statutory phrasing elsewhere, singular and plural)* · `owner.{0,40}occupy.{0,60}dwelling` **0** *(proximity)* · `personal use.{0,40}owner` **0** *(alternate framing)* · `immediate family.{0,60}occup` **0** *(relative-occupancy framing)* · `good cause.{0,60}evict` **0** *(just-cause regime check)* · `cite 34-2-128 / 34-2-129 / 1-21-1001 / 1-21-1003, session-laws 2025+2026` **0** *(currency, anchored)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `just cause` **25** *(none a tenancy provision; multi-word known positive)* · `relocation assistance` **12** *(Title 16 agency act only; multi-word known positive)* · `rental agreement` **37** *(multi-word known positive)*
+
+**`parking-rules-notice`** (Absent) — `\btow(ed\|ing)?\b` **130** *(word-bounded; 104 Title 31)* · `towing` **67** *(gerund)* · `(sign\|signage\|posted).{0,140}\btow(ed\|ing)?\b` **5** *(proximity order A, word-bounded; none a signage requirement)* · `\btow(ed\|ing)?\b.{0,140}(sign\|signage\|posted)` **6** *(proximity order B, word-bounded)* · `tow.{0,140}(sign\|signage\|posted)` **158** *(SEARCH TRAP — unbounded 'tow' matches 'town'; discarded)* · `immobiliz` **0** *(booting term)* · `boot(ed\|ing)?\b` **0** *(everyday term)* · `parking` **84** *(subject term; 4 in Title 1, none landlord-tenant)* · `parking (space\|lot\|area\|rules)` **26** *(compound; none landlord-tenant)* · `abandoned (motor )?vehicle` **31** *(statute's own term)* · `private property.{0,120}(tow\|vehicle)` **6** *(proximity order A)* · `(tow\|vehicle).{0,120}private property` **12** *(proximity order B)* · `(handicap\|disab\|accessible).{0,80}parking` **10** *(accessible parking)* · `cite 31-5-111 / 31-13-109 session-laws` **0** *(currency, anchored)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `towing and recovery service` **15** *(multi-word known positive)*
+
+**`part5-nonwaivable`** (Absent) — `shall not be waived` **5** *(corpus-wide; exactly 1 in Title 1 = § 1-21-1304)* · `may not be waived` **3** *(corpus-wide; 1 in Title 1 = § 1-16-607(a), excluded)* · `void as (contrary to\|against) public policy` **0** *(the URLTA/Colorado formulation — absent)* · `contrary to public policy` **5** *(corpus-wide; 0 in Title 1)* · `unenforceable` **46** *(corpus-wide; 0 in Title 1)* · `waive` **882** *(term count proving the engine finds waiver language freely (35 in Title 1))*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `explicit written agreement` **1** *(multi-word known positive — the § 1-21-1202(d) phrase)*
+
+**`pest-control-notice`** (Absent) — `fumigat` **0** *(term — the treatment a notice statute would name)* · `vermin` **0** *(term — the older habitability vocabulary)* · `bed bug` **0** *(term — multi-word, the commonest modern trigger)* · `structural pest` **0** *(term — the California licensing category)* · `exterminat` **2** *(term — both Title 11 agriculture, excluded)* · `pest control` **28** *(term — ZERO in Title 1; all weed-and-pest districts, taxation and 2026 appropriations; excluded)* · `\bpests?\b` **124** *(term, word-bounded, singular and plural — none in Title 1)* · `rodent` **15** *(term — Titles 11 and 35 only)* · `insect` **59** *(term — none in Title 1)* · `pesticide.{0,200}notif` **5** *(proximity, order 1 — all read: §§ 35-7-358, 35-7-374(c), 35-7-375)* · `notif.{0,200}pesticide` **4** *(proximity, REVERSE order — same sections)* · `pesticide.{0,200}\bnotice` **1** *(proximity, order 1, alternate noun)* · `\bnotice.{0,200}pesticide` **2** *(proximity, REVERSE order)* · `pesticide.{0,150}(occupant\|tenant\|resident\|dwelling)` **1** *(proximity, order 1 — read; § 35-7-360(c)-(d), nonresident applicator licensing, excluded)* · `(occupant\|tenant\|resident\|dwelling).{0,150}pesticide` **1** *(proximity, REVERSE order — same hit, excluded)* · `cite 35-7-374 / 35-7-375 / 35-7-354 / 1-21-1203, session-laws 2025 and 2026` **0** *(currency, anchored — 0 anchored and 0 unanchored for each)*
+  
+**control** `zxqvwomble` **0** *(NONSENSE CONTROL — engine reports true empties)*  ·  **known positive** `commercial applicator` **8** *(KNOWN POSITIVE, multi-word — all 8 in Title 35)* · `pesticide` **130** *(KNOWN POSITIVE — 111 in Title 35, so the residential zero is real)*
+
+**`pet-eviction-fact-sheet`** (Absent) — `fact sheet` **0** *(corpus-wide (fixed harness))* · `factsheet` **0** *(corpus-wide, closed-up variant)* · `\bpets\b` **5** *(corpus-wide plural, word boundary - all inspected, none landlord-tenant)* · `pet deposit` **0** *(corpus-wide (fixed harness))* · `companion animal` **0** *(corpus-wide (fixed harness))* · `disclos` **20** *(Title 1 - the Act's only disclosure is 1-21-1207, not pet-specific)* · `written disclosure` **0** *(Title 1 (fixed harness))* · `fact sheet` **0** *(currency - session-laws/2025 and /2026 both 0)* · `assistance animal` **16** *(currency - hits in session-laws/2025/SF0147, inspected; already codified)*
+  
+**control** `zxqvwomble` **0** *(nonsense control - engine reports true empties)*  ·  **known positive** `\bpet\b` **22** *(corpus-wide, word boundary - all inspected, Titles 6, 11, 27, 35; none landlord-tenant. Also the known positive for this shape)* · `assistance animal` **16** *(corpus-wide positive - Title 35 and 2025 SF0147; located 35-13-201(c), outside Title 1)* · `service animal` **14** *(corpus-wide positive, Title 35 and SF0147)* · `emotional support` **2** *(corpus-wide positive - inside the 35-13-205(a)(iv) definition)* · `residential rental unit` **23** *(known positive (fixed harness))* · `Condominium Ownership Act` **1** *(known positive, line-wrap regression check)*
+
+**`plain-language`** (Absent) — `plain language (whole corpus)` **2** *(both read; insurance and tax, not contracts)* · `plain English (whole corpus)` **0** *(everyday variant)* · `consumer contract (whole corpus)` **0** *(statute's likely term)* · `common everyday (whole corpus)` **0** *(Plain Language Contract Act phrasing)* · `Flesch (whole corpus)` **0** *(readability-score term)* · `readability (whole corpus)` **1** *(Title 26 insurance only)* · `readable (whole corpus)` **12** *(Title 1 = 0)* · `clear and conspicuous (whole corpus)` **17** *(Title 1 = 0)* · `captioned (whole corpus)` **5** *(Title 1 = 1, not a lease)* · `understandable (whole corpus)` **7** *(Title 1 = 0)* · `1-21-120 (session-laws 2025+2026)` **0** *(currency check)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `legible (whole corpus)` **36** *(known positive — format rules match where they exist)* · `type size\|point type (whole corpus)` **14** *(known positive — Title 1 = 0)*
+
+**`plain-language-consumer-statement`** (Absent) — `plain language` **2** *(core term - Titles 26 and 39, neither about leases or consumer contracts)* · `plain English` **0** *(everyday variant)* · `[Ff]lesch` **0** *(the readability test other states name)* · `clear and coherent` **0** *(the statutory standard other states use)* · `everyday words` **0** *(the statutory standard other states use)* · `readab` **13** *(stem - no hit imposes readability on a lease or consumer contract)* · `understandable` **7** *(everyday term - none about leases)* · `construed against` **0** *(no statutory contra proferentem rule)* · `ambiguit` **3** *(Titles 9 and 34 - no lease construction rule)* · `40-12-10 (session laws)` **0** *(currency - 0 in session-laws/2025 and /2026)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `readab (Title 26)` **1** *(known positive - located § 26-22-105(h), proving Wyoming does impose readability standards elsewhere and the pattern shape finds them)* · `[Cc]onsumer [Pp]rotection [Aa]ct` **3** · `40-12-10` **26** *(known positive - located the Wyoming Consumer Protection Act)* · `deceptive trade practice` **18** · `\bmerchandise\b` **89** *(known positive - 43 in Title 40)*
+
+**`political-access`** (Absent) — `political sign` **0** *(exact term - absent)* · `political literature` **0** *(variant - absent)* · `apartment\|multiple.unit\|door to door\|door.to.door (scoped title22)` **0** *(election code never mentions residential buildings)* · `solicit.*tenant\|tenant.*solicit` **18** *(proximity, both word orders - none about political access)* · `campaign material` **4** *(term - all Title 22, public property only)* · `free speech\|freedom of speech` **4** *(term - none imposing a private duty)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `canvass` **164** *(known positive - election canvassing boards)* · `petition.*circulat\|circulat.*petition` **29** *(known positive - pattern shape matches)*
+
+**`portable-cooling-device`** (Absent) — `air conditioning\|air-conditioning\|air conditioner` **7** *(Titles 9, 16, 26, 34, 35, 39 and 2025 HB0086; the Title 34 hit is the Condominium Ownership Act common-elements definition)* · `cooling` **4** *(Titles 30, 35, 40 — 0 in Title 1)* · `swamp cooler\|evaporative cool` **0** *(regional term variant)* · `window unit` **0** *(everyday term)* · `extreme heat\|excessive heat` **0** *(no heat-emergency rule)* · `maximum temperature\|minimum temperature` **0** *(no temperature standard of any kind)* · `portable (title01)` **0** *(scoped)* · `portable\|cooling\|air condition (title34)` **6** *(scoped — all condominium or unrelated)* · `1-21-120 (session-laws)` **0** *(currency)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `portable` **143** *(known positive corpus-wide — but 0 in Title 1)* · `residential rental unit (title01)` **23**
+
+**`portable-solar`** (Absent) — `solar.{0,100}(lease\|tenant\|renter)` **0** *(proximity, order A)* · `(lease\|tenant\|renter).{0,100}solar` **0** *(proximity, order B)* · `covenant.{0,150}solar` **0** *(proximity, order A — no anti-restriction provision)* · `solar.{0,150}covenant` **0** *(proximity, order B)* · `solar easement` **0** *(term)* · `restrict.{0,100}solar` **3** *(proximity — all Wyo. Stat. § 34-22-104's own access restrictions)* · `plug-in` **16** *(the Virginia/Vermont term — all electric-vehicle and tax, none solar)* · `photovoltaic` **1** *(term — Wyo. Stat. § 34-22-102(a)(i)(D))* · `solar energy system` **2** *(term — both Wyo. Stat. § 34-22-105(a))* · `solar` **99** *(root term — 0 in Title 1)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `net metering` **8** *(known positive — locates Wyo. Stat. §§ 37-16-101 to 37-16-104)*
+
+**`possession-bond`** (Absent) — `possession bond` **0** *(the Tennessee/Texas term)* · `bond for possession` **0** *(word-order variant)* · `bond to obtain possession` **0** *(variant)* · `landlord.{0,200}bond (title01)` **0** *(DECISIVE proximity, order 1)* · `bond.{0,200}landlord (title01)` **0** *(DECISIVE proximity, order 2)* · `plaintiff.{0,200}bond (title01)` **20** *(proximity, order 1 — inspected; general provisional-remedy bonds, none in the FED article)* · `bond.{0,200}plaintiff (title01)` **12** *(proximity, order 2 — same)* · `bond.{0,150}restitution` **2** *(proximity, order 1 — Title 40, excluded)* · `restitution.{0,150}bond` **2** *(proximity, order 2 — Title 40, excluded)* · `immediate possession` **1** *(term — read and excluded, eminent domain in Title 1 ch. 26)* · `writ of possession` **4** *(term — Title 1 only)* · `supersedeas` **3** *(term — Titles 1 and 27, none in the FED article)* · `undertaking` **129** *(bond synonym — present and findable corpus-wide, none in the FED article)* · `1-21-1007 / -1012 / -1013 / -1014 / -1015 (session-laws)` **0** *(currency — 0 each across 2025 and 2026)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `Condominium Ownership Act` **1** *(multi-word known positive — phrase matching survives PDF line wraps)* · `writ of restitution` **6** *(second multi-word known positive, inside Title 1, the title searched)*
+
+**`promises-to-repair`** (Absent) — `promise.{0,30}repair` **0** *(proximity, order 1)* · `repair.{0,30}promise` **0** *(proximity, order 2)* · `agrees? to (clean\|repair\|improve)` **0** *(singular and plural, three verbs)* · `before.{0,30}rental agreement is signed` **0** *(uses Wyoming's term, not 'lease')* · `prior to.{0,40}sign` **22** *(eleven titles, none a repair-promise rule)* · `in writing.{0,60}repair` **1** *(Title 40 cure definition)* · `repair.{0,60}in writing` **0** *(reverse order)* · `cite 40-12-102 / 40-12-105 / 40-12-108 / 40-12-109 / 1-23-105, session-laws 2025+2026` **0** *(currency, anchored)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `completion date` **6** *(none a tenancy provision; multi-word known positive)* · `rental agreement` **37** *(multi-word known positive)*
+
+**`prop65-rental-warning`** (Absent) — `carcinogen` **3** *(Prop 65 core term; all occupational-disease or cleanup standards)* · `reproductive (harm\|toxic)` **0** *(Prop 65 core term, both forms)* · `known to the state` **0** *(Prop 65 warning phrase)* · `chemical.{0,100}warning` **0** *(proximity order A)* · `warning.{0,100}chemical` **0** *(proximity order B)* · `birth defects` **0** *(warning language)* · `toxic substance` **5** *(alternative term; none a housing warning)* · `hazardous substance.{0,120}(dwelling\|tenan\|rent)` **0** *(proximity to housing)* · `lead.?based paint` **0** *(both spellings; no state lead rule)* · `\bradon\b` **0** *(word-bounded)* · `mold` **8** *(none a housing standard)* · `methamphetamine.{0,120}(propert\|dwelling\|contaminat)` **2** *(both § 6-4-405, criminal)* · `\basbestos\b` **21** *(all §§ 1-1-131 et seq. successor liability)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `toxic substance` **5** *(multi-word known positive)*
+
+**`property-tax-rent-disclosure`** (Absent) — `property tax.{0,250}(rent\|renter\|tenant\|lease)` **11** *(proximity order 1; all inspected and excluded)* · `(rent\|renter\|tenant\|lease).{0,250}property tax` **9** *(proximity order 2; all inspected and excluded)* · `portion of rent` **0** *(the phrase such a statute would use)* · `rent constituting property tax` **0** *(circuit-breaker phrasing)* · `certificate of rent paid` **0** *(renter-credit phrasing)* · `renter.{0,150}(credit\|refund\|rebate)` **3** *(all deposit or prorated-rent refunds in Title 1)* · `39-13-107 (anchored cite, session-laws/2025 and /2026)` **1** *(currency check — the single 2025 hit is a cross-reference in HB0038 amending § 39-13-108(c)(ii)(B), not an amendment to § 39-13-107)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `property tax` **164** *(multi-word known positive)* · `ad valorem` **216** *(multi-word known positive)*
+
+**`protected-class-inquiry-ban`** (Absent) — `inquir [title40]` **3** *(root form; all read, none in the fair housing chapter)* · `elicit [title40]` **0** *(model-act verb)* · `record or file.{0,80}(race\|color\|religion) [title40]` **0** *(proximity, order A)* · `(race\|color\|religion).{0,80}(record\|file\|inquiry) [title40]` **0** *(proximity, REVERSE order)* · `written or oral inquiry [title40]` **0** *(model-act phrase)* · `make any (written or oral )?inquiry` **0** *(corpus-wide)* · `inquiry.{0,80}(race\|color\|religion\|disabilit)` **1** *(corpus-wide order A — Title 28 subpoena, read)* · `(race\|color\|religion\|disabilit).{0,80}inquiry` **0** *(corpus-wide REVERSE order)* · `shall not (ask\|inquire\|require).{0,100}(race\|color\|religion\|disabilit\|national origin)` **0** *(corpus-wide)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `application form [title40]` **5** *(multi-word known positive)*
+
+**`recycling-notice`** (Absent) — `recycl` **0** *(Title 1 - no recycling term in the landlord-tenant law)* · `recycling notice` **0** *(corpus-wide phrase (fixed harness))* · `refuse collection` **0** *(corpus-wide phrase (fixed harness))* · `notify .{0,60}recycl` **0** *(corpus-wide proximity with the likely verb)* · `recycl\w*(?:.\|\n){0,160}(tenan\|renter\|landlord\|rental\|dwelling\|lease)` **0** *(proximity order A, newline-crossing)* · `(tenan\|renter\|landlord\|rental\|dwelling\|lease)(?:.\|\n){0,160}recycl` **3** *(proximity order B - all inspected, Title 30 oil and gas, 'lease' = oil and gas lease)* · `composting` **6** *(corpus-wide - Title 35 only, facility rules)* · `waste diversion` **2** *(corpus-wide (fixed harness) - Title 35 only)* · `solid waste` **284** *(corpus-wide (fixed harness) - facility permitting and local government, no landlord duty)* · `garbage` **2** *(Title 1 - exactly 1-21-1204(a)(ii) and (a)(viii))* · `recycl` **0** *(currency - session-laws/2025 and /2026 both 0)*
+  
+**control** `zxqvwomble` **0** *(nonsense control - engine reports true empties)*  ·  **known positive** `recycl` **33** *(known positive corpus-wide - Title99 and Titles 27, 30, 31, 35; the word exists, just not in Title 1)* · `garbage` **30** *(known positive corpus-wide, eight titles)* · `waste` **12** *(Title 1, known positive)* · `residential rental unit` **23** *(known positive (fixed harness))* · `Condominium Ownership Act` **1** *(known positive, line-wrap regression check)*
+
+**`redemption`** (Absent) — `redemption` **50** *(Title 1 only; every hit mapped to a section, all in ch. 15, 17, 18 execution/sale redemption)* · `redeem` **12** *(Title 1 only; same chapters)* · `right of redemption` **4** *(all Title 1 ch. 18)* · `redeem[^.]{0,200}(tenan\|renter\|lease\|possession)` **1** *(proximity order 1; Title 34 tax deeds)* · `(tenan\|renter)[^.]{0,200}redeem` **0** *(proximity order 2)* · `reinstate[^.]{0,150}(lease\|tenancy\|rental)` **0** *(alternate term)* · `pay(ment)? of (all )?rent[^.]{0,150}(before\|prior to\|restitution)` **0** *(redemption-by-payment phrasing)* · `partial payment[^.]{0,200}rent` **0** *(reservation-wording rule absent)* · `cure[^.]{0,150}(default\|nonpayment\|breach)` **31** *(0 in Title 1)* · `waive[rd]?[^.]{0,150}(forfeiture\|acceptance of rent)` **1** *(Title 35, off point)* · `accept\w*[^.]{0,150}rent[^.]{0,100}waiv` **0** *(waiver rule not codified)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `writ of restitution` **6** *(known positive, multi-word)* · `forcible entry and detainer` **5** *(known positive, multi-word)*
+
+**`religious-cultural-display`** (Absent) — `mezuzah (whole corpus)` **0** *(statute's own term elsewhere)* · `doorpost (whole corpus)` **0** *(everyday term)* · `(religious\|cultural).{0,200}(renter\|tenant\|dwelling\|rental unit\|lease) (whole corpus)` **41** *(proximity word order A — none in Title 1; Title 34 hit is a charitable gift)* · `(renter\|tenant\|dwelling\|rental unit\|lease).{0,200}(religious\|cultural) (whole corpus)` **39** *(proximity word order B — none in Title 1)* · `display.{0,150}(dwelling\|rental unit\|renter\|tenant) (whole corpus)` **1** *(Title 16, not landlord-tenant)* · `(dwelling\|rental unit\|renter\|tenant).{0,150}display (whole corpus)` **0** *(reverse order)* · `flag of the United States / United States flag (whole corpus)` **1** *(Title 8 state-flag proportions only — no tenant flag right)* · `40-26-1 / 1-21-120 (session-laws 2025+2026)` **0** *(currency check)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `religious (whole corpus)` **258** *(known positive — term matches across 27 titles)* · `display (whole corpus)` **424**
+
+**`rent-concession`** (Absent) — `concession` **11** *(core term - Titles 35/36 and SF0001, all vendor stands or state-land leases)* · `free rent` **0** *(everyday term)* · `rent (discount\|credit\|rebate\|abatement)` **0** *(proximity, order A)* · `(discount\|credit\|rebate\|abatement).{0,120}\brent\b` **0** *(proximity, order B, word boundary on short word)* · `net effective` **8** *(advertising-disclosure angle - Titles 15 and 21, tax and school funding yields)* · `inducement.{0,150}(lease\|rent)` **1** *(Title 40, not a concession rule)* · `liquidated damages` **14** *(clawback-characterization angle - the 2 Title 1 hits are garnishment and structured settlements)* · `penalty.{0,150}(lease\|rent\|tenant)` **20** *(clawback-characterization angle - the 2 Title 1 hits are structured settlements)* · `1-21-12` **0** *(currency - 0 in session-laws/2025 and /2026)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `\brent\b` **27** *(known positive, Title 01)*
+
+**`rent-control`** (Absent) — `rent control` **0** *(exact term - absent in both directions)* · `rent stabiliz` **0** *(stem, catches stabilization/stabilizing - absent)* · `maximum rent` **0** *(variant - absent)* · `rent increase` **0** *(everyday term - absent, no notice rule either)* · `price gouging` **0** *(emergency price term - absent)* · `excessive price\|unconscionable price` **0** *(variants - absent)* · `rental registration / rental license / landlord registr` **0** *(no statewide program and no limit on local ones)* · `moratorium` **7** *(term - Titles 26, 35, 42, none rental)* · `preempt` **72** *(reviewed by title - nearest are § 15-1-130, § 35-9-810, § 35-12; none rental)* · `preempt (session-laws/2025 + /2026)` **7** *(currency - credentialing, firearms, wildfire plans, sales tax; none rental)*
+  
+**control** `emergency.*price\|price.*emergency` **30** *(proximity, both word orders - none a rent or housing price control)* · `zxqvwomble` **0**  ·  **known positive** `local affairs` **2** *(known positive - Wyo. Const. art. 13, § 1(b) home rule)*
+
+**`rent-demand-bar`** (Absent) — `rent escrow` **0** *(term)* · `repair and deduct` **0** *(term)* · `abate.{0,80}rent` **0** *(proximity order 1)* · `rent.{0,80}abate` **0** *(proximity order 2)* · `unfit for human habitation` **0** *(term)* · `may not (demand\|collect).{0,60}rent` **0** *(statute's likely verbs)* · `(demand\|collect).{0,60}rent.{0,60}prohibit` **0** *(proximity)* · `rental registration` **0** *(term)* · `withhold.{0,80}rent` **9** *(proximity order 1 - Title 1 hit is 'withhold consent to enter')* · `rent.{0,80}withhold` **5** *(proximity order 2 - child support and school funding only)* · `deduct.{0,80}rent` **4** *(Title 1 hit is § 1-32-213 occupying claimant)* · `certificate of occupancy` **7** *(all read; § 35-9-108, no rent consequence)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `rent improperly retained or collected` **present at § 1-21-1206(c)**
+
+**`rent-escalation`** (Tagged) — `rent increase\|increase in rent\|increase the rent` **0** *(all three phrasings, corpus-wide)* · `maximum rent` **0** *(no rent ceiling)* · `escalat` **13** *(Titles 9, 15, 35, 39 and 2025 HB0086 — none landlord-tenant)* · `notice of.{0,30}increase` **2** *(proximity — Titles 13 and 26 only)* · `retaliat (title01 / title34 / title40)` **0** *(scoped — no landlord-retaliation statute anywhere it could live)* · `coerce\|intimidat\|interfere (title40)` **10** *(located § 40-26-144, the only interference protection a Wyoming tenant has)* · `1-21-120 (session-laws)` **0** *(currency)* · `landlord\|renter (session-laws/2026)` **0** *(currency)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `retaliat` **32** *(known positive corpus-wide — but 0 in Title 1, 0 in Title 34, 0 in Title 40; the Title 35 hit is § 35-2-1306(a), long-term care electronic monitoring)* · `consumer price index` **9** *(known positive for multi-word phrase — none tied to rent)*
+
+**`rent-installments`** (Tagged) — `rent is due` **0** *(statute's own likely words)* · `periodic rent` **0** *(term)* · `when rent is payable` **0** *(the Rhode Island formulation)* · `rent shall be payable` **0** *(variant phrasing)* · `installment` **287** *(root term — only 5 in Title 1, none about rent)* · `equal monthly installments` **10** *(the default-rule formulation — none in Title 1, none about rent)* · `partial payment` **20** *(term — 7 in Title 1, all non-rent (§§ 1-1-108, 1-3-119, 1-40-113, judgment satisfaction))* · `rent.{0,80}install` **9** *(proximity — Titles 13, 31, 35, 40; none residential)* · `apportioned` **113** *(the day-by-day apportionment shape — only 1 in Title 1, not a rent rule)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `three \(3\) days after it is due` **1** *(known positive, parentheses escaped — Wyo. Stat. § 1-21-1002(a)(i))*
+
+**`rent-receipts`** (Absent) — `rent receipt` **0** *(multi-word term)* · `presum[^.]{0,60}paid` **0** *(the PR/Guam presumption)* · `presumption of payment` **0** *(term of art)* · `receipt[^.]{0,50}rent` **7** *(proximity, order A - T1 x2 excluded, both 'after receipt of' a notice)* · `rent[^.]{0,50}receipt` **11** *(proximity, order B - same exclusion)* · `written receipt` **3** *(excluded - T14, § 34-13-121 custodial property, 2026 SF0010)* · `cash payment` **8** *(none landlord-tenant)* · `acquittance` **5** *(archaic term, none landlord-tenant)* · `legal tender` **23** *(no rent payment-method rule)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `money order` **27** *(KNOWN POSITIVE, multi-word; no rent rule)* · `receipt for` **55** *(KNOWN POSITIVE, multi-word, 22 documents)*
+
+**`rent-reporting`** (Absent) — `rent reporting` **1** *(Title 9, mineral royalty reporting; not tenancy)* · `credit reporting agency` **0** *(everyday term)* · `credit bureau` **0** *(everyday term)* · `positive rent` **0** *(CA/MD statutory term)* · `rental payment.{0,60}report` **0** *(proximity, order 1)* · `report.{0,60}rental payment` **0** *(proximity, order 2)* · `cite 40-12-501 / 40-12-502 / 40-12-505, session-laws 2025+2026` **0** *(currency, anchored)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `consumer reporting agency` **54** *(statutory term; none regulates landlord reporting; multi-word known positive)* · `tenant screening` **2** *(both § 40-12-505 exceptions; multi-word known positive)*
+
+**`rental-inspection`** (Absent) — `rental inspection` **0** *(exact program term)* · `housing inspector` **0** *(the official such a statute would name)* · `administrative warrant` **0** *(the entry mechanism such a statute would use)* · `rental (licen\|registr)` **0** *(no rental licensing or registration)* · `landlord (licen\|registr)` **0** *(role-based variant)* · `inspect.{0,200}(dwelling\|rental\|residential)` **10** *(proximity order 1; all inspected and excluded)* · `(dwelling\|rental\|residential).{0,200}inspect` **3** *(proximity order 2; all inspected and excluded)* · `certificate of occupancy` **7** *(none is a periodic rental requirement)* · `right of entry` **10** *(none is a housing inspector's entry right)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `health officer` **158** *(multi-word known positive)*
+
+**`renters-insurance-rules`** (Absent) — `renter.s insurance` **0** *(everyday term, apostrophe both ways)* · `force.?placed\|forced place` **0** *(term of art, both spellings)* · `tenant.{0,40}insurance` **1** *(proximity, order A — Title 2 probate, read)* · `insurance.{0,40}tenant` **0** *(proximity, REVERSE order)* · `liability insurance.{0,80}(lease\|rental\|dwelling)` **4** *(order A — all rental-car / mechanical breakdown, read)* · `(lease\|rental\|dwelling).{0,80}liability insurance` **1** *(REVERSE order — same, read)* · `homeowner.?s? insurance\|renters policy\|tenant homeowners` **5** *(all §§ 26-23-106/107, owner-side, read)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `insurable interest` **27** *(multi-word known positive)* · `sell, solicit or negotiate` **7** *(multi-word known positive — § 26-9-203)*
+
+**`repair-escrow-exemption-notice`** (Absent) — `repair and deduct` **0** *(term, multi-word — the remedy's own name)* · `escrow` **198** *(term — 19 in Title 1, sampled and read: structured settlements and § 1-40-303 crime-profits escrow; no housing escrow)* · `four \(4\) or fewer` **0** *(term — Wyoming's number style, parentheses escaped)* · `three \(3\) or fewer` **1** *(term — Title 17 only; no unit-count exemption in housing)* · `withhold.{0,80}rent` **9** *(proximity, order 1 — sole Title 1 hit is § 1-21-1205(a)(iii) 'withhold consent to enter'; excluded)* · `rent.{0,80}withhold` **5** *(proximity, REVERSE order — Titles 20 and 21 only)* · `deduct.{0,120}(repair\|rent)` **7** *(proximity, order 1 — Title 1 hits are the §§ 1-21-1207/1208 deposit provisions; excluded)* · `(repair\|rent).{0,120}deduct` **11** *(proximity, REVERSE order — same, plus § 1-32-209 occupying claimant)* · `\bexempt.{0,120}(dwelling unit\|rental unit)` **0** *(proximity, order 1 — the exemption a notice would announce)* · `(dwelling unit\|rental unit).{0,120}\bexempt` **0** *(proximity, REVERSE order)* · `cite 1-21-1202 / 1-21-1203 / 1-21-1206, session-laws 2025 and 2026` **0** *(currency, anchored — 0 anchored and 0 unanchored for each)*
+  
+**control** `zxqvwomble` **0** *(NONSENSE CONTROL — engine reports true empties)*  ·  **known positive** `notice to repair or correct condition` **1** *(KNOWN POSITIVE, multi-word (six words) — the exact § 1-21-1206(b) wording)* · `due diligence` **30** *(KNOWN POSITIVE, multi-word — 6 in Title 1, including § 1-21-1206(c))*
+
+**`rights-responsibilities-guide`** (Absent) — `pamphlet (Title 1)` **0** *(term)* · `brochure (Title 1)` **0** *(everyday term)* · `handbook (Title 1)` **0** *(everyday term)* · `rights and responsibilities (Title 1)` **0** *(topic phrase)* · `summary of (the )?(act\|law\|rights) (Title 1)` **0** *(alternate phrasing)* · `informational (booklet\|statement\|packet) (Title 1)` **0** *(alternate phrasing)* · `1-21-120 / 40-26-1 (session-laws 2025+2026)` **0** *(currency check)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `pamphlet (whole corpus)` **19** *(known positive — term matches across 10 titles)* · `rights and responsibilities (whole corpus)` **20** *(known positive — Title 40 hit is § 40-26-114, a duty on the agency)*
+
+**`sanitary-code-variance`** (Absent) — `sanitary code` **0** *(exact term - absent, no state sanitary code)* · `housing code` **0** *(synonym - absent)* · `health code` **0** *(synonym - absent)* · `minimum standards.*housing\|housing.*minimum standards` **11** *(proximity, both word orders - none a dwelling sanitary standard)* · `waiver.*code\|code.*waiver` **37** *(proximity, both word orders - no tenant-disclosure duty)* · `1-21-120 (session-laws/2025 + /2026)` **0** *(currency - no 2025 or 2026 act)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `variance` **94** *(known positive - 55 in Title 35; § 35-9-106(c) and § 35-9-121(d) grant variances)* · `building code` **20** · `fire code` **6**
+
+**`security-deposit-interest`** (Absent) — `interest on.{0,60}deposit` **8** *(proximity, order A — Title 1 hit is structured settlements)* · `deposit.{0,60}interest` **113** *(proximity, order B — Title 1 hits are § 1-21-1211(b) and eminent domain)* · `accrued interest` **71** *(term — none in Title 1)* · `escrow account` **49** *(term — Title 1 hits are structured settlements and eminent domain)* · `federally insured` **12** *(the North Dakota requirement — none in Title 1)* · `passbook` **3** *(rate-benchmark term — none in Title 1)* · `prevailing rate` **5** *(rate-benchmark term — none in Title 1)* · `Federal Reserve` **47** *(defunct-federal-body check — none in Title 1, so no stale peg)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `without interest` **19** *(known positive and express negative — Wyo. Stat. § 1-21-1208(a))* · `ten percent \(10%\) per annum` **14** *(known positive, metacharacters escaped — locates Wyo. Stat. § 1-21-1211(b))*
+
+**`security-devices`** (Absent) — `deadbolt` **0** *(closed-compound form)* · `dead bolt` **0** *(spaced form)* · `peephole` **0** *(everyday term)* · `door viewer` **0** *(the statutory term in other states)* · `keyless` **0** *(Texas statutory term)* · `rekey` **0** *(closed form)* · `re-key` **0** *(hyphenated form)* · `window latch` **0** *(term)* · `sliding door` **0** *(term)* · `change the lock` **0** *(verb phrase, singular)* · `changing the lock` **0** *(gerund form)* · `lock.{0,150}(tenant\|renter)` **0** *(proximity, order 1, word boundary on short word)* · `(tenant\|renter).{0,150}lock\b` **0** *(proximity, order 2, word boundary)* · `door.{0,150}(tenant\|renter)` **0** *(proximity)* · `security device` **23** *(term — all read, all financial surety devices (§ 40-22-106, Title 16 loan collateral), excluded)* · `lock` **462** *(root word — plainly findable corpus-wide)* · `locks` **29** *(plural — the single Title 1 hit is § 1-21-1403)* · `latch` **1** *(Title 35, unrelated)* · `1-21-1203 / -1303 / -1304 / -1403 (session-laws)` **0** *(currency — 0 each across 2025 and 2026)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `Condominium Ownership Act` **1** *(multi-word known positive — phrase matching survives PDF line wraps)* · `exterior door` **2** *(second multi-word positive — phrase found (columbarium standards), so device phrases of this shape are findable)*
+
+**`senior-housing-work-card`** (Absent) — `work card` **0** *(Nevada statute's own term)* · `sheriff.s card` **0** *(both apostrophe forms)* · `senior housing` **0** *(everyday term)* · `age-restricted` **0** *(everyday term)* · `55 or older` **0** *(numeral style)* · `housing for older persons` **0** *(federal phrase - WY says 'housing for elderly')* · `work permit` **1** *(Title 35 only, excluded)* · `older persons` **1** *(§ 40-12-111 HEADING only - excluded as heading, section then read in full)* · `fifty-five \(55\)` **18** *(statute's number style, parens escaped - T40 x4 are § 40-26-112)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `background check` **97** *(KNOWN POSITIVE, multi-word, 12 docs - none reaches rental staff)* · `criminal history` **230** *(KNOWN POSITIVE, multi-word, 17 docs)* · `fingerprint` **141** *(KNOWN POSITIVE, 16 docs)*
+
+**`sex-offender-disclosure`** (Absent) — `sex offender\|sexual offender` **47** *(term, both forms)* · `registry.{0,100}(disclos\|landlord\|lessor\|rent)` **5** *(proximity, order A — all read)* · `(disclos\|landlord\|lessor\|rent).{0,100}registry` **10** *(proximity, REVERSE order — all read)* · `no duty to disclose\|not required to disclose` **3** *(Titles 2 and 3 only)* · `residency restriction` **0** *(TRAP — Wyoming does not use this phrase; the rule exists)* · `shall not reside.{0,120}(school\|day care\|park)` **0** *(proximity, order A — assumed verb, wrong)* · `(school\|day care\|park).{0,120}shall not reside` **0** *(proximity, REVERSE order)* · `within one thousand` **12** *(subject search that FOUND § 6-2-320)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `sex offender` **44** *(KNOWN POSITIVE (multi-word), 44 hits corpus-wide: proves phrase matching works for this subject across the corpus's PDF line wraps, so the zero results above are true empties rather than the wrap defect fixed 2026-10-24. (Count corrected from a mistyped 86 on the same day it was added.))* · `Wyoming Fair Housing Act` **1** *(KNOWN POSITIVE (multi-word, line-wrap regression check))*
+
+**`sfr-occupancy-disclosure`** (Absent) — `single-family` **0** *(corpus-wide, hyphenated variant)* · `single family` **0** *(Title 1 and Title 34 both 0 (fixed harness))* · `one-family` **0** *(corpus-wide - Wyoming writes it 'one (1) and two (2) family dwellings')* · `single family residence` **1** *(corpus-wide - Title 26 insurance only (fixed harness))* · `single family dwelling` **5** *(corpus-wide - Titles 39, 42 and 2025 SF0069, all taxation (fixed harness))* · `family dwelling` **10** *(corpus-wide (fixed harness) - none a lease disclosure)* · `occupancy limit` **0** *(corpus-wide (fixed harness))* · `maximum occupancy` **0** *(corpus-wide (fixed harness))* · `occupancy standard` **0** *(corpus-wide (fixed harness))* · `persons per bedroom` **0** *(corpus-wide (fixed harness))* · `first page` **0** *(Title 1 (fixed harness) - no placement rule)* · `top of the first page` **0** *(corpus-wide (fixed harness))* · `larger than any other` **0** *(corpus-wide (fixed harness) - no relative font rule)* · `point type` **0** *(Title 1 (fixed harness))* · `bold type` **1** *(Title 1 - 1-16-603 structured settlements, inspected)*
+  
+**control** `zxqvwomble` **0** *(nonsense control - engine reports true empties)*  ·  **known positive** `single family` **37** *(known positive corpus-wide, eight-plus titles - the phrase exists, just not in the housing titles)* · `number of occupants` **3** *(corpus-wide positive - one is Title 1, exactly 1-21-1204(a)(v))* · `font` **26** *(known positive corpus-wide - none in Title 1 or Title 34)* · `type size` **9** *(known positive corpus-wide (fixed harness) - none in Title 1 or 34)* · `capital letters` **19** *(known positive corpus-wide (fixed harness) - none a lease rule)* · `residential rental unit` **23** *(known positive (fixed harness))* · `Condominium Ownership Act` **1** *(known positive, line-wrap regression check)*
+
+**`shoreline-access-disclosure`** (Absent) — `shoreline` **2** *(both Title 18 county boundary descriptions)* · `shore line` **0** *(two-word variant)* · `\bshore\b` **2** *(word boundary on a short word; Titles 40, 41)* · `beach` **0** *(everyday term)* · `waterfront` **1** *(Title 15, unrelated)* · `littoral` **0** *(legal term)* · `coastal` **0** *(legal term)* · `lakeshore` **0** *(everyday term)* · `riparian` **7** *(all the subdivision no-riparian-rights statement)* · `navigable` **5** *(no disclosure duty)* · `public access[^.]{0,200}(water\|lake\|river\|stream)` **0** *(proximity)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `residential rental unit` **23** *(known positive, multi-word)* · `\bdisclos` **1260**
+
+**`showing-notice-waiver`** (Tagged) — `showing (Title 1)` **22** *(term — the only Art. 12 use is 1-21-1205(a)(iii)'s 'showing the unit for rent or sale')* · `notice (of\|before) entry (Title 1)` **0** *(topic phrase, both prepositions)* · `twenty-four (24) hours (Title 1)` **0** *(statute's own number style)* · `reasonable notice (Title 1)` **8** *(none in Art. 12 — article read in full)* · `enter the residential (Title 1)` **1** *(= 1-21-1205(a)(iii) itself)* · `prospective (tenant\|purchaser\|buyer) (Title 1)` **2** *(both read — equine activities and a foreclosure-sale notice; neither landlord-tenant)* · `separate (written )?(document\|agreement\|addendum) (Title 1)` **1** *(separate-document rule check — not landlord-tenant)* · `initialed (Title 1)` **0** *(separate-signature rule check)* · `waiver (Title 1)` **11** *(none governs an entry or showing notice)* · `self-help\|lockout\|lock out (Title 1)` **0** *(entry-by-force check)* · `1-21-120 / 6-3-303 (session-laws 2025+2026)` **0** *(currency check)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `entry (Title 1)` **65** *(known positive — term matches abundantly)*
+
+**`shutdown-rent-protection`** (Absent) — `\bshutdown\b` **0** *(core term, word boundary)* · `shutdown\|shut down` **3** *(spaced variant - Titles 37 and 41, utility and water facility shutdowns)* · `government shutdown` **0** *(everyday term)* · `lapse in appropriation` **0** *(the statutory phrasing other states use)* · `essential worker` **0** *(adjacent term)* · `federal employee.{0,200}(rent\|lease\|evict)` **0** *(proximity, order A)* · `(rent\|lease\|evict).{0,200}federal employee` **0** *(proximity, order B)* · `moratorium` **7** *(Titles 26/35/42 - no eviction moratorium)* · `state of emergency.{0,250}(rent\|evict\|lease)` **1** *(emergency-rent angle, order A - Title 33 professional licensing)* · `(rent\|evict\|lease).{0,250}state of emergency` **0** *(emergency-rent angle, order B)* · `unemploy.{0,200}(rent\|evict\|tenant)` **6** *(income-interruption angle, order A - none creates a tenancy protection)* · `(rent\|evict\|tenant).{0,200}unemploy` **11** *(income-interruption angle, order B - same)* · `hardship.{0,200}(rent\|evict)` **1** *(hardship angle, order A - Title 19)* · `(rent\|evict).{0,200}hardship` **0** *(hardship angle, order B)* · `furlough` **10** *(the everyday term for the worker's situation - the 2 Title 1 hits are jury-service reinstatement)* · `19-11-12` **0** *(currency - 0 in session-laws/2025 and /2026)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `[Ss]ervicemembers [Cc]ivil [Rr]elief` **5** *(known positive - all Title 19, located § 19-11-122)* · `military.{0,200}(lease\|terminate\|rent)` **36** *(known positive, proximity shape matches widely)*
+
+**`single-family-zone-lease-limit`** (Absent) — `accessory dwelling` **0** *(ADU term - absent corpus-wide)* · `single.family` **37** *(hyphen and space - all property tax, schools, insurance; none a leasing limit)* · `single family residential` **23** *(variant - Title 39 and 2025 SF0069, property tax)* · `owner.occup` **3** *(stem - only a property-tax 'primary residence' definition in 2026 HB0045)* · `short term rental\|short.term rental` **5** *(hyphen and space - § 33-28-102(b)(liv) definition only, no regulation)* · `group home\|community residence\|family care home` **15** *(zoning-protection check - none)* · `zoning.*rent\|rent.*zoning` **17** *(proximity, both word orders - no rental restriction)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `zoning` **95** *(known positive - 37 in Title 18, 11 in Title 15)*
+
+**`smart-access`** (Absent) — `smart lock` **0** *(everyday term)* · `electronic lock` **0** *(term)* · `keyless` **0** *(term)* · `internet of things` **0** *(term)* · `access control` **2** *(both read, neither premises-related)* · `key fob` **2** *(Title 26 insurance)* · `smart (home\|device)` **5** *(all read; 2026 SF0035 is a school cell-phone act)* · `facial recognition` **1** *(Title 32)* · `biometric` **20** *(all read; § 6-3-901(b)(xiii) is the only one reaching a landlord, via § 40-12-501(a)(vii))* · `surveillance` **40** *(Titles 11 and 35, none landlord-tenant)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `breach of the security of the data system` **2**
+
+**`smoke-drift-waiver`** (Absent) — `smoke-free\|smokefree\|smoke free` **0** *(all three spellings)* · `clean indoor air` **0** *(the usual statutory title)* · `secondhand smoke\|second-hand smoke\|environmental tobacco` **0** *(term variants)* · `no smoking\|nonsmoking\|non-smoking` **0** *(everyday term, all hyphenations)* · `[Ss]moking` **7** *(ALL seven in Title 30 — explosives magazines and underground mine workings; none is an indoor-air rule)* · `public place.{0,60}smok\|smok.{0,60}public place` **0** *(proximity, both word orders)* · `[Tt]obacco (title27)` **8** *(§ 27-9-105(a)(iv) off-duty tobacco-use employment protection and the firefighter disease presumption — not a smoking ban)* · `1-21-120 (session-laws)` **0** *(currency)*
+  
+**control** `zxqvwomble` **0** · `[Tt]obacco (title35)` **30** *(Article 15 importation and labelling (§§ 35-7-1501, 35-7-1502) and the controlled-substances carve-out)*  ·  **known positive** `[Tt]obacco` **170** *(known positive — the subject vocabulary is abundant, so the zeros are a real absence)* · `electronic cigarette\|vap` **99**
+
+**`social-security-defense`** (Absent) — `public assistance` **0** *(term, Title 1 scope)* · `government benefit` **0** *(term, Title 1 scope)* · `housing assistance payment` **0** *(term, Title 1 scope; 3 corpus-wide, all programme administration)* · `voucher.{0,100}(rent\|landlord)` **0** *(proximity)* · `pay and stay` **0** *(everyday term)* · `reinstat.{0,120}(tenan\|lease\|rental)` **6** *(proximity — none in Title 1)* · `cure.{0,80}(nonpayment\|rent)` **18** *(proximity — the Title 1 hit is § 1-21-1015 appeal deposits)* · `social security` **2** *(term, Title 1 scope — both garnishment/execution exemption lists)* · `supplemental security income` **2** *(term, Title 1 scope — the same two lists)* · `continuance` **18** *(term, Title 1 scope — only § 1-21-1007 is landlord-tenant, and it runs against the tenant)* · `stay of (execution\|proceedings)` **29** *(term — 19 in Title 1, none a nonpayment stay)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `three \(3\) days after it is due` **1** *(known positive, metacharacters escaped — Wyo. Stat. § 1-21-1002(a)(i))*
+
+**`special-district-representation`** (Absent) — `special district (Title 1)` **3** *(eminent domain 'public entity' definition and two governmental-claims provisions; none landlord-tenant)* · `metropolitan district` **0** *(other states' term for the same thing)* · `special district.{0,150}lease` **2** *(proximity, order 1 - Titles 18 and 41 joint-powers facility leasing, excluded on reading)* · `lease.{0,150}special district` **0** *(proximity, order 2)* · `special district.{0,150}tenant` **0** *(proximity, order 1)* · `tenant.{0,150}special district` **0** *(proximity, order 2)* · `special district.{0,120}renter` **0** *(proximity, order 1, Wyoming's own term for a tenant)* · `renter.{0,120}special district` **0** *(proximity, order 2)* · `improvement district.{0,150}lease` **1** *(proximity, order 1 - Title 9 state property, excluded)* · `lease.{0,150}improvement district` **1** *(proximity, order 2 - same hit)* · `special assessment.{0,120}tenant` **1** *(proximity, order 1 - Title 2 Principal and Income Act, excluded)* · `tenant.{0,120}special assessment` **0** *(proximity, order 2)* · `district.{0,60}disclos` **2** *(proximity, order 1 - Titles 7 and 22, excluded on reading)* · `disclos.{0,60}district` **3** *(proximity, order 2 - Titles 7, 14, 18, excluded on reading)* · `acknowledg.{0,80}district` **4** *(Titles 34, 40, 41 - none a lease recital)* · `special district (session-laws/2025 + /2026)` **19** *(currency check - district legislation present, but all lease/tenant proximity patterns were run corpus-wide including both session-law years and returned 0)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `special district` **304** *(known positive, multi-word - subject richly present across many titles)* · `improvement district` **187** *(known positive, multi-word)* · `special assessment` **115** *(known positive, multi-word)* · `service district` **88** *(known positive, multi-word)*
+
+**`sprinkler-disclosure`** (Absent) — `sprinkler` **10** *(root term — every hit located and classified; none is a disclosure or residential mandate)* · `automatic sprinkler` **0** *(code term of art)* · `fire suppression` **24** *(adjacent term — present and findable, none landlord-facing)* · `standpipe` **1** *(Title99, excluded)* · `sprinkler.{0,250}(tenant\|lease\|rental\|disclos)` **0** *(DECISIVE proximity, order 1)* · `(tenant\|lease\|rental\|disclos).{0,250}sprinkler` **0** *(DECISIVE proximity, order 2)* · `notice.{0,150}sprinkler` **0** *(proximity, order 1, with the disclosure verb)* · `sprinkler.{0,150}notice` **0** *(proximity, order 2)* · `35-9-107 / 35-9-108 / 16-6-501 / 16-6-502 / 1-21-1203 (session-laws)` **0** *(currency — 0 each across 2025 and 2026)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `Condominium Ownership Act` **1** *(multi-word known positive — phrase matching survives PDF line wraps)* · `fire sprinkler` **4** *(second multi-word known positive, inside Titles 16 and 35, the titles searched)* · `sprinkler system` **3** *(third multi-word positive, inside Title 35)*
+
+**`statutory-caps`** (Absent) — `late charge` **2** *(Title 40, not rent)* · `application fee` **79** *(fifteen titles, none a rental application fee)* · `shall not exceed.{0,60}rent` **5** *(proximity, order 1, none residential)* · `rent.{0,60}shall not exceed` **4** *(proximity, order 2)* · `one \(1\) month.{0,20}rent` **1** *(Wyoming number style with escaped parentheses; Title 7, not a cap)* · `deposit.{0,40}exceed` **3** *(order 1, no residential deposit cap)* · `exceed.{0,40}deposit` **4** *(order 2)* · `cite 1-21-1208 / 1-21-1008 / 1-21-201 / 1-16-102, session-laws 2025+2026` **0** *(currency, anchored)* · `cite 1-21-1403 session-laws/2025` **2** *(currency, anchored: 2025 ch. 20 SF0006, the creating act, already in the title text)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `late fee` **29** *(none residential; multi-word known positive)* · `rental agreement` **37** *(multi-word known positive)*
+
+**`steam-radiator-covers`** (Absent) — `\bradiator` **1** *(word-bounded; sole hit is Title 40 antifreeze definitions — excluded)* · `radiator cover` **0** *(exact multi-word term)* · `scald` **0** *(the harm such a statute would name)* · `burn.{0,150}(child\|infant\|tenant)` **0** *(proximity, likely victims)* · `lease rider` **0** *(the delivery mechanism New Jersey uses)* · `heating (system\|equipment\|surface)` **3** *(Titles 31 and 42 only; no cover duty)* · `\bsteam\b` **22** *(word-bounded; exactly 1 in Title 1, a utility definition — excluded)* · `35-9-106 (anchored cite, session-laws/2025 and /2026)` **0** *(currency check)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `hot and cold water` **3** *(multi-word known positive, includes § 1-21-1203(a)(iii))* · `carbon monoxide` **1** *(multi-word known positive for building-safety vocabulary)*
+
+**`stigmatized-property`** (Absent) — `stigmatiz` **0** *(term of art)* · `psychologically (impacted\|affected)` **0** *(sister-state term, both adjectives)* · `not a material fact` **0** *(the safe-harbour formula — Wyoming has none)* · `material fact.{0,120}(death\|suicide\|homicide)` **1** *(proximity, order A — Title 26 insurance, read)* · `(death\|suicide\|homicide).{0,120}material fact` **0** *(proximity, REVERSE order)* · `homicide.{0,200}(dwelling\|premises\|property)` **0** *(subject proximity)* · `HIV` **72** *(TRAP — every hit is a substring of 'archive', 'hive' etc.)* · `\bHIV\b` **0** *(same term with word boundary — the true zero)* · `human immunodeficiency` **0** *(spelled-out form)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `acquired immune` **1** *(multi-word known positive — Title 35 public health)* · `adverse material facts [title33]` **13** *(multi-word known positive — § 33-28-303(c))*
+
+**`stove-refrigerator`** (Absent) — `\bstove` **3** *(term — Titles 11/26/39 only; none housing)* · `refrigerat` **13** *(term, stem form covering refrigerator/refrigeration — nearest is the Title 34 condominium common-elements list; read and excluded)* · `\boven\b` **0** *(term, WORD-BOUNDED — the bare form 'range\|oven' returns 1740 because 'oven' is a substring of proven/government; the bounded zero is the real answer)* · `cooking` **11** *(term — none a landlord duty)* · `kitchen` **10** *(term — ZERO in Title 1; Title 35 hits are food-establishment definitions)* · `appliance.{0,150}(provide\|furnish\|supply)` **4** *(proximity, order 1 — Titles 33/37/41, none landlord-tenant)* · `(provide\|furnish\|supply).{0,150}appliance` **4** *(proximity, REVERSE order — same titles)* · `cooking.{0,150}(facilit\|appliance\|equip)` **0** *(proximity, order 1)* · `(facilit\|appliance\|equip).{0,150}cooking` **3** *(proximity, REVERSE order — Titles 16/26 and 2026 HB0002; excluded)* · `cite 1-21-1202 / 1-21-1203 / 1-21-1206, session-laws 2025 and 2026` **0** *(currency, anchored — 0 anchored and 0 unanchored for each)*
+  
+**control** `zxqvwomble` **0** *(NONSENSE CONTROL — engine reports true empties)*  ·  **known positive** `appliance` **35** *(KNOWN POSITIVE — exactly 2 in Title 1, both read and both in Article 12 (§§ 1-21-1203(a)(iv), 1-21-1204(a)(iv)); positive proof of the only appliance provisions Wyoming has)* · `rental agreement` **37** *(KNOWN POSITIVE, multi-word — 32 in Title 1)*
+
+**`student-housing`** (Absent) — `residence hall` **0** *(corpus-wide (fixed harness))* · `student residence` **0** *(corpus-wide (fixed harness))* · `campus housing` **2** *(corpus-wide (fixed harness) - Title 6 and a 2026 act, inspected, off-topic)* · `married student` **0** *(corpus-wide (fixed harness))* · `fraternity` **3** *(corpus-wide - Titles 12 and 27, not housing)* · `sorority` **1** *(corpus-wide - Title 27, not housing)* · `student housing` **6** *(currency - hits in 2025 HB0086 and 2026 HB0111, both read, both capital construction)*
+  
+**control** `zxqvwomble` **0** *(nonsense control - engine reports true empties)*  ·  **known positive** `student housing` **6** *(corpus-wide, all inspected - Titles 9 and 21 capital construction plus 2025 HB0086 and 2026 HB0111; none landlord-tenant. Also the known positive for this phrase)* · `dormitor` **17** *(corpus-wide known positive - institutional facility provisions only)* · `age of majority` **74** *(known positive corpus-wide (fixed harness) - located 14-1-101(a))* · `eighteen \(18\) years of age` **150** *(known positive, escaped parens, Wyoming number style)* · `residential rental unit` **23** *(known positive (fixed harness))* · `Condominium Ownership Act` **1** *(known positive, line-wrap regression check)*
+
+**`subsidized-inspection-refusal`** (Absent) — `housing choice voucher` **0** *(program term)* · `subsidiz\w+ housing` **0** *(everyday term)* · `rental assistance` **1** *(Title 14 child welfare - off point)* · `housing assistance payment` **3** *(Title 42 / 2026 SF0106 eligibility data matching)* · `section 8` **170** *(overwhelmingly internal cross-references; housing uses are the Title 42 data-matching paragraphs)* · `source of income` **7** *(none in a housing context - Wyoming has no source-of-income protection)* · `public housing authority` **3** *(Title 15 enabling provisions)* · `housing authority` **25** *(Titles 9, 15, 18 enabling provisions)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `fair housing` **6** *(known positive; located Title 40 ch. 26)* · `discriminat\w+[^.]{0,200}(rent\|housing\|dwelling)` **45** *(known positive, proximity)* · `residential rental unit` **23** *(known positive, multi-word)*
+
+**`subsidy-habitability-proration`** (Absent) — `prorat (Title 1)` **3** *(all read; only 1-21-1203(d) is landlord-tenant and it is a termination refund)* · `abatement of rent\|rent abatement (whole corpus)` **0** *(both word orders)* · `housing choice voucher (whole corpus)` **0** *(program term)* · `housing assistance payment (whole corpus)` **3** *(all read; eligibility-verification cross-references only)* · `rent subsid\|subsidized (whole corpus)` **7** *(none in Title 1, none landlord-tenant)* · `source of income (whole corpus)` **7** *(none in Title 40 ch. 26 — not a protected class)* · `section 8\|section eight (whole corpus)` **180** *(DISCARDED — matches bill and statute section numbering, not the federal program)* · `1-21-120 / 40-26-1 (session-laws 2025+2026)` **0** *(currency check)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `prorat (whole corpus)` **118** *(known positive — stem matches across 18 titles)*
+
+**`subsidy-late-fee`** (Absent) — `late fee` **0** *(core term scoped to Title 1 - also 0 scoped to Title 15; 29 corpus-wide in unrelated titles)* · `late charge` **2** *(variant term - both Title 40, not tenancy)* · `late.{0,120}(rent\|payment).{0,120}(fee\|charge\|penalty)` **46** *(proximity with the statute's likely nouns - sole Title 1 hit is a child-support judgment penalty)* · `[Hh]ousing [Cc]hoice [Vv]oucher` **0** *(the program's own name)* · `1437f` **0** *(the federal citation - Wyoming nowhere adopts it)* · `United States Housing Act` **0** *(the federal act's name)* · `housing assistance payment` **3** *(the HAP term - Title 42 benefits data-matching only)* · `rental assistance` **1** *(Title 14, not a late-fee rule)* · `source of income` **7** *(none in Title 40; not a protected class under § 40-26-103)* · `\bsubsid` **7** *(stem scoped to Title 1 - none about housing subsidy)* · `1-21-12` **0** *(currency - 0 in session-laws/2025 and /2026)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `housing authority` **25** *(known positive - 19 in Title 15, located § 15-10-101 et seq.)* · `\bvoucher` **130** *(known positive, corpus-wide)* · `late fee (corpus-wide)` **29** *(known positive - the phrase is findable where it exists, which makes the Title 1 and Title 15 zeroes meaningful)*
+
+**`substandard-property-receivership`** (Absent) — `dilapidated` **0** *(term - absent corpus-wide)* · `unsafe building\|dangerous building\|unfit for human` **1** *(sole hit is the § 15-1-103(a)(xxvi) enabling power)* · `substandard` **20** *(Title 15 hits are reclamation, urban renewal and the Housing Authorities Law - no receivership)* · `receivership` **76** *(Titles 13, 17, 26 - banking, entities, insurance)* · `condemn` **293** *(180 are Title 1 eminent domain, not building condemnation)* · `demolish\|demolition` **53** *(none a rental receivership)* · `1-21-10 / 1-21-120 / 18-2-115\|15-1-103 (session-laws)` **1** *(currency - only 2025 HB0172, firearms)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `receiver` **399** *(known positive - § 1-33-101 lists the grounds; habitability is not one)* · `nuisance` **94** *(known positive - § 18-2-115, § 15-1-103(a)(xix))*
+
+**`tax-escalation`** (Absent) — `tax escalation` **0** *(term)* · `escalation clause` **0** *(term)* · `escalat` **13** *(all located; none about leases)* · `increase in.{0,60}tax.{0,80}(tenant\|lessee\|renter)` **0** *(proximity order 1)* · `(tenant\|lessee\|renter).{0,80}(pay\|share).{0,60}tax` **0** *(proximity order 2)* · `tax abatement.{0,100}(tenant\|lessee)` **0** *(Massachusetts' abatement-refund concept)* · `proportionate share` **110** *(checked by title; none a residential lease provision)* · `pro rata share` **15** *(same)* · `(lessee\|tenant).{0,100}(ad valorem\|property tax) (title39)` **7** *(none imposes residential property tax on a tenant)* · `owner occupied (title39)` **0** *(confirms the 4% cap carries no occupancy condition)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `residential structure.{0,80}exempt (title39)` **9**
+
+**`telecom-access`** (Absent) — `satellite dish\|satellite antenna\|direct broadcast` **0** *(every variant, corpus-wide)* · `\bantenna` **9** *(Titles 15, 17, 18 — municipal and county structures, no tenant right)* · `cable television\|cable TV` **10** *(Title 34's one hit is § 34-24-102(a)(xvii) (Unclaimed Property 'utility'); Title 37's four are pole attachment and underground facilities)* · `franchise.{0,60}cable\|cable.{0,60}franchise` **5** *(proximity, both word orders — all Title 15 § 15-1-131, a municipal power)* · `broadband (title37)` **17** *(definitional plus § 37-15-413, which limits CITIES, not landlords)* · `telecommunications.{0,60}building\|multiple dwelling` **1** *(the single hit is § 18-5-402(a)(vi), a county cluster-development definition)* · `1-21-120 (session-laws)` **0** *(currency)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `broadband` **122** *(known positive — abundant vocabulary, so the absence is legislative)* · `cable service\|cable system\|cable operator` **12** *(known positive — none landlord-tenant)*
+
+**`tenant-bankruptcy`** (Absent) — `bankrupt.{0,120}tenant` **0** *(proximity, order 1)* · `tenant.{0,120}bankrupt` **0** *(proximity, order 2)* · `bankrupt.{0,120}renter` **0** *(proximity, order 1, Wyoming's own term)* · `renter.{0,120}bankrupt` **0** *(proximity, order 2)* · `bankruptcy.{0,120}lease` **4** *(proximity, order 1 - Titles 31, 34 and 2025 SF0039, excluded on reading)* · `lease.{0,120}bankruptcy` **1** *(proximity, order 2 - Title 35, excluded on reading)* · `automatic stay` **1** *(Title 26 insurance insolvency, not bankruptcy)* · `landlord.s lien` **0** *(corpus-wide, apostrophe written both ways - Wyoming has NO landlord's lien on tenant goods)* · `landlord.{0,60}lien` **1** *(proximity, order 1 - § 29-2-105, a lien AGAINST the landlord)* · `lien.{0,60}landlord` **2** *(proximity, order 2 - same section)* · `\b1-20-101 / \b1-20-106 / \b1-20-109 / \b1-15-408 / \b1-15-511 (session-laws/2025 + /2026)` **0** *(currency check, anchored, 278 enrolled acts)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `bankrupt` **104** *(known positive stem, many titles - subject present in Wyoming law, pattern matches)* · `insolven` **293** *(known positive stem)* · `homestead exemption` **12** *(known positive, multi-word; Titles 1, 2, 34)* · `disposable earnings` **12** *(known positive, multi-word, Title 1)* · `twenty.five percent \(25%\)` **2** *(known positive, escaped parentheses - §§ 1-15-408(b)(i), 1-15-511(a)(i))* · `residential rental unit` **23** *(known positive, multi-word)*
+
+**`tenant-confidential-information`** (Absent) — `tenant.{0,250}confidential` **0** *(DECISIVE proximity, order 1, corpus-wide)* · `confidential.{0,250}tenant` **0** *(DECISIVE proximity, order 2, corpus-wide)* · `renter.{0,250}confidential` **0** *(proximity with the statute's own role word)* · `landlord.{0,200}disclos` **1** *(proximity — Title 7, read and excluded)* · `data breach` **0** *(everyday term — absent; Wyoming says 'breach of the security of the data system')* · `personally identifiable` **21** *(variant term — present)* · `social security number` **60** *(term — present)* · `consumer report` **66** *(term — present)* · `credit report` **52** *(term — present)* · `immigration status` **19** *(Oregon-list term — present but not landlord-facing)* · `source of income` **7** *(Oregon-list term — present but not landlord-facing)* · `shred` **1** *(disposal duty — Title 35, unrelated)* · `dispose of.{0,120}records` **2** *(disposal duty — Title 17, excluded)* · `destruction of.{0,100}records` **3** *(disposal duty — Titles 9, 14, 42, excluded)* · `40-12-501 / 40-12-502 / 6-3-901 (session-laws)` **0** *(currency — 0 each across 2025 and 2026)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `Condominium Ownership Act` **1** *(multi-word known positive — phrase matching survives PDF line wraps)* · `breach of the security of the data` **2** *(second multi-word positive (6 words), inside Title 40 — the statutory term that located the article)* · `personal identifying information` **24** *(third multi-word positive — the defined term)*
+
+**`tenant-display-rights`** (Absent) — `political sign` **0** *(multi-word term)* · `American flag` **0** *(everyday term)* · `political advertis` **0** *(as a display right)* · `religious (display\|symbol)` **0** *(term, both nouns)* · `mezuzah` **0** *(specific religious item)* · `campaign sign` **2** *(excluded - Title 22 elections only)* · `yard sign` **3** *(excluded - Title 22 x2, Title 40 x1)* · `United States flag` **1** *(§ 8-3-110(b) only - protocol, not a right)* · `display[^.]{0,50}flag` **16** *(proximity, order A - Title 8 only, protocol/government)* · `flag[^.]{0,50}display` **13** *(proximity, order B - same)* · `desecrat` **1** *(Title 6 only, not a rental provision)* · `sign[^.]{0,40}(tenant\|lessee)` **9** *(proximity, order A - all signatures, not signage)* · `(tenant\|lessee)[^.]{0,40}sign` **24** *(proximity, order B - same)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `flag` **119** *(KNOWN POSITIVE - Title 8 x73; vocabulary demonstrably present)*
+
+**`tenant-employee-housing`** (Absent) — `employee housing` **0** *(subject term)* · `company housing` **0** *(everyday term)* · `guest worker` **0** *(AS statutory term)* · `conditioned on employment` **0** *(AK/HI statutory phrasing)* · `employment.{0,60}occupancy` **0** *(proximity, order 1)* · `occupancy.{0,60}employment` **0** *(proximity, order 2)* · `caretaker` **12** *(Titles 14/42, none a housing provision)* · `cite 27-4-101 / 27-4-104 / 27-4-202 / 33-28-103, session-laws 2025+2026` **0** *(currency, anchored)* · `cite 1-21-1402 session-laws/2025` **1** *(currency, anchored: 2025 ch. 20 SF0006, the creating act, already in the title text)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `resident manager` **19** *(Titles 1/23/33; multi-word known positive)* · `rental agreement` **37** *(multi-word known positive)*
+
+**`tenant-forward-proceedings`** (Absent) — `\battorn(s\|ed\|ing\|ment)?\b` **0** *(word-bounded — the real answer)* · `attorn` **2763** *(SEARCH TRAP — substring of 'attorney'; discarded)* · `attornment` **0** *(noun form)* · `served upon the tenant` **0** *(statute's likely phrasing)* · `tenant.{0,120}service of process` **0** *(proximity)* · `occupant.{0,120}foreclos` **0** *(proximity order A)* · `foreclos.{0,120}(tenant\|occupant\|lessee)` **0** *(proximity order B)* · `forward.{0,100}notice` **8** *(proximity order A; none a tenant duty)* · `notice.{0,100}forward` **12** *(proximity order B; none a tenant duty)* · `(purchaser\|grantee).{0,120}\brent\b` **0** *(proximity order A — no rule on rent after transfer)* · `\brent\b.{0,120}(purchaser\|grantee)` **0** *(proximity order B)* · `cite 34-4-103 session-laws` **0** *(currency, anchored)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `person in possession of the mortgaged premises` **1** *(long multi-word known positive — § 34-4-103(a)(iv))*
+
+**`tenant-insurance-claims`** (Absent) — `renter.{0,5}s insurance` **0** *(apostrophe both ways, corpus-wide)* · `renters insurance` **0** *(no-apostrophe form)* · `insurance.{0,250}(tenant\|renter\|lease)` **34** *(proximity order 1; ZERO in Title 1)* · `(tenant\|renter\|lease).{0,250}insurance` **39** *(proximity order 2; ZERO in Title 1)* · `exculpat` **5** *(corpus-wide, 0 in Title 1; all Title 4 trusts or Title 7 DNA — excluded)* · `indemnif.{0,200}negligen` **2** *(Title 33 carnivals and § 40-17-102 motor carriers — no lease rule)* · `hold harmless` **22** *(corpus-wide; 1 in Title 1, not a lease rule)* · `subrogat` **42** *(corpus-wide; 4 in Title 1, all inspected and excluded)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `liability insurance` **94** *(multi-word known positive; 14 in Title 1)*
+
+**`tenant-right-to-organize`** (Absent) — `tenant (union\|organization\|association)` **0** *(statutory terms used elsewhere)* · `tenants' (union\|organization\|association)` **0** *(possessive form, apostrophe normalised by the harness)* · `association of tenants` **0** *(reverse word order)* · `right to organize` **1** *(Title 27 labor - not tenancies)* · `retaliat` **32** *(0 in Title 1; no landlord retaliation statute in Wyoming)* · `retaliat\w*[^.]{0,250}(tenant\|renter\|lease\|rental)\|( tenant\|renter\|rental)[^.]{0,250}retaliat` **0** *(proximity, both orders)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `organize` **733** *(known positive; 9 in Title 1)* · `assembly\|assemble` **165** · `fair housing` **6** *(known positive, multi-word)* · `residential rental unit` **23** *(known positive, multi-word)*
+
+**`tenant-rights-statement`** (Absent) — `statement of tenant rights (whole corpus)` **0** *(topic phrase)* · `tenant rights (whole corpus)` **0** *(short form)* · `first page (Title 1)` **0** *(placement rule check)* · `attached to the lease (Title 1)` **0** *(attachment rule check)* · `shall not (bring\|maintain) an action (Title 1)` **0** *(suit-bar, reverse phrasing)* · `1-21-100 / 1-21-120 (session-laws 2025+2026)` **0** *(currency check)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `acknowledg (Title 1)` **13** *(known positive — stem matches; none in Art. 10 or Art. 12)* · `no action shall be (brought\|maintained) (Title 1)` **4** *(known positive for suit-bar phrasing; none landlord-tenant)*
+
+**`term-change-notice`** (Absent) — `rent increase` **0** *(core term)* · `increase.{0,150}\brent\b` **0** *(proximity, order A, word boundary ('rent' is inside 'current', 'different'))* · `\brent\b.{0,150}increase` **0** *(proximity, order B)* · `month-to-month\|month to month` **4** *(both spellings - Titles 26 and 40 and SF0001, none tenancy; re-verifies the established slice fact)* · `periodic tenancy` **0** *(re-verified)* · `tenancy at will` **0** *(re-verified)* · `notice to (terminate\|quit).{0,150}(tenancy\|lease)` **0** *(statute's likely phrasing)* · `modif.{0,150}rental agreement` **0** *(proximity, order A)* · `rental agreement.{0,150}modif` **1** *(proximity, order B - sole hit is the § 1-21-1201(a)(ii) definition, which treats a modification as an agreement)* · `terminate the (tenancy\|rental agreement\|lease)` **2** *(both in § 1-21-1203(d), the repair-refusal termination)* · `1-21-12` **0** *(currency - 0 in session-laws/2025 and /2026)* · `34-2-12` **0** *(currency - 0 in session-laws/2025 and /2026)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `\bnotice\b` **270** *(known positive, Title 01)* · `thirty \(30\) days.{0,200}(notice\|terminat)` **8** *(known positive, Title 01 - Wyoming's spelled-and-numbered period style is findable, and none of the eight is a term-change notice (parentheses escaped))*
+
+**`tpa-exemption-notice`** (Absent) — `rent control / rent stabiliz / maximum rent / rent increase` **0** *(no cap to be exempt from)* · `just cause` **25** *(none a tenancy ground)* · `good cause` **397** *(19 in Title 1, each filtered for rent/tenant/evict/premises/lease - none matched)* · `right of first refusal` **2** *(Title 31 vehicles, Title 34 transfer-fee definition)* · `first refusal` **3** *(shorter form - adds Title 17 entity hit only)* · `opportunity to purchase` **2** *(Titles 36, 37 - no tenant right)* · `conversion (scoped title34)` **4** *(electronic recording, solar, wind - no condominium conversion protection)* · `\btenant (scoped title34)` **15** *(all conveyancing senses plus §§ 34-2-128/129)* · `rent control\|rent stabiliz\|maximum rent (session-laws)` **0** *(currency - no 2025 or 2026 act)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `Wyoming Fair Housing Act` **1** *(KNOWN POSITIVE (multi-word, line-wrap regression): proves a multi-word phrase matches across the pdftotext line wrap, so the zero results above are true empties and not the harness defect fixed 2026-10-24)* · `residential rental unit` **23** *(KNOWN POSITIVE (multi-word, high-frequency): confirms phrase matching in Title 1, the title a tenant-opportunity-to-purchase or conversion-notice rule would sit in)*
+
+**`tpa-notice`** (Absent) — `opportunity to purchase` **2** *(Titles 36 and 37, both read, neither landlord-tenant)* · `right of first refusal` **2** *(Title 31 dealer franchises, Title 34 private transfer fee definition)* · `first refusal` **3** *(adds a Title 17 corporate provision)* · `tenant.{0,120}(purchase\|buy).{0,80}(notice\|offer)` **0** *(proximity order 1)* · `(notice\|offer).{0,120}tenant.{0,60}purchase` **0** *(proximity order 2)* · `condominium conversion` **0** *(term)* · `convert.{0,80}condominium` **0** *(proximity)* · `mobile home park.{0,120}(sale\|sell\|purchase)` **0** *(proximity)* · `mobile home park` **4** *(all Title 35, no sale-notice provision)* · `notice of (the )?sale.{0,100}(tenant\|renter\|lessee)` **0** *(proximity)* · `intent to sell` **3** *(Titles 39 and 40, off point)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `Condominium Ownership Act` **1**
+
+**`tpa-sunset`** (Absent) — `This act is repealed` **0** *(term variant)* · `sunset\|repealed effective\|shall expire (title01)` **1** *(the single hit is a temporary-restraining-order expiry, not a landlord-tenant sunset)* · `sunset\|repealed effective\|shall expire\|expires on (title34)` **0** *(nothing in the property title)* · `sunset\|repealed effective\|shall expire\|expires on (title40)` **12** *(all licence-renewal and pawn-maturity dates; none in the Fair Housing Act chapter)* · `40-26-\|1-21-14\|1-21-10 (session-laws)` **6** *(currency — all in 2025 SF0006, whose only dating provision is 'effective July 1, 2025'; no repeal date)* · `1-21-120 (session-laws)` **0** *(currency)* · `sunset\|is repealed (session-laws)` **many across 2026 acts** *(confirms the legislature used sunset drafting in the latest session and still did not apply it to landlord-tenant law)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `sunset` **33** *(known positive — Wyoming does use sunset drafting, just not here)* · `repealed effective` **27** · `is repealed effective\|shall be repealed` **22** *(known positive — none in Title 1, 34 or the Fair Housing chapter)* · `expires on\|shall expire` **119**
+
+**`translation-duty`** (Absent) — `translat.{0,150}(lease\|rental\|tenan\|contract)` **0** *(proximity, order A)* · `(lease\|rental\|tenan\|contract).{0,150}translat` **1** *(proximity, order B — Title 33 speech-language pathology aide)* · `negotiat.{0,120}language` **0** *(proximity, order A — the California trigger)* · `language.{0,120}negotiat` **0** *(proximity, order B)* · `translat` **20** *(root term — only 1 in Title 1, a crime-victims interpreter right)* · `Spanish` **1** *(named-language term — one hit, Title 39 revenue)* · `interpreter` **13** *(term — the Title 1 hit is the crime-victims provision)* · `primary language` **2** *(term — education only)* · `limited English` **7** *(term — education only)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `English` **87** *(known positive — 7 in Title 8 locate Wyo. Stat. § 8-6-101; only 1 in Title 1, juror qualification)*
+
+**`truth-in-renting`** (Absent) — `truth in renting` **0** *(the topic's own term, lowercase)* · `Truth in Renting` **0** *(same term, title case — tried because it is a proper noun elsewhere)* · `plain english` **0** *(everyday term)* · `written in a clear` **0** *(likely statutory phrasing)* · `summary of.{0,80}rights` **0** *(proximity — the handbook concept)* · `tenant.{0,150}rights.{0,150}booklet` **0** *(proximity — the handbook concept, role word first)* · `plain language` **2** *(term — Titles 26 and 39, neither a lease requirement)* · `readable` **12** *(term — six titles, no rental-agreement readability standard)* · `8-6-101 / 40-12-105 / 40-12-109 / 1-21-1202 / 1-21-1304 (session-laws)` **0** *(currency — 0 each across 2025 and 2026)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `Condominium Ownership Act` **1** *(multi-word known positive — phrase matching survives PDF line wraps)* · `official language` **3** *(second multi-word positive, inside Title 8, the title searched — located § 8-6-101)*
+
+**`unbundled-parking`** (Absent) — `unbundl` **1** *(Title 37 utility context, not parking)* · `parking agreement` **0** *(CA statutory term)* · `parking fee` **1** *(Title 9, state facility fee)* · `parking area` **8** *(includes the Title 34 condominium common-areas definition)* · `parking (scoped title40)` **0** *(fair housing act never names parking)* · `cite 31-5-111 / 31-5-501 / 40-26-107 / 15-1-801, session-laws 2025+2026` **0** *(currency, anchored)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `off.street parking` **5** *(Title 15 municipal bonding only; multi-word known positive)* · `parking space` **12** *(Titles 11/31/35; multi-word known positive)*
+
+**`unconscionability`** (Absent) — `unconscionab` **27** *(stem; all Title 40 ch. 14, zero in Titles 1 and 34)* · `unconscionable` **23** *(adjective; same distribution)* · `adhesion` **0** *(contract-of-adhesion term)* · `void as against public policy` **0** *(statute's likely phrasing)* · `oppressive` **9** *(alternative term; none a lease rule)* · `cite 40-14-508 session-laws` **0** *(currency, anchored)* · `cite 40-14-204 / 40-14-206 / 40-14-520 session-laws` **0** *(currency, anchored)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `contrary to public policy` **5** *(multi-word known positive; none a lease rule)*
+
+**`usufructuary-lessor`** (Absent) — `usufruct` **0** *(the civil-law term — absent from the whole corpus)* · `life tenant` **0** *(everyday term)* · `tenant for life` **2** *(the statute's own words — § 34-1-111 heading AND operative sentence)* · `remainderman\|remainder.?man` **1** *(Title 2 ch. 9 art. 1 heading)* · `estate for years` **1** *(alternative phrasing)* · `emblement` **0** *(the common-law doctrine — absent)* · `apportion.{0,200}rent` **5** *(proximity order 1; all excluded (trust funds, water, insurance))* · `rent.{0,200}apportion` **7** *(proximity order 2; all excluded)* · `death of the (lessor\|life tenant\|owner)` **23** *(none a tenancy rule)* · `34-1-111 / 2-9-101 / 34-2-128 / 34-2-129 (anchored cite, session-laws/2025 and /2026)` **0** *(currency check)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `life estate` **7** *(Titles 2 (§§ 2-9-101, 2-9-102) and 42; multi-word known positive)*
+
+**`utility-disclosure-attachment`** (Absent) — `utility disclosure` **0** *(corpus-wide (fixed harness))* · `submeter` **0** *(corpus-wide)* · `sub-meter` **0** *(corpus-wide, hyphenated variant)* · `shared meter` **0** *(corpus-wide (fixed harness))* · `ratio utility` **0** *(corpus-wide (fixed harness) - no RUBS statute)* · `utility allocation` **0** *(corpus-wide (fixed harness))* · `resale of utility` **0** *(corpus-wide (fixed harness))* · `master meter` **4** *(corpus-wide (fixed harness) - all Title99, inspected, a county water agreement)* · `average .{0,30}utility` **3** *(corpus-wide proximity - none a lease disclosure)* · `utilit\w*(?:.\|\n){0,140}(disclos\|attach\|addendum)` **9** *(proximity order A, newline-crossing - housing-adjacent hits inspected, all easements and licensing)* · `(disclos\|attach\|addendum)(?:.\|\n){0,140}utilit` **6** *(proximity order B, newline-crossing - inspected, none a lease disclosure)* · `separately identified` **5** *(corpus-wide (fixed harness) - one is the 1-21-1208(b) gateway phrase)* · `tenant` **5** *(Title 37 - the four substantive hits located 37-1-101(a)(vi)(H)(VI) and (VIII); Title 37 'landlord' = 0)* · `landlord` **0** *(Title 37 - a landlord-keyword search alone would miss the submetering rule)*
+  
+**control** `zxqvwomble` **0** *(nonsense control - engine reports true empties)*  ·  **known positive** `resell` **15** *(known positive corpus-wide, eight titles - no landlord-to-tenant rule)* · `utilities deposit` **3** *(positive, all Title 1 within 1-21-1208(b) (fixed harness))* · `utility deposit` **1** *(positive, Title 1, 1-21-1208(b) (fixed harness))* · `utility charges` **1** *(positive, Title 1, 1-21-1208(b) (fixed harness))* · `utilit` **31** *(known positive, Title 1)* · `residential rental unit` **23** *(known positive (fixed harness))* · `Condominium Ownership Act` **1** *(known positive, line-wrap regression check)*
+
+**`utility-disconnection-notice-authorization`** (Absent) — `landlord[^.]{0,250}(disconnect\|shut off\|utility)` **0** *(proximity order 1)* · `(disconnect\|shut off)[^.]{0,250}(landlord\|owner of the (dwelling\|building\|premises))` **0** *(proximity order 2)* · `disconnect` **19** *(statute's own word; all Title 37 hits read, none a notification right)* · `shutoff\|shut-off\|shut off` **7** *(three spellings)* · `termination of (utility )?service` **3** *(Titles 9, 19 - off point)* · `notice[^.]{0,200}(disconnect\|shut off\|discontinu)` **17** *(proximity order 1)* · `(disconnect\|discontinu)\w*[^.]{0,200}notice` **9** *(proximity order 2)* · `third party notice` **1** *(Title 26 insurance - off point)* · `designee` **391** *(none tied to a utility disconnection)* · `cold weather` **0** *(no winter shutoff moratorium)* · `copy of (the \|any )?notice[^.]{0,120}(owner\|landlord)` **15** *(Title 37 hits read; improvement-district assessments)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `notify the owner` **14** *(known positive, multi-word)* · `public utility` **355** *(known positive, multi-word)*
+
+**`utility-interruption-submeter`** (Absent) — `submeter (whole corpus)` **0** *(the industry term appears nowhere in Wyoming statutes)* · `disconnect\|shut off\|shutoff (Title 1)` **0** *(everyday terms)* · `interrupt (Title 1)` **1** *(contempt of court, not utilities)* · `utility service (Title 1)` **6** *(all municipal condemnation, §§ 1-26-804 to 1-26-809)* · `discontinu (Title 37)` **6** *(all read — PSC orders and rail abandonment)* · `termination of service (Title 37)` **0** *(statute's likely phrase)* · `shut off\|shutoff / curtail (Title 37)` **1** *(one each, neither landlord-tenant)* · `disconnect\|shut off (Title 35)` **7** *(electrician licensing and storage tanks)* · `interrupt.{0,150}(tenant\|renter\|dwelling) (Title 35)` **0** *(proximity)* · `utilit (Title 6)` **0** *(no criminal provision on cutting a tenant's utilities)* · `1-21-120 (session-laws 2025+2026)` **0** *(currency check)* · `37-1-101 (session-laws 2025+2026)` **2** *(currency check — both cross-references only (2025 HB0192, 2026 SF0099); subparagraph (H) unamended)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `disconnect (Title 37)` **7** *(known positive — verb matches in the utility title)* · `tenant\|lessee\|occupant (Title 37)` **14** *(known positive — tenant nouns match in the utility title)*
+
+**`utility-landlord-account`** (Absent) — `repair and deduct` **0** *(core tenant remedy - absent)* · `rent escrow` **0** *(core tenant remedy - absent)* · `withhold rent` **0** *(core tenant remedy - absent)* · `pay.{0,120}deduct` **94** *(proximity, order A - 5 Title 1 hits, none a tenant utility remedy)* · `deduct.{0,120}rent` **7** *(proximity, order B - the 3 Title 1 hits are inside § 1-21-1208's deposit deductions)* · `\brent\b.{0,120}deduct` **1** *(proximity, word-boundary variant - same § 1-21-1208 hit)* · `receiver.{0,200}(rent\|tenant)` **8** *(rent-receivership angle - none is a tenant petition)* · `master meter` **4** *(all Title 99 noncodified water-district provisions; no master-metering duty)* · `submeter\|sub-meter` **0** *(Wyoming never uses the word - the rule is written as 'metered or other direct sales', which is why it is easy to miss)* · `\boccupant` **0** *(scoped to Title 37 - no occupant protection anywhere in the public utilities title)* · `(disconnect\|discontinu\|terminat\|shut).{0,150}(service\|utility)` **19** *(scoped to Title 37, order A - read; none protects a tenant against shutoff for a landlord's unpaid bill)* · `(service\|utility).{0,150}(disconnect\|discontinu\|terminat\|shut)` **14** *(scoped to Title 37, order B - same)* · `37-1-101` **2** *(currency - 1 in session-laws/2025 (HB0192) and 1 in /2026 (SF0099), both cross-references only)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `\btenant` **4** *(known positive, scoped to Title 37 - all four are inside § 37-1-101(a)(vi)(H)(VI), (VIII), (IX), which located the controlling text)* · `public utility` **263** *(known positive, Title 37)* · `utilities deposit` **3** *(known positive - all Title 1, § 1-21-1208(b))*
+
+**`utility-shutoff-statute`** (Absent) — `cold weather` **0** *(winter moratorium term - absent)* · `shut.?off\|shut off` **7** *(hyphen, space and closed forms - no residential disconnection rule)* · `disconnect` **19** *(statute term - Title 37 hits are § 37-12-401/402 and § 37-13-132 only)* · `self.help` **0** *(term - absent; no anti-self-help statute)* · `interrupt.*utilit\|utilit.*interrupt` **15** *(proximity, both word orders - no landlord shutoff ban)* · `termination of service\|terminate.*service` **45** *(both phrasings - none a residential disconnection rule)* · `winter` **70** *(53 in Title 99 noncodified; no utility moratorium)* · `moratorium` **7** *(none utility)* · `disconnect / 37-12-4 / 37-1-101 (session-laws)` **2** *(currency - both are cross-references, neither amends § 37-1-101(a)(vi)(H))*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `public service commission` **143** *(known positive - the rules live with the PSC, outside this corpus)* · `forcible` **20** *(known positive - 10 in Title 1; § 6-3-306 is the criminal counterpart)*
+
+**`utility-transfer`** (Absent) — `transfer.{0,60}utility\|utility.{0,60}transfer` **2** *(proximity, both word orders — both Title 37 rate regulation)* · `shut off\|shutoff\|shut-off` **7** *(all spellings — Titles 99, 19, 35, 37, 41; none landlord-tenant)* · `in the name of the (owner\|landlord)` **11** *(none about a tenancy utility account)* · `[Ll]andlord (title37)` **0** *(Title 37 never uses the word — a landlord-keyword search misses § 37-12-401 entirely)* · `theft of services\|interrupt.{0,40}service` **11** *(no landlord utility-cutoff offence)* · `1-21-120 (session-laws)` **0** *(currency)* · `landlord\|renter (session-laws/2026)` **0** *(currency)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `utility service` **31** *(known positive — all 6 Title 1 hits are §§ 1-26-804 to 1-26-809, municipal acquisition of utility plants)* · `disconnect` **19** *(known positive — the relevant hits are § 37-12-401(a)(iv) and § 37-12-402(c))* · `terminate.{0,40}utility\|utility.{0,40}terminat` **3** *(proximity, both word orders — all Title 37 rate and certificate provisions, false positives, excluded)*
+
+**`veterans-incentive`** (Absent) — `landlord incentive` **0** *(the topic's own term)* · `vacancy (relief\|payment)` **0** *(the Florida pilot terms)* · `HUD-VASH\|VASH` **0** *(programme term)* · `incentive.{0,120}veteran` **0** *(proximity, order A)* · `veteran.{0,120}(hous\|rent\|lease)` **22** *(proximity, order B — all inspected; Title 39 hits are the veteran's own principal residence only)* · `tax credit.{0,150}(rent\|landlord\|lease)` **0** *(proximity)* · `honorably discharged veteran` **16** *(statute's own words — no landlord benefit)* · `servicemember\|service member` **112** *(both spellings — no landlord incentive)* · `military` **670** *(broad term — no landlord incentive)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `veteran` **410** *(known positive — the subject is well covered; the incentive is what is absent)*
+
+**`water-heater-temperature`** (Absent) — `water heater` **1** *(the topic's own term — Title 42 LIEAP weatherization only, excluded)* · `scald` **0** *(everyday term)* · `anti-scald` **0** *(industry term)* · `tempering valve` **0** *(industry term)* · `mixing valve` **0** *(industry term)* · `maximum temperature` **0** *(likely statutory phrase)* · `water temperature` **0** *(likely statutory phrase)* · `set the thermostat` **0** *(the Wisconsin/Washington duty phrasing)* · `120 degrees` **0** *(the common figure)* · `Legionella` **0** *(the low-temperature counter-concern)* · `thermostat` **1** *(Title 40, excluded)* · `hot water.{0,200}(tenant\|renter)` **0** *(DECISIVE proximity, order 1)* · `(tenant\|renter).{0,200}hot water` **0** *(DECISIVE proximity, order 2)* · `plumbing code` **0** *(NO STATE PLUMBING CODE — term absent)* · `International Plumbing Code` **0** *(NO STATE PLUMBING CODE — named model code absent)* · `plumbing` **12** *(root term — present, Title 15 hit is § 15-1-119)* · `temperature.{0,150}water` **2** *(proximity, order 1 — Title 35 water quality, excluded)* · `water.{0,150}temperature` **1** *(proximity, order 2 — same)* · `1-21-1203 / 35-9-106 / 35-9-121 (session-laws)` **0** *(currency — 0 each across 2025 and 2026)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `Condominium Ownership Act` **1** *(multi-word known positive — phrase matching survives PDF line wraps)* · `hot and cold water` **3** *(second multi-word positive (4 words), inside Title 1 — located the governing § 1-21-1203(a)(iii))* · `degrees Fahrenheit` **11** *(third multi-word positive — temperature figures are findable where they exist)*
+
+**`waterbed`** (Absent) — `waterbed` **0** *(closed-up spelling)* · `water ?bed` **0** *(spaced spelling variant)* · `water filled` **0** *(everyday term)* · `liquid-?filled` **1** *(excluded - Title 30 mine/explosives safety; both hyphen forms)* · `flotation` **2** *(excluded - Title 23 game and fish, Title 41 water; the FL statute's term)* · `bedding` **2** *(excluded - Title 1 is the § 1-20-106 execution exemption; Title 35 unrelated)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `residential rental unit` **23** *(KNOWN POSITIVE, multi-word, Title 1)* · `additional deposit` **6** *(KNOWN POSITIVE, multi-word - T1 x1, T22 x2, T26 x3; none a waterbed rule)*
+
+**`window-guards`** (Absent) — `window guard` **0** *(subject term)* · `window.{0,30}guard` **0** *(proximity, order 1)* · `guard.{0,30}window` **0** *(proximity, order 2)* · `window fall` **0** *(everyday term)* · `fall prevention` **0** *(code term)* · `window screen` **0** *(everyday term)* · `window opening` **0** *(code term)* · `egress window` **0** *(code term)* · `sill` **1** *(Title 31, vehicle)* · `\bwindow` **28** *(word boundary; Title 35 pair read in context, neither a guard rule)* · `windows` **16** *(plural checked separately; Title 31 glazing)* · `cite 35-9-106 / 35-9-121 / 40-26-103, session-laws 2025+2026` **0** *(currency, anchored)*
+  
+**control** `zxqvwomble` **0**  ·  **known positive** `apartment house` **3** *(multi-word known positive)* · `rental agreement` **37** *(multi-word known positive)*
+
+---
+
+## §4 Decisions, and questions asked of Taylor
+
+### Item 1 — optional clauses never screened for Wyoming (SOP rule 54)
+
+Four candidates. Each was decided from the Wyoming text, not from what other states do.
+Where the candidate overlaps a topic in `missing-topics-WY.md`, the full answer lives in the
+topic's row and this entry points to it (prompt: "answer each once and point the other to it").
+
+---
+
+#### 1a. Holdover charge — OFFERED as an optional clause
+
+**Topic that owns this answer:** `holdover-rate` → `holdover-rate-wy` (clause) and
+`edu-holdover-rate-wy` (education). This entry is the pointer; the reasoning is in those rows.
+
+**Lawful.** No Wyoming statute forbids a stipulated holdover charge, caps it, sets a multiplier or
+supplies any measure. Three provisions affirmatively support one:
+
+- **Wyo. Stat. §§ 34-2-128 and 34-2-129** are what make the charge *safe to collect* in Wyoming,
+  and they are the reason this answer differs from most states. Section 34-2-128 provides that no
+  renewal or extension arises "either by the tenant holding over or by the landlord accepting
+  compensation or rent for or during the holding over"; § 34-2-129 requires an express written
+  contract signed by both parties to renew. Elsewhere, demanding and banking a daily holdover
+  charge is the classic way a landlord accidentally creates a new tenancy. In Wyoming the statute
+  forecloses that.
+- **Wyo. Stat. § 1-21-1208(a)** makes it deductible from the deposit as a "cost provided by any
+  contract."
+- **Wyo. Stat. § 1-21-1002(a)(i)** grounds the forcible entry and detainer action against a tenant
+  "holding over their term."
+
+**The finding that shaped the drafting.** Wyo. Stat. § 1-21-1008(a) gives a winning FED plaintiff
+*restitution of the premises and costs only*. The money judgment is in § 1-21-1008(b), and that
+subsection is gated by its own opening words — "If the case is one based on failure to pay rent" —
+and is measured by "the terms and conditions of the agreement between the parties." In a pure
+holdover case the landlord takes possession and nothing else. **Defining the holdover charge as
+Rent is therefore not cosmetic: it is what brings the money inside the same proceeding.** The
+clause does that expressly.
+
+**Shape of the offered clause.** Charge framed as an agreed price for use and occupancy actually
+taken, not as liquidated damages substituting for actual damages; builder default of
+`{{holdover_daily_rate}}` at 150% of the daily equivalent of monthly rent, with no higher figure
+offered and 100% in a HUD-assisted or regulated unit; additional to, not in place of, actual
+damages, with an express no-double-recovery sentence for the same day; and an express statement
+that it creates no tenancy and waives no § 1-21-1003 notice.
+
+**Stated as unread, not predicted.** Wyoming has no liquidated-damages statute (`liquidated
+damages` = 14 corpus-wide, 0 in Title 1 ch. 21; both Title 1 hits are garnishment and structured
+settlements). Whether a stipulated sum survives as an agreed price or is struck as a penalty is
+pure common-law penalty doctrine — case law, outside this corpus, **not read**. The clause is
+drafted to be least exposed; it is not certified. The library's alternative, if it wants certainty
+over a reasoned best shape, is an actual-damages-only holdover clause, which no penalty challenge
+can reach at the cost of making the landlord prove loss. **Recommendation: ship the optional
+clause as drafted.**
+
+**Conflict found and fixed inside this delta.** `holdover-tenancy-by-sufferance-wy` (written for
+`tenancy-at-will`) carried its own "[insert, for example 150%]" rate sentence. Both rows are new in
+this pass, so the scope fence does not reach them. Under SOP rule 57 the rate sentence was removed
+from the sufferance row and left to `holdover-rate-wy`: the sufferance row now states the *legal
+consequence* of holding over, the optional clause sets the *price*. Compensation for use and
+occupancy and actual damages remain recoverable in the sufferance row for a lease that does not
+take the optional charge.
+
+---
+
+#### 1b. Statutory waivers — OFFERED selectively; one is PROHIBITED
+
+The prompt's waiver item overlaps six `*-waiver` topics. Each is answered once, in its own row.
+
+| Candidate | Decision | Row | Governing text |
+|---|---|---|---|
+| Jury waiver (possession) | **Offered, "[Optional.]"** | `jury-waiver-possession-wy` | Wyo. Const. art. 1, § 9; Wyo. Stat. § 1-21-1008(a) |
+| Notice-to-quit waiver | **NOT offered — unlawful** | `edu-notice-to-quit-waiver-wy` (PROHIBITED) + `notice-to-quit-preserved-wy` | Wyo. Stat. §§ 1-21-1003, 1-21-1202(d) |
+| Homestead / exemption waiver | **NOT offered — rule 54 education row** | `edu-homestead-waiver-wy` | Wyo. Const. art. 19, § 9; Wyo. Stat. §§ 34-2-121, 1-20-106 |
+| Showing-notice waiver | **Nothing to waive — tagged** | tagged `showing-notice-la` | Wyo. Stat. § 1-21-1205(a)(iii) |
+| Smoke-drift waiver | **Offered** | `smoke-drift-waiver-wy` | no Wyoming smoking statute of any kind |
+| Waiver by acceptance of rent | **Education only** | `edu-waiver-by-acceptance-wy` | Wyo. Stat. §§ 34-2-128, 34-2-129 |
+
+Three of these deserve a line of their own.
+
+**The jury waiver is lawful but nearly pointless, and the row says so in its own opening bracket.**
+Wyo. Stat. § 1-21-1008(a) already gives a bench trial in an FED action *if neither party demands a
+jury*. So a landlord who simply never demands one already has what the clause buys. **The clause's
+only real work is stopping the tenant from demanding a jury** — which is exactly the framing that
+draws scrutiny, and the reason the row is narrowed to possession and to the § 1-21-1008(b) rent
+determination, carved out for damages, counterclaims and separate actions, and expressly made not
+to touch the Safe Homes Act, which Wyo. Stat. § 1-21-1304 makes non-waivable. Offered, but a
+landlord who skips it loses almost nothing.
+
+**The notice-to-quit waiver must not be offered.** Wyo. Stat. § 1-21-1003 says the party "**must
+notify** the adverse party to leave the premises" and contains no "unless otherwise agreed." The
+tempting authority for waiving it, Wyo. Stat. § 1-21-1202(d), reaches **article 12 only** and not
+article 10, so it is not authority here. The library offers the opposite clause —
+`notice-to-quit-preserved-wy` — which states that nothing in the lease shortens or waives that
+notice. A landlord relying on a waiver would lose the eviction on its own papers.
+
+**The homestead waiver gets a rule 54 education row rather than a clause.** Wyoming's statutory
+waiver words exist only for *conveyances* (Wyo. Stat. § 34-2-121), the exemption itself is
+constitutional, and Wyo. Const. art. 19, § 9 requires joint spousal consent — which independently
+defeats a waiver signed by one spouse. The exemption article (§§ 1-20-101 through 1-20-109) is
+simply silent on contractual waiver, and no case law is in this corpus. Since an invalid clause
+buys nothing, there is no upside even if a narrow version might survive. The row says the device
+exists, why the library declines it, and that the landlord may add their own.
+
+---
+
+#### 1c. Eviction-fee clause (a charge for serving notices or filing) — SPLIT
+
+This candidate turned out to be two different things, and Wyoming answers them differently.
+
+**A fee for preparing or serving the notice: NOT offered.** Topic `notice-service-fee` →
+`edu-no-notice-service-fee-wy` (education, Absent). No Wyoming statute authorizes, sets or caps a
+notice-service fee, and none forbids one — so such a fee is pure contract with no statutory
+backing, unlike Utah's and Idaho's express provisions. What decides it is what the notice actually
+costs: Wyo. Stat. § 1-21-1003 requires only "a written copy" left with the defendant or at the
+usual place of abode or business, three days before filing. No form is prescribed, no process
+server is required, no filing is involved, and the landlord may serve it personally. A flat
+"$75 notice fee" is therefore hard to defend as a reasonable estimate of a sheet of paper and a
+trip. The row states the absence and the reasoning, per rule 54.
+
+**Collection costs and court-awarded fees: OFFERED.** Topic `collection-fee` →
+`collection-fee-wy` (clause) + `edu-collection-fee-wy` (education, CONSTRAINED). These rest on real
+Wyoming authority rather than on contract alone: **Wyo. Stat. § 1-1-115** supplies the dishonored-
+check remedy (after written demand — the amount of the check, a $30 collection fee, and, if unpaid
+within 30 days, three times the check, not less than $100, plus court costs); **Wyo. Stat.
+§ 1-21-1008(b)** lets the court add costs and attorney's fees as the lease provides in a nonpayment
+possession action; **Wyo. Stat. § 33-11-101(b)(v)** and § 33-11-102 govern the licensed collection
+agency whose fee the clause passes through. The clause recovers *actual, reasonable third-party*
+collection costs, requires written notice of the unpaid amount before referral, and bars double
+recovery on the same dishonored payment.
+
+---
+
+#### 1d. Crime-free / criminal-activity clause — OFFERED as an optional clause
+
+**Topic that owns this answer:** `criminal-activity` → `criminal-activity-wy` (clause, Rules &
+Regulations) and `edu-criminal-activity-wy` (education, Default & Termination).
+
+**Wyoming has no crime-specific eviction machinery at all,** and the absence is unusually complete:
+no fast-track or expedited eviction for violent crime or drug sales, no statute stripping the cure
+right because the breach was criminal, no statute making eviction a landlord *duty*, no statute
+letting a district attorney or the Attorney General evict in the landlord's place, no crime of
+failing to eject a tenant, and no statute that authorises, forms, requires or limits a crime-free
+addendum. The phrase "crime-free" appears nowhere in Wyoming law, and "criminal activity" appears
+nowhere in the landlord-tenant title. (Battery in §3.)
+
+**The clause is nonetheless lawful and enforceable, and the chain is short enough to state
+exactly.** Wyo. Stat. § 1-21-1204(a)(vii) makes it a statutory renter duty to "[c]omply with all
+lawful requirements of the rental agreement between the owner and the renter," and Wyo. Stat.
+§ 1-21-1002(a)(vi) allows a forcible entry and detainer action "[a]gainst renters in violation of
+any terms imposed under W.S. 1-21-1204 or 1-21-1205." **So a crime-free covenant written into the
+lease becomes a lawful requirement of the rental agreement, breaching it breaches
+§ 1-21-1204(a)(vii), and that breach is itself a statutory FED ground** — the landlord is not
+relying on common-law forfeiture. This is worth stating plainly because it generalises:
+§ 1-21-1204(a)(vii) is the *only* bridge in Wyoming between an ordinary lease covenant and a
+statutory eviction ground.
+
+**For conduct that affects other people the clause may be unnecessary.** Wyo. Stat.
+§ 1-21-1205(a)(ii) independently forbids a renter to "[i]nterfere with another person's peaceful
+enjoyment of the residential property," and § 1-21-1205(a)(i) covers destruction, defacement and
+damage, including knowingly permitting another person to cause it. Either is an FED ground under
+§ 1-21-1002(a)(vi) **with no lease term written at all** — the route available on a bare or oral
+lease.
+
+**What the clause cannot buy is speed.** The three-day notice under Wyo. Stat. § 1-21-1003 applies
+to a criminal-activity termination exactly as it does to any other, and no Wyoming provision
+shortens it.
+
+**Shape of the offered clause.** Written on *conduct during the tenancy*, never on a person's
+record; covering Tenant, occupants and guests; expressly stating that **an arrest, a charge or a
+criminal record is not by itself a violation**, and that proof is by the civil standard in the FED
+action; excluding controlled-substance possession for personal use from the definition; keeping
+the § 1-21-1003 notice in the text; and closing with a sentence that nothing in it permits
+self-help possession, a lock change or removal of property.
+
+**Stated as unread, not predicted.** Whether a blanket or aggressively drafted crime-free term
+creates unlawful disparate impact is not answerable from this corpus. Wyoming codifies no effects
+test (`disparate` = 0), and the governing material — federal Fair Housing Act case law and HUD's
+disparate-impact rule and guidance — is outside the corpus and **was not read**. No prediction is
+made. The uniform-application and conduct-not-record drafting above is the mitigation. **If the
+library wants a position on screening applicants for criminal history, that needs a federal-law
+read this canvass did not do** — flagged for Taylor rather than guessed at.
+
+
+### Item 2 — fire and casualty
+
+**Answered at the topic `casualty-and-mitigation-waivable` → `edu-casualty-and-mitigation-waivable-wy`.**
+Asked plainly, answered plainly:
+
+> **Wyoming law has no rule on a dwelling made unlivable by fire or other casualty.** There is no
+> rent-abatement rule, no tenant right to terminate, and no landlord duty to rebuild. The
+> Residential Rental Property Act, Wyo. Stat. §§ 1-21-1201 through 1-21-1211, does not mention
+> casualty, fire, destruction or untenantability at all.
+
+So this is now a **checked absence**, not an unrecorded gap — which is what the item asked for. The
+battery is in §3 (22 patterns: casualty, fire, destroyed/destruction, untenantable/uninhabitable,
+damage by fire, abate/abatement of rent, act of God, force majeure, each in the statute's words and
+the everyday term, singular and plural, both word orders on the proximity patterns, with a nonsense
+control at 0 and a labelled known positive).
+
+Two consequences the row states rather than leaves implied:
+
+1. **The lease is the only document that answers the question.** If it is silent, landlord and
+   tenant argue common law with no statute to guide either of them. The row tells the landlord to
+   write a casualty clause and names the four points it must cover: who may terminate and on what
+   notice; whether rent abates in whole or in part while the unit is unusable; how a partial
+   casualty is handled; and what happens to the deposit and prepaid rent on termination.
+2. **A casualty termination still starts the deposit clock.** It is a "termination of the rental
+   agreement" for Wyo. Stat. § 1-21-1208(a), so the thirty-day accounting runs from it. This is the
+   kind of interaction a landlord drafting a casualty clause from another state's form would miss.
+
+**Mitigation is the same shape** — no statute imposes a duty to re-rent and none forbids waiving
+one — but the row expressly warns against reading that as permission to disclaim mitigation,
+because nothing authorises the waiver either and a court applying ordinary contract principles can
+still confine recovery to losses the landlord could not reasonably have avoided.
+
+The topic's verdict is recorded **Present** rather than Absent, and the reason is worth stating so
+the §2 line is not misread: the *casualty rule* is absent, but the topic as the library frames it
+asks about **waivability**, and on that Wyoming has real law — Wyo. Stat. § 1-21-1202(d) permits
+modifying the article's duties by explicit signed writing, and Wyo. Stat. § 1-21-1304 (Safe Homes
+Act) is the one non-waivable floor.
+
+---
+
+
+### Items 3, 4 and 5 — answered by Claude, not by the topic canvass
+
+All batteries below were re-run on the FIXED harness (whitespace-collapsed view; nonsense control
+`zxqvwomble` = 0 hits at the time of each run). Corpus: Wyoming Statutes as published by the
+Legislature, current to 2026-07-01, all 44 titles plus the constitution and noncodified statutes.
+
+### Item 3 — shared fee clauses read against Wyoming law
+
+**`keys` (re-key charges) — NO CONFLICT. Wyoming regulates none of this.**
+Battery: `\brekey|re-key|change the locks|changing the locks|lock change` = **0 hits code-wide**.
+`locks?\b` scoped to title 1 = 6 hits, none a landlord-tenant rule. Domestic-violence proximity run in
+BOTH word orders: `(?:domestic abuse|sexual violence)(?:.|\n){0,400}?lock` = **0**; `lock(?:.|\n){0,400}?
+(?:domestic abuse|sexual violence)` = **0**. The Wyoming Safe Homes Act, Wyo. Stat. §§ 1-21-1301 through
+1-21-1304, was read whole: it creates two affirmative defences to a rent claim (§ 1-21-1303(a), (b)), a
+status-based-termination ban (§ 1-21-1303(c)) and a non-waiver rule (§ 1-21-1304) — and **no lock-change
+right of any kind**. So Wyoming is a state where a DV victim has no statutory right to a lock change,
+and nothing caps or conditions a re-key charge. The clause stands as written.
+
+**`hoa-compliance` (passing association fines to the tenant) — NO CONFLICT, for an unusual reason.**
+Wyoming has a Condominium Ownership Act (Wyo. Stat. § 34-20-101 et seq.) but **no common-interest
+ownership act and no general HOA statute**: `unit owners' association` = **0 hits**; `homeowners
+association` = 2 hits, both in title 18 (county planning), neither regulating associations. No fine rule
+reaches a tenant: `(?:fine|assessment)(?:.|\n){0,200}?\btenant\b` and the reverse order, both scoped to
+title 34, = **0 and 0**. Nothing in Wyoming law regulates association fines or bars passing one to a
+tenant by contract. The clause stands as written.
+
+### Item 4 — the three central shared edits, under Wyoming law
+
+**`smoking-policy` — reads correctly.** The remediation sentence is already limited to smoking by
+"Tenant, an occupant, or a guest or invitee of Tenant", so it never charges the tenant for a stranger's
+smoke. Nothing in Wyoming law cuts against the ban: no clean-indoor-air act (`clean indoor air` = 0), no
+cannabis legalisation (the single `marijuana` hit is title 35's controlled-substances schedule; the six
+`cannabis` hits are hemp and agriculture in titles 11, 14 and 35), and no statute protecting smoking or
+vaping in a dwelling (`smok\w* (?:is|shall be) (?:permitted|allowed)` = 0). The Wyoming Constitution was
+searched at the 2026-09-30 retro and has no cannabis provision, unlike Missouri's Article XIV.
+
+**`no-alterations` — reads correctly, and its carve-out is inert here.** The sentence protecting an
+installation "that applicable law makes Tenant's property" costs Wyoming nothing and protects against
+nothing, because Wyoming has no such law: `trade fixture` = 0, `shall remain the (?:property|personal
+property) of the (?:tenant|lessee)` = 0, `electric vehicle charging` = 0. The Solar Rights Act (§ 34-22-101
+et seq.) is about solar access between landowners, not tenant installations. Harmless and correct.
+
+**`addendum-precedence` — reads correctly.** Wyoming has no statute making any document control over a
+lease: `notwithstanding any (?:provision|term) (?:of|in) (?:the|a) (?:lease|rental agreement)` = 0, and the
+three `shall control over` hits are title 9 (state fund earnings) and title 35 (the Life is a Human Right
+Act), none lease-related. The one Wyoming provision that requires text IN the agreement —
+§ 1-21-1207's nonrefundable-deposit statement — sets no precedence rule. The clause's carve-out is
+correct and, as with `no-alterations`, currently inert in Wyoming.
+
+### Item 5 — CARES Act mentions
+
+**Nothing disagrees, because only one WY row mentions it.** Of the 123 active rows carrying WY, exactly
+**one** mentions the CARES Act or a federal 30-day notice to vacate: `edu-cares-act-notice` itself, the
+shared federal row, on which Wyoming is tagged. No Wyoming-specific row mentions the federal 30-day
+notice at all, so there is no row that could disagree with it.
+
+One adjacent point, recorded so it is not mistaken for a conflict later:
+`edu-foreclosure-tenant-rights-wy` carries the **Protecting Tenants at Foreclosure Act's 90-day** notice.
+That is a different federal act from the CARES Act's 30-day notice, with different triggers, and the two
+rows do not overlap or contradict. A landlord with a covered property at foreclosure may face both.
+
+---
+
+
+### Item 6 — currency of the new rows
+
+The corpus titles are the Legislature's own download, current to **July 1, 2026** (after the 2026
+budget session), so both the 2025 general session and the 2026 budget session are already in the
+title text. The live question for this item is therefore narrower and was run as a systematic
+check rather than left to each slice's assertion:
+
+**Method.** Every statute section cited anywhere in the delta was extracted mechanically from the
+row bodies, notes and citation fields — **740 distinct sections**. Each was searched against the
+2025 and 2026 enrolled acts with the anchored `cite` matcher (`(?<![0-9.\-])NUM(?![0-9.\-])`, so
+`1-3-119` cannot match `41-3-119`). **125 of the 740 are touched by a 2025 or 2026 act**; the 85
+acts that touch them were then screened for an effective date later than July 1, 2026.
+
+**Result — six acts carry a later effective date and touch a cited section. Every one was read, and
+none changes a rule stated in a new row:**
+
+| Act | Later date | Why it does not reach a new row |
+|---|---|---|
+| 2025 SF0025 (ch. 5) — electronic lien and title | July 1, 2027 | Only **cross-references** UETA, Wyo. Stat. §§ 40-21-101 through 40-21-119; it does not amend them. The electronic-communications row's UETA reasoning is unaffected. |
+| 2026 SF0079 — sales and use tax | July 1, 2027 | Amends **§ 5-9-128(a)(vi)(D)**; the paragraph the delta relies on is **(a)(v)** (circuit court FED jurisdiction). The delayed date applies to the act's Section 2 only; the amendments are effective July 1, 2026 and are already in the title text. |
+| 2026 SF0071 — administration of government | (none in fact) | Subsection (b) makes Sections 1 and 6 effective *immediately*, not later; the act is otherwise effective July 1, 2026. Its amendments to §§ 19-13-501, 35-9-152 to 35-9-157 and 7-19-201 are agency-renaming, not substantive. |
+| 2026 SF0107 — motor vehicles | July 1, 2028 | Only cross-references §§ 31-3-102 and 39-15-107(b); amends neither. |
+| 2026 SF0026 — taxation and revenue | Jan 1, 2027 | Amends **§ 39-11-105(a)(xxxvi)** (Game and Fish Commission real property). The delta cites (a)(xxiv), (a)(xliii) and (a)(xlv). No overlap. |
+| 2026 SF0001 — general appropriations | Mar 15, 2027 | An appropriation made "notwithstanding § 39-15-111(p)(i)(A)"; it changes no rule of law a lease depends on. |
+
+**One 2026 act does change a rule a new row states, and it is already in force.** 2026 SF0088
+(enrolled act 52, Senate), effective **July 1, 2026**, created Wyo. Stat. § 6-2-320(a)(v),
+extending the 1,000-foot residency restriction to **child care facilities**. Because it took effect
+on the corpus date it is in the title text, and the affected row is written from the current text.
+Two traps inside it are recorded in the row rather than smoothed over: the grandfather dates differ
+(2010 for schools, 2026 for child care facilities), and the carve-outs at (b)(iii) and (b)(ix) —
+including the sheriff-approved shelter and recovery-facility exemption — are drafted against the
+**school** paragraph only.
+
+**Conclusion: no enactment effective after July 1, 2026 alters any rule stated in a new row.**
+
+### Points not settled from the corpus, with the course taken
+
+Each of these was worked out as far as the corpus allows, then written into the row as the cautious course rather than left open (prompt: leave nothing 'to check later'). Every one turns on Wyoming **case law**, which is outside this corpus and was not read; no prediction is made in any row.
+
+
+- [abandonment-and-mitigation] Whether Wyoming common law imposes an avoidable-consequences limit on a residential landlord's claim for rent after abandonment cannot be settled from this corpus, which holds no case law. Recommendation: keep the row's cautious course (express survival-of-liability clause plus documented re-rental effort) and have Wyoming counsel check the case law before the library asserts either way.
+
+- [binding-arbitration] No Wyoming statute or (searchable) authority says whether a forcible entry and detainer action can be compelled to arbitration. Recommendation: keep the possession/unpaid-rent carve-out in the clause as drafted; the risk runs against the landlord, not the tenant, because § 1-36-104(c) stays the court action.
+
+- [casualty-and-mitigation-waivable] Wyo. Stat. § 1-21-1202(d) permits modifying 'any duty or obligation in this article', which on its face includes the owner's habitability duties in §§ 1-21-1202(a) and 1-21-1203(a). How far a Wyoming court will enforce such a modification cannot be settled from this corpus, which holds no case law. Recommendation: the row already states the cautious course - name the duty and the statute expressly, get both signatures, and never draft a clause that leaves nobody responsible for a safe and sanitary dwelling.
+
+- [construction-liens] Whether a lease clause that permits alterations with the landlord's written consent amounts to improvements 'specifically authorized by the landlord' under Wyo. Stat. § 29-2-105(a)(ii) cannot be settled from the statutes alone and no Wyoming case law is in the corpus. Recommendation: the education row states the cautious course — give consent in writing, describe it as permission rather than authorization or request, and disclaim any agreement to pay.
+
+- [criminal-activity] Whether a blanket or aggressively drafted crime-free term creates unlawful disparate impact is not answerable from this corpus. Wyoming codifies no effects test ('disparate' = 0) and the governing material — federal Fair Housing Act case law and HUD's disparate-impact rule and guidance — is outside the corpus and was not read. I have made no prediction. Recommendation, already written into both rows: offer the clause as OPTIONAL, write it on conduct during the tenancy rather than on a person's record, state expressly that an arrest, charge or record is not itself a breach, apply it uniformly, and keep the § 1-21-1003 three-day notice in the text. If the library wants a position on screening on criminal history at application, that needs a federal-law read this canvass did not do.
+
+- [cure-and-eviction-grounds] Wyo. Stat. § 1-21-1002(a)(vi) reaches only violations of §§ 1-21-1204 and 1-21-1205, so an ordinary lease breach becomes an eviction ground only through § 1-21-1204(a)(vii)'s duty to comply with all lawful requirements of the rental agreement. No case law is in the corpus to confirm a Wyoming court reads the chain that way. Recommendation: keep the row's instruction to plead the chain expressly (lease term, breach, § 1-21-1204(a)(vii), § 1-21-1002(a)(vi)) rather than pleading lease breach alone, and have Wyoming counsel confirm against the case law.
+
+- [deposit-cost-schedule] Wyoming sets no dollar ceiling on a contract-stated deposit charge and there is no Wyoming case law in the corpus construing 'other costs provided by any contract' in § 1-21-1208(a). Recommendation: keep each scheduled amount at the landlord's genuine reasonable cost and cap the charge at what is actually spent, as the clause does, because § 1-21-1208(c) lets the renter recover the FULL deposit plus court costs if the owner 'unreasonably' fails to comply with subsection (a).
+
+- [deposit-surrender-notice] Whether a Wyoming lease may make the deposit refund itself conditional on advance notice of surrender (the Texas model) cannot be settled from the statutes alone. Wyo. Stat. § 1-21-1202(d) appears to permit it; Wyo. Stat. § 1-21-1208(c)'s 'unreasonably fails to comply' remedy cuts the other way. Recommendation: draft it as a covenant with actual damages, as done here, and do not forfeit the deposit for a missed notice until there is case law.
+
+- [dv-deposit-timing] Wyo. Stat. § 1-21-1303 creates an affirmative defense to a rent claim, not a termination right, so no statute says when the § 1-21-1208(a) deposit clock starts after a sole tenant vacates under the Safe Homes Act. Recommendation as written in the row: treat acceptance of the surrender as the termination and start the 30 days then, rather than holding the deposit to the end of the stated term.
+
+- [electric-submetering-disclosure] Wyo. Stat. § 37-1-101(a)(vi)(H)(VI) says in terms that the tenant-use exemption does not apply to 'metered or other direct sales of a utility commodity by a producer or other person to his tenants,' and the legislature wrote a tenant-billing carve-out for water only, at (H)(VIII). On the statute's text a Wyoming landlord who submeters and bills electricity therefore loses the exemption and is a public utility under PSC jurisdiction. I could not confirm how the Public Service Commission actually applies this to small residential landlords, because PSC rules, orders and case law are not in the corpus. Recommendation: keep the row as written - it tells the landlord the cautious course (include electricity in rent, or put the account in the tenant's name, or get written PSC guidance before submetering) without asserting an enforcement outcome. A follow-up check of PSC rules (Chapter 3 service regulations) and any Wyoming case law on § 37-1-101(a)(vi)(H)(VI) would let a later row speak more definitely.
+
+- [eminent-domain] Wyo. Stat. § 1-26-711(b) addresses only a PARTIAL taking; neither it nor any other Wyoming statute says what happens to the lease or the rent when the entire property is taken. I could not settle that from primary text, because the answer sits in common law and the corpus holds no case law. Recommendation: do not assert a rule for a total taking. The row states the gap plainly and the lease clause fills it by contract, which § 1-26-711(a) expressly permits. If the library can reach Wyoming case law later, the question to run is whether a total taking terminates a residential lease by operation of law and extinguishes the rent from the date of possession.
+
+- [ev-charging-end-of-tenancy] Unsettled and stated as a cautious course in the row: whether the new $.035 per kilowatt hour license tax reaches an ordinary Level 2 charger at an apartment building. Wyo. Stat. § 39-17-304(a)(iv), added by 2026 Wyo. Sess. Laws ch. 33 (HB0145) effective July 1, 2026, levies the tax on 'all electricity sold or dispensed for sale or use in this state to propel a motor vehicle', with no DC-fast-charging-station limit, while the taxable-event provision at § 39-17-303(a)(iii) and the collection, metering and price-display duties at § 39-17-303(c)(ii)-(iii) are all still expressly confined to a DC fast charging station. The two cannot both be given their plain meaning. Section 2 of HB0145 directs the department of transportation and the department of revenue to promulgate implementing rules, and agency rules are outside this corpus, so the point cannot be settled from primary statutory text alone. My recommendation: leave the row as written (treat the tax as potentially applying, prefer a flat amenity fee over per-kWh pricing, check the agency rules) and have whoever has access to the Wyoming Department of Revenue alternative-fuel rules confirm the scope before any Wyoming row tells a landlord that per-kilowatt-hour EV billing to tenants is tax-free.
+
+- [ev-charging-requirements] Unsettled and stated cautiously in the row rather than resolved: whether Wyoming's § 39-17-304(a)(iv) per-kilowatt-hour electricity tax reaches an ordinary Level 1 or Level 2 tenant charging outlet, given that § 39-17-303(b)(iii) imposes the tax only 'at a DC fast charging station' while § 39-17-304(a)(iv) levies it on 'all electricity sold or dispensed for sale or use in this state to propel a motor vehicle'. The corpus holds no agency rule or case resolving it, and § 39-17-305 supplies no exemption for (a)(iv) at all. My recommendation: leave the row as written — it tells the landlord to avoid per-kilowatt-hour billing entirely, which sidesteps both this question and the § 37-1-101(a)(vi)(H)(VI) public-utility problem in one move, so the landlord can act without the ambiguity being resolved. If the library later gains access to Wyoming Department of Revenue rules (Chapter 11, fuel tax) or PSC rules, both should be checked against this row.
+
+- [ev-charging-shared-area] Whether Wyo. Stat. § 37-1-101(a)(vi)(H)(X) exempts a landlord who bills tenants per kilowatt hour for EV charging cannot be settled from the statute alone with total confidence, because no Wyoming decision is in this corpus and the Public Service Commission's own construction is an agency matter outside it. Recommendation: the row states the (H)(X) reading as the better argument, and also gives the cautious course (fold charging into rent or charge a flat stall fee) for a landlord who wants certainty. If the library ever adds agency material, the PSC's treatment of (H)(X) is the thing to check.
+
+- [eviction-service-party] Whether a lease clause naming a person to accept the FED summons would be effective in Wyoming cannot be settled from this corpus. § 1-21-1004 incorporates service 'as in other cases', which points to the Wyoming Rules of Civil Procedure, and court rules are not in the corpus. Recommendation, written into the row: do not offer a named-service-party clause for Wyoming; if a landlord insists on one, use it only as an extra copy and always serve by the statutory route as well.
+
+- [exculpatory-clauses] Whether a Wyoming court will enforce a residential lease clause exculpating the landlord from its own ordinary negligence, and how far Wyo. Stat. § 1-21-1202(d) lets the parties modify the habitability duties in §§ 1-21-1202(a) and 1-21-1203(a), cannot be settled from this corpus, which holds no case law. Recommendation: keep the row's cautious drafting course - prefer assigning a duty under § 1-21-1202(d) over disclaiming liability, say 'negligence' expressly and conspicuously, carve out gross negligence and willful misconduct, and include severability - and have Wyoming counsel check the anticipatory-release case law before the library asserts enforceability.
+
+- [expedited-deposit-disposition] No Wyoming authority settles whether a lease-stated expediting or processing fee could be an 'other cost provided by any contract' deductible under § 1-21-1208(a). Recommendation: do not charge one. The phrase most naturally covers costs the owner incurs, and § 1-21-1208(c) forfeits the FULL deposit plus court costs for an unreasonable failure to comply with subsection (a).
+
+- [fair-housing] Wyo. Stat. § 40-26-102(a)(viii) defines 'enforcing authority' as a Wyoming state agency OR a Wyoming nonprofit accepted by HUD for that role, rather than naming a standing agency. Whether any body currently holds that designation cannot be settled from the statutory corpus (no agency rules in it). Recommendation: the rows tell the landlord to confirm rather than assume, and lean on the self-executing private right of action at § 40-26-139 (district court, two years, actual and punitive damages) plus HUD, which operate regardless. If the library later gets access to Wyoming agency rules or HUD's FHAP list, this should be checked and the enforcement row updated.
+
+- [firearms] § 6-8-401(c)'s preemption list ends with 'or any other entity', which on its face could be read to reach a private landlord. I resolved it against that reading because § 6-8-105(d)(ii) expressly preserves a private property owner's right to restrict firearms on his own property, and because the rest of the list is governmental. No Wyoming case construing the phrase is in this corpus (no case law is). Recommendation: keep the rows as written, and if the library ever adds a case-law pass, check for a decision on whether § 6-8-401(c) reaches private owners.
+
+- [frozen-standard-incorporation] The operative edition of the International Fire Code, International Building Code and National Electrical Code under Wyo. Stat. §§ 35-9-106(a)(i) and 35-9-120(a) is set by Department of Fire Prevention and Electrical Safety rules, and the operative edition of the International Residential Code is set by each adopting county or municipality. Neither agency rules nor local ordinances are in this corpus, so the edition cannot be stated. Recommendation: keep the row's instruction to pull the current department rule and the local adopting ordinance rather than assuming the newest national edition, and do not let the library state a Wyoming code edition as a fact.
+
+- [good-cause-notice] Wyoming has NO statutory notice period for ending a month-to-month or other periodic tenancy — the words 'month-to-month', 'periodic tenancy' and 'tenancy at will' appear nowhere in the statutes. Recommendation: the lease must state the notice period expressly (30 days before the next rent due date is the conventional choice); without a lease term the landlord is left to common law and to § 34-2-128's tenancy-by-sufferance default, which no statute in the corpus defines. Resolving the common-law period would need Wyoming case law, which the corpus does not hold.
+
+- [habitability-presumption] A drafting inconsistency inside Wyo. Stat. § 1-21-1210(a)(iii), flagged for whichever slice owns abandoned property. Paragraph (iii) says that if the renter responds in writing within seven (7) days intending to collect, 'the property shall be held for an additional period of seven (7) days after the written response is received', and then in the next sentence refers to 'the additional fifteen (15) day period'. The two numbers do not match. My recommendation for any abandoned-property row: hold the property for fifteen (15) days after the written response rather than seven, since that is the longer of the two figures the same paragraph names and the cheaper error to make; and say in the row that the statute is internally inconsistent on this point so the landlord understands why the cautious figure is used.
+
+- [holding-deposit] Whether Wyo. Stat. § 1-21-1208 reaches money held before any rental agreement exists cannot be settled from the text: § 1-21-1208(a) is keyed to 'termination of the rental agreement' and § 1-21-1201(a)(iii) and (v) define 'renter' and 'termination' by reference to a rental agreement. Recommendation as written: assume it does not, and cover the pre-signature period with a signed holding-deposit agreement plus the § 1-21-1207 written notice given at the time the money is taken.
+
+- [holdover-rate] Not settled, and not settleable from this corpus: whether a Wyoming court would enforce a stipulated holdover charge as liquidated damages or strike it as a penalty. Wyoming has no liquidated-damages statute, so the question is pure common-law penalty doctrine, which is case law and outside this corpus. My recommendation, reflected in the row: ship the clause as OPTIONAL, default the builder variable to 150% of the daily equivalent of monthly rent and offer no higher figure, 100% in a HUD-regulated unit, frame it as a price for use and occupancy rather than as liquidated damages in substitution for actual damages, define it as Rent so Wyo. Stat. § 1-21-1008(b) can reach it, bar double recovery for the same day, and keep actual damages available as an alternative. If the library wants certainty rather than a reasoned best shape, the alternative is to offer only an actual-damages holdover clause and no stipulated rate — that is the one version no penalty challenge can reach, at the cost of making the landlord prove loss.
+
+- [home-business] Whether a residential lease term counts as a 'covenant' within Wyo. Stat. § 34-1-501 cannot be settled from this corpus: the section sits in an article headed Covenants in the conveyancing chapter, which points to recorded restrictive covenants, but its words are not limited to recorded instruments, and case law is outside the corpus. Recommendation, already written into both rows: draft so the answer does not matter — make any child-care prohibition clear and express in the lease, which satisfies the section's own exception under either reading.
+
+- [homestead-waiver] Wyoming's exemption article (Wyo. Stat. §§ 1-20-101 through 1-20-109) is simply silent on contractual waiver - it neither authorizes nor forbids one - and the corpus holds no case law on whether a residential lease may waive the Wyo. Stat. § 1-20-106 personal-property exemptions. Recommendation: keep the row's advice to omit any exemption waiver from Wyoming leases. The constitutional joint-consent requirement in Wyo. Const. art. 19, § 9 independently defeats a homestead waiver signed by one spouse, and an invalid clause buys nothing, so there is no upside to including one even if a court might uphold a narrow version.
+
+- [inspection-condemnation-disclosure] Whether leasing a unit that is under a Wyo. Stat. § 35-9-156(d) uninhabitable-or-contaminated order counts as a 'transfer' triggering the subsection's full written disclosure duty. The sentence says property 'shall only be transferred or sold prior to remediation if full, written disclosure is made to the prospective purchaser', and everything around it (earnest money receipt, sale documents, notice to the incident commander within ten days of the transfer or sale) is sale machinery, but 'transferred' is undefined. I could not settle it from primary text and the corpus has no case law. Recommendation: treat the duty as applying. The row tells the landlord not to re-let before remediation and, if they let at all, to make the written disclosure to the tenant and notify the incident commander -- the cost of over-complying is nil.
+
+- [limitation-of-actions] Could not be settled from primary statutory text: whether a renter's claim under Wyo. Stat. § 1-21-1208(c) for 'the full deposit and court costs' is governed by the eight (8) year period for a liability created by statute (§ 1-3-105(a)(ii)(B)) or the one (1) year period for an action upon a statute for a penalty or forfeiture (§ 1-3-105(a)(v)(D)). The statute gives the renter the FULL deposit regardless of what was actually owed, which has a penal flavour, but it is framed as recovery of the renter's own money rather than as a multiplier or fine, which cuts the other way; § 1-21-1208 prescribes no period of its own, so the (a)(v)(D) exception does not resolve it, and case law is outside this corpus. Recommendation: leave the row as written — tell landlords to assume eight (8) years and to keep deposit records that long — and have whoever has case-law access check Wyoming decisions characterising § 1-21-1208(c) before any row states a one-year bar.
+
+- [meth-disclosure] Wyo. Stat. § 35-9-156(d) forbids property under an unremediated uninhabitable order being 'transferred or sold' without full written disclosure. Every surrounding reference is to a sale (purchaser, earnest money receipt, deed, buyer), so it probably does not reach a lease, but 'transferred' is broad and no Wyoming authority in this corpus settles it. Recommendation as written: never re-let under a live order, and give the same full written disclosure to any tenant of property that has been contaminated.
+
+- [nonpayment-notice] Wyo. Stat. § 1-21-1003 authorizes only personal delivery of a written copy, or leaving it at the tenant's usual place of abode or business if the tenant cannot be found. It does not mention mail or posting, and no court rules or case law are in the corpus to say whether substantial compliance (certified mail, conspicuous posting) suffices. Recommendation: use one of the two statutory methods and document it; treat mail or posting as a supplement only, never as the service relied on.
+
+- [plain-language] Whether the Wyoming Consumer Protection Act reaches a residential lease is unsettled: 'merchandise' expressly includes real property (§ 40-12-102(a)(vi)) but 'consumer transactions' is defined as advertising, offering for sale, sale or distribution (§ 40-12-102(a)(ii)), with no leasing verb, and no case law is in the corpus. Recommendation: assume it may apply to knowingly false statements made in advertising or renting, and do not rely on being outside it.
+
+- [redemption] Wyoming has no statute on the effect of accepting rent after a notice to quit or after filing a forcible entry and detainer action, and case law is outside the corpus, so I could not settle whether acceptance waives the forfeiture and reinstates the tenancy. Recommendation: keep the row as written - it states the cautious course (decline, or accept only under a signed non-waiver agreement reached before the check is deposited) rather than asserting a rule. A later check of Wyoming Supreme Court authority on waiver by acceptance of rent would let the row speak more definitely.
+
+- [rent-escalation] The output schema says to use `tag` only when tagging an existing multi-state row, 'then rows is []'. I have done both: tagged rent-escalation-la (which supplies the lease clause and needs no Wyoming duplicate) AND written one new LANDLORD_EDUCATION row, because the Wyoming-specific facts a landlord must know here — no rent regulation at all, no retaliation statute at all, no implied renewal under §§ 34-2-128 and 34-2-129, and the § 40-26-144(b) interference exposure — are not carried by the tagged clause and are not duplicated by it. Recommendation: accept both. If assembly requires a strict either/or, keep the education row and drop the tag, since the clause can be re-tagged cheaply but the Wyoming context cannot be reconstructed.
+
+- [rent-receipt-anti-waiver] Stated cautiously in the row rather than resolved: whether a Wyoming landlord who accepts rent DURING a running term, after serving a § 1-21-1003 three-day notice to quit, waives the default. §§ 34-2-128 and 34-2-129 do not reach it — by their own words they govern only what follows expiration or termination of the term — and no Wyoming statute addresses waiver by acceptance of rent after breach; 'acceptance of rent' is a single corpus-wide hit and it is § 34-2-128. The governing law is therefore the common-law waiver-of-forfeiture doctrine, which is case law and outside this corpus. My recommendation: leave the row as written. It tells the landlord to take a signed use-and-occupancy, non-waiver acknowledgement before accepting any payment after a notice to quit, which is safe whichever way the doctrine runs in Wyoming, and it warns against relying on a lease-wide non-waiver clause alone. If the library later gains Wyoming case law, this is the first point to check.
+
+- [rental-inspection] Whether a lease clause requiring the tenant to admit a government inspector gives the inspector lawful authority to enter cannot be answered from the statutes: Wyo. Stat. § 1-21-1205(a)(iii) names only the owner, agent or manager, and the occupant's Wyo. Const. art. 1, § 4 protection is personal to the tenant. Recommendation as written into the clause: keep the obligation running to the landlord, add an express savings sentence, and have the landlord attend the inspection so the statutory access right being exercised is the landlord's own.
+
+- [required-fees] Tag-first turned up one multi-state lease clause on this topic, `fees-and-charges-vi` (VI;MP, LEASE_CLAUSE, SERVES_LANDLORD): it lists every fee, promises no other charges, and bars adding a fee mid-term without written agreement. Nothing in Wyoming law prohibits that clause - it is lawful as written here, and it dovetails with Wyo. Stat. § 1-21-1208(a)'s 'other costs provided by any contract' limit and § 1-21-1202(d)'s requirement that a modification be by explicit written agreement signed by the parties. I wrote the education row instead of tagging, because the answer schema allows only one of the two and the Wyoming-specific law (the deposit catch-all, the § 1-21-1207 nonrefundable notice and the § 1-1-115 bad-check remedy) would otherwise be lost. Recommendation: also tag `fees-and-charges-vi` for WY as lawful as written, as an optional clause companion to this education row.
+
+- [servicemember-rights] Wyo. Stat. § 19-11-125(b)(vi) ('Other services provided pursuant to a contract that requires periodic and ongoing payments') may or may not reach a residential lease; the named items in (b)(i)-(v) are all consumer subscription services, which points away, but the text is broad and no Wyoming authority in this corpus decides it. Recommendation as written in the row: on notice plus orders, do not charge an early-termination fee, do not forfeit the deposit, and settle rent to the effective date — the downside (a § 19-11-122(b) misdemeanor plus a mandatory § 19-11-123 fee award) far exceeds the fee at stake.
+
+- [sex-offender-occupancy] The § 6-2-320(b) mismatch cannot be settled from the corpus: subsection (b)'s stem confines its exceptions to paragraphs (a)(i) and (ii), yet two of the nine exceptions address residence near a school, which is (a)(iv)'s subject. Case law is outside the corpus. Recommendation, written into the education row: flag it, and tell an owner of a licensed care facility, shelter or recovery residence within 1,000 feet of a school or child care facility not to rely on (b)(iii) or (b)(ix) without advice.
+
+- [statutory-early-termination] Wyo. Stat. § 19-11-125 lets a uniformed services member ordered to active service for more than 30 days suspend, and for more than 180 days terminate, a 'service contract'. Subsection (b) enumerates telecommunications, internet, television, athletic club or gym memberships and satellite radio, then adds (b)(vi), 'Other services provided pursuant to a contract that requires periodic and ongoing payments' — words broad enough on their face to capture a residential lease, which does require periodic and ongoing payments. I could not settle whether (b)(vi) reaches a lease: the five enumerated items are all consumer subscription services, which under ejusdem generis argues the catch-all is confined to that genus, and a lease is a conveyance of an interest in land rather than a 'service'; but nothing in the section says so, and (c) would otherwise give a Guard member a 10-day no-penalty exit with no loss of deposit. No Wyoming case construes it and case law is outside this corpus. RECOMMENDATION: do not rely on a lease being outside § 19-11-125. Treat a Guard or uniformed services member's written notice with a copy of orders as effective, honour it without charging a penalty, fee or loss of deposit, and rely on the federal SCRA framework, which reaches the same result for most such tenants anyway. The downside of guessing wrong is a § 19-11-125(e) misdemeanor with a $1,000 fine.
+
+- [student-housing] Wyo. Stat. § 1-21-1201(a)(iv) limits the whole Residential Rental Property Act to a 'renter's principal place of residence'. Whether an academic-year tenancy by a student who keeps a permanent address elsewhere qualifies cannot be settled from this corpus, which holds no case law, and the answer determines whether §§ 1-21-1202, 1-21-1203, 1-21-1207, 1-21-1208, 1-21-1210 and 1-21-1211 apply at all. Recommendation: keep the row's advice to comply with the Act for every residential tenancy regardless, since the Act's owner-side protections (the § 1-21-1210 abandoned-property procedure above all) are worth more to a student-market landlord than the § 1-21-1208 obligations cost. The same definitional question affects seasonal and second-home rentals and should be flagged to whichever topic owns the Act's scope.
+
+- [tenancy-at-will] One point I could not settle from the statutes: whether the Article 12 duties in Wyo. Stat. §§ 1-21-1201 through 1-21-1211 — habitability, deposits, abandoned property — continue to bind an owner during a tenancy by sufferance after the lease has expired. Wyo. Stat. § 34-2-128 says the sufferance tenancy carries 'the rights, duties, obligations and incidents of such tenancy' without saying what those are, and Article 12 keys to a 'residential rental unit' defined in § 1-21-1201(a)(iv) as the renter's principal place of residence, which a holdover's home still is. No statute resolves it and case law is outside this corpus. My recommendation, reflected in the row: assume the Article 12 duties continue until possession is actually returned. That is the cheaper error, and the deposit cascade in § 1-21-1208(a) runs from 'termination of the rental agreement' in any event, so a landlord who treats the duties as continuing is complying with § 1-21-1208 on either reading.
+
+- [tenant-repair-agreement] Wyo. Stat. § 1-21-1202(d) is broad enough on its face to assign even the core habitability duties in §§ 1-21-1202(a) and 1-21-1203(a) to the tenant, and Wyoming attaches none of the usual safeguards. The corpus holds no case law testing that outer limit. Recommendation: keep the drafted clause's paragraph 3, which retains those core duties with the landlord, and keep the education row's division between safer uses (lawn, snow, filters, bulbs, waste, gutters, pool) and aggressive ones (furnace, water heater, roof, shared common areas). Have Wyoming counsel confirm against the case law before the library offers a clause that assigns a core duty.
+
+- [utility-apportionment] Whether a ratio-based allocation (as opposed to submetering) of an electricity or gas bill is a 'direct sale' inside the § 37-1-101(a)(vi)(H)(VI) clawback cannot be settled from this corpus: it turns on Public Service Commission practice, and PSC rules, tariffs and orders are not in the corpus. Recommendation, written into both rows: treat it as inside the clawback, do not allocate electricity or gas at all, and recover those costs through rent or by putting the account in the tenant's name.
+
+- [utility-disclosure-attachment] Whether an administrative or billing fee added to a submetered water pass-through defeats the exemption in Wyo. Stat. § 37-1-101(a)(vi)(H)(VIII) is decided in practice by the Wyoming Public Service Commission, whose rules and orders are not in this corpus. Recommendation: keep the row's cautious reading of the statute's own words - pass through metered water with no added fee of any kind, and for electricity and gas either include them in rent or have the tenant take service directly - and have the landlord confirm with the PSC before adopting a fee-bearing allocation program.
+
+- [utility-interruption-submeter] Whether the Public Service Commission has by rule exempted or conditioned landlord electric submetering under § 37-1-101(a)(vi)(H)(VI) cannot be settled from this corpus, which holds no agency rules. Recommendation: the row tells the landlord to include electricity in rent or put the account in the tenant's name, and to get advice before running a submetered resale program.
+
+- [utility-landlord-account] Whether a Wyoming landlord who submeters ELECTRICITY or GAS and bills tenants for it in fact becomes subject to Public Service Commission jurisdiction. The statutory text is clear that the exemption is withdrawn -- Wyo. Stat. § 37-1-101(a)(vi)(H)(VI) -- and clear that the water carve-outs at (H)(VIII) and (IX) do not extend to electricity or gas. What I cannot settle is the consequence, because PSC rules, tariffs and declaratory orders are not in the corpus and there is no case law. Recommendation: state the statutory position and the cautious course, as the row does -- separate accounts in the tenant's name, or utilities included in rent as a flat amount not presented as a metered sale -- and do not predict whether the Commission would act. If the library can reach PSC rules or orders later, the question to run is whether the Commission has ever asserted jurisdiction over a residential landlord submetering electricity or gas.
+
+- [waiver-by-acceptance] Not settled by any Wyoming statute, and stated in the row as the cautious course rather than as an answer: whether a landlord who accepts rent during an UNEXPIRED term, after serving the three-day notice to quit under Wyo. Stat. § 1-21-1003, waives the notice and the underlying default. Wyo. Stat. §§ 34-2-128 and 34-2-129 do not reach it, because both are expressly keyed to a term that has expired. The risk is highest where the ground is nonpayment, because § 1-21-1002(a)(i) defines the ground as 'a failure to pay rent for three (3) days after it is due' and a tenant who has paid in full can argue the ground has evaporated. Wyoming case law would resolve this and is outside this corpus. Recommendation: leave the row as written (refuse the payment, or take it only under a signed use-and-occupancy and non-waiver writing, and put a non-waiver clause in the lease), and have whoever has case-law access check Wyoming decisions on waiver of a notice to quit by acceptance of rent before any row tells a landlord it is safe to accept rent after serving notice during a live term.
+
+
+---
+
+## §5 The independent check
+
+Rule 80, scaled as the prompt directs: **at most 2 rounds, one agent at a time**, the second round
+re-checking only rows edited after the first, stopping early on a clean round. Alongside the agent
+rounds the main pass ran four **mechanical** checks over the whole delta, which catch a different
+class of defect from a reader and are recorded here because they are reproducible.
+
+### Mechanical checks (whole delta, every row — not a sample)
+
+**1. Quotation fidelity, SOP rule 59 — `tools/quotecheck.py`.** Every statutory-looking quotation in
+every row's `bodyText` and `notes` was extracted and matched against a whitespace-collapsed view of
+the corpus, allowing the two legitimate quoting devices (bracketed alterations such as
+`[i]ntentionally`, and ellipsis for omission) and comparing case-insensitively, since a bracketed
+initial *signals* a deliberate case change. **122 quotations tested. Three real deviations found and
+fixed; the 9 residual reports are all false positives** (clause fill-in text, a rhetorical question,
+a search pattern recorded in notes, and one long quotation whose internal `"FIRE ESCAPE"` broke the
+pairing — verified verbatim by hand). The three fixed:
+
+- `edu-unauthorized-occupant-removal-wy` had added a serial comma inside a quotation of Wyo. Stat.
+  § 1-21-1401(a)(ii), which reads "the sheriff, the sheriff's deputies **or** peace officers of a
+  city or town."
+- `edu-written-notice-required-wy` carried **emphasis capitals inside quotation marks** in two
+  places ("IN WRITING", "ADDITIONAL PERIOD OF SEVEN (7) DAYS"). Both passages are otherwise verbatim;
+  the capitals were removed so the quoted words are the statute's own.
+
+**2. "treble" vs "triple" (rule 59, damages formula).** Wyo. Stat. § 1-21-1403(c)(ii) awards
+"**triple** the fair market value of renting the residential dwelling during the period of wrongful
+removal." `\btreble\b` is **0 in Title 1** (4 corpus-wide, Titles 13, 23, 33 and 42). **12 occurrences
+across 9 rows** were corrected — and the correction matters twice over, because the rows had
+paraphrased it as "treble fair market **rent**", which misses the measure as well as the multiplier.
+*An earlier sweep of mine added the QC note to these rows without the body text actually changing;
+the independent check caught that, correctly calling a note recording an unmade fix worse than no
+note.* The second sweep made the change and verified it exhaustively. Remaining `treble` uses are
+legitimate: a Minnesota comparison, federal treble damages, recorded search patterns, and one row
+explaining why a "treble" search misleads in Wyoming.
+
+**3. Statutory range recitations.** Article 10 runs **§§ 1-21-1001 through 1-21-1017**; § 1-21-1017
+(business representation in "proceedings under this article") was read section-open to confirm it.
+The endpoint "1016" is a **defect in the cross-referencing statute** § 5-9-128(a)(v), and it had
+propagated into **13 range recitations across 7 topics**, including clause text. All corrected; the
+verbatim quotation of the defective statute was deliberately left intact.
+
+**4. Cross-row numeric contradictions.** Every sentence pairing a section cite with a day/hour period
+was extracted and grouped. Six apparent conflicts all resolved as artefacts of sentence-splitting:
+§ 1-21-1208 genuinely carries 30, 15, 10, 45 and 7-day periods across its deposit and
+utilities-deposit chains. **No real contradiction between rows.** One *was* found earlier and fixed —
+`holdover-tenancy-by-sufferance-wy` and `holdover-rate-wy` both set a holdover rate; the rate now
+lives only in the optional clause (SOP rule 57).
+
+**5. Reproducibility of recorded counts.** Two rows recorded contradictory counts for the same
+pattern: `edu-no-condemned-rent-bar-wy` had `treble` = 4 (correct) and
+`edu-landlord-remedies-termination-wy` had `treble` = 0 corpus-wide (wrong). Re-measured and
+corrected. A recorded count that does not reproduce is a defect even where the verdict is right —
+this is proposed SOP change 9.
+
+### Round 1 — independent agent
+
+**Coverage: all 240 topics / 308 rows as they stood at the round-1 snapshot, no triage.** The
+quotation-fidelity, citation-existence and schema/scope/battery-structure sweeps ran over 100% of the
+delta; the battery re-execution reached **3,001 of 3,338 recorded patterns (90%)** across eight corpus
+scopes. **231 topics clean.** The agent modified no file under `/home/claude/answers/`.
+
+**Its single most valuable result is a negative one: of the 1,628 patterns recorded at zero hits, not
+one fires under any scope.** Every nonsense control is present and returns 0; every labelled known
+positive fires. That is the strongest available evidence that the confirmed absences are real. The 17
+residual non-reproductions were all traceable to scope annotations embedded in the `pattern` string
+(`(scoped title01)`, `[title40]`) or to four unescaped `(digits)` groups whose escaped forms reproduce
+the recorded counts exactly — not to a mis-measured count.
+
+**It independently confirmed both items it was asked to verify**, and on one of them it caught me out:
+
+- **Article 10 = §§ 1-21-1001 through 1-21-1017** — confirmed by enumerating every heading in Title 1
+  ch. 21. § 1-21-1017's own text says "proceedings under this article" and the ARTICLE 11 heading
+  follows it. The correction was complete.
+- **§ 1-21-1403(c)(ii) = "triple"** — confirmed, **and my correction was not complete.** Nine
+  occurrences across eight topics still said "treble", five of them in shipped `bodyText`, and five of
+  those topics' notes *already asserted the fix had been made*. The agent's phrasing is the right
+  standard and is adopted here: **a note recording a fix that was not made is worse than no note.**
+  Fixed, exhaustively verified, and the QC notes now match the text.
+
+**Defects it found that I fixed:**
+
+| # | Defect | Resolution |
+|---|---|---|
+| G1 | `edu-unconscionability-wy` cited **§ 40-14-102(f)** three times for the "sale of an interest in land" definition. § 40-14-102 is "Purposes; rules of construction" and ends at (c) — it defines nothing. The whole rent-to-own / lease-option conclusion rested on it. | Corrected to **§ 40-14-205(f)**, confirmed by the definition indexes at § 40-14-142(a)(lii) and § 40-14-203(a)(xv) |
+| G2 | § 31-16-110(o) cited for the duty to mitigate damages; § 31-16-110 is "Succession to franchise ownership" | Corrected to **§ 31-16-109(o)** |
+| F1 | **Five clause rows each set a holdover charge** — four unconditional, two on `{{holdover_daily_rate}}`, one a free-text bracket — with no `choice_group` to keep them apart. I had fixed only one pair. | The rate now lives in `holdover-rate-wy` alone; the other four keep the obligation to pay compensation for use and occupancy and refer to it. SOP rule 57 |
+| F2 | Three clause rows each allocated utilities in full, and their texts disagreed — one put the landlord-held utilities "included in the Rent", another said only that Landlord "will not bill Tenant separately" | `utility-cost-allocation-wy` owns the allocation; the other two keep their own subject and cross-reference it |
+| F4 | `deposit-surrender-notice-wy` carried `REQUIRED_DISCLOSURE: § 1-21-1208(a)`, but that subsection requires no lease text — its duties run to the renter and the owner. The row also asserted that mailing to the last known address "satisfies Landlord's obligation under § 1-21-1208(a)", which the statute does not say | Basis → `SERVES_LANDLORD`, `rule_type` → `RECOMMENDED`, and the self-certifying sentence removed. A lease cannot declare its own statutory compliance |
+| E1/E3 | Three colon-subtitle titles; the non-standard `[e]ngage[]` alteration; **10** `xx` placeholder citations (the agent found 3) | All fixed. **Two placeholders were not merely vague but pointed at the wrong chapter**: the firefighter presumption is § 27-15-102, not "27-14-6xx", and the hazardous-materials mitigation provision is § 1-1-120, not "1-39-1xx" |
+
+**One finding declined, one withdrawn by the agent itself, one false positive.** F3 (three rows
+carrying the § 1-21-1207 nonrefundable recital) was examined and declined: the three are
+cross-references doing distinct work, and `deposit-cost-schedule-wy` already disclaims making anything
+nonrefundable and points to the section that owns it. The agent withdrew three of its own findings on
+re-check — the `S`/`SS` glyph residue (pre-assembly only; the assembled CSV has **0** letter-cites and
+7,839 `§` glyphs), the placeholder count, and **the $100-floor half of B2, which was a false positive**:
+both rows state the floor verbatim, and a phrase the finding attributed to a row appears in no row.
+Recording that matters — a check that produces a false positive is information about the check.
+
+### Round 2 — independent agent (final round)
+
+Scope as the SOP directs: **only rows added or edited after round 1** — 49 topics (13 added, 36
+edited). The agent re-assembled the delta first so every check ran against what actually ships, then
+worked all seven checks, re-running the full 683-entry battery for those topics and reading the
+load-bearing statutes section-open.
+
+**Round 2 was not a clean round, so the check ends at the cap of two rounds rather than early.** It
+confirmed that ten of eleven round-1 fixes had landed, and found three more ship-blockers.
+
+**S1 — the emphasis-capitals fix had not landed, and the reason is a defect in my own tool.** Round 1
+flagged capitals inside quotation marks in `edu-written-notice-required-wy`; I fixed the two instances
+I found by hand and left a QC note implying the row was clear. **Twelve quotations across nine rows
+still carried them.** My `quotecheck.py` could not see them: I had made it case-insensitive so that
+bracketed alterations like `[i]ntentionally` would stop producing false positives, and that change
+blinded it to case deviations, which are themselves the defect. All twelve are now restored to the
+statute's own casing, taken from the corpus text rather than retyped, and **the checker now reports
+case deviations as their own class** — it reads 0 against the shipped delta.
+
+*This is the second time in this pass that a note recorded a fix that was not fully made, and both
+times an independent agent caught it. The lesson is in proposed SOP change 9 and is worth stating
+plainly: a QC note is a claim, and a claim about a correction needs verifying exactly like a claim
+about a statute.*
+
+**S2 — `utility-transfer-wy` and its education row contradicted eight other rows.** They told the
+landlord to bill the utility "plus an administrative charge of $[amount] per service per billing
+period." Billing a tenant the cost of a utility commodity plus a markup is a "metered or other direct
+sale … to his tenants" inside the Wyo. Stat. § 37-1-101(a)(vi)(H)(VI) clawback, and the consequence
+there is **loss of the public-utility exemption itself**, not an unenforceable fee; for water,
+(H)(VIII) carries its own "no additional fees or charges" limit. The charge is removed. The same
+sentence carried a second contradiction the check did not name — it made the charge "payable as
+additional rent", which `edu-fees-as-rent-wy` warns against, because no Wyoming statute makes a fee
+rent and so it cannot run through the three-day nonpayment route. Also removed.
+
+**S3 — two ungated clause rows conflicted, and one conflict was a legal risk rather than untidiness.**
+`purpose-limitation-wy` flatly banned "short-term or transient lodging of any kind" while
+`occupants-and-guests-wy` permitted it with Landlord's written consent; the ban now carries the same
+consent gate. Separately, **two clause rows each opened a `[number]` blank for the occupancy number**.
+Wyo. Stat. § 1-21-1204(a)(v) makes the renter's duty turn on the number "specified in the rental
+agreement", so two blanks filled differently make the statutory duty itself ambiguous.
+`occupants-and-guests-wy` owns the number because it is the row that ties it to the statute;
+`guest-policy-wy` now refers to it.
+
+**Three smaller corrections, two of them to recorded numbers I wrote myself:** § 34-14-208(e) →
+**§ 34-14-209(e)** (§ 34-14-208 is "Remedies of creditors"; the lease-termination defence is in
+"Defenses, liability and protection of transferee"); the known positive `nuisance` recorded as "300+"
+in my own tag note when the measured count is **94**; and "18 section headings" for Article 10 when
+the range it states, §§ 1-21-1001 to 1-21-1017, is **17** — a note contradicting itself, in the same
+row whose `treble` count also failed to reproduce.
+
+**What round 2 could not break.** No false absence anywhere: 637 of 645 in-scope patterns reproduce,
+and all eight exceptions are scope annotations inside pattern strings or non-numeric `hits` values,
+not mis-measured counts. All 38 anchored `cite` entries reproduce exactly. Every one of the 49 topics
+carries a working `zxqvwomble` control at 0 and a known positive that fires. Schema, scope fence and
+the `governmental-fines` tag chain (§ 1-21-1204(a)(vii) → § 1-21-1002(a)(vi)) all verify. Of the
+thirteen topics added after round 1 it said the legal substance is the strongest work in the delta and
+it could not break it — § 6-2-320's two differing grandfather clauses, the § 6-2-320(b) stem defect,
+§ 34-1-501 as a covenants-only rule, and § 35-7-374(c)'s express preemption of local pesticide-notice
+ordinances all check word for word.
+
+**One correction back to round 1:** round 1 cited "§ 40-14-101(a)(lii)" for the UCCC definition index;
+§ 40-14-101 is "Short title". The index is **§ 40-14-142(a)(lii)**, which is what the QC note in the
+delta says.
+
+### Rows edited after the last round
+
+Sixteen topics, twenty-two rows and one tag were edited after round 2 reported, all in response to its
+findings. None has been re-checked by an independent agent, and the SOP's two-round cap is reached, so
+they are listed here for the sync:
+
+| topic | row(s) / tag | why |
+|---|---|---|
+| `written-notice-required` | `edu-written-notice-required-wy` | S1 — 4 quotations restored to statutory casing |
+| `lease-registration` | `edu-lease-registration-wy` | S1 |
+| `rent-tax` | `edu-rent-tax-wy` | S1 |
+| `repair-escrow-exemption-notice` | `edu-no-repair-escrow-exemption-wy` | S1 |
+| `security-deposit-interest` | `edu-no-security-deposit-interest-wy` | S1 |
+| `social-security-defense` | `edu-no-benefit-delay-defense-wy` | S1 |
+| `statute-of-frauds-lease-term` | `edu-statute-of-frauds-lease-term-wy` | S1 |
+| `statutory-caps` | `edu-statutory-caps-wy` | S1 |
+| `utility-apportionment` | `edu-utility-apportionment-wy` | S1 |
+| `utility-transfer` | `utility-transfer-wy`, `edu-no-utility-transfer-cutoff-wy` | S2 — administrative charge and "additional rent" removed |
+| `purpose-limitation` | `purpose-limitation-wy` | S3 — lodging ban now consent-gated |
+| `purpose-limitation` | `edu-purpose-limitation-wy` | § 34-14-208(e) → § 34-14-209(e) |
+| `guest-rights` | `guest-policy-wy` | S3 — no longer opens a second occupancy blank |
+| `governmental-fines` | tag on `tenant-caused-fines-as` | `nuisance` count corrected 300+ → 94 |
+| `landlord-remedies-termination` | `edu-landlord-remedies-termination-wy` | Article 10 heading count 18 → 17 |
+| `utility-landlord-account` | `utility-landlord-account-wy` | cross-reference retitled to the owning section |
+| `utility-submetering-disclosure` | `utility-responsibility-and-allocation-wy` | cross-reference retitled to the owning section |
+
+After these edits the whole delta was re-assembled and re-checked mechanically: **336 rows, 17 columns
+exact, 0 letter-citations, 0 `xx` placeholders, 0 case deviations inside quotations, exactly one row
+setting a holdover rate, 8,104 `§` glyphs, and every one of 162 absences carrying a battery.**
+
+---
+
+## §6 Findings on existing rows
+
+— raised by the gaps canvass (not fixed; scope fence)
+
+**1. A whole article the library never saw: Title 1, ch. 21, ARTICLE 14 — Removal of Unauthorized
+Occupants, Wyo. Stat. §§ 1-21-1401 through 1-21-1403**, added by 2025 Wyo. Sess. Laws ch. 20 (SF0006).
+Verified section-open in the corpus text of Title 1 and against the enrolled act.
+
+This matters twice over.
+
+*As a finding on a row.* `edu-no-self-help-eviction-statute-wy` says "The FED process is the route the
+statutes actually provide." That is still correct **for tenants** — § 1-21-1402(a)(iv) excludes anyone who
+"is not a current or former tenant pursuant to a written or oral rental or lease agreement" — but it is now
+incomplete as a statement about Wyoming. For a non-tenant occupying a dwelling unlawfully, Article 14
+supplies a second, non-judicial route: a sworn complaint to law enforcement, immediate notice to vacate,
+the owner restored to possession, and a lock change with an officer present, backed by treble fair-market
+rent plus fees against an owner who misuses it (§ 1-21-1403(c)). Suggested wording for Claude Code: keep
+the row's tenant-facing holding and add one sentence distinguishing Article 14 as available only against a
+person who never was a tenant.
+
+*As a finding on my own prior work, which is the more useful half.* The 2026-09-30 and 2026-10-04 retro
+logs both state the evidentiary boundary for every Wyoming absence row as **"Articles 10, 12 and 13 read
+whole."** Article 14 was already law when both were written. I did not find it because neither pass had a
+code-wide corpus — the boundary was three articles reached by guessing gateway node numbers (63, 65, 66),
+and nothing told me a node 67 existed. Every Wyoming absence row carrying that boundary phrase is sound on
+its own subject but was screened against an article set that was one article short. Claude Code should
+treat "Articles 10, 12 and 13 read whole" in those logs as superseded by this pass's corpus-wide batteries.
+
+**2. Scope qualifier missing from Wyoming's deposit and habitability rows.** § 1-21-1201(a)(iv) defines
+"residential rental unit" as "a renter's **principal place of residence**", excluding "a mobile home lot or
+recreational property rented on an occasional basis." That definition gates the whole of Article 12 —
+habitability, deposits, abandoned property. A Wyoming row that states a deposit or habitability rule as
+applying to every rental is missing the qualifier. Article 10 eviction procedure is unaffected and still
+applies. Affected rows include `edu-security-deposit-return-wy`, `edu-habitability-baseline-wy` and
+`edu-deposit-noncompliance-penalty-wy`. Not fixed here.
+
+**3. § 1-21-1202(d) does not reach Article 10.** Its words are "any duty or obligation in **this article**",
+and it sits in Article 12. So it is not authority for waiving the § 1-21-1003 notice to quit, the
+§ 1-21-1002(a)(i) grace period, or any other Article 10 procedure. Recorded because the modification power
+is broad enough that it invites over-reading, and `duty-reassignment-wy` and `edu-habitability-waiver-wy`
+both rest on it (correctly — both are Article 12 subjects).
+
+**4. `edu-consumer-protection-act-wy` can be sharpened — my own row, from the 2026-09-30 retro.** It
+says whether the Wyoming Consumer Protection Act reaches a residential lease "is genuinely unsettled on
+the words," because I read only §§ 40-12-102 and 40-12-105 and could not resolve whether letting a
+dwelling is a "sale or distribution." This pass read further. § 40-12-102(a)(vi) defines "merchandise" to
+include property "real, personal or mixed"; § 40-12-105(a) is gated on "knowingly," with (a)(viii) and the
+(a)(xv) catch-all reaching lease wording and advertising; and — the piece I never read — **§ 40-12-110
+contains no real-property exemption**. § 40-12-109 requires pre-suit notice and a cure period. The row's
+caution is not wrong, but "unsettled" now understates it: the Act has no exemption that would keep a
+landlord out, and it is the only knowing-conduct hook on a Wyoming landlord anywhere in the code. Not
+fixed here (scope fence). Suggested for Claude Code: keep the no-case-law caveat, drop "unresolved on the
+text," and add the § 40-12-110 and § 40-12-109 points.
+
+**5. Scope qualifier, second instance.** `edu-no-self-help-eviction-statute-wy` and
+`edu-no-quiet-possession-statute-wy` both describe Wyoming's possession machinery as "the three-day notice
+to quit, the court action, and a sheriff acting on a court order." With Article 14 now in view that list is
+incomplete for a non-tenant occupant, and both rows would benefit from the same one-sentence addition
+described in finding 1.
+
+**6. `assistance-animal-accommodation-wy` tells only half of a two-sided penalty statute.** The clause
+warns the TENANT that knowingly misrepresenting an animal is a misdemeanor punishable by up to $750
+(Wyo. Stat. § 35-13-203(b)) — correct, and verified again this pass. But § 35-13-203 has two subsections,
+and **(a) runs against the landlord**: "Any person denying or interfering with admittance to or enjoyment
+of any place or facility referenced in W.S. 35-13-201(a) through (c) or otherwise interfering with the
+rights of the blind, partially blind, deaf, hearing impaired person or other person with a disability is
+guilty of a misdemeanor and may be fined not more than seven hundred fifty dollars ($750.00)."
+§ 35-13-201(c) is the residential-leasing assistance-animal right, so **refusing an assistance animal is
+itself a crime in Wyoming**, carrying the same $750 as the tenant-side offence. The row cites (b) and
+never mentions (a). A landlord reading it learns the tenant faces a criminal penalty for lying and does
+not learn that he faces one for refusing. Read section-open in the corpus text of Title 35. Not fixed
+here (scope fence). Suggested for Claude Code: add one sentence giving (a) the same prominence as (b),
+and note that § 40-26-107(c)(ii) supplies the parallel civil reasonable-accommodation duty.
+
+
+### 7. `edu-no-immigrant-tenant-protection-wy` — right answer, wrong basis, and the basis is now checkable
+
+This row was written when no Wyoming corpus could be loaded. Its own notes say so:
+*"Title 40 ch. 26 not read for this row"* and *"no loadable Wyoming corpus exists for this session
+(org egress policy returns 403 for every statute host)."* This pass has the corpus, so the gap the
+row flagged can be closed. **Its conclusion survives; three statements supporting it do not.**
+
+**(a) The row states something false about Wyoming law.** The notes read:
+
+> "multiple independent Wyoming landlord-tenant law overviews consistently describe protected
+> classes as **federal-only with no state additions**"
+
+Wyoming has its own fair housing act — **Wyo. Stat. §§ 40-26-101 through 40-26-145** — with its own
+protected classes. `national origin` returns **14 hits in Title 40**. The "federal-only, no state
+additions" description is wrong as a statement of Wyoming law, whatever the secondary overviews
+say, and it is the kind of sentence another row could be built on. (Related: the substantive
+prohibitions at §§ 40-26-103 to 40-26-109 carry no age or marital-status class, but
+**§ 40-26-144(a)(i)** does — its list is "race, color, religion, sex, disability, **age**, familial
+status, national origin or **status with respect to marriage or public assistance**" — for the
+force-or-threat intimidation offence.)
+
+**(b) The absence now has a real battery instead of secondary agreement.** Run corpus-wide this
+pass: `immigration status` **19** (Titles 9 and 42, welfare and public assistance; 2025 HB0133;
+2026 SF0106) · `immigration` **59** (none in Title 40) · `immigrant` **1** (Title 6) ·
+`citizenship status` **2** · `alienage` **2** (Title 2, descent and distribution) · `undocumented`
+**0** · `lawful presence` **4** · `lawfully present` **17** (Titles 27, 32, 42 — employment and
+benefits) · **Title 40 scope: `immigration` 0, `citizenship` 0.** Control `zxqvwomble` **0**; known
+positive `national origin` **45** corpus-wide, **14 in Title 40**. The one 2026 act on point,
+**SF0106** (enrolled act 68, Senate), was read: it is a welfare and Medicaid eligibility act
+requiring verification of "citizenship or immigration status" for public assistance and hospital
+admissions. **It does not reach landlords, housing or leases.** *Conclusion: confirmed absent, now
+on the code rather than on overviews.*
+
+**(c) Two smaller defects.** The row's `rule_type` is **PROHIBITED**, but its body states an
+absence — no Wyoming statute prohibits the inquiry — so nothing is prohibited and the type
+contradicts the text. And the body asserts *"Only California, Illinois, and Colorado have been
+found to have a dedicated statute of this kind"* — an other-states claim inside a Wyoming row,
+unsourced and liable to go stale as the library grows.
+
+**Suggested wording** (Claude Code to apply; not changed here, per the scope fence). Replace the
+notes sentence at (a) with:
+
+> Wyoming has its own fair housing act, Wyo. Stat. §§ 40-26-101 through 40-26-145; its classes are
+> not federal-only. None of them is immigration or citizenship status: `immigration` and
+> `citizenship` both return 0 in Title 40, and `national origin` returns 14.
+
+and change `rule_type` to **RECOMMENDED** to match a confirmed-absence education row.
+
+---
+
+### 8. Two rows read only half of Wyo. Stat. § 1-21-1204(a)(v)
+
+The paragraph contains **two** duties, not one:
+
+> (v) **Occupy the residential rental unit in the manner for which it was designed** *and* shall not
+> increase the number of occupants above that specified in the rental agreement without written
+> permission of the owner;
+> — Wyo. Stat. § 1-21-1204(a)(v), read section-open
+
+The first limb is **Wyoming's statutory purpose limitation**. It operates with no lease clause at
+all, and because § 1-21-1002(a)(vi) grounds a forcible entry and detainer action on violation of any
+duty imposed under § 1-21-1204, it carries its own eviction ground. Two existing rows describe the
+paragraph as if the occupancy cap were all of it:
+
+- **`edu-contracted-appliances-duty-wy`** — *"1-21-1204(a)(v) (occupancy above the number 'specified
+  in the rental agreement' — already carried by `permitted-occupants`)."* The conclusion that
+  `permitted-occupants` carries it is true of the second limb only; nothing carries the first.
+- **`edu-no-lease-completeness-rule-wy`** — lists *"the occupancy number (W.S. 1-21-1204(a)(v))"*
+  among the blanks a lease should fill in. Correct for the second limb; the first is not a blank to
+  fill, it is a duty that binds whatever the lease says.
+
+**Suggested wording** (Claude Code to apply): in both rows, describe the paragraph as *"§ 1-21-1204(a)(v)
+— two duties: occupy the unit in the manner for which it was designed, and do not exceed the
+occupancy number specified in the rental agreement without written permission."* The first limb is
+answered in this delta at the `purpose-limitation` topic.
+
+---
+
+## §7 Findings for other states
+
+**None.**
+
+Stated positively, because an empty section is otherwise ambiguous: the canvass read a large number
+of shared multi-state rows in the course of the tag-first screen (SOP rules 26-28), and every
+apparent problem resolved on inspection into either (a) another state's correctly-scoped segment on
+a shared row, or (b) a warning about a row that does not exist ("any row that said X would be
+wrong"). No existing row belonging to another state was found to misstate that state's law.
+
+Two near-misses are recorded so a later pass does not re-open them:
+
+- **`utility-allowance-cap-co`** was examined as a tag candidate and **rejected for Wyoming** — an
+  allowance-plus-metered-overage structure for electricity or gas is the exact "metered or other
+  direct sale ... to his tenants" caught by the Wyo. Stat. § 37-1-101(a)(vi)(H)(VI) clawback, and
+  the consequence there is loss of the public-utility exemption, not merely an invalid fee. That is
+  a finding about **Wyoming**, not a defect in the Colorado row, which is correct for Colorado.
+- **`tenant-caused-fines-as`** (AS;MP) is correct as written for American Samoa, which has an actual
+  statutory liability at A.S.C.A. § 13.0224(c)(6). Wyoming has no analogue, so the row was tagged
+  with a note making the Wyoming basis contract-only. The existing AS and MP segments are untouched.
+
+---
+
+## Variables
+
+**Reused where the library already had a name.** Seven uses across four rows were normalised at QC after different canvass slices coined parallel names for the same field: `{{lease_start_date}}` and `{{lease_end_date}}` to the library's `{{start_date}}` and `{{end_date}}`, `{{owner_notice_address}}` to `{{owner_address}}`, `{{utilities_deposit}}` to `{{utility_deposit}}`, and three utility-side synonyms to `{{landlord_utilities}}` and `{{tenant_utilities}}`. `{{holdover_daily_rate}}` (library, 20 uses) is reused by the new holdover clause.
+
+**34 genuinely new variables**, all for fields Wyoming's rows need and the library has no name for. The `wy_manager_*` trio follows the library's existing state-prefixed pattern (`{{va_resident_agent_name}}`).
+
+| variable | uses |
+|---|---|
+| `{{child_care_liability_amount}}` | 1 |
+| `{{concession_application}}` | 1 |
+| `{{concession_description}}` | 1 |
+| `{{concession_total_value}}` | 1 |
+| `{{credential_data_deletion_days}}` | 1 |
+| `{{fee_bearing_method}}` | 1 |
+| `{{guaranty_end_date}}` | 1 |
+| `{{guaranty_max_liability}}` | 1 |
+| `{{included_utilities}}` | 1 |
+| `{{insurance_proof_days}}` | 1 |
+| `{{landlord_utilities}}` | 2 |
+| `{{lost_credential_notice_days}}` | 1 |
+| `{{max_children_in_care}}` | 1 |
+| `{{nonelectronic_payment_method}}` | 1 |
+| `{{number_of_units_on_master_meter}}` | 1 |
+| `{{payment_address}}` | 1 |
+| `{{pool_guest_limit}}` | 1 |
+| `{{pool_minimum_age}}` | 1 |
+| `{{portal_fee}}` | 1 |
+| `{{renters_liability_limit}}` | 2 |
+| `{{scheduled_services}}` | 1 |
+| `{{seasonal_amenities_statement}}` | 1 |
+| `{{seasonal_property_description}}` | 1 |
+| `{{service_notice_hours}}` | 1 |
+| `{{smart_access_credential_count}}` | 1 |
+| `{{smart_access_locations}}` | 1 |
+| `{{smart_access_method}}` | 1 |
+| `{{tenant_notice_days}}` | 1 |
+| `{{tenant_other_residence}}` | 1 |
+| `{{tenant_utilities}}` | 3 |
+| `{{water_allocation_method}}` | 1 |
+| `{{wy_manager_address}}` | 1 |
+| `{{wy_manager_name}}` | 1 |
+| `{{wy_manager_phone}}` | 1 |
+
+---
+
+## Proposed SOP changes
+
+Ten proposals. Eight are **false-signal mechanisms** — ways a search returns a confident zero that
+is not a real absence — and one is about a battery's own integrity. Every one was hit in this pass,
+most of them more than once, and every one would have shipped a wrong confirmed-absence row if it
+had not been caught. They are offered as additions to SOP rule 19, which already requires controls
+and known positives but does not yet guard the *search surface* itself.
+
+**The common failure is the same in all eight: a battery proves the pattern did not match. Rule 19's
+control proves the corpus can return a true empty. Neither proves the pattern could ever have
+matched the text if the text were there.** That is the gap.
+
+---
+
+**1. The search surface must be line-wrap-proof, and a multi-word known positive must prove it.**
+*This is the most serious one and it nearly corrupted the whole pass.* Corpus text produced by
+`pdftotext -layout` wraps mid-sentence, so a multi-word literal spanning a line break never matches.
+Every multi-word battery in this pass returned a **false zero** until the harness gained a
+whitespace-collapsed view of each document. It was caught only because `Condominium Ownership Act`
+returned 0 while Wyoming plainly has one at Wyo. Stat. § 34-20-101. On revalidation the control
+still returned 0 and `residential rental unit` went **20 → 23**.
+*Proposed:* search a whitespace-collapsed view of the corpus, and require **at least one known
+positive that is itself multi-word**, so the positive fails if the surface is line-broken. A
+single-word positive cannot detect this failure and gives false assurance.
+
+**2. Escape the statute's own number style.** Wyoming writes `seven (7) days`. Pasted into a regex,
+`(7)` becomes a capture group matching the bare digit, so the pattern silently stops being the
+phrase the drafter searched for.
+*Proposed:* rule 19 should require patterns taken from statutory text to be escaped, or run as
+literals.
+
+**3. Anchor bare section numbers.** `1-3-119` matched 7 times in this corpus; **6 were `41-3-119`
+and `21-3-119`.** A canvasser counting hits concludes a section is discussed where it is not — or,
+worse, reads the wrong section's text and attributes it.
+*Proposed:* require `(?<![0-9.\-])NUM(?![0-9.\-])` for any section-number search, and require the
+battery to record anchored and unanchored counts when they differ.
+
+**4. Scope filters must be case-insensitive.** A scope of `title97` silently returned 0 because the
+file is named `Title97`. A silent zero from a *scope* looks exactly like a real absence.
+*Proposed:* match scopes case-insensitively, and make a scope that matches **no document** an
+error rather than an empty result.
+
+**5. Search the subject, not the role.** Two universal Wyoming duties catch landlords and neither
+contains the word "landlord": Wyo. Stat. § 14-3-205(a) (child abuse, "Any person") and
+§ 35-20-103(a) (vulnerable adults, "Any person or agency"), the second carrying a criminal penalty
+for failing to report under § 35-20-111(b). Searching the role finds neither. Likewise
+§ 6-2-320's residency restriction is invisible to `residency restriction` (0) and
+`shall not reside` near school or day care (0, **both orders**); it was found only by searching the
+subject, `within one thousand`.
+*Proposed:* for any topic framed by a role, require at least one battery pattern on the **conduct
+or subject matter** rather than the actor.
+
+**6. Proximity must be run in both word orders before an absence is recorded.** Wyo. Stat. § 6-6-201
+is invisible to `nuisance.{0,60}controlled substance` and visible only in the reverse order.
+*Proposed:* make both orders mandatory for any proximity pattern supporting a negative finding.
+(Rule 19 already says "proximity in BOTH word orders"; this pass suggests it needs to be stated as
+a *validation* requirement, because batteries were still submitted with one order.)
+
+**7. Short words need word boundaries, and the trap list should be in the SOP.** Found this pass,
+each producing false positives that a canvasser would otherwise have counted as real:
+`late` inside *related* and *appellate* (all nine Title 1 late-rent proximity hits were false);
+`lease` inside *release* (every one of twenty meth-contamination hits, and several servicemember
+hits); `tow` inside *town*; `attorn` inside *attorney* (so `\battorn(ment)?\b` = 0 is what actually
+establishes Wyoming has no attornment provision); `avigation` inside *navigation* (22 hits, all
+false); `HIV` inside *archive* and *hive* (72 hits across nine titles, **all** false);
+`screens` inside *screening*; `oven` inside *proven* and *government* (unbounded `oven` returns
+1,740 hits, `\boven\b` returns **0**).
+*Proposed:* require `\b` on any search term under six characters, and carry a standing trap list.
+Three further phrase traps found this pass belong on it: Wyoming says **"registered offender"**, so
+`registered sex offender` = 0; it writes numbers as words-plus-figures, so `1,000 feet` = 0 while
+`one thousand \(1,000\) feet` = 27; and `pest control` = 28 corpus-wide but **0 in Title 1**, all
+hits being weed-and-pest districts and appropriations.
+
+**8. Never recite a statutory range taken from a cross-reference; verify the article's last
+section.** Wyoming's Article 10 runs §§ 1-21-1001 through **1-21-1017**, but § 5-9-128(a)(v) names
+"1-21-1001 through 1-21-**1016**" — a defect in the cross-referencing statute. That wrong endpoint
+propagated into **13 range recitations across 7 topics** in this pass, including into clause text a
+court would read, before it was caught by reading § 1-21-1017 directly.
+
+**This is not a quirk; it is a pattern, and this pass hit it three times.** § 1-21-1002(b) saves
+"1-21-1201 through 1-21-**1210**" though Article 12 runs to 1211. And § 40-12-501(a)(xi) — the
+data-breach article's *own* scope sentence — says *"'This act' means W.S. 40-12-501 through
+40-12-511"* when the article ends at § 40-12-509: anchored searches give `40-12-510` = **0**
+corpus-wide, and the only `40-12-511` hit is that self-reference. One row had repeated that range as
+its own claim and was corrected. A statute's self-description of its own extent is exactly as
+unreliable as another statute's cross-reference.
+*Proposed:* a range recited in a clause must be verified by reading the first section *past* the
+claimed endpoint and confirming it falls outside the article — not by copying a range from another
+statute, however authoritative that statute looks.
+
+**9. A recorded hit count must be reproducible, and the check should re-run a sample.** I introduced
+this error myself: adding a known positive to a battery, I recorded `hits: 86` for `sex offender`
+when the measured count is **44**. The conclusion was unaffected, but a battery exists precisely so
+a later reader can re-run it — a number nobody measured is worse than no number, because it looks
+like evidence.
+*Proposed:* state in rule 19 that a recorded count which does not reproduce is a defect **even
+where the verdict is right**, and add to rule 80's check that the reviewer re-runs a sample of
+recorded patterns rather than only reading them.
+
+
+**10. Give a battery entry a `scope` field instead of burying the scope in the pattern string.** The
+independent check re-ran 3,001 of this pass's 3,338 recorded patterns and reproduced every one except
+17 — and all 17 failed for the same avoidable reason: the scope was written *inside* the pattern
+string (`'treble' (scoped title01)`, `'lead paint' [title40]`, `cite 35-7-374 … session-laws`), so a
+machine re-running the pattern searches for that text literally. Four more needed their `(digits)`
+escaped (proposal 2) before they reproduced exactly.
+*Proposed:* record a battery entry as `pattern` / `scope` / `hits` / `note`, with the scope as its own
+field. The whole point of a battery is that someone else can re-run it; a pattern that only a human
+reader can interpret is not reproducible evidence. This change alone would have made 100% of this
+pass's batteries machine-checkable.
+
+---
+
+## Proposed topic questions
+
+Two, both arising from topics where Wyoming's answer turned out to depend on something the topic
+does not currently ask about.
+
+1. **`criminal-activity` should ask whether the state has a general "comply with the lease" renter
+   duty that supplies an eviction ground.** Wyoming has no crime-specific eviction machinery at
+   all, yet a crime-free covenant is fully enforceable, because Wyo. Stat. § 1-21-1204(a)(vii)
+   makes compliance with "all lawful requirements of the rental agreement" a statutory duty and
+   § 1-21-1002(a)(vi) makes breach of that duty an eviction ground. A canvasser looking only for
+   crime-specific authority records a bare absence and misses that every lease covenant in the
+   state reaches eviction through one paragraph. The question generalises well beyond this topic.
+
+2. **The `*-waiver` topics should ask what the default rule is before asking whether it can be
+   waived.** Two Wyoming waiver topics turned out to have nothing to waive: `showing-notice-waiver`
+   (Wyoming sets no entry-notice period at all — the only standard in § 1-21-1205(a)(iii) is
+   whether the renter's refusal was "unreasonable") and, in substance, `jury-waiver`
+   (§ 1-21-1008(a) already gives a bench trial unless a party demands a jury, so the clause's only
+   real effect is to stop the *tenant* demanding one). Both are easy to answer wrongly — as a
+   lawful waiver rather than as an empty one — unless the topic asks for the baseline first.
+
+## Gaps-pass sync review (Claude Code, 2026-10-24)
+
+Merged with `merge-delta.py --base 9f38860` after Colorado's sync: 325 new rows, 11 shared rows tagged for WY (four onto rows Colorado's sync had just changed; merged onto current), nothing refused. Every row VERIFIED; no NEEDS_REVIEW row is open for Wyoming.
+
+**Findings on existing rows (§6), each read against the corpus:**
+1, 5. `edu-no-self-help-eviction-statute-wy` and `edu-no-quiet-possession-statute-wy`: the 2025 Article 14 removal route (§§ 1-21-1401 to 1-21-1403) added, with its exclusion of current and former tenants (§ 1-21-1402(a)(iv)) and the treble-rent remedy (§ 1-21-1403(c)). The retro logs' boundary "Articles 10, 12 and 13 read whole" is superseded by this pass's corpus-wide batteries.
+2. `edu-security-deposit-return-wy`, `edu-habitability-baseline-wy`, `edu-deposit-noncompliance-penalty-wy`: the § 1-21-1201(a)(iv) principal-residence scope added.
+3. § 1-21-1202(d) does not reach Article 10: recorded; no row relies on it for Article 10.
+4. `edu-consumer-protection-act-wy`: § 40-12-110 (no real-property exemption) and § 40-12-109 (pre-suit notice) added; the no-case-law caveat kept.
+6. `assistance-animal-accommodation-wy`: the landlord-side misdemeanor, § 35-13-203(a) with § 35-13-201(c), added beside the tenant-side one.
+7. `edu-no-immigrant-tenant-protection-wy`: rewritten; the notes' "federal-only" statement corrected (Wyoming's own fair housing act, §§ 40-26-101 to 40-26-145); the other-states sentence removed; rule_type PROHIBITED -> RECOMMENDED.
+8. `edu-no-lease-completeness-rule-wy` (text) and `edu-contracted-appliances-duty-wy` (notes): both limbs of § 1-21-1204(a)(v).
+
+**Items:** 1 (four rule 54 options) and 2 (casualty: now a checked absence, `edu-casualty-and-mitigation-waivable-wy`) answered in the delta; 3 (`keys`, `hoa-compliance`: no Wyoming conflict, no DV lock-change right), 4 (the three shared edits read correctly) and 5 (no WY row disagrees with `edu-cares-act-notice`) need no change; 6 (currency) clean.
+
+**Points not settled from the corpus (§4):** every one is a case-law or agency-practice question, stated in its row with the cautious course (SOP Part 5 policy); none leaves a row open.
+
+**Edited-after rows (§5):** the S1 rows are quotation-casing fixes; `purpose-limitation-wy`, `edu-purpose-limitation-wy` (§ 34-14-209(e) confirmed) and `guest-policy-wy` read correctly. `utility-transfer-wy` still called the utility reimbursement both "not Rent" and "additional Rent" (erratum S2 applied in part); finished as S2 intended.
+
+**Statute spot-check:** § 1-21-1208(a) (deposit: 30 days or 15 after the address, whichever is later, plus 30 for damage) against `edu-security-deposit-return-wy`; § 34-2-128 (no implied renewal by holding over or accepting rent) against `edu-holdover-rate-wy`; §§ 1-21-1401 to 1-21-1403, § 40-12-109 and -110, § 35-13-201 and -203 read whole for the fixes above. No errors.
+
+**Sync housekeeping:** `pool-and-spa-use-wy` remapped from "Building & Safety" to "Rules & Regulations"; 33 new `{{variables}}` added to backlog M.14 (`{{landlord_utilities}}`, listed in the log, appears in no active clause). The pass's SOP proposals and topic questions are taken up with Colorado's in SOP 1.85.

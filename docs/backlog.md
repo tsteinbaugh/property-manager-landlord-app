@@ -425,6 +425,39 @@ M.1, M.2 and M.4 are the same underlying gap: **the builder treats clauses as in
 | `{{inspection_notice_hours}}` | CO | new 2026-10-24 (CO gaps; the entry-notice period where Colorado lets the lease set it) |
 | `{{display_item_limit}}` | CO | new 2026-10-24 (CO gaps; `tenant-display-rules-co`) |
 | `{{parking_fee_amount}}` | CO | new 2026-10-24 (CO gaps; `unbundled-parking-co`, screened against C.R.S. § 6-1-737(4)) |
+| `{{child_care_liability_amount}}` | WY | new 2026-10-24 (WY gaps) |
+| `{{concession_application}}` | WY | new 2026-10-24 (WY gaps) |
+| `{{concession_description}}` | WY | new 2026-10-24 (WY gaps) |
+| `{{concession_total_value}}` | WY | new 2026-10-24 (WY gaps) |
+| `{{credential_data_deletion_days}}` | WY | new 2026-10-24 (WY gaps) |
+| `{{fee_bearing_method}}` | WY | new 2026-10-24 (WY gaps) |
+| `{{guaranty_end_date}}` | WY | new 2026-10-24 (WY gaps) |
+| `{{guaranty_max_liability}}` | WY | new 2026-10-24 (WY gaps) |
+| `{{included_utilities}}` | WY | new 2026-10-24 (WY gaps) |
+| `{{insurance_proof_days}}` | WY | new 2026-10-24 (WY gaps) |
+| `{{lost_credential_notice_days}}` | WY | new 2026-10-24 (WY gaps) |
+| `{{max_children_in_care}}` | WY | new 2026-10-24 (WY gaps) |
+| `{{nonelectronic_payment_method}}` | WY | new 2026-10-24 (WY gaps) |
+| `{{number_of_units_on_master_meter}}` | WY | new 2026-10-24 (WY gaps) |
+| `{{payment_address}}` | WY | new 2026-10-24 (WY gaps) |
+| `{{pool_guest_limit}}` | WY | new 2026-10-24 (WY gaps) |
+| `{{pool_minimum_age}}` | WY | new 2026-10-24 (WY gaps) |
+| `{{portal_fee}}` | WY | new 2026-10-24 (WY gaps) |
+| `{{renters_liability_limit}}` | WY | new 2026-10-24 (WY gaps) |
+| `{{scheduled_services}}` | WY | new 2026-10-24 (WY gaps) |
+| `{{seasonal_amenities_statement}}` | WY | new 2026-10-24 (WY gaps) |
+| `{{seasonal_property_description}}` | WY | new 2026-10-24 (WY gaps) |
+| `{{service_notice_hours}}` | WY | new 2026-10-24 (WY gaps) |
+| `{{smart_access_credential_count}}` | WY | new 2026-10-24 (WY gaps) |
+| `{{smart_access_locations}}` | WY | new 2026-10-24 (WY gaps) |
+| `{{smart_access_method}}` | WY | new 2026-10-24 (WY gaps) |
+| `{{tenant_notice_days}}` | WY | new 2026-10-24 (WY gaps) |
+| `{{tenant_other_residence}}` | WY | new 2026-10-24 (WY gaps) |
+| `{{tenant_utilities}}` | WY | new 2026-10-24 (WY gaps) |
+| `{{water_allocation_method}}` | WY | new 2026-10-24 (WY gaps) |
+| `{{wy_manager_address}}` | WY | new 2026-10-24 (WY gaps) |
+| `{{wy_manager_name}}` | WY | new 2026-10-24 (WY gaps) |
+| `{{wy_manager_phone}}` | WY | new 2026-10-24 (WY gaps) |
 
 **Urgency:** required before the lease feature goes live.
 
