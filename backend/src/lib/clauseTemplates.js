@@ -278,7 +278,7 @@ const CLAUSE_TEMPLATES = [
     group: "Rent & Payment",
     states: ["MN"],
     bodyText:
-      "Any late fee charged under this Lease is agreed to by Landlord and Tenant in writing by this Lease, will be imposed only as stated in this Lease's late fee provision, and will not exceed 8% of the overdue Rent payment. If Landlord receives housing assistance payments for the property under a contract with a federal, state, or local government, any late fee will be calculated and assessed only on the portion of Rent payable by Tenant.",
+      "Any late fee charged under this Lease is agreed to by Landlord and Tenant in writing by this Lease, will be imposed only as stated in this Lease's late fee provision, and will not exceed 8% of the overdue Rent payment. If Landlord receives housing assistance payments for the property under a contract with a federal, state, or local government, any late fee will be calculated and assessed only on the portion of Rent payable by Tenant. If this tenancy is subsidized under a federal program and a federal statute, regulation or handbook permitting late fees for it conflicts with the 8% limit, Landlord may instead publish and apply a late fee schedule that complies with that federal rule.",
   },
   {
     id: "late-fee-limit-tn",
