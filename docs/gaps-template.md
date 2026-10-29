@@ -37,6 +37,12 @@ Opus, high effort. Research mode only for SOP rule 9's three triggers.
 - **Canvass at most two agents at a time,** each saving its answer to a file after every topic. If a usage limit stops the work, wait for the reset and resume from the saved files; never redo a saved topic.
 - Expect this to take several sessions for a long list. Resume from the saved files each time.
 
+## Save out of the workspace after every batch (Taylor, 2026-10-29)
+Your working directory is temporary. A usage-limit pause of a few days can reclaim it, with everything in it; Nebraska's first pass lost four days of finished work that way. So:
+- **After every batch of topics, deliver two files to Taylor in the chat** (write them to `/mnt/user-data/outputs/` and present them): the cumulative `lease-clauses-{ST}-gaps-delta.csv` so far and the cumulative `gaps-log-{ST}.md` so far. Each delivery replaces the last; never wait until the end.
+- If the chat belongs to a Project, also save a short running record (topics done, row ids, statutes read with their quotes, findings) to the Project's files after each batch.
+- On resuming after any pause, first check whether the workspace survived. If it didn't, ask Taylor to re-attach this folder's files plus the latest delta and log you delivered, and continue from those.
+
 ## Attached files
 - `missing-topics-{ST}.md`: the {MISSING_COUNT} topics, each with the questions earlier states found worth checking and a few example rows from other states (examples of shape, never of {STATE_NAME}'s law).
 - `lease-clause-sop.md`, `lease-clause-topics.md`.
@@ -61,4 +67,4 @@ The attached CSV has **{ROW_COUNT} rows ({ACTIVE_COUNT} active)**, and **{ST_ACT
 - `lease-clauses-{ST}-gaps-delta.csv`: only new rows and the existing rows you tagged, all 17 columns.
 - `gaps-log-{ST}.md`, short, in this order: §1 sources, channel and currency; §2 topics answered (one line each: topic, row id, Present / Absent / tagged, citation); §3 batteries for every absence; §4 decisions and questions asked of Taylor; §5 the independent check, with rows edited after the last round; §6 findings on existing rows; §7 findings for other states; Proposed SOP changes; Proposed topic questions (write "None" if empty).
 
-Your pass is complete when both are delivered and checked. Claude Code does the sync and appends your log to `lease-clause-decision-log-{ST}.md`.
+Your pass is complete when the final delta and log are delivered and checked (you will have delivered interim copies after every batch). Claude Code does the sync and appends your log to `lease-clause-decision-log-{ST}.md`.
