@@ -460,7 +460,7 @@ const CLAUSE_TEMPLATES = [
     id: "utilities-responsibility",
     title: "Utilities Paid by Tenant",
     group: "Tenant Responsibilities",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "OR", "MD", "CT", "NH", "LA", "AR", "MS", "PR", "GU", "VI", "AS", "MP"],
+    states: ["CO", "WY", "KS", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "OR", "MD", "CT", "NH", "LA", "AR", "MS", "PR", "GU", "VI", "AS", "MP"],
     bodyText:
       "Except for any utility Landlord agrees in this Lease to provide, Tenant is responsible for arranging and paying directly to the service provider for all other utilities and services to the property, including electricity, gas, telephone, cable, and internet, as applicable.",
   },
@@ -776,7 +776,7 @@ const CLAUSE_TEMPLATES = [
     id: "keys",
     title: "Keys",
     group: "Rules & Regulations",
-    states: ["WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "WI", "WA", "KY", "WV", "MA", "NH", "VT", "AK", "HI", "LA", "AR", "MS", "PR", "VI", "AS", "MP"],
+    states: ["WY", "KS", "MN", "ND", "SD", "OH", "CA", "NV", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "WI", "WA", "KY", "WV", "MA", "NH", "VT", "AK", "HI", "LA", "AR", "MS", "PR", "VI", "AS", "MP"],
     bodyText:
       "At the start of the Term, Tenant will receive the keys specified by Landlord and will sign a receipt acknowledging the number and type of keys provided. Tenant will return all keys to Landlord at the end of the Term. If Tenant fails to return all keys or requires a replacement, Landlord may re-key the applicable locks and charge the cost to Tenant. Tenant may not duplicate keys without Landlord's consent.",
   },
@@ -1256,7 +1256,7 @@ const CLAUSE_TEMPLATES = [
     states: ["NE"],
     supersedes: "tenant-maintenance",
     bodyText:
-      "Tenant will: comply with all obligations building and housing codes impose primarily on tenants that materially affect health and safety; keep the portion of the property Tenant occupies and uses as clean and safe as its condition permits, and upon termination of the tenancy leave the property as clean as when the tenancy commenced, except for ordinary wear and tear; dispose of ashes, rubbish, garbage, and other waste in a clean and safe manner; keep all plumbing fixtures Tenant uses as clean as their condition permits; and use all electrical, plumbing, sanitary, heating, ventilating, air-conditioning, and other facilities and appliances in a reasonable manner. Tenant is also responsible for any deliberate or negligent destruction, defacement, damage, or impairment of any part of the property caused by Tenant or by any person Tenant permits on the property. Tenant will not, and will not permit any such person to, disturb the peaceful enjoyment of the property by other tenants.",
+      "Tenant will: comply with all obligations building and housing codes impose primarily on tenants that materially affect health and safety; keep the portion of the property Tenant occupies and uses as clean and safe as its condition permits, and upon termination of the tenancy leave the property as clean as when the tenancy commenced, except for ordinary wear and tear; dispose of ashes, rubbish, garbage, and other waste in a clean and safe manner; keep all plumbing fixtures Tenant uses as clean as their condition permits; and use all electrical, plumbing, sanitary, heating, ventilating, air-conditioning, and other facilities and appliances in a reasonable manner. Tenant will also abide by all bylaws, covenants, rules and regulations of any condominium regime, cooperative housing agreement or neighborhood association that applies to the property, to the extent they are not inconsistent with Landlord's rights or duties. Tenant is also responsible for any deliberate or negligent destruction, defacement, damage, or impairment of any part of the property caused by Tenant or by any person Tenant permits on the property. Tenant will not, and will not permit any such person to, disturb the peaceful enjoyment of the property by other tenants.",
   },
   // Default & Termination
   {
@@ -6989,7 +6989,7 @@ const CLAUSE_TEMPLATES = [
     group: "Default & Termination",
     states: ["NE"],
     bodyText:
-      "[Optional.] If Tenant remains in possession after this Lease ends and Landlord has not consented in writing to a continued tenancy, Tenant will pay Landlord a holdover charge of {{holdover_daily_rate}} for each day Tenant remains in possession, in place of Rent and actual damages for the use of the property during that time. Landlord and Tenant agree that Landlord's loss from a holdover, including delay in making the property available to a new tenant, is difficult to estimate accurately in advance, that this charge is a reasonable estimate of that loss, and that it is not a penalty. Landlord's acceptance of a holdover charge is not consent to a continued tenancy and is not acceptance of Rent. This Section does not limit Landlord's right to recover possession, unpaid Rent and other amounts due for the period before this Lease ended, or damages for harm to the property. Where Tenant's holdover is willful and not in good faith, Landlord may instead recover the amount Nebraska law allows for such a holdover, and will not recover both that amount and a holdover charge under this Section for the same period.",
+      "[Optional.] If Tenant remains in possession after this Lease ends and Landlord has not consented in writing to a continued tenancy, Tenant will pay Landlord a holdover charge of {{holdover_daily_rate}} for each day Tenant remains in possession, in place of Monthly Rent and actual damages for the use of the property during that time. Landlord and Tenant agree that Landlord's loss from a holdover, including delay in making the property available to a new tenant, is difficult to estimate accurately in advance, that this charge is a reasonable estimate of that loss, and that it is not a penalty. Landlord's acceptance of a holdover charge is not consent to a continued tenancy. This Section does not limit Landlord's right to recover possession, unpaid Rent and other amounts due for the period before this Lease ended, or damages for harm to the property. Where Tenant's holdover is willful and not in good faith, Landlord may instead recover the amount Nebraska law allows for such a holdover, and will not recover both that amount and a holdover charge under this Section for the same period.",
   },
   {
     id: "casualty-landlord-termination-ne",
@@ -14592,6 +14592,26 @@ const CLAUSE_TEMPLATES = [
     supersedes: "hoa-compliance",
     bodyText:
       "If the property is in a homeowners or condominium association, Tenant will comply with the association's rules and regulations that apply to the property. A violation of those rules by Tenant, an occupant or a guest is a breach of this Lease, and Tenant will reimburse Landlord, as Landlord's actual damages for that breach, for any fine the association imposes on Landlord because of it; Landlord will give Tenant a copy of the association's notice of the fine when Landlord charges Tenant.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "utilities-responsibility-ne",
+    title: "Utilities Paid by Tenant",
+    group: "Tenant Responsibilities",
+    states: ["NE"],
+    supersedes: "utilities-responsibility",
+    bodyText:
+      "Except for any utility Landlord agrees in this Lease to provide, or that Nebraska law requires Landlord to supply, Tenant is responsible for arranging and paying directly to the service provider for all other utilities and services to the property, including electricity, gas, telephone, cable, and internet, as applicable. If the property is not a single-family residence as Nebraska law defines it, this Section does not make Tenant responsible for supplying running water, hot water or heat, or for providing trash receptacles and arranging trash removal; Landlord will provide those as Nebraska law requires, except that Tenant arranges and pays for heat or hot water generated by equipment within Tenant's exclusive control and supplied by a direct public utility connection. If the property is a single-family residence, Tenant's agreement in this Section to arrange and pay for any of those services is made in this written Lease, in good faith and for the consideration this Lease provides.",
+  },
+  // Rules & Regulations
+  {
+    id: "keys-ne",
+    title: "Keys",
+    group: "Rules & Regulations",
+    states: ["NE"],
+    supersedes: "keys",
+    bodyText:
+      "At the start of the Term, Tenant will receive the keys specified by Landlord and will sign a receipt acknowledging the number and type of keys provided. Tenant will return all keys to Landlord at the end of the Term. If Tenant fails to return all keys or requires a replacement, Landlord may re-key the applicable locks and charge the cost to Tenant. Tenant may not duplicate keys without Landlord's consent. This Section does not apply to a lock change Nebraska law requires Landlord to make for a tenant or household member who is a victim of domestic violence. For that lock change, Landlord may charge Tenant only the actual and reasonable cost Landlord incurs in changing the locks, and Nebraska law governs the rest, including Tenant's right to change the locks if Landlord does not.",
   },
 ];
 
