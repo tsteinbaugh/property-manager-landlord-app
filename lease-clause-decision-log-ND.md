@@ -1920,3 +1920,2100 @@ Not a re-audit; nothing else in this state was reviewed.
 - `smoking-policy`: Tenant pays for smoking damage caused by "Tenant, an occupant, or a guest or invitee of Tenant", no longer by anyone's smoking.
 - `no-alterations`: the last sentence adds that the clause "does not change who owns an installation that applicable law makes Tenant's property".
 - `addendum-precedence`: a disclosure, notice or addendum "that applicable law says controls over this Lease" now controls, as one the law requires already did.
+
+
+---
+
+# Topic gaps pass (end-of-run consistency pass, 2026-10-29/30): Desktop's log
+
+## Topic gaps — North Dakota (SOP 1.86)
+
+**State:** North Dakota. **Pass:** end-of-run consistency pass, the 241 topics with no ND row.
+**Date:** 2026-10-29. **Status: IN PROGRESS - batch 1 of several delivered.**
+**Model/settings:** Opus, high effort.
+
+This log is cumulative and each delivery replaces the last. Batch 1 answers
+**241 of the 241 topics**; **0 remain**.
+Deliverable alongside it: `lease-clauses-ND-gaps-delta.csv`
+(241 rows, 17 columns, CRLF).
+
+---
+
+## 1. Sources, channel and currency
+
+### 1.1 Step A check (confirmed before any research)
+
+Confirmed against the decompressed `lease-clauses.csv` itself, at the path read, not the
+filename (SOP change 4 from the ND retro pass):
+
+| Check | Required | Measured | |
+|---|---|---|---|
+| size | 38,195,717 bytes | 38,195,717 | OK |
+| SHA-256 | `0e73807da536a370f055d3bbcff2c6417867abf8b1dfd4b52898c59029acf105` | identical | OK |
+| rows | 11,634 | 11,634 | OK |
+| active rows | 11,524 | 11,524 | OK |
+| active rows carrying ND | 142 | 142 | OK |
+| topics in `missing-topics-ND.md` | 241 | 241 | OK |
+
+Arithmetic closes: ND already covers **123** distinct `topic_key`s,
+the missing list holds **241**, the overlap between them is **0**, and
+123 + 241 = **364** - the library's topic count.
+
+**A trap that nearly cost the count, recorded because it will recur.** The delimiter inside
+`states` is a **semicolon**, not a comma: the column holds `AZ; CO; ND; NE`. A comma-split -
+the obvious first thing to write - returns **95** active ND rows instead of 142 and raises no
+error, because every single-state row still parses. The undercount looks like a plausible
+answer, which is what makes it dangerous: it would have made 47 already-answered topics look
+unanswered and invited duplicate rows straight through the tag-first rule. Every script in
+this pass splits on `[;,]`. Proposed as an SOP change below.
+
+Two other stale-file paths were present in the attachment folder and are **not** the master:
+one 2,427-row / 17-column copy and one 941-row / **16**-column September copy, both named
+`lease-clauses.csv`. Neither was read for anything. The 16-column copy predates
+`lease_clause_basis`.
+
+### 1.2 Sources read
+
+- **Corpus** `corpus-ND-20261025.tar.xz`, SHA-256 verified against its `.sha256` sidecar
+  (`458a0aeb...98f7855`). It holds the Legislative Council chapter PDFs of **every chapter of
+  title 47**, plus chapters 14-02.4, 14-02.5, 51-15, 9-08, 28-26 and every chapter that 47-16
+  or 47-32 cites (14-07.1, 14-07.7, 11-18, 17-04, 38-08, 41-09), the 2025 session laws, the
+  constitution, the session-laws index and the Legislative Council master index.
+- **Primary text only.** Every statutory proposition in every row below is from the section's
+  own words, read whole (rule 21), not from a secondary summary.
+- **Sections read whole for batch 1 (314).** Extracted from the delivered rows' own `notes` and
+  then filtered by asking the corpus which of them it actually holds - neither list is typed, so
+  neither can drift from what the rows cite or from what was really read:
+  N.D.C.C. §§ 9-08-01, 9-08-02, 9-08-02.1, 9-08-03, 9-08-04, 9-08-05, 9-08-06, 9-08-07, 9-08-08, 9-08-09, 11-18-01.1, 11-18-02.2, 11-18-05, 11-18-23, 14-02.4-01, 14-02.4-02, 14-02.4-03, 14-02.4-05, 14-02.4-06, 14-02.4-07, 14-02.4-09, 14-02.4-10, 14-02.4-11, 14-02.4-12, 14-02.4-12.1, 14-02.4-13, 14-02.4-17, 14-02.4-18, 14-02.4-19, 14-02.4-20, 14-02.4-21, 14-02.5-01, 14-02.5-02, 14-02.5-03, 14-02.5-04, 14-02.5-05, 14-02.5-06, 14-02.5-08, 14-02.5-09, 14-02.5-10, 14-02.5-11, 14-02.5-12, 14-02.5-13, 14-02.5-18, 14-02.5-22, 14-02.5-27, 14-02.5-32, 14-02.5-33, 14-02.5-37, 14-02.5-39, 14-02.5-41, 14-02.5-42, 14-02.5-44, 14-02.5-45, 14-02.5-46, 14-07.1-01, 14-07.1-02, 14-07.1-03, 14-07.1-08, 14-07.1-20, 14-07.7-01, 14-07.7-06, 14-07.7-07, 14-07.7-19, 14-07.7-20, 17-04-05, 17-04-06, 28-26-01, 28-26-04, 28-26-06, 28-26-13, 28-26-20, 28-26-25, 28-26-26, 28-26-27, 28-26-28, 28-26-29, 28-26-30, 38-08-08, 38-08-09.4, 38-08-14, 38-08-16, 38-08-26, 41-09-02, 41-09-05, 41-09-05.1, 41-09-09, 41-09-13, 41-09-27, 41-09-69, 41-09-73, 41-09-87, 41-09-96, 41-09-99, 41-09-107, 41-09-118, 41-09-119, 47-01-05, 47-01-10, 47-01-11, 47-01-12, 47-01-14, 47-01-16, 47-01-17, 47-02-01, 47-02-02, 47-02-33, 47-02-34, 47-04-22, 47-04-26, 47-04-32, 47-04.1-01, 47-04.1-02, 47-04.1-06, 47-04.1-07, 47-04.1-08, 47-04.1-09, 47-04.1-10, 47-04.1-11, 47-04.1-12, 47-04.1-13, 47-04.1-14, 47-04.1-16, 47-05-01, 47-05-01.1, 47-05-01.2, 47-05-02, 47-05-02.1, 47-05-17, 47-06-01, 47-06-03, 47-06-04, 47-06-05, 47-06-09, 47-06-10, 47-09-01, 47-09-02, 47-09-04, 47-09-05, 47-09-08, 47-09-09, 47-09-18, 47-10-01, 47-10-02.1, 47-10-02.2, 47-10-02.3, 47-10-05, 47-10-09, 47-10-10, 47-10-16, 47-10-20, 47-10-27, 47-10-28, 47-10.1-01, 47-10.1-02, 47-10.1-03, 47-10.1-04, 47-10.1-05, 47-10.1-06, 47-10.2-02, 47-10.2-04, 47-14-01, 47-14-03, 47-14-04, 47-14-05, 47-14-06, 47-14-07, 47-14-09, 47-14-10, 47-15-04, 47-15-05, 47-15-09, 47-15-10, 47-15-12, 47-15.1-01, 47-15.1-02, 47-15.1-03, 47-15.1-04, 47-15.1-05, 47-15.1-07, 47-16-01, 47-16-02, 47-16-02.1, 47-16-03, 47-16-04, 47-16-05, 47-16-06, 47-16-06.1, 47-16-07, 47-16-07.1, 47-16-07.2, 47-16-07.3, 47-16-07.4, 47-16-07.5, 47-16-07.6, 47-16-08, 47-16-09, 47-16-10, 47-16-11, 47-16-12, 47-16-13, 47-16-13.1, 47-16-13.2, 47-16-13.3, 47-16-13.4, 47-16-13.5, 47-16-13.6, 47-16-13.7, 47-16-14, 47-16-15, 47-16-16, 47-16-17, 47-16-17.1, 47-16-18, 47-16-19, 47-16-20, 47-16-20.1, 47-16-21, 47-16-23, 47-16-24, 47-16-25, 47-16-26, 47-16-27, 47-16-28, 47-16-29, 47-16-30, 47-16-30.1, 47-16-32, 47-16-33, 47-16-35, 47-16-36, 47-16-37, 47-16-38, 47-16-39, 47-16-39.1, 47-16-39.2, 47-16-39.3, 47-16-40, 47-16-41, 47-16-42, 47-17-01, 47-17-02, 47-17-03, 47-17-04, 47-17-05, 47-18-01, 47-18-04, 47-18-05, 47-18-05.1, 47-18-06, 47-18-14, 47-18-23, 47-19-01, 47-19-02, 47-19-03, 47-19-06, 47-19-19, 47-19-36, 47-19-41, 47-19-42, 47-19-46, 47-19-53, 47-19.1-01, 47-19.1-02, 47-19.1-09, 47-21-08, 47-21.2-03, 47-21.2-04, 47-22-02, 47-22-09, 47-25-02.1, 47-25-08, 47-25.1-06, 47-27-01, 47-27-02, 47-27-03, 47-30.2-01, 47-30.2-04, 47-30.2-22, 47-30.2-23, 47-30.2-26, 47-30.2-28, 47-30.2-43, 47-30.2-65, 47-30.2-73, 47-31-09, 47-32-01, 47-32-01.1, 47-32-02, 47-32-03, 47-32-04, 47-32-05, 47-33-01, 47-33-03, 47-33-04, 47-33-05, 47-34-01, 47-34-03, 47-36-04, 47-37-01, 47-37-03, 47-37-04, 47-37-05, 47-37-06, 47-37-08, 47-37-10, 47-37-11, 47-38-02, 51-15-01, 51-15-02, 51-15-03, 51-15-07, 51-15-11, 51-15-12.
+  Six of them - §§ 9-08-02, 47-01-05, 47-06-04, 47-16-02, 47-16-15, 47-16-26 - were read for the
+  named items in 4.8 and 4.9 rather than for a row, which is why they appear in no row's notes.
+- **Cited but NOT read (371), named here so no reader mistakes a citation for a reading:**
+  §§ 1-02-15, 4.1-34-15, 4.1-57-16, 6-1-737, 6-08-16, 6-08.6-01, 6-08.6-04, 6-09-24, 9-01-15, 9-06-01, 9-06-02, 9-06-03, 9-06-04, 9-06-05, 9-06-06, 9-06-07, 9-06-08, 9-06-09, 9-06-10, 9-06-11, 9-12-22, 9-16-02, 9-16-04, 9-16-05, 9-16-07, 10-01.1-05, 10-01.1-06, 10-01.1-07, 10-01.1-08, 10-01.1-11, 10-01.1-14, 10-06.1-12.2, 10-06.1-15.2, 10-06.1-17, 10-19.1-15, 10-19.1-16, 10-19.1-138, 10-32.1-16, 10-32.1-18, 10-32.1-78, 11-09.1-05, 11-09.2-01, 11-09.2-02, 11-10-32, 11-11-71, 11-33-03, 11-33-17.1, 11-33.2-12.1, 12.1-05-12, 12.1-09-01, 12.1-09-03, 12.1-20-25, 12.1-21-09, 12.1-21.1-03, 12.1-21.1-04, 12.1-22-01, 12.1-22-02, 12.1-22-03, 12.1-22-03.1, 12.1-22-06, 12.1-23-08.4, 12.1-31-01.2, 12.1-31.2-01, 12.1-32-08, 12.1-32-15, 13-01-14, 13-01-14.1, 13-01-15, 13-09.1-51, 14-09-08.10, 14-10-00.1, 14-10-01, 14-10-02, 14-10-09, 14-10-10, 14-10-11, 14-10-12, 14-10-13, 15-08-13, 15-08-14, 15.1-06-17, 15.1-06-17.1, 16.1-10-04, 18-01-04, 18-01-14, 18-01-15, 18-01-16, 18-01-17, 18-01-18, 18-01-19, 18-01-26, 18-01-27, 18-01-34, 18-12-11, 18-12-12, 18-12-13, 18-12-16, 18-12-17, 18-12-18, 18-12-24, 18-16-113, 19-24.1-33, 19-24.1-34, 19-24.2-30, 20.1-01-07, 20.1-01-17, 20.1-01-18, 20.1-01-19, 20.1-01-20, 20.1-01-22, 20.1-02-27, 20.1-03-11, 20.1-05-09, 20.1-08-03, 20.1-08-04, 20.1-13-20, 22-01-06.2, 22-01-06.4, 22-01-06.5, 22-01-14, 23-09-01, 23-09-02.1, 23-09-03, 23-09-04, 23-09-05, 23-09-06, 23-09-07, 23-09-08, 23-09-09, 23-09-10, 23-09-11, 23-09-12, 23-09-15, 23-09-16, 23-09-16.1, 23-09-17, 23-09-18, 23-09-20, 23-09-20.1, 23-09-22, 23-09-23, 23-10-02.1, 23-10-03, 23-10-04, 23-10-05, 23-10-06, 23-10-06.1, 23-10-06.2, 23-10-07, 23-10-09, 23-10-10, 23-10-10.1, 23-10-11, 23-10-12, 23-10-13, 23-10-14, 23-10.1-01, 23-10.1-02, 23-10.1-05, 23-12-10, 23-12-15, 23-13-12, 23-13-15, 23-35-02, 23-35-08, 23-45-02, 23.1-01-16, 23.1-06-05, 23.1-07-04, 23.1-07.1-01, 23.1-08-16, 23.1-12-02, 23.1-15-06, 23.1-15-07, 23.1-15-09, 23.1-15-10, 23.1-16-10, 23.1-16-11, 24-01-16, 24-02-45.5, 24.1-06-01, 25-13-01, 25-13-04, 26.1-02.2-05, 26.1-05-27, 26.1-21-16, 26.1-22-02, 26.1-22-10, 26.1-22-21, 26.1-22-22, 26.1-25-16, 26.1-27.1-02, 26.1-34.1-01, 27-02-07, 28-01-15, 28-01-16, 28-01-47, 28-20-36, 28-21-02, 28-21-04, 28-22-17, 28-22-18, 28-22-19, 29-12-12, 29-19-08, 29-30.3-03, 30.1-08-13, 30.1-20-05, 31-15-402, 32-01-12, 32-03-27, 32-03-28, 32-03-29, 32-03-30, 32-03-54, 32-03-57.1, 32-03.3-02, 32-10.1-01, 32-10.1-03, 32-10.1-05, 32-10.1-10, 32-10.1-16, 32-10.1-24, 32-15-06, 32-19.2-05, 32-29.3-04, 34-03-01, 34-12-02, 34-18-17, 34-18-67, 35-01-10, 35-05-01, 35-05-01.1, 35-05-02, 35-19-01, 35-20-17, 35-27-01, 35-33-02, 36-21.2-04, 36-21.2-05, 36-21.2-06, 36-21.2-07, 36-21.2-08, 37-01-43, 37-03-13, 37-17.1-03, 37-17.1-05, 37-17.1-10, 37-17.1-19, 37-17.1-29, 37-19.1-02, 38-12-801, 38-12-902, 39-08-20, 39-10-49, 39-10-50, 39-10-50.1, 39-10-51.1, 39-13-03, 39-22-19, 40-01-25, 40-02-16, 40-05-18, 40-05-27, 40-05.1-06, 40-22-16, 40-24-01, 40-24-03, 40-28-01, 40-43-07, 40-47-03, 40-47-05.1, 40-47-12, 40-57.3-01, 40-57.3-01.1, 40-58-18, 41-02-08, 41-02-19, 41-02.1-08, 41-02.1-10, 41-08-13, 42-01-01.2, 42-02-04, 42-02-06, 43-09-20, 43-17-26.1, 43-17-46, 43-23-08, 43-23-08.3, 43-23-11.1, 44-01-15, 44-04-18, 44-08-18, 45-10.2-12, 45-13-03, 45-22-17, 46-05-09, 47-30-2, 49-02-26, 49-02-34, 49-04-02.1, 49-04-07, 49-04-08, 49-04-09, 49-04-10, 49-04-20, 49-09.1-12, 49-21-24, 49-21-28, 50-06-06.8, 50-10.2-02, 50-11-11, 50-11.1-03, 50-11.1-04, 50-11.1-08, 50-11.1-21, 50-11.1-23, 50-11.1-25, 51-22-01, 51-22-02, 51-22-03, 51-27-01, 51-30-01, 51-30-02, 51-30-03, 51-30-04, 51-30-05, 51-30-06, 51-30-07, 51-38-03, 54-01.1-05, 54-01.1-07, 54-01.1-12, 54-06-15, 54-09-07, 54-12-22, 54-17-07.3, 54-21-17.1, 54-21.3-03, 54-21.3-04, 54-21.3-05, 57-02-08.1, 57-02-18.2, 57-02-26, 57-21-05, 57-22-05, 57-23-03, 57-38-01.15, 57-39.2-02.1, 57-39.2-03.4, 57-39.2-03.8, 57-39.2-04, 58-03-12, 58-03-14.1, 58-06-11, 61-01-18, 61-03-26, 61-03-27, 61-08-23, 61-16.2-04, 61-28.1-04, 62.1-01-01, 62.1-01-03, 62.1-01-05, 62.1-02-01, 62.1-02-05, 62.1-02-13, 62.1-04-03, 62.1-04-04, 64-02-02, 89-1-527. § 9-12-22 and §§ 23.1-15-09, 23.1-15-10 are the parked chapters of 1.5, cited
+  only for what their own headings in the master index say. § 6-08-16 appears only as the failed
+  positive of superseded battery `ND-GAPS-107` (it is in title 6, outside the corpus), which is why
+  that battery was rerun as `-119`.
+
+### 1.3 Channel disclosure (rule 24 / KS-gaps 13: more than one method)
+
+Three independent fetch channels were tried for the chapters outside the corpus. **All three
+failed**, which is why three chapters are parked (1.5):
+
+| Channel | Result |
+|---|---|
+| container `curl` / `urllib` to ndlegis.gov | proxy **403**, organization network policy |
+| `WebFetch` | **URL_NOT_ON_ALLOWLIST** (this channel worked for ND in October; it does not now) |
+| built-in browser | reaches ndlegis.gov and renders the HTML chapter indexes, but **cannot extract PDF text**, and the code is published only as PDF |
+| `device_bash` | no folders connected |
+
+### 1.4 Corpus index: four defects found and fixed before any battery ran
+
+The corpus is a set of PDFs; everything in this pass rests on the section splitter being
+right, so it was proved against the Legislative Council master index before use (rule 19:
+prove the corpus index before any battery). It was wrong four ways:
+
+1. **`\s*` in the running-header pattern.** `\s` matches a newline, so deleting a
+   "Page No. N" line also ate the following line's newline and leading whitespace and
+   destroyed the `^` anchor for the heading after it. Fixed to `[ \t]*`, line-local.
+2. **A wrapped cross-reference at a line start read as a heading.** Inside chapter 47-16 this
+   invented a section `47-30.2-04` and truncated the body of § 47-16-07.1. Fixed by accepting
+   only candidates carrying the file's own chapter prefix.
+3. **The real cause of the missing sections: `\x0c`.** `pdftotext` emits a form feed at every
+   page break, as the *first character* of the new page's first line, which `^[ \t]*` cannot
+   match. Every section heading that fell at the top of a page was still being lost after fix
+   1. Fixed by stripping form feeds in normalisation.
+4. **A same-chapter citation at a line start.** Truncated §§ 47-21.2-03 and 47-30.2-50. Fixed
+   by accepting headings only in strictly ascending section order.
+
+Counts moved **1,093 -> 1,163** distinct sections and **1,165 -> 1,163** records, and the
+index then reconciled **0 missing / 0 extra** against the Legislative Council master index.
+Final state: **97 documents** (63 statute chapters, 3 session-laws, 20 constitution, 7
+session-laws index, 4 master index), **1,163 sections**, corpus state hash
+`ae70a2b65a1ec64c`, which is recorded on every battery record so a
+later reader can tell whether a battery ran against this corpus.
+
+**Method disclosure (rule 24, GU 3):** the corpus ships a `verify_nd.py`. I did **not** run
+it. I reproduced its check independently in my own `verify.py`, so the corpus is not
+certifying itself with its own code.
+
+### 1.5 Parked: the chapters outside the corpus
+
+These three are cited by rows in this batch and **could not be read** on any channel. Each
+affected row is written so it claims nothing about the chapter's contents beyond what the
+chapter's own section headings in the master index say. Asked Taylor on 2026-10-29, with the
+recommendation that Claude Code add all three to the corpus and re-stage:
+
+| Chapter / source | Needed for | Status |
+|---|---|---|
+| ch. 9-12 (§ 9-12-22) | `rent-receipt-anti-waiver` - row is **NEEDS_REVIEW** pending its text | not in corpus |
+| **§ 23-13-15 "Smoke detection systems for residential rental property - Penalty"** | **the withdrawn absence claim in `edu-no-alarm-tampering-fee-nd`** - see 4.6 | not in corpus **and not recoverable from the session laws either**: no 2025 or 2026 act touched ch. 23-13, so there is **no route to its text from this session**. Its title alone says ND imposes a smoke-detection duty on residential rental property with a penalty. **Top-priority request, alongside ch. 54-21.3 and § 32-03-29.** |
+| **ch. 25-13** (§ 25-13-04), **title 64 / ch. 64-02**, **§ 23-10-10.1** | `service-animal-denial-penalty`, `ev-charging-requirements`, `health-district-rental-rules` - NEEDS_REVIEW | not in corpus; ch. 25-13 is **not** recoverable from the session laws |
+| ch. 23.1-15 (abandoned motor vehicle disposal) | `towing` - named as the route for a genuinely abandoned vehicle | not in corpus. **Partly recoverable: § 23.1-15-07(2) only**, which itself points to the unreadable § 23.1-15-06 |
+| **ch. 19-24.1** (medical marijuana), and specifically **§ 19-24.1-33 "Limitations"** and **§ 19-24.1-34 "Acts not prohibited - Acts not required"** | the `smoking-policy` confirmation in item 4 - **marijuana limb unconfirmed** | **Partly recoverable, and I checked: 15 sections of this chapter print in full in the 2025-26 session laws - but NOT -33 or -34**, the two that would answer it. The only "landlord" anywhere in the recoverable text is § 19-24.1-37(3), letting the department confirm a cardholder's status to a third party "such as a landlord" **on the cardholder's written request**. So the request is now two named sections rather than a whole chapter. |
+| **ch. 13-01** (§§ 13-01-14 "Late payment charge on accounts receivable - Exceptions", 13-01-14.1, 13-01-15) | `late-fee-limit` - **NEEDS_REVIEW** | not in corpus; only the section names, from the master index |
+| **ch. 23-09** (Food and Lodging Establishments; §§ 23-09-01 Definitions, 23-09-02.1 smoke detection, **23-09-08 "Bolts or locks to be supplied on doors of sleeping rooms"**) | `security-devices` and `alarm-tampering-fee` - **NEEDS_REVIEW**; the scope question is whether a building let on ordinary residential leases is a "lodging establishment" | not in corpus; **this is the near-miss of the batch** - see below |
+| **title 42** (Nuisances; §§ 42-01-03 to 42-01-13, ch. 42-02, especially § 42-02-06 "Termination of lease by owner under injunction releases property - Notice to tenant") | `governmental-fines` - **NEEDS_REVIEW** | not in corpus |
+| **ch. 43-23** (broker trust accounts) and **title 6 as codified** (ch. 6-08.6, the Uniform Special Deposits Act; the *act* was read at S.L. 2025, ch. 98) | `security-deposit-holding` - **NEEDS_REVIEW** | not in corpus |
+| **ch. 49-04** (§ 49-04-02.1 "Customer deposits") | `utility-deposit-return` - **NEEDS_REVIEW** | not in corpus |
+| **ch. 54-21.3** (State Building Code) and **ch. 43-18** (Plumbers) with **ch. 43-18.1** (Water Conditioning) and **ch. 43-18.2** - no title 43 chapter is held - plus municipal codes | `water-heater-temperature`, `steam-radiator-covers`, `heating` - **NEEDS_REVIEW** | not in corpus; and § 47-16-13.1(1)(a) with (3) would make a code figure **binding and controlling**, so this one changes an answer rather than decorating it |
+| **title 49** (public utilities), esp. **§ 49-04-20**, **ch. 49-02**, **ch. 49-21** (master index names § 49-21-09 "Telecommunications - Connections", § 49-21-08 discrimination unlawful, § 49-21-08.1 "Dialing parity"), and **ch. 12.1-23.1** (Theft of Cable Television) | `electric-submetering-disclosure`, `utility-landlord-account`, `utility-disconnection-notice-authorization`, `telecom-access` - **NEEDS_REVIEW** | not in corpus |
+| **titles 40, 11 and 61** (§ 40-01-25, § 11-10-32 "Prohibition - Connection of utility services", § 40-22-16, § 40-24-01) | `municipal-utility-lien` - **NEEDS_REVIEW**; municipal utility liens are city-class-specific | not in corpus |
+| **ch. 9-16** (UETA, § 9-16-04) | `tenant-portal` - **NEEDS_REVIEW** | not in corpus (only ch. 9-08 is) |
+| **ch. 23-10** (§§ 23-10-03, 23-10-10.1, mobile-home-park designation and complaint duties) | the park limb of several habitability rows | not in corpus |
+| **the N.D. Administrative Code and the PSC's tariffs** | every utility, plumbing, heating and building topic | **not in the corpus at all** - so every absence claim in those clusters is scoped to the **statutes** in terms, on the row |
+| **ch. 32-03** - master index names § 32-03-27 "Damages for tenant's failure to surrender premises", § 32-03-28 "Damages for tenant's willful holding over", **§ 32-03-29 "Damages for forcible exclusion from realty"** | `holdover-rate`, and the **treble-damages claim an existing row makes about self-help eviction** (6.13) | not in corpus. **The highest-value request after ch. 54-21.3**: three landlord-tenant remedies sit in it and none can be read |
+| **ch. 28-01** (limitations), **ch. 28-21** (execution), **ch. 28-27** (appeals), **chs. 28-09 / 28-10** (confession of judgment), **ch. 27-05** and **ch. 27-08.1** (jurisdiction, small claims), **ch. 32-01** (§ 32-01-12 "Conditions of relief from forfeiture"), **ch. 9-01** (§ 9-01-15), **ch. 32-09.1**, **ch. 32-17**, **ch. 32-47**, **ch. 57-21** (§ 57-21-05 "Receipts a defense in action for rent"), **title 12.1** (§ 12.1-22-03), **§ 1-02-15** | seven NEEDS_REVIEW rows across the eviction and default cluster | not in corpus |
+| **the N.D. Rules of Civil Procedure** | `eviction-service-party` - **NEEDS_REVIEW** | not in corpus, **and distinct from the Rules of Court** reviewed on 2026-10-02 - a scoping catch the canvass made, not me |
+| **ch. 9-06** (statute of frauds), **title 10** (corporations, incl. chs. 10-01.1, 10-06.1, 10-19.1, 10-32.1), **ch. 14-10** (with §§ 14-10-00.1 "Presumption of age", 14-10-01, 14-10-02, 14-10-09, 14-10-12) and **ch. 14-10.2**, **ch. 22-01** (sureties), **title 27** (chs. 27-02, 27-05, 27-08.1, 27-11, 27-13), **ch. 28-22**, **ch. 30-16** and **ch. 30.1-30**, **title 57** (incl. ch. 57-21), **chs. 11-16, 11-28.1, 11-28.2**, **chs. 40-22 to 40-24**, **ch. 23-10.1** | the whole parties-and-capacity cluster: nine NEEDS_REVIEW rows | not in corpus (of title 9, only ch. 9-08 is held). Each row names its sections by master-index heading and says in those words that the citation is **heading-only and unverified** - see 6.15 |
+| **all of title 18** (fire protection), esp. **ch. 18-01** (§ 18-01-15 "abatement of conditions dangerous to persons"; §§ 18-01-14 to 18-01-27 abatement orders with a **cost lien**) and **ch. 18-12** (§ 18-12-17, the **school** fire code) | `fire-sprinkler-duty`, `sprinkler-disclosure`, `balcony-inspection`, `inspection-condemnation-disclosure` - **NEEDS_REVIEW** | not in corpus |
+| **title 23.1**, esp. **§ 23.1-06-05** - which is the **entire** North Dakota asbestos and lead statute and licenses contractors - and chs. 23.1-04, 23.1-08, 23.1-10 and **23.1-16** (Boiler Inspection, a real posted-certificate duty) | `asbestos-hazards`, `lead-safe-certification`, `lead-state-notices` - **NEEDS_REVIEW** | not in corpus |
+| **ch. 40-58** (§ 40-58-18, municipal ordinances for repair, closing and demolition of buildings "unfit for human habitation") and §§ 11-11-71, 40-05-27, 58-06-11, 11-33.2-12.1 | `inspection-condemnation-disclosure`, `condemned-premises-rent-bar` - **NEEDS_REVIEW** | not in corpus. Found by an **everyday-words** battery, because "condemnation" in the Century Code means **eminent domain only** |
+| **ch. 43-23** (real estate brokers; § 43-23-08.3 "Disclosure of sexual offenders"), **ch. 12.1-20** (§ 12.1-20-25), **chs. 11-33, 40-47, 40-48** and **§ 58-03-12** (zoning, shoreland and floodplain overlays), **ch. 28-33** and **ch. 43-52** | the property-and-occupancy disclosure cluster - four NEEDS_REVIEW rows | not in corpus |
+| **title 51 beyond §§ 51-15-01 to 51-15-12** - which is all the corpus holds - so **ch. 51-22** ("Prohibition against disclosure except upon written consent"), **ch. 51-30** (security breach notification) and **ch. 51-33**; also **ch. 36-21.2** (animal welfare), **§ 12.1-22-03**, **ch. 23-11** (Housing Authorities Law) and **§ 23-10-11 "Ejection from premises"** | the access-and-privacy cluster - five NEEDS_REVIEW rows | not in corpus |
+| **ch. 32-15** (eminent domain, bar § 32-15-06), **chs. 32-19, 32-19.1, 32-20, 32-10**, **ch. 35-22**, **ch. 54-01.1** (Relocation Assistance - §§ 54-01.1-05, -15, heading-only), **ch. 37-17.1** (§§ -05, -10, -19, emergency management) and **titles 15, 15.1, 34 and 50** | the tenancy-life-events cluster - three NEEDS_REVIEW rows | not in corpus. **Ch. 32-10.1 is the exception and was read whole from the session laws** - see 1.7 |
+| **all of title 35** (liens) - **ch. 35-27** (construction liens), **§ 35-20-17 "Landlord's mobile home lien - Penalty"**, chs. 35-05, 35-12, 35-19, 35-22, § 35-01-10 - and **title 57** (taxation: ch. 57-39.2, § 57-02-26, chs. 57-23, 57-46, 57-39.7 which the index marks expired), plus **ch. 40-57.3**, **ch. 11-09.2**, **ch. 32-39**, **ch. 54-17**, **chs. 41-02 and 41-02.1**, **title 26.1** (insurance) | the rent-and-money cluster - three NEEDS_REVIEW rows | not in corpus. **Title 35 has zero 2025-26 section-actions, so the session-law route cannot reach any of it** - which makes `landlord-lien` and `construction-liens` unanswerable by any route here |
+| **chs. 39-10, 39-13 and 39-26** (motor vehicles, parking), **ch. 60-01** (hotels and innkeepers), **chs. 40-47, 11-33 and 58-03** (zoning), **ch. 50-11.1** (§§ 50-11.1-04, -08 heading-only) and **ch. 50-11** (§ 50-11-11 "Agency foster home for adults - Zoning", heading-only), and the **N.D. Administrative Code**, which is where park pool standards and the § 14-02.5-11 fifty-five-plus rules live | the premises-and-amenities cluster - nine NEEDS_REVIEW rows | not in corpus |
+| **ch. 32-29.3** and **ch. 32-29.2** (arbitration), **title 42** (nuisance) and **§§ 62.1-01-03, 62.1-02-13** (firearms preemption and the employer prohibition) | `binding-arbitration`, `informal-dispute-resolution`, `nuisance`, `firearms` - NEEDS_REVIEW | not in corpus **and none recoverable from the session laws**: title 42 has zero section-actions and zero volume hits, and these two title-62.1 sections are the only ones in their title the route cannot reach |
+| **ch. 20.1-01** (§§ 20.1-01-17 to -20, -22) and **ch. 20.1-03**, **ch. 26.1-34.1**, **§ 23-12-10** ("Smoking restrictions - Exceptions - Retaliation", heading-only) | `farmland-hunting-rights` - NEEDS_REVIEW - and the possible third retaliation bar in 6.20 | not in corpus; those ch. 20.1-01 sections have **zero 2025-26 section-actions**, so no route |
+| **ch. 19-03.1** (Uniform Controlled Substances Act) and **ch. 19-03.4** | `meth-disclosure` - whether any controlled-substance chapter imposes an owner reporting or decontamination duty, which is where one would sit | not in corpus |
+| **chs. 61-16.2 and 61-28.1** (water) | `private-well-testing`, `flood-disclosure` - **NEEDS_REVIEW** | not in corpus |
+| **pre-2025 session laws** | to confirm that § 47-16-07.1(1)'s cross-reference to "the conditions of subsection 2" is a renumbering artefact | corpus holds 2025-26 only |
+
+**The near-miss, recorded because it is the best argument in this batch for the two-battery rule.**
+On `security-devices` the term-of-art battery returned a clean absence: deadbolt, peephole, door viewer,
+window latch and keyless bolting device appear **nowhere** in the Century Code. The everyday-words
+companion battery returned exactly **one** hit, and it was not a statute's text but a **section name in
+the master index**: **§ 23-09-08, "Bolts or locks to be supplied on doors of sleeping rooms."** Whether
+it reaches a residential tenancy turns on § 23-09-01's definitions, which are outside the corpus. **The
+term-of-art battery alone would have shipped a confirmed absence on a topic where the state may well
+have a lock mandate.** The row is `NEEDS_REVIEW` with both readings and the cautious course stated in
+its body.
+
+### 1.6 Currency (rule 16)
+
+The Legislative Council chapter PDFs **carry no history notes**, so currency cannot be read
+off the section. Instead every section relied on was checked against the corpus's **2025 bill
+table** (every section each 2025 act created, amended or repealed). No 2025 act, and neither
+the January 2026 special session (ch. 650-659) nor the September 2026 special session
+(ch. 660-661), touched any section relied on in this batch except where a row says so.
+
+**The screen, so this is a measurement and not an assumption.** Every section relied on was searched
+for by number, anchored so `47-16-02` cannot match inside `47-16-02.1`, across all ten
+session-laws and session-laws-index documents in the corpus: the 2025 regular-session laws
+(6,583,571 characters), both 2026 special sessions, the bill index, the **bill table**, the
+**section table** and the two special-session indexes. The six item sections of 4.8 and 4.9
+(§§ 9-08-02, 47-01-05, 47-06-04, 47-16-02, 47-16-15, 47-16-26) returned **zero hits in every one of
+them**, appearing only in the Legislative Council master index - so none was created, amended or
+repealed in the 2025-26 biennium. Where a section *was* touched, the act is named on the row that
+relies on it; see 4.2, item 7.
+
+**And the prompt's list of four 2025 acts is incomplete - measured, not assumed.** Rather than taking
+the four on trust, the bill table was parsed in full (**1,726** section-actions) and filtered to every title this
+corpus holds. That returns **117 section-actions**, and the complete picture for the chapters this
+work uses is:
+
+| Chapter | 2025 section-actions | What it means here |
+|---|---|---|
+| **ch. 47-16** (leasing) | **two** - § 47-16-17.1(2)(a) **Amended** (H.B. 1489, ch. 145) and § 47-16-20.1 **Created** (H.B. 1610, ch. 423) | **Corrected: I first reported one.** My parser allowed a section number only one parenthetical part, so it missed `47-16-17.1 (2) (a)` - and 61 other entries with it, which is why the total moved from 1,664 to **1,726**. A canvass caught it. Nothing else in the leasing chapter was touched in 2025. |
+| **ch. 47-32** (eviction) | two - § 47-32-01.1 and § 47-32-05 **Created**, ch. 238 and ch. 427 | nothing in the chapter was *amended* |
+| **ch. 9-08** (contracts) | **zero** | all ten sections untouched - the spine of this pass is current |
+| **ch. 28-26** (costs and fees) | **zero** | untouched |
+| **ch. 14-02.4, 14-02.5** | **zero** | untouched |
+| ch. 14-07.1 / **ch. 14-07.7** | fourteen amended / twenty **created**, all by H.B. 1489, ch. 145 | the whole protection-order rewrite, effective **January 1, 2026** |
+| ch. 11-18 | one - § 11-18-02.2(6) amended, ch. 108 | recorder's fees |
+| ch. 51-15 | **zero** | untouched |
+| rest of title 47 | **§ 47-10-02.2** Created (S.B. 2204, **ch. 421**), **§ 47-10-02.3** Created (S.B. 2229, **ch. 422**), § 47-10-24 amended (ch. 347), § 47-10-28 amended (ch. 238), § 47-19-03.1 amended (ch. 424), §§ 47-20.2-01 to -06 amended (ch. 425), §§ 47-25-04, -07 amended (ch. 416), eight §§ 47-30.2-* amended (ch. 426) | **two more acts than the prompt names**, and I read both new sections to find out whether they matter |
+
+**Do the two extra acts matter? No - and I can only say so because I read them.** § 47-10-02.2 (radon)
+and § 47-10-02.3 (association documents) are both **seller-to-buyer** duties: each opens "Before
+executing an agreement to **sell or transfer** residential real property" / "to sell or transfer a
+property", each imposes the duty on a "**seller**", and § 47-10-02.2(1)(a) defines "buyer" as a person
+acquiring, or acquiring the right to acquire, legal or equitable title. **A tenant is none of those
+things.** Neither reaches a lease.
+
+**But § 47-10-02.3 earns its place in this pass anyway**, as the sibling that proves a negative:
+North Dakota imposed a fifteen-item association-disclosure duty on a seller in 2025 and
+**conspicuously did not extend it to a landlord**, which is the strongest thing that can be said on
+`association-obligations-disclosure`. And § 47-10-28 - amended by the same ch. 238 the prompt does
+name - is where the mobile-home-park late-fee cap of 6.12 lives.
+
+**And my own screen was narrower than I called it - corrected here.** I filtered the parsed table to
+the titles **this corpus holds**, which is why I first reported the picture as complete. A later canvass
+found an act outside those titles that bears directly on a landlord: **S.L. 2025, ch. 120 (H.B. 1417)
+amended § 12.1-32-08**, and the amended text reads *"Restitution **must** include payment to the owner
+of real property that is contaminated by the defendant in the manufacturing of methamphetamine for the
+cost of removing the contamination and returning the property to the property's condition before
+contamination and to any other person that has incurred costs in decontaminating the property."* That
+is **a seventh 2025 act**, in a title the corpus does not hold - and the canvass read it from the
+**session laws**, which print the whole amended section, rather than from the index heading. I verified
+it independently: the bill index gives **HB 1417 → 120**, and the 2025 volume carries the text, with
+its own footnote recording that § 12.1-32-08 **was also amended by S.B. 2057, ch. 297**.
+
+The screen was then re-run over **all 1,726 section-actions** in the table, with each section's
+master-index heading tested for landlord relevance. That is the honest statement of what has been
+checked, and it is still not a guarantee: a section whose heading gives no hint - § 12.1-32-08's is
+"Hearing prior to ordering restitution or reparation" - will not surface on a heading screen either.
+**Reading the session-law volume is the only complete method, and only the 2025-26 volumes are here.**
+
+Proposed as an SOP change below: **parse the bill table rather than accepting a list of acts - and say
+which titles you filtered to.**
+Acts take effect August 1 after filing unless otherwise set or passed as an emergency measure
+(N.D. Const. art. IV, § 13).
+
+### 1.7 A parked chapter is not always unreadable - a canvass corrected my method
+
+**I told every canvass the parked chapters were unreachable, full stop. That was too pessimistic, and
+a canvass proved it from the corpus.** A session law prints the **entire amended or reenacted
+section**, not a diff - so any section a 2025 or 2026 act touched is readable in full from the
+session-law volumes here, **whatever title it sits in**. The canvass read §§ 12.1-32-15 and 54-12-22
+whole this way (S.L. 2025, chs. 302 and 339) and turned two bare parks into substantive rows - one of
+them reporting, from 31,500 characters of the registration statute, that **"landlord", "lessor",
+"tenant" and "rental" appear zero times in it**, which is a real answer rather than a shrug. It is the
+same technique Nebraska's pass recorded, and I should have had it in the brief from the first batch.
+
+I then measured what it recovers, against the corrected bill table:
+
+| Parked chapter | Sections readable from the session laws |
+|---|---|
+| **ch. 19-24.1** (medical marijuana) | 15, incl. §§ 19-24.1-01 (Definitions), -03, -05, -11, -24.1, -37 |
+| **title 49** (public utilities) | 24, incl. §§ 49-02-26 to 49-02-34 and § 49-04-07 |
+| **title 40** (municipalities) | 24 |
+| **title 10** (corporations) | 12 |
+| **title 18** (fire) | 10, incl. §§ 18-01-02, -03.1(1), -06, -07, -35, -36 |
+| **title 23.1** | 8, incl. §§ 23.1-07-04 to -08, 23.1-12-02, 23.1-15-07(2) |
+| **ch. 23-10** (mobile home parks) | 5, incl. § 23-10-03 |
+| **ch. 43-23** (real estate brokers) | 4, incl. § 43-23-08 |
+| **ch. 12.1-20** | 2 |
+| **ch. 32-03** | **1 - § 32-03-30 only**, so § 32-03-29 stays unreadable (6.13) |
+
+**Nothing is recoverable this way** for ch. 54-21.3 (State Building Code), ch. 23-09, ch. 28-01,
+ch. 9-06, ch. 9-12, ch. 13-01, ch. 14-10, ch. 22-01, ch. 28-10, ch. 43-18, ch. 57-21 or ch. 61-28.1.
+Those stay genuinely parked, and they include the two highest-value requests.
+
+**And on batch 6 it paid off substantively.** A canvass read **chapter 32-10.1, the Uniform Commercial
+Real Estate Receivership Act, whole from S.L. 2025, ch. 325 (S.B. 2122) - although title 32 is absent
+from the corpus** - and found **§ 32-10.1-16(8)(a), which bars a receiver from rejecting an unexpired
+lease where the tenant occupies the property as a primary residence.** That is North Dakota's only real
+tenant protection in a foreclosure, with § 32-10.1-10 (rent payable to the receiver) and
+§ 32-10.1-03(2)(d) (ordinary one-to-four-unit rentals within scope) beside it. Without this route the
+`foreclosure` row would have been a bare park.
+
+**A refinement, from batch 7, that changes what the route can promise.** When an act amends **a
+subsection**, the volume reproduces **only that subsection**. So §§ 40-47-03(2) and 11-33-03(2)
+(S.L. 2025, ch. 107) print only their floodplain text and those sections stay unreadable, and
+§ 57-39.2-04 is unreachable for the same reason - while §§ 40-47-05.1 and 11-33-17.1 (ch. 112),
+§§ 23-10-03, -04, -06, -06.2, -12 and new ch. 23-10.1 (ch. 238), § 23.1-15-07(2) (ch. 564),
+§ 57-02-08.1(2)(b) (ch. 555) and §§ 50-11.1-03(11), -21(1), -23 (chs. 447, 448) were read in full
+because the act reenacted the whole section. **What the act's own "AMENDMENT" line names is what you
+get.** And a table entry is not a guarantee: §§ 50-11.1-25 to -27 appear against ch. 479 but their
+text would not extract.
+
+**A caveat that is nearly a trap, found on batch 8 and verified.** **The volumes reproduce initiated
+measures the voters REJECTED, in full, with section numbers.** The 2025 volume's own contents carry the
+heading **"III. INITIATED MEASURES DISAPPROVED - Legalized Cannabis 608"**, and chapter 608 then prints
+a whole cannabis chapter numbered §§ 19-24.2-01 onwards - **35 occurrences of `19-24.2-` in the
+volume** - whose § 19-24.2-30(7)(b) is squarely on point for a landlord and **is not law**. A bare
+section-number search cannot tell the difference. Two tells, and both must be checked: **the
+grouping** (which part of the volume's contents the chapter sits under) and **the mood** (an enacted
+act says "BE IT ENACTED" and "is amended and reenacted as follows"; a disapproved measure says "The
+initiated measure **would** create a new chapter"). The canvass that found it recorded the provision,
+**declined to rely on it, and said no row should** - which is the right outcome and the reason this
+caveat is now in the brief with the instruction to state on the row that the enactment check was made.
+
+**What it did and did not buy, stated precisely.** It does **not** close Taylor's item-4 marijuana
+question: the two sections that would answer it - **§ 19-24.1-33 "Limitations"** and
+**§ 19-24.1-34 "Acts not prohibited - Acts not required"** - are not among the fifteen recoverable, so
+that row stays NEEDS_REVIEW. What it does buy is a far better request: **two named sections instead of
+a chapter**. The caveats all bite: a section the act did not touch is simply absent however central it
+is; **several acts may amend one section** (§ 12.1-32-08 was amended by both ch. 120 and ch. 297, and
+the volume footnotes it); a cross-reference is not an amendment, so each hit needs reading in context;
+and new text prints before struck text with no markup surviving extraction. **The technique is now in
+the canvass brief with that table and those caveats**, and the remaining batches will use it.
+
+---
+
+## 2. Topics answered
+
+241 of 241. One line each.
+
+| # | `topic_key` | Row id | Finding |
+|---|---|---|---|
+| 1 | `accessory-dwelling-unit` | `accessory-dwelling-unit-premises-nd` | **A clause: NEEDS_REVIEW on zoning.** § 47-16-27 is the spine - the tenant "has no rights to the property other than ... the agreement" and may "[o]ccupy the **buildings**", plural - so what the tenant gets is whatever the lease grants. `SERVES_LANDLORD`. Open: chs. 40-47, 11-33 and 58-03 (zoning), unreadable. |
+| 2 | `actual-notice-method` | `actual-notice-method-nd` | **PRESENT, and invisible to the topic's own words.** **§ 47-16-07's last sentence**: "notice may be served **in any reasonable manner which actually informs the tenant** of the changes in the terms of the lease." A battery on "actual notice" or "service of notice" misses it - the same shape as the "rent control" trap. `CONSTRAINED_TERM`. |
+| 3 | `alarm-tampering-fee` | `edu-no-alarm-tampering-fee-nd` | **ABSENT, and there is no smoke-alarm duty in the Century Code either.** Reversed from clause to education on rule 55 after §§ 47-16-09, 47-16-10 and 47-16-13.2(6) were read. |
+| 4 | `alt-housing` | `substitute-premises-after-damage-nd` | **A clause.** No statute requires or regulates substitute premises after damage, so the lease is the only route. `SERVES_LANDLORD`; introduces `{{{{substitute_premises_offer_days}}}}`. |
+| 5 | `animal-care-access` | `edu-no-animal-care-entry-right-nd` | **ABSENT: NEEDS_REVIEW.** No landlord right to enter to care for an animal. Open: ch. 36-21.2, outside the corpus - officer-only seizure versus landlord self-help. |
+| 6 | `appliances-excluded` | `appliances-excluded-nd` | **A clause, and in North Dakota it does real legal work.** § 47-16-13.1(1)(d) keys the landlord's duty to facilities and appliances "**supplied or required to be supplied by the landlord**" - so an exclusion decides the duty, it does not merely describe the unit. `CONSTRAINED_TERM`. |
+| 7 | `application-fees` | `edu-no-application-fee-rule-nd` | **ABSENT entirely.** No cap, no refund right, no disclosure duty on application or screening money. |
+| 8 | `asbestos-hazards` | `edu-asbestos-hazards-nd` | **ABSENT from the statutes: NEEDS_REVIEW.** The **entire** ND asbestos and lead statute is § 23.1-06-05, which licenses contractors - and title 23.1 is outside the corpus. No landlord disclosure or abatement duty in anything readable. |
+| 9 | `association-obligations-disclosure` | `edu-no-association-disclosure-nd` | **ABSENT to a tenant, PRESENT to a buyer.** § 47-10-02.3 (new: S.L. 2025, ch. 422) makes a *seller* disclose fifteen association items to a *buyer*. A sibling duty the legislature declined to extend to tenants. |
+| 10 | `attorney-fees` | `edu-attorney-fees-nd` | **PRESENT.** § 28-26-01(1) leaves the fee to the parties' agreement, so a fee clause is enforceable; § 28-26-04 does **not** reach a lease. My call, with the rent-arrears qualification stated on the row. |
+| 11 | `balcony-inspection` | `edu-no-balcony-inspection-nd` | **ABSENT: NEEDS_REVIEW.** No balcony or exterior-elevated-element inspection duty. The plausible state route is **§ 18-01-15, \"abatement of conditions dangerous to persons\"** - heading-only, title 18 outside the corpus. |
+| 12 | `bed-bug-cooperation` | `pest-bed-bug-cooperation-nd` | **A clause, because ND has no pest or bed-bug statute at all.** Cooperation and preparation only; the treatment duty stays with the landlord under § 47-16-13.1(1)(b) and cannot be shifted in a multi-unit except by separate signed writing. `SERVES_LANDLORD`. |
+| 13 | `binding-arbitration` | `edu-binding-arbitration-nd` | **Void until a statute permits it: NEEDS_REVIEW, and the row publishes analysis rather than clause text.** § 9-08-05 voids a clause restricting enforcement by the usual legal proceedings "except as otherwise specifically permitted by the laws of this state" - and **ch. 32-29.3 is unreachable by both routes**, so whether ND's arbitration act is that permission cannot be settled here. **§ 14-02.5-22 is the only readable ND permission for binding arbitration in housing**, and it reaches conciliation agreements only. |
+| 14 | `carpet-cleaning` | `edu-no-carpet-cleaning-rule-nd` | **ABSENT - and that leaves a *stricter* rule than most carpet statutes.** The word \"carpet\" is nowhere in ND landlord-tenant law, so § 47-16-07.1(3)'s \"reasonable wear and tear excepted\" governs, and a blanket charge risks § 47-16-07.1(4) treble damages. |
+| 15 | `casualty-and-mitigation-waivable` | `edu-casualty-and-mitigation-waivable-nd` | **Mostly variable.** No non-waiver clause attaches to either rule; three limits bound it (§ 47-16-13.3 unconscionability, §§ 9-08-03/04 penalty, § 9-08-05 remedy restriction). Post-eviction mitigation is the weakest to try to waive. |
+| 16 | `certificate-of-occupancy-disclosure` | `edu-no-certificate-of-occupancy-disclosure-nd` | **ABSENT: NEEDS_REVIEW.** No certificate-of-occupancy disclosure; the duty, if any, is municipal. |
+| 17 | `children-occupancy` | `children-occupancy-limit-nd` | **A clause, constrained: NEEDS_REVIEW.** § 14-02.5-12(1) saves only "a reasonable **local or state** restriction" on maximum occupants - **a landlord's own cap is not one**, so it is judged under § 14-02.5-02's familial-status bar and should be pegged to the local code. `CONSTRAINED_TERM`. |
+| 18 | `cold-weather-vacate-notice` | `edu-no-cold-weather-vacate-notice-nd` | **ABSENT.** No cold-weather restriction on a vacate notice or an eviction - notable in North Dakota, and the row says so rather than implying a winter protection exists. |
+| 19 | `collection-fee` | `edu-collection-fee-nd` | **ABSENT.** No statute authorises or caps a collection fee; §§ 9-08-03/9-08-04 (penalty, liquidated damages) are the real limit. |
+| 20 | `common-area-lighting` | `common-area-lighting-tenant-metered-nd` | **A clause: NEEDS_REVIEW.** § 47-16-13.1(1)(c) keeps common areas "in a clean and safe condition" - a landlord duty - so the clause can only allocate a tenant-metered load, not the duty. **In a park it cannot even do that: § 47-10-28(8) bars any utility fee without an individual meter per home.** Open: whether a tenant-metered common load is a § 47-16-13.1(5) duty shift. `SERVES_LANDLORD`. |
+| 21 | `communal-land-lease-approval` | `edu-no-communal-land-lease-approval-nd` | **ABSENT, and for a reason worth stating.** No ND statute conditions a lease of communal or trust land on an approval - because the subject is not the state's to regulate. The row says that rather than implying the state looked and declined. |
+| 22 | `condemned-premises-rent-bar` | `edu-no-condemned-premises-rent-bar-nd` | **ABSENT, and § 47-10-28 cuts the other way: NEEDS_REVIEW.** No rent bar for condemned premises - and in a **park**, §§ 47-10-28(13) and (14) **preserve occupancy and say \"the tenant shall continue paying rent\"** during an action. § 47-16-14(4) may already end the leasing if the property is destroyed. |
+| 23 | `confession-of-judgment` | `edu-no-confession-of-judgment-nd` | **PROHIBITED in substance, via § 9-08-05: NEEDS_REVIEW on the mechanics.** A clause restricting enforcement by the usual legal proceedings is void unless a statute permits it. Open: chs. 28-09 and 28-10, outside the corpus. |
+| 24 | `confirmed-absences-habitability` | `edu-confirmed-absences-habitability-nd` | **The habitability inventory: NEEDS_REVIEW by nature.** No severity threshold, no presumption either way, no required habitability statement, no rent escrow and no rent-into-court - against **uncapped repair-and-deduct at § 47-16-13**, "reasonable heat" with no temperature, and the (e)/(f) duty-shift bar in a multi-unit. **Open and stated: ch. 54-21.3 is unreadable while § 47-16-13.1(3) would make a code figure controlling, and § 23-13-15 is heading-only with no route - so no alarm-duty absence is claimed.** |
+| 25 | `confirmed-absences-misc` | `edu-confirmed-absences-misc-nd` | **The non-habitability inventory**, built from what this pass established rather than fresh batteries, with each absence scoped to what was searched. |
+| 26 | `confirmed-absences-outside-title` | `edu-confirmed-absences-outside-title-nd` | **The inventory of what this pass could NOT read - the most important of the three: NEEDS_REVIEW by nature.** Every claim scoped; every section named only from the Legislative Council index labelled **heading-only and unverified**, because 85 sections in this corpus are repealed but still carry their headings. **A chapter with no 2025-26 section-action cannot be reached by any route available here - 32 chapters are at zero.** The specific unresolved items are named: § 23-13-15, ch. 54-21.3, § 32-03-29, §§ 19-24.1-33 and -34, §§ 23-09-01 and 23-09-08. |
+| 27 | `construction-liens` | `no-construction-liens-nd` | **A clause: NEEDS_REVIEW.** No statute keeps a landlord's interest clear of a lien for tenant work, so the lease must try. Open: ch. 35-27 is unreadable - and **title 35 has zero 2025-26 section-actions, so the session-law route cannot reach any of it.** `SERVES_LANDLORD`. |
+| 28 | `conversion-notice` | `edu-conversion-notice-nd` | **ABSENT.** No condominium- or cooperative-conversion notice to a sitting tenant - a real gap in a state with a condominium act. |
+| 29 | `criminal-activity` | `criminal-activity-nd` | **Optional clause, not required.** § 47-32-01(8) makes breach of a written-lease material term an eviction ground and ND implies no crime-free term - the opposite of Colorado. |
+| 30 | `defective-drywall-disclosure` | `edu-no-defective-drywall-disclosure-nd` | **ABSENT.** Nothing on defective or Chinese drywall anywhere in the statutes. |
+| 31 | `deposit-cost-schedule` | `edu-no-deposit-cost-schedule-nd` | **ABSENT, and the absence is stricter than a statute would be.** § 47-16-07.1(3) is written in the language of **actual** cost, so a pre-set price list is a sum fixed in advance. |
+| 32 | `deposit-installments` | `edu-no-deposit-installment-right-nd` | **ABSENT in both directions** - no tenant right to instalments, and nothing stopping the landlord agreeing to them. |
+| 33 | `deposit-last-month-rent` | `edu-no-last-month-rent-rule-nd` | **ABSENT.** No last-month's-rent rule either way; the answer is functional - held like security, it *is* security under § 47-16-07.1's \"however denominated\". |
+| 34 | `deposit-surrender-notice` | `surrender-and-forwarding-address-nd` | **A clause, because the statute leaves a hole the lease must fill.** § 47-16-07.1(3) runs its thirty days from *delivery of possession* and imposes **no** forwarding-address duty on the tenant, so the lease has to create both. `SERVES_LANDLORD`. |
+| 35 | `designated-repairer` | `edu-designated-repairer-nd` | **ABSENT - unless it is a mobile home park.** No duty to name a repair contact generally; § 47-10-28 imposes park-specific duties including a two-business-day complaint acknowledgment under (1)(e). |
+| 36 | `disaster-displaced-guests` | `edu-no-disaster-guest-rule-nd` | **ABSENT.** Nothing about guests displaced by a disaster - no occupancy relief and no landlord duty. |
+| 37 | `disaster-duties` | `edu-disaster-duties-nd` | **ABSENT: NEEDS_REVIEW.** Open: whether a mandatory evacuation order under § 37-17.1-10 (or §§ 37-17.1-05, -19) suspends rent or possession. Cautious course on the row: **rent accrues, but do not serve notice or file while the order runs.** |
+| 38 | `drug-free-housing-addendum` | `edu-drug-free-housing-addendum-nd` | **ABSENT: NEEDS_REVIEW** - and the row **refuses to rely on a measure that is not law.** Four hits corpus-wide for the addendum vocabulary. Open: §§ 19-24.1-33 and -34 are unreachable, so a ban on a registered patient's use is unsettled. **The canvass found the disapproved cannabis measure's § 19-24.2-30(7)(b) squarely on point and declined to use it** - see 1.7. |
+| 39 | `dv-qualifying-documents` | `edu-dv-qualifying-documents-nd` | **PRESENT, and narrower than landlords assume.** § 47-16-17.1(2) conditions the right on a **notice**, not a documentation package. Open question on whether a court record may be demanded is stated with the cautious course. |
+| 40 | `electric-submetering-disclosure` | `edu-electric-submetering-disclosure-nd` | **ABSENT from the statutes: NEEDS_REVIEW.** Title 49 and § 49-04-20 are outside the corpus, and the Administrative Code and PSC tariffs are not in it at all, so the absence is scoped to statutes. |
+| 41 | `emergency-assistance-right` | `edu-no-emergency-assistance-right-nd` | **ABSENT.** No tenant right to summon emergency assistance without penalty, and no bar on a lease term discouraging it - a gap worth a landlord knowing, since the row advises against such a term anyway. |
+| 42 | `emergency-contact` | `emergency-contact-nd` | **A clause.** No statute requires or regulates an emergency contact, so it is wholly contractual. `SERVES_LANDLORD`. |
+| 43 | `eminent-domain` | `edu-eminent-domain-nd` | **NEEDS_REVIEW.** Ch. 32-15 is outside the corpus but for § 32-15-06 (survey notice only, which answers nothing about leases). Cautious course: put a condemnation clause in the lease and **carve the tenant's claim out rather than purporting to assign it**. |
+| 44 | `employee-screening` | `edu-no-employee-screening-rule-nd` | **ABSENT.** No employee-screening mandate for rental housing, at any portfolio size - the same answer as `key-control-policy`. |
+| 45 | `energy-data-release` | `edu-energy-data-release-nd` | **ABSENT.** No benchmarking or energy-data release duty, and no tenant consent machinery. |
+| 46 | `entity-landlord-court-representation` | `edu-entity-landlord-court-representation-nd` | **NEEDS_REVIEW.** No statute lets or bars a non-lawyer appearing for an LLC in an eviction; the answer is in court rules outside the corpus. Cautious course stated. |
+| 47 | `environmental-event-termination` | `edu-no-environmental-event-termination-nd` | **ABSENT.** No environmental-event termination right beyond §§ 47-16-14(4) and 47-16-17(2)'s destruction rules. |
+| 48 | `ev-charging` | `edu-no-tenant-ev-charging-right-nd` | **PRESENT for a condominium **owner**, ABSENT for a tenant - and the distinction is the answer.** § 47-04.1-16 voids a covenant or bylaw prohibiting or unreasonably restricting a station in an **owner's** unit or designated space, deems an application approved if not denied in writing within sixty days, penalises an association up to **$1,000** at (8), and at (9) makes the **owner** indemnify the association. **North Dakota gives a tenant nothing**; § 47-04.1-16 is the sibling that proves it. |
+| 49 | `ev-charging-end-of-tenancy` | `ev-charger-removal-restoration-nd` | **A clause.** Nothing allocates removal, restoration or ownership of a tenant-installed charger - and **§ 47-06-04's removal right** is the statute that makes the allocation necessary rather than optional. `SERVES_LANDLORD`. |
+| 50 | `ev-charging-requirements` | `ev-charger-installation-conditions-nd` | **A clause: NEEDS_REVIEW.** Nothing imposes installation standards on a landlord. Open: whether reselling EV electricity to a tenant engages ch. 64-02 or title 49, both unreadable. |
+| 51 | `ev-charging-shared-area` | `edu-no-shared-area-ev-charging-right-nd` | **ABSENT for a tenant.** § 47-04.1-16's designated-space machinery runs to unit owners, so in a rental the shared-area question is wholly contractual. |
+| 52 | `eviction-penalty-clause-ban` | `edu-no-eviction-penalty-ban-nd` | **ABSENT.** No enumerated prohibited-provisions list; §§ 9-08-03/9-08-04 and § 47-16-13.3 do the work instead. |
+| 53 | `eviction-process` | `edu-eviction-procedure-nd` | **PRESENT and wholly statutory: NEEDS_REVIEW on the downstream steps.** Ch. 47-32 read whole. Open: execution (ch. 28-21), appeal (ch. 28-27) and time computation (§ 1-02-15) are outside the corpus. |
+| 54 | `eviction-service-party` | `edu-no-lease-named-eviction-service-party-nd` | **ABSENT: NEEDS_REVIEW, and a scoping catch.** No statute lets the lease name who may be served. Open: the **N.D. Rules of Civil Procedure** - the 2026-10-02 review covered the Rules of **Court**, which is not the same body of rules. |
+| 55 | `exculpatory-clauses` | `edu-exculpatory-clauses-nd` | **PRESENT, and the opposite of what the library has been telling itself.** ND does have an enumerated statutory bar on exculpatory lease terms - it is in title 9, not title 47. The row adds the § 9-08-01(2) linkage that turns § 9-08-02's 'against the policy of the law' into unlawfulness, the habitability bridge that brings a *negligent* failure inside limb (c), the § 9-08-02.1 exclusion, and §§ 9-08-08/9-08-09's voidable personal-injury release. Answered by me, not delegated. |
+| 56 | `expedited-criminal-eviction` | `edu-no-expedited-criminal-eviction-nd` | **ABSENT.** No expedited criminal-eviction track and no third-party petition route - which is why `criminal-activity` had to be a clause. |
+| 57 | `expedited-deposit-disposition` | `edu-no-expedited-deposit-disposition-nd` | **ABSENT.** Thirty days is the only deadline, there is no expedited route, and no fee may be charged to shorten it. |
+| 58 | `extended-absence-notice` | `edu-no-extended-absence-notice-nd` | **ABSENT.** No tenant duty to report an absence; § 47-16-07.3(1) gives entry on a reasonable belief of abandonment instead. |
+| 59 | `family-child-care` | `family-child-care-consent-nd` | **A clause: NEEDS_REVIEW.** No ND statute protects a renter's family child care, and the contrast the row rests on - § 50-11-11 "Agency foster home for adults - Zoning" - is **heading-only and unverified**. `SERVES_LANDLORD`. |
+| 60 | `farmland-hunting-rights` | `farmland-hunting-rights-reserved-nd` | **PRESENT - the one clause in the final batch, and it was expected to be absent.** § 47-16-27 enumerates the tenant's rights and **omits game**, so an ND farm tenant has no hunting right unless the lease grants it. **§ 20.1-01-07** (S.L. 2025 ch. 216, whole section) then puts "a lessee who actively farms or ranches that land" **alongside the owner** for permission to hunt off-road, and **§ 20.1-03-11(5)** says twice: "If not otherwise specified in an agricultural lease, the landowner is entitled to receive the license." **That express deference to the lease is the rule-55 trigger.** NEEDS_REVIEW: §§ 20.1-01-17 to -20 and -22 have zero 2025-26 section-actions, so no route. |
+| 61 | `fee-in-lieu-of-deposit` | `edu-no-fee-in-lieu-of-deposit-nd` | **ABSENT, and that is a reason to avoid the product: NEEDS_REVIEW.** Open: whether § 47-16-07.1's \"security, however denominated\" reaches a premium the tenant pays direct to an insurer. |
+| 62 | `fee-transparency` | `edu-no-fee-transparency-rule-nd` | **ABSENT, but do not charge an unlisted fee: NEEDS_REVIEW.** Open: whether § 51-15-02 reaches an undisclosed lease fee - \"merchandise\" includes real estate, but \"sale\" is defined as selling. |
+| 63 | `fee-unprovided-service` | `edu-fee-unprovided-service-nd` | **ABSENT, and the absence is not a licence.** No duty to abate a fee when an amenity closes - but §§ 9-08-03/9-08-04 and § 51-15-02 are the exposure. |
+| 64 | `fire-sprinkler-duty` | `edu-no-fire-sprinkler-duty-nd` | **ABSENT from the statutes: NEEDS_REVIEW**, and this is where § 47-16-13.1(1)(a) with (3) bites: a State Building Code requirement would become **binding and controlling** through the lease statute, and ch. 54-21.3 cannot be read. |
+| 65 | `firearms` | `edu-firearms-nd` | **Preemption aimed at government, not at a lease: NEEDS_REVIEW.** § 62.1-02-05's closed list is schools, places of worship and publicly owned buildings - **not rentals**. Open: §§ 62.1-01-03 (preemption) and 62.1-02-13 ("Prohibition by **employer** prohibited") are the only two title-62.1 sections the session-laws route cannot reach. |
+| 66 | `flood-disclosure` | `edu-no-flood-disclosure-nd` | **ABSENT to a tenant: NEEDS_REVIEW.** § 47-10-02.1(2)'s **seller** form is the sibling that proves the negative. Open: chs. 61-16.2 and 61-28.1, outside the corpus. |
+| 67 | `foreclosure` | `edu-foreclosure-tenants-nd` | **PRESENT, and found only through the session-laws route: NEEDS_REVIEW on the rest.** **§ 32-10.1-16(8)(a) bars a receiver from rejecting an unexpired lease where the tenant occupies as a primary residence** - North Dakota's only real tenant protection in foreclosure - with § 32-10.1-10 (rent to the receiver) and § 32-10.1-03(2)(d) (ordinary 1-4-unit rentals in scope). Ch. 32-10.1 is the Uniform Commercial Real Estate Receivership Act, **readable whole from S.L. 2025 ch. 325 although title 32 is absent**. Open: whether a lease survives a completed sale, and the redemption period (ch. 32-19). Cautious course: assume it may not. |
+| 68 | `foreclosure-disclosure` | `edu-no-foreclosure-disclosure-nd` | **ABSENT.** No duty to tell a tenant the property is in foreclosure; the federal position is deliberately not described as ND law. |
+| 69 | `foreign-ownership` | `edu-foreign-ownership-nd` | **ABSENT for a town rental, PRESENT for farmland.** Citizenship is irrelevant to an ordinary tenancy; a lease of **agricultural land** is a restricted interest. |
+| 70 | `forfeiture-redemption` | `edu-forfeiture-relief-unsettled-nd` | **NEEDS_REVIEW.** Open: § 32-01-12 \"Conditions of relief from forfeiture\" and § 9-01-15, both outside the corpus - and relief from forfeiture is the doctrine most likely to soften a lease forfeiture clause. |
+| 71 | `furnishings-included` | `furnishings-included-nd` | **A clause.** Same hinge as the exclusion, running the other way, and § 47-16-07.2's mandatory signed statement of "the condition of the facilities" is the vehicle for the inventory. `SERVES_LANDLORD`. |
+| 72 | `good-cause-notice` | `edu-no-good-cause-notice-nd` | **ABSENT.** No good-cause requirement and no notice of cause - a month-to-month may be ended without a reason. |
+| 73 | `government-fee-reimbursement` | `government-fee-reimbursement-nd` | **A clause.** No statute allocates a government fee caused by the tenant, so the lease is the only route. `SERVES_LANDLORD`. |
+| 74 | `governmental-fines` | `tenant-caused-fines-nd` | **A clause: NEEDS_REVIEW.** Open: whether anything in title 42 (Nuisances, outside the corpus) allocates abatement cost to an occupant by default. |
+| 75 | `guarantor-renewal` | `guaranty-renewals-nd` | **A clause, and the one in this cluster.** **Title 47 has zero hits for guarant* or surety**, so nothing in ND law makes a guaranty survive a renewal - the lease must. `SERVES_LANDLORD`; introduces `{{{{guarantor_name}}}}` and `{{{{guarantor_notice_address}}}}`. |
+| 76 | `guest-rights` | `guest-rights-nd` | **A clause - and ND's guest law is invisible to the word "guest".** **§§ 47-32-01(7) and 47-16-13.2(7) say "a person on the premises with the lessee's consent" and never "guest"**, so a guest-vocabulary battery misses the state's actual guest law entirely. `SERVES_LANDLORD`. |
+| 77 | `habitability-materiality` | `edu-habitability-materiality-nd` | **ABSENT, and the absence is against the landlord.** No \"material breach\", \"material noncompliance\" or \"substantial breach\" anywhere in the corpus; the only \"materially affecting\" hits are §§ 47-16-13.1(1)(a) and 47-16-13.2(1). So there is **no severity threshold** a defect must clear. |
+| 78 | `habitability-modifiable` | `edu-habitability-modifiable-nd` | **PRESENT, enumerated, and asymmetric: NEEDS_REVIEW on a drafting defect.** § 47-16-13.1(4) lets a **single-family** landlord shift subdivisions (e) and (f); § 47-16-13.1(5) reaches only repairs, maintenance, alterations and remodeling - so **in a multi-unit building, waste removal, water, hot water and heat cannot be shifted at all**. Open: (6) bars conditioning on \"the separate agreement described in **subsection 4**\" when subsection **5** is what describes a separate writing. |
+| 79 | `habitability-presumption` | `edu-no-habitability-presumption-nd` | **ABSENT in both directions.** No presumption that the unit was habitable and none that it was not - so the § 47-16-07.2 condition statement does the work a presumption would. |
+| 80 | `habitability-statement` | `edu-no-habitability-statement-nd` | **ABSENT.** No required habitability statement - and the row warns against the opposite temptation, narrowing the duty by lease language. |
+| 81 | `habitability-waiver` | `edu-habitability-waiver-nd` | **Constrained, not void.** § 47-16-13.3 makes a settlement or waiver reviewable for unconscionability rather than banning it outright. |
+| 82 | `hazardous-contamination-disclosure` | `environmental-covenant-notice-and-compliance-nd` | **A clause, and the only one in this cluster.** **Ch. 47-37 (Uniform Environmental Covenants Act) IS in the corpus** and all twelve sections were read: § 47-37-06(1)(c) sends a copy to \"each person in possession\" through whoever **the agency** designates and § 47-37-06(2) makes omission **harmless**; the covenant runs with the land (§ 47-37-04(1)) and § 47-37-10 gives only equitable relief. So the statute imposes no landlord disclosure duty and **only the lease can make a tenant's breach a default** - `SERVES_LANDLORD`, not `REQUIRED_DISCLOSURE`. |
+| 83 | `health-district-rental-rules` | `edu-no-health-regulation-handout-duty-nd` | **PRESENT in outline: NEEDS_REVIEW.** §§ 23-35-02 and 23-35-08, recovered whole from S.L. 2025 ch. 248: **all land is in a public health unit**, and boards of health may make nuisance and filth rules, **enter under an administrative search warrant** and abate. Open: § 23-10-10.1 and the Administrative Code. |
+| 84 | `heating` | `edu-heating-nd` | **PRESENT, and the strongest duty in the chapter.** § 47-16-13.1(1)(f) requires \"reasonable heat\" - **no temperature figure** - and it is one of the two duties § 47-16-13.1(5) does not let you shift, so **in anything but a single-family home it cannot be moved to the tenant at all**. |
+| 85 | `hoa` | `edu-association-no-tenant-power-nd` | **Almost ABSENT, and what exists protects the tenant.** § 47-04.1-08 binds \"each unit owner\" and not a tenant - so in ND the lease is the **only** source of the tenant's duty to obey association rules. § 47-04.1-07(2) is a renter-neutrality rule most states lack. |
+| 86 | `holding-deposit` | `edu-no-holding-deposit-rule-nd` | **ABSENT.** Pre-lease money from an applicant is wholly unregulated - no cap, no receipt, no deadline to return it. |
+| 87 | `holdover-rate` | `edu-no-holdover-rate-cap-nd` | **ABSENT: no cap on a lease-set holdover rate.** And the row records what it could **not** read: §§ 32-03-27 and 32-03-28 (statutory double-damages measures for failing to surrender and for wilful holding over) are outside the corpus, so no later canvass assumes this corpus can confirm them. |
+| 88 | `home-business` | `home-business-use-restriction-nd` | **A clause: NEEDS_REVIEW on zoning.** § 47-16-11 speaks of "real property" and never "residential", and with § 47-32-01(8) a use restriction is enforceable **only as a written material term** - so the restriction must be in the lease to do anything. `CONSTRAINED_TERM`. |
+| 89 | `homestead-waiver` | `edu-no-tenant-homestead-waiver-nd` | **Empty.** Chapter 47-18 is an **owner's** exemption; a tenant has nothing to waive, so a waiver clause is empty, not lawful (rule 27 / WY-gaps topic question 2). |
+| 90 | `immigration-status` | `edu-immigration-status-nd` | **ABSENT for residential, PRESENT for farmland - and the scoping matters.** § 47-01-11 lets "any person, whether citizen or alien" hold property **except** under ch. 47-10.1, which bars a non-citizen acquiring "any interest in agricultural land" - **and a leasehold is an interest.** So the absence had to be scoped to residential. |
+| 91 | `infirmity-termination` | `edu-no-infirmity-termination-nd` | **ABSENT.** No age-, health- or infirmity-based early termination - the contrast with § 47-16-17.1's domestic-violence right is deliberate and is stated. |
+| 92 | `informal-dispute-resolution` | `informal-dispute-resolution-nd` | **A clause: NEEDS_REVIEW, drafted to survive either reading.** Open: whether § 9-08-05 voids a pre-suit **condition precedent** as a restriction on enforcing rights by the usual proceedings. `CONSTRAINED_TERM`. |
+| 93 | `inspection-condemnation-disclosure` | `edu-no-inspection-condemnation-disclosure-nd` | **ABSENT: NEEDS_REVIEW - and a vocabulary finding.** \"Condemnation\" in the Century Code means **eminent domain only**. The everyday-words battery found the real regime instead: **§ 40-58-18**, municipal ordinances for repair, closing and demolition of buildings **\"unfit for human habitation\"**, plus ch. 18-01's abatement-order regime at §§ 18-01-14 to 18-01-27 with a **cost lien**. Both outside the corpus. |
+| 94 | `inspection-notice-penalty` | `edu-no-inspection-notice-penalty-nd` | **ABSENT.** No penalty for failing to give inspection notice, because there is no inspection-notice duty to breach. |
+| 95 | `jury-waiver` | `edu-jury-waiver-nd` | **No statute either way.** § 9-08-05 voids a clause restricting enforcement by the usual proceedings, which is the live argument against it; stated as the cautious course. |
+| 96 | `key-control-policy` | `edu-no-key-control-policy-nd` | **ABSENT.** No key-control duty at any portfolio size, and no employee-screening mandate for rental housing. |
+| 97 | `knowing-use-penalty` | `edu-knowing-use-penalty-nd` | **ABSENT as a penalty on the landlord.** § 9-08-04's "to that extent" voidness is the nearest thing North Dakota has to a severability rule, and it is **statutory rather than drafted** - which is the useful point. |
+| 98 | `landlord-breach-remedy` | `edu-landlord-breach-remedy-nd` | **PRESENT: four routes, and fees cut both ways.** § 47-16-13's three self-help remedies plus § 47-16-17(1)'s termination - and § 47-16-13.6 awards fees to **the prevailing party**, which favours a landlord defending a weak claim. |
+| 99 | `landlord-liability-insurance` | `edu-no-landlord-insurance-mandate-nd` | **ABSENT.** No statute requires a landlord to carry liability insurance or to name anyone on a policy. |
+| 100 | `landlord-lien` | `edu-landlord-lien-nd` | **NEEDS_REVIEW, and the open question is pointed.** No general landlord's lien on a tenant's goods in anything readable - but the master index names **§ 35-20-17 "Landlord's mobile home lien - Penalty"**, and all of title 35 is unreachable by every route. |
+| 101 | `landlord-registration` | `edu-landlord-registration-nd` | **ABSENT, except a mobile home park.** No state landlord registration - but a park needs an annual licence and, at 26+ lots, an official local office (§ 47-10-28(1)(a)-(b)). |
+| 102 | `landlord-remedies-termination` | `edu-landlord-remedies-on-termination-nd` | **PRESENT and statutory: NEEDS_REVIEW on forum.** Open: ch. 27-08.1 (small claims) is outside the corpus. The genuinely lease-carried term here - designating which obligations are \"material terms of the written lease\" so § 47-32-01(8) has teeth - has **no topic key in the list**, and is raised as a proposed topic question rather than smuggled into a row. |
+| 103 | `late-fee-limit` | `edu-late-fee-limit-nd` | **ABSENT for an apartment, PRESENT for a mobile home park: NEEDS_REVIEW.** § 47-10-28(11) caps a park's monthly late fee at ten per cent and its daily fee at five dollars. Open: whether ch. 13-01's late-payment-charge sections (outside the corpus) reach residential rent. |
+| 104 | `law-enforcement-cooperation` | `edu-law-enforcement-cooperation-nd` | **ABSENT.** No duty to cooperate with law enforcement and no immunity for doing so; the row keeps federal law out of the ND answer. |
+| 105 | `lead-safe-certification` | `edu-no-lead-safe-certification-nd` | **ABSENT from the statutes: NEEDS_REVIEW.** The duty is federal; § 23.1-06-05 licenses contractors and is outside the corpus. **Not stated as ND law.** |
+| 106 | `lead-state-notices` | `edu-no-lead-state-notices-nd` | **ABSENT: NEEDS_REVIEW.** No state lead notice on top of the federal one, so far as anything readable shows. |
+| 107 | `lease-content-requirements` | `edu-one-lease-content-requirement-nd` | **PRESENT and very short.** What the lease itself must contain or carry: § 47-16-07.2's signed condition statement, § 47-16-15(4)'s stated-and-initialled notice requirement, and in a park § 47-10-28(9)'s lease-and-rights summary with (1)(g)-(h)'s owner and manager details. Points to `required-disclosures` for the wider inventory. |
+| 108 | `lease-registration` | `edu-lease-registration-nd` | **Permissive, never required: NEEDS_REVIEW.** A lease may be recorded but need not be - except a farm lease reserving crop title. Open: whether a lease is a \"conveyance\" under § 47-19-42. |
+| 109 | `lease-term-limitation` | `edu-lease-term-limits-nd` | **PRESENT and narrow: NEEDS_REVIEW.** § 47-16-02's ten-year and ninety-nine-year limits are **maximum terms only, not a list of banned clauses** - a misreading already in the library. Open: what \"agricultural land\" and \"city lot\" mean, whether an over-long lease fails wholly or only as to the excess, and whether § 47-18-05 needs both spouses' signature **and** acknowledgment. |
+| 110 | `lease-type-parity` | `edu-no-lease-type-parity-nd` | **ABSENT.** No parity rule between lease types, and no statute treating a fixed term and a month-to-month differently beyond the notice sections. |
+| 111 | `lease-type-size` | `edu-lease-type-size-nd` | **ABSENT as a general rule, PRESENT in two specific places.** No small-landlord exemption anywhere (see `portfolio-thresholds`). What size actually changes: the **single-family versus other-dwelling split** in § 47-16-13.1(4) against (5), and **§ 47-10-28(1)(b)'s twenty-six-lot threshold** for a park's local office. The sharpest sibling proving there is no residential type-size rule is **§ 17-04-06, which imposes a sixteen-point cover page on a wind-energy lease of real property.** |
+| 112 | `limitation-of-actions` | `edu-limitation-of-actions-nd` | **NEEDS_REVIEW.** § 9-08-05 voids a clause shortening the time to enforce \"except as otherwise specifically permitted\", but the periods themselves are in ch. 28-01, outside the corpus. |
+| 113 | `liquidated-damages` | `edu-liquidated-damages-void-nd` | **PRESENT, and void by default.** The phrase \"liquidated damages\" appears **nowhere** in ND's statutes, which is exactly why it gets missed: the rule is § 9-08-04's, and its exception is narrow. |
+| 114 | `lockout-for-rent-delinquency` | `edu-no-opt-in-lockout-nd` | **ABSENT.** No opt-in lockout, and no statute permitting one by agreement. |
+| 115 | `meter-conservation-charge` | `edu-meter-conservation-charge-nd` | **ABSENT.** No conservation charge and no authority for one. |
+| 116 | `meth-disclosure` | `edu-no-meth-disclosure-nd` | **ABSENT as a disclosure, PRESENT as a remedy - and the remedy is new.** § 12.1-32-08(1), **amended by S.L. 2025, ch. 120 (H.B. 1417)**, makes restitution to the owner of real property contaminated in manufacturing methamphetamine **mandatory**: \"Restitution **must** include payment to the owner of real property that is contaminated by the defendant ... for the cost of removing the contamination and returning the property to the property's condition before contamination.\" That is ND's only meth provision besides § 14-02.5-02(4)'s screening permission. **A seventh 2025 act, outside the prompt's four** - see 1.6. |
+| 117 | `military-air-zone-disclosure` | `edu-military-air-zone-disclosure-nd` | **ABSENT.** No military-air-installation or noise-zone disclosure - notable in a state with two air bases. |
+| 118 | `minor-tenant-filing` | `edu-minor-tenants-nd` | **NEEDS_REVIEW, and the capacity rule is not in the lease law.** Open: whether a minor's lease is void under § 14-10-09 or non-disaffirmable under § 14-10-12, and the age of majority - ch. 14-10 is outside the corpus. Cautious course: have an adult sign. |
+| 119 | `municipal-utility-lien` | `edu-municipal-utility-lien-nd` | **NEEDS_REVIEW, and city-class-specific.** Titles 40, 11 and 61 are outside the corpus; the master index names § 40-01-25, § 11-10-32 \"Prohibition - Connection of utility services\", § 40-22-16 and § 40-24-01. **No clean absence claimed for a chapter that could not be read.** |
+| 120 | `nonrefundable-deposit-notice` | `edu-no-nonrefundable-deposit-rule-nd` | **ABSENT, and the concept does not exist here.** The word \"nonrefundable\" appears nowhere in ND's landlord-tenant law, so no notice can make a deposit non-refundable. |
+| 121 | `nonrefundable-deposit-separate-notice` | `edu-no-nonrefundable-separate-notice-nd` | **ABSENT.** No separate signed notice will do it either; § 47-16-07.1(1) and (3) require the deposit and its interest back less only what is properly applied and itemised. |
+| 122 | `nonresident-owner-agent` | `edu-no-nonresident-owner-agent-nd` | **ABSENT for a conventional rental, PRESENT for a park: NEEDS_REVIEW.** **Corrected at assembly on the canvass's own report** - §§ 47-10-28(1)(b) (official local office at 26+ lots), (1)(c)(3) (named decision-maker) and (1)(g)-(h) (owning entity and manager's telephone number) supply exactly the duties the row first denied. Open: title 10 and tax withholding, outside the corpus. |
+| 123 | `notice-service-fee` | `edu-no-notice-service-fee-rule-nd` | **ABSENT.** No authority for a fee for serving a notice; § 47-32-04 governs costs in the eviction action. |
+| 124 | `notice-to-quit-waiver` | `edu-no-notice-to-quit-waiver-nd` | **Waivable by contract on its face**, because the notice requirement is statutory but carries no anti-waiver clause; § 9-08-05 is the counter-argument and is stated. |
+| 125 | `notice-to-vacate-additional-terms` | `edu-notice-to-vacate-extra-terms-nd` | **ABSENT - and the topic's own vocabulary does not exist here.** \"Notice to vacate\" and \"notice to quit\" occur **zero** times in the entire corpus; ND says notice \"to remove from the premises\" (§ 47-17-01) and \"notice of intention to evict\" (§ 47-32-02). Nothing requires or permits extra terms in either. |
+| 126 | `nuisance` | `edu-nuisance-nd` | **NEEDS_REVIEW.** The in-chapter route is §§ 47-16-13.2(7) and 47-32-01(7). Open: title 42 is unreadable **and not recoverable from the session laws either** (zero section-actions, zero volume hits) - does § 42-02-06 let an owner cancel a lease under a nuisance injunction, and does § 42-01-13 make a landlord liable for a tenant's nuisance? |
+| 127 | `ordnance-demolition-meter-disclosures` | `edu-ordnance-demolition-meter-disclosures-nd` | **ABSENT.** None of the three: no ordnance-site, demolition or shared-meter disclosure. |
+| 128 | `other-landlord-facilities` | `other-landlord-facilities-nd` | **A clause.** § 47-16-27 again: a facility is the tenant's only if the agreement grants it, so amenity access, suspension and closure all have to be written. `SERVES_LANDLORD`. |
+| 129 | `owner-move-in-reservation` | `owner-occupancy-termination-nd` | **A clause.** Nothing in ND law reserves an owner-occupancy termination, so the lease must. `SERVES_LANDLORD`. |
+| 130 | `parking-rules-notice` | `parking-rules-notice-nd` | **A clause - and the battery finding is the best one in the batch.** **§ 47-10-28(3) says "park rules"** - so a **parking** battery cannot see it (though the section does contain "rules and regulations", six times; what returns zero is "house rules"), so a parking-vocabulary battery cannot see North Dakota's only rules-notice provision. `SERVES_LANDLORD`. |
+| 131 | `part5-nonwaivable` | `edu-no-urlta-nonwaiver-nd` | **ND has not adopted URLTA**, so there is no Part 5 act-wide non-waivable-rights section to point to. |
+| 132 | `periodic-services-entry` | `scheduled-services-entry-nd` | **A clause, and the reasoning is tight.** § 47-16-07.3(2) protects an **agreed** service visit - so a recurring visit is only "agreed" if the lease carries the schedule. The clause supplies the schedule and **keeps the notice step rather than waiving it.** `SERVES_LANDLORD`. |
+| 133 | `pest-control-notice` | `pest-control-cooperation-nd` | **A clause, because ND has no pest law at all.** Cooperation and preparation only: the **treatment duty stays with the landlord**, because § 47-16-13.1(5) bars shifting it in a multi-unit except by separate signed writing with consideration. `SERVES_LANDLORD`. |
+| 134 | `pet-eviction-fact-sheet` | `edu-no-pet-eviction-fact-sheet-nd` | **ABSENT.** No pet-eviction fact sheet or notice requirement. |
+| 135 | `pet-fees` | `edu-pet-deposit-is-deposit-money-nd` | **PRESENT, and bigger than most states'. § 47-16-07.1(2) is a separate grant, not an exception inside the cap:** a pet security deposit "may not exceed **the greater of two thousand five hundred dollars or an amount equivalent to two months' rent**" - **additive** to subsection (1)'s one-month cap, whose "except" list is closed at two items and says nothing about pets. **And (2) carves out a service or companion animal required as a reasonable accommodation**: no pet deposit at all for one. |
+| 136 | `plain-language-consumer-statement` | `edu-plain-language-consumer-statement-nd` | **ABSENT: NEEDS_REVIEW.** No plain-language mandate. Open: whether ch. 51-15 reaches a lease at all - "merchandise" includes real estate but "sale" is title-flavoured. **The same open question as `fee-transparency`**, and the two rows point to each other. |
+| 137 | `political-access` | `edu-no-political-access-rule-nd` | **ABSENT.** No canvasser, candidate or petition right of access to a rental building. |
+| 138 | `pool-safety` | `edu-pool-safety-nd` | **Education: NEEDS_REVIEW.** No pool statute; the standards are in the Administrative Code and ch. 54-21.3, neither readable, and § 47-16-13.1(1)(a) with (3) would make them controlling. |
+| 139 | `portable-cooling-device` | `edu-no-portable-cooling-rule-nd` | **ABSENT in both directions.** No tenant right to a window air conditioner and no disclosure duty if the lease bans them. |
+| 140 | `portable-solar` | `edu-no-tenant-solar-right-nd` | **ABSENT: NEEDS_REVIEW.** No tenant solar right and no landlord duty; open on utility interconnection, which is in title 49. |
+| 141 | `portfolio-thresholds` | `edu-portfolio-thresholds-nd` | **ABSENT, and the near-miss is worth the row.** No small-landlord exemption anywhere in ND - and the fair-housing three-house carve-out is **narrower than it looks**, which is the way a landlord would get this wrong. |
+| 142 | `possession-bond` | `edu-no-possession-bond-nd` | **ABSENT.** No possession bond and no bond-to-stay machinery. |
+| 143 | `private-well-testing` | `edu-no-private-well-testing-nd` | **ABSENT: NEEDS_REVIEW.** No landlord well-testing duty in anything readable; chs. 61-16.2 and 61-28.1 are outside the corpus. |
+| 144 | `prohibited-acts-renter` | `prohibited-acts-renter-nd` | **A clause, and § 47-16-11 is why.** It conditions a statutory **rescission** right on the lease having stated a particular purpose - so stating the permitted use is what creates the remedy. `SERVES_LANDLORD`. |
+| 145 | `promises-to-repair` | `edu-promises-to-repair-nd` | **ABSENT as to form, PRESENT as to consequence.** No required form for a move-in repair promise, but an open-ended one feeds § 47-16-13's termination right. |
+| 146 | `prop65-rental-warning` | `edu-no-prop65-rental-warning-nd` | **ABSENT, and vacuously so.** No ND analogue of California's Proposition 65 warning. |
+| 147 | `property-tax-rent-disclosure` | `edu-property-tax-rent-disclosure-nd` | **ABSENT.** No duty to disclose or pass through a property-tax change; the **seller** form at § 47-10-02.1(2) is again the sibling that proves the negative. |
+| 148 | `recycling-notice` | `edu-recycling-notice-nd` | **ABSENT.** No recycling notice duty - and § 47-16-13.1(1)(e)'s waste-removal duty is one of the two a multi-unit landlord cannot shift. |
+| 149 | `redemption` | `edu-no-tenant-redemption-nd` | **ABSENT.** No tenant right to redeem after judgment. |
+| 150 | `religious-cultural-display` | `edu-no-religious-display-rule-nd` | **ABSENT.** No religious or cultural display right in a rental. |
+| 151 | `rent-concession` | `rent-concession-nd` | **A clause.** Nothing supplies a concession, a repayment on early termination, or what happens to it on default. `SERVES_LANDLORD`. |
+| 152 | `rent-control` | `edu-rent-control-preemption-nd` | **PRESENT (a preemption).** § 47-16-02.1 bars a political subdivision from any ordinance with the effect of controlling rent, with a carve-out for property it holds in fee. |
+| 153 | `rent-demand-bar` | `edu-rent-demand-bars-nd` | **Two bars only, and both are real: NEEDS_REVIEW on a third.** The term-of-art battery found **three** hits corpus-wide, two of them the bars this row states - **§ 47-16-26** (double letting: every tenant in the building is relieved of rent while it continues) and **§ 47-16-17.1(5)**. Open: § 57-21-05, named in the master index as \"Receipts a defense in action for rent\", outside the corpus. |
+| 154 | `rent-escalation` | `rent-escalation-nd` | **A clause.** No statute regulates an escalation formula, and § 47-16-02.1's preemption is what protects one from a local cap. `SERVES_LANDLORD`. |
+| 155 | `rent-increase-notice` | `edu-rent-increase-notice-nd` | **ABSENT for an ordinary tenancy, PRESENT for a park - and this is where the folklore comes from.** **The only rent-increase statute in the entire corpus is § 47-10-28(7), giving a park tenant ninety days.** For any other tenancy the mechanism is § 47-16-07 (changing the terms of a month-to-month) with § 47-16-15(3)'s twenty-five days for the tenant to terminate in response. Any "ND requires N days' notice of an increase" claim is the park rule quoted out of its chapter. |
+| 156 | `rent-installments` | `rent-installments-nd` | **A clause, and it displaces a real default.** § 47-16-20 makes rent payable **in arrears** absent contract or usage - lodgings monthly at the end of each month, other rents quarterly at the end of each quarter. A lease that wants rent in advance has to say so. `SERVES_LANDLORD`. |
+| 157 | `rent-into-court-counterclaim` | `edu-rent-into-court-counterclaim-nd` | **PRESENT and restrictive.** Counterclaims in an eviction are barred except as a setoff, and **no rent goes into court** - there is no escrow procedure. |
+| 158 | `rent-receipt-anti-waiver` | `edu-rent-receipt-anti-waiver-nd` | **NEEDS_REVIEW.** Turns on § 9-12-22, which is outside the corpus and unreachable on all three channels. Cautious course stated in the row. |
+| 159 | `rent-reporting` | `edu-no-rent-reporting-rule-nd` | **ABSENT in both directions.** No duty to report rent to a credit bureau and no tenant right to opt in or out. |
+| 160 | `rent-tax` | `edu-rent-tax-nd` | **ABSENT so far as readable: NEEDS_REVIEW.** Open: whether sales tax or a city or county lodging tax reaches residential rent or a furnished short-stay letting. Title 57, ch. 40-57.3 and ch. 11-09.2 are unreadable, **and the session-law route failed here because the 2025 acts amended only subsections of § 57-39.2-04.** Cautious course: charge no tax without written confirmation, and treat short-stay as the risk case. |
+| 161 | `rental-inspection` | `edu-rental-inspection-nd` | **ABSENT from the statutes: NEEDS_REVIEW.** Chs. 23-09, 23-10, 54-21.3 and titles 18 and 40 are unread. Open: whether a lease can supply the occupant's consent to an inspector - the cautious course is that it cannot. |
+| 162 | `renters-insurance-rules` | `edu-renters-insurance-rules-nd` | **ABSENT.** Nothing regulates requiring renters' insurance, capping it, or what the lease may demand - so the requirement is lawful and wholly contractual. |
+| 163 | `repair-cost-termination` | `edu-repair-cost-termination-nd` | **ABSENT.** No dollar cap on repair-and-deduct and no cost threshold for the tenant to walk - both remedies in § 47-16-13 are uncapped. |
+| 164 | `repair-escrow-exemption-notice` | `edu-no-repair-escrow-exemption-notice-nd` | **ABSENT, and vacuously so.** There is no rent escrow in ND, so there is no exemption and no exemption notice. |
+| 165 | `repair-notice` | `edu-repair-notice-nd` | **PRESENT and minimal: NEEDS_REVIEW.** § 47-16-13 requires only \"notice from the lessee\" and the clock is \"a reasonable time\". Open: whether a lease may condition it on a **written** request. Cautious course - treat any notice as starting the clock. |
+| 166 | `required-disclosures` | `edu-required-disclosures-nd` | **The inventory, answered once for the whole cluster.** The complete set of things ND requires a landlord to give a tenant is **very short**, and the row sets it out rather than listing absences: § 47-16-07.2's condition statement, § 47-16-07.1(3)'s deposit itemisation, § 47-16-15(4)'s initialled notice requirement, and - in a park only - § 47-10-28(9)'s lease-and-rights summary with (1)(g)-(h)'s owner and manager details. |
+| 167 | `required-fees` | `fees-and-charges-nd` | **A clause.** Nothing requires a fee schedule, so the schedule plus the promise to charge nothing outside it is the landlord's own protection. `SERVES_LANDLORD`. |
+| 168 | `rights-responsibilities-guide` | `edu-rights-responsibilities-guide-nd` | **ABSENT generally, PRESENT in a park: NEEDS_REVIEW.** § 47-10-28(9) requires a lease-and-rights summary - **and the master index confirms it is the only tenant-rights provision in the entire Century Code.** Open: the statute **prescribes no content and no timing** while backing it with a $2,500 penalty floor and an eviction defence. |
+| 169 | `rules-regulations` | `rules-regulations-nd` | **A clause, and it earns its place twice over.** § 47-32-01(8) gives teeth only to a **written-lease** material term, so house rules bind only if the lease incorporates them - and **§ 47-10-28(3) requires a park owner to give thirty days' advance written notice of any modification to park rules or regulations**, the state's only rules-notice provision. `CONSTRAINED_TERM`. |
+| 170 | `sanitary-code-variance` | `edu-no-sanitary-code-variance-disclosure-nd` | **NEEDS_REVIEW.** The variance machinery is in the Administrative Code and ch. 54-21.3, neither readable; the new title 23.1 onsite-wastewater chapter's variance provision was recovered but its section number is inferred from the act's ordering, not printed - **flagged as inferred, not asserted**. |
+| 171 | `seasonal-tenancy` | `edu-seasonal-tenancy-nd` | **ABSENT as a category.** No seasonal-tenancy regime; the ordinary term and notice rules apply, which the row states rather than leaving the landlord to assume a carve-out. |
+| 172 | `security-deposit-holding` | `edu-deposit-holding-method-nd` | **PRESENT and not the landlord's choice: NEEDS_REVIEW on the alternatives.** § 47-16-07.1(1) requires the money in a *federally insured interest-bearing savings or checking account for the benefit of the tenant*. Open: whether a ch. 6-08.6 special deposit or a ch. 43-23 broker trust account satisfies it. |
+| 173 | `security-deposit-nonwaiver` | `edu-no-deposit-nonwaiver-nd` | **ABSENT.** § 47-16-07.1 carries no non-waiver clause, unlike most states' deposit statutes. |
+| 174 | `security-deposit-standards` | `edu-no-deposit-standards-disclosure-nd` | **ABSENT.** No duty to post, publish or disclose how a deposit amount is set, at any time. |
+| 175 | `security-devices` | `edu-no-security-device-rule-nd` | **ABSENT from the Century Code: NEEDS_REVIEW, and a near-miss worth recording.** Deadbolt, peephole, door viewer and keyless bolting device appear nowhere. But the everyday-words battery's single hit is a **section name** - § 23-09-08 \"Bolts or locks to be supplied on doors of sleeping rooms\" - in a chapter outside the corpus. **The term-of-art battery alone would have reported a clean absence.** |
+| 176 | `senior-housing-work-card` | `edu-no-senior-housing-work-card-nd` | **ABSENT.** No work card or staff credential for 55-plus housing; the § 14-02.5-11 elderly-housing rules live in the Administrative Code, unreadable. |
+| 177 | `service-animal-denial-penalty` | `edu-no-landlord-penalty-for-animal-denial-nd` | **ABSENT as a landlord-facing penalty: NEEDS_REVIEW - and the only animal penalty in ND housing runs the other way.** §§ 47-16-07.5 and 47-16-07.6 penalise **the tenant** (misrepresenting an assistance animal), not a landlord who refuses one. § 14-02.5-06 is the disability provision. Open: ch. 25-13 (§ 25-13-04), outside the corpus and **not** recoverable from the session laws. |
+| 178 | `sex-offender-disclosure` | `edu-sex-offender-disclosure-nd` | **ABSENT to a tenant: NEEDS_REVIEW.** Open: § 43-23-08.3 "Disclosure of sexual offenders" sits in the **real-estate-brokers** chapter - whom it binds, and whether it reaches a lease, cannot be read. |
+| 179 | `sex-offender-occupancy` | `edu-sex-offender-occupancy-nd` | **ABSENT: NEEDS_REVIEW.** Open: whether § 12.1-20-25 binds only the registrant or also a person **permitting** presence, and whether any municipality has a co-residence ordinance. |
+| 180 | `sfr-occupancy-disclosure` | `edu-sfr-occupancy-disclosure-nd` | **ABSENT.** No single-family occupancy disclosure, and no statutory occupancy limit to disclose. |
+| 181 | `shoreline-access-disclosure` | `edu-shoreline-access-disclosure-nd` | **ABSENT.** No shoreline or lakeshore access disclosure for a tenancy. |
+| 182 | `showing-notice-waiver` | `edu-showing-notice-waiver-nd` | **Waivable, and thin to begin with.** § 47-16-07.3 sets entry rules but no general showing-notice duty, so the waiver has little to operate on. |
+| 183 | `shutdown-rent-protection` | `edu-no-shutdown-rent-protection-nd` | **ABSENT, and § 47-10-28 cuts the other way.** No shutdown or emergency rent protection - and in a park, §§ 47-10-28(13) and (14) preserve occupancy while saying "the tenant shall continue paying rent". |
+| 184 | `single-family-zone-lease-limit` | `edu-no-single-family-zone-rental-limit-nd` | **ABSENT from the statutes: NEEDS_REVIEW.** No state limit on leasing in a single-family zone; zoning is municipal and chs. 40-47, 11-33 and 58-03 are unreadable. |
+| 185 | `smart-access` | `edu-no-smart-access-law-nd` | **ABSENT, and that is the problem.** \"Keyless\" and \"mobile credential\" appear nowhere; every \"biometric\" hit is criminal-registration or licensure. Nothing regulates entry-data retention or guarantees a physical-key alternative. |
+| 186 | `smoke-drift-waiver` | `edu-no-smoke-drift-rule-nd` | **ABSENT.** 0 hits for smoke drift between units anywhere in the corpus. |
+| 187 | `social-security-defense` | `edu-no-benefit-delay-defense-nd` | **ABSENT as a defence, PRESENT as a constraint.** A late benefit or voucher payment is no defence to nonpayment - but subsidised tenants may not be treated differently. |
+| 188 | `special-district-representation` | `edu-no-special-district-statement-nd` | **ABSENT: NEEDS_REVIEW on appearance.** No special-district statement required - but a public-body landlord still owes the § 47-16-07.1 deposit rules, which is the useful half. |
+| 189 | `sprinkler-disclosure` | `edu-no-sprinkler-disclosure-nd` | **ABSENT: NEEDS_REVIEW.** The only \"sprinkler\" hit is § 18-12-17, in the **school** fire code - and all of title 18 is outside the corpus. |
+| 190 | `statute-of-frauds-lease-term` | `edu-statute-of-frauds-lease-nd` | **PRESENT: NEEDS_REVIEW on a second limb.** A lease over one year must be in writing and signed by the landlord or an agent with written authority. Open: whether ch. 9-06 (outside the corpus) adds a second writing requirement, and whether assignment or surrender needs writing. |
+| 191 | `statutory-caps` | `edu-statutory-money-caps-nd` | **PRESENT, and the row's whole value is the taxonomy.** ND's money figures do **five different jobs** - a cap on conduct, a ceiling, a floor, a flat liquidated sum, and a \"whichever is greater\" - and reading one as another is the commonest way this gets got wrong. |
+| 192 | `steam-radiator-covers` | `edu-no-steam-radiator-cover-rule-nd` | **ABSENT.** No cover duty and no mandatory rider - but a dangerous radiator is still inside § 47-16-13.1(1)(b) and (d). |
+| 193 | `stigmatized-property` | `edu-stigmatized-property-nd` | **ABSENT.** No stigmatized-property disclosure and no statute making a death, a crime or a suicide a material fact for a tenancy. |
+| 194 | `stove-refrigerator` | `edu-stove-refrigerator-nd` | **Education: NEEDS_REVIEW.** Once supplied, a stove or refrigerator is inside § 47-16-13.1(1)(d) and the duty cannot be disclaimed - so the lease decides whether to supply, not whether to maintain. Open: ch. 54-21.3, imported and made controlling by § 47-16-13.1(1)(a) with (3). |
+| 195 | `student-housing` | `edu-no-student-housing-rule-nd` | **ABSENT.** No student-housing or dormitory exclusion - because ND has no URLTA to carve anything out of. |
+| 196 | `subsidized-inspection-refusal` | `edu-no-subsidized-inspection-refusal-rule-nd` | **ABSENT.** Nothing lets a landlord refuse a subsidy inspection, and nothing requires one. |
+| 197 | `subsidy-habitability-proration` | `edu-no-subsidy-proration-rule-nd` | **ABSENT.** No state proration rule for a subsidised tenancy - and note ND's own word for proportioning is "due proportion" (§ 47-16-21), not prorate. |
+| 198 | `subsidy-late-fee` | `edu-no-subsidy-late-fee-rule-nd` | **ABSENT.** No state rule on a late fee in a subsidised tenancy; the federal position is deliberately not described as ND law. |
+| 199 | `substandard-property-receivership` | `edu-receivership-reaches-rentals-but-not-for-conditions-nd` | **Two real regimes, and one is brand new: NEEDS_REVIEW on the municipal route.** **Ch. 23-10.1** (S.L. 2025 ch. 238) is a **mobile-home-park receivership**: the department petitions after licence revocation, a commissioner is appointed, operates from park income and **may not liquidate**. **Ch. 32-10.1** (UCRERA, ch. 325) reaches rental housing - § 32-10.1-03(2)(d) pulls a 1-4-unit property in whenever the owner collects rent from a non-affiliate, **§ 32-10.1-16(8)(a) bars a receiver rejecting an unexpired lease where the tenant occupies as a primary residence**, and **(4) makes a terminate-on-receivership clause ineffective**. Open: the municipal route at § 40-58-18 and ch. 18-01. |
+| 200 | `tax-escalation` | `tax-insurance-escalation-nd` | **A clause.** No statute allocates a tax or insurance increase, so the lease is the only route. `SERVES_LANDLORD`. |
+| 201 | `telecom-access` | `edu-telecom-access-nd` | **ABSENT from what could be read: NEEDS_REVIEW.** Ch. 49-21 is outside the corpus; the master index names § 49-21-09 \"Telecommunications - Connections\". \"Master antenna\" and \"satellite dish\" return zero. |
+| 202 | `tenancy-at-will` | `edu-tenancy-at-will-nd` | **PRESENT.** Ch. 47-17 read whole: § 47-17-01 terminates an estate at will on notice \"to remove from the premises\" of not less than one month, served as § 47-17-02 prescribes. |
+| 203 | `tenant-bankruptcy` | `edu-tenant-bankruptcy-nd` | **ABSENT.** A tenant's bankruptcy stops the landlord under federal law and **North Dakota adds nothing the landlord can use.** |
+| 204 | `tenant-confidential-information` | `edu-tenant-confidential-information-nd` | **PRESENT in one place and absolute: NEEDS_REVIEW elsewhere.** **§ 47-16-17.1(4)** bars disclosing DV documentation - "may not be entered into any shared database or provided to any person" - with **no consent exception** and **$1,000 statutory damages** under (11), so a consent-to-disclose clause is **unlawful, not empty**. Open: ch. 51-22, outside the corpus. |
+| 205 | `tenant-display-rights` | `tenant-display-rights-nd` | **A clause - and the statute runs against the HOA, not the landlord.** §§ 47-04-32 and 47-04.1-14 bind **covenants and condominium declarations**, never a lease, but they protect "the owner **or a resident**" - so an association cannot bar the tenant's sign, while the landlord still can. `SERVES_LANDLORD`. |
+| 206 | `tenant-employee-housing` | `edu-tenant-employee-housing-nd` | **ABSENT as an exclusion.** Chapter 47-16 carves out no employee housing, so an employee's occupancy is an ordinary tenancy unless the arrangement is not a leasing at all. |
+| 207 | `tenant-forward-proceedings` | `edu-tenant-forward-proceedings-nd` | **PRESENT.** The tenant must forward notice of a proceeding against the property and may not attorn to a stranger - one of the few places ND law is affirmatively on the landlord's side. |
+| 208 | `tenant-insurance-claims` | `insurance-claims-and-losses-nd` | **A clause.** Nothing allocates insurance proceeds, deductibles or subrogation between landlord and tenant. `SERVES_LANDLORD`. |
+| 209 | `tenant-portal` | `tenant-portal-nd` | **A clause: NEEDS_REVIEW** - and the row that caught a false absence. Ch. 9-16 (UETA, § 9-16-04) is outside the corpus. **\"Portal\" occurs 3 times in the corpus**, all unrelated 2025 session laws; the canvass's first draft said zero and superseded its own battery to fix it. `CONSTRAINED_TERM`. |
+| 210 | `tenant-records` | `edu-tenant-records-nd` | **ABSENT generally, PRESENT in a park: NEEDS_REVIEW.** **§ 47-10-28(1)(f)** - a lease copy within ten business days of a written request - is ND's **only** tenant right of access to records, and it is park-only. Open: chs. 51-30 and 51-22, outside the corpus. |
+| 211 | `tenant-right-to-organize` | `edu-no-tenant-organizing-right-nd` | **ABSENT.** No tenant right to organise, meet or canvass - and **North Dakota has no general landlord-retaliation statute at all**: "retaliat-" occurs **three times** in the whole statutes scope. |
+| 212 | `tenant-rights-statement` | `edu-tenant-rights-statement-nd` | **ABSENT.** No required tenant-rights statement in a lease; points to `required-disclosures`. |
+| 213 | `tenant-screening` | `edu-tenant-screening-nd` | **Largely ABSENT, and the one lever is in the deposit section.** No screening statute - but **§ 47-16-07.1(1)(a)-(b)** lets the landlord take **two months'** security from an applicant convicted of a felony "as an incentive to rent" or from one with a judgment for violating a previous rental agreement. |
+| 214 | `tenant-statutory-duties` | `edu-tenant-statutory-duties-nd` | **PRESENT.** § 47-16-13.2 read whole, with § 47-16-09 (ordinary care) and § 47-16-10 (repair of damage from the tenant's ordinary negligence). The row sets the statutory duties out so a lease need not restate them. |
+| 215 | `towing` | `edu-towing-nd` | **ABSENT, and the gap is not in the landlord's favour** - no statutory authority to tow, so the lease is the only authority. Ch. 23.1-15 named as the abandoned-vehicle route (parked, unread). |
+| 216 | `tpa-exemption-notice` | `edu-no-tpa-exemption-notice-nd` | **ABSENT, vacuously** - there is no TPA, so no exemption and no exemption notice. Points to `tpa-notice`. |
+| 217 | `tpa-notice` | `edu-no-tpa-notice-nd` | **ABSENT.** No tenant opportunity to purchase and no right of first refusal. What a landlord selling an occupied rental actually owes instead: **§ 47-16-07.1(5)** transfers the deposit to the grantee and **does not relieve the grantor until it does**, and in a park § 47-10-28's transfer-of-ownership duties are real and substantial. |
+| 218 | `tpa-sunset` | `edu-no-tpa-sunset-nd` | **ABSENT, vacuously.** Nothing to sunset. |
+| 219 | `translation-duty` | `edu-translation-duty-nd` | **ABSENT.** No duty to translate a lease or to provide an interpreter, and no statute giving a non-English speaker a lease-language right. |
+| 220 | `trespass-notice` | `edu-trespass-notice-nd` | **NEEDS_REVIEW.** Open: § 12.1-22-03 is outside the corpus and **its own heading splits "Criminal trespass" from "Noncriminal offense on posted property"**, which may change the answer - a heading-only citation, unverified. |
+| 221 | `truth-in-renting` | `edu-truth-in-renting-nd` | **ABSENT.** No truth-in-renting act and no required handbook; points to `required-disclosures` rather than repeating it. |
+| 222 | `unauthorized-occupant-removal` | `edu-unauthorized-occupant-removal-nd` | **PRESENT, and better than most states': NEEDS_REVIEW at the edges.** **Grounds 1, 2, 3 AND 7 of § 47-32-01 need no notice of intention to evict at all** - § 47-32-02 enumerates only subsections 4, 5, 6 and 8, so the **disturbance** ground is in that set too, which an earlier version of this line omitted (corrected on batch 8); grounds 1 to 3 are ND's squatter route. Open: § 12.1-22-03 and ch. 32-17, outside the corpus. |
+| 223 | `unbundled-parking` | `unbundled-parking-nd` | **A clause: NEEDS_REVIEW.** Nothing regulates separating a parking charge from rent. Open: whether a separate parking charge is "rent" for § 47-16-07.1's deposit cap - the cautious course is to treat it as rent. `SERVES_LANDLORD`. |
+| 224 | `unconscionability` | `edu-unconscionability-nd` | **PRESENT, and broader than most states'.** § 47-16-13.3 lets a court refuse to enforce an unconscionable provision and makes a settlement waiving a right under §§ 47-16-13.1 to 47-16-13.6 reviewable - and **§ 9-08-01(3) adds "otherwise contrary to good morals"**, which is a wider standard than unconscionability alone. Points to `exculpatory-clauses` rather than repeating chapter 9-08. |
+| 225 | `unpaid-damages-interest` | `interest-on-unpaid-amounts-nd` | **A clause, because § 47-14-05 conditions any rate above six per cent on being \"contracted for in writing\": NEEDS_REVIEW.** Open: whether § 47-14-05 reaches a non-loan debt such as rent arrears at all, given ch. 47-14 is indexed *Loans of Money*. |
+| 226 | `usufructuary-lessor` | `edu-no-usufructuary-lessor-nd` | **ABSENT, and foreign to the system.** A usufruct is a civil-law concept; ND has a leasehold under ch. 47-16, with § 47-16-27 defining what the tenant gets. Stated as what ND does instead, not as a gap. |
+| 227 | `utility-allowance-cap` | `edu-utility-allowance-cap-nd` | **ABSENT.** No utility allowance and no cap on one - outside a mobile home park, where § 47-10-28(8) caps the administrative fee at **three dollars**. |
+| 228 | `utility-apportionment` | `utility-apportionment-nd` | **A clause, and a constrained one.** Nothing outside a park regulates apportionment, so the lease allocates it - but § 47-16-13.1(5) means the underlying **duty** to supply water, hot water and heat stays with the landlord in a multi-unit building however the **cost** is allocated. `CONSTRAINED_TERM`. |
+| 229 | `utility-deposit-return` | `edu-utility-deposit-return-nd` | **The general deposit section swallows it: NEEDS_REVIEW on the provider-held case.** A utility deposit the *landlord* collects is security \"however denominated\". Open: § 49-04-02.1, which governs a deposit held by the *provider*, is outside the corpus. |
+| 230 | `utility-disclosure-attachment` | `edu-utility-disclosure-attachment-nd` | **ABSENT.** No required utility disclosure or attachment; the row gives the practical course instead. |
+| 231 | `utility-disconnection-notice-authorization` | `utility-disconnection-notice-authorization-nd` | **A clause: NEEDS_REVIEW.** No statute authorises a landlord to act on a disconnection notice; § 49-04-20 is outside the corpus. `SERVES_LANDLORD`. |
+| 232 | `utility-interruption-submeter` | `edu-utility-interruption-submeter-nd` | **ABSENT - North Dakota has no utility-interruption statute at all.** This corrects a premise in my own brief: § 47-16-13.6 is *Enforcement of §§ 47-16-13.1 to 47-16-13.6*, **not** an essential-services provision. |
+| 233 | `utility-landlord-account` | `edu-utility-landlord-account-nd` | **ABSENT from the statutes: NEEDS_REVIEW.** Whether a landlord-held account changes the tenant's protections turns on title 49 / ch. 49-02, outside the corpus. |
+| 234 | `utility-submetering-disclosure` | `edu-utility-submetering-disclosure-nd` | **ABSENT.** \"Submeter\", \"master-metered\" and \"ratio utility billing\" return zero in the statutes - and in a **park** § 47-10-28(8) bans any utility fee without an individual meter per home, so ratio billing is prohibited there. |
+| 235 | `utility-transfer` | `utility-transfer-nd` | **A clause.** No statute sets a transfer deadline, so the lease must. `SERVES_LANDLORD`; introduces `{{{{utility_transfer_days}}}}`. |
+| 236 | `veterans-incentive` | `edu-no-veterans-incentive-nd` | **ABSENT.** No veterans' rental incentive or preference programme. |
+| 237 | `waiver-by-acceptance` | `edu-waiver-by-acceptance-nd` | **No statute.** Acceptance of rent after a known breach is governed by case law, not code; the row states the cautious course and a non-waiver clause as the protection. |
+| 238 | `water-heater-temperature` | `edu-no-water-heater-temperature-rule-nd` | **ABSENT from the statutes: NEEDS_REVIEW.** The duty, if any, would sit in ch. 54-21.3 (State Building Code) or ch. 43-18, both outside the corpus - and § 47-16-13.1(1)(a) with (3) would make a code figure binding and controlling. |
+| 239 | `waterbed` | `waterbed-permission-nd` | **A clause, and a finding inside it.** § 47-16-07.1(1) caps security "however denominated" at one month, with a **closed two-item exception list** that says nothing about pets or waterbeds; § 47-16-07.1(2) then grants a **pet** deposit separately, with its own ceiling. **There is no waterbed equivalent, so a separate waterbed deposit is unlawful** in North Dakota, and the clause takes permission and insurance instead. `SERVES_LANDLORD`. |
+| 240 | `window-guards` | `edu-window-guards-nd` | **Education: NEEDS_REVIEW.** No window-guard statute; ch. 54-21.3 unreadable and would be controlling through § 47-16-13.1(1)(a) and (3). |
+| 241 | `written-notice-required` | `edu-written-notice-required-nd` | **PRESENT, and the row's value is the inventory.** Which ND notices must be in writing and - the part landlords get wrong - **which need not be.** |
+
+Row types so far: **44** lease clauses, **197** landlord education,
+**85** NEEDS_REVIEW.
+
+**Why so much of this is education, and why that is the right answer rather than thin work.** Two
+things drive it. The first is rule 55 as Taylor applied it on 2026-10-24: notice value alone is not a
+basis, and where a statute already implies a term into every lease, the answer is an education row.
+The second is what North Dakota actually is - a state with **no URLTA**, **no landlord-tenant
+non-waiver statute anywhere**, and **no prohibited-lease-provisions list inside chapter 47-16**. Batch
+1 was the waiver cluster, where a waiver of a rule the state does not have is empty rather than lawful,
+so there is nothing for a clause to say. Batch 2 was deposits and fees, where § 47-16-07.1 and
+§§ 9-08-03/9-08-04 bind whatever the lease says.
+
+**The six clauses are the places where the lease genuinely has to carry the term**, and each earns it
+for a stated reason: `criminal-activity-nd` (§ 47-32-01(8) only reaches a *written-lease* material
+term); `surrender-and-forwarding-address-nd` (§ 47-16-07.1(3) runs its clock from "delivery of
+possession" and imposes **no** forwarding-address duty); `interest-on-unpaid-amounts-nd` (§ 47-14-05
+conditions any rate above six per cent on being "contracted for in writing"); `fees-and-charges-nd`
+(nothing requires a fee schedule, so the schedule plus a promise to charge nothing outside it is the
+landlord's own protection); `government-fee-reimbursement-nd` and `tenant-caused-fines-nd` (no statute
+allocates a government fee or fine caused by the tenant, so the lease is the only route).
+
+---
+
+## 3. Batteries
+
+**424 live runs**, plus **3** tool-validation runs and
+**61** superseded. Every control is `zzqx\w*plover` in the
+same batch as its battery, and **every control returned 0**. Counts in this section are read
+out of `battery-log.jsonl` by script; none is typed.
+
+### 3.1 Live runs
+
+| Battery | Patterns | Scope | Hits | Heading screen | Control | Positives | Subject |
+|---|---|---|---|---|---|---|---|
+| `ND-GAPS-101` | 4 | all | 26 | 0 | 0 | every positive passed | towing a vehicle from leased premises: landlord authority, signage, carrier duties |
+| `ND-GAPS-102` | 4 | all | 30 | 0 | 0 | every positive passed | towing: everyday-word companion battery (rule 19) - abandoned/unauthorized vehicle, removal, impound |
+| `ND-GAPS-103` | 4 | all | 0 | 0 | 0 | every positive passed | URLTA-style duty to notify the landlord of an extended absence |
+| `ND-GAPS-105` | 4 | all | 3 | 0 | 0 | every positive passed | rent control and its preemption. NOTE the vocabulary trap: the operative text says "controlling the amount of rent charged", never "rent control" - that phrase is in the section HEADING only |
+| `ND-GAPS-106` | 5 | all | 12 | 0 | 0 | every positive passed | a lease charge for serving a notice or filing an eviction action |
+| `ND-GAPS-118` | 4 | all | 33 | 0 | 0 | every positive passed | RERUN of ND-GAPS-104 (its second positive, s 47-16-07.3, could not match this companion pattern set). Extended absence: everyday-word companion battery, both word orders |
+| `ND-GAPS-119` | 4 | all | 11 | 0 | 0 | every positive passed | RERUN of ND-GAPS-107 (its positive cited s 6-08-16, which is in title 6 and outside the corpus). Collection fees and costs recoverable from a tenant |
+| `ND-GAPS-120` | 3 | all | 130 | 0 | 0 | every positive passed | attorney's fees: agreement, void provisions, prevailing-party awards. Apostrophe tested in straight and curly forms on a possessive (rule 19) |
+| `ND-GAPS-121` | 5 | all | 8 | 0 | 0 | every positive passed | crime-free / criminal-activity addendum, expedited eviction, mandatory-eviction duty |
+| `ND-GAPS-122` | 4 | all | 79 | 0 | 0 | every positive passed | criminal activity: everyday-word companion battery |
+| `ND-GAPS-123` | 6 | all | 10 | 0 | 0 | every positive passed | an express non-waiver or anti-waiver provision anywhere in ND law |
+| `ND-GAPS-124` | 4 | statutes | 42 | 0 | 0 | every positive passed | every waiver word in the statutes, to locate each place ND law speaks to waiver at all |
+| `ND-GAPS-125` | 4 | all | 28 | 0 | 0 | every positive passed | jury-trial waiver in a lease |
+| `ND-GAPS-126` | 1 | all | 139 | 0 | 0 | every positive passed | homestead exemption: whose exemption it is, and what a waiver of it reaches |
+| `ND-GAPS-127` | 5 | all | 0 | 0 | 0 | every positive passed | smoke drift between units, a smoke-free policy duty, and any waiver of a drift claim |
+| `ND-GAPS-128` | 5 | all | 3 | 0 | 0 | every positive passed | a duty to give a rent receipt, and any anti-waiver of that duty |
+| `ND-GAPS-129` | 5 | all | 6 | 0 | 0 | every positive passed | waiver by acceptance of rent after a known breach |
+| `ND-GAPS-130` | 3 | all | 0 | 0 | 0 | every positive passed | a non-waiver clause attached to the security deposit regime (s 47-16-07.1) |
+| `ND-GAPS-131` | 4 | all | 1 | 0 | 0 | every positive passed | whether ND has adopted URLTA (and so a Part 5 / act-wide non-waivable-rights section) |
+| `ND-GAPS-132` | 3 | all | 0 | 0 | 0 | every positive passed | a waivable notice to quit / notice of intention to evict |
+| `ND-GAPS-133` | 3 | all | 13 | 0 | 0 | every positive passed | notice before a showing, and whether it can be waived in the lease |
+| `ND-GAPS-135` | 4 | all | 26 | 0 | 0 | every positive passed | RERUN of ND-GAPS-134 (its positive cited s 9-08-03, whose text carries no lease word and so could not match this pattern set). A dedicated ban on penalty clauses in a lease, and any enumerated prohibited-lease-provisions list |
+| `ND-GAPS-141` | 7 | all | 118 | 0 | 0 | every positive passed | exculpatory / indemnity / hold-harmless terms of art, anywhere in the corpus. Synthetic positive because no ND section uses these words of a lease; the pattern limb is what is tested. |
+| `ND-GAPS-142` | 6 | all | 7 | 0 | 0 | every positive passed | exculpation in ND's own everyday words rather than the drafter's terms of art; the real section (9-08-02) says 'exempting ... from responsibility' and never 'exculpatory', which is exactly the vocabulary gap that made a companion battery necessary here. |
+| `ND-GAPS-143` | 5 | all | 25 | 0 | 0 | every positive passed | an enumerated prohibited-lease-provisions list, or an exculpation ban, inside the landlord-tenant chapter itself. Tests the claim that ch. 47-16 has no such list and that the bar lives in title 9 instead. |
+| `ND-GAPS-201` | 2 | all | 0 | 0 | 0 | every positive passed | term-of-art battery: does any ND statute require a lessor to post or disclose the standards or criteria used to set the amount of a security deposit |
+| `ND-GAPS-202` | 2 | all | 0 | 0 | 0 | every positive passed | everyday-words battery for deposit-calculation standards: a ND drafter would say disclose or provide written notice of the amount of the security deposit rather than use the phrase deposit standards |
+| `ND-GAPS-203` | 2 | all | 1 | 0 | 0 | every positive passed | term-of-art battery: does any ND statute let or make a lessor hold a residential security deposit in escrow or a trust account, or post a bond in place of holding the money |
+| `ND-GAPS-204` | 2 | all | 2 | 0 | 0 | every positive passed | everyday-words battery: must a ND lessor tell the tenant the name and address of the institution or the account where the security deposit is held; positive is the deposit section itself, which names the account type |
+| `ND-GAPS-205` | 2 | all | 0 | 0 | 0 | every positive passed | battery for a small-owner or unit-count exemption from the ND deposit rules; ND does use unit-count thresholds elsewhere (smoke alarms) and a single-family-residence carve-out in 47-16-13.1, so the question is real |
+| `ND-GAPS-206` | 2 | all | 0 | 0 | 0 | every positive passed | term-of-art battery: does any ND statute let the lease pre-set a schedule of charges, a liquidated figure or a fixed amount that may be deducted from the security deposit |
+| `ND-GAPS-207` | 2 | all | 1 | 0 | 0 | every positive passed | everyday-words battery: a ND drafter would write about carpet, cleaning or repainting charges rather than a cost schedule; positive is the deposit section, which names the costs of cleaning |
+| `ND-GAPS-208` | 2 | all | 0 | 0 | 0 | every positive passed | term-of-art battery: does any ND statute give a tenant a right to pay a security deposit in installments, or regulate the timing of deposit payment |
+| `ND-GAPS-209` | 2 | all | 0 | 0 | 0 | every positive passed | everyday-words battery for the same question: a ND drafter would forbid requiring the entire deposit up front or let the tenant pay a portion over the first months rather than use the word installment |
+| `ND-GAPS-210` | 4 | all | 0 | 0 | 0 | every positive passed | term-of-art battery: does any ND statute restrict applying a security deposit to the last month's rent, or restrict taking last month's rent on top of a deposit |
+| `ND-GAPS-211` | 2 | all | 0 | 0 | 0 | every positive passed | everyday-words battery for the same question: a ND drafter would say advance rent, prepaid rent or rent paid in advance rather than last month's rent |
+| `ND-GAPS-212` | 2 | all | 2 | 0 | 0 | every positive passed | term-of-art battery: must a ND tenant give a forwarding address or notice of surrender before the deposit duty runs, and is delivery of possession or surrender defined anywhere |
+| `ND-GAPS-213` | 2 | all | 2 | 0 | 0 | every positive passed | everyday-words battery for the same question: a ND drafter would say vacate, move out, return the keys or notify the landlord rather than surrender or forwarding address |
+| `ND-GAPS-214` | 2 | all | 0 | 0 | 0 | every positive passed | term-of-art battery: does any ND statute provide an expedited or shortened deposit disposition, on tenant request or otherwise, instead of the thirty-day period |
+| `ND-GAPS-215` | 2 | all | 0 | 0 | 0 | every positive passed | everyday-words battery for the same question: a ND drafter would say promptly, sooner, without delay or earlier than rather than use the word expedited |
+| `ND-GAPS-216` | 2 | all | 0 | 0 | 0 | every positive passed | term-of-art battery: does any ND statute authorise or regulate a fee in lieu of a security deposit, a deposit alternative, or an insurance or surety product in place of a deposit |
+| `ND-GAPS-217` | 2 | all | 0 | 0 | 0 | every positive passed | everyday-words battery for the same question: a ND drafter would say monthly fee, nonrefundable fee or fee instead of, charged to a tenant, rather than fee in lieu of a security deposit |
+| `ND-GAPS-218` | 6 | all | 3 | 0 | 0 | every positive passed | term-of-art battery: does any ND statute regulate a pre-lease holding deposit, earnest money or reservation fee taken from a prospective tenant |
+| `ND-GAPS-219` | 2 | all | 3 | 0 | 0 | every positive passed | everyday-words battery for the same question: a ND drafter would write about money taken to hold or reserve the unit, an application deposit, or forfeiture, rather than use the phrase holding deposit |
+| `ND-GAPS-220` | 2 | all | 0 | 0 | 0 | every positive passed | term-of-art battery: does any ND statute allow a nonrefundable deposit or fee in a residential letting, or require it to be labelled or disclosed as nonrefundable |
+| `ND-GAPS-221` | 2 | all | 1 | 0 | 0 | every positive passed | everyday-words battery for the same question: a ND drafter would say the money will not be returned, will not be refunded, or may be retained by the lessor rather than use the word nonrefundable |
+| `ND-GAPS-222` | 2 | all | 0 | 0 | 0 | every positive passed | term-of-art battery: does any ND statute require a nonrefundable deposit or any deposit term to be in a separate writing or separate signed document apart from the lease |
+| `ND-GAPS-223` | 2 | all | 1 | 0 | 0 | every positive passed | everyday-words battery in ND's own drafting vocabulary: chapter 47-16 already uses 'separate writing signed by the parties' (47-16-13.1(5)(a)) and 'provide space for the lessee to initial' (47-16-15(4)), so the question is whether either device was ever attached to a deposit or a nonrefundable amount |
+| `ND-GAPS-224` | 2 | all | 5 | 0 | 0 | every positive passed | term-of-art battery: does ND law regulate the return of a utility deposit, and does any landlord-tenant section reach one; positive is the unclaimed property section, which names a deposit or refund owed to a subscriber by a utility |
+| `ND-GAPS-225` | 2 | all | 0 | 0 | 0 | every positive passed | everyday-words battery: a ND drafter would name the services - water and sewer, electric service, natural gas service, utilities - rather than say utility deposit; tests whether any ND statute makes a landlord-collected utility deposit returnable on its own terms |
+| `ND-GAPS-226` | 2 | all | 5 | 0 | 0 | every positive passed | term-of-art battery enumerating every ND cap expressed near a security deposit, to prove none was missed; positive is the deposit section's own cap on conduct |
+| `ND-GAPS-227` | 2 | statutes | 21 | 0 | 0 | every positive passed | everyday-figure sweep over the statutes scope: every dollar amount, percentage or multiple of rent appearing within 200 characters of a lessor, landlord, lessee, tenant, rental agreement or dwelling unit, so that each figure in the landlord-tenant money law can be classified as a cap, a ceiling, a floor, a threshold, a flat sum or a permission |
+| `ND-GAPS-228` | 4 | all | 1 | 0 | 0 | every positive passed | term-of-art battery: does the phrase liquidated damages, stipulated damages, agreed damages or penalty clause appear anywhere in the ND corpus, in a tenancy context or at all |
+| `ND-GAPS-229` | 2 | all | 4 | 0 | 0 | every positive passed | everyday-words battery in ND's own drafting vocabulary: chapter 9-08 never says liquidated damages, it says damages determined in anticipation of a breach and an amount presumed to be the damage sustained where fixing the actual damage would be impracticable or extremely difficult - the rent-control lesson applied |
+| `ND-GAPS-230` | 2 | all | 6 | 0 | 0 | every positive passed | term-of-art battery: does ND supply a legal rate of interest on money owed without a contract term, and does it attach to unpaid or overdue amounts and to damages |
+| `ND-GAPS-231` | 2 | all | 15 | 0 | 0 | every positive passed | everyday-words battery: does any ND landlord-tenant section mention interest in connection with unpaid rent or amounts owed to the landlord, as opposed to interest on the deposit |
+| `ND-GAPS-301` | 4 | all | 41 | 0 | 0 | every positive passed | application-fees, term of art: does any ND provision use "application fee", "screening fee", "tenant screening" or "rental application"? |
+| `ND-GAPS-302` | 5 | all | 547 | 0 | 0 | every positive passed | application-fees, everyday words: money an ND drafter would charge an applicant up front, however denominated (applicant/apply near fee/charge/nonrefundable/refund; move-in, holding, administrative). |
+| `ND-GAPS-303` | 4 | all | 47 | 0 | 0 | every positive passed | late-fee-limit, term of art: "late fee", "late charge", "late payment", delinquency near charge, across the whole corpus and the whole-Century-Code section-name index. |
+| `ND-GAPS-304` | 4 | all | 8 | 0 | 0 | every positive passed | late-fee-limit, everyday words: what an ND drafter would write instead of "late fee" (rent near unpaid/past due/overdue; a percentage of monthly rent; a per-day amount). |
+| `ND-GAPS-305` | 4 | all | 17 | 0 | 0 | every positive passed | required-fees, term of art: must ND fees be listed in the lease with their purposes? |
+| `ND-GAPS-306` | 5 | all | 28 | 0 | 0 | every positive passed | required-fees, everyday words: a fee or charge named near the lease itself, a markup on a billed service, a common-area fee, an actual-cost limit. |
+| `ND-GAPS-308` | 2 | all | 82 | 0 | 0 | every positive passed | fee-transparency, everyday words: a fee or charge named near disclosure, the first page, advertising or a conspicuous statement. |
+| `ND-GAPS-309` | 4 | all | 3 | 0 | 0 | every positive passed | fee-unprovided-service, term of art: a fee for a service the landlord does not provide. |
+| `ND-GAPS-311` | 3 | all | 209 | 0 | 0 | every positive passed | government-fee-reimbursement, term of art: a governmental fee, or a fee named near a city, county, municipality, political subdivision or government. |
+| `ND-GAPS-312` | 4 | all | 859 | 0 | 0 | every positive passed | government-fee-reimbursement, everyday words: an inspection, licence, registration or permit named near a fee or reimbursement; a rental licence or rental inspection scheme. |
+| `ND-GAPS-313` | 4 | all | 11 | 0 | 0 | every positive passed | governmental-fines, term of art: a governmental or municipal fine, or a fine or penalty named near a tenant or lessee. |
+| `ND-GAPS-315` | 4 | all | 20 | 0 | 0 | every positive passed | alarm-tampering-fee, term of art: smoke alarm, carbon monoxide detector, tampering, disabling a detector. |
+| `ND-GAPS-316` | 4 | all | 9 | 0 | 0 | every positive passed | alarm-tampering-fee, everyday words: an alarm or detector named near removal, batteries, disconnection, a fee, a charge or a tenant; a fire alarm or safety device duty. |
+| `ND-GAPS-317` | 4 | all | 4 | 0 | 0 | every positive passed | carpet-cleaning, term of art: carpet, professional cleaning in either word order, cost of cleaning. |
+| `ND-GAPS-318` | 6 | all | 6 | 0 | 0 | every positive passed | carpet-cleaning, everyday words: floor covering, carpet, rug or paint named near cleaning, replacement or deduction; useful life, depreciation, wear and tear. |
+| `ND-GAPS-319` | 4 | all | 5 | 0 | 0 | every positive passed | key-control-policy, term of art: a key control policy, a master key, keys near a policy, employees or background checks. |
+| `ND-GAPS-320` | 2 | all | 8 | 0 | 0 | every positive passed | key-control-policy, everyday words: keys, fobs or access cards named near duplication, issuance, return, safekeeping, custody or securing. |
+| `ND-GAPS-321` | 7 | all | 12 | 0 | 0 | every positive passed | smart-access, term of art: smart lock, smart access, electronic lock, keyless entry, app-based or mobile credential entry, biometrics. |
+| `ND-GAPS-323` | 5 | all | 51 | 0 | 0 | every positive passed | hoa, term of art: homeowners’ association, condominium association, unit owners’ association, common interest community, community association. |
+| `ND-GAPS-324` | 2 | all | 20 | 0 | 0 | every positive passed | hoa, everyday words: an association, declaration, bylaws, covenants or administrative body named near a tenant, lessee, renter, leasing, rental or rent — the words an ND drafter would use for an association rule reaching a renter or for rent collected by an association. |
+| `ND-GAPS-325` | 4 | all | 59 | 0 | 0 | every positive passed | association-obligations-disclosure, term of art: an association or condominium named near disclosure, documents or a resale certificate. |
+| `ND-GAPS-326` | 4 | all | 19 | 0 | 0 | every positive passed | association-obligations-disclosure, everyday words: bylaws, a declaration or rules and regulations named near furnishing, providing, delivering, attaching or a copy — the way an ND drafter would impose a landlord-to-tenant document duty. |
+| `ND-GAPS-327` | 2 | all | 24 | 0 | 0 | every positive passed | dv-qualifying-documents, term of art: domestic violence, domestic abuse, sexual assault or stalking named near documentation, verification, certification, an affidavit or evidence. |
+| `ND-GAPS-328` | 4 | all | 17 | 0 | 0 | every positive passed | dv-qualifying-documents, everyday words: a court order, protection order, restraining order, no-contact order, police report or court record named near a tenant, victim, landlord or lessee; a victim advocate’s statement; a qualified third party. |
+| `ND-GAPS-329` | 10 | all | 3 | 0 | 0 | every positive passed | security-devices, term of art: a security device, deadbolt, peephole, door viewer, window latch, keyless bolting device, rekeying (both the "rekey" and "re-key" spellings). |
+| `ND-GAPS-330` | 6 | all | 1 | 0 | 0 | every positive passed | security-devices, everyday words: a lock, latch, bolt or chain named near a door, window, exterior, dwelling unit or premises; changing the locks; providing and maintaining locks; operable locks; furnishing keys. |
+| `ND-GAPS-331` | 6 | all | 0 | 0 | 0 | every positive passed | fee-transparency, term of art (rerun of ND-GAPS-307: its corpus positive 47-16-07.1 carried "itemized" but no "fee" within the 180-character window, so the pattern could not reach it; replaced with a synthetic positive written in the statute style for the itemization limb). |
+| `ND-GAPS-332` | 2 | all | 46 | 0 | 0 | every positive passed | fee-unprovided-service, everyday words (rerun of ND-GAPS-310: its corpus positive 47-16-13.1 carries "unavailable" in subdivision 1(f) and "facilities" in 1(d), more than 200 characters apart, so the proximity pattern could not reach it; replaced with synthetic positives). |
+| `ND-GAPS-333` | 4 | all | 6 | 0 | 0 | every positive passed | governmental-fines, everyday words (rerun of ND-GAPS-314: its corpus positive 47-16-02.1 says "residential", which the limb \bresident\b could not match; limb widened to \bresidential\b and \bdwelling\b). |
+| `ND-GAPS-334` | 4 | all | 5 | 0 | 0 | every positive passed | smart-access, everyday words (rerun of ND-GAPS-322: its synthetic positive did not contain the literal limb "application on a" and its corpus positive 54-21-17.1 is not in this corpus (title 54 is not held); both replaced with synthetics written in the statute style). |
+| `ND-GAPS-401` | 2 | all | 11 | 0 | 0 | every positive passed | Tests whether ND states a materiality/substantiality threshold for a habitability breach, as distinct from the "materially affecting health and safety" limiter on the code-compliance duty in 47-16-13.1(1)(a). |
+| `ND-GAPS-402` | 2 | all | 1 | 0 | 0 | FAILED positive(s): 47-16-13 | Everyday-word limb for habitability materiality: whether a ND drafter graded defects as serious/major/minor rather than using "material". |
+| `ND-GAPS-403` | 3 | all | 6 | 0 | 0 | every positive passed | Tests whether any ND provision other than 47-16-13.1(4)-(6) lets the parties modify, waive or shift the landlord habitability duties. |
+| `ND-GAPS-404` | 3 | all | 1 | 0 | 0 | every positive passed | Tests for any ND presumption, prima facie rule or burden-shifting device about the habitable condition of a dwelling; limb 1 is a reach limb proving the search finds ch. 47-16. |
+| `ND-GAPS-409` | 3 | all | 61 | 0 | 0 | every positive passed | Rerun of ND-GAPS-405 with a corpus reach limb (presumed abandoned, 47-30.2-04) proving the presumption vocabulary finds real ND presumptions: everyday-word limb for a habitability presumption. |
+| `ND-GAPS-410` | 4 | all | 45 | 0 | 0 | every positive passed | Tests for a Wisconsin ATCP 134.07-style ND rule requiring a landlord promise to clean, repair or improve to be in writing, with a completion date, before the lease is signed. |
+| `ND-GAPS-411` | 2 | all | 16 | 0 | 0 | every positive passed | Everyday-word limb for promises to repair: repair/clean/improve/remodel near in-writing/written/completion-date/before-occupancy, both word orders. |
+| `ND-GAPS-412` | 3 | all | 69 | 0 | 0 | every positive passed | Tests for any ND dollar cap, rent-fraction cap or cost threshold on the tenant repair-and-deduct remedy, or any cost-based right to terminate instead of repairing. Reach limb proves money figures are findable. |
+| `ND-GAPS-413` | 3 | all | 57 | 0 | 0 | every positive passed | Tests for a ND rent escrow mechanism: rent paid to an escrow account, court registry or clerk pending repairs. |
+| `ND-GAPS-414` | 2 | all | 49 | 0 | 0 | every positive passed | Everyday-word limb for rent into court: pay/paid/deposit/tender near into-court/with-the-clerk/court-registry/clerk-of-district-court, both word orders. |
+| `ND-GAPS-415` | 2 | all | 146 | 0 | 0 | every positive passed | Tests whether ND requires a residential landlord to designate a person to receive repair requests or make repairs, or lets the lease designate one. |
+| `ND-GAPS-416` | 2 | all | 77 | 0 | 0 | every positive passed | Rerun of ND-GAPS-408 broadened to provide/furnish/deliver/give verbs, because 408 missed the mobile home park lease-and-rights summary duty in 47-10-28(9): tests for any ND requirement that a residential landlord state or supply a habitability warranty or prescribed lease content. |
+| `ND-GAPS-417` | 2 | all | 169 | 0 | 0 | every positive passed | Rerun of ND-GAPS-407 widened to complaint/inquiry/request/maintenance vocabulary, because 407 missed the two-business-day duty to acknowledge mobile home park tenant complaints in 47-10-28(1)(e): tests whether ND fixes any day-count or hour-count period for responding to a tenant repair request. |
+| `ND-GAPS-418` | 3 | all | 100 | 0 | 0 | every positive passed | Tests whether ND attaches any damages multiplier, statutory damages figure, civil penalty or punitive remedy to a landlord habitability or repair breach, beyond the appropriate damages and discretionary attorney fees in 47-16-13.5 and 47-16-13.6. |
+| `ND-GAPS-419` | 3 | all | 2 | 0 | 0 | every positive passed | Tests whether ND sets any temperature figure, thermostat setting or minimum for the landlord heat duty, as opposed to the standard "reasonable heat" in 47-16-13.1(1)(f). |
+| `ND-GAPS-420` | 4 | all | 1 | 0 | 0 | every positive passed | Everyday-word limb for a ND heat standard: adequate/sufficient/suitable/proper heat, a heating season, or heat that shall be furnished. |
+| `ND-GAPS-421` | 3 | all | 3 | 0 | 0 | every positive passed | Tests for any ND requirement to set a water heater or hot water temperature, including at each new occupancy (the Wisconsin 704.06 and Washington RCW 19.27A.060(3) shapes). |
+| `ND-GAPS-422` | 3 | all | 3 | 0 | 0 | every positive passed | Everyday-word limb for water heater temperature: scald protection, mixing valves, adjustment, or an energy or plumbing code reference near a water heater or hot water. |
+| `ND-GAPS-423` | 4 | all | 5 | 0 | 0 | every positive passed | Tests for any ND steam radiator cover duty or mandatory lease rider about radiator covers. |
+| `ND-GAPS-424` | 4 | all | 4 | 0 | 0 | every positive passed | Tests for any ND right to install a portable or window cooling device, or any required lease statement about restricting window units (the Washington RCW 59.18.740 shape). |
+| `ND-GAPS-501` | 2 | statutes | 20 | 0 | 0 | every positive passed | Cluster-wide figure sweep (utilities/metering cluster 3B): every dollar amount, percentage or multiple of rent within 200 chars of a lessor/landlord/lessee/tenant/rental agreement/dwelling unit, across the whole statutes scope. Finds money caps a topic-scoped battery cannot see. |
+| `ND-GAPS-502` | 2 | statutes | 14 | 0 | 0 | every positive passed | Complementary figure sweep anchored on utility/meter vocabulary rather than party vocabulary: every dollar figure or percentage within 200 chars of a utility, meter, metered/metering, electricity, gas, water, sewer, heat, garbage, refuse, trash, fuel or propane word, whole statutes scope. Tests whether any utility money cap exists outside sec. 47-10-28(8). |
+| `ND-GAPS-503` | 9 | all | 2 | 0 | 0 | every positive passed | Term-of-art battery for the utility submetering/apportionment family: submeter, ratio utility billing, utility allowance, apportionment or allocation of utilities, master-meter, check-meter. Whole corpus. |
+| `ND-GAPS-504` | 4 | all | 9 | 0 | 0 | every positive passed | Everyday-words battery for the metering/apportionment family: separate/individual/single meter near a tenancy word, and utility words near included-in-rent / divided-among / prorated / shall-pay-for / responsible-for-payment. The words a North Dakota drafter would have used instead of "submetering". |
+| `ND-GAPS-505` | 6 | all | 1 | 0 | 0 | every positive passed | Term-of-art battery: does North Dakota have an unlawful-utility-interruption / essential-services provision? Tests "essential services", willful/unlawful interruption, and interruption of service, whole corpus. |
+| `ND-GAPS-506` | 4 | all | 2 | 0 | 0 | every positive passed | Everyday-words battery: shut off / turn off / discontinue / cut off / disconnect / terminate service near a utility word, and near a tenancy word. The words a North Dakota drafter would have used instead of "interruption of essential services". |
+| `ND-GAPS-507` | 7 | all | 20 | 0 | 0 | every positive passed | Term-of-art battery: does North Dakota give a tenant a right of access to cable television, video or telecommunications service, or an antenna/satellite right? Whole corpus. |
+| `ND-GAPS-508` | 2 | all | 1 | 0 | 0 | every positive passed | Everyday-words battery for the same: television / internet / broadband / telephone service near a tenancy word, whole corpus. Catches a tenant-access or no-rent-differential rule written without the term of art. |
+| `ND-GAPS-509` | 3 | all | 1 | 0 | 0 | every positive passed | Battery: is there a North Dakota landlord duty to tell tenants where or how to recycle? recycl* near a tenancy word, a notice word or a lease word, and near receptacle/container/bin. Whole corpus. |
+| `ND-GAPS-510` | 2 | all | 0 | 0 | 0 | every positive passed | Battery: does any North Dakota statute let a lease clause authorize release of a tenant energy-usage data to the owner, or require benchmarking? energy usage/consumption/data/benchmarking near release/consent/authorize/disclose or a tenancy word. Whole corpus. |
+| `ND-GAPS-511` | 5 | all | 45 | 0 | 0 | every positive passed | Battery: does North Dakota have an energy-efficiency/meter conservation charge regime, or any landlord notice duty or rent deduction tied to one? conservation near charge/fee/surcharge or a utility word, plus weatherization and energy-efficiency charge. Whole corpus. |
+| `ND-GAPS-512` | 2 | all | 7 | 0 | 0 | every positive passed | Battery: does North Dakota regulate transfer of a utility account into the tenant name, or permit a landlord cutoff of landlord-name utilities the tenant did not transfer? transfer/account/name-of-tenant near a utility or meter word. Whole corpus. |
+| `ND-GAPS-513` | 3 | all | 167 | 0 | 0 | every positive passed | Battery: may an owner be designated, by lease or separate document, to receive notice of a tenant pending utility disconnection? notice/notify near designate/third party/copy/authorize, and disconnection near designate/landlord/owner. Whole corpus. |
+| `ND-GAPS-516` | 2 | all | 19 | 0 | 0 | every positive passed | Battery: does North Dakota require a utility disclosure, statement, addendum, attachment or summary with a residential lease? disclosure/statement/addendum/attachment/summary/separate-writing near a utility or meter word. Whole corpus. |
+| `ND-GAPS-517` | 2 | all | 6 | 0 | 0 | every positive passed | Rerun of ND-GAPS-514, whose synthetic positive failed because the utility limb required the bill word to follow the utility word immediately and the synthetic read "water, sewer and garbage service charges". This run allows a 40-char window between the two. Question unchanged: does any statute in the corpus make unpaid water, sewer, garbage or other utility SERVICE charges a lien on the property or collectible with property taxes? |
+| `ND-GAPS-518` | 5 | all | 167 | 0 | 0 | every positive passed | Rerun of ND-GAPS-515, whose corpus positive sec. 47-16-20.1 was recorded as FAILED and was the wrong positive: sec. 47-16-20.1 forbids a fee for accepting cash, a check or a money order but contains no electronic, online, portal or web-site vocabulary, so it could never match this battery pattern and proved nothing about the search. Replaced with a synthetic positive written in the statutory verbs an Oregon-style portal provision would use, which tests the pattern limb. Question unchanged: does North Dakota regulate requiring a tenant to pay or sign through an online portal? |
+| `ND-GAPS-601` | 5 | all | 65 | 0 | 0 | every positive passed | eviction-process, term of art: does ND give an evicted tenant a pay-or-quit cure right, a notice to quit, or a rent-into-court / escrow procedure in the possession action? 47-32-02 is a notice of INTENTION TO EVICT, not a notice to quit; 47-32-04 limits counterclaims to a setoff. |
+| `ND-GAPS-602` | 5 | all | 26 | 0 | 0 | every positive passed | eviction-process, everyday words: a stay or supersedeas on appeal of an eviction conditioned on a rent affidavit; a legislature-only preemption clause; a bar on courts requiring a mandatory notice or pleading form. Tests the appeal/writ-timing and form-mandate sub-questions. |
+| `ND-GAPS-603` | 5 | all | 15 | 0 | 0 | every positive passed | eviction-process, the exotic sub-questions other states carry: a bar on private eviction servers broadcasting video of service with statutory damages; a federal-shutdown continuance for federal employee and contractor tenants; a wage-attachment cap for a residential-lease judgment. |
+| `ND-GAPS-605` | 5 | all | 58 | 0 | 0 | every positive passed | eviction-service-party, term of art: may a residential lease name a person to accept the eviction summons or notice? 47-32-02 names only the lessee, subtenant or party in possession, or posting. Corpus positive 41-09-27 proves the vocabulary is findable. |
+| `ND-GAPS-606` | 4 | all | 23 | 0 | 0 | every positive passed | eviction-service-party, everyday words: who may be handed the papers in ND, and is there an address-confidentiality-program participant whose eviction papers must go to the secretary of state? |
+| `ND-GAPS-607` | 2 | all | 8 | 0 | 0 | every positive passed | expedited-criminal-eviction, term of art: is there a separate expedited, summary or emergency eviction track in ND (as distinct from the single 47-32 action)? |
+| `ND-GAPS-608` | 2 | all | 22 | 0 | 0 | every positive passed | expedited-criminal-eviction, everyday words: does any ND statute make criminal activity, a controlled substance, violence or a firearm an independent and faster eviction ground? 47-32-01(1)-(3) reach force and threats of violence by a possessor; (7) disturbance; (8) only a written-lease material term. |
+| `ND-GAPS-610` | 6 | all | 46 | 0 | 0 | every positive passed | lockout-for-rent-delinquency, everyday words a ND drafter would use instead of "lockout": deny or prevent access or entry, a twenty-four-hour key rule, rendering the premises inaccessible or uninhabitable. Second battery per the two-battery rule. |
+| `ND-GAPS-612` | 4 | all | 93 | 0 | 0 | every positive passed | possession-bond, everyday words: posting or filing a bond, security or undertaking, or depositing money with the court or clerk, anywhere in the corpus. Second battery per the two-battery rule. |
+| `ND-GAPS-613` | 3 | all | 69 | 0 | 0 | every positive passed | redemption, term of art: does ND give an evicted residential tenant a statutory right to redeem or reinstate the tenancy by paying? Tests whether the corpus-wide redeem/redemption vocabulary is anything other than redemption from a mortgage, execution or tax sale. |
+| `ND-GAPS-615` | 3 | all | 11 | 0 | 0 | every positive passed | forfeiture-redemption, term of art: may a ND residential lessee obtain relief against forfeiture of the lease (equitable redemption) after a breach? Tests whether forfeiture vocabulary near a landlord-tenant term reaches anything beyond the oil-and-gas lease-release sections 47-16-36 and 47-16-37. |
+| `ND-GAPS-616` | 5 | all | 74 | 0 | 0 | every positive passed | forfeiture-redemption, everyday words: the ND re-entry / repossession / rescission / cancellation vocabulary that stands in for "forfeiture" in a lease context, plus any equitable-relief hook. Second battery per the two-battery rule. |
+| `ND-GAPS-617` | 5 | all | 3 | 0 | 0 | every positive passed | rent-demand-bar, term of art: is a ND lessor ever barred from demanding, collecting or recovering rent (for example for want of a licence or registration, or after a defective notice)? 47-16-26 double letting is the one ND provision that relieves tenants of rent, and it is a one-room-double-letting rule, not a registration or notice bar. |
+| `ND-GAPS-618` | 4 | all | 36 | 0 | 0 | FAILED positive(s): 47-32-01.1 | rent-demand-bar, everyday words: a licence, registration, certificate or permit condition on a ND landlord collecting rent, and any statutory defence to an action for rent. 47-10-28(1)(a) requires a mobile home park licence and 47-32-01.1 makes a 47-10-28 violation a defence to the EVICTION -- the battery tests whether it is anywhere made a bar to the rent. |
+| `ND-GAPS-619` | 3 | all | 40 | 0 | 0 | every positive passed | good-cause-notice, term of art: is a ND residential termination or eviction notice required to rest on, or to state, a good cause? 47-10-28(13) and (14) use "without cause" but only to freeze a park lease during a licence suspension or a pending action. |
+| `ND-GAPS-620` | 3 | all | 91 | 0 | 0 | every positive passed | good-cause-notice, everyday words: does any ND statute require a termination or eviction notice to state the reason, ground, cause or facts? 47-17-02 prescribes only writing and a specified period; 47-32-02 only three days written notice of intention to evict. 47-10-28(10) and 47-16-15(4) are the two ND notice-content mandates and neither is a reason. |
+| `ND-GAPS-621` | 2 | statutes | 17 | 0 | 0 | every positive passed | FIGURE SWEEP for canvass 4A: every dollar amount, percentage and multiple of rent within 200 chars of lessor/landlord/lessee/tenant/rental agreement/dwelling unit, both word orders, whole statutes scope. Tests whether ND statutes anywhere set a cap, figure or multiple on holdover liability, a possession bond, a wage-attachment ceiling, statutory damages for eviction-service misconduct, or any other money figure in the eviction/default cluster. |
+| `ND-GAPS-622` | 3 | all | 6 | 0 | 0 | every positive passed | holdover-rate, term of art: does any ND statute set or cap a holdover rate -- a per diem, a multiple of rent, or liquidated damages -- for a tenant who stays past the term? Read with the figure sweep ND-GAPS-621. The two ND double-damages measures named in the Legislative Council master index, 32-03-27 "Damages for tenant's failure to surrender premises" and 32-03-28 "Damages for tenant's willful holding over", sit in chapter 32-03, which is NOT in the corpus. |
+| `ND-GAPS-623` | 3 | all | 4 | 0 | 0 | every positive passed | landlord-remedies-termination: does ND authorise or regulate acceleration of the whole remaining rent on default? 47-16-13.7 gives liability for rent during the remainder of the term but subject to the duty to mitigate; 47-16-13.4 splits possession-and-rent from a separate actual-damages claim. |
+| `ND-GAPS-624` | 4 | all | 15 | 0 | 0 | every positive passed | tenancy-at-will: locating every ND provision on an estate or tenancy at will, a periodic tenancy, and any tenancy at sufferance. Confirms chapter 47-17 plus 47-16-05, 47-16-19, 47-16-15 and 47-16-27 are the whole of it and that ND has no tenancy-at-sufferance category. |
+| `ND-GAPS-625` | 4 | all | 85 | 0 | 0 | every positive passed | limitation-of-actions: does any corpus chapter set the limitation period for a ND landlord suing for unpaid rent or lease damages, or any rule on partial payments restarting it? The general periods live in chapter 28-01 ("Time for Commencing Actions", sections 28-01-04, 28-01-05, 28-01-15 ten-year and 28-01-16 six-year, per the Legislative Council master index), which is NOT in the corpus. 9-08-05 voids any contractual shortening. |
+| `ND-GAPS-626` | 4 | all | 4 | 0 | 0 | every positive passed | confession-of-judgment, term of art: where in ND law may a lease take a confession of judgment? 47-15.1-04(1) bans one in a CONSUMER RENTAL PURCHASE agreement (rent-to-own of goods, from which 47-15.1-01(4)(d) expressly excludes a lease of real property), and the Legislative Council master index records chapter 28-10 "Confession of Judgment" as SUPERSEDED BY THE NORTH DAKOTA RULES OF CIVIL PROCEDURE. 9-08-05 is the general hook. |
+| `ND-GAPS-629` | 5 | all | 27 | 0 | 0 | FAILED positive(s): 47-32-02 | unauthorized-occupant-removal, everyday words: the route ND actually gives an owner against someone who never was a tenant. 47-32-01(1)-(3) reach a party who entered by force, intimidation, fraud or stealth, or who holds by force or threats, and 47-32-02 attaches NO notice requirement to those three grounds. Criminal trespass is 12.1-22-03, in title 12.1, which is NOT in the corpus. |
+| `ND-GAPS-630` | 4 | all | 39 | 0 | 0 | every positive passed | notice-to-vacate-additional-terms: what extra content or conduct rules ride on a ND notice to vacate or notice of intention to evict? 47-10-28(10) is the one ND content mandate -- boldfaced wording in a mobile home park notice. Also tests the District of Columbia sub-question, a ban on alterations making the unit uninhabitable while a notice to vacate is pending. |
+| `ND-GAPS-631` | 2 | all | 40 | 0 | 0 | every positive passed | SUPERSEDES ND-GAPS-604, whose corpus positive 47-16-06 failed because its "one year" sits nowhere near a cause word. Broadened: any stated period of days, months or years within 200 characters of good cause / just cause / for cause / evict / termination of tenancy / without cause, both word orders, whole corpus. Tests for-cause eviction protection after twelve months tenancy and any other duration-triggered cause requirement. |
+| `ND-GAPS-632` | 4 | all | 1288 | 0 | 0 | every positive passed | SUPERSEDES ND-GAPS-611, whose corpus positive 47-16-30.1 failed because its "security deposit" and "possession" sit more than 200 characters apart. Adds a bare bond/undertaking/surety limb so a corpus positive can pass. possession-bond, term of art: any statutory end-of-term possession bond, forthcoming bond, or bond or undertaking posted to obtain or retain possession in a ND eviction? |
+| `ND-GAPS-633` | 5 | all | 18 | 0 | 0 | every positive passed | SUPERSEDES ND-GAPS-614, whose corpus positive 47-16-06 failed because its "accepts rent" sits nowhere near a waiver or eviction word; a plain accept-near-rent limb is added. redemption, everyday words: does ND regulate acceptance of partial rent after a termination or eviction notice, or require reservation-of-rights wording? |
+| `ND-GAPS-634` | 6 | all | 35 | 0 | 0 | every positive passed | SUPERSEDES ND-GAPS-609, whose corpus positive 47-32-01 failed because "turns out by force" matches no lock/key/exclude limb; a bare lock/key limb is added and a corpus positive that really holds the word is used. lockout-for-rent-delinquency, term of art: any opt-in self-help lockout, lock change, key-access or exclusion provision in ND? |
+| `ND-GAPS-635` | 5 | all | 383 | 0 | 0 | every positive passed | SUPERSEDES ND-GAPS-627, in which BOTH corpus positives were recorded as failed because neither 47-16-13.3 nor 41-09-119 carries a notice/hearing/trial word within 120 characters of its waiver word, leaving that run with no passing positive and therefore unusable. A bare waiver limb is added. confession-of-judgment, everyday words: waiving notice, hearing or trial, authorising or consenting to entry of judgment, judgment without suit. |
+| `ND-GAPS-636` | 6 | all | 164 | 0 | 0 | every positive passed | SUPERSEDES ND-GAPS-628, whose corpus positive 47-32-02 was recorded as failed because its "sheriff" sits nowhere within 200 characters of a remove/eject/oust word; a bare sheriff/constable limb is added so the corpus positive passes. unauthorized-occupant-removal, term of art: any squatter, unauthorized-occupant or transient-occupant removal route outside chapter 47-32? |
+| `ND-GAPS-701` | 3 | all | 5 | 0 | 0 | every positive passed | Term of art: does any ND statute in the corpus bar a non-attorney from appearing for an entity landlord, i.e. define or forbid the unauthorized practice of law? |
+| `ND-GAPS-702` | 3 | all | 42 | 0 | 0 | every positive passed | Everyday words: who may appear or represent a corporation, LLC or partnership in a ND court - the words a ND drafter would use instead of unauthorized practice of law. |
+| `ND-GAPS-703` | 6 | all | 16 | 0 | 0 | every positive passed | Term of art: does ND law require a lease statement about, or regulate representation of, a special district / special assessment or improvement district? |
+| `ND-GAPS-705` | 2 | all | 23 | 0 | 0 | every positive passed | Supersedes ND-GAPS-704, whose pattern limb used only \blease\w* and so could not match the statute word "leasing"; positive 47-16-02.1 failed for that reason. Everyday words: a public body (political subdivision, housing authority, municipality) as landlord or lessor. |
+| `ND-GAPS-706` | 2 | all | 23 | 0 | 0 | every positive passed | Supersedes ND-GAPS-704: that run pattern limb used only \blease\w*, which cannot match the statute word leasing, so positive 47-16-02.1 was recorded failed. Everyday words for a public body as landlord. |
+| `ND-GAPS-707` | 6 | ['statutes'] | 175 | 0 | 0 | every positive passed | Term of art: does any ND statute in the corpus bar a minor from being an eviction defendant, bar a minor-tenant filing, or set a minor tenant rule? |
+| `ND-GAPS-708` | 8 | all | 180 | 0 | 0 | every positive passed | Everyday words: the age and capacity vocabulary a ND drafter would use instead of minor - eighteen years, emancipated, full age, capacity to contract - to catch a minor-tenant rule not using the word minor. |
+| `ND-GAPS-709` | 4 | all | 298 | 0 | 0 | every positive passed | Term of art: does any ND statute in title 47 or the landlord-tenant chapters create, limit or regulate a guaranty of a lease, or a guarantor/surety of a tenant? |
+| `ND-GAPS-710` | 2 | all | 25 | 0 | 0 | every positive passed | Everyday words: does any ND provision make anyone liable, bound or obligated for a RENEWAL, extension or holdover term - the words a ND drafter would use instead of guarantor renewal liability. |
+| `ND-GAPS-711` | 4 | all | 116 | 0 | 0 | every positive passed | Term of art: does the ND nonpayment-eviction statute give a continuance, reinstatement, stay, abatement or postponement when a payment is late? |
+| `ND-GAPS-712` | 9 | all | 174 | 0 | 0 | every positive passed | Everyday words: the benefit and subsidy vocabulary a ND drafter would use - public assistance, rental assistance, rent supplement, voucher, subsidy - to find any benefit-delay rule or protection for a subsidised tenant. |
+| `ND-GAPS-713` | 5 | all | 182 | 0 | 0 | every positive passed | Term of art: does any ND statute address a TENANT bankruptcy or insolvency - as a ground to terminate a lease, a defence, a stay, or a landlord remedy? |
+| `ND-GAPS-714` | 6 | all | 73 | 0 | 0 | every positive passed | Everyday words: the insolvency vocabulary a ND drafter would use instead of bankruptcy - assignment for the benefit of creditors, creditors, debts as they become due. |
+| `ND-GAPS-715` | 4 | all | 3 | 0 | 0 | every positive passed | Term of art: attornment. Does ND void an attornment to a stranger, and is there any other attornment provision? Trap test: attorn must not match attorney. |
+| `ND-GAPS-717` | 2 | all | 31 | 0 | 0 | every positive passed | Supersedes ND-GAPS-716: its group A limb used only foreclos*/sheriff sale/execution sale/contract for deed and so could not match 47-32-01(5) which says "under mortgage, execution, order, or any judicial process"; positive 47-32-01 failed for that reason. Everyday words: any ND duty to give or pass on notice of a foreclosure, sheriff sale or contract-for-deed cancellation to or by a tenant. |
+| `ND-GAPS-718` | 6 | all | 40 | 0 | 0 | every positive passed | Term of art: must a nonresident or entity landlord designate a registered / resident / statutory agent, and is any such duty in title 47 or the landlord-tenant chapters? |
+| `ND-GAPS-719` | 2 | all | 31 | 0 | 0 | every positive passed | Everyday words: a nonresident or out-of-state owner needing an in-state agent, broker or address, or rent withholding - the words a ND drafter would use instead of registered agent. |
+| `ND-GAPS-720` | 7 | all | 64 | 0 | 0 | every positive passed | Term of art: ND alien land law / foreign-adversary property restriction - is there any provision beyond chapter 47-10.1, and does any of it reach a residential lease? |
+| `ND-GAPS-721` | 7 | all | 15 | 0 | 0 | every positive passed | Everyday words: the citizenship and foreign-entity vocabulary ND actually uses - not a citizen of the United States, permanent resident alien, state-controlled enterprise - to find any foreign-ownership rule outside chapter 47-10.1. |
+| `ND-GAPS-722` | 2 | all | 69 | 0 | 0 | every positive passed | Term of art: is there any ND landlord / rental registration or licensing duty, and where - landlord, lessor, rental, dwelling unit or mobile home park near regist* / licens* / certificate of occupancy. |
+| `ND-GAPS-723` | 9 | all | 210 | 0 | 0 | every positive passed | Everyday words: the licence / permit / assessor vocabulary a ND drafter would use instead of landlord registration - business licence, occupancy permit, certificate of occupancy, county assessor or auditor registration. |
+| `ND-GAPS-724` | 2 | all | 110 | 0 | 0 | every positive passed | Term of art: must or may a lease be recorded or filed in ND, and what turns on it - lease vocabulary near record/regist/file/acknowledge. |
+| `ND-GAPS-725` | 7 | all | 7 | 0 | 0 | every positive passed | Everyday words: the recording-instrument vocabulary a ND drafter would use - memorandum of lease, notice of lease, short form lease, land registry, register of deeds, Torrens. |
+| `ND-GAPS-726` | 9 | all | 170 | 0 | 0 | every positive passed | Term of art: numeric portfolio thresholds - does any ND landlord-tenant duty turn on how many units, houses, families or lots the landlord owns? |
+| `ND-GAPS-727` | 8 | all | 1250 | 0 | 0 | every positive passed | Everyday words: exemption and small-landlord vocabulary - does not apply, exempt, owner-occupied, in the business of - to find portfolio tiering not expressed as a number. |
+| `ND-GAPS-728` | 6 | all | 16 | 0 | 0 | every positive passed | Term of art: ND statute of frauds threshold for a lease - where is the writing requirement and what is the term cut-off? |
+| `ND-GAPS-729` | 3 | all | 14 | 0 | 0 | every positive passed | Everyday words: oral / verbal / unwritten / parol lease or agreement, and part performance - the words a ND drafter would use instead of statute of frauds. |
+| `ND-GAPS-730` | 7 | all | 97 | 0 | 0 | every positive passed | Term of art: ND maximum lease term - is there any cap beyond 47-16-02 ten years agricultural / ninety-nine years a city lot, and any perpetual-lease ban? |
+| `ND-GAPS-731` | 7 | all | 186 | 0 | 0 | every positive passed | Everyday words: execution formalities for a long lease - seal, power of attorney, subscribing witness - and spousal/homestead consent (husband and wife, both spouses). |
+| `ND-GAPS-732` | 4 | all | 99 | 0 | 0 | every positive passed | Term of art: every ND provision that requires a notice to be WRITTEN - the inventory for the written-notice-required topic. |
+| `ND-GAPS-733` | 2 | all | 213 | 0 | 0 | every positive passed | Everyday words: how a ND notice must be DELIVERED - mail, first-class mail, facsimile, personally, posting, served, delivered, conspicuous - to catch form requirements not phrased as written notice. |
+| `ND-GAPS-801` | 3 | all | 13 | 0 | 0 | every positive passed | Term of art: does any ND statute make asbestos a landlord or lease disclosure duty? Positive is the Legislative Council master index, which names asbestos sections, proving the engine finds the word. |
+| `ND-GAPS-802` | 7 | all | 1 | 0 | 0 | every positive passed | Everyday words a ND drafter would use instead of "asbestos": friable, asbestos-containing material, vermiculite, popcorn ceiling, pipe wrap, thermal system insulation. |
+| `ND-GAPS-803` | 4 | all | 0 | 0 | 0 | every positive passed | Term of art: does any ND statute name defective/Chinese/corrosive drywall, or make it a disclosure duty? |
+| `ND-GAPS-804` | 7 | all | 1 | 0 | 0 | every positive passed | Everyday words a ND drafter would use instead of "defective drywall": wallboard, gypsum, sulfide, sulfur emission/odor, corrosion of copper, offgassing. |
+| `ND-GAPS-805` | 5 | all | 16 | 0 | 0 | every positive passed | Term of art: does any ND statute make flood or floodplain status a disclosure, notice or warning duty owed by a landlord to a tenant? Proximity run in both word orders. |
+| `ND-GAPS-806` | 9 | all | 53 | 0 | 0 | every positive passed | Everyday words a ND drafter would have used instead of "flood disclosure": water damage, inundation, high-water mark, sewer backup, basement water, levee, dike, overflow of a river or stream. |
+| `ND-GAPS-807` | 7 | all | 17 | 0 | 0 | every positive passed | Term of art: does any ND statute require a landlord or a lease to disclose contamination, hazardous substances, activity and use limitations, institutional controls or brownfield status? Proximity in both word orders. |
+| `ND-GAPS-808` | 8 | all | 78 | 0 | 0 | every positive passed | Everyday words a ND drafter would use instead of "hazardous contamination disclosure": cleanup, remediation, underground storage tank, petroleum tank, spill affecting soil or groundwater, release of a regulated substance, decontamination. |
+| `ND-GAPS-809` | 6 | all | 2 | 0 | 0 | every positive passed | Term of art: does any ND statute name lead-based paint, lead paint, a lead hazard, lead-safe status or lead poisoning in a landlord or lease context? Positive is the master index, which names 23.1-06-05. |
+| `ND-GAPS-811` | 4 | all | 2 | 0 | 0 | every positive passed | Term of art for a state lead notice regime: lead within 200 characters of disclosure, notice, certificate, packet or pamphlet, in both word orders, plus lead-safe certificate proximity. |
+| `ND-GAPS-812` | 7 | all | 7 | 0 | 0 | every positive passed | Everyday words a ND drafter would use for a lease-delivered state notice packet: pamphlet, brochure, booklet, information sheet, handout, written materials given to a tenant or lessee, in both word orders. |
+| `ND-GAPS-813` | 12 | all | 10 | 0 | 0 | every positive passed | Rerun of ND-GAPS-810 with a positive that the pattern set can actually match. ND-GAPS-810 used the master index with term "abatement", which the index contains but never within 120 characters of "paint", so that positive was recorded as failed. Same patterns, everyday and adjacent words for a lead-safe certificate regime. |
+| `ND-GAPS-814` | 5 | all | 14 | 0 | 0 | every positive passed | Term of art: does any ND statute make methamphetamine manufacture or a clandestine drug lab a landlord disclosure, reporting or habitation-ban duty? |
+| `ND-GAPS-815` | 7 | all | 4 | 0 | 0 | every positive passed | Everyday words a ND drafter would use instead of "meth disclosure": decontamination, chemical residue in or on a dwelling or premises in both word orders, disorderly house, remediation of a dwelling in both word orders. |
+| `ND-GAPS-816` | 7 | all | 1 | 0 | 0 | every positive passed | Term of art: does any ND statute require a Proposition-65-style chemical exposure warning, in a lease or posted at a rental property? Carcinogen and cancer-warning proximity in both word orders. |
+| `ND-GAPS-817` | 7 | all | 17 | 0 | 0 | every positive passed | Everyday words a ND drafter would use instead of "Proposition 65 warning": a conspicuous warning, notice or sign in both word orders, post a sign, toxic exposure in both word orders, hazardous-substance warning in both word orders. |
+| `ND-GAPS-818` | 6 | all | 63 | 0 | 0 | every positive passed | Term of art: does any ND statute require testing of a private well serving a rental dwelling, or delivery of results to a tenant? Well-plus-test proximity in both word orders, plus potable. |
+| `ND-GAPS-819` | 8 | all | 1 | 0 | 0 | every positive passed | Everyday words a ND drafter would use instead of "private well testing": nitrate, coliform, bacteria in water or a well in both word orders, water quality testing in both word orders, cistern, drinking water standards. |
+| `ND-GAPS-820` | 5 | all | 6 | 0 | 0 | every positive passed | Term of art: does any ND statute require a residential sprinkler system, a retrofit, or a statement in the lease about whether sprinklers are present? Positive is the master index, which names 18-12-17 Sprinklers. |
+| `ND-GAPS-821` | 9 | all | 15 | 0 | 0 | every positive passed | Everyday words a ND drafter would use instead of a "sprinkler disclosure": fire alarm, smoke detector or alarm, fire extinguisher, carbon monoxide, fire escape, exiting requirements, and a statement that the premises are not equipped in both word orders. |
+| `ND-GAPS-822` | 8 | all | 95 | 0 | 0 | every positive passed | Everyday words for a fire sprinkler duty in ND: retrofit, fire marshal, fire hazard, fire code, abatement of a fire condition in both word orders, installing a sprinkler in both word orders. |
+| `ND-GAPS-823` | 6 | all | 0 | 0 | 0 | every positive passed | Term of art: does any ND statute require inspection of balconies, decks or exterior elevated elements at a rental property? Deck-plus-inspection proximity in both word orders. |
+| `ND-GAPS-824` | 9 | all | 17 | 0 | 0 | every positive passed | Everyday words a ND drafter would use instead of "balcony inspection": railing, handrail, guardrail, stairway, porch, walkway, structural, weight limit, occupant load. |
+| `ND-GAPS-825` | 6 | all | 13 | 0 | 0 | every positive passed | Term of art: does any ND statute require a certificate of occupancy, an occupancy permit or a certificate of inspection to be held, disclosed or attached to a residential lease? Occupancy-plus-certificate proximity in both word orders. |
+| `ND-GAPS-826` | 9 | all | 4 | 0 | 0 | every positive passed | Everyday words a ND drafter would use instead of "certificate of occupancy": lawful occupancy in both word orders, may not be occupied, unlawful dwelling in both word orders, approved for occupancy, permit to occupy, occupancy record, change of occupancy. |
+| `ND-GAPS-827` | 7 | all | 38 | 0 | 0 | every positive passed | Term of art: does any ND statute require a landlord to disclose an outstanding inspection, correction, abatement or condemnation order to a tenant, or regulate such orders in a lease context? |
+| `ND-GAPS-828` | 9 | all | 10 | 0 | 0 | every positive passed | Everyday words a ND drafter would use instead of "condemnation": unfit, human habitation, insanitary or unsanitary, placard, demolition of a dwelling in both word orders, dangerous building in both word orders. |
+| `ND-GAPS-829` | 7 | all | 5 | 0 | 0 | every positive passed | Term of art: does any ND statute bar collecting rent, or abate rent, after a condemnation or an order to vacate? Rent-plus-abatement proximity in both word orders, plus the discharge and relief formulations North Dakota actually uses. |
+| `ND-GAPS-830` | 8 | all | 7 | 0 | 0 | every positive passed | Everyday words a ND drafter would use for a condemned-premises rent bar: may not collect, charge, demand or accept rent in both word orders, forfeit rent, rent escrow, and rent linked to unfit, uninhabitable or untenantable premises in both word orders. |
+| `ND-GAPS-901` | 3 | all | 12 | 0 | 0 | every positive passed | Stigmatized property term of art plus North Dakota's own "material fact" disclosure formula, to test whether any material-fact duty runs to a tenant rather than a buyer. |
+| `ND-GAPS-902` | 3 | all | 24 | 0 | 0 | every positive passed | Everyday words for a stigma disclosure (death, suicide, homicide, haunted) in proximity to the ND nouns for a rented dwelling; the term-of-art battery is 901. |
+| `ND-GAPS-903` | 3 | all | 68 | 0 | 0 | every positive passed | Sex-offender registry term of art across the whole corpus: tests whether any held chapter imposes a registry disclosure on a landlord. Title 12.1 is NOT in the corpus. |
+| `ND-GAPS-905` | 5 | all | 29 | 0 | 0 | every positive passed | Military air installation noise / accident-potential-zone disclosure term of art. Everyday-words battery is 906. |
+| `ND-GAPS-906` | 2 | all | 6 | 0 | 0 | every positive passed | Everyday words (military, aircraft, airport, air base) near disclosure/tenancy nouns. Term of art is 905. |
+| `ND-GAPS-907` | 7 | all | 0 | 0 | 0 | every positive passed | Ordnance / demolition / shared-meter disclosure terms of art. Everyday words 908. NOTE: ND has a park meter rule at N.D.C.C. 47-10-28(8) in different words. |
+| `ND-GAPS-908` | 5 | all | 5 | 0 | 0 | every positive passed | Everyday words for the meter and demolition limbs, written as North Dakota actually writes them ("individual meter", "meter readings"). Term of art is 907. |
+| `ND-GAPS-909` | 2 | all | 8 | 0 | 0 | every positive passed | Supersedes ND-GAPS-904: its 200-char window put "convicted of a felony offense" in N.D.C.C. 47-16-07.1(1)(a) out of reach of the nearest tenancy noun, so the positive was recorded failed. Same everyday-words test with a 400-char window and "lessor". |
+| `ND-GAPS-911` | 2 | all | 0 | 0 | 0 | every positive passed | Everyday words (navigable water, riverbank, beach, dock, ordinary high water mark) near disclosure or tenancy nouns. Term of art is 910. |
+| `ND-GAPS-912` | 5 | all | 3 | 0 | 0 | every positive passed | Supersedes ND-GAPS-910, whose corpus positive N.D.C.C. 47-06-09 was recorded failed because every limb demanded "access" nearby and that section never uses the word. Adds a bare \bshore\b limb so the run is carried by real ND text. |
+| `ND-GAPS-913` | 4 | all | 0 | 0 | 0 | every positive passed | Annual property-tax-portion-of-rent statement term of art. |
+| `ND-GAPS-919` | 2 | all | 50 | 0 | 0 | every positive passed | Supersedes ND-GAPS-919's predecessor ND-GAPS-914, whose positive N.D.C.C. 47-04.1-13 was recorded failed: that section levies taxes on each condominium unit and carries no statement or tenancy noun within the window. Same test, positives that sit in proximity. Term of art is 913. |
+| `ND-GAPS-920` | 5 | all | 4 | 0 | 0 | every positive passed | Single-family-residence occupancy / exemption disclosure term of art: tests whether any ND statute makes the landlord STATE the single-family character or an exemption. |
+| `ND-GAPS-922` | 6 | all | 3 | 0 | 0 | every positive passed | Condominium / rental conversion notice term of art, including the tenant right of first refusal limb. Chapter 47-04.1 is held whole in the corpus. |
+| `ND-GAPS-924` | 4 | all | 4 | 0 | 0 | every positive passed | Supersedes ND-GAPS-921: its 300-char window put "written disclosure form" just out of reach of "no more than four units" in N.D.C.C. 47-10-02.1, so the positive was recorded failed. Same everyday-words test at 450. Term of art is 920. |
+| `ND-GAPS-925` | 3 | all | 4 | 0 | 0 | every positive passed | Supersedes ND-GAPS-923, whose positive N.D.C.C. 47-04.1-10 was recorded failed because that section contains no tenant/notice noun at all. Adds a bare "withdrawal of property" limb, which is ND's own word for de-conversion. Term of art is 922. |
+| `ND-GAPS-927` | 2 | all | 54 | 0 | 0 | every positive passed | THE INVENTORY, everyday-words limb: the verbs a North Dakota drafter actually uses for handing a tenant a document (provide, furnish, give, deliver, post, provide a copy) near a landlord/tenant/park noun. Term of art is 926. |
+| `ND-GAPS-928` | 7 | all | 50 | 0 | 0 | every positive passed | Truth-in-renting / state rights-and-responsibilities guide / tenant-rights statement, term of art AND the everyday nouns (summary, pamphlet, brochure, handbook, booklet, signed acknowledgment) in one run, because the topics share one vocabulary. |
+| `ND-GAPS-929` | 7 | all | 7 | 0 | 0 | every positive passed | Plain-language / readability-test / statement-of-consumer-restrictions vocabulary across the whole corpus. Companion everyday/type-size run is 931. |
+| `ND-GAPS-930` | 6 | all | 121 | 0 | 0 | every positive passed | Translation duty / interpreter / language-other-than-English vocabulary across the whole corpus, to test for a lease translation duty. |
+| `ND-GAPS-931` | 6 | all | 49 | 0 | 0 | every positive passed | Prescribed-verbatim-wording, type-size and conspicuous-placement vocabulary corpus wide: the inventory of every place North Dakota dictates the words or the typography of a document, used to show which of them reach a residential lease. |
+| `ND-GAPS-932` | 2 | all | 11 | 0 | 0 | every positive passed | Supersedes ND-GAPS-926, where BOTH positives were recorded failed: its a-group demanded "shall/must disclose" and N.D.C.C. 47-16-17.1 says "may not disclose" while 47-10-02.2 says "shall disclose" but carries no landlord or tenant noun within the window at all - which is itself the finding. This run widens the a-group to any disclosure word and asks the inventory question directly: where in the corpus does disclosure vocabulary sit near a landlord/tenant noun? Everyday words are 927. |
+| `ND-GAPS-1001` | 5 | all | 29 | 0 | 0 | every positive passed | term of art: does ND statute anywhere create a regularly-scheduled/periodic services entry right or exempt it from notice? |
+| `ND-GAPS-1002` | 5 | all | 35 | 0 | 0 | every positive passed | everyday words: enter/supplying/services/schedule - where does ND actually speak of entry for services? |
+| `ND-GAPS-1003` | 2 | all | 29 | 0 | 0 | every positive passed | locate every ND statute speaking of entry to supply services, to confirm 47-16-07.3(2) is the only one |
+| `ND-GAPS-1004` | 4 | all | 62 | 0 | 0 | every positive passed | term of art: any ND statutory right or duty for a landlord to enter a dwelling to care for or remove a tenant animal? |
+| `ND-GAPS-1005` | 3 | all | 9 | 0 | 0 | every positive passed | everyday words: dog/cat/pet near landlord-tenant words, to catch an animal-access provision the term of art would miss |
+| `ND-GAPS-1006` | 6 | all | 123 | 0 | 0 | every positive passed | term of art: does any ND statute require a landlord to give notice of pest control, pesticide application or fumigation? |
+| `ND-GAPS-1007` | 4 | all | 0 | 0 | 0 | every positive passed | everyday words: bed bug/insect/rodent/mice/cockroach/spray near landlord-tenant words, to catch a pest provision the term of art would miss |
+| `ND-GAPS-1009` | 3 | all | 23 | 0 | 0 | every positive passed | everyday words: harass/intimidate/trespass/right of access near damages/liable/recover/action - is there a tenant remedy for unlawful entry? |
+| `ND-GAPS-1011` | 2 | all | 143 | 0 | 0 | every positive passed | Supersedes ND-GAPS-1008 (synthetic positive used "enters" against a pattern holding only \benter\b, so the synthetic limb failed - CT 5 working) and ND-GAPS-1010 (same corrected run but the supersedes field was not passed). Question unchanged and widened to include "damages": is there any statutory penalty or damages remedy in ND for a landlord entering a dwelling without notice or abusing the right of access? |
+| `ND-GAPS-1013` | 2 | all | 7 | 0 | 0 | every positive passed | everyday words: inspect/inspector near dwelling/apartment/rental/tenant/occupant/sleeping rooms - where does ND speak of inspecting a dwelling at all? |
+| `ND-GAPS-1014` | 6 | all | 5 | 0 | 0 | every positive passed | Supersedes ND-GAPS-1012, whose corpus positive 47-16-13.1 was recorded as failed because the pattern read \bhousing code\b and the statute says "building and housing codes" - the trailing s defeated the word boundary (CT 5 working). Same question: does any ND statute create or authorise a rental inspection or rental licensing programme for dwellings? |
+| `ND-GAPS-1015` | 7 | all | 114 | 0 | 0 | every positive passed | term of art: does any ND statute address a subsidised-housing inspection, or a tenant refusing one? |
+| `ND-GAPS-1016` | 3 | all | 7 | 0 | 0 | every positive passed | everyday words: public assistance/voucher/assistance payments near inspect/refuse/access/enter/terminate/eviction - any ND rule on refusing a subsidy inspection? |
+| `ND-GAPS-1017` | 6 | all | 6 | 0 | 0 | every positive passed | term of art: does ND require a landlord to keep a rent ledger or tenant records, or to produce them on request? |
+| `ND-GAPS-1018` | 3 | all | 74 | 0 | 0 | every positive passed | everyday words: records/ledger/receipts/copy/statement near tenant-landlord words - where does ND actually impose a records duty on a landlord? |
+| `ND-GAPS-1019` | 2 | all | 1 | 0 | 0 | every positive passed | term of art: does ND make tenant information confidential or restrict a landlord disclosing it? |
+| `ND-GAPS-1020` | 5 | all | 37 | 0 | 0 | every positive passed | everyday words: may/shall not disclose, shared database, social security number, without the written consent - where does ND bar a disclosure? |
+| `ND-GAPS-1021` | 12 | all | 207 | 0 | 0 | every positive passed | term of art: does ND regulate tenant screening - consumer reports, criminal history, conditional offers, look-back, application or screening fees? |
+| `ND-GAPS-1022` | 3 | all | 136 | 0 | 0 | every positive passed | everyday words: applicant/application/prospective tenant/renter near convicted/conviction/felony/judgment/income/deny - what does ND actually say about screening an applicant? |
+| `ND-GAPS-1025` | 2 | all | 21 | 0 | 0 | every positive passed | Supersedes ND-GAPS-1023, whose corpus positive 14-02.4-10 was recorded as failed: that section is the employment conditional-offer provision but contains none of the screening vocabulary, so it could never satisfy the proximity pattern (CT 5 working as designed). Both positives are now synthetic, written in the verbs such a statute would use, and test the pattern limb only. Question unchanged: does ND require or regulate a background or criminal history check for employees of rental housing? |
+| `ND-GAPS-1026` | 4 | all | 5 | 0 | 0 | every positive passed | Supersedes ND-GAPS-1024, whose corpus positive 47-16-07.3 was recorded as failed because that section contains no employee or key vocabulary at all, so it could not satisfy a proximity pattern requiring both limbs (CT 5 working as designed). Both positives are now synthetic. Question unchanged: any ND duty about who may hold keys to a tenant dwelling, or any employee key-control rule? |
+| `ND-GAPS-1027` | 7 | all | 2 | 0 | 0 | every positive passed | term of art: does ND regulate reporting a tenant rent payment history to a credit bureau, or require a positive rent reporting offer? |
+| `ND-GAPS-1029` | 2 | all | 92 | 0 | 0 | every positive passed | Supersedes ND-GAPS-1028, whose corpus positive 14-02.4-17 was recorded as failed: that section contains "credit history" but none of report/reports/reported/reporting/furnish, so it could not satisfy a two-limb proximity pattern (CT 5 working as designed). Both positives are now synthetic and test the pattern limb only. Question unchanged: where does ND speak of reporting a person to credit at all, in a landlord-tenant or any other setting? |
+| `ND-GAPS-1030` | 8 | all | 49 | 0 | 0 | every positive passed | term of art: does ND bar or require inquiry into a tenant immigration status or citizenship, or protect immigrant tenants? |
+| `ND-GAPS-1031` | 3 | all | 1 | 0 | 0 | every positive passed | everyday words: alien/noncitizen/foreign national/lawful presence/work authorization near tenant-landlord words, plus E-Verify - any ND rule about renting to a person not lawfully present? |
+| `ND-GAPS-1032` | 3 | all | 12 | 0 | 0 | every positive passed | term of art: does ND require or permit a landlord to cooperate with law enforcement, admit an officer, or use a crime-free addendum? |
+| `ND-GAPS-1033` | 2 | all | 18 | 0 | 0 | every positive passed | everyday words: subpoena/warrant/court order/nuisance/required by law near landlord-tenant words - when must or may a ND landlord hand information or access to the state? |
+| `ND-GAPS-1034` | 5 | all | 36 | 0 | 0 | every positive passed | term of art: does ND have a trespass provision a landlord could use to bar a non-tenant from common areas? |
+| `ND-GAPS-1036` | 3 | all | 13 | 0 | 0 | every positive passed | Supersedes ND-GAPS-1035, whose corpus positive 47-16-13.1 was recorded as failed: that section contains "common areas" but no posted/barred/excluded/ejection/eject/remove/forbidden/warning within the window (its subdivision e says "removal", not "remove"), so it could not satisfy the two-limb proximity pattern (CT 5 working as designed). Positive replaced with 47-16-13.2, which contains both "remove" and "premises". Question unchanged: how does ND let an owner exclude a non-tenant from common areas? |
+| `ND-GAPS-1037` | 4 | all | 16 | 0 | 0 | every positive passed | term of art: does ND give a tenant, candidate or canvasser any right of political access to a rental building, or bar a landlord restricting it? |
+| `ND-GAPS-1039` | 3 | all | 4 | 0 | 0 | every positive passed | Supersedes ND-GAPS-1038, whose corpus positive 47-18-23 was recorded as failed: that section contains both "petition" and premises vocabulary but more than 240 characters apart, so it could not satisfy the proximity pattern (CT 5 working as designed). Both positives are now synthetic and test the pattern limb only. Question unchanged: any ND access or expression right in a rental building - solicitation, handbills, leaflets, door-to-door, petitions, assembly, or a sign in a window? |
+| `ND-GAPS-1101` | 6 | all | 6 | 0 | 0 | every positive passed | Term-of-art battery: does any ND statute impose or regulate a landlord duty to provide alternative/temporary housing or relocation assistance to a displaced residential tenant? |
+| `ND-GAPS-1102` | 6 | all | 50 | 0 | 0 | FAILED positive(s): 47-16-05 | Everyday-words battery for alt-housing: rehouse, motel, hotel, shelter, lodging/another dwelling near landlord/lessor/owner. |
+| `ND-GAPS-1103` | 8 | all | 58 | 0 | 0 | every positive passed | Term-of-art battery: is there any ND cold-weather / winter / heating-season rule about notice before vacating, or a seasonal heat-shutoff rule? |
+| `ND-GAPS-1104` | 5 | all | 24 | 0 | 0 | FAILED positive(s): 47-16-13.1 | Everyday-words battery for cold-weather-vacate-notice: vacate/abandon/surrender near heat, water, pipes, temperature, furnace, boiler; frozen, burst, pipes-near-damage. |
+| `ND-GAPS-1105` | 7 | all | 158 | 0 | 0 | every positive passed | Term-of-art battery: does any ND statute give a disaster/declared-emergency rule for a residential tenancy (termination, rent abatement, inaccessibility)? |
+| `ND-GAPS-1106` | 14 | all | 413 | 0 | 0 | every positive passed | Everyday-words battery for the whole casualty cluster: destruction, destroy, untenantable, uninhabitable, fit for occupancy, perish, casualty, tornado, flood, hail, fire-near-tenancy, abate-near-tenancy. |
+| `ND-GAPS-1107` | 8 | all | 14 | 0 | 0 | every positive passed | Battery: does ND regulate housing disaster-displaced guests, or occupancy limits, in a residential tenancy? |
+| `ND-GAPS-1108` | 8 | all | 331 | 0 | 0 | every positive passed | Term-of-art battery: does ND give a landlord or tenant a lease-termination right on an environmental event (contamination, mold, radon, asbestos, meth, lead)? |
+| `ND-GAPS-1109` | 9 | all | 237 | 0 | 0 | every positive passed | Term-of-art battery: does ND give a residential tenant an early-termination right for infirmity, incapacity, or a move to a care facility? |
+| `ND-GAPS-1110` | 4 | all | 160 | 0 | 0 | FAILED positive(s): 47-16-17.1 | Everyday-words battery for infirmity-termination: terminate/cancel near ill, illness, medical, disability, health, age, death; "unable to live independently"; "physical or mental". |
+| `ND-GAPS-1111` | 6 | all | 106 | 0 | 0 | every positive passed | Term-of-art battery: does ND statute or constitution address a lease, a tenant or rent when leased property is taken by eminent domain / condemnation? |
+| `ND-GAPS-1112` | 4 | all | 145 | 0 | 0 | FAILED positive(s): 47-10-10 | Everyday-words battery for eminent-domain: acquire/appropriate/take near public use/purpose/highway; award/compensation/damages near lessee/tenant/leasehold. |
+| `ND-GAPS-1113` | 7 | all | 184 | 0 | 0 | every positive passed | Term-of-art battery: foreclosure, sheriff's sale, redemption, mortgagee, trustee's sale, equity skimming, deficiency judgment anywhere in the ND corpus. |
+| `ND-GAPS-1114` | 5 | all | 1219 | 0 | 0 | FAILED positive(s): 47-16-28 | Everyday-words battery for foreclosure: sale/sold/execution/judicial process/purchaser near lessee/tenant/lease/rent/possession; deed in lieu; attornment. |
+| `ND-GAPS-1115` | 2 | all | 53 | 0 | 0 | FAILED positive(s): 47-16-25 | Battery: is there a ND duty to disclose a pending foreclosure or mortgage default to a prospective or existing tenant? |
+| `ND-GAPS-1117` | 6 | all | 1 | 0 | 0 | every positive passed | Term-of-art battery: does ND give furloughed government workers rent-timing protection during a government shutdown? |
+| `ND-GAPS-1118` | 4 | all | 25 | 0 | 0 | every positive passed | Everyday-words battery for shutdown-rent-protection: grace period/defer/forbear/postpone/installment near rent/late fee/payment; loss of income/unemployment/hardship near rent/tenancy/eviction. |
+| `ND-GAPS-1119` | 8 | all | 65 | 0 | 0 | every positive passed | Battery: does ND define or carve out a seasonal, transient, vacation or resort tenancy from its landlord-tenant provisions? |
+| `ND-GAPS-1120` | 9 | all | 526 | 0 | 0 | every positive passed | Battery: does ND regulate or exclude student housing, dormitories, residence halls or fraternity/sorority housing from its landlord-tenant provisions? |
+| `ND-GAPS-1121` | 7 | all | 36 | 0 | 0 | every positive passed | Battery: does ND regulate or exclude employment-related housing (caretaker, farm labor, migrant, bunkhouse, employee-occupied dwelling) in its landlord-tenant provisions? |
+| `ND-GAPS-1124` | 6 | all | 164 | 0 | 0 | every positive passed | Rerun of ND-GAPS-1116 with a real corpus positive on the owner-occupancy limb (that run's only corpus positive, 47-16-02.1, failed). Tests whether any ND statute creates or regulates a landlord termination right for owner move-in or family occupancy. |
+| `ND-GAPS-1125` | 4 | all | 13 | 0 | 0 | every positive passed | Rerun consolidating ND-GAPS-1122 (both corpus positives failed, so it could not prove reach) and ND-GAPS-1123 (one corpus positive failed). Patterns 1-2 prove the engine reaches ND lease-type vocabulary in the sections that carry it; patterns 3-4 test whether any ND provision bars terms more burdensome for one lease type or caps the rent difference between lease types. |
+| `ND-GAPS-1201` | 4 | all | 2 | 0 | 0 | every positive passed | Term-of-art + everyday words for a statutory rent-increase notice period in ND: does any statute set a notice period before a rent increase takes effect, beyond the general change-of-terms rule? |
+| `ND-GAPS-1202` | 6 | all | 3 | 0 | 0 | every positive passed | Does ND have an emergency price-gouging or rent-freeze statute reaching dwelling-unit rent during or after a declared emergency or disaster? |
+| `ND-GAPS-1203` | 6 | all | 11 | 0 | 0 | every positive passed | Does any ND statute regulate, authorise or restrict a rent-escalation clause, an index-based or cost-of-living rent adjustment, or a rent formula in a residential lease? |
+| `ND-GAPS-1204` | 4 | all | 24 | 0 | 0 | every positive passed | Does ND have a general landlord-tenant retaliation statute (and therefore any safe harbour for a market-rate rent increase during the term)? Term-of-art plus everyday words. |
+| `ND-GAPS-1205` | 6 | all | 16 | 0 | 0 | every positive passed | Term-of-art battery: does any ND statute regulate a rent concession, move-in special, rent credit or renting incentive? |
+| `ND-GAPS-1206` | 8 | all | 30 | 0 | 0 | every positive passed | Everyday-words battery: free rent, rent-free, reduced rent, discount, waiver of rent, rebate -- the words a ND drafter would use instead of concession. |
+| `ND-GAPS-1207` | 4 | all | 6 | 0 | 0 | every positive passed | Does ND law address rent paid in installments, or whether a scheduled installment or a part payment of rent is a partial payment (and its effect)? |
+| `ND-GAPS-1208` | 7 | all | 6 | 0 | 0 | every positive passed | Everyday-words limb: does ND law set or limit a sub-monthly rent payment schedule, or the effect of accepting part of the rent? |
+| `ND-GAPS-1209` | 6 | all | 8 | 0 | 0 | every positive passed | Term-of-art limb: does any ND provision in this corpus subject residential rent to a sales, use, gross receipts, lodging or occupancy tax, or exempt it? |
+| `ND-GAPS-1210` | 7 | all | 0 | 0 | 0 | every positive passed | Everyday-words limb: does any ND statute address a landlord passing a tax through to the tenant, adding tax to rent, or recovering a repealed tax from tenants? |
+| `ND-GAPS-1211` | 6 | all | 2 | 0 | 0 | every positive passed | Term-of-art limb: does any ND statute authorise, require the form of, or limit a lease clause passing real estate tax or special assessment increases through to a residential tenant, or require an abatement refund? |
+| `ND-GAPS-1212` | 7 | all | 8 | 0 | 0 | every positive passed | Everyday-words limb: the plain words a ND drafter would use for a tax pass-through -- share of taxes, proportionate share, increase in taxes, tenant shall pay the taxes. |
+| `ND-GAPS-1213` | 7 | all | 103 | 0 | 0 | every positive passed | Term-of-art limb: does ND statute law regulate rent, late fees or charges in federally or state subsidised housing -- section 8, housing choice vouchers, housing assistance payments, tenant portion? |
+| `ND-GAPS-1214` | 4 | all | 40 | 0 | 0 | every positive passed | Everyday-words limb: every late-fee provision in the ND corpus, to test whether any of them is scoped to subsidised housing or to the tenant portion of a subsidised rent. |
+| `ND-GAPS-1215` | 6 | all | 4 | 0 | 0 | every positive passed | Term-of-art limb: does ND law provide for abatement or proration of rent -- generally, or for a period in which a dwelling was uninhabitable or failed a subsidy inspection? |
+| `ND-GAPS-1216` | 7 | all | 9 | 0 | 0 | every positive passed | Everyday-words limb: reduced rent for an uninhabitable dwelling, failed inspection, withholding rent, discharge from rent -- the plain words a ND drafter would use instead of abatement or proration. |
+| `ND-GAPS-1217` | 4 | all | 84 | 0 | 0 | every positive passed | Vocabulary correction battery: ND does not say prorate or abate -- S 47-16-21 says due proportion. Which sections use the proportion vocabulary in a leasing context? |
+| `ND-GAPS-1218` | 5 | all | 0 | 0 | 0 | every positive passed | Term-of-art limb: does ND law create, require or regulate any veteran or military rental incentive, preference, deposit waiver or rent reduction? |
+| `ND-GAPS-1219` | 6 | all | 23 | 0 | 0 | every positive passed | Everyday-words limb: servicemember, armed forces, national guard, veterans preference -- the words ND would use instead of veteran incentive. |
+| `ND-GAPS-1220` | 6 | all | 15 | 0 | 0 | every positive passed | Term-of-art limb: is any ND construction or mechanic lien provision readable in this corpus, and does any readable provision address liens on a leasehold or a consenting owner? |
+| `ND-GAPS-1222` | 7 | all | 23 | 0 | 0 | every positive passed | Rerun of ND-GAPS-1221 with a valid corpus positive (the earlier run named a doc-path fragment 47-04.1 which the tool recorded as a failed positive). Everyday-words limb: lien near improvement or alteration, no lien, lien near tenant or lessee, notice of nonresponsibility. |
+| `ND-GAPS-1223` | 7 | all | 7 | 0 | 0 | every positive passed | Term-of-art limb: does ND give a landlord a lien on a tenant's goods for rent, or a distress remedy? |
+| `ND-GAPS-1224` | 7 | all | 28 | 0 | 0 | every positive passed | Everyday-words limb: security interest in household goods, seizure of a tenant's property, crop liens, execution exemptions and waiver of exemptions -- the plain words ND would use instead of landlord's lien. |
+| `ND-GAPS-1225` | 5 | all | 35 | 0 | 0 | every positive passed | Term-of-art limb: does ND require a landlord or lessor of a dwelling to carry liability insurance, or regulate a landlord insurance term in a lease? |
+| `ND-GAPS-1226` | 8 | all | 35 | 0 | 0 | every positive passed | Everyday-words limb: maintain insurance, insure a dwelling, proof or evidence of insurance, fire and hazard insurance -- the plain words a ND drafter would use for an insurance mandate on a rental. |
+| `ND-GAPS-1227` | 8 | all | 3 | 0 | 0 | every positive passed | Term-of-art limb: does ND regulate a renter's-insurance requirement, a force-placed or landlord-placed policy, an advisory that the landlord will not insure the tenant's property, or an admin fee for placing coverage? |
+| `ND-GAPS-1228` | 7 | all | 42 | 0 | 0 | every positive passed | Everyday-words limb: subrogation, named or additional insured, interested party, loss payee, deductible -- the insurance terms a ND lease drafter would use, to test whether ND law regulates any of them. |
+| `ND-GAPS-1229` | 2 | all | 20 | 0 | 0 | every positive passed | Term-of-art limb: every occurrence of unconscionab* in the ND corpus, to map which statutes carry an unconscionability doctrine and whether any of them besides S 47-16-13.3 reaches a residential lease. |
+| `ND-GAPS-1230` | 7 | all | 7 | 0 | 0 | every positive passed | Everyday-words limb: good morals, oppressive, overreaching, inequitable, grossly unfair, unfair or unjust contract or provision -- the plain words ND might use instead of unconscionable. |
+| `ND-GAPS-1301` | 6 | all | 0 | 0 | 0 | every positive passed | Term-of-art battery: does North Dakota anywhere use the phrase accessory dwelling unit, ADU, granny flat, secondary suite or in-law unit? |
+| `ND-GAPS-1303` | 8 | all | 0 | 0 | 0 | every positive passed | Supersedes ND-GAPS-1302, whose corpus positive 14-02.5-09 failed because that section has single-family but no convert/divide partner within the proximity window; all positives are now synthetic and each covers one pattern limb. Everyday-words battery for accessory dwelling unit. |
+| `ND-GAPS-1305` | 10 | all | 57 | 0 | 0 | every positive passed | Everyday-words battery for appliances-excluded: the words a North Dakota drafter would have used - appliance, stove, range, refrigerator, dishwasher, washer, dryer, microwave, oven, and furnish or equip or supply or provide near landlord or lessor. |
+| `ND-GAPS-1306` | 8 | all | 31 | 0 | 0 | every positive passed | Supersedes ND-GAPS-1304, whose corpus positive 47-16-07.2 failed because its 'prima facie' sits near North Dakota's own word 'facilities', not near 'appliance' or 'fixture'; adding \bfacilit to the proximity limb is itself the everyday-words correction. Term-of-art battery for appliances-excluded: a presumption that an appliance present is landlord-supplied, an exclusion mechanism, an essential-appliance floor, or a required appliance inventory. |
+| `ND-GAPS-1307` | 6 | all | 12 | 0 | 0 | every positive passed | Term-of-art battery for furnishings-included: does North Dakota require or regulate an inventory of furniture and furnishings in a furnished rental, or define a furnished unit? |
+| `ND-GAPS-1309` | 10 | all | 17 | 0 | 0 | every positive passed | Supersedes ND-GAPS-1308, whose corpus positive 47-16-30.1 failed because that section says only "Property", not "personal property", so the proximity limb could not match it - the failure is itself the vocabulary point. Everyday-words battery for furnishings-included: furniture, mattress, bedding, drapes, curtains, window coverings, carpet, blinds, upholstery, and personal property near landlord, lessor, tenant or lessee. |
+| `ND-GAPS-1310` | 6 | all | 2 | 0 | 0 | every positive passed | Term-of-art battery for stove-refrigerator: does any North Dakota statute require or regulate a stove, a cooking range, a refrigerator or cooking facilities in a rented dwelling? |
+| `ND-GAPS-1311` | 7 | all | 14 | 0 | 0 | every positive passed | Everyday-words battery for stove-refrigerator: kitchen, cooking, meal, prepare food, perishable, and supply or provide or furnish or install near stove, refrigerator, range, kitchen or cook - plus the habitable-condition limb, since § 47-16-13.1(1)(b) is the only open-textured duty that could carry a cooking requirement. |
+| `ND-GAPS-1312` | 4 | all | 0 | 0 | 0 | every positive passed | Term-of-art battery for waterbed: does North Dakota use the words waterbed, water bed, flotation sleeping support system or water-filled mattress anywhere - the vocabulary every waterbed statute uses? |
+| `ND-GAPS-1313` | 8 | all | 8 | 0 | 0 | every positive passed | Everyday-words battery for waterbed: flotation, liquid-filled, water near bed or bedding or furniture, floor near load or weight or capacity, and security deposit near pet or waterbed or flotation or insurance - the last limb tests whether § 47-16-07.1, the natural home for a waterbed deposit or insurance requirement, carries one. |
+| `ND-GAPS-1315` | 8 | all | 4 | 0 | 0 | every positive passed | Everyday-words battery for window-guards: guard near window, child, minor, fall or balcony in both orders; railing, banister, handrail; balcony; screen near window or porch; and child or minor near fall, fell, height, story or stories. |
+| `ND-GAPS-1316` | 6 | all | 1 | 0 | 0 | every positive passed | Supersedes ND-GAPS-1314, whose second synthetic positive used the term 'guard rail' with a space while its own text said 'guardrail', so the positive could not contain its own term. Term-of-art battery for window-guards: window guard, window bars, window stop, fall prevention, guardrail, and window near fall. |
+| `ND-GAPS-1317` | 7 | all | 62 | 0 | 0 | every positive passed | Term-of-art battery for common-area-lighting: common area, common use, public use, and common area or common use near light, lighting, illuminate or electric in both orders, plus hallway, stairway, stairwell, corridor, entryway or vestibule near lighting in both orders. |
+| `ND-GAPS-1319` | 7 | all | 25 | 0 | 0 | every positive passed | Supersedes ND-GAPS-1318, whose third synthetic positive carried the term 'master meter' with a space while its own text said 'master-metered', so it could not contain its own term. Everyday-words battery for common-area-lighting: light, lights, lighting, lamp or illuminate near hall, hallway, stair, corridor, entry, common, exterior, parking, laundry or elevator in both orders; master meter or master-metered; electric near common, shared, another unit, hallway or stair in both orders; individual meter, separately metered or submeter near tenant, lessee or dwelling in both orders. |
+| `ND-GAPS-1320` | 8 | all | 1 | 0 | 0 | every positive passed | Term-of-art battery for pool-safety: swimming pool, wading pool, hot tub, spa, lifeguard, pool barrier or enclosure or fence or cover, natatorium, water recreation - the vocabulary of every pool-safety and water-recreation statute. |
+| `ND-GAPS-1322` | 9 | all | 3 | 0 | 0 | every positive passed | Supersedes ND-GAPS-1321, whose corpus positive t47c27 failed because chapter 47-27 (Closing Fence Gates) has 'fence enclosing farm premises' but no swimming, bathing or diving partner within the proximity window - which is itself the finding, since the only fencing chapters in title 47 are agricultural. Everyday-words battery for pool-safety: pool near fence, enclose, gate, latch, drown, depth or swim in both orders; drown; fence or enclose near swim, bathing or diving in both orders; self-latching or self-closing near gate or door in both orders; child or minor near pool or water safety in both orders. |
+| `ND-GAPS-1323` | 9 | all | 128 | 0 | 0 | every positive passed | Term-of-art battery for other-landlord-facilities: amenity, recreational facility, common facility, facility near landlord/lessor/tenant/lessee/rental agreement in both orders, services-or-facilities near dwelling/rental/sale in both orders, and withdraw/discontinue/reduce/remove near amenity/facility/service in both orders. |
+| `ND-GAPS-1324` | 10 | all | 175 | 0 | 0 | every positive passed | Everyday-words battery for other-landlord-facilities: the named amenities a North Dakota drafter would have used instead of 'facility' - laundry, laundromat, elevator, playground, clubhouse, sauna, fitness or exercise room, gymnasium, bicycle rack, dog park, barbecue, grill - plus storage near tenant/lessee/unit/dwelling/premises and mailbox near tenant/dwelling/apartment, in both orders. |
+| `ND-GAPS-1325` | 7 | all | 18 | 0 | 0 | every positive passed | Term-of-art battery for unbundled-parking: unbundle, parking space, parking fee or charge or rent, off-street parking, parking permit or sticker or decal, and parking near landlord, lessor, tenant, lessee, rental agreement or dwelling in both orders. |
+| `ND-GAPS-1327` | 9 | all | 50 | 0 | 0 | every positive passed | Supersedes ND-GAPS-1326, whose positive was written as '47-30-2' - not a valid N.D.C.C. section number (the chapter is 47-30.2) - so it resolved as a doc-path substring and could not contain its own term. Everyday-words battery for unbundled-parking: garage, carport, driveway, parking stall or spot; vehicle near tenant, lessee, premises, dwelling or apartment in both orders; tow, towed, towing or impound near vehicle, parking or premises in both orders; minimum or require near parking in both orders. |
+| `ND-GAPS-1329` | 7 | all | 163 | 0 | 0 | every positive passed | Everyday-words battery for parking-rules-notice: rules and regulations; rules or regulations near thirty days, advance written notice or modification in both orders; notice near changing the terms in both orders; and house rules, community rules or park rules near tenant or lessee in both orders - the words a North Dakota drafter would have used instead of a parking-specific term. |
+| `ND-GAPS-1330` | 8 | all | 255 | 0 | 0 | every positive passed | Supersedes ND-GAPS-1328, whose two § 47-10-28 positives both failed, and the reason is itself the vocabulary finding: North Dakota's phrase is 'park rules or regulations' (mobile home park), which does not contain 'parking', so a battery looking for rules near 'parking' cannot see § 47-10-28(3) at all. The proximity limbs now include 'park rules' and 'notice'. Term-of-art battery for parking-rules-notice: parking rules or regulations; towing notice or tow sign; rules or regulations near parking, vehicle or park rules in both orders; posted, conspicuous, bold, boldfaced or capital letters near rules, regulations, parking or notice in both orders; vehicle near license plate, registration or make and model in both orders. |
+| `ND-GAPS-1332` | 9 | all | 76 | 0 | 0 | every positive passed | Everyday-words battery for home-business: trade, manufacture, commercial or profession near lease, lessee, tenant, dwelling or premises in both orders; customer, client or patron near residence, dwelling, premises or home in both orders; sign, signage or advertise near dwelling, residential or premises in both orders; employee near dwelling, residence or home in both orders; cottage or home industry - the words a North Dakota drafter would have used instead of 'home occupation'. |
+| `ND-GAPS-1333` | 7 | all | 77 | 0 | 0 | every positive passed | Supersedes ND-GAPS-1331, whose positive § 47-16-11 failed because that section speaks of "real property", never of a residential dwelling - itself the finding, since § 47-16-11's purpose rule applies to every lease of real property and is not a residential provision. The proximity limb now includes 'real property'. Term-of-art battery for home-business: home occupation, home-based business, home business, business near dwelling/residence/residential/premises in both orders, permitted use or purpose near residential, dwelling or real property in both orders. |
+| `ND-GAPS-1334` | 7 | all | 28 | 0 | 0 | every positive passed | Term-of-art battery for family-child-care: family child care, family day care, early childhood services, child care home, in-home provider, and child care or childcare or day care near landlord, lessor, tenant, lessee, lease, zoning or rental in both orders - the last limb is the one that would catch a provision protecting a provider against a landlord or a zoning ordinance. |
+| `ND-GAPS-1336` | 9 | all | 31 | 0 | 0 | every positive passed | Supersedes ND-GAPS-1335, whose fifth synthetic positive carried the term 'number of children' while its own text read 'No more than six children', so it could not contain its own term. Everyday-words battery for family-child-care: caring for or care of a child, children or minor in both orders; babysit, daycare, nursery school, preschool; liability insurance, hold harmless or indemnify near child or care in both orders; number of children near home, dwelling or residence in both orders; foster home, group home or foster care near zoning, ordinance or residential district in both orders. |
+| `ND-GAPS-1337` | 7 | all | 22 | 0 | 0 | every positive passed | Term-of-art battery for children-occupancy: familial status, occupancy by children, adults only or no children, maximum number of occupants or occupancy limit or standard near dwelling, unit or restriction in both orders, and whether any North Dakota statute requires a rental agreement to contain or state anything about occupancy. |
+| `ND-GAPS-1338` | 9 | all | 48 | 0 | 0 | every positive passed | Everyday-words battery for children-occupancy: child, children or minor near occupancy, occupant, reside, residing or domicile in both orders; bedroom, sleeping room, square feet or floor area near occupant or person in both orders; per person, per child or additional occupant near rent, charge, fee or deposit in both orders; pregnant near dwelling, rental or custody in both orders; and overcrowding. |
+| `ND-GAPS-1340` | 8 | all | 26 | 0 | 0 | every positive passed | Everyday-words battery for guest-rights: North Dakota's own phrase 'with the tenant's or lessee's consent' near person or individual in both orders; overnight or a consecutive-days figure near occupant, guest or person in both orders; exclude, prohibit, banned or trespass near guest, visitor or invitee in both orders; and live-in aide, caregiver, attendant or personal care near tenant, dwelling or disability in both orders. |
+| `ND-GAPS-1341` | 7 | all | 28 | 0 | 0 | every positive passed | Supersedes ND-GAPS-1339, whose positive § 47-32-01 failed, and the reason is the finding this topic turns on: § 47-32-01(7) says "a person on the premises with the lessee's consent" and never uses the word "guest", so a battery built on guest vocabulary cannot see North Dakota's own guest provision. A limb for that exact phrase has been added. Term-of-art battery for guest-rights: guest, guests, visitor or invitee near tenant, lessee, dwelling, premises or apartment in both orders; guest rights or a guest's right of access; supplier; North Dakota's phrase 'on the premises with the lessee's or tenant's consent'; and three-or-more-households or multiple-household near guest or visitor in both orders. |
+| `ND-GAPS-1401` | 5 | all | 114 | 0 | 0 | every positive passed | Term-of-art limb for rules-regulations: does any ND statute regulate a landlord house-rules / rules-and-regulations regime outside the mobile home park? |
+| `ND-GAPS-1402` | 6 | all | 39 | 0 | 0 | every positive passed | Everyday-words limb for rules-regulations, built from the verbs ND actually uses ("change the terms", "modifications to park rules"): is there any mid-tenancy rule-change limit or substantial-alteration retaliation presumption? |
+| `ND-GAPS-1403` | 7 | all | 486 | 0 | 0 | every positive passed | Term-of-art limb for nuisance: is there a nuisance, abatement, receivership or building-closure remedy reaching a residential landlord anywhere in the corpus? |
+| `ND-GAPS-1404` | 8 | all | 72 | 0 | 0 | every positive passed | Everyday-words limb for nuisance, built from the verbs ND itself uses ("disturb", "peaceful enjoyment", "disorderly"): what in-chapter route exists for a landlord facing a tenant whose conduct amounts to a nuisance? |
+| `ND-GAPS-1406` | 9 | all | 34 | 0 | 0 | every positive passed | Everyday-words limb for prohibited-acts-renter, built from the verbs ND itself uses (deface, destroy, impair, ordinary care, ordinary negligence, any other purpose): where else does ND restrict what a tenant may do with the premises? |
+| `ND-GAPS-1408` | 7 | all | 62 | 0 | 0 | every positive passed | Term-of-art limb for prohibited-acts-renter. Supersedes ND-GAPS-1407, whose s 47-16-26 positive failed on proximity ("prohibited" sits in that heading and the first "tenant" is >120 chars later); 1407 in turn superseded ND-GAPS-1405, whose s 47-16-13.2 positive failed because NO prohibition-vocabulary pattern can reach a section phrased "A tenant ... shall: ... Not deliberately or negligently destroy". Same patterns, working positives: measures whether ND states a renter prohibited-acts list in prohibition words anywhere. |
+| `ND-GAPS-1409` | 6 | all | 20 | 0 | 0 | FAILED positive(s): 47-16-13.1 | Term-of-art limb for tenant-statutory-duties: find every ND statute stating a residential tenant obligation, and confirm s 47-16-13.2 is the spine. |
+| `ND-GAPS-1410` | 6 | all | 37 | 0 | 0 | every positive passed | Everyday-words limb for tenant-statutory-duties: measures whether ND's tenant-duty and eviction law uses guest/visitor/invitee vocabulary at all, since a battery built on those words would miss s 47-16-13.2(7) and s 47-32-01(7). |
+| `ND-GAPS-1411` | 6 | all | 20 | 0 | 0 | every positive passed | Term-of-art limb for tenant-statutory-duties: find every ND statute stating a residential tenant obligation, and confirm s 47-16-13.2 is the spine. |
+| `ND-GAPS-1412` | 5 | all | 4 | 0 | 0 | every positive passed | Term-of-art limb for drug-free-housing-addendum: does ND require, authorise or regulate a drug-free or crime-free housing addendum to a residential lease? |
+| `ND-GAPS-1416` | 6 | all | 117 | 0 | 0 | every positive passed | Everyday-words limb for drug-free-housing-addendum, built from ND's own phrases (controlled substance, methamphetamine, decontamination, illegal manufacture or distribution): where does ND law actually touch drugs and a rental dwelling? Supersedes ND-GAPS-1413, whose positive s 14-02.5-18 was refused under CT 5 -- that section is 'Complaint' and contains no controlled-substance text; my grep helper had mis-attributed the line to it. |
+| `ND-GAPS-1417` | 6 | all | 16 | 0 | 0 | every positive passed | Term-of-art limb for knowing-use-penalty: does ND penalise a landlord for knowingly or wilfully using a prohibited or unenforceable lease provision? Supersedes ND-GAPS-1414, whose s 47-04.1-16 positive was refused under CT 5 because ND spells it "willfully" and my term said "wilfully"; a reach-the-section pattern was added with it. |
+| `ND-GAPS-1418` | 7 | all | 149 | 0 | 0 | every positive passed | Everyday-words limb for knowing-use-penalty: what consequence vocabulary does ND attach to an unlawful lease term -- voidness, statutory damages, civil penalty, treble damages? Supersedes ND-GAPS-1415, whose s 9-08-05 positive failed because that section says "contract", not "lease" or "rental agreement", so no pattern in this lease-worded limb could reach it -- itself a vocabulary point: ND voids lease terms in CONTRACT words. |
+| `ND-GAPS-1419` | 7 | all | 297 | 0 | 0 | every positive passed | Term-of-art limb for firearms: does any ND statute in the corpus restrict or protect firearm possession in a rental dwelling, or limit a landlord/lease firearm rule? |
+| `ND-GAPS-1420` | 9 | all | 39 | 0 | 0 | every positive passed | Everyday-words limb for firearms: looks for the two shapes this topic asks about -- a preemption of political subdivisions, and an employer/landlord parking-lot locked-vehicle rule -- in the words a ND statute would use rather than the topic's vocabulary. |
+| `ND-GAPS-1421` | 7 | all | 1 | 0 | 0 | every positive passed | Term-of-art limb for religious-cultural-display: does ND give a tenant any right to display a religious or cultural object on or at the dwelling, or limit a landlord rule about one? |
+| `ND-GAPS-1423` | 7 | all | 63 | 0 | 0 | every positive passed | Term-of-art limb for tenant-display-rights: does ND protect a tenant's display of a political sign or flag, and against whom does the protection run? |
+| `ND-GAPS-1424` | 8 | all | 61 | 0 | 0 | every positive passed | Everyday-words limb for tenant-display-rights, built from the instruments and verbs ND uses (covenant, declaration, bylaw, rule; may not prohibit; outdoor display; erect or post a sign; 'owner or resident'): exactly which instruments does the ND protection bind, and does any of them reach a LEASE? |
+| `ND-GAPS-1425` | 7 | all | 100 | 0 | 0 | every positive passed | Everyday-words limb for religious-cultural-display, built from the verbs and the religion vocabulary ND actually uses (affix, attach, display, free exercise, religious profession/worship/organization, reasonable accommodation): what is the nearest ND law to a tenant display right? Supersedes ND-GAPS-1422, whose s 14-02.5-10 positive failed because that section's phrase is 'religious organization' and my alternation group listed only profession/worship/belief -- my error, now included. |
+| `ND-GAPS-1426` | 7 | all | 4 | 0 | 0 | every positive passed | Term-of-art limb for tenant-right-to-organize: does ND give a tenant any right to form or join a tenant organisation, meet, or be free of retaliation for doing so? |
+| `ND-GAPS-1427` | 8 | all | 43 | 0 | 0 | FAILED positive(s): 47-10-28 | Everyday-words limb for tenant-right-to-organize, built from ND's own verbs (assemble, meet, retaliate, interfere, coerce, complain) rather than the topic's vocabulary: what is the nearest ND protection for a tenant who organises or complains collectively? |
+| `ND-GAPS-1428` | 8 | all | 43 | 0 | 0 | every positive passed | Everyday-words limb for tenant-right-to-organize, built from ND's own verbs (assemble, meet, retaliate, interfere, coerce, complain) rather than the topic's vocabulary: what is the nearest ND protection for a tenant who organises or complains collectively? |
+| `ND-GAPS-1429` | 5 | all | 137 | 0 | 0 | every positive passed | Term-of-art limb for binding-arbitration: is any part of ND arbitration law readable in the corpus, and does any ND statute address a lease arbitration clause? |
+| `ND-GAPS-1430` | 8 | all | 20 | 0 | 0 | every positive passed | Everyday-words limb for binding-arbitration, built from s 9-08-05's own CONTRACT vocabulary (usual legal proceedings, ordinary tribunals, restricted from enforcing, specifically permitted by the laws of this state) plus jury-waiver and confession-of-judgment words: what else in ND bears on ousting a court? |
+| `ND-GAPS-1431` | 7 | all | 117 | 0 | 0 | every positive passed | Term-of-art limb for informal-dispute-resolution: does ND authorise, require or regulate an informal dispute-resolution step before a landlord-tenant court action? |
+| `ND-GAPS-1432` | 7 | all | 17 | 0 | 0 | every positive passed | Everyday-words limb for informal-dispute-resolution, built from ND's own pre-suit vocabulary (before proceedings can be instituted; within a reasonable time after notice; demand for release): what pre-suit steps does ND actually impose or allow? |
+| `ND-GAPS-1433` | 8 | all | 26 | 0 | 0 | every positive passed | Term-of-art limb for actual-notice-method: does ND let the parties agree on a method of giving notice, and where does it use the phrase "actual notice"? |
+| `ND-GAPS-1434` | 11 | all | 168 | 0 | 0 | every positive passed | Everyday-words limb for actual-notice-method, built from the delivery channels a drafter would name (email, text message, facsimile, certified mail, electronic) alongside ND's own prescribed verbs (person of discretion, conspicuous part, posting): which channels does ND actually name, and does it name any electronic one? |
+| `ND-GAPS-1435` | 6 | all | 14 | 0 | 0 | every positive passed | Term-of-art limb for emergency-contact: does ND require a TENANT to give an emergency contact, or a LANDLORD to give one, and where? |
+| `ND-GAPS-1436` | 8 | all | 57 | 0 | 0 | every positive passed | Everyday-words limb for emergency-contact, built from the contact-disclosure vocabulary ND itself uses (name, address, telephone number; designated individual; manned at all times; property manager; site agent): is there ANY general landlord contact-disclosure duty outside the mobile home park? |
+| `ND-GAPS-1437` | 6 | all | 105 | 0 | 0 | FAILED positive(s): 47-10-28 | Term-of-art limb for emergency-assistance-right: does ND protect a tenant's right to call police or emergency services, and is it non-waivable? |
+| `ND-GAPS-1438` | 6 | all | 7 | 0 | 0 | FAILED positive(s): 14-02.5-02 | Everyday-words limb for emergency-assistance-right, built from the consequence verbs a ND statute would use (penalize, without penalty or liability, excessive calls, nuisance calls, victim near evict/terminate): what protection does a ND tenant who calls for help actually have? |
+| `ND-GAPS-1439` | 6 | all | 105 | 0 | 0 | every positive passed | Term-of-art limb for emergency-assistance-right: does ND protect a tenant's right to call police or emergency services, and is it non-waivable? Replaces ND-GAPS-1437, whose s 47-10-28 positive was recorded as FAILED -- that section's phrase is 'emergency CONTACT number', not 'emergency assistance/services', so no pattern in this limb can reach it. Measured separately: this limb's vocabulary returns ZERO in the whole statutes scope, so no corpus positive exists and both positives are necessarily synthetic. |
+| `ND-GAPS-1440` | 7 | all | 11 | 0 | 0 | every positive passed | Everyday-words limb for emergency-assistance-right, built from the consequence verbs a ND statute would use (penalize, without penalty or liability, excessive calls, nuisance calls, victim near evict/penalize/terminate IN BOTH ORDERS). Replaces ND-GAPS-1438, whose s 14-02.5-02 positive failed for a word-order reason that is itself instructive: s 14-02.5-02(3) reads '... or EVICTED from housing on the basis that the applicant or tenant is or has been a VICTIM of domestic violence', so 'evicted' precedes 'victim' and a single-order proximity pattern misses it. Both orders now run, per the brief's both_orders rule. |
+| `ND-GAPS-1501` | 4 | all | 58 | 0 | 0 | every positive passed | EV term of art: is there any North Dakota EV-charging provision outside the condominium chapter, in particular in landlord-tenant law? |
+| `ND-GAPS-1502` | 4 | all | 65 | 0 | 0 | every positive passed | EV everyday words: electric/plug-in/charger near vehicle/car, in case a drafter never used the term of art. |
+| `ND-GAPS-1503` | 4 | all | 14 | 0 | 0 | every positive passed | Solar term of art: any statute on solar energy systems/devices beyond the solar-easement sections, and any instrument-restriction-voiding provision. |
+| `ND-GAPS-1504` | 6 | all | 129 | 0 | 0 | every positive passed | Solar everyday words: solar/panel/renewable/wind energy anywhere, to catch a tenant installation right written without the term of art. |
+| `ND-GAPS-1505` | 4 | all | 4 | 0 | 0 | every positive passed | Bed-bug term of art: any bed-bug or pest-control provision in the Century Code, including heading level in the master index. |
+| `ND-GAPS-1506` | 7 | all | 8 | 0 | 0 | every positive passed | Bed-bug everyday words: vermin/infestation/rodent/insect, the words a drafter would use instead of "bed bug". |
+| `ND-GAPS-1507` | 6 | all | 21 | 0 | 0 | every positive passed | Assistance-animal term of art: every ND provision on service/assistance/guide animals, to see whether any imposes a penalty on a landlord who denies one. |
+| `ND-GAPS-1508` | 2 | all | 10 | 0 | 0 | every positive passed | Assistance-animal everyday words plus penalty vocabulary: any animal/dog near guilty/misdemeanor/infraction/penalty, to find a denial penalty however phrased. |
+| `ND-GAPS-1509` | 5 | all | 7 | 0 | 0 | every positive passed | Fact-sheet term of art: any required state fact sheet, pamphlet or brochure a landlord must hand a tenant. |
+| `ND-GAPS-1510` | 2 | all | 1 | 0 | 0 | FAILED positive(s): 47-10-28 | Pet fact-sheet everyday words: summary/statement/disclosure near pet/animal/dog/cat, to catch a pet-and-eviction handout requirement written in plain words. |
+| `ND-GAPS-1511` | 4 | all | 1 | 0 | 0 | every positive passed | Pet-money term of art: every ND provision on pet deposits, pet fees or pet rent and any cap on them. |
+| `ND-GAPS-1512` | 3 | all | 61 | 0 | 0 | every positive passed | Pet-money everyday words: animal/dog/cat near deposit/fee/rent/charge, plus "nonrefundable", to find any pet charge rule written without the word "pet". |
+| `ND-GAPS-1513` | 4 | all | 4 | 0 | 0 | every positive passed | Work-card term of art: any work card, work permit or employee licensing requirement for staff of housing, especially senior housing. |
+| `ND-GAPS-1514` | 2 | all | 25 | 0 | 0 | every positive passed | Senior-housing staff everyday words: employee/manager/staff near background check/criminal history/fingerprint, to catch a staff-screening duty written without "work card". |
+| `ND-GAPS-1515` | 4 | all | 71 | 0 | 0 | every positive passed | Health-district term of art: the ND local public health regime and whether any of it reaches rental agreements. |
+| `ND-GAPS-1516` | 2 | all | 6 | 0 | 0 | every positive passed | Health-district everyday words: tenant/lessee/renter near any health authority, to find a duty to give tenants health regulations or refer them to the health authority. |
+| `ND-GAPS-1517` | 3 | all | 22 | 0 | 0 | every positive passed | Variance term of art: every use of "variance" in the corpus, to find a health- or sanitary-code variance regime and any duty to give one to tenants. |
+| `ND-GAPS-1518` | 7 | all | 11 | 0 | 0 | every positive passed | Sanitary-code everyday words: sanitary/sanitation/housing code language and its proximity to tenants and rental agreements. |
+| `ND-GAPS-1519` | 4 | all | 379 | 0 | 0 | every positive passed | Receivership term of art: every receiver/receivership/substandard/unfit-for-habitation provision, to see what reaches a substandard rental property. |
+| `ND-GAPS-1520` | 2 | all | 12 | 0 | 0 | every positive passed | Substandard-property everyday words: abate/demolition/condemn/nuisance near dwelling/building/premises, to find a code-enforcement route written without "receiver". |
+| `ND-GAPS-1521` | 4 | all | 122 | 0 | 0 | every positive passed | Single-family-zone term of art: any state statute limiting the renting of a home in a single-family zone, and where ND puts zoning power. |
+| `ND-GAPS-1522` | 5 | all | 11 | 0 | 0 | every positive passed | Single-family-zone everyday words: single-family/neighborhood/rental licence/short-term rental/owner-occupied, the plain words a drafter would use for an owner-occupancy rental limit. |
+| `ND-GAPS-1523` | 2 | all | 19 | 0 | 0 | every positive passed | Lease-content term of art: every place ND tells a landlord what the rental agreement itself must contain or state. |
+| `ND-GAPS-1524` | 6 | all | 274 | 0 | 0 | every positive passed | Lease-content everyday words: initial/written statement/disclosure near lease, to catch a lease-content requirement phrased without "must contain". |
+| `ND-GAPS-1525` | 2 | all | 18 | 0 | 0 | every positive passed | Supersedes ND-GAPS-1510, whose positive failed: pet fact-sheet everyday words widened to written notice/documentation near pet/animal/dog/cat, with a positive the pattern can actually reach. |
+| `ND-GAPS-1601` | 4 | all | 5 | 0 | 0 | FAILED positive(s): 47-19-02 | Topic communal-land-lease-approval, term of art: does any ND provision require approval of a lease of communal, tribal, allotted or trust land? |
+| `ND-GAPS-1602` | 4 | all | 1 | 0 | 0 | FAILED positive(s): 41-09-69 | Topic communal-land-lease-approval, everyday words: any ND requirement that a government officer approve a lease, or any rule on rent and possession before approval. |
+| `ND-GAPS-1603` | 5 | all | 9 | 0 | 0 | every positive passed | Topic farmland-hunting-rights, term of art: does any ND provision allocate hunting, fishing, game or trapping rights between a farmland lessor and lessee? |
+| `ND-GAPS-1604` | 8 | all | 44 | 0 | 0 | every positive passed | Topic farmland-hunting-rights, everyday words: taking/shooting/pursuing wild game, permission of a landowner or lessee, posting, and an agricultural lease controlling a licence. |
+| `ND-GAPS-1605` | 6 | all | 0 | 0 | 0 | every positive passed | Topic usufructuary-lessor, term of art: does the ND corpus use usufruct, usufructuary, naked owner, civil fruits or fructuary anywhere? |
+| `ND-GAPS-1606` | 5 | all | 9 | 0 | 0 | every positive passed | Topic usufructuary-lessor, everyday words: a lessor whose own interest is a limited life interest, and the right to the fruits, revenues or profits of land owned by another. |
+| `ND-GAPS-1607` | 10 | all | 26 | 0 | 0 | every positive passed | Topic lease-type-size, term of art: does any ND statute set a minimum type size, typeface or boldface requirement for a residential lease, and is there an evidentiary sanction? |
+| `ND-GAPS-1608` | 7 | all | 13 | 0 | 0 | FAILED positive(s): 47-15.1-03 | Topic lease-type-size, everyday words: legibility/conspicuousness/plain language near a lease, plus any evidentiary sanction (inadmissible, not received in evidence) or unenforceability for print. |
+| `ND-GAPS-1609` | 7 | all | 4 | 0 | 0 | every positive passed | Topic tpa-notice, term of art: any ND tenant right of first refusal, first offer, opportunity to purchase or preemptive right on a sale of the rented premises. |
+| `ND-GAPS-1610` | 6 | all | 24 | 0 | 0 | every positive passed | Topic tpa-notice, everyday words: must a ND landlord tell a sitting tenant the property is being sold, and what does a transfer of ownership actually require. |
+| `ND-GAPS-1611` | 6 | all | 5 | 0 | 0 | FAILED positive(s): 14-02.5-09 | Topic tpa-exemption-notice, term of art: any ND exemption notice, notice of exemption or certificate of exemption from a tenant purchase right. |
+| `ND-GAPS-1612` | 5 | all | 70 | 0 | 0 | FAILED positive(s): 14-02.5-09, 14-02.5-11 | Topic tpa-exemption-notice, everyday words: any ND requirement that a lessor claim, record or notify an exemption from a statutory scheme affecting a lease or dwelling. |
+| `ND-GAPS-1613` | 8 | all | 257 | 0 | 0 | every positive passed | Topic tpa-sunset, term of art: does ND use sunset, expiration-date or dated-repeal devices, and is any landlord-tenant statute on one? |
+| `ND-GAPS-1614` | 6 | all | 296 | 0 | 0 | every positive passed | Topic tpa-sunset, everyday words: a chapter, section or Act that expires, is repealed on a date, or becomes ineffective after a date - and whether any reaches landlord and tenant law. |
+| `ND-GAPS-1615` | 7 | all | 12 | 0 | 0 | every positive passed | Summary row confirmed-absences-habitability: re-measuring whether ND has any severity threshold a habitability defect must clear. Confirms the finding already on habitability-materiality. |
+| `ND-GAPS-1616` | 8 | all | 57 | 0 | 0 | FAILED positive(s): 47-16-13 | Summary row confirmed-absences-habitability: re-measuring whether ND has any rent escrow, rent-into-court or rent-withholding procedure. Confirms rent-into-court-counterclaim and repair-escrow-exemption-notice. |
+| `ND-GAPS-1617` | 9 | all | 6 | 0 | 0 | every positive passed | Summary row confirmed-absences-misc: re-measuring whether ND has adopted URLTA or has any landlord-tenant non-waivable-rights provision. Confirms part5-nonwaivable and security-deposit-nonwaiver. |
+| `ND-GAPS-1618` | 8 | all | 22 | 0 | 0 | every positive passed | Summary row confirmed-absences-misc: re-measuring the retaliation position in BOTH the retaliat- vocabulary and the coerce/intimidate/interfere vocabulary that ND fair housing actually uses. |
+| `ND-GAPS-1619` | 8 | all | 19 | 0 | 0 | FAILED positive(s): 47-16-13.1 | Summary row confirmed-absences-outside-title: measuring WHERE the six named unresolved sections appear in the corpus. A zero or index-only result proves the section is UNREADABLE here, not that the law is absent. The held section 47-16-13.1 is included as the control limb that proves the number search works. |
+
+
+### 3.2 Tool-validation runs, kept deliberately as evidence
+
+| Battery | Hits | What it proves |
+|---|---|---|
+| `ND-SELFTEST-001` | 18 | a term the corpus certainly contains is found - the search reaches the text |
+| `ND-SELFTEST-002` | 0 | **the false-absence trap, caught live.** `\brent control\b` returns 0 while the real positive § 47-16-02.1 **fails**, because ND's operative text says "controlling the amount of rent charged" and the phrase "rent control" is in the **heading only**. A battery trusting the topic's own words would have reported ND has no rent-control law. This is the single best argument for the positive-required rule. |
+| `ND-SELFTEST-005` | 0 | a synthetic positive in the statute's own verbs matches the pattern limb, so `SYN:` positives are doing real work |
+
+### 3.3 Superseded runs, and an honest note about the record
+
+`ND-GAPS-001`, `ND-GAPS-002`, `ND-GAPS-003`, `ND-GAPS-004`, `ND-GAPS-005`, `ND-GAPS-006`, `ND-GAPS-104`, `ND-GAPS-107`, `ND-GAPS-134`, `ND-GAPS-307`, `ND-GAPS-310`, `ND-GAPS-314`, `ND-GAPS-322`, `ND-GAPS-405`, `ND-GAPS-406`, `ND-GAPS-407`, `ND-GAPS-408`, `ND-GAPS-514`, `ND-GAPS-515`, `ND-GAPS-604`, `ND-GAPS-609`, `ND-GAPS-611`, `ND-GAPS-614`, `ND-GAPS-627`, `ND-GAPS-628`, `ND-GAPS-704`, `ND-GAPS-716`, `ND-GAPS-810`, `ND-GAPS-904`, `ND-GAPS-910`, `ND-GAPS-914`, `ND-GAPS-921`, `ND-GAPS-923`, `ND-GAPS-926`, `ND-GAPS-1008`, `ND-GAPS-1010`, `ND-GAPS-1012`, `ND-GAPS-1023`, `ND-GAPS-1024`, `ND-GAPS-1028`, `ND-GAPS-1035`, `ND-GAPS-1038`, `ND-GAPS-1116`, `ND-GAPS-1122`, `ND-GAPS-1123`, `ND-GAPS-1221`, `ND-GAPS-1302`, `ND-GAPS-1304`, `ND-GAPS-1308`, `ND-GAPS-1314`, `ND-GAPS-1318`, `ND-GAPS-1321`, `ND-GAPS-1326`, `ND-GAPS-1328`, `ND-GAPS-1331`, `ND-GAPS-1335`, `ND-GAPS-1339`, `ND-GAPS-1405`, `ND-GAPS-1407`, `ND-GAPS-1415`, `ND-GAPS-1422` are superseded and must not be cited.
+
+Three of them - `ND-GAPS-104`, `-107`, `-134` - were rerun as `-118`, `-119`, `-135` with the
+reason recorded in the rerun's own note, as RI 1 requires (a positive the pattern set could
+not match: a context positive, a section in an out-of-corpus chapter, and a section whose text
+carries no lease word).
+
+**The other six were not recorded properly and I am flagging it rather than papering over it.**
+`ND-GAPS-001` to `-006` were first-generation runs of the same six topics, rerun as `-101` to
+`-106` under new numbers per RI 1 - but the reruns' notes **do not say they are reruns**, so
+for a day the link existed only in my head, which is exactly the failure mode RI 1 exists to
+prevent. Two things were done about it:
+
+- An append-only `supersession-amendment` record was written to `battery-log.jsonl` recording
+  all six links and the reason for each. History was not rewritten.
+- `battery.py`'s `run()` now takes a `supersedes=` argument, records it on the JSONL record,
+  and **refuses** a name that supersedes a run not in the log. The link can no longer be left
+  out by hand. Proposed as an SOP change below.
+
+For the record, the corrections were: `001` positive § 47-30.2-15, `002` § 47-16-30.1, `003`
+and `004` § 47-16-07.3, `006` § 47-16-20.1 - each a corpus positive the pattern set could not
+match, replaced by a synthetic positive in the statute's own verbs; `004` and `006` also
+widened a proximity window from 160 to 200 characters. **Hit counts are identical in all six
+pairs**, which is itself evidence the pattern change did not move the search result.
+`ND-GAPS-005` needed no correction at all - its positive § 47-16-02.1 passed and its patterns
+are byte-identical to `105` - and was rerun only to keep the batch numbering contiguous.
+
+### 3.4 Battery invariants enforced in code, not by hand
+
+The tool refuses the run rather than trusting me to remember: a duplicate name; a run with no
+positive; a corpus positive that does not contain its own term in the section it names (CT 5);
+a search term under six characters without `\b` (CO-gaps 3, WY-gaps 7); a bare `lease`
+(WY-gaps 7); a `[^.]` proximity window, which breaks across "$25.00" (rule 19). Proximity
+patterns are built in **both word orders** over `[\s\S]` (not `.`), every run covers the
+**session laws and the constitution** as well as the compilation (CO-gaps 2), a
+whitespace-collapsed view is searched for multi-word phrases (WY-gaps 1), and a
+**heading-only screen** runs beside each battery so a heading-only match like § 47-16-02.1's
+cannot masquerade as operative text.
+
+---
+
+## 4. Decisions, and questions asked of Taylor
+
+### 4.1 Legal calls I made myself (rule 76)
+
+Taylor's instruction of 2026-10-02 governs: *"This is a legal call under SOP rule 76: the
+precedent settles it, so make calls like this yourself next time."* Each of these could have
+been a question and was not.
+
+1. **`criminal-activity` is an optional clause for ND, deliberately opposite to Colorado.**
+   Colorado has § 13-40-107.5(2), which implies a crime-free term into every lease and so
+   produces an education row under rule 55. ND has no equivalent: § 47-32-01(8) makes breach
+   of a **written-lease material term** an eviction ground, which means the clause has to be
+   in the lease to do anything. That makes it `SERVES_LANDLORD` and a real clause. Worth
+   reading twice at sync precisely because it diverges from CO.
+2. **§ 28-26-04 does not reach a residential lease.** § 28-26-01(1) leaves the attorney fee to
+   the parties' agreement. I adjudicated § 28-26-04 as not applying, and stated the
+   rent-arrears qualification on the row rather than hiding the soft edge.
+3. **A homestead-waiver clause in an ND lease is empty, not lawful.** Chapter 47-18 is an
+   owner's exemption. Stating the default rule first is WY-gaps topic question 2's rule, and
+   it is what keeps the row from implying the tenant gave something up.
+4. **Every waiver row states the default rule before the waiver question**, for the same
+   reason: a waiver of a rule the state does not have is empty, not lawful.
+
+### 4.2 Taylor's seven named items
+
+| Item | Status |
+|---|---|
+| 1. Optional clauses never screened for ND (rule 54): crime-free, eviction fee, statutory waivers | **Answered in full.** All 14 topics the item names are in batch 1: `criminal-activity`; `eviction-penalty-clause-ban`, `notice-service-fee`, `collection-fee`, `attorney-fees`; and the ten waiver and nonwaiver topics. `edu-prohibited-lease-terms-nd` and `edu-no-cure-eviction-grounds-nd` are pointed to and **left unchanged**. |
+| 2. `casualty-and-mitigation-waivable` + rule 54 confirmation | **Answered.** Row `edu-casualty-and-mitigation-waivable-nd`. Rule 54 confirmation on the row: `edu-casualty-termination-nd` and `edu-optional-lease-terms-nd` together satisfy rule 54 for casualty. **No conflict found** among the three rows named in the item - recorded as a nil return in §6, not silence. |
+| 3. Shared fee clauses `keys` and `hoa-compliance` vs §§ 9-08-03/9-08-04, § 47-16-20.1, § 47-16-07.1; **plus** the DV lock-change finding on `edu-no-dv-lock-change-duty-nd` (topic `dv-lockchange`) against new ch. 14-07.7 | **Answered.** `keys` and `hoa-compliance` both read correctly for ND, and the reason each does is itself worth recording - findings 6.9 and 6.10, with the sentences to add. The DV lock-change row **still holds** but chapter 14-07.7 has made it incomplete - finding 6.11, with the sentence to add. None of `keys`, `hoa-compliance` or `dv-lockchange` is in the missing list, so none produces a row. Both halves are rule-62 findings, not edits. Note `keys`, `hoa-compliance` and `dv-lockchange` are **not** in the missing list, so none of them produces a new row - they produce §6 findings with the wording to use. Ch. 14-07.7 **is** in the corpus, so this half is not blocked. |
+| 4. Three central shared edits: `smoking-policy`, `no-alterations`, `addendum-precedence` | **Answered** - one line each in 4.8, with four findings in 6.5-6.7 (and see the withdrawal in 6.8). All three read correctly; `no-alterations` has a four-word gap, `addendum-precedence` names no ND instance, and `smoking-policy`'s **marijuana limb is unconfirmed** because ch. 19-24.1 is outside the corpus and unreachable - parked in 1.5, cautious course in 6.7. |
+| 5. CARES Act mentions agree with `edu-cares-act-notice` | **Answered in 4.7: they agree, and nothing disagrees.** One soft edge recorded in 6.22. |
+| 6. `extended-absence-notice`, `towing`, `rent-control` from a full read | **Answered**, all three, from the whole text of §§ 47-16-07.3 and 47-16-02.1 as directed. |
+| 7. Currency of the new rows only | **Done for batch 1**, and see 1.6. Of the four 2025 acts the item names, three touch sections batch 1 relies on and each is now named on the row that relies on it: **ch. 423 (H.B. 1610)** created § 47-16-20.1 (`edu-collection-fee-nd`); **ch. 427 (S.B. 2238)** created § 47-32-05 (`criminal-activity-nd`); **ch. 145 (H.B. 1489)** created ch. 14-07.7 and amended § 47-16-17.1(2)(a) (`edu-attorney-fees-nd`, which relies on subsection (11), not the amended (2)(a); `edu-no-eviction-penalty-ban-nd`; `edu-no-notice-service-fee-rule-nd`). **Ch. 238 (S.B. 2385)** touches §§ 47-32-01.1 and 47-10-28, which batch 1 does not rely on. |
+
+### 4.3 Three premises of mine that canvasses corrected from primary text
+
+Recorded because the corrections are the evidence that the canvasses were reading the statute rather
+than my brief, and because two of them change answers.
+
+1. **I told a canvass to expect no repair-and-deduct statute. North Dakota has one, and it is
+   uncapped.** **§ 47-16-13**: "If within a reasonable time after notice from the lessee of
+   dilapidations which the lessor ought to repair the lessor neglects to do so, the lessee may:
+   1. Repair the premises and deduct the expense of such repair from the rent; 2. Recover it in any
+   other lawful manner from the lessor; or 3. Vacate the premises, in which case the lessee shall be
+   discharged from further payment of rent or performance of other conditions." No dollar cap, no cost
+   threshold, no prescribed form of notice. **§ 47-16-12**, the old lessor repair duty, was repealed by
+   S.L. 1977, ch. 429, § 7 - but § 47-16-13 survived it, which is exactly how it gets missed. There is
+   still no rent escrow and no rent-into-court procedure, as I said.
+2. **I told a canvass § 47-16-13.6 was the essential-services provision. It is not.** It is captioned
+   "Enforcement of sections 47-16-13.1 through 47-16-13.6" and does one thing: those rights are
+   "enforceable by action and the court may award reasonable attorney's fees to **the prevailing
+   party**." Note the party - it cuts both ways and **favours a landlord defending a weak habitability
+   claim**, which is worth a landlord knowing. And the real consequence: **North Dakota has no
+   utility-interruption or unlawful-cutoff statute at all.**
+3. **My EV lead was wrong twice.** I cited "chapter 47-04.1 subsection 9" for a $1,000 indemnity. The
+   section is **§ 47-04.1-16**; the **$1,000 is at subsection 8** and is a civil penalty against an
+   *association* that wilfully violates the section; **subsection 9** is the unit owner's indemnity and
+   carries **no figure**. A positive built on my wording was correctly refused under CT 5. It is also a
+   **condominium** provision about an owner's installation and an association's bylaws, not a
+   landlord-tenant provision - so the `ev-charging` topics in batch 8 must not report it as one.
+
+### 4.4 A canvass correction I had to reject, and how
+
+One canvass reported that this prompt's bill numbers were wrong - that S.L. 2025 ch. 423 is S.B. 2229
+rather than H.B. 1610, and ch. 427 is H.B. 1149 rather than S.B. 2238. **It is mistaken, and the prompt
+is right.** The session table's flattened text runs
+`... <chapter> <bill> <section> <action> <chapter> <bill> ...`, so the chapter number sits **after** the
+action and reads naturally as belonging to the previous row; that off-by-one produces exactly the pairs
+reported. The check that settles it is a **differently laid-out document**: the bill index prints
+`<bill> <chapter>` and gives **HB 1610 → 423**, **SB 2229 → 422**, **SB 2238 → 427**, **HB 1149 → 426**,
+**SB 2204 → 421**, **SB 2385 → 238**, **HB 1489 → 145** - every pair as the prompt has it. The trap and
+the cross-check are now in the canvass brief, so the next reader does not fall into it.
+
+**A second one, from batch 4.** A canvass reported an "unfilled clause gap": that § 47-16-15(4) is a
+true `REQUIRED_DISCLOSURE` - a lease demanding more than one month's tenant notice must state the
+requirement **and** give an initial line, or the period collapses to one calendar month - and that two
+education rows mention it while no clause satisfies it. **The gap is already filled.**
+`lease-notice-initial-requirement-nd` exists in the library, is a `LEASE_CLAUSE`, carries basis
+**`REQUIRED_DISCLOSURE: N.D.C.C. § 47-16-15(4)`** and prints the initial line. The canvass searched the
+**workspace row files** for this point rather than the master CSV, which is why it missed it; the other
+canvass on the same batch had it right. No action needed, recorded so the next reader does not go
+looking for a gap that is not there.
+
+**And one convergence, recorded because it is evidence the method works.** Two canvasses on different
+batches reached § 47-16-17.1(4) independently - the batch-2 fee-and-DV canvass while answering
+`dv-qualifying-documents`, and the batch-6 privacy canvass while answering
+`tenant-confidential-information`. Both read it the same way: the non-disclosure duty has **no consent
+exception**, so a consent-to-disclose clause is unlawful rather than empty. The later canvass reported
+it as a new find; it was already in the earlier row, including § 47-16-17.1(11)'s $1,000 statutory
+damages. Nothing needed fixing, and two independent readings agreeing on a closed list of permitted
+uses is worth more than one.
+
+### 4.5 Two questions a canvass raised, which I settled rather than passing on
+
+Both are legal calls under rule 76, and both are now in the canvass brief so they stay settled.
+
+1. **§ 47-10-02.3 took effect on 1 August 2025, and the source is the constitution, not the act.** Its
+   act, S.B. 2229, was approved and filed **18 March 2025** and carries **no effective-date section and
+   no emergency clause** - I read the act. **N.D. Const. art. IV, § 13** then supplies 1 August after
+   filing. The canvass was right to cite the act without asserting a date; the answer is to cite the
+   constitutional default as the source. **A warning that came with it:** the running header printed
+   beside S.B. 2229's approval line reads "Chapter 423", which belongs to the *next* chapter - S.B.
+   2229 is **ch. 422**. That is the same off-by-one that produced the wrong bill-number report in 4.4.
+2. **§ 14-02.5-12(1) does not shelter a landlord's own occupancy cap.** It saves "a reasonable **local
+   or state** restriction on the maximum number of occupants permitted to occupy a dwelling or a
+   restriction relating to health or safety standards" - a restriction imposed by **law**. A cap the
+   landlord chooses is not one, so it is judged under § 14-02.5-02's familial-status bar like any other
+   lease term. The practical consequence, now on the row: **peg an occupancy clause to the applicable
+   local code or health standard and say so**, rather than stating a number of your own.
+
+### 4.6 Two corrections I applied to rows at assembly rather than leaving for the check
+
+Both were found by a later canvass against an earlier canvass's row. Neither is an existing library
+row, so rule 62 does not bite - these are rows in this delta and mine to fix.
+
+1. **`edu-no-alarm-tampering-fee-nd` asserted that "the Century Code imposes no smoke alarm or carbon
+   monoxide alarm duty on a residential landlord at all." The claim is withdrawn.** The Legislative
+   Council index names **§ 23-13-15 "Smoke detection systems for residential rental property -
+   Penalty"**, and I verified the index entry: the section exists, **chapter 23-13 is not in the corpus,
+   and no 2025 or 2026 act touched it - so there is no route to its text from this session at all.** Its
+   title alone says North Dakota does impose a smoke-detection duty on residential rental property and
+   backs it with a penalty. The row is now **NEEDS_REVIEW**, its body carries the cautious course - fit
+   and maintain working detection, keep records, and do not rely on any statement that there is no
+   requirement - and the fee half of the topic is unaffected. **Why it was missed is the transferable
+   part: a heading-only index entry in an unheld chapter is invisible to a corpus battery**, the same
+   shape as the § 23-09-08 near-miss on `security-devices`. Both are now in the brief as a standing
+   instruction to run the master index as well as the corpus wherever a topic would be answered by a
+   duty rather than by a right.
+2. **`edu-casualty-and-mitigation-waivable-nd`** - my own batch-1 row - **was amended to carry
+   § 47-16-21**, the proportioning rule a later canvass found. Disclosed in the row's notes. See 6.17.
+
+**And one correction that turned out to be to my brief rather than to a row.** I had told canvasses
+that § 47-16-07.1(1) "makes an express exception for a pet deposit". It does not: subsection (1)'s
+"except" list is **closed at two items** - two months' rent from an applicant convicted of a felony "as
+an incentive to rent", and two months' from one with a judgment for violating a previous rental
+agreement - and the **pet deposit is a separate grant in subsection (2)** with its own ceiling, "the
+greater of two thousand five hundred dollars or an amount equivalent to two months' rent", **additive**
+to the one-month cap, since a $2,500 deposit could not fit inside one month's rent. Two canvasses had
+already read it correctly and their rows are right; only my brief and one of my own §2 lines were loose,
+and both are fixed. **Subsection (2) also carves out a service or companion animal required as a
+reasonable accommodation - no pet deposit at all for one.** And a statutory drafting defect, recorded
+rather than resolved: subsection (1) makes the deposit returnable "subject to the conditions of
+**subsection 2**", but the return, itemisation and thirty-day notice conditions are in **subsection
+(3)**. The cross-reference is a renumbering artefact.
+
+### 4.7 Questions open with Taylor
+
+Asked 2026-10-29: the chapters in 1.5, with a recommendation. Nothing else in batch
+1 needed a product decision, and nothing was left "to check later": the one point that could
+not be settled - § 9-12-22 - is a **NEEDS_REVIEW row with the cautious course stated in the
+row body**, which is SOP Part 5's policy, not a deferral.
+
+---
+
+### 4.8 Item 4 - the three central shared edits, one line each
+
+All three are ND-tagged, carry an **identical** 971-character ND segment added 2026-09-06, and their
+clause text is unchanged. Each reads correctly, with one gap and one unresolved point:
+
+1. **`no-alterations` (topic `alterations`) - reads correctly, and § 47-06-04 is the North Dakota
+   authority that makes its saving sentence necessary rather than decorative; but the saving words
+   cover performing and owning an installation and omit *removing* it, which is the right the statute
+   actually gives.** § 47-06-04 sentence 1: a thing a person affixes to another's land "without an
+   agreement permitting that person to remove it" **belongs to the owner of the land, unless the owner
+   of the land chooses to require the former to remove it** - which is exactly the row's "it will
+   remain part of the property at the end of the Term unless Landlord requires its removal". Sentence
+   2, though, gives the tenant a statutory right to "remove from the demised premises, anytime during
+   the continuance of the tenant's term, anything affixed thereto, for the purpose of trade,
+   manufacture, **ornament, or domestic use**, if the removal can be effected without injury to the
+   premises, unless the thing has become an integral part of the premises by the manner in which it is
+   affixed." The row's two saving clauses preserve what law "entitles Tenant to **perform**" and who
+   "**owns**" an installation - neither word reaches a removal right. Finding in 6.5.
+
+2. **`addendum-precedence` - reads correctly for North Dakota, and the state supplies three concrete
+   instances of the carve-out it describes.** The clause's exception for "any disclosure, notice, or
+   addendum that applicable law requires, or that applicable law says controls over this Lease" is not
+   hypothetical here: **§ 47-16-13.1(5)-(6)** makes a duty shift for a dwelling other than a
+   single-family residence valid only in a **separate signed writing supported by adequate
+   consideration**, and forbids making the tenant's performance of it a condition of the lease;
+   **§ 47-16-15(4)** requires an agreement demanding more than one month's tenant notice to state the
+   requirement **and provide space for the lessee to initial next to it**, failing which "the lessee
+   may terminate the lease on the last day of a month with at least one calendar month's notice"
+   whatever the lease says; and **§ 47-16-26** entitles a tenant of part of a room to the whole room
+   "**notwithstanding any agreement to the contrary**". § 47-16-15(4) is the sharpest of the three
+   because it overrides the lease term outright, and is worth naming in the ND segment (6.6).
+
+3. **`smoking-policy` - the cost limb reads correctly; the prohibition's scope over-promises in a
+   multi-unit property; and the marijuana limb CANNOT be confirmed.** The cost sentence charges "any
+   cost Landlord incurs to remediate", i.e. **actual** cost, not a fixed sum - so it clears
+   **§ 9-08-03** (contractual penalties void) and **§ 9-08-04** (damages fixed in advance void unless
+   actual damage is impracticable or extremely difficult to fix), which is the test that matters here
+   and is the reason a liquidated smoking fee would not survive. Two qualifications. The prohibition
+   sentence reaches "anywhere on the property, including ... any common area": as a term between this
+   landlord and this tenant it binds only the tenant and is not void, but in a multi-unit building it
+   reads like a promise of a smoke-free building, and North Dakota gives a tenant **no smoke-drift
+   claim at all** - see the new `edu-no-smoke-drift-rule-nd`, 0 hits corpus-wide (6.7). And the
+   **marijuana limb is unresolved**: chapter 19-24.1 (medical marijuana) is **not in the corpus** and
+   all three fetch channels are blocked, so whether North Dakota limits a lease banning a **registered
+   patient's** lawful use is **not settled**. That is the one point in item 4 I could not close; it is
+   parked in 1.5, asked of Taylor, and the cautious course is in 6.7.
+
+**And a finding that applies to all three at once, and to many more rows than these.** The identical
+ND segment on each asserts: *"North Dakota has NO enumerated prohibited-lease-provisions statute
+(confirmed this session - § 47-16-02 is a maximum-term cap, and § 47-16-13.3 supplies only
+case-by-case unconscionability). The exculpation exposure that forced fixes to this clause family in
+KS and NE therefore does not arise for ND."* **The premise is wrong and the conclusion is unsafe** -
+chapter 9-08 is exactly such a statute. See 6.8; this is the Task A finding of 2026-09-27 still
+sitting in the library.
+
+### 4.9 Item 5 - CARES Act mentions, one line
+
+**They agree; nothing disagrees.** `edu-nonpayment-notice-nd`'s body says "No court rule adds a
+further pre-filing condition", and its notes record that the official index of the North Dakota Rules
+of Court was reviewed on 2026-10-02 and that no rule governs eviction, summary possession or
+residential tenancies. `edu-cares-act-notice` says "Some state court rules also ask for a statement
+about it when you file." The ND row is the negative instance of the federal row's sentence, which is
+agreement, not conflict. One soft edge, recorded in 6.22 rather than left unsaid: the ND row's sentence
+is scoped to **court rules**, correctly, but the row never mentions the federal 30-day notice, so a
+landlord reading it alone could take "no further pre-filing condition" to mean nothing at all adds
+one.
+
+## 5. Independent check (rule 80, scaled down)
+
+**Round 1 is complete. Thirteen rows were edited as a result; round 2 re-checks only those.**
+
+### 5.1 How it was run
+
+One agent, which produced none of the research and had not seen it being produced. Its instruction was
+to **try to break the work, not to admire it**, and its only source of truth was the statute text: it
+was given the corpus loader and told it could read this log to find what a row *claims* but not to
+treat the log as authority for what a statute *says*. It was pointed at the failure classes this pass
+had already produced - a word count offered as a measurement of the law, a heading mistaken for text, a
+duty belonging to someone else reported as the landlord's, § 47-10-28 missed by a chapter-scoped
+battery, and ch. 14-02.4 cited for fair housing - and told to look for more of each.
+
+It checked **all 44 lease clauses**, ran **every figure and period in all 138 bodies that state one**
+through a sentence-level cross-check against the cited section, screened **all 241 rows** for flat
+absences § 47-10-28 contradicts, screened every citation to a repealed section, and confirmed the
+cautious course in **all 85** NEEDS_REVIEW rows.
+
+### 5.2 Four clean verdicts, which are results in themselves
+
+- **No figure or period in any of the 138 bodies is misstated.** The five-word test holds throughout -
+  § 47-16-07.1(1) "may not demand or receive ... in excess of", (2)'s "greater of", § 47-16-30.1's
+  $2,500 as a threshold on a power rather than a cap on money, § 47-16-06.1's "not less than thirty",
+  and §§ 47-14-05/-09's 6% default with a 7% **floor on a ceiling**, which a row had already flagged as
+  such.
+- **No row states a flat absence that § 47-10-28 contradicts** - across all 241, after five canvasses
+  had each had to correct one.
+- **Every citation to a repealed section is labelled repealed** (§§ 47-16-12, 47-16-24, 28-26-25,
+  47-10.1-03), and **no row cites chapter 14-02.4 for a housing duty.**
+- **All 85 NEEDS_REVIEW rows state a cautious course in their own `bodyText`**, not only in the notes.
+
+### 5.3 Round 1: six defects and three imprecisions, all fixed
+
+Five of the six run **in the landlord's favour**, which is the dangerous direction.
+
+1. **Two unqualified indemnities.** `family-child-care-consent-nd` and `home-business-use-restriction-nd`
+   made the tenant indemnify the landlord against "any claim, demand, fine or loss arising from the
+   activity" with **no § 9-08-02 carve-out** - so an injury traced to the landlord's own code breach sat
+   inside the words § 9-08-02 puts against the policy of the law and § 9-08-01(2) makes unlawful. The
+   library plainly knew the rule: **three other clauses in this same delta carry the carve-out.**
+2. **An invented fallback address.** `surrender-and-forwarding-address-nd` let the landlord use the
+   address of the property where the tenant furnished none. § 47-16-07.1(3) says only "the last address
+   furnished lessor" - there is no such fallback, and inventing one walks into the § 47-16-07.1(4)
+   treble-damages exposure the same row warns about.
+3. **Four clauses whose park warning sat in the notes rather than the body the landlord reads.**
+   `rules-regulations-nd` gave thirty days for a rule change where § 47-10-28(3) adds **three months to
+   remedy or vacate** for a home-owning park tenant; `rent-escalation-nd` thirty days against
+   § 47-10-28(7)'s **ninety**; `utility-apportionment-nd` an open administrative charge against (8)'s
+   **three-dollar** cap and its individual-meter bar; `rent-installments-nd` a late charge against
+   (11)'s ten per cent and five dollars a day. Exposure each time is § 47-10-28(12)'s **$2,500** penalty
+   floor and § 47-32-01.1's eviction defence.
+4. **Self-stipulated materiality, in four clauses.** § 47-32-01(8) requires breach of a material term,
+   but **nothing in North Dakota law lets the parties stipulate materiality**, and § 47-16-13.3's
+   unconscionability review cuts the other way.
+5. **A crime limb with no victim carve-out.** `prohibited-acts-renter-nd`(i) banned any act that "is a
+   crime under the laws of North Dakota or of the United States" - unlike its sibling
+   `criminal-activity-nd`, which carves out conduct of which the tenant was the victim.
+6. **A misattribution, in the tenant's favour.** `guest-rights-nd` attributed "an individual residing in
+   or intending to reside in that dwelling" to § 14-02.5-02(1). It is in **§ 14-02.5-06(1)** and is
+   confined to **disability**, so the row reported a disability-only extension as spanning all nine
+   grounds.
+
+Three imprecisions were fixed with them: "separate" for § 47-16-13.1(5)(a)'s "**adequate**"
+consideration; § 14-02.5-32(2)'s penalty tiers stated without their conditions; and § 47-17-02 service
+prescribed for a **fixed-term** termination when §§ 47-17-01 and -02 govern an estate at will.
+
+### 5.4 Round 2 was NOT clean, and the most useful thing it found was my own fix
+
+Round 2 re-checked only the thirteen rows round 1's fixes had touched. Of the nine fixes it examined:
+**four cured**, **four partly cured**, **one introduced a new problem** - and it found one defect round
+1 had not looked for. Everything below has been acted on.
+
+**The one that matters most is mine.** My round-1 fix to `children-occupancy-limit-nd` **inverted a
+statutory condition.** I wrote that § 14-02.5-32(2)(a)'s $11,000 tier applies where the respondent "has
+not been adjudged" to have committed a prior discriminatory housing practice. The Century Code text
+reads "**if the respondent has been found** by order of the department or a court to have committed a
+prior discriminatory housing practice" - no "not". I had silently substituted the sensible reading for
+the words on the page, because as printed (a) and (b) share the same condition while setting different
+figures, which cannot be right. **The row now states the text as printed, says why it cannot stand as
+written, and tells the landlord not to rely on either reading without a clean text** - and subsection
+3, which lets the higher figures be imposed without regard to the time windows where the same
+individual committed the earlier acts, is now stated too. The lesson is about me, not the row: **a fix
+that improves on the statute without disclosing that it is doing so is a worse defect than the
+imprecision it cures.**
+
+The four partial cures, all now completed:
+- **The § 9-08-02 carve-out was appended to the rows' closing commentary, not to the operative
+  indemnity** - so a landlord copying the clause would still have taken the indemnity without it. It
+  now sits inside the indemnity itself, in both rows. This was the round-1 fix that mattered most and
+  the one I placed worst.
+- **My replacement for the invented address was circular**: "if Tenant furnishes no address, Landlord
+  will use the last address Tenant did furnish" is a nullity where none was ever furnished. The clause
+  now says plainly that **§ 47-16-07.1(3) supplies no substitute address**, states what to do in
+  practice, and says in terms that doing it is not statutorily authorised and does not by itself
+  discharge the obligation. The gap is the statute's, and the row shows it instead of papering over it.
+- **`appliances-excluded-nd` still said "separate consideration" in its closing paragraph** and omitted
+  § 47-16-13.1(5)(a) good faith, (5)(b)'s subdivision-(e) bar and (5)(c)'s no-diminution requirement.
+  All now stated, with § 47-16-13.1(6)'s cross-reference defect disclosed rather than relied on.
+- **`owner-occupancy-termination-nd`'s clause and its own note conflicted** - the note denied that
+  § 47-17-02 service was required while the clause still required service "in the manner North Dakota
+  law prescribes". The clause now adopts that manner **by agreement**, which is what it always was.
+
+Three residuals in the park warnings were corrected: § 47-10-28(3)'s "except ... subsections 4 and 5";
+§ 47-10-28(7)'s six-month bar on an increase after a purchase where rent rose in the preceding sixty
+days; and an overstatement that a section "may not be used at all" without individual meters, when (8)
+bars charging a utility **fee** rather than carrying the cost in rent. Two warnings that sat
+unbracketed inside operative lease text are now bracketed as drafting notes.
+
+**And the best catch of the whole check, which round 1 never looked for: two rows in this delivery
+contradicted each other.** `prohibited-acts-renter-nd`(g) banned "any business, trade or commercial
+activity" outright - the very blanket ban that this delta's own `home-business-use-restriction-nd`
+calls unenforceable and exposed under § 47-16-13.3 - and the blanket ban was the operative clause. (g)
+now turns on consent that will not be unreasonably withheld for an activity confined to the dwelling,
+which is the position the sibling row recommends. Round 2 also noticed that the victim carve-out named
+fewer people than the prohibitions bind - a guest who was the victim of a crime was inside the ban -
+and it has been widened to match.
+
+### 5.5 What remains unchecked, stated plainly
+
+This prompt scales rule 80 to **at most two rounds**, and both are used. **The edits made in response
+to round 2 have therefore not themselves been independently checked.** That is the residual risk in
+this delivery and it should not be discovered later. The rows carrying an unchecked round-2 edit are:
+
+`appliances-excluded-nd`, `children-occupancy-limit-nd`, `family-child-care-consent-nd`,
+`home-business-use-restriction-nd`, `owner-occupancy-termination-nd`, `prohibited-acts-renter-nd`,
+`rent-escalation-nd`, `rent-installments-nd`, `rules-regulations-nd`,
+`surrender-and-forwarding-address-nd`, `utility-apportionment-nd`.
+
+Each edit is disclosed in its own row's notes under "ROUND-2 CHECK FIX", with what was wrong and what
+was changed, so a third reader can go straight to them. **My recommendation: give those eleven rows one
+more read at sync**, and prioritise `children-occupancy-limit-nd`, because the penalty tier it now
+describes rests on a Century Code text that appears to be missing a word.
+
+### 5.6 One observation of the check's that I disagreed with
+
+Round 1 noted that **no clause in this delta carries `REQUIRED_DISCLOSURE`**, while § 47-16-15(4) is
+exactly one - a lease demanding more than one month's tenant notice must state the requirement and
+provide space to initial, with a self-executing fallback to one calendar month. **It is right about the
+delta, and the gap is already filled elsewhere:** `lease-notice-initial-requirement-nd` exists in the
+library as a `LEASE_CLAUSE` with basis `REQUIRED_DISCLOSURE: N.D.C.C. § 47-16-15(4)` and prints the
+initial line. A canvass reported the same thing as an unfilled gap on batch 4 and was corrected then
+(4.4). **Two independent readings arriving at it is a reason to leave it alone rather than duplicate
+it** - and worth recording, because it is the second time this pass that a reader has gone looking for
+a clause that already exists.
+
+### 5.7 What the two rounds say about the work as a whole
+
+Nine defects in 241 rows, of which **five were in the one place a check should look hardest** - a
+clause that takes something from the tenant. None was a wrong statute, a wrong figure or a fabricated
+provision in an education row: **every figure and period in all 138 bodies that state one verified
+against its section**, no row stated an absence § 47-10-28 contradicts, every repealed section was
+labelled repealed, and all 85 NEEDS_REVIEW rows carried their cautious course in the body. The failures
+clustered in **clause drafting** rather than in research - a carve-out omitted, a materiality
+stipulation the statute does not allow, a fallback invented to fill a gap the statute leaves open. That
+is where a third round would be worth most.
+
+## 6. Findings on existing rows
+
+The scope fence forbids fixing these. Each is quoted so Claude Code can fix it at sync.
+
+### 6.1 `edu-no-cash-receipt-duty-nd` may be too absolute
+
+The row's words: it states that ND imposes **no** duty to give a receipt. That may be wrong if
+**§ 9-12-22** gives a payer a right to demand a receipt - which is exactly the section this
+pass could not reach on any of three channels (1.5). The new row
+`edu-rent-receipt-anti-waiver-nd` is therefore **NEEDS_REVIEW** rather than asserting against
+it, and this finding is the paired disclosure. **Do not sync either as settled until
+§ 9-12-22 is read.** My recommendation: read § 9-12-22, then either narrow the existing row to
+"no duty to deliver a receipt unposted and unasked" or retire it.
+
+### 6.2 A nil return, recorded because the item asked for it
+
+Item 2 asked for a conflict report on `edu-casualty-termination-nd`,
+`tenant-caused-damage-nd` and `edu-early-departure-mitigation-nd`. **No conflict found.** All
+three are consistent with §§ 47-16-14(4) and 47-16-17(2) as read whole, including the
+scoping point `edu-early-departure-mitigation-nd` already carries: § 47-16-13.5's mitigation
+duty is scoped by its own first sentence to parties aggrieved under §§ 47-16-13.1 to
+47-16-13.6, so there is no general statutory mitigation duty for a tenant who simply leaves.
+Recording the nil return rather than staying silent, so a later reader can tell the check ran.
+
+### 6.3 § 47-16-02.1 sat only in another row's notes
+
+`edu-term-change-notice-nd` carried the rent-control preemption inside its notes, where no
+topic query would find it. It now has its own row keyed to `rent-control`. **The existing row
+is not changed** - this is a note that the duplication is intentional and the notes mention can
+be trimmed at sync if Claude Code wants it in one place.
+
+### 6.4 ND's own log recorded `extended-absence-notice` as not searched
+
+ND decision log § 43.8 records this topic as not searched. It is now searched, with a
+term-of-art battery and an everyday-word companion battery. Flagging it so the log's own
+"not searched" line can be closed at sync.
+
+---
+
+### 6.5 `no-alterations` - the saving clauses omit the removal right § 47-06-04 gives
+
+**The row's words:** "This Section does not limit any repair, installation, rekeying, or reasonable
+modification that applicable law entitles Tenant to **perform**, and does not change who **owns** an
+installation that applicable law makes Tenant's property."
+
+**The statute**, N.D.C.C. § 47-06-04: "A tenant may **remove** from the demised premises, anytime
+during the continuance of the tenant's term, anything affixed thereto, for the purpose of trade,
+manufacture, ornament, or domestic use, if the removal can be effected without injury to the premises,
+unless the thing has become an integral part of the premises by the manner in which it is affixed."
+
+North Dakota's right is a **removal** right during the term, not a performance right and not an
+ownership rule, so neither saving clause squarely preserves it - while the row's middle sentence
+affirmatively tells the tenant an approved alteration "will remain part of the property at the end of
+the Term". **Wording I would use:** change "entitles Tenant to perform" to "**entitles Tenant to
+perform or to remove**". Four words, and it is a shared row in 55 states, so it is Claude Code's
+change to make under rule 62, not mine.
+
+### 6.6 `addendum-precedence` - correct, but its ND segment names no ND instance
+
+The clause reads correctly (4.4). The finding is only that its ND segment is the generic
+2026-09-06 boilerplate and names none of §§ 47-16-13.1(5)-(6), 47-16-15(4) or 47-16-26, so a reader
+cannot tell the carve-out does real work in this state. **Sentence I would add to the ND segment:**
+"ND instances of the carve-out: § 47-16-13.1(5)-(6) (duty shift valid only in a separate signed
+writing with adequate consideration, and not as a condition of the lease); § 47-16-15(4) (a
+longer-than-one-month tenant notice binds only if the lessee initials next to it); § 47-16-26
+(a tenant of part of a room is entitled to the whole room notwithstanding any agreement to the
+contrary)."
+
+### 6.7 `smoking-policy` - scope over-promises, and the marijuana limb is unconfirmed
+
+**The row's words:** "Smoking of any kind, including tobacco, marijuana, and vaping, is not permitted
+anywhere on the property, including inside the dwelling, on porches, balconies, or in any common
+area."
+
+Two things, neither of which makes the clause void. (a) In a multi-unit property the sentence reads as
+a landlord-side promise of a smoke-free building, which North Dakota does not back: there is **no
+smoke-drift duty and no tenant claim** - 0 hits corpus-wide, battery in §3. **Sentence I would add to
+the ND segment:** "In ND this clause binds only this tenant; the state imposes no smoke-free duty on
+the landlord and gives a tenant no smoke-drift claim, so the clause should not be read as a promise
+about other units." (b) The **marijuana** limb is **not confirmed for North Dakota**: chapter 19-24.1
+is outside the corpus and unreachable on all three channels, so whether the state limits a lease
+banning a **registered medical marijuana patient's** lawful use is open. **Cautious course until
+chapter 19-24.1 is read:** treat the marijuana limb as sound for recreational use and as untested
+against a registered patient, and do not rely on it to refuse a patient's tenancy or to terminate one.
+**Recommendation:** once the chapter is in the corpus, if it carries a patient protection, add to the
+clause "except as North Dakota law requires for a registered medical marijuana patient".
+
+### 6.8 WITHDRAWN - I reported this wrongly, and the error was mine
+
+**What I said, in an earlier version of this log and in the chat:** that `smoking-policy`, `no-alterations` and
+`addendum-precedence` still assert *"North Dakota has NO enumerated prohibited-lease-provisions statute ... The
+exculpation exposure that forced fixes to this clause family in KS and NE therefore does not arise for
+ND"*, that chapter 9-08 falsifies it, and that **43 ND-tagged rows still carry it** so Claude Code
+should run a central text-screen fix.
+
+**What is actually true.** The screen I should have run first: of the **39** ND-tagged rows carrying
+that sentence or the phrase "exculpation exposure", **38 also carry a dated withdrawal** - *"ND
+2026-09-28: the LIABILITY-LANGUAGE CHECK above is withdrawn as to any clause disclaiming liability for
+the landlord's own violation of law. North Dakota does have enumerated bans outside its landlord-tenant
+title: N.D.C.C. §§ 9-08-02 (exculpation), 9-08-03 (penalties), 9-08-04 (liquidated damages) and 9-08-05
+(restricting enforcement). See edu-prohibited-lease-terms-nd."* The single row without it is
+`edu-prohibited-lease-terms-nd` itself, which **quotes** the sentence in order to correct it. So **the
+2026-09-28 pass already fixed this, across the board, and no central fix is needed.**
+
+**Why I got it wrong, because the shape will recur.** My ND-segment extractor cut each row's notes at
+the next two-letter state marker. The withdrawal is a *second* ND segment, written two days after the
+first and sitting further down the notes behind other states' segments, so my reader stopped before it
+every time - on all three rows I checked, identically, which is what made the wrong answer look
+corroborated. **It is the same defect I have been auditing in other people's work all pass: a
+measurement over a subset, reported as a statement about the whole.** A 48,000-character notes field is
+not a thing to read with a regex that stops at the first delimiter.
+
+**The much smaller finding that does survive.** The withdrawal is *appended*, not substituted, and it is
+**scoped**: "withdrawn **as to any clause disclaiming liability for the landlord's own violation of
+law**". The original sentence is still the first thing a reader meets, it is still false as written -
+chapter 9-08 is an enumerated bar for every purpose, not only for liability disclaimers - and the
+scoping means the withdrawal does not reach a flat fee read as a penalty under § 9-08-03 or a sum fixed
+in advance under § 9-08-04, which is where most of this pass's fee work landed. **Recommendation:
+replace the sentence rather than appending to it**, e.g. "ND has no prohibited-lease-provisions list
+inside ch. 47-16, but ch. 9-08 is an enumerated bar on lease terms - §§ 9-08-01 to 9-08-05 - so the
+KS/NE exculpation exposure does arise in ND, through § 9-08-02, and a flat fee is separately exposed
+under §§ 9-08-03 and 9-08-04." Lower priority than anything else in this section.
+
+### 6.9 `keys` reads correctly - and the reason it does is a warning
+
+**Verdict: no change needed to the clause.** Checked against §§ 9-08-03, 9-08-04, 47-16-20.1 and
+47-16-07.1 as item 3 asks. It survives **because it charges "the cost" and fixes no sum**. § 9-08-04
+voids an amount "determined in anticipation" of a breach "to that extent", except where the actual
+damage would be "impracticable or extremely difficult to fix" - and a locksmith's invoice fixes a
+re-key cost exactly, so the exception could not save a stated figure. § 47-16-20.1 is **not** engaged:
+it bans a fee for *accepting* cash, a check or a money order, not a re-key charge.
+
+**Two sentences I would add to the ND segment.** (1) *"Do not convert this clause into a flat re-key or
+lost-key fee in North Dakota: a stated figure is void to that extent under § 9-08-04 and, framed as a
+consequence of failing to return keys, is also a penalty imposed by contract for nonperformance under
+§ 9-08-03."* (2) The point the existing ND segments miss: *"An unreturned key is not obviously within
+§ 47-16-07.1(3) - it is not a deterioration or injury to the property under (a), not unpaid rent under
+(b), and a re-key is arguably not 'cleaning or other repairs' under (c). The clause says 'charge the
+cost to Tenant', which is a bill; a landlord who deducts it from the deposit instead risks treble
+damages for withholding without reasonable justification under § 47-16-07.1(4)."*
+
+### 6.10 `hoa-compliance` reads correctly - and in North Dakota it is the only thing doing the work
+
+**Verdict: no change needed to the clause.** The fine pass-through is not a void penalty under
+§ 9-08-03, because the amount is imposed by the association under the recorded declaration and the
+clause shifts only reimbursement of what the landlord actually pays; and because it fixes no sum,
+§ 9-08-04 is not engaged. § 47-16-20.1 is not engaged.
+
+**Two additions owed.** (1) *"An association fine is not within § 47-16-07.1(3)(a)-(c) - not a
+deterioration or injury to the property, not unpaid rent, not cleaning or repairs - so it may not be
+applied to the security deposit; doing so risks treble damages under § 47-16-07.1(4). The clause makes
+the fine the tenant's responsibility, not deductible, so bill it."* (2) Why the clause earns its place
+here, which no ND segment says: *"§ 47-04.1-08 binds 'each unit owner' and § 47-04.1-11 makes an
+assessment 'a debt of the owner'. North Dakota has no statute binding a tenant to an association's
+rules and none letting an association reach a tenant for rent or a fine. In ND this clause is the
+**only** source of the tenant's duty, so it is doing real work rather than restating a statute."* Keep
+the amount uncapped only so long as it tracks the fine actually imposed; a flat "association violation
+fee" would be void to that extent under § 9-08-04.
+
+### 6.11 `edu-no-dv-lock-change-duty-nd` still holds, but chapter 14-07.7 has made it incomplete
+
+**It still holds**: § 47-16-17.1 was read whole again, all eleven subsections, and there is still no
+lock provision; and chapter 14-07.7 was read whole, all twenty sections, in which the words
+**"landlord", "lease", "tenant" and "lock" do not appear at all**. So the row's core statement - that
+the statute gives a victim an early-termination right and no lock-change right - is correct.
+
+**But the chapter supplies a mechanism the row was written before**, and it turns what the row calls a
+judgment call into something close to the opposite. A protection order, temporary or full, may exclude
+the respondent "from the residence of another individual or from a place necessary to ensure the safety
+of the protected individual" (§§ 14-07.7-06(1)(b), 14-07.7-07(2)(b)); on the petitioner's request the
+court **shall** order the sheriff or other law enforcement officer to accompany the petitioner and
+assist in placing them in possession of the dwelling (§ 14-07.7-19); a first violation is a class A
+misdemeanour **and** contempt (§ 14-07.7-17); and an officer **shall** arrest without a warrant for a
+violation (§ 14-07.7-18(1)). **Sentence to add, after "not under a statute":** *"If a co-tenant
+excluded by a protection order asks you for keys or a new credential, do not give them: you would be
+assisting a violation that is a class A misdemeanour and contempt of court, for which an officer must
+arrest without a warrant. Ask to see the order, follow what it says about possession, and refer any
+dispute about who may be in the unit back to the issuing court - your quiet-possession duty under
+§ 47-16-08 runs to 'all persons lawfully claiming the same', and an excluded respondent is not lawfully
+claiming possession while the order stands. The order does not, however, oblige you to re-key, to pay
+for a re-key, or to do it within any particular time."* Also worth adding: **§ 47-16-17.1(2)(a), as
+amended by S.L. 2025, ch. 145, now expressly names a civil protection order under chapter 14-07.7**, so
+a tenant's notice resting on one is squarely within the statute.
+
+### 6.12 `edu-no-late-fee-cap-nd` is wrong, and wrong in the landlord's favour
+
+**The row's words:** *"North Dakota sets no dollar or percentage cap on late fees, and no statutory
+grace period. It has also declined to set one three times"* - citing HB 1440 and HB 1442 (2021) and
+SB 2236 (2025).
+
+**The statute**, N.D.C.C. § 47-10-28(11): *"A mobile home park may not charge a monthly late fee of more
+than ten percent of the monthly rent. In addition to the monthly late fee, a mobile home park may not
+charge a daily late fee of more than five dollars per day."* Subsection 11 was **inserted by S.L. 2025,
+ch. 238 (S.B. 2385), effective August 1, 2025** - the act text in the corpus shows the former
+subsections 9, 10 and 11 renumbered to 12, 13 and 14 around it. Enforcement is real: § 47-10-28(12)
+carries a civil penalty of **not less than $2,500** and not more than the greater of $10,000 or actual
+damages, plus actual attorney's fees and costs, and § 47-32-01.1 makes a violation **a defence to the
+eviction itself**.
+
+So the three failed bills show the legislature declining a **general** cap. They do not show it
+declining every cap - and it granted one in the same session. **This is the dangerous direction**: a
+park operator relying on the row would charge an uncapped late fee into a $2,500 floor and an eviction
+defence. **Wording I would use:** keep the existing §§ 9-08-03, 9-08-04 and 47-16-13.3 text, which is
+correct, and replace the opening with: *"North Dakota sets no cap on late fees for ordinary residential
+tenancies, and no statutory grace period - but mobile home parks are an exception, and the exception
+arrived in the same 2025 session in which a general cap failed. A park may not charge a monthly late fee
+above ten percent of monthly rent, nor a daily late fee above five dollars a day (§ 47-10-28(11), added
+by S.L. 2025, ch. 238, effective August 1, 2025); a violation carries a civil penalty of at least $2,500
+(§ 47-10-28(12)) and is a defence to the eviction (§ 47-32-01.1)."*
+
+**How it was found, because the method is the transferable part:** not by a late-fee battery, which is
+chapter-scoped and cannot see chapter 47-10, but by a **figure sweep** - every dollar amount, percentage
+and multiple of rent within about 200 characters of a lessor, landlord, lessee, tenant, rental agreement
+or dwelling unit, across the whole statutes scope (battery `ND-GAPS-227`, deliberately scoped
+`statutes`). The same sweep found § 47-16-07.6(2). Proposed as an SOP change below.
+
+### 6.13 `edu-self-help-eviction-ban-nd` asserts a treble-damages remedy this corpus cannot verify
+
+**The row's words:** a remedy in treble damages against a landlord who "forcibly ejects or excludes" a
+tenant.
+
+**The problem:** the only treble damages anywhere in North Dakota landlord-tenant law that this corpus
+can see is **§ 47-16-07.1(4)**, on security deposits withheld without reasonable justification. The
+only plausible source for the row's claim is **§ 32-03-29**, which the Legislative Council master index
+names **"Damages for forcible exclusion from realty"** - and **chapter 32-03 is wholly absent from the
+corpus**, so its text and its multiplier cannot be read. Two neighbours matter for the same reason:
+**§ 32-03-27 "Damages for tenant's failure to surrender premises"** and **§ 32-03-28 "Damages for
+tenant's willful holding over"** are landlord-side remedies, equally unread.
+
+**I am not calling the row wrong** - it may well be right, and it was written from a primary-text
+reading this corpus cannot reach. I am recording that **it cannot be checked here**, which is a
+different claim and the only honest one. **Recommendation: get chapter 32-03 into the corpus and read
+§ 32-03-29 before this row is relied on**, and until then do not propagate its multiplier to any new
+row. No new row in this delta rests on it.
+
+### 6.14 North Dakota has no "notice to vacate" and no "notice to quit" - a library-wide vocabulary mismatch
+
+Measured across the whole corpus in the collapsed view: **"notice to vacate" 0, "notice to quit" 0,
+"notice to remove" 0, "notice of intention to evict" 3.** North Dakota has no noun-phrase term of art
+for the pre-eviction notice. § 47-17-01 says the landlord gives "notice to the tenant ... **to remove
+from the premises** within a period specified in the notice of not less than one month"; § 47-32-02
+calls its three-day notice a "**notice of intention to evict**".
+
+This is not a finding against any one row - it is a flag that **wherever a shared or ND-tagged row uses
+"notice to vacate" or "notice to quit" for North Dakota, it is using a phrase that does not appear in
+the state's law**, and a reader looking for it will not find it. It also means **any battery searching
+those phrases returns zero in North Dakota and proves nothing**, which is a live trap for the remaining
+batches; it is now in the canvass brief. **Recommendation:** a text screen on the two phrases across
+ND-tagged rows, replacing them with the statute's own words where a row purports to describe ND law.
+
+### 6.15 A repealed section keeps its heading - 85 of them in this corpus
+
+Not a finding against a row, but a trap this pass walked close to and the sharpest argument available
+for SOP rule 21.
+
+**§ 47-16-24** still reads **"Lessee must give written notice before removal of property from
+premises"** in the chapter PDF and in the Legislative Council master index. Its entire body is
+**"Repealed by S.L. 1975, ch. 106, § 673."** A canvass noticed it. It is not isolated: **85 sections in
+this corpus are repealed but still carry their headings**, among them §§ 14-02.4-12 and 14-02.4-12.1
+(discriminatory housing practices) and most of chapter 14-07.1, which H.B. 1489 replaced.
+
+**Why it matters here specifically.** This pass names out-of-corpus sections by their **master-index
+headings**, which is the honest thing to do when the text cannot be read - but **an index heading
+carries no repeal marker**. So every such citation in this log is heading-only and unverified, and at
+least some of them may name sections that no longer exist. The rows say so in those words. The repeal
+is visible **only in the body**, which is exactly why rule 21 says read the section whole.
+**Recommendation: when any of the parked chapters is fetched, check each named section for a repeal
+line before relying on its heading.** Proposed as an SOP change below.
+
+### 6.16 North Dakota's fair-housing law is chapter 14-02.5 - and chapter 14-02.4 has no housing provision at all
+
+A canvass found that **§ 14-02.4-13 is a third repealed-but-headed housing section**, beside
+§§ 14-02.4-12 and 14-02.4-12.1. I checked the whole chapter: all three are repealed - §§ 14-02.4-12
+and -13 by **S.L. 1999, ch. 134, § 4** and § 14-02.4-12.1 by **S.L. 2001, ch. 145, § 14** - and
+**chapter 14-02.4 now contains no operative housing provision whatever**, though it keeps its
+employment, public-accommodation, credit, retaliation and remedies sections.
+
+**But the duties were moved, not abolished, and that is the part worth recording.** Chapter 14-02.5 is
+a full North Dakota fair housing act - **46 sections, all in the corpus**: § 14-02.5-02 "Sale or
+rental", -03 "Publication", -04 "Inspection", -05 "Entry into neighborhood", -06 "Disability", -07
+"Residential real estate-related transaction", -08 "Brokerage services", **-09 "Sales and rentals
+exempted"**, -10 "Religious organization, private club, and appraisal exemption", **-11 "Housing for
+elderly exempted"**, -12 "Effect on other law", -27 "Land use law", -45 "Intimidation or interference
+- Penalty", and the whole complaint-to-civil-action machinery at -13 to -44.
+
+**Recommendation: a text screen for `14-02.4` across ND-tagged rows.** Any row citing chapter 14-02.4
+for a housing duty is citing law repealed in 1999 or 2001, and the right citation is chapter 14-02.5.
+No row in this delta does so; this is a check on the existing library, and it is the third instance in
+this pass of the repealed-but-headed trap of 6.15.
+
+### 6.17 `edu-casualty-termination-nd` says there is no proportional reduction - § 47-16-21 is one
+
+**The row's words:** *"North Dakota has no statutory rent abatement during repairs and no proportional
+reduction: the tenant's casualty right is all or nothing."*
+
+**The statute**, N.D.C.C. § 47-16-21, "When proportionate part of lease paid by lessee": *"When the
+leasing of real property is terminated before the time originally agreed upon, the lessee must pay the
+due proportion of the lease for such use as the lessee actually has made of the property **unless such
+use is merely nominal and of no benefit to the lessee**."*
+
+**The first half of the row is right; the second half is wrong twice.** There *is* a proportioning
+rule, and the tenant's position is *not* all or nothing - § 47-16-21's second limb excuses the payment
+entirely where the use was merely nominal and of no benefit. The distinction the row misses is that
+§ 47-16-21 proportions what the tenant owes **for use already made**, which is not the same thing as
+an abatement during repairs; the row conflated the two and denied both.
+
+**And it errs in the landlord's favour**, which is the dangerous direction: a landlord relying on it
+would bill a full final period after a casualty termination. **Wording I would use:** keep the first
+sentence and replace the last with *"There is no statutory rent abatement while repairs are made. But
+the money is not all or nothing: on a termination before the agreed time the tenant pays only the due
+proportion of the lease for the use actually made of the property, and pays nothing for it where that
+use was 'merely nominal and of no benefit' (§ 47-16-21)."*
+
+**I had the same gap.** My own batch-1 row `edu-casualty-and-mitigation-waivable-nd` answered item 2
+without § 47-16-21, which it should have carried. The later canvass found it; I amended that row at
+assembly rather than leaving it, and the amendment is disclosed in its notes.
+
+### 6.18 `edu-no-state-military-termination-nd` is wrong: North Dakota has a state servicemember relief act
+
+**The row's words:** *"North Dakota has no state military lease-termination statute and no state
+analogue to the federal Servicemembers Civil Relief Act. A servicemember tenant's rights come entirely
+from the federal Act ... North Dakota adds nothing on top."*
+
+**The statute**, § 37-01-43 **"North Dakota military civil relief act"**, as amended by **S.L. 2025,
+ch. 332 (H.B. 1074)**, approved and filed 14 March 2025 and read whole from the session-law volume:
+*"An individual called or ordered to active service for thirty consecutive days or longer has all of
+the protections afforded to persons in the military service of the United States under the
+Servicemembers Civil Relief Act [50 U.S.C. 3901-4043] **in effect on December 31, 2024**."*
+
+So there **is** a state analogue, a servicemember tenant has state-law protections as well as federal
+ones, and the row's "adds nothing on top" is the opposite of the position. **And there is a subtlety
+the replacement wording has to carry: it is a frozen-standard incorporation.** It adopts the SCRA *as
+in effect on 31 December 2024* - the 2025 act moved that date up from 2022 - so later federal
+amendments do **not** flow through, and the state right can diverge from the federal one over time.
+
+**Why it was missed, which is the transferable part:** the earlier search was scoped to chapter 47-16.
+The provision is in **title 37**. Where a topic is about a *class of tenant* rather than a class of
+premises - servicemembers, victims, minors, subsidised tenants - the statute may be anywhere in the
+code, and a chapter-scoped battery cannot see it. That is now in the canvass brief.
+
+**Wording I would use:** *"North Dakota has a state analogue to the federal Servicemembers Civil
+Relief Act. Under § 37-01-43, an individual called or ordered to active service for thirty consecutive
+days or longer has all of the protections the SCRA gives persons in the military service of the United
+States - but as the SCRA stood on 31 December 2024 (§ 37-01-43, as amended by S.L. 2025, ch. 332), so a
+later change in federal law does not automatically change the state right. Treat the federal Act as
+the floor and check § 37-01-43 for the state-law route and remedy."*
+
+### 6.19 Two of this pass's own parked questions closed on the last batch - § 12.1-22-03
+
+**§ 12.1-22-03 is readable in full after all.** Title 12.1 is absent from the corpus, but the section
+was **amended and reenacted whole** by S.L. 2025, ch. 129 - an enacted act, with both the enactment
+and subsection checks made - so its current text is in the volume, effective 1 August 2025 by the
+art. IV, § 13 default. **North Dakota criminalised squatting in 2025:** *"An individual who unlawfully
+detains, occupies, or trespasses upon a residential dwelling is guilty of a **class C felony** for the
+first offense and a **class B felony** for a second or subsequent offense if the second or subsequent
+offense occurred at the same residential dwelling"* (subsection 2), with subsection 1 making entry
+into a dwelling without licence or privilege a class C felony in its own right. Subsection 4 sets the
+posting rules, including that **"[t]he name of the person posting the premises must appear on each
+sign in legible characters"**, with substantial compliance enough where notice against trespass is
+clear from the circumstances; subsection 3(b) carves out "a licensed hunter or angler who is lawfully
+hunting or fishing" from the fenced-land offence.
+
+`edu-unauthorized-occupant-removal-nd` and `edu-trespass-notice-nd` were both **NEEDS_REVIEW pending
+this section**; both are now **VERIFIED**, with the text in the body and the closure disclosed in the
+notes. Neither tells the landlord to self-help - the criminal route runs through law enforcement.
+
+### 6.20 `edu-no-tenant-organizing-right-nd` - right conclusion, wrong measurement
+
+**The row's words** include that "retaliat-" occurs three times in the statutes, offered in support of
+there being no retaliation bar. **The conclusion stands - there is no *general* landlord-retaliation
+statute - but the measurement does not support it, because the bar that does exist never uses the
+word.** **§ 14-02.5-45(2)**: *"It is a discriminatory practice to coerce, intimidate, threaten, or
+interfere with any individual in the exercise or enjoyment of, or on account of the individual having
+exercised or enjoyed ... any right granted or protected by this chapter."* And § 14-02.5-45(1) adds a
+class A misdemeanour for intimidation or interference by force or threat of force on a protected
+ground. **Wording I would use:** keep the conclusion and replace the count with *"There is no general
+landlord-retaliation statute, but § 14-02.5-45 bars coercing, intimidating, threatening or interfering
+with a tenant's exercise of any right under the fair housing chapter, and § 23-12-10 'Smoking
+restrictions - Exceptions - Retaliation' may add a third targeted bar."*
+
+**This is the rent-control trap for the fourth time in one pass: a word count on the topic's own
+vocabulary is not a measurement of the law.** It is also the reason I am not reporting the count to
+Taylor as evidence of anything.
+
+### 6.21 `edu-prohibited-lease-terms-nd` sits in the wrong group
+
+Not a legal defect - a filing one, and it affects whether a landlord ever sees the row. The row is the
+chapter 9-08 canvass and its group is **`Notices & General`**, while the library has a dedicated
+education group **`Compliance & Prohibited Terms`** carrying 780 rows. The new
+`edu-exculpatory-clauses-nd` is filed there. **Recommendation:** move
+`edu-prohibited-lease-terms-nd` to `Compliance & Prohibited Terms` so the pair sit together.
+
+### 6.22 `edu-nonpayment-notice-nd` - accurate, but silent on the federal notice
+
+**The row's words:** "No court rule adds a further pre-filing condition." That is correct and
+correctly scoped, and it **agrees** with `edu-cares-act-notice` (4.9). But the row never mentions the
+federal 30-day notice, so read alone the sentence can be taken as "nothing adds a further pre-filing
+condition". **Sentence I would add:** "Federal law may still require a 30-day notice to vacate if the
+property has a federally backed mortgage - see the federal CARES Act notice row."
+
+## 7. Findings for other states
+
+**Nothing to report from batches 1, 2 or 3.** All four canvasses were asked for it explicitly and all
+four returned empty: the research stayed inside North Dakota law, and the sibling rows consulted for shape
+were read for shape, not evaluated. Recording the nil return rather than omitting the section.
+
+The one thing that comes close is not a defect in another state's row but a **transferable test** that
+several states' rows may fail: ND's § 47-16-07.1(3) has a **closed** list of what a deposit may be
+applied to, and three separate topics in this batch - an unreturned key, an association fine, a utility
+arrear - each turn on the thing not being on it. Any state whose deposit statute has a closed list is
+worth re-reading against its own `keys`, `hoa-compliance` and `utility-deposit-return` rows. Offered as
+a topic question below rather than as a finding against any particular row, because I have not read
+those states' statutes and will not guess at them.
+
+One structural observation that is not a defect in any state's row: **every one of the 241
+missing topics already has a row somewhere in the library**, so for each one there is a
+sibling to compare shape against, and the tag-first rule (rule 26) is live on all of them -
+which is why the semicolon trap in 1.1 matters so much for the batches ahead.
+
+---
+
+## Leads carried to later batches
+
+Recorded here rather than acted on, because each belongs to a topic in a later batch and the scope
+fence keeps this batch to its own list.
+
+- **`ev-charging` and its three siblings (batch 8).** Battery `ND-GAPS-141` turned up, incidentally,
+  that North Dakota has a real EV-charging section - **§ 47-04.1-16**, read whole since - in a chapter
+  nobody would reach from the topic's own vocabulary. **Read the cite carefully, because I first got it
+  wrong** (4.3): subsection **(2)** voids any covenant or bylaw that prohibits or unreasonably restricts
+  a station in an owner's unit or designated parking space; **(3)** deems an application approved if not
+  denied in writing within sixty days; **(8)** is a civil penalty of up to **one thousand dollars**
+  against an association that wilfully violates the section; **(9)** is the unit owner's indemnity of
+  the association and carries **no figure**. It is a **condominium** provision about an **owner's**
+  installation, so the EV topics must answer from it without reporting it as a landlord-tenant rule.
+- **`exculpatory-clauses` is now answered**, and its chapter-9-08 reading is the spine of several
+  later answers: every fee topic (§§ 9-08-03, 9-08-04), `liquidated-damages`, `unconscionability`,
+  `binding-arbitration` and `limitation-of-actions` (§ 9-08-05), and `confession-of-judgment`. The
+  canvass briefs carry it so no agent re-reads the chapter.
+
+## New `{{variables}}`
+
+One, and the prompt asks for any new one to be listed: **`{unpaid_amount_interest_rate}`**, on
+`interest-on-unpaid-amounts-nd`. It is needed because § 47-14-05 conditions any rate above six per cent
+on being "contracted for in writing", so the figure has to be a per-lease field rather than a constant.
+The library's existing rate variables were checked first and none fits: `judgment_interest_rate` is a
+post-judgment rate, `holdover_daily_rate` a per-day holdover charge, `deposit_interest_statement` a
+disclosure sentence. A second: **`{{utility_transfer_days}}`**, on `utility-transfer-nd`, because no North Dakota statute
+sets a transfer deadline, so the number has to be the landlord's own.
+
+And two more on `guaranty-renewals-nd`: **`{{guarantor_name}}`** and
+**`{{guarantor_notice_address}}`**. These exist because **title 47 returns zero hits for `guarant*`
+and for `surety`** - North Dakota law supplies nothing at all about a guarantor, so a guaranty that is
+to survive a renewal or a month-to-month rollover has to be wholly contractual, and it needs the
+guarantor identified and an address to send notice to. The library had no guarantor variable of any
+kind, which is itself worth noticing.
+
+Then **`{{environmental_covenant_recording_data}}`** and
+**`{{environmental_covenant_use_limitations}}`** on `environmental-covenant-notice-and-compliance-nd`,
+because a covenant's recording data and use limitations are property-specific and § 47-37-06 does not
+supply them to the tenant; and **`{{substitute_premises_offer_days}}`** on
+`substitute-premises-after-damage-nd`, because no statute sets a period for offering substitute
+premises.
+
+Batch 7 added four more, all on clauses in the premises cluster:
+**`{{accessory_unit_description}}`**, **`{{included_facilities_list}}`**,
+**`{{parking_space_number}}`** and **`{{exhibit_letter}}`**. They exist because
+§ 47-16-27 gives the tenant only what the agreement grants and § 47-16-13.1(1)(d) keys the landlord's
+maintenance duty to what the landlord **supplied** - so in North Dakota the inventory, the excluded
+items and the granted facilities are legally operative text, not description, and each has to be a
+per-lease field.
+
+Every other row in this delta reuses existing variables, and the library's 162 existing variables were
+checked each time before a new one was proposed. **Nine new variables across 201 rows**, each named in
+this section with the reason it could not reuse an existing one.
+
+## Proposed SOP changes
+
+1. **The `states` delimiter is a semicolon; say so in the SOP, in the Step A section.** A
+   comma-split returns 95 ND rows instead of 142 and raises no error. Every state pass reads
+   this column. Proposed text: *"`states` is semicolon-delimited. Split on `[;,]` and
+   reconcile the count against the prompt's Step A figure before starting; a comma-split
+   silently undercounts and the wrong number looks plausible."*
+2. **A battery that supersedes another must name it in a machine-readable field, and the tool
+   must refuse the run otherwise.** RI 1 currently asks for the reason in the rerun's note,
+   which is prose and was in fact left out six times in this pass. `battery.py` now takes
+   `supersedes=`, records it, and refuses a name superseding a run not in the log. Proposed
+   text: *"A rerun records `supersedes` on its log record, naming the run it replaces and the
+   reason. The tool refuses a rerun that does not."*
+3. **Prove the corpus index before any battery, and never with the corpus's own verifier.**
+   Four defects in this pass' splitter - one of them, the `\x0c` form feed at page breaks,
+   invisible until the index was reconciled section by section against the Legislative
+   Council master index. Proposed text: *"Before the first battery, reconcile the corpus
+   index against an independent list of section numbers and record missing/extra counts in
+   §1. Reproduce any shipped verifier's check in your own code rather than running it."*
+4. **Carried forward from the ND retro pass, still unlanded:** check the row count against the
+   **path** you are about to read, not the filename.
+5. **When a topic turns on the absence of a cap, run a figure sweep as well as a term-of-art battery.**
+   Every dollar amount, percentage and multiple of rent within ~200 characters of a lessor, landlord,
+   lessee, tenant, rental agreement or dwelling unit, across the **whole** statutes scope. ND's
+   mobile-home-park late-fee caps sit in chapter 47-**10**, not 47-16, and no chapter-scoped or
+   deposit-scoped search can see them - which is exactly how an existing row came to say North Dakota
+   caps no late fees at all (6.12).
+6. **Parse the bill table; do not accept a list of acts.** This prompt named four 2025 acts; parsing
+   the table found **two more** touching title 47 (ch. 421 and ch. 422). Both turned out
+   not to reach a lease - but that was a finding, not a safe assumption, and one of them supplied the
+   best argument on another topic (1.6).
+7. **Do not read a long `notes` field with a regex that stops at the first delimiter.** My ND-segment
+   extractor cut at the next two-letter state marker and so missed a dated withdrawal sitting further
+   down a 48,000-character field - on three rows identically, which made a wrong answer look
+   corroborated. I reported a 43-row defect that had in fact been fixed a month earlier (6.8). Proposed
+   text: *"When a finding rests on what a row's notes do or do not say, extract **all** segments for
+   that state and search the whole field, then quote what you found and what you searched for."*
+8. **Treat an index heading as proof of a section number and nothing else.** 85 sections in this
+   corpus are **repealed but still carry their headings** - § 47-16-24 among them, whose whole body is
+   "Repealed by S.L. 1975, ch. 106, § 673". The repeal is visible only in the body. Proposed text:
+   *"A section named from an index, a table of contents or a search hit on its number is heading-only
+   and unverified until its body has been read. Label it so on the row, and never describe what it
+   requires."*
+9. **One canvass, one scratch directory.** Two canvasses sharing a working directory overwrote each
+   other's scripts mid-run on batch 4, because both chose the same obvious filenames. Proposed text:
+   *"Each canvass writes its scripts under its own slot directory; the shared corpus and battery tools
+   are read-only."*
+10. **Say which titles a bill-table screen covered.** I filtered mine to the titles the corpus holds
+   and called the result complete; a canvass then found **S.L. 2025, ch. 120** amending § 12.1-32-08 in
+   a title the corpus does not hold, with a mandatory meth-decontamination restitution for property
+   owners. Re-running over all 1,726 section-actions and screening headings is better but still not
+   complete, because § 12.1-32-08's heading gives no hint of it. Proposed text: *"State the scope of
+   any currency screen in §1 - which titles, which documents, and what a negative therefore does not
+   prove. Only the session-law volume read in full is complete."*
+11. **Add § 9-08-01 to the standing list of the real limits on lease terms.** The SOP names §§ 9-08-02 to
+   9-08-05. § 9-08-01 ("unlawful if ... Contrary to the policy of express law, though not expressly
+   prohibited") is the cleanest hook for a term that collects more than a statute permits, and unlike
+   §§ 9-08-03/9-08-04 it does not depend on characterising the term as a penalty or as damages fixed in
+   advance. Three files named `lease-clauses.csv`
+   were in this attachment folder, with 11,634, 2,427 and 941 rows and 17, 17 and 16 columns.
+
+## Proposed topic questions
+
+1. **For a waiver topic, say what the clause is worth, not only whether it is lawful.**
+   WY-gaps topic question 2 already requires the default rule first. ND shows the next step is
+   needed: `homestead-waiver` is not "lawful" or "unlawful" but **empty** - there is nothing
+   for the tenant to waive. Proposed addition to the waiver topics: *"State whether the waiver
+   has anything to operate on. A waiver of a right the tenant does not hold is empty, and
+   printing it invites the tenant to believe they gave something up."*
+2. **For a fee topic in a state with no fee statute, name the provision that actually limits
+   the fee.** `notice-service-fee`, `collection-fee` and `eviction-penalty-clause-ban` all
+   came back absent in ND, and in all three the real limit is the general penalty and
+   liquidated-damages law (§§ 9-08-03, 9-08-04), not landlord-tenant law. Proposed addition:
+   *"An absent fee statute is not a free hand. Name the contract-law provision that limits
+   the fee, or say there is none."*
+3. **For a crime-free topic, ask whether the state implies the term or requires the lease to
+   carry it.** The CO/ND divergence turns entirely on this and it decides whether the answer
+   is a clause or an education row. Proposed addition: *"Does a statute make crime-free
+   conduct a term of every lease (education row), or does it only make breach of a written
+   term a ground for eviction (clause)?"*
+4. **For every deposit topic, ask whether the statute reaches security "however denominated".**
+   Where it does, as N.D.C.C. § 47-16-07.1(1) does, four topics change answer at once:
+   `deposit-last-month-rent` is not "no rule" but "the label is irrelevant";
+   `fee-in-lieu-of-deposit` is not "unregulated" but "the deposit rules probably swallow the fee";
+   `nonrefundable-deposit-notice` is not "no notice rule" but "a non-refundable deposit cannot
+   lawfully exist"; and `utility-deposit-return` is not a utility question but a deposit question.
+5. **For `liquidated-damages`, battery the state's own vocabulary, never the term of art.** North
+   Dakota never says "liquidated damages": § 9-08-04 says damages "determined in anticipation" of a
+   breach, void unless it would be "impracticable or extremely difficult to fix the actual damage".
+6. **Ask whether the state runs a separate, stricter money regime for mobile home or manufactured
+   home parks.** North Dakota does, at § 47-10-28, with utility and late-fee caps that do not exist
+   for ordinary tenancies, a civil penalty with both a floor and a whichever-is-greater ceiling, and
+   violation-as-eviction-defence at § 47-32-01.1. **No chapter-47-16-scoped battery can see any of it.**
+7. **Where a general interest statute supplies a legal rate absent agreement, check what chapter it
+   sits in.** § 47-14-05 says "any legal indebtedness" but sits in chapter 47-14, *Loans of Money*,
+   and its own late-charge sentence speaks of "loan documents ... signed by the borrower" - so the
+   scope question must be answered before the rate is reported as reaching rent arrears.
+8. **For a deposit-formality topic, argue from contrast rather than reporting an absence.** Where a
+   chapter imposes a separate-signed-writing or initialling formality elsewhere and does **not**
+   attach it to the deposit, that is a deliberate choice: in ND the comparators are
+   §§ 47-16-13.1(5)(a) and 47-16-15(4).
+9. **Ask whether the state's deposit statute lists the permitted applications of the deposit, and
+   whether the thing you are about to deduct is on the list.** § 47-16-07.1(3)'s list is **closed**,
+   which is why an unreturned key, an association fine and a utility arrear each have to be **billed
+   rather than deducted** - three separate topics, one test, and treble damages under
+   § 47-16-07.1(4) for getting it wrong.
+10. **Before any notice or eviction battery, measure the state's own vocabulary.** "Notice to vacate"
+   and "notice to quit" occur **zero** times in the entire North Dakota corpus; the state says notice
+   "to remove from the premises" (§ 47-17-01) and "notice of intention to evict" (§ 47-32-02). A
+   battery on the topic's own words returns zero and proves nothing.
+11. **Battery the state's own word for proportioning, not the topic's.** North Dakota's word is
+   **"due proportion"**: `abate` near rent returns **0**, `prorate` near rent returns **0**, "withhold
+   rent" returns **0**, and "due proportion" occurs **exactly twice** - §§ 47-16-21 and 47-15-12, in
+   identical wording. A battery built on the topic's vocabulary would have reported a flat absence on
+   a rule the state has, and did: an existing row denies the proportioning rule outright (6.17).
+12. **A gap in the topic list itself, not a question about an existing topic.** § 47-32-01(8) makes
+   breach of "a material term of the **written lease**" an eviction ground, so **which obligations
+   the lease designates as material decides what the landlord can evict for** - a genuinely
+   lease-carried term with no `topic_key` anywhere in the 364. The eviction canvass found it, had
+   nowhere to put it, and raised it rather than smuggling it into an adjacent row. **Proposed new
+   topic `material-terms-designation`:** *"Does the state make breach of a lease term an eviction
+   ground, and if so must the lease say which terms are material?"*
+
+---
+
+## Gaps-pass sync review (Claude Code, 2026-10-30)
+
+Merged with `merge-delta.py --base 68f8c51`: 241 new rows (44 lease clauses), no shared rows tagged, nothing refused. The first copy of the delta on the Desktop held only 156 rows (an earlier batch's file); Taylor re-downloaded the final 241-row file, which matches the log row for row. All 241 missing topics are answered. North Dakota now carries 383 active rows, every one VERIFIED; the new rows carry the canvass date in `effective_from` (SOP rule 70).
+
+**NEEDS_REVIEW (85 delivered), all closed VERIFIED.** The pass had no channel to ndlegis.gov (proxy 403, allowlist, a browser that couldn't read PDFs), so every chapter outside the corpus went unread; Claude Code read them on ndlegis.gov (Century Code chapter PDFs, the Administrative Code, the court rules). No clause was switched off. More than 30 rows were corrected, not just confirmed. Among them:
+- **Smoke alarms:** § 23-13-15 puts a smoke-detection duty on residential rentals (landlord installs, tenant maintains), so the absence and inventory rows that said the Century Code has none now state it.
+- **Receipts:** § 9-12-22 lets anyone paying a debt demand a written receipt; `edu-no-cash-receipt-duty-nd` and `edu-rent-receipt-anti-waiver-nd` were wrong to say there is no receipt right.
+- **Pools:** N.D. Admin. Code ch. 33-29-01 regulates "semipublic" pools at apartments, parks and condominiums.
+- **Asbestos and lead:** ch. 33.1-15-13 (inspection before renovating a building of five or more units) and ch. 33.1-15-24 (licensed abatement, notice to the department).
+- **Utilities:** the Public Service Commission's rules bar submetering or reselling electricity unless the rate schedule allows it (§ 69-09-02-15), and give tenants 10 days' notice and the right to take over the account when a landlord who includes utilities falls behind (§§ 69-09-02-05.1(9), 69-09-01-18.1(9)).
+- **Courts:** § 27-11-01 bars a non-lawyer conducting a case for another in a court of record; small claims takes lease claims up to $15,000, filed where the property is (§ 27-08.1-01(2)(e), relevant to Taylor's lesson 6); N.D.R.Civ.P. 62(a)'s automatic 30-day stay against "immediate restitution" is stated as a doubt with the cautious course.
+- **Other corrections:** out-of-state entity owners without a certificate of authority can't maintain an action (§ 10-32.1-84(1)); a broker's trust account must be noninterest-bearing (§ 43-23-14.1), in tension with § 47-16-07.1(1)'s interest-bearing account (cautious course added); the property-tax rent route of ch. 57-21; the farm-hunting permission (S.L. 2025 ch. 216 struck the lessee's permission, it didn't add it); § 32-29.3-06(1) is the specific permission § 9-08-05 needs for arbitration (the row now records the rule-54 decline); several repealed sections the pass cited as live.
+- Remaining doubts that only case law could settle are stated in the rows with the cautious course.
+
+**Session-law readings:** ND's session-law PDFs print struck and new words alike in plain text. Every row stating what a 2023-2026 act added or changed was checked against the codified text (215 rows triaged, 70 claims checked): 25 fixes, among them 13 rows that paired the wrong bill with ch. 423 (it is H.B. 1610), § 47-10-28(1)'s contact duties wrongly called new, § 23-10-03(2)(d)'s struck "may be" quoted as law, and § 14-07.1-08.1 wrongly called repealed.
+
+**Findings on existing rows (§6):** checked against the statute; 74 changes. Highlights:
+- `edu-no-late-fee-cap-nd`: the 2025 mobile-home-park cap (§ 47-10-28(11), S.L. 2025 ch. 238), also in the `late-fee` ND segment.
+- `edu-no-smoke-drift-rule-nd`: § 23-12-09(11) makes apartment, condominium and park common areas smoke-free public places.
+- `edu-no-state-military-termination-nd`: § 37-01-43 extends the federal Act to state active duty of 30 or more days.
+- `edu-casualty-termination-nd`: § 47-16-21's proportioning rule.
+- `edu-consumer-protection-act-nd`: § 51-15-02's dropped conditions restored; the private action, penalty and four-year limit added.
+- `edu-no-dv-lock-change-duty-nd`: protection orders under ch. 14-07.7.
+- `edu-prohibited-lease-terms-nd` moved to "Compliance & Prohibited Terms".
+- The false "no enumerated prohibited-lease-provisions statute" sentence replaced in 38 rows' ND segments.
+- **New overrides:**
+  - `early-termination-nd`: a flat one month's Rent. §§ 9-08-03 and 9-08-04 match South Dakota's penalty and fixed-damages statutes word for word, and no mitigation duty is recited.
+  - `security-deposit-use-nd`: § 47-16-07.1(3)'s three heads instead of "remedy a Tenant default". The statute says "may apply ... towards" and never "only", so the closed list is recorded as the cautious reading, chosen because of § 47-16-07.1(4)'s treble damages.
+
+**Edited-after rows:** 8 VERIFIED rows carrying round-2 edits were read (the other three were NEEDS_REVIEW and closed above); 3 fixes, each moving landlord guidance that would have printed in the lease into brackets (`owner-occupancy-termination-nd`, `rent-escalation-nd`, `rules-regulations-nd`). `common-area-lighting-tenant-metered-nd` had the same defect; its guidance moved to the notes.
+
+**Spot check:** deposit cap and return (§ 47-16-07.1), entry (§ 47-16-07.3), repair duty and its limits (§ 47-16-13.1), eviction grounds and notice (§§ 47-32-01, 47-32-02), retaliation (none general; §§ 47-16-17.1(10), 14-02.5-45(2), 47-10-28(13)-(14)) and the DV termination right (§ 47-16-17.1) across all ND rows. Eight fixes, among them:
+- two rows that required the three-day notice for ground 7 (it applies to grounds 4, 5, 6 and 8);
+- a row that called § 47-16-07.1(4) the only treble damages (§ 32-03-29 is another);
+- a flat "no repair-and-deduct" that conflicted with § 47-16-13(1);
+- a two-year cap wrongly applied to every protection order.
+
+**Decisions (§4):** no product questions; the one question Desktop asked Taylor was about method (adding the parked chapters to the corpus), answered by reading them here. Legal calls:
+- No arbitration clause (rule 54 decline).
+- The homestead row now states that § 47-18-01 doesn't say "owner", leaving the leasehold question as a case-law doubt.
+- `children-occupancy-limit-nd`: § 14-02.5-32(2)(a) reads as the row quotes it (no missing "not").
+
+**Other:**
+- 14 new `{{variables}}` to M.14.
+- SOP 1.90 takes up the pass's proposals as 6 grouped additions, all [Fwd], including one from its running record: test every fetch channel at Step A and ask for the needed chapters before the canvass.
+- 10 topic questions added, all under existing keys.
+- The citations file gained 243 rows (the extractor now reads ND's "s", "SS" and "Sec." forms).
