@@ -525,7 +525,7 @@ const CLAUSE_TEMPLATES = [
     id: "services-utilities-provided",
     title: "Services & Utilities Provided by Landlord",
     group: "Landlord Responsibilities",
-    states: ["CO", "WY", "NE", "ND", "SD", "TX", "NJ", "FL", "GA", "NC", "AR", "MS"],
+    states: ["CO", "WY", "ND", "SD", "TX", "NJ", "FL", "GA", "NC", "AR", "MS"],
     bodyText:
       "Landlord will provide only the services and utilities expressly specified in this Lease, and as otherwise required by applicable law. Landlord is not liable for any interruption or insufficiency of a service or utility resulting from causes beyond Landlord's reasonable control.",
   },
@@ -566,7 +566,7 @@ const CLAUSE_TEMPLATES = [
     id: "landlords-access",
     title: "Landlord's Right of Entry",
     group: "Access & Entry",
-    states: ["WY", "KS", "NE", "OH", "NV", "TX", "NJ", "GA", "NC", "SC", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "NY", "WI", "WV", "MA", "ME", "LA", "AR", "MS", "VI", "AS", "MP"],
+    states: ["WY", "KS", "OH", "NV", "TX", "NJ", "GA", "NC", "SC", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "NY", "WI", "WV", "MA", "ME", "LA", "AR", "MS", "VI", "AS", "MP"],
     bodyText:
       "Landlord, its agents, and contractors will have the right of reasonable access to the property during normal business hours to perform maintenance and repair obligations and to show the property to prospective tenants or purchasers. Except in the case of an emergency, Landlord will provide Tenant at least 24 hours' notice, or the notice period required by applicable law if longer, prior to entry.",
   },
@@ -841,7 +841,7 @@ const CLAUSE_TEMPLATES = [
     id: "inspection-rights",
     title: "Inspection Rights",
     group: "Rules & Regulations",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA", "AR", "MS", "DC", "GU", "VI", "AS", "MP"],
+    states: ["CO", "WY", "KS", "MN", "ND", "SD", "OH", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA", "AR", "MS", "DC", "GU", "VI", "AS", "MP"],
     bodyText:
       "Tenant will allow Landlord to perform periodic inspections of the property during the Term, and at move-out, upon reasonable notice consistent with this Lease's Access & Entry terms.",
   },
@@ -1018,7 +1018,7 @@ const CLAUSE_TEMPLATES = [
     id: "ev-charging-shared-area-co",
     title: "Electric Vehicle Charging System in a Shared Area",
     group: "Parking & Storage",
-    states: ["CO", "IL", "KS", "MN"],
+    states: ["CO", "IL", "KS", "MN", "NE"],
     bodyText:
       "If Tenant wishes to install a charging system in a parking area accessible to other tenants, Landlord may charge Tenant a reasonable fee to reserve the specific parking spot where the system is installed. Unless otherwise agreed in writing, Tenant, and any tenant who later has exclusive rights to that space, is responsible for any damage to the charging system or other property resulting from its installation, maintenance, repair, removal, or replacement.",
   },
@@ -1026,7 +1026,7 @@ const CLAUSE_TEMPLATES = [
     id: "ev-charging-end-of-tenancy-co",
     title: "Electric Vehicle Charging System - End of Tenancy",
     group: "Parking & Storage",
-    states: ["CO", "IL", "KS", "MN"],
+    states: ["CO", "IL", "KS", "MN", "NE"],
     bodyText:
       "A charging system installed at Tenant's expense remains Tenant's property. Upon termination of this Lease, if the charging system is removable, Tenant may remove it, or sell it to Landlord or another tenant at an agreed price - Landlord is under no obligation to purchase it. Tenant is responsible for any damage to the property or the charging system resulting from its removal, consistent with this Lease's Surrender at End of Term Section.",
   },
@@ -1087,7 +1087,7 @@ const CLAUSE_TEMPLATES = [
     id: "prohibited-acts-renter-wy",
     title: "Prohibited Acts by Tenant",
     group: "Tenant Responsibilities",
-    states: ["WY", "AK", "HI", "AR", "MS", "DC", "GU", "AS", "MP", "CO"],
+    states: ["WY", "AK", "HI", "AR", "MS", "DC", "GU", "AS", "MP", "CO", "NE"],
     bodyText:
       "Tenant will not intentionally or negligently destroy, deface, damage, or impair any part of the property, or knowingly permit any other person to do so; interfere with another person's peaceful enjoyment of the property; or unreasonably deny access to, refuse entry to, or withhold consent to enter the property to Landlord or Landlord's agent for the purpose of making repairs, inspecting the property, or showing it for rent or sale.",
   },
@@ -1275,7 +1275,7 @@ const CLAUSE_TEMPLATES = [
     states: ["NE"],
     supersedes: "early-termination",
     bodyText:
-      "Tenant may terminate this Lease before the end of the Term by providing Landlord at least 30 days' written notice. Tenant will pay an early termination fee equal to one month's Rent ({{monthly_rent}}) or 30% of the remaining Rent due under the Term, whichever is greater, and remains responsible for Rent and other obligations up to the termination date. Landlord may terminate this Lease early in accordance with this Lease's Tenant Default and notice provisions, or if Tenant vacates or abandons the property without notifying Landlord. Nothing in this Section limits any right either party has under applicable law, including a Tenant's right to terminate without penalty due to active military service under the Servicemembers Civil Relief Act, due to the property becoming uninhabitable through no fault of Tenant, or any Nebraska domestic-violence housing protection, or, except as prohibited by law in the case of a Tenant's death, any other termination right or limitation provided by applicable law.",
+      "Tenant may terminate this Lease before the end of the Term by providing Landlord at least 30 days' written notice. Tenant will pay Landlord, by the termination date, an early termination fee equal to one month's Rent ({{monthly_rent}}), and remains responsible for Rent and other obligations up to the termination date. If Tenant gives that notice, pays the fee and delivers possession of the property by the termination date, Tenant owes no Rent for any period after the termination date. If Tenant leaves before the end of the Term without using this option, Tenant's liability is governed by Nebraska law, including Landlord's duty to mitigate damages and to make reasonable efforts to re-rent the property. Landlord may terminate this Lease early in accordance with this Lease's Tenant Default and notice provisions, or if Tenant vacates or abandons the property without notifying Landlord. Nothing in this Section limits any right either party has under applicable law, including a Tenant's right to terminate without penalty due to active military service under the Servicemembers Civil Relief Act, due to the property becoming uninhabitable through no fault of Tenant, or any Nebraska domestic-violence housing protection, or, except as prohibited by law in the case of a Tenant's death, any other termination right or limitation provided by applicable law.",
   },
   // Landlord Responsibilities
   {
@@ -1595,7 +1595,7 @@ const CLAUSE_TEMPLATES = [
     group: "Landlord Responsibilities",
     states: ["NE"],
     bodyText:
-      "Where the property has a fuel-fired heater or appliance, a fireplace, or an attached garage, Landlord will ensure an operational carbon monoxide alarm is installed on each habitable floor of the property, or in a location specified by any applicable building code. Before Tenant's occupancy begins, Landlord will replace any carbon monoxide alarm that was stolen, removed, found missing, or found not operational after the previous occupancy, and will provide Tenant with any batteries necessary to make each alarm operational at the time Tenant takes residence. Tenant will keep, test, and maintain all carbon monoxide alarms in good repair, and will notify Landlord if any alarm is stolen, removed, found missing, or found not operational during the Term, or of any deficiency Tenant cannot correct. Landlord will replace or repair any alarm upon receiving such notice. Except as stated in this Section, Landlord is not responsible for the maintenance, repair, or replacement of a carbon monoxide alarm or for the care and replacement of its batteries. Neither party will remove batteries from, or otherwise render inoperable, any carbon monoxide alarm, except as part of inspecting, maintaining, repairing, or replacing the alarm or its batteries.",
+      "Landlord will ensure an operational carbon monoxide alarm is installed on each habitable floor of the property, or in a location specified by any applicable building code. Before Tenant's occupancy begins, Landlord will replace any carbon monoxide alarm that was stolen, removed, found missing, or found not operational after the previous occupancy, and will provide Tenant with any batteries necessary to make each alarm operational at the time Tenant takes residence. Tenant will keep, test, and maintain all carbon monoxide alarms in good repair, and will notify Landlord if any alarm is stolen, removed, found missing, or found not operational during the Term, or of any deficiency Tenant cannot correct. Landlord will replace or repair any alarm upon receiving such notice. Except as stated in this Section, Landlord is not responsible for the maintenance, repair, or replacement of a carbon monoxide alarm or for the care and replacement of its batteries. Neither party will remove batteries from, or otherwise render inoperable, any carbon monoxide alarm, except as part of inspecting, maintaining, repairing, or replacing the alarm or its batteries.",
   },
   {
     id: "smoke-detector-duty-mn",
@@ -2064,7 +2064,7 @@ const CLAUSE_TEMPLATES = [
     id: "tenant-forward-proceedings-ca",
     title: "Notice of Proceedings Against the Property",
     group: "Tenant Responsibilities",
-    states: ["CA", "TX", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "WY", "KS", "MN"],
+    states: ["CA", "TX", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "WY", "KS", "MN", "NE"],
     bodyText:
       "If Tenant receives notice of any proceeding to recover the property or its possession, Tenant shall immediately inform Landlord of the proceeding and deliver the notice to Landlord if it is in writing.",
   },
@@ -2133,7 +2133,7 @@ const CLAUSE_TEMPLATES = [
     id: "services-utilities-provided-ks-oh",
     title: "Services & Utilities Provided by Landlord",
     group: "Landlord Responsibilities",
-    states: ["KS", "OH", "NV", "AZ", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "SC", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA", "DC", "PR", "GU", "VI", "AS", "MP"],
+    states: ["KS", "OH", "NV", "AZ", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "SC", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA", "DC", "PR", "GU", "VI", "AS", "MP", "NE"],
     supersedes: "services-utilities-provided",
     bodyText:
       "Landlord will provide only the services and utilities expressly specified in this Lease, and as otherwise required by applicable law.",
@@ -6967,7 +6967,7 @@ const CLAUSE_TEMPLATES = [
     id: "rent-concession-wi",
     title: "Rent Concessions",
     group: "Rent & Payment",
-    states: ["WI", "CT", "RI", "NH", "ME", "VT", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "KS", "MN"],
+    states: ["WI", "CT", "RI", "NH", "ME", "VT", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "KS", "MN", "NE"],
     bodyText:
       "[Use only if Landlord gives Tenant any rent concession.] In connection with this Lease, Landlord gives Tenant the following rent concession, which is part of this Lease: [describe each period of free or reduced Rent, credit, rebate or other concession, with its amount or value and the rental periods to which it applies].",
   },
@@ -7327,7 +7327,7 @@ const CLAUSE_TEMPLATES = [
     id: "rent-installments-or",
     title: "Rent Paid in Installments",
     group: "Rent & Payment",
-    states: ["OR", "CT", "RI", "NH", "ME", "VT", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "WY", "KS"],
+    states: ["OR", "CT", "RI", "NH", "ME", "VT", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "WY", "KS", "NE"],
     bodyText:
       "Landlord and Tenant agree that Monthly Rent will be paid in installments as follows: [state each installment amount and the day of the month it is due]. Installments paid on this schedule are not partial payments of Rent. A late charge applies only as this Lease's late charge provision allows for the rental period.",
   },
@@ -7718,7 +7718,7 @@ const CLAUSE_TEMPLATES = [
     id: "informal-dispute-resolution-or",
     title: "Informal Dispute Resolution",
     group: "Notices & General",
-    states: ["OR", "AR", "MS", "DC", "GU", "VI", "AS", "MP", "CO", "WY", "KS", "MN"],
+    states: ["OR", "AR", "MS", "DC", "GU", "VI", "AS", "MP", "CO", "WY", "KS", "MN", "NE"],
     bodyText:
       "Before either party starts a court action about a dispute under this Lease, other than an action for possession, the party will give the other written notice describing the dispute and offer to meet, in person or by phone, within 10 days to try to resolve it informally. This Section does not delay or limit any notice, deadline or remedy that applicable law provides, including any action for possession or for emergency relief, and does not require either party to accept any proposal.",
   },
@@ -7923,7 +7923,7 @@ const CLAUSE_TEMPLATES = [
     id: "government-fee-reimbursement-ky",
     title: "Local Government Fees",
     group: "Rent & Payment",
-    states: ["KY", "AR", "MS", "KS"],
+    states: ["KY", "AR", "MS", "KS", "NE"],
     bodyText:
       "[Optional.] If a city, county or other local government assesses Landlord a fee pertaining to the property, such as a rental registration or licensing fee, Landlord may notify Tenant of the fee in writing, and Tenant will reimburse Landlord for [all / the following share of] the fee within [number] days after Landlord's written notice. Tenant will not be required to reimburse a fee relating to construction of the property, such as a building permit fee, any emergency response fee, or any fine or penalty assessed against Landlord.",
   },
@@ -10791,7 +10791,7 @@ const CLAUSE_TEMPLATES = [
     id: "ev-charger-installation-hi",
     title: "Tenant EV Charger Installation",
     group: "Parking & Storage",
-    states: ["HI", "GU", "VI", "AS", "MP", "KS"],
+    states: ["HI", "GU", "VI", "AS", "MP", "KS", "NE"],
     bodyText:
       "[Optional. Use only if Landlord is willing to let Tenant install an electric vehicle charging system.] Tenant may install an electric vehicle charging system at [identify the parking space], at Tenant's own expense, only with Landlord's prior written consent to the specific system and location. Tenant will: (a) have the system installed by a duly licensed contractor, in compliance with Landlord's written specifications, applicable codes and any required permits; (b) if the property is in a condominium, townhouse or other association, comply with the association's rules for charging systems and give Landlord, promptly after installation, the information Landlord needs to register the system with the association and to obtain any consent the association requires; (c) [carry liability insurance covering the system and name Landlord as an additional insured]; and (d) reimburse Landlord for the electricity the system uses, measured by [a separate meter / Landlord's reasonable calculation, described here], within [number] days after Landlord bills Tenant. Any money Landlord holds to secure Tenant's obligations for the system is part of the Security Deposit and counts toward its legal limit. When this Lease ends, Tenant will [remove the system and repair any damage its installation or removal caused / leave the system in place, and it will belong to Landlord], unless Landlord and Tenant agree otherwise in writing.",
   },
@@ -10870,7 +10870,7 @@ const CLAUSE_TEMPLATES = [
     id: "lease-copy-receipt-hi",
     title: "Receipt of Lease Copy and Rules",
     group: "Notices & General",
-    states: ["HI", "GU", "VI", "AS", "MP", "KS"],
+    states: ["HI", "GU", "VI", "AS", "MP", "KS", "NE"],
     bodyText:
       "[Optional.] By signing this Lease, Tenant acknowledges that Landlord has given Tenant a copy of this Lease and of the following written rules, which were brought to Tenant's attention before Tenant signed: [list the rules or attachments, or write \"none\"]. Landlord will also give each Tenant a copy of this Lease signed by all parties promptly after all parties sign.",
   },
@@ -11022,7 +11022,7 @@ const CLAUSE_TEMPLATES = [
     id: "rent-escalation-la",
     title: "Scheduled Rent Changes",
     group: "Rent & Payment",
-    states: ["LA", "MS", "PR", "GU", "VI", "AS", "WY", "KS", "MN"],
+    states: ["LA", "MS", "PR", "GU", "VI", "AS", "WY", "KS", "MN", "NE"],
     bodyText:
       "[Optional. Choose one.] [A: Monthly Rent will change during the Term as follows: [state each new amount and the date it takes effect].] [B: On [state each adjustment date, e.g. each anniversary of the Start Date], Monthly Rent will be adjusted, up or down, by the percentage change in [name a published index, e.g. the Consumer Price Index for All Urban Consumers (CPI-U), South Region, published by the U.S. Bureau of Labor Statistics] between [base month and year] and the most recent month published before the adjustment date[, but by no more than [percent] percent for any one adjustment]. Landlord will give Tenant written notice of each adjusted Monthly Rent, showing the calculation, at least [number] days before it takes effect. If the index is no longer published, Monthly Rent will stay at the last adjusted amount.] Monthly Rent will not change during the Term in any other way, except as any tax and insurance escalation Section of this Lease, if used, provides.",
   },
@@ -11030,7 +11030,7 @@ const CLAUSE_TEMPLATES = [
     id: "tax-insurance-escalation-la",
     title: "Tax and Insurance Increases",
     group: "Rent & Payment",
-    states: ["LA", "AR", "MS", "PR", "GU", "VI", "WY", "KS"],
+    states: ["LA", "AR", "MS", "PR", "GU", "VI", "WY", "KS", "NE"],
     bodyText:
       "[Optional.] Tax and Insurance Increases: If the ad valorem property taxes assessed on [the Property / the building or parcel of which the Property is a part] for any calendar year during the Term are higher than the taxes for [base year][, or if Landlord's premium for property insurance on [the Property / that building] for any policy year during the Term is higher than the premium for [base policy year]], Tenant will pay Landlord [percent] percent of the increase, which is the Property's share of [the building or parcel]. Landlord will give Tenant written notice of each amount due, with a copy of the tax bill [and premium notice] and the calculation, at least [number] days before it is due, and Tenant may pay it [in one payment / in equal monthly installments with Rent over [number] months]. Tenant will not pay any part of a penalty or interest charged for Landlord's late payment of taxes or premiums. If taxes [or premiums] for a period for which Tenant paid a share are later reduced, abated or refunded, Landlord will credit or refund Tenant the same percentage of the reduction.",
   },
@@ -11055,7 +11055,7 @@ const CLAUSE_TEMPLATES = [
     id: "furnishings-included-la",
     title: "Furnishings",
     group: "Security Deposit",
-    states: ["LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "WY", "MN"],
+    states: ["LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "WY", "MN", "NE"],
     bodyText:
       "[Optional. Use only if the property is rented furnished.] Furnishings: The property is rented furnished. The furniture and furnishings Landlord provides, and their condition at the start of this Lease, are: [list each item and its condition, or attach a signed inventory]. Tenant will keep them at the property, will not remove or dispose of any item without Landlord's written consent, will tell Landlord promptly of any damage to them, and will return them at the end of this Lease in the same condition, except for normal wear and tear.",
   },
@@ -11284,7 +11284,7 @@ const CLAUSE_TEMPLATES = [
     id: "association-approval-la",
     title: "Association Approval of Lease",
     group: "Disclosures",
-    states: ["LA", "AR", "MS", "PR", "GU", "VI", "AS", "MP", "KS", "MN"],
+    states: ["LA", "AR", "MS", "PR", "GU", "VI", "AS", "MP", "KS", "MN", "NE"],
     bodyText:
       "[Use only if the property is in a condominium or planned community whose governing documents require the association to approve a lease or a tenant.] This Lease depends on the association's approval. Tenant will apply promptly, give the association the information it reasonably requires, sign any lease addendum or occupancy agreement the association's documents require, and cooperate in the approval process. The association's application or approval fee will be paid by [Landlord or Tenant]. If approval has not been given by [date], either party may end this Lease by written notice to the other before approval is given, and Landlord will then return all amounts Tenant has paid under this Lease. Tenant will not owe Rent for any period before approval during which Tenant is not permitted to take possession. Any deposit or fee the association requires of Tenant is separate from the Security Deposit under this Lease.",
   },
@@ -11357,7 +11357,7 @@ const CLAUSE_TEMPLATES = [
     id: "carpet-cleaning-ar",
     title: "Professional Carpet Cleaning at Move-Out",
     group: "Tenant Responsibilities",
-    states: ["AR", "MS", "PR", "VI", "AS", "MP", "KS"],
+    states: ["AR", "MS", "PR", "VI", "AS", "MP", "KS", "NE"],
     bodyText:
       "[Optional. Use only if the carpets were professionally cleaned immediately before the tenancy began.] The carpets at the property were professionally cleaned immediately before this tenancy began. When the tenancy ends, Tenant will have the carpets professionally cleaned and give Landlord the receipt. If Tenant does not, Landlord may have the carpets professionally cleaned and apply the reasonable cost Landlord actually pays to the Security Deposit as damages caused by Tenant's noncompliance with this Lease, listed in Landlord's itemized deposit notice.",
   },
@@ -11365,7 +11365,7 @@ const CLAUSE_TEMPLATES = [
     id: "no-liens-ar",
     title: "No Liens for Tenant Work",
     group: "Tenant Responsibilities",
-    states: ["AR", "MS", "GU", "VI", "AS", "MP", "WY", "MN"],
+    states: ["AR", "MS", "GU", "VI", "AS", "MP", "WY", "MN", "NE"],
     bodyText:
       "[Optional.] Tenant will pay in full everyone Tenant hires, or whose work or materials Tenant orders, for any construction, alteration or repair at the property, and will not allow a lien to be filed against the property for that work. If a lien is filed because of work Tenant ordered, Tenant will have it released within [number] days after Tenant learns of it and will pay Landlord's reasonable costs caused by it. Tenant is not Landlord's agent for any work Tenant orders, and before work begins Tenant will tell each contractor and supplier that Tenant, not Landlord, is responsible for paying for it. Any consent Landlord gives to an alteration under this Lease is consent only as between Landlord and Tenant and is not an agreement by Landlord to pay for the work.",
   },
@@ -11402,7 +11402,7 @@ const CLAUSE_TEMPLATES = [
     id: "owner-occupancy-termination-ar",
     title: "Owner Occupancy (Optional)",
     group: "Default & Termination",
-    states: ["AR", "MS", "PR", "GU", "VI", "AS", "MP", "WY", "KS"],
+    states: ["AR", "MS", "PR", "GU", "VI", "AS", "MP", "WY", "KS", "NE"],
     bodyText:
       "[Optional. Use only for a fixed Term.] Owner Occupancy: Landlord may end this Lease before the end of the Term if Landlord, or the following member of Landlord's family, will occupy the property as a residence: [name or relationship]. To do so, Landlord will give Tenant written notice at least [number, not less than 30] days before the termination date, and the termination date will be the last day of a monthly rental period. Tenant owes Rent only through the termination date, and Landlord will refund any Rent paid for a later period. If Tenant does not leave by the termination date, Landlord may regain possession only through a court eviction.",
   },
@@ -12145,7 +12145,7 @@ const CLAUSE_TEMPLATES = [
     id: "pest-cooperation-pr",
     title: "Pest Reporting and Treatment",
     group: "Tenant Responsibilities",
-    states: ["PR", "GU", "AS", "MP"],
+    states: ["PR", "GU", "AS", "MP", "NE"],
     supersedes: "pest-cooperation-la",
     bodyText:
       "[Optional.] Tenant will promptly tell Landlord if Tenant knows or reasonably suspects that the property has bed bugs or another infestation of insects, rodents or other pests. Tenant will allow Landlord, Landlord's agents and pest control operators to enter the property to inspect for and treat the infestation as this Lease's entry section allows, and will follow the reasonable written preparation instructions Landlord or the pest control operator gives. If the infestation was caused by the fault of Tenant, a member of Tenant's household or a person on the property with Tenant's consent, Tenant will pay the reasonable cost of treatment and of repairing the resulting damage. Otherwise, Landlord will pay for treatment as part of Landlord's repair obligations.",
@@ -12862,7 +12862,7 @@ const CLAUSE_TEMPLATES = [
     id: "fees-and-charges-vi",
     title: "Fees and Charges",
     group: "Rent & Payment",
-    states: ["VI", "MP", "KS"],
+    states: ["VI", "MP", "KS", "NE"],
     bodyText:
       "In addition to the Monthly Rent of {{monthly_rent}} and the Security Deposit of {{security_deposit}}, the following are all of the fees and charges Tenant may be required to pay under this Lease: [list each fee or charge, with its amount or how it is calculated and when it is due, and mark any optional fee as optional; or write \"None\"]. Landlord will not charge Tenant any other fee or charge except an amount stated in another Section of this Lease, an amount a court awards, or a tax the law requires Tenant to pay. Landlord will not add a fee or charge during the Term unless Tenant agrees in writing.",
   },
@@ -12945,7 +12945,7 @@ const CLAUSE_TEMPLATES = [
     id: "eminent-domain-vi",
     title: "Condemnation (Optional)",
     group: "Default & Termination",
-    states: ["VI", "MP", "KS", "MN"],
+    states: ["VI", "MP", "KS", "MN", "NE"],
     bodyText:
       "[Optional.] If all of the property is taken by eminent domain, or so much of it is taken that the rest cannot reasonably be lived in, this Lease ends on the date Tenant must give up possession, Rent is apportioned to that date, and Landlord will refund any Rent paid for later days. If a smaller part is taken and the rest can reasonably be lived in, this Lease continues and Rent is reduced in proportion to Tenant's loss of use. Any award for the taking of the property, including any value of this Lease, belongs to Landlord, except any relocation payment or other separate payment made to Tenant for Tenant's own moving costs or personal property. If this Lease ends under this Section, Landlord will return the Security Deposit, less lawful deductions, as this Lease provides.",
   },
@@ -13029,7 +13029,7 @@ const CLAUSE_TEMPLATES = [
     id: "tenant-caused-fines-as",
     title: "Fines Caused by Tenant (Optional)",
     group: "Rent & Payment",
-    states: ["AS", "MP", "WY", "MN"],
+    states: ["AS", "MP", "WY", "MN", "NE"],
     bodyText:
       "[Optional.] If a government agency fines or penalizes Landlord, or charges Landlord the cost of abating a nuisance, because of a condition or violation that Tenant, a member of Tenant's household, or a person on the Premises with Tenant's consent caused or permitted, Tenant will reimburse Landlord the amount Landlord paid within [number of days] days after Landlord gives Tenant written notice with a copy of the citation, order or bill. This Section does not apply to a fine or charge for a condition Landlord is responsible for under this Lease or the law, and Landlord will not deduct the amount from a Rent payment.",
   },
@@ -13114,7 +13114,7 @@ const CLAUSE_TEMPLATES = [
     id: "guaranty-as",
     title: "Guaranty (Optional)",
     group: "Default & Termination",
-    states: ["AS", "MP", "CO", "KS", "MN"],
+    states: ["AS", "MP", "CO", "KS", "MN", "NE"],
     bodyText:
       "[Optional. Use only if a guarantor signs this Lease.] GUARANTY. [guarantor's full name] (\"Guarantor\") signs this Lease to guarantee to Landlord that Tenant will pay the Rent and perform Tenant's other obligations under this Lease, up to a total maximum of $[maximum amount]. This guaranty covers the Term and [choose one: also covers any renewal, extension or month-to-month continuation of this Lease, including any change in Rent made under this Lease / ends when the Term ends, except for amounts that became due during the Term]. Guarantor's obligations are never larger than Tenant's. Landlord may ask Guarantor to pay without first suing Tenant. Guarantor has read this Lease and received a copy.",
   },
@@ -14620,7 +14620,7 @@ const CLAUSE_TEMPLATES = [
     states: ["NE"],
     supersedes: "keys",
     bodyText:
-      "At the start of the Term, Tenant will receive the keys specified by Landlord and will sign a receipt acknowledging the number and type of keys provided. Tenant will return all keys to Landlord at the end of the Term. If Tenant fails to return all keys or requires a replacement, Landlord may re-key the applicable locks and charge the cost to Tenant. Tenant may not duplicate keys without Landlord's consent. This Section does not apply to a lock change Nebraska law requires Landlord to make for a tenant or household member who is a victim of domestic violence. For that lock change, Landlord may charge Tenant only the actual and reasonable cost Landlord incurs in changing the locks, and Nebraska law governs the rest, including Tenant's right to change the locks if Landlord does not.",
+      "At the start of the Term, Tenant will receive the keys specified by Landlord and will sign a receipt acknowledging the number and type of keys provided. Tenant will return all keys to Landlord at the end of the Term. If Tenant fails to return all keys or requires a replacement, Landlord may re-key the applicable locks and charge the cost to Tenant. Tenant may not duplicate keys without Landlord's consent. This Section does not apply to a lock change Nebraska law requires Landlord to make for a tenant or household member who is a victim of domestic violence. For that lock change, Landlord may charge Tenant only the actual and reasonable cost Landlord incurs in changing the locks, and Nebraska law governs the rest, including Tenant's right to change the locks if Landlord does not. Landlord may keep a copy of the key or entry code for any new lock installed for that lock change, and if Tenant changes a lock under that law, Tenant will give Landlord a new key or the entry code as that law requires.",
   },
   // Notices & General
   {
@@ -15146,6 +15146,141 @@ const CLAUSE_TEMPLATES = [
     supersedes: "application-of-payments",
     bodyText:
       "Each payment Tenant makes will be applied first to the Monthly Rent due for the current or oldest unpaid rental period, and only then to any other fees, charges, or amounts due under this Lease, unless applicable law requires otherwise. Where the law allows it, Tenant may direct otherwise in writing for a particular payment. Nothing in this provision limits any statutory right Tenant may have to cure nonpayment of Rent.",
+  },
+  // Default & Termination
+  {
+    id: "criminal-activity-ne",
+    title: "Criminal Activity",
+    group: "Default & Termination",
+    states: ["NE"],
+    bodyText:
+      "Tenant, each Occupant, and each guest or other person who is under Tenant's control or who is on the property with Tenant's consent will not engage in any of the following on the property: violent criminal activity; the illegal sale of any controlled substance; physical assault or the threat of physical assault; the illegal use of a firearm or other weapon, or the threat of illegal use of a firearm or other weapon; possession of a controlled substance where Tenant knew or should have known of the possession, unless the controlled substance was obtained directly from or pursuant to a medical order issued by a practitioner legally authorized to prescribe it while acting in the course of professional practice; or any other activity or threatened activity that threatens the health or safety of any person, or that involves threatened, imminent or actual damage to the property. Tenant will also not keep or maintain the property, and will not allow it to be kept or maintained, in a condition that Tenant knows or should know makes it a place resorted to by persons unlawfully using controlled substances, or used for unlawfully keeping or selling them.\n\nA violation of this Section is a material noncompliance with this Lease. Landlord may proceed under this Lease's Tenant Default Section, and separately may exercise any right applicable law gives Landlord to terminate this Lease on five days' written notice with no right for Tenant to cure. Landlord will use the five-day no-cure route only where applicable law makes it available, which requires violent criminal activity on the premises, the illegal sale of a controlled substance on the premises, or other activity that threatens the health or safety of other tenants, Landlord, or Landlord's employees or agents; the conduct listed above is an illustration of that standard and not a separate ground, so a breach of this Section that does not meet it is a material noncompliance to be handled under the ordinary default route only. Using one of those routes does not waive the other.\n\nLandlord will not use the five-day no-cure route where applicable law forbids it. Specifically, Landlord will not use it where the activity was carried out by a person other than Tenant or a member of Tenant's household and Tenant or that household member has taken at least one of these steps: sought a protective order, restraining order or other similar relief that would apply to the person carrying out the activity; reported the activity to a law enforcement agency in an effort to begin a criminal action against that person; or, if the activity is an act of domestic violence, obtained certification of it from a qualified third party as applicable law provides. That limit does not apply to a Tenant who is the perpetrator of an act of domestic violence, and where both the victim who takes one of those steps and the perpetrator are parties to this Lease, Landlord will use that route only against the perpetrator. Nothing in this paragraph limits Landlord's other remedies under this Lease or applicable law.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "dv-lock-change-cost-ne",
+    title: "Domestic-Violence Lock Change - Cost and Keys",
+    group: "Tenant Responsibilities",
+    states: ["NE"],
+    bodyText:
+      "Where Landlord changes a lock at Tenant's request under Nebraska's domestic-violence lock-change provisions, Tenant will pay Landlord the actual and reasonable cost Landlord incurs in changing the lock, on Landlord's written itemization of that cost. Landlord will charge no other fee, markup or administrative charge for the lock change. Landlord may retain a copy of the key or the entry code that opens the new lock. Nothing in this Section limits Tenant's right, if Landlord does not change the lock when required to, to change it in a workmanlike manner with a lock of similar or better quality, and Tenant will then promptly notify Landlord and provide Landlord a new key or entry code by a method Landlord and Tenant reasonably agree on.",
+  },
+  // Notices & General
+  {
+    id: "emergency-contact-ne",
+    title: "Tenant's Authorized Contact Person (Optional)",
+    group: "Notices & General",
+    states: ["NE"],
+    bodyText:
+      "[Optional. Nebraska law lets Landlord ask for this; Tenant is not required to provide it.] Landlord requests, and Tenant may provide and routinely update, the name and contact information of a person Tenant authorizes to enter the property to retrieve and store Tenant's personal property if Tenant dies. Tenant may give, change or withdraw that authorization at any time by written notice to Landlord. Authorized person: [name] - [address] - [telephone]. Tenant may also, at Tenant's option, give Landlord a general emergency contact for use if Landlord cannot reach Tenant about an urgent condition at the property; a general emergency contact is not the authorized person described above unless Tenant says so in writing. Landlord will use information given under this Section only to contact the person named, and Tenant's decision not to provide it is not a breach of this Lease.",
+  },
+  // Access & Entry
+  {
+    id: "scheduled-services-entry-ne",
+    title: "Entry for Regularly Scheduled Services",
+    group: "Access & Entry",
+    states: ["NE"],
+    bodyText:
+      "[Optional.] Scheduled Services. In addition to Landlord's rights under the Landlord's Right of Entry section, Landlord and Landlord's agents and contractors will enter the property on a recurring basis to provide the following services on the following schedule: [list each service and its schedule, for example replacing heating and cooling filters every [number] months, pest treatment every [number] months, testing smoke and carbon monoxide alarms every [number] months, or state 'None']. Entry for these services will occur only between [state hours, for example 9:00 a.m. and 5:00 p.m.] on [state days, for example Monday through Friday, excluding public holidays]. Landlord will give Tenant written notice of each scheduled visit at least [number, not fewer than 24] hours in advance, and each notice will state the purpose of the entry and a reasonable period during which Landlord anticipates making entry. Landlord will deliver each notice by the method applicable law requires or permits, and Tenant's agreement to this Section is not consent to receive notices by electronic means. Landlord's agents will knock and announce before entering. This Section does not give Landlord any right to enter without the advance written notice applicable law requires, except in case of emergency or where giving notice is impracticable. Tenant will not unreasonably withhold consent to entry for these services, and will secure any pet and clear reasonable access to the equipment or area to be serviced.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "repair-request-procedure-ne",
+    title: "How to Report a Needed Repair",
+    group: "Landlord Responsibilities",
+    states: ["NE"],
+    bodyText:
+      "Tenant will tell Landlord about any condition at the Property that needs repair or maintenance as soon as Tenant knows of it, by {{repair_request_method}}, describing the condition and where it is. If the condition is an emergency - no heat, no running water, no hot water, a gas odor, a sewage backup, fire, or anything that puts a person at immediate risk - Tenant will also telephone Landlord at {{emergency_phone}} straight away and does not need to wait to put it in writing. Landlord will keep a dated record of each request and of what was done about it, and will give Tenant a copy on request. Tenant will give Landlord access to inspect and make the repair under this Lease's Access & Entry terms. Nothing in this Section limits any right, remedy or defense the law gives Tenant, and a request in this form is not the only way Landlord can be given notice of a condition.",
+  },
+  // Security Deposit
+  {
+    id: "deposit-transfer-on-sale-ne",
+    title: "Transfer of Deposit on Sale of the Property",
+    group: "Security Deposit",
+    states: ["NE"],
+    bodyText:
+      "TRANSFER ON SALE. If Landlord conveys the property, Landlord may assign Tenant's security deposit and any prepaid rent to the purchaser, and Landlord will give Tenant written notice of the conveyance and of the assignment. After that written notice, Tenant will look to the purchaser, as the holder of Landlord's interest, for the security deposit and prepaid rent and for performance of the obligations of the landlord arising afterwards. Nothing in this section reduces the amount of the deposit or prepaid rent credited to Tenant, or Tenant's rights as to the period before the notice.\n\nADDRESS FOR THAT NOTICE. Tenant designates [tenant's mailing address for notices] as the place held out by Tenant for receipt of communications under this Agreement, and will notify Landlord in writing within [number] days of any change. Landlord may give the notice of conveyance by delivering it in hand to Tenant or by mailing it to that address, and if Tenant has designated no address, to Tenant's last-known place of residence.\n\nMANAGER CHANGE. If Landlord changes the person authorized to manage the property, Landlord will give Tenant written notice of the change and of the new manager's name and address, and the former manager's responsibility ends as to events occurring after that notice.",
+  },
+  // Other / Miscellaneous
+  {
+    id: "employee-occupancy-conditional-ne",
+    title: "Employee Housing - Occupancy Conditional on Employment",
+    group: "Other / Miscellaneous",
+    states: ["NE"],
+    bodyText:
+      "EMPLOYEE OCCUPANCY. The dwelling at {{property_address}} is made available to Occupant solely in connection with, and conditional upon, Occupant's continued employment by Landlord in and about the premises as {{employment_position}}. Occupant's right of occupancy begins with and is at all times conditional upon that employment, and it ends on the last day of that employment however and by whomever the employment is ended. Occupant shall vacate and surrender the dwelling on or before that day. Rent of {{monthly_rent}} per month is charged separately from wages and will not be withheld from or offset against wages unless Occupant separately authorizes that in writing. Occupant shall not assign this agreement, sublet, or admit any other occupant without Landlord's prior written consent. If Occupant does not vacate when the employment ends, Landlord will obtain possession through the courts; nothing in this section authorizes Landlord to remove Occupant or Occupant's property, change the locks, or interrupt utilities without a court order.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "utility-allowance-overage-ne",
+    title: "Utility Allowance with Tenant-Paid Overage (Nebraska)",
+    group: "Landlord Responsibilities",
+    states: ["NE"],
+    bodyText:
+      "UTILITY ALLOWANCE AND TENANT-PAID OVERAGE. For each utility listed as paid by Landlord in this Lease, Landlord will pay the provider directly, and Landlord's share of the cost of that utility is limited to [insert monthly utility allowance amount] per month. If the provider's actual charge for a billing period exceeds that amount, Tenant will pay Landlord the excess within [insert number of days, e.g. 15] days after Landlord delivers a copy of the provider's bill for that period showing the actual charges. Landlord will deliver that copy with every bill for which an excess is claimed, and Landlord will not claim an excess for a billing period for which no copy was delivered.\n\nLANDLORD CONTINUES TO SUPPLY THE SERVICE. Nothing in this Section limits, conditions or shifts Landlord's duty under Neb. Rev. Stat. section 76-1419(1)(f) to supply running water and reasonable amounts of hot water at all times and reasonable heat, or Landlord's duty under section 76-1419(1)(d) to maintain in good and safe working order all facilities and appliances supplied or required to be supplied by Landlord. Landlord will keep every utility account in Landlord's name current and in service, and Tenant's failure to pay an amount owed under this Section is not a ground for Landlord to discontinue, reduce or interrupt any utility service to the premises.\n\nTHE OVERAGE IS RENT. An amount owed by Tenant under this Section is rent as defined by Neb. Rev. Stat. section 76-1410(13), is payable as rent, and Landlord may enforce it by every remedy this Lease and Nebraska law give Landlord for nonpayment of rent. Any late fee this Lease applies to rent applies to it.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "utility-disconnection-notice-authorization-ne",
+    title: "Tenant's Third-Party Notice Designation for Utility Disconnection (Nebraska)",
+    group: "Tenant Responsibilities",
+    states: ["NE"],
+    bodyText:
+      "THIRD-PARTY NOTICE DESIGNATION. For each utility account Tenant holds in Tenant's own name for water, natural gas or electricity service to the premises, Tenant will designate Landlord as Tenant's designated third party under the provider's third-party notice procedure, so that Landlord is notified of any proposed discontinuance of that service. Neb. Rev. Stat. section 70-1607 requires each utility subject to section 70-1603 or section 70-1605 to establish such a procedure and to advise its subscribers of its availability. The designation is Tenant's to make and Tenant's to revoke; Tenant will make it within [insert number of days, e.g. 10] days after service is established, will use the provider's own form, and will give Landlord a copy. Tenant will tell Landlord if Tenant revokes it.\n\nIF THE PROVIDER HAS NO SUCH PROCEDURE. If a provider does not offer a third-party notice procedure for Tenant's account, Tenant will instead authorize that provider, on Landlord's request, to tell Landlord whether the account is open and current and to send Landlord a copy of any notice of proposed discontinuance, delinquency or termination of service to the premises, and will sign the provider's own authorization form for that purpose. Any authorization or designation under this Section is limited to the account's status and to notices of proposed discontinuance, delinquency or termination; it does not extend to Tenant's payment history, consumption data or any other account information.\n\nTENANT'S OWN NOTICE DUTY. Tenant will give Landlord a copy of any notice of proposed discontinuance, delinquency or termination of utility service to the premises within [insert number of days, e.g. 3] days after Tenant receives it, and will tell Landlord if service to the premises is disconnected.\n\nWHAT THIS DOES NOT DO. Nothing in this Section makes Landlord responsible for Tenant's utility account or for paying it, entitles Landlord to discontinue, reduce or interrupt any utility service to the premises, or requires Tenant to put any account in Landlord's name. Nothing in this Section is a waiver by Tenant of any right or remedy under the Uniform Residential Landlord and Tenant Act or under Neb. Rev. Stat. sections 70-1601 to 70-1615, and nothing in this Section requires Tenant to accept delivery of any notice or document by electronic means.",
+  },
+  {
+    id: "utility-transfer-ne",
+    title: "Transfer of Utility Accounts into Tenant's Name (Nebraska)",
+    group: "Tenant Responsibilities",
+    states: ["NE"],
+    bodyText:
+      "TRANSFER OF ACCOUNTS. For each utility listed in this Lease as Tenant's responsibility, Tenant will apply to the provider and have service placed in Tenant's own name, effective no later than [insert date or \"the first day of the Term\"], and will keep it in Tenant's name and in service for the whole Term. On Landlord's request Tenant will provide the account number and reasonable evidence that service is open in Tenant's name.\n\nWHY THE ACCOUNT GOES IN TENANT'S NAME. Service held in Tenant's own name carries the protections of Neb. Rev. Stat. sections 70-1601 to 70-1615, including the seven days' notice before discontinuance for nonpayment under section 70-1605 and that section's cap on any discontinuance or reconnection fee. Section 70-1602 excludes businesses from those protections, so service held in Landlord's name does not have them. For water, natural gas or electricity service in Tenant's name, Tenant will also designate Landlord as Tenant's designated third party under the provider's third-party notice procedure established under section 70-1607, so that Landlord receives notice of any proposed discontinuance. That designation is Tenant's to make and Tenant's to revoke, and Tenant will tell Landlord if Tenant revokes it.\n\nIF TENANT DOES NOT TRANSFER. If service for a utility that is Tenant's responsibility remains in Landlord's name after the date above, Landlord may keep that account in service and pay the provider, and Tenant will reimburse Landlord the amounts Landlord pays for service supplied after that date, plus any transfer, reconnection or account-establishment charge the provider imposes. Each such amount is rent as defined by Neb. Rev. Stat. section 76-1410(13), is payable with the next installment of rent, and Landlord may enforce it by every remedy this Lease and Nebraska law give Landlord for nonpayment of rent. Tenant's failure to transfer service as required by this Section is also a breach of this Lease for which Landlord may give notice under Neb. Rev. Stat. section 76-1431(1).\n\nWHAT LANDLORD WILL NOT DO. Landlord will not discontinue, reduce or interrupt, or ask any provider or municipality to discontinue, reduce or interrupt, any electric, gas, water or other essential service to the premises because Tenant has not transferred an account or has not paid an amount owed under this Section. Landlord's remedies are those stated in this Section.\n\nAT THE END OF THE TERM. Tenant will keep each account in Tenant's name in service through the last day of the Term, will then close it or transfer it as Landlord directs, and will not have service disconnected before the Term ends.\n\nNOTHING WAIVED. Nothing in this Section is a waiver by Tenant of any right or remedy under the Uniform Residential Landlord and Tenant Act or under Neb. Rev. Stat. sections 70-1601 to 70-1615.",
+  },
+  // Rent & Payment
+  {
+    id: "veteran-servicemember-concession-ne",
+    title: "Veteran and Servicemember Rent Concession (Nebraska)",
+    group: "Rent & Payment",
+    states: ["NE"],
+    bodyText:
+      "VETERAN AND SERVICEMEMBER CONCESSION. Landlord offers the following concession to a Tenant who is a veteran or a servicemember, or a family member of a veteran or servicemember: [describe the concession, e.g. a reduction of Rent of $___ per month, or waiver of the application fee, or waiver of the first month's parking charge]. The concession applies from [insert start date] for [insert period, e.g. the initial Term], and applies only while at least one Tenant under this Lease qualifies.\n\nELIGIBILITY AND PROOF. Landlord may require reasonable documentation of eligibility once, before the concession begins, and Tenant will provide it. Landlord will not require Tenant to disclose the nature or extent of any disability, any medical information, or the character of any discharge, and Landlord will not retain a copy of any document beyond what is needed to record that eligibility was verified.\n\nBASIS AND SCOPE. This concession is offered under Neb. Rev. Stat. section 20-322(6), which provides that nothing in the Nebraska Fair Housing Act prohibits otherwise nondiscriminatory conduct intended to benefit veterans or servicemembers or their family members. It is a benefit offered in addition to, and not in substitution for, any term of this Lease, and nothing in this Section makes military or veteran status a condition of renting the premises or of any term, condition or privilege of the tenancy other than this concession.\n\nIF THE CONCESSION ENDS. If no Tenant under this Lease qualifies, or the period stated above ends, the concession stops and Rent reverts to the amount otherwise stated in this Lease, without further notice. Ending the concession for either of those reasons is not a Rent increase and is not a change in the terms of the tenancy.",
+  },
+  {
+    id: "portal-rent-payment-ne",
+    title: "Online Portal as the Place of Payment",
+    group: "Rent & Payment",
+    states: ["NE"],
+    bodyText:
+      "PLACE AND METHOD OF PAYMENT. Rent and any other amount due under this Lease are payable, without demand or notice, through Landlord's online payment portal at {{payment_portal_url}}, which the parties agree is the place of payment. Tenant is responsible for any third-party processing or convenience charge the portal discloses before Tenant authorizes a payment. If the portal is unavailable on a day rent is due, or if Tenant notifies Landlord in writing that Tenant is unable to use it, Tenant may instead pay by {{alternate_payment_method}} delivered to {{landlord_notice_address}}, and a payment made that way on or before the due date is timely. Tenant's use of the portal to pay rent is not consent to receive notices or documents by electronic means; any such consent is separate, optional, and revocable.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "barred-person-covenant-ne",
+    title: "No Admitting a Barred Person",
+    group: "Tenant Responsibilities",
+    states: ["NE"],
+    bodyText:
+      "BARRED PERSONS. Landlord may give Tenant written notice that a named person has been barred from the property because of conduct on or about the property that threatened the health or safety of residents, Landlord, or Landlord's employees or agents, or that damaged the property. From the date Tenant receives that notice, Tenant shall not invite, admit, license, or permit that person onto the Premises or any part of the property, and shall not give that person a key, fob, access code, or parking permit. Tenant is responsible for compliance by every person Tenant admits. This paragraph does not apply to a person present to provide emergency, medical, or law-enforcement assistance, and it does not apply to a person Tenant is required by law or court order to admit. Nothing in this paragraph requires Tenant to refuse entry to a person where Tenant or a member of Tenant's household has sought a protective or restraining order against that person, has reported that person's conduct to a law enforcement agency, or has obtained certification of an act of domestic violence from a qualified third party.",
+  },
+  // Access & Entry
+  {
+    id: "landlords-access-ne",
+    title: "Landlord's Right of Entry",
+    group: "Access & Entry",
+    states: ["NE"],
+    supersedes: "landlords-access",
+    bodyText:
+      "Tenant will not unreasonably withhold consent for Landlord, or Landlord's agents or contractors, to enter the dwelling to inspect it, make necessary or agreed repairs, decorations, alterations or improvements, supply necessary or agreed services, or show it to prospective or actual purchasers, mortgagees, tenants, workers or contractors. Except in an emergency, or where it is impracticable to do so, Landlord will give Tenant at least 24 hours' written notice of Landlord's intent to enter and will enter only at reasonable times. The notice will be delivered to Tenant's unit and will state the purpose of the entry and a reasonable period during which Landlord expects to enter. In an emergency, Landlord may enter without Tenant's consent. During any absence of Tenant of more than seven days, Landlord may enter at times reasonably necessary. Landlord will not abuse the right of access or use it to harass Tenant.",
+  },
+  // Rules & Regulations
+  {
+    id: "inspection-rights-ne",
+    title: "Inspection Rights",
+    group: "Rules & Regulations",
+    states: ["NE"],
+    supersedes: "inspection-rights",
+    bodyText:
+      "Tenant will not unreasonably withhold consent to Landlord's periodic inspections of the property during the Term, and at move-out, made upon reasonable notice consistent with this Lease's Access & Entry terms.",
   },
 ];
 
