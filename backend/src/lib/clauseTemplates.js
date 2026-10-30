@@ -858,7 +858,7 @@ const CLAUSE_TEMPLATES = [
     id: "hoa-compliance",
     title: "Homeowner / Condominium Association Compliance",
     group: "Disclosures",
-    states: ["WY", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "IA", "NM", "MT", "NY", "WI", "WA", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP"],
+    states: ["WY", "NE", "MN", "ND", "SD", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "IA", "NM", "MT", "NY", "WI", "WA", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP"],
     bodyText:
       "If the property is located within a homeowner or condominium association, Tenant will comply with the association's rules and regulations applicable to the property. Any fines incurred due to Tenant's violation of association rules will be Tenant's responsibility.",
   },
@@ -1087,7 +1087,7 @@ const CLAUSE_TEMPLATES = [
     id: "prohibited-acts-renter-wy",
     title: "Prohibited Acts by Tenant",
     group: "Tenant Responsibilities",
-    states: ["WY", "AK", "HI", "AR", "MS", "DC", "GU", "AS", "MP", "CO", "NE"],
+    states: ["WY", "AK", "HI", "AR", "MS", "DC", "GU", "AS", "MP", "CO", "NE", "OH"],
     bodyText:
       "Tenant will not intentionally or negligently destroy, deface, damage, or impair any part of the property, or knowingly permit any other person to do so; interfere with another person's peaceful enjoyment of the property; or unreasonably deny access to, refuse entry to, or withhold consent to enter the property to Landlord or Landlord's agent for the purpose of making repairs, inspecting the property, or showing it for rent or sale.",
   },
@@ -1180,7 +1180,7 @@ const CLAUSE_TEMPLATES = [
     id: "extended-absence-notice-ks",
     title: "Notice of Extended Absence",
     group: "Tenant Responsibilities",
-    states: ["KS", "TN", "VA", "IA", "NM", "MT", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "NH", "ME", "VT", "LA", "AR", "MS", "DC", "PR", "VI", "AS", "MP", "CO"],
+    states: ["KS", "TN", "VA", "IA", "NM", "MT", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "NH", "ME", "VT", "LA", "AR", "MS", "DC", "PR", "VI", "AS", "MP", "CO", "OH"],
     bodyText:
       "Tenant will occupy the property only as a dwelling unit unless otherwise agreed. If Tenant anticipates being away from the property for more than 7 consecutive days, Tenant will notify Landlord no later than the first day of the absence. If Tenant willfully fails to give this notice, Landlord may recover actual damages resulting from the failure.",
   },
@@ -1217,7 +1217,7 @@ const CLAUSE_TEMPLATES = [
     id: "early-termination-ks",
     title: "Early Termination",
     group: "Default & Termination",
-    states: ["KS", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "NJ", "IN", "AZ", "OK", "GA", "MI", "IA", "NC", "NV", "TX", "NY", "OH", "KY", "WV", "MD", "MA", "NH", "VI", "AS", "MP"],
+    states: ["KS", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "NJ", "IN", "AZ", "OK", "GA", "MI", "IA", "NC", "NV", "TX", "NY", "KY", "WV", "MD", "MA", "NH", "VI", "AS", "MP"],
     supersedes: "early-termination",
     bodyText:
       "Tenant may terminate this Lease before the end of the Term by providing Landlord at least 30 days' written notice. Tenant will pay an early termination fee equal to one month's Rent ({{monthly_rent}}) or 30% of the remaining Rent due under the Term, whichever is greater, and remains responsible for Rent and other obligations up to the termination date. This early-termination option and fee apply only if this Lease has a fixed Term; a month-to-month or other periodic tenancy ends on the notice that applicable law and this Lease provide, without an early termination fee. Landlord may terminate this Lease early in accordance with this Lease's Tenant Default and notice provisions, or if Tenant vacates or abandons the property without notifying Landlord. Nothing in this Section limits any right either party has under applicable law, including a Tenant's right to terminate without penalty due to active military service under the Servicemembers Civil Relief Act, due to the property becoming uninhabitable through no fault of Tenant, or, except as prohibited by law in the case of a Tenant's death, any other termination right or limitation provided by applicable law.",
@@ -2064,7 +2064,7 @@ const CLAUSE_TEMPLATES = [
     id: "tenant-forward-proceedings-ca",
     title: "Notice of Proceedings Against the Property",
     group: "Tenant Responsibilities",
-    states: ["CA", "TX", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "WY", "KS", "MN", "NE", "SD"],
+    states: ["CA", "TX", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "WY", "KS", "MN", "NE", "SD", "OH"],
     bodyText:
       "If Tenant receives notice of any proceeding to recover the property or its possession, Tenant shall immediately inform Landlord of the proceeding and deliver the notice to Landlord if it is in writing.",
   },
@@ -6967,7 +6967,7 @@ const CLAUSE_TEMPLATES = [
     id: "rent-concession-wi",
     title: "Rent Concessions",
     group: "Rent & Payment",
-    states: ["WI", "CT", "RI", "NH", "ME", "VT", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "KS", "MN", "NE"],
+    states: ["WI", "CT", "RI", "NH", "ME", "VT", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "KS", "MN", "NE", "OH"],
     bodyText:
       "[Use only if Landlord gives Tenant any rent concession.] In connection with this Lease, Landlord gives Tenant the following rent concession, which is part of this Lease: [describe each period of free or reduced Rent, credit, rebate or other concession, with its amount or value and the rental periods to which it applies].",
   },
@@ -7718,7 +7718,7 @@ const CLAUSE_TEMPLATES = [
     id: "informal-dispute-resolution-or",
     title: "Informal Dispute Resolution",
     group: "Notices & General",
-    states: ["OR", "AR", "MS", "DC", "GU", "VI", "AS", "MP", "CO", "WY", "KS", "MN", "NE"],
+    states: ["OR", "AR", "MS", "DC", "GU", "VI", "AS", "MP", "CO", "WY", "KS", "MN", "NE", "OH"],
     bodyText:
       "Before either party starts a court action about a dispute under this Lease, other than an action for possession, the party will give the other written notice describing the dispute and offer to meet, in person or by phone, within 10 days to try to resolve it informally. This Section does not delay or limit any notice, deadline or remedy that applicable law provides, including any action for possession or for emergency relief, and does not require either party to accept any proposal.",
   },
@@ -11055,7 +11055,7 @@ const CLAUSE_TEMPLATES = [
     id: "furnishings-included-la",
     title: "Furnishings",
     group: "Security Deposit",
-    states: ["LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "WY", "MN", "NE"],
+    states: ["LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "WY", "MN", "NE", "OH"],
     bodyText:
       "[Optional. Use only if the property is rented furnished.] Furnishings: The property is rented furnished. The furniture and furnishings Landlord provides, and their condition at the start of this Lease, are: [list each item and its condition, or attach a signed inventory]. Tenant will keep them at the property, will not remove or dispose of any item without Landlord's written consent, will tell Landlord promptly of any damage to them, and will return them at the end of this Lease in the same condition, except for normal wear and tear.",
   },
@@ -11402,7 +11402,7 @@ const CLAUSE_TEMPLATES = [
     id: "owner-occupancy-termination-ar",
     title: "Owner Occupancy (Optional)",
     group: "Default & Termination",
-    states: ["AR", "MS", "PR", "GU", "VI", "AS", "MP", "WY", "KS", "NE"],
+    states: ["AR", "MS", "PR", "GU", "VI", "AS", "MP", "WY", "KS", "NE", "OH"],
     bodyText:
       "[Optional. Use only for a fixed Term.] Owner Occupancy: Landlord may end this Lease before the end of the Term if Landlord, or the following member of Landlord's family, will occupy the property as a residence: [name or relationship]. To do so, Landlord will give Tenant written notice at least [number, not less than 30] days before the termination date, and the termination date will be the last day of a monthly rental period. Tenant owes Rent only through the termination date, and Landlord will refund any Rent paid for a later period. If Tenant does not leave by the termination date, Landlord may regain possession only through a court eviction.",
   },
@@ -12862,7 +12862,7 @@ const CLAUSE_TEMPLATES = [
     id: "fees-and-charges-vi",
     title: "Fees and Charges",
     group: "Rent & Payment",
-    states: ["VI", "MP", "KS", "NE"],
+    states: ["VI", "MP", "KS", "NE", "OH"],
     bodyText:
       "In addition to the Monthly Rent of {{monthly_rent}} and the Security Deposit of {{security_deposit}}, the following are all of the fees and charges Tenant may be required to pay under this Lease: [list each fee or charge, with its amount or how it is calculated and when it is due, and mark any optional fee as optional; or write \"None\"]. Landlord will not charge Tenant any other fee or charge except an amount stated in another Section of this Lease, an amount a court awards, or a tax the law requires Tenant to pay. Landlord will not add a fee or charge during the Term unless Tenant agrees in writing.",
   },
@@ -15712,6 +15712,289 @@ const CLAUSE_TEMPLATES = [
     supersedes: "security-deposit-use",
     bodyText:
       "Tenant shall pay Landlord a security deposit of {{security_deposit}} (Security Deposit) prior to occupancy. Landlord may apply the Security Deposit and any interest accrued on it only toward: (a) damage to the property caused by Tenant's pet or through the negligence of Tenant or Tenant's guests; (b) any unpaid Rent; and (c) the costs of cleaning or other repairs that were Tenant's responsibility and are necessary to return the property to its condition when Tenant took possession, reasonable wear and tear excepted. Landlord will not apply the Security Deposit to normal wear and tear or to any damage or defective condition that preexisted the tenancy. Landlord may apply the Security Deposit to cleaning costs only if the property is substantially less clean at the end of the Term than it was at the start of the Term. The Security Deposit will not relieve Tenant of any obligation to pay Rent due under this Lease prior to its termination.",
+  },
+  // Rent & Payment
+  {
+    id: "unpaid-amounts-interest-oh",
+    title: "Interest on Late or Unpaid Amounts",
+    group: "Rent & Payment",
+    states: ["OH"],
+    bodyText:
+      "Any amount Tenant owes under this Lease that is not paid when due will bear simple interest at [rate, not more than 8]% per year from the due date until the amount is paid. This includes unpaid rent, damages beyond the security deposit, and any other charge this Lease makes Tenant's responsibility. Interest does not apply to any amount Landlord is not permitted to collect, and nothing in this paragraph entitles Landlord to attorney's fees.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "designated-repairer-oh",
+    title: "Repair Contact and Approved Repairers",
+    group: "Landlord Responsibilities",
+    states: ["OH"],
+    bodyText:
+      "[Optional.] REPAIR CONTACT AND APPROVED REPAIRERS. Tenant will report repair and maintenance needs to {{landlord_repair_contact}}. Notice to that contact is notice to Landlord for purposes of this Lease. Tenant will not make, and will not hire anyone to make, any repair at Landlord's expense, and will not deduct any repair cost from Rent, unless Landlord first consents in writing or a court orders it. Landlord's written consent will name the person or company Landlord approves to do the work and any cost limit. Any person performing work will hold every licence, registration or certification that applicable law requires for that trade. Tenant will not perform or arrange work on a roof or an elevator, on an electrical, plumbing, heating, gas, water, ventilating or air-conditioning system, or involving lead-based paint or asbestos. Tenant will give Landlord, and anyone Landlord sends, reasonable access at reasonable times to inspect and make repairs, on reasonable advance notice except in an emergency. Any part or material installed in a repair, including anything Tenant pays for, belongs to Landlord and may not be removed. Nothing in this Section reduces any duty Landlord owes under this Lease or under Ohio law, limits any right or remedy Ohio law gives Tenant that may not be waived, including depositing rent with the clerk of court and asking the court to order repairs or reduce rent, or limits what a court may order.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "tenant-appliance-maintenance-oh",
+    title: "Tenant Maintenance of Supplied Appliances",
+    group: "Tenant Responsibilities",
+    states: ["OH"],
+    bodyText:
+      "[Optional, and only in a written Lease - this Section has no effect unless it is in the written Lease. In the blank, list only appliances Landlord supplies as a convenience, for example a range, refrigerator, washer, dryer or dishwasher. Do not list anything that is part of the property's electrical, plumbing, sanitary, heating, ventilating or air-conditioning systems, and do not list a water heater or furnace.] Tenant will maintain in good working order and condition the following appliances Landlord supplies: {{tenant_maintained_items}}. Tenant will keep them clean, will use and operate them properly, and will tell Landlord promptly about any fault or damage. Landlord keeps every duty that Ohio law places on Landlord, including keeping the electrical, plumbing, sanitary, heating, ventilating and air-conditioning fixtures and appliances Landlord supplies in good and safe working order, and remains responsible for repairing or replacing a listed appliance that fails through age, ordinary wear or any cause other than Tenant's or Tenant's guests' negligence, misuse or neglect of this Section. Nothing in this Section shifts a Landlord duty to Tenant, reduces Landlord's obligations, or limits Landlord's liability.",
+  },
+  // Rent & Payment
+  {
+    id: "collection-fee-oh",
+    title: "Third-Party Collection Costs",
+    group: "Rent & Payment",
+    states: ["OH"],
+    bodyText:
+      "[Optional.] If any Rent or other amount Tenant owes under this Lease remains unpaid after it is due and Landlord refers it to a third-party collection agency, Tenant will pay the amount that agency actually charges Landlord to collect it, not to exceed [state a cap, for example 15 percent of the amount referred]. Landlord will give Tenant written notice of the amount charged. This Section does not apply to, and Tenant owes nothing under it for, any attorney's fees or the cost of legal services, which Ohio law does not permit this Lease to shift to either party; and it does not apply to a returned or dishonoured payment, which this Lease deals with separately.",
+  },
+  {
+    id: "government-fee-reimbursement-oh",
+    title: "Government Fees",
+    group: "Rent & Payment",
+    states: ["OH"],
+    bodyText:
+      "[Optional.] Government Fees. If a city, county or other political subdivision imposes on Landlord a fee pertaining to the Premises, such as a rental registration, licensing or inspection fee, Monthly Rent will increase by the Premises' share of that fee, which is [all of it / [percent] percent], spread in equal amounts over the [number] months beginning at least {{escalation_notice_days}} days after Landlord gives Tenant written notice with a copy of the invoice or assessment and the calculation. Monthly Rent will not increase under this Section because of a fee relating to the construction of the property, such as a building permit fee, because of an emergency-response fee, or because of any fine, penalty or special assessment imposed on Landlord. This increase is an adjustment of Rent to reflect Landlord's increased cost of operating the Premises, and is not an agreement by Tenant to indemnify Landlord or to assume any liability of Landlord.",
+  },
+  {
+    id: "notice-service-fee-oh",
+    title: "Notice-Service Fee",
+    group: "Rent & Payment",
+    states: ["OH"],
+    bodyText:
+      "[Optional.] If Tenant's default requires Landlord to prepare and serve the notice to leave the premises that Ohio law requires before an eviction action, Tenant will pay Landlord a notice-service fee of [amount], which Landlord and Tenant agree is a reasonable estimate of Landlord's cost of preparing and serving that notice. The fee does not include, and Landlord will not charge Tenant for, any part of the cost of Landlord's attorney. The fee will not be charged for a notice Landlord withdraws because it was given in error, and Landlord will not recover the same cost a second time as court costs. The fee is not Rent, and Landlord will not include it in any amount stated in the notice. Tenant's failure to pay this fee, by itself, will not entitle Landlord to terminate this Lease or to bring an action for possession.",
+  },
+  // Pets
+  {
+    id: "pet-deposit-oh",
+    title: "Pet Deposit and Pet Rent",
+    group: "Pets",
+    states: ["OH"],
+    bodyText:
+      "[Optional. Use only if Landlord takes money for a pet.] PET DEPOSIT AND PET RENT. Tenant will pay a pet deposit of {{pet_deposit}} before the pet comes onto the Premises[, and pet rent of {{pet_rent_amount}} per month, due with Monthly Rent]. The pet deposit is held as part of the Security Deposit under this Lease and is returned, applied and accounted for on the same terms and in the same time as the rest of the Security Deposit; it is not a separate fund and it is not nonrefundable. Landlord may apply it to any amount this Lease allows the Security Deposit to be applied to, including damage or cleaning caused by the pet, and Tenant remains liable for any pet damage the Security Deposit does not cover. Pet rent is rent, is earned when it falls due, and is not a deposit or refundable. This Section does not apply to an assistance animal, which is not a pet and for which Landlord will charge no pet deposit, pet rent or pet fee.",
+  },
+  // Rent & Payment
+  {
+    id: "rent-escalation-oh",
+    title: "Scheduled Rent Changes",
+    group: "Rent & Payment",
+    states: ["OH"],
+    bodyText:
+      "[Optional. Choose one.] [A: Monthly Rent will change during the Term as follows: [state each new amount and the date it takes effect].] [B: On [state each adjustment date, e.g. each anniversary of the Start Date], Monthly Rent will be adjusted, up or down, by the percentage change in [name a published index, e.g. the Consumer Price Index for All Urban Consumers (CPI-U), Midwest Region, published by the U.S. Bureau of Labor Statistics] between [base month and year] and the most recent month published before the adjustment date[, but by no more than [percent] percent for any one adjustment]. Landlord will give Tenant written notice of each adjusted Monthly Rent, showing how it was calculated, at least {{escalation_notice_days}} days before it takes effect. If that index stops being published, Monthly Rent will stay at the last adjusted amount.] Monthly Rent will not change during the Term in any other way, except as any tax escalation Section of this Lease, if used, provides. Landlord will not increase Rent because Tenant has complained to a government agency about a building, housing, health or safety code violation at the Premises, has complained to Landlord about Landlord's obligations, or has joined with other tenants to negotiate or deal collectively with Landlord.",
+  },
+  {
+    id: "rent-installments-oh",
+    title: "Rent Paid in Installments",
+    group: "Rent & Payment",
+    states: ["OH"],
+    bodyText:
+      "[Optional. Use only if Monthly Rent is paid more often than once a month.] Monthly Rent of {{monthly_rent}} will be paid in installments as follows: [state each installment amount and the day of the month it is due]. The installments together equal the Monthly Rent for that rental period, and each installment is due on its own date. Landlord's acceptance of one installment is not a waiver of any other installment or of any other amount due under this Lease, and is not an agreement to change the Monthly Rent. A late fee may be charged only as this Lease's late fee provision allows, and only once for any one rental period, however many installments that period contains. Nothing in this Section limits Landlord's remedies if an installment is not paid when it is due.",
+  },
+  {
+    id: "tax-escalation-oh",
+    title: "Tax and Insurance Increases",
+    group: "Rent & Payment",
+    states: ["OH"],
+    bodyText:
+      "[Optional.] Tax and Insurance Increases. If the real property taxes assessed on [the Premises / the building or parcel of which the Premises are a part] for any tax year during the Term are higher than the taxes for [base tax year][, or if Landlord's premium for property insurance on [the Premises / that building] for any policy year during the Term is higher than the premium for [base policy year]], Monthly Rent will increase by [percent] percent of that increase, which is the Premises' share of [the building or parcel]. Landlord will give Tenant written notice of each increase at least {{escalation_notice_days}} days before it takes effect, with a copy of the tax bill [and the premium notice] and the calculation, and Tenant may pay it [in one payment / in equal monthly installments with Rent over [number] months]. Tenant will not pay any part of a penalty or interest charged because Landlord paid taxes or premiums late. If taxes [or premiums] for a period for which Tenant paid a share are later reduced, abated or refunded, Landlord will credit or refund Tenant the same percentage of the reduction. This increase is an adjustment of Rent to reflect Landlord's increased cost of operating the Premises, and is not an agreement by Tenant to indemnify Landlord or to assume any liability of Landlord.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "utility-allowance-cap-oh",
+    title: "Utility Allowance",
+    group: "Landlord Responsibilities",
+    states: ["OH"],
+    bodyText:
+      "Landlord will pay for the following utilities up to a monthly allowance of {{utility_allowance_amount}}: [list the utilities the allowance covers]. Any amount above that allowance in a billing month is Tenant's responsibility and is due with the next month's rent. Landlord will give Tenant a copy of the bill or statement for any month in which an excess amount is charged, and will charge no markup, service charge or administrative fee on top of the amount the utility billed. The allowance limits what Landlord pays. It does not limit service. Landlord will continue to supply running water, reasonable amounts of hot water and reasonable heat as the law requires whether or not the allowance has been used up, and Landlord will not interrupt, reduce or threaten to interrupt any utility service because the allowance has been exceeded or because an excess amount is unpaid. Tenant's failure to pay an excess amount when due is a default under this Agreement, and Landlord's remedy is the remedy for unpaid rent. An unused allowance does not carry over to another month and is not refundable at the end of the tenancy.",
+  },
+  {
+    id: "utility-shutoff-notice-designee-oh",
+    title: "Utility Disconnection Notice",
+    group: "Landlord Responsibilities",
+    states: ["OH"],
+    bodyText:
+      "[Optional. Use only if Tenant will hold a utility account for the Premises in Tenant's own name.] UTILITY DISCONNECTION NOTICE. For each utility account for the Premises in Tenant's name, Tenant will designate Landlord, at Landlord's address in this Lease, as a third party to receive notice of pending disconnection of service and any delinquent-payment reminder notices, will make that designation when the account is opened, and will keep it in place for the Term. Tenant will give Landlord written confirmation of the designation within [number, for example 14] days after the account is opened, and on request afterwards. Landlord's receipt of those notices does not make Landlord a guarantor of Tenant's account or liable for any amount Tenant owes the utility, and Landlord does not agree to be a guarantor. Tenant remains responsible for paying the account and for keeping service on as this Lease requires. Landlord will use information received under this Section only to protect the Premises and Tenant's continued service.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "disability-modification-oh",
+    title: "Disability Modifications",
+    group: "Tenant Responsibilities",
+    states: ["OH"],
+    bodyText:
+      "[Optional. Use only when Tenant asks to modify the Premises because of a disability. This Section does not limit Tenant's right to make the modification.] DISABILITY MODIFICATIONS. Tenant may make reasonable modifications to the Premises at Tenant's own expense where the modification is necessary to afford Tenant full enjoyment of the Premises. Before the work begins, Tenant will give Landlord a reasonable description of the proposed modification and reasonable assurances that it will be done in a workerlike manner and that any required building permit will be obtained first. Tenant will restore the interior of the Premises at the end of the tenancy to the condition it was in before the modification, subject to reasonable wear and tear during the tenancy; this restoration requirement applies only where it is reasonable for Landlord to require it, and it does not extend to anything outside the interior. If Landlord reasonably finds it necessary to ensure the restoration work can be paid for, Tenant will pay into an interest-bearing escrow account in Landlord's name, over a reasonable period, a reasonable amount not exceeding the projected cost of that restoration; the interest on that account belongs to Tenant, and Landlord will hold and account for it separately from the Security Deposit. Landlord will not require a security deposit larger than the deposit customarily required of all tenants of the Premises as a condition of permitting a modification. Landlord will not withhold permission for a reasonable modification, and nothing in this Section reduces Landlord's duty to make reasonable accommodations in rules, policies, practices or services where that is necessary to give Tenant equal opportunity to use and enjoy the Premises.",
+  },
+  {
+    id: "drug-activity-prohibition-oh",
+    title: "Drug-Related Activity",
+    group: "Tenant Responsibilities",
+    states: ["OH"],
+    bodyText:
+      "DRUG-RELATED ACTIVITY. Tenant will conduct Tenant's self, and will require every member of Tenant's household and every person on the Premises with Tenant's consent to conduct themselves, in connection with the Premises so as not to violate Ohio's controlled-substance laws or any substantially similar municipal ordinance. This obligation is part of this written Lease and applies whether or not anyone is charged with, pleads guilty to or is convicted of an offense. Tenant will not permit the Premises or any part of the property to be used for the manufacture, distribution, sale, possession or use of a controlled substance except a drug lawfully prescribed to an occupant. Tenant understands that Ohio law can take this out of Landlord's hands. Where a controlled-substance violation connected with the Premises is coupled with the actual knowledge or reasonable cause to believe that Ohio law defines by reference to a properly executed search warrant naming Tenant and the Premises, a controlled substance found on its execution, and a law enforcement officer then telling Landlord of the violation, Landlord must give Tenant a three-day notice of termination and must then begin an eviction promptly, with no discretion to overlook it. Short of that, a breach of this Section is a breach of this Lease, which Landlord may act on as Landlord may act on any other breach. Landlord does not and cannot assume this obligation on Tenant's behalf. Nothing in this Section limits any other right or remedy this Lease or applicable law gives Landlord, and nothing in it requires Tenant to do anything applicable law forbids.",
+  },
+  {
+    id: "alarm-tampering-fee-oh",
+    title: "Smoke and Carbon Monoxide Alarms - Tampering Charge",
+    group: "Tenant Responsibilities",
+    states: ["OH"],
+    bodyText:
+      "Every smoke alarm and carbon monoxide alarm in the Premises is part of the Premises and belongs to Landlord. Tenant shall not remove, disconnect, cover, paint over, remove the battery from, or in any other way disable or reduce the effectiveness of any alarm. Tenant shall test each alarm monthly, replace batteries in any battery-powered alarm as needed, and notify Landlord in writing as soon as Tenant knows or suspects that an alarm is missing, damaged, or not working. If an alarm is found removed, disabled, or missing a battery, or if Landlord must restore an alarm Tenant disabled, Tenant shall pay Landlord the actual cost of repairing or replacing the alarm and any part of the Premises damaged, together with a charge of {{alarm_tampering_fee}} for each affected alarm. The parties agree that the additional charge is a reasonable estimate of Landlord's own cost of finding and dealing with a disabled alarm - inspecting the Premises, attending to restore the alarm, and re-testing it - which the repair or replacement cost does not cover, and that it is not a penalty. It does not limit any other remedy Landlord has. Tenant acknowledges that disabling an alarm may also be a criminal offense under Ohio law and that Landlord may report it. Nothing in this section relieves Landlord of any duty Landlord owes under Ohio law to supply, install, or maintain an alarm, and nothing in this section shifts that duty to Tenant.",
+  },
+  // Notices & General
+  {
+    id: "tenant-death-contact-oh",
+    title: "Emergency and After-Death Contact",
+    group: "Notices & General",
+    states: ["OH"],
+    bodyText:
+      "[Optional.] EMERGENCY AND AFTER-DEATH CONTACT. Tenant names the following person for Landlord to contact if Tenant dies or has an emergency: [name, address and telephone number]. Tenant will tell Landlord in writing if this information changes. Naming a contact gives that person no right to occupy the Premises, to receive any refund, or to remove Tenant's belongings. If Tenant dies, Landlord will deal with Tenant's executor, administrator or other personal representative, or with Tenant's heirs where applicable law allows, and will not dispose of, sell or withhold anything left at the Premises except as a court orders or applicable law otherwise permits. Landlord may contact the named person to ask who has been appointed, to arrange access, and to pass on information about the Premises.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "appliances-excluded-oh",
+    title: "Items Left at the Property That Landlord Does Not Maintain",
+    group: "Landlord Responsibilities",
+    states: ["OH"],
+    bodyText:
+      "[Optional, and narrow. Use it only for a convenience item you leave behind and will not look after. Ohio law makes you maintain every electrical, plumbing, sanitary, heating, ventilating or air conditioning fixture or appliance, and every elevator, that you supply OR that you are required to supply, and no lease term can change that - so never list a water heater, furnace, boiler, wiring, plumbing fixture, toilet, or an air conditioning system you supply. Do not use this Section to disclaim liability for a defect; Ohio does not recognise that. The safer course for an item you do not want to be responsible for is to remove it before the tenancy starts.] The following items are at the property but are not part of what Landlord leases to Tenant, and Landlord will not repair, maintain or replace them: {{excluded_appliance_list}}. Tenant may use them as they are, or ask Landlord to remove them, and Landlord will remove them within a reasonable time of Tenant's written request. Landlord has told Tenant of every defect in these items that Landlord knows of: [list any known defects, or state that Landlord knows of none]. This Section does not reduce any duty Ohio law places on Landlord, does not apply to anything Landlord supplies or is required to supply as an electrical, plumbing, sanitary, heating, ventilating or air conditioning fixture or appliance, does not apply to anything needed to keep the property fit and habitable, and does not limit Landlord's liability for any defect or for injury to any person. Tenant's initials, confirming this Section and the list were pointed out to Tenant: ________",
+  },
+  // Tenant Responsibilities
+  {
+    id: "pest-cooperation-oh",
+    title: "Pest and Bed Bug Reporting and Treatment",
+    group: "Tenant Responsibilities",
+    states: ["OH"],
+    bodyText:
+      "[Optional, and only in a written Lease. Ohio gives a tenant no duty to report pests or prepare for a treatment, so this Section is the only thing that creates one - and Ohio does not let you shift the cost of treatment generally, only where the tenant caused the problem. Do not add an attorney-fee promise: Ohio recognises none, and the statute already gives you fees.] Tenant will tell Landlord promptly, by the method set out here, if Tenant knows or reasonably suspects that the property has bed bugs or any other infestation of insects, rodents or other pests: {{bed_bug_reporting_procedure}}. Tenant will allow Landlord, Landlord's agents and any pest control operator to enter the property to inspect for and treat the infestation, on the notice this Lease's Access & Entry section provides, and will follow the written preparation instructions Landlord or the pest control operator gives, including instructions about laundering, bagging, decluttering, moving furniture and staying out of the property during and after a treatment. Tenant will not treat an infestation with any pesticide or device of Tenant's own, and will not dispose of infested furniture or bedding in a way that spreads the infestation to other units. Landlord will arrange and pay for inspection and treatment as part of Landlord's obligation to keep the property fit and habitable. If an infestation is caused by the fault of Tenant, a member of Tenant's household or a person on the property with Tenant's consent - including bringing in infested furniture or belongings, or failing to follow preparation instructions so that a treatment has to be repeated - Tenant will pay the reasonable cost Landlord actually pays for the additional treatment and for repairing any resulting damage, and Landlord may apply the Security Deposit to that cost and will itemize it in Landlord's written deposit notice. Nothing in this Section reduces any duty Ohio law places on Landlord or shifts any of Landlord's obligations to Tenant.",
+  },
+  {
+    id: "carpet-cleaning-oh",
+    title: "Carpet Cleaning at Move-Out",
+    group: "Tenant Responsibilities",
+    states: ["OH"],
+    bodyText:
+      "[Optional. Ohio allows this charge only as a breach of the Lease, so it has no effect unless it is in the Lease. Bill the cost you actually pay, keep the invoice, and list it on the itemized deposit notice. Ohio sets no figure here and no age or condition test - do not state a flat fee you cannot document. Best practice, not an Ohio requirement: have the carpets cleaned before the tenancy, note it in the move-in condition record, and keep that receipt too.] Tenant will have the carpets at the property cleaned by a professional carpet cleaning service when this Lease ends and Tenant's occupancy of the property stops, and will give Landlord the paid invoice. Tenant will leave the carpets in the condition recorded at the start of the Lease, except for ordinary wear and tear and any condition Tenant did not cause. If Tenant does not have the carpets cleaned, Landlord may have them cleaned by a professional carpet cleaning service and may apply the reasonable cost Landlord actually pays to the Security Deposit as damages Landlord has suffered by reason of Tenant's noncompliance with this Lease. Landlord will identify and itemize that charge in Landlord's written deposit notice to Tenant and will give Tenant a copy of the invoice on request. This Section does not let Landlord charge Tenant for ordinary wear and tear, for routine turnover cleaning Landlord would do between any two tenancies, or for replacing carpet that has simply reached the end of its life.",
+  },
+  // Rules & Regulations
+  {
+    id: "rules-regulations-oh",
+    title: "House Rules and Changes to Rules",
+    group: "Rules & Regulations",
+    states: ["OH"],
+    bodyText:
+      "[Put the rules in the written Lease or attach them to it. In Ohio a house rule binds Tenant only because this Lease makes it binding, and the eviction ground for breaking a rule is available only where the obligation comes from a WRITTEN rental agreement.] Tenant will comply with Landlord's written rules for the property, which are part of this Lease: [attach the written rules, or state that there are none]. Landlord may add to or change the written rules during the Term by delivering the new or changed rule to Tenant in writing at least {{rule_change_notice_days}} days before it takes effect; the notice will state the date the rule takes effect. A rule will be reasonable, will serve the safety, care, or quiet enjoyment of the property or of the people living there, will be stated clearly enough for Tenant to know what Tenant must or must not do, and will be applied the same way to every tenant at the property. A new or changed rule does not increase Rent, reduce a service Landlord has agreed to supply, remove any other term of this Lease that Tenant bargained for, or take away any right applicable law gives Tenant. Breach of a written rule is a breach of this Lease.",
+  },
+  // Pets
+  {
+    id: "animal-care-access-oh",
+    title: "Animal Care If Tenant Cannot Get Home",
+    group: "Pets",
+    states: ["OH"],
+    bodyText:
+      "[Optional.] Animal Care. Tenant will tell Landlord in writing about every animal kept at the property. Tenant names the following person to care for or remove Tenant's animals if Tenant cannot do so because Tenant is hospitalised, incapacitated, detained or otherwise absent and an animal is left at the property without care: [name and telephone number]. Tenant consents, as an agreed service under this Lease, to Landlord entering the property for that purpose only: after making reasonable efforts to reach Tenant, Landlord may enter to let that named person in, to give the animal food and water, or to let the animal out of the property into that person's care. Landlord will give Tenant whatever notice is reasonable in the circumstances before entering, and will leave written notice at the property of the date and time of entry and what was done. If the named person cannot be reached, Landlord may ask a humane society, an animal shelter, an animal control or dog warden's office, or a peace officer to take charge of the animal, and Tenant will be liable to Landlord for any boarding, veterinary or removal costs Landlord reasonably pays, as damages for breach of this Lease. Tenant will tell Landlord in writing if this information changes. Landlord is not obliged to enter, to feed an animal or to arrange its care, and this Section does not make Landlord responsible for any animal. This permission ends if Tenant dies; after that Landlord will deal with Tenant's animals only through Tenant's personal representative or heirs, or as the law otherwise allows.",
+  },
+  // Security Deposit
+  {
+    id: "condition-report-oh",
+    title: "Move-In and Move-Out Condition Report",
+    group: "Security Deposit",
+    states: ["OH"],
+    bodyText:
+      "[Optional.] Condition Report. Before Tenant takes possession, Landlord and Tenant will inspect the property together and complete a written condition report, with dated photographs, recording the condition of each room and of every appliance, fixture and furnishing Landlord supplies. Both will sign it and each will keep a copy. Tenant may give Landlord written additions or corrections to the report within [number] days after taking possession, and the report as corrected is part of this Lease. Keeping the property in the condition recorded in the report, apart from ordinary wear and tear, is one of Tenant's obligations under this Lease. At the end of the tenancy Landlord will offer Tenant a joint inspection of the property, on at least [number] hours' notice, and Tenant may attend, send someone in Tenant's place, or decline. Landlord will complete a move-out condition report, with dated photographs, whether or not Tenant attends, and will give Tenant a copy with the itemised written notice of any deductions from the security deposit. The signed move-in report and the move-out report will be used to decide what damage Tenant is responsible for. Nothing in this Section limits Tenant's right to dispute a deduction.",
+  },
+  // Notices & General
+  {
+    id: "emergency-contact-oh",
+    title: "Emergency Contacts and Where Notices Must Go",
+    group: "Notices & General",
+    states: ["OH"],
+    bodyText:
+      "[Optional.] Emergency Contacts. For an emergency at the property - fire, flood, a burst pipe, a gas smell, a loss of heat, water or power - Tenant should call {{emergency_phone}}, and for repairs that are not emergencies should contact {{landlord_repair_contact}}. These are for speed only. Any notice that this Lease or the law requires Tenant to give Landlord, including a written notice specifying a condition Tenant believes Landlord has failed to remedy, must be given in writing to the person or place where rent is normally paid, as stated in this Lease, and a telephone call or message to the emergency number does not take its place and does not start any time period running. Tenant names the following person for Landlord to contact if Tenant has an emergency, cannot be reached, or dies: [name, address and telephone number]. Tenant will tell Landlord in writing if this information changes. Naming a contact does not give that person any right to enter or occupy the property, to collect or remove Tenant's belongings, to end this Lease or to act for Tenant, and Landlord is under no obligation to contact that person. If Tenant dies, Landlord will deal with Tenant's personal representative or heirs as applicable law requires. Landlord will treat the contact information Tenant gives under this Section as confidential and will not disclose it except as Tenant authorises in writing or as the law or a court requires.",
+  },
+  // Access & Entry
+  {
+    id: "scheduled-services-entry-oh",
+    title: "Entry for Agreed Recurring Services",
+    group: "Access & Entry",
+    states: ["OH"],
+    bodyText:
+      "[Optional.] Agreed Services. In addition to Landlord's rights under the Landlord's Right of Entry section, the services and repairs listed below are agreed services and agreed repairs under this Lease, and Landlord, its agents and contractors may enter the property to supply them on the schedule stated, between [state hours, for example 9:00 a.m. and 6:00 p.m.]: [list each service or repair and how often it recurs, for example changing furnace and air-conditioning filters every [number] months, quarterly pest treatment, annual testing of smoke and carbon monoxide alarms, seasonal heating and cooling service, gutter clearing]. Landlord will give Tenant notice of each visit at least [state the notice period, which should not be shorter than 24 hours] in advance by [state method, for example text message, e-mail, or written notice left at the property], except where there is an emergency or giving notice is impracticable, and will knock and announce before entering. Tenant will not unreasonably withhold consent to entry for any of these services. If Landlord changes the schedule, Landlord will give Tenant written notice of the new schedule at least [number] days before it takes effect, and the notice requirement in this Section continues to apply to every visit.",
+  },
+  // Notices & General
+  {
+    id: "lease-copy-receipt-oh",
+    title: "Receipt of This Agreement",
+    group: "Notices & General",
+    states: ["OH"],
+    bodyText:
+      "Tenant acknowledges that Tenant has received a complete copy of this Lease, including every addendum, exhibit, rule and policy referred to in it, and that Tenant had the opportunity to read it before signing. If there is more than one Tenant, a copy given to any one Tenant counts as a copy given to every Tenant. Tenant will tell Landlord in writing if Tenant did not receive any page or any document listed above, and Landlord will give Tenant a replacement copy at no charge. Landlord will keep a copy of the signed Lease and of every addendum for as long as Landlord is required to keep its records, and will give Tenant a further copy on written request.",
+  },
+  // Default & Termination
+  {
+    id: "tenant-caused-damage-oh",
+    title: "Damage Caused by Tenant",
+    group: "Default & Termination",
+    states: ["OH"],
+    bodyText:
+      "[Optional.] If the property is damaged by fire, water, a vehicle or any other cause, and the damage results from the intentional or negligent act or omission of Tenant, of any other person on the premises with Tenant's permission, of any member of Tenant's household, or of any other occupant, Tenant will be liable to Landlord for the reasonable cost of repairing the damage and for Landlord's other actual damages caused by it, including the Rent Landlord loses while the property is being repaired, for no longer than the remaining Term, less any Rent Landlord receives from Tenant or from re-renting the property.\n\nLandlord will repair the damage, as Landlord is required to do whether or not Tenant caused it. Tenant will report damage to Landlord promptly, in writing, as soon as Tenant knows of it.\n\nNothing in this Section limits any other remedy Landlord has, including terminating this Lease, bringing an action for possession, or recovering under this Lease's casualty provisions. Tenant's liability under this Section is in addition to, and not instead of, Tenant's duties elsewhere in this Lease and under applicable law.",
+  },
+  // Notices & General
+  {
+    id: "tenant-portal-oh",
+    title: "Online Portal, Electronic Notices and How Rent Is Paid",
+    group: "Notices & General",
+    states: ["OH"],
+    bodyText:
+      "Portal. Landlord may make an online portal available for paying Rent, making maintenance requests, and delivering documents and notices. Tenant will keep Tenant's contact details in the portal current.\n\nDesignated electronic addresses. Tenant designates {{tenant_email}} for receiving notices and records from Landlord under this Lease. Landlord designates {{landlord_email}}. Either party may change its designated address by written notice to the other. When Landlord posts a notice or record to the portal, Landlord will also send it to Tenant's designated email address, and the email governs the date of receipt.\n\nTenant may always use a non-electronic route, at no extra cost. Tenant may tell Landlord in writing at any time that Tenant wishes to receive notices and records on paper, or to pay by a non-electronic method, and from then on Landlord will deliver notices and records to Tenant at the property or at another address Tenant gives in writing, and will accept the non-electronic payment method stated below. Tenant may pay Rent at any time by {{nonelectronic_payment_method}} at {{payment_address}} with no additional charge. Doing any of this is not a breach of this Lease, and Landlord will not charge Tenant a fee, increase Rent, or treat Tenant differently for it. [BUILDER: supply a real method and a real address. Do not leave this blank. This Section grants the non-electronic route as a term of the Lease, which is deliberate: the library's own Ohio row on electronic notice reports that R.C. 1306.04(C) gives a tenant a non-waivable right to refuse to go on transacting electronically, and chapter 1306 was NOT read for this clause, so the Lease gives the right outright rather than reciting a statute this pass could not verify. Filled in, the Section is correct either way.]\n\n[OPTIONAL portal fee. Delete if there is none. Tenant will pay {{portal_fee}} for each payment made by {{fee_bearing_method}}. No fee applies to the non-electronic method stated above, and no fee applies to receiving notices or records electronically. This fee is a charge for the payment method and is not Rent.]\n\nRepair and maintenance requests. A maintenance or repair request Tenant submits through the portal is received by Landlord when it appears in the portal. Landlord will monitor the portal for such requests. Tenant may also give Landlord notice of a repair in writing at {{payment_address}}, and nothing in this Section limits any notice Tenant is entitled to give under applicable law or changes where Tenant may send it.\n\nWhat this Section does not change. This Section does not change how Landlord must serve a notice to leave the premises or any other notice that applicable law requires to be served in a particular way, and Landlord will not serve such a notice through the portal or by email alone. No amount is collected in advance through the portal other than Rent and amounts this Lease makes due.",
+  },
+  // Parking & Storage
+  {
+    id: "unbundled-parking-oh",
+    title: "Optional Parking - Charged Separately",
+    group: "Parking & Storage",
+    states: ["OH"],
+    bodyText:
+      "[Optional. Use this Section only if Tenant can take the property without parking and is choosing to add it. If parking is required, or the property cannot practically be used without it, delete this Section and put the parking amount in the Rent instead. Choose ONE of the two bracketed sentences about Rent below and delete the other - do not leave both, because Ohio has no rule deciding whether a charge like this counts as rent.]\n\nOptional parking. Parking is not included in the Rent. Tenant has chosen to license one parking space at the property, identified as [insert the space number or location], for {{parking_fee_amount}} per month, payable with the Rent on the day the Rent is due.\n\n[CHOOSE ONE: This charge is additional Rent. Landlord may use any remedy for unpaid Rent to collect it, and the late-fee and interest terms of this Lease apply to it.] [OR: This charge is not Rent. Landlord will not deduct it from a payment Tenant makes for Rent, will not apply a late fee or interest to it, and will not use a Rent remedy to collect it.]\n\nLandlord will not increase this charge during the Term. Tenant may end this parking license by giving Landlord fourteen days' written notice, after which the charge stops and Tenant will stop using the space; Landlord may end it the same way and will refund any part of the charge covering a period after the space is given up.\n\nNo deposit is taken for the space. If Landlord issues Tenant a gate fob, decal or access card, Tenant will pay Landlord the actual cost of replacing a lost or damaged one when Landlord replaces it, and Landlord will not collect any amount for it in advance.\n\nThe parking and vehicle rules in this Lease, and any parking addendum, continue to apply to the space. This Section does not reduce Landlord's responsibility for the condition of the parking area or of any other common area of the property.",
+  },
+  // Default & Termination
+  {
+    id: "student-housing-oh",
+    title: "Termination and Hearing Procedures - College and University Housing",
+    group: "Default & Termination",
+    states: ["OH"],
+    bodyText:
+      "This section applies only where the Landlord is {{institution_name}}, a college or university, and Tenant occupies this dwelling unit as a student of that institution under an agreement contingent on Tenant's student status.\n\nConditions of termination. Landlord may terminate this agreement before the end of its term and require Tenant to vacate only if Landlord determines, following the hearing described below, that Tenant has violated a term of this agreement or has violated {{conduct_code_reference}} or another policy or procedure of the institution. Landlord may also terminate at the end of the term, and Tenant's agreement ends if Tenant ceases to be a student of the institution.\n\nNotice and hearing procedures. Before making that determination Landlord will give Tenant written notice of the alleged violation and of the hearing, and will hold a hearing at which Tenant has the right to be heard. The hearing will otherwise follow the institution's procedures for disciplinary hearings, which are set out in {{hearing_procedures_reference}} and are incorporated into this agreement. Tenant may obtain a copy of those procedures from Landlord on request at no charge.\n\nTenant acknowledges receiving the conditions of termination and the notice and hearing procedures stated above.",
+  },
+  // Disclosures
+  {
+    id: "hoa-compliance-oh",
+    title: "Homeowner / Condominium Association Compliance",
+    group: "Disclosures",
+    states: ["OH"],
+    supersedes: "hoa-compliance",
+    bodyText:
+      "If the property is in a homeowners or condominium association, Tenant will comply with the association's rules and regulations that apply to the property. A violation of those rules by Tenant, an occupant or a guest is a breach of this Lease, and Tenant will pay Landlord, as Landlord's actual damages for that breach, the amount of any fine the association imposes on Landlord because of it; Landlord will give Tenant a copy of the association's notice of the fine when Landlord charges Tenant. This Section does not make Tenant pay any attorney's fees, including attorney's fees the association charges to Landlord.",
+  },
+  // Rent & Payment
+  {
+    id: "tenant-caused-fines-oh",
+    title: "Fines Caused by Tenant (Optional)",
+    group: "Rent & Payment",
+    states: ["OH"],
+    supersedes: "tenant-caused-fines-as",
+    bodyText:
+      "[Optional.] If a government agency fines or penalizes Landlord, or charges Landlord the cost of abating a nuisance, because of a condition or violation that Tenant, a member of Tenant's household, or a person on the Premises with Tenant's consent caused or permitted, that condition or violation is a breach of this Lease, and Tenant will pay Landlord the amount Landlord paid, as Landlord's actual damages for that breach, within [number of days] days after Landlord gives Tenant written notice with a copy of the citation, order or bill. This Section does not apply to a fine or charge for a condition Landlord is responsible for under this Lease or the law, and Landlord will not deduct the amount from a Rent payment.",
+  },
+  // Default & Termination
+  {
+    id: "early-termination-oh",
+    title: "Early Termination",
+    group: "Default & Termination",
+    states: ["OH"],
+    supersedes: "early-termination-ks",
+    bodyText:
+      "Tenant may terminate this Lease before the end of the Term by providing Landlord at least 30 days' written notice. Tenant will pay Landlord, by the termination date, an early termination fee equal to one month's Rent ({{monthly_rent}}), and remains responsible for Rent and other obligations up to the termination date. If Tenant gives that notice, pays the fee and delivers possession of the property by the termination date, Tenant owes no Rent for any period after the termination date. If Tenant leaves before the end of the Term without using this option, Tenant's liability is governed by Ohio law. This early-termination option and fee apply only if this Lease has a fixed Term; a month-to-month or other periodic tenancy ends on the notice that applicable law and this Lease provide, without an early termination fee. Landlord may terminate this Lease early in accordance with this Lease's Tenant Default and notice provisions, or if Tenant vacates or abandons the property without notifying Landlord. Nothing in this Section limits any right either party has under applicable law, including a Tenant's right to terminate without penalty due to active military service under the Servicemembers Civil Relief Act, due to the property becoming uninhabitable through no fault of Tenant, or, except as prohibited by law in the case of a Tenant's death, any other termination right or limitation provided by applicable law.",
   },
 ];
 
