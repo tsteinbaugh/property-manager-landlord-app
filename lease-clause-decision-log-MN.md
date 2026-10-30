@@ -2014,3 +2014,8482 @@ Not a re-audit; nothing else in this state was reviewed.
 - `smoking-policy`: Tenant pays for smoking damage caused by "Tenant, an occupant, or a guest or invitee of Tenant", no longer by anyone's smoking.
 - `no-alterations`: the last sentence adds that the clause "does not change who owns an installation that applicable law makes Tenant's property".
 - `addendum-precedence`: a disclosure, notice or addendum "that applicable law says controls over this Lease" now controls, as one the law requires already did.
+
+
+---
+
+# Topic gaps pass (end-of-run consistency pass, 2026-10-29): Desktop's log
+
+## Minnesota topic gaps — canvass log (SOP 1.86)
+
+**Pass date 2026-10-29.** Answering the 230 topics Minnesota had no row for, plus the named
+Minnesota items. Add-rows-only pass: no existing row's text was changed (rule 1 and the
+prompt's scope fence). Problems found in existing rows are reported in §6, not fixed.
+
+---
+
+## §1 Sources, channel and currency
+
+**Step A gate passed before any work.** Decompressed `lease-clauses.csv` is 38,195,717 bytes with
+SHA-256 `0e73807da536a370f055d3bbcff2c6417867abf8b1dfd4b52898c59029acf105`, both as stated;
+11,634 rows / 11,524 active; 156 active rows carry MN across 134 distinct `topic_key`s;
+`missing-topics-MN.md` lists 230 topics, all unique, none overlapping MN's 134. 134 + 230 = 364.
+(The CSV holds 381 distinct `topic_key`s in all; the 17 beyond 364 sit only on rows no finished
+state carries, so they are outside this pass.) Old output files in `/mnt/user-data/outputs/` were
+deleted first: `lease-clause-decision-log-MN-retro.md` and `lease-clauses-MN-retro-delta.csv`.
+
+**Separator note.** In this edition `states` is semicolon-delimited with no spaces (`CO;WY;MN`);
+11,496 rows are single-state, 137 multi-state, 1 blank. An earlier comma-split undercounted MN at
+106; every count here uses the semicolon split.
+
+**Corpus.** `corpus-MN-20261025.tar.xz`, SHA-256 `bea991c9…368114` as published. Verified by
+re-implementing the manifest check rather than running the archive's own `verify_mn.py`
+(downloaded code is not executed): **434 of 434 shipped files hash-match** `manifest.jsonl` and
+`manifest-text.jsonl`. The single unshipped entry is the expected 404 for `36.104`, which is not a
+Minnesota section but 28 C.F.R. § 36.104, the federal service-animal definition § 504B.113 cites.
+
+**Statute index, proven before any battery ran** (rule 19; KS-gaps 1 and 3, SD circle-back).
+The eight whole-chapter pages were split into sections and proved against the Revisor's **own
+chapter index pages**, not the in-page table of sections:
+
+| chapter | indexed | covered | missing | over-split | substantive |
+|---|---|---|---|---|---|
+| 504B | 97 | 97 | 0 | 0 | 92 |
+| 363A | 47 | 47 | 0 | 0 | 44 |
+| 325D | 79 | 79 | 0 | 0 | 61 |
+| 325F | 185 | 185 | 0 | 0 | 168 |
+| 299F | 134 | 134 | 0 | 0 | 83 |
+| 144 | 586 | 586 | 0 | 0 | 362 |
+| 484 | 101 | 101 | 0 | 0 | 61 |
+| 327C | 21 | 21 | 0 | 0 | 20 |
+| **total** | **1,250** | **1,250** | **0** | **0** | **891** |
+
+Three defects were found and fixed in the splitter before it was trusted, each the kind rule 19
+names: (a) "Table of Sections" appears twice on a chapter page — once in the site navigation — so
+the first match truncated the table and zeroed the index for five chapters; (b) the Revisor's own
+2026 notices (`504B.118 has been amended by Chapter 81, Section 2`) match a section-body pattern
+and had to be excluded, and are now captured separately as the currency signal; (c) §§ 484.13,
+484.14, 484.16, 484.17 and 484.18 each compile **two** historical versions under one number, and
+the first draft kept only the later one — both are now kept and indexed (rule 19, NY: Gen. Bus.
+Law § 390-e). 15 indexed sections have no headnote line at all because the Revisor shows them as a
+bare number followed by "Subdivisions renumbered, repealed, or no longer in effect"; each was
+checked individually and is an empty shell, not a parser miss. One further section, § 144.0741, is
+`[Expired]`.
+
+**Cross-references.** The 50 sections of other chapters that chapter 504B cites by number are
+loaded and reachable by number. These were **missing from the first build of the loader** — the
+helper brief had already promised them — and were added mid-pass; both running helpers were told
+to reload and to redo any topic that had depended on an unreachable section.
+
+**Session laws, with amendment markers preserved.** All 146 chapters (2025 regular 39, 2025 First
+Special Session 15, 2026 regular 92) are indexed in three explicit views: `raw` (the Revisor's
+`new text begin` / `deleted text begin` markers intact), `enacted` (deleted spans removed — how the
+law now reads) and `newonly` (only what the act added). Bill line numbers and running page headers
+were stripped from the 30 chapters that carried them before indexing (rule 19, MP 2).
+
+The marker handling was **control-tested** on Laws 2026, ch. 81, case-sensitively: the deleted
+section heading "RECEIPT FOR RENT PAID IN CASH" appears in `raw` (1 hit) and in **neither**
+`enacted` nor `newonly` (0, 0), while the new heading "PAYMENT OF RENT" appears in all three. This
+is deliberate: in Phase B a novelty claim was made from text whose novelty markers had been
+deleted, misattributing § 504B.321 subd. 2(e)'s no-consolidation rule to Laws 2026 ch. 81 when it
+dates from Laws 2023, ch. 52. **No novelty claim in this pass rests on a flattened view.** The
+same test incidentally shows that the words of the deleted section heading survive in lower case as
+the new subdivision 2 heading — a fact about the section, not an artefact.
+
+**Battery engine.** Purpose-built for this pass and self-tested before use. It refuses a run with
+no known positive (rule 19, MP 3) and a scope that resolves to zero units (WY-gaps 4); verifies
+every positive matches **anchored in the unit it names** (CO-gaps 4); runs the nonsense control in
+the same batch as the battery, never once a session; reports heading-only matches separately;
+matches a whitespace-collapsed view so a line-broken phrase is still found (WY-gaps 1); normalises
+straight and curly apostrophes; lints for the standing short-term traps (lease/release,
+late/related, cure/secure, rent/parent and the rest) and for `[^.]` proximity windows; offers a
+case-sensitive mode for headnote screens; and writes every run to `battery-log.jsonl` with the
+corpus fingerprint and unit count. **Every hit count stated in this log and in every row's notes is
+generated from that log file, never typed** (CO-gaps 7, 20).
+
+**Currency.** The statute text is the 2025 compilation: it carries the 2025 regular and First
+Special Session changes but not the 2026 session. The Revisor's own 2026 notices were parsed from
+the chapter pages — **46 notices** across the eight chapters (504B 6, 363A 4, 325F 1, 144 33,
+484 1; 325D, 299F and 327C none). The acts that bear on this work: **Laws 2026, ch. 81** (effective
+2026-08-01; § 504B.118 rewritten, new § 504B.2136, § 504B.216 subd. 7a, § 216B.023 subd. 3a,
+§ 504B.321 subd. 2); **ch. 88** (Revisor's corrections; § 504B.361 subd. 1, and repeals § 504B.345
+subd. 2); **ch. 82** (common interest communities); **ch. 99** (§ 363A.02 subd. 1); and **ch. 71**,
+which adds **§ 484.085** — an act the corpus README does not list among those touching these
+chapters, found from the Revisor's notices.
+
+**Boundary.** Searched: the eight chapters, the 50 cross-reference sections, all 146 session-law
+chapters of the biennium, and the constitution. **Not searched:** the rest of Minnesota Statutes,
+Minnesota Rules, the court rules, case law, and city ordinances — Minneapolis and St. Paul are
+flagged, never resolved (rule 3). Chapters **325G** (Plain Language Contract Act) and **515B**
+(common interest communities) are outside the statute set; where this pass relies on either it
+relies on the session-law text or on an existing library row, and says so. No absence claim here
+reaches beyond that boundary.
+
+---
+
+---
+
+## §2 Topics answered
+
+**230 of 230 answered.** One line per topic: verdict, the row that answers it, and the citation.
+
+| topic_key | verdict | row(s) | citation |
+|---|---|---|---|
+| `accessory-dwelling-unit` | Present | `accessory-dwelling-unit-term-mn`, `edu-accessory-dwelling-unit-mn` | — |
+| `actual-notice-method` | Absent | `edu-no-agreed-notice-method-rule-mn` | Minn. Stat. § 504B.206; § 504B.271; § 504B.145; § 504B.135 |
+| `adverse-proceeding-notice` | Present | `adverse-proceeding-notice-mn`, `edu-adverse-proceeding-notice-mn` | Minn. Stat. § 504B.151; § 504B.435; § 504B.147; § 327C.097 |
+| `alarm-tampering-fee` | Absent | `alarm-tampering-fee-mn`, `edu-no-alarm-tampering-fee-mn` | Minn. Stat. § 299F.51, subd. 4); Minn. Stat. § 299F.362, subd. 6(b)); Minn. Stat. § 299F.51, subd. 3(2)); Minn. Stat. § 504B.178, subd. 3(b)(1) |
+| `alt-housing` | Present | `edu-alt-housing-mn` | — |
+| `animal-care-access` | Present | `animal-care-access-mn`, `edu-no-animal-care-entry-right-mn` | — |
+| `appliances-excluded` | Present | `appliances-excluded-mn`, `edu-appliances-excluded-mn` | — |
+| `asbestos-hazards` | Present | `edu-asbestos-hazards-mn` | — |
+| `association-obligations-disclosure` | Absent | `edu-no-association-disclosure-mn` | — |
+| `automatic-renewal` | Present | `automatic-renewal-mn`, `edu-automatic-renewal-mn` | § 504B.144; § 504B.145; § 504B.147; § 504B.141 |
+| `balcony-inspection` | Absent | `edu-no-balcony-inspection-rule-mn` | — |
+| `bed-bug-cooperation` | Present | `bed-bug-cooperation-mn`, `edu-pest-duty-and-its-limits-mn` | — |
+| `binding-arbitration` | Absent | `edu-no-lease-arbitration-statute-mn` | Minn. Stat. §§ 484.73; Minn. Stat. §§ 325F.665; Minn. Stat. § 325F.6656; Minn. Stat. §§ 327C.095 |
+| `carpet-cleaning` | Absent | `carpet-cleaning-mn`, `edu-no-carpet-cleaning-rule-mn` | Minn. Stat. § 504B.178, subd. 3(b)(1); Minn. Stat. § 504B.161, subd. 2); Minn. Stat. § 504B.182, subd. 2); Minn. Stat. § 504B.178, subd. 4(4)) |
+| `casualty-and-mitigation-waivable` | Present | `edu-casualty-and-mitigation-waivable-mn` | Minn. Stat. § 504B.161; § 504B.131; § 504B.161; § 504B.154 |
+| `certificate-of-occupancy-disclosure` | Absent | `edu-no-certificate-of-occupancy-disclosure-mn` | — |
+| `children-occupancy` | Present | `children-occupancy-mn`, `edu-children-occupancy-mn`, `edu-no-children-occupancy-cap-mn`, `edu-occupancy-based-fee-bar-park-mn` | — |
+| `collection-fee` | Absent | `edu-collection-fee-mn` | §§ 332.31; § 332.37; § 332.32; § 504B.178 |
+| `common-area-lighting` | Absent | `edu-no-common-area-lighting-standard-mn` | — |
+| `communal-land-lease-approval` | Absent | `edu-no-communal-land-lease-approval-mn` | — |
+| `confirmed-absences-habitability` | Absent | `edu-confirmed-absences-habitability-mn` | — |
+| `confirmed-absences-misc` | Absent | `edu-confirmed-absences-misc-mn` | — |
+| `confirmed-absences-outside-title` | Present | `edu-confirmed-absences-outside-title-mn` | — |
+| `construction-liens` | Tagged | `edu-construction-liens-mn`, `no-liens-ar` | — |
+| `consumer-protection-act` | Present | `edu-consumer-protection-act-mn`, `edu-deceptive-trade-practices-act-mn` | Minn. Stat. §§ 325F.67; Minn. Stat. § 8.31; §§ 325F.68; Minn. Stat. § 325F.69, subd. 8 |
+| `conversion-notice` | Present | `edu-conversion-notice-mn`, `edu-no-condominium-conversion-notice-mn` | — |
+| `cure-and-eviction-grounds` | Present | `edu-cure-and-eviction-grounds-mn`, `edu-nonpayment-14-day-notice-mn`, `cure-and-eviction-grounds-mn` | — |
+| `defective-drywall-disclosure` | Absent | `edu-no-drywall-disclosure-mn` | — |
+| `deposit-cost-schedule` | Absent | `deposit-cost-schedule-mn`, `edu-no-deposit-cost-schedule-mn` | — |
+| `deposit-installments` | Absent | `edu-no-deposit-installments-mn` | — |
+| `deposit-surrender-notice` | Present | `deposit-surrender-notice-mn`, `edu-deposit-surrender-notice-mn` | — |
+| `designated-repairer` | Absent | `designated-repairer-mn`, `edu-no-designated-repairer-rule-mn` | — |
+| `disability-accommodation` | Present | `disability-modification-restoration-mn`, `edu-disability-accommodation-mn`, `edu-disability-interactive-process-mn` | — |
+| `disaster-displaced-guests` | Absent | `edu-no-disaster-guest-rule-mn` | — |
+| `disaster-duties` | Present | `disaster-duties-mn`, `edu-disaster-duties-mn` | — |
+| `drug-free-housing-addendum` | Present | `edu-drug-free-housing-addendum-mn` | — |
+| `dv-deposit-timing` | Present | `edu-dv-deposit-timing-mn` | — |
+| `dv-eviction-protection` | Present | `edu-dv-eviction-protection-mn` | — |
+| `dv-lockchange` | Absent | `edu-no-dv-lock-change-right-mn` | — |
+| `dv-protection-order-chapter-moved` | Present | `edu-dv-protection-order-citations-mn` | — |
+| `electric-submetering-disclosure` | Present | `electric-submetering-disclosure-mn`, `edu-electric-submetering-disclosure-mn` | Minn. Stat. §§ 504B.216; Minn. Stat. § 504B.120; § 504B.161; § 504B.221 |
+| `emergency-contact` | Absent | `emergency-contact-mn`, `edu-no-emergency-contact-rule-mn` | — |
+| `eminent-domain` | Tagged | `edu-eminent-domain-mn`, `eminent-domain-vi` | — |
+| `employee-screening` | Present | `edu-employee-screening-mn` | — |
+| `energy-data-release` | Present | `energy-data-release-mn`, `edu-no-energy-benchmarking-release-mn` | Minn. Stat. § 504B.216; § 216B.022; § 216B.023; § 216B.024 |
+| `entity-landlord-court-representation` | Present | `edu-entity-landlord-court-representation-mn` | — |
+| `environmental-event-termination` | Absent | `edu-no-environmental-event-termination-mn` | Minn. Stat. § 504B.131; § 504B.195; § 504B.204; § 504B.161 |
+| `ev-charging-end-of-tenancy` | Tagged | `edu-ev-charging-end-of-tenancy-mn`, `ev-charging-end-of-tenancy-co` | — |
+| `ev-charging-requirements` | Present | `ev-charging-requirements-mn`, `edu-ev-charging-requirements-mn` | — |
+| `ev-charging-shared-area` | Tagged | `edu-ev-charging-shared-area-mn`, `ev-charging-shared-area-co` | — |
+| `eviction-hardship-stay` | Present | `edu-eviction-hardship-stay-mn`, `edu-no-lease-waiver-of-eviction-stay-mn` | — |
+| `eviction-penalty-clause-ban` | Absent | `edu-no-eviction-penalty-rule-mn` | §§ 504B.345; § 504B.2136; Minn. Stat. § 504B.441; §§ 504B.395 |
+| `eviction-process` | Present | `edu-eviction-process-mn`, `edu-eviction-priority-chain-mn`, `edu-right-to-counsel-public-housing-mn`, `edu-tenant-may-not-deny-title-mn`, `edu-person-in-possession-liable-for-rent-mn`, `edu-eviction-dismissal-and-expungement-mn`, `edu-eviction-forms-court-supplied-mn` | — |
+| `eviction-service-party` | Present | `edu-no-tenant-service-agent-mn`, `eviction-service-party-mn` | — |
+| `exculpatory-clauses` | Absent | `edu-no-exculpatory-clause-ban-mn` | Minn. Stat. § 504B.161; Minn. Stat. § 363A.31; Minn. Stat. §§ 325F.84; Minn. Stat. § 145A.04 |
+| `expedited-deposit-disposition` | Present | `edu-expedited-deposit-disposition-mn` | — |
+| `extended-absence-notice` | Absent | `extended-absence-notice-mn`, `edu-no-extended-absence-notice-mn` | — |
+| `family-child-care` | Present | `edu-no-family-child-care-rule-mn`, `edu-family-child-care-premises-rules-mn` | — |
+| `farmland-hunting-rights` | Absent | `edu-no-farmland-hunting-rights-mn` | — |
+| `fee-in-lieu-of-deposit` | Absent | `edu-no-fee-in-lieu-of-deposit-mn` | — |
+| `fee-unprovided-service` | Present | `edu-fee-unprovided-service-mn` | Minn. Stat. § 504B.216, subd. 8); Minn. Stat. § 504B.216, subd. 9); Minn. Stat. § 504B.216, subd. 7(c)); Minn. Stat. § 216B.023, subd. 2(b)(1)) |
+| `fire-code-standard` | Present | `edu-fire-code-standard-mn`, `fire-code-compliance-mn` | — |
+| `firearms` | Present | `firearm-rules-mn`, `edu-firearms-mn` | — |
+| `flood-disclosure` | Absent | `edu-no-flood-disclosure-mn` | — |
+| `foreclosure` | Present | `edu-foreclosure-mn` | — |
+| `foreign-ownership` | Present | `edu-foreign-ownership-mn` | — |
+| `forfeiture-redemption` | Present | `edu-forfeiture-redemption-mn`, `edu-no-forfeiture-clause-value-mn` | — |
+| `frozen-standard-incorporation` | Present | `edu-no-frozen-standard-incorporation-mn` | Minn. Stat. § 504B.161; Minn. Stat. §§ 504B.113; Minn. Stat. §§ 144.98; Minn. Stat. § 504B.161, subd. 1(a)(4) |
+| `furnishings-included` | Tagged | `edu-furnishings-included-mn`, `furnishings-included-la` | — |
+| `good-cause-notice` | Absent | `edu-no-good-cause-notice-mn` | Minn. Stat. § 504B.321; § 327C.09; § 504B.268; § 504B.285, subd. 1(a)(2) |
+| `government-fee-reimbursement` | Absent | `government-fee-reimbursement-mn`, `edu-government-fee-reimbursement-mn` | Minn. Stat. § 471.9995; Minn. Stat. § 504B.120, subd. 1); Minn. Stat. § 504B.161, subd. 1(a)(4)); Minn. Stat. § 504B.205, subd. 3(2)) |
+| `governmental-fines` | Tagged | `edu-governmental-fines-mn`, `tenant-caused-fines-as` | Minn. Stat. § 504B.161, subd. 1(a)(4)); Minn. Stat. § 504B.161, subd. 1(b)); § 504B.161; Minn. Stat. § 145A.04, subd. 8(a)) |
+| `guarantor-renewal` | Tagged | `edu-guarantor-renewal-mn`, `guaranty-as` | — |
+| `guest-rights` | Present | `edu-guest-rights-mn`, `edu-no-guest-visitation-right-mn` | — |
+| `habitability-materiality` | Absent | `edu-no-habitability-materiality-rule-mn` | — |
+| `habitability-modifiable` | Present | `edu-habitability-modifiable-mn` | — |
+| `habitability-presumption` | Absent | `edu-no-habitability-presumption-mn` | — |
+| `habitability-statement` | Absent | `edu-no-habitability-statement-mn` | — |
+| `habitability-waiver` | Present | `edu-habitability-waiver-mn` | — |
+| `hazardous-contamination-disclosure` | Absent | `edu-no-contamination-disclosure-mn` | — |
+| `health-district-rental-rules` | Present | `edu-health-district-rental-rules-mn` | — |
+| `heating` | Present | `heating-mn`, `edu-heating-mn`, `edu-energy-assistance-notice-mn` | Minn. Stat. § 504B.161; § 504B.216; § 504B.381; § 504B.385 |
+| `hoa` | Tagged | `edu-hoa-mn`, `association-approval-la` | — |
+| `holdover-rate` | Present | `holdover-rate-mn`, `edu-holdover-rate-mn` | Minn. Stat. § 504B.141; § 504B.285; § 504B.125; § 504B.177 |
+| `home-business` | Absent | `edu-no-home-business-rule-mn` | — |
+| `homestead-waiver` | Absent | `edu-no-homestead-waiver-mn` | Minn. Stat. § 504B.271; Minn. Stat. § 144.588; Minn. Stat. §§ 144.445; Minn. Stat. §§ 299F.0115 |
+| `immigration-status` | Present | `edu-immigration-status-itin-mn` | — |
+| `informal-dispute-resolution` | Tagged | `edu-informal-dispute-resolution-mn`, `informal-dispute-resolution-or` | — |
+| `jury-waiver` | Present | `edu-jury-waiver-mn` | Minn. Stat. §§ 504B.335; Minn. Stat. §§ 144.4175; Minn. Stat. § 144.4175; Minn. Stat. § 595.02 |
+| `key-control-policy` | Present | `edu-no-key-control-mandate-mn`, `key-control-exempt-setting-mn` | — |
+| `landlord-breach-remedy` | Present | `edu-landlord-breach-remedy-mn` | — |
+| `landlord-liability-insurance` | Absent | `edu-no-landlord-insurance-mandate-mn` | — |
+| `landlord-lien` | Present | `edu-landlord-lien-mn` | — |
+| `landlord-registration` | Absent | `edu-no-state-landlord-registration-mn` | — |
+| `landlord-remedies-termination` | Present | `edu-landlord-remedies-termination-mn`, `edu-no-rent-acceleration-rule-mn` | — |
+| `law-enforcement-cooperation` | Present | `edu-law-enforcement-cooperation-mn`, `edu-local-police-call-ordinance-preemption-mn` | — |
+| `lead-safe-certification` | Present | `edu-lead-safe-certification-mn` | — |
+| `lead-state-notices` | Present | `edu-lead-state-notices-mn` | — |
+| `lease-content-requirements` | Present | `edu-lease-content-requirements-mn` | — |
+| `lease-notice-initial-requirement` | Absent | `edu-no-lease-initials-requirement-mn` | Minn. Stat. § 504B.111; § 504B.115; § 504B.120; § 504B.146 |
+| `lease-registration` | Absent | `edu-no-lease-registration-mn` | — |
+| `lease-term-limitation` | Present | `lease-term-limitation-mn`, `edu-lease-term-limits-mn` | Minn. Stat. § 504B.146; § 504B.178; § 504B.161; § 504B.171 |
+| `lease-type-parity` | Absent | `edu-no-lease-type-parity-mn` | — |
+| `lease-type-size` | Absent | `edu-no-lease-type-size-mn` | — |
+| `limitation-of-actions` | Absent | `edu-limitation-of-actions-mn` | Minn. Stat. §§ 363A.28; Minn. Stat. § 363A.31; Minn. Stat. § 504B.266; Minn. Stat. § 504B.425 |
+| `liquidated-damages` | Absent | `edu-no-liquidated-damages-rule-mn` | § 504B.177; § 504B.165; § 504B.178; § 504B.231 |
+| `lockout-for-rent-delinquency` | Present | `edu-no-lockout-for-rent-mn`, `edu-lockout-penalties-mn`, `edu-abandonment-not-lockout-mn` | — |
+| `maintenance-duty-shift` | Present | `edu-maintenance-duty-shift-mn` | — |
+| `meter-conservation-charge` | Absent | `edu-meter-conservation-charge-mn` | § 216B.022; § 216B.023; § 504B.216; § 504B.120 |
+| `military-air-zone-disclosure` | Absent | `edu-no-military-zone-disclosure-mn` | — |
+| `municipal-utility-lien` | Present | `edu-municipal-utility-lien-mn` | Minn. Stat. § 444.075; § 504B.216; § 514.18; § 514.22 |
+| `nonrefundable-deposit-notice` | Absent | `edu-no-nonrefundable-deposit-mn` | — |
+| `nonrefundable-deposit-separate-notice` | Absent | `edu-no-nonrefundable-separate-notice-mn` | — |
+| `nonresident-owner-agent` | Absent | `edu-no-nonresident-owner-agent-mn` | — |
+| `notice-service-fee` | Absent | `edu-no-notice-service-fee-mn` | §§ 504B.321; Minn. Stat. § 504B.171, subd. 2); Minn. Stat. § 504B.385, subd. 4; Minn. Stat. § 504B.381, subd. 8) |
+| `notice-to-quit-waiver` | Present | `edu-notice-to-quit-waiver-mn` | — |
+| `notice-to-vacate-additional-terms` | Absent | `edu-no-notice-to-vacate-terms-rule-mn` | Minn. Stat. § 504B.321; § 504B.182; § 504B.271; § 504B.147 |
+| `optional-lease-terms` | Present | `edu-optional-lease-terms-mn` | Minn. Stat. §§ 504B.144; Minn. Stat. §§ 504B.146; Minn. Stat. §§ 504B.147; Minn. Stat. § 504B.153 |
+| `ordnance-demolition-meter-disclosures` | Present | `edu-ordnance-demolition-meter-disclosures-mn` | — |
+| `other-landlord-facilities` | Present | `garage-door-opener-duty-mn`, `edu-other-landlord-facilities-mn` | — |
+| `owner-move-in-reservation` | Present | `owner-move-in-reservation-mn`, `edu-owner-move-in-reservation-mn` | § 504B.147; § 504B.135; § 504B.116; § 504B.375 |
+| `parking-rules-notice` | Absent | `parking-rules-notice-mn`, `edu-no-parking-rules-notice-mn` | — |
+| `part5-nonwaivable` | Present | `edu-part5-nonwaivable-mn` | Minn. Stat. §§ 504B.114; Minn. Stat. § 363A.31; Minn. Stat. § 504B.2136; Minn. Stat. §§ 504B.144 |
+| `periodic-services-entry` | Present | `periodic-services-entry-mn`, `edu-periodic-services-entry-mn` | — |
+| `pest-control-notice` | Absent | `edu-no-pest-control-notice-mn` | — |
+| `pet-eviction-fact-sheet` | Absent | `edu-no-pet-eviction-fact-sheet-mn` | — |
+| `pet-fees` | Present | `pet-fees-mn`, `edu-pet-fees-mn` | Minn. Stat. § 504B.261; Minn. Stat. § 504B.113, subd. 3(b)); Minn. Stat. § 504B.178; § 504B.120 |
+| `plain-language-consumer-statement` | Absent | `edu-no-plain-language-consumer-statement-mn` | Minn. Stat. § 504B.275; Minn. Stat. §§ 144.056; Minn. Stat. § 325G.30, subd. 2(3); Minn. Stat. § 144.056 |
+| `pool-safety` | Present | `edu-pool-safety-mn`, `spa-pool-notice-mn` | — |
+| `portable-cooling-device` | Absent | `edu-no-portable-cooling-device-mn`, `edu-air-conditioner-in-lease-risk-mn` | Minn. Stat. § 504B.381; § 504B.216; § 504B.161; § 325F.18 |
+| `portable-solar` | Absent | `edu-no-portable-solar-mn` | Minn. Stat. § 504B.161; § 504B.216; § 216B.022; § 216B.023 |
+| `portfolio-thresholds` | Present | `edu-portfolio-thresholds-mn` | — |
+| `possession-bond` | Present | `edu-possession-bond-mn`, `edu-no-lease-bond-requirement-mn` | — |
+| `private-well-testing` | Present | `edu-private-well-testing-mn` | — |
+| `prohibited-acts-renter` | Present | `prohibited-acts-renter-mn`, `edu-prohibited-acts-renter-mn` | — |
+| `prohibited-lease-terms` | Present | `edu-prohibited-lease-terms-mn`, `edu-pet-declawing-devocalization-ban-mn`, `edu-attorney-general-chapter-enforcement-mn` | Minn. Stat. §§ 504B.114; Minn. Stat. § 559.21; Minn. Stat. § 325F.91; Minn. Stat. § 504B.114 |
+| `promises-to-repair` | Present | `edu-promises-to-repair-mn` | — |
+| `prop65-rental-warning` | Present | `formaldehyde-health-notice-mn`, `edu-no-chemical-warning-rule-mn` | — |
+| `property-tax-rent-disclosure` | Absent | `edu-no-property-tax-rent-statement-mn` | Minn. Stat. § 504B.120; § 504B.181; § 327C.02; § 327C.095 |
+| `purpose-limitation` | Present | `edu-purpose-limitation-mn` | Minn. Stat. § 504B.171; Minn. Stat. §§ 504B.1715; Minn. Stat. §§ 504B.171; Minn. Stat. § 624.713 |
+| `recycling-notice` | Absent | `edu-no-recycling-notice-mn` | Minn. Stat. § 504B.161; § 504B.120; § 504B.415; § 504B.425 |
+| `redemption` | Present | `edu-redemption-mn` | — |
+| `religious-cultural-display` | Absent | `edu-no-religious-display-right-mn` | — |
+| `rent-concession` | Present | `edu-rent-concession-mn`, `rent-concession-wi` | Minn. Stat. § 504B.177; Minn. Stat. § 504B.120; § 504B.177; § 504B.120, subd. 1 |
+| `rent-demand-bar` | Present | `edu-rent-demand-bar-mn` | Minn. Stat. § 504B.204; § 504B.181; § 504B.321; § 504B.435 |
+| `rent-escalation` | Present | `rent-increase-midterm-mn`, `edu-rent-escalation-mn`, `rent-escalation-la` | Minn. Stat. § 504B.147; § 504B.144; § 504B.145; § 504B.441 |
+| `rent-increase-notice` | Present | `edu-rent-increase-notice-mn` | Minn. Stat. § 504B.147; § 504B.135; § 504B.145; § 504B.285 |
+| `rent-installments` | Present | `prorated-rent-mn`, `rent-installments-mn`, `edu-rent-installments-mn` | Minn. Stat. § 504B.146; Minn. Stat. § 504B.116; § 504B.146; § 504B.116 |
+| `rent-into-court-counterclaim` | Present | `edu-rent-into-court-counterclaim-mn`, `edu-landlord-counterclaim-rent-escrow-mn` | — |
+| `rent-receipt-anti-waiver` | Present | `edu-rent-receipt-anti-waiver-mn` | Minn. Stat. § 504B.001; § 504B.161; § 504B.181; § 504B.445 |
+| `rent-reporting` | Absent | `edu-no-rent-reporting-mn` | Minn. Stat. § 504B.241; § 504B.245; § 504B.117; § 504B.173 |
+| `rent-tax` | Absent | `edu-no-rent-tax-mn` | Minn. Stat. § 504B.120; § 504B.177; §§ 216B.023; § 327C.04 |
+| `rental-inspection` | Present | `edu-rental-inspection-mn`, `rental-inspection-cooperation-mn` | — |
+| `repair-cost-termination` | Absent | `edu-no-repair-cost-termination-mn` | — |
+| `repair-escrow-exemption-notice` | Absent | `edu-no-repair-escrow-exemption-mn` | — |
+| `repair-notice` | Present | `edu-repair-notice-mn` | — |
+| `required-disclosures` | Present | `edu-required-disclosures-mn` | — |
+| `required-fees` | Present | `required-fees-mn`, `edu-required-fees-mn` | Minn. Stat. § 504B.120, subd. 1); Minn. Stat. § 504B.120, subd. 2); § 504B.120; § 504B.118 |
+| `rights-responsibilities-guide` | Absent | `edu-no-rights-guide-duty-mn` | Minn. Stat. § 504B.275; Minn. Stat. § 504B.321; Minn. Stat. §§ 325F.90; Minn. Stat. § 504B.321, subd. 1a |
+| `rules-regulations` | Tagged | `edu-house-rules-mn`, `rules-wi` | — |
+| `sale-or-management-change` | Present | `edu-sale-or-management-change-mn`, `edu-recorded-lease-cancellation-mn` | — |
+| `sanitary-code-variance` | Present | `edu-sanitary-code-variance-mn` | — |
+| `seasonal-tenancy` | Absent | `edu-no-seasonal-tenancy-rule-mn` | Minn. Stat. § 504B.001; Minn. Stat. § 504B.111; § 504B.001, subd. 8; Minn. Stat. § 504B.211 |
+| `security-deposit-holding` | Present | `edu-security-deposit-holding-mn` | — |
+| `security-deposit-interest` | Present | `edu-security-deposit-interest-mn` | — |
+| `security-deposit-nonwaiver` | Present | `edu-security-deposit-nonwaiver-mn` | — |
+| `security-deposit-penalty` | Present | `edu-security-deposit-penalty-mn` | — |
+| `security-deposit-standards` | Absent | `edu-no-security-deposit-standards-mn` | — |
+| `senior-housing-work-card` | Absent | `edu-no-senior-housing-work-card-mn` | — |
+| `sex-offender-disclosure` | Absent | `edu-no-sex-offender-disclosure-mn` | — |
+| `sex-offender-occupancy` | Absent | `edu-no-sex-offender-occupancy-rule-mn` | — |
+| `sfr-occupancy-disclosure` | Present | `edu-no-sfr-occupancy-disclosure-mn` | — |
+| `shoreline-access-disclosure` | Absent | `edu-no-shoreline-disclosure-mn` | — |
+| `showing-notice-waiver` | Present | `showing-notice-mn`, `edu-no-showing-notice-waiver-mn` | — |
+| `shutdown-rent-protection` | Absent | `edu-no-shutdown-rent-protection-mn` | Minn. Stat. § 504B.321; § 504B.291; § 504B.177; § 504B.118 |
+| `single-family-zone-lease-limit` | Absent | `edu-no-single-family-zone-lease-limit-mn` | — |
+| `smart-access` | Absent | `edu-no-smart-access-law-mn`, `smart-access-system-mn` | — |
+| `smoke-drift-waiver` | Present | `smoke-drift-and-common-areas-mn`, `edu-smoke-drift-waiver-mn` | — |
+| `social-security-defense` | Present | `edu-no-benefit-delay-defense-mn`, `edu-public-assistance-status-eviction-mn` | — |
+| `source-of-income` | Present | `edu-source-of-income-scope-mn` | — |
+| `special-district-representation` | Absent | `edu-no-special-district-representation-mn` | — |
+| `sprinkler-disclosure` | Absent | `edu-no-sprinkler-disclosure-mn` | — |
+| `statutory-caps` | Present | `edu-statutory-caps-mn` | Minn. Stat. §§ 504B.114; § 504B.177; § 504B.178, subd. 2; § 504B.120, subd. 2 |
+| `statutory-early-termination` | Present | `edu-statutory-early-termination-mn` | Minn. Stat. § 504B.206; § 504B.265; § 504B.266; § 504B.131 |
+| `steam-radiator-covers` | Absent | `edu-no-steam-radiator-covers-mn` | Minn. Stat. § 504B.161; § 504B.155; § 325F.662; § 325F.28 |
+| `stigmatized-property` | Absent | `edu-stigmatized-property-mn` | — |
+| `stove-refrigerator` | Present | `stove-refrigerator-mn`, `edu-stove-refrigerator-mn` | — |
+| `student-housing` | Absent | `edu-no-student-housing-rule-mn` | — |
+| `subsidized-inspection-refusal` | Present | `edu-subsidized-inspection-refusal-mn` | — |
+| `subsidy-habitability-proration` | Present | `edu-subsidy-habitability-proration-mn` | Minn. Stat. § 504B.116; § 504B.385; § 504B.425; § 504B.177 |
+| `subsidy-late-fee` | Present | `edu-subsidy-late-fee-mn` | Minn. Stat. § 504B.177; § 504B.177; § 504B.118, subd. 3(c)); § 504B.120 |
+| `substandard-property-receivership` | Present | `edu-receivership-administrator-mn`, `edu-receivership-trigger-path-mn` | — |
+| `tax-escalation` | Absent | `edu-tax-escalation-mn` | § 504B.120; Minn. Stat. § 504B.120; § 504B.177; § 504B.146 |
+| `telecom-access` | Absent | `edu-telecom-access-mn`, `telecom-access-mn` | — |
+| `tenant-bankruptcy` | Absent | `edu-no-tenant-bankruptcy-rule-mn` | — |
+| `tenant-confidential-information` | Present | `edu-tenant-confidential-information-scope-mn` | — |
+| `tenant-display-rights` | Present | `edu-tenant-display-rights-mn` | — |
+| `tenant-employee-housing` | Present | `tenant-employee-housing-mn`, `edu-tenant-employee-housing-mn` | — |
+| `tenant-forward-proceedings` | Tagged | `edu-tenant-forward-proceedings-mn`, `tenant-forward-proceedings-ca` | — |
+| `tenant-insurance-claims` | Absent | `edu-no-tenant-insurance-claim-rule-mn` | — |
+| `tenant-portal` | Present | `edu-tenant-portal-mn`, `tenant-portal-mn` | — |
+| `tenant-records` | Present | `edu-tenant-screening-file-access-mn`, `edu-no-landlord-records-duty-mn` | — |
+| `tenant-repair-agreement` | Present | `tenant-repair-agreement-mn` | — |
+| `tenant-repair-remedies` | Present | `edu-tenant-repair-remedies-mn`, `edu-repair-order-noncompliance-fines-mn` | — |
+| `tenant-rights-statement` | Present | `edu-tenant-rights-statement-mn`, `edu-landlord-tenant-guide-city-duty-mn` | — |
+| `tenant-screening` | Present | `edu-tenant-screening-report-regime-mn`, `edu-no-criminal-screening-limits-mn` | — |
+| `tenant-statutory-duties` | Present | `edu-tenant-statutory-duties-mn`, `garage-door-reporting-duty-mn` | — |
+| `term-change-notice` | Absent | `edu-term-change-notice-mn` | Minn. Stat. § 504B.147; § 504B.147; § 504B.135; § 504B.145 |
+| `termination-notice` | Present | `termination-notice-mn`, `edu-subsidized-housing-one-year-notice-mn` | Minn. Stat. § 504B.135; § 504B.147; § 504B.141; § 504B.265 |
+| `tpa-exemption-notice` | Absent | `edu-no-tpa-exemption-notice-mn` | — |
+| `tpa-notice` | Absent | `edu-no-tpa-notice-mn` | — |
+| `tpa-sunset` | Absent | `edu-no-tpa-sunset-mn` | — |
+| `translation-duty` | Absent | `edu-no-translation-duty-mn` | — |
+| `trespass-notice` | Absent | `edu-no-trespass-notice-rule-mn` | — |
+| `truth-in-renting` | Present | `edu-no-truth-in-renting-mn` | Minn. Stat. §§ 504B.275; Minn. Stat. § 504B.275; Minn. Stat. §§ 325F.90; Minn. Stat. § 325F.90 |
+| `unauthorized-occupant-removal` | Present | `edu-unauthorized-occupant-removal-mn`, `edu-no-squatter-removal-route-mn` | — |
+| `unbundled-parking` | Absent | `unbundled-parking-mn`, `edu-unbundled-parking-mn` | — |
+| `unpaid-damages-interest` | Absent | `edu-unpaid-damages-interest-mn` | Minn. Stat. § 334.01; § 549.09; § 504B.291; § 504B.177 |
+| `usufructuary-lessor` | Absent | `edu-no-usufructuary-lessor-mn` | — |
+| `utility-allowance-cap` | Present | `utility-allowance-cap-mn`, `edu-utility-allowance-cap-mn` | Minn. Stat. § 504B.216; § 216B.023; § 216B.022; § 504B.120 |
+| `utility-deposit-return` | Absent | `edu-utility-deposit-mn` | — |
+| `utility-disconnection-notice-authorization` | Present | `utility-disconnection-notice-authorization-mn`, `edu-utility-disconnection-notice-authorization-mn` | Minn. Stat. § 216B.096; § 504B.216; § 216B.172; § 216B.024 |
+| `utility-interruption-submeter` | Present | `utility-interruption-submeter-mn`, `edu-utility-interruption-submeter-mn` | Minn. Stat. § 504B.216; § 504B.221; § 504B.225; § 504B.231 |
+| `utility-landlord-account` | Present | `edu-utility-landlord-account-mn`, `edu-utility-landlord-default-mn` | Minn. Stat. § 504B.216; § 504B.221; § 504B.291; § 504B.381 |
+| `utility-shutoff-statute` | Present | `edu-utility-shutoff-statute-mn`, `edu-utility-nonpayment-eviction-limits-mn` | Minn. Stat. § 216B.096; § 504B.216; § 504B.285; § 216B.023 |
+| `utility-transfer` | Present | `utility-transfer-mn`, `edu-no-utility-transfer-cutoff-mn` | Minn. Stat. § 504B.216; § 504B.221; § 504B.225; § 504B.231 |
+| `veterans-incentive` | Absent | `edu-no-veterans-incentive-mn` | — |
+| `water-heater-temperature` | Absent | `edu-no-water-heater-temperature-rule-mn` | — |
+| `waterbed` | Absent | `waterbed-mn`, `edu-no-waterbed-rule-mn` | — |
+| `window-guards` | Absent | `edu-no-window-guard-rule-mn` | — |
+
+---
+
+## §3 Batteries
+
+Every absence rests on a run recorded here. Counts are generated from `battery-log.jsonl`,
+never typed. A run is cited only if its known positives passed and its control returned 0.
+
+| run | scope | units | patterns | hits | positives | control |
+|---|---|---|---|---|---|---|
+| `MI4-controls-over-lease` | `statutes` | 1255 | 2 | 8 | all passed | 0 (clean) |
+| `MI4-reasonable-modification` | `statutes:363A` | 47 | 2 | 7 | all passed | 0 (clean) |
+| `S02-b1-fee-regime-statutes` | `statutes` | 1255 | 7 | 14 | all passed | 0 (clean) |
+| `S02-b1-fee-regime-laws-enacted` | `laws:enacted` | 146 | 7 | 16 | all passed | 0 (clean) |
+| `MI3-locks-statutes` | `statutes` | 1305 | 9 | 0 | all passed | 0 (clean) |
+| `S02-b1r2-fee-regime-statutes` | `statutes` | 1305 | 7 | 17 | all passed | 0 (clean) |
+| `MI3-locks-laws-enacted` | `laws:enacted` | 146 | 9 | 1 | all passed | 0 (clean) |
+| `S02-b1r2-fee-regime-laws-enacted` | `laws:enacted` | 146 | 7 | 16 | all passed | 0 (clean) |
+| `MI3-locks-everyday` | `all` | 1744 | 2 | 0 | all passed | 0 (clean) |
+| `S01-b1-deposit-cost-schedule-statutes` | `statutes` | 1305 | 4 | 2 | all passed | 0 (clean) |
+| `S01-b1-deposit-cost-schedule-laws` | `laws:enacted` | 146 | 4 | 2 | all passed | 0 (clean) |
+| `S01-b2-deposit-installments-statutes` | `statutes` | 1305 | 3 | 5 | all passed | 0 (clean) |
+| `S01-b2-deposit-installments-laws` | `laws:enacted` | 146 | 3 | 19 | all passed | 0 (clean) |
+| `S01-b3-fee-in-lieu-of-deposit-statutes` | `statutes` | 1305 | 4 | 2 | all passed | 0 (clean) |
+| `S01-b3-fee-in-lieu-of-deposit-laws` | `laws:enacted` | 146 | 4 | 17 | all passed | 0 (clean) |
+| `S01-b4-nonrefundable-deposit-notice-statutes` | `statutes` | 1305 | 3 | 9 | all passed | 0 (clean) |
+| `S01-b4-nonrefundable-deposit-notice-laws` | `laws:enacted` | 146 | 3 | 23 | all passed | 0 (clean) |
+| `S01-b5-nonrefundable-deposit-separate-notice-statutes` | `statutes` | 1305 | 3 | 0 | all passed | 0 (clean) |
+| `S01-b5-nonrefundable-deposit-separate-notice-laws` | `laws:enacted` | 146 | 3 | 3 | all passed | 0 (clean) |
+| `S02-b2-fee-unprovided-service-statutes` | `statutes` | 1305 | 6 | 10 | all passed | 0 (clean) |
+| `S02-b2-fee-unprovided-service-laws-enacted` | `laws:enacted` | 146 | 6 | 29 | all passed | 0 (clean) |
+| `S02-b2h-unprovided-heading-screen` | `statutes` | 1305 | 1 | 33 | all passed | 0 (clean) |
+| `S01-b6-security-deposit-holding-statutes` | `statutes` | 1305 | 4 | 7 | all passed | 0 (clean) |
+| `S01-b6-security-deposit-holding-laws` | `laws:enacted` | 146 | 4 | 26 | all passed | 0 (clean) |
+| `S01-b7-security-deposit-standards-statutes` | `statutes` | 1305 | 4 | 2 | all passed | 0 (clean) |
+| `S01-b7-security-deposit-standards-laws` | `laws:enacted` | 146 | 4 | 6 | all passed | 0 (clean) |
+| `S01-b8-utility-deposit-return-statutes` | `statutes` | 1305 | 3 | 2 | all passed | 0 (clean) |
+| `S01-b8-utility-deposit-return-laws` | `laws:enacted` | 146 | 3 | 5 | all passed | 0 (clean) |
+| `S01-b9-dv-deposit-timing-statutes` | `statutes` | 1305 | 2 | 1 | all passed | 0 (clean) |
+| `S01-b9-dv-deposit-timing-laws` | `laws:enacted` | 146 | 2 | 8 | all passed | 0 (clean) |
+| `S01-b10-expedited-deposit-disposition-statutes` | `statutes` | 1305 | 4 | 2 | all passed | 0 (clean) |
+| `S01-b10-expedited-deposit-disposition-laws` | `laws:enacted` | 146 | 4 | 5 | all passed | 0 (clean) |
+| `S02-b3-alarm-tampering-fee-statutes` | `statutes` | 1305 | 6 | 7 | all passed | 0 (clean) |
+| `S02-b3-alarm-tampering-fee-laws-enacted` | `laws:enacted` | 146 | 6 | 9 | all passed | 0 (clean) |
+| `S02-b3h-alarm-heading-screen` | `statutes` | 1305 | 1 | 2 | all passed | 0 (clean) |
+| `S01-b9w-dv-deposit-timing-statutes` | `statutes` | 1305 | 3 | 6 | all passed | 0 (clean) |
+| `S01-b9w-dv-deposit-timing-laws` | `laws:enacted` | 146 | 3 | 32 | all passed | 0 (clean) |
+| `S01-b1w-deposit-cost-schedule-statutes` | `statutes` | 1305 | 3 | 0 | all passed | 0 (clean) |
+| `S01-b1w-deposit-cost-schedule-laws` | `laws:enacted` | 146 | 3 | 1 | all passed | 0 (clean) |
+| `S01-b2w-deposit-installments-statutes` | `statutes` | 1305 | 3 | 2 | all passed | 0 (clean) |
+| `S01-b2w-deposit-installments-laws` | `laws:enacted` | 146 | 3 | 22 | all passed | 0 (clean) |
+| `S01-b3w-fee-in-lieu-of-deposit-statutes` | `statutes` | 1305 | 3 | 13 | all passed | 0 (clean) |
+| `S01-b3w-fee-in-lieu-of-deposit-laws` | `laws:enacted` | 146 | 3 | 55 | all passed | 0 (clean) |
+| `S01-b4w-nonrefundable-deposit-notice-statutes` | `statutes` | 1305 | 3 | 21 | all passed | 0 (clean) |
+| `S01-b4w-nonrefundable-deposit-notice-laws` | `laws:enacted` | 146 | 3 | 41 | all passed | 0 (clean) |
+| `S01-b5w-nonrefundable-deposit-separate-notice-statutes` | `statutes` | 1305 | 3 | 1 | all passed | 0 (clean) |
+| `S01-b5w-nonrefundable-deposit-separate-notice-laws` | `laws:enacted` | 146 | 3 | 20 | all passed | 0 (clean) |
+| `S01-b6w-security-deposit-holding-statutes` | `statutes` | 1305 | 3 | 7 | all passed | 0 (clean) |
+| `S01-b6w-security-deposit-holding-laws` | `laws:enacted` | 146 | 3 | 25 | all passed | 0 (clean) |
+| `S01-b7w-security-deposit-standards-statutes` | `statutes` | 1305 | 3 | 42 | all passed | 0 (clean) |
+| `S01-b7w-security-deposit-standards-laws` | `laws:enacted` | 146 | 3 | 70 | all passed | 0 (clean) |
+| `S01-b8w-utility-deposit-return-statutes` | `statutes` | 1305 | 3 | 12 | all passed | 0 (clean) |
+| `S01-b8w-utility-deposit-return-laws` | `laws:enacted` | 146 | 3 | 51 | all passed | 0 (clean) |
+| `S01-b10w-expedited-deposit-disposition-statutes` | `statutes` | 1305 | 3 | 6 | all passed | 0 (clean) |
+| `S01-b10w-expedited-deposit-disposition-laws` | `laws:enacted` | 146 | 3 | 35 | all passed | 0 (clean) |
+| `S02-b4-notice-eviction-fee-statutes` | `statutes` | 1305 | 7 | 32 | all passed | 0 (clean) |
+| `S02-b4-notice-eviction-fee-laws-enacted` | `laws:enacted` | 146 | 7 | 18 | all passed | 0 (clean) |
+| `S02-b4h-notice-eviction-heading-screen` | `statutes` | 1305 | 1 | 21 | all passed | 0 (clean) |
+| `S02-b5-collection-fee-statutes` | `statutes` | 1305 | 6 | 18 | all passed | 0 (clean) |
+| `S02-b5-collection-fee-laws-enacted` | `laws:enacted` | 146 | 6 | 19 | all passed | 0 (clean) |
+| `S02-b5h-collection-heading-screen` | `statutes` | 1305 | 1 | 1 | all passed | 0 (clean) |
+| `S02-b6-government-fines-and-fees-statutes` | `statutes` | 1305 | 7 | 32 | all passed | 0 (clean) |
+| `S02-b6-government-fines-and-fees-laws-enacted` | `laws:enacted` | 146 | 7 | 36 | all passed | 0 (clean) |
+| `S02-b6h-gov-heading-screen` | `statutes` | 1305 | 1 | 5 | all passed | 0 (clean) |
+| `S02-b7-pet-fees-statutes` | `statutes` | 1305 | 5 | 15 | all passed | 0 (clean) |
+| `S02-b7-pet-fees-laws-enacted` | `laws:enacted` | 146 | 5 | 3 | all passed | 0 (clean) |
+| `S02-b7h-pet-heading-screen` | `statutes` | 1305 | 1 | 2 | all passed | 0 (clean) |
+| `S02-b8-subsidy-late-fee-statutes` | `statutes` | 1305 | 4 | 16 | all passed | 0 (clean) |
+| `S02-b8-subsidy-late-fee-laws-enacted` | `laws:enacted` | 146 | 4 | 11 | all passed | 0 (clean) |
+| `S02-b9-carpet-cleaning-statutes` | `statutes` | 1305 | 6 | 9 | all passed | 0 (clean) |
+| `S02-b9-carpet-cleaning-laws-enacted` | `laws:enacted` | 146 | 6 | 9 | all passed | 0 (clean) |
+| `S02-b9h-carpet-heading-screen` | `statutes` | 1305 | 1 | 2 | all passed | 0 (clean) |
+| `S02-b10-meter-conservation-charge-statutes` | `statutes` | 1305 | 5 | 7 | all passed | 0 (clean) |
+| `S02-b10-meter-conservation-charge-laws-enacted` | `laws:enacted` | 146 | 5 | 19 | all passed | 0 (clean) |
+| `S02-b10h-meter-heading-screen` | `statutes` | 1305 | 1 | 0 | all passed | 0 (clean) |
+| `S02-b11-liquidated-damages-statutes` | `statutes` | 1305 | 4 | 10 | all passed | 0 (clean) |
+| `S02-b11-liquidated-damages-laws-enacted` | `laws:enacted` | 146 | 4 | 19 | all passed | 0 (clean) |
+| `S02-b12-unpaid-damages-interest-statutes` | `statutes` | 1305 | 4 | 12 | all passed | 0 (clean) |
+| `S02-b12-unpaid-damages-interest-laws-enacted` | `laws:enacted` | 146 | 4 | 31 | all passed | 0 (clean) |
+| `S02-b11h-liq-interest-heading-screen` | `statutes` | 1305 | 1 | 4 | all passed | 0 (clean) |
+| `VAL-andpat-300` | `statutes:504B` | 97 | 1 | 0 | all passed | 0 (clean) |
+| `VAL-andpat-section` | `statutes:504B` | 97 | 1 | 1 | all passed | 0 (clean) |
+| `VAL-andpat-timing` | `statutes` | 1305 | 1 | 3 | all passed | 0 (clean) |
+| `S02-b1w-fee-regime-statutes` | `statutes` | 1305 | 6 | 20 | all passed | 0 (clean) |
+| `S02-b1w-fee-regime-laws-enacted` | `laws:enacted` | 146 | 4 | 1 | all passed | 0 (clean) |
+| `S02-b2w-fee-unprovided-service-statutes` | `statutes` | 1305 | 6 | 21 | all passed | 0 (clean) |
+| `S02-b2w-fee-unprovided-service-laws-enacted` | `laws:enacted` | 146 | 4 | 23 | all passed | 0 (clean) |
+| `S02-b3w-alarm-tampering-fee-statutes` | `statutes` | 1305 | 6 | 4 | all passed | 0 (clean) |
+| `S02-b3w-alarm-tampering-fee-laws-enacted` | `laws:enacted` | 146 | 4 | 5 | all passed | 0 (clean) |
+| `S02-b5w-collection-fee-statutes` | `statutes` | 1305 | 6 | 203 | all passed | 0 (clean) |
+| `S02-b5w-collection-fee-laws-enacted` | `laws:enacted` | 146 | 4 | 96 | all passed | 0 (clean) |
+| `S02-b4w-notice-eviction-fee-statutes` | `statutes` | 1305 | 9 | 121 | all passed | 0 (clean) |
+| `S02-b4w-notice-eviction-fee-laws-enacted` | `laws:enacted` | 146 | 6 | 21 | all passed | 0 (clean) |
+| `S02-b6w-government-fines-and-fees-statutes` | `statutes` | 1305 | 9 | 33 | all passed | 0 (clean) |
+| `S02-b6w-government-fines-and-fees-laws-enacted` | `laws:enacted` | 146 | 6 | 17 | all passed | 0 (clean) |
+| `S02-b7w-pet-fees-statutes` | `statutes` | 1305 | 6 | 45 | all passed | 0 (clean) |
+| `S02-b7w-pet-fees-laws-enacted` | `laws:enacted` | 146 | 4 | 16 | all passed | 0 (clean) |
+| `S02-b9w-carpet-cleaning-statutes` | `statutes` | 1305 | 6 | 9 | all passed | 0 (clean) |
+| `S02-b9w-carpet-cleaning-laws-enacted` | `laws:enacted` | 146 | 4 | 19 | all passed | 0 (clean) |
+| `S02-b10w-meter-conservation-charge-statutes` | `statutes` | 1305 | 6 | 19 | all passed | 0 (clean) |
+| `S02-b10w-meter-conservation-charge-laws-enacted` | `laws:enacted` | 146 | 4 | 12 | all passed | 0 (clean) |
+| `S02-b11w-liquidated-damages-statutes` | `statutes` | 1305 | 6 | 10 | all passed | 0 (clean) |
+| `S02-b11w-liquidated-damages-laws-enacted` | `laws:enacted` | 146 | 4 | 4 | all passed | 0 (clean) |
+| `S02-b12w-unpaid-damages-interest-statutes` | `statutes` | 1305 | 6 | 63 | all passed | 0 (clean) |
+| `S02-b12w-unpaid-damages-interest-laws-enacted` | `laws:enacted` | 146 | 4 | 78 | all passed | 0 (clean) |
+| `S02-b8w-subsidy-late-fee-statutes` | `statutes` | 1305 | 3 | 25 | all passed | 0 (clean) |
+| `S02-b8w-subsidy-late-fee-laws-enacted` | `laws:enacted` | 146 | 2 | 25 | all passed | 0 (clean) |
+| `S03-b1-rent-concession-statutes` | `statutes` | 1305 | 3 | 11 | all passed | 0 (clean) |
+| `S03-b1-rent-concession-laws-enacted` | `laws:enacted` | 146 | 2 | 5 | all passed | 0 (clean) |
+| `S03-b1c-rent-concession-everyday-statutes` | `statutes` | 1305 | 1 | 5 | all passed | 0 (clean) |
+| `S03-b1c-rent-concession-everyday-laws-enacted` | `laws:enacted` | 146 | 1 | 0 | all passed | 0 (clean) |
+| `S03-b1h-rent-concession-headings` | `statutes` | 1305 | 1 | 1 | all passed | 0 (clean) |
+| `S03-b2-rent-escalation-statutes` | `statutes` | 1305 | 6 | 36 | all passed | 0 (clean) |
+| `S03-b2-rent-escalation-laws-enacted` | `laws:enacted` | 146 | 5 | 16 | all passed | 0 (clean) |
+| `S03-b2h-rent-escalation-headings` | `statutes` | 1305 | 1 | 0 | all passed | 0 (clean) |
+| `S03-b3-rent-increase-notice-statutes` | `statutes` | 1305 | 3 | 14 | all passed | 0 (clean) |
+| `S03-b3-rent-increase-notice-laws-enacted` | `laws:enacted` | 146 | 2 | 0 | all passed | 0 (clean) |
+| `S03-b3c-rent-increase-notice-everyday-statutes` | `statutes` | 1305 | 2 | 2 | all passed | 0 (clean) |
+| `S03-b3c-rent-increase-notice-everyday-laws-enacted` | `laws:enacted` | 146 | 1 | 1 | all passed | 0 (clean) |
+| `S03-b3h-rent-increase-notice-headings` | `statutes` | 1305 | 1 | 0 | all passed | 0 (clean) |
+| `S03-b4-rent-installments-statutes` | `statutes` | 1305 | 3 | 3 | all passed | 0 (clean) |
+| `S03-b4-rent-installments-laws-enacted` | `laws:enacted` | 146 | 2 | 1 | all passed | 0 (clean) |
+| `S03-b4c-rent-proration-statutes` | `statutes` | 1305 | 3 | 18 | all passed | 0 (clean) |
+| `S03-b4c-rent-proration-laws-enacted` | `laws:enacted` | 146 | 2 | 2 | all passed | 0 (clean) |
+| `S03-b4h-rent-installments-headings` | `statutes` | 1305 | 1 | 0 | all passed | 0 (clean) |
+| `S03-b5-rent-reporting-statutes` | `statutes` | 1305 | 3 | 4 | all passed | 0 (clean) |
+| `S03-b5-rent-reporting-laws-enacted` | `laws:enacted` | 146 | 2 | 0 | all passed | 0 (clean) |
+| `S03-b5c-rent-reporting-everyday-statutes` | `statutes` | 1305 | 2 | 4 | all passed | 0 (clean) |
+| `S03-b5c-rent-reporting-everyday-laws-enacted` | `laws:enacted` | 146 | 1 | 6 | all passed | 0 (clean) |
+| `S03-b5h-rent-reporting-headings` | `statutes` | 1305 | 1 | 1 | all passed | 0 (clean) |
+| `S04-b1-accepted-conditions-rent-reduction` | `statutes` | 1305 | 3 | 0 | all passed | 0 (clean) |
+| `S04-b1L-accepted-conditions-rent-reduction-laws` | `laws:enacted` | 146 | 2 | 0 | all passed | 0 (clean) |
+| `S04-b1H-waiver-heading-screen` | `statutes` | 1305 | 3 | 6 | all passed | 0 (clean) |
+| `S04-b1E-asis-everyday` | `statutes` | 1305 | 5 | 15 | all passed | 0 (clean) |
+| `S04-b2-water-duty-waiver-exception` | `statutes` | 1305 | 3 | 14 | all passed | 0 (clean) |
+| `S04-b2L-water-duty-waiver-exception-laws` | `laws:enacted` | 146 | 2 | 9 | all passed | 0 (clean) |
+| `S04-b3-modify-covenant` | `statutes` | 1305 | 3 | 15 | all passed | 0 (clean) |
+| `S04-b4-duty-shift-formalities` | `statutes` | 1305 | 3 | 3 | all passed | 0 (clean) |
+| `S04-b4L-duty-shift-formalities-laws` | `laws:enacted` | 146 | 2 | 1 | all passed | 0 (clean) |
+| `S04-b4H-maintenance-heading-screen` | `statutes` | 1305 | 3 | 6 | all passed | 0 (clean) |
+| `S03-b6-rent-tax-statutes` | `statutes` | 1305 | 3 | 8 | all passed | 0 (clean) |
+| `S03-b6-rent-tax-laws-enacted` | `laws:enacted` | 146 | 2 | 1 | all passed | 0 (clean) |
+| `S03-b6c-rent-tax-everyday-statutes` | `statutes` | 1305 | 2 | 8 | all passed | 0 (clean) |
+| `S03-b6c-rent-tax-everyday-laws-enacted` | `laws:enacted` | 146 | 1 | 0 | all passed | 0 (clean) |
+| `S03-b6h-rent-tax-headings` | `statutes` | 1305 | 1 | 0 | all passed | 0 (clean) |
+| `S03-b7-tax-escalation-statutes` | `statutes` | 1305 | 3 | 7 | all passed | 0 (clean) |
+| `S03-b7-tax-escalation-laws-enacted` | `laws:enacted` | 146 | 2 | 6 | all passed | 0 (clean) |
+| `S03-b7c-tax-escalation-everyday-statutes` | `statutes` | 1305 | 2 | 2 | all passed | 0 (clean) |
+| `S03-b7c-tax-escalation-everyday-laws-enacted` | `laws:enacted` | 146 | 1 | 12 | all passed | 0 (clean) |
+| `S03-b7h-tax-escalation-headings` | `statutes` | 1305 | 1 | 0 | all passed | 0 (clean) |
+| `S03-b8-property-tax-rent-disclosure-statutes` | `statutes` | 1305 | 2 | 2 | all passed | 0 (clean) |
+| `S03-b8-property-tax-rent-disclosure-laws-enacted` | `laws:enacted` | 146 | 1 | 10 | all passed | 0 (clean) |
+| `S03-b8c-property-tax-rent-disclosure-everyday-statutes` | `statutes` | 1305 | 3 | 5 | all passed | 0 (clean) |
+| `S03-b8c-property-tax-rent-disclosure-everyday-laws-enacted` | `laws:enacted` | 146 | 2 | 0 | all passed | 0 (clean) |
+| `S03-b8h-property-tax-rent-disclosure-headings` | `statutes` | 1305 | 1 | 2 | all passed | 0 (clean) |
+| `S03-b9-statutory-caps-statutes` | `statutes` | 1305 | 3 | 105 | all passed | 0 (clean) |
+| `S03-b9-statutory-caps-laws-enacted` | `laws:enacted` | 146 | 2 | 42 | all passed | 0 (clean) |
+| `S04-b5-habitability-materiality` | `statutes` | 1305 | 3 | 2 | all passed | 0 (clean) |
+| `S04-b5-habitability-materialityL` | `laws:enacted` | 146 | 2 | 1 | all passed | 0 (clean) |
+| `S04-b6-habitability-presumption` | `statutes` | 1305 | 3 | 0 | all passed | 0 (clean) |
+| `S04-b6-habitability-presumptionL` | `laws:enacted` | 146 | 2 | 2 | all passed | 0 (clean) |
+| `S04-b7-habitability-statement` | `statutes` | 1305 | 3 | 3 | all passed | 0 (clean) |
+| `S04-b7-habitability-statementL` | `laws:enacted` | 146 | 2 | 2 | all passed | 0 (clean) |
+| `S03-b10-rent-demand-bar-statutes` | `statutes` | 1305 | 3 | 29 | all passed | 0 (clean) |
+| `S03-b10-rent-demand-bar-laws-enacted` | `laws:enacted` | 146 | 2 | 0 | all passed | 0 (clean) |
+| `S03-b10c-rent-demand-bar-everyday-statutes` | `statutes` | 1305 | 3 | 17 | all passed | 0 (clean) |
+| `S03-b10c-rent-demand-bar-everyday-laws-enacted` | `laws:enacted` | 146 | 2 | 3 | all passed | 0 (clean) |
+| `S03-b10h-rent-demand-bar-headings` | `statutes` | 1305 | 1 | 1 | all passed | 0 (clean) |
+| `S04-b7E-statement-everyday` | `statutes` | 1305 | 3 | 3 | all passed | 0 (clean) |
+| `S04-b7E-statement-everydayL` | `laws:enacted` | 146 | 2 | 0 | all passed | 0 (clean) |
+| `S04-b8-repair-cost-termination` | `statutes` | 1305 | 3 | 108 | all passed | 0 (clean) |
+| `S04-b8-repair-cost-terminationL` | `laws:enacted` | 146 | 2 | 89 | all passed | 0 (clean) |
+| `S04-b9-escrow-exemption-notice` | `statutes` | 1305 | 3 | 3 | all passed | 0 (clean) |
+| `S04-b9-escrow-exemption-noticeL` | `laws:enacted` | 146 | 2 | 3 | all passed | 0 (clean) |
+| `S04-b9b-small-landlord-unit-threshold` | `statutes` | 1305 | 3 | 61 | all passed | 0 (clean) |
+| `S04-b9b-small-landlord-unit-thresholdL` | `laws:enacted` | 146 | 2 | 60 | all passed | 0 (clean) |
+| `S04-b8n-repair-cost-termination-narrowed` | `statutes` | 1305 | 3 | 23 | all passed | 0 (clean) |
+| `S04-b9bn-unit-threshold-near-repair` | `statutes` | 1305 | 3 | 3 | all passed | 0 (clean) |
+| `S04-b9H-escrow-heading-screen` | `statutes` | 1305 | 4 | 17 | all passed | 0 (clean) |
+| `S04-b9E-escrow-everyday` | `statutes` | 1305 | 3 | 0 | all passed | 0 (clean) |
+| `S03-b11-rent-receipt-anti-waiver-statutes` | `statutes` | 1305 | 3 | 9 | all passed | 0 (clean) |
+| `S03-b11-rent-receipt-anti-waiver-laws-enacted` | `laws:enacted` | 146 | 2 | 5 | all passed | 0 (clean) |
+| `S03-b11c-rent-receipt-anti-waiver-everyday-statutes` | `statutes` | 1305 | 3 | 2 | all passed | 0 (clean) |
+| `S03-b11c-rent-receipt-anti-waiver-everyday-laws-enacted` | `laws:enacted` | 146 | 2 | 0 | all passed | 0 (clean) |
+| `S03-b11h-rent-receipt-anti-waiver-headings` | `statutes` | 1305 | 1 | 0 | all passed | 0 (clean) |
+| `S03-b12-shutdown-rent-protection-statutes` | `statutes` | 1305 | 2 | 6 | all passed | 0 (clean) |
+| `S03-b12-shutdown-rent-protection-laws-enacted` | `laws:enacted` | 146 | 1 | 5 | all passed | 0 (clean) |
+| `S03-b12c-shutdown-rent-protection-everyday-statutes` | `statutes` | 1305 | 3 | 3 | all passed | 0 (clean) |
+| `S03-b12c-shutdown-rent-protection-everyday-laws-enacted` | `laws:enacted` | 146 | 2 | 2 | all passed | 0 (clean) |
+| `S03-b12h-shutdown-rent-protection-headings` | `statutes` | 1305 | 1 | 4 | all passed | 0 (clean) |
+| `S04-b10-promises-to-repair` | `statutes` | 1305 | 3 | 77 | all passed | 0 (clean) |
+| `S04-b10-promises-to-repairL` | `laws:enacted` | 146 | 2 | 57 | all passed | 0 (clean) |
+| `S04-b10E-promises-everyday` | `statutes` | 1305 | 3 | 6 | all passed | 0 (clean) |
+| `S04-b10E-promises-everydayL` | `laws:enacted` | 146 | 2 | 3 | all passed | 0 (clean) |
+| `S04-b11-designated-repairer` | `statutes` | 1305 | 3 | 12 | all passed | 0 (clean) |
+| `S04-b11-designated-repairerL` | `laws:enacted` | 146 | 2 | 1 | all passed | 0 (clean) |
+| `S04-b12-repair-and-deduct` | `statutes` | 1305 | 3 | 10 | all passed | 0 (clean) |
+| `S04-b12-repair-and-deductL` | `laws:enacted` | 146 | 2 | 2 | all passed | 0 (clean) |
+| `S03-b13-subsidy-habitability-proration-statutes` | `statutes` | 1305 | 3 | 27 | all passed | 0 (clean) |
+| `S03-b13-subsidy-habitability-proration-laws-enacted` | `laws:enacted` | 146 | 2 | 25 | all passed | 0 (clean) |
+| `S03-b13h-subsidy-habitability-proration-headings` | `statutes` | 1305 | 1 | 0 | all passed | 0 (clean) |
+| `S03-b14-holdover-rate-statutes` | `statutes` | 1305 | 3 | 0 | all passed | 0 (clean) |
+| `S04-b13-oral-repair-notice` | `statutes` | 1305 | 3 | 28 | all passed | 0 (clean) |
+| `S03-b14-holdover-rate-laws-enacted` | `laws:enacted` | 146 | 2 | 0 | all passed | 0 (clean) |
+| `S03-b14c-holdover-rate-willful-statutes` | `statutes` | 1305 | 3 | 1 | all passed | 0 (clean) |
+| `S04-b13-oral-repair-noticeL` | `laws:enacted` | 146 | 2 | 6 | all passed | 0 (clean) |
+| `S04-b14-lease-required-written-notice` | `statutes` | 1305 | 3 | 16 | all passed | 0 (clean) |
+| `S03-b14c-holdover-rate-willful-laws-enacted` | `laws:enacted` | 146 | 2 | 2 | all passed | 0 (clean) |
+| `S03-b14h-holdover-rate-headings` | `statutes` | 1305 | 1 | 0 | all passed | 0 (clean) |
+| `S04-b14-lease-required-written-noticeL` | `laws:enacted` | 146 | 2 | 0 | all passed | 0 (clean) |
+| `S04-b13H-notice-heading-screen` | `statutes` | 1305 | 3 | 15 | all passed | 0 (clean) |
+| `MP-certificate-of-rent-paid` | `statutes` | 1305 | 4 | 2 | all passed | 0 (clean) |
+| `VAL-well-trap` | `statutes:504B` | 97 | 2 | 3 | all passed | 0 (clean) |
+| `S05-b1-cure-nonrent-breach-statutes` | `statutes` | 1305 | 3 | 7 | all passed | 0 (clean) |
+| `S05-b1-cure-nonrent-breach-laws` | `laws:enacted` | 146 | 2 | 2 | all passed | 0 (clean) |
+| `S05-b1-cure-everyday-companion` | `statutes` | 1305 | 3 | 31 | all passed | 0 (clean) |
+| `S05-b1-cure-heading-screen` | `statutes` | 1305 | 3 | 2 | all passed | 0 (clean) |
+| `S05-b1r-cure-nonrent-breach-statutes-wide` | `statutes` | 1305 | 3 | 242 | all passed | 0 (clean) |
+| `S06-b1-seasonal-statutes` | `statutes` | 1305 | 3 | 26 | all passed | 0 (clean) |
+| `S06-b1-seasonal-laws-enacted` | `laws:enacted` | 146 | 2 | 9 | **A POSITIVE FAILED** | 0 (clean) |
+| `S06-b1h-seasonal-headings` | `statutes` | 1305 | 1 | 0 | all passed | 0 (clean) |
+| `S05-b2-hardship-stay-statutes` | `statutes` | 1305 | 3 | 0 | all passed | 0 (clean) |
+| `S05-b2-hardship-stay-laws` | `laws:enacted` | 146 | 2 | 0 | all passed | 0 (clean) |
+| `S05-b2-stay-everyday-companion` | `statutes` | 1305 | 3 | 34 | all passed | 0 (clean) |
+| `S05-b2-weather-moratorium` | `statutes` | 1305 | 3 | 2 | all passed | 0 (clean) |
+| `S05-b2-stay-heading-screen` | `statutes` | 1305 | 4 | 2 | all passed | 0 (clean) |
+| `S06-b1e-seasonal-everyday` | `all` | 1744 | 3 | 67 | all passed | 0 (clean) |
+| `S06-b1-seasonal-laws-enacted-2` | `laws:enacted` | 146 | 2 | 9 | all passed | 0 (clean) |
+| `S05-b2r-hardship-stay-statutes-bothlimbs` | `statutes` | 1305 | 4 | 6 | **A POSITIVE FAILED** | 0 (clean) |
+| `S05-b2r2-hardship-stay-statutes-bothlimbs` | `statutes` | 1305 | 4 | 6 | all passed | 0 (clean) |
+| `S06-b2-envterm-statutes` | `statutes` | 1305 | 3 | 16 | all passed | 0 (clean) |
+| `S06-b2-envterm-laws-enacted` | `laws:enacted` | 146 | 2 | 17 | **A POSITIVE FAILED** | 0 (clean) |
+| `S06-b2h-envterm-headings` | `statutes` | 1305 | 1 | 8 | all passed | 0 (clean) |
+| `S06-b2e-envterm-everyday` | `statutes:504B` | 97 | 3 | 13 | all passed | 0 (clean) |
+| `S06-b2-envterm-laws-enacted-2` | `laws:enacted` | 146 | 2 | 17 | all passed | 0 (clean) |
+| `S06-b3-ownermovein-statutes` | `statutes` | 1305 | 3 | 14 | all passed | 0 (clean) |
+| `S06-b3-ownermovein-laws-enacted` | `laws:enacted` | 146 | 2 | 22 | all passed | 0 (clean) |
+| `S06-b3h-ownermovein-headings` | `statutes` | 1305 | 1 | 0 | all passed | 0 (clean) |
+| `S06-b3e-ownermovein-everyday` | `statutes` | 1305 | 3 | 4 | all passed | 0 (clean) |
+| `S05-b4-tenant-designated-agent-service` | `statutes` | 1305 | 3 | 15 | all passed | 0 (clean) |
+| `S05-b4-tenant-designated-agent-service-laws` | `laws:enacted` | 146 | 2 | 2 | all passed | 0 (clean) |
+| `S05-b4-address-confidentiality` | `statutes` | 1305 | 3 | 4 | all passed | 0 (clean) |
+| `S05-b4-service-heading-screen` | `statutes` | 1305 | 3 | 5 | all passed | 0 (clean) |
+| `S05-b4r-tenant-designated-agent-service` | `statutes` | 1305 | 3 | 10 | **A POSITIVE FAILED** | 0 (clean) |
+| `S05-b4r-tenant-designated-agent-service-laws` | `laws:enacted` | 146 | 2 | 0 | all passed | 0 (clean) |
+| `S05-b4r2-tenant-designated-agent-service` | `statutes` | 1305 | 3 | 10 | **A POSITIVE FAILED** | 0 (clean) |
+| `S05-b4r2-tenant-designated-agent-service-laws` | `laws:enacted` | 146 | 2 | 0 | all passed | 0 (clean) |
+| `S05-b4r3-tenant-designated-agent-service` | `statutes` | 1305 | 3 | 10 | all passed | 0 (clean) |
+| `S05-b4r3-tenant-designated-agent-service-laws` | `laws:enacted` | 146 | 2 | 0 | all passed | 0 (clean) |
+| `S06-b3b-ownermovein-laws-narrow` | `laws:enacted` | 146 | 2 | 0 | all passed | 0 (clean) |
+| `S05-b5-forfeiture-reentry-statutes` | `statutes` | 1305 | 3 | 11 | all passed | 0 (clean) |
+| `S05-b5-forfeiture-reentry-laws` | `laws:enacted` | 146 | 2 | 8 | all passed | 0 (clean) |
+| `S05-b5-redemption-statutes` | `statutes` | 1305 | 3 | 49 | all passed | 0 (clean) |
+| `S05-b5-forfeit-heading-screen` | `statutes` | 1305 | 3 | 0 | all passed | 0 (clean) |
+| `S06-b4-adverseproc-statutes` | `statutes` | 1305 | 3 | 141 | all passed | 0 (clean) |
+| `S06-b4-adverseproc-laws-enacted` | `laws:enacted` | 146 | 2 | 83 | all passed | 0 (clean) |
+| `S06-b4h-adverseproc-headings` | `statutes` | 1305 | 1 | 4 | all passed | 0 (clean) |
+| `S06-b4t-adverseproc-tenantduty` | `statutes` | 1305 | 3 | 8 | all passed | 0 (clean) |
+| `S06-b4-adverseproc-statutes-3term` | `statutes` | 1305 | 1 | 25 | all passed | 0 (clean) |
+| `S05-b6-possession-bond-statutes` | `statutes` | 1305 | 3 | 17 | all passed | 0 (clean) |
+| `S05-b6-possession-bond-laws` | `laws:enacted` | 146 | 2 | 7 | all passed | 0 (clean) |
+| `S05-b6-bond-heading-screen` | `statutes` | 1305 | 3 | 2 | all passed | 0 (clean) |
+| `S06-b0-amendscreen-laws` | `laws:enacted` | 146 | 15 | 1 | all passed | 0 (clean) |
+| `S05-b7-redemption-laws` | `laws:enacted` | 146 | 2 | 14 | all passed | 0 (clean) |
+| `S05-b7-partial-payment-waiver` | `statutes` | 1305 | 3 | 43 | all passed | 0 (clean) |
+| `S06-b5-leaseinitials-statutes` | `statutes` | 1305 | 3 | 45 | all passed | 0 (clean) |
+| `S06-b5-leaseinitials-laws-enacted` | `laws:enacted` | 146 | 2 | 20 | all passed | 0 (clean) |
+| `S06-b5h-leaseinitials-headings` | `statutes` | 1305 | 1 | 2 | all passed | 0 (clean) |
+| `S06-b5e-leaseinitials-everyday` | `statutes` | 1305 | 3 | 1 | all passed | 0 (clean) |
+| `S06-b6-leaseterm-statutes` | `statutes` | 1305 | 3 | 27 | all passed | 0 (clean) |
+| `S05-b8-counterclaim-statutes` | `statutes` | 1305 | 3 | 15 | all passed | 0 (clean) |
+| `S06-b6-leaseterm-laws-enacted` | `laws:enacted` | 146 | 2 | 15 | all passed | 0 (clean) |
+| `S06-b6h-leaseterm-headings` | `statutes` | 1305 | 1 | 0 | all passed | 0 (clean) |
+| `S06-b6e-leaseterm-everyday` | `statutes:504B` | 97 | 3 | 29 | all passed | 0 (clean) |
+| `S05-b8-counterclaim-laws` | `laws:enacted` | 146 | 2 | 4 | all passed | 0 (clean) |
+| `S05-b8-rent-into-court-statutes` | `statutes` | 1305 | 3 | 33 | all passed | 0 (clean) |
+| `S05-b8-counterclaim-heading-screen` | `statutes` | 1305 | 4 | 4 | all passed | 0 (clean) |
+| `S06-b7-autorenew-statutes` | `statutes` | 1305 | 3 | 37 | all passed | 0 (clean) |
+| `S06-b7-autorenew-laws-enacted` | `laws:enacted` | 146 | 2 | 27 | all passed | 0 (clean) |
+| `S06-b7h-autorenew-headings` | `statutes` | 1305 | 1 | 1 | all passed | 0 (clean) |
+| `S06-b7e-autorenew-everyday` | `statutes` | 1305 | 3 | 6 | all passed | 0 (clean) |
+| `S05-b9-lockout-for-rent-statutes` | `statutes` | 1305 | 3 | 4 | all passed | 0 (clean) |
+| `S05-b9-lockout-for-rent-laws` | `laws:enacted` | 146 | 2 | 0 | all passed | 0 (clean) |
+| `S05-b9-exclusion-everyday-companion` | `statutes` | 1305 | 3 | 53 | all passed | 0 (clean) |
+| `S05-b9-lockout-heading-screen` | `statutes` | 1305 | 4 | 3 | all passed | 0 (clean) |
+| `S05-b10-notice-to-quit-waiver-statutes` | `statutes` | 1305 | 3 | 53 | all passed | 0 (clean) |
+| `S05-b10-notice-to-quit-waiver-laws` | `laws:enacted` | 146 | 2 | 43 | all passed | 0 (clean) |
+| `S05-b10-full-rental-period-claim` | `statutes` | 1305 | 4 | 9 | all passed | 0 (clean) |
+| `S05-b10-notice-heading-screen` | `statutes` | 1305 | 3 | 3 | all passed | 0 (clean) |
+| `S06-b8-termnotice-statutes` | `statutes` | 1305 | 3 | 28 | all passed | 0 (clean) |
+| `S06-b8-termnotice-laws-enacted` | `laws:enacted` | 146 | 2 | 25 | all passed | 0 (clean) |
+| `S06-b8h-termnotice-headings` | `statutes:504B` | 97 | 1 | 3 | all passed | 0 (clean) |
+| `S06-b8s-termnotice-subsidized` | `statutes` | 1305 | 3 | 7 | all passed | 0 (clean) |
+| `S06-b8e-termnotice-everyday` | `statutes:504B` | 97 | 3 | 18 | all passed | 0 (clean) |
+| `S06-b8b-termnotice-broad` | `statutes:504B` | 97 | 3 | 71 | all passed | 0 (clean) |
+| `S06-b8s2-termnotice-subsidized-broad` | `statutes` | 1305 | 3 | 45 | all passed | 0 (clean) |
+| `S05-b11-rent-acceleration-statutes` | `statutes` | 1305 | 3 | 6 | **A POSITIVE FAILED** | 0 (clean) |
+| `S05-b11-rent-acceleration-laws` | `laws:enacted` | 146 | 2 | 1 | all passed | 0 (clean) |
+| `S05-b11-mitigation-companion` | `statutes` | 1305 | 3 | 14 | all passed | 0 (clean) |
+| `S05-b11-money-judgment-eviction` | `statutes` | 1305 | 3 | 0 | all passed | 0 (clean) |
+| `S05-b11-remedies-heading-screen` | `statutes` | 1305 | 3 | 9 | all passed | 0 (clean) |
+| `S05-b11r-rent-acceleration-statutes` | `statutes` | 1305 | 4 | 11 | all passed | 0 (clean) |
+| `S06-b9-termchange-statutes` | `statutes` | 1305 | 3 | 142 | all passed | 0 (clean) |
+| `S06-b9-termchange-laws-enacted` | `laws:enacted` | 146 | 2 | 129 | all passed | 0 (clean) |
+| `S06-b9h-termchange-headings` | `statutes` | 1305 | 1 | 14 | all passed | 0 (clean) |
+| `S06-b9e-termchange-everyday` | `statutes` | 1305 | 3 | 15 | all passed | 0 (clean) |
+| `S06-b9-termchange-504B-4term` | `statutes` | 1305 | 1 | 14 | all passed | 0 (clean) |
+| `S05-b12-entity-court-representation-statutes` | `statutes` | 1305 | 3 | 74 | all passed | 0 (clean) |
+| `S05-b12-entity-court-representation-laws` | `laws:enacted` | 146 | 2 | 43 | all passed | 0 (clean) |
+| `S05-b12-entity-heading-screen` | `statutes` | 1305 | 3 | 1 | all passed | 0 (clean) |
+| `S06-b10-noticecontent-statutes` | `statutes` | 1305 | 3 | 116 | all passed | 0 (clean) |
+| `S06-b10-noticecontent-laws-enacted` | `laws:enacted` | 146 | 2 | 92 | all passed | 0 (clean) |
+| `S06-b10h-noticecontent-headings` | `statutes:504B` | 97 | 1 | 5 | all passed | 0 (clean) |
+| `S06-b10e-noticecontent-everyday` | `statutes` | 1305 | 3 | 26 | all passed | 0 (clean) |
+| `S05-b13-benefit-delay-defense-statutes` | `statutes` | 1305 | 3 | 45 | all passed | 0 (clean) |
+| `S05-b13-benefit-delay-defense-laws` | `laws:enacted` | 146 | 2 | 27 | all passed | 0 (clean) |
+| `S05-b13-benefit-continuance-companion` | `statutes` | 1305 | 3 | 13 | all passed | 0 (clean) |
+| `S05-b13-benefit-heading-screen` | `statutes` | 1305 | 4 | 1 | all passed | 0 (clean) |
+| `S06-b11-earlyterm-statutes` | `statutes` | 1305 | 3 | 25 | all passed | 0 (clean) |
+| `S06-b11-earlyterm-laws-enacted` | `laws:enacted` | 146 | 2 | 0 | all passed | 0 (clean) |
+| `S06-b11h-earlyterm-headings` | `statutes` | 1305 | 1 | 5 | all passed | 0 (clean) |
+| `S05-b14-tenant-bankruptcy-statutes` | `statutes` | 1305 | 4 | 15 | all passed | 0 (clean) |
+| `S06-b11m-earlyterm-military` | `statutes` | 1305 | 3 | 4 | all passed | 0 (clean) |
+| `S06-b11d-earlyterm-leasestatement` | `statutes` | 1305 | 3 | 2 | all passed | 0 (clean) |
+| `S05-b14-tenant-bankruptcy-laws` | `laws:enacted` | 146 | 2 | 4 | all passed | 0 (clean) |
+| `S05-b14-bankruptcy-heading-screen` | `statutes` | 1305 | 3 | 0 | all passed | 0 (clean) |
+| `S06-b12-goodcause-statutes` | `statutes` | 1305 | 3 | 30 | all passed | 0 (clean) |
+| `S06-b12-goodcause-laws-enacted` | `laws:enacted` | 146 | 2 | 48 | all passed | 0 (clean) |
+| `S06-b12h-goodcause-headings` | `statutes` | 1305 | 1 | 4 | all passed | 0 (clean) |
+| `S06-b13-actualnotice-statutes` | `statutes` | 1305 | 3 | 43 | all passed | 0 (clean) |
+| `S06-b13-actualnotice-laws-enacted` | `laws:enacted` | 146 | 2 | 69 | all passed | 0 (clean) |
+| `S06-b13c-actualnotice-325L` | `all` | 1744 | 3 | 28 | all passed | 0 (clean) |
+| `S06-b13d-325L-amended` | `laws:enacted` | 146 | 3 | 4 | all passed | 0 (clean) |
+| `VAL-inflection-cure` | `statutes:504B` | 97 | 1 | 0 | **A POSITIVE FAILED** | 0 (clean) |
+| `VAL-inflection-cure-fixed` | `statutes:504B` | 97 | 1 | 1 | **A POSITIVE FAILED** | 0 (clean) |
+| `S07-b1-asbestos-wide` | `statutes` | 1305 | 3 | 0 | all passed | 0 (clean) |
+| `S07-b2-asbestos-plain-statutes` | `statutes` | 1305 | 1 | 2 | all passed | 0 (clean) |
+| `S07-b3-asbestos-laws` | `laws:enacted` | 146 | 3 | 6 | all passed | 0 (clean) |
+| `S07-b4-asbestos-heading-cs` | `statutes` | 1305 | 1 | 1 | all passed | 0 (clean) |
+| `S07-b5-asbestos-wide-infl` | `statutes` | 1305 | 3 | 0 | all passed | 0 (clean) |
+| `S07-b6-asbestos-everyday` | `statutes` | 1305 | 4 | 0 | all passed | 0 (clean) |
+| `S07-b7-asbestos-everyday-laws` | `laws:enacted` | 146 | 3 | 2 | all passed | 0 (clean) |
+| `S08-b1-radiator-covers-statutes` | `statutes` | 1305 | 5 | 6 | all passed | 0 (clean) |
+| `S08-b2-radiator-covers-laws` | `laws:enacted` | 146 | 3 | 3 | all passed | 0 (clean) |
+| `S08-b3-radiator-heading-screen` | `statutes` | 1305 | 8 | 0 | all passed | 0 (clean) |
+| `S08-b4-recycling-statutes` | `statutes` | 1305 | 7 | 9 | all passed | 0 (clean) |
+| `S07-b8-drywall-wide` | `statutes` | 1305 | 3 | 0 | all passed | 0 (clean) |
+| `S07-b9-drywall-plain` | `statutes` | 1305 | 3 | 3 | all passed | 0 (clean) |
+| `S08-b5-recycling-laws` | `laws:enacted` | 146 | 3 | 5 | all passed | 0 (clean) |
+| `S07-b10-drywall-laws` | `laws:enacted` | 146 | 4 | 0 | all passed | 0 (clean) |
+| `S07-b11-drywall-heading-cs` | `statutes` | 1305 | 4 | 3 | all passed | 0 (clean) |
+| `S08-b6-portable-solar-statutes` | `statutes` | 1305 | 7 | 0 | all passed | 0 (clean) |
+| `S08-b7-portable-solar-laws` | `laws:enacted` | 146 | 3 | 3 | all passed | 0 (clean) |
+| `S08-b8-portable-cooling-statutes` | `statutes` | 1305 | 9 | 13 | all passed | 0 (clean) |
+| `S08-b9-portable-cooling-laws` | `laws:enacted` | 146 | 4 | 0 | all passed | 0 (clean) |
+| `S08-b10-heat-equipment-299F` | `statutes:299F` | 134 | 5 | 0 | all passed | 0 (clean) |
+| `S08-b11-heating-statutes-wide` | `statutes` | 1305 | 6 | 24 | all passed | 0 (clean) |
+| `S08-b12-heating-laws` | `laws:enacted` | 146 | 4 | 8 | all passed | 0 (clean) |
+| `S08-b13-energy-data-statutes` | `statutes` | 1305 | 7 | 0 | all passed | 0 (clean) |
+| `S07-b12-bareword-statutes-144` | `statutes:144` | 586 | 5 | 172 | all passed | 0 (clean) |
+| `S07-b12-bareword-statutes-299F` | `statutes:299F` | 134 | 5 | 40 | all passed | 0 (clean) |
+| `S07-b12-bareword-statutes-327C` | `statutes:327C` | 21 | 5 | 22 | all passed | 0 (clean) |
+| `S08-b14-bare-words-disconnect-shutoff` | `statutes` | 1305 | 9 | 35 | all passed | 0 (clean) |
+| `S08-b15-bare-notice-terminate` | `statutes` | 1305 | 5 | 270 | all passed | 0 (clean) |
+| `S08-b16-municipal-utility-lien` | `statutes` | 1305 | 8 | 15 | all passed | 0 (clean) |
+| `S08-b17-municipal-utility-lien-laws` | `laws:enacted` | 146 | 3 | 4 | all passed | 0 (clean) |
+| `S08-b18-lien-inflected` | `statutes` | 1305 | 4 | 10 | all passed | 0 (clean) |
+| `S08-b19-utility-transfer` | `statutes` | 1305 | 6 | 8 | all passed | 0 (clean) |
+| `S08-b20-third-party-notice-designation` | `statutes` | 1305 | 5 | 5 | all passed | 0 (clean) |
+| `S07-b13-flood-wide` | `statutes` | 1305 | 3 | 8 | all passed | 0 (clean) |
+| `S07-b14-flood-plain` | `statutes` | 1305 | 4 | 6 | all passed | 0 (clean) |
+| `S07-b15-flood-laws` | `laws:enacted` | 146 | 4 | 22 | all passed | 0 (clean) |
+| `S07-b16-flood-heading-cs` | `statutes` | 1305 | 3 | 0 | all passed | 0 (clean) |
+| `S08-b21-utility-allowance-cap` | `statutes` | 1305 | 6 | 16 | all passed | 0 (clean) |
+| `S08-b22-slice-catchall-laws` | `laws:enacted` | 146 | 6 | 23 | all passed | 0 (clean) |
+| `S07-b17-contam-wide` | `statutes` | 1305 | 3 | 21 | all passed | 0 (clean) |
+| `S07-b18-contam-bare` | `statutes` | 1305 | 4 | 17 | all passed | 0 (clean) |
+| `S07-b19-contam-laws` | `laws:enacted` | 146 | 3 | 18 | all passed | 0 (clean) |
+| `S07-b20-contam-heading-cs` | `statutes` | 1305 | 4 | 2 | all passed | 0 (clean) |
+| `S07-b21-lead-wide` | `statutes:144` | 586 | 3 | 18 | all passed | 0 (clean) |
+| `S07-b22-lead-actwords` | `statutes` | 1305 | 6 | 25 | all passed | 0 (clean) |
+| `S07-b23-lead-leasewords` | `statutes` | 1305 | 3 | 13 | all passed | 0 (clean) |
+| `S07-b24-lead-heading-cs` | `statutes` | 1305 | 3 | 3 | all passed | 0 (clean) |
+| `S07-b25-lead-wide-infl` | `statutes` | 1305 | 3 | 25 | all passed | 0 (clean) |
+| `S07-b26-lead-laws` | `laws:enacted` | 146 | 3 | 1 | all passed | 0 (clean) |
+| `S07-b27-lead-newonly-2026` | `laws:2026-0:newonly` | 92 | 1 | 0 | all passed | 0 (clean) |
+| `S07-b28-well-trap` | `statutes:504B` | 97 | 2 | 3 | all passed | 0 (clean) |
+| `S07-b29-well-wide` | `statutes` | 1305 | 3 | 8 | all passed | 0 (clean) |
+| `S07-b30-well-bare` | `statutes` | 1305 | 5 | 20 | all passed | 0 (clean) |
+| `S07-b31-well-laws` | `laws:enacted` | 146 | 4 | 16 | all passed | 0 (clean) |
+| `S07-b32-well-heading-cs` | `statutes` | 1305 | 3 | 2 | all passed | 0 (clean) |
+| `S07-b33-well-test-laws` | `laws:enacted` | 146 | 4 | 8 | all passed | 0 (clean) |
+| `S07-b34-well-test-statutes` | `statutes` | 1305 | 4 | 4 | all passed | 0 (clean) |
+| `S07-b35-prop65-wide` | `statutes` | 1305 | 3 | 6 | all passed | 0 (clean) |
+| `S07-b36-prop65-bare` | `statutes` | 1305 | 5 | 9 | all passed | 0 (clean) |
+| `S07-b37-prop65-laws` | `laws:enacted` | 146 | 3 | 3 | all passed | 0 (clean) |
+| `S07-b38-prop65-heading-cs` | `statutes` | 1305 | 4 | 6 | all passed | 0 (clean) |
+| `S07-b39-shore-wide` | `statutes` | 1305 | 3 | 3 | all passed | 0 (clean) |
+| `S07-b40-shore-bare` | `statutes` | 1305 | 7 | 1 | all passed | 0 (clean) |
+| `S07-b41-shore-laws` | `laws:enacted` | 146 | 4 | 29 | all passed | 0 (clean) |
+| `S07-b42-shore-heading-cs` | `statutes` | 1305 | 5 | 0 | all passed | 0 (clean) |
+| `S07-b43-sprinkler-wide` | `statutes` | 1305 | 3 | 3 | all passed | 0 (clean) |
+| `S07-b44-sprinkler-bare` | `statutes` | 1305 | 4 | 4 | all passed | 0 (clean) |
+| `S07-b45-sprinkler-laws` | `laws:enacted` | 146 | 3 | 7 | all passed | 0 (clean) |
+| `S07-b46-sprinkler-heading-cs` | `statutes` | 1305 | 3 | 1 | all passed | 0 (clean) |
+| `S07-b47-sprinkler-newonly` | `laws:newonly` | 146 | 4 | 1 | all passed | 0 (clean) |
+| `S07-b48-military-wide` | `statutes` | 1305 | 3 | 0 | all passed | 0 (clean) |
+| `S07-b49-military-bare` | `statutes` | 1305 | 6 | 13 | all passed | 0 (clean) |
+| `S07-b50-military-laws` | `laws:enacted` | 146 | 3 | 13 | all passed | 0 (clean) |
+| `S07-b51-military-heading-cs` | `statutes` | 1305 | 4 | 1 | all passed | 0 (clean) |
+| `S07-b52-ordnance-wide` | `statutes` | 1305 | 3 | 6 | all passed | 0 (clean) |
+| `S07-b53-demolition-wide` | `statutes` | 1305 | 3 | 5 | all passed | 0 (clean) |
+| `S07-b54-ordnance-demolition-bare` | `statutes` | 1305 | 5 | 24 | all passed | 0 (clean) |
+| `S07-b55-ordnance-demolition-laws` | `laws:enacted` | 146 | 4 | 22 | all passed | 0 (clean) |
+| `S07-b56-ordnance-heading-cs` | `statutes` | 1305 | 3 | 0 | all passed | 0 (clean) |
+| `S07-b57-stigma-wide` | `statutes` | 1305 | 3 | 16 | all passed | 0 (clean) |
+| `S07-b58-stigma-bare` | `statutes` | 1305 | 7 | 27 | all passed | 0 (clean) |
+| `S07-b59-stigma-laws` | `laws:enacted` | 146 | 4 | 16 | all passed | 0 (clean) |
+| `S07-b60-stigma-heading-cs` | `statutes` | 1305 | 5 | 2 | all passed | 0 (clean) |
+| `S07-b61-waterheater-wide` | `statutes` | 1305 | 3 | 5 | all passed | 0 (clean) |
+| `S07-b62-waterheater-bare` | `statutes` | 1305 | 6 | 7 | all passed | 0 (clean) |
+| `S07-b63-waterheater-temp-and` | `statutes` | 1305 | 2 | 1 | all passed | 0 (clean) |
+| `S07-b64-waterheater-laws` | `laws:enacted` | 146 | 4 | 6 | all passed | 0 (clean) |
+| `S07-b65-waterheater-heading-cs` | `statutes` | 1305 | 4 | 1 | all passed | 0 (clean) |
+| `MP-asbestos-ch144` | `statutes:144` | 586 | 1 | 0 | all passed | 0 (clean) |
+| `MP-asbestos-corpus` | `statutes` | 1305 | 1 | 2 | all passed | 0 (clean) |
+| `S09-bare-inspect` | `statutes` | 1305 | 1 | 19 | all passed | 0 (clean) |
+| `S09-bare-inspection` | `statutes` | 1305 | 1 | 56 | all passed | 0 (clean) |
+| `S09-bare-license` | `statutes` | 1305 | 1 | 80 | all passed | 0 (clean) |
+| `S09-bare-register` | `statutes` | 1305 | 1 | 23 | all passed | 0 (clean) |
+| `S09-bare-registration` | `statutes` | 1305 | 1 | 39 | all passed | 0 (clean) |
+| `S09-bare-permit` | `statutes` | 1305 | 1 | 49 | all passed | 0 (clean) |
+| `S09-bare-certificate` | `statutes` | 1305 | 1 | 42 | all passed | 0 (clean) |
+| `S09-bare-code` | `statutes` | 1305 | 1 | 104 | all passed | 0 (clean) |
+| `S09-bare-nuisance` | `statutes` | 1305 | 1 | 12 | all passed | 0 (clean) |
+| `S09-bare-inspect-infl` | `statutes` | 1305 | 1 | 80 | all passed | 0 (clean) |
+| `S09-bare-licen-infl` | `statutes` | 1305 | 1 | 209 | all passed | 0 (clean) |
+| `S09-bare-regist-infl` | `statutes` | 1305 | 1 | 125 | all passed | 0 (clean) |
+| `S09-bare-code-infl` | `statutes` | 1305 | 1 | 111 | all passed | 0 (clean) |
+| `S09-bare-nuisance-infl` | `statutes` | 1305 | 1 | 13 | all passed | 0 (clean) |
+| `S09-bare-certif-infl` | `statutes` | 1305 | 1 | 82 | all passed | 0 (clean) |
+| `S09-bare-variance` | `statutes` | 1305 | 1 | 15 | all passed | 0 (clean) |
+| `S09-bare-sanitary` | `statutes` | 1305 | 2 | 13 | all passed | 0 (clean) |
+| `S09-waiver-of-code` | `statutes` | 1305 | 3 | 19 | all passed | 0 (clean) |
+| `S09-bare-balcony` | `statutes` | 1305 | 7 | 3 | all passed | 0 (clean) |
+| `S09-bare-window` | `statutes` | 1305 | 4 | 69 | all passed | 0 (clean) |
+| `S09-bare-lighting` | `statutes` | 1305 | 3 | 24 | all passed | 0 (clean) |
+| `S09-certificate-of-occupancy` | `statutes` | 1305 | 8 | 16 | all passed | 0 (clean) |
+| `S09-lease-recording` | `statutes` | 1305 | 5 | 14 | all passed | 0 (clean) |
+| `S09-health-board` | `statutes` | 1305 | 5 | 44 | all passed | 0 (clean) |
+| `S09-pest` | `statutes` | 1305 | 6 | 10 | all passed | 0 (clean) |
+| `S09-laws-safety-terms` | `laws:enacted` | 146 | 15 | 95 | all passed | 0 (clean) |
+| `S09-laws-newonly-safety` | `laws:2026-0:newonly` | 92 | 9 | 9 | all passed | 0 (clean) |
+| `MP-recheck-prop65-signs` | `statutes` | 1305 | 3 | 8 | all passed | 0 (clean) |
+| `MP-recheck-sprinkler-riders` | `statutes` | 1305 | 3 | 1 | all passed | 0 (clean) |
+| `MP-recheck-notice-inflections` | `statutes` | 1305 | 3 | 0 | all passed | 0 (clean) |
+| `S10-b1-key-control-statutes` | `statutes` | 1305 | 3 | 3 | all passed | 0 (clean) |
+| `S10-b1-key-bare-statutes` | `statutes` | 1305 | 2 | 4 | all passed | 0 (clean) |
+| `S10-b1-staff-screening-statutes` | `statutes` | 1305 | 3 | 13 | all passed | 0 (clean) |
+| `S10-b1-key-laws` | `laws:enacted` | 146 | 2 | 20 | all passed | 0 (clean) |
+| `S10-b2-periodic-services-entry-statutes` | `statutes` | 1305 | 3 | 52 | all passed | 0 (clean) |
+| `S10-b2-periodic-services-entry-laws` | `laws:enacted` | 146 | 2 | 12 | all passed | 0 (clean) |
+| `S10-b3-showing-notice-waiver-statutes` | `statutes` | 1305 | 3 | 37 | all passed | 0 (clean) |
+| `S10-b3-showing-notice-waiver-laws` | `laws:enacted` | 146 | 2 | 25 | all passed | 0 (clean) |
+| `S10-b4-smart-access-statutes` | `statutes` | 1305 | 3 | 39 | all passed | 0 (clean) |
+| `S10-b4-smart-access-laws` | `laws:enacted` | 146 | 2 | 2 | all passed | 0 (clean) |
+| `S09-b-balcony-wide` | `statutes` | 1305 | 4 | 10 | all passed | 0 (clean) |
+| `S09-b-windowguard-wide` | `statutes` | 1305 | 4 | 12 | all passed | 0 (clean) |
+| `S09-b-commonlight-wide` | `statutes` | 1305 | 4 | 3 | all passed | 0 (clean) |
+| `S09-b-landlordreg-wide` | `statutes` | 1305 | 4 | 74 | all passed | 0 (clean) |
+| `S10-b6-extended-absence-statutes` | `statutes` | 1305 | 3 | 77 | all passed | 0 (clean) |
+| `S10-b6-extended-absence-laws` | `laws:enacted` | 146 | 2 | 61 | all passed | 0 (clean) |
+| `S10-b6-absence-bare-statutes` | `statutes` | 1305 | 3 | 25 | all passed | 0 (clean) |
+| `S10-b7-animal-care-access-statutes` | `statutes` | 1305 | 3 | 510 | all passed | 0 (clean) |
+| `S10-b7-animal-care-access-laws` | `laws:enacted` | 146 | 2 | 246 | all passed | 0 (clean) |
+| `S10-b8-emergency-contact-statutes` | `statutes` | 1305 | 3 | 77 | all passed | 0 (clean) |
+| `S10-b8-emergency-contact-laws` | `laws:enacted` | 146 | 2 | 43 | all passed | 0 (clean) |
+| `S10-b9-smoke-drift-statutes` | `statutes` | 1305 | 3 | 9 | all passed | 0 (clean) |
+| `S10-b9-smoke-drift-laws` | `laws:enacted` | 146 | 2 | 4 | all passed | 0 (clean) |
+| `S10-b10-other-facilities-statutes` | `statutes` | 1305 | 3 | 42 | all passed | 0 (clean) |
+| `S10-b10-other-facilities-laws` | `laws:enacted` | 146 | 2 | 11 | all passed | 0 (clean) |
+| `S09-lead-vocabulary` | `statutes` | 1305 | 7 | 54 | all passed | 0 (clean) |
+| `S09-lead-trap-check` | `statutes` | 1305 | 3 | 118 | all passed | 0 (clean) |
+| `S09-bare-lien` | `statutes` | 1305 | 2 | 13 | all passed | 0 (clean) |
+| `S10-b7r-animal-care-landlord-scoped` | `statutes` | 1305 | 3 | 64 | all passed | 0 (clean) |
+| `S10-b6r-absence-landlord-scoped` | `statutes` | 1305 | 3 | 49 | all passed | 0 (clean) |
+| `S10-b11-telecom-access-statutes` | `statutes` | 1305 | 3 | 4 | all passed | 0 (clean) |
+| `S10-b11-telecom-access-laws` | `laws:enacted` | 146 | 2 | 12 | all passed | 0 (clean) |
+| `S10-b12-unbundled-parking-statutes` | `statutes` | 1305 | 3 | 17 | all passed | 0 (clean) |
+| `S10-b12-unbundled-parking-laws` | `laws:enacted` | 146 | 2 | 17 | all passed | 0 (clean) |
+| `S10-b13-parking-rules-notice-statutes` | `statutes` | 1305 | 3 | 11 | all passed | 0 (clean) |
+| `S10-b13-parking-rules-notice-laws` | `laws:enacted` | 146 | 2 | 17 | all passed | 0 (clean) |
+| `S10-b14-waterbed-statutes` | `statutes` | 1305 | 3 | 8 | all passed | 0 (clean) |
+| `S10-b14-waterbed-laws` | `laws:enacted` | 146 | 2 | 19 | all passed | 0 (clean) |
+| `S10-b15-heading-screen-caps` | `statutes` | 1305 | 12 | 10 | all passed | 0 (clean) |
+| `S10-b4r-smart-access-inflected` | `statutes` | 1305 | 3 | 35 | all passed | 0 (clean) |
+| `S10-b16-nonwaiver-map-audit` | `statutes:504B` | 97 | 4 | 28 | all passed | 0 (clean) |
+| `S11-bare-waive-statutes` | `statutes` | 1305 | 1 | 21 | all passed | 0 (clean) |
+| `S11-bare-waive-const` | `const` | 1 | 1 | 0 | all passed | 0 (clean) |
+| `S11-bare-waive-laws_enacted` | `laws:enacted` | 146 | 1 | 35 | all passed | 0 (clean) |
+| `S11-bare-waiver-statutes` | `statutes` | 1305 | 1 | 46 | all passed | 0 (clean) |
+| `S11-bare-waiver-const` | `const` | 1 | 1 | 0 | all passed | 0 (clean) |
+| `S11-bare-waiver-laws_enacted` | `laws:enacted` | 146 | 1 | 30 | all passed | 0 (clean) |
+| `S11-bare-void-statutes` | `statutes` | 1305 | 1 | 33 | all passed | 0 (clean) |
+| `S11-bare-void-const` | `const` | 1 | 1 | 1 | all passed | 0 (clean) |
+| `S11-bare-void-laws_enacted` | `laws:enacted` | 146 | 1 | 21 | all passed | 0 (clean) |
+| `S11-bare-unenforceable-statutes` | `statutes` | 1305 | 1 | 12 | all passed | 0 (clean) |
+| `S11-bare-unenforceable-const` | `const` | 1 | 1 | 0 | all passed | 0 (clean) |
+| `S11-bare-unenforceable-laws_enacted` | `laws:enacted` | 146 | 1 | 6 | all passed | 0 (clean) |
+| `S11-bare-prohibited-statutes` | `statutes` | 1305 | 1 | 76 | all passed | 0 (clean) |
+| `S11-bare-prohibited-const` | `const` | 1 | 1 | 1 | all passed | 0 (clean) |
+| `S11-bare-prohibited-laws_enacted` | `laws:enacted` | 146 | 1 | 51 | all passed | 0 (clean) |
+| `S11-bare-arbitrat-statutes` | `statutes` | 1305 | 1 | 8 | **A POSITIVE FAILED** | 0 (clean) |
+| `S11-bare-arbitrat-const` | `const` | 1 | 1 | 0 | all passed | 0 (clean) |
+| `S11-bare-arbitrat-laws_enacted` | `laws:enacted` | 146 | 1 | 12 | all passed | 0 (clean) |
+| `S11-bare-jury-statutes` | `statutes` | 1305 | 1 | 16 | all passed | 0 (clean) |
+| `S11-bare-jury-const` | `const` | 1 | 1 | 1 | all passed | 0 (clean) |
+| `S11-bare-jury-laws_enacted` | `laws:enacted` | 146 | 1 | 7 | all passed | 0 (clean) |
+| `S11-bare-homestead-statutes` | `statutes` | 1305 | 1 | 0 | all passed | 0 (clean) |
+| `S11-bare-homestead-const` | `const` | 1 | 1 | 0 | all passed | 0 (clean) |
+| `S11-bare-homestead-laws_enacted` | `laws:enacted` | 146 | 1 | 9 | all passed | 0 (clean) |
+| `S11-bare-limitation-statutes` | `statutes` | 1305 | 1 | 32 | all passed | 0 (clean) |
+| `S11-bare-limitation-const` | `const` | 1 | 1 | 1 | all passed | 0 (clean) |
+| `S11-bare-limitation-laws_enacted` | `laws:enacted` | 146 | 1 | 40 | all passed | 0 (clean) |
+| `S11-bare-arbitrat-statutes-rerun2` | `statutes` | 1305 | 1 | 8 | all passed | 0 (clean) |
+| `S11-bare-limitations-statutes` | `statutes` | 1305 | 1 | 53 | all passed | 0 (clean) |
+| `S11-b1-lease-waiver-outside-504B` | `statutes` | 1305 | 3 | 92 | all passed | 0 (clean) |
+| `S11-census-F1-contrary-to-public-policy` | `statutes:504B` | 97 | 1 | 14 | all passed | 0 (clean) |
+| `S11-census-F2-void-and-unenforceable` | `statutes:504B` | 97 | 1 | 7 | all passed | 0 (clean) |
+| `S11-census-F3-may-not-be-waived-passive` | `statutes:504B` | 97 | 1 | 4 | all passed | 0 (clean) |
+| `S11-census-F4-active-parties-may-not-waive` | `statutes:504B` | 97 | 1 | 2 | all passed | 0 (clean) |
+| `S11-census-F5-bilateral-landlord-may-not-require-waiver` | `statutes:504B` | 97 | 1 | 4 | all passed | 0 (clean) |
+| `S11-b2-exculpatory-indemnity` | `statutes` | 1305 | 7 | 16 | all passed | 0 (clean) |
+| `S11-b2-exculpatory-indemnity-laws` | `laws:enacted` | 146 | 7 | 48 | all passed | 0 (clean) |
+| `S11-b3-exculpatory-lease-liability-wide` | `statutes` | 1305 | 3 | 3 | all passed | 0 (clean) |
+| `S11-b3-exculpatory-lease-liability-wide-laws` | `laws:enacted` | 146 | 2 | 0 | all passed | 0 (clean) |
+| `S11-b4-homestead-exemption-waiver` | `statutes` | 1305 | 5 | 18 | all passed | 0 (clean) |
+| `S11-b4-homestead-exemption-waiver-laws` | `laws:enacted` | 146 | 4 | 31 | all passed | 0 (clean) |
+| `S11-b5-jury-waiver-lease` | `statutes` | 1305 | 3 | 7 | all passed | 0 (clean) |
+| `S11-b5-jury-waiver-lease-laws` | `laws:enacted` | 146 | 2 | 2 | all passed | 0 (clean) |
+| `S11-b6-statute-of-limitations-rent` | `statutes` | 1305 | 4 | 38 | all passed | 0 (clean) |
+| `S11-b6-statute-of-limitations-rent-laws` | `laws:enacted` | 146 | 4 | 49 | all passed | 0 (clean) |
+| `S11-b7-code-edition-frozen` | `statutes` | 1305 | 5 | 15 | all passed | 0 (clean) |
+| `S11-b7-code-edition-frozen-laws` | `laws:enacted` | 146 | 4 | 58 | all passed | 0 (clean) |
+| `S11-b8-purpose-limitation-unlawful-use` | `statutes` | 1305 | 3 | 5 | all passed | 0 (clean) |
+| `S11-b8-purpose-limitation-unlawful-use-laws` | `laws:enacted` | 146 | 2 | 0 | all passed | 0 (clean) |
+| `S11-b9-plain-language-consumer-statement` | `statutes` | 1305 | 7 | 9 | all passed | 0 (clean) |
+| `S11-b9-plain-language-consumer-statement-laws` | `laws:enacted` | 146 | 7 | 1 | all passed | 0 (clean) |
+| `S11-b10-rights-guide-delivery-duty` | `statutes` | 1305 | 3 | 8 | all passed | 0 (clean) |
+| `S11-b10-rights-guide-delivery-duty-laws` | `laws:enacted` | 146 | 2 | 0 | all passed | 0 (clean) |
+| `S11-b11-arbitration-lease-wide` | `statutes` | 1305 | 3 | 6 | all passed | 0 (clean) |
+| `S11-b11-arbitration-lease-wide-laws` | `laws:enacted` | 146 | 2 | 2 | all passed | 0 (clean) |
+| `S11-b12-prohibited-lease-terms-enumerated` | `statutes` | 1305 | 5 | 2 | all passed | 0 (clean) |
+| `S11-b12-prohibited-lease-terms-enumerated-laws` | `laws:enacted` | 146 | 4 | 1 | all passed | 0 (clean) |
+| `S11-b3b-exculpatory-leaseinfl-wide` | `statutes` | 1305 | 3 | 5 | all passed | 0 (clean) |
+| `S11-head-waiver` | `statutes` | 1305 | 1 | 4 | all passed | 0 (clean) |
+| `S11-head-prohibit` | `statutes` | 1305 | 1 | 0 | all passed | 0 (clean) |
+| `S11-head-void` | `statutes` | 1305 | 1 | 0 | all passed | 0 (clean) |
+| `S11-head-arbitration` | `statutes` | 1305 | 1 | 1 | all passed | 0 (clean) |
+| `S11-head-jury` | `statutes` | 1305 | 1 | 0 | all passed | 0 (clean) |
+| `S11-head-limitation` | `statutes` | 1305 | 1 | 0 | all passed | 0 (clean) |
+| `S11-head-exempt` | `statutes` | 1305 | 1 | 0 | all passed | 0 (clean) |
+| `S11-head-statement` | `statutes` | 1305 | 1 | 5 | all passed | 0 (clean) |
+| `S11-head-disclosure` | `statutes` | 1305 | 1 | 0 | all passed | 0 (clean) |
+| `S12-b0-bareword-orientation` | `statutes` | 1305 | 10 | 466 | all passed | 0 (clean) |
+| `S12-b1-occupancy-limit-children` | `statutes` | 1305 | 4 | 18 | all passed | 0 (clean) |
+| `S12-b2-children-lease-content-laws` | `laws:enacted` | 146 | 3 | 15 | all passed | 0 (clean) |
+| `S12-b3-lease-must-state-occupants` | `statutes` | 1305 | 4 | 1 | all passed | 0 (clean) |
+| `S12-b4-family-child-care-vs-lease-statutes` | `statutes` | 1305 | 3 | 0 | all passed | 0 (clean) |
+| `S12-b4-family-child-care-vs-lease-laws-enacted` | `laws:enacted` | 146 | 2 | 2 | all passed | 0 (clean) |
+| `S12-b5-family-child-care-vs-lease-inflected-statutes` | `statutes` | 1305 | 3 | 0 | all passed | 0 (clean) |
+| `S12-b5-family-child-care-vs-lease-inflected-laws-enacted` | `laws:enacted` | 146 | 2 | 4 | all passed | 0 (clean) |
+| `S12-b6-child-care-permitted-use-all` | `all` | 1744 | 2 | 0 | all passed | 0 (clean) |
+| `S11-b6b-504B-time-limits` | `statutes:504B` | 97 | 4 | 1 | all passed | 0 (clean) |
+| `S12-b7-guest-rights-statutes` | `statutes` | 1305 | 3 | 76 | all passed | 0 (clean) |
+| `S12-b8-guest-rights-laws` | `laws:enacted` | 146 | 2 | 45 | all passed | 0 (clean) |
+| `S11-b13-lease-dependent-rules` | `statutes:504B` | 97 | 7 | 6 | all passed | 0 (clean) |
+| `S12-b8r-guest-rights-laws-rolescoped` | `laws:enacted` | 146 | 4 | 6 | all passed | 0 (clean) |
+| `S12-b9-home-business-statutes` | `statutes` | 1305 | 4 | 29 | all passed | 0 (clean) |
+| `S12-b10-home-business-laws` | `laws:enacted` | 146 | 3 | 2 | all passed | 0 (clean) |
+| `S12-b11-student-housing-statutes` | `statutes` | 1305 | 4 | 19 | all passed | 0 (clean) |
+| `S12-b12-student-housing-laws` | `laws:enacted` | 146 | 3 | 3 | all passed | 0 (clean) |
+| `S12-b13-employee-housing-statutes` | `statutes` | 1305 | 4 | 83 | all passed | 0 (clean) |
+| `S12-b14-employee-housing-laws` | `laws:enacted` | 146 | 3 | 13 | all passed | 0 (clean) |
+| `S13-bare-words-statutes` | `statutes` | 1305 | 11 | 338 | all passed | 0 (clean) |
+| `S13-bare-words-const` | `const` | 1 | 11 | 6 | all passed | 0 (clean) |
+| `S12-b15-unauthorized-occupant-statutes` | `statutes` | 1305 | 4 | 7 | all passed | 0 (clean) |
+| `S12-b16-unauthorized-occupant-laws` | `laws:enacted` | 146 | 3 | 3 | all passed | 0 (clean) |
+| `S12-b15r-unauthorized-occupant-statutes-rerun` | `statutes` | 1305 | 4 | 26 | all passed | 0 (clean) |
+| `S12-b17-disaster-guests-statutes` | `statutes` | 1305 | 4 | 22 | all passed | 0 (clean) |
+| `S12-b18-disaster-guests-laws` | `laws:enacted` | 146 | 3 | 1 | all passed | 0 (clean) |
+| `S12-b18r-disaster-guests-laws-wide` | `laws:enacted` | 146 | 2 | 5 | all passed | 0 (clean) |
+| `S13-b1-disab-modif-lease-required-statutes` | `statutes` | 1305 | 3 | 0 | all passed | 0 (clean) |
+| `S13-b1-disab-modif-lease-required-laws_enacted` | `laws:enacted` | 146 | 2 | 0 | all passed | 0 (clean) |
+| `S13-b2-disab-restoration-deposit-account-statutes` | `statutes` | 1305 | 3 | 2 | all passed | 0 (clean) |
+| `S13-b2-disab-restoration-deposit-account-laws_enacted` | `laws:enacted` | 146 | 2 | 1 | all passed | 0 (clean) |
+| `S13-b3-immigration-citizenship-housing-statutes` | `statutes` | 1305 | 4 | 3 | all passed | 0 (clean) |
+| `S13-b3-immigration-citizenship-housing-laws_enacted` | `laws:enacted` | 146 | 2 | 0 | all passed | 0 (clean) |
+| `S13-b4-itin-taxpayer-id-statutes` | `statutes` | 1305 | 4 | 6 | all passed | 0 (clean) |
+| `S13-b4-itin-taxpayer-id-laws_enacted` | `laws:enacted` | 146 | 4 | 28 | all passed | 0 (clean) |
+| `S13-b3r-immigration-citizenship-housing-inflected-laws_enacted` | `laws:enacted` | 146 | 2 | 0 | all passed | 0 (clean) |
+| `S13-b3r-immigration-citizenship-housing-inflected-statutes` | `statutes` | 1305 | 2 | 2 | all passed | 0 (clean) |
+| `S12-b19-child-care-bare-phrase-no-role` | `statutes` | 1305 | 3 | 9 | all passed | 0 (clean) |
+| `S13-b5-source-of-income-statutes` | `statutes` | 1305 | 4 | 2 | all passed | 0 (clean) |
+| `S13-b5-source-of-income-laws_enacted` | `laws:enacted` | 146 | 2 | 6 | all passed | 0 (clean) |
+| `S13-b6-voucher-acceptance-mandate-statutes` | `statutes` | 1305 | 5 | 62 | all passed | 0 (clean) |
+| `S13-b6-voucher-acceptance-mandate-laws_enacted` | `laws:enacted` | 146 | 5 | 50 | all passed | 0 (clean) |
+| `S13-b7-religious-display-statutes` | `statutes` | 1305 | 4 | 6 | all passed | 0 (clean) |
+| `S13-b7-religious-display-laws_enacted` | `laws:enacted` | 146 | 2 | 19 | all passed | 0 (clean) |
+| `S13-b8-tenant-display-flag-sign-statutes` | `statutes` | 1305 | 4 | 19 | all passed | 0 (clean) |
+| `S13-b8-tenant-display-flag-sign-laws_enacted` | `laws:enacted` | 146 | 2 | 6 | all passed | 0 (clean) |
+| `S13-b9-translation-duty-statutes` | `statutes` | 1305 | 4 | 3 | all passed | 0 (clean) |
+| `S13-b9-translation-duty-laws_enacted` | `laws:enacted` | 146 | 2 | 6 | all passed | 0 (clean) |
+| `S13-b10-senior-staff-work-card-statutes` | `statutes` | 1305 | 4 | 4 | all passed | 0 (clean) |
+| `S13-b10-senior-staff-work-card-laws_enacted` | `laws:enacted` | 146 | 2 | 30 | all passed | 0 (clean) |
+| `S13-b9r-translation-duty-inflected-statutes` | `statutes` | 1305 | 4 | 3 | all passed | 0 (clean) |
+| `S12-b20-lease-type-parity-statutes` | `statutes` | 1305 | 4 | 15 | all passed | 0 (clean) |
+| `S13-b9r-translation-duty-inflected-laws_enacted` | `laws:enacted` | 146 | 2 | 8 | all passed | 0 (clean) |
+| `S13-b10r-work-card-bare-statutes` | `statutes` | 1305 | 3 | 0 | all passed | 0 (clean) |
+| `S12-b21-lease-type-size-statutes` | `statutes` | 1305 | 4 | 38 | all passed | 0 (clean) |
+| `S13-b10r-work-card-bare-laws` | `laws` | 438 | 3 | 0 | all passed | 0 (clean) |
+| `S13-b10r-work-card-bare-const` | `const` | 1 | 3 | 0 | all passed | 0 (clean) |
+| `S13-b11-veterans-incentive-statutes` | `statutes` | 1305 | 6 | 9 | all passed | 0 (clean) |
+| `S13-b11-veterans-incentive-laws_enacted` | `laws:enacted` | 146 | 4 | 41 | all passed | 0 (clean) |
+| `S13-b12-farmland-hunting-statutes` | `statutes` | 1305 | 4 | 0 | all passed | 0 (clean) |
+| `S13-b12-farmland-hunting-laws_enacted` | `laws:enacted` | 146 | 2 | 11 | all passed | 0 (clean) |
+| `S13-b13-communal-land-approval-statutes` | `statutes` | 1305 | 4 | 12 | all passed | 0 (clean) |
+| `S12-b22-lease-type-parity-laws` | `laws:enacted` | 146 | 3 | 3 | all passed | 0 (clean) |
+| `S13-b13-communal-land-approval-laws_enacted` | `laws:enacted` | 146 | 2 | 51 | all passed | 0 (clean) |
+| `S13-b14-usufructuary-statutes` | `statutes` | 1305 | 6 | 0 | all passed | 0 (clean) |
+| `S12-b23-lease-type-size-laws` | `laws:enacted` | 146 | 3 | 7 | all passed | 0 (clean) |
+| `S13-b14-usufructuary-laws` | `laws` | 438 | 6 | 10 | all passed | 0 (clean) |
+| `S13-b14-usufructuary-const` | `const` | 1 | 6 | 0 | all passed | 0 (clean) |
+| `S13-b15-foreign-ownership-statutes` | `statutes` | 1305 | 4 | 6 | all passed | 0 (clean) |
+| `S13-b15-foreign-ownership-laws_enacted` | `laws:enacted` | 146 | 2 | 6 | all passed | 0 (clean) |
+| `S13-b15-foreign-ownership-const` | `const` | 1 | 2 | 0 | all passed | 0 (clean) |
+| `S13-b16-special-district-representation-statutes` | `statutes` | 1305 | 4 | 0 | **A POSITIVE FAILED** | 0 (clean) |
+| `S13-b16-special-district-representation-laws_enacted` | `laws:enacted` | 146 | 2 | 4 | **A POSITIVE FAILED** | 0 (clean) |
+| `S13-b17-general-tenant-confidentiality-statutes` | `statutes` | 1305 | 3 | 9 | all passed | 0 (clean) |
+| `S13-b17-general-tenant-confidentiality-laws_enacted` | `laws:enacted` | 146 | 2 | 29 | all passed | 0 (clean) |
+| `S13-b16r-special-district-representation-statutes` | `statutes` | 1305 | 7 | 0 | **A POSITIVE FAILED** | 0 (clean) |
+| `S13-b16r-special-district-representation-laws_enacted` | `laws:enacted` | 146 | 5 | 10 | **A POSITIVE FAILED** | 0 (clean) |
+| `S13-b16r2-special-district-representation-statutes` | `statutes` | 1305 | 7 | 0 | all passed | 0 (clean) |
+| `S13-b16r2-special-district-representation-laws_enacted` | `laws:enacted` | 146 | 5 | 10 | all passed | 0 (clean) |
+| `S12-b24-sfr-disclosure-statutes` | `statutes` | 1305 | 5 | 26 | all passed | 0 (clean) |
+| `S12-b25-sfr-disclosure-laws` | `laws:enacted` | 146 | 3 | 4 | all passed | 0 (clean) |
+| `S12-b26-adu-sfz-statutes` | `statutes` | 1305 | 5 | 48 | all passed | 0 (clean) |
+| `S12-b26-adu-sfz-laws-2025-0-newonly` | `laws:2025-0:newonly` | 39 | 4 | 9 | all passed | 0 (clean) |
+| `S12-b26-adu-sfz-laws-2025-1-newonly` | `laws:2025-1:newonly` | 15 | 4 | 9 | all passed | 0 (clean) |
+| `S12-b26-adu-sfz-laws-2026-0-newonly` | `laws:2026-0:newonly` | 92 | 4 | 12 | all passed | 0 (clean) |
+| `S12-b27-portfolio-thresholds-statutes` | `statutes` | 1305 | 4 | 145 | all passed | 0 (clean) |
+| `S12-b28-portfolio-thresholds-laws` | `laws:enacted` | 146 | 2 | 7 | all passed | 0 (clean) |
+| `S14-b1-screening-bareword` | `statutes` | 1305 | 4 | 43 | all passed | 0 (clean) |
+| `S14-b1b-screening-lookback-offer` | `statutes` | 1305 | 5 | 4 | all passed | 0 (clean) |
+| `S14-b1c-screening-laws2026` | `laws:enacted` | 146 | 4 | 44 | all passed | 0 (clean) |
+| `S14-b2-screening-income-rerun` | `statutes` | 1305 | 3 | 7 | all passed | 0 (clean) |
+| `S14-b2b-screening-laws-proximity` | `laws:enacted` | 146 | 5 | 4 | all passed | 0 (clean) |
+| `S14-b2c-363A-record-screening` | `statutes:363A` | 47 | 6 | 5 | all passed | 0 (clean) |
+| `S14-b3-screening-laws-rerun` | `laws:enacted` | 146 | 2 | 4 | all passed | 0 (clean) |
+| `S14-b4-records-bareword` | `statutes:504B` | 97 | 6 | 27 | all passed | 0 (clean) |
+| `S14-b4b-records-datasecurity` | `statutes` | 1305 | 7 | 9 | all passed | 0 (clean) |
+| `S14-b4c-records-laws` | `laws:enacted` | 146 | 5 | 2 | all passed | 0 (clean) |
+| `S14-b5-records-rerun-landlord` | `statutes` | 1305 | 4 | 0 | all passed | 0 (clean) |
+| `S14-b5b-records-rerun-laws-wide` | `laws:enacted` | 146 | 4 | 2 | all passed | 0 (clean) |
+| `S15-b0-bareword-statutes` | `statutes` | 1305 | 9 | 579 | all passed | 0 (clean) |
+| `S14-b6-records-ledger-wide` | `statutes` | 1305 | 5 | 20 | all passed | 0 (clean) |
+| `S14-b7-portal-bareword` | `statutes:504B` | 97 | 5 | 8 | all passed | 0 (clean) |
+| `S14-b7b-portal-wide` | `statutes` | 1305 | 5 | 14 | all passed | 0 (clean) |
+| `S14-b7c-portal-laws` | `laws:enacted` | 146 | 4 | 16 | all passed | 0 (clean) |
+| `S15-b1-landlord-lien-statutes` | `statutes` | 1305 | 6 | 28 | all passed | 0 (clean) |
+| `S15-b1r-landlord-lien-statutes-rerun` | `statutes` | 1305 | 4 | 13 | all passed | 0 (clean) |
+| `S15-b1L-landlord-lien-laws` | `laws:enacted` | 146 | 5 | 51 | **A POSITIVE FAILED** | 0 (clean) |
+| `S15-b1L2-landlord-lien-laws-rerun` | `laws:enacted` | 146 | 5 | 51 | all passed | 0 (clean) |
+| `S15-b2-construction-liens-statutes` | `statutes` | 1305 | 5 | 8 | all passed | 0 (clean) |
+| `S15-b2L-construction-liens-laws` | `laws:enacted` | 146 | 3 | 8 | all passed | 0 (clean) |
+| `S15-b3-eminent-domain-statutes` | `statutes` | 1305 | 8 | 85 | all passed | 0 (clean) |
+| `S14-b8-lawenf-bareword` | `statutes:504B` | 97 | 6 | 12 | all passed | 0 (clean) |
+| `S14-b8b-lawenf-wide` | `statutes` | 1305 | 6 | 17 | all passed | 0 (clean) |
+| `S14-b8c-lawenf-heading` | `statutes` | 1305 | 4 | 0 | all passed | 0 (clean) |
+| `S14-b8d-lawenf-laws` | `laws:enacted` | 146 | 4 | 1 | all passed | 0 (clean) |
+| `S15-b4-tpa-statutes` | `statutes` | 1305 | 13 | 142 | all passed | 0 (clean) |
+| `S15-b4r-tpa-statutes-rerun` | `statutes` | 1305 | 3 | 122 | all passed | 0 (clean) |
+| `S15-b4L-tpa-laws` | `laws:enacted` | 146 | 8 | 64 | all passed | 0 (clean) |
+| `S15-b5-nonresident-owner-agent-statutes` | `statutes` | 1305 | 9 | 37 | all passed | 0 (clean) |
+| `S15-b6-tenant-forward-statutes` | `statutes` | 1305 | 5 | 111 | all passed | 0 (clean) |
+| `S15-b6b-tenant-forward-duty-statutes` | `statutes` | 1305 | 4 | 48 | all passed | 0 (clean) |
+| `S15-b6c-tenant-forward-wide-statutes` | `statutes` | 1305 | 3 | 122 | all passed | 0 (clean) |
+| `S15-b56L-forward-and-nonresident-laws` | `laws:enacted` | 146 | 6 | 36 | all passed | 0 (clean) |
+| `S15-b7-conversion-notice-statutes` | `statutes` | 1305 | 13 | 67 | all passed | 0 (clean) |
+| `S15-b8-association-statutes` | `statutes` | 1305 | 7 | 28 | all passed | 0 (clean) |
+| `S15-b9-disaster-duties-statutes` | `statutes` | 1305 | 10 | 47 | all passed | 0 (clean) |
+| `S14-b9-tenantduty-bareword` | `statutes:504B` | 97 | 6 | 42 | all passed | 0 (clean) |
+| `S14-b9b-tenantduty-wide` | `statutes` | 1305 | 5 | 28 | all passed | 0 (clean) |
+| `S14-b9c-tenantduty-heading` | `statutes` | 1305 | 4 | 4 | all passed | 0 (clean) |
+| `S14-b9d-tenantduty-laws` | `laws:enacted` | 146 | 3 | 0 | all passed | 0 (clean) |
+| `S15-b10-sale-mgmt-change-statutes` | `statutes` | 1305 | 8 | 105 | all passed | 0 (clean) |
+| `S14-b10-tenantduty-misdem-rerun` | `statutes` | 1305 | 3 | 21 | all passed | 0 (clean) |
+| `S14-b10b-tenantduty-misdem-laws-rerun` | `laws:enacted` | 146 | 2 | 0 | all passed | 0 (clean) |
+| `S15-b789L-conversion-assoc-disaster-laws` | `laws:enacted` | 146 | 10 | 34 | all passed | 0 (clean) |
+| `S15-b12-heading-screen-statutes` | `statutes` | 1305 | 20 | 23 | all passed | 0 (clean) |
+| `S14-b11-prohibit-bareword` | `statutes:504B` | 97 | 5 | 66 | all passed | 0 (clean) |
+| `S14-b11b-prohibit-wide` | `statutes` | 1305 | 4 | 21 | all passed | 0 (clean) |
+| `S14-b11c-prohibit-laws` | `laws:enacted` | 146 | 3 | 8 | all passed | 0 (clean) |
+| `S14-b12-prohibit-void-rerun` | `statutes:504B` | 97 | 2 | 25 | all passed | 0 (clean) |
+| `S14-b13-firearms-bareword` | `statutes` | 1305 | 5 | 45 | all passed | 0 (clean) |
+| `S14-b13b-firearms-landlord` | `statutes` | 1305 | 5 | 9 | all passed | 0 (clean) |
+| `S14-b13c-firearms-heading` | `statutes` | 1305 | 3 | 0 | all passed | 0 (clean) |
+| `S14-b13d-firearms-laws-const` | `laws:enacted` | 146 | 3 | 19 | all passed | 0 (clean) |
+| `S14-b14-rightsstmt-bareword` | `statutes` | 1305 | 6 | 34 | all passed | 0 (clean) |
+| `S14-b14b-rightsstmt-and` | `statutes` | 1305 | 5 | 24 | all passed | 0 (clean) |
+| `S14-b14c-rightsstmt-heading` | `statutes` | 1305 | 3 | 17 | all passed | 0 (clean) |
+| `S14-b14d-rightsstmt-laws` | `laws:enacted` | 146 | 4 | 4 | all passed | 0 (clean) |
+| `S14-b15-rightsstmt-statement-rerun` | `statutes` | 1305 | 3 | 20 | all passed | 0 (clean) |
+| `S14-b16-sexoffender-bareword` | `statutes` | 1305 | 6 | 9 | all passed | 0 (clean) |
+| `S14-b16b-sexoffender-heading` | `statutes` | 1305 | 4 | 0 | all passed | 0 (clean) |
+| `S14-b16c-sexoffender-laws` | `laws:enacted` | 146 | 4 | 1 | all passed | 0 (clean) |
+| `S14-b17-trespass-bareword` | `statutes` | 1305 | 5 | 6 | all passed | 0 (clean) |
+| `S14-b17b-trespass-heading-laws` | `laws:enacted` | 146 | 2 | 4 | all passed | 0 (clean) |
+| `S14-b18-petfactsheet-bareword` | `statutes` | 1305 | 6 | 16 | all passed | 0 (clean) |
+| `S14-b18b-petfactsheet-heading-laws` | `laws:enacted` | 146 | 4 | 0 | all passed | 0 (clean) |
+| `S14-b19-employeescreen-bareword` | `statutes` | 1305 | 5 | 25 | all passed | 0 (clean) |
+| `S14-b19b-employeescreen-laws` | `laws:enacted` | 146 | 3 | 5 | all passed | 0 (clean) |
+| `S14-b20-portal-rerun-wide` | `statutes` | 1305 | 3 | 2 | all passed | 0 (clean) |
+| `S14-b21-employeescreen-bg-rerun` | `statutes` | 1305 | 3 | 0 | all passed | 0 (clean) |
+| `MP-crop-lien` | `statutes` | 1305 | 2 | 0 | all passed | 0 (clean) |
+| `S16-b1-lease-content-eighth-rule` | `statutes` | 1305 | 4 | 44 | all passed | 0 (clean) |
+| `S16-b1b-lease-content-sessionlaws` | `laws:enacted` | 146 | 3 | 13 | all passed | 0 (clean) |
+| `S17-b1-dvvictim-bareword` | `statutes` | 1305 | 2 | 29 | all passed | 0 (clean) |
+| `S17-b2-bifurcation-bareword` | `statutes` | 1305 | 2 | 3 | all passed | 0 (clean) |
+| `S17-b2b-bifurcation-wide` | `statutes` | 1305 | 3 | 3 | all passed | 0 (clean) |
+| `S17-b2c-bifurcation-heading` | `statutes` | 1305 | 1 | 0 | all passed | 0 (clean) |
+| `S16-b2-house-rules` | `statutes` | 1305 | 7 | 139 | all passed | 0 (clean) |
+| `S16-b2h-house-rules-headings` | `statutes` | 1305 | 1 | 10 | all passed | 0 (clean) |
+| `S17-b2d-bifurcation-laws` | `laws:enacted` | 146 | 3 | 37 | all passed | 0 (clean) |
+| `S16-b2l-house-rules-sessionlaws` | `laws:enacted` | 146 | 4 | 17 | all passed | 0 (clean) |
+| `S17-b3-dv-laws-wide` | `laws:enacted` | 146 | 3 | 5 | all passed | 0 (clean) |
+| `S17-b3b-dv-laws-wide-inflected` | `laws:enacted` | 146 | 2 | 3 | all passed | 0 (clean) |
+| `S17-b4-dv-application-stage` | `statutes` | 1305 | 3 | 25 | all passed | 0 (clean) |
+| `S17-b4b-dv-damage-liability` | `statutes` | 1305 | 3 | 23 | all passed | 0 (clean) |
+| `S17-b5-dv-application-stage-inflected` | `statutes` | 1305 | 3 | 25 | all passed | 0 (clean) |
+| `S17-b5b-dv-heading-screen` | `statutes` | 1305 | 1 | 1 | all passed | 0 (clean) |
+| `S17-b5c-dv-laws-newonly` | `laws:2026-0:newonly` | 92 | 1 | 9 | all passed | 0 (clean) |
+| `S16-b3-ev-statutes` | `statutes` | 1305 | 4 | 1 | all passed | 0 (clean) |
+| `S16-b3-ev-laws-2025-1-newonly` | `laws:2025-1:newonly` | 15 | 3 | 2 | all passed | 0 (clean) |
+| `S16-b3-ev-laws-2025-0-newonly` | `laws:2025-0:newonly` | 39 | 3 | 1 | all passed | 0 (clean) |
+| `S16-b3-ev-laws-2026-0-newonly` | `laws:2026-0:newonly` | 92 | 3 | 0 | all passed | 0 (clean) |
+| `S16-b3-ev-laws-enacted` | `laws:enacted` | 146 | 3 | 7 | all passed | 0 (clean) |
+| `S16-b3h-ev-headings` | `statutes` | 1305 | 1 | 8 | all passed | 0 (clean) |
+| `S17-b6-renumber-bareword` | `statutes` | 1305 | 3 | 14 | all passed | 0 (clean) |
+| `S17-b6b-renumber-laws` | `laws:enacted` | 146 | 3 | 11 | all passed | 0 (clean) |
+| `S17-b6c-protorder-bareword` | `statutes` | 1305 | 4 | 18 | all passed | 0 (clean) |
+| `S17-b7-tenant-terminate-bareword` | `statutes:504B` | 97 | 4 | 26 | all passed | 0 (clean) |
+| `S17-b7b-tenant-terminate-wide` | `statutes` | 1305 | 3 | 0 | all passed | 0 (clean) |
+| `S17-b7c-noncompliance-heading` | `statutes:504B` | 97 | 1 | 4 | all passed | 0 (clean) |
+| `S17-b7d-tenant-terminate-laws` | `laws:enacted` | 146 | 2 | 16 | all passed | 0 (clean) |
+| `S17-b8-landlord-breach-termination-wide` | `statutes:504B` | 97 | 3 | 27 | all passed | 0 (clean) |
+| `S17-b8b-landlord-breach-termination-allstat` | `statutes` | 1305 | 3 | 28 | all passed | 0 (clean) |
+| `S17-b9-landlord-breach-termination-1200both` | `statutes` | 1305 | 3 | 35 | all passed | 0 (clean) |
+| `S17-b9b-327C-resident-remedy` | `statutes:327C` | 21 | 3 | 5 | all passed | 0 (clean) |
+| `S16-b4-appliances-furnishings` | `statutes` | 1305 | 8 | 70 | all passed | 0 (clean) |
+| `S16-b4l-appliances-sessionlaws` | `laws:enacted` | 146 | 4 | 37 | all passed | 0 (clean) |
+| `S17-b10-disclose-bareword` | `statutes` | 1305 | 3 | 94 | all passed | 0 (clean) |
+| `S17-b10b-disclose-lease-wide` | `statutes` | 1305 | 3 | 189 | all passed | 0 (clean) |
+| `S17-b11-disclosure-heading` | `statutes` | 1305 | 1 | 17 | all passed | 0 (clean) |
+| `S17-b11b-disclosure-laws` | `laws:2026-0:newonly` | 92 | 3 | 2 | all passed | 0 (clean) |
+| `S17-b11c-lead-radon-meth` | `statutes` | 1305 | 5 | 8 | all passed | 0 (clean) |
+| `S17-b12-lead-mold-inflected` | `statutes` | 1305 | 3 | 4 | all passed | 0 (clean) |
+| `S16-b5-alt-housing` | `statutes` | 1305 | 4 | 103 | all passed | 0 (clean) |
+| `S16-b5l-alt-housing-sessionlaws` | `laws:enacted` | 146 | 3 | 65 | all passed | 0 (clean) |
+| `S16-b5r-alt-housing-inflected-statutes` | `statutes` | 1305 | 4 | 105 | all passed | 0 (clean) |
+| `S16-b5r-alt-housing-inflected-laws-enacted` | `laws:enacted` | 146 | 3 | 65 | all passed | 0 (clean) |
+| `S16-b6-subsidized-inspection` | `statutes` | 1305 | 6 | 127 | all passed | 0 (clean) |
+| `S17-b13-sublet-bareword` | `statutes` | 1305 | 4 | 58 | all passed | 0 (clean) |
+| `S16-b6l-subsidized-inspection-sessionlaws` | `laws:enacted` | 146 | 2 | 25 | all passed | 0 (clean) |
+| `S17-b14-sublet-wide` | `statutes` | 1305 | 3 | 38 | all passed | 0 (clean) |
+| `S17-b14b-sublet-heading` | `statutes` | 1305 | 1 | 0 | all passed | 0 (clean) |
+| `S17-b14c-sublet-laws` | `laws:enacted` | 146 | 1 | 50 | all passed | 0 (clean) |
+| `S17-b15-sublet-laws-narrow` | `laws:enacted` | 146 | 3 | 3 | all passed | 0 (clean) |
+| `S17-b16-language-bareword` | `statutes` | 1305 | 5 | 22 | **A POSITIVE FAILED** | 0 (clean) |
+| `S17-b17-language-bareword-rerun` | `statutes` | 1305 | 4 | 59 | all passed | 0 (clean) |
+| `S17-b17b-language-wide` | `statutes` | 1305 | 3 | 13 | all passed | 0 (clean) |
+| `S17-b17c-language-heading` | `statutes` | 1305 | 1 | 0 | all passed | 0 (clean) |
+| `S17-b17d-language-laws` | `laws:enacted` | 146 | 3 | 10 | all passed | 0 (clean) |
+| `S17-b18-language-wide-inflected` | `statutes` | 1305 | 3 | 13 | all passed | 0 (clean) |
+| `S17-b19-notarize-bareword` | `statutes` | 1305 | 5 | 57 | **A POSITIVE FAILED** | 0 (clean) |
+| `S17-b20-notarize-bareword-rerun` | `statutes` | 1305 | 5 | 62 | all passed | 0 (clean) |
+| `S17-b20b-notarize-lease-wide` | `statutes` | 1305 | 3 | 13 | all passed | 0 (clean) |
+| `S17-b20c-notarize-heading` | `statutes` | 1305 | 1 | 0 | all passed | 0 (clean) |
+| `S17-b20d-notarize-laws` | `laws:enacted` | 146 | 2 | 1 | all passed | 0 (clean) |
+| `S16-b7-insurance` | `statutes` | 1305 | 6 | 74 | all passed | 0 (clean) |
+| `S16-b8-guarantor` | `statutes` | 1305 | 6 | 14 | all passed | 0 (clean) |
+| `S16-b78l-insurance-guarantor-sessionlaws` | `laws:enacted` | 146 | 4 | 8 | all passed | 0 (clean) |
+| `S17-b21-receipt-bareword` | `statutes` | 1305 | 3 | 108 | all passed | 0 (clean) |
+| `S17-b21b-receipt-wide` | `statutes` | 1305 | 3 | 45 | all passed | 0 (clean) |
+| `S17-b21c-receipt-heading` | `statutes` | 1305 | 1 | 1 | **A POSITIVE FAILED** | 0 (clean) |
+| `S17-b21d-receipt-laws` | `laws:enacted` | 146 | 2 | 3 | all passed | 0 (clean) |
+| `S17-b22-receipt-wide-inflected` | `statutes` | 1305 | 3 | 49 | all passed | 0 (clean) |
+| `S17-b22b-receipt-heading-rerun` | `statutes` | 1305 | 1 | 5 | all passed | 0 (clean) |
+| `S16-b9-informal-dispute-resolution` | `statutes` | 1305 | 4 | 93 | all passed | 0 (clean) |
+| `S16-b9l-informal-dispute-resolution-sessionlaws` | `laws:enacted` | 146 | 2 | 17 | all passed | 0 (clean) |
+| `S16-b9r-informal-dispute-resolution-inflected` | `statutes` | 1305 | 4 | 93 | all passed | 0 (clean) |
+
+**Pattern detail below is given for the 317 runs that a confirmed-absence row
+relies on** — the runs where a wrong pattern would mean a false absence. The remaining
+484 runs supported a *present* answer, where the row's cited statute is
+the proof and the battery only located it; their summary line above is the record. Corpus
+fingerprint for every run: `2b36a179ae9040bc`, `2cad6ae5bfb7e394`, `638cd7aced31f2c5`.
+
+### Patterns, per absence-bearing run
+
+**`MI3-locks-statutes`** — item 3: is there a Minnesota victim lock-change right, or any landlord lock duty?  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\brekey\w*` | 0 | 0 |
+| `\bre-key\w*` | 0 | 0 |
+| `\bdeadbolt\w*` | 0 | 0 |
+| `\bdead bolt\b` | 0 | 0 |
+| `chang\w+[\s\S]{0,60}\block\w*` | 0 | 0 |
+| `\block\w*[\s\S]{0,60}chang\w+` | 0 | 0 |
+| `\block\s*(?:set\|smith\|hardware)\w*` | 0 | 0 |
+| `new\s+lock\w*` | 0 | 0 |
+| `replac\w+[\s\S]{0,40}\block\w*` | 0 | 0 |
+- positive `504B.375`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`MI3-locks-laws-enacted`** — item 3: is there a Minnesota victim lock-change right, or any landlord lock duty?  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\brekey\w*` | 0 | 0 |
+| `\bre-key\w*` | 0 | 0 |
+| `\bdeadbolt\w*` | 0 | 0 |
+| `\bdead bolt\b` | 0 | 0 |
+| `chang\w+[\s\S]{0,60}\block\w*` | 0 | 0 |
+| `\block\w*[\s\S]{0,60}chang\w+` | 0 | 0 |
+| `\block\s*(?:set\|smith\|hardware)\w*` | 0 | 0 |
+| `new\s+lock\w*` | 1 — law:2026-0:ch130:enacted | 0 |
+| `replac\w+[\s\S]{0,40}\block\w*` | 0 | 0 |
+- positive `law:2026-0:ch81:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`MI3-locks-everyday`** — item 3: everyday wording for a victim key/lock right  
+scope `all`, 1744 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bkeys?\b[\s\S]{0,80}(victim\|abuse\|violence)` | 0 | 0 |
+| `(victim\|abuse\|violence)[\s\S]{0,80}\bkeys?\b` | 0 | 0 |
+- positive `504B.206`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S01-b1-deposit-cost-schedule-statutes`** — no MN statute setting or requiring notice of a pre-set schedule of cleaning/repair charges taken from a deposit  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(schedule of (charges\|costs\|deductions)\|pre-?set\|agreed (amount\|charge)s?\|fixed (cleaning\|repair\|carpet) charge\|carpet clean\w*)[\s\S]{0,200}\bdeposit` | 0 | 0 |
+| `\bdeposit[\s\S]{0,200}(schedule of (charges\|costs\|deductions)\|pre-?set\|agreed (amount\|charge)s?\|fixed (cleaning\|repair\|carpet) charge\|carpet clean\w*)` | 0 | 0 |
+| `\bcarpet\w*` | 2 — stat:144.9513, stat:325F.18 | 0 |
+| `cleaning (charge\|fee\|cost)s?` | 0 | 0 |
+- positive `504B.178`: passed
+- positive `325F.18`: passed
+- positive `504B.178`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S01-b1-deposit-cost-schedule-laws`** — no MN statute setting or requiring notice of a pre-set schedule of cleaning/repair charges taken from a deposit  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(schedule of (charges\|costs\|deductions)\|pre-?set\|agreed (amount\|charge)s?\|fixed (cleaning\|repair\|carpet) charge\|carpet clean\w*)[\s\S]{0,200}\bdeposit` | 0 | 0 |
+| `\bdeposit[\s\S]{0,200}(schedule of (charges\|costs\|deductions)\|pre-?set\|agreed (amount\|charge)s?\|fixed (cleaning\|repair\|carpet) charge\|carpet clean\w*)` | 0 | 0 |
+| `\bcarpet\w*` | 2 — law:2025-0:ch32:enacted, law:2025-1:ch1:enacted | 0 |
+| `cleaning (charge\|fee\|cost)s?` | 0 | 0 |
+- positive `504B.178`: passed
+- positive `325F.18`: passed
+- positive `504B.178`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S01-b2-deposit-installments-statutes`** — no MN right for a tenant to pay a security deposit in installments  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(install?ment\|partial payment\|monthly payments?\|more than one payment)[\s\S]{0,200}\bdeposit` | 1 — stat:563.01 | 0 |
+| `\bdeposit[\s\S]{0,200}(install?ment\|partial payment\|monthly payments?\|more than one payment)` | 0 | 0 |
+| `\binstall?ments?\b` | 4 — stat:325F.666, stat:334.16, stat:444.075, stat:559.21 | 0 |
+- positive `504B.178`: passed
+- positive `559.21`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S01-b2-deposit-installments-laws`** — no MN right for a tenant to pay a security deposit in installments  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(install?ment\|partial payment\|monthly payments?\|more than one payment)[\s\S]{0,200}\bdeposit` | 0 | 0 |
+| `\bdeposit[\s\S]{0,200}(install?ment\|partial payment\|monthly payments?\|more than one payment)` | 0 | 0 |
+| `\binstall?ments?\b` | 19 — law:2025-0:ch20:enacted, law:2025-0:ch35:enacted, law:2025-0:ch37:enacted, law:2025-0:ch38:enacted … | 0 |
+- positive `504B.178`: passed
+- positive `559.21`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S01-b3-fee-in-lieu-of-deposit-statutes`** — no MN statute authorising a fee, insurance product or surety bond in lieu of a security deposit  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `in lieu of (a \|the )?(security )?deposit` | 0 | 0 |
+| `\bdeposit[\s\S]{0,200}(in lieu\|surety\|guarant\w*\|insurance product\|alternative)` | 2 — stat:504B.153, stat:504B.182 | 0 |
+| `(surety\|guarant\w*\|insurance product\|alternative)[\s\S]{0,200}\bdeposit` | 0 | 0 |
+| `(deposit alternative\|deposit waiver\|rental security insurance)` | 0 | 0 |
+- positive `504B.178`: passed
+- positive `144.1204`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S01-b3-fee-in-lieu-of-deposit-laws`** — no MN statute authorising a fee, insurance product or surety bond in lieu of a security deposit  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `in lieu of (a \|the )?(security )?deposit` | 0 | 0 |
+| `\bdeposit[\s\S]{0,200}(in lieu\|surety\|guarant\w*\|insurance product\|alternative)` | 8 — law:2025-1:ch13:enacted, law:2025-1:ch15:enacted, law:2025-1:ch5:enacted, law:2025-1:ch8:enacted … | 0 |
+| `(surety\|guarant\w*\|insurance product\|alternative)[\s\S]{0,200}\bdeposit` | 9 — law:2025-1:ch13:enacted, law:2025-1:ch15:enacted, law:2025-1:ch5:enacted, law:2025-1:ch8:enacted … | 0 |
+| `(deposit alternative\|deposit waiver\|rental security insurance)` | 0 | 0 |
+- positive `504B.178`: passed
+- positive `144.1204`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S01-b4-nonrefundable-deposit-notice-statutes`** — no MN statute recognising a nonrefundable security deposit or requiring notice of one  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `non-?refundable[\s\S]{0,200}\bdeposit` | 1 — stat:144.226 | 0 |
+| `\bdeposit[\s\S]{0,200}non-?refundable` | 2 — stat:144.058, stat:144.226 | 0 |
+| `non-?refundable` | 6 — stat:144.058, stat:144.122, stat:144.226, stat:144.9505 … | 0 |
+- positive `504B.178`: passed
+- positive `327C.095`: passed
+- positive `144.058`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S01-b4-nonrefundable-deposit-notice-laws`** — no MN statute recognising a nonrefundable security deposit or requiring notice of one  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `non-?refundable[\s\S]{0,200}\bdeposit` | 5 — law:2025-1:ch3:enacted, law:2025-1:ch9:enacted, law:2026-0:ch115:enacted, law:2026-0:ch121:enacted … | 0 |
+| `\bdeposit[\s\S]{0,200}non-?refundable` | 0 | 0 |
+| `non-?refundable` | 18 — law:2025-0:ch20:enacted, law:2025-0:ch27:enacted, law:2025-0:ch31:enacted, law:2025-0:ch34:enacted … | 0 |
+- positive `504B.178`: passed
+- positive `327C.095`: passed
+- positive `144.058`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S01-b5-nonrefundable-deposit-separate-notice-statutes`** — no MN statute requiring a nonrefundable charge to be disclosed in a document separate from the lease  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(separate(ly)? (written )?(document\|writing\|notice\|instrument\|addendum\|agreement)\|in a separate\|separately (signed\|initial\w*))[\s\S]{0,220}(non-?refundable\|\bdeposit)` | 0 | 0 |
+| `(non-?refundable\|\bdeposit)[\s\S]{0,220}(separate(ly)? (written )?(document\|writing\|notice\|instrument\|addendum\|agreement)\|in a separate\|separately (signed\|initial\w*))` | 0 | 0 |
+| `nonstandard rental provision\w*` | 0 | 0 |
+- positive `504B.178`: passed
+- positive `504B.216`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S01-b5-nonrefundable-deposit-separate-notice-laws`** — no MN statute requiring a nonrefundable charge to be disclosed in a document separate from the lease  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(separate(ly)? (written )?(document\|writing\|notice\|instrument\|addendum\|agreement)\|in a separate\|separately (signed\|initial\w*))[\s\S]{0,220}(non-?refundable\|\bdeposit)` | 1 — law:2026-0:ch56:enacted | 0 |
+| `(non-?refundable\|\bdeposit)[\s\S]{0,220}(separate(ly)? (written )?(document\|writing\|notice\|instrument\|addendum\|agreement)\|in a separate\|separately (signed\|initial\w*))` | 2 — law:2025-1:ch13:enacted, law:2026-0:ch56:enacted | 0 |
+| `nonstandard rental provision\w*` | 0 | 0 |
+- positive `504B.178`: passed
+- positive `504B.216`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S01-b7-security-deposit-standards-statutes`** — no MN rule requiring a landlord to post or furnish the standards by which security deposits are calculated  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(standards?\|criteria\|formula)[\s\S]{0,200}\bdeposit` | 2 — stat:144.058, stat:299F.641 | 0 |
+| `\bdeposit[\s\S]{0,200}(standards?\|criteria\|formula)` | 0 | 0 |
+| `adjoining dwelling units` | 0 | 0 |
+| `\bdeposits? (are\|is) calculated` | 0 | 0 |
+- positive `504B.178`: passed
+- positive `504B.181`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S01-b7-security-deposit-standards-laws`** — no MN rule requiring a landlord to post or furnish the standards by which security deposits are calculated  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(standards?\|criteria\|formula)[\s\S]{0,200}\bdeposit` | 2 — law:2025-0:ch20:enacted, law:2026-0:ch88:enacted | 0 |
+| `\bdeposit[\s\S]{0,200}(standards?\|criteria\|formula)` | 4 — law:2025-0:ch20:enacted, law:2025-1:ch13:enacted, law:2025-1:ch5:enacted, law:2026-0:ch88:enacted | 0 |
+| `adjoining dwelling units` | 0 | 0 |
+| `\bdeposits? (are\|is) calculated` | 0 | 0 |
+- positive `504B.178`: passed
+- positive `504B.181`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S02-b3-alarm-tampering-fee-statutes`** — alarm-tampering-fee: any statute authorising, setting or capping a fee for removing or tampering with a smoke or carbon monoxide alarm  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\btamper\w*\|\bdisabl\w*\|render\w* inoperable\|\bremov\w*)[\s\S]{0,140}(?:\balarm\b\|\balarms\b\|\bdetector\b\|\bdetectors\b)[\s\S]{0,140}(?:\bfee\b\|\bfees\b\|\bcharge\b\|\bcharges\b\|\bpenalt\w*)` | 0 | 0 |
+| `(?:\bfee\b\|\bfees\b\|\bcharge\b\|\bcharges\b\|\bpenalt\w*)[\s\S]{0,140}(?:\balarm\b\|\balarms\b\|\bdetector\b\|\bdetectors\b)[\s\S]{0,140}(?:\btamper\w*\|\bdisabl\w*\|render\w* inoperable\|\bremov\w*)` | 0 | 0 |
+| `(?:\balarm\b\|\balarms\b\|\bdetector\b\|\bdetectors\b)[\s\S]{0,140}(?:\bfee\b\|\bfees\b\|\bcharge\b\|\bcharges\b)` | 0 | 0 |
+| `(?:\bfee\b\|\bfees\b\|\bcharge\b\|\bcharges\b)[\s\S]{0,140}(?:\balarm\b\|\balarms\b\|\bdetector\b\|\bdetectors\b)` | 0 | 0 |
+| `\btamper\w*` | 4 — stat:144.6502, stat:144.6512, stat:609.748, stat:609.749 | 0 |
+| `\bsmoke alarm\b\|\bsmoke detector\b\|\bcarbon monoxide alarm\b\|\bcarbon monoxide detector\b` | 3 — stat:299F.362, stat:299F.50, stat:299F.51 | 0 |
+- positive `299F.51`: passed
+- positive `299F.362`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S02-b3-alarm-tampering-fee-laws-enacted`** — alarm-tampering-fee: any statute authorising, setting or capping a fee for removing or tampering with a smoke or carbon monoxide alarm  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\btamper\w*\|\bdisabl\w*\|render\w* inoperable\|\bremov\w*)[\s\S]{0,140}(?:\balarm\b\|\balarms\b\|\bdetector\b\|\bdetectors\b)[\s\S]{0,140}(?:\bfee\b\|\bfees\b\|\bcharge\b\|\bcharges\b\|\bpenalt\w*)` | 0 | 0 |
+| `(?:\bfee\b\|\bfees\b\|\bcharge\b\|\bcharges\b\|\bpenalt\w*)[\s\S]{0,140}(?:\balarm\b\|\balarms\b\|\bdetector\b\|\bdetectors\b)[\s\S]{0,140}(?:\btamper\w*\|\bdisabl\w*\|render\w* inoperable\|\bremov\w*)` | 0 | 0 |
+| `(?:\balarm\b\|\balarms\b\|\bdetector\b\|\bdetectors\b)[\s\S]{0,140}(?:\bfee\b\|\bfees\b\|\bcharge\b\|\bcharges\b)` | 0 | 0 |
+| `(?:\bfee\b\|\bfees\b\|\bcharge\b\|\bcharges\b)[\s\S]{0,140}(?:\balarm\b\|\balarms\b\|\bdetector\b\|\bdetectors\b)` | 0 | 0 |
+| `\btamper\w*` | 8 — law:2025-0:ch29:enacted, law:2025-0:ch31:enacted, law:2025-0:ch39:enacted, law:2025-1:ch3:enacted … | 0 |
+| `\bsmoke alarm\b\|\bsmoke detector\b\|\bcarbon monoxide alarm\b\|\bcarbon monoxide detector\b` | 1 — law:2026-0:ch127:enacted | 0 |
+- positive `299F.51`: passed
+- positive `299F.362`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S02-b3h-alarm-heading-screen`** — alarm-tampering-fee: heading screen for alarm/detector headnotes  
+scope `statutes`, 1305 units, case-sensitive
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bALARM\|\bDETECTOR\|\bSMOKE\|\bCARBON MONOXIDE` | 2 — stat:299F.48, stat:299F.51 | 1 |
+- positive `299F.51`: passed
+- positive `299F.362`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S01-b1w-deposit-cost-schedule-statutes`** — widened + unit-wide AND: pre-set deposit charge schedule  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(schedule of (charges\|costs\|deductions)\|pre-?set\|carpet clean\w*\|cleaning (charge\|fee\|cost)s?\|agreed amount)[\s\S]{0,1200}\bdeposit` | 0 | 0 |
+| `\bdeposit[\s\S]{0,1200}(schedule of (charges\|costs\|deductions)\|pre-?set\|carpet clean\w*\|cleaning (charge\|fee\|cost)s?\|agreed amount)` | 0 | 0 |
+| `\A(?=[\s\S]*(schedule of (charges\|costs\|deductions)\|pre-?set\|carpet clean\w*\|cleaning (charge\|fee\|cost)s?\|agreed amount))(?=[\s\S]*\bdeposit)` | 0 | 0 |
+- positive `504B.178`: passed
+- positive `504B.178`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S01-b1w-deposit-cost-schedule-laws`** — widened + unit-wide AND: pre-set deposit charge schedule  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(schedule of (charges\|costs\|deductions)\|pre-?set\|carpet clean\w*\|cleaning (charge\|fee\|cost)s?\|agreed amount)[\s\S]{0,1200}\bdeposit` | 0 | 0 |
+| `\bdeposit[\s\S]{0,1200}(schedule of (charges\|costs\|deductions)\|pre-?set\|carpet clean\w*\|cleaning (charge\|fee\|cost)s?\|agreed amount)` | 0 | 0 |
+| `\A(?=[\s\S]*(schedule of (charges\|costs\|deductions)\|pre-?set\|carpet clean\w*\|cleaning (charge\|fee\|cost)s?\|agreed amount))(?=[\s\S]*\bdeposit)` | 1 — law:2025-0:ch20:enacted | 0 |
+- positive `504B.178`: passed
+- positive `504B.178`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S01-b2w-deposit-installments-statutes`** — widened + unit-wide AND: deposit payable in installments  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(install?ments?\b\|partial payment\|more than one payment)[\s\S]{0,1200}\bdeposit` | 1 — stat:563.01 | 0 |
+| `\bdeposit[\s\S]{0,1200}(install?ments?\b\|partial payment\|more than one payment)` | 0 | 0 |
+| `\A(?=[\s\S]*(install?ments?\b\|partial payment\|more than one payment))(?=[\s\S]*\bdeposit)` | 1 — stat:563.01 | 0 |
+- positive `504B.178`: passed
+- positive `559.21`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S01-b2w-deposit-installments-laws`** — widened + unit-wide AND: deposit payable in installments  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(install?ments?\b\|partial payment\|more than one payment)[\s\S]{0,1200}\bdeposit` | 2 — law:2025-0:ch38:enacted, law:2026-0:ch124:enacted | 0 |
+| `\bdeposit[\s\S]{0,1200}(install?ments?\b\|partial payment\|more than one payment)` | 4 — law:2025-1:ch13:enacted, law:2025-1:ch3:enacted, law:2026-0:ch124:enacted, law:2026-0:ch128:enacted | 0 |
+| `\A(?=[\s\S]*(install?ments?\b\|partial payment\|more than one payment))(?=[\s\S]*\bdeposit)` | 16 — law:2025-0:ch20:enacted, law:2025-0:ch34:enacted, law:2025-0:ch35:enacted, law:2025-0:ch37:enacted … | 0 |
+- positive `504B.178`: passed
+- positive `559.21`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S01-b3w-fee-in-lieu-of-deposit-statutes`** — widened + unit-wide AND: fee, bond or insurance in lieu of a deposit  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(in lieu of\|\bsurety\b\|guarant\w*\|insurance product\|deposit alternative\|deposit waiver)[\s\S]{0,1200}\bdeposit` | 3 — stat:144.3831, stat:327C.095, stat:504B.182 | 0 |
+| `\bdeposit[\s\S]{0,1200}(in lieu of\|\bsurety\b\|guarant\w*\|insurance product\|deposit alternative\|deposit waiver)` | 3 — stat:325F.91, stat:504B.182, stat:523.24 | 0 |
+| `\A(?=[\s\S]*(in lieu of\|\bsurety\b\|guarant\w*\|insurance product\|deposit alternative\|deposit waiver))(?=[\s\S]*\bdeposit)` | 7 — stat:144.1204, stat:144.3831, stat:325F.91, stat:327C.02 … | 0 |
+- positive `504B.178`: passed
+- positive `144.1204`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S01-b3w-fee-in-lieu-of-deposit-laws`** — widened + unit-wide AND: fee, bond or insurance in lieu of a deposit  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(in lieu of\|\bsurety\b\|guarant\w*\|insurance product\|deposit alternative\|deposit waiver)[\s\S]{0,1200}\bdeposit` | 12 — law:2025-1:ch13:enacted, law:2025-1:ch15:enacted, law:2025-1:ch4:enacted, law:2025-1:ch5:enacted … | 0 |
+| `\bdeposit[\s\S]{0,1200}(in lieu of\|\bsurety\b\|guarant\w*\|insurance product\|deposit alternative\|deposit waiver)` | 12 — law:2025-0:ch32:enacted, law:2025-1:ch13:enacted, law:2025-1:ch15:enacted, law:2025-1:ch4:enacted … | 0 |
+| `\A(?=[\s\S]*(in lieu of\|\bsurety\b\|guarant\w*\|insurance product\|deposit alternative\|deposit waiver))(?=[\s\S]*\bdeposit)` | 31 — law:2025-0:ch20:enacted, law:2025-0:ch27:enacted, law:2025-0:ch31:enacted, law:2025-0:ch32:enacted … | 0 |
+- positive `504B.178`: passed
+- positive `144.1204`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S01-b4w-nonrefundable-deposit-notice-statutes`** — widened + unit-wide AND: nonrefundable deposit and notice of one  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(non-?refundable\|forfeit\w*)[\s\S]{0,1200}\bdeposit` | 6 — stat:144.122, stat:144.226, stat:484.83, stat:484.843 … | 0 |
+| `\bdeposit[\s\S]{0,1200}(non-?refundable\|forfeit\w*)` | 6 — stat:144.058, stat:144.226, stat:484.83, stat:484.843 … | 0 |
+| `\A(?=[\s\S]*(non-?refundable\|forfeit\w*))(?=[\s\S]*\bdeposit)` | 9 — stat:144.058, stat:144.122, stat:144.226, stat:144.9505 … | 0 |
+- positive `504B.178`: passed
+- positive `327C.095`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S01-b4w-nonrefundable-deposit-notice-laws`** — widened + unit-wide AND: nonrefundable deposit and notice of one  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(non-?refundable\|forfeit\w*)[\s\S]{0,1200}\bdeposit` | 9 — law:2025-0:ch10:enacted, law:2025-1:ch3:enacted, law:2025-1:ch9:enacted, law:2026-0:ch106:enacted … | 0 |
+| `\bdeposit[\s\S]{0,1200}(non-?refundable\|forfeit\w*)` | 4 — law:2025-0:ch10:enacted, law:2025-0:ch35:enacted, law:2025-1:ch3:enacted, law:2026-0:ch88:enacted | 0 |
+| `\A(?=[\s\S]*(non-?refundable\|forfeit\w*))(?=[\s\S]*\bdeposit)` | 28 — law:2025-0:ch10:enacted, law:2025-0:ch20:enacted, law:2025-0:ch21:enacted, law:2025-0:ch27:enacted … | 0 |
+- positive `504B.178`: passed
+- positive `327C.095`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S01-b5w-nonrefundable-deposit-separate-notice-statutes`** — widened + unit-wide AND: separate-document notice for a nonrefundable charge  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(separate(ly)? (written )?(document\|writing\|notice\|instrument\|addendum\|agreement)\|in a separate\|separately (signed\|initial\w*)\|nonstandard rental provision\w*)[\s\S]{0,1200}\bdeposit` | 0 | 0 |
+| `\bdeposit[\s\S]{0,1200}(separate(ly)? (written )?(document\|writing\|notice\|instrument\|addendum\|agreement)\|in a separate\|separately (signed\|initial\w*)\|nonstandard rental provision\w*)` | 0 | 0 |
+| `\A(?=[\s\S]*(separate(ly)? (written )?(document\|writing\|notice\|instrument\|addendum\|agreement)\|in a separate\|separately (signed\|initial\w*)\|nonstandard rental provision\w*))(?=[\s\S]*\bdeposit)` | 1 — stat:504B.216 | 0 |
+- positive `504B.178`: passed
+- positive `504B.216`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S01-b5w-nonrefundable-deposit-separate-notice-laws`** — widened + unit-wide AND: separate-document notice for a nonrefundable charge  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(separate(ly)? (written )?(document\|writing\|notice\|instrument\|addendum\|agreement)\|in a separate\|separately (signed\|initial\w*)\|nonstandard rental provision\w*)[\s\S]{0,1200}\bdeposit` | 1 — law:2026-0:ch56:enacted | 0 |
+| `\bdeposit[\s\S]{0,1200}(separate(ly)? (written )?(document\|writing\|notice\|instrument\|addendum\|agreement)\|in a separate\|separately (signed\|initial\w*)\|nonstandard rental provision\w*)` | 3 — law:2025-1:ch13:enacted, law:2025-1:ch15:enacted, law:2026-0:ch56:enacted | 0 |
+| `\A(?=[\s\S]*(separate(ly)? (written )?(document\|writing\|notice\|instrument\|addendum\|agreement)\|in a separate\|separately (signed\|initial\w*)\|nonstandard rental provision\w*))(?=[\s\S]*\bdeposit)` | 16 — law:2025-0:ch18:enacted, law:2025-0:ch20:enacted, law:2025-0:ch31:enacted, law:2025-0:ch37:enacted … | 0 |
+- positive `504B.178`: passed
+- positive `504B.216`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S01-b7w-security-deposit-standards-statutes`** — widened + unit-wide AND: posting or furnishing deposit-calculation standards  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(standards?\|criteria\|formula\|adjoining dwelling units)[\s\S]{0,1200}\bdeposit` | 7 — stat:144.058, stat:144.1204, stat:144.615, stat:299F.641 … | 0 |
+| `\bdeposit[\s\S]{0,1200}(standards?\|criteria\|formula\|adjoining dwelling units)` | 10 — stat:144.121, stat:144.1503, stat:144.9504, stat:299F.63 … | 0 |
+| `\A(?=[\s\S]*(standards?\|criteria\|formula\|adjoining dwelling units))(?=[\s\S]*\bdeposit)` | 25 — stat:144.058, stat:144.1204, stat:144.121, stat:144.1501 … | 0 |
+- positive `504B.178`: passed
+- positive `504B.181`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S01-b7w-security-deposit-standards-laws`** — widened + unit-wide AND: posting or furnishing deposit-calculation standards  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(standards?\|criteria\|formula\|adjoining dwelling units)[\s\S]{0,1200}\bdeposit` | 14 — law:2025-0:ch20:enacted, law:2025-0:ch39:enacted, law:2025-1:ch13:enacted, law:2025-1:ch15:enacted … | 0 |
+| `\bdeposit[\s\S]{0,1200}(standards?\|criteria\|formula\|adjoining dwelling units)` | 16 — law:2025-0:ch20:enacted, law:2025-0:ch34:enacted, law:2025-0:ch38:enacted, law:2025-0:ch39:enacted … | 0 |
+| `\A(?=[\s\S]*(standards?\|criteria\|formula\|adjoining dwelling units))(?=[\s\S]*\bdeposit)` | 40 — law:2025-0:ch20:enacted, law:2025-0:ch21:enacted, law:2025-0:ch27:enacted, law:2025-0:ch30:enacted … | 0 |
+- positive `504B.178`: passed
+- positive `504B.181`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S02-b4-notice-eviction-fee-statutes`** — notice-service-fee + eviction-penalty-clause-ban: any rule authorising, capping or banning a charge to the tenant for serving a notice or filing an eviction, or a lease penalty tied to eviction  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\bnotice to quit\b\|\bnotice to vacate\b\|\bnotice of termination\b\|\bnotice to pay\b)[\s\S]{0,140}(?:\bfee\b\|\bfees\b\|\bcharge\b\|\bcharges\b)` | 0 | 0 |
+| `(?:\bfee\b\|\bfees\b\|\bcharge\b\|\bcharges\b)[\s\S]{0,140}(?:\bnotice to quit\b\|\bnotice to vacate\b\|\bnotice of termination\b\|\bnotice to pay\b)` | 0 | 0 |
+| `(?:\beviction\b\|\bevict\b\|\bevicted\b)[\s\S]{0,140}(?:\bfee\b\|\bfees\b)` | 5 — stat:484.841, stat:504B.171, stat:504B.285, stat:504B.321 … | 0 |
+| `(?:\bfee\b\|\bfees\b)[\s\S]{0,140}(?:\beviction\b\|\bevict\b\|\bevicted\b)` | 2 — stat:484.841, stat:504B.171 | 0 |
+| `\bfiling fee\b\|\bservice fee\b\|\bprocess server\b\|\bsheriff\'s fee\b\|\bconstable\b` | 13 — stat:144.701, stat:144.702, stat:325F.665, stat:363A.36 … | 0 |
+| `(?:\bpenalt\w*)[\s\S]{0,140}(?:\beviction\b\|\blease\b\|\brental agreement\b)` | 7 — stat:325F.29, stat:504B.111, stat:504B.171, stat:504B.175 … | 0 |
+| `\bcourt costs\b\|\btax the costs\b\|\bcosts of the action\b` | 5 — stat:327C.095, stat:363A.33, stat:504B.153, stat:504B.291 … | 0 |
+- positive `504B.291`: passed
+- positive `504B.172`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S02-b4-notice-eviction-fee-laws-enacted`** — notice-service-fee + eviction-penalty-clause-ban: any rule authorising, capping or banning a charge to the tenant for serving a notice or filing an eviction, or a lease penalty tied to eviction  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\bnotice to quit\b\|\bnotice to vacate\b\|\bnotice of termination\b\|\bnotice to pay\b)[\s\S]{0,140}(?:\bfee\b\|\bfees\b\|\bcharge\b\|\bcharges\b)` | 0 | 0 |
+| `(?:\bfee\b\|\bfees\b\|\bcharge\b\|\bcharges\b)[\s\S]{0,140}(?:\bnotice to quit\b\|\bnotice to vacate\b\|\bnotice of termination\b\|\bnotice to pay\b)` | 0 | 0 |
+| `(?:\beviction\b\|\bevict\b\|\bevicted\b)[\s\S]{0,140}(?:\bfee\b\|\bfees\b)` | 1 — law:2026-0:ch81:enacted | 0 |
+| `(?:\bfee\b\|\bfees\b)[\s\S]{0,140}(?:\beviction\b\|\bevict\b\|\bevicted\b)` | 0 | 0 |
+| `\bfiling fee\b\|\bservice fee\b\|\bprocess server\b\|\bsheriff\'s fee\b\|\bconstable\b` | 9 — law:2025-0:ch27:enacted, law:2025-0:ch35:enacted, law:2025-0:ch39:enacted, law:2025-1:ch3:enacted … | 0 |
+| `(?:\bpenalt\w*)[\s\S]{0,140}(?:\beviction\b\|\blease\b\|\brental agreement\b)` | 1 — law:2025-1:ch13:enacted | 0 |
+| `\bcourt costs\b\|\btax the costs\b\|\bcosts of the action\b` | 7 — law:2025-0:ch15:enacted, law:2025-0:ch2:enacted, law:2025-0:ch32:enacted, law:2026-0:ch111:enacted … | 0 |
+- positive `504B.291`: passed
+- positive `504B.172`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S02-b4h-notice-eviction-heading-screen`** — notice-service-fee + eviction-penalty-clause-ban: heading screen  
+scope `statutes`, 1305 units, case-sensitive
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bEVICTION\|\bNOTICE\|\bCOSTS\|\bATTORNEY FEE` | 21 — stat:144.1222, stat:144.385, stat:144.387, stat:144.4176 … | 30 |
+- positive `504B.291`: passed
+- positive `504B.172`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S02-b9-carpet-cleaning-statutes`** — carpet-cleaning: any statute on professional carpet cleaning at move-out, cleaning charges, or a condition-and-age test for carpet or paint deductions  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bcarpet\w*` | 2 — stat:144.9513, stat:325F.18 | 0 |
+| `(?:\bclean\w*)[\s\S]{0,140}(?:\bdeposit\b\|\bcharge\b\|\bcharges\b\|\bfee\b\|\bfees\b)` | 0 | 0 |
+| `(?:\bdeposit\b\|\bcharge\b\|\bcharges\b\|\bfee\b\|\bfees\b)[\s\S]{0,140}(?:\bclean\w*)` | 0 | 0 |
+| `\bwear and tear\b` | 6 — stat:325F.86, stat:325F.95, stat:363A.10, stat:504B.178 … | 0 |
+| `(?:\bdepreciat\w*\|useful life\|\bage\b)[\s\S]{0,140}(?:\bcarpet\w*\|\bpaint\w*\|\bflooring\b)` | 1 — stat:144.9501 | 0 |
+| `\bprofessional\w*[\s\S]{0,80}\bclean\w*` | 0 | 0 |
+- positive `504B.178`: passed
+- positive `504B.161`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S02-b9-carpet-cleaning-laws-enacted`** — carpet-cleaning: any statute on professional carpet cleaning at move-out, cleaning charges, or a condition-and-age test for carpet or paint deductions  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bcarpet\w*` | 2 — law:2025-0:ch32:enacted, law:2025-1:ch1:enacted | 0 |
+| `(?:\bclean\w*)[\s\S]{0,140}(?:\bdeposit\b\|\bcharge\b\|\bcharges\b\|\bfee\b\|\bfees\b)` | 1 — law:2025-1:ch1:enacted | 1 |
+| `(?:\bdeposit\b\|\bcharge\b\|\bcharges\b\|\bfee\b\|\bfees\b)[\s\S]{0,140}(?:\bclean\w*)` | 5 — law:2025-0:ch20:enacted, law:2025-0:ch36:enacted, law:2025-1:ch8:enacted, law:2026-0:ch126:enacted … | 0 |
+| `\bwear and tear\b` | 1 — law:2026-0:ch61:enacted | 0 |
+| `(?:\bdepreciat\w*\|useful life\|\bage\b)[\s\S]{0,140}(?:\bcarpet\w*\|\bpaint\w*\|\bflooring\b)` | 0 | 0 |
+| `\bprofessional\w*[\s\S]{0,80}\bclean\w*` | 0 | 0 |
+- positive `504B.178`: passed
+- positive `504B.161`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S02-b9h-carpet-heading-screen`** — carpet-cleaning: heading screen  
+scope `statutes`, 1305 units, case-sensitive
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bCARPET\|\bCLEAN\|\bWEAR` | 2 — stat:144.41, stat:325F.41 | 1 |
+- positive `504B.178`: passed
+- positive `504B.161`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S02-b11-liquidated-damages-statutes`** — liquidated-damages: does Minnesota set or permit any agreed-damages measure for a lease breach?  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bliquidated damages\b` | 1 — stat:504B.177 | 0 |
+| `\bstipulated damages\b\|\bagreed damages\b\|\bpenalt\w* clause\b\|\bforfeiture\b` | 9 — stat:144.653, stat:299F.854, stat:325D.072, stat:325D.60 … | 0 |
+| `(?:\bdamages\b)[\s\S]{0,140}(?:\bagreed\b\|\bstipulat\w*\|\bfixed\b\|\bpreset\b\|\bpredetermined\b)` | 0 | 0 |
+| `(?:\bagreed\b\|\bstipulat\w*\|\bfixed\b\|\bpreset\b\|\bpredetermined\b)[\s\S]{0,140}(?:\bdamages\b)` | 0 | 0 |
+- positive `504B.177`: passed
+- positive `504B.178`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S02-b11-liquidated-damages-laws-enacted`** — liquidated-damages: does Minnesota set or permit any agreed-damages measure for a lease breach?  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bliquidated damages\b` | 1 — law:2025-1:ch6:enacted | 0 |
+| `\bstipulated damages\b\|\bagreed damages\b\|\bpenalt\w* clause\b\|\bforfeiture\b` | 18 — law:2025-0:ch10:enacted, law:2025-0:ch20:enacted, law:2025-0:ch29:enacted, law:2025-0:ch31:enacted … | 0 |
+| `(?:\bdamages\b)[\s\S]{0,140}(?:\bagreed\b\|\bstipulat\w*\|\bfixed\b\|\bpreset\b\|\bpredetermined\b)` | 0 | 0 |
+| `(?:\bagreed\b\|\bstipulat\w*\|\bfixed\b\|\bpreset\b\|\bpredetermined\b)[\s\S]{0,140}(?:\bdamages\b)` | 0 | 0 |
+- positive `504B.177`: passed
+- positive `504B.178`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S02-b11h-liq-interest-heading-screen`** — liquidated-damages + unpaid-damages-interest: heading screen  
+scope `statutes`, 1305 units, case-sensitive
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bINTEREST\|\bDAMAGES\|\bRATE` | 4 — stat:144.6521, stat:325D.57, stat:469.047, stat:504B.165 | 5 |
+- positive `504B.177`: passed
+- positive `504B.178`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S02-b3w-alarm-tampering-fee-statutes`** — alarm-tampering-fee wide rerun  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\btamper\w*\|\bdisabl\w*\|render\w* inoperable)[\s\S]{0,1200}(?:\balarm\b\|\balarms\b\|\bdetector\b\|\bdetectors\b)` | 2 — stat:299F.362, stat:299F.51 | 0 |
+| `(?:\balarm\b\|\balarms\b\|\bdetector\b\|\bdetectors\b)[\s\S]{0,1200}(?:\btamper\w*\|\bdisabl\w*\|render\w* inoperable)` | 2 — stat:299F.362, stat:299F.51 | 0 |
+| `(?:\balarm\b\|\balarms\b\|\bdetector\b\|\bdetectors\b)[\s\S]{0,1200}(?:\bfee\b\|\bfees\b\|\bcharge\b\|\bcharges\b)` | 0 | 0 |
+| `(?:\bfee\b\|\bfees\b\|\bcharge\b\|\bcharges\b)[\s\S]{0,1200}(?:\balarm\b\|\balarms\b\|\bdetector\b\|\bdetectors\b)` | 0 | 0 |
+| `\A(?=[\s\S]*(?:(?:\balarm\b\|\balarms\b\|\bdetector\b\|\bdetectors\b)))(?=[\s\S]*(?:(?:\bfee\b\|\bfees\b\|\bcharge\b\|\bcharges\b)))` | 0 | 0 |
+| `\A(?=[\s\S]*(?:(?:\btamper\w*\|\bdisabl\w*\|render\w* inoperable)))(?=[\s\S]*(?:(?:\balarm\b\|\balarms\b\|\bdetector\b\|\bdetectors\b)))(?=[\s\S]*(?:(?:\bfee\b\|\bfees\b\|\bcharge\b\|\bcharges\b)))` | 0 | 0 |
+- positive `299F.51`: passed
+- positive `299F.362`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S02-b3w-alarm-tampering-fee-laws-enacted`** — alarm-tampering-fee wide rerun  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\btamper\w*\|\bdisabl\w*\|render\w* inoperable)[\s\S]{0,1200}(?:\balarm\b\|\balarms\b\|\bdetector\b\|\bdetectors\b)` | 1 — law:2026-0:ch127:enacted | 0 |
+| `(?:\balarm\b\|\balarms\b\|\bdetector\b\|\bdetectors\b)[\s\S]{0,1200}(?:\btamper\w*\|\bdisabl\w*\|render\w* inoperable)` | 0 | 0 |
+| `(?:\balarm\b\|\balarms\b\|\bdetector\b\|\bdetectors\b)[\s\S]{0,1200}(?:\bfee\b\|\bfees\b\|\bcharge\b\|\bcharges\b)` | 2 — law:2025-0:ch31:enacted, law:2025-1:ch3:enacted | 0 |
+| `(?:\bfee\b\|\bfees\b\|\bcharge\b\|\bcharges\b)[\s\S]{0,1200}(?:\balarm\b\|\balarms\b\|\bdetector\b\|\bdetectors\b)` | 2 — law:2025-0:ch35:enacted, law:2025-1:ch6:enacted | 0 |
+- positive `299F.51`: passed
+- positive `299F.362`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S02-b4w-notice-eviction-fee-statutes`** — notice-service-fee + eviction-penalty-clause-ban wide rerun  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\bnotice to quit\b\|\bnotice to vacate\b\|\bnotice of termination\b\|\bnotice to pay\b)[\s\S]{0,1200}(?:\bfee\b\|\bfees\b\|\bcharge\b\|\bcharges\b)` | 1 — stat:504B.285 | 0 |
+| `(?:\bfee\b\|\bfees\b\|\bcharge\b\|\bcharges\b)[\s\S]{0,1200}(?:\bnotice to quit\b\|\bnotice to vacate\b\|\bnotice of termination\b\|\bnotice to pay\b)` | 2 — stat:327C.11, stat:504B.285 | 0 |
+| `\A(?=[\s\S]*(?:(?:\bnotice to quit\b\|\bnotice to vacate\b\|\bnotice of termination\b)))(?=[\s\S]*(?:(?:\bfee\b\|\bfees\b\|\bcharge\b\|\bcharges\b)))` | 4 — stat:327C.11, stat:504B.285, stat:504B.321, stat:559.21 | 0 |
+| `(?:\beviction\b\|\bevict\b\|\bevicted\b)[\s\S]{0,1200}(?:\bfee\b\|\bfees\b\|\bcharge\b\|\bcharges\b)` | 19 — stat:327C.02, stat:327C.07, stat:327C.10, stat:327C.11 … | 0 |
+| `(?:\bfee\b\|\bfees\b\|\bcharge\b\|\bcharges\b)[\s\S]{0,1200}(?:\beviction\b\|\bevict\b\|\bevicted\b)` | 13 — stat:327C.07, stat:363A.28, stat:484.841, stat:504B.113 … | 0 |
+| `\A(?=[\s\S]*(?:(?:\beviction\b\|\bevict\b\|\bevicted\b)))(?=[\s\S]*(?:(?:\bfee\b\|\bfees\b\|\bcharge\b\|\bcharges\b)))` | 23 — stat:327C.02, stat:327C.07, stat:327C.095, stat:327C.10 … | 0 |
+| `\bpenalt\w*[\s\S]{0,1200}(?:\beviction\b\|\blease\b\|\brental agreement\b)` | 15 — stat:325F.29, stat:484.841, stat:504B.111, stat:504B.113 … | 0 |
+| `(?:\beviction\b\|\blease\b\|\brental agreement\b)[\s\S]{0,1200}\bpenalt\w*` | 20 — stat:325F.29, stat:325F.665, stat:325F.91, stat:327C.12 … | 1 |
+| `\A(?=[\s\S]*(?:\bpenalt\w*))(?=[\s\S]*(?:(?:\beviction\b\|\blease\b)))` | 24 — stat:145A.04, stat:325F.29, stat:325F.665, stat:325F.91 … | 0 |
+- positive `504B.291`: passed
+- positive `504B.172`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S02-b4w-notice-eviction-fee-laws-enacted`** — notice-service-fee + eviction-penalty-clause-ban wide rerun  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\bnotice to quit\b\|\bnotice to vacate\b\|\bnotice of termination\b\|\bnotice to pay\b)[\s\S]{0,1200}(?:\bfee\b\|\bfees\b\|\bcharge\b\|\bcharges\b)` | 2 — law:2025-1:ch4:enacted, law:2026-0:ch127:enacted | 0 |
+| `(?:\bfee\b\|\bfees\b\|\bcharge\b\|\bcharges\b)[\s\S]{0,1200}(?:\bnotice to quit\b\|\bnotice to vacate\b\|\bnotice of termination\b\|\bnotice to pay\b)` | 2 — law:2025-1:ch4:enacted, law:2026-0:ch127:enacted | 0 |
+| `(?:\beviction\b\|\bevict\b\|\bevicted\b)[\s\S]{0,1200}(?:\bfee\b\|\bfees\b\|\bcharge\b\|\bcharges\b)` | 4 — law:2025-0:ch32:enacted, law:2026-0:ch61:enacted, law:2026-0:ch81:enacted, law:2026-0:ch82:enacted | 0 |
+| `(?:\bfee\b\|\bfees\b\|\bcharge\b\|\bcharges\b)[\s\S]{0,1200}(?:\beviction\b\|\bevict\b\|\bevicted\b)` | 3 — law:2026-0:ch61:enacted, law:2026-0:ch81:enacted, law:2026-0:ch82:enacted | 0 |
+| `\bpenalt\w*[\s\S]{0,1200}(?:\beviction\b\|\blease\b\|\brental agreement\b)` | 6 — law:2025-0:ch31:enacted, law:2025-1:ch13:enacted, law:2025-1:ch8:enacted, law:2026-0:ch128:enacted … | 0 |
+| `(?:\beviction\b\|\blease\b\|\brental agreement\b)[\s\S]{0,1200}\bpenalt\w*` | 4 — law:2025-0:ch34:enacted, law:2025-1:ch10:enacted, law:2025-1:ch13:enacted, law:2026-0:ch61:enacted | 0 |
+- positive `504B.291`: passed
+- positive `504B.172`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S02-b9w-carpet-cleaning-statutes`** — carpet-cleaning wide rerun  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bclean\w*[\s\S]{0,1200}(?:\bdeposit\b\|\bcharge\b\|\bcharges\b\|\bfee\b\|\bfees\b)` | 1 — stat:144.98 | 0 |
+| `(?:\bdeposit\b\|\bcharge\b\|\bcharges\b\|\bfee\b\|\bfees\b)[\s\S]{0,1200}\bclean\w*` | 2 — stat:144.98, stat:325F.662 | 0 |
+| `\A(?=[\s\S]*(?:\bclean\w*))(?=[\s\S]*(?:(?:\bdeposit\b\|\bcharge\b\|\bcharges\b\|\bfee\b\|\bfees\b)))` | 3 — stat:144.98, stat:325F.078, stat:325F.662 | 0 |
+| `(?:\bdepreciat\w*\|useful life\|\bage\b)[\s\S]{0,1200}(?:\bcarpet\w*\|\bpaint\w*\|\bflooring\b)` | 1 — stat:144.9501 | 0 |
+| `(?:\bcarpet\w*\|\bpaint\w*\|\bflooring\b)[\s\S]{0,1200}(?:\bdepreciat\w*\|useful life\|\bage\b)` | 1 — stat:144.9501 | 0 |
+| `\A(?=[\s\S]*(?:\bcarpet\w*))(?=[\s\S]*(?:(?:\bdeposit\b\|\bcharge\b\|\bcharges\b\|\bfee\b\|\bfees\b)))` | 1 — stat:325F.18 | 0 |
+- positive `504B.178`: passed
+- positive `504B.161`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S02-b9w-carpet-cleaning-laws-enacted`** — carpet-cleaning wide rerun  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bclean\w*[\s\S]{0,1200}(?:\bdeposit\b\|\bcharge\b\|\bcharges\b\|\bfee\b\|\bfees\b)` | 11 — law:2025-0:ch20:enacted, law:2025-0:ch2:enacted, law:2025-0:ch36:enacted, law:2025-1:ch13:enacted … | 1 |
+| `(?:\bdeposit\b\|\bcharge\b\|\bcharges\b\|\bfee\b\|\bfees\b)[\s\S]{0,1200}\bclean\w*` | 8 — law:2025-0:ch20:enacted, law:2025-0:ch36:enacted, law:2025-1:ch1:enacted, law:2025-1:ch3:enacted … | 0 |
+| `(?:\bdepreciat\w*\|useful life\|\bage\b)[\s\S]{0,1200}(?:\bcarpet\w*\|\bpaint\w*\|\bflooring\b)` | 0 | 0 |
+| `(?:\bcarpet\w*\|\bpaint\w*\|\bflooring\b)[\s\S]{0,1200}(?:\bdepreciat\w*\|useful life\|\bage\b)` | 0 | 0 |
+- positive `504B.178`: passed
+- positive `504B.161`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S02-b11w-liquidated-damages-statutes`** — liquidated-damages wide rerun  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bdamages\b[\s\S]{0,1200}(?:\bagreed\b\|\bstipulat\w*\|\bfixed\b\|\bpreset\b\|\bpredetermined\b\|\bliquidated\b)` | 1 — stat:523.24 | 0 |
+| `(?:\bagreed\b\|\bstipulat\w*\|\bfixed\b\|\bpreset\b\|\bpredetermined\b\|\bliquidated\b)[\s\S]{0,1200}\bdamages\b` | 2 — stat:325F.665, stat:504B.177 | 0 |
+| `\A(?=[\s\S]*(?:\bdamages\b))(?=[\s\S]*(?:(?:\bagreed\b\|\bstipulat\w*\|\bliquidated\b)))` | 7 — stat:144.991, stat:325F.665, stat:504B.153, stat:504B.177 … | 0 |
+| `\bforfeit\w*[\s\S]{0,1200}(?:\blease\b\|\brental agreement\b)` | 0 | 0 |
+| `(?:\blease\b\|\brental agreement\b)[\s\S]{0,1200}\bforfeit\w*` | 0 | 0 |
+| `\A(?=[\s\S]*(?:\bforfeit\w*))(?=[\s\S]*(?:\blease\b))` | 0 | 0 |
+- positive `504B.177`: passed
+- positive `504B.165`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S02-b11w-liquidated-damages-laws-enacted`** — liquidated-damages wide rerun  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bdamages\b[\s\S]{0,1200}(?:\bagreed\b\|\bstipulat\w*\|\bfixed\b\|\bpreset\b\|\bpredetermined\b\|\bliquidated\b)` | 1 — law:2025-1:ch6:enacted | 0 |
+| `(?:\bagreed\b\|\bstipulat\w*\|\bfixed\b\|\bpreset\b\|\bpredetermined\b\|\bliquidated\b)[\s\S]{0,1200}\bdamages\b` | 1 — law:2025-1:ch6:enacted | 0 |
+| `\bforfeit\w*[\s\S]{0,1200}(?:\blease\b\|\brental agreement\b)` | 2 — law:2025-0:ch20:enacted, law:2025-1:ch1:enacted | 0 |
+| `(?:\blease\b\|\brental agreement\b)[\s\S]{0,1200}\bforfeit\w*` | 0 | 0 |
+- positive `504B.177`: passed
+- positive `504B.165`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S03-b5-rent-reporting-statutes`** — must/may a landlord report rent payment history to a credit bureau; tenant election; statutes  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:credit bureau\|credit reporting agenc\w+\|consumer report\w*\|consumer credit report\w*\|credit histor\w+\|credit scor\w+\|nationwide consumer)[\s\S]{0,1200}(?:\brent\b\|\brents\b\|rental payment\w*\|rent payment\w*\|payment histor\w+\|positive rent)` | 1 — stat:504B.173 | 0 |
+| `(?:\brent\b\|\brents\b\|rental payment\w*\|rent payment\w*\|payment histor\w+\|positive rent)[\s\S]{0,1200}(?:credit bureau\|credit reporting agenc\w+\|consumer report\w*\|consumer credit report\w*\|credit histor\w+\|credit scor\w+\|nationwide consumer)` | 1 — stat:363A.16 | 0 |
+| `\A(?=[\s\S]*(?:(?:credit bureau\|credit reporting agenc\w+\|consumer report\w*\|consumer credit report\w*\|credit histor\w+\|credit scor\w+\|nationwide consumer)))(?=[\s\S]*(?:(?:\brent\b\|\brents\b\|rental payment\w*\|rent payment\w*\|payment histor\w+\|positive rent)))` | 2 — stat:363A.16, stat:504B.173 | 0 |
+- positive `504B.117`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S03-b5-rent-reporting-laws-enacted`** — must/may a landlord report rent payment history to a credit bureau; tenant election; laws:enacted  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:credit bureau\|credit reporting agenc\w+\|consumer report\w*\|consumer credit report\w*\|credit histor\w+\|credit scor\w+\|nationwide consumer)[\s\S]{0,1200}(?:\brent\b\|\brents\b\|rental payment\w*\|rent payment\w*\|payment histor\w+\|positive rent)` | 0 | 0 |
+| `(?:\brent\b\|\brents\b\|rental payment\w*\|rent payment\w*\|payment histor\w+\|positive rent)[\s\S]{0,1200}(?:credit bureau\|credit reporting agenc\w+\|consumer report\w*\|consumer credit report\w*\|credit histor\w+\|credit scor\w+\|nationwide consumer)` | 0 | 0 |
+- positive `law:2026-0:ch81:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S03-b5c-rent-reporting-everyday-statutes`** — everyday companion for rent reporting; statutes  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:report\w* (?:the )?(?:tenant\|rent\|payment)\|furnish\w* information\|rent reporting\|report rent\|report\w* to a (?:credit\|consumer))` | 4 — stat:144.2216, stat:144.6071, stat:144.966, stat:363A.08 | 0 |
+| `\A(?=[\s\S]*(?:\brent\b))(?=[\s\S]*(?:(?:credit bureau\|consumer reporting\|credit reporting)))` | 0 | 0 |
+- positive `504B.241`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S03-b5h-rent-reporting-headings`** — heading screen: rent/credit reporting headnote  
+scope `statutes`, 1305 units, case-sensitive
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:RENT REPORTING\|CREDIT REPORT\|CONSUMER REPORT\|TENANT REPORT\|CREDIT HISTORY)` | 1 — stat:504B.231 | 2 |
+- positive `504B.241`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S03-b6-rent-tax-statutes`** — state or local tax on residential rent; pass-through of a tax to the tenant; statutes  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:sales tax\|use tax\|gross receipts tax\|occupancy tax\|lodging tax\|excise tax\|transient tax\|\bsurcharge\w*\|tax exempt\w*\|exempt from .{0,40}tax)[\s\S]{0,1200}(?:\brent\b\|\brents\b\|rental payment\|monthly rent\|residential rent)` | 3 — stat:216B.023, stat:325D.01, stat:327C.04 | 0 |
+| `(?:\brent\b\|\brents\b\|rental payment\|monthly rent\|residential rent)[\s\S]{0,1200}(?:sales tax\|use tax\|gross receipts tax\|occupancy tax\|lodging tax\|excise tax\|transient tax\|\bsurcharge\w*\|tax exempt\w*\|exempt from .{0,40}tax)` | 0 | 0 |
+| `\A(?=[\s\S]*(?:(?:sales tax\|use tax\|gross receipts tax\|occupancy tax\|lodging tax\|excise tax\|transient tax\|\bsurcharge\w*\|tax exempt\w*\|exempt from .{0,40}tax)))(?=[\s\S]*(?:(?:\brent\b\|\brents\b\|rental payment\|monthly rent\|residential rent)))` | 5 — stat:216B.023, stat:325D.01, stat:327C.04, stat:504B.216 … | 0 |
+- positive `325D.01`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S03-b6-rent-tax-laws-enacted`** — state or local tax on residential rent; pass-through of a tax to the tenant; laws:enacted  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:sales tax\|use tax\|gross receipts tax\|occupancy tax\|lodging tax\|excise tax\|transient tax\|\bsurcharge\w*\|tax exempt\w*\|exempt from .{0,40}tax)[\s\S]{0,1200}(?:\brent\b\|\brents\b\|rental payment\|monthly rent\|residential rent)` | 1 — law:2025-1:ch1:enacted | 0 |
+| `(?:\brent\b\|\brents\b\|rental payment\|monthly rent\|residential rent)[\s\S]{0,1200}(?:sales tax\|use tax\|gross receipts tax\|occupancy tax\|lodging tax\|excise tax\|transient tax\|\bsurcharge\w*\|tax exempt\w*\|exempt from .{0,40}tax)` | 0 | 0 |
+- positive `law:2026-0:ch128:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S03-b6c-rent-tax-everyday-statutes`** — everyday companion: passing a tax through to the tenant; statutes  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:pass\w* (?:the )?tax\|tax (?:on\|upon) (?:the )?rent\|collect\w* (?:the )?tax from\|tax reimbursement\|recover\w* (?:the )?tax)` | 0 | 0 |
+| `\A(?=[\s\S]*(?:\btax\w*\b))(?=[\s\S]*(?:(?:\btenant\b\|\btenants\b)))(?=[\s\S]*(?:(?:\brent\b\|\brents\b)))` | 8 — stat:216B.023, stat:504B.216, stat:504B.285, stat:504B.291 … | 0 |
+- positive `504B.001`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S03-b6h-rent-tax-headings`** — heading screen: a tax-on-rent headnote  
+scope `statutes`, 1305 units, case-sensitive
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:SALES TAX\|USE TAX\|GROSS RECEIPTS\|LODGING TAX\|OCCUPANCY TAX\|TAX ON RENT\|SURCHARGE)` | 0 | 0 |
+- positive `504B.120`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S03-b8-property-tax-rent-disclosure-statutes`** — annual statement of the property-tax portion of rent; certificate of rent paid; statutes  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:certificate of rent paid\|\bCRP\b\|property tax refund\|renter.{0,3}s credit\|renter.{0,3}s refund\|property tax portion\|portion of (?:the )?rent (?:that \|which )?(?:is )?attributable)` | 1 — stat:327C.02 | 0 |
+| `\A(?=[\s\S]*(?:(?:property tax)))(?=[\s\S]*(?:(?:\brent\b\|\brents\b)))(?=[\s\S]*(?:(?:statement\|certificate\|disclos\w+)))` | 1 — stat:327C.095 | 0 |
+- positive `504B.120`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S03-b8-property-tax-rent-disclosure-laws-enacted`** — annual statement of the property-tax portion of rent; certificate of rent paid; laws:enacted  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:certificate of rent paid\|\bCRP\b\|property tax refund\|renter.{0,3}s credit\|renter.{0,3}s refund\|property tax portion\|portion of (?:the )?rent (?:that \|which )?(?:is )?attributable)` | 10 — law:2025-0:ch18:enacted, law:2025-0:ch20:enacted, law:2025-0:ch21:enacted, law:2025-1:ch13:enacted … | 0 |
+- positive `law:2026-0:ch128:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S03-b8c-property-tax-rent-disclosure-everyday-statutes`** — everyday companion: an annual or July statement to a tenant; statutes  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:annual\w* .{0,60}statement\|statement .{0,60}annual\w*\|by July\|each July\|once (?:a\|each) year\|yearly statement)[\s\S]{0,1200}(?:\brent\b\|\brents\b\|residential tenant\|\btenant\b)` | 1 — stat:504B.275 | 0 |
+| `(?:\brent\b\|\brents\b\|residential tenant\|\btenant\b)[\s\S]{0,1200}(?:annual\w* .{0,60}statement\|statement .{0,60}annual\w*\|by July\|each July\|once (?:a\|each) year\|yearly statement)` | 1 — stat:504B.275 | 0 |
+| `\A(?=[\s\S]*(?:(?:annual\w* .{0,60}statement\|statement .{0,60}annual\w*\|by July\|each July\|once (?:a\|each) year\|yearly statement)))(?=[\s\S]*(?:(?:\brent\b\|\brents\b\|residential tenant\|\btenant\b)))` | 3 — stat:144.1222, stat:327C.095, stat:504B.275 | 0 |
+- positive `504B.216`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S03-b8h-property-tax-rent-disclosure-headings`** — heading screen: a property-tax-portion-of-rent disclosure headnote  
+scope `statutes`, 1305 units, case-sensitive
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:CERTIFICATE OF RENT\|PROPERTY TAX\|RENT PAID\|DISCLOSURE)` | 2 — stat:325F.662, stat:325F.71 | 17 |
+- positive `504B.181`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S04-b5-habitability-materiality`** — MN: is there a materiality threshold for a habitability breach, or a seriousness tier?  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:materially\|materiality\|\bmaterial\b\|substantial\w*\|serious\w*\|\bminor\b\|de minimis)[\s\S]{0,1200}(?:habitab\w*\|uninhabitable\|fit for the use\|reasonable repair\|unfit for)` | 0 | 0 |
+| `(?:habitab\w*\|uninhabitable\|fit for the use\|reasonable repair\|unfit for)[\s\S]{0,1200}(?:materially\|materiality\|\bmaterial\b\|substantial\w*\|serious\w*\|\bminor\b\|de minimis)` | 1 — stat:504B.381 | 0 |
+| `\A(?=[\s\S]*(?:(?:materially\|materiality\|\bmaterial\b\|substantial\w*\|serious\w*\|\bminor\b\|de minimis)))(?=[\s\S]*(?:(?:habitab\w*\|uninhabitable\|fit for the use\|reasonable repair\|unfit for)))` | 1 — stat:504B.381 | 0 |
+- positive `504B.381`: passed
+- positive `504B.161`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S04-b5-habitability-materialityL`** — MN: is there a materiality threshold for a habitability breach, or a seriousness tier? | over the 2026 session laws, enacted view  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:materially\|materiality\|\bmaterial\b\|substantial\w*\|serious\w*\|\bminor\b\|de minimis)[\s\S]{0,1200}(?:habitab\w*\|uninhabitable\|fit for the use\|reasonable repair\|unfit for)` | 0 | 0 |
+| `(?:habitab\w*\|uninhabitable\|fit for the use\|reasonable repair\|unfit for)[\s\S]{0,1200}(?:materially\|materiality\|\bmaterial\b\|substantial\w*\|serious\w*\|\bminor\b\|de minimis)` | 1 — law:2025-1:ch9:enacted | 0 |
+- positive `law:2026-0:ch81:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S04-b6-habitability-presumption`** — MN: is any habitability breach, delay or code violation presumed?  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:presum\w*\|prima facie\|rebuttable\|burden of proof\|burden of proving)[\s\S]{0,1200}(?:habitab\w*\|uninhabitable\|fit for the use\|reasonable repair\|unfit for)` | 0 | 0 |
+| `(?:habitab\w*\|uninhabitable\|fit for the use\|reasonable repair\|unfit for)[\s\S]{0,1200}(?:presum\w*\|prima facie\|rebuttable\|burden of proof\|burden of proving)` | 0 | 0 |
+| `\A(?=[\s\S]*(?:(?:presum\w*\|prima facie\|rebuttable\|burden of proof\|burden of proving)))(?=[\s\S]*(?:(?:habitab\w*\|uninhabitable\|fit for the use\|reasonable repair\|unfit for)))` | 0 | 0 |
+- positive `504B.441`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S04-b6-habitability-presumptionL`** — MN: is any habitability breach, delay or code violation presumed? | over the 2026 session laws, enacted view  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:presum\w*\|prima facie\|rebuttable\|burden of proof\|burden of proving)[\s\S]{0,1200}(?:habitab\w*\|uninhabitable\|fit for the use\|reasonable repair\|unfit for)` | 1 — law:2025-0:ch37:enacted | 0 |
+| `(?:habitab\w*\|uninhabitable\|fit for the use\|reasonable repair\|unfit for)[\s\S]{0,1200}(?:presum\w*\|prima facie\|rebuttable\|burden of proof\|burden of proving)` | 1 — law:2025-0:ch37:enacted | 0 |
+- positive `law:2026-0:ch81:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S04-b7-habitability-statement`** — MN: must the lease itself state that the landlord will deliver or keep the unit fit for habitation?  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:must (?:state\|contain\|include\|identify\|disclose)\|shall (?:state\|contain\|include)\|\blease\b must\|in the \blease\b)[\s\S]{0,1200}(?:habitab\w*\|uninhabitable\|fit for the use\|reasonable repair\|unfit for)` | 0 | 0 |
+| `(?:habitab\w*\|uninhabitable\|fit for the use\|reasonable repair\|unfit for)[\s\S]{0,1200}(?:must (?:state\|contain\|include\|identify\|disclose)\|shall (?:state\|contain\|include)\|\blease\b must\|in the \blease\b)` | 1 — stat:504B.381 | 0 |
+| `\A(?=[\s\S]*(?:(?:must (?:state\|contain\|include\|identify\|disclose)\|shall (?:state\|contain\|include)\|\blease\b must\|in the \blease\b)))(?=[\s\S]*(?:(?:habitab\w*\|uninhabitable\|fit for the use\|reasonable repair\|unfit for)))` | 2 — stat:325F.791, stat:504B.381 | 0 |
+- positive `504B.146`: passed
+- positive `504B.161`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S04-b7-habitability-statementL`** — MN: must the lease itself state that the landlord will deliver or keep the unit fit for habitation? | over the 2026 session laws, enacted view  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:must (?:state\|contain\|include\|identify\|disclose)\|shall (?:state\|contain\|include)\|\blease\b must\|in the \blease\b)[\s\S]{0,1200}(?:habitab\w*\|uninhabitable\|fit for the use\|reasonable repair\|unfit for)` | 1 — law:2025-1:ch9:enacted | 0 |
+| `(?:habitab\w*\|uninhabitable\|fit for the use\|reasonable repair\|unfit for)[\s\S]{0,1200}(?:must (?:state\|contain\|include\|identify\|disclose)\|shall (?:state\|contain\|include)\|\blease\b must\|in the \blease\b)` | 1 — law:2025-1:ch9:enacted | 0 |
+- positive `law:2026-0:ch81:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S04-b7E-statement-everyday`** — MN everyday-word companion: does any section require lease wording about a safe, livable or habitable home?  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\blease\b\|rental agreement\|written agreement)[\s\S]{0,1200}(?:safe and (?:healthy\|sanitary)\|good repair\|livable\|liveable\|habitable condition\|fit to live)` | 1 — stat:327C.02 | 0 |
+| `(?:safe and (?:healthy\|sanitary)\|good repair\|livable\|liveable\|habitable condition\|fit to live)[\s\S]{0,1200}(?:\blease\b\|rental agreement\|written agreement)` | 1 — stat:327C.02 | 0 |
+| `\A(?=[\s\S]*(?:(?:\blease\b\|rental agreement\|written agreement)))(?=[\s\S]*(?:(?:safe and (?:healthy\|sanitary)\|good repair\|livable\|liveable\|habitable condition\|fit to live)))` | 1 — stat:327C.02 | 0 |
+- positive `504B.161`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S04-b7E-statement-everydayL`** — MN everyday-word companion: does any section require lease wording about a safe, livable or habitable home? | 2026 session laws, enacted view  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\blease\b\|rental agreement\|written agreement)[\s\S]{0,1200}(?:safe and (?:healthy\|sanitary)\|good repair\|livable\|liveable\|habitable condition\|fit to live)` | 0 | 0 |
+| `(?:safe and (?:healthy\|sanitary)\|good repair\|livable\|liveable\|habitable condition\|fit to live)[\s\S]{0,1200}(?:\blease\b\|rental agreement\|written agreement)` | 0 | 0 |
+- positive `law:2026-0:ch81:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S04-b8-repair-cost-termination`** — MN: any repair-cost threshold letting either party end the lease, or capping a repair remedy by cost?  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:cost\w*\|expense\w*\|percent\|exceeds?\|more than\|greater than\|too (?:costly\|expensive))[\s\S]{0,1200}(?:terminat\w*\|cancel the \blease\b\|end the \blease\b\|vacate and surrender\|rescind\w*\|surrender such a building)` | 25 — stat:144.0724, stat:144.1204, stat:144.125, stat:144.702 … | 0 |
+| `(?:terminat\w*\|cancel the \blease\b\|end the \blease\b\|vacate and surrender\|rescind\w*\|surrender such a building)[\s\S]{0,1200}(?:cost\w*\|expense\w*\|percent\|exceeds?\|more than\|greater than\|too (?:costly\|expensive))` | 31 — stat:144.0724, stat:144.4199, stat:144.553, stat:144.6501 … | 0 |
+| `\A(?=[\s\S]*(?:(?:cost\w*\|expense\w*\|percent\|exceeds?\|more than\|greater than\|too (?:costly\|expensive))))(?=[\s\S]*(?:(?:terminat\w*\|cancel the \blease\b\|end the \blease\b\|vacate and surrender\|rescind\w*\|surrender such a building)))` | 52 — stat:144.0724, stat:144.1204, stat:144.125, stat:144.4199 … | 0 |
+- positive `504B.425`: passed
+- positive `504B.131`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S04-b8-repair-cost-terminationL`** — MN: any repair-cost threshold letting either party end the lease, or capping a repair remedy by cost? | 2026 session laws, enacted view  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:cost\w*\|expense\w*\|percent\|exceeds?\|more than\|greater than\|too (?:costly\|expensive))[\s\S]{0,1200}(?:terminat\w*\|cancel the \blease\b\|end the \blease\b\|vacate and surrender\|rescind\w*\|surrender such a building)` | 39 — law:2025-0:ch15:enacted, law:2025-0:ch16:enacted, law:2025-0:ch20:enacted, law:2025-0:ch21:enacted … | 0 |
+| `(?:terminat\w*\|cancel the \blease\b\|end the \blease\b\|vacate and surrender\|rescind\w*\|surrender such a building)[\s\S]{0,1200}(?:cost\w*\|expense\w*\|percent\|exceeds?\|more than\|greater than\|too (?:costly\|expensive))` | 50 — law:2025-0:ch15:enacted, law:2025-0:ch20:enacted, law:2025-0:ch21:enacted, law:2025-0:ch27:enacted … | 0 |
+- positive `law:2026-0:ch81:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S04-b9-escrow-exemption-notice`** — MN: any exemption from the rent escrow / repair remedies, or any exemption notice a landlord gives?  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:exempt\w*\|does not apply\|do not apply\|opts? out\|not subject to\|inapplicab\w*)[\s\S]{0,1200}(?:escrow\|deposit the amount of \brent\b\|rent escrow\|repair remed\w*)` | 0 | 0 |
+| `(?:escrow\|deposit the amount of \brent\b\|rent escrow\|repair remed\w*)[\s\S]{0,1200}(?:exempt\w*\|does not apply\|do not apply\|opts? out\|not subject to\|inapplicab\w*)` | 1 — stat:484.013 | 0 |
+| `\A(?=[\s\S]*(?:(?:exempt\w*\|does not apply\|do not apply\|opts? out\|not subject to\|inapplicab\w*)))(?=[\s\S]*(?:(?:escrow\|deposit the amount of \brent\b\|rent escrow\|repair remed\w*)))` | 2 — stat:484.013, stat:82.55 | 0 |
+- positive `504B.385`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S04-b9-escrow-exemption-noticeL`** — MN: any exemption from the rent escrow / repair remedies, or any exemption notice a landlord gives? | 2026 session laws, enacted view  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:exempt\w*\|does not apply\|do not apply\|opts? out\|not subject to\|inapplicab\w*)[\s\S]{0,1200}(?:escrow\|deposit the amount of \brent\b\|rent escrow\|repair remed\w*)` | 2 — law:2026-0:ch124:enacted, law:2026-0:ch56:enacted | 0 |
+| `(?:escrow\|deposit the amount of \brent\b\|rent escrow\|repair remed\w*)[\s\S]{0,1200}(?:exempt\w*\|does not apply\|do not apply\|opts? out\|not subject to\|inapplicab\w*)` | 1 — law:2026-0:ch56:enacted | 0 |
+- positive `law:2026-0:ch81:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S04-b9b-small-landlord-unit-threshold`** — MN: any unit-count threshold exempting a small landlord from repair or escrow duties?  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:fewer than\|less than\|not more than\|or fewer\|or less\|four or\|three or\|two or)[\s\S]{0,1200}(?:dwelling units?\|rental units?\|\bunits?\b\|households)` | 18 — stat:144.51, stat:144.9504, stat:144G.08, stat:152.02 … | 0 |
+| `(?:dwelling units?\|rental units?\|\bunits?\b\|households)[\s\S]{0,1200}(?:fewer than\|less than\|not more than\|or fewer\|or less\|four or\|three or\|two or)` | 12 — stat:144.50, stat:152.02, stat:299F.362, stat:299F.46 … | 0 |
+| `\A(?=[\s\S]*(?:(?:fewer than\|less than\|not more than\|or fewer\|or less\|four or\|three or\|two or)))(?=[\s\S]*(?:(?:dwelling units?\|rental units?\|\bunits?\b\|households)))` | 31 — stat:144.121, stat:144.1222, stat:144.50, stat:144.51 … | 0 |
+- positive `504B.216`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S04-b8n-repair-cost-termination-narrowed`** — MN narrowed: three-term run requiring cost AND repair AND termination in the same section (wide run S04-b8 ran first and is logged)  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\A(?=[\s\S]*(?:(?:cost\w*\|expense\w*\|percent\|exceeds?\|more than\|greater than)))(?=[\s\S]*(?:(?:repairs?\|repairing\|rehabilitat\w*\|restor\w*\|remedy the violation)))(?=[\s\S]*(?:(?:terminat\w*\|cancel\w*\|end the \blease\b\|vacate and surrender\|rescind\w*)))` | 21 — stat:144.1204, stat:144.551, stat:144.9503, stat:144.9504 … | 0 |
+| `(?:cost\w*\|expense\w*\|percent\|exceeds?\|more than\|greater than)[\s\S]{0,200}(?:repairs?\|repairing\|rehabilitat\w*\|restor\w*\|remedy the violation)[\s\S]{0,400}(?:terminat\w*\|cancel\w*\|end the \blease\b\|vacate and surrender\|rescind\w*)` | 0 | 0 |
+| `(?:terminat\w*\|cancel\w*\|end the \blease\b\|vacate and surrender\|rescind\w*)[\s\S]{0,400}(?:cost\w*\|expense\w*\|percent\|exceeds?\|more than\|greater than)[\s\S]{0,200}(?:repairs?\|repairing\|rehabilitat\w*\|restor\w*\|remedy the violation)` | 2 — stat:504B.291, stat:504B.445 | 0 |
+- positive `504B.445`: passed
+- positive `504B.425`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S04-b9bn-unit-threshold-near-repair`** — MN narrowed: unit-count threshold in the same section as a repair, escrow or habitability duty (wide run S04-b9b ran first and is logged)  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\A(?=[\s\S]*(?:(?:fewer than\|less than\|not more than\|or fewer\|or less)))(?=[\s\S]*(?:(?:dwelling units?\|rental units?\|households)))(?=[\s\S]*(?:(?:repairs?\|escrow\|habitab\w*\|reasonable repair)))` | 3 — stat:504B.195, stat:504B.216, stat:82.55 | 0 |
+| `(?:fewer than\|less than\|not more than\|or fewer\|or less)[\s\S]{0,1200}(?:dwelling units?\|rental units?\|households)[\s\S]{0,1200}(?:repairs?\|escrow\|habitab\w*)` | 0 | 0 |
+| `(?:repairs?\|escrow\|habitab\w*)[\s\S]{0,1200}(?:fewer than\|less than\|not more than\|or fewer\|or less)[\s\S]{0,1200}(?:dwelling units?\|rental units?\|households)` | 0 | 0 |
+- positive `504B.216`: passed
+- positive `504B.385`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S04-b9H-escrow-heading-screen`** — heading screen: ESCROW / EXEMPT / DISCLOSURE / NOTICE headnotes  
+scope `statutes`, 1305 units, case-sensitive
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `ESCROW` | 0 | 1 |
+| `EXEMPT\w*` | 2 — stat:325F.721, stat:363A.19 | 12 |
+| `DISCLOSURE` | 2 — stat:325F.662, stat:325F.71 | 16 |
+| `NOTICE` | 13 — stat:144.1222, stat:144.385, stat:144.4176, stat:144.6501 … | 18 |
+- positive `504B.385`: passed
+- positive `504B.195`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S04-b9E-escrow-everyday`** — everyday-word companion: rent-into-court plus an owner-occupier or small-landlord exemption  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:pay \brent\b into court\|\brent\b into court\|pay \brent\b to the court\|court administrator)[\s\S]{0,1200}(?:exempt\w*\|does not apply\|small landlord\|owner[- ]occup\w*)` | 0 | 0 |
+| `(?:exempt\w*\|does not apply\|small landlord\|owner[- ]occup\w*)[\s\S]{0,1200}(?:pay \brent\b into court\|\brent\b into court\|pay \brent\b to the court\|court administrator)` | 0 | 0 |
+| `\A(?=[\s\S]*(?:(?:\brent\b into court\|court administrator)))(?=[\s\S]*(?:(?:owner[- ]occup\w*\|small landlord)))` | 0 | 0 |
+- positive `504B.385`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S03-b12-shutdown-rent-protection-statutes`** — rent-timing protection for government workers during a shutdown; statutes  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:shutdown\|shut down\|furlough\w*\|lapse in appropriations\|lapse of appropriations\|government closure\|federal employee\w*\|essential employee\w*\|excepted employee\w*\|unpaid leave)` | 5 — stat:144.50, stat:144A.01, stat:144G.08, stat:245A.02 … | 0 |
+| `\A(?=[\s\S]*(?:(?:shutdown\|shut down\|furlough\w*\|lapse in appropriations\|lapse of appropriations\|government closure\|federal employee\w*\|essential employee\w*\|excepted employee\w*\|unpaid leave)))(?=[\s\S]*(?:(?:\brent\b\|\brents\b\|\btenant\b\|landlord)))` | 1 — stat:363A.28 | 0 |
+- positive `216B.096`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S03-b12-shutdown-rent-protection-laws-enacted`** — rent-timing protection for government workers during a shutdown; laws:enacted  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:shutdown\|shut down\|furlough\w*\|lapse in appropriations\|lapse of appropriations\|government closure\|federal employee\w*\|essential employee\w*\|excepted employee\w*\|unpaid leave)` | 5 — law:2025-1:ch3:enacted, law:2025-1:ch9:enacted, law:2026-0:ch106:enacted, law:2026-0:ch121:enacted … | 0 |
+- positive `law:2026-0:ch81:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S03-b12c-shutdown-rent-protection-everyday-statutes`** — everyday companion: loss of income, emergency, moratorium and rent timing; statutes  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:loss of income\|interruption of income\|delayed (?:pay\|wages\|paycheck)\|emergency (?:assistance\|declaration)\|state of emergency\|natural disaster\|pandemic\|moratorium)[\s\S]{0,1200}(?:\brent\b\|\brents\b\|\btenant\b\|eviction)` | 1 — stat:504B.205 | 0 |
+| `(?:\brent\b\|\brents\b\|\btenant\b\|eviction)[\s\S]{0,1200}(?:loss of income\|interruption of income\|delayed (?:pay\|wages\|paycheck)\|emergency (?:assistance\|declaration)\|state of emergency\|natural disaster\|pandemic\|moratorium)` | 1 — stat:504B.205 | 0 |
+| `\A(?=[\s\S]*(?:(?:loss of income\|interruption of income\|delayed (?:pay\|wages\|paycheck)\|emergency (?:assistance\|declaration)\|state of emergency\|natural disaster\|pandemic\|moratorium)))(?=[\s\S]*(?:(?:\brent\b\|\brents\b\|\btenant\b\|eviction)))` | 1 — stat:504B.205 | 0 |
+- positive `504B.321`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S03-b12h-shutdown-rent-protection-headings`** — heading screen: shutdown / emergency / moratorium headnote  
+scope `statutes`, 1305 units, case-sensitive
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:SHUTDOWN\|FURLOUGH\|MORATORIUM\|EMERGENCY\|APPROPRIATIONS)` | 4 — stat:144.4196, stat:144.74, stat:325F.99, stat:325F.991 | 7 |
+- positive `504B.381`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S04-b11-designated-repairer`** — MN: any rule on who may do the repairs, naming a repair contact or an approved repairer?  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:designat\w*\|approv\w*\|authoriz\w*\|select\w*\|name\w* a (?:contractor\|repairer)\|licensed contractor)[\s\S]{0,1200}(?:perform the repairs?\|make the repairs?\|remedy the violation\|repairs? or maintenance\|specified repairs?)` | 3 — stat:325F.58, stat:325F.665, stat:325F.6653 | 0 |
+| `(?:perform the repairs?\|make the repairs?\|remedy the violation\|repairs? or maintenance\|specified repairs?)[\s\S]{0,1200}(?:designat\w*\|approv\w*\|authoriz\w*\|select\w*\|name\w* a (?:contractor\|repairer)\|licensed contractor)` | 3 — stat:325F.58, stat:325F.62, stat:325F.665 | 0 |
+| `\A(?=[\s\S]*(?:(?:designat\w*\|approv\w*\|authoriz\w*\|select\w*\|name\w* a (?:contractor\|repairer)\|licensed contractor)))(?=[\s\S]*(?:(?:perform the repairs?\|make the repairs?\|remedy the violation\|repairs? or maintenance\|specified repairs?)))` | 6 — stat:325F.58, stat:325F.62, stat:325F.665, stat:325F.6653 … | 0 |
+- positive `504B.425`: passed
+- positive `504B.445`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S04-b11-designated-repairerL`** — MN: any rule on who may do the repairs, naming a repair contact or an approved repairer? | 2026 session laws, enacted view  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:designat\w*\|approv\w*\|authoriz\w*\|select\w*\|name\w* a (?:contractor\|repairer)\|licensed contractor)[\s\S]{0,1200}(?:perform the repairs?\|make the repairs?\|remedy the violation\|repairs? or maintenance\|specified repairs?)` | 1 — law:2025-1:ch15:enacted | 0 |
+| `(?:perform the repairs?\|make the repairs?\|remedy the violation\|repairs? or maintenance\|specified repairs?)[\s\S]{0,1200}(?:designat\w*\|approv\w*\|authoriz\w*\|select\w*\|name\w* a (?:contractor\|repairer)\|licensed contractor)` | 0 | 0 |
+- positive `law:2026-0:ch81:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S04-b12-repair-and-deduct`** — MN: is there a self-help repair-and-deduct or rent-withholding right outside a court order?  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:repair and deduct\|deduct\w*\|withhold\w*\|offset\|set off)[\s\S]{0,1200}(?:from the \brent\b\|\brent\b due\|payment of \brent\b\|\brent\b to remedy)` | 4 — stat:504B.178, stat:504B.216, stat:504B.385, stat:504B.425 | 0 |
+| `(?:from the \brent\b\|\brent\b due\|payment of \brent\b\|\brent\b to remedy)[\s\S]{0,1200}(?:repair and deduct\|deduct\w*\|withhold\w*\|offset\|set off)` | 2 — stat:504B.178, stat:504B.385 | 0 |
+| `\A(?=[\s\S]*(?:(?:repair and deduct\|deduct\w*\|withhold\w*\|offset\|set off)))(?=[\s\S]*(?:(?:from the \brent\b\|\brent\b due\|payment of \brent\b\|\brent\b to remedy)))` | 4 — stat:504B.178, stat:504B.216, stat:504B.385, stat:504B.425 | 0 |
+- positive `504B.425`: passed
+- positive `504B.385`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S06-b1-seasonal-statutes`** — seasonal/vacation/transient tenancy carve-out or special rule, MN S06  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\bseasonal\b\|\bvacation\b\|\btransient\b\|\bresort\b\|\bhotel\b\|\bmotel\b\|\bshort[\s-]?term\s+rental\w*\|\brecreational\b\|\bcampground\b\|\bsummer\s+(?:cottage\|home\|rental)\w*)[\s\S]{0,1200}(?:\btenanc\w+\|\btenant\w*\|\b(?:lease\|leases\|leased\|leasing)\b\|\brental\s+agreement\w*\|\boccupanc\w+)` | 9 — stat:299F.362, stat:299F.51, stat:325D.44, stat:325F.171 … | 0 |
+| `(?:\btenanc\w+\|\btenant\w*\|\b(?:lease\|leases\|leased\|leasing)\b\|\brental\s+agreement\w*\|\boccupanc\w+)[\s\S]{0,1200}(?:\bseasonal\b\|\bvacation\b\|\btransient\b\|\bresort\b\|\bhotel\b\|\bmotel\b\|\bshort[\s-]?term\s+rental\w*\|\brecreational\b\|\bcampground\b\|\bsummer\s+(?:cottage\|home\|rental)\w*)` | 6 — stat:299F.362, stat:299F.51, stat:325F.171, stat:325F.665 … | 1 |
+| `\A(?=[\s\S]*(?:(?:\bseasonal\b\|\bvacation\b\|\btransient\b\|\bresort\b\|\bhotel\b\|\bmotel\b\|\bshort[\s-]?term\s+rental\w*\|\brecreational\b\|\bcampground\b\|\bsummer\s+(?:cottage\|home\|rental)\w*)))(?=[\s\S]*(?:(?:\btenanc\w+\|\btenant\w*\|\b(?:lease\|leases\|leased\|leasing)\b\|\brental\s+agreement\w*\|\boccupanc\w+)))` | 11 — stat:144G.08, stat:299F.362, stat:299F.51, stat:325D.44 … | 1 |
+- positive `504B.211`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S06-b1-seasonal-laws-enacted`** — seasonal/vacation/transient tenancy carve-out or special rule, MN S06  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\bseasonal\b\|\bvacation\b\|\btransient\b\|\bresort\b\|\bhotel\b\|\bmotel\b\|\bshort[\s-]?term\s+rental\w*\|\brecreational\b\|\bcampground\b\|\bsummer\s+(?:cottage\|home\|rental)\w*)[\s\S]{0,1200}(?:\btenanc\w+\|\btenant\w*\|\b(?:lease\|leases\|leased\|leasing)\b\|\brental\s+agreement\w*\|\boccupanc\w+)` | 5 — law:2025-1:ch13:enacted, law:2026-0:ch128:enacted, law:2026-0:ch56:enacted, law:2026-0:ch61:enacted … | 0 |
+| `(?:\btenanc\w+\|\btenant\w*\|\b(?:lease\|leases\|leased\|leasing)\b\|\brental\s+agreement\w*\|\boccupanc\w+)[\s\S]{0,1200}(?:\bseasonal\b\|\bvacation\b\|\btransient\b\|\bresort\b\|\bhotel\b\|\bmotel\b\|\bshort[\s-]?term\s+rental\w*\|\brecreational\b\|\bcampground\b\|\bsummer\s+(?:cottage\|home\|rental)\w*)` | 4 — law:2025-1:ch13:enacted, law:2026-0:ch128:enacted, law:2026-0:ch61:enacted, law:2026-0:ch82:enacted | 0 |
+- positive `laws:2026-0:enacted:81`: **recorded as failed** (unit not found)
+- control `zzqqxxnotaword`: 0 hits
+
+**`S06-b1h-seasonal-headings`** — heading screen, seasonal tenancy MN S06  
+scope `statutes`, 1305 units, case-sensitive
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `SEASONAL\|VACATION\|TRANSIENT\|RESORT\|HOTEL\|MOTEL\|SHORT.TERM\|RECREATIONAL\|CAMPGROUND` | 0 | 2 |
+- positive `327C.015`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S06-b1e-seasonal-everyday`** — everyday-word companion for seasonal tenancy, MN S06  
+scope `all`, 1744 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\bcabin\b\|\bcottage\w*\|\blake\s*(?:home\|shore\|cabin)\w*\|\bguest\s+(?:room\|house)\w*\|\blodging\b\|\bsleeping\s+accommodation\w*)[\s\S]{0,1200}(?:\btenanc\w+\|\btenant\w*\|\b(?:lease\|leases\|leased\|leasing)\b\|\brental\s+agreement\w*\|\boccupanc\w+)` | 13 — law:2025-1:ch13:enacted, law:2025-1:ch13:raw, law:2025-1:ch6:enacted, law:2025-1:ch6:raw … | 0 |
+| `(?:\btenanc\w+\|\btenant\w*\|\b(?:lease\|leases\|leased\|leasing)\b\|\brental\s+agreement\w*\|\boccupanc\w+)[\s\S]{0,1200}(?:\bcabin\b\|\bcottage\w*\|\blake\s*(?:home\|shore\|cabin)\w*\|\bguest\s+(?:room\|house)\w*\|\blodging\b\|\bsleeping\s+accommodation\w*)` | 7 — law:2025-1:ch13:enacted, law:2025-1:ch13:raw, law:2026-0:ch128:enacted, law:2026-0:ch128:raw … | 0 |
+| `\A(?=[\s\S]*(?:(?:\bcabin\b\|\bcottage\w*\|\blodging\b\|\bsleeping\s+accommodation\w*)))(?=[\s\S]*(?:(?:\btenanc\w+\|\btenant\w*\|\b(?:lease\|leases\|leased\|leasing)\b\|\brental\s+agreement\w*\|\boccupanc\w+)))` | 47 — law:2025-0:ch34:enacted, law:2025-0:ch34:raw, law:2025-0:ch38:enacted, law:2025-0:ch38:raw … | 0 |
+- positive `504B.001`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S06-b1-seasonal-laws-enacted-2`** — seasonal/vacation/transient tenancy rule over session laws, MN S06 (rerun of S06-b1-seasonal-laws-enacted whose positive id was wrong)  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\bseasonal\b\|\bvacation\b\|\btransient\b\|\bresort\b\|\bhotel\b\|\bmotel\b\|\bshort[\s-]?term\s+rental\w*\|\brecreational\b\|\bcampground\b\|\bsummer\s+(?:cottage\|home\|rental)\w*)[\s\S]{0,1200}(?:\btenanc\w+\|\btenant\w*\|\b(?:lease\|leases\|leased\|leasing)\b\|\brental\s+agreement\w*\|\boccupanc\w+)` | 5 — law:2025-1:ch13:enacted, law:2026-0:ch128:enacted, law:2026-0:ch56:enacted, law:2026-0:ch61:enacted … | 0 |
+| `(?:\btenanc\w+\|\btenant\w*\|\b(?:lease\|leases\|leased\|leasing)\b\|\brental\s+agreement\w*\|\boccupanc\w+)[\s\S]{0,1200}(?:\bseasonal\b\|\bvacation\b\|\btransient\b\|\bresort\b\|\bhotel\b\|\bmotel\b\|\bshort[\s-]?term\s+rental\w*\|\brecreational\b\|\bcampground\b\|\bsummer\s+(?:cottage\|home\|rental)\w*)` | 4 — law:2025-1:ch13:enacted, law:2026-0:ch128:enacted, law:2026-0:ch61:enacted, law:2026-0:ch82:enacted | 0 |
+- positive `law:2026-0:ch81:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S06-b2-envterm-statutes`** — landlord or tenant lease termination right after an environmental event, MN S06  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\benvironmental\b\|\bcontaminat\w+\|\bmethamphetamine\b\|\bclandestine\s+lab\w*\|\bhazardous\s+substance\w*\|\basbestos\b\|\bradon\b\|\bmold\b\|\bmildew\b\|\blead\s+(?:paint\|hazard)\w*\|\bflood\w*\|\bnatural\s+disaster\w*\|\bact\s+of\s+God\b\|\bforce\s+majeure\b\|\btornado\w*\|\bwildfire\w*\|\bhazard\w*\|\bcondemn\w+\|\buninhabitab\w+\|\bunfit\s+for\s+occupancy\b)[\s\S]{0,1200}(?:\bterminat\w+\|\brescind\w*\|\brescission\b\|\bcancel\w+\|\bvoid\s+the\s+(?:lease\|tenancy)\b\|\bend\s+the\s+(?:lease\|tenancy)\b\|\bvacate\s+and\s+surrender\w*\|\bsurrender\w*)` | 5 — stat:144.496, stat:144.9504, stat:144.98, stat:504B.131 … | 0 |
+| `(?:\bterminat\w+\|\brescind\w*\|\brescission\b\|\bcancel\w+\|\bvoid\s+the\s+(?:lease\|tenancy)\b\|\bend\s+the\s+(?:lease\|tenancy)\b\|\bvacate\s+and\s+surrender\w*\|\bsurrender\w*)[\s\S]{0,1200}(?:\benvironmental\b\|\bcontaminat\w+\|\bmethamphetamine\b\|\bclandestine\s+lab\w*\|\bhazardous\s+substance\w*\|\basbestos\b\|\bradon\b\|\bmold\b\|\bmildew\b\|\blead\s+(?:paint\|hazard)\w*\|\bflood\w*\|\bnatural\s+disaster\w*\|\bact\s+of\s+God\b\|\bforce\s+majeure\b\|\btornado\w*\|\bwildfire\w*\|\bhazard\w*\|\bcondemn\w+\|\buninhabitab\w+\|\bunfit\s+for\s+occupancy\b)` | 3 — stat:144.496, stat:144.9504, stat:504B.178 | 0 |
+| `\A(?=[\s\S]*(?:(?:\benvironmental\b\|\bcontaminat\w+\|\bmethamphetamine\b\|\bclandestine\s+lab\w*\|\bhazardous\s+substance\w*\|\basbestos\b\|\bradon\b\|\bmold\b\|\bmildew\b\|\blead\s+(?:paint\|hazard)\w*\|\bflood\w*\|\bnatural\s+disaster\w*\|\bact\s+of\s+God\b\|\bforce\s+majeure\b\|\btornado\w*\|\bwildfire\w*\|\bhazard\w*\|\bcondemn\w+\|\buninhabitab\w+\|\bunfit\s+for\s+occupancy\b)))(?=[\s\S]*(?:(?:\bterminat\w+\|\brescind\w*\|\brescission\b\|\bcancel\w+\|\bvoid\s+the\s+(?:lease\|tenancy)\b\|\bend\s+the\s+(?:lease\|tenancy)\b\|\bvacate\s+and\s+surrender\w*\|\bsurrender\w*)))` | 8 — stat:144.496, stat:144.551, stat:144.9504, stat:144.98 … | 0 |
+- positive `504B.131`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S06-b2-envterm-laws-enacted`** — landlord or tenant lease termination right after an environmental event, MN S06  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\benvironmental\b\|\bcontaminat\w+\|\bmethamphetamine\b\|\bclandestine\s+lab\w*\|\bhazardous\s+substance\w*\|\basbestos\b\|\bradon\b\|\bmold\b\|\bmildew\b\|\blead\s+(?:paint\|hazard)\w*\|\bflood\w*\|\bnatural\s+disaster\w*\|\bact\s+of\s+God\b\|\bforce\s+majeure\b\|\btornado\w*\|\bwildfire\w*\|\bhazard\w*\|\bcondemn\w+\|\buninhabitab\w+\|\bunfit\s+for\s+occupancy\b)[\s\S]{0,1200}(?:\bterminat\w+\|\brescind\w*\|\brescission\b\|\bcancel\w+\|\bvoid\s+the\s+(?:lease\|tenancy)\b\|\bend\s+the\s+(?:lease\|tenancy)\b\|\bvacate\s+and\s+surrender\w*\|\bsurrender\w*)` | 7 — law:2025-0:ch34:enacted, law:2025-0:ch35:enacted, law:2025-1:ch7:enacted, law:2025-1:ch8:enacted … | 0 |
+| `(?:\bterminat\w+\|\brescind\w*\|\brescission\b\|\bcancel\w+\|\bvoid\s+the\s+(?:lease\|tenancy)\b\|\bend\s+the\s+(?:lease\|tenancy)\b\|\bvacate\s+and\s+surrender\w*\|\bsurrender\w*)[\s\S]{0,1200}(?:\benvironmental\b\|\bcontaminat\w+\|\bmethamphetamine\b\|\bclandestine\s+lab\w*\|\bhazardous\s+substance\w*\|\basbestos\b\|\bradon\b\|\bmold\b\|\bmildew\b\|\blead\s+(?:paint\|hazard)\w*\|\bflood\w*\|\bnatural\s+disaster\w*\|\bact\s+of\s+God\b\|\bforce\s+majeure\b\|\btornado\w*\|\bwildfire\w*\|\bhazard\w*\|\bcondemn\w+\|\buninhabitab\w+\|\bunfit\s+for\s+occupancy\b)` | 10 — law:2025-0:ch20:enacted, law:2025-1:ch3:enacted, law:2025-1:ch4:enacted, law:2025-1:ch8:enacted … | 0 |
+- positive `law:2026-0:ch81:enacted`: **recorded as failed** (pattern did not match in the named unit)
+- control `zzqqxxnotaword`: 0 hits
+
+**`S06-b2h-envterm-headings`** — heading screen, environmental-event termination MN S06  
+scope `statutes`, 1305 units, case-sensitive
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `ENVIRONMENTAL\|CONTAMINAT\|METHAMPHETAMINE\|HAZARD\|ASBESTOS\|RADON\|MOLD\|FLOOD\|DISASTER\|CONDEMN\|UNINHABITABLE\|UNFIT` | 8 — stat:144.12, stat:144.495, stat:144.496, stat:144.966 … | 16 |
+- positive `504B.131`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S06-b2e-envterm-everyday`** — everyday-word companion, environmental-event termination MN S06, chapter 504B whole  
+scope `statutes:504B`, 97 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\bfire\b\|\bsmoke\s+damage\b\|\bwater\s+damage\b\|\bsewage\b\|\bgas\s+leak\w*\|\bsinkhole\b\|\bdestroy\w+\|\bdamage\w*\|\bspill\w*\|\bleak\w*)[\s\S]{0,1200}(?:\bterminat\w+\|\brescind\w*\|\brescission\b\|\bcancel\w+\|\bvoid\s+the\s+(?:lease\|tenancy)\b\|\bend\s+the\s+(?:lease\|tenancy)\b\|\bvacate\s+and\s+surrender\w*\|\bsurrender\w*)` | 5 — stat:504B.131, stat:504B.178, stat:504B.206, stat:504B.231 … | 0 |
+| `(?:\bterminat\w+\|\brescind\w*\|\brescission\b\|\bcancel\w+\|\bvoid\s+the\s+(?:lease\|tenancy)\b\|\bend\s+the\s+(?:lease\|tenancy)\b\|\bvacate\s+and\s+surrender\w*\|\bsurrender\w*)[\s\S]{0,1200}(?:\bfire\b\|\bsmoke\s+damage\b\|\bwater\s+damage\b\|\bsewage\b\|\bgas\s+leak\w*\|\bsinkhole\b\|\bdestroy\w+\|\bdamage\w*\|\bspill\w*\|\bleak\w*)` | 7 — stat:504B.153, stat:504B.178, stat:504B.206, stat:504B.211 … | 0 |
+| `\A(?=[\s\S]*(?:(?:\bdestroy\w+\|\bsewage\b\|\bsmoke\s+damage\b\|\bwater\s+damage\b)))(?=[\s\S]*(?:(?:\bterminat\w+\|\brescind\w*\|\brescission\b\|\bcancel\w+\|\bvoid\s+the\s+(?:lease\|tenancy)\b\|\bend\s+the\s+(?:lease\|tenancy)\b\|\bvacate\s+and\s+surrender\w*\|\bsurrender\w*)))` | 1 — stat:504B.131 | 0 |
+- positive `504B.131`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S06-b2-envterm-laws-enacted-2`** — environmental-event lease termination over session laws, MN S06 (rerun of S06-b2-envterm-laws-enacted whose positive pattern did not match the named unit)  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\benvironmental\b\|\bcontaminat\w+\|\bmethamphetamine\b\|\bclandestine\s+lab\w*\|\bhazardous\s+substance\w*\|\basbestos\b\|\bradon\b\|\bmold\b\|\bmildew\b\|\blead\s+(?:paint\|hazard)\w*\|\bflood\w*\|\bnatural\s+disaster\w*\|\bact\s+of\s+God\b\|\bforce\s+majeure\b\|\btornado\w*\|\bwildfire\w*\|\bhazard\w*\|\bcondemn\w+\|\buninhabitab\w+\|\bunfit\s+for\s+occupancy\b)[\s\S]{0,1200}(?:\bterminat\w+\|\brescind\w*\|\brescission\b\|\bcancel\w+\|\bvoid\s+the\s+(?:lease\|tenancy)\b\|\bend\s+the\s+(?:lease\|tenancy)\b\|\bvacate\s+and\s+surrender\w*\|\bsurrender\w*)` | 7 — law:2025-0:ch34:enacted, law:2025-0:ch35:enacted, law:2025-1:ch7:enacted, law:2025-1:ch8:enacted … | 0 |
+| `(?:\bterminat\w+\|\brescind\w*\|\brescission\b\|\bcancel\w+\|\bvoid\s+the\s+(?:lease\|tenancy)\b\|\bend\s+the\s+(?:lease\|tenancy)\b\|\bvacate\s+and\s+surrender\w*\|\bsurrender\w*)[\s\S]{0,1200}(?:\benvironmental\b\|\bcontaminat\w+\|\bmethamphetamine\b\|\bclandestine\s+lab\w*\|\bhazardous\s+substance\w*\|\basbestos\b\|\bradon\b\|\bmold\b\|\bmildew\b\|\blead\s+(?:paint\|hazard)\w*\|\bflood\w*\|\bnatural\s+disaster\w*\|\bact\s+of\s+God\b\|\bforce\s+majeure\b\|\btornado\w*\|\bwildfire\w*\|\bhazard\w*\|\bcondemn\w+\|\buninhabitab\w+\|\bunfit\s+for\s+occupancy\b)` | 10 — law:2025-0:ch20:enacted, law:2025-1:ch3:enacted, law:2025-1:ch4:enacted, law:2025-1:ch8:enacted … | 0 |
+- positive `law:2026-0:ch88:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S05-b4-tenant-designated-agent-service`** — may a residential lease name a person to accept eviction court papers FOR THE TENANT in Minnesota  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\btenant\w*\|\blessee\w*\|\bdefendant\w*\|\boccupant\w*)[\s\S]{0,1200}(?:agent\s+authorized\|accept service\|authorized to accept\|designat\w+[\s\S]{0,40}(?:agent\|address\|person)\|agent for service)` | 5 — stat:145A.04, stat:325F.784, stat:504B.181, stat:518B.01 … | 0 |
+| `(?:agent\s+authorized\|accept service\|authorized to accept\|designat\w+[\s\S]{0,40}(?:agent\|address\|person)\|agent for service)[\s\S]{0,1200}(?:\btenant\w*\|\blessee\w*\|\bdefendant\w*\|\boccupant\w*)` | 1 — stat:504B.181 | 0 |
+| `\A(?=[\s\S]*(?:(?:agent\s+authorized\|accept service\|authorized to accept\|designat\w+[\s\S]{0,40}(?:agent\|address\|person)\|agent for service)))(?=[\s\S]*(?:(?:\btenant\w*\|\blessee\w*\|\bdefendant\w*\|\boccupant\w*)))` | 9 — stat:145A.04, stat:325F.784, stat:363A.03, stat:504B.181 … | 0 |
+- positive `504B.181`: passed
+- positive `504B.332`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S05-b4-service-heading-screen`** — heading screen for service-related headnotes  
+scope `statutes`, 1305 units, case-sensitive
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bSERVED\b` | 2 — stat:504B.332, stat:559.21 | 0 |
+| `SERVICE OF` | 1 — stat:559.21 | 1 |
+| `\bSUMMONS\b` | 2 — stat:504B.321, stat:504B.401 | 3 |
+- positive `504B.332`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S05-b4r3-tenant-designated-agent-service`** — rerun of S05-b4 with a flat alternation (the first run nested a 40-char window inside the term, which the lint flags): may a residential lease name a person to accept eviction court papers for the tenant  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\btenant\w*\|\blessee\w*\|\bdefendant\w*\|\boccupant\w*)[\s\S]{0,1200}(?:agent\s+authorized\|accept service\|authorized to accept\|agent for service\|designated\s+agent\|designates?\s+the\s+following\s+address\|address\s+designated)` | 3 — stat:145A.04, stat:325F.784, stat:504B.181 | 0 |
+| `(?:agent\s+authorized\|accept service\|authorized to accept\|agent for service\|designated\s+agent\|designates?\s+the\s+following\s+address\|address\s+designated)[\s\S]{0,1200}(?:\btenant\w*\|\blessee\w*\|\bdefendant\w*\|\boccupant\w*)` | 1 — stat:504B.181 | 0 |
+| `\A(?=[\s\S]*(?:(?:agent\s+authorized\|accept service\|authorized to accept\|agent for service\|designated\s+agent\|designates?\s+the\s+following\s+address\|address\s+designated)))(?=[\s\S]*(?:(?:\btenant\w*\|\blessee\w*\|\bdefendant\w*\|\boccupant\w*)))` | 6 — stat:145A.04, stat:325F.784, stat:363A.03, stat:504B.181 … | 0 |
+- positive `504B.181`: passed
+- positive `504B.332`: passed
+- positive `145A.04`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S05-b4r3-tenant-designated-agent-service-laws`** — rerun of S05-b4 with a flat alternation (the first run nested a 40-char window inside the term, which the lint flags): may a residential lease name a person to accept eviction court papers for the tenant  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\btenant\w*\|\blessee\w*\|\bdefendant\w*\|\boccupant\w*)[\s\S]{0,1200}(?:agent\s+authorized\|accept service\|authorized to accept\|agent for service\|designated\s+agent\|designates?\s+the\s+following\s+address\|address\s+designated)` | 0 | 0 |
+| `(?:agent\s+authorized\|accept service\|authorized to accept\|agent for service\|designated\s+agent\|designates?\s+the\s+following\s+address\|address\s+designated)[\s\S]{0,1200}(?:\btenant\w*\|\blessee\w*\|\bdefendant\w*\|\boccupant\w*)` | 0 | 0 |
+- positive `law:2026-0:ch81:enacted`: passed
+- positive `law:2025-1:ch3:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S06-b0-amendscreen-laws`** — which 2025-2026 acts amend the sections this slice relies on, MN S06  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `section\s+504B\.151` | 0 | 0 |
+| `section\s+504B\.144` | 0 | 0 |
+| `section\s+504B\.145` | 0 | 0 |
+| `section\s+504B\.146` | 0 | 0 |
+| `section\s+504B\.147` | 0 | 0 |
+| `section\s+504B\.135` | 0 | 0 |
+| `section\s+504B\.141` | 0 | 0 |
+| `section\s+504B\.255` | 0 | 0 |
+| `section\s+504B\.251` | 0 | 0 |
+| `section\s+504B\.265` | 0 | 0 |
+| `section\s+504B\.266` | 0 | 0 |
+| `section\s+504B\.206` | 1 — law:2025-0:ch32:enacted | 0 |
+| `section\s+504B\.131` | 0 | 0 |
+| `section\s+504B\.154` | 0 | 0 |
+| `section\s+504B\.153` | 0 | 0 |
+- positive `law:2026-0:ch88:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S06-b5-leaseinitials-statutes`** — requirement that a tenant initial, separately sign or conspicuously acknowledge a lease provision, MN S06  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\binitial(?:ed\|ing\|led\|lling)\b\|\binitials\b\|\bseparately\s+(?:sign\w*\|initial\w*\|acknowledg\w*)\|\bseparate\s+(?:signature\|writing\|document\|page\|acknowledgment\|acknowledgement)\w*\|\bsigned\s+separately\b\|\bseparately\s+executed\b\|\backnowledged\s+in\s+writing\b\|\bconspicuous\w*\|\bbold(?:face\|\s*face\|ed)?\b\|\bcapital\s+letters\b\|\bunderlined\b\|\btype\s+size\b\|\bpoint\s+type\b\|\b(?:ten\|12\|14)[\s-]point\b)[\s\S]{0,1200}(?:\b(?:lease\|leases)\b\|\brental\s+agreement\w*\|\bwritten\s+agreement\w*\|\btenanc\w+\|\bprovision\w*\|\bclause\w*\|\bterm\s+of\s+the\s+(?:lease\|agreement)\b)` | 17 — stat:144.4195, stat:144.615, stat:144.652, stat:299F.40 … | 0 |
+| `(?:\b(?:lease\|leases)\b\|\brental\s+agreement\w*\|\bwritten\s+agreement\w*\|\btenanc\w+\|\bprovision\w*\|\bclause\w*\|\bterm\s+of\s+the\s+(?:lease\|agreement)\b)[\s\S]{0,1200}(?:\binitial(?:ed\|ing\|led\|lling)\b\|\binitials\b\|\bseparately\s+(?:sign\w*\|initial\w*\|acknowledg\w*)\|\bseparate\s+(?:signature\|writing\|document\|page\|acknowledgment\|acknowledgement)\w*\|\bsigned\s+separately\b\|\bseparately\s+executed\b\|\backnowledged\s+in\s+writing\b\|\bconspicuous\w*\|\bbold(?:face\|\s*face\|ed)?\b\|\bcapital\s+letters\b\|\bunderlined\b\|\btype\s+size\b\|\bpoint\s+type\b\|\b(?:ten\|12\|14)[\s-]point\b)` | 18 — stat:144.1222, stat:144.292, stat:144.295, stat:144.6501 … | 0 |
+| `\A(?=[\s\S]*(?:(?:\binitial(?:ed\|ing\|led\|lling)\b\|\binitials\b\|\bseparately\s+(?:sign\w*\|initial\w*\|acknowledg\w*)\|\bseparate\s+(?:signature\|writing\|document\|page\|acknowledgment\|acknowledgement)\w*\|\bsigned\s+separately\b\|\bseparately\s+executed\b\|\backnowledged\s+in\s+writing\b\|\bconspicuous\w*\|\bbold(?:face\|\s*face\|ed)?\b\|\bcapital\s+letters\b\|\bunderlined\b\|\btype\s+size\b\|\bpoint\s+type\b\|\b(?:ten\|12\|14)[\s-]point\b)))(?=[\s\S]*(?:(?:\b(?:lease\|leases)\b\|\brental\s+agreement\w*\|\bwritten\s+agreement\w*\|\btenanc\w+\|\bprovision\w*\|\bclause\w*\|\bterm\s+of\s+the\s+(?:lease\|agreement)\b)))(?=[\s\S]*(?:(?:\blandlord\w*\|\btenant\w*)))` | 10 — stat:504B.115, stat:504B.161, stat:504B.175, stat:504B.181 … | 0 |
+- positive `504B.181`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S06-b5-leaseinitials-laws-enacted`** — requirement that a tenant initial, separately sign or conspicuously acknowledge a lease provision, MN S06  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\binitial(?:ed\|ing\|led\|lling)\b\|\binitials\b\|\bseparately\s+(?:sign\w*\|initial\w*\|acknowledg\w*)\|\bseparate\s+(?:signature\|writing\|document\|page\|acknowledgment\|acknowledgement)\w*\|\bsigned\s+separately\b\|\bseparately\s+executed\b\|\backnowledged\s+in\s+writing\b\|\bconspicuous\w*\|\bbold(?:face\|\s*face\|ed)?\b\|\bcapital\s+letters\b\|\bunderlined\b\|\btype\s+size\b\|\bpoint\s+type\b\|\b(?:ten\|12\|14)[\s-]point\b)[\s\S]{0,1200}(?:\b(?:lease\|leases)\b\|\brental\s+agreement\w*\|\bwritten\s+agreement\w*\|\btenanc\w+\|\bprovision\w*\|\bclause\w*\|\bterm\s+of\s+the\s+(?:lease\|agreement)\b)` | 7 — law:2025-0:ch11:enacted, law:2025-0:ch38:enacted, law:2025-0:ch39:enacted, law:2025-1:ch15:enacted … | 0 |
+| `(?:\b(?:lease\|leases)\b\|\brental\s+agreement\w*\|\bwritten\s+agreement\w*\|\btenanc\w+\|\bprovision\w*\|\bclause\w*\|\bterm\s+of\s+the\s+(?:lease\|agreement)\b)[\s\S]{0,1200}(?:\binitial(?:ed\|ing\|led\|lling)\b\|\binitials\b\|\bseparately\s+(?:sign\w*\|initial\w*\|acknowledg\w*)\|\bseparate\s+(?:signature\|writing\|document\|page\|acknowledgment\|acknowledgement)\w*\|\bsigned\s+separately\b\|\bseparately\s+executed\b\|\backnowledged\s+in\s+writing\b\|\bconspicuous\w*\|\bbold(?:face\|\s*face\|ed)?\b\|\bcapital\s+letters\b\|\bunderlined\b\|\btype\s+size\b\|\bpoint\s+type\b\|\b(?:ten\|12\|14)[\s-]point\b)` | 13 — law:2025-0:ch20:enacted, law:2025-0:ch2:enacted, law:2025-0:ch34:enacted, law:2025-0:ch38:enacted … | 0 |
+- positive `law:2026-0:ch88:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S06-b5h-leaseinitials-headings`** — heading screen, lease initials / separate signature MN S06  
+scope `statutes`, 1305 units, case-sensitive
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `INITIAL\|SIGNATURE\|SIGNED\|CONSPICUOUS\|ACKNOWLEDG\|WRITTEN LEASE\|LEASE DURATION\|DISCLOSURE` | 2 — stat:325F.662, stat:325F.71 | 19 |
+- positive `504B.111`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S06-b5e-leaseinitials-everyday`** — everyday-word companion, lease signature/initials MN S06  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\bsign\s+(?:his\|her\|their)\s+(?:name\|initials)\b\|\bwrite\s+(?:his\|her\|their)\s+initials\b\|\bset\s+(?:his\|her\|their)\s+hand\b\|\bmust\s+be\s+signed\s+by\s+the\s+tenant\b\|\btenant\W{0,3}s?\s+signature\b)[\s\S]{0,1200}(?:\b(?:lease\|leases)\b\|\brental\s+agreement\w*\|\bwritten\s+agreement\w*\|\btenanc\w+\|\bprovision\w*\|\bclause\w*\|\bterm\s+of\s+the\s+(?:lease\|agreement)\b)` | 0 | 0 |
+| `(?:\b(?:lease\|leases)\b\|\brental\s+agreement\w*\|\bwritten\s+agreement\w*\|\btenanc\w+\|\bprovision\w*\|\bclause\w*\|\bterm\s+of\s+the\s+(?:lease\|agreement)\b)[\s\S]{0,1200}(?:\bmust\s+be\s+signed\s+by\s+the\s+tenant\b\|\btenant\W{0,3}s?\s+signature\b\|\bsigned\s+by\s+both\s+parties\b)` | 1 — stat:504B.385 | 0 |
+| `\A(?=[\s\S]*(?:\btenant\W{0,3}s?\s+signature\b))(?=[\s\S]*(?:(?:\b(?:lease\|leases)\b\|\brental\s+agreement\w*\|\bwritten\s+agreement\w*\|\btenanc\w+\|\bprovision\w*\|\bclause\w*\|\bterm\s+of\s+the\s+(?:lease\|agreement)\b)))` | 0 | 0 |
+- positive `504B.111`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S05-b9-lockout-for-rent-statutes`** — is there an opt-in self-help lockout for delinquent rent in Minnesota, and what is the lockout universe  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\block\b\|\blocks\b\|\blockout\b\|\block-out\b\|\blocked\b\|\blocking\b\|\bkey\b\|\bkeys\b\|\brekey\w*\|\bre-key\w*\|change the lock)[\s\S]{0,1200}(?:\brent\b\|\bdelinquen\w*\|\barrears\b\|nonpayment\|non-payment\|\boverdue\b)` | 1 — stat:144.651 | 0 |
+| `(?:\brent\b\|\bdelinquen\w*\|\barrears\b\|nonpayment\|non-payment\|\boverdue\b)[\s\S]{0,1200}(?:\block\b\|\blocks\b\|\blockout\b\|\block-out\b\|\blocked\b\|\blocking\b\|\bkey\b\|\bkeys\b\|\brekey\w*\|\bre-key\w*\|change the lock)` | 0 | 0 |
+| `\A(?=[\s\S]*(?:(?:\block\b\|\blocks\b\|\blockout\b\|\block-out\b\|\blocked\b\|\blocking\b\|\bkey\b\|\bkeys\b\|\brekey\w*\|\bre-key\w*\|change the lock)))(?=[\s\S]*(?:(?:\brent\b\|\bdelinquen\w*\|\barrears\b\|nonpayment\|non-payment\|\boverdue\b)))` | 3 — stat:144.651, stat:504B.375, stat:82.55 | 0 |
+- positive `504B.375`: passed
+- positive `504B.225`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S05-b9-lockout-for-rent-laws`** — same, over the session laws  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\block\b\|\blocks\b\|\blockout\b\|\block-out\b\|\blocked\b\|\blocking\b\|\bkey\b\|\bkeys\b\|\brekey\w*\|\bre-key\w*\|change the lock)[\s\S]{0,1200}(?:\brent\b\|\bdelinquen\w*\|\barrears\b\|nonpayment\|non-payment\|\boverdue\b)` | 0 | 0 |
+| `(?:\brent\b\|\bdelinquen\w*\|\barrears\b\|nonpayment\|non-payment\|\boverdue\b)[\s\S]{0,1200}(?:\block\b\|\blocks\b\|\blockout\b\|\block-out\b\|\blocked\b\|\blocking\b\|\bkey\b\|\bkeys\b\|\brekey\w*\|\bre-key\w*\|change the lock)` | 0 | 0 |
+- positive `law:2026-0:ch81:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S05-b9-exclusion-everyday-companion`** — everyday-word companion for the lockout topic: exclude/ouster/remove/forcibly keeps out/self-help near rent terms  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\bexclud\w*\|\bexclusion\b\|\bouster\b\|\boust\w*\|\bremov\w*\|forcibly keeps out\|self-help\|\bsurrender\b)[\s\S]{0,1200}(?:\brent\b\|\bdelinquen\w*\|\barrears\b\|nonpayment\|non-payment\|\boverdue\b)` | 10 — stat:144.9504, stat:327C.02, stat:327C.03, stat:327C.08 … | 0 |
+| `(?:\brent\b\|\bdelinquen\w*\|\barrears\b\|nonpayment\|non-payment\|\boverdue\b)[\s\S]{0,1200}(?:\bexclud\w*\|\bexclusion\b\|\bouster\b\|\boust\w*\|\bremov\w*\|forcibly keeps out\|self-help\|\bsurrender\b)` | 15 — stat:327C.02, stat:327C.03, stat:327C.08, stat:327C.09 … | 0 |
+| `\A(?=[\s\S]*(?:(?:\bexclud\w*\|\bexclusion\b\|\bouster\b\|\boust\w*\|\bremov\w*\|forcibly keeps out\|self-help\|\bsurrender\b)))(?=[\s\S]*(?:(?:\brent\b\|\bdelinquen\w*\|\barrears\b\|nonpayment\|non-payment\|\boverdue\b)))` | 28 — stat:144.1222, stat:144.6502, stat:144.9504, stat:216B.096 … | 0 |
+- positive `504B.231`: passed
+- positive `504B.375`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S05-b9-lockout-heading-screen`** — heading screen for LOCK/EXCLUSION/OUSTER/UTILITIES headnotes  
+scope `statutes`, 1305 units, case-sensitive
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bLOCK` | 0 | 0 |
+| `\bEXCLUSION\b` | 0 | 1 |
+| `\bOUSTER\b` | 2 — stat:504B.212, stat:504B.231 | 1 |
+| `\bUTILITIES\b` | 1 — stat:504B.212 | 2 |
+- positive `504B.375`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S05-b11-rent-acceleration-statutes`** — does Minnesota allow or regulate rent acceleration or liquidated damages on a residential lease termination  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\bacceleration\b\|\baccelerat\w*\|liquidated damages\|balance of the (?:term\|lease)\|remainder of the (?:term\|lease)\|rent for the (?:entire\|whole\|remaining))[\s\S]{0,1200}(?:\blease\w*\|\btenanc\w*\|\btenant\w*\|\brent\b)` | 2 — stat:504B.151, stat:504B.177 | 0 |
+| `(?:\blease\w*\|\btenanc\w*\|\btenant\w*\|\brent\b)[\s\S]{0,1200}(?:\bacceleration\b\|\baccelerat\w*\|liquidated damages\|balance of the (?:term\|lease)\|remainder of the (?:term\|lease)\|rent for the (?:entire\|whole\|remaining))` | 2 — stat:504B.151, stat:504B.177 | 0 |
+| `\A(?=[\s\S]*(?:(?:\bacceleration\b\|\baccelerat\w*\|liquidated damages\|balance of the (?:term\|lease)\|remainder of the (?:term\|lease)\|rent for the (?:entire\|whole\|remaining))))(?=[\s\S]*(?:(?:\blease\w*\|\btenanc\w*\|\btenant\w*\|\brent\b)))` | 2 — stat:504B.151, stat:504B.177 | 0 |
+- positive `504B.154`: passed
+- positive `325F.89`: **recorded as failed** (pattern did not match in the named unit)
+- control `zzqqxxnotaword`: 0 hits
+
+**`S05-b11-rent-acceleration-laws`** — same, over the session laws  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\bacceleration\b\|\baccelerat\w*\|liquidated damages\|balance of the (?:term\|lease)\|remainder of the (?:term\|lease)\|rent for the (?:entire\|whole\|remaining))[\s\S]{0,1200}(?:\blease\w*\|\btenanc\w*\|\btenant\w*\|\brent\b)` | 1 — law:2026-0:ch104:enacted | 0 |
+| `(?:\blease\w*\|\btenanc\w*\|\btenant\w*\|\brent\b)[\s\S]{0,1200}(?:\bacceleration\b\|\baccelerat\w*\|liquidated damages\|balance of the (?:term\|lease)\|remainder of the (?:term\|lease)\|rent for the (?:entire\|whole\|remaining))` | 0 | 0 |
+- positive `law:2026-0:ch81:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S05-b11r-rent-acceleration-statutes`** — rerun of S05-b11 with a valid second positive (the first named 325F.89, which contains no acceleration term): no Minnesota statute authorises or regulates residential rent acceleration  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\bacceleration\b\|\baccelerat\w*\|liquidated damages\|balance of the (?:term\|lease)\|remainder of the (?:term\|lease)\|rent for the (?:entire\|whole\|remaining))[\s\S]{0,1200}(?:\blease\w*\|\btenanc\w*\|\btenant\w*\|\brent\b)` | 2 — stat:504B.151, stat:504B.177 | 0 |
+| `(?:\blease\w*\|\btenanc\w*\|\btenant\w*\|\brent\b)[\s\S]{0,1200}(?:\bacceleration\b\|\baccelerat\w*\|liquidated damages\|balance of the (?:term\|lease)\|remainder of the (?:term\|lease)\|rent for the (?:entire\|whole\|remaining))` | 2 — stat:504B.151, stat:504B.177 | 0 |
+| `\A(?=[\s\S]*(?:(?:\bacceleration\b\|\baccelerat\w*\|liquidated damages\|balance of the (?:term\|lease)\|remainder of the (?:term\|lease)\|rent for the (?:entire\|whole\|remaining))))(?=[\s\S]*(?:(?:\blease\w*\|\btenanc\w*\|\btenant\w*\|\brent\b)))` | 2 — stat:504B.151, stat:504B.177 | 0 |
+| `(?:\bacceleration\b\|\baccelerat\w*\|liquidated damages\|balance of the (?:term\|lease)\|remainder of the (?:term\|lease)\|rent for the (?:entire\|whole\|remaining))` | 5 — stat:144.1201, stat:144.1205, stat:144.121, stat:504B.151 … | 0 |
+- positive `504B.154`: passed
+- positive `504B.177`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S06-b10-noticecontent-statutes`** — rules on the required or forbidden CONTENT of a termination, quit or move-out notice, MN S06  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\bmust\s+include\b\|\bshall\s+include\b\|\bmust\s+(?:contain\|state\|specify)\b\|\bshall\s+(?:contain\|state\|specify)\b\|\bfollowing\s+statement\b\|\bmust\s+be\s+in\s+substantially\s+the\s+following\b\|\bform\s+of\s+the\s+notice\b\|\bcontents?\s+of\s+the\s+notice\b\|\badditional\s+terms?\b\|\bmay\s+not\s+(?:include\|contain\|add)\b)[\s\S]{0,1200}(?:\bnotice\s+to\s+quit\b\|\bnotice\s+to\s+vacate\b\|\bnotice\s+of\s+termination\b\|\bwritten\s+notice\b\|\bnotice\s+in\s+writing\b\|\bmove\W?out\s+(?:form\|notice)\w*\|\bnotice\b)` | 54 — stat:144.217, stat:144.292, stat:144.414, stat:144.4195 … | 0 |
+| `(?:\bnotice\s+to\s+quit\b\|\bnotice\s+to\s+vacate\b\|\bnotice\s+of\s+termination\b\|\bwritten\s+notice\b\|\bnotice\s+in\s+writing\b\|\bmove\W?out\s+(?:form\|notice)\w*\|\bnotice\b)[\s\S]{0,1200}(?:\bmust\s+include\b\|\bshall\s+include\b\|\bmust\s+(?:contain\|state\|specify)\b\|\bshall\s+(?:contain\|state\|specify)\b\|\bfollowing\s+statement\b\|\bmust\s+be\s+in\s+substantially\s+the\s+following\b\|\bform\s+of\s+the\s+notice\b\|\bcontents?\s+of\s+the\s+notice\b\|\badditional\s+terms?\b\|\bmay\s+not\s+(?:include\|contain\|add)\b)` | 50 — stat:144.0724, stat:144.292, stat:144.293, stat:144.4176 … | 0 |
+| `\A(?=[\s\S]*(?:(?:\bmust\s+include\b\|\bshall\s+include\b\|\bmust\s+(?:contain\|state\|specify)\b\|\bshall\s+(?:contain\|state\|specify)\b\|\bfollowing\s+statement\b\|\bmust\s+be\s+in\s+substantially\s+the\s+following\b\|\bform\s+of\s+the\s+notice\b\|\bcontents?\s+of\s+the\s+notice\b\|\badditional\s+terms?\b\|\bmay\s+not\s+(?:include\|contain\|add)\b)))(?=[\s\S]*(?:(?:\bnotice\s+to\s+quit\b\|\bnotice\s+to\s+vacate\b\|\bnotice\s+of\s+termination\b\|\bwritten\s+notice\b\|\bnotice\s+in\s+writing\b\|\bmove\W?out\s+(?:form\|notice)\w*\|\bnotice\b)))(?=[\s\S]*(?:(?:\btenanc\w+\|\btenant\w*)))(?=[\s\S]*(?:\blandlord\w*))` | 12 — stat:216B.023, stat:327C.16, stat:484.013, stat:504B.178 … | 0 |
+- positive `504B.321`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S06-b10-noticecontent-laws-enacted`** — rules on the required or forbidden CONTENT of a termination, quit or move-out notice, MN S06  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\bmust\s+include\b\|\bshall\s+include\b\|\bmust\s+(?:contain\|state\|specify)\b\|\bshall\s+(?:contain\|state\|specify)\b\|\bfollowing\s+statement\b\|\bmust\s+be\s+in\s+substantially\s+the\s+following\b\|\bform\s+of\s+the\s+notice\b\|\bcontents?\s+of\s+the\s+notice\b\|\badditional\s+terms?\b\|\bmay\s+not\s+(?:include\|contain\|add)\b)[\s\S]{0,1200}(?:\bnotice\s+to\s+quit\b\|\bnotice\s+to\s+vacate\b\|\bnotice\s+of\s+termination\b\|\bwritten\s+notice\b\|\bnotice\s+in\s+writing\b\|\bmove\W?out\s+(?:form\|notice)\w*\|\bnotice\b)` | 43 — law:2025-0:ch11:enacted, law:2025-0:ch15:enacted, law:2025-0:ch18:enacted, law:2025-0:ch20:enacted … | 0 |
+| `(?:\bnotice\s+to\s+quit\b\|\bnotice\s+to\s+vacate\b\|\bnotice\s+of\s+termination\b\|\bwritten\s+notice\b\|\bnotice\s+in\s+writing\b\|\bmove\W?out\s+(?:form\|notice)\w*\|\bnotice\b)[\s\S]{0,1200}(?:\bmust\s+include\b\|\bshall\s+include\b\|\bmust\s+(?:contain\|state\|specify)\b\|\bshall\s+(?:contain\|state\|specify)\b\|\bfollowing\s+statement\b\|\bmust\s+be\s+in\s+substantially\s+the\s+following\b\|\bform\s+of\s+the\s+notice\b\|\bcontents?\s+of\s+the\s+notice\b\|\badditional\s+terms?\b\|\bmay\s+not\s+(?:include\|contain\|add)\b)` | 49 — law:2025-0:ch11:enacted, law:2025-0:ch15:enacted, law:2025-0:ch18:enacted, law:2025-0:ch20:enacted … | 0 |
+- positive `law:2026-0:ch81:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S06-b10h-noticecontent-headings`** — heading screen over chapter 504B whole, notice content MN S06  
+scope `statutes:504B`, 97 units, case-sensitive
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `NOTICE\|FORM\|CONTENT\|STATEMENT\|VACAT\|QUIT\|INSPECTION` | 5 — stat:504B.146, stat:504B.182, stat:504B.185, stat:504B.206 … | 9 |
+- positive `504B.182`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S06-b10e-noticecontent-everyday`** — everyday-word companion: extra terms or waivers packed into a move-out notice, MN S06  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\bsign\s+(?:the\|a)\s+(?:form\|notice)\b\|\bwaive\w*\|\brelease\w*\|\bgive\s+up\b\|\bextra\s+terms?\b\|\bnew\s+terms?\b\|\badd\w*\s+(?:a\s+)?terms?\b)[\s\S]{0,1200}(?:\bnotice\s+to\s+(?:quit\|vacate)\b\|\bmove\W?out\b\|\bsurrender\w*\|\bterminat\w+)` | 12 — stat:144.419, stat:144.7022, stat:327C.11, stat:504B.171 … | 0 |
+| `(?:\bnotice\s+to\s+(?:quit\|vacate)\b\|\bmove\W?out\b\|\bsurrender\w*\|\bterminat\w+)[\s\S]{0,1200}(?:\bwaive\w*\|\bgive\s+up\b\|\bextra\s+terms?\b\|\bnew\s+terms?\b)` | 9 — stat:327C.11, stat:504B.147, stat:504B.153, stat:504B.154 … | 0 |
+| `\A(?=[\s\S]*(?:(?:\bmove\W?out\b\|\bnotice\s+to\s+(?:quit\|vacate)\b)))(?=[\s\S]*(?:(?:\bwaive\w*\|\bextra\s+terms?\b\|\bnew\s+terms?\b)))` | 5 — stat:327C.11, stat:504B.147, stat:504B.178, stat:504B.182 … | 0 |
+- positive `504B.182`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S05-b13-benefit-delay-defense-statutes`** — does Minnesota give a tenant a defence, continuance or reinstatement when a government benefit or voucher payment is late  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:Social Security\|public assistance\|\bbenefit\w*\|\bvoucher\w*\|rental assistance\|\bsubsid\w*\|\bSSI\b\|\bSSDI\b\|general assistance)[\s\S]{0,1200}(?:\bevict\w*\|\bpossession\b\|nonpayment\|non-payment\|\brent\b)` | 11 — stat:327C.02, stat:363A.03, stat:363A.09, stat:363A.16 … | 0 |
+| `(?:\bevict\w*\|\bpossession\b\|nonpayment\|non-payment\|\brent\b)[\s\S]{0,1200}(?:Social Security\|public assistance\|\bbenefit\w*\|\bvoucher\w*\|rental assistance\|\bsubsid\w*\|\bSSI\b\|\bSSDI\b\|general assistance)` | 11 — stat:299F.054, stat:327C.09, stat:363A.09, stat:363A.16 … | 0 |
+| `\A(?=[\s\S]*(?:(?:Social Security\|public assistance\|\bbenefit\w*\|\bvoucher\w*\|rental assistance\|\bsubsid\w*\|\bSSI\b\|\bSSDI\b\|general assistance)))(?=[\s\S]*(?:(?:\bevict\w*\|\bpossession\b\|nonpayment\|non-payment\|\brent\b)))` | 23 — stat:144.653, stat:144A.01, stat:144G.08, stat:216B.096 … | 0 |
+- positive `504B.321`: passed
+- positive `363A.09`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S05-b13-benefit-delay-defense-laws`** — same, over the session laws  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:Social Security\|public assistance\|\bbenefit\w*\|\bvoucher\w*\|rental assistance\|\bsubsid\w*\|\bSSI\b\|\bSSDI\b\|general assistance)[\s\S]{0,1200}(?:\bevict\w*\|\bpossession\b\|nonpayment\|non-payment\|\brent\b)` | 16 — law:2025-0:ch20:enacted, law:2025-0:ch21:enacted, law:2025-0:ch31:enacted, law:2025-0:ch32:enacted … | 0 |
+| `(?:\bevict\w*\|\bpossession\b\|nonpayment\|non-payment\|\brent\b)[\s\S]{0,1200}(?:Social Security\|public assistance\|\bbenefit\w*\|\bvoucher\w*\|rental assistance\|\bsubsid\w*\|\bSSI\b\|\bSSDI\b\|general assistance)` | 11 — law:2025-0:ch20:enacted, law:2025-0:ch21:enacted, law:2025-0:ch32:enacted, law:2025-0:ch38:enacted … | 0 |
+- positive `law:2026-0:ch81:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S05-b13-benefit-continuance-companion`** — everyday-word companion: continuance/adjournment/reinstatement/stay near a benefit or assistance term  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\bcontinuanc\w*\|\badjourn\w*\|\breinstat\w*\|\bstay\w*\|\bpostpon\w*)[\s\S]{0,1200}(?:Social Security\|public assistance\|\bbenefit\w*\|\bvoucher\w*\|rental assistance\|\bsubsid\w*\|\bSSI\b\|\bSSDI\b\|general assistance)` | 2 — stat:484.83, stat:484.843 | 0 |
+| `(?:Social Security\|public assistance\|\bbenefit\w*\|\bvoucher\w*\|rental assistance\|\bsubsid\w*\|\bSSI\b\|\bSSDI\b\|general assistance)[\s\S]{0,1200}(?:\bcontinuanc\w*\|\badjourn\w*\|\breinstat\w*\|\bstay\w*\|\bpostpon\w*)` | 2 — stat:144.4196, stat:504B.291 | 0 |
+| `\A(?=[\s\S]*(?:(?:\bcontinuanc\w*\|\badjourn\w*\|\breinstat\w*\|\bstay\w*\|\bpostpon\w*)))(?=[\s\S]*(?:(?:Social Security\|public assistance\|\bbenefit\w*\|\bvoucher\w*\|rental assistance\|\bsubsid\w*\|\bSSI\b\|\bSSDI\b\|general assistance)))` | 9 — stat:144.4196, stat:144.551, stat:144.562, stat:144.653 … | 0 |
+- positive `504B.285`: passed
+- positive `363A.09`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S05-b13-benefit-heading-screen`** — heading screen for PUBLIC ASSISTANCE / SOCIAL SECURITY / SUBSIDIZED / BENEFIT headnotes  
+scope `statutes`, 1305 units, case-sensitive
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `PUBLIC ASSISTANCE` | 0 | 0 |
+| `SOCIAL SECURITY` | 0 | 0 |
+| `\bSUBSIDIZED\b` | 0 | 2 |
+| `\bBENEFIT` | 1 — stat:325F.992 | 0 |
+- positive `504B.255`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S05-b14-tenant-bankruptcy-statutes`** — does any Minnesota statute in the held chapters address a residential tenant bankruptcy, insolvency or automatic stay  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\bbankrupt\w*\|\binsolven\w*\|automatic stay\|\breceivership\b\|debtor in possession\|\bdischarge\w* in\b)[\s\S]{0,1200}(?:\blease\w*\|\btenanc\w*\|\btenant\w*\|\bevict\w*\|\bpossession\b\|\brent\b)` | 1 — stat:617.80 | 0 |
+| `(?:\blease\w*\|\btenanc\w*\|\btenant\w*\|\bevict\w*\|\bpossession\b\|\brent\b)[\s\S]{0,1200}(?:\bbankrupt\w*\|\binsolven\w*\|automatic stay\|\breceivership\b\|debtor in possession\|\bdischarge\w* in\b)` | 2 — stat:325F.68, stat:617.80 | 0 |
+| `\A(?=[\s\S]*(?:(?:\bbankrupt\w*\|\binsolven\w*\|automatic stay\|\breceivership\b\|debtor in possession\|\bdischarge\w* in\b)))(?=[\s\S]*(?:(?:\blease\w*\|\btenanc\w*\|\btenant\w*\|\bevict\w*\|\bpossession\b\|\brent\b)))` | 4 — stat:325F.68, stat:363A.03, stat:523.24, stat:617.80 | 0 |
+| `(?:\bbankrupt\w*\|\binsolven\w*\|automatic stay\|\breceivership\b\|debtor in possession\|\bdischarge\w* in\b)` | 8 — stat:325D.05, stat:325D.37, stat:325D.39, stat:325F.68 … | 0 |
+- positive `325D.05`: passed
+- positive `504B.291`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S06-b11d-earlyterm-leasestatement`** — does Minnesota require the LEASE to state the tenant statutory early-termination rights (the Texas pattern)? MN S06  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\blease\s+must\s+(?:contain\|include\|state)\b\|\bmust\s+be\s+(?:disclosed\|stated)\s+in\s+the\s+lease\b\|\bin\s+the\s+lease\s+agreement\b\|\bnotify\s+the\s+tenant\s+of\s+the\s+right\b\|\bstatement\s+of\s+(?:the\s+)?(?:tenant\W{0,3}s\s+)?rights?\b)[\s\S]{0,1200}(?:\bterminat\w+\|\bearly\b)` | 1 — stat:504B.153 | 0 |
+| `(?:\bterminat\w+\|\bearly\b)[\s\S]{0,1200}(?:\blease\s+must\s+(?:contain\|include\|state)\b\|\bin\s+the\s+lease\s+agreement\b\|\bstatement\s+of\s+(?:the\s+)?(?:tenant\W{0,3}s\s+)?rights?\b)` | 1 — stat:504B.153 | 0 |
+| `\A(?=[\s\S]*(?:(?:\blease\s+must\s+(?:contain\|include\|state)\b\|\bstatement\s+of\s+rights\b)))(?=[\s\S]*(?:\bterminat\w+))` | 0 | 0 |
+- positive `504B.275`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S05-b14-tenant-bankruptcy-laws`** — same, over the session laws  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\bbankrupt\w*\|\binsolven\w*\|automatic stay\|\breceivership\b\|debtor in possession\|\bdischarge\w* in\b)[\s\S]{0,1200}(?:\blease\w*\|\btenanc\w*\|\btenant\w*\|\bevict\w*\|\bpossession\b\|\brent\b)` | 1 — law:2025-0:ch31:enacted | 0 |
+| `(?:\blease\w*\|\btenanc\w*\|\btenant\w*\|\bevict\w*\|\bpossession\b\|\brent\b)[\s\S]{0,1200}(?:\bbankrupt\w*\|\binsolven\w*\|automatic stay\|\breceivership\b\|debtor in possession\|\bdischarge\w* in\b)` | 3 — law:2025-0:ch20:enacted, law:2025-1:ch4:enacted, law:2026-0:ch116:enacted | 0 |
+- positive `law:2026-0:ch124:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S05-b14-bankruptcy-heading-screen`** — heading screen for BANKRUPT/INSOLVENT/RECEIVER headnotes  
+scope `statutes`, 1305 units, case-sensitive
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bBANKRUPT` | 0 | 1 |
+| `\bINSOLVEN` | 0 | 0 |
+| `\bRECEIVER` | 0 | 1 |
+- positive `325D.05`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S06-b12-goodcause-statutes`** — duty to state a cause or ground in a termination notice, or a just-cause regime, MN S06  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\bgood\s+cause\b\|\bjust\s+cause\b\|\bfor\s+cause\b\|\bcause\s+for\s+(?:eviction\|termination)\b\|\bstate\s+the\s+(?:reason\|cause\|basis\|grounds?)\b\|\bspecify\w*\s+the\s+(?:reason\|cause\|basis\|grounds?)\b\|\breason\s+for\s+(?:the\s+)?(?:termination\|nonrenewal\|eviction)\b\|\bbasis\s+for\b)[\s\S]{0,1200}(?:\bnotice\b\|\bnotif\w+)` | 13 — stat:216B.172, stat:299F.46, stat:299F.641, stat:325D.37 … | 0 |
+| `(?:\bnotice\b\|\bnotif\w+)[\s\S]{0,1200}(?:\bgood\s+cause\b\|\bjust\s+cause\b\|\bfor\s+cause\b\|\bcause\s+for\s+(?:eviction\|termination)\b\|\bstate\s+the\s+(?:reason\|cause\|basis\|grounds?)\b\|\bspecify\w*\s+the\s+(?:reason\|cause\|basis\|grounds?)\b\|\breason\s+for\s+(?:the\s+)?(?:termination\|nonrenewal\|eviction)\b\|\bbasis\s+for\b)` | 13 — stat:144.4180, stat:216B.172, stat:299F.641, stat:325F.781 … | 0 |
+| `\A(?=[\s\S]*(?:(?:\bgood\s+cause\b\|\bjust\s+cause\b\|\bfor\s+cause\b\|\bcause\s+for\s+(?:eviction\|termination)\b\|\bstate\s+the\s+(?:reason\|cause\|basis\|grounds?)\b\|\bspecify\w*\s+the\s+(?:reason\|cause\|basis\|grounds?)\b\|\breason\s+for\s+(?:the\s+)?(?:termination\|nonrenewal\|eviction)\b\|\bbasis\s+for\b)))(?=[\s\S]*(?:(?:\bnotice\b\|\bnotif\w+)))(?=[\s\S]*(?:(?:\btenanc\w+\|\btenant\w*\|\b(?:lease\|leases\|leased)\b)))(?=[\s\S]*(?:\blandlord\w*))` | 4 — stat:216B.172, stat:484.013, stat:504B.206, stat:504B.321 | 0 |
+- positive `504B.321`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S06-b12-goodcause-laws-enacted`** — duty to state a cause or ground in a termination notice, or a just-cause regime, MN S06  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\bgood\s+cause\b\|\bjust\s+cause\b\|\bfor\s+cause\b\|\bcause\s+for\s+(?:eviction\|termination)\b\|\bstate\s+the\s+(?:reason\|cause\|basis\|grounds?)\b\|\bspecify\w*\s+the\s+(?:reason\|cause\|basis\|grounds?)\b\|\breason\s+for\s+(?:the\s+)?(?:termination\|nonrenewal\|eviction)\b\|\bbasis\s+for\b)[\s\S]{0,1200}(?:\bnotice\b\|\bnotif\w+)` | 22 — law:2025-0:ch20:enacted, law:2025-0:ch31:enacted, law:2025-0:ch35:enacted, law:2025-0:ch38:enacted … | 0 |
+| `(?:\bnotice\b\|\bnotif\w+)[\s\S]{0,1200}(?:\bgood\s+cause\b\|\bjust\s+cause\b\|\bfor\s+cause\b\|\bcause\s+for\s+(?:eviction\|termination)\b\|\bstate\s+the\s+(?:reason\|cause\|basis\|grounds?)\b\|\bspecify\w*\s+the\s+(?:reason\|cause\|basis\|grounds?)\b\|\breason\s+for\s+(?:the\s+)?(?:termination\|nonrenewal\|eviction)\b\|\bbasis\s+for\b)` | 26 — law:2025-0:ch20:enacted, law:2025-0:ch27:enacted, law:2025-0:ch31:enacted, law:2025-0:ch35:enacted … | 0 |
+- positive `law:2026-0:ch81:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S06-b12h-goodcause-headings`** — heading screen, good-cause notice MN S06  
+scope `statutes`, 1305 units, case-sensitive
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `GOOD CAUSE\|JUST CAUSE\|CAUSE\|GROUNDS\|RETALIAT\|EVICTION ACTIONS` | 4 — stat:325F.665, stat:325F.692, stat:504B.275, stat:559.21 | 6 |
+- positive `504B.285`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S06-b13-actualnotice-statutes`** — may the parties agree an extra method of giving a notice the law requires? MN S06  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\belectronic\w*\|\bemail\b\|\be-mail\b\|\btext\s+message\w*\|\bfacsimile\b\|\bfax\b\|\bportal\b\|\bas\s+(?:the\s+)?(?:parties\|lease)\s+(?:may\s+)?agree\w*\|\bagreed\s+(?:upon\s+)?(?:method\|manner\|means)\w*\|\bmethod\s+of\s+(?:service\|delivery\|notice)\b\|\bmanner\s+(?:of\|in\s+which)\s+(?:service\|notice)\b\|\bactual\s+notice\b\|\bform\s+of\s+written\s+communication\b)[\s\S]{0,1200}(?:\bnotice\b\|\bnotif\w+)` | 14 — stat:144.0724, stat:144.4195, stat:144.4807, stat:144.4808 … | 0 |
+| `(?:\bnotice\b\|\bnotif\w+)[\s\S]{0,1200}(?:\belectronic\w*\|\bemail\b\|\be-mail\b\|\btext\s+message\w*\|\bfacsimile\b\|\bfax\b\|\bportal\b\|\bas\s+(?:the\s+)?(?:parties\|lease)\s+(?:may\s+)?agree\w*\|\bagreed\s+(?:upon\s+)?(?:method\|manner\|means)\w*\|\bmethod\s+of\s+(?:service\|delivery\|notice)\b\|\bmanner\s+(?:of\|in\s+which)\s+(?:service\|notice)\b\|\bactual\s+notice\b\|\bform\s+of\s+written\s+communication\b)` | 22 — stat:144.0724, stat:144.4195, stat:144.4807, stat:144.6502 … | 0 |
+| `\A(?=[\s\S]*(?:(?:\belectronic\w*\|\bemail\b\|\be-mail\b\|\btext\s+message\w*\|\bfacsimile\b\|\bfax\b\|\bportal\b\|\bas\s+(?:the\s+)?(?:parties\|lease)\s+(?:may\s+)?agree\w*\|\bagreed\s+(?:upon\s+)?(?:method\|manner\|means)\w*\|\bmethod\s+of\s+(?:service\|delivery\|notice)\b\|\bmanner\s+(?:of\|in\s+which)\s+(?:service\|notice)\b\|\bactual\s+notice\b\|\bform\s+of\s+written\s+communication\b)))(?=[\s\S]*(?:(?:\bnotice\b\|\bnotif\w+)))(?=[\s\S]*(?:(?:\btenanc\w+\|\btenant\w*\|\b(?:lease\|leases\|leased)\b)))(?=[\s\S]*(?:\blandlord\w*))` | 7 — stat:216B.022, stat:216B.023, stat:216B.024, stat:216B.172 … | 0 |
+- positive `504B.206`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S06-b13-actualnotice-laws-enacted`** — may the parties agree an extra method of giving a notice the law requires? MN S06  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\belectronic\w*\|\bemail\b\|\be-mail\b\|\btext\s+message\w*\|\bfacsimile\b\|\bfax\b\|\bportal\b\|\bas\s+(?:the\s+)?(?:parties\|lease)\s+(?:may\s+)?agree\w*\|\bagreed\s+(?:upon\s+)?(?:method\|manner\|means)\w*\|\bmethod\s+of\s+(?:service\|delivery\|notice)\b\|\bmanner\s+(?:of\|in\s+which)\s+(?:service\|notice)\b\|\bactual\s+notice\b\|\bform\s+of\s+written\s+communication\b)[\s\S]{0,1200}(?:\bnotice\b\|\bnotif\w+)` | 30 — law:2025-0:ch18:enacted, law:2025-0:ch20:enacted, law:2025-0:ch21:enacted, law:2025-0:ch35:enacted … | 0 |
+| `(?:\bnotice\b\|\bnotif\w+)[\s\S]{0,1200}(?:\belectronic\w*\|\bemail\b\|\be-mail\b\|\btext\s+message\w*\|\bfacsimile\b\|\bfax\b\|\bportal\b\|\bas\s+(?:the\s+)?(?:parties\|lease)\s+(?:may\s+)?agree\w*\|\bagreed\s+(?:upon\s+)?(?:method\|manner\|means)\w*\|\bmethod\s+of\s+(?:service\|delivery\|notice)\b\|\bmanner\s+(?:of\|in\s+which)\s+(?:service\|notice)\b\|\bactual\s+notice\b\|\bform\s+of\s+written\s+communication\b)` | 39 — law:2025-0:ch18:enacted, law:2025-0:ch20:enacted, law:2025-0:ch21:enacted, law:2025-0:ch27:enacted … | 0 |
+- positive `law:2026-0:ch81:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S06-b13c-actualnotice-325L`** — is chapter 325L (Minnesota Uniform Electronic Transactions Act) reachable in this corpus? MN S06  
+scope `all`, 1744 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\b325L\b` | 10 — law:2025-0:ch38:enacted, law:2025-0:ch38:newonly, law:2025-0:ch38:raw, law:2025-0:ch39:enacted … | 0 |
+| `[Uu]niform\s+[Ee]lectronic\s+[Tt]ransactions\s+Act` | 3 — law:2026-0:ch45:enacted, law:2026-0:ch45:newonly, law:2026-0:ch45:raw | 0 |
+| `\belectronic\s+signature\w*` | 15 — law:2025-0:ch38:enacted, law:2025-0:ch38:newonly, law:2025-0:ch38:raw, law:2025-1:ch9:enacted … | 0 |
+- positive `504B.206`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S06-b13d-325L-amended`** — does any 2025 or 2026 act AMEND chapter 325L (the Uniform Electronic Transactions Act), or merely cross-refer to it? MN S06  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `section\s+325L\.\d+` | 2 — law:2025-0:ch38:enacted, law:2026-0:ch88:enacted | 0 |
+| `Minnesota\s+Statutes\s+\d{4},?\s+section\s+325L` | 0 | 0 |
+| `chapter\s+325L` | 2 — law:2025-0:ch39:enacted, law:2026-0:ch45:enacted | 0 |
+- positive `law:2026-0:ch45:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S08-b1-radiator-covers-statutes`** — steam radiator covers: is there any MN rule requiring radiator covers/guards?  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bradiator\w*[\s\S]{0,1200}(?:cover\w*\|enclos\w*\|guard\w*\|shield\w*)` | 1 — stat:325F.662 | 0 |
+| `(?:cover\w*\|enclos\w*\|guard\w*\|shield\w*)[\s\S]{0,1200}\bradiator\w*` | 1 — stat:325F.662 | 0 |
+| `\A(?=[\s\S]*(?:\bradiator\w*))(?=[\s\S]*(?:(?:cover\w*\|enclos\w*\|guard\w*\|shield\w*)))` | 1 — stat:325F.662 | 0 |
+| `\bradiator\w*` | 1 — stat:325F.662 | 0 |
+| `\bsteam\b` | 2 — stat:325F.28, stat:504B.155 | 0 |
+- positive `504B.161`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S08-b2-radiator-covers-laws`** — radiator covers absence over 2023-2026 session laws  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bradiator\w*[\s\S]{0,1200}(?:cover\w*\|enclos\w*\|guard\w*\|shield\w*)` | 1 — law:2026-0:ch127:enacted | 0 |
+| `(?:cover\w*\|enclos\w*\|guard\w*\|shield\w*)[\s\S]{0,1200}\bradiator\w*` | 1 — law:2026-0:ch127:enacted | 0 |
+| `\bradiator\w*` | 1 — law:2026-0:ch127:enacted | 0 |
+- positive `law:2026-0:ch81:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S08-b3-radiator-heading-screen`** — heading screen for the slice terms of art (headnotes are upper case)  
+scope `statutes`, 1305 units, case-sensitive
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `RADIATOR` | 0 | 0 |
+| `HEATING` | 0 | 0 |
+| `COOLING` | 0 | 0 |
+| `AIR CONDITION` | 0 | 0 |
+| `RECYCL` | 0 | 0 |
+| `SOLAR` | 0 | 0 |
+| `SUBMETER` | 0 | 1 |
+| `ENERGY` | 0 | 0 |
+- positive `504B.216`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S08-b4-recycling-statutes`** — recycling-notice: any MN duty to tell tenants where/how to recycle?  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\brecycl\w*[\s\S]{0,1200}(?:tenant\|lessee\|occupant\|resident)` | 0 | 0 |
+| `(?:tenant\|lessee\|occupant\|resident)[\s\S]{0,1200}\brecycl\w*` | 0 | 0 |
+| `\A(?=[\s\S]*(?:\brecycl\w*))(?=[\s\S]*(?:(?:tenant\|lessee\|occupant)))` | 0 | 0 |
+| `\brecycl\w*` | 0 | 0 |
+| `(?:solid waste\|garbage\|refuse\|trash)[\s\S]{0,1200}(?:tenant\|lessee\|occupant)` | 2 — stat:504B.114, stat:504B.425 | 0 |
+| `(?:tenant\|lessee\|occupant)[\s\S]{0,1200}(?:solid waste\|garbage\|refuse\|trash)` | 7 — stat:144.9504, stat:363A.09, stat:363A.15, stat:363A.16 … | 0 |
+| `\bcompost\w*` | 0 | 0 |
+- positive `504B.161`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S07-b8-drywall-wide`** — defective drywall: drywall/wallboard/gypsum/plasterboard/sheetrock near a disclosure or tenancy word, 1600-char window both orders plus section-wide AND  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:drywall\|wallboard\|gypsum\|plasterboard\|sheetrock)[\s\S]{0,1600}(?:disclos\w*\|notif\w*\|notice\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|tenant\w*\|landlord\w*\|occupant\w*)` | 0 | 0 |
+| `(?:disclos\w*\|notif\w*\|notice\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|tenant\w*\|landlord\w*\|occupant\w*)[\s\S]{0,1600}(?:drywall\|wallboard\|gypsum\|plasterboard\|sheetrock)` | 0 | 0 |
+| `\A(?=[\s\S]*(?:(?:drywall\|wallboard\|gypsum\|plasterboard\|sheetrock)))(?=[\s\S]*(?:(?:disclos\w*\|notif\w*\|notice\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|tenant\w*\|landlord\w*\|occupant\w*)))` | 0 | 0 |
+- positive `144.495`: passed
+- positive `504B.161`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S07-b9-drywall-plain`** — everyday-word companion for defective drywall: the material words alone, plus the corrosion/sulfur vocabulary the problem is actually described by, and Chinese (as in Chinese drywall)  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:drywall\|wallboard\|gypsum\|plasterboard\|sheetrock)` | 0 | 0 |
+| `(?:corrosive\|corrod\w*\|sulfur\|sulphur\|hydrogen sulfide)` | 3 — stat:299F.092, stat:299F.56, stat:325F.28 | 0 |
+| `(?i)chinese` | 0 | 0 |
+- positive `144.495`: passed
+- positive `504B.161`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S08-b5-recycling-laws`** — recycling-notice absence over session laws 2023-2026  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\brecycl\w*[\s\S]{0,1200}(?:tenant\|lessee\|landlord)` | 0 | 0 |
+| `(?:tenant\|lessee\|landlord)[\s\S]{0,1200}\brecycl\w*` | 0 | 0 |
+| `\brecycl\w*` | 5 — law:2025-1:ch12:enacted, law:2025-1:ch1:enacted, law:2026-0:ch104:enacted, law:2026-0:ch123:enacted … | 0 |
+- positive `law:2026-0:ch81:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S07-b10-drywall-laws`** — defective drywall over the 2025-2026 session laws as enacted  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:drywall\|wallboard\|gypsum\|plasterboard\|sheetrock)` | 0 | 0 |
+| `(?:drywall\|wallboard\|gypsum\|plasterboard\|sheetrock)[\s\S]{0,1600}(?:disclos\w*\|notif\w*\|notice\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|tenant\w*\|landlord\w*\|occupant\w*)` | 0 | 0 |
+| `(?:disclos\w*\|notif\w*\|notice\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|tenant\w*\|landlord\w*\|occupant\w*)[\s\S]{0,1600}(?:drywall\|wallboard\|gypsum\|plasterboard\|sheetrock)` | 0 | 0 |
+| `(?:hydrogen sulfide\|corrosive drywall)` | 0 | 0 |
+- positive `144.495`: passed
+- positive `504B.161`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S07-b11-drywall-heading-cs`** — case-sensitive exact-phrase heading screen for a drywall or building-material headnote  
+scope `statutes`, 1305 units, case-sensitive
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `DRYWALL` | 0 | 0 |
+| `GYPSUM` | 0 | 0 |
+| `WALLBOARD` | 0 | 0 |
+| `BUILDING MATERIAL` | 3 — stat:144.4941, stat:325F.179, stat:325F.18 | 0 |
+- positive `144.495`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S08-b6-portable-solar-statutes`** — portable-solar: any MN tenant right to a plug-in solar device / solar restriction void rule?  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bsolar\b[\s\S]{0,1200}(?:tenant\|lessee\|lease\w*\|rental)` | 0 | 0 |
+| `(?:tenant\|lessee\|lease\w*\|rental)[\s\S]{0,1200}\bsolar\b` | 0 | 0 |
+| `\A(?=[\s\S]*(?:\bsolar\b))(?=[\s\S]*(?:(?:tenant\|lessee\|rental)))` | 0 | 0 |
+| `\bsolar\b` | 0 | 0 |
+| `(?:photovoltaic\|plug-in\|plug in)\w*` | 0 | 0 |
+| `\benergy storage\b\|\bbattery stor\w*` | 0 | 0 |
+| `(?:renewable\|distributed) (?:energy\|generation)` | 0 | 0 |
+- positive `504B.161`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S08-b7-portable-solar-laws`** — portable-solar absence over session laws  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bsolar\b[\s\S]{0,1200}(?:tenant\|lessee\|landlord)` | 0 | 0 |
+| `(?:tenant\|lessee\|landlord)[\s\S]{0,1200}\bsolar\b` | 1 — law:2025-0:ch20:enacted | 0 |
+| `(?:photovoltaic\|plug-in solar)` | 2 — law:2025-1:ch12:enacted, law:2026-0:ch130:enacted | 0 |
+- positive `law:2026-0:ch81:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S08-b8-portable-cooling-statutes`** — portable-cooling-device: MN right to install a portable/window cooling device? any max-temperature duty?  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:air condition\w*\|air-condition\w*)[\s\S]{0,1200}(?:tenant\|lessee\|install\w*\|window)` | 0 | 0 |
+| `(?:tenant\|lessee\|install\w*\|window)[\s\S]{0,1200}(?:air condition\w*\|air-condition\w*)` | 2 — stat:325F.18, stat:504B.381 | 0 |
+| `\A(?=[\s\S]*(?:(?:air condition\w*\|air-condition\w*)))(?=[\s\S]*(?:(?:tenant\|lessee)))` | 2 — stat:325F.18, stat:504B.381 | 0 |
+| `(?:air condition\w*\|air-condition\w*)` | 2 — stat:325F.18, stat:504B.381 | 0 |
+| `\bcool\w*` | 0 | 0 |
+| `\bfan\b\|\bfans\b` | 0 | 0 |
+| `(?:excessive heat\|heat advisory\|heat warning\|heat emergency\|extreme heat)` | 1 — stat:504B.216 | 0 |
+| `\bventilat\w*` | 6 — stat:144.414, stat:144.4167, stat:144.7065, stat:144.74 … | 0 |
+| `maximum (?:indoor )?temperature` | 0 | 0 |
+- positive `504B.381`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S08-b9-portable-cooling-laws`** — portable-cooling-device absence over session laws  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:air condition\w*\|air-condition\w*)[\s\S]{0,1200}(?:tenant\|lessee\|landlord)` | 0 | 0 |
+| `(?:tenant\|lessee\|landlord)[\s\S]{0,1200}(?:air condition\w*\|air-condition\w*)` | 0 | 0 |
+| `(?:portable\|window) (?:air condition\w*\|cooling)` | 0 | 0 |
+| `\bheat emergency\b` | 0 | 0 |
+- positive `law:2026-0:ch81:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S08-b10-heat-equipment-299F`** — chapter 299F (held whole): anything safety-adjacent on heating equipment or radiators for rentals  
+scope `statutes:299F`, 134 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bheat\w*[\s\S]{0,1200}(?:tenant\|lessee\|dwelling\|rental)` | 0 | 0 |
+| `(?:tenant\|lessee\|dwelling\|rental)[\s\S]{0,1200}\bheat\w*` | 0 | 0 |
+| `\A(?=[\s\S]*(?:\bheating\b))(?=[\s\S]*(?:(?:tenant\|lessee\|dwelling unit)))` | 0 | 0 |
+| `\bfurnace\w*\|\bboiler\w*\|space heater\w*\|\bwater heater\w*` | 0 | 0 |
+| `\bradiator\w*\|\bsteam pipe\w*` | 0 | 0 |
+- positive `299F.011`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S08-b13-energy-data-statutes`** — energy-data-release: does MN let a lease clause authorize release of a tenant energy-usage data for benchmarking?  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:energy (?:us\w*\|data\|consumption)\|benchmark\w*\|utility (?:us\w*\|data))[\s\S]{0,1200}(?:tenant\|lessee\|consent\|authoriz\w*\|releas\w*)` | 0 | 0 |
+| `(?:tenant\|lessee\|consent\|authoriz\w*\|releas\w*)[\s\S]{0,1200}(?:energy (?:us\w*\|data\|consumption)\|benchmark\w*\|utility (?:us\w*\|data))` | 0 | 0 |
+| `\A(?=[\s\S]*(?:(?:benchmark\w*\|energy data\|energy usage)))(?=[\s\S]*(?:(?:tenant\|lessee)))` | 0 | 0 |
+| `\bbenchmark\w*` | 0 | 0 |
+| `energy (?:usage\|use\|consumption) (?:data\|information\|history)` | 0 | 0 |
+| `customer (?:data\|information\|consent)` | 0 | 0 |
+| `aggregat\w*[\s\S]{0,200}(?:energy\|utility)` | 0 | 0 |
+- positive `504B.216`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S07-b12-bareword-statutes-144`** — coordinator correction 2: the bare disclosure words on their own, not inside a topic proximity pattern, over a whole held chapter  
+scope `statutes:144`, 586 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `disclos\w*` | 38 — stat:144.051, stat:144.053, stat:144.054, stat:144.06 … | 2 |
+| `notify\|notifies\|notified\|notification` | 41 — stat:144.05, stat:144.0525, stat:144.054, stat:144.057 … | 0 |
+| `\bnotice\w*` | 57 — stat:144.05, stat:144.0572, stat:144.0724, stat:144.077 … | 1 |
+| `warning\w*` | 3 — stat:144.1222, stat:144.125, stat:144.496 | 0 |
+| `\bstatement\w*` | 33 — stat:144.053, stat:144.07, stat:144.1485, stat:144.212 … | 0 |
+- positive `144.496`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S07-b12-bareword-statutes-299F`** — coordinator correction 2: the bare disclosure words on their own, not inside a topic proximity pattern, over a whole held chapter  
+scope `statutes:299F`, 134 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `disclos\w*` | 6 — stat:299F.036, stat:299F.092, stat:299F.096, stat:299F.28 … | 1 |
+| `notify\|notifies\|notified\|notification` | 15 — stat:299F.037, stat:299F.04, stat:299F.054, stat:299F.056 … | 0 |
+| `\bnotice\w*` | 12 — stat:299F.011, stat:299F.054, stat:299F.056, stat:299F.18 … | 0 |
+| `warning\w*` | 1 — stat:299F.51 | 0 |
+| `\bstatement\w*` | 6 — stat:299F.011, stat:299F.04, stat:299F.054, stat:299F.098 … | 0 |
+- positive `299F.51`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S08-b19-utility-transfer`** — utility-transfer: MN rule on putting/keeping utilities in the tenant name, and any landlord cutoff option  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:transfer\w*\|change\w* the name\|put in the tenant\|customer of record\|account)[\s\S]{0,1200}(?:utility\|utilities)` | 1 — stat:504B.216 | 0 |
+| `(?:utility\|utilities)[\s\S]{0,1200}(?:transfer\w*\|change\w* the name\|customer of record\|account)` | 3 — stat:216B.023, stat:504B.216, stat:504B.221 | 0 |
+| `\A(?=[\s\S]*(?:customer of record))(?=[\s\S]*(?:(?:tenant\|landlord)))` | 1 — stat:504B.216 | 0 |
+| `customer of record` | 1 — stat:504B.216 | 0 |
+| `bill payer responsible` | 1 — stat:504B.216 | 0 |
+| `\bremov\w*[\s\S]{0,1200}existing utility account` | 1 — stat:504B.216 | 0 |
+- positive `504B.216`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S07-b13-flood-wide`** — flood disclosure: flood vocabulary near a disclosure or tenancy word, 1600-char window both orders plus section-wide AND, whole statutes  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:flood\w*\|floodplain\|flood plain\|floodway\|inundat\w*)[\s\S]{0,1600}(?:disclos\w*\|notif\w*\|notice\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|tenant\w*\|landlord\w*\|occupant\w*)` | 3 — stat:325F.662, stat:325F.6641, stat:325F.665 | 0 |
+| `(?:disclos\w*\|notif\w*\|notice\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|tenant\w*\|landlord\w*\|occupant\w*)[\s\S]{0,1600}(?:flood\w*\|floodplain\|flood plain\|floodway\|inundat\w*)` | 1 — stat:325F.6641 | 0 |
+| `\A(?=[\s\S]*(?:(?:flood\w*\|floodplain\|flood plain\|floodway\|inundat\w*)))(?=[\s\S]*(?:(?:disclos\w*\|notif\w*\|notice\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|tenant\w*\|landlord\w*\|occupant\w*)))` | 4 — stat:144.551, stat:325F.662, stat:325F.6641, stat:325F.665 | 0 |
+- positive `504B.195`: passed
+- positive `325F.6642`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S07-b14-flood-plain`** — bare-word companion for flood: flood* on its own, the FEMA mapping vocabulary, FEMA itself, and flood insurance, over whole statutes  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bflood\w*` | 6 — stat:144.551, stat:325F.662, stat:325F.6641, stat:325F.6642 … | 0 |
+| `(?:special flood hazard\|base flood\|100-year flood\|hundred-year flood)` | 0 | 0 |
+| `\bFEMA\b\|Federal Emergency Management` | 0 | 0 |
+| `flood insurance` | 0 | 0 |
+- positive `504B.195`: passed
+- positive `325F.6642`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S07-b15-flood-laws`** — flood disclosure over the 2025-2026 session laws as enacted  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bflood\w*` | 15 — law:2025-0:ch20:enacted, law:2025-0:ch36:enacted, law:2025-0:ch37:enacted, law:2025-1:ch13:enacted … | 0 |
+| `(?:flood\w*\|floodplain\|flood plain\|floodway\|inundat\w*)[\s\S]{0,1600}(?:disclos\w*\|notif\w*\|notice\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|tenant\w*\|landlord\w*\|occupant\w*)` | 4 — law:2025-0:ch20:enacted, law:2025-1:ch15:enacted, law:2025-1:ch1:enacted, law:2026-0:ch127:enacted | 0 |
+| `(?:disclos\w*\|notif\w*\|notice\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|tenant\w*\|landlord\w*\|occupant\w*)[\s\S]{0,1600}(?:flood\w*\|floodplain\|flood plain\|floodway\|inundat\w*)` | 2 — law:2025-0:ch20:enacted, law:2025-1:ch1:enacted | 0 |
+| `flood insurance` | 1 — law:2025-1:ch4:enacted | 0 |
+- positive `504B.195`: passed
+- positive `325F.6642`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S07-b16-flood-heading-cs`** — case-sensitive exact-phrase heading screen: is any held section headed FLOOD or FLOODPLAIN - the Minnesota floodplain chapter is 103F, outside the corpus  
+scope `statutes`, 1305 units, case-sensitive
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `FLOOD` | 0 | 0 |
+| `FLOODPLAIN` | 0 | 0 |
+| `WATER DAMAGE` | 0 | 0 |
+- positive `325F.6641`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S08-b22-slice-catchall-laws`** — slice catch-all over session laws 2023-2026 for every utility term of art  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bsubmeter\w*` | 2 — law:2025-0:ch20:enacted, law:2026-0:ch81:enacted | 0 |
+| `\butility allowance\b` | 0 | 0 |
+| `\bmunicipal utility\b` | 1 — law:2025-0:ch20:enacted | 0 |
+| `\bcold weather period\b` | 0 | 0 |
+| `\bapportion\w*` | 14 — law:2025-0:ch20:enacted, law:2025-0:ch21:enacted, law:2025-0:ch2:enacted, law:2025-0:ch37:enacted … | 0 |
+| `\butility service\b` | 6 — law:2025-1:ch3:enacted, law:2025-1:ch6:enacted, law:2025-1:ch7:enacted, law:2026-0:ch109:enacted … | 0 |
+- positive `law:2026-0:ch81:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S07-b17-contam-wide`** — hazardous contamination disclosure: the contamination/brownfield/environmental-covenant vocabulary near a disclosure or tenancy word, 1600-char window both orders plus section-wide AND, whole statutes  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:contaminat\w*\|hazardous substance\w*\|hazardous waste\|brownfield\w*\|environmental covenant\w*\|institutional control\w*\|activity and use limitation\w*\|response action\w*\|superfund)[\s\S]{0,1600}(?:disclos\w*\|notif\w*\|notice\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|tenant\w*\|landlord\w*\|occupant\w*)` | 5 — stat:144.98, stat:299F.092, stat:299F.093, stat:299F.094 … | 0 |
+| `(?:disclos\w*\|notif\w*\|notice\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|tenant\w*\|landlord\w*\|occupant\w*)[\s\S]{0,1600}(?:contaminat\w*\|hazardous substance\w*\|hazardous waste\|brownfield\w*\|environmental covenant\w*\|institutional control\w*\|activity and use limitation\w*\|response action\w*\|superfund)` | 6 — stat:299F.09, stat:299F.092, stat:299F.093, stat:299F.094 … | 0 |
+| `\A(?=[\s\S]*(?:(?:contaminat\w*\|hazardous substance\w*\|hazardous waste\|brownfield\w*\|environmental covenant\w*\|institutional control\w*\|activity and use limitation\w*\|response action\w*\|superfund)))(?=[\s\S]*(?:(?:disclos\w*\|notif\w*\|notice\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|tenant\w*\|landlord\w*\|occupant\w*)))` | 10 — stat:144.566, stat:144.9501, stat:144.98, stat:144.99 … | 0 |
+- positive `504B.195`: passed
+- positive `144.9501`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S07-b18-contam-bare`** — bare-word companion for contamination: each family of terms on its own over whole statutes  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `contaminat\w*` | 6 — stat:144.1204, stat:144.1205, stat:144.7065, stat:144.9501 … | 0 |
+| `hazardous substance\w*\|hazardous waste` | 8 — stat:144.98, stat:299F.09, stat:299F.091, stat:299F.092 … | 0 |
+| `brownfield\w*\|environmental covenant\w*\|institutional control\w*\|activity and use limitation\w*` | 0 | 0 |
+| `(?:response action\|superfund\|115B)` | 3 — stat:144.566, stat:144.9504, stat:325F.19 | 0 |
+- positive `504B.195`: passed
+- positive `144.9501`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S07-b19-contam-laws`** — hazardous contamination disclosure over the 2025-2026 session laws as enacted  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:contaminat\w*\|hazardous substance\w*\|hazardous waste\|brownfield\w*\|environmental covenant\w*\|institutional control\w*\|activity and use limitation\w*\|response action\w*\|superfund)[\s\S]{0,1600}(?:disclos\w*\|notif\w*\|notice\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|tenant\w*\|landlord\w*\|occupant\w*)` | 9 — law:2025-0:ch20:enacted, law:2025-1:ch1:enacted, law:2025-1:ch3:enacted, law:2025-1:ch8:enacted … | 0 |
+| `(?:disclos\w*\|notif\w*\|notice\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|tenant\w*\|landlord\w*\|occupant\w*)[\s\S]{0,1600}(?:contaminat\w*\|hazardous substance\w*\|hazardous waste\|brownfield\w*\|environmental covenant\w*\|institutional control\w*\|activity and use limitation\w*\|response action\w*\|superfund)` | 8 — law:2025-0:ch20:enacted, law:2025-1:ch13:enacted, law:2025-1:ch15:enacted, law:2025-1:ch1:enacted … | 0 |
+| `brownfield\w*\|environmental covenant\w*\|activity and use limitation\w*` | 1 — law:2026-0:ch113:enacted | 0 |
+- positive `504B.195`: passed
+- positive `144.9501`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S07-b20-contam-heading-cs`** — case-sensitive exact-phrase heading screen for a contamination or hazardous-substance headnote  
+scope `statutes`, 1305 units, case-sensitive
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `CONTAMINAT` | 0 | 0 |
+| `HAZARDOUS` | 2 — stat:299F.09, stat:325F.078 | 5 |
+| `ENVIRONMENTAL COVENANT` | 0 | 0 |
+| `BROWNFIELD` | 0 | 0 |
+- positive `144.1205`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S07-b35-prop65-wide`** — prop 65 analogue: carcinogen and cancer-warning vocabulary near a warning/sign/label/posting/tenancy word, 1600-char window both orders plus section-wide AND, whole statutes  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:prop(?:osition)? 65\|known to (?:the )?state\w* to cause\|carcinogen\w*\|cause\w? cancer\|reproductive (?:harm\|toxic\w*)\|clear and reasonable warning)[\s\S]{0,1600}(?:disclos\w*\|notif\w*\|notice\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|tenant\w*\|landlord\w*\|occupant\w*\|warning\w*\|\bsign\b\|\bsigns\b\|label\w*\|post\w*)` | 2 — stat:144.496, stat:299F.092 | 0 |
+| `(?:disclos\w*\|notif\w*\|notice\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|tenant\w*\|landlord\w*\|occupant\w*\|warning\w*\|\bsign\b\|\bsigns\b\|label\w*\|post\w*)[\s\S]{0,1600}(?:prop(?:osition)? 65\|known to (?:the )?state\w* to cause\|carcinogen\w*\|cause\w? cancer\|reproductive (?:harm\|toxic\w*)\|clear and reasonable warning)` | 2 — stat:144.496, stat:299F.092 | 0 |
+| `\A(?=[\s\S]*(?:(?:prop(?:osition)? 65\|known to (?:the )?state\w* to cause\|carcinogen\w*\|cause\w? cancer\|reproductive (?:harm\|toxic\w*)\|clear and reasonable warning)))(?=[\s\S]*(?:(?:disclos\w*\|notif\w*\|notice\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|tenant\w*\|landlord\w*\|occupant\w*\|warning\w*\|\bsign\b\|\bsigns\b\|label\w*\|post\w*)))` | 2 — stat:144.496, stat:299F.092 | 0 |
+- positive `325F.18`: passed
+- positive `144.496`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S07-b36-prop65-bare`** — bare-word companion for a chemical-exposure warning regime over whole statutes  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `prop(?:osition)? 65` | 0 | 0 |
+| `carcinogen\w*` | 3 — stat:144.496, stat:144.998, stat:299F.092 | 0 |
+| `cause\w? cancer\|cancer-caus\w*` | 3 — stat:325F.071, stat:325F.175, stat:325F.178 | 0 |
+| `reproductive (?:harm\|toxic\w*)` | 3 — stat:325F.071, stat:325F.175, stat:325F.178 | 0 |
+| `\bchemical\w*[\s\S]{0,200}warning\w*\|warning\w*[\s\S]{0,200}\bchemical\w*` | 0 | 0 |
+- positive `325F.18`: passed
+- positive `144.496`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S07-b37-prop65-laws`** — chemical-exposure warning regime over the 2025-2026 session laws as enacted  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:prop(?:osition)? 65\|known to (?:the )?state\w* to cause\|carcinogen\w*\|cause\w? cancer\|reproductive (?:harm\|toxic\w*)\|clear and reasonable warning)` | 2 — law:2026-0:ch103:enacted, law:2026-0:ch97:enacted | 0 |
+| `(?:prop(?:osition)? 65\|known to (?:the )?state\w* to cause\|carcinogen\w*\|cause\w? cancer\|reproductive (?:harm\|toxic\w*)\|clear and reasonable warning)[\s\S]{0,1600}(?:disclos\w*\|notif\w*\|notice\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|tenant\w*\|landlord\w*\|occupant\w*\|warning\w*\|\bsign\b\|\bsigns\b\|label\w*\|post\w*)` | 1 — law:2026-0:ch103:enacted | 0 |
+| `prop(?:osition)? 65` | 0 | 0 |
+- positive `325F.18`: passed
+- positive `144.496`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S07-b38-prop65-heading-cs`** — case-sensitive exact-phrase heading screen: which held sections are headed WARNING, CANCER, CHEMICAL or FORMALDEHYDE  
+scope `statutes`, 1305 units, case-sensitive
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `WARNING` | 0 | 1 |
+| `CANCER` | 1 — stat:144.67 | 1 |
+| `CHEMICAL` | 1 — stat:325F.07 | 3 |
+| `FORMALDEHYDE` | 4 — stat:144.4941, stat:325F.175, stat:325F.179, stat:325F.18 | 4 |
+- positive `325F.181`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S07-b39-shore-wide`** — shoreline access disclosure: shoreland/shoreline/riparian/lakeshore/beach/waterfront/dock near a disclosure or tenancy word, 1600-char window both orders plus section-wide AND, whole statutes  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:shorelan\w*\|shorelin\w*\|\briparian\b\|lakeshore\|lake shore\|\bbeach\w*\|waterfront\|\bdock\w*\|public access to (?:the )?(?:water\|lake\|shore))[\s\S]{0,1600}(?:disclos\w*\|notif\w*\|notice\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|tenant\w*\|landlord\w*\|occupant\w*)` | 1 — stat:518B.01 | 0 |
+| `(?:disclos\w*\|notif\w*\|notice\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|tenant\w*\|landlord\w*\|occupant\w*)[\s\S]{0,1600}(?:shorelan\w*\|shorelin\w*\|\briparian\b\|lakeshore\|lake shore\|\bbeach\w*\|waterfront\|\bdock\w*\|public access to (?:the )?(?:water\|lake\|shore))` | 0 | 0 |
+| `\A(?=[\s\S]*(?:(?:shorelan\w*\|shorelin\w*\|\briparian\b\|lakeshore\|lake shore\|\bbeach\w*\|waterfront\|\bdock\w*\|public access to (?:the )?(?:water\|lake\|shore))))(?=[\s\S]*(?:(?:disclos\w*\|notif\w*\|notice\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|tenant\w*\|landlord\w*\|occupant\w*)))` | 2 — stat:518B.01, stat:523.24 | 0 |
+- positive `504B.195`: passed
+- positive `144.35`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S07-b40-shore-bare`** — bare-word companion for shoreline access over whole statutes, each term on its own, plus the chapter number 103F  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `shorelan\w*` | 0 | 0 |
+| `shorelin\w*` | 0 | 0 |
+| `\briparian\b` | 0 | 0 |
+| `lakeshore\|lake shore\|waterfront` | 0 | 0 |
+| `\bbeach\w*` | 0 | 0 |
+| `\bdock(?:s\|ed\|ing)?\b` | 1 — stat:523.24 | 0 |
+| `\b103F\b` | 0 | 0 |
+- positive `504B.195`: passed
+- positive `144.35`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S07-b41-shore-laws`** — shoreline access disclosure over the 2025-2026 session laws as enacted  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `shorelan\w*\|shorelin\w*\|\briparian\b\|lakeshore\|waterfront` | 11 — law:2025-0:ch20:enacted, law:2025-0:ch32:enacted, law:2025-0:ch36:enacted, law:2025-0:ch8:enacted … | 0 |
+| `(?:shorelan\w*\|shorelin\w*\|\briparian\b\|lakeshore\|lake shore\|\bbeach\w*\|waterfront\|\bdock\w*\|public access to (?:the )?(?:water\|lake\|shore))[\s\S]{0,1600}(?:disclos\w*\|notif\w*\|notice\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|tenant\w*\|landlord\w*\|occupant\w*)` | 5 — law:2025-0:ch20:enacted, law:2025-0:ch35:enacted, law:2026-0:ch126:enacted, law:2026-0:ch130:enacted … | 0 |
+| `(?:disclos\w*\|notif\w*\|notice\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|tenant\w*\|landlord\w*\|occupant\w*)[\s\S]{0,1600}(?:shorelan\w*\|shorelin\w*\|\briparian\b\|lakeshore\|lake shore\|\bbeach\w*\|waterfront\|\bdock\w*\|public access to (?:the )?(?:water\|lake\|shore))` | 5 — law:2025-0:ch20:enacted, law:2025-0:ch2:enacted, law:2025-0:ch35:enacted, law:2025-1:ch1:enacted … | 0 |
+| `\b103F\b` | 8 — law:2025-0:ch20:enacted, law:2025-0:ch36:enacted, law:2025-1:ch13:enacted, law:2025-1:ch15:enacted … | 0 |
+- positive `504B.195`: passed
+- positive `144.35`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S07-b42-shore-heading-cs`** — case-sensitive exact-phrase heading screen: is any held section headed SHORELAND, SHORELINE, RIPARIAN or BEACH - Minnesota shoreland management is chapter 103F, outside the corpus  
+scope `statutes`, 1305 units, case-sensitive
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `SHORELAND` | 0 | 0 |
+| `SHORELINE` | 0 | 0 |
+| `RIPARIAN` | 0 | 0 |
+| `\bBEACH` | 0 | 0 |
+| `PUBLIC ACCESS` | 0 | 0 |
+- positive `144.35`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S07-b43-sprinkler-wide`** — sprinkler disclosure: sprinkler and fire-suppression vocabulary near a disclosure or tenancy word, 1600-char window both orders plus section-wide AND, whole statutes  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:sprinkler\w*\|fire suppression\|automatic fire exting\w*\|standpipe\w*\|fire protection system\w*)[\s\S]{0,1600}(?:disclos\w*\|notif\w*\|notice\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|tenant\w*\|landlord\w*\|occupant\w*\|\brider\b\|conspicuous\w*)` | 1 — stat:299F.092 | 0 |
+| `(?:disclos\w*\|notif\w*\|notice\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|tenant\w*\|landlord\w*\|occupant\w*\|\brider\b\|conspicuous\w*)[\s\S]{0,1600}(?:sprinkler\w*\|fire suppression\|automatic fire exting\w*\|standpipe\w*\|fire protection system\w*)` | 1 — stat:299F.092 | 0 |
+| `\A(?=[\s\S]*(?:(?:sprinkler\w*\|fire suppression\|automatic fire exting\w*\|standpipe\w*\|fire protection system\w*)))(?=[\s\S]*(?:(?:disclos\w*\|notif\w*\|notice\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|tenant\w*\|landlord\w*\|occupant\w*\|\brider\b\|conspicuous\w*)))` | 1 — stat:299F.092 | 0 |
+- positive `299F.48`: passed
+- positive `504B.195`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S07-b44-sprinkler-bare`** — bare-word companion for sprinkler disclosure, with both smoke alarm and smoke detector per the term-variant lesson already recorded on edu-alarm-duty-split-mn  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `sprinkler\w*` | 2 — stat:144.50, stat:299F.48 | 0 |
+| `fire suppression\|automatic fire exting\w*\|standpipe\w*` | 1 — stat:299F.092 | 0 |
+| `fire protection system\w*` | 0 | 0 |
+| `\bsmoke alarm\w*\|\bsmoke detector\w*` | 1 — stat:299F.362 | 0 |
+- positive `299F.48`: passed
+- positive `504B.195`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S07-b45-sprinkler-laws`** — sprinkler disclosure over the 2025-2026 session laws as enacted  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `sprinkler\w*` | 3 — law:2025-0:ch32:enacted, law:2025-0:ch38:enacted, law:2026-0:ch127:enacted | 0 |
+| `(?:sprinkler\w*\|fire suppression\|automatic fire exting\w*\|standpipe\w*\|fire protection system\w*)[\s\S]{0,1600}(?:disclos\w*\|notif\w*\|notice\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|tenant\w*\|landlord\w*\|occupant\w*\|\brider\b\|conspicuous\w*)` | 3 — law:2025-1:ch3:enacted, law:2026-0:ch123:enacted, law:2026-0:ch127:enacted | 0 |
+| `(?:disclos\w*\|notif\w*\|notice\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|tenant\w*\|landlord\w*\|occupant\w*\|\brider\b\|conspicuous\w*)[\s\S]{0,1600}(?:sprinkler\w*\|fire suppression\|automatic fire exting\w*\|standpipe\w*\|fire protection system\w*)` | 1 — law:2025-0:ch38:enacted | 0 |
+- positive `299F.48`: passed
+- positive `504B.195`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S07-b46-sprinkler-heading-cs`** — case-sensitive exact-phrase heading screen for a sprinkler or fire-suppression headnote  
+scope `statutes`, 1305 units, case-sensitive
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `SPRINKLER` | 0 | 1 |
+| `FIRE SUPPRESSION` | 0 | 0 |
+| `FIRE PROTECTION` | 1 — stat:299F.3605 | 0 |
+- positive `299F.48`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S07-b47-sprinkler-newonly`** — which words of the high-rise sprinkler grant programme are NEW text (newonly view), per the brief rule against asserting novelty from a view whose markers cannot be seen  
+scope `laws:newonly`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `seven stories or more` | 1 — law:2025-0:ch32:newonly | 0 |
+| `HIGH-RISE SPRINKLER SYSTEM GRANT` | 0 | 0 |
+| `two-thirds of its units are affordable` | 0 | 0 |
+| `relocation of residents during the installation` | 0 | 0 |
+- positive `299F.48`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S07-b48-military-wide`** — military air zone disclosure: avigation/air installation/noise zone/accident potential zone/runway vocabulary near a disclosure or tenancy word, 1600-char window both orders plus section-wide AND, whole statutes  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:avigation\|air installation\|airport zoning\|military (?:air\|flight\|installation\|base\|reservation)\|noise zone\|accident potential zone\|\bAICUZ\b\|runway\|flight path\|military impact)[\s\S]{0,1600}(?:disclos\w*\|notif\w*\|notice\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|tenant\w*\|landlord\w*\|occupant\w*)` | 0 | 0 |
+| `(?:disclos\w*\|notif\w*\|notice\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|tenant\w*\|landlord\w*\|occupant\w*)[\s\S]{0,1600}(?:avigation\|air installation\|airport zoning\|military (?:air\|flight\|installation\|base\|reservation)\|noise zone\|accident potential zone\|\bAICUZ\b\|runway\|flight path\|military impact)` | 0 | 0 |
+| `\A(?=[\s\S]*(?:(?:avigation\|air installation\|airport zoning\|military (?:air\|flight\|installation\|base\|reservation)\|noise zone\|accident potential zone\|\bAICUZ\b\|runway\|flight path\|military impact)))(?=[\s\S]*(?:(?:disclos\w*\|notif\w*\|notice\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|tenant\w*\|landlord\w*\|occupant\w*)))` | 0 | 0 |
+- positive `504B.195`: passed
+- positive `144.1911`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S07-b49-military-bare`** — bare-word companion for military air zone disclosure, each family on its own over whole statutes  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `avigation` | 1 — stat:144.1911 | 0 |
+| `noise zone\|accident potential zone\|\bAICUZ\b` | 0 | 0 |
+| `air installation\|airport zoning` | 0 | 0 |
+| `\bairport\w*\|\brunway\w*` | 3 — stat:325F.072, stat:325F.50, stat:325F.51 | 0 |
+| `military` | 7 — stat:147.02, stat:325F.992, stat:523.24, stat:609.66 … | 0 |
+| `(?:air force\|national guard\|air national guard)` | 2 — stat:609.66, stat:609.67 | 0 |
+- positive `504B.195`: passed
+- positive `144.1911`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S07-b50-military-laws`** — military air zone disclosure over the 2025-2026 session laws as enacted  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `avigation\|noise zone\|accident potential zone\|air installation\|airport zoning` | 9 — law:2025-0:ch20:enacted, law:2025-1:ch13:enacted, law:2025-1:ch1:enacted, law:2025-1:ch3:enacted … | 0 |
+| `(?:avigation\|air installation\|airport zoning\|military (?:air\|flight\|installation\|base\|reservation)\|noise zone\|accident potential zone\|\bAICUZ\b\|runway\|flight path\|military impact)[\s\S]{0,1600}(?:disclos\w*\|notif\w*\|notice\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|tenant\w*\|landlord\w*\|occupant\w*)` | 3 — law:2025-0:ch20:enacted, law:2025-1:ch8:enacted, law:2025-1:ch9:enacted | 0 |
+| `(?:disclos\w*\|notif\w*\|notice\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|tenant\w*\|landlord\w*\|occupant\w*)[\s\S]{0,1600}(?:avigation\|air installation\|airport zoning\|military (?:air\|flight\|installation\|base\|reservation)\|noise zone\|accident potential zone\|\bAICUZ\b\|runway\|flight path\|military impact)` | 1 — law:2025-1:ch9:enacted | 0 |
+- positive `504B.195`: passed
+- positive `144.1911`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S07-b51-military-heading-cs`** — case-sensitive exact-phrase heading screen for an avigation, airport, military or noise headnote - Minnesota airport zoning is chapter 360, outside the corpus  
+scope `statutes`, 1305 units, case-sensitive
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `AVIGATION` | 0 | 0 |
+| `AIRPORT` | 1 — stat:325F.50 | 1 |
+| `MILITARY` | 0 | 1 |
+| `NOISE` | 0 | 0 |
+- positive `504B.195`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S07-b61-waterheater-wide`** — water heater temperature: water heater/hot water/scald/thermostat vocabulary near a tenancy or notice word, 1600-char window both orders plus section-wide AND, whole statutes  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:water heater\w*\|water-heating\|hot water\|\bscald\w*\|thermostat\w*\|domestic hot water)[\s\S]{0,1600}(?:disclos\w*\|notif\w*\|notice\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|tenant\w*\|landlord\w*\|occupant\w*\|owner\w*)` | 1 — stat:504B.381 | 0 |
+| `(?:disclos\w*\|notif\w*\|notice\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|tenant\w*\|landlord\w*\|occupant\w*\|owner\w*)[\s\S]{0,1600}(?:water heater\w*\|water-heating\|hot water\|\bscald\w*\|thermostat\w*\|domestic hot water)` | 2 — stat:363A.10, stat:504B.381 | 0 |
+| `\A(?=[\s\S]*(?:(?:water heater\w*\|water-heating\|hot water\|\bscald\w*\|thermostat\w*\|domestic hot water)))(?=[\s\S]*(?:(?:disclos\w*\|notif\w*\|notice\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|tenant\w*\|landlord\w*\|occupant\w*\|owner\w*)))` | 2 — stat:363A.10, stat:504B.381 | 0 |
+- positive `504B.161`: passed
+- positive `504B.381`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S07-b62-waterheater-bare`** — bare-word companion for water heater temperature, each term on its own over whole statutes, including the temperature figures a setting rule would name  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `water heater\w*` | 0 | 0 |
+| `hot water` | 1 — stat:504B.381 | 0 |
+| `\bscald\w*` | 0 | 0 |
+| `thermostat\w*` | 1 — stat:363A.10 | 0 |
+| `degrees Fahrenheit` | 5 — stat:144.1222, stat:325F.09, stat:325F.19, stat:504B.161 … | 0 |
+| `(?:120\|125\|130\|140) degrees` | 0 | 0 |
+- positive `504B.161`: passed
+- positive `504B.381`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S07-b63-waterheater-temp-and`** — section-wide ANDs: any held section carrying both a hot-water term and a temperature term, and any section carrying both a temperature term and a tenancy term  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\A(?=[\s\S]*(?:water heater\w*\|hot water))(?=[\s\S]*(?:(?:temperature\|degrees)))` | 0 | 0 |
+| `\A(?=[\s\S]*(?:(?:temperature\|degrees)))(?=[\s\S]*(?:(?:tenant\w*\|landlord\w*\|occupancy)))` | 1 — stat:504B.161 | 0 |
+- positive `504B.161`: passed
+- positive `504B.381`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S07-b64-waterheater-laws`** — water heater temperature over the 2025-2026 session laws as enacted  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `water heater\w*` | 2 — law:2025-1:ch6:enacted, law:2026-0:ch127:enacted | 0 |
+| `\bscald\w*` | 1 — law:2026-0:ch127:enacted | 0 |
+| `(?:water heater\w*\|water-heating\|hot water\|\bscald\w*\|thermostat\w*\|domestic hot water)[\s\S]{0,1600}(?:temperature\|degrees)` | 1 — law:2026-0:ch127:enacted | 0 |
+| `hot water` | 2 — law:2025-0:ch20:enacted, law:2026-0:ch127:enacted | 0 |
+- positive `504B.161`: passed
+- positive `504B.381`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S07-b65-waterheater-heading-cs`** — case-sensitive exact-phrase heading screen for a water heater, hot water, temperature or scald headnote  
+scope `statutes`, 1305 units, case-sensitive
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `WATER HEATER` | 0 | 0 |
+| `HOT WATER` | 0 | 0 |
+| `TEMPERATURE` | 1 — stat:325F.18 | 0 |
+| `SCALD` | 0 | 0 |
+- positive `504B.381`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S09-bare-inspect`** — STEP5 mandated bare-word screen, S09-safety-building  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\binspect\b` | 19 — stat:144.14, stat:144.1461, stat:144.383, stat:144.55 … | 0 |
+- positive `504B.185`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S09-bare-inspection`** — STEP5 mandated bare-word screen, S09-safety-building  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\binspection\b` | 56 — stat:144.1205, stat:144.121, stat:144.1222, stat:144.4961 … | 2 |
+- positive `504B.195`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S09-bare-license`** — STEP5 mandated bare-word screen, S09-safety-building  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\blicen[cs]e\b` | 80 — stat:144.051, stat:144.052, stat:144.057, stat:144.0572 … | 0 |
+- positive `504B.161`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S09-bare-register`** — STEP5 mandated bare-word screen, S09-safety-building  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bregister\b` | 23 — stat:144.064, stat:144.077, stat:144.1205, stat:144.121 … | 0 |
+- positive `144.215`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S09-bare-registration`** — STEP5 mandated bare-word screen, S09-safety-building  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bregistration\b` | 39 — stat:144.052, stat:144.057, stat:144.058, stat:144.077 … | 2 |
+- positive `144.215`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S09-bare-certificate`** — STEP5 mandated bare-word screen, S09-safety-building  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bcertificate\b` | 42 — stat:144.0572, stat:144.121, stat:144.1461, stat:144.1501 … | 0 |
+- positive `504B.461`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S09-bare-inspect-infl`** — STEP5 bare-word screen with inflections, S09-safety-building  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\binspect(?:s\|es\|d\|ed\|ing\|ion\|ions\|or\|ors)?\b` | 80 — stat:144.12, stat:144.1205, stat:144.121, stat:144.1222 … | 2 |
+- positive `504B.185`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S09-bare-licen-infl`** — STEP5 bare-word screen with inflections, S09-safety-building  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\blicen[cs](?:e\|es\|ed\|ing\|ure)\b` | 209 — stat:144.0505, stat:144.051, stat:144.052, stat:144.054 … | 1 |
+- positive `504B.161`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S09-bare-regist-infl`** — STEP5 bare-word screen with inflections, S09-safety-building  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bregist(?:er\|ers\|ered\|ering\|ration\|rations\|ry\|rar)\b` | 125 — stat:144.051, stat:144.052, stat:144.054, stat:144.057 … | 0 |
+- positive `144.215`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S09-bare-certif-infl`** — STEP5 bare-word screen with inflections, S09-safety-building  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bcertificat(?:e\|es\|ion\|ions\|ed)\b` | 82 — stat:144.056, stat:144.0572, stat:144.058, stat:144.059 … | 1 |
+- positive `504B.461`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S09-bare-balcony`** — S09 balcony-inspection bare words across statutes  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bbalcon(?:y\|ies)\b` | 0 | 0 |
+| `\bdeck(?:s\|ing)?\b` | 2 — stat:144.1222, stat:363A.03 | 0 |
+| `\brailing(?:s)?\b` | 0 | 0 |
+| `\bguardrail(?:s)?\b` | 0 | 0 |
+| `\bexterior elevated\b` | 0 | 0 |
+| `\bporch(?:es)?\b` | 0 | 0 |
+| `\bstair(?:s\|way\|ways\|case)?\b` | 1 — stat:299F.011 | 0 |
+- positive `299F.011`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S09-bare-window`** — S09 window-guards bare words across statutes  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bwindow(?:s)?\b` | 13 — stat:144.413, stat:144.9501, stat:144.9504, stat:144.9508 … | 0 |
+| `\bguard(?:s\|ed\|ing)?\b` | 6 — stat:144.4807, stat:144.9501, stat:144.9504, stat:518B.01 … | 0 |
+| `\bscreen(?:s\|ed\|ing)?\b` | 37 — stat:144.064, stat:144.065, stat:144.0724, stat:144.077 … | 0 |
+| `\bfall(?:s\|ing\|en)?\b` | 13 — stat:144.0724, stat:144.35, stat:144.382, stat:144.551 … | 0 |
+- positive `504B.161`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S09-bare-lighting`** — S09 common-area-lighting bare words across statutes  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\blight(?:s\|ing\|ed)?\b` | 13 — stat:144.413, stat:144.4165, stat:144.4167, stat:144.55 … | 0 |
+| `\billuminat\w*` | 1 — stat:144.566 | 0 |
+| `\bcommon area(?:s)?\b` | 10 — stat:144.413, stat:144.9504, stat:216B.023, stat:327C.03 … | 0 |
+- positive `504B.161`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S09-certificate-of-occupancy`** — S09 certificate-of-occupancy-disclosure / landlord-registration  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `certificate of occupancy` | 2 — stat:144.4961, stat:471.9995 | 0 |
+| `\boccupancy permit\b` | 0 | 0 |
+| `truth[- ]in[- ]housing` | 2 — stat:299F.362, stat:325F.83 | 0 |
+| `rental licen\w+` | 3 — stat:504B.161, stat:504B.204, stat:504B.381 | 0 |
+| `rental regist\w+` | 0 | 0 |
+| `\bregistration\b[\s\S]{0,1200}rental` | 3 — stat:325F.665, stat:471.9995, stat:82.55 | 0 |
+| `rental[\s\S]{0,1200}\bregistration\b` | 2 — stat:471.9995, stat:82.55 | 0 |
+| `\A(?=[\s\S]*(?:\bregistration\b))(?=[\s\S]*(?:\brental\b))` | 4 — stat:144G.08, stat:325F.665, stat:471.9995, stat:82.55 | 0 |
+- positive `471.9995`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S09-lease-recording`** — S09 lease-registration: recording a lease  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `county recorder` | 5 — stat:325F.6654, stat:327C.095, stat:504B.251, stat:504B.291 … | 0 |
+| `\brecord(?:ed\|ing)\b[\s\S]{0,1200}\blease\w*` | 2 — stat:504B.251, stat:504B.291 | 0 |
+| `\blease\w*[\s\S]{0,1200}\brecord(?:ed\|ing)\b` | 2 — stat:504B.251, stat:504B.291 | 0 |
+| `\A(?=[\s\S]*(?:county recorder))(?=[\s\S]*(?:\blease\w*))` | 2 — stat:504B.251, stat:504B.291 | 0 |
+| `registrar of titles` | 3 — stat:327C.095, stat:504B.291, stat:559.21 | 0 |
+- positive `504B.251`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S09-pest`** — S09 pest-control-notice / bed-bug-cooperation  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bpesticide(?:s)?\b` | 1 — stat:325F.245 | 0 |
+| `\bexterminat\w*` | 1 — stat:504B.161 | 0 |
+| `\binfestation(?:s)?\b` | 1 — stat:504B.381 | 0 |
+| `\bvermin\b` | 2 — stat:325F.22, stat:504B.161 | 0 |
+| `\brodent(?:s)?\b` | 3 — stat:144.74, stat:325F.22, stat:504B.161 | 0 |
+| `\binsect(?:s)?\b` | 2 — stat:144.74, stat:504B.161 | 0 |
+- positive `504B.161`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S09-laws-safety-terms`** — S09 absence screen over the 2026 session laws (enacted view)  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bbalcon(?:y\|ies)\b` | 5 — law:2025-0:ch32:enacted, law:2025-0:ch36:enacted, law:2026-0:ch127:enacted, law:2026-0:ch61:enacted … | 0 |
+| `\brailing(?:s)?\b` | 2 — law:2025-1:ch8:enacted, law:2026-0:ch77:enacted | 0 |
+| `window guard(?:s)?\b` | 0 | 0 |
+| `\bpool(?:s)?\b` | 20 — law:2025-0:ch14:enacted, law:2025-0:ch20:enacted, law:2025-0:ch21:enacted, law:2025-0:ch38:enacted … | 0 |
+| `certificate of occupancy` | 5 — law:2025-0:ch39:enacted, law:2025-1:ch5:enacted, law:2026-0:ch121:enacted, law:2026-0:ch61:enacted … | 0 |
+| `rental licen\w+` | 4 — law:2025-0:ch32:enacted, law:2025-0:ch39:enacted, law:2025-1:ch11:enacted, law:2026-0:ch121:enacted | 0 |
+| `rental regist\w+` | 0 | 0 |
+| `\bexterminat\w*` | 3 — law:2025-0:ch32:enacted, law:2025-1:ch11:enacted, law:2026-0:ch127:enacted | 0 |
+| `\bpesticide(?:s)?\b` | 7 — law:2025-0:ch31:enacted, law:2025-0:ch34:enacted, law:2025-0:ch36:enacted, law:2025-1:ch1:enacted … | 0 |
+| `bed ?bug(?:s)?\b` | 1 — law:2026-0:ch127:enacted | 0 |
+| `\bvarianc(?:e\|es)\b` | 11 — law:2025-0:ch20:enacted, law:2025-0:ch21:enacted, law:2025-0:ch38:enacted, law:2025-1:ch1:enacted … | 0 |
+| `\bsanitar(?:y\|ily)\b` | 18 — law:2025-0:ch20:enacted, law:2025-0:ch31:enacted, law:2025-0:ch34:enacted, law:2025-0:ch36:enacted … | 0 |
+| `carbon monoxide` | 5 — law:2025-1:ch1:enacted, law:2025-1:ch6:enacted, law:2025-1:ch8:enacted, law:2025-1:ch9:enacted … | 0 |
+| `\breceiver(?:ship)?\b` | 13 — law:2025-0:ch20:enacted, law:2025-0:ch27:enacted, law:2025-0:ch31:enacted, law:2025-1:ch4:enacted … | 0 |
+| `\badministrator\b[\s\S]{0,1200}\brent\b` | 1 — law:2025-0:ch32:enacted | 0 |
+- positive `law:2026-0:ch81:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S09-laws-newonly-safety`** — S09 2026 new-text-only screen  
+scope `laws:2026-0:newonly`, 92 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bbalcon(?:y\|ies)\b` | 1 — law:2026-0:ch127:newonly | 0 |
+| `window guard(?:s)?\b` | 0 | 0 |
+| `\bpool(?:s)?\b` | 2 — law:2026-0:ch127:newonly, law:2026-0:ch130:newonly | 0 |
+| `certificate of occupancy` | 0 | 0 |
+| `rental licen\w+` | 0 | 0 |
+| `\bexterminat\w*` | 1 — law:2026-0:ch127:newonly | 0 |
+| `bed ?bug(?:s)?\b` | 1 — law:2026-0:ch127:newonly | 0 |
+| `carbon monoxide` | 1 — law:2026-0:ch127:newonly | 0 |
+| `\bvarianc(?:e\|es)\b` | 3 — law:2026-0:ch121:newonly, law:2026-0:ch127:newonly, law:2026-0:ch95:newonly | 0 |
+- positive `law:2026-0:ch81:newonly`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S10-b1-key-control-statutes`** — key-control policy / master-key / key issue-and-return duty in any held chapter  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bkeys?\b[\s\S]{0,1200}(control\w*\|polic\w*\|master\|duplicat\w*\|\blog\b\|inventor\w*\|issu\w*\|replac\w*)` | 0 | 0 |
+| `(control\w*\|polic\w*\|master\|duplicat\w*\|\blog\b\|inventor\w*\|issu\w*\|replac\w*)[\s\S]{0,1200}\bkeys?\b` | 1 — stat:245I.23 | 0 |
+| `\A(?=[\s\S]*(?:\bkeys?\b))(?=[\s\S]*(?:(control\w*\|polic\w*\|master\|duplicat\w*)))` | 2 — stat:245I.23, stat:325F.722 | 0 |
+- positive `325F.722`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S10-b1-key-bare-statutes`** — bare word key/keys before any term of art (brief 2: bare word first)  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bkeys?\b` | 2 — stat:245I.23, stat:325F.722 | 0 |
+| `\bkey\w*\b` | 2 — stat:245I.23, stat:325F.722 | 0 |
+- positive `325F.722`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S10-b1-staff-screening-statutes`** — employee/staff background-check mandate for residential landlords  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(background (check\w*\|stud\w*)\|criminal (history\|background))[\s\S]{0,1200}(employ\w*\|staff\|manager\|caretaker\|agent)` | 5 — stat:144.057, stat:299F.035, stat:299F.054, stat:363A.08 … | 0 |
+| `(employ\w*\|staff\|manager\|caretaker\|agent)[\s\S]{0,1200}(background (check\w*\|stud\w*)\|criminal (history\|background))` | 4 — stat:144.057, stat:299F.035, stat:363A.08, stat:609.66 | 0 |
+| `\A(?=[\s\S]*(?:background (check\w*\|stud\w*)))(?=[\s\S]*(?:(employ\w*\|staff\|caretaker)))` | 4 — stat:144.057, stat:299F.035, stat:609.66, stat:624.713 | 0 |
+- positive `504B.175`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S10-b1-key-laws`** — key control in the 2025-2026 session laws  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bkeys?\b` | 19 — law:2025-0:ch20:enacted, law:2025-0:ch31:enacted, law:2025-0:ch38:enacted, law:2025-1:ch14:enacted … | 0 |
+| `(master key\|key control)` | 1 — law:2025-1:ch14:enacted | 0 |
+- positive `law:2026-0:ch81:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S10-b3-showing-notice-waiver-statutes`** — waiver or shortening of entry notice for showings  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(show\w*\|exhibit\w*\|prospective\|open house)[\s\S]{0,1200}(waiv\w*\|shorter notice\|less than 24\|separate (signed\|written) (document\|addendum))` | 8 — stat:144.0724, stat:144.6501, stat:299F.0115, stat:325F.662 … | 0 |
+| `(waiv\w*\|shorter notice\|less than 24\|separate (signed\|written) (document\|addendum))[\s\S]{0,1200}(show\w*\|exhibit\w*\|prospective\|open house)` | 7 — stat:144.9505, stat:299F.0115, stat:327C.02, stat:363A.31 … | 0 |
+| `\A(?=[\s\S]*(?:(show\w*\|exhibit\w*\|prospective)))(?=[\s\S]*(?:waiv\w*))` | 22 — stat:144.0724, stat:144.122, stat:144.6501, stat:144.7022 … | 0 |
+- positive `504B.211`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S10-b3-showing-notice-waiver-laws`** — showings / entry-notice waiver in the 2025-2026 session laws  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(show\w*\|exhibit\w*\|prospective)[\s\S]{0,1200}(waiv\w*\|notice of entry)` | 10 — law:2025-0:ch35:enacted, law:2025-0:ch38:enacted, law:2025-1:ch3:enacted, law:2025-1:ch4:enacted … | 0 |
+| `(waiv\w*\|notice of entry)[\s\S]{0,1200}(show\w*\|exhibit\w*\|prospective)` | 15 — law:2025-0:ch35:enacted, law:2025-0:ch38:enacted, law:2025-0:ch39:enacted, law:2025-1:ch10:enacted … | 0 |
+- positive `law:2026-0:ch81:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S10-b4-smart-access-statutes`** — smart lock / app-based or electronic entry regulation in residential rentals  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(smart\|electronic\w*\|digital\|keyless\|app-based\|mobile\|remote\|biometric\w*\|fingerprint\|facial\|credential\w*\|\bfob\b\|key card\|keycard\|access control)[\s\S]{0,1200}(\block\w*\|\bdoor\w*\|\bentry\b\|\baccess\b)` | 16 — stat:144.147, stat:144.3345, stat:144.4167, stat:144.50 … | 0 |
+| `(\block\w*\|\bdoor\w*\|\bentry\b\|\baccess\b)[\s\S]{0,1200}(smart\|electronic\w*\|digital\|keyless\|app-based\|mobile\|remote\|biometric\w*\|fingerprint\|facial\|credential\w*\|\bfob\b\|key card\|keycard\|access control)` | 16 — stat:144.213, stat:144.3345, stat:144.4167, stat:144.4195 … | 0 |
+| `\A(?=[\s\S]*(?:(smart\|keyless\|biometric\w*\|key card\|electronic\w*)))(?=[\s\S]*(?:(\block\w*\|\bdoor\w*\|\bentry\b)))` | 7 — stat:144.413, stat:144.4167, stat:144.551, stat:325F.722 … | 0 |
+- positive `325F.722`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S10-b4-smart-access-laws`** — smart access in the 2025-2026 session laws  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(smart\|keyless\|biometric\w*\|key card\|keycard\|app-based)[\s\S]{0,1200}(\block\w*\|\bdoor\w*\|\bentry\b\|\baccess\b)` | 0 | 0 |
+| `(\block\w*\|\bdoor\w*\|\bentry\b\|\baccess\b)[\s\S]{0,1200}(smart\|keyless\|biometric\w*\|key card\|keycard\|app-based)` | 2 — law:2025-1:ch12:enacted, law:2025-1:ch13:enacted | 0 |
+- positive `law:2026-0:ch82:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S09-b-balcony-wide`** — S09 balcony-inspection absence: wide run plus section-wide AND  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\bbalcon\w*\|\brailing\w*\|\bguardrail\w*\|\bporch\w*\|exterior elevated)[\s\S]{0,1200}(?:\binspect\w*\|\bstructur\w*)` | 0 | 0 |
+| `(?:\binspect\w*\|\bstructur\w*)[\s\S]{0,1200}(?:\bbalcon\w*\|\brailing\w*\|\bguardrail\w*\|\bporch\w*\|exterior elevated)` | 0 | 0 |
+| `\A(?=[\s\S]*(?:(?:\bbalcon\w*\|\brailing\w*\|\bguardrail\w*\|\bporch\w*)))(?=[\s\S]*(?:\binspect\w*))` | 0 | 0 |
+| `\A(?=[\s\S]*(?:\bstructur\w*))(?=[\s\S]*(?:\binspect\w*))` | 10 — stat:144.12, stat:144.1461, stat:144.566, stat:144.9501 … | 0 |
+- positive `504B.185`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S09-b-windowguard-wide`** — S09 window-guards absence: wide run plus section-wide AND  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bwindow\w*[\s\S]{0,1200}(?:\bguard\w*\|\bbar(?:s\|rier\|riers)?\b\|\bfall\w*\|\bscreen\w*)` | 3 — stat:144.413, stat:144.9501, stat:144.9504 | 0 |
+| `(?:\bguard\w*\|\bbar(?:s\|rier\|riers)?\b\|\bfall\w*\|\bscreen\w*)[\s\S]{0,1200}\bwindow\w*` | 3 — stat:144.413, stat:144.9501, stat:144.9504 | 0 |
+| `\A(?=[\s\S]*(?:\bwindow\w*))(?=[\s\S]*(?:\bguard\w*))` | 2 — stat:144.9501, stat:144.9504 | 0 |
+| `\A(?=[\s\S]*(?:\bwindow\w*))(?=[\s\S]*(?:\bchild\w*))` | 4 — stat:144.9501, stat:144.9504, stat:144.9508, stat:325F.071 | 0 |
+- positive `504B.161`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S09-b-commonlight-wide`** — S09 common-area-lighting absence: wide run plus section-wide AND  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `common area\w*[\s\S]{0,1200}(?:\blight\w*\|\billuminat\w*\|\bfoot-?candle\w*)` | 1 — stat:144.413 | 0 |
+| `(?:\blight\w*\|\billuminat\w*\|\bfoot-?candle\w*)[\s\S]{0,1200}common area\w*` | 0 | 0 |
+| `\A(?=[\s\S]*(?:common area\w*))(?=[\s\S]*(?:(?:\blight\w*\|\billuminat\w*)))` | 1 — stat:144.413 | 0 |
+| `\A(?=[\s\S]*(?:(?:hallway\|stairwell\|corridor\|entryway\|vestibule)))(?=[\s\S]*(?:\blight\w*))` | 1 — stat:144.413 | 0 |
+- positive `504B.161`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S09-b-landlordreg-wide`** — S09 landlord-registration / lease-registration absence: wide plus AND  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\blandlord\w*\|\bowner\w*\|\blessor\w*)[\s\S]{0,1200}(?:\bregist\w*\|\blicen[cs]\w*)[\s\S]{0,60}` | 38 — stat:144.057, stat:144.565, stat:144.6521, stat:144.653 … | 0 |
+| `(?:\bregist\w*\|\blicen[cs]\w*)[\s\S]{0,1200}(?:\blandlord\w*\|\blessor\w*)` | 13 — stat:216B.022, stat:325F.662, stat:327C.16, stat:504B.113 … | 0 |
+| `\A(?=[\s\S]*(?:(?:\blandlord\w*\|\blessor\w*)))(?=[\s\S]*(?:\bregist\w*))` | 9 — stat:216B.022, stat:325F.662, stat:325F.665, stat:363A.28 … | 0 |
+| `\A(?=[\s\S]*(?:(?:dwelling\|rental)))(?=[\s\S]*(?:\bregist\w*))` | 14 — stat:144.1222, stat:144.125, stat:144.966, stat:144G.08 … | 0 |
+- positive `471.9995`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S10-b6-extended-absence-statutes`** — tenant duty to give notice of an extended absence  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(absen\w*\|away from the (premises\|dwelling\|unit)\|unoccupied\|vacat\w*\|extended trip)[\s\S]{0,1200}(notice\|notif\w*\|inform\w*\|tell the landlord)` | 32 — stat:144.217, stat:144.291, stat:144.3345, stat:144.4172 … | 0 |
+| `(notice\|notif\w*\|inform\w*\|tell the landlord)[\s\S]{0,1200}(absen\w*\|away from the (premises\|dwelling\|unit)\|unoccupied\|vacat\w*\|extended trip)` | 28 — stat:144.3345, stat:144.9504, stat:145A.04, stat:216B.096 … | 1 |
+| `\A(?=[\s\S]*(?:(absen\w*\|unoccupied)))(?=[\s\S]*(?:(notice\|notif\w*)))` | 17 — stat:144.217, stat:144.4172, stat:144.651, stat:145A.04 … | 0 |
+- positive `504B.271`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S10-b6-extended-absence-laws`** — absence-notice duty in the 2025-2026 session laws  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(absen\w*\|away from the (premises\|dwelling\|unit)\|unoccupied\|vacat\w*\|extended trip)[\s\S]{0,1200}(notice\|notif\w*\|inform\w*\|tell the landlord)` | 31 — law:2025-0:ch20:enacted, law:2025-0:ch27:enacted, law:2025-0:ch31:enacted, law:2025-0:ch32:enacted … | 0 |
+| `(notice\|notif\w*\|inform\w*\|tell the landlord)[\s\S]{0,1200}(absen\w*\|away from the (premises\|dwelling\|unit)\|unoccupied\|vacat\w*\|extended trip)` | 30 — law:2025-0:ch20:enacted, law:2025-0:ch27:enacted, law:2025-0:ch31:enacted, law:2025-0:ch35:enacted … | 0 |
+- positive `law:2026-0:ch81:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S10-b6-absence-bare-statutes`** — bare word absence before the term of art  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\babsence\b` | 19 — stat:144.215, stat:144.217, stat:144.291, stat:144.4172 … | 0 |
+| `extended absence` | 0 | 0 |
+| `\bunoccupied\b` | 6 — stat:216B.096, stat:363A.21, stat:504B.001, stat:504B.185 … | 0 |
+- positive `144.291`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S10-b7-animal-care-access-statutes`** — landlord right or duty to enter for, care for, or take custody of a tenant animal  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(animals?\|pets?\|dogs?\|cats?\|birds?)[\s\S]{0,1200}(car(e\|ing)\b\|feed\w*\|water\w*\|neglect\w*\|abandon\w*\|custody\|impound\w*\|remov\w*\|shelter\|humane)` | 207 — stat:144.051, stat:144.0526, stat:144.0528, stat:144.057 … | 0 |
+| `(car(e\|ing)\b\|feed\w*\|water\w*\|neglect\w*\|abandon\w*\|custody\|impound\w*\|remov\w*\|shelter\|humane)[\s\S]{0,1200}(animals?\|pets?\|dogs?\|cats?\|birds?)` | 171 — stat:144.05, stat:144.0526, stat:144.0528, stat:144.057 … | 1 |
+| `\A(?=[\s\S]*(?:(animals?\|pets?\|dogs?\|cats?\|birds?)))(?=[\s\S]*(?:(enter\w*\|entry)))` | 132 — stat:144.057, stat:144.0724, stat:144.0752, stat:144.122 … | 0 |
+- positive `504B.261`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S10-b7-animal-care-access-laws`** — animal care / entry in the 2025-2026 session laws  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(animals?\|pets?\|dogs?\|cats?\|birds?)[\s\S]{0,1200}(car(e\|ing)\b\|feed\w*\|water\w*\|neglect\w*\|abandon\w*\|custody\|impound\w*\|remov\w*\|shelter\|humane)` | 146 — law:2025-0:ch10:enacted, law:2025-0:ch11:enacted, law:2025-0:ch12:enacted, law:2025-0:ch13:enacted … | 0 |
+| `(car(e\|ing)\b\|feed\w*\|water\w*\|neglect\w*\|abandon\w*\|custody\|impound\w*\|remov\w*\|shelter\|humane)[\s\S]{0,1200}(animals?\|pets?\|dogs?\|cats?\|birds?)` | 100 — law:2025-0:ch11:enacted, law:2025-0:ch15:enacted, law:2025-0:ch18:enacted, law:2025-0:ch19:enacted … | 0 |
+- positive `law:2026-0:ch82:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S10-b8-emergency-contact-statutes`** — duty to give or collect an emergency contact or 24-hour number in a residential tenancy  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(emergency\|after[- ]hours\|24[- ]hour)[\s\S]{0,1200}(contact\w*\|telephone\|phone\|number\|address\|name of)` | 32 — stat:144.0528, stat:144.1503, stat:144.3345, stat:144.419 … | 0 |
+| `(contact\w*\|telephone\|phone\|number\|address\|name of)[\s\S]{0,1200}(emergency\|after[- ]hours\|24[- ]hour)` | 44 — stat:144.0528, stat:144.1483, stat:144.291, stat:144.293 … | 0 |
+| `\A(?=[\s\S]*(?:emergency contact))(?=[\s\S]*(?:(tenant\|resident\|lease)))` | 1 — stat:144.651 | 0 |
+- positive `144.651`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S10-b8-emergency-contact-laws`** — emergency contact in the 2025-2026 session laws  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `emergency contact\w*` | 6 — law:2025-1:ch3:enacted, law:2025-1:ch9:enacted, law:2026-0:ch118:enacted, law:2026-0:ch127:enacted … | 0 |
+| `(emergency\|after[- ]hours\|24[- ]hour)[\s\S]{0,1200}(contact\w*\|telephone\|phone\|number\|address\|name of)` | 37 — law:2025-0:ch11:enacted, law:2025-0:ch18:enacted, law:2025-0:ch20:enacted, law:2025-0:ch21:enacted … | 0 |
+- positive `law:2026-0:ch81:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S09-lead-vocabulary`** — S09 lead chapter own vocabulary; bare \blead\b first  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\blead\b` | 28 — stat:144.0526, stat:144.1202, stat:144.1215, stat:144.1503 … | 0 |
+| `lead hazard reduction` | 5 — stat:144.9501, stat:144.9503, stat:144.9504, stat:144.9508 … | 0 |
+| `swab team services` | 4 — stat:144.9501, stat:144.9503, stat:144.9504, stat:144.9512 | 0 |
+| `regulated lead work` | 6 — stat:144.9501, stat:144.9503, stat:144.9504, stat:144.9505 … | 0 |
+| `lead-based paint` | 3 — stat:144.9501, stat:144.9503, stat:144.9504 | 0 |
+| `\bassessing agency\b` | 4 — stat:144.9501, stat:144.9504, stat:144.9505, stat:144.9509 | 0 |
+| `\blead risk assessment\b` | 4 — stat:144.9501, stat:144.9504, stat:144.9505, stat:144.9507 | 0 |
+- positive `144.9501`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S10-b7r-animal-care-landlord-scoped`** — animal/pet provisions scoped to a landlord or lease, with entry/care/custody as a third term  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(animals?\|pets?)[\s\S]{0,1200}(landlord\|lessor\|park owner\|rental agreement\|\blease\b\|tenanc\w*)` | 20 — stat:144.573, stat:144.95, stat:299F.014, stat:325D.38 … | 0 |
+| `(landlord\|lessor\|park owner\|rental agreement\|\blease\b\|tenanc\w*)[\s\S]{0,1200}(animals?\|pets?)` | 22 — stat:144.1505, stat:144.573, stat:245I.04, stat:299F.014 … | 0 |
+| `\A(?=[\s\S]*(?:(animals?\|pets?)))(?=[\s\S]*(?:(landlord\|lessor\|park owner\|rental agreement\|\blease\b\|tenanc\w*)))(?=[\s\S]*(?:(enter\w*\|entry\|car(e\|ing)\b\|custody)))` | 22 — stat:144.121, stat:144.1505, stat:144.212, stat:144.553 … | 0 |
+- positive `504B.261`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S10-b6r-absence-landlord-scoped`** — absence/vacating provisions scoped to a landlord or lease, with notice as a third term  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(absen\w*\|unoccupied\|vacat\w*)[\s\S]{0,1200}(landlord\|lessor\|park owner\|rental agreement\|\blease\b\|tenanc\w*)` | 22 — stat:144.9504, stat:325F.92, stat:327C.05, stat:327C.09 … | 0 |
+| `(landlord\|lessor\|park owner\|rental agreement\|\blease\b\|tenanc\w*)[\s\S]{0,1200}(absen\w*\|unoccupied\|vacat\w*)` | 22 — stat:144.71, stat:144.9504, stat:325F.68, stat:325F.92 … | 0 |
+| `\A(?=[\s\S]*(?:(absen\w*\|unoccupied)))(?=[\s\S]*(?:(landlord\|lessor\|park owner\|rental agreement\|\blease\b\|tenanc\w*)))(?=[\s\S]*(?:(notice\|notif\w*)))` | 5 — stat:144.651, stat:145A.04, stat:325F.92, stat:504B.185 … | 0 |
+- positive `504B.155`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S10-b13-parking-rules-notice-statutes`** — duty to deliver or post parking or towing rules; limits on mid-term changes  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(parking\|park\w* (space\|stall\|lot)\|garage\|carport)[\s\S]{0,1200}(rules?\|regulation\w*\|notice\|writing\|written\|post\w*\|sign\w*)` | 5 — stat:144.4167, stat:299F.014, stat:325F.82, stat:325F.83 … | 0 |
+| `(rules?\|regulation\w*\|notice\|writing\|written\|post\w*\|sign\w*)[\s\S]{0,1200}(parking\|park\w* (space\|stall\|lot)\|garage\|carport)` | 4 — stat:144.566, stat:325F.82, stat:325F.83, stat:484.90 | 0 |
+| `\A(?=[\s\S]*(?:parking))(?=[\s\S]*(?:(rules?\|notice)))` | 2 — stat:299F.014, stat:484.90 | 0 |
+- positive `327C.02`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S10-b13-parking-rules-notice-laws`** — parking rules notice in the 2025-2026 session laws  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(parking\|park\w* (space\|stall\|lot)\|garage\|carport)[\s\S]{0,1200}(rules?\|regulation\w*\|notice\|written\|post\w*)` | 8 — law:2025-0:ch20:enacted, law:2025-0:ch32:enacted, law:2025-1:ch13:enacted, law:2025-1:ch4:enacted … | 0 |
+| `(rules?\|regulation\w*\|notice\|written\|post\w*)[\s\S]{0,1200}(parking\|park\w* (space\|stall\|lot)\|garage\|carport)` | 9 — law:2025-0:ch20:enacted, law:2025-0:ch21:enacted, law:2025-0:ch32:enacted, law:2025-1:ch13:enacted … | 0 |
+- positive `law:2026-0:ch82:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S10-b14-waterbed-statutes`** — waterbed / flotation bedding / liquid-filled furniture rule  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(water\s*bed\w*\|waterbed\w*\|flotation\|liquid[- ]filled\|water[- ]filled\|aquarium\w*)` | 0 | 0 |
+| `(water\s*bed\w*\|waterbed\w*\|flotation\|liquid[- ]filled\|water[- ]filled\|aquarium\w*)[\s\S]{0,1200}(landlord\|lessor\|park owner\|rental agreement\|\blease\b\|tenanc\w*)` | 0 | 0 |
+| `\A(?=[\s\S]*(?:\bbeds?\b))(?=[\s\S]*(?:(landlord\|lessor\|park owner\|rental agreement\|\blease\b\|tenanc\w*)))` | 8 — stat:144.0724, stat:144.12, stat:144.551, stat:144.553 … | 0 |
+- positive `504B.161`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S10-b14-waterbed-laws`** — waterbed in the 2025-2026 session laws  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(water\s*bed\w*\|waterbed\w*\|flotation\|liquid[- ]filled\|water[- ]filled\|aquarium\w*)` | 6 — law:2025-0:ch20:enacted, law:2025-0:ch34:enacted, law:2025-0:ch36:enacted, law:2026-0:ch104:enacted … | 0 |
+| `\bbeds?\b` | 13 — law:2025-0:ch20:enacted, law:2025-0:ch38:enacted, law:2025-1:ch15:enacted, law:2025-1:ch1:enacted … | 0 |
+- positive `law:2026-0:ch81:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S10-b15-heading-screen-caps`** — upper-case headnote screen for every term of art in slice S10  
+scope `statutes`, 1305 units, case-sensitive
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bKEYS?\b` | 0 | 0 |
+| `\bLOCK\w*` | 0 | 0 |
+| `\bENTR(Y\|ANCE\|IES)\b` | 0 | 2 |
+| `\bPARKING\b` | 1 — stat:299F.014 | 0 |
+| `\bANIMALS?\b\|\bPETS?\b` | 1 — stat:144.565 | 4 |
+| `\bSMOK\w+` | 1 — stat:144.4167 | 1 |
+| `\b(CABLE\|TELECOMMUNICATIONS?\|INTERNET\|BROADBAND\|SATELLITE\|ANTENNA)\b` | 0 | 1 |
+| `\bABSEN\w+` | 0 | 0 |
+| `\bEMERGENC\w+` | 2 — stat:325F.99, stat:325F.991 | 6 |
+| `\bWATERBED\w*\|\bWATER BED\b` | 0 | 0 |
+| `\bFACILIT\w+` | 2 — stat:144.6501, stat:299F.391 | 10 |
+| `\bPRIVACY\b` | 3 — stat:144.4186, stat:144.4813, stat:504B.211 | 1 |
+- positive `504B.211`: passed
+- control `ZZQQXXNOTAWORD`: 0 hits
+
+**`S10-b4r-smart-access-inflected`** — smart/electronic access rerun with inflected access forms, plus a three-term section-wide AND scoped to a dwelling  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(smart\|keyless\|app-based\|biometric\w*\|fingerprint\|key card\|keycard\|\bfob\b\|credential\w*\|electronic\w*\|remote\w*)[\s\S]{0,1200}(\block\w*\|\bdoor\w*\|\bentry\b\|\baccess\w*)` | 16 — stat:144.147, stat:144.3345, stat:144.551, stat:144.566 … | 0 |
+| `(\block\w*\|\bdoor\w*\|\bentry\b\|\baccess\w*)[\s\S]{0,1200}(smart\|keyless\|app-based\|biometric\w*\|fingerprint\|key card\|keycard\|\bfob\b\|credential\w*\|electronic\w*\|remote\w*)` | 14 — stat:144.213, stat:144.3345, stat:144.4167, stat:144.4195 … | 0 |
+| `\A(?=[\s\S]*(?:(smart\|keyless\|app-based\|biometric\w*\|fingerprint\|key card\|keycard\|\bfob\b\|credential\w*\|electronic\w*\|remote\w*)))(?=[\s\S]*(?:(\block\w*\|\bdoor\w*)))(?=[\s\S]*(?:(tenant\|resident\|dwelling unit\|apartment)))` | 5 — stat:144.413, stat:245I.23, stat:325F.722, stat:504B.332 … | 0 |
+- positive `325F.722`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S11-bare-arbitrat-statutes`** — STEP 6 bare-word run: arbitrat alone over statutes  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `arbitrat\w*` | 8 — stat:325F.665, stat:325F.987, stat:327C.095, stat:363A.28 … | 0 |
+- positive `325F.6656`: **recorded as failed** (pattern did not match in the named unit)
+- control `zzqqxxnotaword`: 0 hits
+
+**`S11-bare-arbitrat-const`** — STEP 6 bare-word run: arbitrat alone over const  
+scope `const`, 1 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `arbitrat\w*` | 0 | 0 |
+- positive `const:mn`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S11-bare-arbitrat-laws_enacted`** — STEP 6 bare-word run: arbitrat alone over laws:enacted  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `arbitrat\w*` | 12 — law:2025-0:ch35:enacted, law:2025-0:ch38:enacted, law:2025-0:ch39:enacted, law:2025-1:ch3:enacted … | 0 |
+- positive `law:2026-0:ch81:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S11-bare-homestead-statutes`** — STEP 6 bare-word run: homestead alone over statutes  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bhomestead\b` | 0 | 0 |
+- positive `504B.001`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S11-bare-homestead-const`** — STEP 6 bare-word run: homestead alone over const  
+scope `const`, 1 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bhomestead\b` | 0 | 0 |
+- positive `const:mn`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S11-bare-homestead-laws_enacted`** — STEP 6 bare-word run: homestead alone over laws:enacted  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bhomestead\b` | 9 — law:2025-0:ch2:enacted, law:2025-0:ch35:enacted, law:2025-1:ch13:enacted, law:2026-0:ch101:enacted … | 0 |
+- positive `law:2026-0:ch81:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S11-bare-arbitrat-statutes-rerun2`** — STEP 6 bare-word rerun: arbitrat* alone over statutes, with passing positives (first run S11-bare-arbitrat-statutes had a failed positive 325F.6656)  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `arbitrat\w*` | 8 — stat:325F.665, stat:325F.987, stat:327C.095, stat:363A.28 … | 0 |
+- positive `327C.095`: passed
+- positive `484.76`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S11-b2-exculpatory-indemnity`** — exculpatory-clauses: term-of-art sweep across the eight whole-held chapters + 50 cross-refs  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `exculpat\w*` | 0 | 0 |
+| `hold\s+harmless` | 0 | 0 |
+| `\bindemnif\w*` | 1 — stat:145A.04 | 0 |
+| `\bindemnity\b` | 2 — stat:325F.692, stat:523.24 | 0 |
+| `limit\w*\s+(?:the\s+)?liability` | 11 — stat:144.416, stat:144.565, stat:144.6521, stat:144.72 … | 0 |
+| `confession of judgment` | 2 — stat:325F.91, stat:523.24 | 0 |
+| `\bcognovit\w*` | 0 | 0 |
+- positive `504B.161`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S11-b3-exculpatory-lease-liability-wide`** — exculpatory-clauses: wide 1200-char proximity both orders + section-wide AND  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\blease\b[\s\S]{0,1200}(?:exculpat\w*\|hold harmless\|indemnif\w*\|waiv\w* .{0,40}liability)` | 0 | 0 |
+| `(?:exculpat\w*\|hold harmless\|indemnif\w*\|waiv\w* .{0,40}liability)[\s\S]{0,1200}\blease\b` | 1 — stat:325F.95 | 0 |
+| `\A(?=[\s\S]*(?:\blease\b))(?=[\s\S]*(?:(?:exculpat\w*\|hold harmless\|indemnif\w*\|waiv\w* .{0,40}liability)))` | 2 — stat:145A.04, stat:325F.95 | 0 |
+- positive `504B.161`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S11-b4-homestead-exemption-waiver`** — homestead-waiver: bare word first (0 hits), then the functional exemption language  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bhomestead\b` | 0 | 0 |
+| `\bexempt\w*\s+from\s+(?:seizure\|sale\|execution\|attachment\|garnish\w*)` | 1 — stat:144.588 | 0 |
+| `(?:waiv\w*)[\s\S]{0,1200}\bexempt\w*` | 2 — stat:144.9505, stat:595.02 | 0 |
+| `\bexempt\w*[\s\S]{0,1200}(?:waiv\w*)` | 4 — stat:144.445, stat:144.95, stat:299F.0115, stat:504B.291 | 0 |
+| `\A(?=[\s\S]*(?:\bexempt\w*))(?=[\s\S]*(?:waiv\w*))` | 11 — stat:144.445, stat:144.4961, stat:144.50, stat:144.551 … | 0 |
+- positive `504B.271`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S11-b7-code-edition-frozen`** — frozen-standard-incorporation: a lease freezing a code edition / incorporation by reference  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bas\s+(?:it\s+)?(?:amended\|in\s+effect)\b` | 12 — stat:144.1202, stat:144.698, stat:144.95, stat:325F.176 … | 0 |
+| `edition of the (?:code\|standard)` | 1 — stat:144.98 | 0 |
+| `as\s+of\s+the\s+date\s+of\s+(?:this\|the)\s+lease` | 0 | 0 |
+| `(?:incorporat\w*)[\s\S]{0,1200}(?:by reference)` | 2 — stat:144.1203, stat:144.98 | 0 |
+| `\A(?=[\s\S]*(?:\blease\b))(?=[\s\S]*(?:incorporat\w* by reference))` | 0 | 0 |
+- positive `504B.161`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S11-b9-plain-language-consumer-statement`** — plain-language-consumer-statement: the readability test / statement-of-restrictions apparatus  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `consumer restriction\w*` | 0 | 0 |
+| `\breadab\w*` | 5 — stat:144.056, stat:325F.54, stat:325F.676, stat:325F.87 … | 0 |
+| `\bFlesch\b` | 1 — stat:144.056 | 0 |
+| `reading level` | 0 | 0 |
+| `statement of (?:consumer\|the consumer)` | 2 — stat:325F.791, stat:325F.792 | 0 |
+| `words with common, everyday meanings` | 1 — stat:504B.275 | 0 |
+| `clear and coherent` | 0 | 0 |
+- positive `504B.275`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S11-b10-rights-guide-delivery-duty`** — truth-in-renting / rights-responsibilities-guide: any duty on the LANDLORD to hand over a rights statement (as distinct from the AG duty to publish one)  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:statement\|summary\|handbook\|guide\|brochure\|pamphlet\|booklet)[\s\S]{0,1200}(?:landlord\|lessor)\s+(?:shall\|must)\s+(?:give\|provide\|deliver\|furnish\|attach)` | 3 — stat:325F.90, stat:504B.195, stat:504B.321 | 0 |
+| `(?:landlord\|lessor)\s+(?:shall\|must)\s+(?:give\|provide\|deliver\|furnish\|attach)[\s\S]{0,1200}(?:statement\|summary\|handbook\|guide\|brochure\|pamphlet\|booklet)` | 2 — stat:325F.90, stat:504B.321 | 0 |
+| `\A(?=[\s\S]*(?:(?:statement\|summary\|handbook\|guide\|brochure\|pamphlet\|booklet)))(?=[\s\S]*(?:(?:landlord\|lessor)\s+(?:shall\|must)\s+(?:give\|provide\|deliver\|furnish\|attach)))` | 3 — stat:325F.90, stat:504B.195, stat:504B.321 | 0 |
+- positive `504B.275`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S11-b11-arbitration-lease-wide`** — binding-arbitration: wide run, arbitration against lease/tenant/landlord  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `arbitrat\w*[\s\S]{0,1200}(?:\blease\b\|\btenant\b\|\blandlord\b)` | 1 — stat:325F.665 | 0 |
+| `(?:\blease\b\|\btenant\b\|\blandlord\b)[\s\S]{0,1200}arbitrat\w*` | 2 — stat:325F.665, stat:523.24 | 0 |
+| `\A(?=[\s\S]*(?:arbitrat\w*))(?=[\s\S]*(?:(?:\blease\b\|\btenant\b\|\blandlord\b)))` | 3 — stat:325F.665, stat:363A.31, stat:523.24 | 0 |
+- positive `327C.095`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S11-b3b-exculpatory-leaseinfl-wide`** — exculpatory-clauses: rerun with INFLECTED lease (first run flagged 30 units carrying leases/leased/leasing and not matched)  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\blease(?:s\|es\|d\|ing)?\b[\s\S]{0,1200}(?:exculpat\w*\|hold harmless\|indemnif\w*\|not be liable\|shall not be responsible)` | 1 — stat:504B.154 | 0 |
+| `(?:exculpat\w*\|hold harmless\|indemnif\w*\|not be liable\|shall not be responsible)[\s\S]{0,1200}\blease(?:s\|es\|d\|ing)?\b` | 1 — stat:504B.154 | 0 |
+| `\A(?=[\s\S]*(?:\blease(?:s\|es\|d\|ing)?\b))(?=[\s\S]*(?:(?:exculpat\w*\|hold harmless\|indemnif\w*\|not be liable)))` | 3 — stat:145A.04, stat:504B.154, stat:504B.241 | 0 |
+- positive `504B.161`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S11-head-arbitration`** — heading screen (upper-case headnotes), arbitration — brief §2: a section can carry the term of art only in its headnote  
+scope `statutes`, 1305 units, case-sensitive
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `ARBITRAT\w*` | 1 — stat:325F.665 | 1 |
+- positive `504B.114`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S11-head-exempt`** — heading screen (upper-case headnotes), exempt — brief §2: a section can carry the term of art only in its headnote  
+scope `statutes`, 1305 units, case-sensitive
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `EXEMPT\w*` | 0 | 12 |
+- positive `504B.114`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S11-head-statement`** — heading screen (upper-case headnotes), statement — brief §2: a section can carry the term of art only in its headnote  
+scope `statutes`, 1305 units, case-sensitive
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `STATEMENT` | 5 — stat:144.6501, stat:325F.31, stat:325F.6670, stat:325F.791 … | 7 |
+- positive `504B.114`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S11-head-disclosure`** — heading screen (upper-case headnotes), disclosure — brief §2: a section can carry the term of art only in its headnote  
+scope `statutes`, 1305 units, case-sensitive
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `DISCLOSURE` | 0 | 16 |
+- positive `504B.114`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S12-b0-bareword-orientation`** — S12 occupancy/use: bare-word orientation screen across all held statutes before any term-of-art run  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bchild\b` | 62 — stat:144.061, stat:144.0751, stat:144.10, stat:144.122 … | 0 |
+| `\bchildren\b` | 63 — stat:144.0528, stat:144.0554, stat:144.056, stat:144.057 … | 1 |
+| `\bfamily\b` | 72 — stat:144.0554, stat:144.1222, stat:144.124, stat:144.1462 … | 0 |
+| `\bfamilial\b` | 13 — stat:144.6512, stat:363A.02, stat:363A.03, stat:363A.04 … | 0 |
+| `\boccupant\b` | 21 — stat:145A.04, stat:216B.022, stat:299F.08, stat:299F.09 … | 0 |
+| `\bguest\b` | 6 — stat:299F.362, stat:299F.391, stat:299F.50, stat:299F.51 … | 0 |
+| `\bbusiness\b` | 129 — stat:144.05, stat:144.0507, stat:144.0724, stat:144.12 … | 0 |
+| `\bstudent\b` | 10 — stat:144.0528, stat:144.1464, stat:144.1505, stat:144.1508 … | 0 |
+| `\bemployee\b` | 68 — stat:144.053, stat:144.057, stat:144.121, stat:144.1225 … | 0 |
+| `dwelling unit` | 22 — stat:144.9504, stat:216B.022, stat:299F.011, stat:299F.362 … | 0 |
+- positive `504B.315`: passed
+- positive `363A.03`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S12-b1-occupancy-limit-children`** — S12 children-occupancy: does MN set an occupancy limit by number of children/persons, or require the lease to address child occupancy  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:maximum number of occupants\|persons per bedroom\|overcrowd\w*\|occupancy limit\w*)` | 2 — stat:363A.21, stat:469.002 | 0 |
+| `\bchild(?:ren)?\b[\s\S]{0,1200}(?:\bocccupan\w*\|\boccupan\w*\|maximum number)` | 4 — stat:144.1222, stat:144.551, stat:299F.011, stat:559.21 | 0 |
+| `(?:\boccupan\w*\|maximum number)[\s\S]{0,1200}\bchild(?:ren)?\b` | 3 — stat:144.50, stat:325F.18, stat:609.748 | 0 |
+| `\A(?=[\s\S]*(?:\bchild(?:ren)?\b))(?=[\s\S]*(?:\boccupan\w*))` | 9 — stat:144.1222, stat:144.496, stat:144.50, stat:246.50 … | 0 |
+- positive `363A.21`: passed
+- positive `504B.315`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S12-b2-children-lease-content-laws`** — S12 children-occupancy: session-law companion — any 2025-2026 act on child occupancy limits or required lease content about children  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bfamilial\b` | 3 — law:2026-0:ch127:enacted, law:2026-0:ch88:enacted, law:2026-0:ch99:enacted | 0 |
+| `\bchild(?:ren)?\b[\s\S]{0,1200}(?:\boccupan\w*\|maximum number\|\blease\w*\b)` | 12 — law:2025-0:ch20:enacted, law:2025-0:ch34:enacted, law:2025-1:ch10:enacted, law:2025-1:ch3:enacted … | 0 |
+| `(?:maximum number of occupants\|persons per bedroom\|overcrowd\w*\|occupancy limit\w*)` | 0 | 0 |
+- positive `law:2026-0:ch99:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S12-b3-lease-must-state-occupants`** — S12 children-occupancy / sfr-occupancy-disclosure: does any MN statute require the lease to list occupants or address child occupancy  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:lease\|rental agreement)[\s\S]{0,1200}must (?:identify\|state\|contain\|include\|indicate\|disclose)[\s\S]{0,200}\boccupan\w*` | 0 | 0 |
+| `\boccupan\w*[\s\S]{0,1200}(?:lease\|rental agreement) must (?:identify\|state\|contain\|include\|indicate\|disclose)` | 0 | 0 |
+| `\A(?=[\s\S]*(?:(?:lease\|rental agreement) must))(?=[\s\S]*(?:\boccupan\w*))` | 0 | 0 |
+| `\A(?=[\s\S]*(?:(?:lease\|rental agreement) must))(?=[\s\S]*(?:\bchild(?:ren)?\b))` | 1 — stat:144.293 | 0 |
+- positive `504B.146`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S12-b4-family-child-care-vs-lease-statutes`** — S12 family-child-care: does MN protect a tenant right to run licensed family child care in rented premises against a lease ban  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:family (?:child\|day) care\|child care home\|day care home\|licensed child care)[\s\S]{0,1200}(?:\blandlord\b\|\blessor\b\|\blease\b\|\bleases\b\|rental agreement\|restrictive covenant\|\btenant\b\|\btenants\b)` | 0 | 0 |
+| `(?:\blandlord\b\|\blessor\b\|\blease\b\|\bleases\b\|rental agreement\|restrictive covenant\|\btenant\b\|\btenants\b)[\s\S]{0,1200}(?:family (?:child\|day) care\|child care home\|day care home\|licensed child care)` | 0 | 0 |
+| `\A(?=[\s\S]*(?:(?:family (?:child\|day) care\|child care home\|day care home\|licensed child care)))(?=[\s\S]*(?:(?:\blandlord\b\|\blessor\b\|\blease\b\|\bleases\b\|rental agreement\|restrictive covenant\|\btenant\b\|\btenants\b)))` | 0 | 0 |
+- positive `144.1222`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S12-b6-child-care-permitted-use-all`** — S12 family-child-care: is licensed family child care made a permitted residential use or protected from a lease/covenant ban anywhere in the corpus  
+scope `all`, 1744 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:family (?:child\|day) care\|child care home\|day care home\|licensed child care\|child care program)[\s\S]{0,1200}(?:may not (?:prohibit\|restrict\|deny\|refuse)\|shall not (?:prohibit\|restrict\|deny)\|void and unenforceable\|contrary to public policy\|permitted use\|single-family residential use\|residential use)` | 0 | 0 |
+| `(?:may not (?:prohibit\|restrict\|deny\|refuse)\|shall not (?:prohibit\|restrict\|deny)\|void and unenforceable\|contrary to public policy\|permitted use\|single-family residential use\|residential use)[\s\S]{0,1200}(?:family (?:child\|day) care\|child care home\|day care home\|licensed child care\|child care program)` | 0 | 0 |
+- positive `law:2026-0:ch127:enacted`: passed
+- positive `504B.116`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S12-b7-guest-rights-statutes`** — S12 guest-rights: any MN statute conferring a right on a tenant to receive guests/visitors/suppliers, or limiting a landlord guest rule  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\bguest\w*\|\bvisitor\w*\|\binvitee\w*\|\bsupplier\w*\|\bcompany\b)[\s\S]{0,1200}(?:\btenant\w*\|\blandlord\w*\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|\bdwelling\w*\|\bpremises\b\|\bunit\b\|\boccupan\w*)` | 24 — stat:144.416, stat:144.50, stat:144.565, stat:144.6502 … | 0 |
+| `(?:\btenant\w*\|\blandlord\w*\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|\bdwelling\w*\|\bpremises\b\|\bunit\b\|\boccupan\w*)[\s\S]{0,1200}(?:\bguest\w*\|\bvisitor\w*\|\binvitee\w*\|\bsupplier\w*\|\bcompany\b)` | 17 — stat:144.4961, stat:144.565, stat:144A.01, stat:299F.362 … | 0 |
+| `\A(?=[\s\S]*(?:(?:\bguest\w*\|\bvisitor\w*\|\binvitee\w*\|\bsupplier\w*\|\bcompany\b)))(?=[\s\S]*(?:(?:\btenant\w*\|\blandlord\w*\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|\bdwelling\w*\|\bpremises\b\|\bunit\b\|\boccupan\w*)))` | 35 — stat:144.1222, stat:144.416, stat:144.4961, stat:144.50 … | 0 |
+- positive `504B.171`: passed
+- positive `327C.03`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S12-b8-guest-rights-laws`** — S12 guest-rights: session-law companion for 2025-2026 acts on guest or visitor rights of a tenant  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\bguest\w*\|\bvisitor\w*\|\binvitee\w*\|\bsupplier\w*\|\bcompany\b)[\s\S]{0,1200}(?:\btenant\w*\|\blandlord\w*\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|\bdwelling\w*\|\bpremises\b\|\bunit\b\|\boccupan\w*)` | 24 — law:2025-0:ch20:enacted, law:2025-0:ch32:enacted, law:2025-1:ch10:enacted, law:2025-1:ch11:enacted … | 0 |
+| `(?:\btenant\w*\|\blandlord\w*\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|\bdwelling\w*\|\bpremises\b\|\bunit\b\|\boccupan\w*)[\s\S]{0,1200}(?:\bguest\w*\|\bvisitor\w*\|\binvitee\w*\|\bsupplier\w*\|\bcompany\b)` | 21 — law:2025-0:ch20:enacted, law:2025-0:ch32:enacted, law:2025-0:ch35:enacted, law:2025-1:ch11:enacted … | 0 |
+- positive `law:2026-0:ch82:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S12-b8r-guest-rights-laws-rolescoped`** — S12 guest-rights: role-scoped rerun of S12-b8, which returned ~16 percent of the laws:enacted scope and was therefore a screen  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\bguest\w*\|\bvisitor\w*\|\binvitee\w*)[\s\S]{0,300}(?:\blandlord\w*\|residential tenant\w*\|\bpark owner\w*\|rental agreement\|residential leas\w*)` | 1 — law:2026-0:ch95:enacted | 0 |
+| `(?:\blandlord\w*\|residential tenant\w*\|\bpark owner\w*\|rental agreement\|residential leas\w*)[\s\S]{0,300}(?:\bguest\w*\|\bvisitor\w*\|\binvitee\w*)` | 0 | 0 |
+| `(?:\bguest\w*\|\bvisitor\w*\|\binvitee\w*)[\s\S]{0,1200}(?:may not (?:prohibit\|restrict\|limit\|bar\|charge\|deny)\|shall not (?:prohibit\|restrict\|limit\|bar\|charge\|deny)\|right to (?:have\|receive\|invite)\|has the right)` | 3 — law:2025-1:ch9:enacted, law:2026-0:ch82:enacted, law:2026-0:ch95:enacted | 0 |
+| `(?:may not (?:prohibit\|restrict\|limit\|bar\|charge\|deny)\|shall not (?:prohibit\|restrict\|limit\|bar\|charge\|deny)\|right to (?:have\|receive\|invite)\|has the right)[\s\S]{0,1200}(?:\bguest\w*\|\bvisitor\w*\|\binvitee\w*)` | 2 — law:2025-0:ch35:enacted, law:2026-0:ch95:enacted | 0 |
+- positive `law:2026-0:ch82:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S12-b9-home-business-statutes`** — S12 home-business: does any MN statute make a home-based business a permitted use of a residential dwelling or limit a lease ban on one  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:home occupation\w*\|home-?based business\w*\|business (?:in\|from\|out of) the (?:home\|dwelling\|residence)\|cottage food\|occupation carried on\|trade or business in)` | 0 | 0 |
+| `(?:home occupation\w*\|home-?based business\w*\|business (?:in\|from\|out of) the (?:home\|dwelling\|residence)\|cottage food\|occupation carried on\|trade or business in)[\s\S]{0,1200}(?:\blandlord\w*\|residential tenant\w*\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|\bdwelling unit\w*\|residential premises\|single-?family)` | 0 | 0 |
+| `(?:\blandlord\w*\|residential tenant\w*\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|\bdwelling unit\w*\|residential premises\|single-?family)[\s\S]{0,1200}(?:home occupation\w*\|home-?based business\w*\|business (?:in\|from\|out of) the (?:home\|dwelling\|residence)\|cottage food\|occupation carried on\|trade or business in)` | 0 | 0 |
+| `\A(?=[\s\S]*(?:\bbusiness\w*))(?=[\s\S]*(?:(?:\blandlord\w*\|residential tenant\w*\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|\bdwelling unit\w*\|residential premises\|single-?family)))` | 29 — stat:144.4961, stat:144A.01, stat:325D.44, stat:325D.72 … | 0 |
+- positive `504B.211`: passed
+- positive `504B.161`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S12-b10-home-business-laws`** — S12 home-business: session-law companion, 2025-2026 acts on home occupations or home-based business in a rental  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:home occupation\w*\|home-?based business\w*\|business (?:in\|from\|out of) the (?:home\|dwelling\|residence)\|cottage food\|occupation carried on\|trade or business in)` | 2 — law:2025-0:ch34:enacted, law:2025-1:ch9:enacted | 0 |
+| `(?:home occupation\w*\|home-?based business\w*\|business (?:in\|from\|out of) the (?:home\|dwelling\|residence)\|cottage food\|occupation carried on\|trade or business in)[\s\S]{0,1200}(?:\blandlord\w*\|residential tenant\w*\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|\bdwelling unit\w*\|residential premises\|single-?family)` | 0 | 0 |
+| `(?:\blandlord\w*\|residential tenant\w*\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|\bdwelling unit\w*\|residential premises\|single-?family)[\s\S]{0,1200}(?:home occupation\w*\|home-?based business\w*\|business (?:in\|from\|out of) the (?:home\|dwelling\|residence)\|cottage food\|occupation carried on\|trade or business in)` | 0 | 0 |
+- positive `law:2026-0:ch127:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S12-b11-student-housing-statutes`** — S12 student-housing: any MN statute on student tenancies, dormitories, or student status as a protected class in housing  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\bstudent\w*\|dormitor\w*\|residence hall\w*\|\bsororit\w*\|\bfraternit\w*\|campus housing\|off-?campus\|\bcollege\w*\|\buniversit\w*)[\s\S]{0,1200}(?:\blandlord\w*\|residential tenant\w*\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|\bdwelling unit\w*\|residential premises\|\brent\b\|\bhousing\b)` | 3 — stat:144.9503, stat:245.462, stat:609.66 | 0 |
+| `(?:\blandlord\w*\|residential tenant\w*\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|\bdwelling unit\w*\|residential premises\|\brent\b\|\bhousing\b)[\s\S]{0,1200}(?:\bstudent\w*\|dormitor\w*\|residence hall\w*\|\bsororit\w*\|\bfraternit\w*\|campus housing\|off-?campus\|\bcollege\w*\|\buniversit\w*)` | 5 — stat:144.121, stat:144.4165, stat:144.9503, stat:299F.30 … | 0 |
+| `\A(?=[\s\S]*(?:(?:\bstudent\w*\|dormitor\w*\|residence hall\w*\|\bsororit\w*\|\bfraternit\w*\|campus housing\|off-?campus\|\bcollege\w*\|\buniversit\w*)))(?=[\s\S]*(?:(?:\blandlord\w*\|residential tenant\w*\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|\bdwelling unit\w*\|residential premises\|\brent\b\|\bhousing\b)))` | 11 — stat:144.0528, stat:144.0754, stat:144.121, stat:144.4165 … | 0 |
+| `student (?:status\|housing\|tenant\w*)` | 0 | 0 |
+- positive `363A.13`: passed
+- positive `504B.161`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S12-b12-student-housing-laws`** — S12 student-housing: session-law companion for 2025-2026 acts on student tenancies  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\bstudent\w*\|dormitor\w*\|residence hall\w*\|\bsororit\w*\|\bfraternit\w*\|campus housing\|off-?campus\|\bcollege\w*\|\buniversit\w*)[\s\S]{0,1200}(?:\blandlord\w*\|residential tenant\w*\|rental agreement\|residential leas\w*)` | 0 | 0 |
+| `(?:\blandlord\w*\|residential tenant\w*\|rental agreement\|residential leas\w*)[\s\S]{0,1200}(?:\bstudent\w*\|dormitor\w*\|residence hall\w*\|\bsororit\w*\|\bfraternit\w*\|campus housing\|off-?campus\|\bcollege\w*\|\buniversit\w*)` | 1 — law:2026-0:ch92:enacted | 0 |
+| `student (?:status\|housing\|tenant\w*)` | 2 — law:2025-0:ch39:enacted, law:2025-1:ch3:enacted | 0 |
+- positive `law:2026-0:ch81:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S13-bare-words-statutes`** — STEP 7 bare-word screen before any term of art, slice S13  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bdisab\w*` | 77 — stat:144.05, stat:144.051, stat:144.0752, stat:144.121 … | 0 |
+| `\baccommodat\w*` | 36 — stat:144.12, stat:144.1222, stat:144.4809, stat:144.50 … | 1 |
+| `\bassistance\b` | 101 — stat:144.0526, stat:144.0528, stat:144.0554, stat:144.056 … | 0 |
+| `\bincome\w*` | 35 — stat:144.0554, stat:144.1461, stat:144.292, stat:144.341 … | 0 |
+| `\bimmigrat\w*` | 2 — stat:504B.212, stat:609.3458 | 0 |
+| `\bcitizen\w*` | 19 — stat:144.05, stat:144.0755, stat:144.2131, stat:144.218 … | 0 |
+| `\breligio\w*` | 31 — stat:144.4198, stat:144.441, stat:144.4802, stat:144.572 … | 0 |
+| `\btranslat\w*` | 2 — stat:144.058, stat:327C.095 | 0 |
+| `\binterpret\w*` | 19 — stat:144.058, stat:144.4195, stat:144.4805, stat:144.4809 … | 0 |
+| `\bveteran\w*` | 8 — stat:144.059, stat:144.4167, stat:144.53, stat:144.6501 … | 0 |
+| `\bsenior\w*` | 8 — stat:144.0724, stat:144.1464, stat:144.551, stat:325F.71 … | 0 |
+- positive `363A.03`: passed
+- positive `363A.03`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S13-bare-words-const`** — STEP 7 bare-word screen before any term of art, slice S13  
+scope `const`, 1 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bdisab\w*` | 1 — const:mn | 0 |
+| `\baccommodat\w*` | 0 | 0 |
+| `\bassistance\b` | 1 — const:mn | 0 |
+| `\bincome\w*` | 1 — const:mn | 0 |
+| `\bimmigrat\w*` | 0 | 0 |
+| `\bcitizen\w*` | 1 — const:mn | 0 |
+| `\breligio\w*` | 1 — const:mn | 0 |
+| `\btranslat\w*` | 0 | 0 |
+| `\binterpret\w*` | 0 | 0 |
+| `\bveteran\w*` | 1 — const:mn | 0 |
+| `\bsenior\w*` | 0 | 0 |
+- positive `const:mn`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S12-b15-unauthorized-occupant-statutes`** — S12 unauthorized-occupant-removal: any MN squatter, transient-occupant or unauthorized-occupant removal route outside the eviction action  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\bsquatt\w*\|unauthorized occupan\w*\|unlawful occupan\w*\|transient occupan\w*\|\btrespass\w*\|holdover\w*\|\bhold over\b\|without (?:a )?legal right to occupy\|never (?:a\|been a) tenant)` | 4 — stat:144.416, stat:144.445, stat:504B.211, stat:609.749 | 0 |
+| `(?:\bsquatt\w*\|unauthorized occupan\w*\|unlawful occupan\w*\|transient occupan\w*\|\btrespass\w*\|holdover\w*\|\bhold over\b\|without (?:a )?legal right to occupy\|never (?:a\|been a) tenant)[\s\S]{0,1200}(?:\bsheriff\w*\|\bconstable\w*\|law enforcement\|peace officer\w*\|\baffidavit\w*\|sworn (?:complaint\|statement)\|\bremov\w*\|\bexclud\w*\|\beject\w*\|writ of recovery)` | 1 — stat:504B.211 | 0 |
+| `(?:\bsheriff\w*\|\bconstable\w*\|law enforcement\|peace officer\w*\|\baffidavit\w*\|sworn (?:complaint\|statement)\|\bremov\w*\|\bexclud\w*\|\beject\w*\|writ of recovery)[\s\S]{0,1200}(?:\bsquatt\w*\|unauthorized occupan\w*\|unlawful occupan\w*\|transient occupan\w*\|\btrespass\w*\|holdover\w*\|\bhold over\b\|without (?:a )?legal right to occupy\|never (?:a\|been a) tenant)` | 0 | 0 |
+| `\A(?=[\s\S]*(?:(?:\bsquatt\w*\|unauthorized occupan\w*\|unlawful occupan\w*\|transient occupan\w*\|\btrespass\w*\|holdover\w*\|\bhold over\b\|without (?:a )?legal right to occupy\|never (?:a\|been a) tenant)))(?=[\s\S]*(?:(?:\bsheriff\w*\|\bconstable\w*\|law enforcement\|peace officer\w*\|\baffidavit\w*\|sworn (?:complaint\|statement)\|\bremov\w*\|\bexclud\w*\|\beject\w*\|writ of recovery)))` | 2 — stat:504B.211, stat:609.749 | 0 |
+- positive `504B.211`: passed
+- positive `504B.311`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S12-b16-unauthorized-occupant-laws`** — S12 unauthorized-occupant-removal: session-law companion, any 2025-2026 squatter-removal act  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\bsquatt\w*\|unauthorized occupan\w*\|unlawful occupan\w*\|transient occupan\w*\|\btrespass\w*\|holdover\w*\|\bhold over\b\|without (?:a )?legal right to occupy\|never (?:a\|been a) tenant)` | 3 — law:2025-0:ch34:enacted, law:2026-0:ch95:enacted, law:2026-0:ch97:enacted | 0 |
+| `(?:\bsquatt\w*\|unauthorized occupan\w*\|unlawful occupan\w*\|transient occupan\w*\|\btrespass\w*\|holdover\w*\|\bhold over\b\|without (?:a )?legal right to occupy\|never (?:a\|been a) tenant)[\s\S]{0,1200}(?:\bsheriff\w*\|\bconstable\w*\|law enforcement\|peace officer\w*\|\baffidavit\w*\|sworn (?:complaint\|statement)\|\bremov\w*\|\bexclud\w*\|\beject\w*\|writ of recovery)` | 0 | 0 |
+| `(?:\bsheriff\w*\|\bconstable\w*\|law enforcement\|peace officer\w*\|\baffidavit\w*\|sworn (?:complaint\|statement)\|\bremov\w*\|\bexclud\w*\|\beject\w*\|writ of recovery)[\s\S]{0,1200}(?:\bsquatt\w*\|unauthorized occupan\w*\|unlawful occupan\w*\|transient occupan\w*\|\btrespass\w*\|holdover\w*\|\bhold over\b\|without (?:a )?legal right to occupy\|never (?:a\|been a) tenant)` | 0 | 0 |
+- positive `law:2026-0:ch81:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S12-b15r-unauthorized-occupant-statutes-rerun`** — S12 unauthorized-occupant-removal: rerun of b15 adding holds over / holding over / person in possession / intruder / forcible entry, which the first run missed because 504B.311 writes holds over and not holdover  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\bsquatt\w*\|unauthorized occupan\w*\|unlawful occupan\w*\|transient occupan\w*\|\btrespass\w*\|hold(?:s\|ing)? ?over\w*\|without (?:a )?legal right to occupy\|never (?:a\|been a) tenant\|person in possession\|\bintruder\w*\|forcible entry\|unlawful detainer)` | 12 — stat:144.416, stat:144.445, stat:299F.08, stat:299F.856 … | 2 |
+| `(?:\bsquatt\w*\|unauthorized occupan\w*\|unlawful occupan\w*\|transient occupan\w*\|\btrespass\w*\|hold(?:s\|ing)? ?over\w*\|without (?:a )?legal right to occupy\|never (?:a\|been a) tenant\|person in possession\|\bintruder\w*\|forcible entry\|unlawful detainer)[\s\S]{0,1200}(?:\bsheriff\w*\|\bconstable\w*\|law enforcement\|peace officer\w*\|\baffidavit\w*\|sworn (?:complaint\|statement)\|\bremov\w*\|\bexclud\w*\|\beject\w*\|writ of recovery\|recover possession\|possession of the premises)` | 4 — stat:299F.08, stat:325F.795, stat:504B.211, stat:504B.285 | 0 |
+| `(?:\bsheriff\w*\|\bconstable\w*\|law enforcement\|peace officer\w*\|\baffidavit\w*\|sworn (?:complaint\|statement)\|\bremov\w*\|\bexclud\w*\|\beject\w*\|writ of recovery\|recover possession\|possession of the premises)[\s\S]{0,1200}(?:\bsquatt\w*\|unauthorized occupan\w*\|unlawful occupan\w*\|transient occupan\w*\|\btrespass\w*\|hold(?:s\|ing)? ?over\w*\|without (?:a )?legal right to occupy\|never (?:a\|been a) tenant\|person in possession\|\bintruder\w*\|forcible entry\|unlawful detainer)` | 3 — stat:504B.285, stat:504B.321, stat:559.21 | 0 |
+| `\A(?=[\s\S]*(?:(?:\bsquatt\w*\|unauthorized occupan\w*\|unlawful occupan\w*\|transient occupan\w*\|\btrespass\w*\|hold(?:s\|ing)? ?over\w*\|without (?:a )?legal right to occupy\|never (?:a\|been a) tenant\|person in possession\|\bintruder\w*\|forcible entry\|unlawful detainer)))(?=[\s\S]*(?:(?:\bsheriff\w*\|\bconstable\w*\|law enforcement\|peace officer\w*\|\baffidavit\w*\|sworn (?:complaint\|statement)\|\bremov\w*\|\bexclud\w*\|\beject\w*\|writ of recovery\|recover possession\|possession of the premises)))` | 7 — stat:299F.08, stat:325F.795, stat:504B.211, stat:504B.285 … | 0 |
+- positive `504B.311`: passed
+- positive `504B.281`: passed
+- positive `504B.125`: passed
+- positive `504B.211`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S12-b17-disaster-guests-statutes`** — S12 disaster-displaced-guests: does MN protect a tenant who temporarily houses people displaced by a disaster, or suspend guest limits in an emergency  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\bdisaster\w*\|\bevacuat\w*\|\bevacuee\w*\|\bdisplac\w*\|state of emergency\|peacetime emergency\|\bwildfire\w*\|\bflood\w*\|\btornado\w*\|emergency shelter\|temporary shelter\|\bhomeless\w*)[\s\S]{0,1200}(?:\bguest\w*\|\boccupan\w*\|\bhousehold\w*\|\btenant\w*\|\blandlord\w*\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|\bdwelling\w*)` | 4 — stat:144G.08, stat:325F.665, stat:325F.721, stat:327C.015 | 0 |
+| `(?:\bguest\w*\|\boccupan\w*\|\bhousehold\w*\|\btenant\w*\|\blandlord\w*\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|\bdwelling\w*)[\s\S]{0,1200}(?:\bdisaster\w*\|\bevacuat\w*\|\bevacuee\w*\|\bdisplac\w*\|state of emergency\|peacetime emergency\|\bwildfire\w*\|\bflood\w*\|\btornado\w*\|emergency shelter\|temporary shelter\|\bhomeless\w*)` | 5 — stat:144.50, stat:144G.08, stat:325F.721, stat:327C.02 … | 0 |
+| `\A(?=[\s\S]*(?:(?:\bdisaster\w*\|\bevacuat\w*\|\bevacuee\w*\|\bdisplac\w*\|state of emergency\|peacetime emergency\|\bwildfire\w*\|\bflood\w*\|\btornado\w*\|emergency shelter\|temporary shelter\|\bhomeless\w*)))(?=[\s\S]*(?:(?:\bguest\w*\|\boccupan\w*\|\bhousehold\w*\|\btenant\w*\|\blandlord\w*\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|\bdwelling\w*)))` | 13 — stat:144.50, stat:144.551, stat:144.555, stat:144G.08 … | 0 |
+| `(?:\bdisaster\w*\|\bdisplac\w*\|\bevacu\w*)[\s\S]{0,1200}\bguest\w*` | 0 | 0 |
+- positive `504B.204`: passed
+- positive `299F.011`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S12-b18-disaster-guests-laws`** — S12 disaster-displaced-guests: session-law companion for 2025-2026 acts on housing people displaced by a disaster in a rental  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\bdisaster\w*\|\bevacuat\w*\|\bevacuee\w*\|\bdisplac\w*\|state of emergency\|peacetime emergency\|\bwildfire\w*\|\bflood\w*\|\btornado\w*\|emergency shelter\|temporary shelter\|\bhomeless\w*)[\s\S]{0,300}(?:\bguest\w*\|\blandlord\w*\|residential tenant\w*\|rental agreement)` | 0 | 0 |
+| `(?:\bguest\w*\|\blandlord\w*\|residential tenant\w*\|rental agreement)[\s\S]{0,300}(?:\bdisaster\w*\|\bevacuat\w*\|\bevacuee\w*\|\bdisplac\w*\|state of emergency\|peacetime emergency\|\bwildfire\w*\|\bflood\w*\|\btornado\w*\|emergency shelter\|temporary shelter\|\bhomeless\w*)` | 1 — law:2025-0:ch32:enacted | 0 |
+| `(?:\bdisaster\w*\|\bdisplac\w*\|\bevacu\w*)[\s\S]{0,1200}\bguest\w*` | 0 | 0 |
+- positive `law:2026-0:ch81:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S12-b18r-disaster-guests-laws-wide`** — S12 disaster-displaced-guests: wide rerun of S12-b18 at 1,200 characters per the lint line  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\bdisaster\w*\|\bevacuat\w*\|\bevacuee\w*\|\bdisplac\w*\|state of emergency\|peacetime emergency\|\bwildfire\w*\|\bflood\w*\|\btornado\w*\|emergency shelter\|temporary shelter\|\bhomeless\w*)[\s\S]{0,1200}(?:\bguest\w*\|\blandlord\w*\|residential tenant\w*\|rental agreement\|residential leas\w*\|\boccupan\w*)` | 3 — law:2025-0:ch32:enacted, law:2025-0:ch35:enacted, law:2025-1:ch9:enacted | 0 |
+| `(?:\bguest\w*\|\blandlord\w*\|residential tenant\w*\|rental agreement\|residential leas\w*\|\boccupan\w*)[\s\S]{0,1200}(?:\bdisaster\w*\|\bevacuat\w*\|\bevacuee\w*\|\bdisplac\w*\|state of emergency\|peacetime emergency\|\bwildfire\w*\|\bflood\w*\|\btornado\w*\|emergency shelter\|temporary shelter\|\bhomeless\w*)` | 2 — law:2025-0:ch32:enacted, law:2025-1:ch9:enacted | 0 |
+- positive `law:2026-0:ch81:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S12-b19-child-care-bare-phrase-no-role`** — S12 family-child-care: role-free bare-phrase rerun. The role-scoped runs b4/b5 returned 0 because the answering section has no landlord or lease word in it.  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:family (?:child\|day) care\|group family day care\|child care home\|day care home\|licensed child care\|child care program\|child care provider)` | 6 — stat:144.061, stat:144.1222, stat:144.414, stat:144.9501 … | 0 |
+| `single family dwelling` | 2 — stat:299F.011, stat:327C.04 | 0 |
+| `(?:dwelling unit in which\|as a single family dwelling)` | 1 — stat:299F.011 | 0 |
+- positive `299F.011`: passed
+- positive `144.1222`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S13-b7-religious-display-statutes`** — religious-cultural-display: any MN right to affix/display a religious or cultural object on a dwelling  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\breligio\w*\|\bworship\w*\|\bmezuzah\w*\|\bcreed\b\|\bcultural\b)[\s\S]{0,1200}(?:\bdisplay\w*\|\baffix\w*\|\bdoor\w*\|\bentryway\b\|\bwreath\w*\|\bsymbol\w*\|\bobject\w*)` | 4 — stat:144.1505, stat:144.4167, stat:144.651, stat:325F.731 | 0 |
+| `(?:\bdisplay\w*\|\baffix\w*\|\bdoor\w*\|\bentryway\b\|\bwreath\w*\|\bsymbol\w*\|\bobject\w*)[\s\S]{0,1200}(?:\breligio\w*\|\bworship\w*\|\bmezuzah\w*\|\bcreed\b\|\bcultural\b)` | 1 — stat:609.749 | 0 |
+| `\A(?=[\s\S]*(?:\breligio\w*))(?=[\s\S]*(?:\bdisplay\w*))` | 1 — stat:152.02 | 0 |
+| `\A(?=[\s\S]*(?:\bmezuzah\w*))` | 0 | 0 |
+- positive `363A.09`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S13-b7-religious-display-laws_enacted`** — religious-cultural-display: any MN right to affix/display a religious or cultural object on a dwelling  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\breligio\w*\|\bworship\w*\|\bmezuzah\w*\|\bcreed\b\|\bcultural\b)[\s\S]{0,1200}(?:\bdisplay\w*\|\baffix\w*\|\bdoor\w*\|\bentryway\b\|\bwreath\w*\|\bsymbol\w*\|\bobject\w*)` | 9 — law:2025-0:ch34:enacted, law:2025-0:ch35:enacted, law:2025-0:ch36:enacted, law:2025-0:ch38:enacted … | 0 |
+| `(?:\bdisplay\w*\|\baffix\w*\|\bdoor\w*\|\bentryway\b\|\bwreath\w*\|\bsymbol\w*\|\bobject\w*)[\s\S]{0,1200}(?:\breligio\w*\|\bworship\w*\|\bmezuzah\w*\|\bcreed\b\|\bcultural\b)` | 10 — law:2025-0:ch35:enacted, law:2025-0:ch36:enacted, law:2025-0:ch38:enacted, law:2025-1:ch10:enacted … | 0 |
+- positive `363A.09`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S13-b9-translation-duty-statutes`** — translation-duty: any duty to translate a lease or give a lease in another language  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\btranslat\w*\|\binterpret\w*\|\bEnglish\b\|\bSpanish\b\|\bHmong\b\|\bSomali\b\|\blanguage\b)[\s\S]{0,1200}(?:\blease\b\|\blandlord\w*\|\btenant\w*\|\brental agreement\b)` | 1 — stat:523.24 | 0 |
+| `(?:\blease\b\|\blandlord\w*\|\btenant\w*\|\brental agreement\b)[\s\S]{0,1200}(?:\btranslat\w*\|\binterpret\w*\|\bEnglish\b\|\bSpanish\b\|\bHmong\b\|\bSomali\b\|\blanguage\b)` | 2 — stat:144.496, stat:325F.69 | 0 |
+| `\A(?=[\s\S]*(?:\btranslat\w*))(?=[\s\S]*(?:\blease\b))` | 0 | 0 |
+| `\A(?=[\s\S]*(?:\blanguage\b))(?=[\s\S]*(?:\blandlord\w*))` | 0 | 0 |
+- positive `327C.095`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S13-b10-senior-staff-work-card-statutes`** — senior-housing-work-card: any work-card/licence/background-check duty for staff in 55+ or senior housing  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\bwork card\b\|\bbackground check\w*\|\bcriminal history\b\|\blicens\w*\|\bregistration\b\|\bcertificat\w*)[\s\S]{0,1200}(?:\bsenior\w*\|age 55\|55 or older\|62 years\|\belderly\b\|older persons)` | 1 — stat:144.551 | 0 |
+| `(?:\bsenior\w*\|age 55\|55 or older\|62 years\|\belderly\b\|older persons)[\s\S]{0,1200}(?:\bwork card\b\|\bbackground check\w*\|\bcriminal history\b\|\blicens\w*\|\bregistration\b\|\bcertificat\w*)` | 3 — stat:144.551, stat:144G.08, stat:325F.721 | 0 |
+| `\A(?=[\s\S]*(?:\bwork card\b))` | 0 | 0 |
+| `\A(?=[\s\S]*(?:\bbackground check\w*))(?=[\s\S]*(?:\bsenior\w*))` | 0 | 0 |
+- positive `363A.21`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S12-b20-lease-type-parity-statutes`** — S12 lease-type-parity: does MN bar terms more burdensome for one lease type than another, or cap the rent difference between lease types  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:more burdensome\|less favorable\|less favourable\|same terms and conditions\|\bparity\b)` | 1 — stat:327C.095 | 0 |
+| `(?:month-?to-?month\|tenancy at will\|periodic tenanc\w*\|fixed-?term\|term of the lease\|more burdensome\|less favorable\|less favourable\|\buniform\w*\|same terms\|differenti\w*\|\bparity\b)[\s\S]{0,1200}(?:\blandlord\w*\|residential tenant\w*\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|\brent\b\|\brents\b)` | 8 — stat:327C.03, stat:504B.001, stat:504B.135, stat:504B.154 … | 0 |
+| `(?:\blandlord\w*\|residential tenant\w*\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|\brent\b\|\brents\b)[\s\S]{0,1200}(?:month-?to-?month\|tenancy at will\|periodic tenanc\w*\|fixed-?term\|term of the lease\|more burdensome\|less favorable\|less favourable\|\buniform\w*\|same terms\|differenti\w*\|\bparity\b)` | 6 — stat:327C.03, stat:504B.001, stat:504B.154, stat:504B.161 … | 0 |
+| `\A(?=[\s\S]*(?:month-?to-?month))(?=[\s\S]*(?:(?:\blandlord\w*\|residential tenant\w*\|\bleas(?:e\|es\|ed\|ing)\b\|rental agreement\|\brent\b\|\brents\b)))` | 0 | 0 |
+- positive `327C.03`: passed
+- positive `504B.135`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S12-b21-lease-type-size-statutes`** — S12 lease-type-size: does any MN statute set a minimum type size for the printed lease, with an evidentiary sanction  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:type ?size\|point type\|font size\|typeface\|boldface\|size of the type\|\d+-?point type)` | 12 — stat:144.6501, stat:144.6521, stat:299F.853, stat:325F.078 … | 0 |
+| `(?:type ?(?:size\|face)\|point type\|\d+-?point\|font size\|typeface\|legible\|\bprint\w*\|boldface\|capital letters\|conspicuous\w*\|\bbold\b\|\bsize of the type\b)[\s\S]{0,1200}(?:\bleas(?:e\|es\|ed\|ing)\b\|rental agreement)` | 10 — stat:325D.44, stat:325F.665, stat:325F.722, stat:325F.88 … | 0 |
+| `(?:\bleas(?:e\|es\|ed\|ing)\b\|rental agreement)[\s\S]{0,1200}(?:type ?(?:size\|face)\|point type\|\d+-?point\|font size\|typeface\|legible\|\bprint\w*\|boldface\|capital letters\|conspicuous\w*\|\bbold\b\|\bsize of the type\b)` | 13 — stat:325F.18, stat:325F.665, stat:325F.69, stat:325F.722 … | 0 |
+| `\A(?=[\s\S]*(?:(?:type ?size\|point type\|font size\|typeface\|boldface\|capital letters)))(?=[\s\S]*(?:(?:\bleas(?:e\|es\|ed\|ing)\b\|rental agreement)))` | 3 — stat:325F.69, stat:327C.02, stat:504B.268 | 0 |
+- positive `504B.181`: passed
+- positive `504B.195`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S13-b11-veterans-incentive-statutes`** — veterans-incentive: any MN rent credit, tax incentive, preference or landlord benefit tied to veteran tenants  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bveteran\w*[\s\S]{0,1200}(?:\blease(?:s\|d\|ing)?\b\|\brent\w*\|\blandlord\w*\|\btenant\w*\|\bhousing\b\|\bincentive\w*\|\bcredit\b\|\bpreference\w*)` | 3 — stat:469.002, stat:484.01, stat:82.55 | 0 |
+| `(?:\blease(?:s\|d\|ing)?\b\|\brent\w*\|\blandlord\w*\|\btenant\w*\|\bincentive\w*\|\bpreference\w*)[\s\S]{0,1200}\bveteran\w*` | 1 — stat:82.55 | 0 |
+| `\bmilitary\b[\s\S]{0,1200}(?:\blease(?:s\|d\|ing)?\b\|\blandlord\w*\|\btenant\w*)` | 1 — stat:609.66 | 0 |
+| `(?:\bservicemember\w*\|\bactive duty\b\|\bNational Guard\b)` | 2 — stat:609.66, stat:609.67 | 0 |
+| `\A(?=[\s\S]*(?:\bveteran\w*))(?=[\s\S]*(?:\blandlord\w*))` | 0 | 0 |
+| `\A(?=[\s\S]*(?:\bveteran\w*))(?=[\s\S]*(?:\blease(?:s\|d\|ing)?\b))` | 2 — stat:469.002, stat:82.55 | 0 |
+- positive `469.002`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S13-b11-veterans-incentive-laws_enacted`** — veterans-incentive: any MN rent credit, tax incentive, preference or landlord benefit tied to veteran tenants  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bveteran\w*[\s\S]{0,1200}(?:\blease(?:s\|d\|ing)?\b\|\brent\w*\|\blandlord\w*\|\btenant\w*\|\bhousing\b\|\bincentive\w*\|\bcredit\b\|\bpreference\w*)` | 14 — law:2025-0:ch20:enacted, law:2025-0:ch30:enacted, law:2025-0:ch32:enacted, law:2025-0:ch39:enacted … | 0 |
+| `(?:\blease(?:s\|d\|ing)?\b\|\brent\w*\|\blandlord\w*\|\btenant\w*\|\bincentive\w*\|\bpreference\w*)[\s\S]{0,1200}\bveteran\w*` | 10 — law:2025-0:ch18:enacted, law:2025-0:ch20:enacted, law:2025-0:ch30:enacted, law:2025-0:ch32:enacted … | 0 |
+| `\bmilitary\b[\s\S]{0,1200}(?:\blease(?:s\|d\|ing)?\b\|\blandlord\w*\|\btenant\w*)` | 2 — law:2025-0:ch20:enacted, law:2025-0:ch30:enacted | 0 |
+| `(?:\bservicemember\w*\|\bactive duty\b\|\bNational Guard\b)` | 15 — law:2025-0:ch20:enacted, law:2025-0:ch30:enacted, law:2025-0:ch31:enacted, law:2025-0:ch35:enacted … | 0 |
+- positive `469.002`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S13-b12-farmland-hunting-statutes`** — farmland-hunting-rights: any MN hunting/fishing right of a tenant of leased land  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\bhunt\w*\|\bfish\w*\|\bgame\b\|\btrapping\b\|\bshooting\b)[\s\S]{0,1200}(?:\blease(?:s\|d\|ing)?\b\|\btenant\w*\|\blandlord\w*\|\bfarm\w*\|\bagricultur\w*)` | 0 | 0 |
+| `(?:\blease(?:s\|d\|ing)?\b\|\btenant\w*\|\blandlord\w*\|\bfarm\w*\|\bagricultur\w*)[\s\S]{0,1200}(?:\bhunt\w*\|\bfish\w*\|\btrapping\b)` | 0 | 0 |
+| `\A(?=[\s\S]*(?:\bhunt\w*))(?=[\s\S]*(?:\blease(?:s\|d\|ing)?\b))` | 0 | 0 |
+| `\A(?=[\s\S]*(?:\bhunt\w*))(?=[\s\S]*(?:\btenant\w*))` | 0 | 0 |
+- positive `343.20`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S13-b12-farmland-hunting-laws_enacted`** — farmland-hunting-rights: any MN hunting/fishing right of a tenant of leased land  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\bhunt\w*\|\bfish\w*\|\bgame\b\|\btrapping\b\|\bshooting\b)[\s\S]{0,1200}(?:\blease(?:s\|d\|ing)?\b\|\btenant\w*\|\blandlord\w*\|\bfarm\w*\|\bagricultur\w*)` | 7 — law:2025-0:ch20:enacted, law:2025-0:ch34:enacted, law:2025-1:ch13:enacted, law:2025-1:ch1:enacted … | 0 |
+| `(?:\blease(?:s\|d\|ing)?\b\|\btenant\w*\|\blandlord\w*\|\bfarm\w*\|\bagricultur\w*)[\s\S]{0,1200}(?:\bhunt\w*\|\bfish\w*\|\btrapping\b)` | 4 — law:2025-0:ch34:enacted, law:2025-1:ch1:enacted, law:2026-0:ch128:enacted, law:2026-0:ch67:enacted | 0 |
+- positive `343.20`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S13-b13-communal-land-approval-statutes`** — communal-land-lease-approval: any MN requirement that a lease of communal/tribal land be approved before it is valid  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\bcommunal\b\|\btribal\b\|\bTribe\w*\|\bnative\b\|\breservation\b\|\ballotment\w*)[\s\S]{0,1200}(?:\blease(?:s\|d\|ing)?\b\|\bapprov\w*\|\blandlord\w*\|\btenant\w*)` | 5 — stat:144.4198, stat:299F.0115, stat:504B.206, stat:504B.321 … | 0 |
+| `(?:\blease(?:s\|d\|ing)?\b\|\bapprov\w*)[\s\S]{0,1200}(?:\bcommunal\b\|\btribal\b\|\bTribe\w*\|\breservation\b)` | 4 — stat:144.4165, stat:144.4167, stat:144.4198, stat:504B.321 | 0 |
+| `\A(?=[\s\S]*(?:\bcommunal\b))` | 0 | 0 |
+| `\A(?=[\s\S]*(?:\btribal\b))(?=[\s\S]*(?:\blease(?:s\|d\|ing)?\b))` | 3 — stat:145A.04, stat:504B.206, stat:504B.321 | 0 |
+- positive `504B.206`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S12-b22-lease-type-parity-laws`** — S12 lease-type-parity: session-law companion for 2025-2026 acts barring terms more burdensome for one lease type  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:more burdensome\|less favorable\|less favourable\|same terms and conditions\|\bparity\b)` | 3 — law:2025-1:ch4:enacted, law:2025-1:ch8:enacted, law:2026-0:ch124:enacted | 0 |
+| `(?:month-?to-?month\|tenancy at will\|fixed-?term)[\s\S]{0,1200}(?:\blandlord\w*\|residential tenant\w*\|rental agreement)` | 0 | 0 |
+| `(?:\blandlord\w*\|residential tenant\w*\|rental agreement)[\s\S]{0,1200}(?:month-?to-?month\|tenancy at will\|fixed-?term)` | 0 | 0 |
+- positive `law:2026-0:ch81:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S13-b13-communal-land-approval-laws_enacted`** — communal-land-lease-approval: any MN requirement that a lease of communal/tribal land be approved before it is valid  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:\bcommunal\b\|\btribal\b\|\bTribe\w*\|\bnative\b\|\breservation\b\|\ballotment\w*)[\s\S]{0,1200}(?:\blease(?:s\|d\|ing)?\b\|\bapprov\w*\|\blandlord\w*\|\btenant\w*)` | 31 — law:2025-0:ch20:enacted, law:2025-0:ch21:enacted, law:2025-0:ch31:enacted, law:2025-0:ch32:enacted … | 0 |
+| `(?:\blease(?:s\|d\|ing)?\b\|\bapprov\w*)[\s\S]{0,1200}(?:\bcommunal\b\|\btribal\b\|\bTribe\w*\|\breservation\b)` | 20 — law:2025-0:ch20:enacted, law:2025-0:ch21:enacted, law:2025-0:ch31:enacted, law:2025-0:ch32:enacted … | 0 |
+- positive `504B.206`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S12-b23-lease-type-size-laws`** — S12 lease-type-size: session-law companion for 2025-2026 acts setting a minimum type size for a lease  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:type ?size\|point type\|font size\|typeface\|boldface\|size of the type\|\d+-?point type)` | 7 — law:2025-0:ch18:enacted, law:2025-0:ch39:enacted, law:2025-0:ch9:enacted, law:2025-1:ch13:enacted … | 0 |
+| `(?:\d+-?point\|boldface\|capital letters)[\s\S]{0,1200}(?:\bleas(?:e\|es\|ed\|ing)\b\|rental agreement)` | 0 | 0 |
+| `(?:\bleas(?:e\|es\|ed\|ing)\b\|rental agreement)[\s\S]{0,1200}(?:\d+-?point\|boldface\|capital letters)` | 0 | 0 |
+- positive `law:2026-0:ch81:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S13-b16r2-special-district-representation-statutes`** — special-district-representation: RERUN 2 of S13-b16 with two verified positives (444.075, 484.01)  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:special (?:taxing )?district\w*\|improvement district\w*\|\bassessment district\w*\|\btax increment\b)[\s\S]{0,1200}(?:\blease(?:s\|d\|ing)?\b\|\btenant\w*\|\blandlord\w*\|\bdisclos\w*\|\bstatement(?:s)?\b\|\brepresent\w*)` | 0 | 0 |
+| `(?:\blease(?:s\|d\|ing)?\b\|\btenant\w*\|\bdisclos\w*)[\s\S]{0,1200}(?:special (?:taxing )?district\w*\|improvement district\w*\|\bassessment district\w*)` | 0 | 0 |
+| `special district` | 0 | 0 |
+| `taxing district` | 0 | 0 |
+| `improvement district` | 0 | 0 |
+| `\A(?=[\s\S]*(?:special district))(?=[\s\S]*(?:\blease(?:s\|d\|ing)?\b))` | 0 | 0 |
+| `\A(?=[\s\S]*(?:improvement district))(?=[\s\S]*(?:\btenant\w*))` | 0 | 0 |
+- positive `444.075`: passed
+- positive `484.01`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S12-b24-sfr-disclosure-statutes`** — S12 sfr-occupancy-disclosure: any MN disclosure that turns on the property being a single-family rental, and any first-page or relative-type-size placement rule for lease disclosures  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:single-?family\|one-?family\|single unit\|stand-?alone\|detached dwelling\|multiple rental dwelling\|multiunit\|multiple-?family\|four or fewer)` | 13 — stat:144.121, stat:144.1222, stat:144.496, stat:144A.75 … | 0 |
+| `(?:single-?family\|one-?family\|single unit\|stand-?alone\|detached dwelling\|multiple rental dwelling\|multiunit\|multiple-?family\|four or fewer)[\s\S]{0,1200}(?:\bdisclos\w*\|\bnotice\w*\|\bpost\w*\|first page\|\bstatement\b)` | 3 — stat:144.496, stat:471.9995, stat:504B.332 | 0 |
+| `(?:\bdisclos\w*\|\bnotice\w*\|\bpost\w*\|first page\|\bstatement\b)[\s\S]{0,1200}(?:single-?family\|one-?family\|single unit\|stand-?alone\|detached dwelling\|multiple rental dwelling\|multiunit\|multiple-?family\|four or fewer)` | 3 — stat:144.1222, stat:471.9995, stat:504B.332 | 0 |
+| `\A(?=[\s\S]*(?:(?:single-?family\|one-?family\|single unit\|stand-?alone\|detached dwelling\|multiple rental dwelling\|multiunit\|multiple-?family\|four or fewer)))(?=[\s\S]*(?:(?:\bdisclos\w*\|\bnotice\w*\|\bpost\w*\|first page\|\bstatement\b)))` | 4 — stat:144.1222, stat:144.496, stat:471.9995, stat:504B.332 | 0 |
+| `first page` | 3 — stat:504B.120, stat:504B.146, stat:504B.268 | 0 |
+- positive `471.9995`: passed
+- positive `504B.120`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S12-b25-sfr-disclosure-laws`** — S12 sfr-occupancy-disclosure: session-law companion for 2025-2026 acts on single-family rental disclosures or first-page placement  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:single-?family\|one-?family\|single unit\|stand-?alone\|detached dwelling\|multiple rental dwelling\|multiunit\|multiple-?family\|four or fewer)[\s\S]{0,1200}(?:\bdisclos\w*\|first page)` | 1 — law:2026-0:ch61:enacted | 0 |
+| `(?:\bdisclos\w*\|first page)[\s\S]{0,1200}(?:single-?family\|one-?family\|single unit\|stand-?alone\|detached dwelling\|multiple rental dwelling\|multiunit\|multiple-?family\|four or fewer)` | 0 | 0 |
+| `first page` | 3 — law:2025-0:ch35:enacted, law:2025-1:ch4:enacted, law:2026-0:ch61:enacted | 0 |
+- positive `law:2026-0:ch81:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S12-b26-adu-sfz-statutes`** — S12 accessory-dwelling-unit and single-family-zone-lease-limit: any MN ADU or single-family-zoning act, including uncodified session-law programmes  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:accessory dwelling\w*\|\bADU\b\|accessory apartment\w*\|granny flat\w*\|in-?law (?:unit\|apartment\|suite)\|\bcarriage house\w*\|secondary (?:unit\|dwelling)\|detached accessory\|\bduplex\w*\|\btriplex\w*\|\bfourplex\w*\|middle housing\|missing middle)` | 0 | 0 |
+| `(?:single-?family (?:zon\w*\|district\|residential district\|neighborhood)\|owner-?occupanc\w*\|owner-?occupied\|\bzoning\w*\|\bzone\w*\|land use\|comprehensive plan\|\bordinance\w*)` | 48 — stat:144.12, stat:144.1222, stat:144.417, stat:144.4171 … | 0 |
+| `(?:accessory dwelling\w*\|\bADU\b\|accessory apartment\w*\|granny flat\w*\|in-?law (?:unit\|apartment\|suite)\|\bcarriage house\w*\|secondary (?:unit\|dwelling)\|detached accessory\|\bduplex\w*\|\btriplex\w*\|\bfourplex\w*\|middle housing\|missing middle)[\s\S]{0,1200}(?:single-?family (?:zon\w*\|district\|residential district\|neighborhood)\|owner-?occupanc\w*\|owner-?occupied\|\bzoning\w*\|\bzone\w*\|land use\|comprehensive plan\|\bordinance\w*)` | 0 | 0 |
+| `(?:single-?family (?:zon\w*\|district\|residential district\|neighborhood)\|owner-?occupanc\w*\|owner-?occupied\|\bzoning\w*\|\bzone\w*\|land use\|comprehensive plan\|\bordinance\w*)[\s\S]{0,1200}(?:accessory dwelling\w*\|\bADU\b\|accessory apartment\w*\|granny flat\w*\|in-?law (?:unit\|apartment\|suite)\|\bcarriage house\w*\|secondary (?:unit\|dwelling)\|detached accessory\|\bduplex\w*\|\btriplex\w*\|\bfourplex\w*\|middle housing\|missing middle)` | 0 | 0 |
+| `\A(?=[\s\S]*(?:(?:accessory dwelling\w*\|\bADU\b\|accessory apartment\w*\|granny flat\w*\|in-?law (?:unit\|apartment\|suite)\|\bcarriage house\w*\|secondary (?:unit\|dwelling)\|detached accessory\|\bduplex\w*\|\btriplex\w*\|\bfourplex\w*\|middle housing\|missing middle)))(?=[\s\S]*(?:(?:single-?family (?:zon\w*\|district\|residential district\|neighborhood)\|owner-?occupanc\w*\|owner-?occupied\|\bzoning\w*\|\bzone\w*\|land use\|comprehensive plan\|\bordinance\w*)))` | 0 | 0 |
+- positive `471.9995`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S12-b26-adu-sfz-laws-2025-0-newonly`** — S12 accessory-dwelling-unit and single-family-zone-lease-limit: any MN ADU or single-family-zoning act, including uncodified session-law programmes  
+scope `laws:2025-0:newonly`, 39 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:accessory dwelling\w*\|\bADU\b\|accessory apartment\w*\|granny flat\w*\|in-?law (?:unit\|apartment\|suite)\|\bcarriage house\w*\|secondary (?:unit\|dwelling)\|detached accessory\|\bduplex\w*\|\btriplex\w*\|\bfourplex\w*\|middle housing\|missing middle)` | 1 — law:2025-0:ch32:newonly | 0 |
+| `(?:single-?family (?:zon\w*\|district\|residential district\|neighborhood)\|owner-?occupanc\w*\|owner-?occupied\|\bzoning\w*\|\bzone\w*\|land use\|comprehensive plan\|\bordinance\w*)` | 6 — law:2025-0:ch30:newonly, law:2025-0:ch31:newonly, law:2025-0:ch32:newonly, law:2025-0:ch35:newonly … | 0 |
+| `(?:accessory dwelling\w*\|\bADU\b\|accessory apartment\w*\|granny flat\w*\|in-?law (?:unit\|apartment\|suite)\|\bcarriage house\w*\|secondary (?:unit\|dwelling)\|detached accessory\|\bduplex\w*\|\btriplex\w*\|\bfourplex\w*\|middle housing\|missing middle)[\s\S]{0,1200}(?:single-?family (?:zon\w*\|district\|residential district\|neighborhood)\|owner-?occupanc\w*\|owner-?occupied\|\bzoning\w*\|\bzone\w*\|land use\|comprehensive plan\|\bordinance\w*)` | 1 — law:2025-0:ch32:newonly | 0 |
+| `(?:single-?family (?:zon\w*\|district\|residential district\|neighborhood)\|owner-?occupanc\w*\|owner-?occupied\|\bzoning\w*\|\bzone\w*\|land use\|comprehensive plan\|\bordinance\w*)[\s\S]{0,1200}(?:accessory dwelling\w*\|\bADU\b\|accessory apartment\w*\|granny flat\w*\|in-?law (?:unit\|apartment\|suite)\|\bcarriage house\w*\|secondary (?:unit\|dwelling)\|detached accessory\|\bduplex\w*\|\btriplex\w*\|\bfourplex\w*\|middle housing\|missing middle)` | 1 — law:2025-0:ch32:newonly | 0 |
+- positive `law:2025-0:ch34:newonly`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S12-b26-adu-sfz-laws-2025-1-newonly`** — S12 accessory-dwelling-unit and single-family-zone-lease-limit: any MN ADU or single-family-zoning act, including uncodified session-law programmes  
+scope `laws:2025-1:newonly`, 15 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:accessory dwelling\w*\|\bADU\b\|accessory apartment\w*\|granny flat\w*\|in-?law (?:unit\|apartment\|suite)\|\bcarriage house\w*\|secondary (?:unit\|dwelling)\|detached accessory\|\bduplex\w*\|\btriplex\w*\|\bfourplex\w*\|middle housing\|missing middle)` | 1 — law:2025-1:ch9:newonly | 0 |
+| `(?:single-?family (?:zon\w*\|district\|residential district\|neighborhood)\|owner-?occupanc\w*\|owner-?occupied\|\bzoning\w*\|\bzone\w*\|land use\|comprehensive plan\|\bordinance\w*)` | 8 — law:2025-1:ch10:newonly, law:2025-1:ch13:newonly, law:2025-1:ch1:newonly, law:2025-1:ch3:newonly … | 0 |
+| `(?:accessory dwelling\w*\|\bADU\b\|accessory apartment\w*\|granny flat\w*\|in-?law (?:unit\|apartment\|suite)\|\bcarriage house\w*\|secondary (?:unit\|dwelling)\|detached accessory\|\bduplex\w*\|\btriplex\w*\|\bfourplex\w*\|middle housing\|missing middle)[\s\S]{0,1200}(?:single-?family (?:zon\w*\|district\|residential district\|neighborhood)\|owner-?occupanc\w*\|owner-?occupied\|\bzoning\w*\|\bzone\w*\|land use\|comprehensive plan\|\bordinance\w*)` | 0 | 0 |
+| `(?:single-?family (?:zon\w*\|district\|residential district\|neighborhood)\|owner-?occupanc\w*\|owner-?occupied\|\bzoning\w*\|\bzone\w*\|land use\|comprehensive plan\|\bordinance\w*)[\s\S]{0,1200}(?:accessory dwelling\w*\|\bADU\b\|accessory apartment\w*\|granny flat\w*\|in-?law (?:unit\|apartment\|suite)\|\bcarriage house\w*\|secondary (?:unit\|dwelling)\|detached accessory\|\bduplex\w*\|\btriplex\w*\|\bfourplex\w*\|middle housing\|missing middle)` | 0 | 0 |
+- positive `law:2025-1:ch9:newonly`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S12-b26-adu-sfz-laws-2026-0-newonly`** — S12 accessory-dwelling-unit and single-family-zone-lease-limit: any MN ADU or single-family-zoning act, including uncodified session-law programmes  
+scope `laws:2026-0:newonly`, 92 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:accessory dwelling\w*\|\bADU\b\|accessory apartment\w*\|granny flat\w*\|in-?law (?:unit\|apartment\|suite)\|\bcarriage house\w*\|secondary (?:unit\|dwelling)\|detached accessory\|\bduplex\w*\|\btriplex\w*\|\bfourplex\w*\|middle housing\|missing middle)` | 1 — law:2026-0:ch127:newonly | 0 |
+| `(?:single-?family (?:zon\w*\|district\|residential district\|neighborhood)\|owner-?occupanc\w*\|owner-?occupied\|\bzoning\w*\|\bzone\w*\|land use\|comprehensive plan\|\bordinance\w*)` | 10 — law:2026-0:ch104:newonly, law:2026-0:ch115:newonly, law:2026-0:ch121:newonly, law:2026-0:ch123:newonly … | 0 |
+| `(?:accessory dwelling\w*\|\bADU\b\|accessory apartment\w*\|granny flat\w*\|in-?law (?:unit\|apartment\|suite)\|\bcarriage house\w*\|secondary (?:unit\|dwelling)\|detached accessory\|\bduplex\w*\|\btriplex\w*\|\bfourplex\w*\|middle housing\|missing middle)[\s\S]{0,1200}(?:single-?family (?:zon\w*\|district\|residential district\|neighborhood)\|owner-?occupanc\w*\|owner-?occupied\|\bzoning\w*\|\bzone\w*\|land use\|comprehensive plan\|\bordinance\w*)` | 0 | 0 |
+| `(?:single-?family (?:zon\w*\|district\|residential district\|neighborhood)\|owner-?occupanc\w*\|owner-?occupied\|\bzoning\w*\|\bzone\w*\|land use\|comprehensive plan\|\bordinance\w*)[\s\S]{0,1200}(?:accessory dwelling\w*\|\bADU\b\|accessory apartment\w*\|granny flat\w*\|in-?law (?:unit\|apartment\|suite)\|\bcarriage house\w*\|secondary (?:unit\|dwelling)\|detached accessory\|\bduplex\w*\|\btriplex\w*\|\bfourplex\w*\|middle housing\|missing middle)` | 1 — law:2026-0:ch127:newonly | 0 |
+- positive `law:2026-0:ch127:newonly`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S14-b1-screening-bareword`** — S14 tenant-screening: bare word 'screen' then the terms of art; is criminal-record screening regulated?  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bscreen\w*` | 37 — stat:144.064, stat:144.065, stat:144.0724, stat:144.077 … | 0 |
+| `\bcriminal history\b` | 4 — stat:144.0572, stat:299F.035, stat:299F.054, stat:363A.08 | 0 |
+| `\bconvict\w*[\s\S]{0,1200}\b(?:rental applicat\w*\|tenancy\|lease or license)\b` | 2 — stat:327C.09, stat:504B.171 | 0 |
+| `\b(?:rental applicat\w*\|tenancy\|lease or license)\b[\s\S]{0,1200}\bconvict\w*` | 0 | 0 |
+- positive `504B.241`: passed
+- positive `504B.235`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S14-b1b-screening-lookback-offer`** — S14 tenant-screening: look-back period, conditional offer, minimum-income test, section-wide AND screen+conviction  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\blook-?back\b` | 1 — stat:144.0724 | 0 |
+| `\bconditional offer\b` | 0 | 0 |
+| `\bincome\b[\s\S]{0,1200}\b(?:rental applicat\w*\|screen\w*)\b` | 1 — stat:256D.06 | 0 |
+| `\b(?:rental applicat\w*\|screen\w*)\b[\s\S]{0,1200}\bincome\b` | 2 — stat:144.4199, stat:144.587 | 0 |
+| `\A(?=[\s\S]*\bscreen\w*)(?=[\s\S]*\bconvict\w*)` | 0 | 0 |
+- positive `504B.241`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S14-b2-screening-income-rerun`** — S14 rerun of the INFLECTION line on 'income' from S14-b1b: minimum-income screening test  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bincome(?:s\|es\|d\|ed\|ing)?\b[\s\S]{0,1200}\b(?:rental applicat\w*\|screen\w*)\b` | 1 — stat:256D.06 | 0 |
+| `\b(?:rental applicat\w*\|screen\w*)\b[\s\S]{0,1200}\bincome(?:s\|es\|d\|ed\|ing)?\b` | 2 — stat:144.4199, stat:144.587 | 0 |
+| `\A(?=[\s\S]*\bincome(?:s\|es\|d\|ed\|ing)?\b)(?=[\s\S]*\bscreen\w*)` | 4 — stat:144.4199, stat:144.587, stat:144.9501, stat:256D.06 | 0 |
+- positive `504B.241`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S14-b2b-screening-laws-proximity`** — S14 tenant-screening: 2025/2026 session laws, any new tenant-screening regime?  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\btenant\b[\s\S]{0,1200}\bscreen\w*` | 2 — law:2025-1:ch9:enacted, law:2026-0:ch69:enacted | 0 |
+| `\bscreen\w*[\s\S]{0,1200}\btenant\b` | 2 — law:2025-1:ch9:enacted, law:2026-0:ch69:enacted | 0 |
+| `\brental applicat\w*` | 0 | 0 |
+| `\bcriminal history\b[\s\S]{0,1200}\b(?:rental\|tenan\w*\|landlord)\b` | 0 | 0 |
+| `\b(?:rental\|tenan\w*\|landlord)\b[\s\S]{0,1200}\bcriminal history\b` | 0 | 0 |
+- positive `2026-0:ch118:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S14-b2c-363A-record-screening`** — S14: does the Human Rights Act reach criminal or eviction records in housing or employment?  
+scope `statutes:363A`, 47 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bcriminal\b` | 3 — stat:363A.08, stat:363A.09, stat:363A.41 | 0 |
+| `\bconvict\w*` | 0 | 0 |
+| `\bexpunge\w*` | 0 | 0 |
+| `\bevict\w*` | 2 — stat:363A.22, stat:363A.28 | 0 |
+| `\brecord\w*[\s\S]{0,1200}\bhousing\b` | 0 | 0 |
+| `\bhousing\b[\s\S]{0,1200}\brecord\w*` | 0 | 0 |
+- positive `363A.09`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S14-b3-screening-laws-rerun`** — S14 rerun of the INFLECTION line on 'tenant' from S14-b2b (tenant screening in the session laws)  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\btenant(?:s\|es\|d\|ed\|ing)?\b[\s\S]{0,1200}\bscreen\w*` | 2 — law:2025-1:ch9:enacted, law:2026-0:ch69:enacted | 0 |
+| `\bscreen\w*[\s\S]{0,1200}\btenant(?:s\|es\|d\|ed\|ing)?\b` | 2 — law:2025-1:ch9:enacted, law:2026-0:ch69:enacted | 0 |
+- positive `2026-0:ch118:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S14-b4-records-bareword`** — S14 tenant-records: bare words over chapter 504B - records, receipts, ledger, retention, data  
+scope `statutes:504B`, 97 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\brecord(?:s\|ed\|ing)?\b` | 8 — stat:504B.113, stat:504B.216, stat:504B.241, stat:504B.251 … | 0 |
+| `\breceipt(?:s\|ed)?\b` | 10 — stat:504B.115, stat:504B.118, stat:504B.173, stat:504B.178 … | 0 |
+| `\bledger\w*` | 0 | 0 |
+| `\bretain\w*\|\bretention\b` | 8 — stat:504B.141, stat:504B.171, stat:504B.178, stat:504B.211 … | 0 |
+| `\bdata\b` | 0 | 0 |
+| `\binspect\w*[\s\S]{0,1200}\brecord(?:s\|ed\|ing)?\b` | 1 — stat:504B.395 | 0 |
+- positive `504B.241`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S14-b4b-records-datasecurity`** — S14 tenant-records: does a held Minnesota data-security statute reach a landlord holding applicant SSNs?  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bsecurity program\b` | 1 — stat:325F.995 | 0 |
+| `\bbreach of the security\b\|\bsecurity breach\b` | 0 | 0 |
+| `\bpersonal information\b` | 1 — stat:609.749 | 0 |
+| `\bSocial Security number\b` | 3 — stat:144.215, stat:144.69, stat:504B.117 | 0 |
+| `\bdispose\w*[\s\S]{0,1200}\bpersonal\b` | 2 — stat:504B.271, stat:523.24 | 0 |
+| `\bpersonal\b[\s\S]{0,1200}\bdispose\w*` | 2 — stat:504B.271, stat:523.24 | 0 |
+| `\A(?=[\s\S]*\bpersonal information\b)(?=[\s\S]*\blandlord\b)` | 0 | 0 |
+- positive `504B.117`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S14-b4c-records-laws`** — S14 tenant-records: session laws, rent ledger or records-request duty on a landlord?  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\brent ledger\b` | 0 | 0 |
+| `\bledger\w*` | 1 — law:2026-0:ch124:enacted | 0 |
+| `\btenant(?:s\|es\|d\|ed\|ing)?\b[\s\S]{0,1200}\brecord(?:s\|ed\|ing)?\b[\s\S]{0,400}\brequest\w*` | 1 — law:2025-0:ch35:enacted | 0 |
+| `\bpersonal information\b[\s\S]{0,1200}\blandlord\b` | 0 | 0 |
+| `\blandlord\b[\s\S]{0,1200}\bpersonal information\b` | 0 | 0 |
+- positive `2026-0:ch81:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S14-b5-records-rerun-landlord`** — S14 rerun of the INFLECTION line on 'landlord' from S14-b4b/S14-b4c (data security reaching landlords)  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\A(?=[\s\S]*\bpersonal information\b)(?=[\s\S]*\blandlord(?:s\|es\|d\|ed\|ing)?\b)` | 0 | 0 |
+| `\bpersonal information\b[\s\S]{0,1200}\blandlord(?:s\|es\|d\|ed\|ing)?\b` | 0 | 0 |
+| `\blandlord(?:s\|es\|d\|ed\|ing)?\b[\s\S]{0,1200}\bpersonal information\b` | 0 | 0 |
+| `\A(?=[\s\S]*\bsecurity program\b)(?=[\s\S]*\blandlord(?:s\|es\|d\|ed\|ing)?\b)` | 0 | 0 |
+- positive `325F.995`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S14-b5b-records-rerun-laws-wide`** — S14 rerun at >=1200 chars of the narrow 400-char window in S14-b4c, plus the landlord INFLECTION rerun over laws  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\btenant(?:s\|es\|d\|ed\|ing)?\b[\s\S]{0,1200}\brecord(?:s\|ed\|ing)?\b[\s\S]{0,1200}\brequest\w*` | 1 — law:2025-0:ch35:enacted | 0 |
+| `\brequest\w*[\s\S]{0,1200}\brecord(?:s\|ed\|ing)?\b[\s\S]{0,1200}\btenant(?:s\|es\|d\|ed\|ing)?\b` | 1 — law:2025-0:ch35:enacted | 0 |
+| `\bpersonal information\b[\s\S]{0,1200}\blandlord(?:s\|es\|d\|ed\|ing)?\b` | 0 | 0 |
+| `\blandlord(?:s\|es\|d\|ed\|ing)?\b[\s\S]{0,1200}\bpersonal information\b` | 0 | 0 |
+- positive `2026-0:ch81:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S15-b0-bareword-statutes`** — STEP 6 bare-word screen for S15-transfer-liens: no role limb, whole statutes scope.  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `foreclos\w*` | 14 — stat:144.496, stat:327C.095, stat:327C.097, stat:484.014 … | 0 |
+| `\blien\w*` | 12 — stat:325F.662, stat:325F.665, stat:325F.6654, stat:325F.666 … | 0 |
+| `\bsold\b` | 46 — stat:152.02, stat:299F.0115, stat:299F.40, stat:299F.850 … | 1 |
+| `\bsales?\b` | 148 — stat:144.0554, stat:144.062, stat:144.121, stat:144.125 … | 2 |
+| `convey\w*` | 15 — stat:144.0535, stat:144.14, stat:144.215, stat:144.221 … | 0 |
+| `transfer\w*` | 67 — stat:144.011, stat:144.05, stat:144.0554, stat:144.062 … | 2 |
+| `condemn\w*` | 5 — stat:444.075, stat:504B.178, stat:504B.195, stat:504B.204 … | 0 |
+| `associ\w*` | 115 — stat:144.0528, stat:144.0554, stat:144.0572, stat:144.058 … | 0 |
+| `record\w*` | 157 — stat:144.051, stat:144.0528, stat:144.053, stat:144.054 … | 1 |
+- positive `504B.151`: passed
+- positive `514.18`: passed
+- positive `504B.251`: passed
+- positive `504B.204`: passed
+- positive `327C.095`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S14-b6-records-ledger-wide`** — S14 tenant-records: rent ledger, accounting, landlord records on request, itemized statement - wide run over all statutes  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bledger\w*` | 0 | 0 |
+| `\baccounting\b[\s\S]{0,1200}\b(?:tenant\|rent)\w*` | 3 — stat:325D.38, stat:504B.216, stat:504B.321 | 0 |
+| `\b(?:tenant\|rent)\w*[\s\S]{0,1200}\baccounting\b` | 3 — stat:144.651, stat:504B.216, stat:504B.321 | 0 |
+| `\A(?=[\s\S]*\brecord(?:s\|ed\|ing)?\b)(?=[\s\S]*\blandlord(?:s\|es\|d\|ed\|ing)?\b)(?=[\s\S]*\brequest\w*)` | 4 — stat:504B.113, stat:504B.216, stat:504B.321, stat:504B.395 | 0 |
+| `\bitemized\b` | 10 — stat:144.591, stat:325D.33, stat:325F.662, stat:325F.665 … | 0 |
+- positive `504B.178`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S15-b2-construction-liens-statutes`** — construction-liens: is there a tenant-improvement lien rule, or a nonresponsibility notice, in the held corpus?  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:mechanic\w*\|improvement\w*\|contractor\w*\|alteration\w*)[\s\S]{0,1200}\blien\w*` | 1 — stat:514.18 | 0 |
+| `\blien\w*[\s\S]{0,1200}(?:mechanic\w*\|improvement\w*\|contractor\w*\|alteration\w*)` | 2 — stat:325F.665, stat:523.24 | 0 |
+| `\A(?=[\s\S]*(?:\blien\w*))(?=[\s\S]*(?:(?:mechanic\w*\|improvement\w*\|contractor\w*\|alteration\w*)))` | 5 — stat:325F.662, stat:325F.665, stat:327C.095, stat:514.18 … | 0 |
+| `nonresponsibilit\w*` | 0 | 0 |
+| `non-?responsibilit\w*` | 0 | 0 |
+- positive `514.18`: passed
+- positive `504B.365`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S15-b4-tpa-statutes`** — tpa cluster: statewide rent cap, just cause, tenant purchase right, and any sunset, over the whole statutes scope.  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `rent control` | 0 | 0 |
+| `rent stabiliz\w*` | 0 | 0 |
+| `\brent increase\w*` | 6 — stat:327C.02, stat:327C.04, stat:327C.06, stat:327C.10 … | 0 |
+| `right of first refusal` | 0 | 1 |
+| `opportunity to purchase` | 0 | 0 |
+| `first refusal` | 0 | 1 |
+| `(?:purchas\w*\|\bbuy\b\|\bsale\b\|\bsell\w*)[\s\S]{0,1200}(?:tenant\w*\|resident\w*\|lessee\w*)` | 45 — stat:144.496, stat:144.6502, stat:144.651, stat:299F.0115 … | 0 |
+| `(?:tenant\w*\|resident\w*\|lessee\w*)[\s\S]{0,1200}(?:purchas\w*\|\bbuy\b\|\bsale\b\|\bsell\w*)` | 49 — stat:144.225, stat:144.496, stat:144.6502, stat:144.651 … | 0 |
+| `\A(?=[\s\S]*(?:(?:right of first refusal\|opportunity to purchase\|offer to sell)))(?=[\s\S]*(?:(?:tenant\w*\|resident\w*)))` | 0 | 0 |
+| `\bexpires?\b` | 30 — stat:144.05, stat:144.12, stat:144.1202, stat:144.121 … | 0 |
+| `\bsunset\w*` | 0 | 0 |
+| `is repealed` | 10 — stat:299F.850, stat:299F.851, stat:299F.852, stat:299F.853 … | 0 |
+| `cause required` | 2 — stat:327C.09, stat:518B.01 | 0 |
+- positive `327C.095`: passed
+- positive `327C.096`: passed
+- positive `327C.09`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S15-b4r-tpa-statutes-rerun`** — tpa rerun after INFLECTION lines on buy and sale (brief step 6).  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:purchas\w*\|\bbuy(?:s\|es\|d\|ed\|ing)?\b\|\bsale(?:s\|es\|d\|ed\|ing)?\b\|\bsell\w*)[\s\S]{0,1200}(?:tenant\w*\|resident\w*\|lessee\w*)` | 47 — stat:144.496, stat:144.6502, stat:144.651, stat:299F.0115 … | 0 |
+| `(?:tenant\w*\|resident\w*\|lessee\w*)[\s\S]{0,1200}(?:purchas\w*\|\bbuy(?:s\|es\|d\|ed\|ing)?\b\|\bsale(?:s\|es\|d\|ed\|ing)?\b\|\bsell\w*)` | 50 — stat:144.225, stat:144.496, stat:144.6502, stat:144.651 … | 0 |
+| `\A(?=[\s\S]*(?:(?:purchas\w*\|\bsell\w*)))(?=[\s\S]*(?:(?:tenant\w*\|resident\w*\|lessee\w*)))(?=[\s\S]*(?:(?:notice\|notif\w*)))` | 25 — stat:144.496, stat:144.6502, stat:144.651, stat:325F.18 … | 0 |
+- positive `327C.096`: passed
+- positive `327C.097`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S15-b4L-tpa-laws`** — tpa cluster over laws:enacted.  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `rent control` | 0 | 0 |
+| `rent stabiliz\w*` | 1 — law:2025-1:ch13:enacted | 0 |
+| `right of first refusal` | 3 — law:2026-0:ch61:enacted, law:2026-0:ch82:enacted, law:2026-0:ch88:enacted | 0 |
+| `opportunity to purchase` | 0 | 0 |
+| `\bsunset\w*` | 4 — law:2025-0:ch35:enacted, law:2025-0:ch39:enacted, law:2025-0:ch4:enacted, law:2026-0:ch128:enacted | 0 |
+| `cause required` | 1 — law:2026-0:ch75:enacted | 0 |
+| `(?:purchas\w*\|\bsell\w*)[\s\S]{0,1200}(?:tenant\w*\|resident\w*\|lessee\w*)` | 29 — law:2025-0:ch20:enacted, law:2025-0:ch2:enacted, law:2025-0:ch32:enacted, law:2025-0:ch34:enacted … | 0 |
+| `(?:tenant\w*\|resident\w*\|lessee\w*)[\s\S]{0,1200}(?:purchas\w*\|\bsell\w*)` | 26 — law:2025-0:ch20:enacted, law:2025-0:ch2:enacted, law:2025-0:ch34:enacted, law:2025-0:ch38:enacted … | 0 |
+- positive `law:2026-0:ch82:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S15-b5-nonresident-owner-agent-statutes`** — nonresident-owner-agent: must an out-of-state owner name an in-state agent? plus a rent-withholding tax limb.  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `nonresident\w*` | 8 — stat:144.3431, stat:144.69, stat:216B.022, stat:216B.096 … | 0 |
+| `non-?resident\w*` | 8 — stat:144.3431, stat:144.69, stat:216B.022, stat:216B.096 … | 0 |
+| `out-of-state` | 3 — stat:144.98, stat:325F.665, stat:325F.781 | 0 |
+| `registered agent` | 0 | 0 |
+| `resident agent` | 1 — stat:484.49 | 0 |
+| `(?:agent\w*)[\s\S]{0,1200}(?:service of process\|accept service)` | 4 — stat:144G.08, stat:325F.722, stat:325F.784, stat:504B.181 | 0 |
+| `(?:service of process\|accept service)[\s\S]{0,1200}(?:agent\w*)` | 3 — stat:325F.722, stat:325F.784, stat:504B.181 | 0 |
+| `\A(?=[\s\S]*(?:(?:agent\w*)))(?=[\s\S]*(?:(?:service of process)))` | 7 — stat:144.054, stat:325F.722, stat:325F.784, stat:504B.181 … | 0 |
+| `withhold\w*[\s\S]{0,1200}(?:\brent(?:s\|ed\|ing\|al)?\b)` | 3 — stat:363A.09, stat:504B.178, stat:504B.385 | 0 |
+- positive `504B.181`: passed
+- positive `559.21`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S15-b56L-forward-and-nonresident-laws`** — tenant-forward and nonresident-owner-agent over laws:enacted.  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `attorn(?:s\|ed\|ing\|ment\|ments)?\b` | 0 | 0 |
+| `nonresident\w*` | 21 — law:2025-0:ch20:enacted, law:2025-0:ch21:enacted, law:2025-0:ch29:enacted, law:2025-0:ch38:enacted … | 0 |
+| `registered agent` | 5 — law:2025-0:ch11:enacted, law:2025-0:ch39:enacted, law:2025-1:ch4:enacted, law:2026-0:ch124:enacted … | 0 |
+| `resident agent` | 0 | 0 |
+| `(?:tenant\w*\|resident\w*\|occupant\w*)[\s\S]{0,1200}(?:summons\|service of process)` | 5 — law:2025-0:ch2:enacted, law:2025-0:ch9:enacted, law:2026-0:ch124:enacted, law:2026-0:ch80:enacted … | 0 |
+| `(?:summons\|service of process)[\s\S]{0,1200}(?:tenant\w*\|resident\w*\|occupant\w*)` | 5 — law:2025-0:ch9:enacted, law:2026-0:ch124:enacted, law:2026-0:ch67:enacted, law:2026-0:ch81:enacted … | 0 |
+- positive `law:2026-0:ch80:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S15-b7-conversion-notice-statutes`** — conversion-notice: does MN require a notice to tenants on converting rental housing to another use?  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `convert\w*` | 9 — stat:144.1201, stat:144.55, stat:144.581, stat:144.9501 … | 0 |
+| `conversion` | 8 — stat:144.4199, stat:144.581, stat:256D.06, stat:325F.072 … | 0 |
+| `condominium\w*` | 3 — stat:144.1222, stat:144G.08, stat:325F.721 | 0 |
+| `common interest communit\w*` | 4 — stat:144.496, stat:144G.08, stat:325F.721, stat:327C.095 | 0 |
+| `cooperative\w*` | 22 — stat:144.05, stat:144.147, stat:144.1476, stat:144.1492 … | 0 |
+| `(?:convert\w*\|conversion\|condominium\w*)[\s\S]{0,1200}(?:notice\|notif\w*)` | 3 — stat:325F.662, stat:327C.095, stat:523.24 | 0 |
+| `(?:notice\|notif\w*)[\s\S]{0,1200}(?:convert\w*\|conversion\|condominium\w*)` | 1 — stat:327C.095 | 0 |
+| `\A(?=[\s\S]*(?:(?:convert\w*\|conversion)))(?=[\s\S]*(?:(?:tenant\w*\|resident\w*)))(?=[\s\S]*(?:(?:notice\|notif\w*)))` | 2 — stat:144.55, stat:327C.095 | 0 |
+| `change (?:of\|in) use` | 2 — stat:144.55, stat:327C.095 | 0 |
+| `cessation of use` | 1 — stat:327C.095 | 0 |
+| `\bclosure\w*` | 8 — stat:144.1204, stat:144.1465, stat:144.9504, stat:325F.075 … | 0 |
+| `demoli\w*` | 3 — stat:144.9501, stat:327C.095, stat:469.002 | 0 |
+| `transient` | 1 — stat:144.383 | 0 |
+- positive `327C.095`: passed
+- positive `504B.204`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S15-b8-association-statutes`** — hoa / association-obligations-disclosure: does any held section regulate an association against a tenant, or require lease disclosure of association obligations?  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `associ\w*[\s\S]{0,1200}(?:tenant\w*\|lessee\w*\|\bleas(?:e\|es\|ed\|ing)\b)` | 10 — stat:144A.01, stat:216B.022, stat:325D.44, stat:325F.68 … | 0 |
+| `(?:tenant\w*\|lessee\w*\|\bleas(?:e\|es\|ed\|ing)\b)[\s\S]{0,1200}associ\w*` | 14 — stat:144A.01, stat:216B.022, stat:325D.44, stat:325D.50 … | 0 |
+| `\A(?=[\s\S]*(?:(?:homeowners\|unit owners\|community\|condominium) associ\w*))(?=[\s\S]*(?:(?:tenant\w*\|lessee\w*)))` | 0 | 0 |
+| `(?:homeowners\|unit owners\|lot owners\|community\|condominium) associ\w*` | 0 | 0 |
+| `governing document\w*` | 0 | 0 |
+| `declaration\w* and bylaw\w*` | 0 | 0 |
+| `\bbylaws?\b` | 4 — stat:144.698, stat:144.966, stat:504B.001, stat:504B.212 | 0 |
+- positive `504B.212`: passed
+- positive `327C.015`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S15-b789L-conversion-assoc-disaster-laws`** — conversion-notice, association/hoa and disaster-duties over laws:enacted.  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `(?:convert\w*\|conversion)[\s\S]{0,1200}(?:tenant\w*\|resident\w*)` | 7 — law:2025-0:ch32:enacted, law:2025-0:ch38:enacted, law:2025-1:ch3:enacted, law:2026-0:ch124:enacted … | 0 |
+| `(?:tenant\w*\|resident\w*)[\s\S]{0,1200}(?:convert\w*\|conversion)` | 6 — law:2025-0:ch32:enacted, law:2025-0:ch38:enacted, law:2025-1:ch3:enacted, law:2026-0:ch56:enacted … | 0 |
+| `evacuat\w*` | 6 — law:2025-0:ch20:enacted, law:2025-1:ch3:enacted, law:2025-1:ch9:enacted, law:2026-0:ch124:enacted … | 0 |
+| `\bshelter plan\w*` | 0 | 0 |
+| `evacuation or shelter` | 1 — law:2026-0:ch127:enacted | 0 |
+| `shelter or evacuation` | 0 | 0 |
+| `(?:homeowners\|unit owners\|lot owners\|community\|condominium) associ\w*` | 5 — law:2025-0:ch16:enacted, law:2025-0:ch9:enacted, law:2025-1:ch4:enacted, law:2026-0:ch121:enacted … | 0 |
+| `(?:disaster\w*\|state of emergency)[\s\S]{0,1200}(?:tenant\w*\|\bleas(?:e\|es\|ed\|ing)\b\|rental)` | 2 — law:2025-0:ch38:enacted, law:2026-0:ch88:enacted | 0 |
+| `(?:tenant\w*\|\bleas(?:e\|es\|ed\|ing)\b\|rental)[\s\S]{0,1200}(?:disaster\w*\|state of emergency)` | 0 | 0 |
+| `manufactured home park` | 7 — law:2025-0:ch32:enacted, law:2025-1:ch3:enacted, law:2025-1:ch6:enacted, law:2026-0:ch100:enacted … | 0 |
+- positive `law:2026-0:ch82:enacted`: passed
+- positive `law:2026-0:ch61:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S15-b12-heading-screen-statutes`** — heading screen (upper-case headnotes) for the S15 subject words across the statutes scope.  
+scope `statutes`, 1305 units, case-sensitive
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `LIEN` | 1 — stat:144.9981 | 1 |
+| `FORECLOS\w*` | 0 | 1 |
+| `DISTRESS` | 0 | 2 |
+| `CONDEMN\w*` | 0 | 2 |
+| `EMINENT` | 0 | 0 |
+| `CONVERSION` | 0 | 0 |
+| `CONDOMINIUM` | 0 | 0 |
+| `ASSOCIATION` | 0 | 2 |
+| `RECORDING` | 0 | 3 |
+| `SALE` | 15 — stat:325D.06, stat:325D.34, stat:325D.35, stat:325D.71 … | 19 |
+| `TRANSFER` | 0 | 5 |
+| `SUCCESSOR` | 0 | 0 |
+| `EVACUAT\w*` | 0 | 0 |
+| `SHELTER` | 0 | 0 |
+| `DISASTER` | 0 | 0 |
+| `NONRESIDENT` | 0 | 1 |
+| `AGENT` | 2 — stat:325F.665, stat:325F.6652 | 2 |
+| `ATTORNMENT` | 0 | 0 |
+| `PURCHASE` | 3 — stat:325F.665, stat:325F.6652, stat:559.21 | 3 |
+| `CLOSING` | 2 — stat:325F.691, stat:327C.095 | 1 |
+- positive `504B.251`: passed
+- positive `327C.095`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S14-b16-sexoffender-bareword`** — S14 sex-offender-disclosure and -occupancy: bare words, no role limb, over all statutes  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bsex offender\w*` | 1 — stat:246.50 | 0 |
+| `\bpredatory offender\w*` | 0 | 0 |
+| `\boffender\w*` | 7 — stat:246.50, stat:484.07, stat:609.342, stat:609.66 … | 0 |
+| `\bregistr\w*[\s\S]{0,1200}\boffender\w*` | 0 | 0 |
+| `\boffender\w*[\s\S]{0,1200}\bregistr\w*` | 1 — stat:624.713 | 0 |
+| `\bcommunity notification\b` | 0 | 0 |
+- positive `609.3451`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S14-b16b-sexoffender-heading`** — S14 sex-offender: upper-case headnote screen  
+scope `statutes`, 1305 units, case-sensitive
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `OFFENDER` | 0 | 0 |
+| `SEX` | 0 | 5 |
+| `REGISTRATION` | 0 | 4 |
+| `NOTIFICATION` | 0 | 1 |
+- positive `609.342`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S14-b16c-sexoffender-laws`** — S14 sex-offender: session laws  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bpredatory offender\w*[\s\S]{0,1200}\b(?:landlord\|rental\|tenan\w*\|dwelling\|lease)\b` | 0 | 0 |
+| `\b(?:landlord\|rental\|tenan\w*\|dwelling\|lease)\b[\s\S]{0,1200}\bpredatory offender\w*` | 0 | 0 |
+| `\b244.052\b` | 1 — law:2025-0:ch38:enacted | 0 |
+| `\bsex offender\w*[\s\S]{0,1200}\b(?:landlord\|tenan\w*)\b` | 0 | 0 |
+- positive `2026-0:ch127:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S14-b17-trespass-bareword`** — S14 trespass-notice: bare words over all statutes - may a landlord bar a non-tenant from common areas?  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\btrespass\w*` | 2 — stat:144.416, stat:609.749 | 0 |
+| `\bbar\w*[\s\S]{0,1200}\bcommon area\w*` | 2 — stat:144.413, stat:504B.171 | 0 |
+| `\bcommon area\w*[\s\S]{0,1200}\bbar\w*` | 1 — stat:504B.171 | 0 |
+| `\b609.605\b` | 1 — stat:609.749 | 0 |
+| `\bguest\w*[\s\S]{0,1200}\bexclude\w*\|\bexclud\w*[\s\S]{0,1200}\bguest\w*` | 0 | 0 |
+- positive `504B.375`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S14-b17b-trespass-heading-laws`** — S14 trespass-notice: session laws  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\btrespass\w*` | 3 — law:2025-0:ch34:enacted, law:2026-0:ch95:enacted, law:2026-0:ch97:enacted | 0 |
+| `\b609.605\b` | 1 — law:2026-0:ch97:enacted | 0 |
+- positive `2026-0:ch127:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S14-b18-petfactsheet-bareword`** — S14 pet-eviction-fact-sheet: bare words - a state fact sheet on pets and eviction? pets near eviction?  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bfact sheet\w*` | 1 — stat:144.997 | 0 |
+| `\b(?:pet\|pets)\b` | 10 — stat:144.565, stat:144.573, stat:325F.79, stat:325F.791 … | 2 |
+| `\banimal\w*[\s\S]{0,1200}\bevict\w*` | 1 — stat:504B.113 | 0 |
+| `\bevict\w*[\s\S]{0,1200}\banimal\w*` | 0 | 0 |
+| `\A(?=[\s\S]*\b(?:pet\|pets)\b)(?=[\s\S]*\bevict\w*)` | 1 — stat:504B.113 | 0 |
+| `\bbrochure\w*\|\bpamphlet\w*\|\binformation sheet\w*` | 3 — stat:144.9501, stat:325F.19, stat:325F.67 | 0 |
+- positive `504B.261`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S14-b18b-petfactsheet-heading-laws`** — S14 pet-eviction-fact-sheet: session laws  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\bfact sheet\w*[\s\S]{0,1200}\b(?:pet\|pets\|animal)\w*` | 0 | 0 |
+| `\b(?:pet\|pets\|animal)\w*[\s\S]{0,1200}\bfact sheet\w*` | 0 | 0 |
+| `\b504B.261\b` | 0 | 0 |
+| `\b(?:pet\|pets)\b[\s\S]{0,1200}\bevict\w*` | 0 | 0 |
+- positive `2026-0:ch81:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S16-b7-insurance`** — insurance: does Minnesota require a residential landlord to carry liability insurance, and does any statute govern claims against a tenant policy  
+scope `statutes`, 1305 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `\binsur\w*\b` | 45 — stat:144.0528, stat:144.12, stat:144.1225, stat:144.1255 … | 1 |
+| `\binsur\w*\b[\s\S]{0,1200}\b(?:tenants?\|residents?\|landlords?\|park owners?\|lessees?\|lessors?\|plaintiffs?)\b` | 8 — stat:144A.01, stat:325D.53, stat:325F.784, stat:325F.95 … | 0 |
+| `\b(?:tenants?\|residents?\|landlords?\|park owners?\|lessees?\|lessors?\|plaintiffs?)\b[\s\S]{0,1200}\binsur\w*\b` | 6 — stat:144.50, stat:325F.784, stat:325F.95, stat:327C.095 … | 0 |
+| `\A(?=[\s\S]*(?:\binsur\w*\b))(?=[\s\S]*(?:\b(?:tenants?\|residents?\|landlords?\|park owners?\|lessees?\|lessors?\|plaintiffs?)\b))` | 13 — stat:144.50, stat:144A.01, stat:144G.08, stat:325D.53 … | 0 |
+| `\A(?=[\s\S]*(?:(?:\bmust\|shall\|required)\b))(?=[\s\S]*(?:liability insurance))` | 1 — stat:523.24 | 0 |
+| `liability insurance` | 1 — stat:523.24 | 0 |
+- positive `504B.211`: passed
+- positive `504B.425`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+**`S16-b78l-insurance-guarantor-sessionlaws`** — 2025/2026 session laws: landlord liability insurance or lease guarantors  
+scope `laws:enacted`, 146 units
+
+| pattern | hits | heading-only |
+|---|---|---|
+| `liability insurance[\s\S]{0,1200}\b(?:tenants?\|residents?\|landlords?\|park owners?\|lessees?\|lessors?\|plaintiffs?)\b` | 2 — law:2025-1:ch4:enacted, law:2026-0:ch127:enacted | 0 |
+| `\b(?:tenants?\|residents?\|landlords?\|park owners?\|lessees?\|lessors?\|plaintiffs?)\b[\s\S]{0,1200}liability insurance` | 0 | 0 |
+| `\bguarant\w*\b[\s\S]{0,1200}\b(?:tenants?\|residents?\|landlords?\|park owners?\|lessees?\|lessors?\|plaintiffs?)\b` | 4 — law:2025-0:ch32:enacted, law:2025-1:ch4:enacted, law:2026-0:ch124:enacted, law:2026-0:ch56:enacted | 0 |
+| `\b(?:tenants?\|residents?\|landlords?\|park owners?\|lessees?\|lessors?\|plaintiffs?)\b[\s\S]{0,1200}\bguarant\w*\b` | 2 — law:2025-1:ch4:enacted, law:2026-0:ch124:enacted | 0 |
+- positive `law:2026-0:ch81:enacted`: passed
+- control `zzqqxxnotaword`: 0 hits
+
+
+### Index-change replay (rule 19: replay every battery after any index change)
+
+The section splitter was corrected mid-pass: a chapter page's ALL-CAPS subject banner was being
+attached to the end of the **preceding** section's body (§ 504B.001's body ended with "LEASING
+AND RENT"), so a body battery could match a banner. 151 banners were moved to the following
+section's `subchapter` field. **Every recorded battery was then replayed against the corrected
+index and the results diffed.**
+
+- **391 of 441 runs unchanged**; 50 changed; 0 errored.
+- **2 changed because the scope legitimately grew** (1,255 to 1,305 statute units), being
+  runs recorded before the loader was patched to include the 50 cross-reference sections: `MI4-controls-over-lease`, `S02-b1-fee-regime-statutes`.
+  Both were re-cleared by hand: the two new hits on the controls-over-lease battery (§ 144A.01,
+  § 145A.04) are proximity artefacts on "**controlling** person" and "custodial **control**", so
+  the §4 item 4 verdict stands, and the other run had already been superseded by its own rerun.
+- **48 changed at the same scope — the banner fix.** 85 spurious unit-matches
+  removed across 44 sections, concentrated exactly where banners sat (§ 504B.182
+  "INSPECTION REPORTS AND CODE VIOLATIONS", § 144.95 "LEAD POISONING PREVENTION ACT",
+  § 504B.212 "UTILITIES; INTENTIONAL OUSTER", § 325F.001 "ASBESTOS").
+- **The tests that matter both pass: 0 patterns gained a hit, and 0 went from zero to
+  non-zero.** Removing text from a body can only remove hits, so **no recorded absence is
+  threatened**; 20 patterns went from non-zero to zero, each having matched only a banner,
+  which strengthens the absence rather than weakening it.
+- What is stale is a count, not a verdict: a row citing "1 heading-only hit, reviewed and
+  rejected" for one of those patterns now cites a number the log puts at 0. The affected runs are
+  listed in `replay-report.json`; the verdicts are unaffected.
+
+
+---
+
+## §4 Decisions, and the named Minnesota items
+
+### Item 1 — optional clauses never screened for Minnesota (rule 54)
+
+**(a) Crime-free / criminal-activity clause: DECLINED, and the reason is statutory.**
+
+The prompt's own statement of § 504B.171 lists subds. 1(a), 1(b), 1(c) and 2. It **omits
+subd. 2a, "Limitation on crime-free lease provisions"**, which is the provision the question turns
+on. Read section-open, the section gives three reasons not to offer the clause:
+
+1. **The covenant is already in every lease.** Subd. 1(a) writes it in, oral or written, against
+   controlled substances in violation of chapter 152, prostitution or prostitution-related activity
+   (§ 617.80, subd. 4), unlawful use or possession of a firearm (§§ 609.66, subd. 1a, 609.67,
+   624.713) and stolen or robbery-obtained property — reaching "the premises or … the common area
+   and curtilage". Subd. 1(b) adds the tenant's covenant not to commit a § 504B.206, subd. 1(a) act
+   against another tenant or authorized occupant. Subd. 2 makes a breach void the right to
+   possession. A clause restating any of this adds nothing a landlord does not already have.
+2. **The covenant cannot be modified.** Subd. 3: "The parties to a lease or license of residential
+   premises may not waive **or modify** the covenant imposed by this section." A clause drafted to
+   reach further than the covenant is a modification, and void to that extent.
+3. **Off-premises conduct is affirmatively capped.** Subd. 2a bars a landlord from imposing a
+   penalty on, or terminating the lease of, a residential tenant for conduct of the tenant, a
+   **household member** or a **guest** occurring **off** the premises or curtilage, unless (1) the
+   conduct would constitute a crime of violence against another tenant, the tenant's guest, the
+   landlord, or the landlord's employees — "regardless of whether a charge was brought or a
+   conviction obtained" — or (2) the conduct results in a **conviction** of a crime of violence
+   against a person unrelated to the premises. "Crime of violence" takes its meaning from
+   § 624.712, subd. 5 (a list of felony convictions: murder, manslaughter, the assault degrees,
+   domestic assault, robbery, carjacking, kidnapping and the rest) **"except that it does not
+   include offenses under chapter 152."**
+
+That last exclusion is the sharpest point and is easy to miss: because chapter 152 offences are
+carved out of "crime of violence", **neither** subd. 2a carve-out can ever cover an off-premises
+drug offence. Subd. 1(a)(1)(i)'s controlled-substance covenant is confined to "those premises or
+… the common area and curtilage". So off-premises drug conduct is something a Minnesota landlord
+may not penalise or terminate for at all — which is precisely what a conventional crime-free clause
+purports to do.
+
+Verdict: offer no crime-free clause for Minnesota. The topic `criminal-activity` keeps
+`edu-unlawful-activities-covenant-mn` unchanged (see §6 F1 for what that row is missing), and the
+crime-free option is recorded in the education row answering `drug-free-housing-addendum`, which
+points to it. Read with § 504B.205 (a landlord may not bar or limit, or penalise a tenant for,
+calling for police or emergency assistance in response to domestic abuse "or any other conduct,
+including … mental health or health crises"; non-waivable; subd. 3 preempts a local ordinance
+requiring eviction after a number of calls or charging the landlord for them; subd. 5 gives $250 or
+actual damages plus fees; subd. 6 adds attorney general authority under § 8.31) and § 504B.285,
+subd. 1(b) (no eviction solely because the tenant or an occupant was a victim).
+
+**Laws 2026, ch. 81, sec. 5** amends § 504B.321, subd. 2 from 2026-08-01, for eviction actions
+filed on or after that date. Read in the marker view, what is new is: the expedited track now also
+reaches a tenant who "**assaults the landlord or the landlord's employees or contractors**", with
+"assault" taking its meaning from § 609.02, subd. 10; and the civil penalty for abusing the
+expedited process rises from **$500 to $750**. Paragraph (e)'s bar on consolidating expedited
+claims with breach, holdover or nonpayment claims is **not** marked new — confirming, from the
+markers themselves, the Phase B correction.
+
+**(b) Eviction-fee clause.** The governing provisions, all read section-open: § 504B.120 (every
+nonoptional fee disclosed in the lease, and in the first-page Total Monthly Payment; treble damages
+and possible attorney fees under subd. 2); § 504B.172 (a landlord's attorney-fee term becomes
+reciprocal by operation of law); § 504B.177 (a late fee is neither interest nor liquidated damages);
+§ 504B.291, subd. 1(a) (on redemption the tenant pays rent in arrears with interest, costs and an
+attorney's fee of **no more than $5**); and § 504B.321, subd. 1a (the written pre-filing notice for
+nonpayment). The rule 54 verdict is recorded with the `eviction-penalty-clause-ban` and
+`notice-service-fee` topic answers, which point to each other.
+
+### Item 2 — fire and casualty
+
+`edu-casualty-termination-mn` **satisfies rule 54**: it states the § 504B.131 exit right, states
+that the statute lets a tenant expressly agree otherwise except as § 504B.161 prohibits, says the
+library declines to offer that clause and why, and tells the landlord they may add their own after
+taking advice. That is exactly the shape rule 54 requires of a declined lawful option.
+
+`casualty-and-mitigation-waivable` — **the two halves of the question have opposite answers**, which
+is the finding:
+
+- **Casualty is waivable.** § 504B.131 is two sentences: a tenant or occupant of a building
+  destroyed or made uninhabitable or unfit "through no fault or neglect of the tenant or occupant"
+  may vacate and surrender it, and "**A tenant or occupant may expressly agree otherwise except as
+  prohibited by section 504B.161.**" So a Minnesota lease *can* take away the move-out right.
+- **But the waiver cannot reach habitability.** § 504B.161, subd. 1(b): "The parties to a lease or
+  license of residential premises **may not waive or modify** the covenants imposed by this
+  section." Those covenants are (1) fitness for the intended use, (2) reasonable repair, (3)
+  reasonable energy efficiency, (4) compliance with health and safety law, and (5) heat of at least
+  68°F in all places intended for habitation from October 1 through April 30. So a casualty waiver
+  can remove the tenant's exit, but cannot make the tenant accept a building the landlord is still
+  bound to keep fit, repaired and heated. Note too that the tenant-fault carve-out in subd. 1 sits
+  in clauses **(2) and (4) only** — not in (1) fitness, (3) energy or (5) heat — so tenant fault
+  never excuses the heat duty.
+- **Mitigation is not waivable at all.** § 504B.154, subd. 2: "Any waiver of the rights provided by
+  this section shall be void and unenforceable." And the section does more than require mitigation:
+  subd. 1(a) **terminates the rental agreement** on the date the landlord has notice of the
+  abandonment if the landlord fails to use reasonable efforts to re-rent at fair rental value *or*
+  accepts the abandonment as a surrender, and the tenant "shall not be liable for rent after the
+  termination"; subd. 1(b) caps a periodic or at-will tenant's liability at the notice period
+  required to end the lease. Added by Laws 2024, ch. 118, sec. 10; no applicability clause, so it
+  reaches every tenancy whenever it began.
+
+Plainly, then: **a Minnesota lease may vary the casualty rule but not the mitigation rule, and the
+casualty variation stops at § 504B.161's non-waivable covenants.**
+
+### Item 3 — shared fee clauses, and the domestic-violence lock change
+
+**`keys` — no conflict, with one point for the builder.** The clause lets the landlord re-key and
+"charge the cost to Tenant" if keys are not returned or a replacement is needed. It names no
+figure, so there is nothing for § 504B.120, subd. 1 to require in the first-page Total Monthly
+Payment, and the clause is itself in the lease, which is where subd. 1 requires nonoptional fees to
+be disclosed. § 504B.118 as amended by Laws 2026, ch. 81, sec. 2 bars a fee only for using the
+alternative to a digital payment platform, which a re-key charge is not. The point for the builder
+is the converse: **a landlord who replaces "the cost" with a flat re-key fee brings § 504B.120 into
+play**, and an undisclosed flat fee carries treble damages. Minnesota also has no victim
+lock-change right for the clause to collide with (below), so the California caveat on this row has
+no Minnesota counterpart.
+
+**`hoa-compliance` — no conflict.** Laws 2026, ch. 82 does limit association late fees, fines and
+attorney fees, but it operates between the association and the **unit owner**: across the whole
+act, no sentence containing "fine", "late fee" or "attorney fees" also mentions a tenant, lessee or
+lease. Its only tenant-facing provision is **§ 515B.3-107(f)**, added by **sec. 6** of the act —
+not § 515B.3-102(f) as this log first recorded, sec. 3 being the one that amends § 515B.3-102 — by
+which an association "has no authority to regulate the parking of a unit owner or a guest,
+**tenant**, or invitee of the unit owner within an improved public right of way that a unit of
+government maintains and repairs", except to require compliance with applicable statutes and
+ordinances. **It is effective January 1, 2027 by the act's own terms, so it is not yet in force.**
+Cite and date corrected 2026-10-29 after the access slice caught both. The shared clause binds the
+tenant to "the association's rules and regulations **applicable** to the property", and that word
+does the necessary work, so the clause does not assert an authority the association lacks. The
+tenant's exposure under the clause is derivative of the owner's, so ch. 82's new caps limit it
+indirectly. Chapter 515B itself is outside the corpus; this rests on the act text.
+
+**The domestic-violence lock change — the row is wrong. See §6 F2.**
+
+### Item 4 — the three central shared edits
+
+- **`smoking-policy` reads correctly, and for a precise reason.** § 504B.171, subd. 1(c) bars a
+  landlord from prohibiting a tenant from legally possessing cannabis products, lower-potency hemp
+  edibles or hemp-derived consumer products, or from *using* any cannabinoid or hemp-derived
+  consumer product — "other than consumption by combustion or vaporization of the product and
+  inhalation of smoke, aerosol, or vapor from the product", and the tenant cannot waive the right.
+  The clause prohibits *smoking and vaping*, which is exactly the conduct the carve-out leaves to
+  the landlord, and says nothing about possession or edibles. It therefore sits inside the carve-out
+  as written. The limit worth recording: this clause could **not** lawfully be extended in Minnesota
+  to possession or to non-combusted use.
+- **`no-alterations` reads correctly.** The 2026-09-28 carve-out — "does not limit any repair,
+  installation, rekeying, or **reasonable modification** that applicable law entitles Tenant to
+  perform" — maps onto Minnesota's own term. § 363A.10, subd. 1(1) makes it discrimination to refuse
+  to permit, **at the expense of the disabled person**, "reasonable modifications of existing
+  premises … if modifications may be necessary to afford the disabled person full enjoyment of the
+  premises", and expressly lets a landlord, where reasonable, condition permission on the renter
+  agreeing to restore the interior to its prior condition, excluding reasonable wear and tear. The
+  clause's consent requirement plus landlord-may-require-removal wording is consistent with that.
+  (§ 363A.02, subd. 1 was amended by Laws 2026, ch. 99, sec. 1.)
+- **`addendum-precedence` reads correctly, and its second limb is inert in Minnesota.** A battery
+  for a document the law declares controlling over a lease returned no Minnesota instance: the eight
+  hits were false positives on the definitions of "Landlord" and "Lease" in § 504B.001, on
+  § 504B.285, and on a mosquito-research leasing power in § 144.95. § 504B.216, subd. 10 requires a
+  verbatim utility attachment but does **not** say it controls. So the first limb (a required
+  disclosure controls) is right and has Minnesota instances — § 504B.181, § 504B.216, subd. 10,
+  § 504B.206, subd. 6(3) — while the "applicable law says controls" limb has none here and is
+  harmless.
+
+### Item 5 — CARES Act mentions
+
+**They agree.** A text screen of every MN-tagged row found exactly one besides
+`edu-cares-act-notice`: the notes of `edu-landlord-disclosure-consequences-mn`, recording that
+Minnesota's eviction court rules make no federal notice a filing condition. The shared row says
+only that "**some** state court rules also ask for a statement about it when you file", so the
+Minnesota note narrows it rather than contradicting it. **No MN row disagrees.**
+
+### Item 6 — currency of the new rows
+
+Handled as standing method, not as a one-off decision: see §1. Every section a new row relies on
+was checked against its own `History:` line and against the 2026 chapters, and the Revisor's 46
+notices are the index used for that.
+
+**One correction to the corpus README, which this item made necessary.** The README says of Laws
+2026, ch. 81: "(each section effective August 1, 2026)". Read from the act itself, the act carries
+**three** effective-date clauses for **five** sections:
+
+| sec. | target | own effective-date clause |
+|---|---|---|
+| 1 | § 216B.023, subd. 3a (final submetered billing) | **none** |
+| 2 | § 504B.118 (payment of rent) | yes — "effective August 1, 2026"; subd. 4 applies to eviction actions filed on or after that date |
+| 3 | § 504B.2136 (minors as defendants) | yes — same, and applies to actions filed on or after |
+| 4 | § 504B.216, subd. 7a (final utility bills) | **none** |
+| 5 | § 504B.321, subd. 2 (expedited eviction) | yes — same, and applies to actions filed on or after |
+
+There is no act-wide effective-date clause; the text after sec. 5's clause is the governor's
+signature (presented 2026-05-11, signed 2026-05-12). So for §§ 216B.023, subd. 3a and 504B.216,
+subd. 7a the date comes from Minnesota's general rule in **Minn. Stat. § 645.02**, which is outside
+this pass's corpus and is therefore not asserted here. The date is probably the same; the mechanism
+is not, and a row's `effective_from` should not cite the act for a section the act does not date.
+Reached independently by the main pass and by the deposits helper. **The README is a secondary
+source and was treated as a lead, not as currency evidence (rule 12).**
+
+Also from the Revisor's own notices rather than the README: **Laws 2026, ch. 71 adds § 484.085**, an
+act the README does not list among those touching these eight chapters.
+
+---
+
+### Item 7 — what a tag may change on an existing row, and `last_checked`
+
+The prompt allows exactly two changes to an existing row: Minnesota into `states`, and an
+`MN: …` segment in `notes`. "Nothing else." The assembler was also stamping
+`last_checked` = 2026-10-29 on each tagged row. That is a third change, and it would have been
+written at sync to rows that up to 48 other states share — `tenant-forward-proceedings-ca`
+carries 48 states before Minnesota.
+
+It is removed, and the assembler now **fails rather than writes** if any tagged row differs from
+its trunk row in a column other than `states` and `notes`. All 8 tags pass.
+
+I can see the argument for bumping it: a row re-read against a new state's statutes genuinely has
+been checked today, and leaving the old date understates how well-verified it is. But the date is
+a shared field whose meaning is set by the library's own conventions, and the prompt's fence is
+unambiguous. **Recommendation: leave it to Claude Code at sync** — if a tag should bump
+`last_checked`, that is a sync rule applied uniformly across every state, not a thing this pass
+decides for eight rows. Flagged rather than done.
+
+### Item 8 — the plain-language pass, and one substantive thing it caught
+
+Every new Minnesota clause body was screened for sentences over ~40 words, measured after masking
+verbatim quoted statutory notices, `[bracketed prompts]` and `{{variables}}` — none of which a
+landlord reads as prose. Nine sentences across eight rows were over, and all nine were split
+condition-first, with a word-level diff kept for each. The screen now returns **0 over the limit
+across all 55 new clause rows**. `spa-pool-notice-mn`'s 52-word sentence is deliberately untouched:
+it is the § 144.1222, subd. 2d(e) notice quoted verbatim, and reflowing a mandated notice would
+break it.
+
+Rewriting a sentence made me read its statute again, and one row was wrong by omission.
+`tenant-repair-agreement-mn` stated the § 504B.161, subd. 1 heat covenant as an unconditional duty:
+"must have heat of at least 68 degrees Fahrenheit … from October 1 through April 30". The statute,
+subd. 1(a)(5), ends "**unless a utility company requires and instructs the heat to be reduced**."
+The clause now carries that carve-out. This is a new row, so adding it is inside the fence — but it
+is worth recording that a formatting pass, not a research pass, is what surfaced it.
+
+### Item 9 — two questions the independent check raised that I will not decide
+
+**(a) `effective_from` is blank on 306 of the 322 new rows, against a trunk fill rate of 99.1%.**
+Each blank has a stated reason — the date comes from § 645.02, or from an act outside the corpus, and
+this pass does not assert a date from memory — but it was never declared as a convention, and
+anything downstream keyed on `effective_from` will treat these rows unlike every other row in the
+library. I have **not** mass-populated it: filling 306 dates by inference is precisely the failure
+this pass exists to avoid, and a wrong effective date is worse than a blank one because it looks
+authoritative. **Recommendation: populate it at sync, from the trunk's own convention, only where the
+date is derivable from something held** — a section's own History line, or an act's express effective
+-date clause — and leave it blank where it would come from § 645.02. If you would rather every row
+carry a date, say so and I will populate from History lines and mark the § 645.02 cases NEEDS_REVIEW.
+
+**(b) § 504B.111's specific-unit requirement may want a clause, and the library has no premises
+clause for any state.** "The written lease must identify the specific unit the residential tenant
+will occupy **before** the residential tenant signs the lease", for a building with 12 or more units,
+with a penalty. That is lease content with a statutory penalty — the same `REQUIRED_DISCLOSURE` shape
+this pass gave § 504B.146 — yet it sits only in `LANDLORD_EDUCATION` rows. I checked before inventing
+one: **no state in the library has a premises or unit-identification clause at all**, which says the
+premises block lives in the lease skeleton rather than the clause library. So the real question is a
+product one. **Recommendation: check whether the builder guarantees the unit is identified in the
+document the tenant signs, for buildings of 12+ units, and whether it can be signed before that field
+is filled.** If it can, this needs either a clause or a builder gate; if it cannot, § 504B.111 is
+already satisfied and the education rows are the right home. I have not added a clause, because
+inventing the library's first premises clause for one state is a schema decision, not a gap fix.
+
+### Questions for Taylor (from the canvass)
+
+149 raised across the slices. **23 are the same ask in different words** —
+add a named section or chapter to the corpus so a blocked topic can be answered — and are
+collapsed into the table below. The other **122** are questions of judgement and are
+kept in full, each with the asking slice's recommendation.
+
+#### Corpus additions requested
+
+A topic blocked only by a corpus boundary is a *boundary*, not an absence; every row that
+turns on one is marked NEEDS_REVIEW. Ordered by how many slices were blocked by it.
+
+| section(s) | slices blocked | asked by |
+|---|---|---|
+| 504B | 4 | `confirmed-absences-outside-title`; `landlord-liability-insurance`; `required-disclosures` +1 more |
+| 5B | 2 | `eviction-service-party`; `tenant-confidential-information` |
+| 572B | 1 | `binding-arbitration` |
+| 514 | 1 | `construction-liens` |
+| 514, 515B | 1 | `conversion-notice` |
+| 481.02 | 1 | `entity-landlord-court-representation` |
+| 239 | 1 | `ev-charging-requirements` |
+| 142I, 9502 | 1 | `family-child-care` |
+| 624 | 1 | `firearms` |
+| 500 | 1 | `foreign-ownership` |
+| 327C, 504B | 1 | `good-cause-notice` |
+| 513 | 1 | `guarantor-renewal` |
+| 515B | 1 | `hoa` |
+| 491A, 504B | 1 | `landlord-remedies-termination` |
+| 18B | 1 | `pest-control-notice` |
+| 504B, 8.31 | 1 | `prohibited-lease-terms` |
+| 504B.120, 504B.146 | 1 | `rent-installments` |
+| 327C | 1 | `rules-regulations` |
+| 144, 168B, 237 | 1 | `telecom-access` |
+| 362, 365 | 1 | `tenant-bankruptcy` |
+| 325L | 1 | `tenant-portal` |
+| 325E | 1 | `tenant-records` |
+| 609 | 1 | `trespass-notice` |
+
+#### Questions of judgement
+
+Each is stated as the asking slice put it, with its recommendation. Rule 76: the slice
+worked the answer out as far as the corpus allowed before asking.
+
+- **`alt-housing`** — Minn. Stat. Sec. 504B.435 is cited by 0 rows in the whole library and it is the sharpest money consequence in chapter 504B: once an administrator is appointed the landlord's right to collect rent is void and unenforceable, from the order-for-judgment date for the petitioning tenant and from the service date for every other tenant. This row states it for the alt-housing question. RECOMMENDATION: slice S09 (substandard-property-receivership) should carry the full row, and the two different start dates should be stated expressly there, because a landlord who assumes one date for the whole building will keep collecting rent unlawfully from the petitioner.
+- **`animal-care-access`** — Minn. Stat. section 504B.261 is a flat entitlement - a tenant of a subsidised disability accessible unit in a multiunit building must be allowed two birds or one spayed or neutered dog or cat - and it is in 0 library rows for any state. It is mapped to the fees slice, but it also overrides the no-pets rule that pet-policy-mn and the shared pet clauses assume. Should it drive a choice_group in the builder (a no-pets clause that cannot be offered for a qualifying unit), rather than being carried as education?
+  - *Recommendation:* Yes, if the builder knows whether a unit is subsidised and disability accessible. The risk here is not a landlord who reads the education row; it is a landlord who selects a no-pets clause for a qualifying unit and never sees it. A hard gate is the only thing that catches that, and the statute's own conditions are narrow enough to encode.
+- **`appliances-excluded`** — Minn. Stat. Sec. 504B.161, subd. 2 lets a landlord and tenant agree that the TENANT will perform specified repairs or maintenance, but only with adequate consideration and in a conspicuous writing, and it can never waive subd. 1 or relieve the landlord of common-area maintenance. habitability-baseline-mn flagged this in September 2026 as 'not built into this clause as an option this session'. It is still not offered anywhere in the library. RECOMMENDATION: do not offer it as a lease clause. Adequate consideration and conspicuousness are facts the builder cannot guarantee, and a defective agreement is void; if Steinoak wants it, it should be a separate signable document with its own consideration recital, drafted with Minnesota advice.
+- **`common-area-lighting`** — Minn. Stat. Sec. 216B.023, subd. 2(b)(1)'s bar on charging a tenant for common-area electricity is addressed to 'a landlord who submeters electricity', and Sec. 504B.216's definitions make the section bite on a 'shared-metered residential building' -- one 'where the building's utility service is measured by fewer meters than the number of separate dwelling units'. A duplex or triplex where each unit has its own utility meter but the hall light is wired to unit 1's circuit is not literally shared-metered on that test, so the statutory bar may not reach the commonest version of this problem. Should the library say flatly that a Minnesota lease may never put common-area lighting on a tenant's service?
+  - *Recommendation:* Yes, say it flatly, and I have drafted the row to do so in its closing line while recording the statutory gap honestly in the notes. The reasons are practical rather than textual: Minn. Stat. Sec. 504B.161, subd. 1(a) covenants reach 'all common areas', subd. 1(b) makes them unwaivable and subd. 2 bars shifting common-area duties, so the landlord is paying for the obligation either way; and any charge to the tenant is a nonoptional fee that Sec. 504B.120 requires in the lease and in the first-page Total Monthly Payment on pain of treble damages. The upside of the arrangement is a few dollars a month and the downside is a treble-damages claim plus a habitability argument. If Taylor wants the narrow textual position instead, the row's notes already contain the analysis to support it.
+- **`confirmed-absences-misc`** — Minn. Stat. Sec. 327C.095, subd. 1 requires a park-closing notice to be made available in translation on a resident's request where no adult resident can speak the language the notice is in. That is the only translation duty in the whole corpus, and the library has no row for it. Should it be its own park row rather than a sentence inside a confirmed-absences note?
+  - *Recommendation:* Yes. It is a present duty with a trigger a park owner can fail to notice, and burying it in an absences row is the wrong place for it even though stating it there is what makes the absence honest. Keep the sentence here as the contrast and add a park row under a notice or park-closing topic.
+- **`confirmed-absences-misc`** — Minnesota has no execution formality for a lease, but Minn. Stat. Sec. 504B.115, subd. 1 and Sec. 504B.182, subd. 1(b) both offer the landlord an optional signed acknowledgment whose only function is evidential. Should the library ship both as optional clauses under rule 54?
+  - *Recommendation:* Yes for the Sec. 504B.115 copy receipt, which the statute says 'is prima facie evidence' and which costs nothing to include. The Sec. 504B.182, subd. 1(b) photo-and-video acknowledgment needs the tenant's agreement at the time, so it is better as a separate form than a lease clause; S01 already holds the inspection rows and should decide which.
+- **`confirmed-absences-outside-title`** — The pass's own brief summarises Laws 2026, ch. 81, sec. 2 as rewriting Minn. Stat. Sec. 504B.118 as PAYMENT OF RENT, without saying that the cash-receipt duty survives verbatim as subd. 2. Should the amendment notes carry the before-and-after of a retitled section, not just the new title?
+  - *Recommendation:* Yes. A retitled section is the single most dangerous shape in an amendment list, because the old headnote is what people's procedures cite and the new headnote looks like a replacement. The fix is cheap: when an act changes a headnote, record the deleted headnote, the new headnote and whether the old operative text survives, all from the laws:raw view where the markers are visible.
+- **`consumer-protection-act`** — Should the library treat Minn. Stat. § 325D.44, subd. 1(13) as the primary unconscionability exposure for Minnesota rather than Minn. Stat. § 325F.69, subd. 1?
+  - *Recommendation:* Carry both, which is what the two rows do, and lead with § 325D.44 when the question is 'can this term be attacked as unconscionable' and with § 325F.69 or § 325F.67 when the question is 'what is the money exposure'. Do not pick one. Settling which a Minnesota court would prefer needs case law that is outside this corpus.
+  - why it matters: The § 325F.69 route has a live threshold problem ('sale' of 'merchandise'); the § 325D.44 route does not ('in the course of business, vocation, or occupation'). Both now run on the same standard of proof under § 325F.69, subd. 8. But § 325D.44 yields only an injunction, so the two routes differ in threshold and in remedy in opposite directions.
+- **`cure-and-eviction-grounds`** — The optional notice-and-fix paragraph uses a new variable {{cure_period_days}}. Minnesota imposes no cure period for a non-rent lease breach, so any number is the landlord's own choice. Should the builder ship a suggested default?
+  - *Recommendation:* Ship it with no default and a [bracketed prompt] hint in the builder UI rather than a number in the clause, so the lease never implies Minnesota law sets a period. If a default is wanted, 10 days matches the shortest cure period Minnesota uses anywhere in landlord-tenant law (Minn. Stat. section 327C.09, subd. 2, manufactured home parks).
+- **`defective-drywall-disclosure`** — Minnesota prescribes a written IMPORTANT HEALTH NOTICE about urea-formaldehyde building materials that a builder must give to a lessee of a new housing unit (Minn. Stat. Sec. 325F.18, subd. 1(a)). It is a defective-building-material disclosure AND a prescribed chemical-exposure warning, so it fits either defective-drywall-disclosure or prop65-rental-warning. I filed it under prop65-rental-warning and cross-referenced it from here.
+  - *Recommendation:* Keep it under prop65-rental-warning: the structural match is a prescribed warning text delivered to the lessee, which is what the prop65 topic is for, and the DC row in that topic already names formaldehyde as the kind of chemical it covers. Leave defective-drywall-disclosure as a clean absence with the cross-reference.
+- **`designated-repairer`** — Should the optional emergency-reimbursement provision stay in `designated-repairer-mn`? Minnesota gives a tenant no self-help repair right at all -- the tenant's emergency route is a court petition under Minn. Stat. Sec. 504B.381 on 24 hours' attempted notice -- so the provision grants the tenant something the law does not.
+  - *Recommendation:* Keep it, bracketed as it is. It is cheaper than an ex parte order under Sec. 504B.381, and because Sec. 504B.161, subd. 4 makes the covenants additional to lease terms, a landlord who promises reimbursement is simply held to the larger promise, which is a known and chosen exposure rather than a legal risk. The bracket lets a landlord who disagrees delete it. Flagging because it is a product choice, not a legal one.
+- **`disability-accommodation`** — May a Minnesota landlord require a refundable deposit, or charge a fee, as the price of approving a disability modification under Minn. Stat. Sec. 363A.10, subd. 1(1)?
+  - *Recommendation:* Do not offer a modification deposit or fee clause. There is no statutory authority for one; any nonoptional fee would have to clear Sec. 504B.120 (disclosure in the lease and in the first-page Total Monthly Payment, treble damages for failure); and the downside of guessing wrong on a protected-class charge is Sec. 363A.33, subd. 8(a) treble compensatory damages plus a mandatory civil penalty. The offered clause takes the restoration promise and no money.
+  - why: The statute authorises exactly one condition - an agreement to restore the interior, where reasonable - and is silent on money. Battery S13-b2 found no restoration-deposit or escrow provision anywhere in the corpus. Sec. 504B.113, subd. 3(a) expressly bars pet fees for assistance animals, which shows Minnesota legislates expressly when it means to bar a charge in this area.
+- **`disability-accommodation`** — Should Minn. Stat. Sec. 645.02 be added to the corpus?
+  - *Recommendation:* Yes. It is one section and it unblocks the effective_from field on several rows.
+  - why: At least four 2026 provisions in this pass carry no effective-date clause and therefore turn on the general rule: Laws 2026, ch. 99, sec. 1; ch. 97, art. 13, sec. 1; and ch. 81, secs. 1 and 4. Sec. 645.02 is outside the corpus, so every one of them has to be left undated.
+- **`disaster-displaced-guests`** — Two Minnesota park provisions are stated nowhere in the library: Minn. Stat. 327C.025, which requires the park owner to give each resident the signed rental agreement 'with a copy of the evacuation or shelter plan attached', and the limb of the Minn. Stat. 327C.02 statutory notice that tells the resident 'You must be given a copy of the shelter or evacuation plan for the park.' Neither belongs under disaster-displaced-guests, and topic_key disaster-duties currently has no MN row of any kind. Where should they go?
+  - *Recommendation:* Give them a REQUIRED_DISCLOSURE clause and an education row under disaster-duties, not under this topic. Minn. Stat. 327C.025 is a required-attachment rule, which is the cleanest kind of clause the library carries, and the 327C.02 notice is verbatim statutory text so it does not count against the plain-language word limit. I have not written them here because the topic_key would be wrong and rule 57 is one subject per row. The wider point is that disaster-duties has no MN row at all, which is the accretion-bias shape the project's learnings file warns about: a topic no slice owns stays empty. Worth assigning explicitly rather than waiting for a slice to volunteer.
+- **`disaster-duties`** — Minn. Stat. Sec. 327C.025 is a genuine required-attachment rule -- the signed agreement must be handed over 'with a copy of the evacuation or shelter plan attached' -- and Minn. Stat. Sec. 327C.02 subd. 1 separately requires every park lot agreement to be in writing and to contain five listed items, with a mandated verbatim boldface ten-point notice under subd. 5 and a non-waiver in subd. 4 ('Any attempt to waive or circumscribe any privilege or right guaranteed by law to a resident or a park owner is void'). All of it is enforceable through Minn. Stat. Sec. 8.31. None of it is in the library. Does Steinoak want a manufactured home park lot agreement product?
+  - *Recommendation:* Decide it as a product question, not a research one, and decide it soon. My recommendation is to decline it for now but to record the decline against the specific statute rather than against the vague 'parks are out of scope' in edu-farm-and-mhp-scope-mn -- because a landlord who owns both apartments and a park will reach for this library's lease and it is the wrong instrument, and the current scope row does not tell them which sections they are missing. If you do want the product, Minn. Stat. ch. 327C is held whole so it can be built provably, and it is one small pass: Secs. 327C.02, 327C.025, 327C.03, 327C.06, 327C.07, 327C.09 and 327C.095 carry the required content, the fee limits, the rent-increase limit, the in-park sale rules, the cause-required eviction grounds and the closure regime.
+- **`drug-free-housing-addendum`** — Minn. Stat. Sec. 504B.1715 (COVENANTS; SOBER HOMES) lets a sober housing program prohibit possession and use of cannabis flower, cannabis products, lower-potency hemp edibles and hemp-derived consumer products, which is an express carve-out from the Sec. 504B.171 subd. 1(c) protection. It appears in 0 rows and the uncited-section screen records that no topic_key fits it. Should a topic_key be created, and if so, is it a lease-clause topic for operators of sober housing?
+  - *Recommendation:* Create topic_key 'sober-housing-cannabis-policy' and build it as an optional CONSTRAINED clause for Minnesota, not education. It is the one place in chapter 504B where a landlord may lawfully prohibit what Sec. 504B.171 subd. 1(c) otherwise protects, so a clause is the only way the permission reaches a lease, and Steinoak will have sober-housing operators among its users.
+- **`drug-free-housing-addendum`** — Several states in this topic carry a drug-free or crime-free addendum as an offered clause. Minnesota's declined row explains why Minnesota is different, but a builder picking clauses across states may not see the explanation. Should the declined-clause education rows be surfaced to the builder as a blocking note on the shared addendum rows?
+  - *Recommendation:* Yes, as a builder-side flag rather than a row edit. The risk is a Minnesota lease assembled from a shared addendum, and subd. 3 makes the extra reach void rather than merely unwise.
+- **`dv-deposit-timing`** — Should the library offer a lease clause restating that a tenant who terminates under Minn. Stat. 504B.206 relinquishes all claims to the security deposit? It is accurate, it is a landlord right, and under the three-bucket test it would qualify as SERVES_LANDLORD, so SOP rule 54 would normally say offer it. Minnesota appears to be the only state in the library with this rule.
+  - *Recommendation:* Do not offer it, which is how the row is written. The relinquishment is automatic on termination, so a clause adds nothing legally, and a paragraph in a lease telling a victim of domestic abuse that leaving costs them their deposit is the kind of term that reads badly in front of a judge and could be argued to chill the exercise of a non-waivable right under Minn. Stat. 504B.206, subd. 5. The education row carries the point for the landlord, says the option is lawful and tells a landlord who wants it to take advice first, which satisfies rule 54. This is a product call rather than a legal one, which is why it is being asked.
+- **`dv-eviction-protection`** — Minnesota has no lease-bifurcation statute, so a landlord who wants to remove an abuser cotenant and keep the victim housed has no statutory route and must work from the lease. Should the library offer an optional Minnesota clause that lets the landlord terminate as to one cotenant for a material breach without ending the tenancy for the others?
+  - *Recommendation:* Offer it, but as a flagged option with advice to take local counsel, not as a default. Rule 54 says silence is not the answer and the gap is real. The caution is Minn. Stat. Sec. 504B.206, subd. 3(b): where a victim cotenant terminates, the statute itself ends the lease for every remaining tenant, so a landlord-drafted severance clause has to be written not to collide with that. It is also the kind of clause that will be read against the landlord if it is ever used on the victim instead of the abuser.
+- **`dv-eviction-protection`** — Minn. Stat. Sec. 504B.285, subd. 1(b) uses 'solely on the basis that'. Should the Minnesota rows say plainly that this is a sole-basis test rather than the mixed-motive test some states use, or is that too close to legal advice for a landlord-facing row?
+  - *Recommendation:* Say it, in the statute's own word. The row quotes 'solely' and explains that the ground must be independent of the abuse, which is as far as the text goes. Going further -- predicting how a court allocates mixed motives -- would need case law, which is outside this corpus.
+- **`dv-lockchange`** — edu-no-rekey-or-lock-duty-mn carries a false 'already covered in the library' cross-reference (finding F2), and the library has now recorded three Minnesota rows of exactly this shape (section 504B.206 itself, section 504B.212 subd. 2, section 504B.155). Should a standing check be added that screens every 'already covered' or 'covered elsewhere' claim in a row's body or notes against the row it names?
+  - *Recommendation:* Yes, and it is cheap: the claim is always a phrase plus an id or a section number, so a screen can test whether the named row actually contains the asserted rule. Three repeats in one state is a pattern, not bad luck, and this failure mode is self-concealing - a false cross-reference is exactly what stops the next canvass looking.
+- **`dv-protection-order-chapter-moved`** — Minn. Stat. Sec. 504B.325 (a landlord may seek expedited temporary relief under the harassment-restraining-order statute, Sec. 609.748, alongside an eviction complaint) appears in 0 of the 11,634 rows, for any state. It was put in the main pass's 'pure court procedure' bucket of 17 sections and skipped. Should it have its own Minnesota row under a litigation or expedited-eviction topic, rather than living inside this citations row?
+  - *Recommendation:* Yes, and the bucket should be rechecked. Sec. 504B.325 is a remedy the landlord initiates, not a procedural step the court runs, so it fails the test that put it in that bucket. I have stated it here in full because the topic asked about protection-order citations and this is one, but a one-subject row keyed to expedited-criminal-eviction or a litigation topic would be the right home, cross-referenced to edu-expedited-eviction-mn. The other 16 sections in that bucket are worth a second look on the same test.
+- **`dv-protection-order-chapter-moved`** — Minn. Stat. Sec. 629.75 and Sec. 609.748 each appear in 0 rows library-wide, and chapter 518B appears in exactly 1 row which is switched off. Is that acceptable, given the library's position that a lease should not reproduce statutory citations?
+  - *Recommendation:* Acceptable for clause text, not for education. The statute Minnesota makes landlords apply, Sec. 504B.206, subd. 6(3), is written in terms of those orders, so a landlord has to be able to recognise one when a tenant hands it over. This row names all four and tells the landlord to repeat the statute's wording instead of its numbers, which is the durable form.
+- **`electric-submetering-disclosure`** — electric-submetering-disclosure-mn opens with a three-way checkbox for how electricity is supplied. The library's existing utilities-paid-by-landlord clause already lists landlord-paid utilities. Should the MN electricity disclosure instead be generated from the builder's utility-metering property attribute, so the two clauses cannot contradict each other?
+  - *Recommendation:* Yes — drive it from the attribute. Minn. Stat. § 504B.120, subd. 1 carries treble damages for a wrong utilities-included disclosure, and a hand-marked checkbox that disagrees with utilities-paid-by-landlord is exactly the inconsistency that creates the exposure. Until the attribute exists, keep the checkbox.
+- **`emergency-contact`** — Minn. Stat. section 504B.206, subd. 2 bars entering a victim-tenant's information into 'any shared database', says the duty supersedes any release-of-information form signed earlier, and sets $2,000 statutory damages. Steinoak is itself a shared database. Should this be handled as a product requirement (a field-level restriction on victim-related data) rather than only as lease text and education?
+  - *Recommendation:* Raise it with engineering, not just the clause library. The statute's words are about the database, not the lease, so no clause can discharge the duty - and a property-management SaaS that stores a relocation address in a searchable field is the exact exposure. edu-dv-information-confidentiality-mn already records the rule; what is missing is the product consequence.
+- **`employee-screening`** — Minn. Stat. ch. 364 (use of criminal records in employment and licensing) is not in the corpus and is the reason edu-employee-screening-mn is NEEDS_REVIEW. 22 states have an employee-screening row. Is employee screening in scope for a lease-clause library at all, or should the topic be answered once as out of scope?
+  - *Recommendation:* Keep it, but as education only and with the Human Rights Act content as the substance. It is never a lease clause, and the one thing a landlord-employer reliably gets wrong -- that Sec. 363A.08 subd. 4(2) reaches information obtained from ANY SOURCE, so the screening vendor's standard report is the landlord's problem -- is worth the row on its own. Add Sec. 364.021 and Sec. 364.03 as cross-references if the topic is kept.
+- **`energy-data-release`** — energy-data-release-mn and utility-billing-schedule-mn now both satisfy a Minnesota 'put it in the lease OR give a separate written notice' duty (§ 504B.216, subd. 5(d) and § 216B.023, subd. 1(b)). Should the builder emit these as one combined shared-metered utility notice rather than two separate clauses?
+  - *Recommendation:* Combine them in the builder's output but keep them as two rows. They have different statutory bases and different triggers — subd. 5(d) fires on apportionment, § 216B.023, subd. 1(b) on separate billing — so one row would breach one-subject-per-row and would mis-fire on a property that does one but not the other.
+- **`energy-data-release`** — Do you want a Minneapolis/St. Paul energy-benchmarking ordinance check added to the MN municipal follow-up list? It is the most likely source of a real benchmarking obligation for Steinoak's larger MN buildings.
+  - *Recommendation:* Yes, add it to the municipal list, but keep it out of clause text. It is squarely a rule 3 municipal matter, and § 504B.161, subd. 1(a)(4) already makes local-ordinance compliance a non-waivable lease covenant, so the lease needs no new words for it.
+- **`ev-charging-end-of-tenancy`** — A charger bolted to a wall or hard-wired to a panel may be a fixture, in which case the clause's 'remains Tenant's property' allocation is a contractual override of the common law rather than a restatement of it. Minnesota case law is outside this research boundary. RECOMMENDATION: keep the clause as tagged - the allocation is what the parties want and nothing in Minnesota statute forbids it - and keep the fixture caution in the education row so no one reads the clause as settling the point.
+- **`ev-charging-requirements`** — Minnesota's public-charging-station licence and five-cents-per-kilowatt-hour tax start on July 1, 2027, and the definition ('a facility at which a person conducts for-profit business using electric vehicle supply equipment ... and charges the customer for the electricity delivered') may capture a landlord who bills tenants for charging. The tax exemptions include charging 'at a private residence' and stations under 50 kilowatts, but the LICENCE requirement in Sec. 296A.051 carries no such exemption. RECOMMENDATION: do not resolve this in a clause. Keep the education row's 'measure yourself against the definition before 2027' framing, add a 2027 diary note for the project, and get Minnesota advice if any customer bills tenants for charging.
+- **`ev-charging-shared-area`** — The practical conclusion that a shared-metered Minnesota building has no statutory route to bill tenants for a shared-area charger's electricity is drawn from four provisions read together, not from any section about charging. RECOMMENDATION: keep it as the education row states it - the three practical answers plus 'take advice' - rather than hardening it into a clause, because it would be the first Minnesota row in the library to rest on a synthesis of provisions rather than on a provision's own words.
+- **`eviction-process`** — Minn. Stat. section 504B.332 (service of the eviction summons and complaint) is one of the 17 chapter 504B sections the uncited screen classed as 'pure court procedure' that a clause library reasonably does not carry. But it is the only place the seven-day service deadline, the electronic-notice duty, the two-attempt rule and the 6:00 p.m. to 10:00 p.m. attempt live, and a landlord who gets them wrong loses the case under section 504B.321, subd. 5. Should the library carry eviction service procedure as education, or stay out of it?
+  - *Recommendation:* Carry it, as it is carried here inside edu-eviction-process-mn rather than as a standalone procedure row. The deadlines are landlord duties with a dismiss-and-expunge consequence, which is the same reason the library already carries the 14-day notice. Keeping it inside the process row avoids the library drifting into a litigation manual.
+- **`eviction-process`** — edu-right-to-counsel-public-housing-mn, edu-tenant-may-not-deny-title-mn and edu-person-in-possession-liable-for-rent-mn all answer Minnesota-only sections with no counterpart row in any other state. Should the canvass raise them as cross-state checks?
+  - *Recommendation:* Yes for the right to counsel - several states have enacted tenant right-to-counsel laws and the library has no topic for it, so propose a topic_key rather than filing it under eviction-process long term. The deny-title and person-in-possession rules are old general landlord-tenant doctrine likely codified in many states, so a cross-state check there is probably high-yield too.
+- **`extended-absence-notice`** — extended-absence-notice-ks travels with a statutory entry-during-absence right in most of its 26 states (Iowa Code section 562A.29(2), NMSA 1978 section 47-8-34(B), Tenn. Code Ann. section 66-28-507(b) are cited in its own notes), but the clause text says nothing about entry. Minnesota has no such right. Should the absence-notice clause family carry an explicit entry sentence in every state, so a landlord cannot read the notice duty as permission to go in?
+  - *Recommendation:* Yes, and Minnesota's row now does. The gap is not in any one state's law but in the clause's silence: a tenant-duty clause that exists in the URLTA states precisely because entry follows from it reads, in a state without that right, as if entry follows anyway. One sentence pointing at each state's own entry clause fixes it everywhere.
+- **`fire-code-standard`** — Minn. Stat. Sec. 299F.48 requires an automatic sprinkler system, fully operational by August 1, 2033, in an existing 'public housing building' -- defined as federally financed low-income housing owned and operated by a city or county public housing authority with at least one occupied story 75 feet or more above the lowest level of fire department vehicle access -- and required the owner to send the state fire marshal a letter of intent and a compliance plan by August 1, 2023. Should the library carry a row for it?
+  - *Recommendation:* I did not write one. The definition excludes every private landlord the builder serves: the building must be owned and operated by a public housing authority AND be a high-rise over 75 feet. Recommend leaving it out of the clause library and recording it in the Minnesota decision log instead, so a future canvass does not re-find it as a gap. If Steinoak ever onboards a housing authority as a customer, it becomes a real row.
+- **`firearms`** — Minnesota appears to permit a private landlord to restrict lawful firearm possession in a unit -- no statute in the eight held chapters forbids it and the Minnesota Constitution has no right-to-bear-arms provision -- but the three bodies of law that would actually decide it (the Second Amendment, Minnesota case law, city ordinances) are outside this corpus. firearm-rules-mn therefore offers discharge and storage only and declines a possession ban. Should Steinoak get outside Minnesota advice so the library can offer a possession-restriction variant, or stand on the narrower clause?
+  - *Recommendation:* Stand on the narrower clause and get the advice only if a customer asks. The discharge-and-storage clause gets a landlord most of what they want, and a possession ban is the kind of term that invites litigation the product does not need; the row already tells a landlord the route to adding their own.
+- **`foreclosure`** — Laws 2026, ch. 80 adds Minn. Stat. Sec. 559.206, letting a victim of domestic abuse or sexual assault terminate a co-vendee's partial interest in a contract for deed, and adds Sec. 559.21, subd. 10: 'Nothing in this section shall apply to a vendee whose interest was terminated under section 559.206.' Minn. Stat. Sec. 504B.151's lease-term limit and pre-lease written notice are triggered only by 'notice of a contract for deed cancellation under section 559.21'. On the face of the two texts, a Sec. 559.206 termination is not a Sec. 559.21 cancellation and so does not trigger Sec. 504B.151. Should the library say so?
+  - *Recommendation:* Not yet. The gap is real on the text but nobody is harmed by it -- Sec. 559.206 terminates one co-vendee's interest and transfers it to the other by operation of law (subd. 9(a)), so the property is not lost and no tenant is displaced. I recommend recording it in the project log as a text-level observation and revisiting if a Revisor's correction act or a 2027 amendment touches Sec. 504B.151. I have not put it in any row body.
+- **`furnishings-included`** — The furnished-rental clause sits in the Security Deposit group, which is where the library put it, but for Minnesota the live risk is Sec. 504B.182's inspection notices rather than the deposit. RECOMMENDATION: leave the group as it is for consistency across the twelve states, and rely on the companion education row to carry the inspection point; moving one state's grouping would fragment the shared clause.
+- **`guarantor-renewal`** — Minn. Stat. Sec. 504B.178, subd. 1 is written by the money's function ('Any deposit of money, the function of which is to secure the performance of a residential rental agreement'), not by who paid it, so a deposit taken from a guarantor is a security deposit held for the TENANT with one percent interest and the three-week return clock. No row in the library says this. RECOMMENDATION: the deposits slice should carry it under security-deposit-cap or holding-deposit, because a landlord who treats guarantor money as a separate uncapped pot is exposed to Sec. 504B.178, subd. 4's damages.
+- **`hazardous-contamination-disclosure`** — This row is the only one in my slice marked NEEDS_REVIEW. It is blocked on Minn. Stat. ch. 114E, the Environmental Covenants Act, which is not in the corpus. Colorado answers the same topic from its environmental covenants statute (environmental-covenant-incorporation-co), so Minnesota plausibly has the same hook.
+  - *Recommendation:* Add ch. 114E (and Sec. Sec. 115B.01 to 115B.20) to the next corpus pull and re-run this one topic. Until then the row ships as NEEDS_REVIEW with the boundary stated in its body, which is better than a confident absence that Colorado already contradicts.
+- **`heating`** — edu-energy-assistance-notice-mn is a recurring September 30 duty, not lease content. Steinoak's library has no home for dated annual obligations. Should there be a 'compliance calendar' content_type or group, or does this sit as education indefinitely?
+  - *Recommendation:* Worth a small product decision. There are now at least two dated recurring MN duties in this slice alone — the September 30 energy-assistance notice (§ 504B.216, subd. 15) and the utility's August 15 to October 1 summary of rights (§ 216B.096, subd. 3, which is the utility's duty not yours). Education rows cannot make a landlord act on a date; a calendar can.
+- **`heating`** — Should edu-energy-assistance-notice-mn sit under topic_key heating, where I have put it, or under a utilities-notice topic?
+  - *Recommendation:* Leave it under heating for now. It is heating-assistance-specific and dated to the eve of the October 1 heating season, and heating is the topic a builder would look under. If a utility-notices topic is created later, move it then.
+- **`informal-dispute-resolution`** — Minn. Stat. Sec. 484.76 requires the supreme court's rules to require non-binding alternative dispute resolution in ALL civil cases except for good cause shown, and 0 rows in the library cite Sec. 484.73, Sec. 484.74 or Sec. 484.76 for any state. Whether that reaches an eviction action under Sec. Sec. 504B.281 to 504B.371 depends on Minn. Gen. R. Prac. 114, which is outside this research. RECOMMENDATION: ship the education row as written (it states the statute and names the bound), and add the General Rules of Practice question to the project's outside-source list, because the answer changes what a Minnesota landlord should expect after filing.
+- **`informal-dispute-resolution`** — Sec. 484.76, subd. 2 says alternative dispute resolution 'may not be required in civil commitment matters, or in matters arising under section 144.651, 144.652, 518B.01, or 626.557'. Sec. 518B.01 is the Domestic Abuse Act. RECOMMENDATION: pass this to the domestic-violence slice; it is a protection for a tenant seeking an order for protection and no row in the library mentions it.
+- **`key-control-policy`** — Minn. Stat. section 325F.722 is a mandatory written-contract regime for unlicensed housing with services, it appears in 0 library rows for any state, and this slice has only taken the key-and-lock part of it. Subd. 2(b) requires fourteen contract items and subd. 2(c) requires five rights statements, of which the lockable door is one. Does Steinoak serve housing-with-services operators, and if so should the rest of section 325F.722 be built out as its own topic?
+  - *Recommendation:* Ask the question before building it. If the answer is yes, it is a required-content regime on the scale of the chapter 504B disclosures and deserves its own topic rather than being scattered across slices; if no, it should be fenced the way manufactured home parks already are in edu-farm-and-mhp-scope-mn, and key-control-exempt-setting-mn should carry a pointer to that fence. Either way the one clause written here is correct and self-limiting, because it opens with the bracketed scope test.
+- **`landlord-breach-remedy`** — Minn. Stat. Sec. 327C.15 routes any violation of Sec. Sec. 327C.015 to 327C.14 into the Sec. 8.31 private right of action, and chapter 504B has no equivalent. That means identical landlord conduct carries a consumer-protection claim with investigation costs and fees in a manufactured home park and does not in an apartment. Should the Minnesota park rows carry that warning explicitly, or does it belong in one cross-cutting row?
+  - *Recommendation:* One cross-cutting Minnesota row, keyed to a park topic, and a one-line pointer from this row. The difference is structural and applies to every park obligation, so repeating it inside each park row would violate rule 57 nine times over. It is also the single most expensive thing about operating a park rather than a building, which argues for making it its own subject.
+- **`landlord-breach-remedy`** — This row quantifies nine statutory measures but says nothing about ordinary contract damages for breach of a lease, because that is case law and the corpus holds none. Is that the right boundary for the library, or should the row say in terms that common-law damages sit on top?
+  - *Recommendation:* Say it in terms, which this row does by quoting each section's own 'in addition to and shall not limit other rights or remedies' sentence. Quantifying common-law damages would need case law and would be the kind of claim the proof-of-absence standard exists to prevent.
+- **`landlord-registration`** — Rental licensing, registration and periodic inspection in Minnesota are overwhelmingly municipal, and four topics in this slice (landlord-registration, lease-registration, certificate-of-occupancy-disclosure, rental-inspection) all end at the same place: 'this is a city matter, here is the state hook, stop'. An earlier slice recommended a standing per-city Minnesota ordinance checklist held OUTSIDE the clause library. Do my topics support that recommendation?
+  - *Recommendation:* Yes, strongly, and I would go further than a checklist. Four of my fourteen topics resolve to the same municipal boundary, and the state statutes do not merely leave room for city rules -- they attach state consequences to them. Minn. Stat. Sec. 504B.161, subd. 1(a)(4) makes breach of a city rental licensing ordinance a breach of the unwaivable habitability covenant; Sec. 504B.204 makes accepting rent after a vacate order under a 'rental licensing ordinance' a treble-damages violation; Sec. 504B.381, subd. 1(1) makes revocation of a rental licence an emergency-relief trigger. So a Minnesota lease the builder produces is incomplete without knowing the city. I recommend a per-city checklist held outside the library, covering at least: does the city license or register rentals; what posting does it require (which feeds Minn. Stat. Sec. 471.9995 and Sec. 504B.181, subd. 2); what inspection cycle; is there a certificate of occupancy or truth-in-housing requirement; and does the city have a property maintenance code with its own standards for balconies, window openings and common-area lighting (the three topics in this slice with no state standard at all). Minneapolis and Saint Paul first. It should be data the builder reads, not clause text, so rule 3 is preserved.
+- **`law-enforcement-cooperation`** — Minn. Stat. Sec. 504B.205 is bidirectional, so a landlord breaches it by ASKING for the waiver. That makes the risk sit in application packets, renewal paperwork and house rules rather than in the lease, which is the part of the product Steinoak does not generate. Should the library carry a short 'never ask for this' list covering the three bidirectional sections (Sec. 504B.205, Sec. 504B.206, Sec. 504B.211) for Minnesota?
+  - *Recommendation:* Yes, one Minnesota row keyed to prohibited-lease-terms or a new 'bidirectional-waiver-bar' topic. The bidirectional family is the only place in chapter 504B where the landlord's request, not the term, is the violation, and it is the one risk a lease-only product cannot design out.
+- **`law-enforcement-cooperation`** — Three topic_keys now carry Sec. 504B.205 material -- emergency-assistance-right, law-enforcement-cooperation and (for the ordinance point) arguably nuisance. Is that the intended shape, or should emergency-assistance-right be the single home with the others pointing to it?
+  - *Recommendation:* Keep the split as written. law-enforcement-cooperation exists in 23 states and a Minnesota reader arriving at it needs the landlord-side answer there, not a redirect; the rows cross-reference each other explicitly.
+- **`lead-state-notices`** — Minn. Stat. Sec. 144.9504, subd. 7(c)(2) requires a landlord to return any security deposit due under Sec. 504B.178 WITHIN FIVE DAYS when a tenant terminates because an assessing agency told them to vacate for lead hazard reduction. That is a deposit-timing rule living in the health chapter, and the deposit slice would never find it.
+  - *Recommendation:* Flag it to whoever owns security-deposit-return / security-deposit-timing for Minnesota and add a cross-reference from the deposit row to this one. I have stated it here rather than writing a deposit row, because one subject per row and the deposit topic is not in my slice.
+- **`lease-content-requirements`** — Minn. Stat. Sec. 327C.02, subd. 1 gives manufactured home park lot agreements their own mandatory contents list, and no row in the library (any state) cites Sec. 327C.02. Chapter 327C is held whole in this corpus, so it is answerable. The standing product decision (edu-farm-and-mhp-scope-mn) excludes park lots. RECOMMENDATION: leave excluded, but open a `park-lot-rental-agreement-content` topic so the exclusion is recorded against the statute rather than inferred, since the park regime also carries the only cause-required eviction rule and the only rules-delivery duty in Minnesota law.
+- **`lease-content-requirements`** — Sec. 504B.146 and Sec. 504B.120 are placement rules, not just content rules: both require text on the FIRST PAGE of the lease. Sec. 504B.216, subd. 10 requires an ATTACHMENT in near-verbatim words. RECOMMENDATION: track these three as lease-builder layout requirements in one place (edu-prohibited-fees-disclosure-mn and edu-utility-disclosure-attachment-mn each already flag their own); this row names all three together so the builder has one list.
+- **`lease-term-limitation`** — Minnesota now has two independent first-page lease requirements - the Total Monthly Payment under Minn. Stat. § 504B.120, subd. 1 and the lease start date, lease end date and prorated rent under § 504B.146 - and three rows across two slices now carry pieces of them (`lease-term-limitation-mn`, `prorated-rent-mn`, `edu-lease-term-limits-mn`). Should the builder get a single Minnesota first-page block that assembles all of it, rather than three clauses that each assert their own content belongs on page one?
+  - *Recommendation:* Yes, as a builder/layout instruction rather than a new row. The statutes impose placement, not wording, so a layout rule is the honest home for it and avoids a fourth row restating the same two sections. The rent slice raised the same question from its side, which is itself the argument: two helpers independently hit the same seam. Until that exists, each of the three rows names the other first-page duty in its notes so nothing is lost.
+- **`lockout-for-rent-delinquency`** — Minn. Stat. section 504B.375 was in 0 library rows for any state, yet it is the single most consequential provision in this slice for a landlord: it makes cutting utilities or taking off a door a lockout, and it gives a same-day order putting the tenant back in. Should the three rows added here be mirrored as a cross-state check, since other states' lockout rows may equally have missed constructive exclusion?
+  - *Recommendation:* Yes, and prioritise it. The library has lockout rows in 22 states, and the distinction between an actual lockout and a constructive one (utilities, doors, windows) is the kind of thing a row written from a 'may not lock out' headline would miss. A single-pattern screen for constructive exclusion across the other 21 states' rows would be cheap.
+- **`municipal-utility-lien`** — Should Steinoak's MN onboarding capture which city a property is in, so the municipal water/sewer certification risk under Minn. Stat. § 444.075, subd. 3e can be flagged per property? The statutory power is uniform, but whether and when a city uses it is purely local.
+  - *Recommendation:* Yes — capture the city, but as an owner-facing risk flag rather than anything that changes clause text. The exposure runs to the owner's tax bill, so it belongs in onboarding and underwriting. Rule 3 keeps the ordinance itself out of the library.
+- **`notice-to-quit-waiver`** — The topic is framed as whether a lease may shorten or waive the statutory notice to quit. In Minnesota the honest answer is that for a fixed-term lease there is no statutory period to shorten, and the live constraint is the asymmetry rule in Minn. Stat. section 504B.147. Should the library offer a clause fixing the landlord's and tenant's notice periods equal to each other, so the section 504B.147 trap is closed by construction?
+  - *Recommendation:* Yes, but it belongs to a termination-notice topic, not here, and a notice-period clause almost certainly already exists in the library using {{notice_to_quit_days}}, {{notice_to_vacate_days}} or {{m2m_notice_days}}. I did not write one under this topic_key to avoid a fourth near-duplicate on the same subject. The better move is a single screen of every existing MN and multi-state notice-period clause against section 504B.147, subd. 3, because any clause giving the landlord a shorter period than the tenant is void as written.
+- **`optional-lease-terms`** — Four landlord-relevant chapter 504B sections have no Minnesota row and are mapped to other slices. Should this pass confirm they were picked up?
+  - *Recommendation:* Confirm at assembly that S05, S06 and S16 each answered theirs, rather than assuming it. Minn. Stat. § 504B.146 is the one to check first: it is a mandatory lease-content rule with no row in any state, so it is a required-disclosure clause nobody has written, and a lease produced by the builder today may not comply.
+  - why it matters: The rule 54 audit for optional-lease-terms found them while checking completeness, and a gap found but not written is exactly how a long-standing gap survives another pass. They are: Minn. Stat. § 504B.146 (a written lease MUST identify the start and end date, and MUST state the prorated amount where move-in or move-out is mid-month) — mapped to S06 lease-term-limitation and S16 lease-content-requirements; Minn. Stat. §§ 504B.144 and 504B.145 (early renewal; restriction on automatic renewals) — mapped to S06 automatic-renewal; Minn. Stat. §§ 504B.121 and 504B.125 (both landlord-favourable, and both rule 54 candidates) — mapped to S05 eviction-process and S12 unauthorized-occupant-removal.
+- **`optional-lease-terms`** — Does `landlords-access-mn` offer the agreed-entry-time option in Minn. Stat. § 504B.211, subd. 2?
+  - *Recommendation:* Leave to S10, which owns landlord-entry, and flag rather than edit. The safe shape is a per-occasion agreement, not an advance standing consent in the lease, because the subdivision bars requiring a waiver of the notice right 'as a condition of entering into or maintaining the lease'.
+  - why it matters: The subdivision permits entry outside 8:00 a.m. to 8:00 p.m. only where 'the landlord and tenant agree to an earlier or later time'. If the clause does not carry that, the landlord loses a lawful option; if it carries it as a blanket advance consent, it risks the same subdivision's bidirectional non-waiver.
+- **`ordnance-demolition-meter-disclosures`** — This topic_key bundles three unrelated California disclosures (ordnance, demolition permit, shared meter). For Minnesota two are absent and the third is already fully covered by five existing MN rows under three other topic keys, so the row is mostly a signpost.
+  - *Recommendation:* Keep the signpost row - a canvass that finds nothing under this key later would otherwise re-research the shared-meter ground that utility-apportionment and utility-submetering-disclosure already own. If the library ever splits this bundled key, the ordnance and demolition halves can be lifted out of this row unchanged.
+- **`other-landlord-facilities`** — Minn. Stat. section 504B.381, subd. 1(2) turns 'a nonfunctioning air conditioner' and 'no functioning elevator' into emergency tenant-remedy grounds only 'if included in the lease'. The shared Appliances and Equipment Included clause fills {{appliance_list}} freely, so a builder who types 'central air' into it has created an emergency obligation without being told. Should the appliance list warn on air conditioning in Minnesota?
+  - *Recommendation:* Yes, as a builder-side note rather than lease text - the statute does not ask for anything in the lease, so a clause change would be noise. The warning belongs where the landlord types the list. It is also worth checking whether any other state's emergency-remedies statute keys off the lease in the same way, because the same {{appliance_list}} is shared across the library.
+- **`owner-move-in-reservation`** — Should the shared optional clause `owner-occupancy-termination-ar` carry a generic floor-in-words sentence instead of a bare '[number, not less than 30]', so a state whose law measures the landlord's notice against the lease's tenant figure can tag it rather than writing its own row?
+  - *Recommendation:* Yes, but as a new shared clause rather than an edit, because changing the existing row's text is outside this pass's scope fence (rule 1). Minnesota is the second instance this pass has hit of the same shape (the first was `rent-increase-midterm-ky`), so the pattern is likely to recur across slices. A sentence of the form 'and in every case at least as long as the notice this Lease requires Tenant to give Landlord to end the tenancy' is inert in a state with no such rule and load-bearing in one that has it, so it would cost the other nine states nothing.
+- **`parking-rules-notice`** — Laws 2026, ch. 82, sec. 6 takes effect on January 1, 2027 and strips a common interest community association of authority over street parking by a unit owner's tenant, while guaranteeing the tenant a space on the limited common element allocated to the unit. The library has an hoa-compliance clause under which a tenant promises to obey association rules. Should a dated carve-out be added to that clause for Minnesota, or should the change be left to the education rows until it is in force?
+  - *Recommendation:* Leave the clause alone for now and diary it. The change is two months away but the affected clause is shared across many states, and a Minnesota-only carve-out in a shared clause is the kind of edit that propagates badly. A dated entry on the 2026 amendments list, with this row as the reference, is the cheaper route - and if the hoa-compliance clause is ever revisited for another reason, fix it then.
+- **`pet-eviction-fact-sheet`** — Minn. Stat. Sec. 504B.261 is reached from at least three topics -- pet-fees (S02, which owns it), pet-policy, and pet-eviction-fact-sheet (this slice) -- and the entitlement turns on facts the lease builder may know (multiunit, disability accessible unit, rent subsidy). Should the builder gate the pet clause on those facts rather than relying on education rows?
+  - *Recommendation:* Yes, gate it. This is the clearest case in the slice for a builder condition rather than a note: the clause as written is overridden for a definable set of units, and a landlord of subsidised accessible housing is exactly the landlord least likely to read three education rows.
+- **`pet-fees`** — Minn. Stat. § 504B.113, subd. 3(b) makes the service-animal fee disclosure mandatory in any Minnesota lease that charges a pet fee, charge or deposit - and `pet-fees-mn` is a third clause that triggers it, alongside `pet-policy-mn` and the existing flag on `assistance-animal-accommodation-mn`. Recommendation: have the builder force-include the service-animal disclosure whenever any Minnesota pet charge is selected, rather than relying on each clause carrying its own sentence (the new clause carries one, so nothing is unsafe today).
+- **`plain-language-consumer-statement`** — The optional attorney-general-preapproval limb of this topic may not be absent after all: `edu-plain-language-contract-mn`'s own notes record Minn. Stat. § 325G.35 (AG review) as still unread.
+  - *Recommendation:* Treat the preapproval limb as open rather than absent, which is how the row is written — it reports what was searched for in the held chapters and does not claim chapter 325G says nothing. Reading Minn. Stat. § 325G.35 needs the primary text and is a small, well-defined task worth doing next time chapter 325G is reachable; it was flagged as unread on 2026-09-03 and is still unread.
+  - why it matters: This topic asks specifically about 'optional Attorney General preapproval'. A section headed AG review in the very Act that governs Minnesota leases is exactly where such a route would live, and neither this pass nor the pass that wrote that row has read it.
+- **`pool-safety`** — Minn. Stat. Sec. 144.1222, subd. 2d is written for short-term rental ('through a resort', 'prior to check-in by each new rental party', 'provided to renters upon check in') but its own criteria are satisfied by a long-term lease of a stand-alone single-unit house with a hot tub used only by the occupants. Should `spa-pool-notice-mn` be offered on a 12-month lease of a single-family house with a hot tub, or restricted to short-term rentals?
+  - *Recommendation:* Offer it on the long-term lease too, as drafted, and keep the row at NEEDS_REVIEW until someone confirms. Giving the notice when it was not required costs nothing; omitting it when it was required means the spa was never exempt, in which case it is an unpermitted public pool with no plan review, no annual certification and no daily drain inspection -- the far worse exposure. The clause is self-limiting: its first sentence states the conditions, so it is inert on a multiunit property.
+- **`portable-cooling-device`** — edu-air-conditioner-in-lease-risk-mn says that including air conditioning in a Minnesota lease converts a breakdown into a statutory emergency under Minn. Stat. § 504B.381, subd. 1(2)(viii). Should the MN builder actively warn when a user lists air conditioning among provided amenities?
+  - *Recommendation:* Yes — a warning at the point of selection, not buried in education. The same clause does this for elevators, and the consequence is an ex parte order and possible rent abatement. This is the clearest example in the slice of a lease choice that creates a statutory exposure out of nothing.
+- **`portable-cooling-device`** — I filed the air-conditioning risk under topic_key portable-cooling-device. Is there an air-conditioning or amenities topic_key that would fit better?
+  - *Recommendation:* Move it if an air-conditioning topic exists; otherwise leave it. It is genuinely a cooling subject, and splitting it from the absence row keeps one subject per row.
+- **`portable-solar`** — edu-no-portable-solar-mn is NEEDS_REVIEW because Minnesota's energy chapters were not readable in this pass. Do you want a targeted follow-up to settle it — Minn. Stat. § 216B.241, chapter 216C including §§ 216C.435 to 216C.436, § 216B.1691 and the solar-easement provisions?
+  - *Recommendation:* Yes, but batch it with the other two NEEDS_REVIEW energy items from this slice rather than running it alone. energy-data-release has the same boundary, and a single pass over the energy chapters would close both plus the benchmarking question. Until then the row is safe because it tells the landlord not to recite the absence.
+- **`prohibited-acts-renter`** — prohibited-acts-renter-mn names the Sec. 504B.171 covenant and summarises its four subjects without restating it, to respect edu-unlawful-activities-covenant-mn's deliberate decision not to draft a covenant clause. Is naming-and-summarising acceptable, or should the Minnesota clause omit the covenant entirely and rely on the education row alone?
+  - *Recommendation:* Keep naming and summarising. A tenant reading only the lease would otherwise have no idea the covenant exists, and the clause says in terms that it does not repeat, narrow or widen it, which is what keeps it clear of subd. 3.
+- **`prohibited-acts-renter`** — Minn. Stat. Sec. 504B.212 subd. 1(f) bars a landlord from prohibiting or adopting any rule prohibiting peaceful tenant organizing, assembling, canvassing or leafleting in the building, and from requiring prior permission. Ordinary 'no soliciting' and 'no posting notices' house rules collide with that. Those rules usually live outside the lease. Should the library carry a Minnesota house-rules screen?
+  - *Recommendation:* Yes, one Minnesota education row keyed to rules-and-regulations or prohibited-lease-terms. The exposure is up to $1,000 per occurrence plus fees under Sec. 504B.212 subd. 3 where the landlord acts unlawfully and in bad faith, and the offending text is almost always in the house rules rather than the lease.
+- **`prohibited-lease-terms`** — Should a pet addendum carry an affirmative sentence that the landlord does not require declawing or devocalization?
+  - *Recommendation:* Do not add it as a clause — it restates a landlord duty and fails the three-bucket test. Add it instead to the advertising and pet-screening checklist, where the clause (1) exposure actually sits. Raised here rather than written, because the pet clause belongs to S02.
+  - why it matters: Minn. Stat. § 504B.114 requires no lease text, so such a sentence is not a required disclosure and under rule 55 it would be education, not a clause. But it is cheap, and clause (1) of subdivision 2 reaches advertising 'designed to discourage' an application, where a clear statement is evidence the other way.
+- **`prop65-rental-warning`** — formaldehyde-health-notice-mn is drafted to be delivered IN the lease. Minn. Stat. Sec. 325F.18, subd. 2 requires the notice on the label or written warranty, or, where there is neither, "in a separate writing included with the product or housing unit". A housing unit has neither a label nor a warranty, so a separate writing is required - but the statute does not say a lease counts as that separate writing.
+  - *Recommendation:* Ship the clause, and have the builder ALSO hand the notice over as a standalone signed sheet at move-in. That satisfies the statute on its own terms whatever a court makes of the lease, and costs one page. I have put this warning in the clause notes rather than in the clause body, since the body must be the statutory text.
+- **`prop65-rental-warning`** — The clause only binds a landlord who BUILT the unit and is letting it to its initial occupant. That is a narrow slice of Steinoak users, and an inapplicable conditional clause in a builder is a support cost.
+  - *Recommendation:* Keep it but leave it clearly bracketed as drafted. The penalty route is Minn. Stat. Sec. 325F.69 plus Sec. 8.31, subd. 3a, which carries attorney fees, so for the builder-landlord who is in scope the downside of omitting it is large.
+- **`property-tax-rent-disclosure`** — A real Minnesota landlord duty the library has never carried, for any state. Minnesota's renter's credit runs off a Certificate of Rent Paid that the LANDLORD must issue to each renter annually (Minn. Stat. § 290A.19 and § 290.0693, subd. 4, confirmed by the cross-reference in § 327C.02). A direct search of all 11,634 rows found no row in any state mentioning a certificate of rent paid except three rows saying their own state has none. Minnesota is a state that HAS one. RECOMMENDATION: add 'annual rent certificate / renter's credit statement' as a named-topic checklist item for future states, and schedule one pass with Minnesota's tax chapters in scope to settle the deadline and contents so `edu-no-property-tax-rent-statement-mn` can move from NEEDS_REVIEW to a present row. It is an annual, absolute, easily-missed duty with tax penalties attached - the same shape as the cash-receipt duty that an earlier pass recommended adding to the checklist.
+- **`recycling-notice`** — Minnesota recycling obligations for multi-unit buildings are municipal, and this slice has now flagged three separate municipal follow-ups for MN (recycling, energy benchmarking, and water/sewer charge certification under Minn. Stat. § 444.075, subd. 3e). Should there be a standing per-city MN ordinance checklist in the project?
+  - *Recommendation:* Yes. Three in one slice is the signal. Rule 3 rightly keeps ordinances out of the clause library, but the consequence is that they keep getting flagged and never collected anywhere. A per-city checklist held outside the library would stop each pass rediscovering the same gap.
+- **`rent-escalation`** — § 504B.120, subd. 1 requires the sum of rent and all nonoptional fees to be described as the Total Monthly Payment and listed on the FIRST PAGE of the lease, with treble damages under subd. 2. The statute says nothing about what happens to that figure when rent changes during the term under a scheduled, indexed or mid-term increase clause. Does the builder need to restate the Total Monthly Payment, and if so how? RECOMMENDATION: for Minnesota leases, print the increase schedule (or the formula and the notice rule) on the first page immediately under the Total Monthly Payment, labelled as the Total Monthly Payment for each later period, rather than leaving a single figure that stops being true. This is a lease-builder layout question like the one already flagged in `edu-prohibited-fees-disclosure-mn`, not a clause-content question, and it also affects `rent-increase-midterm-mn` and the tagged `rent-escalation-la`.
+- **`required-disclosures`** — Minn. Stat. Sec. 327C.02, subd. 5 requires a prospective manufactured-home-park resident to be given a roughly 450-word IMPORTANT NOTICE 'printed verbatim in boldface type of a minimum size of ten points', with the park residency application, and posted conspicuously in the park. Minn. Stat. Sec. 327C.02 appears in 0 of the 11,634 rows. Should the library carry that notice as a park clause or addendum?
+  - *Recommendation:* Yes, as a REQUIRED_DISCLOSURE clause under a park topic, with the text reproduced exactly and a drafting note on the ten-point boldface rule. It is the same shape as the Sec. 504B.216, subd. 10 attachment the library already treats as a product item. It also carries a trap: the notice itself promises the resident a certificate of rent paid by February 1 and a copy of the shelter or evacuation plan, so a park that reproduces the notice without doing those two things has published its own breach.
+- **`required-fees`** — Minn. Stat. § 504B.120, subd. 1 requires the Total Monthly Payment (rent + all nonoptional fees) to be 'listed on the first page of the lease'. `required-fees-mn` supplies the text, but only the builder can control where it prints. Recommendation: make the `required-fees-mn` block a fixed first-page element for Minnesota leases (a product change, not a clause change), and keep the clause selectable elsewhere. Treble damages plus attorney fees ride on the placement.
+- **`rights-responsibilities-guide`** — Should the Minnesota lease pack offer the attorney general's statement under Minn. Stat. § 504B.275 as an optional attachment?
+  - *Recommendation:* Mention it as a practice suggestion in the education row, which is what `edu-no-rights-guide-duty-mn` does, and do NOT create a clause or an acknowledgment. An acknowledgment would create a signed record of delivery for a document with no delivery duty, which is exposure with no corresponding benefit. The statement's own content changes annually, so the library should not reproduce it.
+  - why it matters: There is no duty to give it, so it cannot be a required disclosure. But it is an official, annually revised document written in everyday words, and giving it to a tenant is free goodwill.
+- **`sale-or-management-change`** — Should the library offer an optional 'Tenant will not record this Lease without Landlord's written consent' clause for Minnesota?
+  - *Recommendation:* Yes, but not written by me this pass. It is lawful (no non-waiver provision in Chapter 504B touches recording, and nothing in the chapter requires or permits a residential tenant to record), it is the cleanest answer to the Sec. 504B.251 problem, and it is the kind of generic SERVES_LANDLORD term that belongs in a multi-state clause rather than a Minnesota-only one. I recorded the option and the advice-first caveat in edu-recorded-lease-cancellation-mn's body (rule 54) instead of inventing a Minnesota-only clause.
+- **`security-deposit-interest`** — Should the builder compute the one percent deposit interest for the landlord? The existing MN row `security-deposit-return-mn` already flags that Steinoak has no interest-tracking mechanism, and Minnesota is now the second library state whose clause promises an interest figure the product cannot produce.
+  - *Recommendation:* Yes - a small calculator (deposit amount, date paid in full, date of the refund statement) would satisfy Minnesota and Connecticut and would be reusable. Until it exists, the education row tells the landlord to show the calculation on the statement, which is the cautious course and needs no product change.
+- **`senior-housing-work-card`** — Should the two different 80-percent 55-plus tests get their own cross-cutting row, or stay inside this one?
+  - *Recommendation:* Keep it here for now. It is one subject - what qualifies as 55-plus housing in Minnesota - and splitting it would put half the comparison under a topic_key that does not exist yet. If a senior-housing topic_key is ever added, move it there whole.
+  - why: Minn. Stat. Sec. 504B.211, subd. 3(7) counts tenants; Minn. Stat. Sec. 363A.21, subd. 2(b)(3) counts units and adds a published-policy requirement. The mismatch matters for entry practice and for the familial-status exemption, which are two different topics.
+- **`sex-offender-disclosure`** — Minn. Stat. Sec. 244.052 (predatory-offender community notification) decides both sex-offender topics for Minnesota and is not in the corpus, whole or as a cross-reference. 28 states have a sex-offender-disclosure row and 35 a sex-offender-occupancy row, so this question recurs. Should Sec. 244.052 be added?
+  - *Recommendation:* Yes, add Sec. 244.052 as a cross-reference section. It is one section, it is the sole authority for two topics across 35 states, and without it both Minnesota rows stay NEEDS_REVIEW indefinitely. Note that Laws 2025, ch. 38 amended its subd. 4, so whatever is added should be the current text.
+- **`sex-offender-occupancy`** — Same as the disclosure topic: Minn. Stat. Sec. 244.052 is the sole authority and is not in the corpus. Beyond adding it, should the library distinguish 'absent' from 'not readable here' in verification_status, so a future pass can tell which NEEDS_REVIEW rows are waiting on a corpus addition rather than on judgement?
+  - *Recommendation:* Yes, and it costs nothing: a fixed prefix in the notes such as 'NEEDS_REVIEW REASON: CORPUS BOUNDARY'. Both Minnesota sex-offender rows and two others in this slice are waiting on one named section each, which is a queue someone could clear in an afternoon.
+- **`shoreline-access-disclosure`** — Minnesota requires nothing here, but a lake-property lease plainly needs a shore-use term, and rule 54 says to offer an optional clause where law lets a lease add something for the landlord. Nothing in Minnesota law authorises or restricts such a term, so it is a pure drafting choice rather than a statutory option.
+  - *Recommendation:* Add a general shore-and-dock-use term to the Parking & Storage or Rules & Regulations group as an ordinary optional clause, not as a disclosure. I have not written it here because it would not be a Minnesota rule and this topic_key is a disclosure topic; filing it under shoreline-access-disclosure would misreport an absence as a rule.
+- **`showing-notice-waiver`** — showing-notice-la is tagged to nine states and hands the landlord a bracketed 'shorter notice' for showings. In Minnesota that bracket is unlawful. Should the builder be stopped from offering a bracketed notice period in any state whose statute fixes one, rather than relying on each state's row to be chosen correctly?
+  - *Recommendation:* Yes. The risk is not that Minnesota gets the wrong row - Minnesota now has its own - but that a nine-state row with a free-text notice bracket is the kind of thing that gets tagged onward to a tenth state without the premise being rechecked. A note on that row's states field is not enough; the bracket itself is the hazard.
+- **`smart-access`** — smart-access-system-mn is drafted as the landlord's own undertaking (working access, restore a failed credential, no remote cut-off, notice before entry, keep the log confidential). That is a clause that constrains the landlord rather than one that serves him, and rule 55 would ordinarily make it education. It is offered as a clause because a smart-access building needs something in the lease and the alternative is a landlord-drafted paragraph that waives the notice right. Keep it as a clause, or demote it to education and leave the lease silent?
+  - *Recommendation:* Keep it as a clause. The three-bucket test is satisfied on SERVES_LANDLORD because the clause is what defines what the landlord supplies and on what terms - without it the tenant can argue that any app outage is a habitability breach of unlimited scope. The real reason to keep it, though, is that the Wyoming row smart-access-system-wy already exists, so a landlord looking for a smart-access paragraph will find one; better that Minnesota's is the compliant version.
+- **`smoke-drift-waiver`** — The Minnesota Clean Indoor Air Act gives a landlord an affirmative, criminally enforceable duty in the common areas of every rental apartment building, and no row in the library for any state records Minnesota's version - it was missed by Minnesota's own statute walk even though chapter 144 is held whole. The topic file for this slice asks exactly the right question ('Does the smoke-free workplace law reach enclosed common hallways of apartment buildings where building staff work?') and for Minnesota the answer is yes twice over. Should the common-area ban live under smoke-drift-waiver, where this pass put it, or be split into its own topic so it is not read as a drift question?
+  - *Recommendation:* Split it, when there is a cheap moment. The duty is not about drift at all - it is a posting-and-enforcement duty with a petty misdemeanour attached, and burying it in a drift topic is how it stayed invisible in the first place. Colorado, Delaware and Kansas have the same shape of row under this topic key, so a split should be done for all of them at once or not at all.
+- **`social-security-defense`** — edu-public-assistance-status-eviction-mn is filed under social-security-defense but its subject is a Minn. Stat. chapter 363A protected class, which belongs to the protected-classes slice. Should it move, or stay where the eviction connection is made?
+  - *Recommendation:* Leave it here and flag it for the protected-classes slice to cross-reference rather than re-state. The row's point is specifically the eviction-ground boundary - that the ground must be the unpaid rent and never the benefit - which is a Default and Termination concern and is what a landlord reading this topic needs. A fair-housing row restating all of section 363A.09's protected classes is a different row and should not repeat this one.
+- **`stigmatized-property`** — Two sub-questions in this topic cannot be closed from the corpus: whether Minn. Stat. Sec. Sec. 513.52 to 513.60 contain a stigmatized-property or no-duty-to-disclose provision that reaches a lease, and whether Minnesota predatory-offender community notification (chs. 243 and 244) puts any duty on a landlord who is asked.
+  - *Recommendation:* Add Minn. Stat. Sec. Sec. 513.52 to 513.61 and Sec. Sec. 243.166 and 244.052 to the next corpus pull. I have shipped the row VERIFIED rather than NEEDS_REVIEW because every affirmative statement in it is supported by a section read whole or by an existing VERIFIED library row, and the absence it claims is expressly limited to the chapters held. If you would rather the limitation be louder, flipping it to NEEDS_REVIEW costs nothing.
+- **`stove-refrigerator`** — Minn. Stat. Sec. 504B.381, subd. 1(2) qualifies a nonfunctioning air conditioner and a non-working elevator with 'if included in the lease' and qualifies a nonfunctioning refrigerator with nothing, while the preamble covers these services 'when the landlord is responsible for providing them'. The two cut different ways and no case law is available here. RECOMMENDATION: keep the education row's framing (a refrigerator you provide is inside the unwaivable covenant; a tenant-supplied one should be recorded in writing at move-in) and do not assert that Minnesota requires a refrigerator. If a customer needs certainty, this is a question for Minnesota counsel.
+- **`subsidized-inspection-refusal`** — Minn. Stat. Sec. 504B.001, subd. 14(4) makes 'a violation of any applicable tenant rights and landlord obligations for public and subsidized tenancies under local, state, or federal law' a chapter 504B 'violation', which is the trigger for rent escrow and the tenant remedies action. That turns every federal voucher-programme obligation into a state-law remedy route, and no row in the library says so. RECOMMENDATION: the habitability slice should carry this as its own row under landlord-maintenance or tenant-repair-remedies, because it changes the consequence of any subsidy-programme breach, not just an inspection one.
+- **`subsidized-inspection-refusal`** — Sec. 363A.09 carries the Revisor's note that exemptions are in Sec. Sec. 363A.21, 363A.22 and 363A.26. Only Sec. 363A.21 was opened in this pass. RECOMMENDATION: the protected-classes slice should open Sec. 363A.22 and Sec. 363A.26 before any row states the public-assistance protection without qualification.
+- **`tax-escalation`** — DECLINING A LAWFUL OPTION - please confirm. Minnesota has no statute for or against a tax-and-insurance escalation clause in a residential lease, so one is lawful by contract. I have NOT offered it and have NOT tagged the shared `tax-insurance-escalation-la` into Minnesota. Reason: Minn. Stat. § 504B.120, subd. 1 requires the sum of rent plus ALL nonoptional fees to be stated as the Total Monthly Payment on the first page of the lease, and subd. 2 gives the tenant treble damages plus possible attorney fees. A tenant's share of a future tax or premium increase is nonoptional and is unknown at signing, so it cannot honestly go inside that first-page figure, and leaving it out is the violation. RECOMMENDATION: keep it declined for Minnesota and let the education row say the option is lawful but not offered, which is what I have written. The two safe alternatives the row gives are building the cost into rent, or using the tagged `rent-escalation-la` scheduled or indexed rent change, since rent is not a fee. IF YOU DISAGREE, the clause to tag is `tax-insurance-escalation-la` and the single change it would need for Minnesota is a sentence putting the tenant's share inside the first-page Total Monthly Payment disclosure - which I do not think can be drafted honestly for a variable amount. THE WIDER POINT: this same § 504B.120 question will recur for every Minnesota clause that adds a variable nonoptional charge, so a ruling here sets the pattern.
+- **`tenant-confidential-information`** — Does the Steinoak application or lease carry any release-of-information or information-sharing consent clause, and does any part of the product write tenant data to a system shared with other operators?
+  - *Recommendation:* Treat this as a product question rather than a drafting one, and raise it with whoever owns the application form and any data-sharing integration. If a general release clause exists, my recommendation is to narrow it expressly so it cannot touch Sec. 504B.206 material, rather than to rely on the statute overriding it - because the override does not cure the act of asking. I have not inspected the product, only the clause library.
+  - why: Minn. Stat. Sec. 504B.206, subd. 2(c) voids a previously signed release against the victim-of-violence material, and subd. 5 is bidirectional, so REQUIRING such a waiver is itself the breach - the exposure arises from presenting the form, not from acting on it. Subd. 2(b) bars entry into any shared database outright.
+- **`tenant-insurance-claims`** — This row says to get the tenant's written permission before contacting their insurer. That is prudence, not Minnesota law - no statute in the held corpus requires it, and Minnesota's privacy-type provisions (Sec. 504B.206's confidentiality rule and Sec. 504B.212's immigration-status bar) do not reach an insurer contact. RECOMMENDATION: keep the advice but leave it as advice; it matches the Alaska row's framing and does not claim a statute.
+- **`tenant-portal`** — Sec. 504B.332, subd. 2(b) means that a landlord who adopts a portal acquires an extra eviction-service step and an extra affidavit recital. That is a product consequence of a product decision. Should Steinoak surface it in the portal feature rather than only in a lease-library education row?
+  - *Recommendation:* Yes, in the product. The duty is triggered by the software's own message history, the standard is 'good faith attempt' and 'substantially comply', and the affidavit has to state the date and manner -- all of which the portal is better placed to generate than the landlord is to remember.
+- **`tenant-repair-agreement`** — The clause offers a checkbox list of tenant tasks (lawn, snow, filters, bulbs, garbage) reusing {{tenant_maintained_items}}. Minnesota already has standalone shared clauses for two of those -- `landscaping-irrigation` and `snow-removal`, both tagged MN -- which impose those tasks WITHOUT the adequate consideration Minn. Stat. Sec. 504B.161, subd. 2 requires. Should the Minnesota builder (a) keep both routes and let the landlord pick, or (b) route lawn and snow through this consideration-backed agreement only?
+  - *Recommendation:* Keep both, and do not change the two shared clauses (rule 1 forbids it anyway). Sec. 504B.161, subd. 2 governs an agreement that the tenant will perform repairs or maintenance the LANDLORD would otherwise owe. Lawn care and snow clearance on the tenant's own walkway are not among the five covenants in subd. 1(a), so a plain lease term can impose them without consideration; the consideration requirement bites only where the task is one of the landlord's covenanted duties, most clearly anything in a common area. Flagging it because the line is a judgement call and the two shared clauses were tagged MN in an earlier session without this analysis.
+- **`tenant-rights-statement`** — landlord-disclosure-mn makes the attorney-general-statement posting an unconditional contractual promise where Minn. Stat. Sec. 504B.181, subd. 2(b) makes it conditional, and Sec. 504B.181, subd. 4 removes the rent-and-possession consequence for failing to post it. Deliberate over-compliance, or should the clause track the condition?
+  - *Recommendation:* Leave the clause as it is and add a note recording the over-compliance as deliberate. The condition turns on the local licensing scheme, which no lease form can know, and an 'unless' clause would invite a landlord to decide a municipal question wrongly. The one thing worth adding is that this promise sits outside subd. 4's carve-out.
+- **`tenant-rights-statement`** — Minn. Stat. Sec. 471.9994 (Laws 2025, ch. 39, sec. 15) and Sec. 462A.07, subd. 21 (Laws 2025, ch. 32, sec. 3) appear in 0 rows. Neither is a landlord duty. They were found by searching the session laws for 'Sec. 504B.275' rather than for topic words. Should the pass run a general screen of the session laws for every chapter 504B section number the library cites?
+  - *Recommendation:* Yes, and it is cheap: one battery per act view with the section numbers as an alternation. Two 2025 sections about the attorney general's guide were invisible to every topic-word battery because neither act's title mentions tenant rights or landlords.
+- **`tenant-rights-statement`** — Minn. Stat. Sec. 504B.275's scope exception excludes 'residents of manufactured home parks as defined in section 327C.015, subdivision 14', but subd. 14 defines 'Resident' as 'an owner of a manufactured home who rents a lot in a manufactured home park and includes the members of the resident's household'. So on its words the exception reaches home-owning lot renters and their households, not a person renting a manufactured home from someone else in a park. Should the library state the narrower reading?
+  - *Recommendation:* No, not yet. State the exception in the statute's own words, as the row does, and flag it. The narrow reading follows from the text but it turns on a cross-reference that chapter 504B uses inconsistently (subd. 8 in Sec. 504B.151, no subdivision in Sec. 504B.211), and it is the kind of point that needs a Minnesota lawyer rather than a canvass.
+- **`tenant-screening`** — Minneapolis and Saint Paul both regulate tenant screening by ordinance (criteria, look-back, notice). Rule 3 keeps ordinances out of clause text, but a Steinoak landlord in either city needs to know the lease-facing criteria differ. Should the library carry a municipal-watch education row per city, or keep the single statewide pointer this row gives?
+  - *Recommendation:* Keep the statewide pointer. A per-city row would need ordinance text the corpus does not hold and would age badly; the pointer tells the landlord to check the city, which is the only safe instruction.
+- **`tenant-screening`** — Sec. 504B.245 exposes the landlord to the greater of $1,000 or actual damages for the screening service's breach of Sec. 504B.241, and the Sec. 504B.241 subd. 4(d) safe harbour names only the service. Should Steinoak add a standard vendor-contract requirement (24-hour Minnesota Court Records Online verification, disclosure and correction handling, indemnity) to the product rather than leave it to each landlord?
+  - *Recommendation:* Yes, as a product item. This is the clearest case in the slice where a statute makes the landlord answerable for a vendor's conduct, and a screening-vendor clause is cheaper than the remedy.
+- **`tenant-statutory-duties`** — Minn. Stat. Sec. 299F.18 appears in 0 rows of the whole CSV. An occupant served with a fire marshal's written order to remove combustible or explosive material, or to correct a dangerous condition, who fails to comply within 24 hours is guilty of a misdemeanor, and the material may be removed or the condition corrected at the owner's expense. That last part is landlord exposure, not just a tenant duty. Should it get its own row, and under which topic_key?
+  - *Recommendation:* Yes, one Minnesota education row under a building-and-safety topic_key rather than a clause. The useful content for a landlord is that the cost lands on the OWNER even where the occupant was served and defaulted, which is a cost-allocation warning, and a lease clause cannot change who the fire marshal serves.
+- **`tenant-statutory-duties`** — Minnesota uses four different tenant-fault phrases across Sec. 504B.161, Sec. 504B.165, Sec. 504B.415 and Sec. 504B.381, and the shared prohibited-acts and tenant-damage clauses use 'intentionally or negligently', which matches none of them. Should the library carry a per-state fault-vocabulary note for the builder, or is the warning inside the education rows enough?
+  - *Recommendation:* Add it to the builder as a per-state note. The risk is not the clause wording, which may lawfully be wider than the statute, but a row citing Sec. 504B.165 as authority for a negligence standard the section does not contain.
+- **`termination-notice`** — The 'notice must run a full rental period and expire at the end of one' rule is now in a Minnesota LEASE CLAUSE (`termination-notice-mn`), not only in education, but it still rests on secondary sources and an 1891 authority that two earlier searches could not locate. Should the clause carry it?
+  - *Recommendation:* Yes, keep it, and resolve the citation. Dropping it is the worse error: a landlord who serves a notice of the right length on the tenth of the month and treats the tenancy as ended on the ninth of the next would be served an ineffective notice, which is the failure the existing education row was written to prevent, and the clause would then contradict that row. But the row should be re-checked the moment any Minnesota case source becomes available, and `termination-notice-mn` flagged in the log as depending on it, because a clause the tenant signs is a stronger assertion than a note the landlord reads.
+- **`tpa-notice`** — Chapter 327C is held whole (21 units) and almost none of it is cited anywhere in the library: Minn. Stat. Secs. 327C.09, 327C.095, 327C.096, 327C.097, 327C.02, 327C.025 and 327C.15 each appear in 0 of the 11,634 rows. Minnesota has a complete cause-required eviction regime, a rent-increase frequency limit, a mandated verbatim prospective-resident notice, a notice-of-sale regime and a resident offer-matching right sitting in that chapter, all invisible to the library. Should chapter 327C get its own topic_keys and rows?
+  - *Recommendation:* Yes, as a separate small pass rather than inside this canvass. It is a coherent regime, it is held whole so the work is provable, and the current position is the worst of both worlds: the library has one scope row (edu-farm-and-mhp-scope-mn) saying parks are out of scope, and no record of what is being declined. I would scope it as a 'manufactured home park lot agreement' product decision for you to accept or decline, with the statutory notices drafted ready. Four of my fourteen topics touched it and each had to state the regime inside an ordinary-tenancy row.
+- **`unauthorized-occupant-removal`** — Chapter 504B uses 'authorized occupant' as a term of art in Minn. Stat. 504B.171, subd. 1(b), 504B.206, subd. 1 and 504B.285, subd. 1(b), each time attaching a real protection to it, but 504B.001 never defines it. Should the Minnesota lease define 'authorized occupant' expressly, or is naming the occupants in permitted-occupants enough?
+  - *Recommendation:* Define it, by amending nothing and adding nothing: let permitted-occupants carry the work and say in the builder's own guidance that the named occupants are the authorised occupants for Minnesota purposes. I would not add a separate definitional clause. The term's three statutory uses all run in the tenant's favour, so a landlord-drafted definition that is narrower than a court would read is worth nothing and looks like an attempt to shrink a protection; a definition that simply points at the named list is accurate and costs no clause. If you do want it in the lease text, the safe form is 'The occupants named above are Tenant's authorized occupants' and nothing more.
+- **`utility-allowance-cap`** — Minn. Stat. § 504B.120, subd. 1 requires rent plus all nonoptional fees to appear as a single 'Total Monthly Payment' on the first page of the lease, with treble damages for getting it wrong. A utility overage is nonoptional but its amount is unknown when the lease is signed. Should the MN builder refuse to emit utility-allowance-cap-mn at all, or emit it with the allowance figure itself carried into the Total Monthly Payment line?
+  - *Recommendation:* Carry the allowance figure into the Total Monthly Payment line and keep the clause available, but add a builder warning. The allowance is the landlord's committed monthly ceiling and is a knowable nonoptional amount; the overage above it is contingent. That is the most defensible reading, but it is a genuine exposure under a treble-damages statute, so it deserves counsel's eye before Steinoak ships it in Minnesota.
+- **`utility-allowance-cap`** — Should utility-allowance-cap-mn and electric-submetering-disclosure-mn share a single 'shared-metered building' property attribute? Both turn on it, and so do utility-apportionment-mn and utility-billing-schedule-mn, which earlier sessions already flagged as auto-trigger candidates.
+  - *Recommendation:* Yes — one attribute, four clauses keyed off it. The flag has now been requested by three separate passes, which is the signal that it should become a real field rather than a note.
+- **`utility-disconnection-notice-authorization`** — utility-disconnection-notice-authorization-mn is drafted as an invitation the tenant may decline without breaching the lease. A stricter version — requiring the tenant to name Landlord as third-party contact as a condition of the tenancy — is not expressly barred by Minn. Stat. § 216B.096. Do you want the stricter version offered as an alternative?
+  - *Recommendation:* No. The statute vests the choice in the customer and tells the customer to contact the intended contact before naming them, which reads as a consensual arrangement. A mandatory version invites an argument that it is an unenforceable attempt to control a statutory consumer right, and the frozen-pipe benefit is available just as well from a tenant who agrees. If you still want it, get counsel's view first.
+- **`utility-interruption-submeter`** — utility-interruption-submeter-mn asks the tenant to report a lost utility service promptly, which under Minn. Stat. § 504B.221(a)(1) limits the tenant to actual damages where no notice was given. Should the same notice-prompt language be added to the MN maintenance clause, or kept only here?
+  - *Recommendation:* Keep it here. habitability-baseline-mn already carries a general written repair-notice duty, and duplicating a notice prompt across two clauses risks the two drifting apart. This clause's version is tied to the utility-specific damages limit, which is a different point.
+- **`utility-landlord-account`** — Minn. Stat. § 504B.216, subd. 13(i) lets a tenant who pays the utility after your default deduct it from the next rent, and the deduction counts as rent paid. Should Steinoak's MN rent-ledger logic recognise a documented utility payment as rent received, so a nonpayment notice is not generated against it automatically?
+  - *Recommendation:* Yes, and treat it as a product requirement rather than a lease question. The statute makes the deduction 'payment of rent ... for purposes of section 504B.291', so a nonpayment eviction filed over it is built on a false arrears figure. A ledger that cannot represent this will generate bad notices.
+- **`utility-landlord-account`** — § 504B.216, subd. 13(b) lets one tenant in a building with fewer than five units become the customer of record if you default — and the provider is then not obliged to offer that to more than one tenant in a 12-month period. Do you want this surfaced in owner reporting for Steinoak's small MN buildings?
+  - *Recommendation:* Yes. For a duplex, triplex or fourplex this is the fact pattern where a single missed utility payment can move the account out of the owner's control, and it is invisible in a normal arrears report.
+- **`utility-shutoff-statute`** — Minn. Stat. § 504B.216, subd. 12(b) requires any payment from a tenant who owes both rent and utilities to be applied to unpaid rent first. Does Steinoak's MN payment allocation follow that order today?
+  - *Recommendation:* Check it before the next MN onboarding. If the ledger applies payments to the oldest balance or to utilities first, it will systematically overstate rent arrears for every separately billed MN tenant, and § 504B.216, subd. 12(f) makes a subd. 12 violation a violation of § 504B.221 — treble damages or $500 plus fees. This is the single highest-value product finding in this slice.
+- **`utility-shutoff-statute`** — Should the MN builder suppress utility-nonpayment eviction workflows between October 1 and April 30 for gas and electric balances?
+  - *Recommendation:* Yes — a hard block with an override that requires a reason, rather than a warning. Section 504B.216, subd. 12(d)(2) says the action 'may not be filed', so a filing made in that window is defective from the start and a warning banner is too easy to click past.
+- **`utility-transfer`** — utility-transfer-mn sets the transfer deadline as a bracketed day count rather than a fixed 3 days. Should the MN default be 3 days to match the shape other states use, or longer?
+  - *Recommendation:* Leave it bracketed with 3 days as the example. The deadline carries no statutory force in Minnesota — it only dates the reimbursement obligation — and providers differ on how quickly they will open an account, so a landlord-set figure is more defensible than a house default.
+- **`utility-transfer`** — This slice has now produced three MN rows that each end with 'this is a contract debt, not rent' (utility-allowance-cap-mn, utility-transfer-mn and edu-no-utility-transfer-cutoff-mn, echoing edu-no-landlord-self-cure-mn). Should that become a single shared MN education row the others point at?
+  - *Recommendation:* Yes, worth doing in a consolidation pass rather than now. The point is identical each time and the repetition is a sign it belongs in one place; but merging it mid-slice would mean editing existing rows, which rule 1 forbids here.
+- **`water-heater-temperature`** — The only Minnesota 120-degree water rule found is a licensed child-care hand-sink limit (Laws 2026, ch. 127). A landlord who lets to a licensed family child-care provider may be asked to change the heater setting, and the lease should say who may adjust it.
+  - *Recommendation:* Add a one-line thermostat-and-water-heater-adjustment term to the Tenant Responsibilities or Rules & Regulations group, rather than to this disclosure topic. I have not written it, because it would be a drafting choice and not a Minnesota rule, and putting it under water-heater-temperature would make an absence look like a duty.
+- **`waterbed`** — The shared common-area-use clause (50 states including MN) already bans waterbeds without written consent, and waterbed-mn now states the same consent requirement plus the conditions. A Minnesota lease using both will say it twice. Should waterbed-mn be marked as superseding the waterbed sentence of common-area-use for Minnesota, or should the builder simply not offer both?
+  - *Recommendation:* Not offer both, rather than supersede. The supersedes column is for replacing a whole row and common-area-use carries five other restrictions Minnesota needs; the overlap is one sentence. A builder-level exclusion between the two is the cheap fix, and it is worth checking whether the same duplication exists in the other 26 states that have both a waterbed row and common-area-use.
+
+---
+
+## §5 The independent check
+
+Rule 80, scaled by the prompt to at most two rounds, one agent at a time. **Round 1 was run by an
+agent that had not seen the work produced**, against `CHECKER-BRIEF.md`, and was told where this
+pass had already broken — the failed-positive citations, the range-versus-string problem in § 8.31,
+the two errors in my own uncited-section screen, and the brief's repealed section — on the view that
+a checker told where the work has broken is more use than one told it looks fine. It reported ten
+findings and a coverage statement. Its own batteries went to
+`check/checker-battery-log.jsonl`; it edited nothing.
+
+### What it found, and what I did
+
+**1. A wrong number in 32 shipped rows — fixed.** Rows quoted the chapter 504B non-waiver map as
+"28 non-waiver sentences across 24 sections", "27 operative non-waiver sentences", "28 sentences in
+24 sections", "five formulas" and "five different non-waiver formulas". The correct figure is **34
+operative sentences across 29 sections in 6 formula families** in the 2025 compilation, **36 across
+30** counting § 504B.2136(b). The checker re-derived it twice independently and by its own broad
+screen, and confirmed the map's five exclusions are each correct. **29 rows** received the figure substitution, including 4 clause rows
+(`adverse-proceeding-notice-mn`, `prorated-rent-mn`, `rent-increase-midterm-mn`,
+`holdover-rate-mn`), and my own Proposed SOP item, which asserted the stale figure as current,
+is corrected too. (An earlier draft of this record said "32 rows" and named
+`termination-notice-mn` as the fourth clause row; round 2 caught both — that row carries no
+non-waiver figure at all and received the § 504B.285 fix instead.) Five different phrasings is why this took four passes
+of pattern-matching rather than one replacement — recorded as a lesson.
+
+**2. A false statement of fact in 3 rows — fixed.** Rows said "chapter 327C says 'resident', never
+'tenant'". Measured across all 21 units of chapter 327C: `resident\w*` **245**, `tenant\w*` **5**,
+in §§ 327C.03, 327C.097 and 327C.16 — and § 327C.03 uses it **operatively** for a park occupant
+("may charge the **tenant** the reasonable cost"). The narrower claim the brief actually made
+reproduces (§ 327C.095 is 44/0); it was the chapter-wide generalisation that overstated. The error
+ran in the safe direction — every affected battery carried the `resident` limb anyway, so no absence
+rested on it — but it would have led a later pass to drop a limb it still needs for § 327C.03.
+
+**3. A three-bucket breach (rule 55) — fixed.** `holdover-rate-mn` was `CONSTRAINED_TERM` while its
+own notes said "there is no statutory ceiling for the clause to stay under" and that the drafting
+guidance "is Claude's choice, not a statutory cap". § 504B.141 constrains the implied tenancy
+**period**, not the holdover **charge**, and the clause does not state that rule. Changed to
+`SERVES_LANDLORD`, with the reason recorded in the row.
+
+**4. A status field contradicting its own notes — fixed.** `termination-notice-mn` was `VERIFIED`
+while carrying "The notice must run for a full rental period and take effect at the end of one",
+which is not in § 504B.135 and whose underlying 1891 authority the notes record as **not located**
+and escalated. The notes handle it exemplarily; `verification_status` is the machine-readable field
+a consumer filters on, so it is now `NEEDS_REVIEW` — which is this pass's own convention for a
+named boundary, and "no case law is in the corpus" is one.
+
+**5. My uncited-section screen was wrong a third time — working file fixed.** §§ 504B.415
+(DEFENSES — a landlord's substantive affirmative defences, including a tenant's unreasonable refusal
+of repair entry), 504B.471 (allocation of ultimate financial liability) and 504B.451 (a landlord
+repayment duty) were all filed as court procedure. **The deliverable is unaffected** — all three are
+cited in the delta (12, 24 and 3 rows) — but the file now says plainly: do not trust this bucket,
+read the section.
+
+**6. § 504B.285 "in full" overstated in 3 rows — fixed, and it reversed a finding of mine.** The
+parenthetical said "(subds. 1, 1a, 1b, 2, 3)" for a section that has **1, 1a, 1b, 1c [repealed], 2,
+3, 4, 5**. See F79: I had earlier "corrected" a helper by asserting that **no subd. 1a exists**,
+because my verification regex capped a headnote at 70 characters and the two I missed run 95 and
+100. The helper was right, my correction was wrong, and the finding now says so.
+
+**7. Declined — it would have introduced an error.** The checker proposed that `pet-fees-mn`'s
+`{{pet_deposit}}` is uncapped and that § 504B.261 supplies the ceiling ("an additional damage
+deposit in an amount reasonable to cover damage likely to be caused by the animal"). But § 504B.261
+is headed **PETS IN SUBSIDIZED DISABILITY ACCESSIBLE RENTAL HOUSING UNITS** and that cap is scoped
+to those units; a corpus-wide search finds **no** section capping a general pet deposit. Importing
+it into every tenancy would state a limit Minnesota does not impose. Not changed; recorded here so
+the reasoning is on the record rather than the suggestion simply dropped.
+
+**8. Declined — the caveat is already there.** The checker read `edu-telecom-access-mn` as stating
+§ 211B.20's content without the "not read here" caveat it applies to chapters 237/238. The row's
+notes say: "chapter 211B is NOT in the corpus, so that row is cited rather than the section, as the
+brief directs." No change.
+
+**9. A guard-rail narrower than its sibling's — fixed.** `appliances-excluded-mn` barred use of its
+exclusion for "a refrigerator, or for heat, running water, hot water, electricity, sanitary
+facilities, an elevator, or anything whose failure could affect health or safety", while
+`stove-refrigerator-mn` — the clause whose subject *is* the unqualified item — barred only "heat,
+running water, hot water, electricity or sanitary facilities". Extended to carry the elevator, an
+air conditioner included in the lease, serious infestation and § 504B.381, subd. 1's catch-all
+"(x) any conditions … that pose a serious and negative impact on health or safety".
+
+**10. A schema departure I am raising rather than deciding.** `effective_from` is blank on 306 of
+335 delta rows (8.7% filled) against a trunk fill rate of **99.1%**. The reason is principled and
+stated row by row — a date that comes from § 645.02, or from an act outside the corpus, is not
+asserted from memory — but it was never stated as a general convention, and anything downstream
+keyed on `effective_from` will treat these rows unlike every other row in the library. **I have not
+mass-populated it**, because filling 306 dates by inference is the failure this pass exists to avoid.
+See the question under §4.
+
+### What the checker verified and found sound
+
+Reported so the coverage is on the record, not to pad the log. It reproduced **10 of 10** log
+figures exactly (trunk size and SHA-256, 11,634 rows, 11,524 active, 156 active MN, 134 MN
+`topic_key`s, 381 distinct `topic_key`s, 92 substantive 504B sections, and the comma-split
+undercount at 106), and resolved the apparent 1,250-versus-1,255 conflict as the five
+double-compiled chapter 484 sections.
+
+- **Rule 19.** 801 runs, 17 with a failed positive, **0** dirty controls, no duplicate names. Seven
+  rows name a failed run and **all seven name it as superseded and cite a passing rerun**, each of
+  which it confirmed exists and passed. **No row relies on a failed run.** Every run name cited in a
+  row resolves to a logged run.
+- **The § 8.31 range trap.** It extracted every range in § 8.31 — `317A.001–317A.909`,
+  `325D.01–.07`, `325D.09–.16`, `325D.49–.66`, `325F.68–.70`, chapter 53A — and confirmed none
+  covers chapters 504B, 363A, 325G or 327C. So the membership test holds, not merely the string
+  count. All six remedy shapes confirmed verbatim, and of the 15 distinct private-right-of-action
+  sentences in the delta, **none overstates a remedy**.
+- **The non-waiver map, independently re-derived**, including its own broad screen returning a
+  **superset** of the map's sections whose five extra entries are all correct exclusions, and a
+  sweep of all 438 session-law units confirming § 504B.2136(b)'s two sentences are the only 2025–26
+  additions.
+- **§ 504B.118** exactly as claimed: cash-receipt sentence surviving verbatim as subd. 2 with no
+  strikeout in the marker view, subds. 3 and 4 added, effective 1 August 2026.
+- **The scope fence on all 13 tagged rows: clean.** Every one differs in `states` and `notes` only,
+  `states` is exactly trunk + `;MN`, each trunk note is preserved verbatim with MN material
+  appended, and **no date changed** — all 13 keep their original `last_checked`.
+- **All 25 `NEEDS_REVIEW` rows give a named reason**, 24 a corpus boundary and one Minnesota Rules
+  part 4717, with every named outside section confirmed outside and the wording checked to state a
+  boundary rather than an absence.
+- **Eight confirmed absences re-run from scratch** with bare words, `\w*` inflection and section-wide
+  `andpat()` — sprinkler disclosure, window guards, water-heater temperature, common-area lighting,
+  exculpatory-clause ban, religious display, squatter removal, key control — **none broken**.
+- Clause wording matched against primary text for roughly 30 of the 57 clause rows, including the
+  two it expected to break (`ev-charging-requirements-mn`'s § 325F.185 conditions are verbatim, and
+  § 326B.35 is cited without being characterised because it is outside the corpus; the garage-door
+  24-hour duty is real). `spa-pool-notice-mn` carries § 144.1222's notice word-for-word.
+  `periodic-services-entry-mn` and `showing-notice-mn` track § 504B.211, subd. 2 exactly — including
+  keeping the tenant's option to permit shorter notice **off** the "condition of entering into or
+  maintaining the lease" that the bidirectional non-waiver bars.
+- **Plain language clean**, and still clean when re-run masking only `spa-pool-notice-mn`'s quote
+  rather than all long quotations — so the result does not depend on the script's masking rule.
+- Mechanical checks all pass: 335 rows, 17 columns, no duplicate `id`, `states` exactly `MN` on all
+  322 new rows, `lease_clause_basis` present **iff** `LEASE_CLAUSE` with every value in a legal form.
+
+### What the checker could not cover
+
+Stated here because an honest coverage gap is worth more than a clean bill of health. It read all 57
+clause bodies but verified the statutory text behind roughly 30; **§ 504B.178 (deposits) is the
+largest single gap**, with four clauses applying the deposit to charges and the section unopened. It
+re-ran 8 of 106 confirmed-absence batteries, choosing those whose subject sits inside a whole-held
+chapter, where a false absence does the most damage. The **265 education rows are substantially
+unchecked**, and it did not apply the three-bucket test in reverse to look for education rows that
+should have been clauses — it flagged one candidate, § 504B.111, which is carried under §4 as a
+question. It took the 13 tagged rows' shared bodies on trust as to Minnesota correctness, having
+confirmed only that tagging them broke no fence. It did not verify the corpus against its source, did
+not run an amendment screen over the other 145 session-law chapters, and reached nothing outside the
+corpus — so the 1891 full-rental-period authority behind finding 4 remains unlocated.
+
+### Round 2 — scoped to the 38 rows edited after round 1
+
+Run by a second agent that had not seen round 1 or my fixes, told to confirm the fixes were right
+**and that none of them broke something that was fine**, on the principle that a fix which
+introduces an error is worse than the error it replaced because it arrives wearing the authority of
+a correction. It confirmed the 38-row edit list was exact — 38 rows differ from the snapshot, no
+others, no id added or dropped.
+
+Its scope, in full: `adverse-proceeding-notice-mn`, `edu-abandonment-not-lockout-mn`, `edu-adverse-proceeding-notice-mn`, `edu-automatic-renewal-mn`, `edu-casualty-and-mitigation-waivable-mn`, `edu-disaster-duties-mn`, `edu-habitability-waiver-mn`, `edu-house-rules-mn`, `edu-lockout-penalties-mn`, `edu-no-environmental-event-termination-mn`, `edu-no-eviction-penalty-rule-mn`, `edu-no-forfeiture-clause-value-mn`, `edu-no-good-cause-notice-mn`, `edu-no-lease-waiver-of-eviction-stay-mn`, `edu-no-notice-to-vacate-terms-rule-mn`, `edu-no-property-tax-rent-statement-mn`, `edu-no-rent-reporting-mn`, `edu-no-rent-tax-mn`, `edu-no-showing-notice-waiver-mn`, `edu-no-shutdown-rent-protection-mn`, `edu-no-tpa-notice-mn`, `edu-notice-to-quit-waiver-mn`, `edu-owner-move-in-reservation-mn`, `edu-rent-concession-mn`, `edu-rent-demand-bar-mn`, `edu-rent-escalation-mn`, `edu-rent-increase-notice-mn`, `edu-rent-receipt-anti-waiver-mn`, `edu-statutory-early-termination-mn`, `edu-subsidy-habitability-proration-mn`, `edu-tax-escalation-mn`, `edu-term-change-notice-mn`, `holdover-rate-mn`, `owner-move-in-reservation-mn`, `prorated-rent-mn`, `rent-increase-midterm-mn`, `stove-refrigerator-mn`, `termination-notice-mn`.
+
+**It found exactly that, and it was mine.** `edu-no-showing-notice-waiver-mn` said the map "lists 27
+operative non-waiver sentences across 24 sections and **does not include section 504B.211**", and
+that its formula "differs from **all four** the file catalogues". Both halves were true of the
+*pre-regeneration* map. The regeneration is what **added** § 504B.211 — the five sections it added
+are §§ 504B.161, 504B.171, 504B.205, 504B.206 and 504B.211 — so substituting 34/29 into that
+sentence made it self-contradictory: the map now does include § 504B.211, in the **bidirectional**
+family, which is the row's own formula. I changed a number inside a claim the new number falsifies.
+
+**And the sweep missed four more rows carrying the same now-obsolete claim**, because my patterns
+looked for "28 … 24" and "five formulas" while these said "27 sentences" and "four formulas":
+`edu-periodic-services-entry-mn` ("omits section 504B.211 altogether"),
+`edu-other-landlord-facilities-mn` ("omits section 504B.161"),
+`edu-no-common-area-lighting-standard-mn` and `edu-receivership-administrator-mn` ("four formulas").
+All five are now rewritten rather than renumbered: each says the map omitted the section **when the
+row was drafted**, that the map was regenerated during this pass, and what it now catalogues. The
+substantive point each row was making — that the non-waiver sentence is quoted from its own section
+rather than borrowed from a neighbour, and that the bidirectional formula is a conduct rule and not
+only a voidness rule — survives intact, because that part was always right.
+
+**The figure itself: confirmed independently.** Round 2 re-derived it from the corpus rather than
+from the map or from round 1 — a broad screen of all 97 chapter 504B units for
+`waiv|void|unenforceab` giving 59 sentences in 34 sections, classified down to **34 operative
+sentences across 29 sections in 6 families (14 + 8 + 5 + 3 + 3 + 1)** — landing on the same section
+set and family tally, with headnotes correctly excluded, and **36 across 30** in force today counting
+§ 504B.2136(b)'s two sentences. It found **no** surviving stale form and no substitution artefacts in
+the 38, and correctly identified one sentence that *looks* half-substituted but is not
+(`edu-no-lease-waiver-of-eviction-stay-mn`'s "one of the five that say 'may not be waived or
+modified'" — the passive family does have exactly 5 sentences).
+
+**The three substantive changes: all three right, one half-applied.**
+- `holdover-rate-mn` → `SERVES_LANDLORD` is correct (§ 504B.141 bounds the implied tenancy's
+  *period*; the clause sets a *charge* and never states that rule) — **but the notes still opened by
+  asserting "CONSTRAINED_TERM"**, so field and prose contradicted each other in the opposite
+  direction from the original defect. Fixed.
+- `termination-notice-mn` → `NEEDS_REVIEW` is correct, and round 2 went further than I had: it
+  searched the whole corpus — statutes, 146 session-law chapters, constitution — for `full rental
+  period`, `end of a rental period`, `last day of a/the/each month`, `coincide with` and others, and
+  found **nothing** supporting a general end-of-period rule; the only "last day of a calendar month"
+  rules are §§ 504B.265 and 504B.266, both specific to death and infirmity. It agreed NEEDS_REVIEW
+  beats deletion, since the sentence is carried from a shipped trunk row and deleting it would put
+  the clause in conflict with a row already in front of Minnesota landlords.
+- `stove-refrigerator-mn`'s widened guard is correct against § 504B.381, subd. 1(2) item by item,
+  and the clause still rests on the landlord **not being responsible for providing** the item rather
+  than disclaiming an unwaivable covenant. Round 2 confirmed the deliberate omission of item (vii),
+  the refrigerator, is right *because* this clause's subject is a tenant-supplied one — which is
+  exactly why the sibling clause must bar refrigerators and this one must not. **But the body change
+  left no record in the row's notes**, unlike the other two. Fixed.
+
+**On the two I declined, round 2 split.**
+- `pet-fees-mn`: my conclusion held but **my reason missed the row**. § 504B.261's cap is indeed
+  scoped to subsidized disability accessible units, and nothing else in the corpus caps a pet or
+  animal deposit (§ 504B.178 regulates interest, withholding and return but sets no amount cap; the
+  only amount caps are §§ 327C.02 and 327C.03, subd. 4, two months' rent, manufactured home parks).
+  But **this row is already confined to those very units** — its guard reads "[Optional. Use only for
+  a disability accessible unit in a multiunit building where Tenant or the unit receives a subsidy
+  …]" — so within its own scope the bound does exist, and the body stated the deposit without it.
+  Round 1's point survived in narrowed form and I was wrong to decline it. The body now says the
+  amount "must be reasonable to cover the damage the animal is likely to cause, which is the limit
+  Minnesota law sets for this deposit."
+- `edu-telecom-access-mn`: **round 2 contradicted me and is right.** The *notes* do carry a boundary
+  line, which is what I checked, but it explains the citation practice, not that the content is
+  unverified — and the objection was about the **bodyText**, which is what a landlord reads. It
+  asserted "One multi-unit access right Minnesota definitely does give … makes it unlawful … with a
+  petty misdemeanour for a violation" as settled, from a chapter this pass never opened, while the
+  same body caveats chapters 237/238 and the federal OTARD rule. The row applied its own discipline
+  to two of three outside sources and not to the third — the only one whose content it stated. The
+  body now reports it as carried from the library's own row and says to confirm it against the
+  statute.
+
+**One precision nit, fixed:** the chapter 327C replacement sentence said "the one operative use is
+§ 327C.03"; § 327C.03 has **two**, both in the same subdivision. Reworded.
+
+**Integrity after the edits: clean.** All 38 rows carry 17 populated columns, `states` exactly `MN`
+on new rows, `lease_clause_basis` present **iff** `LEASE_CLAUSE` and in a legal form, no duplicate
+id across the 335. Of 131 run names cited by those rows, 129 resolve directly and the two apparent
+misses are sound — one is a prose back-reference to a logged passing run, the other names a
+superseded run **as superseded** alongside its passing rerun. **The 13 tagged rows were not touched
+by any of this**: none appears in the 38, and against the trunk all 13 still differ in `states` and
+`notes` only, with no date changed. The § 504B.285 correction in 8 rows is accurate.
+
+**What round 2 could not check:** it did not open the slice working files three rows point to, judging
+the rows on their own shipped words; it re-verified nothing outside the 38 beyond the five stale-form
+rows and the two declines; it re-ran no absence battery from scratch, since none of the 38 edits
+touched one; and the 1891 authority behind `termination-notice-mn` remains unlocated, being outside
+the corpus.
+
+### Rows edited after the last round
+
+Round 2 was the second and final round, so these **12 rows were edited after the last check reported**
+and are the pass's open edge. All are notes-only except two bodyText changes, and **none alters a
+statutory claim in a way a reader could not check from the row's own words**:
+
+| row | field | change |
+|---|---|---|
+| `edu-no-showing-notice-waiver-mn` | `notes` | obsolete "map omits § 504B.211" claim rewritten |
+| `edu-periodic-services-entry-mn` | `notes` | same, for § 504B.211 |
+| `edu-other-landlord-facilities-mn` | `notes` | same, for § 504B.161 |
+| `edu-no-common-area-lighting-standard-mn` | `notes` | "four formulas" to six formula families |
+| `edu-receivership-administrator-mn` | `notes` | "four different formulas" to six formula families |
+| `holdover-rate-mn` | `notes` | notes opening still said CONSTRAINED_TERM; now SERVES_LANDLORD |
+| `stove-refrigerator-mn` | `notes` | record of the body change added |
+| `edu-disaster-duties-mn` | `notes` | "the one operative use" to "the operative uses" (§ 327C.03) |
+| `edu-house-rules-mn` | `notes` | same |
+| `edu-no-tpa-notice-mn` | `notes` | same |
+| `pet-fees-mn` | `bodyText` | § 504B.261's reasonableness bound added |
+| `edu-telecom-access-mn` | `bodyText` | § 211B.20 reported rather than asserted, with confirm-it caveat |
+
+A third round is outside the prompt's scaling (two rounds, one agent at a time), so these 12 are
+delivered unchecked by an independent agent. I verified each against primary text myself —
+§ 504B.211's and § 504B.161's presence in the regenerated map, § 327C.03's two `tenant` uses,
+§ 504B.261's scope — and the assembler's full validation passes with no problems. That is not the
+same as independent verification, and it is recorded here as the pass's one open edge rather than
+smoothed over.
+
+---
+
+## §6 Findings on existing rows
+
+**F1 — `edu-unlawful-activities-covenant-mn` omits § 504B.171, subd. 2a, the one provision a
+landlord writing a crime-free clause most needs.** The row's notes already show the subdivision was
+known: "Currency: Recent History shows subd. 1 amended by Laws 2023 c 63 art 6 s 55 and **subd. 2a
+added by Laws 2023 c 52 art 19 s 99**." But the body never states it. The body tells the landlord
+"you do not need a crime-free clause to have one", lists subds. 1(a), 1(b), 1(c) and 2, and offers
+"two limits worth knowing" — the cannabis protection and the fact that the covenant binds the
+landlord too. It does not say that § 504B.171, subd. 2a bars imposing a penalty or terminating for
+off-premises conduct of the tenant, a household member or a guest except in two narrow cases, nor
+that chapter 152 offences are excluded from the "crime of violence" those cases turn on. A landlord
+reading this row would reasonably believe the statutory covenant is the whole of Minnesota's
+crime-free law. Statute quoted in §4 item 1 above. **Not fixed** (scope fence); suggested addition
+is a third "limit worth knowing" in the same voice as the existing two.
+
+**F2 — `edu-no-rekey-or-lock-duty-mn` states a tenant right Minnesota does not give, and its own
+notes disprove it.** The body says: "The one statutory lock rule runs the other way and is already
+covered in the library: **a tenant who is a victim of violence has a right to have the locks
+changed.**" Minnesota gives no such right. § 504B.206 is titled "RIGHT OF VICTIMS OF VIOLENCE TO
+**TERMINATE LEASE**" and does exactly that — subd. 1 the termination right on advance written notice
+with a qualifying document, subd. 2 a confidentiality duty with $2,000 statutory damages, subd. 3
+rent liability and the bar on eviction, subd. 5 no waiver. There is no lock provision in it.
+
+The row's own notes record the contrary evidence: "'rekey' (0 hits), 'deadbolt' (0 hits), 'door
+lock' (1 hit, § 326B.124 construction-code exemptions, not a rental duty), 'change the locks'
+(1 hit, § 582.031 — a MORTGAGEE's limited right of entry … not a landlord duty)". So the row asserts
+a right the same row's battery failed to find, and then points to two domestic-violence rows as
+"covering" it.
+
+Re-run this pass over a wider surface than the compilation alone, because Colorado's lesson was
+that a 2025 act created exactly such a right that two clean whole-code batteries had missed:
+battery `MI3-locks-statutes` over all 1,305 statute units and `MI3-locks-laws-enacted` over all 146
+session-law chapters of the biennium, nine patterns each (`\brekey\w*`, `\bre-key\w*`,
+`\bdeadbolt\w*`, `\bdead bolt\b`, change↔lock proximity in both word orders, `\block\s*(set|smith|
+hardware)\w*`, `new\s+lock\w*`, replace↔lock), plus `MI3-locks-everyday` over all 1,744 units
+pairing keys with victim/abuse/violence in both orders. **Total hits: 0**, with one apparent hit
+cleared on reading — `new\s+lock\w*` matched "new **locker** room" in the capital bonding act, Laws
+2026, ch. 130. Positives passed and the nonsense control returned 0 in every run.
+
+So the row's first sentence is right (no rekey, deadbolt or lock-hardware duty) and its third is
+wrong. The likely source is cross-state contamination: California gives precisely this right
+(Civ. Code §§ 1941.5-1941.6, which the `keys` row's California note cites), and Texas has detailed
+security-device duties (§ 92.156 et seq.). **Not fixed** (scope fence). Suggested replacement for
+the sentence: "Minnesota has no statutory lock rule in either direction. A tenant who is a victim of
+violence has the right to **end the lease** under Minn. Stat. § 504B.206, not to have the locks
+changed; some states (California, Civ. Code §§ 1941.5-1941.6) do give a lock-change right and
+Minnesota does not." The two pointers to the domestic-violence rows should go with it, since those
+rows cover termination, not locks.
+
+**F3 — `edu-no-knowing-use-penalty-mn` understates the non-waiver map, and overstates its
+uniformity.** The row says chapter 504B has "roughly eighteen separate non-waiver provisions, **each
+saying a waiver of that section is contrary to public policy and void**". Generated from the
+sections themselves, the chapter has **34 operative non-waiver sentences across 29 sections**
+(see F39 for how this figure was corrected twice): 504B.114,
+.116, .144, .147, .153, .154, .165, .178, .182, .195, .204, .216, .221, .225, .231, .265, .266,
+.271, .315, .365, .375, .385, .435 and .465. And they do not speak with one voice — 14 sentences
+use "contrary to public policy [and void]", 5 "void and unenforceable" (§ 504B.178, subd. 10 among
+them), 5 "may not be waived [or modified]" (§ 504B.147, § 504B.216, § 504B.365) and 3 "is/are void".
+The difference matters when a row quotes the formula rather than the section. (**This count was
+itself corrected mid-pass — see F20.** The first figure stated here was 28 sentences in five
+formulas, which double-counted a subdivision headnote. The criticism of the row survives either
+way: "roughly eighteen" understates 27, and "each saying … contrary to public policy and void"
+describes only 14 of them.) This row is the main pass's own work from the retro pass, found by the canvass.
+**Not fixed** (scope fence).
+
+**F4 — `pet-policy-mn` overstates the landlord's rights, and § 504B.261 is absent from the whole
+library.** The row says the tenant "may keep **only** pets identified in writing to and approved by
+Landlord" and that Landlord "may revoke approval". But **Minn. Stat. § 504B.261** ("PETS IN
+SUBSIDIZED DISABILITY ACCESSIBLE RENTAL HOUSING UNITS") provides: "In a multiunit residential
+building, a tenant of a disability accessible unit, in which the tenant or the unit receives a
+subsidy that directly reduces or eliminates the tenant's rent responsibility, **must be allowed** to
+have two birds or one spayed or neutered dog or one spayed or neutered cat." The section carries its
+own limits — no animal that threatens health or safety or causes a noise nuisance, and the landlord
+may require an additional damage deposit "in an amount reasonable to cover damage likely to be
+caused by the animal", refundable to the extent it exceeds actual animal damage. Used on such a
+unit, the clause's "only … approved by Landlord" and the revocation right are both wrong.
+
+A whole-CSV search finds **0 rows anywhere in the library** mentioning § 504B.261, with controls
+confirming the search reports true positives (§ 504B.178 → 11 rows, § 504B.113 → 6, § 504B.177 → 3).
+So this is not only a defect in one row but a mandatory tenant right the library states nowhere, for
+any state. **Not fixed** (scope fence); the canvass answers it under `pet-fees` and the suggested
+`pet-policy-mn` fix is a carve-out sentence naming the section.
+
+**F5 — a library-wide gap: 38 of chapter 504B's 92 substantive sections appear in no row at all,
+for any state.** Screened by matching every section number against the whole of `lease-clauses.csv`
+(all 11,634 rows, every column), anchored and again as a plain substring, with controls confirming
+the search reports true positives (§ 504B.178 → 11 rows, § 504B.161 → 15, § 504B.171 → 13). The full
+map, with the slice that should answer each, is in `UNCITED-504B-SECTIONS.md`; it has been added to
+the helper brief and the running helpers were told. 17 of the 38 are pure eviction or
+tenant-remedies **procedure** and a clause library reasonably omits them. The remaining 21 are real
+gaps, and three groups stand out:
+
+1. **Required lease or application content the library never states.** § 504B.146 LEASE DURATION
+   NOTICE — "A written lease for a residential unit **must identify the lease start date and lease
+   end date**", and where move-in or move-out falls other than on the first or last of the month and
+   rent is prorated, "the lease **must indicate the amount of the prorated rent**". § 504B.117 — a
+   landlord **must provide on a rental application** the option to give an ITIN or SSN in the form
+   `"SSN or ITIN: . ."` and **must not deny** an application solely because an ITIN was given.
+   § 504B.116 — mandatory average-daily-rate proration of the final month, non-waivable in its own
+   terms. Minnesota's required-lease-content list in the library was therefore incomplete: the pass
+   had § 504B.181, § 504B.113 subd. 3(b), § 216B.023 subd. 1(b), § 504B.120 and § 504B.216 subd. 10,
+   and § 504B.146 belongs on it.
+2. **Void-term and non-waivable provisions.** § 504B.114 (pet declawing and devocalization —
+   reaching an "application for occupancy", defined to include *all phases* of applying, and making
+   any offending requirement or lease provision "void and unenforceable"); § 504B.144 (no requiring
+   renewal more than six months early on a lease longer than ten months); § 504B.145 (notice
+   required to *enforce* an automatic-renewal clause); § 504B.315 (no eviction, denial of a
+   continuing tenancy or denial of renewal on the basis of familial status commenced during the
+   tenancy unless a year has elapsed); § 504B.375 (unlawful exclusion or removal, expressly
+   including *constructive* exclusion by terminating utilities or removing doors, windows or locks);
+   § 504B.261 (the pets rule behind finding F4).
+3. **Minnesota's whole tenant-screening-report regime — the largest single gap.** §§ 504B.235
+   (definitions, including "proper identification"), 504B.241 (a residential tenant screening
+   service must disclose, on request and proper identification, the nature and substance of all
+   information in its files on the individual **and the sources of that information**, with
+   correction duties — 6.1 KB of statute) and 504B.245 (a person injured by a § 504B.241 violation
+   may sue **a residential tenant screening service or landlord** and recover **the greater of
+   $1,000 or actual damages** plus costs, investigation costs and reasonable attorney fees). The
+   remedy runs against the landlord, so this is a landlord compliance duty and not merely a vendor's.
+
+This is what rule 36 asks for — topics derived top-down from the statute rather than from
+surprises — and it is the reason this consistency pass earns its place: the gap is invisible to a
+topic list built from what other states happen to have rows for.
+
+**F6 — a second library-wide gap: Minnesota's annual Certificate of Rent Paid, a recurring landlord
+duty with a statutory deadline, is carried by no row for any state.** Found by the rent slice and
+verified here. The duty's own sections are in the tax chapters and are outside this corpus, but the
+cross-reference is **in** it: § 327C.02's mandatory resident notice tells residents, in the statute's
+own words, "By February 1 of each year, the park must give you a **certificate of rent paid** as
+required by Minnesota Statutes, sections 290.0693, subdivision 4, and 290A.19." Battery
+`MP-certificate-of-rent-paid` over all 1,305 statute units: the phrase appears once, in § 327C.02,
+and the section-wide AND agrees; positive passed, control clean.
+
+What is established: the duty exists, it is annual with a **February 1** deadline, and it is
+referenced from a section this pass can read. What is **not** established, and is not asserted: its
+scope for an ordinary residential landlord as against a manufactured home park, which turns on
+§ 290A.19 and § 290.0693, subd. 4 — chapters 290 and 290A are outside the corpus, so their content
+is not stated here from memory. That scope question is why this is a proposed checklist item and a
+scheduled pass with the tax chapters in scope, rather than a row written now.
+
+**F7 — the shared `holdover` clause's self-limiting figure evaluates to nothing in Minnesota.** The
+clause (CO;WY;KS;NE;MN;FL) promises "holdover damages in the maximum amount permitted by applicable
+law". Batteries returned **0 hits on every limb** for any Minnesota holdover multiplier or
+liquidated-damages measure, so in Minnesota that phrase resolves to ordinary rent and the clause
+promises the landlord nothing beyond it. This is rule 26's AS 5 case exactly — "a shared clause
+whose only figure is 'the maximum … permitted by applicable law' is an override candidate wherever
+the jurisdiction sets no figure" — and the rent slice has written Minnesota its own figure in
+`holdover-rate-mn`. The backlog note in `edu-no-holdover-damages-multiplier-mn` can be closed on
+that basis. Shared text **not changed** (rule 62); the override is for Claude Code.
+
+**F8 — § 504B.161's heat covenant changed twice in 2025, and nothing in the library records it.**
+Found by the habitability slice from the raw session-law view and verified here against the markers:
+
+- **Laws 2025, ch. 32, art. 4, sec. 4** added, as `new text`, "**in all places intended for
+  habitation including kitchens and bathrooms**" to the 68°F covenant. So kitchen-and-bathroom
+  coverage dates only from 2025.
+- **Laws 2025, First Special Session ch. 11, sec. 1** then **deleted** "capable of maintaining"
+  (the marker reads `deleted text begin capable of maintaining deleted text end`), effective
+  July 1, 2025 by its own clause. The duty is therefore to **equip or furnish heat at** 68°F, not
+  to be "capable of maintaining" it — a real difference in what a landlord must do.
+
+`edu-habitability-baseline-mn` states the current rule correctly, including kitchens and bathrooms.
+But its notes read, in full, only "MN: Created by the three-bucket scrub (2026-09-29) … content and
+citations unchanged: Minn. Stat. § 504B.161", recording no amendment history at all — so nothing in
+the library shows that two of the three elements it states are 2025 changes, or which. **Not fixed**
+(scope fence). This is the clearest vindication of keeping the publisher's amendment markers rather
+than flattening them: neither change is visible in the 2025 compilation's text.
+
+**F9 — Laws 2025, ch. 32, art. 4, secs. 6 and 7 widened rent escrow and the tenant remedies action
+to a breach of the lease itself.** Both § 504B.385, subd. 1(c) and § 504B.395, subd. 4 were changed
+from "clause (2) or (3)" to "clause (2), (3), (4), or (5)" of § 504B.001, subd. 14 — verified from
+the markers, which read `clause (2) deleted text begin or deleted text end new text begin , new text
+end (3), new text begin (4), or (5), new text end`. Since subd. 14(5) is a violation of the lease
+itself, a lease breach is now inside both the rent-escrow route and the tenant remedies action. That
+is what makes `promises-to-repair` a present answer for Minnesota rather than an absence.
+
+**F10 — Minnesota uses four different tenant-fault vocabularies for the same subject, and the
+library carries two of them.** Found by the habitability slice:
+
+| section | the phrase |
+|---|---|
+| § 504B.161, subd. 1(a)(2) and (4) | "willful, malicious, **or** irresponsible" |
+| § 504B.165 | "willful **and** malicious" |
+| § 504B.415(2) | "willful, malicious, **negligent**, or irresponsible" |
+| § 504B.381, subd. 6; § 504B.216, subd. 14(1) | "deliberate or negligent" / "willful, malicious, or negligent" |
+
+`edu-tenant-caused-damage-mn` catches the first two — that mismatch is the gap the retro pass found,
+where negligent damage falls in neither. The other two are in no row. The operative rule for
+drafting: **a row touching tenant fault quotes the section it cites and never carries the phrase
+across sections**, because the conjunction and the inclusion of negligence both change who is
+caught.
+
+**F11 — a plain-language screen of this pass's own new clauses found 13 sentences of 45+ words.**
+Minnesota's Plain Language Contract Act reaches a residential lease of three years or less, so the
+clause rows are the ones it governs. Two were repaired by the main pass: `holdover-rate-mn`
+(longest sentence **100 → 33 words**) and `deposit-cost-schedule-mn` (**91 → 32**), each split by
+pulling its conditions out in front, with a word-level diff confirming the only changes were
+connectives ("together with" → "also pay"; "following" → "listed below") and no substantive term
+added or removed. The brief now sets a hard 40-word limit on any clause sentence and asks each
+helper to check before saving. Eight new clause rows remain over the limit on the corrected screen (see F38 — the
+first screen said twelve, and three of those were measurement artefacts):
+`tenant-repair-agreement-mn` (81), `prorated-rent-mn` (60),
+`government-fee-reimbursement-mn` (59), `designated-repairer-mn` (57),
+`deposit-surrender-notice-mn` (47), `eviction-service-party-mn` (42),
+`carpet-cleaning-mn` (42) and `cure-and-eviction-grounds-mn` (41). These are **scheduled for a single
+polish pass immediately before the independent check** rather than fixed slice by slice, because
+doing it per slice would repeat the work ten more times as the remaining slices land, and because
+rule 80 sends rows edited after the checker's last round back to it — so the polish belongs before
+that round, not after. The screen will be re-run then and the result recorded in §5.
+
+The other long sentences sit in education rows, which a landlord reads rather than signs, and in
+three **existing shared clauses** that were tagged (`tenant-caused-fines-as` 71 words,
+`rent-escalation-la` 42, `rent-concession-wi` 53) — those are not this pass's to rewrite (rule 62),
+and are noted for Claude Code.
+
+**F12 — `edu-expedited-eviction-mn`'s notes still carry the Phase B error its own body corrects.**
+The notes say paragraph (e) of § 504B.321, subd. 2 "is NEW". It is not. In Laws 2026, ch. 81, sec. 5
+the only marked changes are the assault insertion in paragraph (a) and `$500` → `$750` in paragraph
+(d); paragraph (e) carries no `new text` or `deleted text` marker and stands verbatim in the 2025
+compilation. The row's **body** says the opposite of its notes and is the correct one ("this part is
+not new"). Confirmed independently by the eviction helper from the raw marker view, and again here.
+This is the residue of the Phase B mistake that misattributed the no-consolidation rule to the 2026
+act: the body was fixed and the notes were not. **Not fixed** (scope fence) — but it is worth
+Claude Code's attention that a corrected row can keep its error in the audit trail.
+
+**F13 — `edu-statutory-forms-mn` undercounts Minnesota's mandatory text, and the uncited-section
+screen is why.** The row says "Four Pieces of Text You Must Reproduce … in all four". There is a
+fifth, and it is landlord-drafted: **§ 504B.268, subd. 1** requires a first-page notice, in bold
+12-point type, about court-appointed counsel. It was missed because § 504B.268 appears in 0 rows —
+see F5. **Not fixed** (scope fence).
+
+**F14 — `rent-payment` (55 states) mis-cites the scope of Minnesota's waiver bar in its MN note.**
+The note attributes "may not be waived or modified" to § 504B.465. But § 504B.465 reads: "Any
+provision of a lease or other agreement in which a provision of **section 504B.381 or sections
+504B.395 to 504B.471** is waived by a residential tenant is contrary to public policy and void." So
+§§ 504B.385 and 504B.391 fall **outside** it. The quoted words are § 504B.385's own, in
+**subd. 11** ("Retaliation; waiver not allowed"), which also provides that § 504B.441 applies to
+proceedings under that section. The row's conclusion survives; the citation does not, and it was
+load-bearing in that row's eight-state audit trail. **Not fixed** (rule 62 — shared row).
+
+**F15 — `edu-tenancy-at-will-termination-notice-mn` states a rule § 504B.135 does not contain.** The
+row asserts the notice "must also run a FULL rental period and take effect at the END of one".
+§ 504B.135 read whole contains no such requirement, and a battery over the corpus found end-of-period
+requirements only in §§ 504B.265 and 504B.266. It may well be good Minnesota common law, but it is
+presented as statute and attributed to a section that does not say it. **Not fixed** (scope fence);
+if it is case law it is a lead only (rule 1) and the row should say so.
+
+**F16 — a correction to the retro pass's own Rule 608 finding: the conflict is wider than I said.**
+The retro pass flagged Minn. Gen. R. Prac. 608's "shall deposit forthwith" as conflicting with
+§ 504B.285, subd. 4(b)-(c). That is right as far as it goes, but subd. 4(b) is scoped by its opening
+words to "an eviction action for failure to pay for utility service in a shared-metered building".
+The **general** rule is **§ 504B.335, paragraph (e)**, in the ANSWER; TRIAL section: "The court
+**may not require the defendant to pay any amount of money into court, post a bond, make a payment
+directly to a landlord, or by any other means post security for any purpose prior to final
+disposition** of an action", with a single exception where final disposition may be delayed more
+than ten days, and then only in a form and amount the court approves on the totality of the
+circumstances and subject to a cap. So the court rule's deposit requirement is in tension with a
+statute governing **every** eviction action, not merely utility cases. Found by the eviction helper,
+verified here. Still flagged, not resolved — the court rules are outside this corpus.
+
+**F17 — two more landlord-side provisions in 0 rows, extending F5.** § 504B.371, subd. 7 lets a
+landlord who has won on a § 504B.171, subd. 2 claim post a bond and take the writ notwithstanding
+the tenant's appeal — the only landlord-side possession bond in the chapter. And § 504B.385, subd. 2
+is the only express **counterclaim** in chapter 504B, and it is the landlord's: a counterclaim for
+possession in the tenant's own rent-escrow action. Both are landlord-favourable and neither appears
+in any row, for any state.
+
+**F18 — `edu-tenancy-at-will-notice-mn` states § 504B.147, subd. 2 backwards.** The row's body says
+the tenant "may elect to use whichever period is **longer**". Subdivision 2 says the opposite kind of
+thing — it offers a choice, not a maximum: "The tenant may give notice of an intention to quit the
+premises using **either**: (1) the time period provided in the lease for the tenant …; or (2) the
+time period provided in the lease for the landlord …". And because subd. 3 already forbids the
+landlord from giving a notice shorter than the tenant's required period, the landlord's period is
+the longer one — so the only thing subd. 2 usefully adds is the tenant's right to use the
+**shorter**. A landlord reading this row would treat a tenant's shorter notice as ineffective and
+bill rent through a longer period. The row's own **notes** state it correctly, and the rent slice's
+`edu-rent-increase-notice-mn` has it right; the defect is in the body alone. Found by the
+termination helper. **Not fixed** (scope fence).
+
+**F19 — my own `edu-for-cause-eviction-mn` overstates Minnesota's absence, and the battery behind it
+could not have found the counter-example.** The row's first sentence reads "Minnesota has no
+just-cause or good-cause eviction law", unqualified. But **§ 327C.09, subd. 1 is headed "Cause
+required"** and provides: "A park owner may recover possession of land upon which a manufactured
+home is situated **only for a reason specified in this section or section 327C.095**." Minnesota
+therefore does have a cause-required regime — for manufactured home park lot tenancies under
+chapter 327C.
+
+The methodological point is the sharper one. That row's recorded battery searched **"just cause"
+(39 hits), "good cause" (350) and "for cause" (143)**. None of those three strings can match the
+words "Cause required", and the battery was scoped to chapter 504B reasoning. Rule 19 says in terms
+that "a battery cited for an absence must be able to match the absent thing's own vocabulary" — this
+is a second instance of exactly that failure, in my own work, and it is why the brief now tells
+helpers to run regime questions over `statutes` rather than one chapter and to search the conduct
+rather than only the label.
+
+What limits the harm: `edu-farm-and-mhp-scope-mn` already tells a landlord that manufactured home
+parks are governed by chapter 327C and that "this lease is the wrong instrument", so nobody using
+the product for its intended purpose is misled. The sentence is still wrong as written. **Not fixed**
+(scope fence); the suggested repair is a scope limiter — "no just-cause law **for a tenancy under
+chapter 504B**" — plus a pointer to `edu-farm-and-mhp-scope-mn`. The same limiter belongs on this
+log's §4 item 1, where the rule 41 verdict is recorded, and it is applied there.
+
+**F20 — a defect in this pass's own generated artefact, found by a helper and corrected mid-pass.**
+`504B-scope-and-waiver.md` counted § 504B.147's subdivision **headnote** — the Revisor prints
+"Subd. 4. No waiver." immediately before the operative text — both as a non-waiver sentence and as a
+formula of its own. The headline figure the brief and several rows had begun citing, "28 sentences
+across 24 sections in five formulas", was therefore one sentence and one whole formula too high.
+Subdivision 4 has exactly two operative sentences. The artefact has been regenerated with
+subdivision and section headnotes stripped before counting: the correct figure is **27 operative
+non-waiver sentences across 24 sections, in four formulas** (14 "contrary to public policy", 5 "void
+and unenforceable", 5 "may not be waived or modified", 3 "is/are void"). The brief now carries the
+corrected number and tells helpers to fix any row that cited 28 or five. Scope exceptions recount to
+22 on the same basis.
+
+The lesson is worth a rule: **a generated artefact is evidence and gets the same screen as a row.**
+This one was built in the first hour of the pass, cited by the brief, by four slices and by a
+finding of mine, and was wrong for a reason — headnote text being counted as operative text — that
+no amount of care in the rows downstream would have caught.
+
+**F21 — a fourth required lease-content rule, also in no row for any state: § 504B.216, subd. 5(d).**
+Verified verbatim: "A landlord **must include in the lease or in a separate written notice** a list of
+the tenant's rights under paragraph (c)." Paragraph (c) gives a tenant of an apportioned building the
+right, on request, to a copy of the current natural gas or water and sewer bill being apportioned and
+of past bills "for the preceding two years or from the time the current landlord acquired the
+building, whichever is the most recent". A whole-CSV search found 0 rows mentioning it. Found by the
+utilities slice reading § 504B.216 whole — **not** by a battery, which is the point. The required-
+content list for Minnesota now reads § 504B.181, § 504B.113 subd. 3(b), § 216B.023 subd. 1(b),
+§ 504B.120, § 504B.216 subd. 10, § 504B.146 and § 504B.216 subd. 5(d).
+
+**F22 — the commercially sharpest finding of the pass: § 504B.216, subd. 12 bars a utility-nonpayment
+eviction for seven months of the year, and my own `edu-for-cause-eviction-mn` omits it.** Verified
+verbatim:
+
+- **subd. 12(b)**: "If a landlord asserts a tenant owes rent and utilities, sums paid by the tenant
+  to the landlord **must first be applied to unpaid rent**."
+- **subd. 12(d)(1)**: a landlord "**may not bring a claim for breach unless** the landlord has
+  offered the tenant a payment plan under section 216B.023, subdivision 7, and the tenant has failed
+  to make two consecutive payments on the plan".
+- **subd. 12(d)(2)**: "an eviction action **may not be filed** and any eviction already filed **must
+  be stayed**" (i) for failure to pay natural gas or electric charges **during the cold weather
+  period**; (ii) for failure to pay electric charges **during a heat emergency**; (iii) where the
+  tenant notifies the landlord or court of a medical emergency or life-sustaining medical equipment,
+  certified by a licensed medical health care professional within five days.
+- **subd. 12(f)**: "A violation of this subdivision is a violation of section 504B.221."
+- **"Cold weather period"** takes its meaning from § 216B.096, subd. 2(b): "**the period from
+  October 1 through April 30 of the following year**" — the same seven months as the § 504B.161 heat
+  duty.
+
+My `edu-for-cause-eviction-mn` lists six situations that block an eviction and, on utilities, says
+only that where "the tenant has a Public Utilities Commission complaint pending about shared-metered
+gas or electricity, the court must stay a utility-nonpayment eviction and may not make the tenant
+post any money (subd. 4(b))". A landlord reading that row would conclude a PUC complaint is the only
+utility obstacle, when **winter alone bars filing** and an unoffered payment plan bars the claim
+outright. **Not fixed** (scope fence); the full rule is now in the canvass's
+`edu-utility-nonpayment-eviction-limits-mn`, and the suggested repair to my row is a cross-reference
+to it. Found by the utilities slice.
+
+**F23 — and a vindication, not a defect: Taylor's rent-first payment order is now a statutory
+requirement in Minnesota, not merely good practice.** The shared `application-of-payments` clause
+reads "Each payment Tenant makes will be applied **first to the Monthly Rent** due for the current or
+oldest unpaid rental period, and only then to any other fees, charges, or amounts due under this
+Lease". Its notes record that the order was changed from fees-first to rent-first on 2026-09-26 on
+Taylor's decision, because "fees-first turns an unpaid fee into an apparent rent shortfall, the
+number a landlord carries onto a demand notice", with the Rent Tracker changed the same day.
+§ 504B.216, subd. 12(b) now requires exactly that ordering as between rent and utilities in
+Minnesota, and subd. 12(f) makes the wrong order a § 504B.221 violation. So the clause and the
+product already comply.
+
+One narrow ambiguity for Claude Code rather than a defect: the clause's first carve-out lets the
+tenant "direct otherwise in writing for a particular payment", and subd. 12(b) admits no tenant
+election. The clause's second carve-out ("or applicable law requires otherwise") should govern, but
+the two are written as alternatives, so in a Minnesota shared-metered building the tenant-election
+limb reads as though it could displace a mandatory rule. Worth a word of ordering in the shared text
+at some point; it is not this pass's to edit (rule 62).
+
+**F24 — three more sections answering Minnesota topics that no row in the library cites, for any
+state**: § 216B.096 (the cold weather rule and its definitions), § 216B.172 and **§ 444.075**.
+§ 444.075, subd. 3e lets a municipality charge water and sewer against "the owner, lessee, occupant
+or all of them" and certify unpaid charges to the county auditor for collection with taxes — which is
+the whole of the `municipal-utility-lien` topic, and was reachable only because § 504B.216,
+subd. 13(g) names it. Also § 504B.216, subd. 15 imposes a hard **September 30** annual energy-
+assistance notice that no Minnesota row carried and that cannot be discharged by lease text at all.
+
+**F25 — Minnesota's only prescribed warning text that runs to a lessee of a dwelling: § 325F.18,
+subd. 1(a).** "No manufacturer shall sell any building materials and no builder shall sell or lease
+to the initial occupant a housing unit, other than a unit of manufactured housing, containing urea
+formaldehyde unless … [the] written disclosure [has been made] to any purchaser … or lessee of the
+housing unit", followed by a verbatim "IMPORTANT HEALTH NOTICE". Violation routes to § 325F.69,
+subd. 1 and § 8.31 (attorney fees). It is the disclosures slice's single clause.
+
+The reason it was missed for so long is the methodological point: **the section is headed DUTY OF
+MANUFACTURER and contains none of the words "Proposition 65", "carcinogen" or "cancer".** It was
+found only by a case-sensitive FORMALDEHYDE heading screen. A topic battery on the subject's everyday
+words could not have reached it.
+
+**F26 — a deposit-timing rule hiding in the health chapter: § 144.9504, subd. 7.** Where an assessing
+agency orders a tenant to vacate for lead hazard reduction, the rule applies "**notwithstanding any
+rental agreement or lease provisions**": the tenant pays no rent for the period, may terminate
+immediately and owes nothing further, and **subd. 7(c)(2) requires the landlord to return any deposit
+due under § 504B.178 within five days**. A five-day deposit clock, in chapter 144, overriding the
+lease. The deposit slice could not have found it — it is not in chapter 504B and not in any deposit
+vocabulary. The deposit rows need a cross-reference to it.
+
+**F27 — a landlord gets no homeowner exemption from Minnesota's lead certification regime, and the
+answer is in the definitions.** § 144.9501, subd. 33 defines "compensation" to include "rental
+payments, rental income, or salaries derived from rental payments", and § 144.9505, subd. 1(d)
+withdraws the property-owner exemption where the residence "is occupied by one or more individuals
+who are not related to the property owner". So the familiar do-it-yourself exemption does not reach
+a landlord. Found by reading the definitions section, not the operative one.
+
+**F28 — § 327C.095 (PARK CLOSINGS) appears in 0 rows of the whole library.** Chapter 327C is held
+whole and the section was read whole: a 12-month closure statement to four recipients with mandated
+14-point language, a 90-day no-vacate rule, a resident right of first refusal (subd. 6), § 8.31
+remedies, trust-fund payments and a second mandated 14-point resident notice. Not resolved — parks
+sit outside this lease via `edu-farm-and-mhp-scope-mn` — but it extends F5 beyond chapter 504B: the
+uncited-section problem is not confined to the core act.
+
+**F29 — my own helper brief told the disclosures slice something false, and the slice checked it.**
+The brief said "chapter 144 has an asbestos abatement regime — search it before concluding absence."
+It does not: `asbest\w*` returns **0 hits across all 586 sections** of chapter 144, confirmed here by
+battery `MP-asbestos-ch144` with a passing positive and a clean control. Minnesota's asbestos law is
+§ 325F.01 (powdered-asbestos ban) plus chapter 326, which is outside this corpus — battery
+`MP-asbestos-corpus` finds `asbest\w*` in exactly two sections corpus-wide, §§ 325F.001 and 325F.01.
+This is the second brief error this pass (the first was promising cross-reference sections the loader
+was not loading), and it is why rule 27's New Hampshire lesson — check the brief's own scope
+statements against the statute before sending it — needs to extend to statements added to a brief
+**mid-pass**, not only at the start.
+
+**F30 — a defect in this pass's section splitter, found by a helper and fixed mid-pass, with the
+full battery replay rule 19 requires.** A chapter page's subject banner — an ALL-CAPS subchapter
+heading such as "EVICTION ACTIONS" or "LEAD POISONING PREVENTION ACT" — was being attached to the end
+of the **preceding** section's body. So § 504B.001's body ended with "LEASING AND RENT",
+§ 504B.391's with "TENANT REMEDIES ACTION", and § 144.95 (mosquito research) carried "LEAD POISONING
+PREVENTION ACT". Each such banner could produce one spurious body hit.
+
+The splitter now moves a trailing banner to the **following** section's `subchapter` field, using the
+test that a banner always sits immediately before the next section's heading line — which a blind
+ALL-CAPS strip would have failed, because real mandated notice text is also upper case. **151 banners
+were moved**, the parser proof still shows 1,250 of 1,250 indexed sections covered, and the mandated
+texts were each verified still present afterwards: § 325F.18's "IMPORTANT HEALTH NOTICE",
+§ 504B.216, subd. 10's "UTILITY BILLS" attachment and its "How Will My Bill be Calculated" body,
+§ 504B.321's 14-day notice content and § 504B.206's QUALIFIED THIRD PARTY form. Every recorded
+battery was then replayed against the corrected index and the results diffed, per rule 19's
+requirement that a corpus or index change be followed by a replay; the outcome is recorded in §3.
+
+**F31 — the inflection probe found 25 runs of 453 narrower than their author intended, and four
+confirmed-absence rows resting on one. All four absences were rechecked and all four hold.** The
+probe (added after the eviction slice found `\bcure\b` returning a clean zero while § 504B.151
+carries "cures") reports, for every `\b`-anchored word in a pattern, each unit that carries an
+inflected form and is **not** matched. Worst terms across the pass: `sign` (145 units unmatched),
+`register` (67), `lease` (30), `administrator` (23), `rent` (18), `code` (14), `heat` (12).
+
+Only four `edu-no-` rows cited a warned run, and each was rechecked by the main pass with the
+inflections restored and a section-wide AND added:
+
+- `edu-no-chemical-warning-rule-mn` — `sign` had excluded signs/signed/signing/signage. Recheck
+  `MP-recheck-prop65-signs` surfaced five sections to clear, and all five are clean rejections:
+  § 325F.078 (aerosol dusters containing DFE — behind-the-counter retail sale, age 21, no tenancy
+  reach at all), § 144.997 (biomonitoring pilot programme), § 325F.245 (landscape application
+  contracts — a written-contract duty running between a commercial application company and the
+  **property owner**, not a warning to a lessee), § 144.496 (radon, already answered) and
+  § 144.1222 (public pools). **Absence holds**: § 325F.18 remains the only prescribed warning text
+  in Minnesota law that runs to a lessee of a dwelling (F25).
+- `edu-no-sprinkler-disclosure-mn` — `rider` had excluded riders. Recheck: 0 hits on the sprinkler
+  disclosure patterns and on the section-wide AND; the single `rider(?:s)?` hit is § 363A.12, a
+  Human Rights Act section, irrelevant. **Absence holds.**
+- `edu-no-energy-benchmarking-release-mn` and `edu-no-utility-transfer-cutoff-mn` — `notice` had
+  excluded notices/noticed. Recheck: 0 hits in both word orders and on the section-wide AND.
+  **Absences hold.**
+
+One by-product worth passing on, and passed on: § 144.1222 carries a subdivision headed, in terms,
+"**Spa pools on rental property**", imposing operational duties on the owner (water temperature not
+exceeding 106°F; testing for chlorine or bromine, pH and alkalinity before check-in by each new
+rental party), and subd. 1a names a **variance** mechanism under Minn. R. 4717.3975. Both belong to
+the safety slice's `pool-safety` and `sanitary-code-variance` topics and were sent to it.
+
+**F32 — a residents-only apartment pool is a "public pool" in Minnesota, carrying an annual state
+certification and a DAILY inspection, and no row in the library says so.** Verified verbatim.
+§ 144.1222, subd. 4(d) defines "public pool" as "any pool other than a private residential pool"
+that is, among other things, **"(3) open to residents of a multiunit apartment building, apartment
+complex, residential real estate development, or other multifamily residential area"**. The
+consequences follow from that classification:
+
+- **subd. 1c(d)**: "By July 1, 2008, and **annually thereafter, all public pool owners must certify
+  to the commissioner** on a form prescribed by the commissioner" that outlets are equipped with
+  compliant covers.
+- **subd. 1d(a)**: "The pool operator is required to conduct a physical inspection of the drain
+  covers and grates **on a daily basis**."
+- subds. 1c(a)-(b) set the ASME/ANSI suction-outlet and drain requirements by date, and subd. 5
+  carries narrow exemptions (a pre-2008 public swimming pond; a naturally treated pool in
+  Minneapolis) which still must meet subds. 1c and 1d.
+- Enforcement runs through § 144.99 (correction orders, administrative penalty orders to $10,000,
+  72-hour cease and desist).
+
+So a landlord with an ordinary apartment-complex pool has a recurring annual filing with the state
+and a daily inspection duty, neither of which the library mentions for any state. Found by the
+safety slice. Minn. R. ch. 4717 — which carries the barrier, fence, lifeguard and water-chemistry
+requirements — is **outside this corpus** and is logged.
+
+**F33 — the electricity common-area bar lives outside chapter 504B, so a core-act search gets two of
+three.** § 504B.216's own common-area bars reach only natural gas (subd. 6(c)) and water and sewer
+(subd. 7(c)). The electricity bar is **§ 216B.023, subd. 2(b)(1)**, verified verbatim: "A landlord
+must not charge a tenant for electricity consumed in **common areas** or in spaces used exclusively
+or primarily by the landlord." A battery scoped to chapter 504B would silently return the gas and
+water bars and miss the electricity one — which is precisely the topic `common-area-lighting` turns
+on. Another instance of the rule that a regime question is scoped to `statutes`, not one chapter
+(see F19).
+
+**F34 — the whole receivership chain is uncited, and § 504B.435 has a two-date trap.** §§ 504B.425,
+.431, .435, .445, .451 and .461 appear in **0 rows for any state**, confirmed by regex and substring
+grep of all 11,634 rows. And § 504B.435's two suspension dates differ: the landlord's right to
+collect rent is void "from the time the court signs the order for judgment" as against **the
+petitioner**, but "from the time of service of judgment as set forth in section 504B.431" as against
+**every other tenant**. A row stating one date for both would be wrong for half the building.
+
+**F35 — § 144.0535 (ENTRY FOR INSPECTION) was reachable only through the heading screen: its body
+never uses the word "inspect".** It is a state entry power over rental property and no body-text
+battery could have found it. The safety slice also cleared five measured false friends by opening
+each: § 504B.182 (move-in/move-out inspection, not registration), § 144.6535 (VARIANCE OR WAIVER —
+"A hospital may request"), § 144.74 (youth camps, which carries "insects and rodents"), § 144.9504
+(which answers both window+guard and window+child but is lead paint), and § 144.413 (common areas
+plus "lighted", but it is the Clean Indoor Air Act). This is the strongest case yet for the rule
+that a heading-only hit is **opened**, not counted.
+
+**F36 — the municipal boundary is not merely a gap in this pass, it is a gap with state consequences
+attached.** Four of the safety slice's fourteen topics end at the city line, and the slice made the
+argument for a standing per-city Minnesota ordinance checklist much stronger than "nice to have":
+Minnesota law does not simply leave room for city rules, it **attaches state consequences to them**.
+§ 504B.161, subd. 1(a)(4) makes compliance with "ordinances regulating rental licensing" part of the
+**unwaivable** covenant, so breach of a city licensing ordinance is breach of the statutory
+covenant. § 504B.204 makes accepting rent after a vacate order issued under a "rental licensing
+ordinance" a treble-damages violation. § 504B.381, subd. 1(1) makes licence revocation an emergency
+trigger. A landlord can therefore incur a state-law liability purely through a municipal
+non-compliance the library never mentions. Recommended as a checklist held **outside** the library,
+so rule 3 is respected while the exposure is still surfaced.
+
+**F37 — the spa-pool scope question the safety slice left as NEEDS_REVIEW is answerable, and the
+answer puts it squarely inside this library's territory.** § 144.1222, subd. 2d(b) applies the
+exemption to a spa pool "located on the property of **a stand-alone, single-unit rental property,
+offered for rent by the property owner** or through a resort, and that is only intended to be used
+by the occupants of the rental property" — a let house with a hot tub, not resorts alone. The
+exemption is conditional and the conditions are live duties: the water temperature must not exceed
+**106°F**, and "prior to check-in by each new rental party, the resort or property owner tests the
+water … for the concentration of chlorine or bromine, pH, and alkalinity", meeting Minn. R.
+4717.1750, subps. 4-6. **Subd. 2d(e) then prescribes a notice verbatim** — "must be conspicuously
+posted with the following notice and must be provided to renters upon check in" — and
+**subd. 2d(d) preempts local ordinances** from prohibiting such a spa or adding requirements, which
+is a rule 3 rarity worth noting: here state law displaces the city rather than deferring to it. A
+houseboat spa rented to the public is exempt even from the paragraph (b) conditions (subd. 2d(c)).
+The row can come off NEEDS_REVIEW on the scope point; what remains outside the corpus is
+Minn. R. ch. 4717 itself.
+
+**F38 — a correction to this pass's own plain-language screen, which was about to create phantom
+work.** The first screen counted a `[bracketed drafting prompt]` and a quoted statutory notice as
+clause prose, and so reported 12 new clause rows over the 40-word limit. Both exclusions are
+principled: a bracketed prompt is an instruction to the landlord filling the lease in, not text the
+tenant reads; and a quoted mandated notice **cannot lawfully be reworded**, so its length is not a
+defect. Two of the twelve were pure artefacts — `automatic-renewal-mn` measured 55 words where its
+prose is 30 (the bracket was glued to the first sentence) and `termination-notice-mn` measured 49
+where its prose is 20, its bracket being long precisely because it states the § 504B.147 notice
+**floor in words rather than as a bare number**, which is the discipline that slice was asked to
+apply. A third, `spa-pool-notice-mn` at 52 words, is the § 144.1222, subd. 2d(e) notice quoted
+verbatim and must not be touched. **The honest figure is 8 rows**, and the screen now masks
+brackets, quoted notices and `{{variables}}` before measuring.
+
+**F39 — the worst defect in this pass's own work: my non-waiver map was undercounting, and the
+sentence it missed is the most important one in the chapter.** Two helpers found two different
+errors in the same generated artefact, in opposite directions:
+
+| build | figure | the defect |
+|---|---|---|
+| first | 28 sentences / 24 sections / 5 formulas | counted § 504B.147's subdivision **headnote** "No waiver." as both a sentence and a formula of its own |
+| second | 27 / 24 / 4 | pattern was **passive-voice only** — "may not **be** waived", "waived or modified" — so it missed every active form |
+| third (correct) | **34 / 29 / 6**, with a known-positive test | — |
+
+The second build's omissions were not marginal. Missing from the map entirely were:
+
+- **§ 504B.161, subd. 1(b)** — "The parties to a lease or license of residential premises **may not
+  waive or modify** the covenants imposed by this section." The habitability non-waiver.
+- § 504B.161, subd. 2 — "No such agreement, however, **may waive** the provisions of subdivision 1
+  or relieve the landlord or licensor of the duty to maintain common areas of the premises."
+- § 504B.171, subd. 3 — "may not waive or modify the covenant imposed by this section", and
+  subd. 1(c)'s "a tenant **cannot waive** the right to legally possess".
+- §§ 504B.205, 504B.206 and 504B.211.
+
+**And a whole formula family was unnamed, which matters substantively.** The **bidirectional** form —
+"a residential tenant **may not waive and a landlord may not require** the residential tenant to
+waive" (§§ 504B.205, 504B.206, 504B.211) — does something the others do not: **it bars the
+landlord's conduct in asking, not merely the term's effect.** A landlord who asks a tenant to waive
+the right to call for police or emergency assistance, or the right to prior notice of entry,
+breaches the section **even if the tenant refuses**, and § 504B.211 scopes its instance to a waiver
+sought "as a condition of entering into or maintaining the lease". That is a compliance rule about
+landlord behaviour, and no row in the library states it.
+
+I had used §§ 504B.161, subd. 1(b) and 504B.171, subd. 3 correctly throughout my own §4 analysis, so
+the reasoning in this log was unaffected — but every slice that read the file for a waiver question
+was working from an undercount, and the prohibited-terms slice was mid-run on it.
+
+The rebuilt generator (`bin/waivermap.py`) now **refuses to write the file unless eight named
+sections appear**. That is exactly the known-positive discipline rule 19 demands of a battery, and
+the lesson is that a derived artefact a brief and fourteen slices rely on is **evidence**, and gets
+the same test. I applied that standard to the helpers' batteries from the first hour and not to my
+own artefact for most of the pass.
+
+**F40 — three more Minnesota landlord duties in 0 rows, all outside chapter 504B, found by the bare
+word rather than the term of art.** Each verified here, and each confirmed absent from all 11,634
+rows:
+
+1. **The Clean Indoor Air Act makes an apartment landlord an enforcer, not merely a permitted
+   banner.** § 144.413, subd. 2 defines "public place" to include "**common areas of rental
+   apartment buildings**". § 144.416(a) then provides that an entity that "owns, **leases**, manages,
+   operates, or otherwise controls the use of a public place … **shall make reasonable efforts to
+   prevent smoking**" by "(1) posting appropriate signs or by any other means which may be
+   appropriate; and (2) asking any person who smokes in an area where smoking is prohibited to
+   refrain … and, if the person does not refrain …, asking the person to leave", handling a refusal
+   "consistent with lawful methods for handling other persons acting in a disorderly manner or as a
+   trespasser". § 144.416(b) bars providing ashtrays or matches there and expressly permits "more
+   stringent measures". § 144.417, subd. 2(a) makes a violation a **petty misdemeanour**;
+   subd. 2(c)-(d) bar retaliation against anyone who in good faith reports one; subd. 3 lets any
+   affected party enjoin. §§ 144.411 to 144.417 are in **0 rows**. Minnesota's own statute walk had
+   recorded only "no conflict" against the shared `smoking-policy` clause — which is true as far as
+   it goes, and § 144.416(b)'s "more stringent measures" confirms the whole-property ban is lawful
+   here, but it misses that in Minnesota the common areas are a statutory no-smoking zone the
+   landlord must police.
+2. **§ 325F.722, subd. 2(c)(5)** — Minnesota's only key-control rule, in housing with services
+   exempt from assisted-living licensure: the written contract must state the lockable-door right,
+   that "Only a staff member with a specific need to enter the unit shall have keys", and advance
+   notice where possible. **0 rows.** Found only by the bare word `key`, which returned 2 hits in
+   1,305 units.
+3. **§ 325F.83, subd. 5** — the occupant of a rented home must tell the owner of a malfunctioning
+   garage-door reversing device within 24 hours, with a § 8.31 private right of action. **0 rows.**
+
+Two of the three are in chapter 325F, which is held whole but is not a landlord-tenant chapter — so
+the lesson is to sweep the whole-held non-landlord chapters for "occupant", "lessee" and
+"residential building", not only for landlord and tenant.
+
+**F41 — a second defect in `pet-policy-mn`, distinct from F4.** The row says Landlord "may enter the
+property and remove a pet if the pet … displays symptoms of severe illness, or if Tenant dies,
+becomes incapacitated, or is otherwise unable to care for the pet", with **no notice condition**.
+Three of those four triggers are not clearly within § 504B.211, subd. 4's exceptions to the
+24-hour notice rule, so for those the notice requirement still applies — and § 504B.211's waiver bar
+is one of the bidirectional ones in F39, so a lease cannot contract around it and a landlord may not
+even ask. **Not fixed** (scope fence).
+
+**F42 — the "already covered in the library" failure has now happened four times to Minnesota, the
+library diagnosed it itself after the third, and it happened again anyway. It needs a script, not a
+rule.** I ran a mechanical screen over all 156 active MN rows for any assertion that something is
+covered elsewhere, resolving each claimed pointer against the CSV.
+
+What the library already knew. `cold-weather-vacate-notice-mn`'s own notes, written in the earlier
+gap-discovery backfill, say of § 504B.155: "**PROOF-OF-ABSENCE VIOLATION, AND THE THIRD OF THIS
+EXACT SHAPE FOR MINNESOTA.** Sec. 504B.155 appeared in the library in exactly one place before this
+pass: the notes of the shared tenant-maintenance row, which asserted that the
+'cold-weather-notice-before-vacating duty (Sec. 504B.155)' was 'already reflected elsewhere in the
+library.' It was not -- no row existed. That is precisely instruction 19's scenario ('asserted
+covered, no row ever built'), and precisely what happened to MN with Sec. 504B.206 (domestic
+violence) and Sec. 504B.212 subd. 2 (retaliation). **A false 'already covered' note is worse than an
+honest absence because no later canvass re-flags it.**"
+
+So the pattern was identified, counted to three, and written up with the right lesson — and
+`edu-no-rekey-or-lock-duty-mn` (finding F2) is the **fourth**, written in that same backfill. A
+self-authored warning did not prevent the next instance. That is the argument for mechanisation: the
+screen I wrote found it in seconds, over every row, without knowing what it was looking for.
+
+**A second, distinct defect class the screen surfaced: the pointer with no target.** Several MN rows
+cross-refer in prose to something a reader cannot find — `edu-security-deposit-return-mn` says "See
+the inspection-notice penalty note", `edu-dv-lease-termination-mn` says "(see the qualifying-documents
+note)", `edu-utility-apportionment-limits-mn` says "The required disclosure attachment is covered in
+its own note." None names a row id. These are not false claims — the content usually does exist
+somewhere — but a landlord reading the row has no way to follow them, and no script can check them.
+**Not fixed** (scope fence).
+
+**Honest about my own screen's precision.** It reported four broken pointers and three were its own
+artefacts: two were ids clipped by my regex (`by-tenant-pr` from `default-by-tenant-pr`,
+`four-month-or`), and one (`no-alterations` → `tenant-use-rights-ca`) is a **provenance** note
+correctly recording a pointer that the 2026-09-29 scrub broke and that a later retro check already
+repointed — history, not a live claim, which is a distinction rule 78 draws and my pattern did not.
+Of 195 resolvable pointers in MN rows, one genuine miss remains:
+`utilities-responsibility` → `utilities-paid-by`, which does not exist.
+
+Suggested implementation, now concrete: a coverage assertion in a row's body or notes **must name a
+row id**, that id must exist and be active, and a provenance note recording a historical pointer
+must be marked as such. All three are scriptable; the first two would have caught all four Minnesota
+instances.
+
+**F43 — "§ 8.31 private right of action" is four different things, and you cannot tell which from
+the fact that a section mentions § 8.31.** Raised by the prohibited-terms slice and verified here.
+§ 8.31, subd. 3a gives a private action to "any person injured by a violation of **any of the laws
+referred to in subdivision 1**", and subdivision 1 is an enumerated list: the Nonprofit Corporation
+Act, the Act Against Unfair Discrimination and Competition (§§ 325D.01 to .07), the Unlawful Trade
+Practices Act (§§ 325D.09 to .16), the Antitrust Act (§§ 325D.49 to .66), § 325F.67 and other
+false-advertising laws, § 325D.67, § 325D.68, § 325E.39, **the Prevention of Consumer Fraud Act
+(§§ 325F.68 to 325F.70)** and chapter 53A. **"504B" appears 0 times in § 8.31.** So the four
+postures are:
+
+| posture | instance | effect |
+|---|---|---|
+| in subd. 1's list | §§ 325F.68-.70 | private action under subd. 3a, with costs and attorney's fees |
+| expressly imports the private action | § 504B.195, subd. 2 ("remedies provided by section 8.31, **subdivision 3a**"); § 327C.095 ("a right to any remedy provided in section 8.31") | private action by express reference |
+| imports enforcement authority only | §§ 504B.205, subd. 6; 504B.216, subd. 17; **504B.501** — each "authority under section 8.31 to **investigate and prosecute**" | attorney general only; **no** private action |
+| expressly **excludes** it | **§ 325F.722** — "**No private right of action may be maintained** as provided under section 8.31, subdivision 3a" | none |
+
+Two consequences. First, **§ 504B.501's chapter-wide grant is enforcement authority, not a private
+right of action over chapter 504B** — a row describing it as the latter would be wrong. Second, the
+key-control duty in § 325F.722, subd. 2(c)(5) (F40) is a landlord duty with **no tenant enforcement
+route at all**, which the finding as first reported did not say. My own earlier findings survive
+checking: § 325F.18 (F25) routes through § 325F.69, which **is** in subd. 1's list; § 325F.83 (F40)
+and § 327C.095 (F28) each carry their own express import; and § 504B.205, subd. 6 was described here
+as "attorney general authority", which is the right posture.
+
+**F44 — chapter 325D is absent from the entire library, and it may answer the unconscionability
+question that chapter 325F leaves unsettled.** 0 rows anywhere mention any § 325D section, although
+the chapter is held whole. The prohibited-terms slice found why it matters: **§ 325D.44,
+subd. 1(13)(ii)** carries an unconscionability prong triggered by conduct "in the course of business,
+vocation, or occupation" — **with no "sale" and no "merchandise" element**. That sidesteps precisely
+the difficulty the library records in `edu-no-unconscionability-statute-mn`, where § 325F.68,
+subd. 2 defines "merchandise" to include real estate but subd. 4 defines "sale" as selling, leaving
+the Consumer Fraud Act's reach to a lease genuinely unsettled. The trade-off is remedial: §§ 325D.43
+to 325D.48 are **not** in § 8.31, subd. 1, so the remedy is narrower (injunctive). Worth Taylor's
+decision on which to lead with; recorded, not resolved.
+
+**F45 — the live non-waiver figure is 36 across 30 sections, not 34 across 29.** The map is built on
+the 2025 compilation. **§ 504B.2136(b)**, added by Laws 2026, ch. 81, sec. 3 and in force from
+1 August 2026, carries **two** non-waiver sentences in two different families — "The requirements of
+this section may not be waived or modified by the parties to a residential lease" and "Any
+provision, whether oral or written, of a lease or other agreement by which any provision of this
+section is waived by a tenant is contrary to public policy and void" — and is not in the compilation
+at all. So a map derived from the statute files alone understates the law in force. Found by the
+prohibited-terms slice, which also reached 34/29 independently of my correction, from a bare-`waiv`
+sweep, before my message arrived.
+
+**F46 — three headnotes in this slice's territory would each have produced a false row, and the
+slice opened all three.** § 504B.120 is headed "PROHIBITED FEES" but is a **disclosure** rule;
+§ 504B.151 is headed "RESTRICTION ON RESIDENTIAL LEASE TERMS" but restricts lease **length** for
+buildings in financial distress; § 325F.91 is headed "PROHIBITED PRACTICES" and does ban confession
+of judgment, but §§ 325F.84, subd. 7 and 325F.85 confine the Rental-Purchase Agreement Act to
+property "that is not real property". The library's conclusion — that **Minnesota has no enumerated
+prohibited-lease-terms statute** — survives, and is now supported by a 0/0/0 battery across statutes
+and session laws as well as by those three rejections.
+
+**F47 — Minnesota's definition of "residential tenant" is wider than the library assumes, and the
+phrase that makes it wider appears in none of the 11,634 rows.** § 504B.001, subd. 12, verified
+verbatim: "'Residential tenant' means a person who is occupying a dwelling in a residential building
+under a lease or contract, whether oral or written, that requires the payment of money **or exchange
+of services**, **all other regular occupants of that dwelling unit**, or a resident of a
+manufactured home park."
+
+Two limbs, each deciding a topic the occupancy slice was working on, and each with consequences
+beyond it:
+
+- **"or exchange of services"** — a person housed in return for work (a caretaker, a resident
+  manager) is a **full chapter 504B residential tenant**, with the habitability covenants, the
+  entry-notice right and the eviction process, not a licensee terminable at will. That is what
+  `tenant-employee-housing` turns on, and it is why that row needed a named rent figure.
+- **"all other regular occupants of that dwelling unit"** — a regular occupant **is** a residential
+  tenant, whether or not the lease names them. So an "unauthorised occupant" who is a regular
+  occupant holds residential-tenant status, including § 504B.375's protection against actual **or
+  constructive** exclusion (terminating utilities, removing doors, windows or locks) and
+  § 504B.211's entry-notice right. Removal is an eviction matter, not a lease remedy — which bears
+  directly on the shared `permitted-occupants` clause and on any self-help the library's
+  `unauthorized-occupant-removal` topic might otherwise have invited.
+
+Neither phrase appears anywhere in the library. This is the fourth time this pass that a **definitions**
+section answered a topic the operative sections did not (after § 144.9501's "compensation" in F27,
+§ 325F.84's "property that is not real property", and § 504B.235's "proper identification").
+
+**F48 — § 504B.315's protection is two conditions, not one, and I under-stated it.** Read whole:
+"No residential tenant of residential premises may be evicted, denied a continuing tenancy, or
+denied a renewal of a lease on the basis of familial status commenced during the tenancy unless
+**one year has elapsed** from the commencement of the familial status **and the landlord has given
+the tenant six months prior notice in writing**, except in case of nonpayment of rent, damage to the
+premises, disturbance of other tenants, or other breach of the lease", with its own non-waiver
+sentence. My own summary of this section in `UNCITED-504B-SECTIONS.md` gave only the one-year limb;
+the six-months'-written-notice limb and the four carve-outs are equally operative. And "familial
+status" under § 363A.03, subd. 18 is much wider than children — it reaches caring for an adult who
+cannot evaluate information or communicate decisions, pregnancy, and pending custody. Corrected by
+the occupancy slice.
+
+**F49 — an uncodified housing-incentive programme, reachable only through the session laws.** Laws
+2025, ch. 32, sec. 13 (LOCAL ACTIONS TO SUPPORT HOUSING) awards up to 5% of Housing Finance Agency
+competitive scoring points to jurisdictions that allow duplexes, accessory dwelling units or
+townhomes across 50% of single-family-zoned area. It is in **no chapter at all** and **0 rows**, and
+it **expires December 31, 2029**. This is the second instance of SOP lesson 22 paying off (after the
+High-Rise Sprinkler grant programme), and it is the answer to `accessory-dwelling-unit` for
+Minnesota — a state incentive rather than a mandate, which is a materially different answer from the
+by-right ADU statutes other states have.
+
+**F50 — two more existing-row defects, both in the over-compliance direction.**
+`edu-fair-housing-protected-classes-mn` describes the Human Rights Act exemptions as "mainly for a
+resident owner-occupier renting a room in a one-family home"; § 363A.21, subd. 2(a) in fact exempts
+"any owner-occupied building containing four or fewer dwelling units or housing for elderly
+persons", and the room-rental exemption in subd. 1(2) does not reach familial status at all. And
+`landlord-disclosure-mn`'s clause text makes the attorney-general-statement posting duty
+unconditional, where § 504B.181, subd. 2(b) conditions it on § 471.9995 **not** applying — the row's
+own notes already record the condition the clause omits. Over-compliance is the safer error, but a
+clause that asserts a duty the statute conditions is still wrong, and § 471.9995 is a duty on the
+**issuing city**, not the landlord. **Not fixed** (scope fence).
+
+**F51 — a new 2026 duty that expressly reaches housing: Laws 2026, ch. 99 adds § 363A.02,
+subd. 1(c), an interactive-process duty.** Read from the marker view by the protected-classes slice:
+the new subdivision covers "housing and real property" in terms, and provides that failure to engage
+in the interactive process "**may be**" an unfair discriminatory practice. Equally important is what
+the markers show was **not** changed: clauses (a)(1) to (5) carry no markers at all, so **the
+protected-class lists were not widened**. The act carries **no effective-date clause**, so its date
+comes from § 645.02, outside this corpus — `effective_from` is therefore left empty rather than
+guessed. This is the fourth 2026 provision in this pass whose date depends on § 645.02, which is the
+strongest argument yet for adding that section to the corpus.
+
+**F52 — two more "proof of absence with the wrong vocabulary" instances, both in existing MN rows.**
+This is now the dominant error shape in the library's Minnesota work.
+
+- `edu-retaliation-protections-mn`'s notes claim the immigration question is "CLOSED CODE-WIDE …
+  THE ONLY landlord-facing provision … is Sec. 504B.212 subd. 2(a)". **§ 504B.117 is a second one**,
+  and it is mandatory application content (the "SSN or ITIN: . ." option, and no denial solely for
+  giving an ITIN). It was missed because the proof searched the **terms** "immigration status" and
+  "citizenship status" — and § 504B.117 contains neither. The body text is sound; one notes sentence
+  needs narrowing. **Not fixed** (scope fence).
+- `edu-fair-housing-protected-classes-mn` lists **familial status** as protected "in addition to the
+  federal list", but it is one of the federal Fair Housing Act's own grounds. Low risk, since nothing
+  under-complies; 42 U.S.C. § 3604 is outside this corpus so the slice flagged rather than asserted.
+
+The slice also demonstrated the lesson positively: `confidential` AND `landlord` returns **0 of 1,305
+units**, yet § 504B.206 **is** Minnesota's tenant-confidentiality rule — it says "must not disclose"
+and "shared database" and never uses the word "confidential". **Search the mechanism, not the
+label.**
+
+**F53 — chapter 327C says "resident", never "tenant", and a battery that assumes otherwise returns a
+clean zero.** 44 occurrences of "resident" against **0** of "tenant" in § 327C.095. On the
+protected-classes slice the 1,200-character runs and both section-wide ANDs returned zero for the
+one translation-adjacent duty in Minnesota law; only the bare stem `translat` — 2 hits in 1,305
+units — found it. Any battery meant to reach chapter 327C must carry `resident`. This compounds the
+§ 327C.09 "Cause required" problem in F19: chapter 327C is both a different vocabulary and a
+different regime, and three separate slices have now been caught by it.
+
+**F54 — two different 80%/55-and-over tests, counted on different things.** § 504B.211, subd. 3(7)
+counts **tenants**; § 363A.21, subd. 2(b)(3) counts **units** and additionally requires published
+policies. A row that states one as "the" senior-housing test would be wrong for the other purpose.
+And § 504B.211, subd. 3 lists reasonable **purposes** for entry, not exceptions to the notice
+requirement — so senior-housing housekeeping still needs the 24 hours. Found by the protected-classes
+slice.
+
+**F55 — § 363A.28, subd. 6(f), in 0 rows: re-letting after discriminating creates a liability to the
+next tenant.** A lessor who discriminates and then re-lets is liable to the innocent subsequent
+tenant for eviction damages, with a one-year limitation at subd. 3(a). Chapter 363A has its own
+private action — § 363A.33, subd. 1, treble compensatory damages plus a mandatory civil penalty and
+a jury — so this does not route through § 8.31 at all, which is consistent with F43's finding that
+"363A" appears 0 times in § 8.31.
+
+**F56 — the third issue in my own scope-and-waiver artefact, and the smallest: it was internally
+inconsistent about its own count.** The prose header said six formula families while the table's
+family column showed only five distinct labels, because the table truncated each label at the colon
+and so collapsed the two active-voice families ("the parties may not waive or modify" and "no
+agreement may waive") into one. Both readings were defensible; the file did not say which it meant.
+The table now prints each family's full name and the two agree: 14 "contrary to public policy and
+void", 8 "void and unenforceable", 5 passive, 3 bidirectional, 3 "the parties may not waive or
+modify", 1 "no agreement may waive" — **34 across 29 sections, six families**. Caught by the
+protected-classes slice, which re-derived the total from the table as its brief told it to.
+
+---
+
+**F57 — § 327C.15 is a fifth § 8.31 posture: deeming.** "Any violation of sections 327C.015 to
+327C.14 is a violation of a law referred to in section 8.31, subdivision 1." The section reaches
+§ 8.31's private action without being enumerated in § 8.31 — and "327C" appears **0 times** in
+§ 8.31, read whole. A battery over § 8.31 therefore cannot find this link; only § 327C.15's own
+words carry it. (Verified by the main pass.)
+
+**F58 — a defect in my own brief: § 504B.178's deposit-on-transfer rule is subdivisions 5 and 6, not
+subdivision 8.** Subd. 5 is "Return of deposit following termination of the landlord's interest in
+the premises"; subd. 6 is "Successor in interest"; **subd. 8 is "Withholding rent"**. The brief named
+subd. 8 and was corrected mid-pass. No row relied on the wrong cite.
+
+**F59 — `edu-farm-and-mhp-scope-mn` states a crop-lien rule the corpus does not support.** Battery
+`MP-crop-lien`: `\bcrops?\b` and `\bcrop lien\b` return **0 hits across all 1,305 statute units**,
+positive passed and control clean. § 514.18 is headed "RETAINING" and § 514.22 "CONDUCT OF SALE" —
+neither is a crop lien. The sentence is not fixed here (rule 1); it needs either a cite outside the
+held corpus or deletion.
+
+**F60 — `landlord-disclosure-mn` converts a conditional statutory duty into an unconditional lease
+promise.** Row body: "Landlord will post this information … together with notice that a copy of the
+statement … is available". Statute, § 504B.181, subd. 2(b): "**Unless the landlord is required to
+post a notice by section 471.9995**, the landlord shall also place a notice…". The row's own *notes*
+carry the condition correctly, so a citation-level audit scores it covered — which is why it
+survived. The exposure is not under-compliance but the loss of subd. 4's carve-out, which expressly
+removes the rent-and-possession consequence for failing to post *that* notice; a contractual promise
+to post does not inherit that carve-out. (Found independently by two slices.)
+
+**F61 — `edu-for-cause-eviction-mn` is defective on two points.** It omits the conversion-notice
+limb and misstates § 504B.285, subd. 1a. Compounding F19: the row's batteries searched "just cause",
+"good cause" and "for cause", none of which can match § 327C.09's actual headnote, "**Cause
+required**" — the scope limiter has been applied, and my own § 4 item 1 overstated the absence as a
+result.
+
+**F62 — `edu-no-sale-or-successor-duty-mn` asserts an absence that §§ 504B.178, subds. 5 and 6
+contradict.** Recorded, not fixed.
+
+**F63 — the correct parking cite is § 515B.3-107(f), and it has a second limb my brief omitted.**
+Laws 2026, ch. 82, **sec. 6**, effective **2027-01-01** (sec. 3 amends § 515B.3-102, a different
+section). Beyond the public-right-of-way limb the brief named, paragraph (f) carries a second limb on
+a "unit owner **or resident**" being permitted to park a personal or work vehicle, rules on
+delegating police powers, and a definition of "personal vehicle" by gross vehicle weight under
+26,001 pounds. Chapter 515B is otherwise outside the corpus, so the limb is cited from the act.
+
+**F64 — there is a second 2026 act on chapter 515B that no earlier pass recorded: Laws 2026, ch.
+61.** Titled in part "making clarifying, technical, and conforming changes to the Minnesota Common
+Interest Ownership Act", it names **82** distinct § 515B sections. Of its 1,317 sentences, 9 carry a
+fee word and **0** of those also name a tenant, lessee, lease or rental agreement — so it does not
+reach tenant fees, but any future § 515B work must read both acts, not one.
+
+**F65 — Laws 2026, ch. 82, sec. 5 carries no effective-date clause.** Its date therefore falls to
+§ 645.02, which is **not held** in this corpus, so no new row states an effective date for it. Same
+shape as F73.
+
+**F66 — chapter 327C is held whole and is almost entirely uncited.** The library has no row for
+§ 327C.095 (park closings, with mandated 14-point notices), § 327C.025 (evacuation plan attached),
+§ 327C.02's annual Certificate of Rent Paid (February 1), or § 327C.15 (F57).
+
+**F67 — Minnesota's tenant-screening regime, §§ 504B.235/.241/.245, is absent from the library for
+every state, and § 504B.245's remedy reaches the landlord.** "In addition to the remedies otherwise
+provided by law, any person injured by a violation of section 504B.241 may bring a civil action
+**against a residential tenant screening service or landlord** and recover **the greater of $1,000 or
+actual damages**", with costs, investigation costs and reasonable attorney fees. The sharp point:
+**§ 504B.241, subd. 4(d)'s safe harbour names only the screening service**, so the landlord has no
+textual shield for the vendor's breach. This is a vendor-contract and product obligation, not merely
+a lease one.
+
+**F68 — § 504B.245 is a sixth § 8.31 shape: a self-contained remedy with no § 8.31 link at all.** It
+states its own damages and invokes § 8.31 nowhere; "504B" appears 0 times in § 8.31. Distinct from
+the five in F43 and F57 because there is no link to classify — which is exactly why it must be
+written down, so no later pass infers one.
+
+**F69 — `edu-unlawful-activities-covenant-mn` records that § 504B.171, subd. 2a exists without ever
+saying what it does.** Subd. 2a appears in the row once, in the *currency line* ("subd. 2a added by
+Laws 2023 c 52 art 19 s 99"). The body offers "Two limits worth knowing" and names only the cannabis
+protection and that the covenant binds the landlord. It also says "A breach voids the tenant's right
+to possession" without subd. 2's second sentence preserving rent.
+
+**F70 — `edu-right-to-call-police-mn` misses that § 504B.205, subd. 2(b) is bidirectional.** The row
+says "The right is explicitly non-waivable", which describes the term's effect; the statute bars the
+landlord from *requiring* the waiver, so **asking is the breach**. The row omits subd. 3's preemption
+clause entirely.
+
+**F71 — § 325F.83, subd. 5 is in 0 rows anywhere: the garage-door reversing device and its 24-hour
+occupant report.** Found by `duty to (inform|notify|report)` near `occupant|tenant`, not by any
+tenant-shaped battery. § 325F.83, subd. 6 expressly imports the § 8.31 private action.
+
+**F72 — § 299F.18 is in 0 rows.** An occupant served with a fire marshal's order who defaults commits
+a misdemeanour, and the **cost lands on the owner**.
+
+**F73 — § 471.9994 (Laws 2025, ch. 39, sec. 15) and § 462A.07, subd. 21 (Laws 2025, ch. 32, sec. 3)
+are both in 0 rows, and neither act carries an effective-date clause.** Both confirmed new in
+`laws:2025-0:raw` with amendment markers visible. Neither act's *title* mentions tenant rights;
+both surfaced only by searching the session laws for `504B.275` as a **number**. Their dates fall to
+§ 645.02, unheld, so no row states one.
+
+**F74 — § 504B.332, subd. 2(b) is a duty a landlord triggers by running a tenant portal**: an extra
+eviction-service step plus a recital in the affidavit. This also corrects my own screen — the uncited
+-section file files § 504B.332 among the 17 "pure procedure" sections, which is wrong for subd. 2(b).
+
+**F75 — § 504B.275's cross-reference is internally inconsistent, and three sections cite the same
+concept three different ways.** § 504B.275: "In this section, 'residential tenant' does not include
+residents of manufactured home parks **as defined in section 327C.015, subdivision 14**" — but subd.
+14 defines "**Resident**" ("an owner of a manufactured home who rents a lot in a manufactured home
+park and includes the members of the resident's household"), **not** "manufactured home park".
+§ 327C.015, **subd. 8** is the one defining "Manufactured home park", and that is what § 504B.151(c)
+cites; § 504B.211 cites § 327C.015 with **no subdivision at all**. Verified by the main pass against
+all four sections. Which reading controls the exclusion's breadth is a question for Taylor, not
+something a row should resolve silently.
+
+**F76 — § 363A.20, subd. 1 exempts employment by a parent, grandparent, spouse, child or grandchild,
+or in domestic service**, reached by following § 363A.08, subd. 4(a)(1)'s own cross-reference.
+
+**F77 — § 504B.2136 is not in the compilation at all.** Verified: it appears in no compiled section
+and only in Laws 2026, ch. 81. So `504B-scope-and-waiver.md`'s **34 sentences / 29 sections / 6
+families** is correct *for the compilation*, and **36 across 30** is the figure that counts
+§ 504B.2136(b)'s two non-waiver sentences, in force 1 August 2026 by the act's own terms. Any future
+quotation must say which of the two it is using. Extends F45 and F56.
+
+**F78 — the inflection probe changed a verdict, not merely a count, and the numbers are exact.** Over
+chapter 504B's 97 units, `\bvoid\b` matches **22** sections and `\bvoid(?:s|ed|ing|able)\b` matches
+**1** — § 504B.171 alone — for a union of **23**. § 504B.171, subd. 2: "A breach of the covenant
+created by subdivision 1 **voids** the tenant's or licensee's right to possession of the residential
+premises." The single most relevant section in its topic was invisible to the bare pattern. Verified
+by the main pass.
+
+---
+
+**F79 — CORRECTED: § 504B.285 does have subdivisions 1a and 1b, and my verification pattern is what
+hid them.** The section's subdivisions are **1, 1a, 1b, 1c [repealed], 2, 3, 4 and 5**. Subd. 1a is
+"Grounds when the person holding over is a tenant in a foreclosed residential property" and subd. 1b
+is "Grounds when the person holding over is a tenant in a property subject to a contract for deed".
+
+The sequence is worth recording in full, because it is the pass's own error shape turned on the pass:
+my brief cited "subd. 1a" for the domestic-violence bar; a helper correctly told me the DV bar is
+**subd. 1(b)** and that subd. 1a is the foreclosure rule; I then "corrected" the helper by asserting
+that **no subd. 1a exists** — because the regex I verified with was
+`(Subdivision \d+[a-z]?|Subd\.\s*\d+[a-z]?)\.\s*([A-Z][^.]{0,70})\.`, and the two headnotes I missed
+are **95 and 100 characters long**. A length cap in a verification pattern produced a confident false
+negative, which I then wrote down as a finding against someone who was right.
+
+So: the DV eviction bar is **§ 504B.285, subd. 1(b)** (my brief's "subd. 1a" was wrong); the helper's
+reading of subd. 1a was right; and my correction of it was wrong. F61's reference to subd. 1a stands
+as a real subdivision. Three rows additionally claimed to have read the section "in full (subds. 1,
+1a, 1b, 2, 3)" when it has eight; that parenthetical has been corrected rather than the "in full".
+
+
+**F80 — § 504B.215 is repealed and my brief listed it as a live disclosure duty.** The section's
+entire text is its headnote: "MS 2022 [Repealed, 2024 c 107 s 9]". The live provisions are
+§ 504B.216 and §§ 216B.022 to 216B.024. The two existing Minnesota rows that cite § 504B.215 already
+record the repeal, so no finding is owed against them — the defect was in my brief, which would have
+sent a helper to read a repealed section as current.
+
+**F81 — § 504B.153, subd. 4(a) is a seventh remedy shape: intra-chapter deeming.** Verbatim: "A
+violation by the landlord of subdivision 2 is a violation of section 504B.375." It imports a sister
+section's summary remedy and does not touch § 8.31 at all.
+
+**F82 — § 325F.63, subd. 3 deems into a section § 8.31 reaches by RANGE, not by name, and that
+distinction defeats a string search.** Subd. 3: "Any violation of sections 325F.56 to 325F.66 shall
+be deemed a violation of section 325F.69, subdivision 1, and the provisions of section 8.31, shall
+apply." The literal string "325F.69" occurs **0 times** in § 8.31 — but § 8.31, subd. 1 enumerates
+the Prevention of Consumer Fraud Act as the **range** "sections 325F.68 to 325F.70", which contains
+it ("325F.68" occurs 3 times, "325F.70" once). So the deeming does land inside the enumerated list.
+The pass's repeated claim that "504B", "363A", "325G" and "327C" each occur 0 times in § 8.31 still
+holds, because every range in § 8.31, subd. 1 sits inside chapters 317A, 325D, 325E and 325F and
+none could span those chapters without naming them — but the claim must be stated as "named or
+within an enumerated range", not as a string count.
+
+**F83 — § 363A.40, subd. 2(a) carries a pre-signing disclosure duty that is in no row body.** "The
+landlord must inform nondisabled persons and families that do not include a disabled family member
+of the possibility of being offered a non-disability-equipped unit as provided under this section
+**before a rental agreement to rent an accessible unit is entered**." A CSV grep puts § 363A.40 in
+exactly two rows (`termination-infirmity-mn` and `edu-infirmity-termination-accessible-unit-mn`),
+both citing only subd. 1's definition. The duty was nowhere in the library.
+
+**F84 — a defect in my own uncited-section screen: § 504B.325 is landlord-initiated and I filed it
+as court procedure.** Full text: "A landlord or the landlord's agent may request expedited temporary
+relief by bringing an action under section 609.748 or filing a petition for a temporary restraining
+order, in conjunction with a complaint filed under section 504B.321." My screen put § 504B.325 in
+the bucket of "17 pure eviction/tenant-remedies procedure" sections a clause library reasonably does
+not carry. It is the opposite: a landlord-side remedy, and rule 54 says a landlord-favourable
+provision is exactly what the library should surface. The file is corrected, and the whole bucket
+should be re-read rather than trusted.
+
+**F85 — § 325F.185 is in 0 rows, and `edu-no-ev-charging-right-mn`'s notes overreach.** The notes
+claim no Minnesota provision "creates a tenant right to install or use EV charging, **and none
+imposes any duty on a residential landlord**", resting on the terms "electric vehicle charging" (13
+hits) and "charging station" (11 hits). § 325F.185 imposes a duty on whoever installs electric
+vehicle infrastructure in Minnesota — it must work with any make or model, comply with § 326B.35 and
+SAE standards, and be capable of bidirectional charging once utilities make that cost-effective —
+and it contains **neither** search term, saying "electric vehicle infrastructure" and "bidirectional
+charging". The tenant-right half of the claim is sound; the landlord-duty half is not.
+
+**F86 — § 504B.111's specific-unit requirement lived only in another row's notes.** "The written
+lease must identify the specific unit the residential tenant will occupy **before** the residential
+tenant signs the lease." It has sat in `edu-lease-copy-defense-mn`'s notes since 2026-09-03 and in
+no row body, so it could never have reached a lease.
+
+**F87 — § 216B.023, subd. 1(b) is a lease-content duty hiding in the Public Utilities chapter.**
+"Landlords must include in the lease, or provide a written statement at the outset of the lease term,
+notice of when utility bills will be issued." Reachable only because § 216B.023 is one of the 50
+held cross-reference sections — a chapter-scoped battery over 504B could not find it.
+
+**F88 — § 504B.381, subd. 1's incorporated list qualifies some items and not others, and the
+library carries none of it.** § 504B.161, subd. 1(a)(2)'s unwaivable repair covenant reaches
+"services and conditions listed in section 504B.381, subdivision 1". That list names "(vii) a
+nonfunctioning refrigerator" with **no** qualifier, while "(viii) … air conditioner" and "(ix) … no
+functioning elevator" are each prefaced "if included in the lease". No stove appears anywhere in it.
+`edu-habitability-baseline-mn` and `habitability-baseline-mn` carry no cross-reference to
+§ 504B.381, so running water, hot water, electricity, sanitary facilities and the refrigerator
+appear nowhere in the library's Minnesota text. Not wrong on their own words; incomplete on the
+covenant's content, and the reason hot water and the refrigerator had no Minnesota row.
+
+**F89 — §§ 484.73, 484.74 and 484.76 are cited by 0 rows for any state.** § 484.76 requires the
+supreme court's ADR rules to "require the use of nonbinding alternative dispute resolution processes
+in all civil cases, except for good cause shown by the presiding judge", excluding matters under
+§§ 144.651, 144.652, 518B.01 and 626.557. They surfaced only on a bare-word run because they say
+only "the parties" — never landlord or tenant.
+
+**F90 — § 504B.178, subd. 1 is written by the money's function, so it reaches a non-party.** "Any
+deposit of money, the function of which is to secure the performance of a residential rental
+agreement" — source-neutral, so **guarantor money is a security deposit** held for the tenant, with
+interest and the three-week clock. Found with no guarantor vocabulary in the battery at all.
+
+**F91 — § 504B.001, subd. 14(4) turns a federal subsidy obligation into a state remedy route.** A
+chapter 504B "violation" includes "a violation of any applicable tenant rights and landlord
+obligations for public and subsidized tenancies under local, state, or federal law" — the gateway to
+rent escrow and the tenant remedies action. With § 363A.03, subd. 47 defining "status with regard to
+public assistance" to include "being a tenant receiving federal, state, or local subsidies,
+including rental assistance or rent supplements", § 363A.09 answers the inspection-refusal question.
+
+**F92 — a negative finding worth recording: the library already had the sharpest provision in the
+pass, and I nearly wrote it twice.** Laws 2026, ch. 81, sec. 2 does far more than rename
+§ 504B.118. Read in full, it adds subd. 1 (defining "digital payment platform"), re-files the
+cash-receipt duty as subd. 2, and adds **subd. 3** — a landlord who requires or permits payment
+through a platform must offer an alternative whenever it is not functioning, **with no fee**, must
+restore access or offer an alternative as soon as practicable once it knows, and may take **no
+adverse action, "including but not limited to filing an eviction or assessing late fees"**, when
+both the platform and the alternative are not working — and **subd. 4**, under which the tenant has
+an affirmative defence and "the eviction action **must be dismissed**, and the tenant is entitled to
+reasonable attorney fees and any other equitable relief". **Effective August 1, 2026**, subd. 4
+applying to eviction actions filed on or after that date — so it is in force now. **Steinoak is the
+digital payment platform**, which makes outage logging and an automatic fee-free fallback a product
+requirement, not a lease one. The existing row `edu-digital-payment-platform-mn` (VERIFIED,
+last checked 2026-10-02) already states all of this accurately and completely, down to keeping dated
+records of outages. No new row was written. Recorded because the only reason a duplicate was avoided
+was the grep-the-CSV-first rule.
+
+---
+
+**F93 — the 2027 EV charging licence and tax almost certainly does NOT reach a residential landlord,
+and the reason is the capacity exemption, not the definition.** Laws 2025, 1Sp ch. 8 (secs. 67–78)
+creates § 296A.051 (from July 1, 2027 no person may act as a "public charging station operator"
+without a licence) and § 296A.075 (a tax "at a rate of five cents per kilowatt hour"). Chapter 296A
+is **outside the corpus**, so all of this is read from the session-law text.
+
+The definition does look capable of catching a landlord: a "public charging station" is "a facility
+at which a person conducts **for-profit business** using electric vehicle supply equipment for the
+delivery of electricity sold as vehicle fuel to an electric vehicle **and charges the customer for
+the electricity delivered**", and a landlord who bills tenants for charging does charge a customer
+for electricity delivered.
+
+But the exemptions resolve it in the ordinary case. The tax does not apply to "(2) public charging
+stations with a charging capacity of **less than 50 kilowatts**" or "(3) public charging stations
+that do not require payment for the delivery of electricity as vehicle fuel", and separately not to
+"(1) electric vehicles charged at a private residence that uses electric power paid for by the owner
+or occupant of the residence". **Multifamily Level 2 charging is typically 7 to 19 kW**, far below
+the 50 kW line, and a landlord who folds charging into rent rather than metering it falls under (3).
+The realistic exposure is narrow: a landlord running **DC fast charging at 50 kW or more and billing
+per use**.
+
+This sharpens the slice's question rather than answering it, because two things stay open and both
+sit outside the corpus: whether the licence requirement in § 296A.051 carries the same exemptions as
+the tax in § 296A.075 (they are separate sections), and what "conducts for-profit business" means
+for a landlord recovering cost. **Recommendation: do not write any of this into a clause.** Diary it
+for the first half of 2027, and in the meantime the product should record a charger's rated capacity
+and whether charging is separately billed, because those two fields are what decide the question.
+Laws 2025, 1Sp ch. 4, sec. 23's new § 239.90 (retail EVSE weights and measures — annual inspection,
+$100 per charging port, kWh method of sale, price signage) is a second, independent regime, and
+chapter 239 is unheld, so that boundary is left open too.
+
+---
+
+### From the canvass
+
+55 findings on existing rows, none fixed (rule 1 and the prompt's scope fence).
+Claude Code applies these at sync. **One caution on quoted figures:** several findings quote
+the chapter 504B non-waiver map as "28 sentences across 24 sections" or "27/24". Those are
+superseded — the map was wrong three times and the corrected figure is **34 operative
+sentences across 29 sections in 6 formula families** in the compilation, or **36 across 30**
+counting § 504B.2136(b), which is not in the compilation at all and lives only in Laws 2026,
+ch. 81 (F45, F56, F77). The findings' substance stands; only their arithmetic is stale.
+
+**C1 — `pet-policy-mn`**  ·  topic `animal-care-access`
+
+The sentence states a landlord entry right with no notice condition attached and no reference to the entry section. Three of its four triggers - the pet displays symptoms of severe illness, the tenant is incapacitated, the tenant is otherwise unable to care for the pet - are not obviously within subd. 4, so in those cases the 24-hour notice still applies and a landlord following the clause as written will breach section 504B.211. The clause is not void (section 504B.211 is not a void-term provision; its bar is on waiver of the notice right), but it reads as permission it cannot give. The same sentence is also the only place the Minnesota library addresses animal-care entry, so a landlord will find it before finding the entry clause.
+
+- **Statute:** Minn. Stat. section 504B.211, subd. 2: a landlord may enter 'only for a reasonable business purpose and after making a good faith effort to give the residential tenant reasonable notice under the circumstances of not less than 24 hours in advance of the intent to enter', and the notice 'must specify a time or anticipated window of time of entry'. Subd. 4 permits entry without prior notice only where the landlord 'reasonably suspects' one of three things, of which the relevant two are that 'immediate entry is necessary to prevent injury to persons or property because of conditions relating to maintenance, building security, or law enforcement' and that 'immediate entry is necessary to determine a residential tenant's safety'. Subd. 6 prices a violation at up to $500 for each violation plus a rent reduction up to full rescission and attorney fees.
+- **The row says:** Body: 'Landlord may revoke approval of a pet that becomes a nuisance or safety concern, and may enter the property and remove a pet if the pet becomes vicious or displays symptoms of severe illness, or if Tenant dies, becomes incapacitated, or is otherwise unable to care for the pet and Landlord believes in good faith that the pet is being abused or neglected.'
+- **Proposed fix (NOT applied — rule 1):** Add, at the end of that sentence, 'subject to the notice Landlord must give under the Landlord's Right of Entry section' - no trigger is removed and no right is narrowed, because the subd. 4 cases already permit entry without notice under that section.
+
+**C2 — `edu-no-knowing-use-penalty-mn`**  ·  topic `bed-bug-cooperation`
+
+Understates the number of non-waiver provisions in chapter 504B.
+
+- **Statute:** Two things in that sentence are wrong. (1) The count. data/504B-scope-and-waiver.md, generated from the corpus section files, records 27 OPERATIVE NON-WAIVER SENTENCES ACROSS 24 SECTIONS: Sec. Sec. 504B.114, .116, .144, .147, .153, .154, .165, .178, .182, .195, .204, .216, .221, .225, .231, .265, .266, .271, .315, .365, .375, .385, .435 and .465. (2) The formula. They do NOT all say 'contrary to public policy and void' -- the breakdown is 14 x 'contrary to public policy', 5 x 'void and unenforceable', 5 x 'may not be waived' and 3 x 'is void'. Verified against the two sections this slice relies on: Minn. Stat. Sec. 504B.161, subd. 1(b) says 'The parties to a lease or license of residential premises may not waive or modify the covenants imposed by this section' and Minn. Stat. Sec. 504B.435 says 'void and unenforceable' twice -- neither uses the public-policy formula the row attributes to all of them.
+- **The row says:** The row's bodyText says: 'Chapter 504B contains roughly eighteen separate non-waiver provisions, each saying a waiver of that section is contrary to public policy and void, so the clause fails and the rest of the lease stands.'
+- **Proposed fix (NOT applied — rule 1):** Reported, not fixed (rule 1). The row's conclusion -- that Minnesota imposes no penalty for knowingly including a prohibited term -- is not affected, so this is a precision defect in the explanation rather than a wrong answer. Recommend the count and the four-formula breakdown be corrected when someone is editing that row for another reason.
+
+**C3 — `edu-fair-housing-protected-classes-mn`**  ·  topic `children-occupancy`
+
+Incomplete, in a direction that understates the familial-status exemption. The row's own words: 'Narrow exemptions exist (sections 363A.21, 363A.22, 363A.26), mainly for a resident owner-occupier renting a room in a one-family home and for certain nonprofit and religious housing.' The statute: Minn. Stat. 363A.21, subd. 2(a) provides that the familial-status prohibition in 363A.09 'shall not apply to any owner-occupied building containing four or fewer dwelling units or housing for elderly persons', and subd. 2(b) defines housing for elderly persons three ways, the widest being housing intended and operated for occupancy by at least one person 55 years of age or older per unit with at least 80 percent of units so occupied. A four-unit owner-occupied building, and any qualifying 55-and-over property, is considerably more than 'a resident owner-occupier renting a room in a one-family home'. The room-rental exemption the row describes is 363A.21, subd. 1(2), and that one is limited to discrimination 'by sex, gender identity, marital status, status with regard to public assistance, sexual orientation, or disability' - it does not reach familial status at all. Not fixed, per rule 1. edu-no-children-occupancy-cap-mn states the familial-status exemptions correctly for this topic.
+
+
+**C4 — `edu-no-unconscionability-statute-mn`**  ·  topic `consumer-protection-act`
+
+- **Statute:** The row's unsettled-reach analysis is correct and is not disturbed. Three omissions, all read section-open here. (1) Minn. Stat. § 325F.69, subd. 8 is not 'referral selling and similar' — it is the definition of the unconscionability standard the row's own argument turns on: 'an unfair method of competition or an unfair or unconscionable act or practice is any method of competition, act, or practice that: (1) offends public policy as established by the statutes, rules, or common law of Minnesota; (2) is unethical, oppressive, or unscrupulous; or (3) is substantially injurious to consumers.' (2) Minn. Stat. § 325F.70, subd. 3 is a direct private action, not merely the § 8.31 route: 'a consumer injured by a violation of sections 325F.68 to 325F.70 ... may bring a civil action and recover damages, together with costs and disbursements, including costs of investigation and reasonable attorney fees ... An action brought under this section benefits the public.' (3) Chapter 325D is not mentioned at all, and Minn. Stat. § 325D.44, subd. 1(13)(ii) carries an unconscionability prong triggered 'in the course of business, vocation, or occupation' with no sale requirement — which is a cleaner route to a lease than the one the row analyses — tied by subd. 2(b) to the same § 325F.69, subd. 8 standard.
+- **The row says:** "There is also a general standard in the consumer law, and its reach here is unsettled: Minn. Stat. Sec. 325F.69 subd. 1 makes an unfair or unconscionable practice enjoinable in connection with the sale of 'merchandise', which Sec. 325F.68 defines to include real estate -- but 'sale' is defined as selling... Enforcement runs through Sec. 325F.70 and Sec. 8.31, including the private attorney general action". Its rule 51 limb adds that Minnesota 'has no enumerated list of the kind rule 51 cites as examples' and that 'subd. 1 is a general standard and subds. 2 to 8 cover referral and chain-referral selling, going-out-of-business sales and similar'.
+- **Why it matters:** The row's conclusion ('treat it as a live risk rather than a safe harbour') is right and these findings strengthen it rather than contradicting it. But a landlord reading the row would believe the only general standard is one whose reach is doubtful, and would not know that a second whole-held chapter supplies the same standard on an easier threshold. The row also carries the 'roughly eighteen' non-waiver undercount reported under part5-nonwaivable.
+- **Proposed fix (NOT applied — rule 1):** Amend to add subd. 8, § 325F.70, subd. 3 and chapter 325D, or let the two new rows carry them. Not edited here per rule 1.
+
+**C5 — `edu-for-cause-eviction-mn`**  ·  topic `conversion-notice`
+
+The absence finding recorded in that row's notes is WRONG, and wrong for a reason the brief predicts exactly: it is a term-of-art search. All three phrases -- 'conversion of rental', 'convert to condominium', 'notice of conversion' -- are house phrasings, none of which can match 'conversion of all or a portion of a manufactured home park to another use'. A bare 'conversion' over the statutes scope returns 8 sections and finds Sec. 327C.095 at once. The row's BODY does not state the wrong conclusion (the conversion note sits only in its notes, as part of a battery record), so no reader is misled by the clause text, but the note is the kind of thing a future canvass relies on to close a topic. Not edited (hard rule 1). Minnesota's conversion position is now stated in edu-conversion-notice-mn and edu-no-condominium-conversion-notice-mn.
+
+- **Statute:** Minn. Stat. Sec. 327C.095, subd. 1, headnote 'Conversion of use; minimum notice': 'At least 12 months before the conversion of all or a portion of a manufactured home park to another use, or before closure of a manufactured home park or cessation of use of the land as a manufactured home park, the park owner must prepare a closure statement and provide a copy to the commissioners of health and the housing finance agency, the local planning agency, and a resident of each manufactured home where the residential use is being converted. The closure statement must include the following language in a font no smaller than 14 point: "YOU MAY BE ENTITLED TO COMPENSATION FROM THE MINNESOTA MANUFACTURED HOME RELOCATION TRUST FUND ADMINISTERED BY THE MINNESOTA HOUSING FINANCE AGENCY."'
+- **The row says:** (notes) "CONVERSION NOTICE: confirmed absent -- 'conversion of rental' (0), 'convert to condominium' (0), 'notice of conversion' (2, neither landlord-tenant)."
+- **Proposed fix (NOT applied — rule 1):** Append a correction segment to that row's notes when you next touch it, naming Minn. Stat. Sec. 327C.095 and this pass. Do not delete the original -- it is a useful record of how the miss happened.
+
+**C6 — `edu-unlawful-activities-covenant-mn`**  ·  topic `drug-free-housing-addendum`  ·  A landlord reading only that row would believe the covenant reaches a tenant's, household member's or guest's conduct anywhere, and would act on off-premises drug conduct, which subd. 2a makes unenforceable in every case. The same row's body also says 'A breach voids the tenant's right to possession' without subd. 2's second sentence preserving the rent obligation.
+
+The row's bodyText omits Minn. Stat. Sec. 504B.171, subd. 2a entirely -- the cap on crime-free lease provisions, which is the single most operative limit in the section for a landlord deciding whether to act. Reported by this pass, not fixed (rule 1).
+
+- **Statute:** Minn. Stat. Sec. 504B.171, subd. 2a: 'A residential landlord may not impose a penalty on a residential tenant or terminate the lease of a residential tenant for the conduct of the residential tenant, household member, or guest occurring off of the premises or curtilage of the premises, unless (1) the conduct would constitute a crime of violence against another tenant, the tenant's guest, the landlord, or the landlord's employees, regardless of whether a charge was brought or a conviction obtained; or (2) the conduct results in a conviction of a crime of violence against a person unrelated to the premises. For purposes of this subdivision, crime of violence has the meaning given in section 624.712, subdivision 5, except that it does not include offenses under chapter 152.'
+- **The row says:** The bodyText sets out subd. 1(a)(1)(i)-(iv), the knowledge qualifier, subd. 1(b), subd. 1(c) and subd. 2 ('A breach voids the tenant's right to possession.'), then states 'Two limits worth knowing:' and gives only the subd. 1(c) cannabis protection and the fact that the covenant binds the landlord. Subd. 2a is never mentioned in the body. The notes mention it once, but only in the currency line -- 'Recent History shows subd. 1 amended by Laws 2023 c 63 art 6 s 55 and subd. 2a added by Laws 2023 c 52 art 19 s 99' -- so the row records that subd. 2a exists without ever stating what it does.
+- **Proposed fix (NOT applied — rule 1):** Add subd. 2a to the body as a third limit, and add subd. 2's second sentence. Taylor to decide; no edit made.
+
+**C7 — `edu-right-to-call-police-mn`**  ·  topic `dv-eviction-protection`
+
+CONCURRING, NOT A NEW FINDING on its first two limbs. S14-screening-conduct (answers/S14-screening-conduct/law-enforcement-cooperation.json) already recorded that this row states the Sec. 504B.205 non-waiver one-directionally and omits subd. 3. I read Sec. 504B.205 section-open in full and my reading matches S14's exactly, so I am not re-answering it. ONE POINT S14 DID NOT RECORD, added here: the row also omits subd. 4, which is the only landlord-favourable limb of the section.
+
+- **Statute:** Minn. Stat. Sec. 504B.205, subd. 2(b): 'A residential tenant may not waive and a landlord may not require the residential tenant to waive the residential tenant's right to call for police or emergency assistance.' Minn. Stat. Sec. 504B.205, subd. 4: 'This section shall not be construed to condone or permit any breach of a lease or of law by a residential tenant including, but not limited to, disturbing the peace and quiet of other tenants, damage to property, and disorderly conduct.' Minn. Stat. Sec. 504B.205, subd. 6: 'The attorney general has authority under section 8.31 to investigate and prosecute violations of this section.'
+- **The row says:** 'Minnesota has a standalone statute (Minn. Stat. Sec. 504B.205) prohibiting any lease provision, policy, or penalty that bars or limits a tenant's right to call police or emergency assistance ... The right is explicitly non-waivable ... Minnesota gives tenants a private right of action for $250 or actual damages plus attorney fees, and the attorney general has independent enforcement authority.' Subd. 4 is nowhere in the row.
+- **Why it matters:** The row reads as an unqualified bar, so a landlord who has a genuine lease-breach problem with a tenant who also calls for help often may conclude the section ties their hands entirely. Subd. 4 says it does not. Leaving it out makes the row both incomplete and more alarming than the statute. Separately, 'the attorney general has independent enforcement authority' is loose: subd. 6 imports Sec. 8.31 only as authority to investigate and prosecute, which is shape (c) of the Sec. 8.31 taxonomy, and it is not a private right of action under Sec. 8.31. The row is correct not to claim one.
+- **Proposed fix (NOT applied — rule 1):** Add one sentence on subd. 4 and one on subd. 2(b)'s 'and a landlord may not require' limb to that row's body, or point it at edu-law-enforcement-cooperation-mn and edu-local-police-call-ordinance-preemption-mn, which S14 wrote. Reported, not edited (rule 1). Taylor to decide.
+
+**C8 — `edu-no-rekey-or-lock-duty-mn`**  ·  topic `dv-lockchange`
+
+There is no Minnesota lock-change right for a victim of violence, so the row asserts a rule that does not exist and then marks it 'already covered in the library', which stops any later canvass re-flagging it. The two rows it points at (edu-dv-lease-termination-mn, edu-dv-qualifying-documents-mn) describe the termination right, not a lock-change right - they cannot cover what they do not say. This is the same defect shape the library already recorded for this state in the notes of cold-weather-vacate-notice-mn ('A false already covered note is worse than an honest absence because no later canvass re-flags it').
+
+- **Statute:** Minn. Stat. section 504B.206 is headed 'RIGHT OF VICTIMS OF VIOLENCE TO TERMINATE LEASE' and contains no lock provision. Subd. 1(a): a qualifying tenant 'may terminate a lease agreement in the manner provided in this section without penalty or liability'. The only lock words in chapter 504B are in section 504B.375, subd. 1(a), where 'the removal of doors, windows, or locks' is an example of the landlord's own unlawful exclusion.
+- **The row says:** Body: 'The one statutory lock rule runs the other way and is already covered in the library: a tenant who is a victim of violence has a right to have the locks changed.' Notes: 'Cross-reference: ... the victim lock-change right is covered by edu-dv-lease-termination-mn and edu-dv-qualifying-documents-mn.'
+- **Proposed fix (NOT applied — rule 1):** Delete the two sentences beginning 'The one statutory lock rule runs the other way' and replace with a pointer to edu-no-dv-lock-change-right-mn. The rest of the row (no rekey duty, no deadbolt duty, locks are a matter for the lease and local code) is correct and this pass's bare-word and headnote runs support it.
+
+**C9 — `edu-no-ev-charging-right-mn`**  ·  topic `ev-charging-requirements`
+
+The absence of a TENANT RIGHT is correct and undisturbed. The second half - 'none imposes any duty on a residential landlord' - is too wide. Sec. 325F.185 imposes a duty on whoever installs electric vehicle infrastructure in Minnesota, which includes a landlord, and it does not appear in the list of sections that row reviewed. Its two search terms could not reach it: Sec. 325F.185 says 'electric vehicle infrastructure' and 'bidirectional charging' and contains neither 'electric vehicle charging' nor 'charging station'. 0 rows in the whole CSV cite Sec. 325F.185. The row's body sentence ('You may permit, restrict, or condition tenant EV charging by lease terms, subject to your ordinary obligations around electrical safety and utility billing') is defensible, so no body text is wrong; the overreach is in the notes. Not edited (rule 1). Recommend adding an MN note segment recording Sec. 325F.185 and the 2025 session-law regimes, and cross-referencing the three new rows.
+
+- **Statute:** Minn. Stat. Sec. 325F.185: 'Any electric vehicle infrastructure installed in this state must without significant upgrading of the electric vehicle infrastructure: (1) allow for utilization of the electric vehicle infrastructure by any make, model, or type of electric vehicle; (2) be in compliance with section 326B.35 and standards set by the Society of Automotive Engineers; and (3) be capable of providing bidirectional charging, once electrical utilities achieve a cost-effective capability to draw electricity from electric vehicles connected to the utility grid.'
+- **row words:** The row's notes claim a statute-wide absence in these words: 'UPGRADED TO STATUTE-WIDE CONFIRMED ABSENCE. Terms run, every hit reviewed: "electric vehicle charging" (13 hits) and "charging station" (11 hits). All hits are utility-regulation, tax, bonding, state-facility or building-code provisions ... NONE creates a tenant right to install or use EV charging, and none imposes any duty on a residential landlord.'
+
+**C10 — `edu-submetering-billing-duties-mn`**  ·  topic `ev-charging-requirements`
+
+The reading of the act is right; the inference about the default date rests on Minn. Stat. Sec. 645.02, which is outside this corpus. Minor, and noted only so the claim is not propagated as corpus-verified. Encountered while reading Sec. 216B.023; not my topic and not edited.
+
+- **Statute:** Laws 2026, ch. 81: secs. 2, 3 and 5 each carry 'This section is effective August 1, 2026'; secs. 1 and 4 carry no effective-date clause (3 clauses for 5 sections).
+- **row words:** 'ss 2, 3 and 5 carry express EFFECTIVE DATE clauses of August 1, 2026, and ss 1 and 4 carry none, so they take the default August 1 date.'
+
+**C11 — `edu-eviction-expungement-mn`**  ·  topic `eviction-process`
+
+Checked, not a defect - recorded because my own draft collided with it. The row already covers Minn. Stat. section 484.014 accurately against the section read whole, including the mandatory subd. 3(a)(5) expungement three years after the eviction was ordered and its own words that 'That last one applies even where you won outright, so an eviction judgment is not a permanent mark.' I had drafted a second section 484.014 row under the same id edu-eviction-expungement-mn, keyed to eviction-process. That draft was dropped and replaced with edu-eviction-dismissal-and-expungement-mn, which covers only the dismiss-and-expunge consequences of a landlord procedural failure (Minn. Stat. sections 504B.321, subd. 1(d) and subd. 5, 504B.345, subd. 1(c) and 504B.285, subd. 1(b)) - none of which the existing row mentions. Worth noting that the existing row's id would have been silently overwritten had the collision not been caught by a section-number grep of the CSV.
+
+
+**C12 — `edu-expedited-eviction-mn`**  ·  topic `eviction-process`
+
+The row's NOTES are wrong on a point its own BODY gets right, and the error is of exactly the kind the brief warns about - asserting novelty from a view whose amendment markers were not seen. The notes say: 'paragraph (e) is NEW -- 'The court may only consider allegations under paragraph (a) during an expedited hearing. The court may not consolidate claims heard under the expedited procedure with any additional claims, including but not limited to breach of lease, holding over under section 504B.285, or nonpayment of rent under section 504B.291.'' Paragraph (e) is NOT new in 2026. In Laws 2026, ch. 81, sec. 5 as read from the raw Revisor text, paragraph (e) carries no 'new text begin'/'new text end' and no 'deleted text begin'/'deleted text end' markers anywhere - the only marked changes in sec. 5 are the insertion of ', assaults the landlord or the landlord's employees or contractors' and the 'assault' definition sentence in paragraph (a), and the replacement of '$500' with '$750' in paragraph (d). Paragraph (e) appears verbatim in the 2025 compilation of Minn. Stat. section 504B.321, subd. 2, read whole. The row's body says the opposite of its notes and is correct: 'this part is not new, it has been in the statute since 2023'. Nothing the row tells a landlord to DO changes, so this is a notes defect, not a substantive one, but it will mislead the next pass that reads the notes as the provenance record.
+
+
+**C13 — `edu-statutory-forms-mn`**  ·  topic `eviction-process`
+
+The row undercounts the mandated text. Its title is 'Minnesota Supplies Four Pieces of Text You Must Reproduce' and its body closes 'Use the statutory wording rather than your own paraphrase in all four.' There is a fifth piece that the LANDLORD must reproduce and the row does not mention it: Minn. Stat. section 504B.268, subd. 1 provides that 'The complaint required by section 504B.321 shall include the notice on the first page of the complaint in bold 12-point type: "If financially unable to obtain counsel, the defendant has the right to a court-appointed attorney."' That is landlord-drafted text with a prescribed typeface and position, in the same class as the three section 504B.321, subd. 1a statements the row does list. Section 504B.268 appears in 0 library rows, which is why it was missed. Two further pieces of prescribed text exist but are court-supplied, not landlord-supplied, so they may fairly be outside the row's scope: the six summons items in Minn. Stat. section 504B.321, subd. 4 (two of them verbatim statements) and the two writ statements in Minn. Stat. section 504B.361, subd. 1.
+
+
+**C14 — `edu-minors-not-defendants-mn`**  ·  topic `eviction-process`
+
+Checked, not a defect - recorded so the next pass does not re-open it. The row's statement of Minn. Stat. section 504B.2136 matches the session law read from laws:2026-0:raw: the prohibition, the sole-minor-tenant exception, non-waivability in both of paragraph (b)'s sentences, 'actual damages or $300, whichever is greater', and the effective-date clause 'This section is effective August 1, 2026, and applies to eviction actions filed on or after that date.' The only drift is that the row says 'against that tenant' where the statute says 'against a residential tenant', which does not change the rule. Because this row already answers section 504B.2136 under topic_key minor-tenant-filing, no duplicate was written under eviction-process.
+
+
+**C15 — `edu-landlord-disclosure-consequences-mn`**  ·  topic `eviction-process`
+
+Checked, not a defect. Its statement of Minn. Stat. section 504B.181, subds. 1 to 4 matches the section read whole, including the subd. 4 maintenance bar on any action to recover rent or possession. Because it already carries that precondition, edu-eviction-process-mn cross-references it rather than restating it.
+
+
+**C16 — `firearm-rules-la`**  ·  topic `firearms`  ·  No action needed for LA or MS. Prospective only: it is the row a future pass would reach for, and its second sentence gives away a landlord right that the new state's law may not require to be given away.
+
+Not an error. Flagged as a shared clause whose second sentence is a state-specific statutory concession, so that it is not tagged onto a state without the matching statute. Minnesota has no vehicle-storage provision, so firearm-rules-mn drops that sentence and says why. No tag added and no text changed (rule 1, rule 2).
+
+- **Statute:** Battery S14-b13b-firearms-landlord, section-wide M.andpat(firearm, parking|motor vehicle) over statutes (1,305 units): 1 hit, stat:609.66, whose subd. 1d(f) exceptions to the school-zone offence cover '(3) persons authorized to carry a pistol under section 624.714 while in a motor vehicle or outside of a motor vehicle to directly place a firearm in, or retrieve it from, the trunk or rear area of the vehicle; (4) persons who keep or store in a motor vehicle pistols in accordance with section 624.714 or 624.715 or other firearms in accordance with section 97B.045' -- a criminal-offence exception, not a limit on a landlord's parking rules.
+- **The row says:** 'Nothing in this Lease prohibits a person who lawfully possesses a firearm from transporting or storing it in a locked, privately owned motor vehicle in the property's parking areas.' Its LA note: 'The second sentence keeps the clause within La. R.S. 32:292.1'. Its MS note: 'an employer, which can include a landlord with employees, may not enforce a rule that has the effect of prohibiting a person from storing a firearm in a locked vehicle in any parking lot, parking garage, or other designated parking area (Miss. Code Ann. Sec. 45-9-55(1)); the clause's last sentence complies'.
+- **Proposed fix (NOT applied — rule 1):** None to the row. Optionally a builder-side note that the second sentence is required only in states with a vehicle-storage statute. Taylor to decide.
+
+**C17 — `edu-no-bed-bug-disclosure-mn and edu-no-mold-disclosure-mn`**  ·  topic `flood-disclosure`
+
+Both were split out of edu-no-bedbug-mold-disclosure-mn on 2026-09-29 (one subject per row). The combined row is correctly is_active=FALSE, but neither split row records the combined id in its supersedes column, which is empty on both. Bookkeeping only - the substance is right and this is not a correction to any row text.
+
+
+**C18 — `edu-for-cause-eviction-mn`**  ·  topic `foreclosure`
+
+Incomplete rather than wrong. Two things the row omits: (1) the owner-occupancy exception, under which the bona fide lease does NOT run out and 90 days from the end of redemption is enough; and (2) that the 90-day notice is owed by the 'immediate successor in interest', not by the landlord the row is addressing ('you owe a tenant'). Subd. 1a(c) (Section 8 tenancies) and subd. 1b (contract for deed: two months) are also not mentioned. Not edited (hard rule 1); edu-foreclosure-mn states all of it.
+
+- **Statute:** Minn. Stat. Sec. 504B.285, subd. 1a(b): the successor 'must allow the tenant to occupy the premises until the end of the remaining term of the lease, and provide at least 90 days' written notice to vacate, effective no sooner than the date the lease expires ... EXCEPT IF the immediate successor in interest or an immediate subsequent bona fide purchaser will occupy the unit as the primary residence, the immediate successor in interest must provide at least 90 days' written notice to vacate, given no sooner than the date of the expiration of the time for redemption'.
+- **The row says:** "after a foreclosure you owe a tenant at least 90 days' written notice, and a bona fide lease running past the redemption period generally gets to run out (subd. 1a)"
+
+**C19 — `edu-no-sale-or-successor-duty-mn`**  ·  topic `foreclosure`
+
+Read narrowly the row is defensible (it is about duties to the TENANT on a sale) and it points to the deposit rules. Recorded here only so a future pass is not misled: Minnesota does have two sale-adjacent duties beyond the deposit -- the Sec. 504B.181 disclosure duty binds a successor, and Sec. 504B.195 subd. 1(a)(3) makes the seller disclose outstanding inspection and condemnation orders to the incoming owner. Both are already stated in the library at other topic_keys (edu-landlord-disclosure-consequences-mn, edu-inspection-condemnation-disclosure-mn). Not edited.
+
+- **Statute:** Minn. Stat. Sec. 504B.181, subd. 6: 'This section extends to and is enforceable against any successor landlord or individual to whom rental payments for the premises are made.' Minn. Stat. Sec. 504B.195, subd. 1(a)(3): the disclosure must go to 'a person prior to obtaining new ownership of the property subject to the order or declaration.'
+- **The row says:** "Minnesota has no general statute governing what you owe a tenant when you sell a tenanted property"
+
+**C20 — `edu-unlawful-activities-covenant-mn`**  ·  topic `guest-rights`
+
+Incomplete, not wrong, and the gap is the part a landlord most needs. The row sets out to state the whole covenant and says so in its own notes: 'No row stated the covenant itself, its common-area-and-curtilage reach, the knowledge qualifier, the subd. 1(b) cross-reference, or the fact that it binds the LANDLORD.' Its notes then enumerate 'subd. 1(a) ... subd. 1(b) ... subd. 1(c) ... subd. 2 breach voids the right to possession' and mention subd. 2a only once, as a currency note - 'subd. 2a added by Laws 2023 c 52 art 19 s 99'. Subdivision 2a's content appears nowhere in the body. The statute: Minn. Stat. 504B.171, subd. 2a, headed 'Limitation on crime-free lease provisions', provides that 'A residential landlord may not impose a penalty on a residential tenant or terminate the lease of a residential tenant for the conduct of the residential tenant, household member, or guest occurring off of the premises or curtilage of the premises', subject to two exceptions. That is the single most operative restriction in the section for a landlord drafting a crime-free clause, and a reader of that row would not know it exists. The row's own body in fact says the opposite in spirit: 'you do not need a crime-free clause to have one' and 'Two limits worth knowing', naming only the cannabis carve-out and the fact that the covenant binds the landlord. Not fixed, per rule 1. edu-guest-rights-mn now states subd. 2a as it bears on guests and household members; a row under criminal-activity stating subd. 2a in full is still missing.
+
+
+**C21 — `edu-habitability-baseline-mn`**  ·  topic `habitability-modifiable`
+
+NOT WRONG, BUT ITS CURRENCY RECORD IS INCOMPLETE. The row's body is accurate as amended -- it says 'heat of at least 68 degrees Fahrenheit in all places meant for habitation, kitchens and bathrooms included, from October 1 through April 30 (unless a utility company requires it lowered)' -- but its notes read in full only 'MN: Created by the three-bucket scrub (2026-09-29) from habitability-baseline-mn, which keeps only the tenant's repair-notice duty; content and citations unchanged: Minn. Stat. Sec. 504B.161.' They record no amendment history. The statute's own History line is '1999 c 199 art 1 s 13 ; 2000 c 260 s 70 ; 2007 c 136 art 3 s 5 ; 2023 c 52 art 19 s 91 ; 2024 c 118 s 11 ; 2025 c 32 art 4 s 4 ; 1Sp2025 c 11 s 1', and the raw session-law view shows that Laws 2025, ch. 32, art. 4, sec. 4 added 'in all places intended for habitation including kitchens and bathrooms' and 'capable of maintaining', and that Laws 2025, First Special Session ch. 11, sec. 1 then deleted 'capable of maintaining' effective July 1, 2025 by its own terms. So the kitchens-and-bathrooms coverage is new in 2025 and the duty is to furnish heat AT 68 degrees rather than to install a system capable of maintaining it. No text of the existing row is changed; this is reported, not fixed (rule 1).
+
+
+**C22 — `habitability-baseline-mn`**  ·  topic `heating`
+
+The row is CORRECT on substance — it states the current text accurately. The open item it flagged is now closed: the provenance split is traced above from the raw session-law views with the Revisor's change markers visible. No error found in that row or in edu-habitability-baseline-mn.
+
+- **Statute:** Minn. Stat. § 504B.161, subd. 1(a)(5) current text: 'to equip or furnish heat at a minimum temperature of 68 degrees Fahrenheit in all places intended for habitation including kitchens and bathrooms from October 1 through April 30, unless a utility company requires and instructs the heat to be reduced.' Laws 2025, ch. 32, art. 4, sec. 4 (laws:2025-0:raw) added 'in all places intended for habitation including kitchens and bathrooms' and inserted 'capable of maintaining'; Laws 2025, First Special Session ch. 11, sec. 1 (laws:2025-1:raw) deleted 'capable of maintaining' and is effective July 1, 2025 by its own clause.
+- **The row says:** 'NOT RESOLVED: which of the two 2025 chapters made which change was not traced to the session laws -- the current consolidated text was read and is what the row now reflects; flagged if Taylor wants the provenance split.'
+
+**C23 — `holdover`**  ·  topic `holdover-rate`
+
+Already-known problem, re-confirmed and now fixable - recorded so the backlog entry can be closed rather than reopened. The row's own words: 'Landlord will also be entitled to recover from Tenant holdover damages in the maximum amount permitted by applicable law for each day Tenant remains in possession after the end of the Term.' The existing row `edu-no-holdover-damages-multiplier-mn` flagged this in the MN re-audit of 2026-09-03 as self-limiting but misleading, and put it on the shared-clause backlog beside `notices` and `returned-payments`. This pass confirms the legal premise from the statutes: batteries S03-b14-holdover-rate-statutes and S03-b14c-holdover-rate-willful-statutes returned 0 hits on every proximity limb and 0 on the section-wide M.andpat() for any holdover multiplier or liquidated-damages measure, in both word orders, over statutes and over laws:enacted, so 'the maximum amount permitted by applicable law' evaluates in Minnesota to ordinary rent. NO CHANGE MADE to the row's text (rule 1). What is new is that Minnesota now has its own figure in `holdover-rate-mn`, so a Minnesota lease can state a daily charge instead of relying on the generic sentence.
+
+
+**C24 — `edu-retaliation-protections-mn`**  ·  topic `immigration-status`  ·  The retaliation statement in the row body is accurate and I have not disturbed it. The overreach is in the notes only, and it mattered: it is why Sec. 504B.117 sat in 0 rows until the uncited-sections screen found it.
+
+The code-wide closure claim is too strong. Sec. 504B.117 is a second landlord-facing provision on the same subject matter, and it is mandatory application content. It was missed because the proof was a search for the TERMS OF ART immigration status and citizenship status, and Sec. 504B.117 contains neither phrase - my battery S13-bare-words-statutes confirms the stem immigrat matches only 2 of 1,305 statute units and Sec. 504B.117 is not one of them. This is the brief Part 2 run-the-bare-word-before-the-term-of-art failure, in a live row.
+
+- **Statute:** Minn. Stat. Sec. 504B.117 INDIVIDUAL TAXPAYER IDENTIFICATION NUMBER: A landlord must provide on a rental application the option for a prospective tenant to submit an individual taxpayer identification number or a Social Security number ... A landlord must not deny a rental application solely because the prospective tenant provided an individual taxpayer identification number.
+- **The row says:** Its notes state: GAP-DISCOVERY BACKFILL 2026-09-27 ... RE-CONFIRMED, AND THE IMMIGRATION-STATUS QUESTION IS NOW CLOSED CODE-WIDE. MN own log had recorded the immigration-status INQUIRY prohibition as Not yet checked for MN. The official full-text search settles it: term immigration status returns 26 hits and term citizenship status returns 4, every hit reviewed, and THE ONLY landlord-facing provision in the entire Minnesota Statutes is Sec. 504B.212 subd. 2(a) -- the retaliation bar.
+- **Proposed fix (NOT applied — rule 1):** Not fixed per rule 1. Recommend Taylor amend only that notes sentence to say retaliation-based protection is the only STATEWIDE IMMIGRATION-STATUS INQUIRY limit, and cross-reference edu-immigration-status-itin-mn for the application-content rule. No body text needs to change.
+
+**C25 — `edu-farm-and-mhp-scope-mn`**  ·  topic `landlord-lien`
+
+WRONG AS TO CHAPTER 514, AND UNVERIFIABLE EITHER WAY IN THIS CORPUS. Three separate points. (1) The two chapter 514 sections actually held are not a crop lien and not a landlord's lien: Sec. 514.18 is a storage-and-care lien on personal property available to 'whoever' stores or cares for it at the owner's or possessor's request, and Sec. 514.22 is the sale procedure. (2) The reason they are in the corpus at all is Sec. 504B.365 subd. 3(c), which borrows their public-sale machinery for the landlord's removal-and-storage lien after a writ of recovery -- a residential provision, which is the opposite of 'no residential counterpart'. (3) A crop lien, if Minnesota has one, is in the unheld part of chapter 514 (only Secs. 514.18 and 514.22 are held, 2 of the chapter), so the row's statement cannot be confirmed from this corpus; '\bcrops?\b' returns 0 hits across all 1,305 statute units and 'agricultur\w*' returns 19, none landlord-tenant. The row's SECOND clause -- that Minnesota abolished distress for rent for ordinary tenancies -- is exactly right (Sec. 504B.101), but Sec. 504B.101 abolishes it for ALL tenancies, with no agricultural carve-out in the section or the definition, so the contrast the sentence draws is not one the statute draws. Not edited (hard rule 1).
+
+- **Statute:** Minn. Stat. Sec. 514.18, subd. 1 (MECHANICS' LIEN ON PERSONAL PROPERTY): 'Whoever, at the request of the owner or legal possessor of any personal property, shall store or care for or contribute in any of the modes mentioned in section 514.19 to its preservation, care, or to the enhancement of its value, shall have a lien upon such property for the price or value of such storage, care, or contribution ... and the right to retain possession of the property until such lien is lawfully discharged.' Minn. Stat. Sec. 514.22 (CONDUCT OF SALE) sets out how a sale under 'sections 514.18 to 514.22' is run. Minn. Stat. Sec. 504B.101: 'The remedy of distress for rent is abolished.' Minn. Stat. Sec. 504B.001, subd. 3: '"Distress for rent" means the act of a landlord seizing personal property of the tenant or other person to enforce payment of rent.'
+- **The row says:** "Agricultural tenancies run on separate machinery too, including a landlord's lien on growing crops under Chapter 514 that has no residential counterpart, since Minnesota abolished distress for rent for ordinary tenancies." Its notes add: "MN log Sec. 13 and Sec. 20 recorded ... the Ch. 514 crop-lien carve-out confirming farm tenancies are separately governed."
+- **Proposed fix (NOT applied — rule 1):** The row's product decision (farm tenancies and manufactured home parks are out of scope for this lease) is unaffected and should stand -- the manufactured-home-park limb is fully correct (Sec. 504B.151 subd. 1(c) and Sec. 504B.211's exception both carve parks out, and Sec. 327C.015 subd. 8 supplies the definition). Only the crop-lien sentence needs repair. Suggested replacement for that one sentence: 'Agricultural tenancies run on separate machinery too, under chapters this project has not obtained; Minnesota abolished distress for rent for every tenancy (Minn. Stat. Sec. 504B.101).'
+
+**C26 — `edu-right-to-call-police-mn`**  ·  topic `law-enforcement-cooperation`  ·  Moderate. 'The right is explicitly non-waivable' is true but understates the rule: it describes the term's effect, not the bar on the landlord's conduct. A landlord who read only this row could put a waiver request in an application packet, believing the worst outcome is that the term is unenforceable, when the request itself breaches subd. 2(b) and exposes them to subd. 5. The missing subd. 3 matters most in Minneapolis and Saint Paul.
+
+Incomplete rather than wrong. The row states the Sec. 504B.205 non-waiver as one-directional and omits subd. 3 entirely, so it does not tell a landlord either (a) that the landlord's own ASKING for a waiver is the breach, or (b) that an inconsistent city ordinance is preempted. Reported, not fixed (rule 1). The two new rows in this slice close both gaps under a different topic_key.
+
+- **Statute:** Minn. Stat. Sec. 504B.205, subd. 2(b): 'A residential tenant may not waive and a landlord may not require the residential tenant to waive the residential tenant's right to call for police or emergency assistance.' And subd. 3: 'This section preempts any inconsistent local ordinance or rule including, without limitation, any ordinance or rule that: (1) requires an eviction after a specified number of calls by a residential tenant for police or emergency assistance ...; or (2) provides that calls ... may be used to penalize or charge a fee to a landlord.'
+- **The row says:** 'Minnesota has a standalone statute (Minn. Stat. Sec. 504B.205) prohibiting any lease provision, policy, or penalty that bars or limits a tenant's right to call police or emergency assistance, including in response to domestic abuse or a mental-health or health crisis. The right is explicitly non-waivable, and this is one of the more directly codified versions of this rule seen across the states checked so far -- Minnesota gives tenants a private right of action for $250 or actual damages plus attorney fees, and the attorney general has independent enforcement authority.' Nothing in the row mentions that the landlord may not REQUIRE a waiver, and subd. 3 does not appear.
+- **Why it matters:** 'the attorney general has independent enforcement authority' is loose but not wrong -- subd. 6 imports Sec. 8.31 investigate-and-prosecute authority. The row correctly does NOT claim a Sec. 8.31 private right of action, which is the trap in this area.
+- **Proposed fix (NOT applied — rule 1):** Add the subd. 2(b) 'and a landlord may not require' wording and a sentence on subd. 3 to that row's body, or add a pointer to the two new rows. Taylor to decide; no edit made.
+
+**C27 — `edu-tenancy-at-will-termination-notice-mn`**  ·  topic `notice-to-quit-waiver`
+
+The row asserts a rule as flat Minnesota law that no Minnesota statute in this corpus contains. Its own words: 'Length is only half of it: the notice must also run a FULL rental period and take effect at the END of one. Serving a \'30-day notice\' on the tenth of the month does not end the tenancy on the ninth of the next -- it runs through the following full rental period.' Minn. Stat. section 504B.135 read whole is two sentences and says only: 'A tenancy at will may be terminated by either party by giving notice in writing. The time of the notice must be at least as long as the interval between the time rent is due or three months, whichever is less.' There is no full-period or end-of-period requirement in it. Battery S05-b10-full-rental-period-claim (scope statutes, 1,305 units; full rental period / entire rental period / end of a rental period / expiration of a rental period / effective on the last day, run both ways against the notice terms at 1,200 characters, with a section-wide M.andpat and a bare run of the phrase family in the same batch; positives 504B.265 'effective on the last day of a calendar month' and 504B.135 'at least as long as the interval between the time rent is due' both passed; control 'zzqqxxnotaword' 0 hits, clean) returned 2, 2, 2 and 3 hits. The only sections in the whole corpus imposing an end-of-period effective date are Minn. Stat. section 504B.265 (termination on the death of a tenant: notice 'to be effective on the last day of a calendar month') and Minn. Stat. section 504B.266 (infirmity); the third bare hit is section 325F.96, a consumer section. The proposition may well be correct Minnesota common law, but it is not statutory, and the row states it without attribution in a library whose own rule is that cases are leads only, never authority. Case law is outside this corpus so I cannot confirm or refute it.
+
+
+**C28 — `edu-tenancy-at-will-notice-mn / edu-tenancy-at-will-termination-notice-mn`**  ·  topic `notice-to-quit-waiver`
+
+Two MN rows under one topic_key cover the same subject, which looks like the accretion pattern the project's learnings warn about. Both state the Minn. Stat. section 504B.135 period, both note that the old 14-day notice to quit for nonpayment on a tenancy at will was repealed, and both are REQUIRED LANDLORD_EDUCATION in the Default and Termination group. They do not contradict each other on the period itself - 'whichever is SHORTER' and 'whichever is less' are the same rule and both match the statute. The differences are that edu-tenancy-at-will-notice-mn adds the Minn. Stat. section 504B.147 cross-rule and edu-tenancy-at-will-termination-notice-mn adds the unattributed full-rental-period claim reported above. Flagged for consolidation rather than fixed.
+
+
+**C29 — `Minn. Stat. Sec. 327C.095 (PARK CLOSINGS) appears in 0 rows of the whole CSV`**  ·  topic `ordnance-demolition-meter-disclosures`
+
+Chapter 327C is held whole in this corpus and Sec. 327C.095 is a 30 KB park-closing regime, read whole for this pass. No row in the library, for any state, cites it. What it contains: subd. 1 requires the park owner, at least 12 months before conversion or closure, to prepare a CLOSURE STATEMENT and give a copy to the commissioners of health and the housing finance agency, the local planning agency and a resident of each affected manufactured home, and the statement must carry, in a font no smaller than 14 point, "YOU MAY BE ENTITLED TO COMPENSATION FROM THE MINNESOTA MANUFACTURED HOME RELOCATION TRUST FUND ADMINISTERED BY THE MINNESOTA HOUSING FINANCE AGENCY."; no resident may be required to vacate until 90 days after the public hearing under subd. 4. Subds. 2 to 4 are the hearing and neutral-third-party machinery; subd. 6 requires a purchaser intending to close or convert within a year to tell the park owner in writing, triggering a 45-day resident notice and a resident right of first refusal at the cash price; subd. 9 gives residents the Sec. 8.31 remedies for a violation of subd. 6 or 7; subds. 12 to 14 are the trust-fund payments, the $15 per licensed lot assessment with its own mandated 14-point resident notice ("THIS IS NOT AN OPTIONAL FEE..."), and the relocation and tender-of-title payments, within which the $1,500 figure is a cap on the demolition and removal costs a park owner may deduct from its trust-fund payment under subd. 13(e), not a standalone demolition cost rule; subd. 15 preempts local ordinances requiring more compensation. NOT RESOLVED HERE: the library places manufactured home parks outside this lease via edu-farm-and-mhp-scope-mn, and park closing is none of my 14 topics. Reported so the gap is on the record, in the same way UNCITED-504B-SECTIONS.md records the chapter 504B gaps. Note also the NOTE printed with the section: the amendment to subd. 5 by Laws 2024, ch. 96, art. 2, sec. 9 is effective August 1, 2026, as amended by Laws 2025, ch. 32, art. 4, sec. 13.
+
+
+**C30 — `owner-occupancy-termination-ar`**  ·  topic `owner-move-in-reservation`
+
+Not tagged for Minnesota, and NOT reported as wrong for the nine states that carry it. Recorded because its notice limb - '[number, not less than 30] days before the termination date' - is a bare numeric floor, and Minnesota measures a landlord's notice to quit against the lease's own tenant figure. Minn. Stat. § 504B.147, subd. 3: 'The landlord may not give a notice to quit the premises or notice of a rent increase that is shorter than the time period the lease provides for the tenant to give notice of an intention to quit the premises.' Subd. 1: 'For purposes of this section, "notice to quit" includes a notice of nonrenewal of a lease.' Subd. 4: 'The requirements of this section may not be waived or modified by the parties to a residential lease.' So a builder that fills 30 into this clause while asking the tenant for 60 days elsewhere in the same lease produces an unlawful notice, and the defect is invisible on the face of the clause. Minnesota gets `owner-move-in-reservation-mn`, which states the floor in words as well as taking the landlord's figure. Worth checking at sync whether any other tagged state measures the landlord's notice against the tenant's lease figure, because the same bare number would have the same hidden defect there.
+
+
+**C31 — `edu-no-knowing-use-penalty-mn`**  ·  topic `part5-nonwaivable`
+
+- **Statute:** Both halves are wrong. (1) The number: machine census over statutes:504B gives 34 operative sentences across 29 sections in the 2025 compilation, and 36 across 30 sections with Minn. Stat. § 504B.2136(b) in force since 2026-08-01. (2) The uniformity: only 14 of the sentences use 'contrary to public policy'. Minn. Stat. § 504B.114, subd. 2 says 'Any requirement or lease provision that violates this subdivision is void and unenforceable'; Minn. Stat. § 504B.161, subd. 1(b) says 'The parties to a lease or license of residential premises may not waive or modify the covenants imposed by this section'; Minn. Stat. § 504B.211, subd. 2 says 'A residential tenant may not waive and the landlord may not require the residential tenant to waive the residential tenant's right to prior notice of entry under this section as a condition of entering into or maintaining the lease'. Three different things.
+- **The row says:** "Chapter 504B contains roughly eighteen separate non-waiver provisions, each saying a waiver of that section is contrary to public policy and void"
+- **Why it matters:** The row relies on the uniformity claim to reassure the landlord that a prohibited term merely 'fails and the rest of the lease stands'. That is true of the 'contrary to public policy' family. It is not the whole picture: the bidirectional family (Minn. Stat. §§ 504B.205, subd. 2(b), 504B.206, subd. 5, 504B.211, subd. 2) makes the ASKING a breach, so a landlord can violate those sections without any term ever entering the lease — which is exactly the knowing-use exposure the row tells the landlord does not exist. The row's narrow conclusion (no statutory penalty for including a void term) survives; its reassurance is too wide.
+- **Proposed fix (NOT applied — rule 1):** Supersede or amend; not edited here per rule 1.
+
+**C32 — `edu-no-unconscionability-statute-mn`**  ·  topic `part5-nonwaivable`
+
+- **Statute:** Same undercount. 36 operative sentences across 30 sections as in force 2026-10-29.
+- **The row says:** "Chapter 504B contains roughly eighteen separate non-waiver provisions that void specific lease terms"
+- **Why it matters:** The sentence is a supporting observation rather than the row's holding, so the row's verdict (no dedicated landlord-tenant unconscionability statute) is unaffected. The number should still be corrected. See the consumer-protection-act answer for a separate, more substantive finding on this row.
+- **Proposed fix (NOT applied — rule 1):** Correct the number when next revised; not edited here per rule 1.
+
+**C33 — `rent-payment`**  ·  topic `part5-nonwaivable`
+
+- **Statute:** Minn. Stat. § 504B.465, read whole, reaches only "a provision of section 504B.381 or sections 504B.395 to 504B.471". Minn. Stat. § 504B.385 is not in that range. The quoted words 'may not be waived or modified' are Minn. Stat. § 504B.385, subd. 11's own: 'The residential tenant rights under this section may not be waived or modified and are in addition to and do not limit other rights or remedies which may be available to the residential tenant and landlord, except as provided in subdivision 1.'
+- **The row says:** notes: "MN has court-administered RENT ESCROW under s504B.385 whose rights 'may not be waived or modified' (s504B.465)"
+- **Why it matters:** The substance the row relies on is correct and its drafting fix ('except as permitted by applicable law') is sound. Only the parenthetical citation is wrong. Minn. Stat. § 504B.391 also falls outside § 504B.465.
+- **Proposed fix (NOT applied — rule 1):** Correct the cite to Minn. Stat. § 504B.385, subd. 11; not edited here per rule 1.
+
+**C34 — `pet-policy-mn`**  ·  topic `pet-eviction-fact-sheet`  ·  For a qualifying tenant the entitlement does not depend on the landlord's approval, so 'may keep only pets ... approved by Landlord' is overridden, and the revocation ground is wider than Sec. 504B.261's own limits (a threat to health or safety of other individuals, or a noise nuisance or disturbance to other renters). The clause also charges pet rent, where Sec. 504B.261 permits only a refundable additional damage deposit.
+
+ALREADY REPORTED AS FINDING F4 BY THE MAIN PASS; recorded here only because this topic reaches the same section from the eviction side, and NOT claimed as a new finding. The clause's approval-and-revocation architecture overstates the landlord's rights against Minn. Stat. Sec. 504B.261.
+
+- **Statute:** Minn. Stat. Sec. 504B.261: 'In a multiunit residential building, a tenant of a disability accessible unit, in which the tenant or the unit receives a subsidy that directly reduces or eliminates the tenant's rent responsibility, must be allowed to have two birds or one spayed or neutered dog or one spayed or neutered cat.'
+- **The row says:** 'Tenant may keep only pets identified in writing to and approved by Landlord.' and 'Landlord may revoke approval of a pet that becomes a nuisance or safety concern, and may enter the property and remove a pet if the pet becomes vicious or displays symptoms of severe illness...'
+- **Proposed fix (NOT applied — rule 1):** Owned by finding F4 and slice S02. No edit made here.
+
+**C35 — `pet-policy-mn`**  ·  topic `pet-fees`
+
+The clause opens 'Tenant may keep only pets identified in writing to and approved by Landlord.' and gives Landlord power to 'revoke approval of a pet that becomes a nuisance or safety concern'. For one class of tenancy Minnesota removes that discretion: 'In a multiunit residential building, a tenant of a disability accessible unit, in which the tenant or the unit receives a subsidy that directly reduces or eliminates the tenant's rent responsibility, must be allowed to have two birds or one spayed or neutered dog or one spayed or neutered cat.' (Minn. Stat. § 504B.261). The statute's own limit is narrower than the clause's: the tenant 'may not keep or have visits from an animal that constitutes a threat to the health or safety of other individuals, or causes a noise nuisance or noise disturbance to other renters', which is not the same as Landlord's approval or revocation at will. Used on such a unit the clause overstates the landlord's rights. Not fixed (rule 1); reported. Suggested narrow fix for the owner of that row: a saving sentence excepting a unit covered by § 504B.261, or a selection rule pairing it with `pet-fees-mn`. § 504B.261 appears nowhere in the library (searched the whole CSV for '504B.261': 0 rows).
+
+
+**C36 — `prohibited-acts-renter-wy`**  ·  topic `prohibited-acts-renter`  ·  No action needed for the ten states listed. The risk is prospective: this is the row a future pass would reach for when adding a state that does have an entry-notice statute with a waiver bar. prohibited-acts-renter-mn is the Minnesota alternative and states the reason in its notes.
+
+Not an error in any of its ten states, but flagged as a MINNESOTA-UNSAFE shared row, so that a builder is not tempted to extend it. Its entry limb is premised on the absence of an entry-notice statute, which the row's own WY note states. In Minnesota the equivalent term runs into a bidirectional non-waiver scoped to lease terms. No tag added and no text changed (rule 1, rule 2).
+
+- **Statute:** Minn. Stat. Sec. 504B.211, subd. 2: 'A residential tenant may not waive and the landlord may not require the residential tenant to waive the residential tenant's right to prior notice of entry under this section as a condition of entering into or maintaining the lease.'
+- **The row says:** bodyText: '... or unreasonably deny access to, refuse entry to, or withhold consent to enter the property to Landlord or Landlord's agent for the purpose of making repairs, inspecting the property, or showing it for rent or sale.' And from its WY note: 'Note absence: WY has no statutory advance-notice-for-entry requirement -- this clause only bars the tenant from unreasonably refusing entry, it does not itself establish a landlord notice obligation.'
+- **Proposed fix (NOT applied — rule 1):** None to the row. Optionally a builder-side note that the clause's entry limb assumes no entry-notice statute. Taylor to decide.
+
+**C37 — `partial-payment-nonwaiver-mn`**  ·  topic `redemption`
+
+Checked, not a defect - recorded so this topic is not duplicated. The row already offers Minn. Stat. section 504B.291, subd. 1(c) as an optional lease clause, with the reasoning that the subdivision's words 'Prior to or after commencement of an action' plus 'only in writing' make the lease an eligible writing. Section 504B.291, subd. 1(c) was read whole this pass and the row's quotation of it is exact. I considered writing a subd. 1(c) clause under the redemption key and declined: one subject per row, and the subject is waiver by acceptance, not redemption. One caution worth logging rather than filing as a row change: subd. 1(c) speaks of 'partial payment of rent in arrears', which presupposes arrears in existence, so whether a blanket prospective lease clause satisfies it rather than a writing made once arrears exist is not settled by the statute's text, and edu-late-rent-reservation-fix-mn already records that the Minnesota Supreme Court declined to decide the related lease non-waiver question in Hook and Ladder Apartments v. Nalewaja. Case law is outside this corpus and is a lead only.
+
+
+**C38 — `edu-late-rent-reservation-fix-mn`**  ·  topic `redemption`
+
+Checked, not a defect. Its statement of Minn. Stat. section 504B.291, subd. 1(c) matches the subdivision read whole. One statutory gap it does not mention, which this pass found and which supports its advice to act promptly rather than rely on boilerplate: chapter 504B has no waiver-by-accepting-rent provision at all, whereas Minn. Stat. section 327C.11, subd. 2 gives manufactured home parks an express one - a park owner does not waive a section 327C.09 notice by afterwards accepting rent, but 'Acceptance of rent for a period after the expiration of a final notice to quit waives that notice unless the parties agree in writing after service of the notice that the notice continues in effect.' The park rule requires the writing to be made AFTER service of the notice. That the legislature wrote such a rule for parks and not for residential leases is relevant context for the open question the row describes. Found by battery S05-b7-partial-payment-waiver (scope statutes; positives 504B.291 'partial payment of rent in arrears which is accepted by the landlord' and 327C.11 'does not waive the notice by afterwards accepting rent' both passed; control clean; 6, 14 and 23 hits).
+
+
+**C39 — `rent-increase-midterm-ky`**  ·  topic `rent-escalation`
+
+Not a Minnesota tag and NOT reported as wrong for the states that carry it - recorded here because the same shape would be unlawful in Minnesota. The row's own words: 'Landlord may increase Monthly Rent by giving Tenant written notice at least 30 days before the increase takes effect'. Minn. Stat. § 504B.147, subd. 3 (read section-open 2026-10-29): 'The landlord may not give a notice to quit the premises or notice of a rent increase that is shorter than the time period the lease provides for the tenant to give notice of an intention to quit the premises', and subd. 4: 'The requirements of this section may not be waived or modified by the parties to a residential lease.' A fixed 30-day figure falls below the floor in any lease that asks the tenant for more than 30 days' notice to move out. Minnesota's own clause `rent-increase-midterm-mn` states the floor in words instead. Worth a check in any other state whose statute sets the landlord's notice by reference to the tenant's.
+
+
+**C40 — `rent-installments-or`**  ·  topic `rent-installments`
+
+Not tagged for Minnesota and not reported as wrong for the states that carry it. Recorded because the sentence 'Installments paid on this schedule are not partial payments of Rent' is a legal conclusion from ORS 90.417(3) and has no Minnesota counterpart. Minnesota's only partial-payment rule is Minn. Stat. § 504B.291, subd. 1(c), which lets the parties agree 'only in writing' that an accepted partial payment of rent in arrears does not waive the possession action - a different and narrower thing. Minnesota gets `rent-installments-mn` instead. Worth checking whether the 19 states tagged onto this row each have their own basis for that characterisation sentence, or whether it was carried across on the strength of the Oregon statute.
+
+
+**C41 — `rent-payment`**  ·  topic `rent-into-court-counterclaim`
+
+A mis-citation in the row's own words, in the Minnesota part of its notes. The notes say: 'MN has court-administered RENT ESCROW under s504B.385 whose rights \'may not be waived or modified\' (s504B.465)'. The quoted words are right but the section attributed to them is wrong. Minn. Stat. section 504B.465, read whole, says: 'Any provision of a lease or other agreement in which a provision of section 504B.381 or sections 504B.395 to 504B.471 is waived by a residential tenant is contrary to public policy and void.' Section 504B.385 is not section 504B.381 and is not within the range 504B.395 to 504B.471, so section 504B.465 does not reach it - and neither does it reach section 504B.391. The quoted non-waiver wording in fact comes from Minn. Stat. section 504B.385, subd. 11 itself: 'The residential tenant rights under this section may not be waived or modified and are in addition to and do not limit other rights or remedies which may be available to the residential tenant and landlord, except as provided in subdivision 1.' The substance of the row's reasoning survives, because section 504B.385 is non-waivable on its own terms; only the citation is wrong. Worth correcting because the row used that citation to justify adding 'except as permitted by applicable law' across eight states, so the citation is load-bearing in the audit trail even though the conclusion holds.
+
+
+**C42 — `rent-payment`**  ·  topic `rent-into-court-counterclaim`
+
+Format observation, not a defect in substance. The row's MN note segment is prefixed 'MN extended (Minnesota session, whole-library audit):' rather than 'MN: ', so a mechanical search for an 'MN: ' segment in a tagged row reports it as untagged. Two of my own screens had to be rerun because of this. If the project ever lints tagged rows for a matching note segment, the lint needs to accept the 'MN extended' and 'MN added' prefixes that the library actually uses.
+
+
+**C43 — `termination-infirmity-mn and edu-infirmity-termination-accessible-unit-mn`**  ·  topic `required-disclosures`
+
+Incomplete, not wrong, and the gap is a disclosure duty rather than anything about infirmity. Both rows cite Minn. Stat. Sec. 363A.40 and both use it only for subd. 1's definition of an accessible unit and for the Sec. 504B.266, subd. 1(b) defence. Neither mentions subd. 2(a), which is a free-standing pre-signing disclosure duty on any landlord whose building contains accessible units. A CSV grep of all 11,634 rows shows Sec. 363A.40 cited in exactly these 2 rows, so the duty appears nowhere in the library.
+
+- **Statute:** Minn. Stat. Sec. 363A.40, subd. 2(a): 'A landlord of rental housing that contains accessible units must give priority for the rental of an accessible unit to a disabled person or a family with a disabled family member who will reside in the unit. The landlord must inform nondisabled persons and families that do not include a disabled family member of the possibility of being offered a non-disability-equipped unit as provided under this section before a rental agreement to rent an accessible unit is entered.'
+- **The row says:** edu-infirmity-termination-accessible-unit-mn is titled 'You Can Defeat an Infirmity Termination by Offering an Accessible Unit' and uses Sec. 363A.40 for the meaning of 'accessible unit'. Nothing in either row says a landlord must inform a non-disabled applicant of anything.
+- **Why it matters:** Subd. 2(b) lets the landlord require a non-disabled household to move out of an accessible unit once a disabled applicant signs for it and a similar non-equipped unit is available at the same rent. A landlord who has not given the subd. 2(a) notice before signing has created exactly the dispute the notice exists to prevent, and the priority duty in the first sentence is itself a Human Rights Act obligation. The library tells the landlord about the right in subd. 2(b) and not about the condition in subd. 2(a).
+- **Proposed fix (NOT applied — rule 1):** The new edu-required-disclosures-mn row states the subd. 2(a) duty, so the gap is closed at the library level. Whether the infirmity rows should also carry a pointer is Taylor's call. Reported, not edited (rule 1).
+
+**C44 — `landlord-disclosure-mn`**  ·  topic `sale-or-management-change`
+
+CONFIRMED as the brief described it, and the mismatch is internal to the row: the bodyText states the subd. 2(b) posting duty flatly, while the row's OWN NOTES state the condition correctly -- 'Subd. 2(b): unless the landlord is required to post under Sec. 471.9995, a further posted notice must state that the AG statement required by Sec. 504B.275 is available on request.' So the row knows the condition and the clause text does not carry it. The practical effect is over-promising, not under-promising: a landlord in a city whose posted occupancy document already carries the Sec. 471.9995 statement is told by the clause that it will post a second notice it does not owe. Note also that Sec. 504B.181 subd. 4 makes failure to post the subd. 2(b) notice, or a Sec. 471.9995 notice, expressly NOT a bar to an action to recover rent or possession -- so nothing turns on it in court. Not edited (hard rule 1). Taylor's call.
+
+- **Statute:** Minn. Stat. Sec. 504B.181, subd. 2(b): 'UNLESS THE LANDLORD IS REQUIRED TO POST A NOTICE BY SECTION 471.9995, the landlord shall also place a notice in a conspicuous place on the property that states that a copy of the statement required by section 504B.275 is available from the attorney general to any residential tenant upon request.' Minn. Stat. Sec. 471.9995 read whole: any licence, registration or certificate of occupancy issued by a home rule charter or statutory city or by a town that must be posted in a building containing multiple rental dwelling units 'shall contain a statement that tenants of the dwelling units may contact the attorney general for information regarding the rights and obligations of owners and tenants under state law', with the attorney general's telephone number and address.
+- **The row says:** "Landlord will post this information in a conspicuous place on the property, together with notice that a copy of the statement of tenant rights and responsibilities prepared by the Minnesota Attorney General is available to any residential tenant upon request." (bodyText, stated unconditionally)
+- **Proposed fix (NOT applied — rule 1):** Add 'unless a licence, registration or certificate of occupancy the city or town requires to be posted already carries that statement' to the clause's second sentence, or drop the posting limb from the clause and leave it to edu-landlord-disclosure-consequences-mn, which states it. I have not touched either row.
+
+**C45 — `edu-no-knowing-use-penalty-mn`**  ·  topic `security-deposit-nonwaiver`
+
+The row's body understates the number of non-waiver provisions in chapter 504B. The row says: "Chapter 504B contains roughly eighteen separate non-waiver provisions, each saying a waiver of that section is contrary to public policy and void". The brief's generated map (data/504B-scope-and-waiver.md, built from the corpus section files) records 28 non-waiver sentences across 24 distinct sections of chapter 504B. The row's second clause is also too narrow: several of those sentences do not use the public-policy formula at all - Minn. Stat. 504B.178, subd. 10 says 'Any attempted waiver of this section by a landlord and tenant, by contract or otherwise, shall be void and unenforceable.', and Minn. Stat. 504B.147 says 'The requirements of this section may not be waived or modified by the parties to a residential lease.' Not fixed (rule 1); the count and the wording are both in the row's own text.
+
+- **Proposed fix (NOT applied — rule 1):** Replace the count with the generated figure and drop the 'each saying ... contrary to public policy and void' gloss, or cite the map.
+
+**C46 — `landlord-disclosure-mn`**  ·  topic `sfr-occupancy-disclosure`
+
+Not wrong, but unconditional where the statute is conditional, and the row's own notes already know it. The clause text says 'Landlord will post this information in a conspicuous place on the property, together with notice that a copy of the statement of tenant rights and responsibilities prepared by the Minnesota Attorney General is available to any residential tenant upon request.' The statute splits that in two: Minn. Stat. 504B.181, subd. 2(a) requires the subd. 1 information to be posted and is unconditional, while subd. 2(b) requires the attorney-general-statement notice only 'unless the landlord is required to post a notice by section 471.9995'. The row's own notes record the condition accurately - 'Subd. 2(b): unless the landlord is required to post under 471.9995, a further posted notice must state that the AG statement required by 504B.275 is available on request' - so the clause text is simply broader than the notes. The direction of the error is over-compliance, which is harmless in itself; the cost is that the clause tells a multiunit landlord to duplicate a notice the city-issued posted document may already carry, and tells no landlord that the carve-out never reaches a single-family rental. Not fixed, per rule 1. edu-no-sfr-occupancy-disclosure-mn states the single-family consequence.
+
+
+**C47 — `edu-fair-housing-protected-classes-mn`**  ·  topic `source-of-income`  ·  Low legal risk - every ground named is genuinely protected in Minnesota, so a landlord acting on the row will not under-comply. The defect is in the comparative framing, which the row title and first sentence make load-bearing.
+
+FAMILIAL STATUS is listed by the row as something Minnesota protects IN ADDITION TO the federal list, but familial status is itself one of the Fair Housing Act own enumerated grounds. Marital status and status with regard to public assistance in that sentence are correct; creed, sexual orientation and gender identity are defensible; familial status appears to be simply misplaced.
+
+- **Statute:** Minn. Stat. Sec. 363A.09, subd. 1(1) lists race, color, creed, religion, national origin, sex, gender identity, marital status, status with regard to public assistance, disability, sexual orientation, or familial status. Sec. 363A.03, subd. 18 defines familial status.
+- **The row says:** The Minnesota Human Rights Act (Minn. Stat. Sec. 363A.09) protects more classes in housing than federal law does. In addition to the federal list, Minnesota protects creed, marital status, status with regard to public assistance, sexual orientation, gender identity, and familial status.
+- **Proposed fix (NOT applied — rule 1):** Not fixed per rule 1. Recommend moving familial status out of the in-addition-to-federal sentence, leaving marital status, status with regard to public assistance, creed, sexual orientation and gender identity.
+
+**C48 — `edu-no-sprinkler-duty-mn (topic_key fire-sprinkler-duty)`**  ·  topic `sprinkler-disclosure`
+
+Confirmed correct and not altered. Its statement that the only Minnesota retrofit sprinkler mandate is Minn. Stat. Sec. 299F.48 for public housing buildings is right as to the STATUTES, and this pass reproduces its sprinkler-system hit set. One addition it does not carry, found in the session laws rather than the statutes: Laws 2025, ch. 32, sec. 12 (amending Laws 2023, ch. 37, art. 2, sec. 10) funds a High-Rise Sprinkler System Grant and Loan Program open to PRIVATE owners of eligible residential buildings, and Laws 2025, ch. 38 adds a 2029 sprinkler requirement for assisted living facilities under chapter 144G. Neither contradicts that row; both are new facts a landlord would want. Reported rather than edited, per rule 1.
+
+
+**C49 — `edu-habitability-baseline-mn and habitability-baseline-mn`**  ·  topic `stove-refrigerator`
+
+Neither row carries the cross-reference that subd. 1(a)(2) makes to Sec. 504B.381, subd. 1, so the incorporated list - running water, HOT WATER, electricity, sanitary facilities and a nonfunctioning REFRIGERATOR - appears nowhere in the library's Minnesota text. The rows are not wrong on their own words; they are incomplete on the covenant's content, and the omission is the reason hot water and the refrigerator had no Minnesota row. Not edited (rule 1). Recommend adding the incorporated list to edu-habitability-baseline-mn and cross-referencing edu-stove-refrigerator-mn.
+
+- **Statute:** Minn. Stat. Sec. 504B.161, subd. 1(a)(2): 'to keep the premises and all common areas in reasonable repair during the term of the lease or license, INCLUDING SERVICES AND CONDITIONS LISTED IN SECTION 504B.381, SUBDIVISION 1, and extermination of insects, rodents, vermin, or other pests on the premises...'. Sec. 504B.381, subd. 1(2) then lists a serious infestation, loss of running water, loss of hot water, loss of heat, loss of electricity, loss of sanitary facilities, 'a nonfunctioning refrigerator', and (if included in the lease) a nonfunctioning air conditioner or elevator.
+- **row words:** edu-habitability-baseline-mn's body states the covenant as: 'Minnesota requires you to keep the property and common areas fit for the use the parties intended and in reasonable repair, including heat of at least 68 degrees Fahrenheit ... and extermination of insects, rodents, vermin and other pests (Minn. Stat. 504B.161).' habitability-baseline-mn's notes list 'MN's specifics' as 'the 68 degrees F Oct 1-Apr 30 heat minimum ..., an explicit extermination duty, and a cost-effectiveness-gated energy-efficiency duty'.
+
+**C50 — `UNCITED-504B-SECTIONS.md (the main pass's screen), entry for Sec. 504B.332`**  ·  topic `tenant-portal`  ·  Low for the screen, which is right about the other 16 and about the rest of Sec. 504B.332. Worth recording because the reason a section is skipped should not survive a change of topic: a landlord choosing a portal vendor needs subd. 2(b), and no row carried it before this one.
+
+An observation on the screen's classification rather than on a CSV row. Sec. 504B.332 is placed among the 17 sections treated as 'pure eviction/tenant-remedies procedure' that 'a clause library reasonably does not carry'. Subd. 2(b) is not procedure in the relevant sense: it is a duty a landlord triggers by choosing to communicate electronically with tenants, so it belongs to any decision about tenant-facing software and to the tenant-portal topic. It appears in 0 rows.
+
+- **Statute:** Minn. Stat. Sec. 504B.332, subd. 2(b): 'If the plaintiff regularly uses electronic written communication to communicate with the defendant, the plaintiff must make a good faith attempt to communicate to the defendant that an eviction hearing has been scheduled at least seven days before the date of the court appearance specified in section 504B.321. This requirement is in addition to completing service in the manner provided in subdivision 3 or 4.'
+- **The row says:** From UNCITED-504B-SECTIONS.md: '17 of the 38 are pure eviction/tenant-remedies procedure (Sec.Sec. 504B.301, .325, .332, .335, .351, .355, .361, .401, .411, .415, .421, .425, .431, .445, .451, .461, .471) and a clause library reasonably does not carry them.'
+- **Proposed fix (NOT applied — rule 1):** None to the file. edu-tenant-portal-mn now cites subd. 2(b). Taylor may want the screen's procedure list annotated where a subdivision has a non-procedural landlord consequence.
+
+**C51 — `landlord-disclosure-mn`**  ·  topic `tenant-rights-statement`  ·  Low as a compliance risk, and worth saying so plainly: the clause over-promises rather than under-complies, so a landlord following it satisfies the statute in every case. The real defect is a contractual one -- the lease converts a conditional statutory duty into an unconditional contractual promise the landlord has made to the tenant, in a state where Sec. 504B.181 subd. 4 expressly provides that failure to post this particular notice does NOT bar an action for rent or possession. The lease promise has no such carve-out.
+
+The clause states the attorney-general-statement posting duty UNCONDITIONALLY, while Minn. Stat. Sec. 504B.181, subd. 2(b) conditions it on Sec. 471.9995 not applying. The row's own NOTES record the condition correctly, so the defect is confined to the bodyText -- the clause promises more than the statute requires. Reported, not fixed (rule 1).
+
+- **Statute:** Minn. Stat. Sec. 504B.181, subd. 2(b): 'Unless the landlord is required to post a notice by section 471.9995, the landlord shall also place a notice in a conspicuous place on the property that states that a copy of the statement required by section 504B.275 is available from the attorney general to any residential tenant upon request.' And Minn. Stat. Sec. 471.9995, whose duty falls on the issuer: 'Any license or registration or certificate of occupancy or a similar document that is issued by a home rule charter or statutory city or by a town and that is required to be posted in a building containing multiple rental dwelling units shall contain a statement that tenants of the dwelling units may contact the attorney general for information regarding the rights and obligations of owners and tenants under state law.'
+- **The row says:** bodyText, second sentence: 'Landlord will post this information in a conspicuous place on the property, together with notice that a copy of the statement of tenant rights and responsibilities prepared by the Minnesota Attorney General is available to any residential tenant upon request.' No 'unless', no reference to Sec. 471.9995. By contrast the row's notes are correct: 'Subd. 2(b): unless the landlord is required to post under Sec. 471.9995, a further posted notice must state that the AG statement required by Sec. 504B.275 is available on request.'
+- **Why it matters:** Sec. 471.9995 is a duty on the issuing city or town, not on the landlord, so whether the condition in subd. 2(b) is met depends on the local licensing scheme -- a municipal question (rule 3) that no row can resolve. This is the reason the new education row recommends posting anyway rather than attempting to decide the condition.
+- **Proposed fix (NOT applied — rule 1):** Either add 'Unless a posted city rental licence or certificate of occupancy already carries this statement,' to the clause, or leave the clause as deliberate over-compliance and add a note saying so. Taylor to decide; no edit made.
+
+**C52 — `data/504B-scope-and-waiver.md (the pass's own generated non-waiver map, not a CSV row)`**  ·  topic `term-change-notice`
+
+The map lists THREE non-waiver entries for Minn. Stat. § 504B.147 and is counted into the headline figure of '28 non-waiver sentences across 24 sections', which the brief and several rows now cite. Read whole, § 504B.147, subd. 4 contains TWO operative sentences: 'The requirements of this section may not be waived or modified by the parties to a residential lease.' and 'Any provision, whether oral or written, of a lease or other agreement by which any provision of this section is waived by a tenant is contrary to public policy and void.' The third entry is the subdivision's HEADNOTE, 'No waiver.', which the generator treated as a sentence - and which the brief then counts separately as its own formula ('1 "No waiver"'). So the headline count of 28 is one too high if headnotes are excluded, and the five-formula breakdown double-counts § 504B.147. The substance is unaffected and in fact slightly understated: § 504B.147 is unwaivable twice over, in two different formulas in one subdivision, which no other section in the chapter does. NOT FIXED - the map is a generated artefact of the main pass and outside this slice's scope. Suggested fix: have the generator exclude subdivision headnotes, and re-report the count.
+
+
+**C53 — `edu-tenancy-at-will-notice-mn`**  ·  topic `termination-notice`
+
+The row's last sentence states Minn. Stat. § 504B.147, subd. 2 BACKWARDS. The row says: 'Remember also that the notice period you give a tenant cannot be shorter than the notice your lease requires the tenant to give you, and the tenant may elect to use whichever period is longer.' The first half is right (that is subd. 3). The second half is wrong. Subd. 2 reads in full: 'The tenant may give notice of an intention to quit the premises using either: (1) the time period provided in the lease for the tenant to give a notice of intention to quit the premises; or (2) the time period provided in the lease for the landlord to give a notice to quit the premises or notice of a rent increase.' The tenant chooses EITHER, with no direction of travel - and since subd. 3 already guarantees the landlord's period is the longer or equal one, the only thing subd. 2 can usefully give the tenant is the SHORTER period, which will be the tenant's own. A landlord reading this row would believe a tenant is locked into the longer of the two notice periods, and would wrongly treat a tenant's shorter notice as ineffective and the tenant as liable for rent through a longer period. The row's own notes describe the rule correctly in the opposite direction ('notice to landlord may not exceed notice from landlord; tenant may use either period'), so the defect is in the body only. NOT FIXED (scope fence, rule 1). Suggested replacement for the clause: 'and the tenant may give notice using either the tenant's period or the landlord's period in the lease, whichever the tenant chooses.' The correct statement is now in the body of `termination-notice-mn` and of `edu-term-change-notice-mn`.
+
+
+**C54 — `edu-tenancy-at-will-termination-notice-mn`**  ·  topic `termination-notice`
+
+Not an error - recorded so the dependency is visible. The row's body states a counting rule ('the notice must also run a FULL rental period and take effect at the END of one') which its own notes mark as SECONDARY-SOURCE confidence, with the supposed 1891 authority NOT LOCATED after two searches and the point escalated to Taylor as an outstanding item. That rule is not in the text of Minn. Stat. § 504B.135, which says only that the notice must be 'at least as long as the interval between the time rent is due or three months, whichever is less', and no Minnesota case law is in this corpus, so this pass could not verify it either. The new clause `termination-notice-mn` carries the same sentence, deliberately, because a clause contradicting the library's own education row would be worse; but it is now carried in a LEASE_CLAUSE a tenant signs rather than only in education a landlord reads, which raises the cost of the rule being wrong. If Taylor's outstanding item resolves against the rule, that sentence of `termination-notice-mn` is the one to pull.
+
+
+**C55 — `edu-for-cause-eviction-mn`**  ·  topic `utility-shutoff-statute`
+
+NOT WRONG, but materially incomplete on utilities. The row lists six situations that block an eviction and treats the § 504B.285, subd. 4(b) stay as the utility one. It omits the § 504B.216, subd. 12(d) bars, which are the operative ones: the payment-plan precondition and the three periods in which an eviction for unpaid gas or electricity may not even be filed. A landlord reading only that row would think a pending Commission complaint is the only utility obstacle, when in fact winter alone is one.
+
+- **Statute:** Minn. Stat. § 504B.216, subd. 12(d): 'an eviction action may not be filed and any eviction already filed must be stayed: (i) for the failure to pay natural gas or electric utility service charges during the cold weather period; (ii) for the failure to pay electric utility charges during a heat emergency; and (iii) if the tenant notifies the landlord or the court that the tenant or a member of the tenant's household is experiencing a medical emergency ...'; and subd. 12(d)(1): a landlord 'may not bring a claim for breach unless the landlord has offered the tenant a payment plan under section 216B.023, subdivision 7, and the tenant has failed to make two consecutive payments on the plan'.
+- **The row says:** '... if the tenant has a Public Utilities Commission complaint pending about shared-metered gas or electricity, the court must stay a utility-nonpayment eviction and may not make the tenant post any money (subd. 4(b)); ...'
+
+
+---
+
+## §7 Findings for other states
+
+**O1 — `rent-installments-or` carries an Oregon conclusion onto 20 states.** The shared clause says
+"Installments paid on this schedule are not partial payments of Rent", which is a conclusion drawn
+from ORS 90.417(3). Minnesota has no counterpart, and its only partial-payment rule
+(§ 504B.291, subd. 1(c)) runs the other way — it gives the parties a written route to accept a
+partial payment *without* waiving the possession action, which presupposes that a partial payment
+otherwise would waive it. Minnesota was therefore **not** tagged. Worth checking at sync whether
+each of the 20 tagged states has its own basis for that sentence, or whether it travelled from
+Oregon the way the lock-change right travelled from California into finding F2.
+
+**O2 — the `holdover` override is not only Minnesota's problem.** See F7: the clause's "maximum
+amount permitted by applicable law" resolves to ordinary rent in any tagged state that sets no
+holdover measure. Minnesota is now answered; CO, WY, KS, NE and FL should each be checked for
+whether they set one, since the same words are doing the same nothing wherever they do not.
+
+**O3 — `utility-allowance-cap-co` (CO;WI;ME;HI;LA;AR;MS;GU;MP) is unlawful in Minnesota and may
+want checking elsewhere.** Inside a shared-metered building § 504B.216, subd. 8 and § 216B.023,
+subds. 4 and 6 allow only an $8 administrative billing charge and a $5 late payment charge and
+provide "No other fees or charges may be imposed on or collected from tenants for utility service";
+inside a manufactured home park § 327C.03, subd. 1 and § 327C.04 do similar work. Minnesota was
+therefore not tagged and got its own scoped clause. The nine tagged states should each be checked
+for an equivalent "no other charges" rule, since a utility allowance cap is exactly the kind of
+charge such a rule forecloses.
+
+**O4 — the California and Texas lock-change provisions are correctly stated on their own rows.** The
+error in finding F2 is Minnesota's row importing them, not those states' rows.
+
+---
+
+### From the canvass
+
+- **`possession-bond`** — {"finding": "Not a defect in any row, raised as a cross-state check. Minn. Stat. section 504B.371, subd. 7 is a landlord-side appeal bond that defeats the ordinary appeal stay where the landlord won on a covenant-against-unlawful-activities claim. The possession-bond topic has rows in 22 states and the library's framing of the topic is the tenant-side or pre-trial bond. Worth checking whether other states carry an equivalent landlord bond-to-execute-pending-appeal that their rows also treat as absent."}
+- **`utility-allowance-cap`** — {"row": "utility-allowance-cap-co", "states": "CO;WI;ME;HI;LA;AR;MS;GU;MP", "observation": "The shared row's body states the allowance-and-overage term with no scope limit on the kind of building. That is fine for the nine states on it as far as this pass can tell, but the clause shape is unlawful in Minnesota inside a shared-metered residential building and inside a manufactured home park. If other states in the library have a shared-metered utility statute with a 'no other fees or charges' sentence, the same conflict may exist there.", "action_taken": "None \u2014 no other state's row or note segment was touched. Minnesota was given its own scoped row instead of being tagged onto this one."}
+
+---
+
+## Proposed SOP changes
+
+### From the main pass
+
+1. **Run an uncited-section screen on every state's core act, as a standing step.** Match every
+   substantive section number of the act against the whole CSV and list the ones that appear in no
+   row. In Minnesota it found **38 of 92** chapter 504B sections uncited — 17 fairly, being court
+   procedure, and **21 real gaps**, including three required lease-or-application content rules
+   (§§ 504B.146, .117, .116), six void-term or non-waivable provisions, and the whole tenant-
+   screening-report regime (§§ 504B.235, .241, .245) whose remedy runs against the landlord. A topic
+   list built from what other states happen to have rows for cannot surface these. This is rule 36
+   ("derive topics top-down from the statute") given a mechanical test, and it is cheap: one script
+   over the CSV plus the section index. Suggested home: a new step in Part 3 beside rule 36, with
+   the screen's output recorded in the log.
+2. **Never strip a session law's amendment markers; derive views instead.** Keep the publisher's
+   `new text` / `deleted text` markers and build three explicit views — `raw`, `enacted` (deleted
+   spans removed) and `newonly` — then control-test them on a known amendment before use. A novelty
+   claim is made only from the `newonly` view. Phase B asserted novelty from text whose markers it
+   had deleted and misattributed a 2023 rule to a 2026 act; this pass proved § 504B.321 subd. 2(e)
+   was *not* new from the markers themselves.
+3. **Prove a section splitter against the publisher's own index, never the in-page table of
+   contents.** Three defects in this pass's first splitter would each have silently truncated the
+   corpus: the string "Table of Sections" also appears in the site navigation, so the first match
+   zeroed the index for five chapters; the publisher's own recent-amendment notices
+   (`504B.118 has been amended by Chapter 81, Section 2`) match a section-body pattern and must be
+   excluded — and are worth capturing separately as the currency signal; and a bare section number
+   followed by "Subdivisions renumbered, repealed, or no longer in effect" has no headnote line to
+   match at all.
+4. **Keep every version of a number the publisher compiles twice.** §§ 484.13, .14, .16, .17 and
+   .18 each carry two historical versions; the first splitter kept only the later one. Rule 19
+   already says this for New York's Gen. Bus. Law § 390-e — the lesson is that it is not a New York
+   quirk and the splitter should assert on it rather than overwrite.
+5. **A corpus README, or any downloader's own summary, is a lead and never currency evidence
+   (rule 12).** This corpus's README says each section of Laws 2026, ch. 81 is "effective August 1,
+   2026"; the act carries three effective-date clauses for five sections. Check per-section
+   effective dates against the act, and record which sections take their date from the act and which
+   from the general rule.
+6. **A loader declares what it skipped.** A corpus loader should print, at import, the file groups
+   it loaded **and** those it skipped, and a battery should refuse to run while the skip list is
+   unexplained. This pass shipped a brief promising 50 cross-reference sections that the loader was
+   silently not loading; two helpers were already running on it. (Proposed by the deposits helper.)
+7. **State corpus coverage per chapter, not as a flat section list.** Only eight chapters here are
+   held whole; every other chapter is held as a handful of named sections, so an absence claim about
+   anything in the unheld part of such a chapter is unprovable and the row must be bounded. A
+   helper cannot see that from a list of section numbers. (Proposed by the fees helper.)
+8. **The proximity window is part of the absence claim: run wide first, then narrow.** A
+   300-character window returned nothing for one topic and only a wide run plus a section-wide AND
+   found the single section that answered it; 140-character runs on another slice hid § 504B.205 and
+   § 504B.441, both of which changed rows once found. Every absence runs at **≥1,200 characters in
+   both word orders plus a start-anchored section-wide AND in the same batch**, and cites the widest
+   clean run. The narrow run is for naming a hit, not for finding it. (Proposed by the deposits and
+   fees helpers; implemented here as `andpat()`.)
+9. **A coverage assertion must name a row id, and a script must check it — this has now failed four
+   times for one state, with a self-authored warning in between (F42).** `edu-no-rekey-or-lock-duty-mn` said the victim lock-change right was already
+   covered; no such right exists in Minnesota and the same row's own battery had failed to find it.
+   Extend rule 19's proof-of-absence discipline to coverage assertions in the CSV's own `notes`.
+   (Also proposed at the end of the retro pass; this pass is the second instance.)
+10. **Read every heading-only match whole.** A battery must report heading-only matches separately
+    *and* the pass must open each one, because a section can put the topic word in its headnote and
+    never near the subject words in its body. Three sections carrying the rent slice's answers were
+    returned **only** as heading-only matches and by no body-proximity limb: § 504B.146 (LEASE
+    DURATION NOTICE), § 504B.131 (RENT LIABILITY; UNINHABITABLE BUILDINGS) and § 504B.125 (PERSON IN
+    POSSESSION LIABLE FOR RENT). Rule 19 already requires the heading screen; this adds that a
+    heading-only hit is read, not merely counted. (Proposed by the rent helper.)
+11. **For a "statutory caps" topic, search figures rather than terms of art.** One alternation of
+    dollar signs, spelled-out and numeric percentages, the four "not to exceed" formulas and the
+    three multiplier formulas, run as a section-wide AND against tenant/landlord, returned 36
+    sections and let every figure be **copied** rather than recalled. (Proposed by the rent helper.)
+12. **Check a section against the non-waiver list before writing "cannot be waived."** § 504B.118's
+    cash-receipt and new digital-payment duties carry **no** non-waiver sentence although § 504B.116
+    next door does. Say what actually makes a waiver worthless rather than borrowing a neighbouring
+    section's formula. (Proposed by the rent helper; the same error in reverse as finding F3.)
+13. **Where a statute measures the landlord's notice against the notice the lease requires of the
+    tenant, the clause states the floor in words, never as a bare number.** A bare number becomes
+    unlawful the moment the builder raises the tenant's figure elsewhere in the same lease —
+    § 504B.147, subds. 3 and 4 (unwaivable). This is why Minnesota declined to tag
+    `rent-increase-midterm-ky`, whose flat "at least 30 days" is unlawful here whenever the lease
+    asks the tenant for more. (Proposed by the rent helper.)
+14. **Report an `andpat` zero as what it is.** "No section contains both term sets anywhere" is a
+    stronger and more honest claim than a window-based zero, and should be written that way.
+    (Proposed by the rent helper.)
+15. **A `\b`-anchored word silently excludes its inflections, and neither a lint nor the
+    known-positive check can catch it** — the engine tests the *positive's* pattern, not the
+    battery's. `\bcure\b` returned a clean zero over chapter 504B while § 504B.151 carries "cures".
+    Fixed here by giving the battery engine an **empirical inflection probe**: for every
+    `\b`-anchored word in a pattern it searches `\bWORD(?:s|es|d|ed|ing)\b` and reports every unit
+    that carries an inflected form and is **not** matched by the pattern. Verified by reproducing
+    the exact failure. Suggested rule: a battery pattern uses `\bWORD(?:s|es|d|ed|ing)?\b` for any
+    verb, and an engine reports unmatched inflections rather than leaving it to discipline.
+    (Proposed by the eviction helper.)
+16. **Grep the whole CSV for the section number before drafting a row, not just the topic key.**
+    Three drafts on the eviction slice collided with existing Minnesota rows filed under *other*
+    topic keys (`waiver-by-acceptance`, `expedited-criminal-eviction`, `eviction-record-sealing`),
+    one of them an outright id collision caught only by the assembler. A per-topic working file
+    cannot show a row filed under a different key. (Proposed by the eviction helper.)
+17. **A case-sensitive exact-phrase heading screen returning 0 body and 0 heading-only is a
+    different claim from a proximity zero**: it shows the subject lies outside the corpus rather
+    than absent from the law. Worth running deliberately whenever a topic may turn on an unheld
+    chapter, and worth saying which of the two claims a row is making.
+    (Proposed by the eviction helper.)
+18. **A generated artefact is evidence and gets the same screen as a row.** The pass's own
+    scope-and-waiver file counted a subdivision headnote as an operative sentence and as a formula,
+    overstating the non-waiver map by one sentence and one formula; it had already been cited by the
+    brief, four slices and one finding before a helper caught it (F20). Any derived count that rows
+    will cite is regenerated with headnotes stripped and re-checked against the sections.
+19. **Run the bare word before the term of art, and run a regime question over the whole corpus.**
+    A term-of-art battery is not an absence proof: the `termination-notice` run returned 11 sections
+    and neither of the two that answer the topic, both of which came back only from the heading
+    screen and a bare-word rerun. And a regime-existence battery scoped to the core act returns a
+    clean, misleading zero — Minnesota's cause-required eviction regime is § 327C.09, subd. 1, in
+    chapter 327C, and no search for "just cause", "good cause" or "for cause" can match the words
+    "Cause required" (F19). Search the conduct and the consequence, not only the label.
+20. **Search the regime's own word for the *document*, not the topic's word for the *subject*.**
+    "lead-safe certificate" does not exist in Minnesota law; the documents are a *certified lead
+    firm certificate* and a *certified renovation firm certificate*, and "lead-safe" is a defined
+    condition. (Proposed by the disclosures helper.)
+21. **Follow an incorporated-list cross-reference before saying what a covenant covers.**
+    § 504B.161, subd. 1(a)(2) incorporates the list in § 504B.381, subd. 1 — which is where hot
+    water actually appears. A battery over the covenant section alone understates it.
+22. **The session laws are an index to the chapters a corpus is missing, and they carry uncodified
+    duties no `statutes` battery can reach.** Chapters 114E, 326, 299M and 103I all surfaced only
+    through session-law references, and the High-Rise Sprinkler System Grant and Loan Program —
+    open to private owners, $2,000,000 cap, 50% match for for-profits, funding resident relocation —
+    lives in a session-law section and in no chapter at all (Laws 2025, ch. 32, sec. 12, amending
+    Laws 2023, ch. 37, art. 2, sec. 10). Screen the session laws for landlord-facing programmes as
+    well as for amendments. (Proposed by the disclosures helper.)
+23. **A chapter page's subject banner lands in the body of the preceding section.** Expect one
+    spurious hit per subject heading unless the splitter moves it; see F30 for the safe test (the
+    banner sits immediately before the next section's heading, which mandated notice text never
+    does — so a blind ALL-CAPS strip destroys statutory text).
+24. **Extend the trap list with the forms measured this pass:** `\bwell\b` matches "as well as"
+    **and fires in upper case too**; `LEAD` matches inside PLEADING and MISLEADING; `razing` inside
+    BRAZING; `\bdock\w*` matches DOCKET (it pulled the 63 KB Domestic Abuse Act into a shoreline
+    battery); bare `urea` matched 323 CSV rows via Bureau; `refuse` matches "refuses to provide" and
+    "refused entry"; plus `heat`/heater, `air`/repair, `store`/storage, `light`/lighting,
+    `post`/postal.
+25. **A check that a brief's own statements are true applies to statements added mid-pass.** Rule 27
+    already requires checking a helper brief's scope statements against the statute before sending
+    it. Both brief errors this pass were in text added after the brief first shipped: a promise of
+    cross-reference sections the loader was not loading, and an assertion that chapter 144 carries an
+    asbestos regime when it carries none (F29).
+26. **An engine that reports a narrowing is worth more than a rule telling authors not to narrow.**
+    The inflection probe flagged 25 of 453 runs as narrower than intended and, more usefully,
+    identified the four confirmed-absence rows resting on one — which turned a discipline problem
+    into a finite recheck list (F31). The same shape would suit other known narrowings: a proximity
+    window below the floor, a scope smaller than the regime, a pattern with no bare-word companion.
+    Prefer a measured warning in the tool over an instruction in the brief.
+27. **A derived artefact is evidence and gets a known-positive test, not just a review.** The
+    pass's non-waiver map was wrong twice — once over-counting a headnote, once missing every
+    active-voice sentence including the chapter's most important one — and both figures reached a
+    brief and several slices before helpers caught them (F39). The fix was not more care but a
+    generator that **refuses to build** unless named sections appear. Any count a brief or a row
+    will cite should be produced that way.
+28. **Sweep a whole-held non-landlord chapter for "occupant", "lessee" and "residential building",
+    not only for landlord and tenant.** Two of the three new duties in F40 are in chapter 325F, and
+    the third is the Clean Indoor Air Act in chapter 144 — none would be found by a
+    landlord/tenant-framed battery. (Proposed by the access helper.)
+29. **Never write "§ 8.31 private right of action" from the bare fact that a section mentions
+    § 8.31.** Read the section's own remedy words and say which of the four postures it is: in
+    subd. 1's enumerated list, expressly importing subd. 3a, importing enforcement authority only,
+    or expressly excluding the private action (F43). The same discipline applies to any
+    cross-referenced remedy statute.
+30. **A derived total is re-derived before it is quoted, and a map built on a compilation is
+    labelled as such.** Three slices reported "independently confirming" 27/24/four while all three
+    were reading the same generated file — which was wrong. And the map understates the law in force
+    because a 2026 section not in the compilation carries two more non-waiver sentences (F45).
+    (Proposed by the prohibited-terms slice.)
+31. **Read the definitions section whole, early, for every topic.** Four topics this pass were
+    answered by a definition and not by any operative section: § 504B.001, subd. 12's "exchange of
+    services" and "all other regular occupants" (F47), § 144.9501's "compensation" including rental
+    income (F27), § 325F.84's "property that is not real property" (which prevented a false
+    prohibited-terms row), and § 504B.235's "proper identification". A battery over the operative
+    sections cannot reach any of them.
+32. **Run the bare subject phrase with no role limb whenever the topic is about what may happen at a
+    property rather than who owes what to whom.** Three batteries requiring a landlord, tenant or
+    lease word near "family child care" returned a clean zero; the two sections that answered the
+    topic (§ 299F.011, subd. 4a and § 144.414, subd. 2) contain no such word.
+    (Proposed by the occupancy helper.)
+33. **Conjugate the verb.** `holdover\w*` and `\bhold over\b` do not match "holds over", so
+    §§ 504B.311 and 504B.141 were invisible until the rerun. The inflection probe catches the
+    `\bWORD\b` case; this is the multi-word case it cannot see.
+34. **Search the mechanism, not the label.** `confidential` AND `landlord` returns 0 of 1,305 units
+    although § 504B.206 is Minnesota's tenant-confidentiality rule, because it says "must not
+    disclose" and "shared database". The same shape explains two existing rows' false absences
+    (F52): one searched "immigration status" where the answering section says "individual taxpayer
+    identification number". A topic's everyday noun is often not the statute's verb.
+35. **A battery meant to reach a chapter must carry that chapter's own word for the person.**
+    Chapter 327C says "resident", never "tenant" — 44 against 0 in § 327C.095 — and three slices
+    were caught by it, in addition to the § 327C.09 "Cause required" regime problem (F19, F53).
+36. **Verify a battery positive by reading the named unit before the run, not after.** One slice lost
+    two runs to positives assumed rather than checked (§ 469.047 is headed SUIT FOR CIVIL DAMAGES and
+    contains "district" zero times). The engine checks that the positive's pattern matches in the
+    named unit, which catches a wrong pattern but not a wrongly chosen section.
+37. **A row that states a statutory formula quotes that section's own words.** Chapter 504B's
+    non-waiver provisions are **34 operative sentences across 29 sections in 6 formula families**
+    (36 across 30 counting § 504B.2136(b), which is in no compiled section); a row saying they
+    "each" say one thing is wrong twice over — on the count and on the uniformity. Earlier figures
+    of 28/24/five and 27/24/four are superseded and were corrected in 32 shipped rows.
+
+38. **Rule 26's "rests on another state's statute" test must cover another state's statutory
+    *absence*.** `prohibited-acts-renter-wy` is safe across its states only because none of them has
+    an entry-notice statute — and its own note says so. Minnesota has one, so the row cannot be
+    tagged. An absence is as state-specific as a provision.
+39. **Search the session laws for the section *number*, not the topic's words.** `504B.275` as a
+    bare number surfaced two 2025 acts, one creating a new section, that no topic-word battery could
+    reach because neither act's title mentions tenant rights (F73).
+40. **A one-hit battery still needs opening.** `\bsecurity program\b` returned exactly one section,
+    § 325F.995, which reads like a data-security hit and is in fact the Genetic Information Privacy
+    Act. A small result set is not a reviewed result set.
+41. **A zero can prove a corpus boundary rather than an absence, and the verdict must say which.**
+    `community notification` at 0 hits over 1,305 units means the regime is not held, not that
+    Minnesota lacks one; writing it as an absence would have been flatly wrong. Every confirmed
+    absence needs the held-versus-unheld question answered before it is written down.
+42. **Never trust a cross-reference's subdivision number — read the subdivision.** § 504B.275 points
+    at § 327C.015, subd. 14 while describing a definition that lives in subd. 8 (F75). Following the
+    number without reading it would have narrowed or widened the exclusion silently.
+43. **A tag is two edits, and the assembler should enforce that rather than trust it.** Tagging a
+    state into a shared row is the only change this kind of pass may make to an existing row, so
+    the writer should assert it: compare the emitted row against the trunk row and refuse to
+    write if anything but `states` and `notes` differs. A stamped `last_checked` slipped through
+    on 8 rows, one of them shared with 48 other states, and no review step would have caught it
+    because every row looked individually reasonable.
+44. **Measure sentence length after masking quoted notices, bracketed prompts and variables, and
+    run the screen late.** A plain-language screen that counts a mandated verbatim notice as prose
+    over-reports (12 against the true 8 here) and invites someone to reflow text that must not be
+    reflowed. Run it after the rows are written, not while drafting, and re-run it after any row
+    changes.
+45. **Rewriting a sentence is a cheap second read of its statute.** The plain-language split of
+    `tenant-repair-agreement-mn` is what surfaced the missing "unless a utility company requires
+    and instructs the heat to be reduced" qualifier in § 504B.161, subd. 1(a)(5) — a substantive
+    omission that three research passes over the same section had not caught.
+46. **A section number can be enumerated by RANGE, so a string count is not a membership test.**
+    § 325F.69 occurs 0 times in § 8.31 and is nevertheless enumerated there, inside "sections
+    325F.68 to 325F.70" (F82). Any claim of the form "chapter X appears 0 times in § Y" must be
+    restated as "named or within an enumerated range", and the ranges actually checked.
+47. **Follow an incorporation by reference to its destination before writing the row.** Reading
+    § 504B.161 alone states the repair covenant accurately and misses most of its content, which
+    lives in § 504B.381, subd. 1 — including the refrigerator, and including which items carry an
+    "if included in the lease" qualifier and which do not (F88).
+48. **Never put more than one word of the role in a pattern.** `tenant may terminate` returned 0
+    across all 1,305 units while § 504B.206 says "A tenant **to a residential lease** may terminate
+    a lease agreement". The role limb should be one word, or absent.
+49. **Search the subject, not the compound label.** Bare `electric vehicle` found § 325F.185 where
+    both `electric vehicle charging` and `charging station` returned zero (F85).
+50. **A rule recorded only in another row's notes is invisible to the product.** § 504B.111's
+    specific-unit sentence sat in a notes field for nearly two months and could never have reached
+    a lease (F86). A notes-only rule should be treated as an unanswered topic, not a covered one.
+51. **A brief's section list needs the same verification as any secondary source.** Mine sent
+    helpers to a repealed section (F80) and to a subdivision that does not exist (F79). Check each
+    pointer against the section before shipping the brief, not after a helper trips on it.
+52. **An act's title can promise more than its text delivers, and the cheap test is a vocabulary
+    count.** Laws 2026, ch. 82 is titled in part "requiring dispute resolution options" and its
+    dispute-resolution content runs to a *unit owner*: 16 dispute-resolution words against 2 tenant
+    words, with no pair inside 600 characters in either ch. 82 or ch. 61.
+53. **Build a boundary list with a script, never from memory.** Collecting every helper's
+    out-of-corpus flag mechanically gave 89 distinct unheld Minnesota chapters plus Minnesota
+    Rules, court rules, federal law, case law and ordinances. From memory the list would have been
+    about twenty.
+54. **`insure` meaning *ensure*, and `furnish` the verb swamping `furniture` the noun** — two new
+    entries for the short-trap list; 32 of 32 bare `furnish` hits were the verb or unrelated.
+55. **Never put a length cap in a pattern you are using to prove something is absent.** A
+    `[^.]{0,70}` cap on a headnote hid two subdivisions of § 504B.285 whose headnotes run 95 and 100
+    characters, and I published the resulting false negative as a finding against a helper who had
+    it right (F79). The inflection probe and the window rule both exist because of this family of
+    error; a bounded character class is the same mistake in a different place. Verification patterns
+    get the same discipline as canvass patterns — or more, because nothing downstream re-checks them.
+56. **A figure that many rows quote needs one source and a propagation check.** The non-waiver map's
+    count reached 32 shipped rows in five different phrasings ("28 non-waiver sentences across 24
+    sections", "28 sentences in 24 sections", "27 operative non-waiver sentences", "five formulas",
+    "five different non-waiver formulas"), so correcting it took four passes of pattern-matching
+    rather than one find-and-replace. A derived figure should be written once, in one form, and
+    referenced — not restated in prose by every row that relies on it.
+57. **Never update a number inside a claim without re-reading the claim.** A row said the non-waiver
+    map "lists 27 sentences across 24 sections and **does not include § 504B.211**". Substituting
+    the corrected 34/29 made the sentence self-contradictory, because the regeneration that produced
+    34/29 is exactly what **added** § 504B.211. A find-and-replace on a figure is safe only where
+    the figure is incidental to the sentence; where the sentence reasons *from* the figure, the
+    sentence has to be rewritten. Five rows needed rewriting, not renumbering.
+58. **A correction arrives with borrowed authority, so it needs the same check as the original.**
+    Three of this pass's worst moments were corrections: a "correction" of a helper who was right
+    about § 504B.285, subd. 1a (F79); a figure substitution that falsified five claims (lesson 57);
+    and a decline of a valid finding on `pet-fees-mn` because I checked the statute's scope and not
+    the row's. Round 2 exists to catch exactly this, and it caught all three. A scaled rule 80 should
+    always give its last round the narrow job of re-checking the fixes rather than widening coverage.
+59. **When a derived artefact is regenerated, re-read every row that reasoned about the old one.**
+    The waiver map's regeneration added five sections, which silently falsified the observations four
+    rows had made about what the map omitted. Regenerating a shared artefact is an index change in
+    the sense of rule 19, and the same replay discipline should apply to prose that cites it.
+60. **Check the row's own scope before declining a finding about it.** § 504B.261's deposit cap is
+    scoped to subsidized disability accessible units, which is why it cannot bound a general pet
+    deposit — but `pet-fees-mn` is itself scoped to those units, so within its own guard the bound
+    does apply. I declined a valid finding by answering a question about Minnesota rather than a
+    question about the row.
+
+### From the canvass
+
+344 proposed across the slices; **342 distinct** after merging. A lesson
+several slices reached independently is noted as such — that is evidence it is a real
+trap and not one helper's bad luck.
+
+
+**25 of these changed an answer rather than only a count** and are given in
+full first. The remaining 317 are recorded in one line each; the canvass answer
+files hold each one's full wording.
+
+#### Lessons that changed an answer
+
+1. A multi-state clause can fit a state's facts and still be wrong on its law. pest-cooperation-la reads naturally for Minnesota and would have been a comfortable tag -- and its cost-shifting trigger ('the fault of Tenant') is a lower bar than Minn. Stat. Sec. 504B.161, subd. 1(a)(2)'s 'willful, malicious, or irresponsible', under an unwaivable covenant. The tag-first rule's own escape hatch (check whether the row's basis rests on another state's statute) caught it here, but the deeper lesson is to diff the OPERATIVE TRIGGER of a shared clause against the new state's statute word for word, not just its subject matter.  _(from `bed-bug-cooperation`)_
+2. Deciding NOT to offer a clause is an answer, and the three-bucket test is what makes it defensible. The tempting move on this topic is a one-line lease recital that a certificate of occupancy has been issued. It fails all three buckets and converts a city's paperwork into a landlord representation. Recording the reasoning in the row is worth more than the clause would have been.  _(from `certificate-of-occupancy-disclosure`)_
+3. A battery positive is not a description, twice on this topic. Section 144.1222 matched 'family day care' but is a swimming-pool regulation whose day-care references are pool carve-outs, and section 469.002 matched 'overcrowding' but is the housing-authority definitions section. Either would have produced a wrong row if the hit had been read off the battery line instead of out of the section.  _(from `children-occupancy`)_
+4. Minnesota answers one topic twice, in two chapters, with different force: 363A.22 states the one-year plus six-month familial-status condition as an EXEMPTION from the Human Rights Act for exempt dwellings, while 504B.315 states the same condition as a DIRECT PROHIBITION on every residential landlord and adds a non-waiver clause. A canvass that found only the 363A side would have recorded a narrow exemption and missed the chapter-wide prohibition.  _(from `children-occupancy`)_
+5. Three different runs returning 1 hit each, all of them the same false friend, is not a weaker absence than three runs returning 0 -- but only if the hit is opened. Sec. 144.413 matched the common-area-plus-lighting AND because the Clean Indoor Air Act happens to use both phrases for unrelated reasons. Had it been counted rather than read, this topic would have been recorded as present.  _(from `common-area-lighting`)_
+6. Build the boundary row from the pass's own files, with a script, and say so in the notes. Doing it from memory would have produced the brief's list of about twenty chapters instead of the 89 the answer files actually name, and would have missed that chapter 515B blocks five rows while chapter 541 blocks one.  _(from `confirmed-absences-outside-title`)_
+7. A SECTION'S LATER SUBDIVISIONS CAN REWRITE ITS EARLIER ONES. Minn. Stat. § 325F.69, subd. 8 (2023) defines a term used in subd. 1 (1963), and Minn. Stat. § 325D.44, subd. 2(b) imports that definition into a different chapter. An earlier pass that read subd. 1 'section-open' and summarised subds. 2 to 8 as 'referral selling and similar' missed the one subdivision that mattered most. Reading a section whole means reading every subdivision for what it does, not scanning the later ones for topic drift.  _(from `consumer-protection-act`)_
+8. The uncited-section screen and the topic_key alignment check must be run together. Section 504B.2136 is cited by exactly one row (edu-minors-not-defendants-mn, topic_key minor-tenant-filing), so it is not an uncited section - but the brief's step 4 still routed it to this slice, and writing it here would have produced a duplicate under a second topic_key. Before writing a row for any section a brief names, grep the CSV for that section number first; the uncited list proves absence, it does not prove that a section the list omits is absent from YOUR topic.  _(from `eviction-process`)_
+9. Role-scoping is not free, and on this topic it cost the answer. The brief's instruction for a role-framed topic is to search the conduct too, because duties on 'any person' bind landlords. The converse also holds: requiring a landlord, tenant or lease word near the subject words hides every section that regulates the PREMISES rather than the relationship. Minn. Stat. 299F.011, subd. 4a (fire-code egress parity for family day care homes) and 144.414, subd. 2 (smoking prohibited during child care hours) contain no landlord or lease word anywhere, so three role-scoped batteries returned a clean, confident zero. The fix is to run the bare subject phrase with NO role limb at all as a separate pattern in the same batch, and the brief should require it whenever the topic is about what may happen at a property rather than about who owes what to whom.  _(from `family-child-care`)_
+10. The brief's own pointer was wrong on one cite and it would have produced a wrong row: it sent me to 'Sec. 504B.178, subd. 8 on what happens to a deposit when the property changes hands'. Subd. 8 is WITHHOLDING RENT. The deposit-on-transfer rules are subd. 5 (the landlord's 60-day transfer-or-return duty) and subd. 6 (the successor's rights and the 20-day objection cap). Reading the subdivision headnote list before trusting a subdivision cite costs one line of code and caught this.  _(from `foreclosure`)_
+11. 'furnish' as a verb swamps 'furniture' as a noun in a statute corpus. 32 of 32 bare-word hits here were the verb or an unrelated usage, which is exactly the shape of a false absence if the hits are counted rather than read. The lint warning on short words does not catch this one.  _(from `furnishings-included`)_
+12. Scoping an absence battery to the core act would have produced a wrong answer here. Minnesota HAS a cause-required eviction regime - Minn. Stat. § 327C.09, subd. 1, headed 'Cause required' - but it lives in the manufactured home park chapter, not in chapter 504B. A 'does this state have just cause' battery confined to the landlord-tenant act returns a clean and misleading zero. Rule: run a regime-existence battery over ALL held statutes, never over the core act alone, and name the chapter any hit lives in.  _(from `good-cause-notice`)_
+13. The bare word did the whole job here: 'guarant\w*' returned 6 hits in 1,305 units, few enough to open every one. A role-limbed run returned 2 and would have produced the same verdict with less evidence - the bare word is what makes the absence provable rather than merely unrefuted.  _(from `guarantor-renewal`)_
+14. The engine INFLECTION line earned its keep: \blead\b missed stat:144.496 and stat:504B.445, and the rerun with \blead(?:s|ed|ing)?\b caught both. Neither changed the answer, but on a different topic one of them would have.  _(from `lead-state-notices`)_
+15. A heading screen on an 'initials' topic must read every heading-only hit, because 'INITIAL' is a false friend: Minn. Stat. § 504B.182 INITIAL AND FINAL INSPECTION REQUIRED would have been counted as an initials rule by any pass that did not open it. Add 'initial/initials' to the standing short-term trap table beside lease/release and ten/tenant, with the trap named as 'initial inspection'.  _(from `lease-notice-initial-requirement`)_
+16. A section that opens with 'Where X has been done' is a conditional, not a duty, and the distinction is the whole topic here. Minn. Stat. Sec. 504B.251's first five words decide whether Minnesota requires lease recording. A search hit on 'recorded lease' read without the opening clause would have produced the opposite row. Rule 12 again: open the section, read the first sentence from its first word.  _(from `lease-registration`)_
+17. THE INFLECTION LINE EARNED ITS KEEP AGAIN, AND HARDER THIS TIME. '\blimitation\b' returned 32 sections; '\blimitation(?:s)?\b' returned 53. The 21 sections the singular missed include Minn. Stat. § 325D.64, whose HEADNOTE is literally 'STATUTE OF LIMITATIONS'. A limitation-of-actions absence claim built on the singular would have missed the one general limitation section in the held consumer chapters. Statutory English pluralises this term of art by default; '\blimitation\b' alone should be treated as a known-bad pattern.  _(from `limitation-of-actions`)_
+18. The inflection probe changed an answer here, not just a count. '\bvoid\b' over chapter 504B returned 22 sections and MISSED Sec. 504B.171, the most relevant section in the topic, because subd. 2 says 'voids'. The rerun with '\bvoid(?:s|es|d|ed|ing)?\b' returned 23. Treating an INFLECTION line as a required rerun is worth its cost.  _(from `prohibited-acts-renter`)_
+19. 'VOID' IS AN AMBIGUOUS VERDICT AND NEEDS ITS OBJECT READ. Minnesota voids the right to possession and expressly preserves the rent. A row that reported 'unlawful use voids the lease' would have been quoting the headnote accurately and stating the law wrongly, and would have cost a landlord the rent. Where a provision uses 'void', record WHAT is voided in the statute's own words.  _(from `purpose-limitation`)_
+20. A battery can prove a corpus boundary rather than an absence, and the distinction is worth stating in the row. '\bcommunity notification\b' returning 0 hits over 1,305 statute units does not mean Minnesota has no community-notification regime; it means the regime is not in the corpus. Writing it as an absence would have been the wrong answer entirely.  _(from `sex-offender-disclosure`)_
+21. Running the bare subject phrase before any role limb is now twice-proven on occupancy-shaped topics. Here it did not change the verdict, but it is what makes the absence claim honest: a landlord-limbed battery alone would have produced the same zero for the wrong reason.  _(from `sex-offender-occupancy`)_
+22. Read the engine's INFLECTION lines before citing a run. On this topic the bare 'access' limb silently excluded 'accessed' and 'accessing' in four to five units; the rerun changed the hit set, and a row citing only the first run would have been citing a narrower claim than it stated.  _(from `smart-access`)_
+23. A one-hit battery is worth opening even when the hit looks promising. '\bsecurity program\b' returned exactly one section, stat:325F.995, which reads as a data-security hit from its heading words and is in fact the Genetic Information Privacy Act. A count alone would have produced a wrong present answer.  _(from `tenant-records`)_
+24. A term-of-art battery missed the section the topic turns on, again, and the miss was one letter wide. 'holdover\w*' and '\bhold over\b' do not match 'holds over', so Minn. Stat. 504B.311 and 504B.141 were invisible to the first run; adding 'hold(?:s|ing)? ?over\w*' returned both. The general rule the brief should carry: for any legal phrase built on a verb, enumerate the conjugations, because statutes write the verb and practitioners write the noun.  _(from `unauthorized-occupant-removal`)_
+25. When a topic imports a foreign legal concept, the cheapest decisive proof is the vocabulary run over EVERY scope rather than a proximity run over one. Six terms at zero across statutes, all session-law views and the constitution settles usufructuary-lessor in a single battery, where a landlord-and-lease proximity run would have produced hits to triage and proved less.  _(from `usufructuary-lessor`)_
+
+#### Further lessons (one line each)
+
+26. The brief's claim that the session laws are an index to the missing chapters held exactly.  _(from `accessory-dwelling-unit`)_
+27. An uncodified session-law section needs its expiry read as carefully as its effective date.  _(from `accessory-dwelling-unit`)_
+28. An absence claim that depends on an unreachable chapter can still be PARTLY proved, and the row is much stronger for saying which part.  _(from `actual-notice-method`)_
+29. Verify an unreachable-chapter claim by calling the loader, not by inference from a battery's silence.  _(from `actual-notice-method`)_
+30. Brief 2's '>2% of scope, add the third mandatory term' rule worked exactly as written here: the two-term AND returned 59 of 1305 units (4.5%) and was unusable, while adding the landlord/tenant nexus term brough.  _(from `adverse-proceeding-notice`)_
+31. A shared clause pattern can be lawful everywhere it is used and still need a Minnesota-specific qualification rather than a Minnesota-specific refusal.  _(from `adverse-proceeding-notice`)_
+32. An INFLECTION line is a real rerun, not a formality: rerunning with inflected hotel/motel moved the bare-word count and would have mattered if either form had been the only one in a landlord-tenant section.  _(from `alt-housing`)_
+33. Sec.  _(from `alt-housing`)_
+34. Where the corpus holds a whole subject-matter chapter (144 here), a topic-vocabulary battery can return a sixth of the corpus and prove nothing.  _(from `animal-care-access`)_
+35. Sec.  _(from `appliances-excluded`)_
+36. Reusing an existing {{variable}} costs one grep.  _(from `appliances-excluded`)_
+37. The slice brief asserted that chapter 144 carries an asbestos abatement regime.  _(from `asbestos-hazards`)_
+38. When the governing chapter is outside the corpus, the 2025-2026 session laws can still supply its text verbatim: Laws 2025, First Special Session ch.  _(from `asbestos-hazards`)_
+39. Two more sections reachable only by the heading screen: § 504B.144 (EARLY RENEWAL OF LEASE) and § 504B.145 (RESTRICTION ON AUTOMATIC RENEWALS OF LEASES) were heading-only on this slice's heading screen, as § 50.  _(from `automatic-renewal`)_
+40. A statute can impose a notice WINDOW with a ceiling as well as a floor (§ 504B.145: at least 15 but not more than 30 days), and measure it from a point other than the end of the term (the tenant's own notice de.  _(from `automatic-renewal`)_
+41. A zero on the bare word is worth more than a zero on the term of art, and here it is the whole answer: 'balcony' returning 0 hits across 1,305 statute units settles the topic in a way that a zero on 'balcony in.  _(from `balcony-inspection`)_
+42. This slice's absences are bounded by a rules boundary, not just a chapter boundary.  _(from `balcony-inspection`)_
+43. Four tenant-fault vocabularies in one chapter is a trap with a measurable cost.  _(from `bed-bug-cooperation`)_
+44. A FAILED POSITIVE MUST BE RERUN, NOT EXPLAINED AWAY.  _(from `binding-arbitration`)_
+45. AN ABSENCE INSIDE THE CORPUS IS NOT AN ANSWER TO THE TOPIC.  _(from `binding-arbitration`)_
+46. Where a topic key bundles two rules whose waivability differs (here casualty and mitigation), the row's value is the CONTRAST, and a pass that answers only the half it happens to find first will state the other.  _(from `casualty-and-mitigation-waivable`)_
+47. Sec.  _(from `certificate-of-occupancy-disclosure`)_
+48. The common-area charging bar for electricity is in chapter 216B, not in chapter 504B, while the bars for gas and water are in chapter 504B.  _(from `common-area-lighting`)_
+49. Two of the three batteries in this topic had a positive recorded as FAILED on the first run, both because I picked a positive from memory of what a section probably says rather than from its text.  _(from `confirmed-absences-misc`)_
+50. A session-law run with a broad limb can be worse than no run.  _(from `confirmed-absences-misc`)_
+51. The useful shape for a confirmed absence is 'absent, except one narrow thing that proves the rule'.  _(from `confirmed-absences-misc`)_
+52. A heading screen's positive must be taken from the corpus in hand, not from what the section will be called.  _(from `confirmed-absences-outside-title`)_
+53. A retitled section deserves its own entry shape in the amendment record: deleted headnote, new headnote, and whether the old operative sentence survives.  _(from `confirmed-absences-outside-title`)_
+54. A shared optional clause can be tagged honestly even where the governing chapter is out of corpus, PROVIDED the tag note separates the two questions the clause answers: is the term lawful between the parties (p.  _(from `construction-liens`)_
+55. SCREEN THE WHOLE-HELD CHAPTER, NOT JUST THE SECTION THE LAST PASS CITED.  _(from `consumer-protection-act`)_
+56. A WHOLE HELD CHAPTER CAN BE INVISIBLE TO THE LIBRARY.  _(from `conversion-notice`)_
+57. The brief's caution that chapter 327C says 'resident' and never 'tenant' understates the problem: Sec.  _(from `conversion-notice`)_
+58. A \b-anchored singular stem silently excludes its own inflections: \bcure\b does not match 'cures', and the first run of S05-b1 returned a clean zero in chapter 504B for that reason while the battery's own posi.  _(from `cure-and-eviction-grounds`)_
+59. The bare word urea matches inside Bureau: a CSV collision check on urea returned 323 rows, almost all false.  _(from `defective-drywall-disclosure`)_
+60. A case-sensitive BUILDING MATERIAL heading screen found Sec.  _(from `defective-drywall-disclosure`)_
+61. The statutory NOTE printed under a section names that section exemptions and differs section to section: the NOTE under Secs.  _(from `disability-accommodation`)_
+62. Sec.  _(from `disability-accommodation`)_
+63. An exclusion list is a hit factory.  _(from `disaster-displaced-guests`)_
+64. A HEADING SCREEN CANNOT FIND A DUTY WHOSE HEADNOTE NAMES THE DOCUMENT.  _(from `disaster-duties`)_
+65. The brief's 'chapter 327C says resident, never tenant' warning should be generalised to a required battery limb, not a caution.  _(from `disaster-duties`)_
+66. A cross-reference definition can invert a clause's whole effect.  _(from `drug-free-housing-addendum`)_
+67. A no-waiver formula that says 'waive or MODIFY' does different work from one that says 'waive'.  _(from `drug-free-housing-addendum`)_
+68. A currency line is not coverage.  _(from `drug-free-housing-addendum`)_
+69. A proximity window is part of the claim, not a detail.  _(from `dv-deposit-timing`)_
+70. Implement the section-wide AND as a start-anchored lookahead (\A(?=[\s\S]*A)(?=[\s\S]*B)).  _(from `dv-deposit-timing`)_
+71. A section-wide AND is meaningful for a statute section but near-useless over the session laws, where one unit is a whole act: the same pattern that returned 3 hits over the statutes returned 22 over 146 acts.  _(from `dv-deposit-timing`)_
+72. A slice brief's own subdivision pointer needs the same check as a secondary source.  _(from `dv-eviction-protection`)_
+73. When a long multi-subject row already mentions the point (edu-for-cause-eviction-mn covers subd.  _(from `dv-eviction-protection`)_
+74. The inflection probe fired twice in this topic ('admission', then 'tenant'/'landlord' over the session laws) and both reruns returned identical ids.  _(from `dv-eviction-protection`)_
+75. A settled upstream finding still needs the section opened.  _(from `dv-lockchange`)_
+76. DATA-FILE DEFECT, not a row defect: data/504B-scope-and-waiver.md Part B lists 27 operative non-waiver sentences across 24 sections in four formulas, and it omits five sections that carry one.  _(from `dv-lockchange`, `periodic-services-entry`, `showing-notice-waiver` — reached independently by 3 slices)_
+77. A topic_key that asserts a fact ('chapter-moved') is a hypothesis, not a finding.  _(from `dv-protection-order-chapter-moved`)_
+78. The renumbering notices really do live outside body text: 51 of the 64 hits were heading-only, and the only chapter 504B renumbering in the whole corpus (Sec.  _(from `dv-protection-order-chapter-moved`)_
+79. The 'pure court procedure' bucket of 17 sections in UNCITED-504B-SECTIONS.md is not reliable.  _(from `dv-protection-order-chapter-moved`)_
+80. Where a slice needs a cross-reference to be current, check the cited subdivision and not just the cited section.  _(from `dv-protection-order-chapter-moved`)_
+81. STEP 5 paid off twice in this slice.  _(from `electric-submetering-disclosure`)_
+82. A heading screen is not optional even when the body screen looks complete: the case-sensitive run of `SUBMETER` returned hits=0 with heading_only=1, and that one heading-only unit was § 216B.022 — the section t.  _(from `electric-submetering-disclosure`)_
+83. Make the §6 sentence screen an assert inside the row constructor, not a manual step.  _(from `electric-submetering-disclosure`)_
+84. 'Condemn' is two different topics in one word, and Minnesota is a clean example: all five 'condemn\w*' hits in the held corpus are housing-code condemnation of an unfit building, and NONE is a taking, while all.  _(from `eminent-domain`)_
+85. An employee-screening topic in a lease-clause library is answered in the EMPLOYMENT chapter, not the landlord-tenant one.  _(from `employee-screening`)_
+86. A session law can confirm an unheld chapter is live and identify what it governs without revealing any of its content.  _(from `employee-screening`)_
+87. Ask 'present or absent', not 'confirm the absence'.  _(from `energy-data-release`)_
+88. A topic can be Present and NEEDS_REVIEW at the same time.  _(from `energy-data-release`)_
+89. A heading screen that returns 0 body hits AND 0 heading-only across all 1,305 units for an exact phrase that would certainly appear if the subject were held - here PRACTICE OF LAW - is the cleanest possible pro.  _(from `entity-landlord-court-representation`)_
+90. The plaintiff/defendant vocabulary trap is real and cost nothing only because the brief flagged it.  _(from `ev-charging-end-of-tenancy`)_
+91. For an 'end of tenancy' topic about a THING, the answer usually lives in the abandoned-property and writ-execution sections rather than anywhere near the thing's own name.  _(from `ev-charging-end-of-tenancy`)_
+92. A vocabulary screen is only as good as the statute's own words.  _(from `ev-charging-requirements`)_
+93. The session-law-only landlord-facing regime appeared again, twice.  _(from `ev-charging-requirements`)_
+94. An appropriations or budget act is not off-topic.  _(from `ev-charging-requirements`)_
+95. When a topic's label is absent but its mechanism is regulated, the answer is 'present as a constraint, absent as a regime'.  _(from `ev-charging-shared-area`)_
+96. A fee screen has to ask whether the fee is NONOPTIONAL.  _(from `ev-charging-shared-area`)_
+97. A zero-hit absence battery is strongest when the term of art genuinely is a term of art elsewhere in the corpus.  _(from `eviction-hardship-stay`)_
+98. Nesting a narrow proximity window inside a term alternation defeats the >=1,200-character rule without looking like it: the pattern reads as a 1,200-character run but contains a 40-character limb, and the engin.  _(from `eviction-service-party`)_
+99. Three of my first five absence batteries recorded a failed positive because I named a section from a hit list without checking which alternative it matched.  _(from `eviction-service-party`)_
+100. READ THE ENGINE'S INFLECTION LINE AND ACT ON IT.  _(from `exculpatory-clauses`)_
+101. A broad battery over a corpus with a whole health chapter in it is not an absence proof.  _(from `extended-absence-notice`)_
+102. The session laws indexed a chapter the corpus is missing.  _(from `family-child-care`)_
+103. Running the inflected rerun mattered less than the INFLECTION line that prompted it.  _(from `family-child-care`)_
+104. A four-pattern clean zero (two 1,200-character word orders plus two section-wide ANDs) in a held chapter is worth recording as such, because it lets the row keep VERIFIED while still naming an unreachable chapt.  _(from `farmland-hunting-rights`)_
+105. Sec.  _(from `fire-code-standard`)_
+106. A section-wide AND over the whole statute corpus is the cheapest way to prove a one-sided absence.  _(from `firearms`)_
+107. A borrowed definition can mean different things in two sections that both borrow it.  _(from `firearms`)_
+108. Laws 2026, ch.  _(from `firearms`)_
+109. A case-sensitive exact-phrase heading screen returning 0 body AND 0 heading-only is the cheapest way to show a subject is outside the corpus rather than absent from the law.  _(from `flood-disclosure`)_
+110. flood* in Minnesota statutes is almost entirely a MOTOR VEHICLE term (flood-damaged title branding in chapter 325F).  _(from `flood-disclosure`)_
+111. 'Generally' in an education row is where an exception goes to die.  _(from `foreclosure`)_
+112. NEEDS_REVIEW is the right status when the topic TURNS ON an unreachable section, but the row can still carry real verified content.  _(from `foreign-ownership`)_
+113. A case-sensitive heading screen that returns 0 body hits and a handful of heading-only hits is the cheapest high-value check in the battery set: it cost one run and surfaced that REDEMPTION lives in a headnote .  _(from `forfeiture-redemption`)_
+114. THE ANSWER TO A 'LIKELY ABSENCE' TOPIC WAS A PRESENT BAR, AND IT TURNED ON ONE WORD.  _(from `frozen-standard-incorporation`)_
+115. WHERE A STATUTE ITSELF USES THE MOVING FORM, THAT IS EVIDENCE ABOUT DRAFTING.  _(from `frozen-standard-incorporation`)_
+116. A clause that merely lists what the landlord supplies can enlarge the landlord's duties where a statute attaches consequences to items 'included in the lease'.  _(from `furnishings-included`)_
+117. A statute that defines its subject by FUNCTION rather than by actor can reach a non-party.  _(from `guarantor-renewal`)_
+118. Do not put a common word into an alternation as a proxy for an idea.  _(from `guest-rights`)_
+119. The INFLECTION line did the real work on this topic.  _(from `guest-rights`)_
+120. \bwell\b matches 'as well as' and is not in the engine's SHORT_TRAPS list.  _(from `habitability-modifiable`)_
+121. A proximity window that spans a whole act is not the only laws-scope hazard: a laws-scope hit should be screened by asking whether the act mentions the actor at all.  _(from `habitability-modifiable`)_
+122. Minn.  _(from `habitability-waiver`)_
+123. brownfield, environmental covenant, institutional control and activity and use limitation all return zero across 1,305 held sections.  _(from `hazardous-contamination-disclosure`)_
+124. The session laws name unheld chapters by number.  _(from `hazardous-contamination-disclosure`)_
+125. A zero on the topic's own vocabulary can be the most useful result in the row.  _(from `health-district-rental-rules`)_
+126. The cross-reference boundary can cut a topic in half.  _(from `health-district-rental-rules`)_
+127. Verify a two-amendment year from the raw views, not the consolidated text.  _(from `heating`)_
+128. A dated recurring duty is invisible to a clause library.  _(from `heating`)_
+129. THE BRIEF NAMED ONE 2026 ACT ON CHAPTER 515B AND THERE ARE TWO.  _(from `hoa`)_
+130. Verifying a handed-down finding sentence-by-sentence is cheap and worth doing.  _(from `hoa`)_
+131. A battery that returns 0 on all three limbs is the strongest kind of absence and should be reported as such rather than padded: here the section-wide M.andpat() has no window at all, so a zero on it means no se.  _(from `holdover-rate`)_
+132. 'home occupation' is a standing trap: over laws:enacted it matched 'nursing home occupations' in Laws 2025, First Special Session ch.  _(from `home-business`)_
+133. The bare word 'business' returns 129 of 1,305 held statute units, right at the brief's 10 percent screen threshold.  _(from `home-business`)_
+134. A ZERO ON THE BARE WORD IS A STRONG RESULT AND AN INCOMPLETE ONE.  _(from `homestead-waiver`)_
+135. SOME WAIVER TOPICS ARE EMPTY FOR A STRUCTURAL REASON, NOT A STATUTORY ONE.  _(from `homestead-waiver`)_
+136. A statute can govern a subject without using the subject word once.  _(from `immigration-status`)_
+137. When a section is mapped to two slices, say in the notes which slice took it substantively and which cites it as context, so the next canvass does not read the duplicate as a conflict.  _(from `immigration-status`)_
+138. The most important sections for this topic never use the words landlord or tenant.  _(from `informal-dispute-resolution`)_
+139. An act's title can promise more than its text delivers.  _(from `informal-dispute-resolution`)_
+140. ASK WHAT THE DEFAULT IS BEFORE ASKING WHETHER IT CAN BE WAIVED.  _(from `jury-waiver`)_
+141. SEARCHING THE CONSTITUTION FOR THE SUBJECT, NOT THE LABEL, IS WHAT WORKS.  _(from `jury-waiver`)_
+142. The bare-word run earned its keep here.  _(from `key-control-policy`)_
+143. A battery positive is not a description.  _(from `key-control-policy`)_
+144. A phrase-anchored role limb produced a clean, wrong zero in this topic.  _(from `landlord-breach-remedy`)_
+145. The engine's 400-character lint is worth obeying even on an inner window of a three-limb pattern.  _(from `landlord-breach-remedy`)_
+146. The Sec.  _(from `landlord-breach-remedy`)_
+147. 'insure' meaning 'ensure' is a standing trap worth adding to the lint list: Sec.  _(from `landlord-liability-insurance`)_
+148. A literal-phrase run can be the strongest evidence in an absence.  _(from `landlord-liability-insurance`)_
+149. A ROLE-LIMBED BATTERY MISSES MINNESOTA'S ONLY LANDLORD LIEN.  _(from `landlord-lien`)_
+150. Cross-reference sections are in the corpus FOR A REASON, and the reason is usually not the one a row assumes.  _(from `landlord-lien`)_
+151. MEASURED EVIDENCE FOR THE INFLECTION WARNING, from this slice: the bare '\bregister\b' run reported 67 units carrying an inflected form that the \b-anchored pattern silently excluded, and running the inflected .  _(from `landlord-registration`)_
+152. A state can acknowledge a municipal regime three times and still not create its own.  _(from `landlord-registration`)_
+153. The case-sensitive headnote screen earned its keep and then cost nothing: all three heading-only hits (stat:504B.205, stat:299F.05, stat:561.01) were opened and two were false leads, but a pass that had counted.  _(from `law-enforcement-cooperation`)_
+154. A bidirectional non-waiver changes WHERE the risk lives, not just how strong it is.  _(from `law-enforcement-cooperation`)_
+155. Searching the regime own vocabulary found this answer where the topic words could not.  _(from `lead-safe-certification`)_
+156. The definition section carried the answer, not the operative section.  _(from `lead-safe-certification`)_
+157. A case-sensitive LEAD heading screen matches inside PLEADING (stat:484.81, stat:484.87).  _(from `lead-state-notices`)_
+158. A chapter-page SUBJECT BANNER lands in the body of the PRECEDING section: stat:144.95 (mosquito research) carries the trailing banner LEAD POISONING PREVENTION ACT, and stat:325F.001 carries ASBESTOS.  _(from `lead-state-notices`)_
+159. The case-sensitive DISCLOSURE heading screen over the whole corpus returned 2 body plus 16 heading-only matches, and opening all 18 produced a reusable slice-wide result: the only disclosure-headed sections tou.  _(from `lead-state-notices`)_
+160. An assembled list handed to a helper should still be battery-tested for completeness: the list of seven was short by two (Sec.  _(from `lease-content-requirements`)_
+161. A lease-content rule can live in a cross-referenced chapter.  _(from `lease-content-requirements`)_
+162. A rule recorded only in another row's NOTES is invisible to the library's output.  _(from `lease-content-requirements`)_
+163. This is the one topic in the slice where the boundary is a whole MISSING CHAPTER rather than a rules delegation.  _(from `lease-registration`)_
+164. Second confirmation of the rent slice's lesson: § 504B.146 returned ONLY as a heading-only match in this slice's term-length battery as well, never on a body-proximity limb.  _(from `lease-term-limitation`)_
+165. A zero on the central phrase was the finding, not a failure.  _(from `lease-type-parity`)_
+166. Three Minnesota type-size numbers exist and none of them is about the lease.  _(from `lease-type-size`)_
+167. AN ABSENCE THAT MEANS 'THE GENERAL RULE APPLIES' MUST SAY SO.  _(from `limitation-of-actions`)_
+168. Minnesota is a 'conspicuous writing' state, not a 'separate written agreement' state, for shifting repair duties (Minn.  _(from `maintenance-duty-shift`)_
+169. A proximity window is part of an absence claim, and so is the scope of the corpus a battery can reach.  _(from `meter-conservation-charge`)_
+170. Where a state's corpus holds only some sections of a chapter (here 5 of chapter 216B, none of 216C, none of 332 or 334 besides § 334.16), the brief should say so per chapter, because an absence claim about a pr.  _(from `meter-conservation-charge`)_
+171. The engine LINT on avigation/navigation fired and was correct: the single avigation hit in 1,305 sections was the word NAVIGATION, and over the session laws all nine hits were NAVIGATION.  _(from `military-air-zone-disclosure`)_
+172. The 50 cross-reference sections are not background reading.  _(from `municipal-utility-lien`)_
+173. Reading the engine's INFLECTION line changed the work here: \blien\b returned a clean-looking set and the probe named two units carrying 'liens' that the pattern did not match.  _(from `municipal-utility-lien`)_
+174. Add 'refuse' to the standing short-term trap list.  _(from `municipal-utility-lien`)_
+175. 'nonresident' is a word-boundary trap in Minnesota and the heading screen caught it: the case-sensitive 'NONRESIDENT' run returned a heading-only hit that is NONRESIDENTIAL MENTAL HEALTH SERVICES.  _(from `nonresident-owner-agent`)_
+176. On a topic framed by the owner's STATUS (nonresident, corporate, absentee), the right answer is often that the state imposes the duty on everyone, which no absence battery will surface -- the battery proves onl.  _(from `nonresident-owner-agent`)_
+177. Two rows under one topic_key that agree on the headline can still disagree on provenance, and only one of them may be statutory.  _(from `notice-to-quit-waiver`)_
+178. An 'absent' verdict on a content-restriction topic is more useful when it says what happens to the extra content anyway.  _(from `notice-to-vacate-additional-terms`)_
+179. A COMPLETENESS AUDIT NEEDS A SECTION-BY-SECTION GREP OF THE CSV, NOT A TOPIC GREP.  _(from `optional-lease-terms`)_
+180. MINNESOTA'S THINNESS HERE IS ITSELF THE FINDING.  _(from `optional-lease-terms`)_
+181. razing matches inside BRAZING.  _(from `ordnance-demolition-meter-disclosures`)_
+182. \bordnance\b returns zero across the whole corpus while munition* returns six.  _(from `ordnance-demolition-meter-disclosures`)_
+183. Run the Step 5 CSV collision check on the topic SUBJECT, not just the topic key.  _(from `ordnance-demolition-meter-disclosures`)_
+184. Two of the three genuinely new Minnesota duties this slice found are in chapter 325F, not 504B - the garage door opener rule and the housing-with-services lockable-door rule.  _(from `other-landlord-facilities`)_
+185. A shared optional clause offered in nine states can be unlawful in a tenth purely because of how it states a notice FLOOR, with nothing on its face to show it.  _(from `owner-move-in-reservation`)_
+186. The park rules regime was invisible to the topic vocabulary.  _(from `parking-rules-notice`)_
+187. A DERIVED ARTEFACT NEEDS A BATTERY'S DISCIPLINE.  _(from `part5-nonwaivable`)_
+188. RUNNING THE BARE WORD IS WHAT CAUGHT IT.  _(from `part5-nonwaivable`)_
+189. VOICE IS A SEARCH DIMENSION.  _(from `part5-nonwaivable`)_
+190. A shared clause can be lawful in a state and still be the wrong row for it.  _(from `periodic-services-entry`)_
+191. An absence whose boundary is a MISSING CHAPTER should name the chapter and the section inside it that would have answered the topic, not just say 'statutes only'.  _(from `pest-control-notice`)_
+192. A prior row's recorded adjudication can carry an absence across a corpus boundary, but only because edu-no-bed-bug-disclosure-mn wrote down its METHOD, its DATE and its HIT COUNTS.  _(from `pest-control-notice`)_
+193. Two of the three Minnesota pet sections carry the word 'pet' or 'pets' ONLY in their headnotes -- Sec.  _(from `pet-eviction-fact-sheet`)_
+194. An absence verdict and an important present rule can live in the same row without breaking rule 57, as long as the row has one subject.  _(from `pet-eviction-fact-sheet`)_
+195. CITING A PRIOR VERIFIED ROW INSTEAD OF AN UNHELD SECTION WORKS, AND SO DOES READING THAT ROW'S OWN CAVEATS.  _(from `plain-language-consumer-statement`)_
+196. A definition can be the whole answer, and a topic-word battery will not find it.  _(from `pool-safety`)_
+197. Minnesota preempts local regulation of one narrow thing in Sec.  _(from `pool-safety`)_
+198. 'Absent' and 'nothing to say' are different findings.  _(from `portable-cooling-device`)_
+199. Heed the engine's LINT line on trap words rather than only the hit counts.  _(from `portable-cooling-device`)_
+200. A zero across every limb is not automatically a clean absence.  _(from `portable-solar`)_
+201. Open the session-law hits even when they are obviously not your topic.  _(from `portable-solar`)_
+202. A numeric battery is a magnet for the wrong numbers.  _(from `portfolio-thresholds`)_
+203. Minnesota is a useful counter-example for the library's portfolio-threshold assumptions: there is no small-landlord exemption at all, every count threshold but one counts units in a building, and the single por.  _(from `portfolio-thresholds`)_
+204. An inverted topic - where the state's law is a prohibition rather than the thing the topic names - still needs the full absence battery, because the answer is only trustworthy if the battery also enumerates wha.  _(from `possession-bond`)_
+205. The brief trap is now measured, not asserted: \bwell\b over statutes:504B returns 3 hits and all three are as well as; the trap-free alternative returns 0 in the same chapter.  _(from `private-well-testing`)_
+206. An APPROPRIATION act can settle a duty question.  _(from `private-well-testing`)_
+207. Rule 26's 'does the shared row's basis rest on another state's statute' test should be read to include a shared row that rests on another state's statutory ABSENCE.  _(from `prohibited-acts-renter`)_
+208. A shared clause can be unsafe in a new state for a reason that lives in a different section from the one the clause is about.  _(from `prohibited-acts-renter`)_
+209. A HEADNOTE CAN BE THE OPPOSITE OF THE RULE.  _(from `prohibited-lease-terms`)_
+210. THE CROSS-REFERENCE PATTERN IS EVIDENCE.  _(from `prohibited-lease-terms`)_
+211. A topic framed as an absence ('must the promise be in writing with a date?') can hide a present answer in the DEFINITIONS section.  _(from `promises-to-repair`)_
+212. This topic was answered entirely by a case-sensitive heading screen.  _(from `prop65-rental-warning`)_
+213. A repealed-section stub is a reliable pointer to the subject that follows it.  _(from `prop65-rental-warning`)_
+214. A section inside the corpus can establish the EXISTENCE and the OWNER of a duty whose terms live outside it, when the in-corpus section reproduces a statutory notice that cites the outside section.  _(from `property-tax-rent-disclosure`)_
+215. THE INFLECTION LINE POINTED AT THE SECTION THAT ANSWERS THE TOPIC.  _(from `purpose-limitation`)_
+216. Run the everyday word beside the term of art, and then open its hits.  _(from `recycling-notice`)_
+217. Where an absence is bounded by a missing chapter, say so in the ROW and not only in the notes.  _(from `recycling-notice`)_
+218. Grep the CSV for the statute SECTION NUMBER before drafting any row, not only for the topic_key.  _(from `redemption`)_
+219. Two fresh noise traps for the standing list, both caught by opening the hit: Sec.  _(from `religious-cultural-display`)_
+220. A constitutional liberty clause is not an answer to a private-landlord topic unless the clause reaches private conduct.  _(from `religious-cultural-display`)_
+221. Minn.  _(from `rent-concession`)_
+222. Second confirmation this slice that the heading screen earns its place: § 504B.131 'RENT LIABILITY; UNINHABITABLE BUILDINGS' was returned ONLY as a heading-only match in the everyday-word companion and by no bo.  _(from `rent-demand-bar`)_
+223. § 504B.147's rule is relative, not absolute: the lease's own figure for the tenant sets the floor on the landlord's.  _(from `rent-escalation`)_
+224. A rent-escalation battery should always include an index/CPI limb separately from the increase/adjust limb.  _(from `rent-escalation`)_
+225. The topic's own question - 'is the widely-cited rent-increase notice actually the MOBILE-HOME rule?' - was the right question for Minnesota and the answer is yes (§ 327C.06, 60 days, two increases a year).  _(from `rent-increase-notice`)_
+226. A proration battery found a section no rent battery would have reached: § 504B.146 LEASE DURATION NOTICE, a first-page required disclosure that appears nowhere in the library for any state.  _(from `rent-installments`)_
+227. The non-waiver map has a hole worth stating out loud: § 504B.118's cash-receipt duty and its new digital-payment duties carry NO non-waiver sentence, even though § 504B.116 next door does.  _(from `rent-receipt-anti-waiver`)_
+228. The heading screen was the only limb that surfaced §§ 504B.241 and 504B.245 here, and it surfaced them as heading-only matches.  _(from `rent-reporting`)_
+229. A three-term section-wide M.andpat(tax, tenant, rent) returned 8 hits where the two-term proximity limbs returned 3 and 0.  _(from `rent-tax`)_
+230. THE HEADING-ONLY SCREEN EARNED ITS KEEP ON THIS TOPIC.  _(from `rental-inspection`)_
+231. A non-waiver can be designed around rather than merely obeyed.  _(from `rental-inspection`)_
+232. On a topic whose vocabulary is common English ('cost', 'terminate'), the brief's >=1200-character wide run plus a two-term section-wide AND is not probative on its own -- it returned 52 of 1,305 statute units h.  _(from `repair-cost-termination`)_
+233. Minn.  _(from `repair-notice`)_
+234. A slice brief's section list can contain a repealed section.  _(from `required-disclosures`)_
+235. For a consolidating row, the organising axis should be something no constituent row can carry.  _(from `required-disclosures`)_
+236. An invitation to quote a verbatim notice has to be checked against rule 57.  _(from `required-disclosures`)_
+237. WHEN AN IMPORTED CLAUSE HAS NO STATUTORY HOME, SAY DELETE IT, NOT JUST 'NOT REQUIRED'.  _(from `rights-responsibilities-guide`)_
+238. A role limb must carry the vocabulary of every chapter in scope.  _(from `rules-regulations`)_
+239. A heading screen's zero proves nothing, but its hits can still be cleared cheaply: all eight heading-only hits here were agency-rulemaking or court-rule headnotes, which is only visible once each heading is ope.  _(from `rules-regulations`)_
+240. Four topics this pass were answered by a definition rather than an operative section, and this slice supplies the clearest case: nothing in Chapter 504B says a buyer takes on the landlord's duties, because Sec.  _(from `sale-or-management-change`)_
+241. The brief's two candidate homes for Sec.  _(from `sale-or-management-change`)_
+242. A topic framed as an absence can be present in a different shape, and the only way to see it is to run the bare word and open all of its hits.  _(from `sanitary-code-variance`)_
+243. Minn.  _(from `sanitary-code-variance`)_
+244. A battery positive given as a scope-style reference (`laws:2026-0:enacted:81`) rather than the loader's own unit id (`law:2026-0:ch81:enacted`) is recorded as FAILED for 'unit not found', which looks identical .  _(from `seasonal-tenancy`)_
+245. The battery engine's `statutes` scope originally excluded the 50 cross-reference sections, so c.unit('216B.023') returned None and an absence battery over `statutes` silently proved less than it claimed.  _(from `security-deposit-nonwaiver`)_
+246. Where a quoted statutory passage contains a possessive, quote around it rather than silently dropping the apostrophe-s: two of my first drafts turned 'the building's utility service' and 'a tenant's liability' .  _(from `security-deposit-standards`)_
+247. Confirmed instance of the standing senior trap: five of the eight senior-stem hits in the statutes corpus are seniority, not senior citizens (Secs.  _(from `senior-housing-work-card`)_
+248. Sec.  _(from `senior-housing-work-card`)_
+249. Searching the session laws for an UNHELD section's number is a cheap way to learn that the section is live and recently amended.  _(from `sex-offender-disclosure`)_
+250. Where a topic is about a class of person rather than a kind of conduct, the useful landlord answer is usually the conduct route that already exists.  _(from `sex-offender-occupancy`)_
+251. A bare two-word phrase pattern beat every proximity run on this topic.  _(from `sfr-occupancy-disclosure`)_
+252. An 'unless' clause in one section plus a scope word in the section it points to can create a duty that exists only for the smaller property.  _(from `sfr-occupancy-disclosure`)_
+253. \bdock\w* matches DOCKET and DOCKETING.  _(from `shoreline-access-disclosure`)_
+254. Six of seven shoreline terms returned zero across all 1,305 held sections AND the case-sensitive heading screen returned 0 body with 0 heading-only.  _(from `shoreline-access-disclosure`)_
+255. 'Can it be waived' and 'is there anything to waive' are both live questions, and Minnesota is a state where the answer is the first one.  _(from `showing-notice-waiver`)_
+256. An absence row is more useful when it names the state's substitute mechanism rather than stopping at 'no law'.  _(from `shutdown-rent-protection`)_
+257. Reading one exemption's class list stopped a wrong row.  _(from `single-family-zone-lease-limit`)_
+258. A 'no conflict found' note is not an absence finding, and the two are easy to confuse.  _(from `smoke-drift-waiver`)_
+259. A canvass answer recorded only in another row notes field is invisible to the topic that owns it.  _(from `source-of-income`)_
+260. A comparative claim (broader than federal, unlike other states) is a second citation requirement.  _(from `source-of-income`)_
+261. A positive must be verified by reading the named unit, not inferred from the chapter subject.  _(from `special-district-representation`)_
+262. Both failed runs are in the log and are cited only as failed, per rule 19.  _(from `special-district-representation`)_
+263. A session-law search found a landlord-facing programme that no statutes battery could reach, because it lives in an uncodified session-law section (Laws 2023, ch.  _(from `sprinkler-disclosure`)_
+264. For a 'statutory caps' topic the useful battery is not a term-of-art search but a FIGURE search: a single alternation of dollar signs, spelled-out and numeric percentages, the four 'not to exceed' formulas and .  _(from `statutory-caps`)_
+265. A clean ZERO over laws:enacted is worth reporting as a positive finding, not just an absence of hits: S06-b11-earlyterm-laws-enacted returned 0 of 146 acts both ways with its positive passing, which supports th.  _(from `statutory-early-termination`)_
+266. Five of the six statutory early-termination grounds were reachable from the HEADING screen alone (§§ 504B.131, .153, .206, .265, .266), and the sixth (§ 504B.154 TENANT ABANDONMENT OF DWELLING) buries a termina.  _(from `statutory-early-termination`)_
+267. A session-law run can turn a flat absence into a precise one.  _(from `steam-radiator-covers`)_
+268. Trace a session-law hit to the chapter it amends before relying on it.  _(from `steam-radiator-covers`)_
+269. Four case-sensitive heading screens returning 0 body AND 0 heading-only (STIGMATIZED, MATERIAL FACT, SEX OFFENDER, PREDATORY OFFENDER) plus two bare terms at zero across both statutes and the session laws is th.  _(from `stigmatized-property`)_
+270. A prior pass VERIFIED row can legitimately supply a fact about an unheld section where the brief forbids memory.  _(from `stigmatized-property`)_
+271. Follow an incorporation by reference to its destination and read the destination whole.  _(from `stove-refrigerator`)_
+272. Read the qualifiers item by item within a list.  _(from `stove-refrigerator`)_
+273. A sixth posture of the Sec.  _(from `stove-refrigerator`)_
+274. Comparing two lists in the same chapter answered the topic where a battery could not.  _(from `student-housing`)_
+275. The answer to a 'may the landlord refuse X' topic can live entirely in the human-rights chapter rather than the landlord-tenant chapter.  _(from `subsidized-inspection-refusal`)_
+276. Sec.  _(from `subsidized-inspection-refusal`)_
+277. Third confirmation this slice: the heading screen was the only limb that returned § 504B.116 and § 504B.131, the two sections that actually carry Minnesota's rent-and-condition rules, because each puts the word.  _(from `subsidy-habitability-proration`)_
+278. The uncited-section screen paid for itself here: the whole chapter 504B receivership chain (Sec.  _(from `substandard-property-receivership`)_
+279. The engine's own warning about andpat() over `laws` scopes proved out: the everyday companion's loose phrase over laws:enacted returned 12 act-level hits against 0 over statutes, because one laws unit is a whol.  _(from `tax-escalation`)_
+280. A saving paragraph can make a clause publishable where the law cannot be read.  _(from `telecom-access`)_
+281. For a near-zero absence, add a bare run of the term family as a fourth pattern in the same batch.  _(from `tenant-bankruptcy`)_
+282. A federal-facing topic should be answered by saying what the state does NOT have and refusing to state the federal rule, rather than by paraphrasing remembered federal law.  _(from `tenant-bankruptcy`)_
+283. Search the mechanism, not the label.  _(from `tenant-confidential-information`)_
+284. The brief statement of Sec.  _(from `tenant-confidential-information`)_
+285. Never put a bare sign alternative in a display battery: \bsign\b matches the verb, and in this corpus it matches the residential tenant signs the lease (Sec.  _(from `tenant-display-rights`)_
+286. An existing row can hold a section without holding the subdivision your topic needs.  _(from `tenant-display-rights`)_
+287. The answer was in the definitions section, not in an operative section, for the second time in this pass.  _(from `tenant-employee-housing`)_
+288. Two chapters carry the same definitional formula.  _(from `tenant-employee-housing`)_
+289. CONJUGATE AND BOUND IN THE SAME PATTERN.  _(from `tenant-forward-proceedings`)_
+290. Two rows can share one battery honestly when the battery answers both questions and each row records the hits that bear on it.  _(from `tenant-insurance-claims`)_
+291. Minnesota's four tenant-fault vocabularies are a live drafting trap for any row about recovering from a tenant: 'willful, malicious, or irresponsible', 'willful and malicious', 'willful, malicious, negligent, o.  _(from `tenant-insurance-claims`)_
+292. A compilation-only battery would have returned a clean, wrong absence here.  _(from `tenant-portal`)_
+293. A section can be correctly classified as procedure and still contain the one subdivision a topic needs.  _(from `tenant-portal`)_
+294. Where the governing statute is outside the corpus, the right clause is the conservative one, and the notes should say that the conservatism is the reason.  _(from `tenant-portal`)_
+295. A bare-word run over the chapter is what found the shape of this topic: '\bledger\w*' returned 0 hits in all 1,305 statute units, which settles the rent-ledger question in one line, whereas a term-of-art run on.  _(from `tenant-records`)_
+296. Where a 2026 act renumbers a duty into a subdivision, cite the subdivision in force, not the compilation's unnumbered paragraph.  _(from `tenant-records`)_
+297. Rule 26's second limb did all the work on this topic: three shared rows matched the subject exactly and none was taggable, because each encoded a different state's FORMALITY (good faith; separate document; no f.  _(from `tenant-repair-agreement`)_
+298. The uncited-section screen is worth running on every state, not just Minnesota: Minn.  _(from `tenant-repair-remedies`)_
+299. Search the session laws for the SECTION NUMBER of the statute a topic is about, not only for the topic's words.  _(from `tenant-rights-statement`)_
+300. A conditional duty is the shape a lease form most reliably flattens.  _(from `tenant-rights-statement`)_
+301. Reading 'whose duty is it' is part of reading the section.  _(from `tenant-rights-statement`)_
+302. The definitions-section-first rule paid off a fourth time: 'proper identification', the trigger for the whole Sec.  _(from `tenant-screening`)_
+303. A remedy section can be read for the ABSENCE of Sec.  _(from `tenant-screening`)_
+304. A statutory safe harbour is worth checking for who it names.  _(from `tenant-screening`)_
+305. Two of Minnesota's tenant duties live in consumer-product and fire-safety chapters, not in the landlord-tenant act: Sec.  _(from `tenant-statutory-duties`)_
+306. The case-sensitive headnote screen on 'DUTY' and 'DUTIES' produced 19 heading-only units and exactly one tenant duty.  _(from `tenant-statutory-duties`)_
+307. A roster row is a legitimate answer shape for a topic whose content is already spread across other topic_keys.  _(from `tenant-statutory-duties`)_
+308. A generated non-waiver or scope map must exclude subdivision HEADNOTES, or it inflates its own sentence count and invents a formula.  _(from `term-change-notice`)_
+309. Second slice to hit brief 2's >2% rule, and the fix scaled: three terms gave 2.2%, a fourth gave 1.1%.  _(from `term-change-notice`)_
+310. THE CLEAREST INSTANCE THIS PASS OF WHY A TERM-OF-ART BATTERY IS NOT AN ABSENCE PROOF.  _(from `termination-notice`)_
+311. A statute's own Revisor NOTE can carry a preemption or validity qualification that changes the advice (§ 504B.255's clause (3), Forest Park II).  _(from `termination-notice`)_
+312. A topic_key whose name is an acronym has to be decoded from the topic file's own rows before any battery is written.  _(from `tpa-notice`)_
+313. EFFECTIVE DATES MUST BE READ PER SECTION FROM THE ACT, NOT SUMMARISED.  _(from `tpa-sunset`)_
+314. 'is repealed' is a better absence probe than 'sunset'.  _(from `tpa-sunset`)_
+315. Chapter 327C calls the occupant a RESIDENT, never a tenant - 44 uses of resident and 0 of tenant in Sec.  _(from `translation-duty`)_
+316. This topic is the clearest case this slice produced for the brief rule that the bare word comes before the term of art.  _(from `translation-duty`)_
+317. A cross-reference held in the corpus can point at a section that is not held, and the pointer is worth following for currency even when the target cannot be read.  _(from `trespass-notice`)_
+318. Where the governing statute is out of reach, the honest row is not silence and not a bare absence: it is the landlord's own-side limits, which were all readable.  _(from `trespass-notice`)_
+319. A 'NO' ANSWER CAN HIDE A 'YES'.  _(from `truth-in-renting`)_
+320. Heading-only hits earned their rule here.  _(from `unauthorized-occupant-removal`)_
+321. Check a brief's own citation against the act.  _(from `unbundled-parking`)_
+322. The brief also did not mention the effective date.  _(from `unbundled-parking`)_
+323. Tag-first does not mean tag-often.  _(from `utility-allowance-cap`)_
+324. The coordinator's correction 3 earned its keep.  _(from `utility-allowance-cap`)_
+325. An act section without its own effective-date clause needs the state default-date statute, and Minnesota's (Minn.  _(from `utility-deposit-return`)_
+326. A topic framed as a landlord permission can be present as a tenant permission, and that difference is the whole answer.  _(from `utility-disconnection-notice-authorization`)_
+327. § 216B.096 appears in 0 rows of the library for any state and was reachable only because it is one of the five chapter 216B cross-reference sections.  _(from `utility-disconnection-notice-authorization`)_
+328. Correction 2's bare-word rule changed a finding here.  _(from `utility-interruption-submeter`)_
+329. A prohibition topic can still yield a lawful clause.  _(from `utility-interruption-submeter`)_
+330. A canvass topic with four questions can contain a negative that matters as much as the positives.  _(from `utility-landlord-account`)_
+331. Characterise a self-help remedy by its subject, not its shape.  _(from `utility-landlord-account`)_
+332. A canvass question can carry another state's mechanism as a premise, and the honest answer is to reject the premise.  _(from `utility-shutoff-statute`)_
+333. When an existing row carries a one-clause summary of a regime your slice owns, the right move is a new row under your own topic_key plus a findings_existing_rows entry — not an edit, and not silence.  _(from `utility-shutoff-statute`)_
+334. Where a topic is framed as an optional landlord right, the Minnesota answer may be that the mechanism is the prohibited act.  _(from `utility-transfer`)_
+335. Be precise about a subdivision's scope rather than borrowing the section's reach.  _(from `utility-transfer`)_
+336. A section-wide AND is the strongest available form of a role-framed absence claim and should be quoted in preference to the proximity counts.  _(from `veterans-incentive`)_
+337. Absence of a tax incentive cannot be proved from this corpus, but it also does not make the row NEEDS_REVIEW where the answer to the topic (is veteran status protected, is there a lease term) does not depend on.  _(from `veterans-incentive`)_
+338. A section-wide AND of two term families can prove more than a proximity run.  _(from `water-heater-temperature`)_
+339. The answer to what Minnesota requires was reached by following a cross-reference, not by searching.  _(from `water-heater-temperature`)_
+340. 'aquarium' is not a safe companion term for a waterbed battery.  _(from `waterbed`)_
+341. A section that carries both of your search terms for unrelated reasons is the most dangerous kind of hit, and a section-wide AND is exactly the pattern that surfaces it.  _(from `window-guards`)_
+342. Measured confirmation for the trap list: in this corpus bare 'lead' returns 66 units against 28 for '\blead\b'.  _(from `window-guards`)_
+
+## Proposed topic questions
+
+0. **Topic keys for the landlord-side eviction provisions the uncited-section screen surfaced.**
+   §§ 504B.121 (tenant may not deny title), 504B.125 (person in possession liable for rent) and
+   504B.268 (right to counsel in public housing) have no `topic_key` of their own, so the canvass
+   filed them under `eviction-process` — which now carries **seven** Minnesota education rows.
+   Multiple education rows under one key is established practice (the trunk has 187 such pairs
+   across 35 states, Massachusetts alone with 40), so this is not a rule 57 breach. But a key
+   that holds seven distinct subjects defeats instruction 26's group-by: Minnesota's
+   person-in-possession row has no counterpart to pair with in any other state, because no other
+   state's equivalent has anywhere to sit either. Suggested keys: `tenant-denial-of-title`,
+   `possession-rent-liability`, `right-to-counsel`. Raised by the uncited-section screen (§6 F5).
+1. **A topic key for a statutory housing-type carve-out.** Minn. Stat. § 504B.1715 (COVENANTS;
+   SOBER HOMES) lets a sober housing program for people with substance use disorders prohibit
+   possession and use of cannabis flower, cannabis products, lower-potency hemp edibles or
+   hemp-derived consumer products — an express carve-out from § 504B.171, subd. 1(c)'s
+   non-waivable possession protection. No `topic_key` in the library fits it: it is not
+   `student-housing`, not `tenant-employee-housing`, and not `lease-type-parity`. Other states
+   are likely to have equivalent recovery-housing or sober-living carve-outs, so this probably
+   wants a key of its own (`sober-housing-carve-out` or similar) rather than being folded into a
+   cannabis row. Raised by the uncited-section screen (§6 F5).
+2. **Whether the uncited-section screen should become a standing step.** It found 21 substantive
+   gaps in Minnesota's own core chapter that a topic list built from other states' rows could not
+   surface. If it were run for each finished state against that state's core act, it would
+   probably find comparable gaps elsewhere — see Proposed SOP changes.
+
+### Sections relied on that sit outside this pass's corpus
+
+Derived by script from every row's authority citations (battery-hit narratives
+excluded), checked against the 1,250 indexed sections plus the 50 cross-references.
+Claude Code fetches these at sync; a row that turns on one is marked NEEDS_REVIEW.
+
+| section | rows | relied on by |
+|---|---|---|
+| `Minn. Stat. § 8.37` | 1 | `prohibited-lease-terms / edu-attorney-general-chapter-enforcement-mn` |
+| `Minn. Stat. § 145A.08` | 1 | `governmental-fines / edu-governmental-fines-mn` |
+| `Minn. Stat. § 216B.17` | 3 | `utility-disconnection-notice-authorization / edu-utility-disconnection-notice-authorization-mn`; `utility-disconnection-notice-authorization / utility-disconnection-notice-authorization-mn`; `utility-shutoff-statute / edu-utility-shutoff-statute-mn` |
+| `Minn. Stat. § 216B.097` | 3 | `utility-disconnection-notice-authorization / edu-utility-disconnection-notice-authorization-mn`; `utility-disconnection-notice-authorization / utility-disconnection-notice-authorization-mn`; `utility-shutoff-statute / edu-utility-shutoff-statute-mn` |
+| `Minn. Stat. § 216B.098` | 2 | `utility-disconnection-notice-authorization / edu-utility-disconnection-notice-authorization-mn`; `utility-shutoff-statute / edu-utility-shutoff-statute-mn` |
+| `Minn. Stat. § 216B.241` | 3 | `energy-data-release / edu-no-energy-benchmarking-release-mn`; `meter-conservation-charge / edu-meter-conservation-charge-mn`; `portable-solar / edu-no-portable-solar-mn` |
+| `Minn. Stat. § 216C.435` | 1 | `portable-solar / edu-no-portable-solar-mn` |
+| `Minn. Stat. § 289A.60` | 1 | `property-tax-rent-disclosure / edu-no-property-tax-rent-statement-mn` |
+| `Minn. Stat. § 290.0693` | 1 | `property-tax-rent-disclosure / edu-no-property-tax-rent-statement-mn` |
+| `Minn. Stat. § 290A.19` | 1 | `property-tax-rent-disclosure / edu-no-property-tax-rent-statement-mn` |
+| `Minn. Stat. § 325G.30` | 1 | `plain-language-consumer-statement / edu-no-plain-language-consumer-statement-mn` |
+| `Minn. Stat. § 325G.34` | 1 | `limitation-of-actions / edu-limitation-of-actions-mn` |
+| `Minn. Stat. § 325L.05` | 1 | `actual-notice-method / edu-no-agreed-notice-method-rule-mn` |
+| `Minn. Stat. § 325L.08` | 1 | `actual-notice-method / edu-no-agreed-notice-method-rule-mn` |
+| `Minn. Stat. § 325L.09` | 1 | `actual-notice-method / edu-no-agreed-notice-method-rule-mn` |
+| `Minn. Stat. § 332.31` | 1 | `collection-fee / edu-collection-fee-mn` |
+| `Minn. Stat. § 332.32` | 1 | `collection-fee / edu-collection-fee-mn` |
+| `Minn. Stat. § 332.37` | 1 | `collection-fee / edu-collection-fee-mn` |
+| `Minn. Stat. § 334.01` | 1 | `unpaid-damages-interest / edu-unpaid-damages-interest-mn` |
+| `Minn. Stat. § 471.9996` | 2 | `rent-escalation / edu-rent-escalation-mn`; `rent-escalation / rent-increase-midterm-mn` |
+| `Minn. Stat. § 504B.2136` | 2 | `eviction-penalty-clause-ban / edu-no-eviction-penalty-rule-mn`; `part5-nonwaivable / edu-part5-nonwaivable-mn` |
+| `Minn. Stat. § 507.0941` | 1 | `actual-notice-method / edu-no-agreed-notice-method-rule-mn` |
+| `Minn. Stat. § 533.10` | 1 | `actual-notice-method / edu-no-agreed-notice-method-rule-mn` |
+| `Minn. Stat. § 549.09` | 1 | `unpaid-damages-interest / edu-unpaid-damages-interest-mn` |
+| `Minn. Stat. § 572B.17` | 1 | `binding-arbitration / edu-no-lease-arbitration-statute-mn` |
+| `Minn. Stat. § 604.113` | 1 | `statutory-caps / edu-statutory-caps-mn` |
+| `Minn. Stat. § 617.81` | 3 | `environmental-event-termination / edu-no-environmental-event-termination-mn`; `governmental-fines / edu-governmental-fines-mn`; `purpose-limitation / edu-purpose-limitation-mn` |
+| `Minn. Stat. § 704.21` | 1 | `automatic-renewal / edu-automatic-renewal-mn` |
+
+#### Boundaries the helpers named, grouped by citation
+
+415 flags across the slices, **276 distinct boundaries**. A boundary blocks
+a topic without making it an absence, so each is a candidate for the corpus rather than a
+finding. Ordered by how many topics it blocks.
+
+| outside this corpus | topics | why it was needed |
+|---|---|---|
+| Minn. Stat. § 645.02 and the general effective-date rule | 16 | Laws 2026, ch. 81, secs. 1 and 4 (the final-billing subdivisions) carry no effective-date clause of their own - only secs. 2 and 3 do, each stating 'This section is effective August 1, 2026.' Section 645.02 is outside the 8 chapters and the 50 cross-reference… |
+| Minn. Stat. ch. 325G (Plain Language Contract Act), in particular §§ 325G.30, 325G.31, 325G.33, 325G.34, 325G.37 | 9 | Not in the corpus. The library's open question on this topic (raised for Vermont, 9 V.S.A. s 2454a) is whether a general consumer-contract auto-renewal statute reaches leases with a lessor. Chapter 325F is held whole and contains no such rule for residential… |
+| City and county property maintenance, housing and rental licensing codes -- municipal, rule 3. These are the likeliest a | 9 | City and county property maintenance, housing and rental licensing codes -- municipal, rule 3. These are the likeliest actual source of a Minnesota balcony or deck inspection obligation. |
+| Minn. Stat. ch. 515B (Minnesota Common Interest Ownership Act) - outside the corpus, so association rules on shared lake | 8 | The Minnesota Common Interest Ownership Act. Brief part 3 names it as outside the corpus. Needed to settle whether Minnesota caps an association's lease-approval fee, regulates an association-held deposit from a tenant, lets an association demand rent from a… |
+| Minn. Stat. ch. 326B (State Building Code), including Sec. Sec. 326B.101 to 326B.151 cross-referred by Minn. Stat. Sec. | 7 | Where installation and hardware standards for an electronic lock, and any egress requirement, would live. Chapter 326B is outside the corpus, so the row says the point is unchecked rather than characterising it. The existing row edu-no-rekey-or-lock-duty-mn a… |
+| Minnesota case law on the counting of a Minn. Stat. § 504B.135 notice (the 'full rental period, expiring at a period boundary' rule) | 5 | The attorney general's statement of tenant rights and responsibilities that Sec. 504B.181 subd. 2(b) points to. It IS inside chapter 504B so it is reachable; listed here only because its CONTENT (what the statement says) is produced by the attorney general, n… |
+| Minn. Stat. ch. 216B beyond §§ 216B.022, 216B.023, 216B.024, 216B.096 and 216B.172, and the Public Utilities Commission's rules on establishing and t… | 5 | This is the section the 2025 session-law solar hits actually amend (Laws 2025, ch. 20, sec. 183 and Laws 2025, First Special Session ch. 12, sec. 11). It is not held, so it was seen only through the session laws and could not be read whole. |
+| Minn. Stat. ch. 462 (municipal planning and zoning) and ch. 394 (county planning and zoning) | 4 | a Minnesota accessory-dwelling-unit-by-right rule, if one is ever enacted, would amend these; the absence claim is bounded to exclude them |
+| FEDERAL: United States Code, title 42, sections 1437f and 1485 | 4 | FEDERAL: needed to settle whether familial status belongs in the beyond-federal list in edu-fair-housing-protected-classes-mn. Not in the corpus and not stated from memory. |
+| Minn. Stat. § 216B.1691 (renewable and solar energy standards) and the rest of ch. 216B beyond §§ 216B.022, .023, .024, .096 and .172 | 4 | Minn. Stat. ch. 216B beyond Sec. Sec. 216B.022, .023, .024, .096 and .172 - only five sections of the chapter are held, so any further electricity-resale rule in chapter 216B cannot be checked here. |
+| Minn. Stat. ch. 500 (estates in real property) | 4 | THE section this topic turns on - Minnesota restriction on land ownership by non-resident aliens and foreign businesses. Outside the corpus, not fetched, content not stated. This is why the row is NEEDS_REVIEW. Three specific questions to put to it: (1) does… |
+| FEDERAL: Fair Credit Reporting Act, 15 U.S.C. Sec. 1681 et seq., and Title VII | 4 | Federal tenant-screening/consumer-report regime that runs alongside Minn. Stat. Sec. 504B.235 to Sec. 504B.245. Outside the corpus; not fetched; content not stated. |
+| Minn. Gen. R. Prac. 601-612, in particular any rule on appearance in an eviction action | 4 | Outside the corpus. An earlier pass recorded from the Revisor's court-rule search that Rule 604(a)(3) requires the complaint to plead Minn. Stat. section 504B.181 compliance and that Rule 604(c)/(d) require the termination notice and lease to be attached or p… |
+| Minn. Stat. §§ 617.81 to 617.87 (nuisance abatement procedure, costs and the owner's and occupant's liability) - the pla | 4 | Sec. 504B.205 subd. 3's saving sentence preserves local nuisance ordinances, and Minnesota's own abatement machinery is Sec. 617.81 to Sec. 617.87. Only Sec. 617.80 is held in the corpus, so landlord exposure under the abatement sections cannot be stated here… |
+| Minn. Stat. Sec. 645.02 (general effective-date rule) -- needed to date Laws 2025, ch. 32, art. 4, secs. 4, 6 and 7, non | 4 | Minn. Stat. Sec. 645.02 (general effective-date rule) -- needed to date Laws 2025, ch. 32, art. 4, secs. 4, 6 and 7, none of which carries its own effective-date clause. Sec. 645.02 is outside the corpus; its content is not stated from memory. |
+| Minn. Stat. section 549.09 (interest on judgments and verdicts) | 3 | Sec. 504B.425(g) says its $500 attorney-fee cap 'does not apply to awards made under section 549.211 or other specific statutory authority'. Sec. 549.211 is one of the 50 held cross-references but was not read whole in this topic, so the row names it only as… |
+| Minn. Stat. ch. 152 (controlled substances) beyond Sec. 152.02 | 3 | Sec. 504B.171 subd. 1(a)(1)(i) turns on 'any criminal provision of chapter 152' and subd. 2a carves chapter 152 offences out of 'crime of violence'. Only Sec. 152.02 is held, so which particular chapter 152 offences are criminal provisions cannot be enumerate… |
+| Minn. Stat. ch. 216C and Sec. 216B.241 - energy programmes and rebates named in the 2025 acts; outside the corpus, so bo | 3 | Minn. Stat. § 216B.241 (conservation improvement programs) and §§ 216C.435 to 216C.436 (property-assessed clean energy / energy improvement financing) - the places an on-bill or assessment-based energy charge would live. Only §§ 216B.022, 216B.023, 216B.024,… |
+| Minn. Stat. Sec. Sec. 513.52 to 513.60 (seller disclosure of material facts affecting residential real property) - outsi | 3 | Minn. Stat. Sec. 513.61 - OUTSIDE THE CORPUS and not stated from memory. The only thing this row says about it is drawn from the existing VERIFIED MN row edu-no-radon-rental-disclosure-mn, which records it as a single sentence placing a duty on a seller of re… |
+| Minn. Stat. chs. 580, 581 and 582 (mortgage foreclosure; redemption) | 3 | Not in the corpus. § 504B.285, subd. 1a fixes the 90-day notice and the owner-occupancy exception by reference to 'the expiration of the time for redemption on foreclosure of a mortgage', whose computation lives in those chapters. The topic is answered withou… |
+| Minn. Stat. Sec. 145A.08, cross-referred by Minn. Stat. Sec. 145A.04, subds. 8(a), 8(c) and 9 -- chapter 145A is held on | 3 | Minn. Stat. Sec. 145A.08, cross-referred by Minn. Stat. Sec. 145A.04, subds. 8(a), 8(c) and 9 -- chapter 145A is held only as Sec. 145A.04. THIS IS THE MATERIAL GAP FOR THIS TOPIC: Sec. 145A.08 is where the cost of a public health nuisance abatement is recove… |
+| Minn. Stat. § 216B.17, subds. 6 and 6a, and § 216B.097 (cooperative and municipal cold-weather rule) | 3 | § 216B.096, subds. 2(j) and 9 route municipal-utility and cooperative customers to these sections, which are not among the five chapter 216B sections held. The rows state the regime for public utilities and electing cooperatives and flag the rest rather than… |
+| Conciliation court jurisdictional limit (Minn. Stat. chapter 491A) | 3 | The small-claims forum for a landlord's rent claim, and the reference point for the filing fee in Minn. Stat. section 504B.375, subd. 1(f) and the jurisdictional limit in Minn. Stat. section 504B.385, subds. 4 and 5(b) and (d). Not in the corpus; no row names… |
+| Minn. R. ch. 4761 (health department lead rules adopted under Minn. Stat. Sec. 144.9508: work practices, standards and t | 3 | Minn. R. ch. 4761 (the health department lead rules adopted under Minn. Stat. Sec. 144.9508, which is where the duty to give the Sec. 144.9501, subd. 8a disclosure pamphlet must live, since the statute defines the pamphlet and imposes no delivery duty) - Minn… |
+| Minn. Stat. Sec. Sec. 363A.22 and 363A.26 - further exemptions to Sec. 363A.09; both are inside chapter 363A and therefo | 3 | Both are inside chapter 363A, which the corpus holds whole, so they are reachable - they are listed only to record that their content was deliberately not stated in a row belonging to the eviction slice, and the protected-classes slice should state it. |
+| Minn. Stat. ch. 515B and Laws 2026, ch. 82 (common interest communities) -- chapter 515B is outside the corpus; surfaced | 3 | Not in the corpus. Where the rental unit is in a common interest community, changes to association rules during a tenancy are governed by chapter 515B rather than chapter 504B, and Laws 2026, ch. 82 limits association late fees, fines and attorney fees. The t… |
+| Minn. Stat. section 211B.20 (political candidate access to a multiple-unit residence) | 3 | Chapter 211B is not in the corpus. The existing row edu-political-candidate-access-mn states its content from an earlier pass; this slice points to that row and asserts none of its content. |
+| Minn. Stat. ch. 325L (Minnesota Uniform Electronic Transactions Act), in particular §§ 325L.02, 325L.05, 325L.08 and 325L.09 | 2 | NOT in the corpus - verified directly, not assumed: c.unit('325L.01'), c.unit('325L.03'), c.unit('325L.05') and c.unit('325L.08') all return None, and a census of all 1,744 corpus units shows no unit in chapter 325L. This row therefore states nothing of chapt… |
+| Minn. Stat. Sec. 515B.4-111 | 2 | Conversion of a building to a common interest community. Minn. Stat. Sec. 327C.095 subd. 5 applies it (except subsection (a)) to a park converted to a common interest community, says 'the rights conferred by this subdivision and section 515B.4-111, subsection… |
+| Minn. R. ch. 7511 (State Fire Code rules) -- outside the corpus. | 2 | Minn. R. ch. 7511 (State Fire Code rules) -- outside the corpus. |
+| Minn. Stat. ch. 18B (pesticide control), including Sec. 18B.09 PESTICIDE APPLICATION IN CITIES -- NOT in the corpus. Thi | 2 | Minn. Stat. ch. 18B (pesticide control), including Sec. 18B.09 PESTICIDE APPLICATION IN CITIES -- NOT in the corpus. This is where any Minnesota pesticide application, posting or notification duty would live. The library's existing row edu-no-bed-bug-disclosu… |
+| Minn. Stat. ch. 572B (Revised Uniform Arbitration Act) - not held; the enforceability of a binding arbitration clause in | 2 | The chapter that decides whether a lease arbitration clause is enforceable, its formalities, and any subject-matter exclusion. Reached in the corpus only as a bare cross-reference from Minn. Stat. § 325F.665 to § 572B.17. This is why the row is NEEDS_REVIEW. |
+| Minn. Stat. ch. 515B (Minnesota Common Interest Ownership Act), where Laws 2026, ch. 61 and ch. 82 use a certificate of | 2 | Minn. Stat. ch. 515B (Minnesota Common Interest Ownership Act), where Laws 2026, ch. 61 and ch. 82 use a certificate of occupancy to evidence substantial completion for assessment purposes -- outside the corpus, as the main pass notes. |
+| Minn. Stat. ch. 514, agricultural-lien sections (e.g. the agricultural production input lien) | 2 | Minnesota's mechanics' and construction liens on real estate: who may claim, the owner-interest and owner-knowledge tests, pre-lien notice, and any notice-of-nonresponsibility mechanism. The whole topic turns on them and none is in the corpus. |
+| Minn. Stat. ch. 12 (emergency management) and any peacetime emergency executive order | 2 | Minnesota's emergency management act, including declared emergencies and any duties they place on property owners. 'state of emergency' returns 0 hits across all 1,305 statute units, which proves only that the phrase is not in the eight held chapters. Chapter… |
+| Minn. Stat. chapter 168B (abandoned and unauthorized vehicles; towing) | 2 | The posting and timeframe rules that make a tow from private residential property lawful. Not in the corpus. The existing row edu-towing-mn records them from a Revisor full-text search; this row cites that row and the clause points at the law rather than rest… |
+| Minn. Stat. ch. 216C entirely, including §§ 216C.435 and 216C.436 (property-assessed clean energy) | 2 | Chapter 216C is not in this corpus at all. A tenant solar installation right or a financing-programme condition could sit here. |
+| Minn. Stat. section 609.685 (electronic delivery device) | 2 | Cross-referenced by the repealed Minn. Stat. section 504B.345, subd. 2. Only eight sections of chapter 609 are held (609.66, .67, .342, .748, .749, .3451, .3458, .5317) - 609.5317 is in fact held, but it is noted here because the repealer's effect turns on it. |
+| Minn. Stat. § 609.02, subd. 10 ('assault') | 2 | Laws 2026, ch. 81, sec. 5 defines 'assault' for the expedited eviction procedure by reference to it. Only eight sections of chapter 609 are held in the corpus (609.66, .67, .342, .748, .749, .3451, .3458, .5317); 609.02 is not one of them, so its content is n… |
+| Minn. Stat. chapter 5B (Safe at Home address confidentiality programme) | 2 | Sec. 609.748 refers to it. A landlord may receive a designated address from a program participant rather than a residential one, which is squarely a tenant-information question. Chapter 5B is outside the corpus and was not read. |
+| Minn. Stat. Sec. 256B.0701 (recuperative care 'habitability inspection' standard, amended by Laws 2025, First Special Se | 2 | Minn. Stat. Sec. 256B.0701 (recuperative care 'habitability inspection' standard, amended by Laws 2025, First Special Session ch. 9) -- surfaced by the laws-scope battery, outside the corpus, not a landlord-tenant rule and not relied on. |
+| Minn. Stat. chs. 142H (child care centers) and 142I (family child care), as amended by Laws 2026, ch. 127 | 2 | These carry Minnesota's only steam-radiator guarding requirements found in this pass. Neither chapter is in this corpus, so the row quotes the session law and presents the rule as child care licensing rather than as a statute section read whole. A future pass… |
+| Minn. Stat. ch. 510 (homestead exemption) | 2 | Minnesota's homestead exemption and its amount live here. Not in the corpus, so nothing is asserted about its content or whether it can be waived. The row is NEEDS_REVIEW on this limb. |
+| Minn. Stat. chs. 60 to 72 (insurance), including unfair claims practices and anything bearing on subrogation - not held | 2 | Minn. Stat. chs. 60 to 72 (insurance), including unfair claims practices and anything bearing on subrogation - not held in this corpus. |
+| Minn. Stat. Sec. 144G.45, subd. 3 (as amended by Laws 2026, ch. 121, sec. 7): an assisted living facility with a license | 2 | Minn. Stat. Sec. 144G.45, subd. 3, amended by Laws 2026, ch. 121, sec. 7, which exempts an assisted living facility with a licensed resident capacity of six or fewer from 'rental licensing regulations imposed by any town, municipality, or county' -- chapter 1… |
+| Minn. Stat. ch. 469 beyond Secs. 469.001, 469.002 and 469.047 | 2 | Minn. Stat. section 504B.271, subd. 2 excepts housing authorities created or authorised under 'sections 469.001 to 469.047'. Only 469.001, 469.002 and 469.047 are held, so the row states the exception in the statute's own terms and claims nothing about the in… |
+| Minn. Stat. ch. 115A (waste management), including § 115A.565 (competitive recycling grants, which surfaced as a cross-reference in a 2025 appropriat… | 2 | This is where Minnesota's recycling and solid-waste law sits, and it is not in this corpus. A landlord recycling-notice duty could exist there, so the absence claim is bounded and the row says so rather than asserting a clean statewide absence. |
+| Minn. Stat. chapter 515B (Minnesota Common Interest Ownership Act), including section 515B.3-107 as amended by Laws 2026, ch. 82, sec. 6 | 2 | Chapter 515B is not in the corpus. The new parking paragraph is quoted from the act text itself (law:2026-0:ch82, all three views), not from the chapter, and nothing else about chapter 515B is asserted. Its effective date, January 1, 2027, is the act's own. |
+| Minn. Gen. R. Prac. 608 | 2 | Outside the corpus. The project log records from an earlier pass that it requires a tenant withholding rent to 'deposit forthwith', which cannot be reconciled with Minn. Stat. section 504B.335(e) as read. Background only; no row asserts it, and the conflict i… |
+| Minn. Stat. § 290A.19 and Minn. Stat. § 290.0693, subd. 4 - the certificate of rent paid duty. BOTH OUTSIDE THE CORPUS. | 2 | Minn. Stat. § 290A.19 and Minn. Stat. § 290.0693, subd. 4 - the certificate of rent paid duty. BOTH OUTSIDE THE CORPUS. Their existence and the fact that they impose the duty on the landlord is established from inside the corpus by the statutory notice text i… |
+| Minn. Stat. ch. 144G (assisted living) beyond Sec. 144G.08 | 2 | Sec. 325F.72's disclosure duty is defined by reference to a chapter 144G licence and to Sec. 144G.08 definitions. Only Sec. 144G.08 is held. The row says the duty binds a licensed facility rather than a landlord and goes no further. |
+| Minn. Stat. Sec. 244.052 (predatory offender community notification), as amended by Laws 2025, ch. 38 | 2 | The section the topic turns on. Chapter 244 is not held, whole or as a cross-reference, so no part of its content is stated. Its existence and 2025 amendment are known only from the amending clause of Laws 2025, ch. 38, which is in the corpus. This is why edu… |
+| Minn. Stat. § 604.113 (dishonored-check service charge) is outside the corpus. The row names it only as 'Minnesota's bad | 2 | Minn. Stat. § 604.113 (dishonored-check service charge) is outside the corpus. The row names it only as 'Minnesota's bad-check statute, which the library covers separately' and states no figure from it; the existing row `edu-returned-check-fee-cap-mn` carries… |
+| 24 C.F.R. part 982 and the HUD housing assistance payments contract / housing quality standards - FEDERAL, outside this | 2 | FEDERAL: 24 C.F.R. part 982 (Housing Choice Voucher program) and the HUD handbooks, which govern abatement and recapture of the agency's share of rent. Outside the corpus; named as the boundary of the row's advice and not relied on for any proposition. No NEE… |
+| Minneapolis and Saint Paul municipal ordinances | 2 | Rule 3: a municipal rent-stabilisation ordinance, if either city has one, is not state law and is not resolved by this row. Noted, not resolved, and never allowed into clause text. |
+| Minn. Stat. § 290A.03, subd. 3 ('income', cited by § 216B.096, subd. 2(e)) | 2 | Not held; the row states the 50 percent of state median income threshold without describing how income is computed. |
+| Municipal zoning ordinances and shoreland regulations | 1 | Laws 2025, ch. 32, sec. 13 keys its criteria to what a jurisdiction allows and excludes shoreland areas, so the operative permission is always local |
+| Minn. Stat. §§ 507.0941 to 507.0949 (Minnesota Real Property Electronic Recording Act) and the new Minn. Stat. ch. 533 (Uniform Electronic Estate Pla… | 1 | Outside the eight held chapters. Chapter 533 was read only as enacted text within Laws 2026, ch. 45; it concerns nontestamentary estate planning documents and expressly does not affect records valid under chapter 325L, so it bears on neither leases nor landlo… |
+| Minn. Stat. chs. 580, 581, 582 (mortgage foreclosure) and Minn. Stat. ch. 514 beyond §§ 514.18 and 514.22 (mechanic's liens) | 1 | Not in the corpus. Whether any of those chapters requires a foreclosing party or lienholder to serve or post notice on an occupant cannot be settled here. The topic is answered without them because the question for the lease is who the LEASE should make respo… |
+| Minn. Stat. Sec. 549.211 - held as a cross-reference but not opened; relevant only to Sec. 504B.425(g)'s $500 attorney-f | 1 | Minn. Stat. Sec. 549.211 - held as a cross-reference but not opened; relevant only to Sec. 504B.425(g)'s $500 attorney-fee exception. |
+| Minn. Stat. sections 343.21 to 343.36 (cruelty to animals; seizure and impoundment) | 1 | What an animal control officer or peace officer would act under when taking charge of a neglected animal. Chapter 343 is held only as section 343.20 (definitions), so the clause is drafted as a request rather than as a statement of the officer's duty. |
+| Minn. Stat. chapter 346 (animals; care and impounding) and municipal animal ordinances | 1 | Where local impoundment and abandonment duties sit. Not in the corpus; flagged, not resolved (rule 3 for the municipal part). |
+| Minn. R. ch. 4620 and the Minnesota State Building Code - not held in this corpus. | 1 | Minn. R. ch. 4620 and the Minnesota State Building Code - not held in this corpus. |
+| Minn. Stat. Sec. 325F.66 - the end of the repair-shop range; not opened in this pass. | 1 | Minn. Stat. Sec. 325F.66 - the end of the repair-shop range; not opened in this pass. |
+| Minn. Stat. Sec. 326.72 (asbestos-related work licence) and Sec. 326.75 (project permit and training-course fees) - chap | 1 | Minn. Stat. Sec. 326.72 (asbestos-related work licence) and Sec. 326.75 (project permit and training-course fees) - chapter 326 is outside the corpus. Read as amended in Laws 2025, First Special Session ch. 3, secs. 89-91, which IS in the corpus; the rest of… |
+| Minn. R. ch. 4620 (asbestos abatement rules) - Minnesota Rules are outside the corpus. | 1 | Minn. R. ch. 4620 (asbestos abatement rules) - Minnesota Rules are outside the corpus. |
+| Federal Arbitration Act, 9 U.S.C. §§ 1-16 | 1 | The Revisor's own note under Minn. Stat. § 363A.31 records that subd. 1 was held preempted as to arbitration agreements, so the federal act is unavoidable on this topic. Federal law is outside the corpus. |
+| Minn. R. Civ. P. / Minn. Gen. R. Prac. and the judicial districts' own ADR rules | 1 | Minn. Stat. §§ 484.73, subd. 3 and 484.76, subd. 1 both delegate to rules; the rules are outside the corpus. |
+| Minnesota case law on the scope of a Minn. Stat. § 504B.131 express agreement against Minn. Stat. § 504B.161, subd. 1(b); and Markoe v. Naiditch & So… | 1 | No case law is in the corpus. § 504B.131 lets a tenant 'expressly agree otherwise except as prohibited by section 504B.161', and exactly how far such an agreement may go before it modifies a covenant is a question no statute answers. The row states the two ru… |
+| Minn. Stat. ch. 326B (State Building Code), and specifically Sec. 326B.106, subd. 6, cross-referred by Minn. Stat. Sec. | 1 | Minn. Stat. ch. 326B (State Building Code), and specifically Sec. 326B.106, subd. 6, cross-referred by Minn. Stat. Sec. 144.4961, subd. 11 -- outside the corpus. Certificates of occupancy are issued under the State Building Code, so what one is, who issues it… |
+| Minnesota State Building Code and Minnesota Rules; municipal housing maintenance codes | 1 | Minn. Stat. 363A.21, subd. 2(a) defers the maximum number of occupants to local, state or federal restrictions, and that is where Minnesota occupancy caps actually live |
+| Minn. Stat. §§ 332.31 to 332.45 (collection agencies), especially § 332.37 (prohibited practices), and § 332.32 as amend | 1 | Minn. Stat. §§ 332.31 to 332.45 (collection agencies), especially § 332.37 (prohibited practices), and § 332.32 as amended by Laws 2026, ch. 124, sec. 57. Chapter 332 is outside the pass corpus; `edu-collection-fee-mn` is NEEDS_REVIEW because the collection-a… |
+| City and county housing and property maintenance codes, the likeliest actual source of a Minnesota minimum light level f | 1 | City and county housing and property maintenance codes, the likeliest actual source of a Minnesota minimum light level for a hallway or stairway -- municipal, rule 3. |
+| FEDERAL: 25 U.S.C. and 25 C.F.R. part 162 (leases of Indian trust land) | 1 | The real analogue to the territorial communal-land approval schemes. Federal, outside the corpus, flagged and not resolved. |
+| The 89 Minnesota Statutes chapters enumerated in this row's notes (17 held only as named sections, 72 not held at all) | 1 | This row IS the boundary record. The list was built mechanically from 434 citation entries across 179 answer files rather than from memory, and each chapter is there because some topic in this pass needed it and could not read it. |
+| Minnesota Rules (24 citation entries), Minn. Gen. R. Prac. and the Rules of Civil Procedure and Appellate Procedure (15), federal law (29), Minnesota… | 1 | Four classes of law this corpus never holds. Counted the same mechanical way. |
+| Named individually in this row and NOT read: Minn. Stat. Sec. 216B.241, Sec. 334.01, Sec. 549.09, Sec. Sec. 514.01 to 514.17, Sec. 609.605, Sec. 624.… | 1 | These are the individual sections the pass named as blockers, reproduced in this row because the row IS the boundary record. None was read and no content is stated from any of them. Minn. Stat. Sec. 334.16 is the one section of chapter 334 that IS held; it is… |
+| Minnesota case law on whether the Consumer Fraud Act and the Deceptive Trade Practices Act reach a residential lease | 1 | The threshold question for both rows. Cases are leads only (brief §6) and none was searched. The topic file names a 2026 Wisconsin decision (Koble Investments v. Marquardt, 2026 WI 19) as the model question; no Minnesota equivalent could be looked for here. |
+| Minn. Stat. § 116B.02, subd. 6 | 1 | Defines 'family farm' for Minn. Stat. § 325F.70, subd. 3(b)(3)'s 'consumer'. Chapter 116B is not among the held chapters or the 50 cross-references. |
+| Minn. Stat. § 49.01, subd. 2 | 1 | Defines 'financial institution' for Minn. Stat. § 325F.69, subd. 6. Not held; not relied on. |
+| Minn. Stat. Sec. 327C.095, subd. 5 as amended by Laws 2024, ch. 96, art. 2, sec. 9 | 1 | The Revisor's note to the section says that amendment is effective August 1, 2026, as amended by Laws 2025, ch. 32, art. 4, sec. 13. The corpus carries the 2025 compilation and the compiled subd. 5 still refers to a 'nine-month notice' against subd. 1's twelv… |
+| Minn. Stat. Sec. 462A.35 and Sec. 462A.2035 | 1 | The Minnesota manufactured home relocation trust fund itself, and the park infrastructure grant programme the 2026 appropriations acts fund. Sec. 327C.095's subds. 4, 12, 13 and 14 all run through Sec. 462A.35. Chapter 462A is not in the corpus, so the fund's… |
+| Minneapolis and St. Paul (and any other local) eviction-notice ordinances | 1 | Minn. Stat. section 504B.321, subd. 1a(a)(6) and (c) both defer to a longer local-government notice period. City ordinances are outside the corpus and are a municipal matter under rule 3. |
+| Minn. R. ch. 1300-1370 (State Building Code) and Minn. R. 4620 (the surviving urea-formaldehyde foam insulation rule pre | 1 | Minn. R. ch. 1300-1370 (State Building Code) and Minn. R. 4620 (the surviving urea-formaldehyde foam insulation rule preserved by Minn. Stat. Sec. 144.495) - Minnesota Rules are outside the corpus. |
+| Minnesota case law on whether a residential lease is a sale of merchandise under Minn. Stat. Sec. 325F.69, subd. 1 - cas | 1 | Minnesota case law on whether a residential lease is a sale of merchandise under Minn. Stat. Sec. 325F.69, subd. 1 - case law is outside the corpus and is a lead only. |
+| 42 U.S.C. Sec. 3604(f)(3)(A) | 1 | FEDERAL: the provision the topic question says other states copy with an added lease-inclusion sentence. Not read here; the Minnesota answer rests on Sec. 363A.10 alone. |
+| Minnesota Rules, including the State Fire Code and Minn. R. ch. 4620 | 1 | Any posted evacuation-plan or emergency-plan requirement for a residential occupancy class will be in the rules, not the statutes. Minnesota Rules are named in brief part 3 as outside the corpus. |
+| Minneapolis and Saint Paul crime-free and nuisance ordinances | 1 | Municipal; rule 3. Not in the corpus, not resolved, not in clause text. |
+| 34 U.S.C. Sec. 12491 (VAWA housing protections for covered housing programs) | 1 | Minn. Stat. Sec. 504B.206, subd. 7 defers to conflicting federal law for federally subsidised tenancies, and 31 other states' rows on this topic rest partly on VAWA. Federal law is outside this corpus and was not read. |
+| Minn. Stat. ch. 611A (crime victims) | 1 | Battery S17-b5c-dv-laws-newonly and S17-b3-dv-laws-wide showed the 2026 victim-rights changes sit in ch. 611A, 299A and 13.871, none of which is held here. Nothing suggests a tenancy rule in them, but the absence cannot be proved from this corpus. |
+| Laws 2026, ch. 80 (joint interest in a contract for deed of a perpetrator) | 1 | Battery hit on laws:2026-0:newonly. It is ownership rather than tenancy and was not relied on; the act's sections are not held as statute text. |
+| Minn. Stat. ch. 142B (and Sec. 142B.01) | 1 | Nine subdivisions of Sec. 245A.02 are renumbered into Sec. 142B.01. Chapter 142B is outside this corpus. The cross-reference chapter 504B actually relies on, Sec. 245A.02, subd. 6c, survives and was verified, so nothing turns on it, but the destination was no… |
+| Minn. Stat. ch. 518B beyond Sec. 518B.01; Minn. Stat. ch. 629 beyond Sec. 629.75; Minn. Stat. ch. 609 beyond the 8 sections held | 1 | The absence of a renumbering can only be proved for what is held. The row is worded as a boundary for exactly this reason. |
+| Minn. Stat. § 216B.02, subd. 4 ('public utility' definition, cited by § 216B.172, subd. 1(i)) | 1 | Not among the five chapter 216B sections held, so the rows say what the landlord IS subject to rather than defining what a public utility is. |
+| Minneapolis and St. Paul rental-licensing ordinances | 1 | A municipal rental licence can require a posted 24-hour contact. Municipal and outside the corpus; flagged under rule 3 and never resolved, and no row states a city requirement. |
+| Minn. Stat. ch. 117 | 1 | Minnesota's eminent domain chapter: who may condemn, the measure of damages, whether a lease is cancelled, and how an award is distributed among separate interests. Not one section is in the corpus, so the clause's award-allocation sentence could not be teste… |
+| Minn. Stat. Sec. 515B.1-107 | 1 | 'Eminent Domain' under the Minnesota Common Interest Ownership Act, named in Laws 2026, ch. 61, sec. 1's list of sections applying to condominiums created under chapter 515. Chapter 515B is not in the corpus and ch. 61 does not amend this section, so its text… |
+| Minn. Stat. ch. 364 (criminal offenders; rehabilitation; use of criminal records in employment and licensing), including Sec. 364.021 and Sec. 364.03 | 1 | Governs when and how an employer may use a conviction record, which is the part of a screening process a landlord-employer must design. Chapter 364 is not held, whole or as a cross-reference; no content is stated. Its existence and currency are known only fro… |
+| Minn. Stat. Sec. 363A.20 (physical examination), referenced by Sec. 363A.08, subd. 4(a)(1) | 1 | Chapter 363A IS held whole so this is reachable; recorded because the row cites the cross-reference without stating its content, and a later pass wanting the examination rules should read it. |
+| Minneapolis and St. Paul energy-benchmarking ordinances | 1 | Rule 3 — flagged as a municipal matter, not resolved, and kept out of clause text. |
+| Minn. Stat. section 481.02 (unauthorized practice of law) | 1 | The provision the topic turns on. Chapter 481 is not among the eight whole-held chapters or the 50 cross-reference sections, so whether a corporate or LLC landlord may appear without a lawyer cannot be determined here. The row is marked NEEDS_REVIEW for this… |
+| Minn. Stat. §§ 617.81 to 617.87 (nuisance abatement and abatement costs); Minn. Stat. ch. 115B (environmental response and liability); Minn. Stat. ch… | 1 | Not in the corpus (only § 617.80 of chapter 617 is held). The topic is answered without them because the question is whether a landlord has a lease-termination right on an environmental event, and the held material - chapter 504B whole - answers that. These w… |
+| Minn. Stat. Sec. Sec. 514.18 to 514.22 - the public-sale mechanics Sec. 504B.365, subd. 3(c) incorporates. Both sections | 1 | Minn. Stat. Sec. Sec. 514.18 to 514.22 - the public-sale mechanics Sec. 504B.365, subd. 3(c) incorporates. Both sections are among the 50 held cross-references but were not opened in this pass, so the mechanics are cited only as Sec. 504B.365 states them. |
+| Minn. Stat. Sec. 326B.35 - cross-referenced by Sec. 325F.185 as an installation standard; chapter 326B is not held in th | 1 | Minn. Stat. Sec. 326B.35 - cross-referenced by Sec. 325F.185 as an installation standard; chapter 326B is not held in this corpus. |
+| Minn. Stat. ch. 239 (petroleum and weights-and-measures definitions) - needed to fix the boundary of 'retail EVSE' in Se | 1 | Minn. Stat. ch. 239 (petroleum and weights-and-measures definitions) - needed to fix the boundary of 'retail EVSE' in Sec. 239.90. |
+| Minn. Stat. ch. 296A (petroleum taxes) as compiled - the new Sec. Sec. 296A.051 and 296A.075 were read from the session | 1 | Minn. Stat. ch. 296A (petroleum taxes) as compiled - the new Sec. Sec. 296A.051 and 296A.075 were read from the session law; the chapter itself is not held. |
+| Minn. Stat. Sec. 645.02 - general effective-date rule, needed for the sections of Laws 2025 1Sp ch. 4 and ch. 8 that car | 1 | Minn. Stat. Sec. 645.02 - general effective-date rule, needed for the sections of Laws 2025 1Sp ch. 4 and ch. 8 that carry no effective-date clause. |
+| Minn. Stat. section 609A.055 | 1 | Minn. Stat. section 484.014, subd. 3(b) makes expungement mandatory on a tenant's motion where the tenant could receive an automatic expungement under it. Chapter 609A is not held in the corpus. |
+| FEDERAL: Section 9 of the United States Housing Act of 1937; Public Law 112-55, 125 Stat. 673 | 1 | Minn. Stat. section 504B.268, subd. 1 defines the class of housing by reference to them. Federal law is not in this corpus and their content is not stated. |
+| Minn. Stat. section 484.085 (added by Laws 2026, ch. 71, sec. 2) | 1 | Not in the 2025 compilation, so not reachable as a statute unit. Read from the ch. 71 session-law text instead: it lets the district court publish a notice, summons, order or process by posting it on the Minnesota judicial branch website where there is no qua… |
+| Minn. R. Civ. P. 4 (service of a summons in a civil action in district court) | 1 | Minn. Stat. section 504B.332, subds. 3(a) and 4(b)(2) both incorporate 'the manner provided for service of a civil action in district court'. The Rules of Civil Procedure are outside the corpus, so the detail of personal service is not stated in any row. |
+| Minnesota case law on exculpatory clauses | 1 | Cases are leads only and not authority (brief §6); none searched. The common-law limits on an exculpatory clause are the real constraint here and cannot be settled from this corpus. |
+| Minn. Stat. ch. 142B (including 142B.41, subd. 9 and 142B.05, subd. 2(a)(2)), ch. 142H, ch. 142I (142I.07 capacity and ratios, enacted by Laws 2026,… | 1 | the family child care licensing regime; whether it requires the property owner permission or conditions a licence on it cannot be determined from the held law |
+| Minnesota Rules, chapter 9502 | 1 | the licensing rules for family day care and group family day care homes, cross-referenced by Minn. Stat. 144.1222, subd. 2a and 2b |
+| Minn. Stat. 142B.01, subd. 18 | 1 | defines the day care services that trigger Minn. Stat. 299F.011, subd. 4a, so the scope of the fire-code egress parity rule turns on it |
+| Minnesota Rules, parts 9502.0300 to 9502.0445 and 9503.0005 to 9503.0170 | 1 | Minn. Stat. 144.414, subd. 2 keys its smoking prohibition to licensure under these parts |
+| Minn. Stat. ch. 97B (hunting) | 1 | Named in the task as outside the corpus and confirmed so. A tenant-versus-owner hunting-rights provision could sit there, for example in the trespass and landowner-permission provisions. Not reachable; the absence claim is limited to the eight whole chapters,… |
+| Minn. R. ch. 7511 (the State Fire Code's own rules, adopted under Minn. Stat. Sec. 299F.011, subd. 3) -- outside the cor | 1 | Minn. R. ch. 7511 (the State Fire Code's own rules, adopted under Minn. Stat. Sec. 299F.011, subd. 3) -- outside the corpus. Every specific clearance, exit, extinguisher, fire door and emergency lighting specification lives there, so no row states one. |
+| Minn. Stat. ch. 326B (State Building Code), cross-referred by Minn. Stat. Sec. 299F.011, subds. 4 and 4b (326B.101 to 32 | 1 | Minn. Stat. ch. 326B (State Building Code), cross-referred by Minn. Stat. Sec. 299F.011, subds. 4 and 4b (326B.101 to 326B.151; 326B.02, subd. 6) and by Sec. 299F.391, subd. 2 -- chapter 326B is not among the eight whole chapters or the 50 cross-reference sec… |
+| Minn. Stat. ch. 157 (hotel, resort and lodging licensing), cross-referred by Minn. Stat. Sec. 299F.46, subd. 1(a) (Sec. | 1 | Minn. Stat. ch. 157 (hotel, resort and lodging licensing), cross-referred by Minn. Stat. Sec. 299F.46, subd. 1(a) (Sec. Sec. 157.011 and 157.15 to 157.22) and Sec. 299F.391, subd. 1(c) -- outside the corpus. |
+| City and county fire and property maintenance ordinances, expressly authorised to be more stringent by Minn. Stat. Sec. | 1 | City and county fire and property maintenance ordinances, expressly authorised to be more stringent by Minn. Stat. Sec. 299F.011, subd. 4 and Sec. 299F.391, subd. 3 -- municipal, rule 3. |
+| Minn. Stat. Sec. 624.714 and Sec. 624.715 (permit to carry; exceptions) | 1 | Cross-referred by Sec. 609.66 subd. 1d(f)(3)-(4), which was opened. Chapter 624 is held as Sec. 624.712 and Sec. 624.713 only, so whether a lease term is enforceable against a permit holder cannot be settled here. Does not change the verdict, which rests on t… |
+| Minn. Stat. ch. 609 beyond the 8 held sections, and Minn. Stat. Sec. 97B.045 | 1 | Sec. 609.66 subd. 1d(f)(4) cross-refers to Sec. 97B.045 for storing other firearms in a motor vehicle; it is outside the corpus and its content is not stated. |
+| FEDERAL: U.S. Const. amend. II, and federal public-housing program rules | 1 | The bodies of law that would decide whether a private landlord may ban lawful possession. Outside the corpus, not fetched, content not stated. edu-firearms-mn says so in terms rather than implying a clean state-law answer. |
+| Minneapolis and Saint Paul firearm ordinances | 1 | Municipal; rule 3. Not in the corpus, not resolved, not in clause text. |
+| Minn. Stat. ch. 103F (floodplain and shoreland management; Sec. 103F.161 flood hazard mitigation grants and Sec. 103F.51 | 1 | Minn. Stat. ch. 103F (floodplain and shoreland management; Sec. 103F.161 flood hazard mitigation grants and Sec. 103F.515 appear by number in Laws 2025, First Special Session chs. 1 and 15) - chapter 103F is outside the corpus and its content was not read. |
+| Minn. Stat. Sec. 580.042 | 1 | FORECLOSURE ADVICE NOTICE TO TENANT, with its 14-point boldface requirement. Assessed from a secondary route in foreclosure-disclosure-mn's notes in September 2026 but not readable here. |
+| Minn. Stat. chapters 580, 581 and 582 (mortgage foreclosure); Minn. Stat. section 559.21 is held but the rest of chapter 559 is not | 1 | Minn. Stat. section 504B.151, subd. 1(a) cross-refers to them for the contract cancellation and redemption periods that bound a lease a landlord may grant once foreclosure has begun. Not in the corpus, so no row states a foreclosure redemption period. |
+| Minnesota Rules ch. 1300 et seq. (State Building Code) and ch. 7511 (State Fire Code) | 1 | Minnesota Rules are outside the corpus (brief §3). What the codes say about which edition applies to an existing building is not addressed; the row answers only what a lease may do. |
+| Minneapolis and Saint Paul municipal ordinances on just-cause eviction and on eviction notice periods | 1 | City ordinances are outside the corpus and a municipal matter (rule 3). This bound is material on this topic because a just-cause requirement is the kind of rule a city adopts, and Minn. Stat. § 504B.321, subd. 1a(c) expressly contemplates a local eviction no… |
+| Minn. Stat. § 145A.08 (recovery of costs of enforcement for a public health nuisance), cross-referenced by § 145A.04, su | 1 | Minn. Stat. § 145A.08 (recovery of costs of enforcement for a public health nuisance), cross-referenced by § 145A.04, subd. 8(a), which is in the corpus. |
+| Minn. Stat. 515B.3-107(f), added by Laws 2026, ch. 82, sec. 6, effective January 1, 2027 | 1 | the one tenant-and-guest-facing provision of the 2026 common interest community act; chapter 515B is not in the corpus so only the act text could be read, and it binds associations rather than landlords |
+| Minneapolis and Saint Paul municipal guest and occupancy ordinances | 1 | a guest-stay or occupancy limit may exist locally; rule 3 forbids resolving a municipal ordinance |
+| Minn. Stat. 624.712, subd. 5 (crime of violence) - rest of the section | 1 | Minn. Stat. 504B.171, subd. 2a borrows 'crime of violence' from it; subd. 5 was read, the remaining definitions were not |
+| Minn. Stat. ch. 114E (Minnesota Environmental Covenants Act) - outside the corpus. Named by number in Laws 2026, ch. 113 | 1 | Minn. Stat. ch. 114E (Minnesota Environmental Covenants Act) - outside the corpus. Named by number in Laws 2026, ch. 113 (environmental covenants under chapter 114E as interests in real property the agency may acquire). THIS IS THE SECTION THE TOPIC TURNS ON:… |
+| Minn. Stat. ch. 115B (environmental response and liability; Sec. 115B.02, subd. 13 pollutant or contaminant and Sec. 115 | 1 | Minn. Stat. ch. 115B (environmental response and liability; Sec. 115B.02, subd. 13 pollutant or contaminant and Sec. 115B.03 responsible person are cited by Minn. Stat. Sec. 144.9504, subd. 5(c), and Sec. 115B.02 by Sec. 325F.19, subd. 7) - outside the corpus. |
+| Minn. Stat. ch. 115C (petroleum tank release cleanup; Sec. Sec. 115C.09 and 115C.094 appear in Laws 2026, ch. 113) - out | 1 | Minn. Stat. ch. 115C (petroleum tank release cleanup; Sec. Sec. 115C.09 and 115C.094 appear in Laws 2026, ch. 113) - outside the corpus. |
+| Minn. Stat. Sec. 182.651, subd. 7 (definition of employer, which fixes who owes the Sec. 299F.094 hazardous substance no | 1 | Minn. Stat. Sec. 182.651, subd. 7 (definition of employer, which fixes who owes the Sec. 299F.094 hazardous substance notification duty) - outside the corpus. |
+| Minn. Stat. Sec. 145A.02, subd. 5 (definition of 'community health board', cross-referred by Minn. Stat. Sec. 144.12, su | 1 | Minn. Stat. Sec. 145A.02, subd. 5 (definition of 'community health board', cross-referred by Minn. Stat. Sec. 144.12, subd. 1), and Sec. Sec. 145A.03, 145A.06, 145A.07 and 145A.131, cross-referred by Minn. Stat. Sec. 145A.04 -- outside the corpus. |
+| Minn. R. 4625 and 4626 (lodging establishments), the rules made under Minn. Stat. Sec. 144.12, subd. 1, clauses (6) and | 1 | Minn. R. 4625 and 4626 (lodging establishments), the rules made under Minn. Stat. Sec. 144.12, subd. 1, clauses (6) and (12) -- outside the corpus. |
+| County and city public health ordinances, and the rental housing standards a community health board enforces -- municipa | 1 | County and city public health ordinances, and the rental housing standards a community health board enforces -- municipal, rule 3. |
+| Minnesota State Building Code and Minnesota Rules on heating equipment | 1 | § 504B.161, subd. 1(a)(4) requires compliance with health and safety laws; the codes themselves are outside this corpus and the rows do not state their content. |
+| Minn. Stat. ch. 28A, the cottage food licensing exemption as amended by Laws 2025, ch. 34 | 1 | the nearest Minnesota rule permitting a commercial activity in a home; the act title confirms the 2025 amendment but the chapter text could not be read |
+| Municipal home-occupation ordinances and rental licensing ordinances | 1 | Minn. Stat. 504B.161, subd. 1(a)(4) makes the landlord covenant compliance with them, including ordinances regulating rental licensing |
+| Minn. Stat. ch. 550 and ch. 571 (execution, garnishment, exempt personal property) | 1 | The judgment-collection exemptions for a former tenant's household goods, and any waivability rule, live here. Not in the corpus. |
+| Minn. Gen. R. Prac. 114 - the alternative dispute resolution rules Sec. 484.76 requires the supreme court to adopt; cour | 1 | Minn. Gen. R. Prac. 114 - the alternative dispute resolution rules Sec. 484.76 requires the supreme court to adopt; court rules are not held in this corpus. |
+| Minn. Stat. ch. 515B - Laws 2026, ch. 82's grievance and ombudsperson provisions amend Sec. 515B.3-102 and take effect J | 1 | Minn. Stat. ch. 515B - Laws 2026, ch. 82's grievance and ombudsperson provisions amend Sec. 515B.3-102 and take effect January 1, 2027; the chapter is not held, and the provisions run to a unit owner rather than a tenant. |
+| Minn. R. Civ. P. and Minn. Gen. R. Prac. | 1 | Minn. Const. art. I, § 4 permits a jury waiver only 'in the manner prescribed by law'. The court rules are what prescribe it and are outside the corpus, so whether a pre-dispute lease clause qualifies cannot be settled here. |
+| Minnesota case law on contractual jury waiver | 1 | Cases are leads only (brief §6); none searched. |
+| Minn. Stat. section 256B.49, subd. 15 and chapter 256S (support plans) | 1 | Minn. Stat. section 325F.722, subd. 2(d) requires restrictions on the listed rights for people served under those provisions to be documented in the resident's support plan as defined there. Neither is in the corpus, so the clause states the registered-nurse… |
+| Minn. Stat. section 144A.4791, subds. 8 and 9 (home care assessment and service plan) | 1 | The assessment and written service plan that section 325F.722, subd. 2(d) requires a restriction to be documented in. Chapter 144A is held only as sections 144A.01 and 144A.75, so section 144A.4791 is unreachable; the clause uses the statute's own words rathe… |
+| Minn. Stat. chapter 245C (background studies) | 1 | Where a staff background-study duty would live if one reached residential landlords. Not in the corpus; the absence claim is limited to the held chapters, which contain only health-care and fire-department background provisions. |
+| Minnesota case law on damages for breach of a residential lease | 1 | No case law is in this corpus. The row therefore gives the statutory measures and says the sections are additional to other rights and remedies, without quantifying the common-law measure. |
+| Minn. Stat. Sec. 65A.45 (single residential renter's insurance policy for up to four household members) - outside this c | 1 | Minn. Stat. Sec. 65A.45 (single residential renter's insurance policy for up to four household members) - outside this corpus; already recorded by edu-renters-insurance-limits-mn from an earlier pass. |
+| Minn. Stat. ch. 82 beyond Sec. 82.55 (real estate broker and salesperson licensing) -- chapter 82 is held only as Sec. 8 | 1 | Minn. Stat. ch. 82 beyond Sec. 82.55 (real estate broker and salesperson licensing) -- chapter 82 is held only as Sec. 82.55, so whether a person managing or leasing property for a fee needs a licence cannot be determined here. |
+| Minn. Stat. ch. 471 beyond Sec. 471.9995 -- chapter 471 is held only as that one section. | 1 | Minn. Stat. ch. 471 beyond Sec. 471.9995 -- chapter 471 is held only as that one section. |
+| Minnesota case law on penalties, liquidated damages and mitigation of damages | 1 | Whether a residential rent acceleration clause is enforceable in Minnesota turns on it. Outside the corpus; cases are leads only. |
+| Minneapolis and Saint Paul crime-free, nuisance and excessive-call ordinances | 1 | Municipal; rule 3. No ordinance text is in the corpus. Named as a class in the row body only as something to check, never resolved. |
+| Minn. Stat. Sec. 326.71, subd. 8 (definition of person, which Minn. Stat. Sec. 144.9501, subd. 24 adopts for the whole L | 1 | Minn. Stat. Sec. 326.71, subd. 8 (definition of person, which Minn. Stat. Sec. 144.9501, subd. 24 adopts for the whole Lead Poisoning Prevention Act) - chapter 326 is outside the corpus. |
+| Minn. Stat. Sec. 245A.02, subd. 13 (definition of related individual, which fixes the scope of the Sec. 144.9505, subd. | 1 | Minn. Stat. Sec. 245A.02, subd. 13 (definition of related individual, which fixes the scope of the Sec. 144.9505, subd. 1(d) property-owner exemption) is IN the corpus as a cross-reference and was not needed for this row; noted so a later pass does not re-cha… |
+| Minn. Stat. Sec. 462A.07, subd. 21 (added by Laws 2025, ch. 32, sec. 3) - read from the act text; chapter 462A is not he | 1 | Minn. Stat. Sec. 462A.07, subd. 21 (added by Laws 2025, ch. 32, sec. 3) - read from the act text; chapter 462A is not held in this corpus. |
+| Minn. Stat. Sec. 504B.275 - the attorney general's tenant-rights statement that Sec. 504B.181, subd. 2(b) requires a not | 1 | Minn. Stat. Sec. 504B.275 - the attorney general's tenant-rights statement that Sec. 504B.181, subd. 2(b) requires a notice about; it is inside chapter 504B and therefore held, but it was not opened in this pass. |
+| Minn. Stat. ch. 507 (recording of instruments affecting real estate) and ch. 508 (registration of land, Torrens) -- NOT | 1 | Minn. Stat. ch. 507 (recording of instruments affecting real estate) and ch. 508 (registration of land, Torrens) -- NOT in the corpus. These are where a general duty or benefit of recording a lease would be found, so the absence claim in this row is bounded t… |
+| County recorder and registrar of titles fee schedules -- outside the corpus. | 1 | County recorder and registrar of titles fee schedules -- outside the corpus. |
+| Minn. Stat. ch. 507 (conveyances; recording), Minn. Stat. ch. 513 (statute of frauds), Minn. Stat. chs. 580, 581, 582 (mortgage foreclosure) | 1 | Not in the corpus. Chapter 513 carries the one-year writing requirement that `edu-statute-of-frauds-lease-term-mn` states from its own sources, and chapter 507 would settle whether a long residential lease has a recording threshold like Maine's and New Hampsh… |
+| Municipal rent-stabilisation ordinances (for example Saint Paul) | 1 | a local rent-stabilisation scheme can in practice constrain the rent difference between lease types; rule 3 forbids resolving a municipal ordinance |
+| Minn. Gen. R. Prac. and the Rules of Civil Procedure | 1 | a court-rule format requirement could apply to a lease filed as an exhibit under Minn. Stat. 504B.321, subd. 3 |
+| Minn. Stat. ch. 541 (limitation of actions) | 1 | The chapter that actually governs a landlord's suit for unpaid rent or damages to the premises, and the partial-payment question. Not in the corpus — this is why the row is NEEDS_REVIEW. Bound and logged as instructed. |
+| Minn. Stat. § 325G.34, subd. 5 | 1 | The six-year Plain Language Contract Act period. Chapter 325G is outside the corpus; the fact is taken from the prior VERIFIED row edu-plain-language-contract-mn rather than cited afresh. |
+| Minneapolis and St. Paul tenant-protection ordinances | 1 | Municipal and outside the corpus. Rule 3: flagged, never resolved. No row states a city lockout rule. |
+| Minn. Stat. § 645.02 (effective date of acts, the general rule). Needed because Laws 2026, ch. 81 carries its own 'effec | 1 | Minn. Stat. § 645.02 (effective date of acts, the general rule). Needed because Laws 2026, ch. 81 carries its own 'effective August 1, 2026' clause in secs. 2, 3 and 5 only; secs. 1 and 4 (§ 216B.023, subd. 3a and § 504B.216, subd. 7a, the estimated final uti… |
+| Minn. Stat. ch. 360 (aeronautics; airport zoning and avigation easements; Sec. 360.013, subd. 39 defines airport and is | 1 | Minn. Stat. ch. 360 (aeronautics; airport zoning and avigation easements; Sec. 360.013, subd. 39 defines airport and is borrowed by Minn. Stat. Sec. 325F.072, and Sec. 360.305, subd. 4 appears in Laws 2025, First Special Session ch. 8) - outside the corpus, a… |
+| Minn. Stat. ch. 429 (local improvements, special assessments), referred to by § 444.075, subd. 2 | 1 | The assessment machinery § 444.075 points at is outside the corpus; the row states the certification power without describing assessment procedure. |
+| Minn. Stat. ch. 444 beyond § 444.075, and ch. 514 beyond §§ 514.18 and 514.22 | 1 | Bounds the absence claim about any other Minnesota utility lien provision. |
+| Individual city utility billing ordinances — the 'governing ordinance, policy, or practice' that § 504B.216, subd. 13(c) defers to | 1 | Rule 3 — municipal matter, flagged and deliberately not resolved. |
+| Minn. Stat. ch. 289A (withholding) and ch. 290 (income tax) | 1 | Whether Minnesota requires withholding on rent paid to a nonresident owner, and any exemption for a tenant's own home or for owners of four or fewer units, which the topic file names as a live question in other states. Neither chapter is in the corpus. |
+| Minn. Stat. ch. 302A and ch. 303 | 1 | Whether a foreign entity holding Minnesota rental property must register and name a registered agent. 'registered agent' returns 0 hits across the held statutes, which proves only that the duty is not in the eight held chapters. Neither chapter is in the corp… |
+| Minnesota case law on when a tenancy-at-will termination notice takes effect | 1 | Outside the corpus. An existing MN row asserts a full-rental-period rule that no statute in the corpus contains; whether it is good common law cannot be determined here, and cases are leads only. |
+| Municipal ordinances setting an eviction notice period longer than 14 days (Minneapolis and Saint Paul in particular) | 1 | Minn. Stat. § 504B.321, subd. 1a(c) measures the cure period by 'the number of days required by a local government rule or law if the notice period prior to an eviction required by the local government is longer than 14 days', and clause (6)'s prescribed stat… |
+| Minn. Stat. Sec. 645.02 (general effective-date rule) - outside the corpus. Needed because Laws 2026, ch. 81, secs. 1 an | 1 | Minn. Stat. Sec. 645.02 (general effective-date rule) - outside the corpus. Needed because Laws 2026, ch. 81, secs. 1 and 4, which add Minn. Stat. Sec. 216B.023, subd. 3a and Sec. 504B.216, subd. 7a (final submetered utility bills), carry no effective-date cl… |
+| Underwriters Laboratories Standards for Safety-UL 325, third edition, as revised May 4, 1988 | 1 | Minn. Stat. section 325F.82, subd. 5 defines the automatic reversing requirement by reference to paragraphs 30.1, 30.2 and 29.1 of that standard. A private standard, not in the corpus; the clause uses the statute's own term and does not restate the standard's… |
+| FEDERAL: HUD pet rules for subsidized and public housing (for example 24 C.F.R. part 5, subpart C and part 960, subpart G) | 1 | Sec. 504B.261 applies only where a subsidy reduces or eliminates the tenant's rent responsibility, so the federal program rules run alongside it. Outside the corpus, not fetched, content not stated. |
+| Minn. R. ch. 4717 (public pools and spas) in full, and specifically parts 4717.0150 to 4717.3975, 4717.0250 (subparts 7, | 1 | Minn. R. ch. 4717 (public pools and spas) in full, and specifically parts 4717.0150 to 4717.3975, 4717.0250 (subparts 7, 8, 9), 4717.0750, 4717.1050, 4717.1650, 4717.1750 (subparts 4, 5, 6), 4717.1850 and 4717.3975, all cross-referred by Minn. Stat. Sec. 144.… |
+| Minn. Stat. Sec. 157.16, cross-referred by Minn. Stat. Sec. 144.1222, subd. 5(a) and (b) -- chapter 157 is outside the c | 1 | Minn. Stat. Sec. 157.16, cross-referred by Minn. Stat. Sec. 144.1222, subd. 5(a) and (b) -- chapter 157 is outside the corpus. |
+| Minn. Stat. Sec. 142B.41, subd. 9 and Sec. 142B.05, subd. 2, cross-referred by Minn. Stat. Sec. 144.1222, subds. 2a, 2b | 1 | Minn. Stat. Sec. 142B.41, subd. 9 and Sec. 142B.05, subd. 2, cross-referred by Minn. Stat. Sec. 144.1222, subds. 2a, 2b and 4(d) for day care home pools -- chapter 142B is outside the corpus. |
+| Minnesota Rules and the Minnesota State Building Code on ventilation and mechanical cooling | 1 | Outside this corpus. The absence claim covers statutes only, and § 504B.161, subd. 1(a)(4) routes the landlord to local health and safety law. |
+| Municipal cooling or maximum-temperature ordinances | 1 | Rule 3 — flagged as a municipal matter and deliberately not resolved. |
+| Minnesota's solar-easement and solar-access provisions in the real property chapters | 1 | A general statute voiding instrument restrictions on solar energy systems — one of the canvass questions — would sit here, outside this corpus, so that question is not answered. |
+| Municipal rental licensing and landlord registration ordinances | 1 | local schemes commonly tier fees and inspection frequency by the number of units a landlord holds, which is the portfolio threshold a Minnesota landlord is most likely to meet in practice |
+| Minn. Stat. 245.462, subd. 11a | 1 | cross-referenced by Minn. Stat. 504B.266, subd. 2(a)(3) for the areas of functional impairment; quoted from 504B.266 and not read itself |
+| Minn. R. Civ. App. P. (appeal bonds and supersedeas) | 1 | Minn. Stat. section 504B.371, subd. 2 allows an appeal 'as provided for civil actions in district court'. The appellate rules are outside the corpus. |
+| Minn. Stat. ch. 103I (wells and borings: construction, sealing, licensing) - outside the corpus. Confirmed to exist and | 1 | Minn. Stat. ch. 103I (wells and borings: construction, sealing, licensing) - outside the corpus. Confirmed to exist and to be enforced through Minn. Stat. Sec. 144.99, subd. 1, which lists it. Laws 2026, ch. 127 amends Sec. 103I.001, Sec. 103I.005 subds. 9 an… |
+| Minn. R. ch. 4725 (Minnesota well code) - Minnesota Rules are outside the corpus. | 1 | Minn. R. ch. 4725 (Minnesota well code) - Minnesota Rules are outside the corpus. |
+| FEDERAL: United States Code, title 42, section 300f, clause (4) (definition of public water system), which fixes whether | 1 | FEDERAL: United States Code, title 42, section 300f, clause (4) (definition of public water system), which fixes whether a given landlord is a supplier under Minn. Stat. Sec. 144.382, subd. 5 - not in the corpus and not read. |
+| Minn. Stat. ch. 609 beyond the 8 held sections | 1 | The clause's 'do anything that the law forbids' limb and the covenant's firearm limb cite Sec. 609.66 and Sec. 609.67, which are held; the rest of chapter 609 is not, so no wider criminal-conduct claim is made. |
+| Minn. Stat. ch. 8 (only section 8.31 held) | 1 | Cited by Minn. Stat. ch. 8 section 8.37, referenced in Minn. Stat. § 8.31, subd. 2c for the consumer protection restitution account. Only § 8.31 of chapter 8 is held, so § 8.37's content is not stated. |
+| Wis. Admin. Code ATCP Sec. 134.07 is named only as the comparator the topic question cites; it is another state's rule a | 1 | Wis. Admin. Code ATCP Sec. 134.07 is named only as the comparator the topic question cites; it is another state's rule and nothing about it is stated from memory. |
+| FEDERAL: Code of Federal Regulations, title 24, sections 3280.308, 3280.309 and 3280.406 (1984) - the manufactured-home | 1 | FEDERAL: Code of Federal Regulations, title 24, sections 3280.308, 3280.309 and 3280.406 (1984) - the manufactured-home formaldehyde disclosure and plywood/particleboard product standards that Minn. Stat. Sec. 325F.18, subd. 1(b) and Sec. 325F.181 adopt by re… |
+| Minn. R. 4620 (the urea formaldehyde foam insulation rule for new installations in residential housing units, expressly | 1 | Minn. R. 4620 (the urea formaldehyde foam insulation rule for new installations in residential housing units, expressly preserved by Minn. Stat. Sec. 144.495 when the rest of parts 4620.1600 to 4620.2100 were repealed) - Minnesota Rules are outside the corpus. |
+| Minn. Stat. ch. 152 (controlled substances), ch. 609 and ch. 624 beyond the held sections | 1 | Named by Minn. Stat. § 504B.171, subd. 1(a) but held only at the named cross-reference sections. |
+| Municipal recycling ordinances (for example Minneapolis and St. Paul multi-unit recycling requirements) | 1 | Rule 3 — flagged as a municipal matter and deliberately not resolved. § 504B.161, subd. 1(a)(4) is the non-waivable route by which such an ordinance binds the landlord, and the row explains that without stating ordinance content. |
+| FEDERAL: United States Code, title 26, section 501(c)(3) | 1 | Minn. Stat. section 504B.291, subd. 1(a) defines the qualifying guarantor by reference to it. Federal law is not in this corpus. |
+| Hook and Ladder Apartments, L.P. v. Nalewaja (Minn. 2025) | 1 | Named only because an existing row relies on it. Case law is outside this corpus and is a lead only, never authority. |
+| Minn. Stat. § 471.9996 (local rent control; a voter-approved ordinance exception). OUTSIDE THE CORPUS - the 50 cross-ref | 1 | Minn. Stat. § 471.9996 (local rent control; a voter-approved ordinance exception). OUTSIDE THE CORPUS - the 50 cross-reference sections include § 471.9995 (read whole for this pass) but not § 471.9996. Its content is NOT stated from memory anywhere in these r… |
+| Minn. R. Civ. P. (pleading, counterclaims, service) | 1 | Minn. Stat. section 504B.335(c) makes eviction proceedings 'the same as in other civil actions' except as sections 504B.281 to 504B.371 provide, and section 504B.385, subd. 5(d) requires service of a notice of hearing 'according to the Minnesota Rules of Civi… |
+| FEDERAL: 15 U.S.C. § 1681s-2 (duties of furnishers of information to consumer reporting agencies) and the rest of the Fa | 1 | FEDERAL: 15 U.S.C. § 1681s-2 (duties of furnishers of information to consumer reporting agencies) and the rest of the Fair Credit Reporting Act. Outside the corpus; named as the boundary of the row's advice and not relied on for any proposition. The Minnesota… |
+| Minn. Stat. ch. 297A (sales and use tax), including whatever it says about residential rent and about any exemption for | 1 | Minn. Stat. ch. 297A (sales and use tax), including whatever it says about residential rent and about any exemption for short-term residential lettings. OUTSIDE THE CORPUS - not among the 8 chapters or the 50 cross-reference sections - so its content is not s… |
+| Minn. Stat. Sec. 645.02 (general effective-date rule) for Laws 2025, ch. 32, art. 4, sec. 6. | 1 | Minn. Stat. Sec. 645.02 (general effective-date rule) for Laws 2025, ch. 32, art. 4, sec. 6. |
+| FEDERAL: 42 U.S.C. Sec. 4852d and 24 C.F.R. part 35 (lead-based paint disclosure) | 1 | Minnesota requires no state lead disclosure at signing; the pre-1978 notice is federal and outside this corpus. |
+| Minn. Stat. Sec. 152.0275 and Minn. Stat. ch. 145A beyond Sec. 145A.04 (methamphetamine-contaminated property) | 1 | 'methamphetamine' returns 1 hit across all 1,305 statute units and it is the Sec. 152.02 drug schedule. Whether Minnesota requires a methamphetamine-contamination disclosure cannot be settled from this corpus; it is a boundary, not an absence, and is recorded… |
+| Minn. Stat. ch. 507 (Sec. 507.235 and the recording statutes) | 1 | Whether and how a residential lease may be recorded, and the effect of recording, sit in chapter 507, which is not in the corpus. Sec. 504B.251's condition 'where a lease has been duly recorded' therefore cannot be traced to its source here. |
+| Minn. R. 4625 and 4626 (lodging establishments and food), the rules made under Minn. Stat. Sec. 144.12, subd. 1, clauses | 1 | Minn. R. 4625 and 4626 (lodging establishments and food), the rules made under Minn. Stat. Sec. 144.12, subd. 1, clauses (6) and (12) -- outside the corpus. These are where a state sanitary standard touching any kind of sleeping accommodation for gain would l… |
+| Minn. R. ch. 7511 (State Fire Code rules), the code the Minn. Stat. Sec. 299F.011, subd. 5 variance is a variance FROM - | 1 | Minn. R. ch. 7511 (State Fire Code rules), the code the Minn. Stat. Sec. 299F.011, subd. 5 variance is a variance FROM -- outside the corpus. |
+| Minn. Stat. ch. 157 (hotel, resort and lodging licensing) and ch. 326B (State Building Code) -- outside the corpus. | 1 | Minn. Stat. ch. 157 (hotel, resort and lodging licensing) and ch. 326B (State Building Code) -- outside the corpus. |
+| Minn. Stat. ch. 157 (hotels, resorts, lodging and food establishments) | 1 | Cross-referred by Minn. Stat. §§ 299F.46 and 325F.171 for the definitions of "hotel", "motel" and "lodging establishment". Not in the corpus. The topic is answered without it, because the question is whether chapter 504B carves out a seasonal tenancy (it does… |
+| Minn. Stat. 82.75 (and the rest of chapter 82 beyond section 82.55) | 1 | Chapter 82's operative broker trust-account duties are outside the 8 chapters and 50 cross-references. Not load-bearing: the row's claim rests on the express exclusion in Minn. Stat. 504B.178, subd. 2, which removes a residential security deposit from the tru… |
+| Minnesota Rules (occupational and facility staffing requirements) | 1 | Staff licensing and background-check rules for licensed senior settings commonly sit in Minnesota Rules, which is outside the corpus. The absence claim is limited to the statutes, session laws and constitution. |
+| Local residency-restriction and offender-notification ordinances | 1 | Municipal; rule 3. Not in the corpus, not resolved, not in clause text. |
+| Local residency-restriction ordinances | 1 | Municipal; rule 3. Residency restrictions are commonly municipal. Not in the corpus, not resolved, not in clause text. |
+| Municipal rental licensing and certificate-of-occupancy ordinances | 1 | Minn. Stat. 471.9995 governs only what such a city document must contain, so whether one exists for a given property is a local question |
+| Minn. Stat. 515B.2-105, as amended by Laws 2026, ch. 61 | 1 | the only 2025-2026 act combining 'single-family' and 'first page' is this common interest community declaration-format provision; the act text could be read but the chapter could not |
+| Minn. Stat. ch. 103F (shoreland and floodplain management; Sec. 103F.515 appears by number in Laws 2026, ch. 126 and Law | 1 | Minn. Stat. ch. 103F (shoreland and floodplain management; Sec. 103F.515 appears by number in Laws 2026, ch. 126 and Laws 2025, First Special Session ch. 1) - outside the corpus. |
+| 25 Del. C. section 5509(b) | 1 | The topic question is framed on Delaware's separate-signed-document waiver. Delaware law is outside this corpus and is cited here only as the comparator the topic names; nothing is asserted about its content beyond what the library's own showing-notice-waiver… |
+| Municipal zoning and rental licensing ordinances, including Minneapolis and Saint Paul | 1 | this is where a single-family-zone rental limit would actually live in Minnesota |
+| Minneapolis and St. Paul smoke-free housing ordinances | 1 | Minn. Stat. section 144.417, subd. 4(a) expressly preserves a statutory or home rule charter city's power to be more stringent. Municipal and outside the corpus: flagged under rule 3, never resolved, and kept out of the clause text. |
+| FEDERAL: 42 U.S.C. (Social Security Act) and 24 C.F.R. (HUD subsidised housing grievance and termination rules) | 1 | The topic is federal-facing and this corpus holds no federal law. Whether federal anti-attachment or subsidised-housing protections give a tenant a defence tied to benefit income cannot be determined here, and per the brief no federal provision is stated from… |
+| Minnesota Rules, chapter 9500 | 1 | Minn. Stat. section 504B.321, subd. 1b(a) cross-refers to it for the emergency-assistance verification. Minnesota Rules are outside the corpus. |
+| Minn. Stat. chapter 142G and the rest of chapter 256D | 1 | Minn. Stat. section 504B.321, subd. 1b(a) refers to chapter 142G as well as section 256D.06, subd. 2. Section 256D.06 is one of the 50 cross-reference sections; chapter 142G and the remainder of chapter 256D are not held. |
+| Minn. Stat. ch. 428A (special service districts) and ch. 462 / ch. 394 (municipal and county planning) | 1 | Where a district-representation or district-disclosure duty would sit if one existed. Outside the corpus. The answer does not turn on them because a LEASE-content duty would sit in chapter 504B, which is held whole and silent. |
+| Minn. Stat. ch. 299M (fire protection systems; Sec. 299M.01 supplies the definition of fire protection system that the H | 1 | Minn. Stat. ch. 299M (fire protection systems; Sec. 299M.01 supplies the definition of fire protection system that the High-Rise Sprinkler System Grant and Loan Program adopts for sprinkler system) - outside the corpus. |
+| Minn. Stat. ch. 144G (assisted living facilities; Laws 2025, ch. 38 adds a requirement that such a facility be protected | 1 | Minn. Stat. ch. 144G (assisted living facilities; Laws 2025, ch. 38 adds a requirement that such a facility be protected throughout by an approved supervised automatic sprinkler system by August 1, 2029) - the corpus holds only Sec. 144G.08, so the rest of th… |
+| Minnesota State Building Code and State Fire Code (Minnesota Rules), which Minn. Stat. Sec. 299F.48, subd. 4 expressly d | 1 | Minnesota State Building Code and State Fire Code (Minnesota Rules), which Minn. Stat. Sec. 299F.48, subd. 4 expressly does not supersede and which do carry sprinkler requirements - Minnesota Rules are outside the corpus. |
+| FEDERAL: Servicemembers Civil Relief Act, 50 U.S.C. §§ 3901 to 4043 (lease termination at 50 U.S.C. § 3955) | 1 | Not in the corpus. Minnesota has no state military-termination statute (battery S06-b11m-earlyterm-military, 2 hits, both cleared), so the federal Act is the only route and the shared `early-termination` clause's reference to it is load-bearing for Minnesota.… |
+| Minn. Stat. ch. 524 (Uniform Probate Code; guardians and conservators) | 1 | Not in the corpus. Minn. Stat. § 504B.266, subd. 1(b) defines 'authorized representative' partly by reference to 'a court-appointed conservator or guardian under chapter 524'. The termination right is stated without it; only the precise class of representativ… |
+| Minnesota State Building Code and Minnesota Rules | 1 | A guarding or shielding requirement for hot surfaces could sit in the building code, which is outside this corpus; the row relies on § 504B.161, subd. 1(a)(4) to route the landlord to local health and safety law rather than asserting code content. |
+| Municipal housing-maintenance ordinances (for example Minneapolis and St. Paul) | 1 | Rule 3 — a city radiator-guarding requirement is flagged as a municipal matter and deliberately not resolved. |
+| Minn. Stat. ch. 243 and ch. 244 (predatory offender registration and community notification, including Sec. 243.166 and | 1 | Minn. Stat. ch. 243 and ch. 244 (predatory offender registration and community notification, including Sec. 243.166 and Sec. 244.052) - outside the corpus, so the topic sub-question whether a landlord who holds registry information must disclose it on request… |
+| Minn. R. ch. 4620 and the Minnesota State Building Code - Minnesota Rules are not held in this corpus, so a stove or app | 1 | Minn. R. ch. 4620 and the Minnesota State Building Code - Minnesota Rules are not held in this corpus, so a stove or appliance requirement in a rule cannot be checked here. |
+| Minn. Stat. Sec. 325F.66 - the last section of the repair-shop range Sec. 325F.63, subd. 3 refers to; chapter 325F is he | 1 | Minn. Stat. Sec. 325F.66 - the last section of the repair-shop range Sec. 325F.63, subd. 3 refers to; chapter 325F is held whole but Sec. 325F.66 was not opened in this pass. |
+| Minn. Stat. ch. 135A and ch. 136F | 1 | any rule on institution-operated residence halls or on-campus student housing would live here rather than in chapter 504B |
+| Municipal rental licensing and student-occupancy ordinances in college cities | 1 | density and occupancy limits near campuses are a common local rule; rule 3 forbids resolving a municipal ordinance |
+| Minn. Stat. chapter 237 (telecommunications) | 1 | Where a telecommunications provider's building-access right or a tenant provider-choice rule would live. Not one of the eight whole-held chapters and not among the 50 cross-reference sections, so the topic cannot be settled; the row is NEEDS_REVIEW for this r… |
+| Minn. Stat. chapter 238 (cable communications) | 1 | Where a cable franchise building-access right or a no-rent-differential rule would live - several states put theirs in the cable statute. Not in the corpus. |
+| FEDERAL: the Federal Communications Commission's over-the-air reception device rule | 1 | Limits what a property owner may do about a tenant's antenna or satellite dish. Not read; named without a citation and its content is not asserted anywhere in these rows. The clause preserves any such right rather than describing it. |
+| FEDERAL: 11 U.S.C. (the Bankruptcy Code), in particular the automatic stay, its exceptions, and the treatment of an unexpired residential lease; and… | 1 | The entire topic. No federal law is in this corpus and per the brief none is stated from memory. The row is NEEDS_REVIEW for this reason and tells the landlord to take advice rather than guessing. |
+| Minn. Stat. chapter 576 (receivers) and chapter 559 beyond section 559.21 | 1 | Checked for completeness because the bankruptcy term family surfaced receivership. Neither is in the corpus. Nothing in the row depends on them: the only chapter 504B receivership provision, section 504B.451, is the tenant remedies administrator loan fund and… |
+| Minn. Stat. ch. 13 (Government Data Practices Act) | 1 | Cross-referenced by Sec. 363A.03, subd. 9 and by several hits in this battery. It governs government bodies; a public housing authority landlord would be caught. Outside the corpus. |
+| Minn. Stat. ch. 327 and Minnesota Rules, ch. 4630 (migrant and seasonal farm labour camps) | 1 | employer-provided farm labour housing is regulated there; Minn. Stat. 327C.16, subd. 1(c)(3) names both, which confirms they exist and bear on landlord-tenant compliance |
+| Minn. Stat. ch. 181 (wages) | 1 | whether and how the value of housing may be deducted from or credited against wages, which the clause makes definite but does not cap |
+| Minn. Stat. ch. 580 to ch. 582 | 1 | Whether a foreclosing mortgagee must serve the occupant directly (as Wyoming's Sec. 34-4-103(a)(iv) does) is the question that decides how much this clause matters in Minnesota. None of the three chapters is in the corpus. |
+| Minn. Stat. ch. 325E (data security and breach notification provisions) | 1 | The topic's own standing question -- does the state data-security statute reach a landlord holding applicant Social Security numbers and bank data. Chapter 325E is not held, whole or as a cross-reference, so the point cannot be settled here. edu-no-landlord-r… |
+| Minn. Stat. Sec. 471.9994 and Sec. 462A.07 as compiled | 1 | Chapter 471 is held only as Sec. 471.9995 and chapter 462A is not held at all, so these two sections exist in this corpus only as session-law text. The rows quote the act, say so, and make no claim about compiled wording. |
+| Minn. Stat. Sec. 327C.015, subd. 14 ('manufactured home park' for Sec. 504B.275) | 1 | Chapter 327C IS held whole, so this is reachable; recorded only because Sec. 504B.275, Sec. 504B.151 and Sec. 504B.211 cite three different forms of the Sec. 327C.015 reference and the subdivision should be checked per section rather than carried across. |
+| Local rental licensing, registration and certificate-of-occupancy schemes | 1 | Municipal; rule 3. Whether Sec. 504B.181, subd. 2(b)'s condition is met, and whether Sec. 471.9994 is triggered, both depend on them. Not resolved, not in clause text. |
+| Minneapolis and Saint Paul tenant-screening ordinances | 1 | Municipal; rule 3. Not in the corpus, not resolved, not in clause text. |
+| Minn. Stat. ch. 609 beyond Sec. 609.66, .67, .342, .748, .749, .3451, .3458, .5317 | 1 | Only 8 sections of chapter 609 are held. A tenant duty or offence living elsewhere in the criminal code could not be found, so the roster's completeness claim is bounded to the eight whole-held chapters plus the named cross-references. |
+| Minn. Stat. Sec. 299F.011, subd. 6 (State Fire Code penalty and enforcement mechanism) | 1 | Sec. 299F.362 subd. 6(a) imports it for smoke-alarm violations. Sec. 299F.011 IS held (chapter 299F is whole) and was reached by battery S14-b10-tenantduty-misdem-rerun, but its subd. 6 content was not stated in the row, so it is recorded here as the next thi… |
+| Local truth-in-housing and garage-door ordinances under Minn. Stat. Sec. 325F.83, subd. 7 | 1 | Municipal; rule 3. Subd. 7 expressly permits more restrictive local rules enforceable through a truth-in-housing inspection. Not resolved, not in clause text. |
+| FEDERAL: 42 U.S.C. § 1437f (Section 8) and its HUD regulations and handbooks; Forest Park II v. Hadley, 336 F.3d 724 (8th Cir. 2003) | 1 | Not in the corpus. The Revisor prints a note with Minn. Stat. § 504B.255 recording that clause (3) was found preempted to the extent it creates a longer termination timeline than federal law. The scope of that preemption cannot be settled here, so `edu-subsid… |
+| FEDERAL: 42 U.S.C. Sec. 1437f (Section 8) and its regulations | 1 | Minn. Stat. Sec. 504B.255's four triggers are defined by reference to federal Section 8 contracts and subsidy programmes. Federal law is outside the corpus. |
+| Minn. Stat. Sec. 609.605 (trespass), as amended by Laws 2026, ch. 97 | 1 | The section the topic turns on -- notice requirements, procedure and the guest, invitee and open-to-the-public defences. Chapter 609 is held as 8 sections and this is not one of them, although Sec. 609.749 (held) cross-refers to it. No content stated. This is… |
+| Minn. Stat. ch. 97A and 97B (outdoor recreation posting), reached via Laws 2026, ch. 95 | 1 | An owner, occupant or lessee may prohibit outdoor recreation on private land by prescribed annual posting. The statutes are outside the corpus and the regime is not on point for the common areas of a rental building; recorded so a later pass does not mistake… |
+| Municipal trespass and no-trespass-list ordinances | 1 | Municipal; rule 3. Not in the corpus, not resolved, not in clause text. |
+| Minn. Stat. 609.605 (criminal trespass), as amended by Laws 2026, ch. 97, sec. 24 | 1 | the only Minnesota provision that might give a landlord a route against a person with no colour of right; chapter 609 is held only as eight named sections and this is not one, so the absence claim in the row is bounded to exclude it |
+| Minn. Gen. R. Prac. 601 to 611 (eviction practice) | 1 | who may be named and served in an eviction action against a person who never signed a lease is partly a court-rule question |
+| Municipal parking-minimum and parking-unbundling ordinances (for example Minneapolis and St. Paul) | 1 | Several cities regulate parking minimums and unbundling for new buildings - California's statutory version is in the library as unbundled-parking-ca. Municipal and outside the corpus; flagged under rule 3 and not resolved. |
+| Minn. Stat. § 334.01 (general rate of interest) and § 549.09 (interest on verdicts, awards and judgments, including prej | 1 | Minn. Stat. § 334.01 (general rate of interest) and § 549.09 (interest on verdicts, awards and judgments, including prejudgment interest). Neither is in the pass corpus; only § 334.16 (finance charges for open end credit sales) is. `edu-unpaid-damages-interes… |
+| Minn. Stat. § 216B.098, subd. 3 (payment agreements, cited by § 216B.172, subd. 5) | 1 | Not held; not relied on. |
+| Public Utilities Commission rules prescribing the approved form of the third-party notice and of the summary of rights and responsibilities | 1 | § 216B.096 requires a 'commission-approved notice'; the form itself is in the Commission's material, outside this corpus. |
+| Public Utilities Commission rules on notice before a building-wide disconnection (Minn. R. ch. 7820) | 1 | § 504B.216, subd. 13(a) requires posting in at least one conspicuous location in or on the building; whether the Commission's rules require individual notice to each unit cannot be determined from this corpus. The row states the statutory posting duty only. |
+| Public Utilities Commission rules prescribing the commission-approved disconnection notice and summary of rights and responsibilities | 1 | § 216B.096, subds. 2(h), 2(i), 4 and 8 all require commission-approved forms, which are outside this corpus. |
+| Minn. Stat. § 563.01 is held, but the row does not state its contents | 1 | Recorded so a later pass knows the fee-waiver test in § 504B.285, subd. 4(b)(2) was deliberately left unstated rather than missed. |
+| Minn. Stat. ch. 290 (income tax) and ch. 273 (property tax) | 1 | A landlord-side tax incentive for renting to veterans would live in the tax chapters, which are outside the corpus. The absence claim here is about the landlord-tenant, human rights, trade practice, health, court and manufactured-home chapters that are held,… |
+| Minn. Stat. Sec. 197.447 | 1 | Supplies the definition of veterans borrowed by Sec. 469.002, subd. 23. Outside the corpus; content not stated. |
+| Minnesota State Plumbing Code (Minn. R. ch. 4714) and State Building Code (Minn. R. chs. 1300-1370) - Minnesota Rules ar | 1 | Minnesota State Plumbing Code (Minn. R. ch. 4714) and State Building Code (Minn. R. chs. 1300-1370) - Minnesota Rules are outside the corpus, and a maximum hot-water or tempering-valve requirement is exactly the kind of rule they could carry. This is the one… |
+| Minn. Stat. ch. 142B / ch. 142C (child-care licensing), which Laws 2026, ch. 127 amends to add the 120-degree hand-sink | 1 | Minn. Stat. ch. 142B / ch. 142C (child-care licensing), which Laws 2026, ch. 127 amends to add the 120-degree hand-sink limit - the corpus holds neither chapter, so only the session-law text was read. |
+
+### New `{{variables}}`
+
+- `{{{{cure_period_days}}}}` (from `cure-and-eviction-grounds`)
+- `{{{'name': '{{landlord_repair_contact}}', 'why': 'the name, telephone number and e-mail address a tenant reports repairs to. Checked first for an existing variable: the library\'s nearest analogues write the contact as a bare [bracketed prompt] (`designated-repairer-mp`: "[Landlord\'s repair contact: name, telephone and e-mail]"), and MN\'s own `landlord-disclosure-mn` carries the Sec. 504B.181 owner/agent identity, which is a different thing from a repair contact. Proposed as a variable because the builder will already hold it.'}}}` (from `designated-repairer`)
+- `{{{'name': '{{emergency_response_hours}}', 'why': "hours after a reported emergency before the optional tenant-reimbursement provision opens. No statutory figure exists in Minnesota, so it is the landlord's number, not the statute's. Peer rows use a bare [number, for example 24] prompt."}}}` (from `designated-repairer`)
+- `{{{'name': '{{repair_reimbursement_days}}', 'why': "days within which the landlord reimburses documented emergency repair costs under the optional provision. Again the landlord's figure; no Minnesota statute sets one."}}}` (from `designated-repairer`)
+- `{{{{total_monthly_payment}} - rent plus all nonoptional fees, the figure Minn. Stat. § 504B.120, subd. 1 requires to be labelled 'Total Monthly Payment' on page one. Used by `required-fees-mn`. Ideally computed by the builder from {{monthly_rent}} plus the fees the landlord lists.}}` (from `required-fees`)
+- `{{{'variable': '{{employee_housing_monthly_value}}', 'why': 'where the consideration for the tenancy is services rather than cash, Minn. Stat. 504B.001, subd. 12 still makes the occupant a residential tenant, so the lease needs a named monthly rent figure; no existing variable carries this meaning', 'rejected_alternatives': '{{monthly_rent}} would work in a cash tenancy but obscures that the amount is the agreed value of housing exchanged for services; {{maintenance_consideration}} and {{maintenance_agreement_consideration}} carry the Minn. Stat. 504B.161, subd. 2 repair-agreement meaning'}}}` (from `tenant-employee-housing`)
+
+
+## Gaps-pass sync review (Claude Code, 2026-10-29)
+
+Merged with `merge-delta.py --base 333d811` (after Colorado, Wyoming and Kansas and the Nebraska salvage fixes): 322 new rows (70 lease clauses), 13 shared rows tagged, nothing refused. All 230 missing topics are answered. Minnesota now carries 489 active rows, every one VERIFIED. `effective_from` was blank on 306 new rows and carried a law's own date on 16 more; all 322 now carry the canvass date, 2026-10-29 (SOP rule 70), and a law's date stays in the text or notes (six notes gained it).
+
+**NEEDS_REVIEW (26 delivered), all closed VERIFIED** after reading the chapters each waited on, on revisor.mn.gov (whose online statutes already include the 2026 session) plus 11 U.S.C. §§ 362 and 365 and 47 C.F.R. § 1.4000. Six absence rows were wrong and now state the rule: `edu-no-condominium-conversion-notice-mn` (§ 515B.4-111: a 120-day notice of conversion, a purchase option, and a defense to possession), `edu-no-energy-benchmarking-release-mn` (§ 216C.331), `edu-telecom-access-mn` (§ 238.23 cable access for more than four units, § 237.681, subd. 3, the federal antenna rule), `edu-no-sex-offender-occupancy-rule-mn` (§ 244.052, subd. 4a(b)), `edu-construction-liens-mn` (§ 514.06 deemed authorization unless notice is given within 5 days) and `edu-foreign-ownership-mn` (§ 500.221 reaches leaseholds of agricultural land). `spa-pool-notice-mn` gained Minn. R. 4717.1750's chemistry figures; `edu-no-property-tax-rent-statement-mn` now states the § 290.0693, subd. 4 certificate (to the renter by February 1, filed by January 31). Case-law doubts are stated with the cautious course (arbitration of evictions, the bankruptcy cure, interest on statutory penalties, full-rental-period notice).
+
+**Findings on existing rows (§6, F1-F93 and canvass C1-C55):** checked against the statute text. 183 changes in all with the NEEDS_REVIEW closures. Among them:
+- `pet-policy-mn`: § 504B.261 (two birds, or one dog or cat, in a subsidised accessible unit) controls, and pet-removal entry goes through the entry notice.
+- `edu-unlawful-activities-covenant-mn`: § 504B.171, subds. 2 and 2a (rent survives the voided possession; off-premises conduct limited to crimes of violence; chapter 152 offences excluded).
+- `edu-tenancy-at-will-notice-mn`: § 504B.147, subd. 2 restated (the tenant may use either period).
+- `edu-tenancy-at-will-termination-notice-mn`: § 504B.135 sets only the length; the full-period timing is a case-law doubt with the cautious course.
+- Non-waiver counts corrected (more than thirty sentences, several formulas).
+- `edu-for-cause-eviction-mn`: § 327C.09 (parks), the § 504B.216, subd. 12(d) utility-eviction bars, foreclosure and contract-for-deed notices, and the conversion notice.
+- `edu-new-construction-delay-mn`: the seven-day clock runs from learning of the delay.
+- `landlord-disclosure-mn`: the attorney-general notice is conditional on § 471.9995.
+- Fair-housing rows: the § 363A.21 exemptions, § 363A.28, subd. 6(f).
+- `edu-farm-and-mhp-scope-mn`: the finding was wrong; the crop lien exists, § 514.964.
+- The § 144.9504, subd. 7(c)(2) five-day deposit return after a lead vacate.
+
+Three overrides (Minnesota untagged from the parent):
+- `holdover-mn`: 'maximum permitted by law' is empty in Minnesota; it claims daily rent plus actual loss.
+- `application-of-payments-mn`: § 504B.216, subd. 12(b) rent-first applies before any tenant direction.
+- `possession-delay-mn`: § 504B.153 controls for new construction; it is unwaivable and gives the tenant an immediate termination option.
+
+Minnesota is also untagged from `snow-removal` and `landscaping-irrigation`: § 504B.161, subd. 2 lets a tenant take on 'specified repairs or maintenance' only under an agreement 'supported by adequate consideration and set forth in a conspicuous writing', so lawn and snow go through `tenant-repair-agreement-mn`. Five duplicate fixes between helpers were dropped in favour of the fuller or more exact version. Findings 75 and 59 were not defects.
+
+**Questions parked in the log (§4, 123):**
+- 18 were legal or drafting calls, decided here, with the rows changed where needed:
+  - § 504B.1715 sober-home option added to `edu-drug-free-housing-addendum-mn`.
+  - A cotenant-severance clause declined under rule 54, in `edu-dv-eviction-protection-mn`.
+  - No clause relinquishing the deposit on a § 504B.206 termination.
+  - `{{cure_period_days}}` ships with no default.
+  - A tag never bumps a shared row's `last_checked`.
+- 46 were already handled in the rows.
+- 10 were corpus boundaries, now read.
+- 38 product questions went to the backlog, the important ones put to Taylor.
+- Item 9(a) is settled by rule 70.
+- Item 9(b): the lease PDF prints `address2` (the unit) on page one, but it is optional, so § 504B.111 needs a builder gate, not a clause.
+
+**Edited-after rows (12):** all read against the statute; consistent.
+
+**Spot check:** read §§ 504B.120, 504B.216 (whole), 504B.204, 504B.245 and 504B.435 against their rows, plus § 504B.147, § 504B.135, § 504B.141, § 504B.153 and § 144.9504, subd. 7 for the helpers' fixes. Two corrections:
+- `edu-utility-nonpayment-eviction-limits-mn` now opens with the section's scope (shared-metered buildings, subd. 1(e)).
+- `edu-rent-demand-bar-mn`: the petitioner's suspension runs 'from the time the court signs the order for judgment'.
+
+§ 645.02 was read and the effective dates it governs are recorded in twelve rows' notes (Laws 2026, chs. 81, 82 and 99 have no appropriation items and took effect August 1, 2026; Laws 2025, ch. 32 has them and took effect July 1, 2025; ch. 88 is in force on either date).
+
+**Other:**
+- `designated-repairer-mn`: the bracket that sat beside `{{landlord_repair_contact}}` was removed (rule 60).
+- Six new `{{variables}}` were added to M.14.
+- SOP 1.87 takes up the pass's proposals as 16 grouped additions, all [Fwd]; main proposal 58's second half was not adopted (rule 80, DE 6, kept).
+- Fourteen topic questions were added, including the four proposed keys, recast as questions.
+- The citations file gained 338 rows; five ids were marked untagged.

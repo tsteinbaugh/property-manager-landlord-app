@@ -53,9 +53,42 @@ Merge each edit once every state tagged on the row has answered. Update this tab
 
 ## End-of-run consistency pass (decided 2026-10-04, Taylor: after the remaining states are done)
 
-**Started 2026-10-24 (Taylor): fill every topic gap, rolling staging, one Desktop visit per state** (decisions log, 2026-10-24). Desktop folders come from `stage-gaps.py` (item 6 plus each state's own items); Claude Code does items 2-5, 7, 8 and the territory flags itself. Gap folders: Colorado first, then the original research order (WY, KS, NE, MN, ND, SD, OH, CA, NV, TX, NJ, FL, AZ, GA, NC, SC, TN, VA, AL, PA, UT, IL, ID, MO, IN, OK, MI, IA, NM, MT, NY, WI, WA, OR, KY, WV). Item 1 is believed closed by the 2026-10-03/04 circle-back (rule 79 ✓ in every column); confirm by script before reopening. **Staged folders and their merge bases (`merge-delta.py --base`):** CO and WY 9f38860 (synced); KS 9f38860 (CSV SHA 6c1c393f; Taylor started it); MN restaged 2026-10-25 from 333d811 (CSV 0e73807d, SOP 1.86); NE restaged 2026-10-29 after its first pass was lost, from 07294bc (same CSV), with `NE-gaps-salvage.md` and chapters 18, 28, 29, 36, 40, 86 added; Claude Code fixes the salvage file's Part 3 findings itself (done 2026-10-29: 31 changes applied, including overrides `keys-ne` and `utilities-responsibility-ne`; seven drafted rows on topics in NE's missing list are held in `docs/pending-rows/NE-held-for-gaps-sync.json`, to merge with Desktop's rows for those topics at the NE sync); ND 68f8c51 (CSV 0e73807d). Older ND rows queued for Claude Code (not in ND's prompt): `edu-consumer-protection-act-nd` against the whole of § 51-15-02 (now in the ND corpus), plus the library-wide items as they apply to ND.
+**Started 2026-10-24 (Taylor): fill every topic gap, rolling staging, one Desktop visit per state** (decisions log, 2026-10-24). Desktop folders come from `stage-gaps.py` (item 6 plus each state's own items); Claude Code does items 2-5, 7, 8 and the territory flags itself. Gap folders: Colorado first, then the original research order (WY, KS, NE, MN, ND, SD, OH, CA, NV, TX, NJ, FL, AZ, GA, NC, SC, TN, VA, AL, PA, UT, IL, ID, MO, IN, OK, MI, IA, NM, MT, NY, WI, WA, OR, KY, WV). Item 1 is believed closed by the 2026-10-03/04 circle-back (rule 79 ✓ in every column); confirm by script before reopening. **Staged folders and their merge bases (`merge-delta.py --base`):** CO and WY 9f38860 (synced); KS 9f38860 (CSV SHA 6c1c393f; Taylor started it); MN restaged 2026-10-25 from 333d811 (CSV 0e73807d, SOP 1.86; synced 2026-10-29); NE restaged 2026-10-29 after its first pass was lost, from 07294bc (same CSV), with `NE-gaps-salvage.md` and chapters 18, 28, 29, 36, 40, 86 added; Claude Code fixes the salvage file's Part 3 findings itself (done 2026-10-29: 31 changes applied, including overrides `keys-ne` and `utilities-responsibility-ne`; seven drafted rows on topics in NE's missing list are held in `docs/pending-rows/NE-held-for-gaps-sync.json`, to merge with Desktop's rows for those topics at the NE sync); ND 68f8c51 (CSV 0e73807d). Older ND rows queued for Claude Code (not in ND's prompt): `edu-consumer-protection-act-nd` against the whole of § 51-15-02 (now in the ND corpus), plus the library-wide items as they apply to ND.
 
 **Cross-state checks from the Kansas gaps sync (2026-10-25), Claude Code's list:** (a) reword the shared `hoa-compliance` fine sentence to the damages framing of `hoa-compliance-or`/`-ak`/`-de`/`-co`/`-ks` (rule 62: check every tagged state's indemnity and fee rules first); (b) `utility-allowance-cap-co`'s 'not Rent' sentence: check each tagged state for a bilateral no-waiver statute like K.S.A. 58-2547(a)(1); (c) `nonrefundable-fees-wv`'s basis rests on W. Va. Code § 37-6A-1(14) while tagged to MS, PR, VI, AS and MP: check each for an equivalent express-agreement rule.
+
+**From the Minnesota gaps sync (2026-10-29).**
+- **Product, for Taylor (recommendations in the MN decision log, §4 and the sync review):**
+  1. Require the unit (`address2`) before a Minnesota lease generates for a building of 12 or more units (§ 504B.111).
+  2. Gate no-pets wording for subsidised accessible units (§ 504B.261).
+  3. Force-include the § 504B.113 assistance-animal disclosure whenever a Minnesota pet charge is selected.
+  4. A Minnesota first-page block: the Total Monthly Payment (§ 504B.120) via `{{total_monthly_payment}}`, the § 504B.146 dates and proration, and a note where a utility is included only up to an allowance (M.12).
+  5. A 'shared-metered building' property attribute driving the four utility clauses and the electricity disclosure.
+  6. Restrict victim-related data in Steinoak itself (§ 504B.206, subd. 2: no shared database; $2,000 statutory damages).
+  7. Rent Tracker: a documented § 504B.216, subd. 13(i) utility payment counts as rent paid; payments go to rent before utilities (subd. 12(b)).
+  8. Legal Tracker: block utility-nonpayment evictions October 1 to April 30, and in heat or medical emergencies (subd. 12(d)(2)).
+  9. A deposit-interest calculator (MN, CT).
+  10. A compliance calendar for dated duties (the rent certificate by February 1, § 290.0693; the September 30 energy-assistance notice).
+  11. Whether Steinoak offers a manufactured-home-park lot agreement (ch. 327C), recommended declined, with the decline recorded against §§ 327C.02, .025, .03, .06, .07, .09, .095.
+  12. Whether Steinoak serves housing-with-services (§ 325F.722) or sober-housing operators.
+  13. Portal electronic-notice service step (§ 504B.332, subd. 2(b)).
+  14. Screening-vendor contract terms (§§ 504B.241, .245: the $1,000 remedy runs against the landlord too).
+  15. A Minneapolis/St. Paul ordinance checklist (licensing, benchmarking, screening).
+  16. Smaller builder notes: no default for `{{cure_period_days}}`; print `energy-data-release-mn` and `utility-billing-schedule-mn` as one notice; the formaldehyde notice (§ 325F.18) as a separate sheet.
+- **Diary:**
+  - Recheck `edu-hoa-mn` after 2027-01-01 (Laws 2026, ch. 82's January 2027 sections, § 515B.3-107(f)).
+  - Recheck EV charging before 2027-07-01 (§ 296A.051 licence and tax).
+- **Candidate clause:** an optional Minnesota interest-on-unpaid-amounts clause modelled on `unpaid-damages-interest-mp`, at no more than 8% simple (§ 334.01), now that § 334.01 is read.
+- **Cross-state checks, Claude Code's list:**
+  - (a) Shared `holdover`'s 'maximum amount permitted by applicable law' is empty where a state sets no holdover measure; check CO, WY, KS, NE and FL (Minnesota now uses `holdover-mn`).
+  - (b) Statutes tying the landlord's notice to the lease's tenant notice (as § 504B.147, subd. 3 does): check the tagged states of `rent-increase-midterm-ky` and `owner-occupancy-termination-ar`.
+  - (c) `rent-installments-or`'s 'not partial payments of Rent' sentence: check whether each of its other 19 states has a basis.
+  - (d) `utility-allowance-cap-co`: check CO, WI, ME, HI, LA, AR, MS, GU and MP for a 'no other charges' rule in shared-metered buildings.
+  - (e) A landlord bond to execute pending appeal (§ 504B.371, subd. 7) in the 22 states with possession-bond rows.
+  - (f) `firearm-rules-la`'s vehicle-storage sentence needs a vehicle-storage statute in any state tagged later.
+  - (g) `prohibited-acts-renter-wy`'s entry limb, in AK, HI and DC.
+  - (h) Shared `tenant-caused-fines-as` has a 67-word sentence (plain-language screen).
+  - (i) Shared lawn and snow clauses wherever a statute requires consideration and a conspicuous writing for a tenant's maintenance agreement.
 
 **Kansas sources for Taylor's browser (2026-10-25):** four Kansas rows stay NEEDS_REVIEW only because Claude Code can't reach their primary source (each row's advice works under any reading): `edu-no-balcony-inspection-ks` and `edu-fire-sprinkler-duty-ks` (the 2006 IBC/IFC that K.A.R. 22-1-3 adopts; codes.iccsafe.org serves a CAPTCHA, free read-only view), `edu-entity-landlord-representation-ks` (Kansas Supreme Court Rules on non-lawyer representation of an entity; kscourts.gov returns a Cloudflare challenge), `edu-no-energy-data-release-ks` (KCC customer-data order and tariffs in the kcc-connect portal). A short read through Taylor's browser closes them. Tip for later K.A.R. reads: rules.ks.gov has a public JSON API (`/api/policy-library-public/...`).
 
@@ -469,6 +502,12 @@ M.1, M.2 and M.4 are the same underlying gap: **the builder treats clauses as in
 | `{{excluded_appliance_list}}` | KS | new 2026-10-25 (KS gaps) |
 | `{{lien_release_days}}` | KS | new 2026-10-25 (KS gaps) |
 | `{{tenant_metered_common_areas}}` | KS | new 2026-10-25 (KS gaps) |
+| `{{cure_period_days}}` | MN | new 2026-10-29 (MN gaps): days a tenant gets to fix a non-rent breach in the optional notice paragraph of `cure-and-eviction-grounds-mn`; the landlord's own number (Minnesota sets none), so no default |
+| `{{emergency_response_hours}}` | MN | new 2026-10-29 (MN gaps): `designated-repairer-mn`'s optional emergency provision: hours after a report before the tenant may act; the landlord's number |
+| `{{landlord_repair_contact}}` | MN | new 2026-10-29 (MN gaps): `designated-repairer-mn`: name, telephone and e-mail a tenant reports repairs to (not the § 504B.181 owner/agent identity) |
+| `{{repair_reimbursement_days}}` | MN | new 2026-10-29 (MN gaps): `designated-repairer-mn`: days to reimburse documented emergency costs; the landlord's number |
+| `{{total_monthly_payment}}` | MN | new 2026-10-29 (MN gaps): `required-fees-mn`: Monthly Rent plus every nonoptional fee, labelled 'Total Monthly Payment' on page one (Minn. Stat. § 504B.120, subd. 1; also M.12 first-page layout); compute from `{{monthly_rent}}` plus the listed fees |
+| `{{employee_housing_monthly_value}}` | MN | new 2026-10-29 (MN gaps): `tenant-employee-housing-mn`: agreed monthly value of housing given for services (Minn. Stat. § 504B.001, subd. 12); differs from KS's `{{employee_housing_consideration}}`, which describes the consideration |
 
 **Urgency:** required before the lease feature goes live.
 

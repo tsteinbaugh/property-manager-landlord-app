@@ -259,7 +259,7 @@ const CLAUSE_TEMPLATES = [
     id: "application-of-payments",
     title: "Application of Payments",
     group: "Rent & Payment",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "KY", "WV", "MD", "MA", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA", "AR", "MS", "DC", "GU", "VI", "AS", "MP"],
+    states: ["CO", "WY", "KS", "NE", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "KY", "WV", "MD", "MA", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA", "AR", "MS", "DC", "GU", "VI", "AS", "MP"],
     bodyText:
       "Each payment Tenant makes will be applied first to the Monthly Rent due for the current or oldest unpaid rental period, and only then to any other fees, charges, or amounts due under this Lease, unless Tenant directs otherwise in writing for a particular payment or applicable law requires otherwise. Nothing in this provision limits any statutory right Tenant may have to cure nonpayment of Rent.",
   },
@@ -611,9 +611,18 @@ const CLAUSE_TEMPLATES = [
     id: "possession-delay",
     title: "Possession Delay",
     group: "Default & Termination",
-    states: ["CO", "WY", "MN", "ND", "SD", "OH", "TX", "NJ", "FL", "GA", "NC", "TN", "VA", "PA", "IL", "ID", "MO", "IN", "MI", "NY", "WI", "WA", "OR", "WV", "MA", "CT", "NH", "ME", "VT", "AR", "MS", "DC", "PR", "VI", "AS", "MP"],
+    states: ["CO", "WY", "ND", "SD", "OH", "TX", "NJ", "FL", "GA", "NC", "TN", "VA", "PA", "IL", "ID", "MO", "IN", "MI", "NY", "WI", "WA", "OR", "WV", "MA", "CT", "NH", "ME", "VT", "AR", "MS", "DC", "PR", "VI", "AS", "MP"],
     bodyText:
       "If Landlord is unable to deliver possession of the property to Tenant by the Start Date, through no fault of Landlord, this Lease will remain in full force, but Tenant will not be obligated to pay Monthly Rent for the period Tenant is unable to take possession. If Landlord has not delivered possession within 30 days after the Start Date, Tenant may terminate this Lease by written notice to Landlord, in which case all amounts paid to Landlord by Tenant will be returned and both parties will be released from further obligation under this Lease.",
+  },
+  {
+    id: "possession-delay-mn",
+    title: "Possession Delay",
+    group: "Default & Termination",
+    states: ["MN"],
+    supersedes: "possession-delay",
+    bodyText:
+      "If Landlord is unable to deliver possession of the property to Tenant by the Start Date, through no fault of Landlord, this Lease will remain in full force, but Tenant will not be obligated to pay Monthly Rent for the period Tenant is unable to take possession. If Landlord has not delivered possession within 30 days after the Start Date, Tenant may terminate this Lease by written notice to Landlord, in which case all amounts paid to Landlord by Tenant will be returned and both parties will be released from further obligation under this Lease. If the property is new construction (a new building, rehabilitation, modification, reconstruction, a change altering the use or occupancy of the unit, or an addition), Minnesota Statutes section 504B.153 controls over this Section: Landlord will give Tenant the notice that section requires and Tenant may choose among the options it provides, including ending this Lease at once with a return of all amounts paid.",
   },
   {
     id: "default-by-tenant",
@@ -652,7 +661,7 @@ const CLAUSE_TEMPLATES = [
     id: "holdover",
     title: "Holdover Tenancy",
     group: "Default & Termination",
-    states: ["CO", "WY", "KS", "NE", "MN", "FL"],
+    states: ["CO", "WY", "KS", "NE", "FL"],
     bodyText:
       "If Tenant does not vacate the property by the end of the Term, Landlord may pursue any remedy allowed by applicable law to recover possession. Landlord will also be entitled to recover from Tenant holdover damages in the maximum amount permitted by applicable law for each day Tenant remains in possession after the end of the Term. Alternatively, Landlord may accept Tenant's continued payment of Rent, in which case this Lease will be deemed to continue on a month-to-month basis on the same terms and conditions, terminable by either party upon the written notice required by applicable law or, where applicable law sets no notice period, by this Lease.",
   },
@@ -816,7 +825,7 @@ const CLAUSE_TEMPLATES = [
     id: "landscaping-irrigation",
     title: "Landscaping & Irrigation",
     group: "Rules & Regulations",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "MI", "IA", "NM", "NY", "WI", "WA", "KY", "WV", "MD", "MA", "CT", "NH", "ME", "VT", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP"],
+    states: ["CO", "WY", "KS", "NE", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "MI", "IA", "NM", "NY", "WI", "WA", "KY", "WV", "MD", "MA", "CT", "NH", "ME", "VT", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP"],
     bodyText:
       "Unless Landlord provides landscaping service, Tenant is responsible for reasonable upkeep of the property's landscaping, including lawn mowing and leaf raking. If Landlord has set an irrigation schedule, Tenant will not modify it, and will promptly inform Landlord of any irrigation or landscaping issue, such as a leak or watering deficiency.",
   },
@@ -824,7 +833,7 @@ const CLAUSE_TEMPLATES = [
     id: "snow-removal",
     title: "Snow Removal",
     group: "Rules & Regulations",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "MI", "IA", "NM", "NY", "WI", "WA", "KY", "WV", "MD", "CT", "NH", "ME", "VT", "AK", "LA", "AR", "MS", "DC"],
+    states: ["CO", "WY", "KS", "NE", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "MI", "IA", "NM", "NY", "WI", "WA", "KY", "WV", "MD", "CT", "NH", "ME", "VT", "AK", "LA", "AR", "MS", "DC"],
     bodyText:
       "Unless Landlord provides snow removal, Tenant will promptly remove snow and ice from the areas of the property Tenant uses for walking, parking and access. This does not include areas shared with other residents.",
   },
@@ -1009,7 +1018,7 @@ const CLAUSE_TEMPLATES = [
     id: "ev-charging-shared-area-co",
     title: "Electric Vehicle Charging System in a Shared Area",
     group: "Parking & Storage",
-    states: ["CO", "IL", "KS"],
+    states: ["CO", "IL", "KS", "MN"],
     bodyText:
       "If Tenant wishes to install a charging system in a parking area accessible to other tenants, Landlord may charge Tenant a reasonable fee to reserve the specific parking spot where the system is installed. Unless otherwise agreed in writing, Tenant, and any tenant who later has exclusive rights to that space, is responsible for any damage to the charging system or other property resulting from its installation, maintenance, repair, removal, or replacement.",
   },
@@ -1017,7 +1026,7 @@ const CLAUSE_TEMPLATES = [
     id: "ev-charging-end-of-tenancy-co",
     title: "Electric Vehicle Charging System - End of Tenancy",
     group: "Parking & Storage",
-    states: ["CO", "IL", "KS"],
+    states: ["CO", "IL", "KS", "MN"],
     bodyText:
       "A charging system installed at Tenant's expense remains Tenant's property. Upon termination of this Lease, if the charging system is removable, Tenant may remove it, or sell it to Landlord or another tenant at an agreed price - Landlord is under no obligation to purchase it. Tenant is responsible for any damage to the property or the charging system resulting from its removal, consistent with this Lease's Surrender at End of Term Section.",
   },
@@ -1379,7 +1388,7 @@ const CLAUSE_TEMPLATES = [
     states: ["MN"],
     supersedes: "pet-policy",
     bodyText:
-      "Tenant may keep only pets identified in writing to and approved by Landlord. Tenant will pay Landlord a pet deposit, if applicable, and pet rent of {{pet_rent_amount}} per month. Tenant is responsible for all damage, waste removal, odor, and disturbance caused by a pet, and will indemnify Landlord from claims arising from Tenant's pet(s). Landlord may revoke approval of a pet that becomes a nuisance or safety concern, and may enter the property and remove a pet if the pet becomes vicious or displays symptoms of severe illness, or if Tenant dies, becomes incapacitated, or is otherwise unable to care for the pet and Landlord believes in good faith that the pet is being abused or neglected. Except for loss caused by Landlord's own gross negligence or willful misconduct, Landlord is not liable, including for ordinary negligence, for any resulting loss to Tenant. A service animal or support animal that Tenant or an Occupant needs as a reasonable accommodation for a disability is not a pet under this Lease, and Minnesota law prohibits Landlord from requiring any additional fee, charge, or deposit for such an animal. Tenant remains responsible for any damage to the property caused by a service or support animal.",
+      "Tenant may keep only pets identified in writing to and approved by Landlord. Tenant will pay Landlord a pet deposit, if applicable, and pet rent of {{pet_rent_amount}} per month. Tenant is responsible for all damage, waste removal, odor, and disturbance caused by a pet, and will indemnify Landlord from claims arising from Tenant's pet(s). Landlord may revoke approval of a pet that becomes a nuisance or safety concern, and, after giving the notice the Landlord's Right of Entry section requires (or without notice only where that section allows), may enter the property and remove a pet if the pet becomes vicious or displays symptoms of severe illness, or if Tenant dies, becomes incapacitated, or is otherwise unable to care for the pet and Landlord believes in good faith that the pet is being abused or neglected. Except for loss caused by Landlord's own gross negligence or willful misconduct, Landlord is not liable, including for ordinary negligence, for any resulting loss to Tenant. Minn. Stat. § 504B.261 controls over this section for a disability accessible unit in a multiunit building where Tenant or the unit receives a subsidy that reduces Tenant's rent. In that unit Tenant may keep two birds, or one spayed or neutered dog or cat, as that section allows. A service animal or support animal that Tenant or an Occupant needs as a reasonable accommodation for a disability is not a pet under this Lease, and Minnesota law prohibits Landlord from requiring any additional fee, charge, or deposit for such an animal. Tenant remains responsible for any damage to the property caused by a service or support animal.",
   },
   // Parking & Storage
   {
@@ -1629,7 +1638,7 @@ const CLAUSE_TEMPLATES = [
     group: "Disclosures",
     states: ["MN"],
     bodyText:
-      "The name and address of the person authorized to manage the property, and of Landlord or an agent authorized to accept service of process and to receive and give receipt for notices and demands, are disclosed to Tenant in this Lease. Landlord will post this information in a conspicuous place on the property, together with notice that a copy of the statement of tenant rights and responsibilities prepared by the Minnesota Attorney General is available to any residential tenant upon request.",
+      "The name and address of the person authorized to manage the property, and of Landlord or an agent authorized to accept service of process and to receive and give receipt for notices and demands, are disclosed to Tenant in this Lease. Landlord will post this information in a conspicuous place on the property. Unless Landlord is required to post a notice under Minn. Stat. § 471.9995, Landlord will also post a notice that a copy of the statement of tenant rights and responsibilities prepared by the Minnesota Attorney General is available to any residential tenant upon request.",
   },
   // Security Deposit
   {
@@ -2055,7 +2064,7 @@ const CLAUSE_TEMPLATES = [
     id: "tenant-forward-proceedings-ca",
     title: "Notice of Proceedings Against the Property",
     group: "Tenant Responsibilities",
-    states: ["CA", "TX", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "WY", "KS"],
+    states: ["CA", "TX", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "WY", "KS", "MN"],
     bodyText:
       "If Tenant receives notice of any proceeding to recover the property or its possession, Tenant shall immediately inform Landlord of the proceeding and deliver the notice to Landlord if it is in writing.",
   },
@@ -6940,7 +6949,7 @@ const CLAUSE_TEMPLATES = [
     id: "rules-wi",
     title: "Rules and Regulations",
     group: "Rules & Regulations",
-    states: ["WI", "VT", "LA", "DC", "PR", "CO"],
+    states: ["WI", "VT", "LA", "DC", "PR", "CO", "MN"],
     bodyText:
       "Tenant will comply with Landlord's written rules for the property in effect when this Lease is signed: [attach the rules, or state that there are none]. A new or changed rule adopted after this Lease is signed binds Tenant during the Term only if Tenant agrees to it in writing, or if it is made part of a renewal of this Lease at the start of the renewal term.",
   },
@@ -6958,7 +6967,7 @@ const CLAUSE_TEMPLATES = [
     id: "rent-concession-wi",
     title: "Rent Concessions",
     group: "Rent & Payment",
-    states: ["WI", "CT", "RI", "NH", "ME", "VT", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "KS"],
+    states: ["WI", "CT", "RI", "NH", "ME", "VT", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "KS", "MN"],
     bodyText:
       "[Use only if Landlord gives Tenant any rent concession.] In connection with this Lease, Landlord gives Tenant the following rent concession, which is part of this Lease: [describe each period of free or reduced Rent, credit, rebate or other concession, with its amount or value and the rental periods to which it applies].",
   },
@@ -7709,7 +7718,7 @@ const CLAUSE_TEMPLATES = [
     id: "informal-dispute-resolution-or",
     title: "Informal Dispute Resolution",
     group: "Notices & General",
-    states: ["OR", "AR", "MS", "DC", "GU", "VI", "AS", "MP", "CO", "WY", "KS"],
+    states: ["OR", "AR", "MS", "DC", "GU", "VI", "AS", "MP", "CO", "WY", "KS", "MN"],
     bodyText:
       "Before either party starts a court action about a dispute under this Lease, other than an action for possession, the party will give the other written notice describing the dispute and offer to meet, in person or by phone, within 10 days to try to resolve it informally. This Section does not delay or limit any notice, deadline or remedy that applicable law provides, including any action for possession or for emergency relief, and does not require either party to accept any proposal.",
   },
@@ -11013,7 +11022,7 @@ const CLAUSE_TEMPLATES = [
     id: "rent-escalation-la",
     title: "Scheduled Rent Changes",
     group: "Rent & Payment",
-    states: ["LA", "MS", "PR", "GU", "VI", "AS", "WY", "KS"],
+    states: ["LA", "MS", "PR", "GU", "VI", "AS", "WY", "KS", "MN"],
     bodyText:
       "[Optional. Choose one.] [A: Monthly Rent will change during the Term as follows: [state each new amount and the date it takes effect].] [B: On [state each adjustment date, e.g. each anniversary of the Start Date], Monthly Rent will be adjusted, up or down, by the percentage change in [name a published index, e.g. the Consumer Price Index for All Urban Consumers (CPI-U), South Region, published by the U.S. Bureau of Labor Statistics] between [base month and year] and the most recent month published before the adjustment date[, but by no more than [percent] percent for any one adjustment]. Landlord will give Tenant written notice of each adjusted Monthly Rent, showing the calculation, at least [number] days before it takes effect. If the index is no longer published, Monthly Rent will stay at the last adjusted amount.] Monthly Rent will not change during the Term in any other way, except as any tax and insurance escalation Section of this Lease, if used, provides.",
   },
@@ -11046,7 +11055,7 @@ const CLAUSE_TEMPLATES = [
     id: "furnishings-included-la",
     title: "Furnishings",
     group: "Security Deposit",
-    states: ["LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "WY"],
+    states: ["LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "WY", "MN"],
     bodyText:
       "[Optional. Use only if the property is rented furnished.] Furnishings: The property is rented furnished. The furniture and furnishings Landlord provides, and their condition at the start of this Lease, are: [list each item and its condition, or attach a signed inventory]. Tenant will keep them at the property, will not remove or dispose of any item without Landlord's written consent, will tell Landlord promptly of any damage to them, and will return them at the end of this Lease in the same condition, except for normal wear and tear.",
   },
@@ -11275,7 +11284,7 @@ const CLAUSE_TEMPLATES = [
     id: "association-approval-la",
     title: "Association Approval of Lease",
     group: "Disclosures",
-    states: ["LA", "AR", "MS", "PR", "GU", "VI", "AS", "MP", "KS"],
+    states: ["LA", "AR", "MS", "PR", "GU", "VI", "AS", "MP", "KS", "MN"],
     bodyText:
       "[Use only if the property is in a condominium or planned community whose governing documents require the association to approve a lease or a tenant.] This Lease depends on the association's approval. Tenant will apply promptly, give the association the information it reasonably requires, sign any lease addendum or occupancy agreement the association's documents require, and cooperate in the approval process. The association's application or approval fee will be paid by [Landlord or Tenant]. If approval has not been given by [date], either party may end this Lease by written notice to the other before approval is given, and Landlord will then return all amounts Tenant has paid under this Lease. Tenant will not owe Rent for any period before approval during which Tenant is not permitted to take possession. Any deposit or fee the association requires of Tenant is separate from the Security Deposit under this Lease.",
   },
@@ -11356,7 +11365,7 @@ const CLAUSE_TEMPLATES = [
     id: "no-liens-ar",
     title: "No Liens for Tenant Work",
     group: "Tenant Responsibilities",
-    states: ["AR", "MS", "GU", "VI", "AS", "MP", "WY"],
+    states: ["AR", "MS", "GU", "VI", "AS", "MP", "WY", "MN"],
     bodyText:
       "[Optional.] Tenant will pay in full everyone Tenant hires, or whose work or materials Tenant orders, for any construction, alteration or repair at the property, and will not allow a lien to be filed against the property for that work. If a lien is filed because of work Tenant ordered, Tenant will have it released within [number] days after Tenant learns of it and will pay Landlord's reasonable costs caused by it. Tenant is not Landlord's agent for any work Tenant orders, and before work begins Tenant will tell each contractor and supplier that Tenant, not Landlord, is responsible for paying for it. Any consent Landlord gives to an alteration under this Lease is consent only as between Landlord and Tenant and is not an agreement by Landlord to pay for the work.",
   },
@@ -12936,7 +12945,7 @@ const CLAUSE_TEMPLATES = [
     id: "eminent-domain-vi",
     title: "Condemnation (Optional)",
     group: "Default & Termination",
-    states: ["VI", "MP", "KS"],
+    states: ["VI", "MP", "KS", "MN"],
     bodyText:
       "[Optional.] If all of the property is taken by eminent domain, or so much of it is taken that the rest cannot reasonably be lived in, this Lease ends on the date Tenant must give up possession, Rent is apportioned to that date, and Landlord will refund any Rent paid for later days. If a smaller part is taken and the rest can reasonably be lived in, this Lease continues and Rent is reduced in proportion to Tenant's loss of use. Any award for the taking of the property, including any value of this Lease, belongs to Landlord, except any relocation payment or other separate payment made to Tenant for Tenant's own moving costs or personal property. If this Lease ends under this Section, Landlord will return the Security Deposit, less lawful deductions, as this Lease provides.",
   },
@@ -13020,7 +13029,7 @@ const CLAUSE_TEMPLATES = [
     id: "tenant-caused-fines-as",
     title: "Fines Caused by Tenant (Optional)",
     group: "Rent & Payment",
-    states: ["AS", "MP", "WY"],
+    states: ["AS", "MP", "WY", "MN"],
     bodyText:
       "[Optional.] If a government agency fines or penalizes Landlord, or charges Landlord the cost of abating a nuisance, because of a condition or violation that Tenant, a member of Tenant's household, or a person on the Premises with Tenant's consent caused or permitted, Tenant will reimburse Landlord the amount Landlord paid within [number of days] days after Landlord gives Tenant written notice with a copy of the citation, order or bill. This Section does not apply to a fine or charge for a condition Landlord is responsible for under this Lease or the law, and Landlord will not deduct the amount from a Rent payment.",
   },
@@ -13105,7 +13114,7 @@ const CLAUSE_TEMPLATES = [
     id: "guaranty-as",
     title: "Guaranty (Optional)",
     group: "Default & Termination",
-    states: ["AS", "MP", "CO", "KS"],
+    states: ["AS", "MP", "CO", "KS", "MN"],
     bodyText:
       "[Optional. Use only if a guarantor signs this Lease.] GUARANTY. [guarantor's full name] (\"Guarantor\") signs this Lease to guarantee to Landlord that Tenant will pay the Rent and perform Tenant's other obligations under this Lease, up to a total maximum of $[maximum amount]. This guaranty covers the Term and [choose one: also covers any renewal, extension or month-to-month continuation of this Lease, including any change in Rent made under this Lease / ends when the Term ends, except for amounts that became due during the Term]. Guarantor's obligations are never larger than Tenant's. Landlord may ask Guarantor to pay without first suing Tenant. Guarantor has read this Lease and received a copy.",
   },
@@ -14612,6 +14621,531 @@ const CLAUSE_TEMPLATES = [
     supersedes: "keys",
     bodyText:
       "At the start of the Term, Tenant will receive the keys specified by Landlord and will sign a receipt acknowledging the number and type of keys provided. Tenant will return all keys to Landlord at the end of the Term. If Tenant fails to return all keys or requires a replacement, Landlord may re-key the applicable locks and charge the cost to Tenant. Tenant may not duplicate keys without Landlord's consent. This Section does not apply to a lock change Nebraska law requires Landlord to make for a tenant or household member who is a victim of domestic violence. For that lock change, Landlord may charge Tenant only the actual and reasonable cost Landlord incurs in changing the locks, and Nebraska law governs the rest, including Tenant's right to change the locks if Landlord does not.",
+  },
+  // Notices & General
+  {
+    id: "accessory-dwelling-unit-term-mn",
+    title: "Accessory Dwelling Unit on a Shared Lot",
+    group: "Notices & General",
+    states: ["MN"],
+    bodyText:
+      "[Optional. Use this Section only if the property is an accessory dwelling unit.] The property is an accessory dwelling unit: a separate dwelling with its own living, sleeping, cooking and bathroom facilities, on the same lot as the primary residence at {{property_address}}. [Describe who occupies the primary residence on the lot.] These areas are shared and are not part of the property: [list shared areas, or write None]. Tenant may use the shared areas for their ordinary purpose. Tenant will not store property in them, block the driveway or the primary residence's access, or use them in a way that interferes with the occupants of the primary residence. Both households will keep noise, guests, pets, vehicles and outdoor activity to a level that does not unreasonably disturb the other. Each will give the other reasonable notice before work or deliveries that will block shared access. Nothing in this Section reduces Tenant's right to exclusive possession of the inside of the property, or any right Tenant has under Minnesota law. Landlord remains responsible for maintaining the shared areas.",
+  },
+  {
+    id: "adverse-proceeding-notice-mn",
+    title: "Notice of Claims Against the Property (Optional)",
+    group: "Notices & General",
+    states: ["MN"],
+    bodyText:
+      "[Optional.] Notice of Claims Against the Property: If Tenant receives any notice about the property or the building from someone other than Landlord, Tenant will give Landlord a copy promptly, and in any event within three days. This covers a notice of foreclosure or foreclosure sale, a contract for deed cancellation, a tax or lien notice, or a condemnation or eminent domain notice. It also covers a code enforcement or condemnation order, a court summons or complaint, and a demand for rent by anyone else. It covers anything addressed to the owner, to a former owner, to \"Occupant\" or to a name Tenant does not recognise. Tenant does not have to answer it, act on it or pay anything under it, and giving Landlord a copy does not make Tenant responsible for it or waive any of Tenant's rights. Landlord will tell Tenant within a reasonable time whether anything in it affects the tenancy. Tenant need not give Landlord anything about Tenant's own affairs that has nothing to do with the property or the building. Tenant will keep paying Rent to Landlord and will not treat anyone else as the landlord, unless Minnesota law, a court order, or Landlord's written consent says otherwise.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "alarm-tampering-fee-mn",
+    title: "Cost of Repairing or Replacing a Tampered Alarm",
+    group: "Tenant Responsibilities",
+    states: ["MN"],
+    bodyText:
+      "[Optional.] If Tenant, or a person on the Premises with Tenant's consent, removes, disables, damages or renders inoperable a smoke alarm or a carbon monoxide alarm, Tenant will pay Landlord's actual reasonable cost of repairing or replacing it. Landlord will not charge a set fee for tampering with an alarm. Landlord may apply the Security Deposit to this cost as the law allows. This Section does not change Landlord's duty to maintain the smoke alarms or Tenant's duty to maintain the carbon monoxide alarm during Tenant's occupancy.",
+  },
+  // Pets
+  {
+    id: "animal-care-access-mn",
+    title: "Animal Care in Tenant's Absence",
+    group: "Pets",
+    states: ["MN"],
+    bodyText:
+      "[Optional.] Animal care. Tenant will tell Landlord in writing about every animal kept at the property.\n\nTenant names this person to care for or collect Tenant's animals if Tenant cannot, because Tenant is hospitalized, incapacitated, detained or otherwise away, and an animal is left without care: [name and telephone number]. Tenant will tell Landlord in writing if this information changes.\n\nIn that case, Landlord will first try to reach Tenant. Landlord may then contact that person and let that person into the property for that purpose only. If Landlord cannot reach that person, Landlord may ask an animal control officer, a peace officer or a humane society or animal shelter to take charge of the animal.\n\nLetting that person in is still an entry by Landlord. Landlord will give Tenant the notice the Landlord's Right of Entry section requires, unless Landlord may enter without notice under that section.\n\nThis permission ends when Tenant dies. After that, Landlord will deal with Tenant's animals only through Tenant's personal representative or heirs, or as the law otherwise allows.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "appliances-excluded-mn",
+    title: "Items Not Supplied by Landlord",
+    group: "Landlord Responsibilities",
+    states: ["MN"],
+    bodyText:
+      "[Optional. Use only for items that are at the Property but that Landlord does not supply, such as an appliance left by a prior occupant or one Tenant brings. Never use it for a refrigerator, or for heat, running water, hot water, electricity, sanitary facilities, an elevator, or anything whose failure could affect health or safety.] The following items are at the Property but are not supplied by Landlord, and Landlord will not repair, maintain, replace or insure them: {{excluded_appliance_list}}. Tenant may use them as they are, at Tenant's own risk, or ask Landlord in writing to remove them. If Tenant asks, Landlord will remove them within a reasonable time. Each item will be recorded as not supplied by Landlord on the move-in record of the unit's condition. If Tenant brings an appliance to the Property it stays Tenant's, Landlord does not maintain it, and at the end of this Lease Tenant will remove it and repair any damage its installation or removal caused. Landlord will charge Tenant no fee for an item under this Section, because Landlord does not supply it. This Section does not reach anything Landlord supplies, anything this Lease says Landlord supplies, or anything Minnesota law requires Landlord to supply or maintain. Nothing in this Section reduces Landlord's covenants that the Property and common areas are fit for the use intended and kept in reasonable repair, comply with health and safety laws, and have heat. Minnesota law does not allow either party to waive or modify those covenants.",
+  },
+  // Notices & General
+  {
+    id: "automatic-renewal-mn",
+    title: "Automatic Renewal (Optional)",
+    group: "Notices & General",
+    states: ["MN"],
+    bodyText:
+      "[Optional. Use only in a Lease with an original Term of two months or more.] Automatic Renewal: At the end of the Term, and at the end of each renewal term, this Lease will renew automatically for a further term of [state the renewal term, which must be two months or more] on the same terms. It will not renew if Tenant gives Landlord written notice of an intention to quit at least {{renewal_notice_days}} days before the end of the then-current term. Landlord may enforce this automatic renewal only if Landlord first gives Tenant a separate written notice directing Tenant's attention to this Section. Landlord will serve that notice personally, or mail it by certified mail, at least 15 days and not more than 30 days before the day Tenant's notice of an intention to quit is due. If Landlord decides not to renew, Landlord will give Tenant notice of that at least as early as Tenant's own notice would be due under this Section.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "bed-bug-cooperation-mn",
+    title: "Pest Reporting and Treatment",
+    group: "Tenant Responsibilities",
+    states: ["MN"],
+    bodyText:
+      "Landlord is responsible for exterminating insects, rodents, vermin and other pests on the property. Tenant will promptly tell Landlord if Tenant knows or reasonably suspects that the property has bed bugs or another infestation. Tenant will allow Landlord, Landlord's agents and pest control operators to enter to inspect for and treat an infestation, as this Lease's entry section allows, and without notice in an emergency. Tenant will follow the reasonable written preparation instructions Landlord or the pest control operator gives, including instructions about laundering, bagging, decluttering and moving furniture. Tenant will not treat an infestation with Tenant's own pesticides or devices without Landlord's written consent. Tenant will not bring used mattresses, upholstered furniture or bedding onto the property without telling Landlord first. Landlord pays for treatment. Tenant pays in one case only. That case is where the infestation was caused by the willful, malicious or irresponsible conduct of Tenant, a member of Tenant's household, or a person on the property under Tenant's direction or control. In that case Tenant will pay the reasonable cost of treatment and of repairing the resulting damage.",
+  },
+  {
+    id: "carpet-cleaning-mn",
+    title: "Professional Carpet Cleaning at Move-Out",
+    group: "Tenant Responsibilities",
+    states: ["MN"],
+    bodyText:
+      "[Optional. Use only if the carpets were professionally cleaned immediately before this tenancy began, and print this Section conspicuously.] The carpets in the Premises were professionally cleaned immediately before this tenancy began. In exchange for [state what Landlord gives for this promise, for example a stated rent reduction or a credit], Tenant agrees that when this tenancy ends Tenant will have the carpets professionally cleaned and give Landlord the receipt. If Tenant does not, Tenant will owe Landlord the reasonable cost Landlord actually pays to have them professionally cleaned. Landlord may apply the Security Deposit to that amount as funds due to Landlord under this Lease. Landlord will list that amount in Landlord's written statement. Landlord will not charge Tenant for ordinary wear and tear, and will not charge more than the cost Landlord actually pays. If Tenant requests a move-out inspection, Landlord will tell Tenant at the inspection what cleaning is needed so Tenant can do it first.",
+  },
+  // Rules & Regulations
+  {
+    id: "children-occupancy-mn",
+    title: "Children May Live at the Property; Safety Rules for Common Areas",
+    group: "Rules & Regulations",
+    states: ["MN"],
+    bodyText:
+      "[Optional.] Children of Tenant's household may live at the property. Each child who will live at the property is to be listed with the other occupants under this Lease's occupancy terms. Those occupancy terms apply to every occupant alike, whatever the occupant's age. Landlord may adopt and change reasonable rules intended to protect the safety of minors in their use of the property and of any common area, play area or recreational facility. Landlord will give Tenant a copy of any such rule before it takes effect. No such rule limits how many children may live at the property.",
+  },
+  // Default & Termination
+  {
+    id: "cure-and-eviction-grounds-mn",
+    title: "Breach of This Lease; Landlord's Right to Evict",
+    group: "Default & Termination",
+    states: ["MN"],
+    bodyText:
+      "Breach of This Lease. If Tenant fails to comply with a material provision of this Lease, Tenant is in default. Landlord may then terminate this Lease and bring an eviction action to recover possession of the Premises. Landlord keeps any other remedy it has. This Section is the clause that grants Landlord the right to evict for a breach of this Lease.\n\n[Optional.] Notice and Chance to Fix. Before bringing an eviction action for a breach other than unpaid Rent, Landlord may, but does not have to, give Tenant written notice describing the breach and allowing Tenant {{cure_period_days}} days to fix it. Giving such a notice once does not require Landlord to give one again, and does not waive Landlord's right to evict for a later breach or for the same breach if it is not fixed.\n\nThis Section does not apply to unpaid Rent or another unpaid financial obligation. For those, Landlord will give the 14-day written notice that Minnesota law requires before filing. This Section does not shorten any notice period Minnesota law requires, including the notice to quit period, and does not allow Landlord to take possession except through a court eviction action.",
+  },
+  // Security Deposit
+  {
+    id: "deposit-cost-schedule-mn",
+    title: "Other Charges Payable from the Security Deposit",
+    group: "Security Deposit",
+    states: ["MN"],
+    bodyText:
+      "[Optional.] Tenant owes Landlord the charges listed below when the condition stated for each one applies. These charges are in addition to unpaid Rent and to the cost of restoring the property to its condition at the beginning of this Lease, ordinary wear and tear excepted. Landlord may apply the Security Deposit to them as other funds due to Landlord under this Lease. [list each charge and the condition that makes it due, for example replacing a key or entry device Tenant does not return, or cleaning a carpet soiled beyond ordinary wear and tear]. Each charge is limited to the amount reasonably necessary to remedy the matter it covers, and Landlord will charge only for work that is actually needed and actually done. These charges are not part of Tenant's monthly payment and are owed only if the condition stated for the charge applies.",
+  },
+  {
+    id: "deposit-surrender-notice-mn",
+    title: "Move-Out Address for the Deposit",
+    group: "Security Deposit",
+    states: ["MN"],
+    bodyText:
+      "When Tenant moves out, Tenant will give Landlord a mailing address or written delivery instructions. These apply to the Security Deposit and to Landlord's written statement about it. If that address or those instructions change before the Security Deposit has been accounted for, Tenant will tell Landlord in writing. Landlord may send the Security Deposit and the written statement to the address, or by the delivery instructions, that Tenant gives. This Section does not add any condition to Tenant's right to the Security Deposit beyond what Minnesota law requires, and Landlord will return the Security Deposit or send the written statement within the time Minnesota law requires.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "designated-repairer-mn",
+    title: "Repair Contact and Approved Repairers",
+    group: "Landlord Responsibilities",
+    states: ["MN"],
+    bodyText:
+      "[Optional.] REPAIR CONTACT AND APPROVED REPAIRERS. Tenant will report repair and maintenance needs to {{landlord_repair_contact}}. Tenant will not make, and will not hire anyone to make, any repair at Landlord's expense, and will not deduct any repair cost from Rent, unless Landlord first consents in writing or a court orders it. Landlord's written consent will name the person or company Landlord approves to do the work and any cost limit. Tenant will give Landlord, and anyone Landlord sends, reasonable access to inspect and make repairs. Landlord will give Tenant the notice of entry that Minnesota law requires. [Optional emergency provision. Delete if not used.] This Section applies only when all three of the following are true: a condition poses an immediate risk to persons or property; Tenant cannot reach Landlord; and Landlord has not begun to respond within {{emergency_response_hours}} hours after Tenant reports it. In that case Tenant may take reasonable steps to prevent further harm. Landlord will reimburse Tenant's reasonable, documented costs within {{repair_reimbursement_days}} days after receiving the receipts. Any part or material installed in a repair under this Section, including anything Tenant pays for, belongs to Landlord and may not be removed. Nothing in this Section limits any right or remedy Tenant has under Minnesota law that may not be waived, and nothing in this Section limits what a court may order under Minnesota Statutes, section 504B.425.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "disability-modification-restoration-mn",
+    title: "Disability Modifications and Restoring the Premises",
+    group: "Tenant Responsibilities",
+    states: ["MN"],
+    bodyText:
+      "[Optional.] This Section applies only if Tenant asks to modify the Premises because of a disability. Landlord will not refuse a reasonable modification that is needed so Tenant can fully enjoy the Premises. Tenant pays the whole cost of the modification. Tenant will describe the proposed work to Landlord in writing and get Landlord approval before work starts. Where it is reasonable to require it, Landlord may make approval conditional on Tenant agreeing to restore the inside of the Premises to its earlier condition. Reasonable wear and tear is excluded from that restoration. If Landlord imposed that condition, Tenant will restore the inside of the Premises before the tenancy ends.",
+  },
+  // Rules & Regulations
+  {
+    id: "disaster-duties-mn",
+    title: "Severe Weather and Emergencies (Optional)",
+    group: "Rules & Regulations",
+    states: ["MN"],
+    bodyText:
+      "[Optional. Use only if the property has a designated severe-weather shelter area, an emergency evacuation plan, or both.] Severe Weather and Emergencies: The severe-weather shelter area for the property is [describe the location]. Landlord has given Tenant a copy of the property's emergency evacuation or shelter plan, and a copy is attached to this Lease. Tenant will read the plan and keep the copy. Tenant will follow the plan and any emergency instructions Landlord posts at the property. Tenant will not block, prop open or disable any exit, stairway, corridor or emergency door. Tenant will tell Landlord promptly if an exit sign, exit light or emergency door is not working. Nothing in this Section reduces any duty Landlord has under Minnesota law or under this Lease.",
+  },
+  // Disclosures
+  {
+    id: "electric-submetering-disclosure-mn",
+    title: "How Electricity Is Metered and Billed",
+    group: "Disclosures",
+    states: ["MN"],
+    bodyText:
+      "Electricity for the property is supplied in one of three ways. Mark the one that applies: [ ] Tenant holds the account with the utility provider and pays the provider directly. [ ] Landlord holds the account and the cost of electricity is included in Rent. [ ] Landlord holds the account and bills Tenant separately for electricity measured by a submeter serving only the property. The rest of this Section applies only if Landlord bills Tenant separately for submetered electricity. Landlord will charge only for the electricity measured by that submeter. Landlord will charge it at the rate the utility provider charges Landlord. Landlord will not charge Tenant for electricity used in common areas or in space Landlord uses. Landlord will charge Tenant only Tenant's share of fixed and other non-usage charges, divided equally among the units in the building. Landlord will pass on to Tenant an equal share of any bill credit or adjustment Landlord receives from the utility provider. Landlord will not apportion electricity. If Tenant disputes a submetered electricity bill, Tenant should raise it with Landlord first. If Landlord and Tenant cannot resolve it, Landlord will tell Tenant of Tenant's right to complain to the Public Utilities Commission's consumer affairs office. Landlord will give Tenant that office's current telephone number and email address.",
+  },
+  // Notices & General
+  {
+    id: "emergency-contact-mn",
+    title: "Tenant's Emergency Contact (Optional)",
+    group: "Notices & General",
+    states: ["MN"],
+    bodyText:
+      "[Optional.] Tenant may give Landlord the name, relationship and telephone number of a person Landlord may try to reach in an emergency affecting Tenant or the property. Tenant does not have to give one.\n\nLandlord will contact that person only in an emergency, or when Landlord cannot reach Tenant about an urgent condition at the property. Landlord will not use the information for anything else and will not give it to anyone else, except where the law requires it.\n\nNaming a contact does not make that person liable for Rent or for anything else under this Lease. It does not make that person Tenant's agent, and it does not give that person any right to enter the property.\n\nEmergency contact name: [name]. Relationship to Tenant: [relationship]. Telephone: [telephone number].",
+  },
+  // Disclosures
+  {
+    id: "energy-data-release-mn",
+    title: "Your Right to Copies of the Utility Bills We Apportion",
+    group: "Disclosures",
+    states: ["MN"],
+    bodyText:
+      "This Section applies if Landlord apportions natural gas or water and sewer service to Tenant. Tenant has the following rights, and Tenant may use them at any time by asking Landlord. First, Tenant may ask Landlord for a copy of the current actual natural gas or water and sewer bill from the utility provider that is being apportioned. Landlord will provide it. Second, Tenant may ask Landlord for copies of past natural gas or water and sewer bills for which Tenant received an apportioned bill. That right covers the preceding two years, or the period since Landlord acquired the building, whichever is more recent. Landlord will provide those copies. Tenant may also ask Landlord for the percentage of the bill that was apportioned to Tenant, and Landlord will provide it promptly.",
+  },
+  // Parking & Storage
+  {
+    id: "ev-charging-requirements-mn",
+    title: "Electric Vehicle Charging System Requirements",
+    group: "Parking & Storage",
+    states: ["MN"],
+    bodyText:
+      "[Optional. Use only if Landlord is willing to let Tenant install an electric vehicle charging system.] Tenant may install an electric vehicle charging system at [identify the parking space], at Tenant's own expense. Tenant may do so only with Landlord's prior written consent to the specific system and the specific location. Tenant will have the work done by a licensed contractor, under any permit the work requires, and to Landlord's written specifications. The system must allow use by any make, model or type of electric vehicle. It must meet the requirements of Minnesota Statutes section 326B.35 and the standards set by the Society of Automotive Engineers. It must also be capable of bidirectional charging, once electric utilities can cost-effectively draw electricity from connected vehicles. Tenant will give Landlord a copy of the final inspection or permit sign-off. Electricity for the system will be supplied as follows: [state the arrangement, for example from Tenant's own directly metered utility service, or by Landlord at no separate charge]. Tenant will keep the system in good repair. Tenant is responsible for any damage caused by its installation, use, maintenance, repair or removal. [Tenant will carry liability insurance covering the system and name Landlord as an additional insured.] If the property is in a condominium, townhouse or other association, Tenant will comply with the association's rules for charging systems. Tenant will promptly give Landlord the information Landlord needs to register the system with the association. Any money Landlord holds to secure Tenant's obligations for the system is part of the Security Deposit and is subject to this Lease's security deposit terms.",
+  },
+  // Notices & General
+  {
+    id: "eviction-service-party-mn",
+    title: "Tenant's Contact Information for Notices",
+    group: "Notices & General",
+    states: ["MN"],
+    bodyText:
+      "[Optional.] Tenant's Contact Information. Tenant's electronic address for written communication with Landlord is {{tenant_email}}. Tenant will tell Landlord in writing within [number of days, for example 10] days if that address changes.\n\nThis Section is for giving notices and for communication only. It does not appoint anyone to accept court papers for Tenant. It does not make electronic delivery a substitute for any delivery method Minnesota law requires. It does not change how a court summons and complaint must be served on Tenant. Landlord will still deliver every notice, and serve every court paper, in the way Minnesota law requires for that notice or paper.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "extended-absence-notice-mn",
+    title: "Notice of Extended Absence",
+    group: "Tenant Responsibilities",
+    states: ["MN"],
+    bodyText:
+      "[Optional.] Tenant will use the property only as a home, unless Landlord agrees otherwise in writing.\n\nSometimes Tenant will be away from the property for more than [number, for example 7] days in a row. In that case, Tenant will tell Landlord no later than the first day of the absence. Tenant will also say when Tenant expects to return.\n\nBeing away does not change Tenant's duty to pay Rent or to keep the property in the condition this Lease requires. Landlord's right to enter while Tenant is away is the same as at any other time, and is set out in the Landlord's Right of Entry section.\n\nIf Tenant will be away between November 15 and April 15, Tenant should read the Cold Weather Notice Before Vacating section, which is a separate duty that Minnesota law makes a criminal offense to skip.",
+  },
+  {
+    id: "fire-code-compliance-mn",
+    title: "Fire Safety and Combustible Material",
+    group: "Tenant Responsibilities",
+    states: ["MN"],
+    bodyText:
+      "Tenant will not do anything on the property that violates the State Fire Code or any local fire ordinance. Tenant will not store or allow to accumulate on the property any combustible or explosive material, rubbish, rags, waste or other flammable matter that endangers the building, the property or any occupant. This includes shared hallways, stairways, landings, entries and exits. Tenant will keep all exits, stairways and fire escapes clear. Tenant will not disable, remove or obstruct any fire extinguisher, sprinkler head, fire door or emergency lighting. If a fire official orders material removed or a dangerous condition corrected, Tenant will comply within the time the order allows and will tell Landlord at once. Landlord may enter to inspect for and correct a fire hazard as this Lease's entry section allows, and without notice in an emergency. If Tenant does not comply, Landlord may correct the condition and charge Tenant the reasonable cost.",
+  },
+  // Rules & Regulations
+  {
+    id: "firearm-rules-mn",
+    title: "Firearm Discharge and Storage",
+    group: "Rules & Regulations",
+    states: ["MN"],
+    bodyText:
+      "[Optional.] Tenant, Occupants and guests will not discharge any firearm at the property, except in a lawful act of defense of persons. Tenant will store any firearm kept at the property safely and as the law requires. Minnesota law already writes into this Lease a covenant against the unlawful use or possession of a firearm, and this Section does not repeat, narrow or widen that covenant. This Lease does not otherwise restrict a person's lawful possession of a firearm at the property.",
+  },
+  // Rent & Payment
+  {
+    id: "government-fee-reimbursement-mn",
+    title: "Local Government Fees",
+    group: "Rent & Payment",
+    states: ["MN"],
+    bodyText:
+      "[Optional.] This Section applies if a city, county or other unit of government charges Landlord a fee relating to the property, such as a rental registration, rental licensing or inspection fee. In that case Tenant will reimburse Landlord [all of that fee / the following share of that fee: ___]. This applies only if that fee is listed in the Fees and the Total Monthly Payment Section of this Lease, with its amount or how it is calculated. Landlord will give Tenant a copy of the government's bill or notice before asking Tenant to pay. Tenant will not be asked to reimburse any fine or penalty, any fee for construction or a building permit, any fee for an emergency response, or any property tax. Tenant also will not reimburse any fee or re-inspection charge that arises because Landlord did not keep the property in compliance. Landlord remains responsible for complying with all rental licensing, health and safety requirements for the property.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "heating-mn",
+    title: "Heat and Freeze Protection",
+    group: "Tenant Responsibilities",
+    states: ["MN"],
+    bodyText:
+      "Landlord is responsible for furnishing heat to the property as Minnesota law requires. Tenant will not do anything that prevents the heating system from working. During cold weather Tenant will keep the thermostat at a setting high enough to stop pipes freezing, and will not turn the heat off, even while away from the property. Tenant will keep heating vents, registers and radiators clear, and will not enclose or cover them. Tenant will tell Landlord promptly if the heating system fails or if any room is not heating. Tenant will not use a portable fuel-burning heater inside the property. If a utility or fuel supply for heat is in Tenant's name, Tenant will keep it on and paid throughout the Term. Nothing in this Section shifts to Tenant Landlord's duty under Minnesota law to furnish heat, and nothing in it waives, limits or modifies any right Tenant has that a tenant may not waive.",
+  },
+  // Default & Termination
+  {
+    id: "holdover-rate-mn",
+    title: "Holdover Charge",
+    group: "Default & Termination",
+    states: ["MN"],
+    bodyText:
+      "[Optional.] This Section applies if Tenant remains in possession after this Lease ends. It applies whether the Lease ends at the end of the Term or on an earlier termination under this Lease or applicable law. It applies only if Landlord has not agreed in writing to a continued tenancy and has not accepted Rent for one. In that case, Tenant will pay Landlord a holdover charge of {{holdover_daily_rate}} for each day Tenant remains in possession [set this at the daily equivalent of Monthly Rent, not a multiple of it]. Tenant will also pay any further loss Landlord documents as caused by the holdover, such as Rent lost because Landlord could not start a replacement tenancy. This charge takes the place of Rent for those days, and Landlord will not recover both this charge and Rent for the same day. Landlord's acceptance of a holdover charge is not consent to a continued tenancy and is not acceptance of Rent for one. Nothing in this Section limits Landlord's right to recover possession.",
+  },
+  // Access & Entry
+  {
+    id: "key-control-exempt-setting-mn",
+    title: "Lockable Door and Staff Keys (Housing With Services)",
+    group: "Access & Entry",
+    states: ["MN"],
+    bodyText:
+      "[Include only if the property is an exempt setting under Minn. Stat. section 325F.722 - housing with services that is exempt from assisted living facility licensure.]\n\nLockable door and keys. Resident has the right to have and use a lockable door to Resident's unit. Landlord provides the locks on the unit at Landlord's cost.\n\nOnly a staff member with a specific need to enter the unit will hold a key to it. Landlord will keep a current list of the staff members who hold a key and will collect the key when a staff member's need ends.\n\nA staff member will give Resident advance notice before entering, whenever that is possible. Landlord will also give Resident the notice before entry that Minnesota law requires for a residential tenancy.\n\nThis right may be restricted only if a home care provider's registered nurse identifies the restriction as necessary for health and safety reasons in an assessment or reassessment, and the restriction is documented in Resident's written service plan.",
+  },
+  // Notices & General
+  {
+    id: "lease-term-limitation-mn",
+    title: "Lease Start Date and Lease End Date",
+    group: "Notices & General",
+    states: ["MN"],
+    bodyText:
+      "Term: This Lease starts on {{start_date}}, the lease start date, and ends on {{end_date}}, the lease end date. Both dates are stated on the first page of this Lease, because Minnesota law requires a written residential lease to identify them there.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "garage-door-opener-duty-mn",
+    title: "Automatic Garage Door Opener - 24-Hour Reporting Duty",
+    group: "Tenant Responsibilities",
+    states: ["MN"],
+    bodyText:
+      "[Include only if the property has a garage with an automatic garage door opener.] Automatic garage door opener. The garage door opener at the property has a safety feature that makes a closing door reverse.\n\nIf that reversing feature stops working, or works only sometimes, Tenant will tell Landlord within 24 hours of finding the problem. Minnesota law makes this Tenant's duty.\n\nUntil the opener is repaired or replaced, Tenant will not use it, and will operate the garage door by hand.\n\nLandlord will repair or replace the opener so that it meets the automatic reversing requirement. Landlord will not charge Tenant for that work, unless Tenant or Tenant's occupant or guest caused the damage.",
+  },
+  // Default & Termination
+  {
+    id: "owner-move-in-reservation-mn",
+    title: "Owner Occupancy (Optional)",
+    group: "Default & Termination",
+    states: ["MN"],
+    bodyText:
+      "[Optional. Use only for a fixed Term.] Owner Occupancy: Landlord may end this Lease before the end of the Term if Landlord, or the family member named here, will occupy the property as a residence: [name or relationship]. Landlord will give Tenant written notice before the termination date. That notice period will be at least [number] days, and in every case at least as long as the notice this Lease requires Tenant to give Landlord to end the tenancy. The termination date will be the last day of a monthly rental period. Tenant owes Rent only through the termination date. Landlord will refund or credit any Rent paid for a later period, prorated at the average daily rate for that month. If Tenant does not leave by the termination date, Landlord may regain possession only through a court eviction.",
+  },
+  // Parking & Storage
+  {
+    id: "parking-rules-notice-mn",
+    title: "Parking Rules - Receipt Acknowledged",
+    group: "Parking & Storage",
+    states: ["MN"],
+    bodyText:
+      "[Optional.] Parking rules. Landlord's parking rules for the property are attached to this Lease and are part of it. Tenant has received a copy and has read them.\n\nThe rules cover where Tenant and Tenant's guests may park, what Landlord needs to know about Tenant's vehicle, permits or decals, and when a vehicle may be towed at the vehicle owner's expense.\n\nLandlord may change the parking rules during the Term only by giving Tenant at least [number, for example 30] days' written notice. A change will not take away a parking space this Lease assigns to Tenant, and will not add a charge that this Lease does not already allow.\n\nTowing is a separate step. Landlord will have a vehicle towed only as Minnesota law allows, and only from a property posted as that law requires.",
+  },
+  // Access & Entry
+  {
+    id: "periodic-services-entry-mn",
+    title: "Entry for Regularly Scheduled Services",
+    group: "Access & Entry",
+    states: ["MN"],
+    bodyText:
+      "[Optional.] Landlord may enter the property to provide these regularly scheduled services: [list each service and how often, for example changing furnace filters twice a year, or pest treatment every three months].\n\nBefore each visit, Landlord will make a good faith effort to give Tenant notice of at least 24 hours. The notice will give a time or a window of time for the visit. Landlord will enter only between 8:00 a.m. and 8:00 p.m., unless Tenant and Landlord agree on a different time.\n\nTenant may let Landlord in on shorter notice if Tenant wants to. Nothing in this Section asks Tenant to give up the right to notice before entry. Tenant keeps that right for every visit under this Section.",
+  },
+  // Pets
+  {
+    id: "pet-fees-mn",
+    title: "Animal Damage Deposit in a Subsidized Accessible Unit",
+    group: "Pets",
+    states: ["MN"],
+    bodyText:
+      "[Optional. Use only for a disability accessible unit in a multiunit building where Tenant or the unit receives a subsidy that directly reduces or eliminates Tenant's rent responsibility.] Minnesota law allows Tenant to keep two birds, or one spayed or neutered dog, or one spayed or neutered cat in the Premises. Tenant will pay an additional damage deposit of {{pet_deposit}} for the animal. That amount must be reasonable to cover the damage the animal is likely to cause, which is the limit Minnesota law sets for this deposit. Landlord will refund that deposit when Tenant leaves the unit, to the extent it is more than the damage the animal actually caused. Landlord will not charge any additional fee, charge or deposit for a service animal or support animal that Tenant or an Occupant needs as a reasonable accommodation for a disability, and Minnesota law prohibits such a charge. Tenant's animal may not be a threat to the health or safety of other people, and may not cause a noise nuisance or noise disturbance to other renters.",
+  },
+  // Disclosures
+  {
+    id: "spa-pool-notice-mn",
+    title: "Hot Tub or Spa Notice (Single-Unit Rental)",
+    group: "Disclosures",
+    states: ["MN"],
+    bodyText:
+      "This Section applies only if the property is a stand-alone, single-unit rental property with a spa pool, hot tub or whirlpool intended for seated recreational use that is only intended to be used by the occupants of the property. In that case Landlord gives Tenant the following notice, which is also posted conspicuously at the spa:\n\n\"NOTICE\n\nThis spa is exempt from state and local anti-entrapment and sanitary requirements that prevent waterborne diseases such as Legionnaires' disease, Pseudomonas folliculitis (hot tub rash), and chemical burns and is not subject to inspection.\n\nUSE AT YOUR OWN RISK\n\nThis notice is required under Minnesota Statutes, section 144.1222, subdivision 2d.\"\n\nTenant will not set or allow the spa water temperature to exceed 106 degrees Fahrenheit. Before Tenant moves in, Landlord will test the spa water for chlorine or bromine concentration, pH and alkalinity, and will bring it within the levels Minnesota Rules, part 4717.1750, subparts 4 to 6 require: free chlorine of at least 2.0 or bromine of at least 4.0 parts per million, pH from 7.2 to 7.8, and alkalinity of at least 50 parts per million. Tenant will keep the spa cover in place and secured when the spa is not in use. Tenant will not allow a child to use the spa without an adult present.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "prohibited-acts-renter-mn",
+    title: "Prohibited Acts by Tenant",
+    group: "Tenant Responsibilities",
+    states: ["MN"],
+    bodyText:
+      "Tenant will not do any of the following, and will not allow an Occupant or guest to do them. Willfully and maliciously destroy, deface, damage or impair any part of the property. Disturb the peace and quiet of other residents or of neighbors. Willfully disable a smoke alarm or a carbon monoxide alarm, or cause one to stop working. Do anything at the property that the law forbids. Minnesota law already writes an unlawful-activities covenant into this Lease, covering controlled substances, prostitution-related activity, unlawful firearm use or possession and stolen property. This Section does not repeat, narrow or widen that covenant, and neither party may waive or modify it. Landlord will give Tenant the notice Minnesota law requires before entering. Tenant will not unreasonably refuse entry after Landlord has given that notice. Nothing in this Section asks Tenant to give up the right to that notice. Nothing in this Section limits Tenant's right to call for police or emergency assistance. Nothing in this Section limits Tenant's right to organize or meet with other tenants.",
+  },
+  // Disclosures
+  {
+    id: "formaldehyde-health-notice-mn",
+    title: "Formaldehyde Important Health Notice",
+    group: "Disclosures",
+    states: ["MN"],
+    bodyText:
+      "[Use only if Landlord built this housing unit and Tenant is its initial occupant, and the unit contains building materials containing urea formaldehyde. This Section does not apply to manufactured housing.] Landlord gives Tenant the following written disclosure, required by Minnesota law:\n\n\"IMPORTANT HEALTH NOTICE.\n\nSOME OF THE BUILDING MATERIALS USED IN THIS HOME (OR THESE BUILDING MATERIALS) EMIT FORMALDEHYDE. EYE, NOSE, AND THROAT IRRITATION, HEADACHE, NAUSEA AND A VARIETY OF ASTHMA-LIKE SYMPTOMS, INCLUDING SHORTNESS OF BREATH, HAVE BEEN REPORTED AS A RESULT OF FORMALDEHYDE EXPOSURE. ELDERLY PERSONS AND YOUNG CHILDREN, AS WELL AS ANYONE WITH A HISTORY OF ASTHMA, ALLERGIES, OR LUNG PROBLEMS, MAY BE AT GREATER RISK. RESEARCH IS CONTINUING ON THE POSSIBLE LONG-TERM EFFECTS OF EXPOSURE TO FORMALDEHYDE.\n\nREDUCED VENTILATION MAY ALLOW FORMALDEHYDE AND OTHER CONTAMINANTS TO ACCUMULATE IN THE INDOOR AIR. HIGH INDOOR TEMPERATURES AND HUMIDITY RAISE FORMALDEHYDE LEVELS. WHEN A HOME IS TO BE LOCATED IN AREAS SUBJECT TO EXTREME SUMMER TEMPERATURES, AN AIR-CONDITIONING SYSTEM CAN BE USED TO CONTROL INDOOR TEMPERATURE LEVELS. OTHER MEANS OF CONTROLLED MECHANICAL VENTILATION CAN BE USED TO REDUCE LEVELS OF FORMALDEHYDE AND OTHER INDOOR AIR CONTAMINANTS.\n\nIF YOU HAVE ANY QUESTIONS REGARDING THE HEALTH EFFECTS OF FORMALDEHYDE, CONSULT YOUR DOCTOR OR LOCAL HEALTH DEPARTMENT.\"\n\nLandlord also gives Tenant a copy of any written disclosure the manufacturer supplied for those materials.",
+  },
+  // Rent & Payment
+  {
+    id: "rent-increase-midterm-mn",
+    title: "Mid-Term Rent Increase",
+    group: "Rent & Payment",
+    states: ["MN"],
+    bodyText:
+      "[Optional.] During the Term, Landlord may increase Monthly Rent by giving Tenant written notice that states the new Monthly Rent and the date it takes effect. Landlord will give that notice at least {{escalation_notice_days}} days before the increase takes effect, and in no case fewer days than this Lease requires Tenant to give for a notice of intention to move out. Instead of paying the increase, Tenant may end this Lease by giving Landlord written notice before the increase takes effect; the Lease then ends on the day before the increase would have started, and no early termination fee applies. Landlord will not increase Monthly Rent, and will not decrease services, as a penalty for Tenant's good faith complaint, report or other act that the law protects.",
+  },
+  {
+    id: "prorated-rent-mn",
+    title: "Prorated Rent for a Partial Month",
+    group: "Rent & Payment",
+    states: ["MN"],
+    bodyText:
+      "If Tenant moves in or moves out on a day other than the first or last day of a month, the Rent for that month is prorated, and the prorated amount is: [state each partial month and the prorated Rent for it]. If the Term ends before the last day of the final month, the Rent owed for that month is prorated at the average daily rate. That rate uses the actual number of calendar days in the month in which the Lease expires. Tenant pays only for the number of days occupancy is allowed. This applies even if this Lease requires the last month's Rent to be paid in advance, and Landlord will refund or credit any difference.",
+  },
+  {
+    id: "rent-installments-mn",
+    title: "Rent Paid in Installments",
+    group: "Rent & Payment",
+    states: ["MN"],
+    bodyText:
+      "[Optional. Use only if Monthly Rent is paid more often than once a month.] Monthly Rent of {{monthly_rent}} will be paid in installments as follows: [state each installment amount and the day of the month it is due]. The installments together equal Monthly Rent for that month. A late fee may be charged on an installment only as this Lease's late fee provision allows, and will not exceed 8% of the overdue installment. If Tenant pays any installment in cash, Landlord will give Tenant a written receipt immediately if the payment is made in person, or within three business days if it is not.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "rental-inspection-cooperation-mn",
+    title: "Government Inspections",
+    group: "Tenant Responsibilities",
+    states: ["MN"],
+    bodyText:
+      "Landlord may have to let a state, county or city official inspect the property to enforce a health, housing, building, fire prevention or housing maintenance code. Tenant will cooperate with such an inspection. Landlord will give Tenant notice of the inspection and will enter only as this Lease's entry section allows. Nothing in this Section waives Tenant's right to advance notice of Landlord's entry, and nothing in it is Tenant's consent for an inspector to enter without Tenant's permission at the time. If an inspector asks to enter and Tenant is not willing, Tenant will tell Landlord promptly. Tenant will not create or allow a condition on the property that breaches any such code. Landlord will promptly correct any condition an inspection finds that is Landlord's responsibility. Nothing in this Section limits Tenant's right to report a condition to, or ask for an inspection by, any government body.",
+  },
+  // Rent & Payment
+  {
+    id: "required-fees-mn",
+    title: "Fees and the Total Monthly Payment",
+    group: "Rent & Payment",
+    states: ["MN"],
+    bodyText:
+      "Monthly Rent is {{monthly_rent}}. These are all of the nonoptional fees Tenant must pay under this Lease. For each one, this Section states the amount or how it is calculated and when it is due: [list each nonoptional fee with its amount or calculation and its due date; or write \"None\"]. Total Monthly Payment: {{total_monthly_payment}}. The Total Monthly Payment is Monthly Rent plus all of the nonoptional fees listed above. Utilities: [state which utilities are included in the Total Monthly Payment and which utilities Tenant pays separately]. Any fee or charge Tenant may choose whether to pay is optional and is listed separately in this Lease as optional. Landlord will not charge Tenant a nonoptional fee that this Lease does not disclose, and will not add a nonoptional fee during the Term unless Tenant agrees to it in writing.",
+  },
+  // Access & Entry
+  {
+    id: "showing-notice-mn",
+    title: "Showings Near the End of the Lease",
+    group: "Access & Entry",
+    states: ["MN"],
+    bodyText:
+      "Landlord may enter the property to show it to people who may want to rent it or buy it, and to an insurance representative. Landlord may show it to possible new tenants during the notice period before this Lease ends, or after Tenant gives notice to move.\n\nEach showing needs the same notice as any other entry. Landlord will make a good faith effort to give Tenant at least 24 hours' notice, will give a time or a window of time, and will come only between 8:00 a.m. and 8:00 p.m.\n\nTenant may agree to a shorter notice for a particular showing, and may do that by text message, by e-mail or in person. Tenant does not have to agree, and Tenant is not giving up the right to 24 hours' notice by signing this Lease.",
+  },
+  {
+    id: "smart-access-system-mn",
+    title: "Smart Access System",
+    group: "Access & Entry",
+    states: ["MN"],
+    bodyText:
+      "[Optional.] Smart or electronic entry. Landlord provides this electronic entry system for the property: [describe the system, for example a keypad lock on the unit door and a phone app for the building door].\n\nLandlord will give Tenant a working way to lock and enter the property at all times. If the system fails, loses power, or stops working with Tenant's phone, Landlord will restore Tenant's access promptly and will provide a key or other backup means of entry in the meantime.\n\nLandlord will not cancel or disable Tenant's access credential during the tenancy, except to replace it or to fix a security problem, and will tell Tenant first whenever that is possible.\n\nEntry by Landlord through the system is still entry. Landlord will give Tenant the same notice the Landlord's Right of Entry section requires before using the system to enter.\n\nLandlord will keep any record of Tenant's entries confidential and will use it only to operate and secure the property, except where the law requires Landlord to produce it.",
+  },
+  // Rules & Regulations
+  {
+    id: "smoke-drift-and-common-areas-mn",
+    title: "Smoking in Common Areas and Smoke from Other Units",
+    group: "Rules & Regulations",
+    states: ["MN"],
+    bodyText:
+      "Smoking in common areas. Minnesota law bans smoking in the common areas of a rental apartment building, and the ban covers vaping and heated plant products as well as cigarettes. Tenant, and Tenant's occupants and guests, will not smoke in any interior common area, including hallways, stairways, lobbies, laundry rooms, elevators and shared restrooms.\n\nLandlord will post signs and ask anyone smoking in a common area to stop and, if they do not stop, to leave.\n\n[Include only if smoking is or may be permitted inside other units or nearby premises.] Smoke from other places. Landlord does not control whether people smoke inside their own units, in nearby buildings, or outdoors on neighboring property. The building is not smoke-tight. Smoke, vapor and odors can travel between units through walls, floors, ducts, plumbing spaces and shared vents.\n\nLandlord makes no promise that the property will be free of smoke that drifts in from somewhere else. If smoke drifts into the property, Tenant will tell Landlord, and Landlord will respond as Landlord's repair and maintenance duties require.\n\nNothing in this Section gives up any right Tenant has under Minnesota law, including the right to a smoke-free common area and the right to complain about a violation.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "stove-refrigerator-mn",
+    title: "Tenant-Supplied Refrigerator or Cooking Appliance",
+    group: "Landlord Responsibilities",
+    states: ["MN"],
+    bodyText:
+      "[Optional. Use only if Tenant supplies their own refrigerator or cooking appliance. Never use it for an item Landlord provides, or for heat, running water, hot water, electricity, sanitary facilities, an elevator, an air conditioner included in this Lease, a serious infestation, or anything whose failure could have a serious and negative impact on health or safety.] Tenant supplies, and will keep in working order at Tenant's own cost, the following: [list each item, for example a refrigerator or a cooking appliance]. Landlord does not provide those items and will not repair, maintain, replace or insure them. Each item will be recorded as Tenant-supplied on the move-in inventory. The items stay Tenant's property. At the end of this Lease Tenant will remove them and repair any damage their installation or removal caused. Landlord will charge Tenant no fee for an item under this Section, because Landlord does not provide it. This Section does not reach anything Landlord does provide, anything this Lease says Landlord provides, or anything Minnesota law requires Landlord to provide or maintain. It does not reduce Landlord's covenants of fitness, repair, code compliance and heat, which Minnesota law does not allow either party to waive or modify.",
+  },
+  // Rules & Regulations
+  {
+    id: "telecom-access-mn",
+    title: "Television, Satellite and Internet Service",
+    group: "Rules & Regulations",
+    states: ["MN"],
+    bodyText:
+      "Television, satellite and internet service. Tenant may arrange Tenant's own television, satellite or internet service at Tenant's cost, unless this Lease says the service is included.\n\nTenant will get Landlord's written consent before installing an antenna, a satellite dish, a cable, or any wiring, and before drilling or cutting into any wall, roof, window or other surface. Tenant will tell Landlord what the installer plans to do.\n\nAn installer or service technician coming to the property is Tenant's guest, and Tenant will be present or will arrange access. Landlord does not have to give an installer a key or let an installer in.\n\nTenant will keep any installation in good condition, and at the end of the Term will remove it and repair any damage it caused, unless Landlord agrees in writing that it may stay.\n\nNothing in this Section limits any right Tenant has under state or federal law to install or receive a communications service or an over-the-air reception device. Where such a right applies, this Section applies only so far as that law allows.",
+  },
+  // Rent & Payment
+  {
+    id: "tenant-employee-housing-mn",
+    title: "Housing Provided to an Employee",
+    group: "Rent & Payment",
+    states: ["MN"],
+    bodyText:
+      "[Optional. Use this Section only where Tenant is also Landlord's employee.] Tenant occupies the property under this Lease and not as a term of Tenant's employment. The agreed monthly value of the housing Landlord provides is {{employee_housing_monthly_value}}, and that amount is the Monthly Rent for every purpose under this Lease. Landlord and Tenant will record in writing any services Tenant performs that are credited against Monthly Rent, and the amount of each credit. If Tenant's employment ends, this Lease continues on its own terms until it is lawfully terminated. [Describe any services credited against rent, or write None.]",
+  },
+  // Notices & General
+  {
+    id: "tenant-portal-mn",
+    title: "Online Tenant Portal",
+    group: "Notices & General",
+    states: ["MN"],
+    bodyText:
+      "[Optional.] Landlord may make an online tenant portal available for rent payments, maintenance requests and notices. Tenant's use of the portal for notices is voluntary. Tenant may give any notice this Lease or Minnesota law requires by the methods this Lease sets out, whether or not Tenant uses the portal. If Landlord requires or permits payment through the portal, Landlord will provide an alternative way to pay whenever the portal is not working. Landlord will not charge Tenant any fee for using that alternative. Tenant's email address and other electronic contact details for the portal are [enter or leave blank]. Tenant will tell Landlord promptly if those details change.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "tenant-repair-agreement-mn",
+    title: "Tenant Repair and Maintenance Agreement",
+    group: "Tenant Responsibilities",
+    states: ["MN"],
+    bodyText:
+      "[Optional. Use only if Tenant agrees to do specific work. Minnesota requires this Section to be set out conspicuously and to be supported by adequate consideration, so print the heading in bold and state below what Tenant gets in return. It may be a Section of this Lease; it does not have to be a separate document.] TENANT REPAIR AND MAINTENANCE AGREEMENT. Landlord and Tenant agree that Tenant will perform the following specified repairs and maintenance: {{tenant_maintained_items}} [check each that applies: (box) lawn and landscaping care; (box) prompt, reasonable removal of snow and ice from the walkways, driveway, porch and entrances Tenant uses; (box) replacing heating and air-conditioning filters; (box) replacing light bulbs; (box) carrying garbage and other waste to the collection point; (box) other, described specifically: ______]. In return for Tenant performing this work, Landlord will {{maintenance_agreement_consideration}} [state what Landlord gives in return as a figure, for example a stated monthly rent reduction]. This Section does not change Landlord's duties under Minnesota Statutes, section 504B.161, subdivision 1. Those duties cannot be waived or modified. The property and all common areas must be fit for the use the parties intended and in reasonable repair. They must comply with health and safety laws, and must be reasonably energy efficient where that is cost-effective. From October 1 through April 30, Landlord will furnish heat of at least 68 degrees Fahrenheit in every place meant for habitation, kitchens and bathrooms included. That last duty does not apply where a utility company requires and instructs the heat to be reduced. This Section does not relieve Landlord of the duty to maintain the common areas, whatever work Tenant does there. Any part or material installed in work under this Section, including anything Tenant pays for, belongs to Landlord and may not be removed. Tenant's failure to do this work is not a ground for Landlord to stop performing any duty under Minnesota Statutes, section 504B.161.",
+  },
+  {
+    id: "garage-door-reporting-duty-mn",
+    title: "Garage Door Safety Reversing Device -- Tenant Reporting Duty",
+    group: "Tenant Responsibilities",
+    states: ["MN"],
+    bodyText:
+      "Tenant will tell Landlord within 24 hours after discovering that the reversing device or mechanism in any automatic garage door opening system at the property is not working or is malfunctioning. Minnesota law places this duty on Tenant directly. Tenant will not disconnect, disable or defeat the reversing device. If Tenant reports a problem, Landlord will arrange the required on-site test and any repair or replacement. Tenant will not attempt the repair.",
+  },
+  // Default & Termination
+  {
+    id: "termination-notice-mn",
+    title: "Ending a Tenancy With No Fixed End Date",
+    group: "Default & Termination",
+    states: ["MN"],
+    bodyText:
+      "Ending a Tenancy With No Fixed End Date: If this Lease is, or continues as, a tenancy with no fixed end date, either Landlord or Tenant may end it by giving the other notice in writing. The notice period will be [state Landlord's notice period, which must be at least as long as the interval between the times Rent is due, or three months, whichever is shorter], and in every case at least as long as the notice this Lease requires Tenant to give Landlord. The notice must run for a full rental period and take effect at the end of one. Tenant may instead use whichever of the two notice periods in this Lease Tenant prefers. This Section does not limit either party's right to end this Lease earlier where this Lease or Minnesota law allows it.",
+  },
+  // Parking & Storage
+  {
+    id: "unbundled-parking-mn",
+    title: "Optional Parking - Charged Separately",
+    group: "Parking & Storage",
+    states: ["MN"],
+    bodyText:
+      "[Optional. Use this Section only if Tenant can take the property without parking and is choosing to add it. If parking is required, or the property cannot practically be used without it, delete this Section. Put the parking amount in the Rent and in the Total Monthly Payment on the first page instead.]\n\nOptional parking. Parking is not included in the Rent. Tenant has chosen to license one parking space at the property, identified as [insert the space number or location], for {{parking_fee_amount}} per month.\n\nTenant will pay this charge with the Rent, on the day the Rent is due. The charge is for the use of that space. Landlord will not increase it during the Term.\n\nThis charge is not Rent. Landlord will not deduct it from a payment Tenant makes for Rent. Landlord will not apply a late fee or interest to it.\n\nTenant may end this parking license by giving Landlord 14 days' written notice, after which the charge stops and Tenant will stop using the space. Landlord may end it the same way, and will refund any part of the charge covering a period after the space is given up.\n\nThe parking rules in this Lease, or in any parking addendum, continue to apply to the space.",
+  },
+  // Rent & Payment
+  {
+    id: "utility-allowance-cap-mn",
+    title: "Utility Allowance with Tenant-Paid Overage",
+    group: "Rent & Payment",
+    states: ["MN"],
+    bodyText:
+      "This Section applies only if the property is not in a shared-metered residential building and is not a lot in a manufactured home park. It does not apply if Landlord bills Tenant separately for a utility measured by a submeter or apportioned among units. Where this Section applies, Landlord's obligation to pay for [specify utility, e.g. water and sewer] is limited to [insert monthly utility allowance amount] per month. If the actual utility cost for a month exceeds that amount, Tenant will reimburse Landlord for the excess. Tenant will do so within [insert number of calendar days, e.g. 15] days of receiving a copy of the utility provider's bill showing the actual charges for that month. This reimbursement is a separate obligation from Rent. It is not subject to any late fee that applies to Rent under this Lease. It will not be treated as Rent for any remedy available for nonpayment of Rent. Landlord's remedies if Tenant fails to pay it are limited to those available under this Lease for breach of an obligation other than Rent. Landlord will not charge Tenant any fee for choosing a particular way to pay this reimbursement.",
+  },
+  // Notices & General
+  {
+    id: "utility-disconnection-notice-authorization-mn",
+    title: "Optional: Naming Landlord as Your Utility Third-Party Contact",
+    group: "Notices & General",
+    states: ["MN"],
+    bodyText:
+      "[Optional.] This Section applies only where Tenant holds the utility account for heat or electricity in Tenant's own name. Minnesota utilities will send a copy of any notice proposing to disconnect heating service to a third party the customer names. Tenant is invited, but is not required, to name Landlord as that third-party contact. Tenant may ask the utility to do this, and may withdraw the request at any time. Tenant's decision either way is not a condition of this Lease. Landlord will not treat a refusal, or a later withdrawal, as a breach of this Lease. If Landlord does receive such a notice, Landlord may contact Tenant about it, and may take steps to protect the property from freezing or other damage. Landlord will not use the notice as a ground to end the tenancy. Tenant acknowledges that naming Landlord does not make Landlord responsible for paying Tenant's utility bill.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "utility-interruption-submeter-mn",
+    title: "Planned Interruptions for Repair",
+    group: "Landlord Responsibilities",
+    states: ["MN"],
+    bodyText:
+      "Landlord may need to interrupt electricity, heat, gas or water briefly to repair or replace faulty equipment, or to protect the health and safety of occupants. Where Landlord can do so, Landlord will give Tenant advance notice of a planned interruption and will say roughly how long it is expected to last. Landlord will restore service as soon as practicable. Landlord will never interrupt or limit a utility service because Tenant has not paid rent or a utility bill. Landlord will never install any device that limits or interrupts Tenant's utility service for that reason. If a utility service is lost, Tenant should tell Landlord as soon as possible, using the contact details in this Lease. Prompt notice lets Landlord restore service quickly. Nothing in this Section waives, limits or modifies any right or remedy Tenant has under Minnesota Statutes sections 504B.216, 504B.221, 504B.225, 504B.231 or 504B.375, or under any other provision of Minnesota law that a tenant may not waive.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "utility-transfer-mn",
+    title: "Putting the Utilities in Your Name",
+    group: "Tenant Responsibilities",
+    states: ["MN"],
+    bodyText:
+      "Tenant is responsible for the utilities and services listed as Tenant's in this Lease. For each of those, Tenant will open an account with the provider in Tenant's own name, effective from the start of the Term, and will keep it open and paid until the Term ends. Tenant will do this on or before [insert number of days, e.g. 3] days after the start of the Term. Tenant will confirm to Landlord in writing when each account is open. If Tenant does not open an account and Landlord is billed for a utility that is Tenant's responsibility, Tenant will reimburse Landlord the amount Landlord is billed for the period concerned. Landlord will give Tenant a copy of the provider's bill. Tenant will pay within [insert number of calendar days, e.g. 15] days of receiving it. That reimbursement is a separate obligation from Rent. It will not be treated as Rent for any remedy available for nonpayment of Rent. Landlord will not interrupt, limit or discontinue any utility service, and will not ask a provider to do so, because Tenant has failed to open an account or to pay a bill.",
+  },
+  // Rules & Regulations
+  {
+    id: "waterbed-mn",
+    title: "Waterbeds and Liquid-Filled Furniture (Optional)",
+    group: "Rules & Regulations",
+    states: ["MN"],
+    bodyText:
+      "[Optional.] Waterbeds and liquid-filled furniture. Tenant will not keep a waterbed, a water-filled mattress, an aquarium over [insert size, for example 20 gallons], or other liquid-filled furniture at the property without Landlord's prior written consent.\n\nIf Landlord consents, Tenant will keep the item in a frame and liner made for it, and in a place Landlord approves.\n\nTenant will also keep renter's or liability insurance covering water damage, of at least {{flotation_insurance_amount}}, for as long as the item is at the property. Tenant will give Landlord proof of that insurance on request.\n\nTenant is responsible for damage the item causes. Tenant is not responsible for normal wear and tear, or for damage that was there before this tenancy began.",
+  },
+  // Default & Termination
+  {
+    id: "holdover-mn",
+    title: "Holdover Tenancy",
+    group: "Default & Termination",
+    states: ["MN"],
+    supersedes: "holdover",
+    bodyText:
+      "If Tenant does not vacate the property by the end of the Term, Landlord may pursue any remedy allowed by applicable law to recover possession. For each day Tenant remains in possession after the end of the Term, Landlord may also recover the daily equivalent of Monthly Rent and any further loss the holdover causes Landlord. If this Lease's Holdover Charge section applies, that section sets the charge instead. Alternatively, Landlord may accept Tenant's continued payment of Rent, in which case this Lease will be deemed to continue on a month-to-month basis on the same terms and conditions, terminable by either party upon the written notice required by applicable law or, where applicable law sets no notice period, by this Lease.",
+  },
+  // Rent & Payment
+  {
+    id: "application-of-payments-mn",
+    title: "Application of Payments",
+    group: "Rent & Payment",
+    states: ["MN"],
+    supersedes: "application-of-payments",
+    bodyText:
+      "Each payment Tenant makes will be applied first to the Monthly Rent due for the current or oldest unpaid rental period, and only then to any other fees, charges, or amounts due under this Lease, unless applicable law requires otherwise. Where the law allows it, Tenant may direct otherwise in writing for a particular payment. Nothing in this provision limits any statutory right Tenant may have to cure nonpayment of Rent.",
   },
 ];
 
