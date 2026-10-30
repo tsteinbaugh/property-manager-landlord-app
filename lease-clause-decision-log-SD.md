@@ -1585,3 +1585,1733 @@ No shared clause text was edited, and no shared row appears in the delta.
 - `smoking-policy`: Tenant pays for smoking damage caused by "Tenant, an occupant, or a guest or invitee of Tenant", no longer by anyone's smoking.
 - `no-alterations`: the last sentence adds that the clause "does not change who owns an installation that applicable law makes Tenant's property".
 - `addendum-precedence`: a disclosure, notice or addendum "that applicable law says controls over this Lease" now controls, as one the law requires already did.
+
+
+---
+
+# Topic gaps pass (end-of-run consistency pass, 2026-10-30): Desktop's log
+
+## Topic gaps — South Dakota (SOP 1.87)
+
+**Pass:** end-of-run consistency pass, SOP 1.87. **Opened** 2026-10-29. **This delivery** 2026-10-30.
+**Scope:** the 260 library topics South Dakota has no row for, plus the named South Dakota items. Add rows; existing rows are not changed except to tag one with SD where it answers a missing topic (rule 26).
+**Progress:** 260 of 260 topics answered; 260 new rows and 12 tags in the delta.
+**Deliverables:** `lease-clauses-SD-gaps-delta.csv` (new rows and tagged rows, all 17 columns, CRLF, header identical to the master) and this log. Both are cumulative and replaced at every batch.
+
+---
+## 1. Sources, channel and currency
+
+**Channel.** Two routes, because the container's shell cannot reach sdlegislature.gov (org egress policy; a CONNECT tunnel to the host returns 403). Both were used this pass:
+
+- **Corpus, in the container.** `corpus-SD-20261029.tar.xz`, SHA-256 `f83ccca608e7c1400bd266568202a56b7310e8e727dde0865ba0b41b6e7475b7`, matching the shipped `.sha256`. Its own verifier reports *1850 files match, 1 listed but not shipped, 0 problems* - the one being the 2025 special session's cross-reference table, which returns 404 at source. Holds 26 chapters (1,020 index entries), the Constitution (preamble and arts. I-XXX), the 2024, 2025 and 2026 session laws, and ARSD 20:03, 44:02 and 61:15. The Code is current to **2026-09-03** (the Legislature's own "statutes effective through" date), i.e. through the 2026 session's July 1, 2026 acts.
+- **Live, through the built-in browser** on linked device `terra`, which holds site-scope approval for sdlegislature.gov. Used for every section quoted from a chapter the corpus does not hold, and for the corroboration below. Each chapter fetched is recorded with its byte count and SHA-256.
+
+**Corroboration (rules 24 and 79).** 22 sections spanning the chapters this pass relies on were hashed from the corpus and from the live site and compared on normalised text. **22 of 22 are substantively identical.** Three differed on first comparison and all three resolved to rendering artifacts in the corpus's text extraction, not to differences in law: a space inserted before punctuation following a cross-reference link (`s 21-3-8 ,` for `s 21-3-8,`), and spaces inserted around a hyphen inside a spelled-out number (`forty - five` for `forty-five`). **Consequence for quoting:** the corpus's `text/` extraction is not safe to quote verbatim without normalisation, so every statutory quotation in this delta was taken from the live text.
+
+**Chapters fetched live this pass** (not in the corpus; each read section-open):
+
+| Chapter | Title | Sections | SHA-256 |
+|---|---|---|---|
+| 11-10 | Building Codes and Standards | 11 | `eeef5a723a36f835bb0c243333c5e1e69b37abd0bd8f4721bf67144bc364fb4b` |
+| 21-48 | Foreclosure of Real Property Mortgages | 28 | `b77f65d38be48206c7e6e0b4bb5763dca3aeaf96f668c8c69caaab608845e8af` |
+| 36-21A | Real Estate Licensing | 146 | `e999372d646017fda5c0d625f056ddfe98f4cc52ac1786633554dfe1ce583262` |
+| 49-34 | Electric, Gas, Water and Heating Utilities | 26 | `fd9448f7b9883b1fae2f41028db8e1fb10796dc4324cfa18ab9d75bd1720fbd8` |
+| 49-34A | Gas and Electric Utilities Regulation | 123 | `3c8b0b5615fc21c2afd5d884312a2a27d269e38b59df78f3b28c43d31104f3f1` |
+
+**A statewide instrument built this pass.** The corpus's `index/titles/` holds all 71 title records, and each lists every chapter and every section of that title with its catchline. Parsed, that is **47,386 section catchlines - every section in the South Dakota Codified Law - and 2,183 chapter names.** This converts what would otherwise be "not located" verdicts into bounded confirmed absences: a battery can be run over every catchline in the Code, and where a subject returns nothing the chapter that would carry it can be named from the same index. Validated per rule 19 before use, with known positives (`security deposit` to SDCL 43-32-6.1, 43-32-24, 43-32-24.1; `\bsmoke\b` to 34-18-9.4 and 34-20G-27; `retaliat` to 43-32-27 among 17; `domestic abuse` to 23 sections) and three nonsense controls at 0 in the same batch. **Every absence stated in this delta names its bound in the row body as well as the notes**: statewide across all 47,386 catchlines, plus full text of the 26 held chapters.
+
+**ARSD correction.** The held ARSD articles are **20:03 (Human Rights Commission procedure**, implementing SDCL 20-13-34 and 20-13-45 - *not* real estate, as the article number might suggest), **44:02** and **61:15**. ARSD 61:15 was read in full this pass. The Public Utilities Commission's rules (article 20:10) and the Real Estate Commission's rules are **not held**; where a topic turned on them the boundary is stated in the row.
+
+**Currency of the rows added (rule 24).** Verified against the Source lines of the sections relied on, read live:
+
+- **SL 2026, ch 179, s 1 (SB 4)** amended SDCL 43-32-24. Confirmed in the live Source line. The section now carries **two** deadlines, and they are easy to conflate: the deposit must be returned, or a written statement of the specific reason for withholding furnished, **within 21 days** of termination and receipt of the tenant's mailing address or delivery instructions; an **itemized accounting** of any amount withheld is due **within 45 days** of termination, and only **on the tenant's request**. The library already states both correctly (`edu-security-deposit-itemized-accounting-sd`, `edu-advance-rent-vs-deposit-sd`) - see s 6.
+- **SL 2024, ch 178, s 1 (SB 89)** amended SDCL 43-8-8 (residential estate at will: not less than **15 days**' notice; two months where the tenant or an immediate family member is on active military service, subject to two exceptions). Confirmed in the live Source line and relied on in `edu-no-owner-move-in-reservation-sd`.
+- **SL 2024, ch 75 (SB 90)**, the repeal of SDCL 21-16-2 and 21-16-7: no row added this batch depends on either section. Both are absent from the live chapter 21-16 as repealed stubs, consistent with the repeal.
+- **SL 2026, ch 59, s 4** amended SDCL 11-10-12 (2024 International Residential Code; the bar on municipal residential sprinkler mandates). **SL 2026, ch 60, s 1** enacted SDCL 11-10-15. Both confirmed in live Source lines. Chapter 11-10's references to the **2024** editions of the IBC, IRC and International Property Maintenance Code are current; ARSD 61:15:01:01 still adopts the **2015** editions for fire safety. Both are stated, with their different scopes, in `edu-fire-code-standard-sd`.
+- **SL 2022, ch 171, s 1** enacted SDCL 49-34A-116; **SL 2024, ch 188, s 1** amended SDCL 49-34-14. Both confirmed in live Source lines.
+
+**Research mode** was not triggered (SOP rule 9's three triggers did not arise). Tribal law is outside scope. City and county ordinances are flagged where they bear on an answer and are not resolved.
+
+**Chapters fetched live in batch 2** (each read section-open; same channel and corroboration as above):
+
+| Chapter | Title | Sections | SHA-256 |
+|---|---|---|---|
+| 21-10 | Remedies Against Nuisances | 41 | `a884bd59634e47d4b1e7fec3b7eccb39f78f36f678bfd3a43369e8f11982b843` |
+| 21-16 | Forcible Entry and Detainer (live re-check) | 12 | `87fa882e31cdaecea8dd9f11206be8bc0fc5f64e37a15f4b8f9cf33b68fc5eec` |
+| 22-23 | Prostitution | 6 | `9848942cc16844d6d46237b78df877e733638f740df75bd45f01e0a995c9448b` |
+| 25-10 | Protection from Domestic Abuse | 50 | `2abd51592a56371c02825f15cccc6e930088fc4ab2c3e4145dad17f53096b597` |
+| 34-20G | Medical Cannabis | 106 | `15bd370677aaf68e5a10042c67a3baf0c7a247155c57c1e50106a2f143d30110` |
+| 34-46 | Use of Tobacco Products (smoke-free law) | 29 | `30e601c6d8eef88b60b0724da2c7917f4a7a019675c3555295ac2b3d5f5aae7a` |
+| 43-31 | Homestead Exemption | 41 | `41f9d4c637f2dd49e7f252bdac707b60ec7c66d388a3a2c48aef92cefbdc6908` |
+
+**A correction to the prompt's currency list.** The prompt records SL 2024, ch 75 (SB 90) as "the repeal of § 21-16-2 and § 21-16-7". Only **SDCL 21-16-2 was repealed** (by SL 2024, ch 75, § 1). **SDCL 21-16-7 is live and was amended** by the same act (§ 2), and its content is load-bearing for eviction practice: the time for appearance and pleading is five days from service or thirty days after publication under § 21-16-6.1, whichever occurs sooner, and no adjournment or continuance may exceed fourteen days unless the defendant applying for it gives an undertaking with surety for the rent that may accrue plus costs. Verified twice: the corpus shows § 21-16-2 as a repealed stub and § 21-16-7 with live text, and a live re-fetch of chapter 21-16 (12 sections, hash above) confirms the same.
+
+### 1a. Retrieval route, per source
+
+Added at this delivery in response to a provenance challenge from canvassing agent F (s 3, s 6). A SHA-256 proves
+two copies identical; it does not prove a source was read, because nothing in the working container can reproduce
+a read made elsewhere. Every source below is therefore listed with the channel that read it.
+
+**Corpus, in the container** (`/home/claude/data/corpus`, SHA-256
+`f83ccca608e7c1400bd266568202a56b7310e8e727dde0865ba0b41b6e7475b7`; verifier reports "1850 files match, 1 listed
+but not shipped, 0 problems"; Code current to **2026-09-03**). Full section text for **26 chapters**: 2-14, 15-6,
+15-9, 15-17, 17-2, 20-13, 21-3, 21-16, 21-54, 22-1, 22-18, 34-18, 34-29B, 34-35A, 37-24, 43-7, 43-8, 43-32,
+43-33, 43-39, 43-40, 43-41, 43-41B, 44-11, 44-14, 53-9. Plus the Constitution; the **2024, 2025 and 2026 session
+laws** (719 acts, full enacted text); and ARSD articles **20:03** (Human Rights Commission procedure), **44:02**
+(Lodging and Food Service) and **61:15** (fire safety). Anything attributed to one of these was read in the
+container and **is verifiable by any agent working here**.
+
+**Corpus — the statewide catchline index.** `index/titles/` ships **71 title files** which parse to **47,386
+section catchlines — every section in SDCL — and 2,183 chapter names**. This is part of the corpus, not a live
+fetch, so the instrument behind every `cl_battery` count in this log is **container-local and independently
+reproducible**; `/home/claude/work/sdwide.py` loads it from `catchlines_all.json` built in one scripted pass.
+Validated per rule 19 against known positives with nonsense controls in the same batch. Its two documented
+limits are in the SOP items: it misses body-only phrases, and it drops court-rule lettered-subsection entries.
+
+**Built-in browser on the linked device `terra`** — the only route to sdlegislature.gov this pass, because shell
+egress to that host is denied by organisation policy at the proxy (CONNECT returns 403; retrying by any other
+shell command hits the same allowlist). Mechanics that work: `navigate` to
+`https://sdlegislature.gov/api/Statutes/<chapter|section>.html?all=true`, then `get_page_text`. **Reads made
+through this route cannot be verified or reproduced by an agent confined to the container**, which is the point
+of this subsection. Chapters and sections read this way, all section-open:
+
+> 1-19B, 9-29, 11-10, 11-14, 15-2, 15-15A, 15-26A, 17-1, 21-7, 21-9, 21-10, 21-16 (re-check of 21-16-1 and
+> 21-16-7), 21-25A, 21-48 (including the 2026-10-30 re-verification of 21-48-6 and 21-48-6.1), 22-23, 22-24B,
+> 22-35, 22-40, 25-10, 26-1, 26-2, 26-6, 34-20G, 34-46, 34A-6, 34A-17, 36-21A, 41-6, 41-9, 43-2A, 43-2B, 43-4,
+> 43-15A, 43-31, 43-45, 44-9, 49-34, 49-34A, 50-10, 53-12, 54-3 — and ARSD 46:04:01:20.
+
+**Unreachable, tested** — ARSD article **20:10** (Public Utilities Commission). The rules index lists it as
+RuleId 8438, but every printer-friendly endpoint variant returns 404 while the identical endpoint shape serves
+the three held articles. Three rows state this as a boundary rather than guessing past it.
+
+**Out of scope** — tribal law; city ordinances (flagged where they bear, never resolved); case law (leads only,
+never relied on); anything enacted after the dates above except the live reads listed, of which chapters 43-2B
+(SL 2026, ch 177) and 43-2A (SL 2026, ch 176) postdate the corpus.
+
+---
+## 2. Topics answered
+
+**260 of 260 answered. 0 remaining.** Batch 1 complete and delivered. Every topic ends Present, Confirmed absent or Not located - never blank (rule 36) - and every absence names its bound in the row body as well as the notes.
+
+| Topic | Row id | Row | Verdict | Citation |
+|---|---|---|---|---|
+| `abandonment-and-mitigation` | `edu-abandonment-and-mitigation-sd` | new row | Present as to abandoned property; Confirmed absent as to a duty to mitigate | SDCL 43-32-25; 43-32-26; 43-32-22; 43-32-18; 21-3-5; 21-3-7; 21-16-4; 53-9-4; 53-9-5; SDCL 21-54-15 to 21-54-19 |
+| `accessory-dwelling-unit` | `edu-no-accessory-dwelling-unit-rule-sd` | new row | Confirmed absent | SDCL 11-10-5, -6, -12 |
+| `actual-notice-method` | `edu-actual-notice-method-sd` | new row | Present | SDCL 43-8-9; 43-32-32; 44-14-3(2); 43-32-13; 43-32-15; SDCL 17-1-2 (chapter not held) |
+| `adverse-proceeding-notice` | `edu-adverse-proceeding-notice-sd` | new row | Confirmed absent | SDCL 21-48-6.1; 21-48-6 |
+| `alarm-tampering-fee` | `edu-no-alarm-tampering-fee-sd` | new row | Confirmed absent | SDCL 53-9-4, 53-9-5; 34-35A-4 |
+| `alt-housing` | `edu-no-alt-housing-duty-sd` | new row | Confirmed absent | no statute; SDCL 43-32-9, 43-32-19(2) |
+| `animal-care-access` | `edu-no-animal-care-access-rule-sd` | new row | Confirmed absent; one limb Not located | SDCL 43-32-32, 43-32-25/26; ch. 40-1 |
+| `appliances-excluded` | `edu-appliances-excluded-sd` | new row | Confirmed absent; Present (limits) | SDCL 43-32-8, 43-32-10 |
+| `application-fees` | `edu-no-application-fee-rule-sd` | new row | Confirmed absent | SDCL 43-32-6.1, 53-9-4; ch. 37-24 |
+| `asbestos-hazards` | `edu-no-asbestos-duty-sd` | new row | Confirmed absent | ch. 20-9; SDCL 43-4-44, 43-4-37(5) |
+| `association-obligations-disclosure` | `edu-no-association-lease-disclosure-sd` | new row | Confirmed absent | SDCL 43-4-44.1; 43-4-42; 43-15A-3; 43-15A-4; SL 2024, ch 177 (SB 217); 53-9-4 |
+| `automatic-renewal` | `edu-no-automatic-renewal-rule-sd` | new row | Confirmed absent | SDCL 43-32-14, 43-32-15 |
+| `balcony-inspection` | `edu-no-balcony-inspection-rule-sd` | new row | Confirmed absent | SDCL 43-32-8; 11-10-6, 11-10-12 |
+| `bed-bug-cooperation` | `edu-bed-bug-cooperation-sd` | new row | tagged + Confirmed absent | no statute; SDCL 43-32-8, 43-32-32, 43-32-10, 53-9-4 |
+| `bed-bug-cooperation` | `pest-cooperation-pr` | TAG | tagged + Confirmed absent | no statute; SDCL 43-32-8, 43-32-32, 43-32-10, 53-9-4 |
+| `bed-bug-disclosure` | `edu-no-bed-bug-disclosure-sd` | new row | Confirmed absent | SDCL 43-32-8; 43-32-9; 43-32-10; 43-32-30; 37-24-6(1); 53-9-4 |
+| `binding-arbitration` | `edu-binding-arbitration-sd` | new row | Present | SDCL 21-25A-1; 53-9-6 |
+| `carpet-cleaning` | `edu-no-carpet-cleaning-rule-sd` | new row | tagged + Confirmed absent | no statute; SDCL 43-32-24, 53-9-4 |
+| `carpet-cleaning` | `carpet-cleaning-ar` | TAG | tagged + Confirmed absent | no statute; SDCL 43-32-24, 53-9-4 |
+| `casualty-and-mitigation-waivable` | `edu-casualty-and-mitigation-waivable-sd` | new row | Present; no express non-waiver | SDCL 43-32-19(2), 43-32-9 |
+| `certificate-of-occupancy-disclosure` | `edu-no-certificate-of-occupancy-disclosure-sd` | new row | Confirmed absent | SDCL 11-10-5; 11-10-11; 11-10-12; SL 2026, ch 59 (SB 129); SDCL 43-32-8; 43-32-6 |
+| `children-occupancy` | `edu-children-occupancy-sd` | new row | Present | SDCL 20-13-20, 20-13-20.1, 20-13-20.2 |
+| `cold-weather-vacate-notice` | `edu-no-cold-weather-vacate-notice-sd` | new row | Confirmed absent | SDCL 43-32-10; 43-32-8; 43-32-9; 53-9-4; 53-9-5 |
+| `collection-fee` | `edu-no-collection-fee-rule-sd` | new row | Confirmed absent | SDCL 53-9-4; 15-17-39 |
+| `common-area-lighting` | `edu-common-area-lighting-sd` | new row | Present (duty) | SDCL 43-32-8 |
+| `communal-land-lease-approval` | `edu-no-communal-land-lease-approval-sd` | new row | Confirmed absent | no statute; SDCL 43-32-5, 43-32-2; FEDERAL 25 U.S.C. s 415 |
+| `condemned-premises-rent-bar` | `edu-no-condemned-premises-rent-bar-sd` | new row | Confirmed absent | SDCL 43-32-8, 43-32-9, 43-32-19 |
+| `condition-inspection` | `edu-no-move-in-condition-list-sd` | new row | Confirmed absent | SDCL 43-32-24 |
+| `confession-of-judgment` | `edu-confession-of-judgment-sd` | new row | Confirmed absent (clause cannot work) | SDCL 53-9-6; 37-24-5.5 (door-to-door only) |
+| `confirmed-absences-habitability` | `edu-confirmed-absences-habitability-sd` | new row | Confirmed absent (inventory of absences) | SDCL 43-32-8, 43-32-9; 11-10-11 |
+| `confirmed-absences-misc` | `edu-confirmed-absences-misc-sd` | new row | Confirmed absent (collected) | SDCL 43-32-8, 53-9-4, 53-9-6, 43-32-6.1, 20-13-20, 43-32-27, 43-32-18.1 |
+| `confirmed-absences-outside-title` | `edu-confirmed-absences-outside-title-sd` | new row | Confirmed absent (three limbs) | SDCL 22-35-5, 22-35-6, 22-35-7; 21-16-1; no receipt or registration duty |
+| `construction-liens` | `edu-construction-liens-sd` | new row | tagged + Present | SDCL 44-9-1, 44-9-2 (lessor proviso), 44-9-4 (five-day notice) |
+| `construction-liens` | `no-liens-ar` | TAG | tagged + Present | SDCL 44-9-1, 44-9-2 (lessor proviso), 44-9-4 (five-day notice) |
+| `consumer-protection-act` | `edu-consumer-protection-act-sd` | new row | Present; scope question recorded | SDCL 37-24-6(1), 37-24-1(6),(7) |
+| `conversion-notice` | `edu-conversion-notice-sd` | new row | Present as to a change-of-use notice for mobile and manufactured homes; Confirmed absent as to condominium conversion, tenant first refusal, and any bar on transient conversion or demolition | SDCL 43-32-31; 43-32-22.1; 43-8-8; 21-54-15 to 21-54-19; SDCL ch. 43-15A (not held) |
+| `criminal-activity` | `edu-criminal-activity-sd` | new row | tagged + Confirmed absent | SDCL 21-16-1, 43-32-18; 22-23-8(4) |
+| `criminal-activity` | `criminal-activity-ky` | TAG | tagged + Confirmed absent | SDCL 21-16-1, 43-32-18; 22-23-8(4) |
+| `defective-drywall-disclosure` | `edu-no-drywall-disclosure-sd` | new row | Confirmed absent | SDCL 43-4-44; SL 2025, ch 180 (SB 171); SDCL 43-32-8; 37-24-6(1) |
+| `deposit-cost-schedule` | `edu-no-deposit-cost-schedule-sd` | new row | Confirmed absent | SDCL 43-32-24; 43-32-6.1; 53-9-4; 53-9-5 |
+| `deposit-installments` | `edu-no-deposit-installment-right-sd` | new row | Confirmed absent | SDCL 43-32-6.1; 43-32-24; 53-9-4 |
+| `deposit-surrender-notice` | `edu-no-deposit-surrender-notice-sd` | new row | Confirmed absent | SDCL 43-32-24; 43-32-19.2; 43-32-6.1 |
+| `designated-repairer` | `edu-no-designated-repairer-sd` | new row | Confirmed absent | SDCL 43-32-8, 43-32-9 |
+| `disaster-displaced-guests` | `edu-no-disaster-displaced-guests-rule-sd` | new row | Confirmed absent | SDCL 43-32-10; 43-8-8 |
+| `disaster-duties` | `edu-no-disaster-duties-sd` | new row | Confirmed absent | no statute; SDCL 43-32-9, 43-32-19(2) |
+| `double-letting` | `edu-no-double-letting-rule-sd` | new row | Confirmed absent | no statute; SDCL 43-32-6, 43-32-19(1) |
+| `drug-free-housing-addendum` | `edu-no-drug-free-housing-addendum-sd` | new row | Confirmed absent | no statute; SDCL 34-20G-19, 34-20G-27; 21-16-1(7) |
+| `dv-deposit-timing` | `edu-no-dv-deposit-timing-rule-sd` | new row | Confirmed absent | SDCL 43-32-19.1; 43-32-19.2; 43-32-24; 43-32-18.1 |
+| `dv-eviction-protection` | `edu-dv-eviction-protection-sd` | new row | Confirmed absent | SDCL 43-32-19.1; 21-16-1 |
+| `dv-lockchange` | `edu-dv-lockchange-sd` | new row | Confirmed absent | SDCL 25-10-5(2); 43-32-6, 21-3-6 |
+| `dv-protection-order-chapter-moved` | `edu-dv-protection-order-citations-sd` | new row | Confirmed absent (no move) | SDCL 43-32-19.1; ch. 25-10; SL 2026, ch 102, ss 3-4 (HB 1108) |
+| `dv-qualifying-documents` | `edu-dv-qualifying-documents-sd` | new row | Present | SDCL 43-32-19.1 |
+| `electric-submetering-disclosure` | `edu-no-electric-submeter-disclosure-sd` | new row | Not located | SDCL 49-34-14; 49-34A-116; 49-34-13; ARSD art. 20:10 (not held) |
+| `emergency-contact` | `edu-no-emergency-contact-rule-sd` | new row | Confirmed absent | no statute |
+| `eminent-domain` | `edu-eminent-domain-sd` | new row | tagged + Confirmed absent (lease effects); Present (ch. 21-35) | ch. 21-35 |
+| `eminent-domain` | `eminent-domain-vi` | TAG | tagged + Confirmed absent (lease effects); Present (ch. 21-35) | ch. 21-35 |
+| `employee-screening` | `edu-no-employee-screening-rule-sd` | new row | Confirmed absent | no statute; ch. 36-21A licence scope |
+| `energy-data-release` | `edu-no-energy-data-release-sd` | new row | tagged + Confirmed absent | no statute; SDCL 49-34-14; ARSD 20:10 unreachable |
+| `energy-data-release` | `energy-data-release-wy` | TAG | tagged + Confirmed absent | no statute; SDCL 49-34-14; ARSD 20:10 unreachable |
+| `entity-landlord-court-representation` | `edu-no-entity-landlord-court-representation-rule-sd` | new row | Not located (bar); Present (fee incentive) | SDCL 21-16-11; ch. 16-18 not held |
+| `environmental-event-termination` | `edu-environmental-event-termination-sd` | new row | Confirmed absent as to a landlord right; Present as to the tenant's destruction ground | SDCL 43-32-19(2); 43-32-18; 43-32-22; 53-9-4; 53-9-5 |
+| `ev-charging` | `edu-no-ev-charging-right-sd` | new row | Confirmed absent | SDCL 49-34A-116, 49-34-14 |
+| `ev-charging-end-of-tenancy` | `edu-no-ev-charging-end-of-tenancy-rule-sd` | new row | Confirmed absent | SDCL 43-32-10, 43-32-24(2); ch. 43-33 |
+| `ev-charging-requirements` | `edu-ev-charging-sd` | new row | Present | SDCL 49-34A-116; 49-34-14 |
+| `ev-charging-shared-area` | `edu-no-ev-charging-shared-area-rule-sd` | new row | Confirmed absent | SDCL 43-32-8; 49-34-14 |
+| `eviction-hardship-stay` | `edu-no-eviction-hardship-stay-sd` | new row | Confirmed absent | SDCL 21-16-7; 21-16-8; 21-16-12; SDCL 15-6-62(a); 15-6-62(b); 15-6-81(a) and ch. 15-6 Appendix A; SDCL ch. 15-26A (not held) |
+| `eviction-penalty-clause-ban` | `edu-no-eviction-penalty-rule-sd` | new row | Confirmed absent | SDCL 53-9-4, 53-9-5, 15-17-39 |
+| `eviction-record-sealing` | `edu-no-eviction-record-sealing-sd` | new row | Confirmed absent | SDCL ch. 15-15A (not held), esp. 15-15A-5, 15-15A-7, 15-15A-13; SDCL 15-15-10, 15-15-11 (not held); SDCL 21-16-10; 21-16-11 |
+| `eviction-service-party` | `edu-eviction-service-party-sd` | new row | Confirmed absent as to a lease-named party for court papers; Present as to the statutory service regime | SDCL 21-16-6; 21-16-6.1; 21-16-7; SDCL 15-6-4(c); 15-6-4(d); SDCL 43-8-9; 43-32-16; 43-32-19.2; SDCL 17-2-10; 15-9-17 |
+| `expedited-criminal-eviction` | `edu-no-expedited-criminal-eviction-sd` | new row | Confirmed absent | SDCL 21-16-1(7); 21-16-7; 21-16-8; 43-32-18; 43-32-18.1; 43-32-37; 22-23-8(4) |
+| `expedited-deposit-disposition` | `edu-no-expedited-deposit-disposition-sd` | new row | Confirmed absent | SDCL 43-32-24; 43-32-24.1 |
+| `extended-absence-notice` | `edu-no-extended-absence-notice-sd` | new row | Confirmed absent | SDCL 43-32-10, 43-32-25, 43-32-26 |
+| `family-child-care` | `edu-no-family-child-care-right-sd` | new row | Confirmed absent | SDCL 26-6-14.2, 9-29-26; 34-46-16 |
+| `farmland-hunting-rights` | `edu-farmland-hunting-rights-sd` | new row | tagged + Confirmed absent (allocation); Present (default) | SDCL 41-9-1; 41-6-2; 41-9-1.2 |
+| `farmland-hunting-rights` | `farmland-sporting-rights-co` | TAG | tagged + Confirmed absent (allocation); Present (default) | SDCL 41-9-1; 41-6-2; 41-9-1.2 |
+| `fee-in-lieu-of-deposit` | `edu-no-fee-in-lieu-of-deposit-sd` | new row | Confirmed absent | SDCL 43-32-6.1; 43-32-24; 53-9-4 |
+| `fee-transparency` | `edu-no-fee-transparency-law-sd` | new row | Confirmed absent | SDCL 43-32-24, 43-32-13; ch. 37-24 |
+| `fee-unprovided-service` | `edu-fee-unprovided-service-sd` | new row | Confirmed absent | SDCL 53-9-4, 53-9-1, 43-32-24; ch. 37-24 |
+| `fire-code-standard` | `edu-fire-code-standard-sd` | new row | Present | SDCL 11-10-5, 11-10-6, 11-10-11, 11-10-12; ARSD 61:15:01:01 |
+| `fire-sprinkler-duty` | `edu-fire-sprinkler-duty-sd` | new row | Present | ARSD 61:15:01:19; SDCL 11-10-12 |
+| `firearms` | `edu-firearms-sd` | new row | Confirmed absent (as to leases); Present (preemption) | SDCL 7-18A-36; 8-5-13; 9-19-20; 21-16-1(7) |
+| `flood-disclosure` | `edu-no-flood-disclosure-sd` | new row | Confirmed absent | SDCL 43-4-44; SL 2025, ch 180 (SB 171); SDCL 43-32-8; 43-32-19; 37-24-6(1) |
+| `foreclosure` | `edu-foreclosure-tenancy-sd` | new row | Present (bounded); Confirmed absent (tenancy protection) | SDCL 21-48-6, 21-48-6.1; FEDERAL PTFA |
+| `foreclosure-disclosure` | `edu-no-foreclosure-disclosure-sd` | new row | Confirmed absent | SDCL 21-48-6; 21-48-6.1; 43-32-16; 43-32-17; 43-4-44; 37-24-6(1) |
+| `foreign-ownership` | `edu-foreign-ownership-sd` | new row | Present (new chapter) | SDCL 43-2B-1 to 43-2B-9 (SL 2026, ch 177); 43-2A-1, 43-2A-2, 43-2A-6 |
+| `forfeiture-redemption` | `edu-forfeiture-redemption-sd` | new row | Present (reentry); Confirmed absent (relief against forfeiture) | SDCL 43-8-11, 43-8-12 |
+| `frozen-standard-incorporation` | `edu-frozen-standard-incorporation-sd` | new row | Present | SDCL 11-10-5,-6,-11,-12; ARSD 61:15:01:01 |
+| `furnishings-included` | `edu-furnishings-included-sd` | new row | Confirmed absent | SDCL 43-32-10, 43-32-24(2) |
+| `good-cause-notice` | `edu-no-good-cause-notice-sd` | new row | Confirmed absent | SDCL 43-8-8; 43-8-9; 43-8-10; 43-32-22; 43-32-27; 43-32-18.1; 21-16-1(4) |
+| `government-fee-reimbursement` | `edu-no-government-fee-reimbursement-rule-sd` | new row | Confirmed absent; Present (collection) | SDCL 34A-6-29; 43-32-24(1)(b) |
+| `governmental-fines` | `edu-governmental-fines-sd` | new row | tagged + Confirmed absent | no statute; SDCL 53-9-4 |
+| `governmental-fines` | `tenant-caused-fines-as` | TAG | tagged + Confirmed absent | no statute; SDCL 53-9-4 |
+| `guarantor-renewal` | `edu-no-guarantor-renewal-rule-sd` | new row | Confirmed absent | SDCL 43-32-14, 43-32-15, 43-32-6.1 |
+| `guest-rights` | `edu-no-guest-rights-statute-sd` | new row | Confirmed absent | SDCL 43-32-37; ch. 43-40 |
+| `habitability-materiality` | `edu-habitability-materiality-sd` | new row | Confirmed absent | SDCL 43-32-8; 43-8-8 |
+| `habitability-modifiable` | `edu-habitability-modifiable-sd` | new row | Present (express bar on modification) | SDCL 43-32-8 |
+| `habitability-presumption` | `edu-habitability-presumption-sd` | new row | Confirmed absent | SDCL 43-32-3, 43-32-4, 43-32-14 |
+| `habitability-statement` | `edu-no-habitability-statement-required-sd` | new row | Confirmed absent | SDCL 43-32-8; 43-32-5 |
+| `habitability-waiver` | `edu-habitability-waiver-sd` | new row | Present (express non-waiver) | SDCL 43-32-8 |
+| `hazardous-contamination-disclosure` | `edu-no-contamination-lease-disclosure-sd` | new row | Confirmed absent | SDCL 34A-17-3; 34A-17-4; 34A-17-5; 34A-15-6.1; 46A-1-101 to 46A-1-106; 43-4-44; 43-32-30 |
+| `health-district-rental-rules` | `edu-no-health-district-rental-rules-sd` | new row | Confirmed absent | SDCL 43-32-9; ch. 34-18 |
+| `heating` | `edu-heating-duty-sd` | new row | Present | SDCL 43-32-8; 43-32-9 |
+| `hoa` | `edu-hoa-sd` | new row | tagged + Confirmed absent | no association statute; ch. 43-15A; SDCL 43-4-44.1, 43-4-37(3), (5) |
+| `hoa` | `association-approval-la` | TAG | tagged + Confirmed absent | no association statute; ch. 43-15A; SDCL 43-4-44.1, 43-4-37(3), (5) |
+| `holding-deposit` | `edu-holding-deposit-sd` | new row | Confirmed absent | SDCL 43-32-6.1; 43-32-24; 53-9-4; 53-9-5 |
+| `home-business` | `edu-no-home-business-right-sd` | new row | Confirmed absent | no statute; SDCL 43-32-11, 43-32-18(1), 21-16-1(7) |
+| `homestead-waiver` | `edu-homestead-waiver-sd` | new row | Confirmed absent; one limb Not located | SDCL 43-31-1, 43-31-17; ch. 43-45 not held |
+| `immigration-status` | `edu-immigration-status-sd` | new row | Confirmed absent | no statute; SDCL 20-13-20 (national origin, ancestry) |
+| `infirmity-termination` | `edu-no-infirmity-termination-sd` | new row | Confirmed absent | SDCL 43-32-23; 43-32-19; 43-32-19.1; 43-8-8; 53-9-4; 53-9-5 |
+| `informal-dispute-resolution` | `edu-informal-dispute-resolution-sd` | new row | Present | SDCL 53-9-6; 21-25A-1, 21-25A-3 |
+| `inspection-condemnation-disclosure` | `edu-no-inspection-condemnation-disclosure-sd` | new row | Confirmed absent | SDCL 11-10-11; 11-10-5; SL 2026, ch 59 (SB 129); SDCL 43-32-8; 43-32-9; 43-32-27; 43-4-44 |
+| `inspection-notice-penalty` | `edu-no-inspection-notice-penalty-sd` | new row | Confirmed absent | SDCL 43-32-24; 43-32-32; 34-29B-4; 34-29B-10; 34-29B-14; 34-29B-16 |
+| `jury-waiver` | `edu-jury-waiver-sd` | new row | NEEDS_REVIEW - cautious course stated | S.D. Const. art. VI, s 6; SDCL 21-16-8, 53-9-6 |
+| `key-control-policy` | `edu-no-key-control-policy-sd` | new row | Confirmed absent | SDCL 43-32-32, 43-32-8, 53-9-4 |
+| `knowing-use-penalty` | `edu-no-knowing-use-penalty-sd` | new row | Confirmed absent | no statute; SDCL 22-23-8(4) as the nearest duty |
+| `landlord-breach-remedy` | `edu-landlord-breach-remedy-sd` | new row | Present | SDCL 43-32-9, 43-32-6, 43-32-19 |
+| `landlord-liability-insurance` | `edu-no-landlord-liability-insurance-mandate-sd` | new row | Confirmed absent | SDCL 43-32-8; 53-9-3 |
+| `landlord-registration` | `edu-no-landlord-registration-sd` | new row | Confirmed absent | SDCL 36-21A-10, -12.1, -48 |
+| `landlord-remedies-termination` | `edu-landlord-remedies-termination-sd` | new row | Present | SDCL 21-16-4; 21-16-10; 21-16-11; 21-16-3; 43-32-18; 43-32-11; 43-32-20; 43-32-29; 21-3-5; 21-3-7; 21-3-8; 53-9-4; 53-9-5; SDCL 21-7-1, 21-7-2 (not held); SDCL ch. 15-39 (not held) |
+| `late-fee-limit` | `edu-no-late-fee-cap-sd` | new row | Confirmed absent; Present (constraint) | SDCL 53-9-4, 53-9-5; 21-16-1(4) |
+| `law-enforcement-cooperation` | `edu-law-enforcement-cooperation-sd` | new row | Present | SDCL 43-32-18.1; 43-32-19.2; 22-23-8(4) |
+| `lead-safe-certification` | `edu-no-lead-safe-certification-sd` | new row | Confirmed absent | SDCL 43-4-44; SL 2025, ch 180 (SB 171); FEDERAL: 40 C.F.R. 745.113; 40 C.F.R. pt. 745 subpt. E |
+| `lead-state-notices` | `edu-no-lead-state-notices-sd` | new row | Confirmed absent | FEDERAL: 42 U.S.C. s 4852d; 24 C.F.R. pt. 35 subpt. A; 40 C.F.R. pt. 745 subpts. E, F; SDCL 43-32-8 |
+| `lease-content-requirements` | `edu-no-lease-content-requirements-sd` | new row | Confirmed absent | SDCL 43-32-5 |
+| `lease-copy` | `edu-no-lease-copy-duty-sd` | new row | Confirmed absent | SDCL 36-21A-144; 43-32-5 |
+| `lease-notice-initial-requirement` | `edu-no-lease-initials-requirement-sd` | new row | Confirmed absent | SDCL 43-32-5; 53-9-1; 53-9-4; 53-9-6; 37-24-5.3; 37-24-5.4 |
+| `lease-registration` | `edu-no-lease-registration-duty-sd` | new row | Confirmed absent | SDCL 43-32-5; 21-48-6(8) |
+| `lease-term-limitation` | `edu-lease-term-limitation-sd` | new row | Present | SDCL 43-32-2; 43-32-5 |
+| `lease-type-parity` | `edu-no-lease-type-parity-rule-sd` | new row | Confirmed absent | SDCL 43-32-13, 43-8-8 |
+| `lease-type-size` | `edu-no-lease-type-size-rule-sd` | new row | Confirmed absent | SDCL 37-24-6(1) |
+| `limitation-of-actions` | `edu-limitation-of-actions-sd` | new row | Present | SDCL 15-2-13(1); 53-9-6 |
+| `liquidated-damages` | `edu-liquidated-damages-sd` | new row | Present (narrow) | SDCL 53-9-4, 53-9-5; 21-9-11 |
+| `lockout-for-rent-delinquency` | `edu-no-lockout-for-rent-delinquency-sd` | new row | Confirmed absent (prohibited) | SDCL 43-32-6; 21-3-6 |
+| `maintenance-duty-shift` | `edu-maintenance-duty-shift-sd` | new row | Present (one permitted form) + new SD clause | SDCL 43-32-8 carve-out |
+| `maintenance-duty-shift` | `repairs-in-lieu-of-rent-sd` | new row | Present (one permitted form) + new SD clause | SDCL 43-32-8 carve-out |
+| `meter-conservation-charge` | `edu-no-meter-conservation-charge-rule-sd` | new row | Confirmed absent | SDCL 49-34-14 (gas/electric only) |
+| `military-air-zone-disclosure` | `edu-no-military-zone-disclosure-sd` | new row | Confirmed absent | SDCL 43-8-8; SL 2024, ch 178 (SB 89); SDCL 50-10-5; 50-10-6; 50-9-14; ch. 11-14 |
+| `minor-tenant-filing` | `edu-minor-tenant-contract-bar-sd` | new row | Present (flat bar) | SDCL 26-2-1; 26-1-1, 26-2-4 |
+| `mold-disclosure` | `edu-no-mold-disclosure-sd` | new row | Confirmed absent | SDCL 43-32-8; 43-32-9; 43-32-10; 43-4-44; SL 2025, ch 180 (SB 171); 53-9-4; 37-24-6(1) |
+| `municipal-utility-lien` | `edu-municipal-utility-charge-recovery-sd` | new row | Present | SDCL 34A-6-29; 9-48-26, 9-48-27 |
+| `nonpayment-notice` | `edu-nonpayment-notice-sd` | new row | Confirmed absent (no notice at all) | SDCL 21-16-1(4); 43-8-8 |
+| `nonrefundable-deposit-notice` | `edu-no-nonrefundable-deposit-rule-sd` | new row | Confirmed absent | SDCL 43-32-6.1, 43-32-24 |
+| `nonrefundable-deposit-separate-notice` | `edu-no-nonrefundable-separate-notice-sd` | new row | Confirmed absent | SDCL 43-32-6.1; 43-32-5; 43-32-24 |
+| `nonresident-owner-agent` | `edu-no-nonresident-owner-agent-rule-sd` | new row | Confirmed absent | SDCL 43-8-9, 43-32-9 |
+| `notice-service-fee` | `edu-no-notice-service-fee-sd` | new row | Confirmed absent | SDCL 53-9-4; 43-8-9 |
+| `notice-to-quit-waiver` | `edu-notice-to-quit-waiver-sd` | new row | Confirmed absent; Present (notice scheme) | SDCL 43-8-8 to 43-8-12; 21-16-1(4) |
+| `notice-to-vacate-additional-terms` | `edu-notice-to-vacate-additional-terms-sd` | new row | Confirmed absent as to a prohibition on altering the unit; Present as to the duties that continue and the remedies that enforce them | SDCL 43-32-8; 43-32-6; 43-32-9; 43-32-27; 43-32-31; 43-8-10 |
+| `nuisance` | `edu-nuisance-sd` | new row | Present (bounded, ch. 21-10); Confirmed absent (lease effects) | ch. 21-10; SDCL 22-23-8(4) |
+| `optional-lease-terms` | `edu-optional-lease-terms-sd` | new row | Confirmed absent; Present (3 rules) | SDCL 53-9-1, 53-9-3, 53-9-4/5, 53-9-6 |
+| `ordnance-demolition-meter-disclosures` | `edu-no-ordnance-demolition-meter-disclosure-sd` | new row | Confirmed absent | SDCL 1-19B-27; 1-19B-20; 43-4-44; SL 2025, ch 180 (SB 171); SDCL 11-10-5; 11-10-11; 49-34-14 |
+| `other-landlord-facilities` | `edu-other-landlord-facilities-sd` | new row | Present (general duty) | SDCL 43-32-8 |
+| `owner-identity-disclosure` | `edu-no-owner-identity-disclosure-sd` | new row | Confirmed absent | SDCL 43-32-5; 43-32-13; 43-32-24; 21-16-1; 44-14-10; 36-21A-10; 36-21A-12.1 |
+| `owner-move-in-reservation` | `edu-no-owner-move-in-reservation-sd` | new row | Confirmed absent | SDCL 43-8-8, 43-8-9, 43-8-11 |
+| `parking-rules-notice` | `edu-no-parking-rules-notice-sd` | new row | Confirmed absent | SDCL 43-32-13; 53-9-4; 53-9-5; 32-36-2; 32-36-4.1 |
+| `part5-nonwaivable` | `edu-part5-nonwaivable-sd` | new row | Confirmed absent (no scheme) | SDCL 43-32-8, 43-32-6.1, 53-9-1 |
+| `periodic-services-entry` | `edu-periodic-services-entry-sd` | new row | Present | SDCL 43-32-32 |
+| `pest-control-notice` | `edu-pest-control-notice-sd` | new row | Confirmed absent as to a pest-control notice duty; Present as to the habitability and entry mechanisms that carry it | SDCL 43-32-8; 43-32-9; 43-32-32; 43-32-10; 53-9-4; ARSD art. 12:56 |
+| `pet-eviction-fact-sheet` | `edu-no-pet-eviction-fact-sheet-sd` | new row | Confirmed absent | SDCL 43-32-36; 43-32-34; 20-13-23.4; 43-32-25; 43-32-26 |
+| `pet-fees` | `edu-pet-fees-sd` | new row | Present | SDCL 43-32-6.1; 43-32-24 |
+| `plain-language` | `edu-no-plain-language-requirement-sd` | new row | Confirmed absent | SDCL 37-24-6(1); 37-24-1(6) |
+| `plain-language-consumer-statement` | `edu-no-plain-language-statute-sd` | new row | Confirmed absent | SDCL 53-9-1; ch. 37-24 |
+| `political-access` | `edu-no-political-access-right-sd` | new row | Confirmed absent | SDCL 43-32-6, 43-32-27(3) |
+| `pool-safety` | `edu-no-pool-safety-rule-sd` | new row | Confirmed absent | ARSD 44:02:02:22 (lodging only) |
+| `portable-cooling-device` | `edu-no-portable-cooling-device-right-sd` | new row | Confirmed absent | SDCL 43-32-8 (no cooling duty) |
+| `portable-solar` | `edu-no-portable-solar-right-sd` | new row | Confirmed absent | SDCL 43-13-16.1; 49-34A-116 |
+| `portfolio-thresholds` | `edu-no-portfolio-thresholds-sd` | new row | Confirmed absent | ARSD 61:15:01:15; SDCL 43-4-37(3) |
+| `possession-bond` | `edu-no-possession-bond-sd` | new row | Confirmed absent | SDCL 21-16-7; 21-16-8; 21-16-12; 53-9-6; 37-24-5.5; SDCL ch. 15-26A and ch. 21-26 (not held) |
+| `private-well-testing` | `edu-no-private-well-testing-duty-sd` | new row | Confirmed absent | SDCL 43-32-8; 43-4-44 |
+| `prohibited-acts-renter` | `edu-no-prohibited-acts-renter-list-sd` | new row | Confirmed absent | SDCL 43-32-10, 43-32-11, 43-32-18(1) |
+| `promises-to-repair` | `edu-promises-to-repair-sd` | new row | Confirmed absent | SDCL 43-32-19(2); ch. 37-24 |
+| `prop65-rental-warning` | `edu-no-prop65-rental-warning-sd` | new row | Confirmed absent | SDCL 43-32-8; 34A-17-5 |
+| `property-tax-rent-disclosure` | `edu-no-property-tax-rent-disclosure-sd` | new row | Confirmed absent | SDCL 43-32-24, 43-32-13 |
+| `protected-class-inquiry-ban` | `edu-protected-class-inquiry-ban-sd` | new row | Present | SDCL 20-13-26; 20-13-22(3); ARSD art. 20:03 (no housing chapter) |
+| `purpose-limitation` | `edu-purpose-limitation-sd` | new row | Present | SDCL 43-32-11; 43-32-18(1) |
+| `radon-disclosure` | `edu-no-radon-disclosure-sd` | new row | Confirmed absent | SDCL 43-4-44; SL 2025, ch 180 (SB 171); SDCL 11-10-5; 11-10-11; SL 2026, ch 59 (SB 129); SDCL 43-32-8 |
+| `recycling-notice` | `edu-no-recycling-notice-sd` | new row | Confirmed absent | SDCL 43-32-8; 53-9-4; 34A-16-22; 34A-6-62; ARSD art. 10:06 |
+| `redemption` | `edu-no-tenant-redemption-sd` | new row | Confirmed absent | no tenant redemption right |
+| `religious-cultural-display` | `edu-no-religious-cultural-display-right-sd` | new row | Confirmed absent (right); Present (protected class) | SDCL 20-13-20(1), (2); 20-13-1(4) |
+| `rent-concession` | `edu-no-rent-concession-rule-sd` | new row | Confirmed absent | SDCL 53-9-4, 53-9-5; 43-32-13 |
+| `rent-demand-bar` | `edu-no-rent-demand-bar-sd` | new row | Confirmed absent | SDCL 43-32-9, 43-32-27 |
+| `rent-escalation` | `edu-rent-escalation-sd` | new row | Confirmed absent | SDCL 43-32-27; 43-32-13 |
+| `rent-increase-notice` | `edu-rent-increase-notice-sd` | new row | Present | SDCL 43-32-13; 43-32-27 |
+| `rent-installments` | `edu-rent-installments-sd` | new row | Present (default rule) | SDCL 43-32-12; 43-32-14 |
+| `rent-into-court-counterclaim` | `edu-rent-into-court-undertaking-sd` | new row | Confirmed absent; Present (undertaking) | SDCL 21-16-7; 15-6-13(a) |
+| `rent-receipt-anti-waiver` | `edu-rent-receipt-anti-waiver-sd` | new row | Confirmed absent | SDCL 43-32-8, 43-32-21, 36-21A-10 |
+| `rent-receipts` | `edu-no-rent-receipt-duty-sd` | new row | Confirmed absent | SDCL 21-16-1(4), 43-32-14, 43-32-12 |
+| `rent-reporting` | `edu-no-rent-reporting-rule-sd` | new row | Confirmed absent | SDCL 22-40-19 to -25; FEDERAL FCRA |
+| `rental-inspection` | `edu-no-rental-inspection-regime-sd` | new row | Confirmed absent | SDCL 43-32-32; ch. 11-10 |
+| `renters-insurance-rules` | `edu-renters-insurance-rules-sd` | new row | Confirmed absent; Present (constraint) | SDCL 53-9-4, 43-32-24(1)(b), 53-9-3 |
+| `repair-cost-termination` | `edu-no-repair-cost-termination-sd` | new row | Confirmed absent as to a landlord repair-cost termination right; Present as to the one-month-rent threshold, which runs in the tenant's favour | SDCL 43-32-9; 43-32-8; 43-32-18; 43-32-19(2) |
+| `repair-escrow-exemption-notice` | `edu-no-repair-escrow-exemption-sd` | new row | Confirmed absent | SDCL 43-32-9; 43-32-8; 53-9-6; 53-9-1 |
+| `repair-notice` | `edu-repair-notice-mechanics-sd` | new row | Present | SDCL 43-32-9; 43-32-19(1); 43-32-8; 43-32-18(2); 43-32-27(2) |
+| `required-disclosures` | `edu-required-disclosures-sd` | new row | Present | SDCL 43-32-30; 43-32-19.2; 43-4-37 to 43-4-44; 43-4-44.1; SL 2025, ch 180 (SB 171); SL 2024, ch 177 (SB 217); FEDERAL: 42 U.S.C. 4852d; 40 C.F.R. 745.113 |
+| `required-fees` | `edu-no-required-fees-rule-sd` | new row | Confirmed absent | SDCL 43-32-24, 43-32-13; 49-34-14 |
+| `rights-responsibilities-guide` | `edu-no-rights-guide-sd` | new row | Confirmed absent | no guide; SDCL 43-32-24, 43-4-44.1 |
+| `rules-regulations` | `edu-rules-regulations-sd` | new row | Confirmed absent | no statute; SDCL 43-32-13, 43-32-27 |
+| `sale-or-management-change` | `edu-sale-or-management-change-sd` | new row | Present (tenancy side); Confirmed absent (duties) | SDCL 43-25-28, 43-8-7, 43-32-21 |
+| `sanitary-code-variance` | `edu-no-sanitary-code-variance-rule-sd` | new row | Confirmed absent | SDCL 43-32-8; 11-10-11 |
+| `scope` | `edu-scope-sd` | new row | Present (general chapter, no act) | SDCL 43-32-8, 43-32-1, 43-32-22.1 |
+| `seasonal-tenancy` | `edu-no-seasonal-tenancy-rule-sd` | new row | Confirmed absent | no statute; SDCL 43-32-2, 43-32-22.1, 43-32-37 |
+| `security-deposit-holding` | `edu-security-deposit-holding-sd` | new row | Confirmed absent | SDCL 43-32-6.1; 43-32-24; 43-39-5; 43-39-9 |
+| `security-deposit-interest` | `edu-no-deposit-interest-sd` | new row | Confirmed absent | SDCL 43-32-6.1; 43-32-24; 43-41B-1(10) |
+| `security-deposit-nonwaiver` | `edu-security-deposit-nonwaiver-sd` | new row | Confirmed absent; Present (anti-evasion) | SDCL 43-32-6.1, 43-32-24 |
+| `security-deposit-penalty` | `edu-security-deposit-penalty-structure-sd` | new row | Present | SDCL 43-32-24; 43-32-29; 43-32-6; 43-32-24.1 |
+| `security-deposit-standards` | `edu-no-security-deposit-standards-sd` | new row | Confirmed absent | SDCL 43-32-6.1; 20-13-20(2); 43-32-24 |
+| `security-devices` | `edu-no-security-devices-rule-sd` | new row | Confirmed absent | SDCL 43-32-8; 43-32-6, 21-3-6 |
+| `senior-housing-work-card` | `edu-no-senior-housing-work-card-sd` | new row | Confirmed absent | no statute |
+| `servicemember-rights` | `edu-servicemember-rights-sd` | new row | Present | SDCL 43-8-9; 43-32-19 |
+| `sex-offender-disclosure` | `edu-no-sex-offender-disclosure-sd` | new row | Present | SDCL 36-21A-134.1; 36-21A-138.1; 22-24B-23 |
+| `sex-offender-occupancy` | `edu-sex-offender-occupancy-sd` | new row | Present | SDCL 22-24B-22, -23, -25, -27 |
+| `sfr-occupancy-disclosure` | `edu-no-sfr-occupancy-disclosure-sd` | new row | Confirmed absent | SDCL 43-32-1; 43-32-8; 43-32-30; 20-13-20; 11-10-12 |
+| `shoreline-access-disclosure` | `edu-no-shoreline-access-disclosure-sd` | new row | Confirmed absent | SDCL 43-32-19(2); ch. 37-24 |
+| `showing-notice-waiver` | `edu-showing-notice-waiver-sd` | new row | tagged + Present | SDCL 43-32-32 |
+| `showing-notice-waiver` | `showing-notice-la` | TAG | tagged + Present | SDCL 43-32-32 |
+| `shutdown-rent-protection` | `edu-no-shutdown-rent-protection-sd` | new row | Confirmed absent | SDCL 21-16-1(4), 43-32-12 |
+| `single-family-zone-lease-limit` | `edu-no-single-family-zone-lease-limit-sd` | new row | Confirmed absent | SDCL 43-32-1; 21-16-1 |
+| `smart-access` | `edu-no-smart-access-rule-sd` | new row | Confirmed absent | SDCL 43-32-32; 43-32-6, 21-3-6 |
+| `smoke-drift-waiver` | `edu-smoke-drift-waiver-sd` | new row | Present | SDCL 34-46-13 to 34-46-16 |
+| `social-security-defense` | `edu-no-benefit-delay-defense-sd` | new row | Confirmed absent (resolved this pass) | SDCL 43-45-2, 43-45-7(4), 43-45-14, 43-45-16, 43-45-17; FEDERAL 42 U.S.C. s 407(a) |
+| `source-of-income` | `edu-no-source-of-income-protection-sd` | new row | Confirmed absent | SDCL 20-13-20 (closed list) |
+| `special-district-representation` | `edu-no-special-district-representation-rule-sd` | new row | Confirmed absent | SDCL 34A-6-29 |
+| `sprinkler-disclosure` | `edu-no-sprinkler-disclosure-sd` | new row | Confirmed absent | no statute or rule |
+| `statute-of-frauds-lease-term` | `edu-statute-of-frauds-lease-term-sd` | new row | Present | SDCL 43-32-5; 43-32-14, 43-32-15 |
+| `statutory-caps` | `edu-statutory-caps-sd` | new row | Present (inventory) | SDCL 43-32-6.1, 43-32-24, 43-8-8, 21-16-7, 15-2-13 |
+| `steam-radiator-covers` | `edu-no-steam-radiator-cover-rule-sd` | new row | Confirmed absent | SDCL 43-32-8 |
+| `stigmatized-property` | `edu-stigmatized-property-sd` | new row | Confirmed absent | no stigma or registry duty; SDCL 43-4-37(3), (5), 43-4-41, 43-4-44 |
+| `stove-refrigerator` | `edu-stove-refrigerator-sd` | new row | Confirmed absent | SDCL 43-32-8, 43-32-10 |
+| `student-housing` | `edu-student-housing-sd` | new row | Present | SDCL 20-13-20 closing paragraph; 20-13-22.1(4) |
+| `subsidized-inspection-refusal` | `edu-no-subsidized-inspection-refusal-rule-sd` | new row | Confirmed absent | SDCL 43-32-32; 34-18-25.2 |
+| `subsidy-habitability-proration` | `edu-no-subsidy-habitability-proration-sd` | new row | Confirmed absent | SDCL 43-32-9 |
+| `subsidy-late-fee` | `edu-no-subsidy-late-fee-rule-sd` | new row | Confirmed absent | SDCL 53-9-4; 36-21A-48 |
+| `substandard-property-receivership` | `edu-no-substandard-receivership-sd` | new row | Confirmed absent | no receivership statute |
+| `tax-escalation` | `edu-no-tax-escalation-rule-sd` | new row | Confirmed absent | SDCL 43-32-24(1)(b); 43-32-13 |
+| `telecom-access` | `edu-no-telecom-access-rule-sd` | new row | Confirmed absent | ch. 22-44 (criminal only); FEDERAL OTARD |
+| `tenant-bankruptcy` | `edu-tenant-bankruptcy-sd` | new row | Confirmed absent | no statute; FEDERAL 11 U.S.C. s 365 |
+| `tenant-confidential-information` | `edu-tenant-confidential-information-sd` | new row | Present (narrow) | SDCL 43-32-19.2 |
+| `tenant-display-rights` | `edu-no-tenant-display-rights-sd` | new row | Confirmed absent | no statute; SDCL 43-32-6, 43-32-27 |
+| `tenant-employee-housing` | `edu-tenant-employee-housing-sd` | new row | Confirmed absent | no statute |
+| `tenant-forward-proceedings` | `tenant-forward-proceedings-ca` | TAG | tagged | SDCL 43-32-16; 43-32-17 |
+| `tenant-insurance-claims` | `edu-tenant-insurance-claims-sd` | new row | Confirmed absent | SDCL 43-32-10; 53-9-3 |
+| `tenant-portal` | `edu-tenant-portal-sd` | new row | tagged + Confirmed absent (statute); Present (limit) | SDCL 53-12-8, 53-12-9; 43-32-12; 53-9-4 |
+| `tenant-portal` | `tenant-portal-mn` | TAG | tagged + Confirmed absent (statute); Present (limit) | SDCL 53-12-8, 53-12-9; 43-32-12; 53-9-4 |
+| `tenant-records` | `edu-tenant-records-sd` | new row | Confirmed absent; Present (data breach) | SDCL 22-40-19 to 22-40-25 |
+| `tenant-repair-agreement` | `edu-tenant-repair-agreement-sd` | new row | Present (in lieu of rent only) | SDCL 43-32-8; 43-32-10 |
+| `tenant-repair-remedies` | `edu-tenant-repair-remedies-sd` | new row | Present | SDCL 43-32-9; 43-32-19(1), 43-32-27(2) |
+| `tenant-right-to-organize` | `edu-tenant-right-to-organize-sd` | new row | Confirmed absent (right); Present (retaliation) | SDCL 43-32-27(3) |
+| `tenant-rights-statement` | `edu-no-tenant-rights-statement-sd` | new row | Confirmed absent | SDCL 43-32-24, 43-32-8, 43-8-8 |
+| `tenant-screening` | `edu-tenant-screening-sd` | new row | Confirmed absent | no statute; SDCL 20-13-20, 20-13-26 |
+| `tenant-statutory-duties` | `edu-tenant-statutory-duties-sd` | new row | Present (three duties) | SDCL 43-32-10, 43-32-11, 43-32-16; 21-16-1(7) |
+| `tpa-exemption-notice` | `edu-no-tpa-exemption-notice-sd` | new row | Confirmed absent | SDCL 43-32-6.1; 43-32-8; 43-32-24.1; 43-32-37; 43-8-8; 49-34A-1(12) |
+| `tpa-notice` | `edu-no-tpa-notice-sd` | new row | Confirmed absent | SDCL 43-32-13; 43-8-8; 21-16-1; 43-32-17; 43-15A-10; 53-9-1 |
+| `tpa-sunset` | `edu-no-tpa-sunset-sd` | new row | Confirmed absent | no sunset; SL 2026, ch 179, s 1 (SB 4) as the live amendment risk |
+| `translation-duty` | `edu-no-translation-duty-sd` | new row | Confirmed absent | no translation or type-size rule; SDCL 53-9-4, 53-9-6, 43-32-8 |
+| `trespass-notice` | `edu-trespass-notice-sd` | new row | Present | SDCL 22-35-6; 22-35-7; 22-35-5; 43-32-6; 21-16-1; 43-32-37 |
+| `truth-in-renting` | `edu-no-truth-in-renting-act-sd` | new row | Confirmed absent | SDCL 43-32-5; 43-32-8 |
+| `unbundled-parking` | `edu-no-unbundled-parking-rule-sd` | new row | Confirmed absent | SDCL 43-32-13, 43-32-24(1)(b) |
+| `unpaid-damages-interest` | `edu-unpaid-damages-interest-sd` | new row | Present | SDCL 54-3-5 (Category F, 15%), 54-3-4, 54-3-5.1, 54-3-6, 54-3-1.1, 54-3-16 |
+| `usufructuary-lessor` | `edu-usufructuary-lessor-sd` | new row | Confirmed absent (no usufruct); Present (life estates) | no usufruct in SDCL |
+| `utility-allowance-cap` | `edu-utility-allowance-cap-sd` | new row | Confirmed absent in Code; Present (cap) | SDCL 49-34-14 |
+| `utility-apportionment` | `edu-no-utility-apportionment-rule-sd` | new row | Confirmed absent; Present (markup cap) | SDCL 49-34-14 |
+| `utility-deposit-return` | `edu-utility-deposit-return-sd` | new row | Confirmed absent | SDCL 43-32-6.1; 43-32-24; 43-41B-8 |
+| `utility-disclosure-attachment` | `edu-no-utility-disclosure-attachment-sd` | new row | Confirmed absent | SDCL 49-34-14; 43-32-6; 53-9-4; 44-14-10; ARSD art. 20:10 (not held) |
+| `utility-disconnection-notice-authorization` | `edu-utility-disconnection-notice-authorization-sd` | new row | Not located as to the regulator's disconnection-notice rule; Confirmed absent as to any statute | SDCL 43-32-6; 43-32-8; 43-32-9; 49-34A-2.1; ARSD art. 20:10 |
+| `utility-interruption-submeter` | `edu-utility-interruption-submeter-sd` | new row | Confirmed absent; Present (prohibition) | SDCL 43-32-6; 21-3-6 |
+| `utility-landlord-account` | `edu-utility-landlord-account-sd` | new row | Confirmed absent | SDCL 43-32-6, 43-32-8, 43-32-9 |
+| `utility-submetering-disclosure` | `edu-no-submetering-disclosure-sd` | new row | Not located | SDCL 49-34-14; 49-34A-116; 53-9-4; 43-32-6; ARSD art. 20:10 (not held) |
+| `utility-transfer` | `edu-no-utility-transfer-cutoff-sd` | new row | Confirmed absent (prohibited) | SDCL 43-32-6; 49-34-14 |
+| `veterans-incentive` | `edu-no-veterans-incentive-sd` | new row | Confirmed absent | no statute |
+| `water-heater-temperature` | `edu-no-water-heater-temperature-rule-sd` | new row | Confirmed absent | SDCL 43-32-8; ch. 11-10 |
+| `waterbed` | `edu-no-waterbed-rule-sd` | new row | Confirmed absent | SDCL 43-32-10, 43-32-24, 53-9-4 |
+| `window-guards` | `edu-no-window-guard-rule-sd` | new row | Confirmed absent | SDCL 43-32-8 |
+| `written-notice-required` | `edu-written-notice-required-sd` | new row | Present | SDCL 43-8-8; 43-8-8.1; 43-8-9; 43-8-10; 43-8-11; 43-8-12; 43-32-13; 43-32-15; 43-32-31; 43-32-22.1; 43-32-9; 43-32-19(1); 43-32-32; 43-32-5; 21-16-1(4); 21-3-8 |
+
+Row counts: **260 new rows, 12 existing rows tagged SD.** Two topics carry both a lease clause and an education row under one `topic_key`, which is the library's established pattern (rule 57): `tenant-forward-proceedings` and `carpet-cleaning`.
+
+---
+## 3. Batteries for every absence
+
+Method per rule 19: the statute's own words and every word form; word boundaries on short words; each absence pattern paired with a reject-test on the word it is most likely to match inside; **nonsense controls run in the same batch as each battery**; every pattern tested against a known positive before being trusted. Two instruments: **CL** = all 47,386 section catchlines in the Code (statewide); **FT** = full text of the 26 chapters held for South Dakota (775 live sections). A bounded battery licenses only a bounded claim, so each row names both bounds in its body.
+
+| Topic | Pattern | CL (statewide) | FT (26 ch.) | Verdict |
+|---|---|---|---|---|
+| carpet-cleaning | `\bcarpet` | 0 | 0 | Confirmed absent |
+| extended-absence-notice | `extended absence\|prolonged absence\|absence of the (?:tenant\|lessee)` | 0 | 0 | Confirmed absent |
+| owner-move-in-reservation | `owner.{0,14}occupanc\|owner move\|immediate family.{0,24}occup` | 0 | 0 | Confirmed absent |
+| rent-installments | `rent.{0,20}installment\|installment.{0,20}rent` | 0 | 0 | Confirmed absent (partial-payment limb) |
+| tax-escalation | `tax.{0,18}escalat\|escalation clause` | 0 | 0 | Confirmed absent |
+| utility-allowance-cap | `master.?meter\|sub.?meter\|utility allowance` | 0 | 0 | Confirmed absent in the Code; ARSD 20:10 not held |
+| nonrefundable-deposit-notice | `nonrefundable\|non-?refundable` | 1 (SDCL 41-6-19.6, hunting licence fee) | 0 | Confirmed absent |
+| rent-concession | `concession` | 10 (cigarette sales, plea bargaining) | 0 | Confirmed absent |
+| lease-copy | `cop(?:y\|ies)\s+of\s+(?:the\s+)?(?:lease\|rental agreement\|agreement\|writing)` | - | 0 | Confirmed absent |
+| lease-copy (reject-test) | `\bcopy\b\|\bcopies\b` | 255, all public records / certified copies / service | - | pattern not under-matching |
+| lease-copy (broker limb) | `broker.{0,30}(?:duty\|duties\|disclos\|record)\|property manage` | 6 (SDCL 36-21A-10, -48, -144 the licensing ones) | - | Confirmed absent after reading ch. 36-21A whole |
+| sprinkler-disclosure | `sprinkler` | 1 (SDCL 11-10-12, the municipal bar) | 0 | Confirmed absent (disclosure duty) |
+| alarm-tampering-fee | `tamper` | 23, none authorising a lease fee | 1 (SDCL 34-35A-4) | Confirmed absent (statutory fee) |
+| alarm-tampering-fee (CO limb) | `carbon\s*monoxide` | **0** | **0** | Confirmed absent; also 0 in ARSD 61:15 |
+| ev-charging-requirements | `electric vehicle\|charging station\|\bEVSE\b` | 2 (both Present - see s 2) | 0 | Present |
+| ev-charging (weights & measures limb) | `weights and measures\|electric vehicle supply\|\bEVSE\b` | 4, none reaching charging equipment | - | Confirmed absent |
+| adverse-proceeding-notice | `(?:occupant\|tenant\|lessee).{0,40}notice\|notice.{0,30}(?:occupant\|lessee)` | 12, none a landlord duty | - | Confirmed absent |
+| adverse-proceeding-notice | `foreclos.{0,40}notice\|notice.{0,25}foreclos` | 5 | - | Present as to the scheme, which excludes occupants |
+| adverse-proceeding-notice | `condemn\|unsafe building\|unfit for (?:human )?habitation` | 74, all government takings / public-safety powers | - | Confirmed absent |
+
+**Item 6, the smoke and CO alarm battery, run full-text as the prompt directs** (the corpus's own finding rested on a catchline search). Over all 26 held chapters, with three nonsense controls at 0 in the same batch: `\bsmoke\b` 4 sections, `smoke[-\s]?detect` 4 sections - **all four in chapter 34-18 and all four transient lodging**: SDCL 34-18-9.4 (bed and breakfast establishments) and 34-18-22.1, 34-18-22.2, 34-18-22.3 (specialty resorts under ten occupants, ten or more occupants, and vacation home establishments). `smoke[-\s]?alarm` 0 (South Dakota's statutes say "smoke detector", never "smoke alarm"). `carbon\s*monoxide` **0**. `\bCO\b[-\s]?(?:alarm\|detect)` 0. `alarm\w*` 4 sections, all fire-alarm-system tampering, disorderly conduct and retail crime - SDCL 34-35A-3, 34-35A-4, 22-18-35, 37-24-52 - none requiring installation in a dwelling. Statewide by catchline: `carbon\s*monoxide` **0 of 47,386**; `smoke[-\s]?(?:detect\|alarm)` 1 (SDCL 34-18-9.4). **ARSD 61:15 then read in full**, which is where the residential requirement actually lives: 61:15:01:14 (lodging establishments, each sleeping room), **61:15:01:15 (each family living unit of a multifamily residence housing six or more families)**, and 61:15:01:19 (automatic sprinklers throughout any new hotel, motel or multifamily residence housing six or more families, per IBC 2015 s 903). `carbon\s*monoxide` returns 0 in ARSD 61:15 as well. **Net: no South Dakota statute requires a smoke or CO alarm in a residential rental; the requirement is by administrative rule, and CO alarms are required only in manufactured homes (ARSD 46:04:01:20).** This confirms the existing library row rather than contradicting it - see s 6.
+
+**Batch 2 batteries.** Same method and instruments; three nonsense controls at 0 in each batch.
+
+| Topic | Pattern | CL (statewide) | FT (26 ch.) | Verdict |
+|---|---|---|---|---|
+| criminal-activity | `(?:drug\|controlled substance).{0,40}(?:evict\|premises\|abate\|nuisance)\|evict.{0,30}drug` | 1 (SDCL 36-11A-36, drug distributors) | 0 | Confirmed absent (no statutory mechanism) |
+| criminal-activity (abatement limb) | `prostitution` | 5 | 0 | **Present** - SDCL 22-23-8(4) |
+| criminal-activity (nuisance limb) | `nuisance` | 51 | 0 | Present - ch. 21-10 |
+| part5-nonwaivable / all waiver topics | `waiv` | 246, none a residential non-waiver list | 4: SDCL **43-32-8**, 37-24-5.2, 37-24-5.5, 43-41B-18 | Confirmed absent (no scheme); one express non-waiver |
+| jury-waiver | `jury trial\|waiv.{0,20}jury` | 18, none voiding or authorising a waiver | SDCL 15-6-75, **21-16-8** | NEEDS_REVIEW → cautious course stated |
+| homestead-waiver | `homestead` | 43, all exemption/collection chapters | 0 | Confirmed absent; one limb Not located (ch. 43-45) |
+| smoke-drift-waiver | `\bsmoking\b\|tobacco` | 26 | 0 | **Present** - SDCL 34-46-13 to 34-46-16 |
+| rent-receipt-anti-waiver | `receipt for rent\|rent receipt` | 1 (SDCL 4-3-5, state depositories) | 0 | Confirmed absent |
+| dv-lockchange / dv-eviction-protection | `domestic abuse` | 23, none a lock-change or eviction protection | 0 | Confirmed absent (ch. 25-10 read whole) |
+| eviction-penalty / notice-service-fee / collection-fee | `collection (?:fee\|cost)\|service fee\|late fee` | 18, none authorising a landlord fee | SDCL 43-41B-43, 44-14-2 | Confirmed absent |
+| showing-notice-waiver | `entry\|enter.{0,20}premises` | 133 | 14, incl. **SDCL 43-32-32** | **Present** - the lease may agree alternate notice |
+
+Three screens overturned the expected answer and are worth flagging, because an absence row would have been wrong in each case:
+
+- **`showing-notice-waiver` is Present, not absent.** SDCL 43-32-32 sets the entry standard *and* ends the same sentence with the variation: the 24-hour written-notice presumption applies 'unless alternate methods of notification or times for entry are mutually agreed upon between the landlord and tenant in the lease.' South Dakota therefore both has a period and expressly allows the lease to vary it, with no separate-document requirement.
+- **`smoke-drift-waiver` is Present, not absent.** SDCL 34-46-14 prohibits smoking in any 'public place or place of employment'; 'place of employment' is defined as 'any enclosed area under the control of a public or private employer' (SDCL 34-46-13(2)); and the exemption at SDCL 34-46-16 is for 'any private residence', i.e. the dwelling unit. Enclosed common areas of a managed apartment building are already covered, and SDCL 34-46-15 puts an affirmative duty on the person controlling the place to inform violators.
+- **`criminal-activity` has an affirmative limb.** SDCL 22-23-8(4) makes it a Class 6 felony to knowingly permit a place you own, manage, supervise or control to be regularly used for prostitution 'or [to fail] to make reasonable effort to abate such use by ejecting the tenant, notifying law enforcement authorities, or using other legally available means' - which answers the topic question's prostitution limb in the affirmative and makes the crime-free clause necessary rather than merely prudent.
+
+**Batch 4 batteries (habitability and repair cluster).** Nonsense controls `zxqwvy`, `flurbinate` and
+`quasimandible` all returned 0 in the same batch.
+
+| Topic | Pattern | CL (statewide) | FT (26 ch.) | Verdict |
+|---|---|---|---|---|
+| condition-inspection | `inventor\|condition (?:list\|report\|statement)\|checklist` | 38, all government inventories | 1 (SDCL 37-24-52) | Confirmed absent |
+| condition-inspection (reject-test) | `inspect` | 498 | 30, all agency inspection powers | pattern not under-matching |
+| designated-repairer | `designat.{0,20}(?:repair\|agent)\|person authorized to (?:manage\|receive)` | 12, none a landlord duty | 2 (SDCL 34-18-7, -8, lodging) | Confirmed absent |
+| habitability-materiality | `material (?:noncompliance\|breach\|violation)` | **0** | 1 (SDCL 43-8-8, military-notice exception) | Confirmed absent |
+| habitability-presumption | `presum` | 90 | ch. 43-32: 43-32-3, -4, -14, -25, -32 — all term/holdover/entry | Confirmed absent |
+| promises-to-repair | `promis` | 72, none a repair-promise formality | 8, incl. ch. 37-24 deceptive practices | Confirmed absent |
+| subsidy-habitability-proration | `prorat\|abate` | 63, none residential | 7, lien and fire-marshal | Confirmed absent |
+| tenant-repair-remedies (escrow limb) | `escrow\|into court\|deposit.{0,15}court` | 40, none a tenancy procedure | **0** | Confirmed absent |
+| habitability-statement / all | `fit for human habitation` | **0** | **2 — SDCL 43-32-8, 43-32-9** | Present (the duty itself) |
+
+**Two method notes from this batch, both worth carrying to other states.**
+
+- **A zero catchline count is not by itself an absence.** `fit for human habitation` returns **0 of 47,386
+  section catchlines statewide**, yet the phrase is the operative standard and sits in the *bodies* of
+  SDCL 43-32-8 and 43-32-9. The statewide instrument screens catchlines only; it is conclusive for a subject a
+  catchline would name, and must be paired with full text for a standard stated inside a section. Every absence
+  in this batch rests on both instruments, and each row says so.
+- **Search the statute's own words, not the library's.** The escrow screen initially looked like a clean absence
+  on `escrow`, but SDCL 43-32-9's remedy is worded 'deposit it in a separate bank or savings and loan account'
+  and uses the word escrow nowhere. The absence stated is of a *court-supervised* escrow, which is the right
+  claim; the remedy itself is Present. This is rule 19's reject-test requirement doing real work.
+
+**Batch 5 batteries (access, occupancy and people cluster).** Nonsense controls returned 0 in each batch.
+
+| Topic | Pattern | CL (statewide) | FT (26 ch.) | Verdict |
+|---|---|---|---|---|
+| source-of-income | `source of income\|housing (?:voucher\|choice)\|section 8\|subsid.{0,20}(?:accept\|discriminat)` | **0** | **0** (ch. 20-13 held in full) | Confirmed absent |
+| children-occupancy | `familial status\|\bfamilies with children` | 2 | 5, all ch. 20-13 | **Present** |
+| accessory-dwelling-unit / single-family-zone | `accessory dwelling\|single-?family (?:zone\|district)\|owner.?occupan.{0,20}requir` | **0** | 0 | Confirmed absent |
+| telecom-access | `cable (?:television\|service)\|satellite\|telecommunicat.{0,30}(?:access\|building)` | 7 (ch. 22-44 criminal) | 1 (SDCL 22-1-2) | Confirmed absent |
+| smart-access | `smart (?:lock\|access)\|electronic (?:lock\|key\|access)\|keyless` | 2 (judicial e-filing pilots) | 0 | Confirmed absent |
+| political-access | `canvass\|solicit.{0,20}(?:tenant\|resident)\|political (?:sign\|activit)` | 31, all election canvasses | 0 | Confirmed absent |
+| guest-rights | `\bguest\b` | 10 | 8, all transient lodging/criminal | Confirmed absent |
+| family-child-care | `(?:family )?(?:day care\|child care).{0,25}home` | 2 (SDCL 9-29-26, 26-6-14.2) | 0 | Confirmed absent |
+| sex-offender-occupancy | `sex offender\|registered offender` | 19 | 0 | **Present** (ch. 22-24B fetched) |
+| minor-tenant-filing | `age of majority\|emancipat\|minor.{0,25}contract` | 11 | 0 | **Present** (ch. 26-1, 26-2 fetched) |
+| unbundled-parking | `unbundl\|parking.{0,20}(?:separate\|rent)` | 1 (transient-guest tax) | 0 | Confirmed absent |
+| shoreline-access-disclosure | `shorelin\|lakeshore\|riparian.{0,20}access` | **0** | 0 | Confirmed absent |
+| animal-care-access | `animal.{0,30}(?:care\|welfare\|abandon\|rescue)\|enter.{0,30}animal` | 4 | 0 | Confirmed absent; impoundment limb Not located (ch. 40-1) |
+| disaster-displaced-guests | `disaster.{0,30}(?:displac\|hous\|shelter)\|emergency (?:shelter\|housing)` | **0** | 0 | Confirmed absent |
+| children-occupancy (occupancy limb) | `occupan.{0,20}(?:limit\|standard\|maximum)\|persons per (?:room\|bedroom)` | 1 (SDCL 36-18A-10) | 0 | Confirmed absent |
+
+**Chapters fetched live in batch 5:** 9-29 (26 sections, `a41b7f348dc68833d0df0401e035c5944f20d6b8498ce6ff77f17457713e7c18`),
+22-24B (47, `7307b58211128a79e2318a7abc9acf43a4529bfffde8d6a5df29f43d68aaf1a8`),
+26-1 (4) and 26-2 (7, `589fe9b37edba9e00b87c47ce7b40c9f77ebef63bb10140030fb4ef59877b688`),
+26-6 (69, `96219996f77727d222b279ccd3a7ecdfa118616bf3bedcc060328c7b18660acb`).
+
+**The most consequential find in this batch, and it is a trap for a nationwide library.**
+`minor-tenant-filing` would ordinarily be answered "a minor's lease is voidable, like everywhere else."
+In South Dakota it is not: **'No minor may give a delegation of power, nor make a contract relating to real
+property, or any interest therein'** (SDCL 26-2-1), and SDCL 26-2-3 opens 'Except as specified in s 26-2-1' before
+granting the ordinary power of disaffirmance for every *other* contract. A lease is a contract relating to an
+interest in real property, so a minor's residential lease is not a voidable lease - there is no lease. The
+landlord's residual claim is SDCL 26-2-4, which bars a minor disaffirming a contract 'otherwise valid' to pay the
+reasonable value of necessaries; that supports a reasonable-value claim for shelter supplied, not the lease terms.
+A library that answered this topic from the general rule would be wrong in South Dakota.
+
+Two other Present findings worth flagging: **familial status is protected** in housing (SDCL 20-13-20) and
+defined narrowly as individuals under eighteen domiciled with a parent or custodian, including a pregnant person,
+with senior-housing exemptions at SDCL 20-13-20.2 - while **source of income is not protected at all**, the
+housing list being closed at race, color, creed, religion, sex, ancestry, disability, familial status and national
+origin. And **SDCL 22-24B-25 preempts local offender-residency ordinances**, so the one-city co-residence
+ordinance pattern the topic question asks about cannot arise in South Dakota.
+
+**Batch 3 (deposit cluster, canvassed) and batch 6 (utilities, insurance and process).** Batch 3's fourteen
+topics were canvassed by one agent working from a written brief; its batteries, reject-tests and controls are
+recorded in its own answer files and every row was checked by me before entering the delta - structurally (ids,
+groups, topic keys, notes form, body length, battery present) and by verifying that **all 50 distinct SDCL
+sections it cited exist in the 47,386-section index**. Thirteen of the fourteen are confirmed absences;
+`security-deposit-penalty` is Present.
+
+| Topic | Pattern | CL (statewide) | FT (26 ch.) | Verdict |
+|---|---|---|---|---|
+| municipal-utility-lien | `lien.{0,30}(?:water\|sewer\|utilit)\|utilit.{0,30}lien` | 1 (SDCL 44-9-35) | 0 | **Present via a different mechanism** - see below |
+| utility-apportionment | `apportion` | 118, all governmental | 2 (ch. 15-17 costs) | Confirmed absent |
+| utility-interruption-submeter / landlord-account | `master.?meter\|sub.?meter\|utility allowance` | **0** | 0 | Confirmed absent; SDCL 43-32-6 occupies the field |
+| water-heater-temperature | `water heater\|hot water.{0,20}temperatur\|\b120 degrees` | **0** | 0 | Confirmed absent |
+| waterbed | `waterbed\|water bed\|liquid-?filled` | **0** | 0 | Confirmed absent |
+| landlord-liability-insurance | `liabilit.{0,20}insur\|insurance.{0,20}(?:requir\|landlord\|tenant)` | 72, all public-entity | 1 (SDCL 43-41B-7) | Confirmed absent |
+| tenant-insurance-claims | `renter.{0,15}insur\|subrogat` | 21 | 1 (SDCL 21-3-12, malpractice) | Confirmed absent |
+| informal-dispute-resolution | `mediat\|arbitrat\|dispute resolution` | 150 | 7 | **Present** - SDCL 53-9-6 + ch. 21-25A |
+| plain-language-consumer-statement | `plain language\|readabl` | **0** | 3 (ch. 37-24, 34-18-42) | Confirmed absent |
+| tenant-records / tenant-confidential-information | `tenant.{0,25}(?:record\|information)\|confidential.{0,25}(?:tenant\|rental)` | 1 (SDCL 1-27-1.20) | 0 | Confirmed absent as to ledgers; **Present** as to SDCL 43-32-19.2 and ch. 22-40 |
+| tenant-rights-statement | `rights and (?:responsibilit\|duties)\|statement of (?:tenant )?rights` | 22, none a tenancy summary | 2 | Confirmed absent |
+| (data-security limb) | `breach of system security\|data breach` | 4, all ch. 22-40 | 0 | **Present** - ch. 22-40 reaches landlords |
+
+**A false absence caught by a reject-test, and it is the most useful finding in this batch.** The lien-worded
+battery for `municipal-utility-lien` returned a clean zero, which would have produced a row saying a tenant's
+unpaid municipal charges cannot reach the owner. That is wrong, because South Dakota does it without using the
+word lien: **'If any fee, charge, or license so levied, other than a municipal garbage collection fee, becomes
+delinquent, the delinquency may be certified to the county treasurer and shall be collected by the county
+treasurer in the following year as a condition precedent to payment of the real property tax on the lot or parcel
+of land with respect to which the fee, charge, or license was levied. The chief fiscal officer of a municipality
+shall collect a delinquent municipal garbage collection fee as a condition precedent to the payment of any water,
+sewer, utility, or other charge collected by the municipality'** (SDCL 34A-6-29). So a delinquent solid-waste fee
+blocks payment of the property tax on that parcel, and a delinquent municipal garbage fee blocks the owner's other
+municipal utility payments - the Kentucky comparator's mechanism, reached by a route no lien search would find.
+There is no statutory owner exemption and no affidavit route. **Chapter 34A-6 (118 sections) was fetched to
+confirm it**, SHA-256 `381693b5ad032f1691b83699ab3f6fae3559077f798e0eecda47898124821316`.
+
+**Chapters fetched live in batches 3 and 6:** 21-25A (38, `e28f19736aa236410e7e3c999b86e0ef95b9e5b47f14854af37f67b3c443f5f8`),
+22-40 (20, `9af741f723324f581bc68a656ed18eccce989649bf006d25d118fc1148d041c7`),
+34A-6 (118, hash above), plus the chapter 36-21A trust-account sections (see s 4).
+
+**Two further Present findings.** **SDCL 53-9-6** makes any provision 'restricting a party from enforcing his
+rights under it by usual legal proceedings in ordinary tribunals, or limiting his time to do so' void, with
+arbitration under chapter 21-25A excepted and arbitration agreements expressly 'valid, enforceable and
+irrevocable' (SDCL 21-25A-1) - so a mandatory pre-suit step is at real risk in South Dakota while an arbitration
+agreement is not. And **chapter 22-40's breach-notification duty reaches landlords**: an 'information holder' is
+'any person or business that conducts business in this state, and that owns or licenses computerized personal or
+protected information of residents of this state' (SDCL 22-40-19), with 60-day notice, attorney-general
+notification above 250 residents, consumer-reporting-agency notice, and civil penalties of up to $10,000 per day
+per violation (SDCL 22-40-20, -24, -25). **No row in the library cited chapter 22-40 before this pass.**
+
+**The disclosure cluster (20 topics, canvassed).** Checked by me before entering the delta: structurally clean,
+and **all 68 distinct SDCL sections cited exist in the 47,386-section index**. Nineteen are confirmed absences;
+`required-disclosures` is Present as a summary. Four were returned as **Not located** and I resolved or
+documented every one rather than shipping them that way - see s 4.
+
+**This cluster produced the pass's most useful structural finding, and it is a landlord trap.** South Dakota's
+real residential disclosure regime is **SDCL 43-4-37 to 43-4-44.1**, and it runs on **sale, not lease** - which
+is why nineteen lease-side rows are absences. But the definition of a covered transfer is wider than "sale":
+
+> "'Transfer,' a sale, exchange, installment sale contract, **lease with an option to purchase**, other option to
+> purchase, or a ground lease coupled with improvements." (SDCL 43-4-37(5))
+
+So a plain residential lease carries no disclosure duty, while **adding a purchase option to a lease pulls the
+landlord inside the whole seller regime**: the completed property condition disclosure statement must go to the
+tenant-buyer before they make a written offer (SDCL 43-4-38), in good faith (SDCL 43-4-41), with liability for
+failure (SDCL 43-4-42). "Residential real property" means not more than four family dwelling units in one
+structure (SDCL 43-4-37(3)), and the exempt transfers are listed at SDCL 43-4-43. The disclosure form itself,
+printed in full by **SL 2025, ch 180 (SB 171)** amending SDCL 43-4-44, covers radon in house and well, lead paint,
+mold, methane, asbestos, buried fuel and chemical tanks, flood plain, wetlands, foreclosure and code-violation
+notices, HOA assessments, historic designation and methamphetamine. **SDCL 43-4-44.1** (created by
+**SL 2024, ch 177 (SB 217)**) adds a homeowners'-association disclosure, again on sale. **No part of chapter 43-4
+appeared anywhere in the library before this pass** (anchored section-number grep, rule 28). That finding is now
+carried in `edu-required-disclosures-sd` and in each of the five rows whose scope limb it settles.
+
+**A fourth instrument, found by the agent rather than given to it.** The corpus holds the **full enacted text of
+719 session laws (2024-2026)**, which the brief had treated only as a currency source. Because an act prints the
+amended section whole, those files allow section-open reading of statutes **outside the 26 held chapters**
+wherever a 2024-2026 act touched them - which is how chapter 43-4's disclosure form and SDCL 11-10-11 were read
+without a live fetch. This is a method improvement worth carrying to other states and is proposed as an SOP
+change below.
+
+**The agent also corrected its own work in two ways worth recording**, because both are the shapes this project
+keeps meeting. It had written that it read SDCL 49-34-14, 49-34-13 and 49-34A-1 "section-open" when chapter 49-34
+is not among its 26 held chapters - I had fetched it. It removed the verbatim quotation it was not entitled to
+make, restated the cap in its own words with the citation, attributed the quotation to
+`edu-utility-allowance-cap-sd`, and ran an audit confirming no residual claim of that kind. And two battery counts
+it had asserted before running the pattern were wrong (a reject-test count given as "500+" was 84; an
+electric-utility screen given as 40 was 15); three patterns it expected to return zero returned 1, 2 and 6. None
+of the hits was a disclosure duty, so the verdicts stood, but the recorded batteries now carry the real counts and
+name the hits. **A count asserted from expectation rather than from the run is the same error as an unverified
+citation**, and it is proposed as an SOP line below.
+
+**Batch 9 (fees and charges cluster, 13 topics).** Every one is an absence at both instrument levels - South
+Dakota regulates almost nothing about rental fees - so the discipline here was to make each row rest on a
+different South Dakota provision rather than repeat "no rule". Nonsense controls returned 0 in each batch.
+
+| Topic | Pattern | CL (statewide) | FT (26 ch.) | What answers it instead |
+|---|---|---|---|---|
+| application-fees | `application fee\|screening fee\|credit check fee` | 15, all licensing/permit fees | 0 | SDCL 43-32-6.1 deeming; 53-9-4 |
+| fee-transparency | `fee.{0,25}(?:disclos\|itemiz\|schedule)` | 14, all governmental | 1 (SDCL 34-18-10) | SDCL 43-32-24 - an unlisted fee is uncollectible |
+| fee-unprovided-service | (same, + fee patterns) | 14 / 18 | 1 | SDCL 53-9-4, 53-9-1; ch. 37-24 |
+| government-fee-reimbursement | `reimburse.{0,30}(?:fee\|charge\|tax)` | 3, none landlord | 1 (SDCL 43-41B-21) | **SDCL 34A-6-29** runs the other way |
+| late-fee-limit | `late (?:fee\|charge\|payment (?:fee\|charge))` | 6, none residential | 1 (SDCL 44-14-2) | **SDCL 53-9-4 / 53-9-5** on the amount |
+| pet-fees | `\bpet\b` | 6, all feeds/rabies/pet food | **0** | **SDCL 43-32-6.1** - a pet deposit IS deposit money |
+| required-fees | `truth in renting\|lease.{0,20}(?:content\|must contain)` | 1 (SDCL 44-8-14) | 0 | SDCL 43-32-24(1)(b); 43-32-13 |
+| subsidy-late-fee | `late fee` + `subsid` | 6 | 1 | SDCL 53-9-4; program-contractual |
+| rent-receipts | `receipt.{0,25}(?:rent\|payment)\|written receipt` | 23, all public treasurers | 1 (SDCL 44-14-3) | SDCL 21-16-1(4); **43-32-14** renewal trap |
+| rent-reporting | `(?:credit\|consumer) report.{0,30}(?:rent\|tenan)` | 1 (child support) | 0 | ch. 22-40; FEDERAL FCRA |
+| renters-insurance-rules | `renter.{0,15}insur\|require.{0,25}insur.{0,25}tenant` | **0** | 0 | SDCL 53-9-4 bars a force-placement fee |
+| truth-in-renting | `truth in renting\|lease.{0,20}content` | 1 | 0 | SDCL 43-32-5 is the only content rule |
+| prohibited-acts-renter | `prohibited act` | 26, all regulatory offences | 0 | SDCL 43-32-10, 43-32-11, **43-32-18(1)** |
+
+**Two answers in this cluster are Present and change what a landlord should do.** A **pet deposit is security
+deposit money** in South Dakota - 'Any deposit of money, the function of which is to secure the performance of a
+residential rental agreement or any part of such an agreement, shall be deemed to be a security deposit'
+(SDCL 43-32-6.1) - so it sits inside the single one-month cap, with no pet-deposit exclusion and no separate pet
+ceiling, which answers all four limbs of that topic question; pet *rent* is not deposit money and is the cleaner
+instrument. And while there is **no late-fee cap**, SDCL 53-9-4 and 53-9-5 constrain the figure itself, which makes
+this row the education counterpart to the CONSTRAINED_TERM basis of the shared `late-fee` clause already tagged SD
+(its `{{late_fee_amount}}` is the landlord's own figure, and these two sections are what it has to be defensible
+against).
+
+**A structural point this cluster makes repeatedly, and it is the useful one for a landlord-facing library.**
+In a state with no fee regulation, the lease is not a formality - it is the source of the right to collect. Deposit
+withholding reaches only rent defaults, 'Other funds due to the landlord pursuant to an agreement', and
+restoration (SDCL 43-32-24), so a charge the lease never created is not collectible at all; and withholding it
+anyway is a failure to comply that 'forfeits all rights to withhold any portion of the deposit'. An undisclosed fee
+therefore does not merely fail - it can cost the whole deposit. Five of the thirteen rows turn on that sentence.
+
+**Batch 10 (rent mechanics and eviction-adjacent rent rules, 14 topics).** Nonsense controls 0 in each batch.
+Three of these are Present and one of the absences is the most consequential finding in the whole pass for a
+landlord-facing product.
+
+| Topic | Pattern | CL (statewide) | FT (26 ch.) | Verdict |
+|---|---|---|---|---|
+| **nonpayment-notice** | `demand.{0,20}(?:rent\|possession)\|notice.{0,25}nonpayment` | **0** | 1 (SDCL 21-3-8, a damages measure) | **Confirmed absent - there is no pay-or-quit notice** |
+| rent-increase-notice | `rent.{0,20}(?:increas\|escalat)\|increas.{0,20}rent` | **0** | 1 (SDCL 43-32-27) | **Present** - SDCL 43-32-13 |
+| rent-escalation | (same) | 0 | 1 | Confirmed absent (no safe harbour to earn) |
+| condemned-premises-rent-bar | `condemn.{0,40}(?:rent\|occupan)\|unfit.{0,30}rent` | **0** | 0 | Confirmed absent |
+| lockout-for-rent-delinquency | `lock.?out\|exclude.{0,25}tenant` | **0** | 1 - **SDCL 43-32-6, the prohibition** | Confirmed absent, and prohibited |
+| rent-into-court-counterclaim | `counterclaim\|pay.{0,20}into court` | 15 | 2 (SDCL 15-6-22, 15-6-72; rule at 15-6-13(a)) | Absent as to escrow; **Present** as to SDCL 21-16-7 |
+| health-district-rental-rules | `health district\|board of health` | 3 | 0 | Confirmed absent |
+| rental-inspection | `rental.{0,20}(?:inspect\|licen\|registr)` | 2 | 0 | Confirmed absent |
+| meter-conservation-charge | `conservation.{0,20}(?:charge\|fee)\|meter.{0,20}charge` | 1 (licence plates) | 0 | Confirmed absent |
+| utility-transfer | `transfer.{0,25}(?:utilit\|service\|account)` | 20, all pension transfers | 0 | Confirmed absent, and prohibited |
+| property-tax-rent-disclosure | `property tax.{0,30}(?:disclos\|rent)` | **0** | 0 | Confirmed absent |
+| prop65-rental-warning | `warning.{0,30}(?:chemical\|cancer\|reproductive)` | **0** | 0 | Confirmed absent |
+| rent-demand-bar | `demand.{0,20}(?:rent\|possession)` | **0** | 1 | Confirmed absent |
+| shutdown-rent-protection | `(?:government\|federal).{0,25}shutdown\|furlough` | 1 (veterans home) | 0 | Confirmed absent |
+
+**South Dakota has no pay-or-quit notice, and this is the state's defining procedural feature.** There is no
+verbatim notice wording, no demand period to serve, no state-agency form, no proof-of-delivery filing bar, no
+mediation precondition and no tender defence. Former SDCL 21-16-2 was repealed by SL 2024, ch 75, § 1, and the
+ground now stands alone: a lessee who 'holds over after the termination of his lease or expiration of his term,
+**or fails to pay his rent for three days after the same shall be due**' (SDCL 21-16-1(4)). **Those three days
+are not a notice period - they are when the ground matures.** None of the topic question's ten comparators has a
+South Dakota analogue. The practical point the row makes is the one a landlord needs: because the statute requires
+no notice, a notice-and-cure promise in the landlord's *own lease* is the only such obligation that exists, and it
+binds as a contract term - so the lease should be written deliberately rather than inheriting a cure clause from
+another state's form.
+
+**And South Dakota does have a rent-into-court mechanism, just not where the topic looks for it.** There is no
+escrow condition on raising a defence or demanding a jury. But the tenant's time to appear is five days, and
+'**No adjournment or continuance shall be made for more than fourteen days, unless the defendant applying therefor
+shall give an undertaking to the plaintiff with good and sufficient surety to be approved by the court,
+conditioned for the payment of the rent that may accrue, together with costs**' (SDCL 21-16-7). That is the
+Maryland comparator's shape - security for accruing rent as the price of a long adjournment - reached through the
+section the prompt's currency list had recorded as repealed. The row tells the landlord to ask the court for the
+undertaking rather than to oppose the continuance.
+
+**Batch 11 (contract structure and lease formalities, 15 topics).** Unusually, **eight of these are Present** -
+South Dakota's general contract law is where its landlord-tenant law actually lives, so topics that read as
+absences in other states have real answers here. Nonsense controls 0 in each batch.
+
+| Topic | CL / FT | Verdict and what answers it |
+|---|---|---|
+| limitation-of-actions | 26 / 0 | **Present** - six years on a contract (SDCL 15-2-13(1)), and **SDCL 53-9-6 voids any lease term shortening it** |
+| binding-arbitration | 150 / 7 | **Present** - SDCL 21-25A-1; the only carve-out from SDCL 53-9-6 |
+| liquidated-damages | 3 / 1 | **Present (narrow)** - SDCL 53-9-4, 53-9-5, with severability at SDCL 21-9-11 |
+| confession-of-judgment | 2 / 1 | Absent as to a ban; the clause still cannot work (SDCL 53-9-6) |
+| lease-term-limitation | - | **Present** - SDCL 43-32-2 (agricultural 20 yrs, municipal lot 99 yrs); none for housing |
+| statute-of-frauds-lease-term | - | **Present** - SDCL 43-32-5, **more than one year**, a validity rule, signed by the **lessor** |
+| purpose-limitation | 51 / 0 | **Present** - SDCL 43-32-11 gives risk-shifting "at all events" **or** rescission |
+| scope | - | **Present** - a general chapter, not an act; no mobile home park act, no local adoption |
+| consumer-protection-act | - | **Present**, with a scope question recorded - SDCL 37-24-1(6) reaches goods or services "leased, or rented" |
+| automatic-renewal | 1 / 1 | Confirmed absent; SDCL 43-32-14 and 43-32-15 renew by default instead |
+| guarantor-renewal | 87 / 1 | Confirmed absent; guarantor security is still deposit money (SDCL 43-32-6.1) |
+| lease-content-requirements / plain-language / optional-lease-terms | 1 / 0 | Confirmed absent; SDCL 53-9-1, -3, -4, -5, -6 govern instead |
+| statutory-caps | 2 / 0 | **Present** - written as an inventory of every figure South Dakota fixes |
+
+**Two catchline matches turned out to be false leads, and reading them is what caught it.** `confession of
+judgment` matched **SDCL 37-24-5.5**, whose catchline promises exactly the prohibition the topic asks about - but
+the section reads 'for any seller to include in any **door to door** contract or receipt any confession of
+judgment', and SDCL 37-24-5.2 narrows 'door to door sale' further still. It is not a lease provision. Likewise
+`liquidated damages` matched **SDCL 37-24-48**, which turns out to be a damages provision for unsolicited
+commercial email. Both would have produced a wrong row if the catchline had been trusted. The confession-of-judgment
+row still reaches a firm answer, but on SDCL 53-9-6 rather than on a prohibition that does not exist.
+
+**A scope question that affects a dozen rows, recorded once.** Many rows in this pass cite chapter 37-24 as the
+consumer-protection route. Reading SDCL 37-24-1 confirms the definitions point toward coverage of a tenancy -
+"'Goods or services,' goods or services purchased, **leased, or rented**" and "'Merchandise,' any object, wares,
+goods, commodity, **intangible**, instruction, or service" - but the operative prohibition at SDCL 37-24-6(1) is
+worded around the 'sale or advertisement' of merchandise, much of the chapter addresses consumer sales, and no
+South Dakota decision applying it to a residential lease was located. Rather than hedge in a dozen places, the
+question is recorded in full in `edu-consumer-protection-act-sd` with the cautious course stated (assume it
+applies), and the other rows cross-reference it. One legislative indication in favour: chapter 22-40's
+breach-notification failures are expressly prosecutable 'as a deceptive act or practice under s 37-24-6'
+(SDCL 22-40-25), which is conduct outside any classic sale.
+
+**Batch 12 (physical condition, 15 topics) and batches 7-8 (eviction core and notice duties, 28 topics
+canvassed).** Both canvassed sets were checked by me before entering the delta: structurally clean, and every
+distinct SDCL section cited - 83 from one, 77 from the other - verified against the section index, with one
+exception resolved below. Nonsense controls 0 in every batch.
+
+**The physical-condition cluster has a single answer running through it:** SDCL 43-32-8 is the whole of South
+Dakota's building-condition law for rentals, and its wording does more work than its brevity suggests. 'The
+premises **and all common areas**' brings shared lighting, laundries, garages, stairwells and playgrounds inside
+the duty (`edu-common-area-lighting-sd`, `edu-other-landlord-facilities-sd`). Naming 'electrical, plumbing, or
+**heating** systems' and omitting cooling is why heat cannot be shifted to a tenant while air conditioning need
+not be supplied at all (`edu-heating-duty-sd`, `edu-no-portable-cooling-device-right-sd`). And the non-waiver
+sentence is why an appliance-exclusion clause cannot reach the furnace or the wiring
+(`edu-appliances-excluded-sd`). Twelve of the fifteen topics are absences with that one duty as the answer -
+no balcony inspection, no security-device or rekey mandate, no window guards, no radiator covers, no asbestos
+duty, no well testing, no solar or cooling right, no furnishing rules.
+
+**`pool-safety` is the third instance of South Dakota's lodging-only pattern, and the most useful one to name.**
+A `\bpool\b` battery returns 53 statewide catchline hits, but reject-testing with `swimming pool` cuts it to 10,
+all municipal bond provisions. The real rules are in **ARSD article 44:02, which is held and is titled "Lodging
+and Food Service"**: 'All water recreation facilities, including swimming pools, spas, and water slides **operated
+by a hotel and used by guests or the public**, must be designed, constructed, and maintained using the
+"Recommended Standards for Swimming Pool Design and Operation," 1996 edition' (ARSD 44:02:02:22). So South Dakota
+has pool standards, smoke-detector standards and sanitation standards that all stop at the door of a residential
+tenancy - the same scoping that `edu-detector-duty-scope-sd` records for alarms. A library that found "South Dakota
+regulates pools" without reading the article's title would get this wrong.
+
+**From the eviction and notice clusters, four statutes entered the library for the first time**, all verified
+section-open after the canvass: **SDCL 21-7-1 and 21-7-2** (waste by a tenant for years supports treble damages,
+forfeiture of the estate and **eviction**, but forfeiture and eviction only where the injury equals the value of
+the unexpired term or was done maliciously) - a second, independent eviction remedy no South Dakota row had cited;
+**SDCL 43-32-31** (ninety days' notice to vacate and remove a mobile or manufactured home where the leased land is
+developed for an alternate use, inapplicable where the notice rests on a lease breach) - South Dakota's only
+conversion-notice provision; **SDCL 15-26A-28** (on appeal from a judgment directing delivery of possession the
+bond condition is no waste plus the value of use and occupation if affirmed) - so South Dakota's only possession
+bond runs against the appealing tenant, not the landlord; and **chapter 34-29B's inspection sections**
+(consent-or-warrant entry, periodic inspection, a Class 1 misdemeanor for disobeying a fire-marshal order, written
+notice of violation) - the only penalised inspection regime reaching residential premises.
+
+**One citation I could not verify from my own index, and the agent was right.** A row cited SDCL 15-6-4(c), which
+my statewide catchline index does not contain - because my parse of the title index captured only bare
+`title-chapter-section` numbers and **silently dropped the lettered-subsection entries that court rules use**. I
+checked the raw held text of chapter 15-6 directly and the section exists with the quotation accurate word for
+word: 'The summons may be served by the sheriff or a constable of the county ... or by any other person not a
+party to the action who at the time of making such service is an elector of any state.' The lesson is about my
+instrument, not the citation: **the statewide index under-reports chapter 15-6 (and any chapter organised as court
+rules), so an absence screened only against it is not safe for a procedural subject.** Full text was used for all
+such screens in this pass, and this is proposed as an SOP line below.
+
+**Batch 13 (EV charging, registration and lease-structure thresholds, 14 topics).** Thirteen absences and one
+Present. Nonsense controls 0 in each batch.
+
+Two results are worth stating as findings rather than entries in a table.
+
+**No South Dakota landlord duty is tiered by portfolio size - none at all.** The battery
+`(?:four|4|five|5|ten|10).{0,20}(?:or more|or fewer).{0,20}(?:unit|dwelling)|number of (?:rental )?units`
+returns **0 of 47,386 catchlines and 0 in the held chapters' full text**. There is no small-landlord exemption and
+no duty that switches on above a number of properties, so the habitability duty, the deposit cap and timetable,
+the entry standard and the termination notices apply identically to a one-duplex owner and to a thousand-unit
+owner. Two figures that look like thresholds are **building-size** tests, not portfolio tests, and the row says so:
+ARSD 61:15:01:15 and 61:15:01:19 turn on a multifamily residence housing six or more families, and the seller's
+disclosure regime on 'residential real property consisting of not more than four family dwelling units, all of
+which are contained in one structure' (SDCL 43-4-37(3)). A landlord with twenty fourplexes is outside the alarm and
+sprinkler rules; a landlord with one six-plex is inside them.
+
+**`frozen-standard-incorporation` is Present, and the editions do not match each other.** South Dakota regulates
+by incorporating outside standards and freezes the version each time - but the two regimes that reach a rental are
+frozen at different dates. Building design runs on the **2024** International Building Code, International
+Residential Code and International Property Maintenance Code (SDCL 11-10-5, 11-10-6, 11-10-11, 11-10-12), while
+the Department of Public Safety's fire-safety rules - the ones carrying the smoke-detector and sprinkler
+requirements - adopt the IBC, IFC and IMC **2015** editions (ARSD 61:15:01:01), and lodging pool standards run on a
+**1996** publication (ARSD 44:02:02:22). Further frozen references: FIPS 140-2 'in effect on January 1, 2018'
+(SDCL 22-40-19(2)) and a refrigerant designation 'as amended and in effect on January 1, 2023' (SDCL 11-10-14).
+The row tells a landlord to confirm which edition applies to which regime before accepting a code citation.
+
+**A third instance of my catchline index under-reporting, recorded because it is now a pattern.** The frozen-
+standard screen `as in effect on|as amended (?:and )?in effect` returns **0 catchline hits statewide** even though
+the phrase is the organising technique of several chapters - because it lives in section bodies, never in
+catchlines. Taken with the court-rule subsection gap found in batch 7, the instrument's limits are now clear
+enough to state as a rule: **the statewide catchline index is conclusive only for subjects a catchline would
+name.** Every absence in this pass is screened against full text as well, and the proposed SOP change below makes
+that explicit.
+
+**One verdict is left as Not located, with the boundary in the row body.**
+`entity-landlord-court-representation` asks whether a non-attorney may appear for an entity landlord. No statute
+or rule imposing that bar appears in the 26 held chapters - which include chapter 15-6 in full - but unauthorised
+practice of law sits in SDCL chapter 16-18 and in the Supreme Court's own rules, neither held, and the index's
+court-rule gap makes a rule-based bar the more likely location. The row says so rather than asserting permission,
+and gives the landlord the operative practical point: in a forcible entry and detainer case the court may tax
+reasonable attorney fees to the prevailing party **only if that party is represented by a licensed attorney**
+(SDCL 21-16-11), and the fee-shifting is mutual - so an entity appearing through its own manager cannot recover
+fees even if it wins, while a represented tenant who prevails can recover against it.
+
+**Batch 14 (tenant conduct, house rules and lease-term restrictions, 13 topics).** Eleven absences and two
+split verdicts. Nonsense controls 0 in each batch.
+
+Three results are worth stating as findings rather than entries in a table.
+
+**A lease firearm restriction is enforceable in South Dakota, and the state's firearm preemption does not touch
+it.** This matters because the opposite is widely assumed. The landlord-facing battery
+`firearm.{0,60}(?:lessee|tenant|landlord|rental|dwelling)|(?:lessee|tenant|landlord).{0,40}firearm`
+returns **0 of 47,386 catchlines and 0 in the held chapters' full text**; the vehicle variant
+`firearm.{0,40}(?:vehicle|motor vehicle)|vehicle.{0,30}firearm` returns 2 catchlines, both discharge offences
+(SDCL 22-14-20, 22-14-21). The broad screen `firearm|concealed pistol|\bweapon\b` returns 77 catchlines, and the
+only ones carrying the catchline **"Firearms regulation prohibited--Action by attorney general"** are
+**SDCL 7-18A-36 (counties), 8-5-13 (townships) and 9-19-20 (municipalities)** - three parallel provisions
+addressed to a political subdivision's **ordinance** power. The preemption runs against government, not against
+private contract, so it neither protects a tenant from a lease term nor stops a landlord adopting one. Chapter
+23-7 (concealed carry) is not held, but its catchlines were read and no permit provision reaches a private lease.
+A firearm covenant therefore reaches eviction like any other, through SDCL 21-16-1(7).
+
+**Two shared clauses existed for `rules-regulations` and both were declined, which is the first time a tag was
+refused for a reason other than the clause's own basis resting on the other state's statute.** `rules-ia`
+(11 states) recites the Iowa URLTA enforceability conditions - purpose, reasonable relation, fair application,
+explicitness - as conditions on a rule binding the tenant; tagging it would import into South Dakota a set of
+limits South Dakota does not impose, so it fails the rule-26 basis check in the ordinary way. `rules-wi`
+(7 states) fails differently: its mid-tenancy rule (a new rule binds only on the tenant's written agreement or at
+renewal) is correct for a fixed term but **omits the modification route South Dakota actually gives the
+landlord**. Under SDCL 43-32-13 a month-to-month lease may be modified on thirty days' written notice before the
+month's end, and the notice "shall of itself operate and be effectual to create and establish as a part of the
+lease the terms, rent, and conditions specified in the notice, if the tenant shall continue to hold the premises
+after the expiration of the month", subject to the tenant's fifteen-day termination right. Tagging `rules-wi`
+would have understated the landlord's position rather than overstated it. Both reasons are recorded in
+`edu-rules-regulations-sd`'s notes; the topic is answered by an education row.
+
+**The tenant's statutory duties are three sections, and that is the whole list.** South Dakota has not adopted
+URLTA, so there is no tenant-obligations section: the duties are SDCL 43-32-10 (preserve the premises,
+appliances, appurtenances and other leased personality; repair deterioration from the lessee's own negligent,
+wilful or malicious conduct or that of a person under the lessee's direction or control), SDCL 43-32-11
+(specified-purpose use, with the landlord's election between holding the tenant responsible for the premises'
+safety "at all events" and treating the contract as rescinded) and SDCL 43-32-16 (forward a proceeding notice,
+with liability for all damages from an omission to do so). Cleanliness, rubbish, noise, facilities use and
+disturbance of neighbours are all absent, so each must be a lease term - carried by SDCL 21-16-1(7).
+
+The remaining verdicts: `tenant-right-to-organize` is **absent as to any right** (no association right, no
+organiser access, no common-area meeting right, no recognition duty; battery
+`tenant.{0,15}(?:union|organiz)|resident.{0,15}(?:council|associat)` 0 catchlines statewide, SDCL 43-32-27 the
+only full-text hit) but **Present as to protection**, since SDCL 43-32-27(3) makes a rent increase above fair
+market value, a decrease in electric, gas, water or sewer services, or a notice to vacate not based on a breach
+actionable where it follows the tenant organising or joining a tenants' union - with the 180-day defence
+attaching to the notice-to-vacate limb only. `religious-cultural-display` is absent as to any display right
+(`religious.{0,25}(?:display|object|symbol)|mezuzah` 0 / 0) but constrained by SDCL 20-13-20(1), (2), creed and
+religion being protected, which makes selective enforcement of a neutral no-affixing rule the real exposure.
+`tenant-display-rights` is clean (`\bflag\b|display.{0,20}(?:sign|banner)|political sign` 15 catchlines, all
+state emblems, Capitol flags and municipal campaign signs). `home-business` is clean
+(`home occupation|business use.{0,20}(?:dwelling|residen)` 0 / 0), with SDCL 43-32-11 supplying unusually strong
+enforcement **only where the lease specified the purpose**. `drug-free-housing-addendum` is clean (`drug.?free`
+2 catchlines: SDCL 22-42-20 drug-free zones as a separate indictment count, SDCL 34-20G-24 a workplace policy
+safe harbour), with the live constraint being SDCL 34-20G-19's bar on penalising a cardholder solely for
+cardholder status against the same section's express preservation of "reasonable restrictions on the medical use
+of cannabis". `double-letting` (0 / 0) resolves through SDCL 43-32-6's delivery and quiet-enjoyment obligation
+and SDCL 43-32-19(1). `seasonal-tenancy` (0 / 0) has no category at all: the only genuine distinctions are
+licensed transient lodging (chapter 34-18, ARSD article 44:02, SDCL 43-32-37) and agricultural lettings
+(SDCL 43-32-2, 43-32-22.1). `alt-housing` (4 catchlines, all public acquisition, urban renewal, injunctions
+against a house of ill fame and mental-health-centre charges) and `disaster-duties` (19 catchlines, every one
+governmental) both resolve to the same place: South Dakota's answer to an uninhabitable unit is that the tenancy
+**ends** on the tenant's election under SDCL 43-32-9 or SDCL 43-32-19(2), not that the landlord rehouses anyone -
+and an undamaged but **inaccessible** unit is addressed by no provision located, which is stated as the boundary
+in the row. `bed-bug-cooperation` is clean (`bed ?bug` 0 / 0) and took the pass's fifth tag, `pest-cooperation-pr`.
+
+**Batch 15 (land, title, associations and lease-form duties, 13 topics).** Ten absences, two Present and one
+Present-in-one-form. Four tags and one new South Dakota clause. Nonsense controls 0 in each batch.
+
+**South Dakota enacted a foreign-ownership chapter in 2026 that reaches residential leases, and no row in the
+library had cited it.** This is the batch's substantive find. Chapter 43-2B (SL 2026, ch 177, ss 1-9) was fetched
+live because it postdates the corpus. It defines a "real property interest" as "any direct or indirect legal or
+equitable stake in real property as evidenced by a contract for deed, deed, easement, lease, option, purchase
+agreement, trust, or other instrument" (SDCL 43-2B-1(3)) and bars a prohibited entity from holding or obtaining
+any such interest "during any time in which there exists a military installation in this state" (SDCL 43-2B-2) -
+with **no acreage limit and no short-lease carve-out**, so an ordinary twelve-month tenancy is inside it.
+"Prohibited entity" imports SDCL 43-2A-1(5): a foreign entity, government or person from China, Cuba, Iran, North
+Korea, Russia or Venezuela, with "foreign person" meaning "a natural person who is not a United States citizen or
+a resident". The landlord-facing provision is decisive the other way: a person who is not a prohibited entity
+"does not have any duty to determine or inquire whether another person is a prohibited entity" and "may not be
+held liable under this chapter for failing to determine or inquire" (SDCL 43-2B-7). Enforcement is the attorney
+general's alone, the remedy a judgment declaring the interest "void as of the date of the judgment" with
+forfeiture or termination (SDCL 43-2B-5), and SDCL 43-2B-9 excludes CFIUS-cleared entities, lawful permanent
+residents and citizens "including a dual citizen", and an individual with lawful status. The older chapter 43-2A
+is agricultural only and, for non-prohibited foreign persons, says in terms that "there is no restriction on
+easements or the number of acres of agricultural land that a foreign entity, foreign government, or foreign
+person may lease" (SDCL 43-2A-2(4)). **No South Dakota clause is proposed**, because SDCL 43-2B-7 removes both the
+duty and the liability, leaving a tenant representation with only a contractual-exit value; that judgment is put
+to Taylor under "Proposed topic questions" rather than settled by drafting.
+
+**The hunting default runs against the landlord, and the reason is two words.** "no person may fish, hunt, or trap
+upon any private land without permission from the **owner or lessee** of the land" (SDCL 41-9-1) - so a South
+Dakota tenant of land can lawfully authorise hunting on it, and a lease silent on the point gives that away. The
+point is sharpened by SDCL 41-6-2, under which a resident may take small game, game birds or fish in an open
+season "on land or waters on land owned or leased by the resident without first securing a license", so the
+licensing system is no brake on a tenant either, and by SDCL 41-9-1.2, which keys written permission on adjoining
+rights-of-way to the "owner or lessee" as well. In a pheasant state that absence has money attached, which is why
+`farmland-sporting-rights-co` was tagged rather than answered by education alone.
+
+**`maintenance-duty-shift` produced the pass's first new South Dakota lease clause from a carve-out rather than a
+cap.** SDCL 43-32-8 carries the chapter's only express non-waiver sentence and, attached to it, the whole of what
+South Dakota permits: "The parties to a lease or hiring of residential premises may not waive or modify the
+requirements imposed by this section; however, the lessor may agree with the lessee that the lessee shall perform
+specified repairs or maintenance in lieu of rent." Each word is a condition - the work must be **specified**, so a
+blanket transfer of repair responsibility is void, and it must be **in lieu of rent**, so a rent credit is the
+consideration that brings the agreement inside the exception rather than optional decoration. Basis under rule 55
+is CONSTRAINED_TERM: the landlord sets the scope and the credit, the statute limits the form. `repairs-in-lieu-of-rent-sd`
+was written because none of the three shared candidates fits - `tenant-assumed-duties-ak`,
+`waste-removal-duty-shift-ks` and `lessee-assumes-condition-la` each recite their own state's shifting statute in
+the clause body, and none uses a rent credit.
+
+Four tags, each with the basis check recorded on the row: `farmland-sporting-rights-co` (generic body; the
+Colorado "person in possession" rationale holds verbatim here through "owner or lessee"); `association-approval-la`
+(hand-filled prompts, no Louisiana text in the body; its separate-deposit limb matters more here because SDCL
+43-32-6.1 deems any money securing performance a deposit and caps it at one month's rent);
+`energy-data-release-wy` (preferred over the DC version, which supplies consent contemplated by District
+statutes - the Wyoming row's own notes record that no statute underlies it, and its operative sentence is the
+tenant's covenant to sign the **utility's** own release, which is exactly the South Dakota position); and
+`tenant-portal-mn`, whose central limb is not a Minnesota import but a South Dakota requirement - SDCL 53-12-9
+says a party who agrees to one electronic transaction may refuse others and "The right granted by this section
+may not be waived by agreement", so a lease compelling all notices through a portal is unenforceable to that
+extent. Its no-fee-for-the-alternative promise is flagged on the row as a concession South Dakota does not compel.
+
+The remaining verdicts: `hoa` is a clean absence on all seven limbs - chapter 43-15A was screened by catchline in
+full and its only lease-related entries concern the master deed or lease establishing the project (SDCL 43-15A-3,
+-4, -9) and a construction lien (SDCL 43-15A-29); South Dakota has adopted no common interest ownership act, so no
+association can intercept rent. The one adjacent duty is on sale: SDCL 43-4-44.1 (SL 2024, ch 177, s 2) requires
+a seller of association-governed residential property to furnish the governing documents and assessment detail
+before a written offer. Its trigger reads "In attempting to sell" while its applicability sentence reads
+"transfers", and SDCL 43-4-37(3), (5) defines "Transfer" to include a lease with an option to purchase - so the
+**cautious course stated in the row** is to furnish it on a lease-option. `confirmed-absences-outside-title` is
+clean on all three limbs, and chapter 22-35 read in full produced a catchline trap worth recording: SDCL 22-35-7
+is captioned "Affirmative defenses to unlawful occupancy" but states defences to prosecution under the criminal
+trespass sections and creates **no civil remedy**, so South Dakota has no squatter route outside chapter 21-16.
+`stigmatized-property` (3 unrelated catchlines; 8 HIV catchlines, all criminal, testing or licensing),
+`rights-responsibilities-guide` (3 unrelated), `translation-duty` (11 translation catchlines, all interpreters,
+television translator districts or insurance; 3 type-size catchlines, none a lease) and `tpa-sunset` (3, none
+landlord-tenant) are all clean, with the last noting that the live risk is amendment rather than expiry - SL 2026,
+ch 179, s 1 (SB 4) being the current example. `communal-land-lease-approval` is clean as to state law, with
+federal trust-land leasing flagged and tribal law outside scope. `energy-data-release` is clean, and carries the
+one tested boundary in this batch: whether ARSD article 20:10 restricts a utility's release of customer usage data
+could not be resolved, the article being unreachable, which is why the tagged clause works through the utility's
+own form instead.
+
+**Canvassing agent E (screening, status and protected-characteristic topics, 14 topics).** Six Present, eight
+confirmed absences after resolution. No tag candidate existed: every comparator row in all fourteen topics is
+single-state. All fourteen rows were validated structurally and every cited section verified present in the
+statewide index.
+
+**The agent returned one Not located, and it was resolved rather than shipped.** `social-security-defense` turned
+on whether South Dakota exempts benefit income from process - a question in chapter 43-45, which is not among the
+26 chapters held in full. The agent correctly confined its claim and named the missing chapter and section-kind in
+both body and notes. Chapter 43-45 was then **read in full, section-open, on 2026-10-30**, and the limb is
+answered: the absolute-exemption schedule is a **closed list of nine subdivisions** - family pictures, a pew, a
+burial lot, the family Bible and library to two hundred dollars, wearing apparel, a year's provisions and fuel, a
+judgment for another state's income tax on retirement benefits, "health aids professionally prescribed", and a
+non-lump-sum support award not exceeding seven hundred fifty dollars a month (SDCL 43-45-2(1)-(9)) - and **Social
+Security and public assistance are not on it**. The million-dollar retirement exemption reaches only "employee's
+benefit plans" as defined by ERISA and listed Internal Revenue Code sections (SDCL 43-45-16, 43-45-17), which does
+not reach Social Security; earnings are exempt "only to the extent provided in ss 21-18-51 to 21-18-53"
+(SDCL 43-45-14). So the shield over benefit income is **federal** (42 U.S.C. s 407(a), flagged). One
+landlord-favourable quirk emerged from the same read and is now in the row: the non-absolute exemptions do not
+apply "To a debtor for the necessaries of life, including only food, clothing, and fuel" (SDCL 43-45-7(4)) - a
+closed list that **does not include rent**. The row's verdict moved from Not located to a bounded confirmed
+absence, and the correction is marked on the row itself.
+
+Four findings from the agent worth recording as findings rather than table entries.
+**`dv-protection-order-chapter-moved` was settled without the chapter being readable**, by a method worth keeping:
+the statewide index holds 56 entries for chapter 25-10, and of the 16 hits on the pattern `25-10` four are
+*inbound* transfers from Title 23A (23A-3-2.2 to 25-10-35; 23A-3-21 to 25-10-36; 23A-3-22/-23 to 25-10-38/-39;
+23A-43-4.1/-4.2 to 25-10-40/-41), six are in-chapter repeal stubs, and **none is outbound** - decisively confirmed
+by SL 2026, ch 102, ss 3-4 (HB 1108), read in full, which adds new sections "to chapter 25-10" citing SDCL 25-10-3
+and 25-10-4 at their current numbers. The real landlord trap is different and is now on the row: South Dakota has
+**three** civil protection-order chapters (25-10 domestic abuse, 22-19A stalking, 21-65 vulnerable adults) and
+SDCL 43-32-19.1(2)(b) names none of them.
+**`law-enforcement-cooperation` is Present from a prohibited-term provision** - SDCL 43-32-18.1 bars a lease from
+including "any term that authorizes the eviction of a tenant who calls or otherwise seeks assistance from law
+enforcement or other emergency responders" - so South Dakota has no cooperation duty and one duty to abstain, read
+with SDCL 43-32-19.2 and the SDCL 22-23-8(4) abatement duty.
+**`student-housing` is Present but narrower than it looks**: SDCL 20-13-20's closing paragraph exempts "dormitory
+residences maintained by public or private schools, colleges, and universities for the educational benefit and
+convenience of unmarried students" and fraternity and sorority dwellings - *institution-maintained* housing only,
+not private near-campus letting, which is the trap flagged on the row.
+**`protected-class-inquiry-ban` is Present but purposive, not flat**: SDCL 20-13-26 reaches "any person" who uses
+"any form of application, or make any record or inquiry" to bring about or facilitate discrimination, while the
+flat version exists only for school admissions at SDCL 20-13-22(3). ARSD article 20:03 was read in full - twelve
+chapters, **no housing chapter**, with ARSD 20:03:07:01 confining chapters :07 to :11 to employment - so the
+regulatory carve-out under SDCL 20-13-22(3) has no housing counterpart.
+
+The agent raised three open questions, each resolved practically on the row rather than left hanging: the phrase
+"unlawful sexual behavior" appears in only two sections of the entire Code (SDCL 43-32-18.1 and 43-32-19.1) and is
+**nowhere defined**; the scope of the chapter 36-21A licence as it applies to an on-site manager or letting agent,
+which this pass had already read in part (SDCL 36-21A-10, -12.1, -48, -76, -77, -81, -82, -134.1, -138.1, -144);
+and whether SDCL 43-45-2 names public assistance, now answered above - it does not.
+
+**Canvassing agent F (title, liens, remedies and third-party interests, 14 topics).** Six Present, five confirmed
+absences, three split verdicts. Two tags. All fourteen rows validated structurally; the agent self-tested all 33
+statutory quotations in its own rows against the corpus and all passed.
+
+**The agent challenged the provenance of text in two already-delivered rows, and it was right about the premise
+and wrong about the conclusion.** It established - correctly - that chapters 21-48 and 21-10 are **not** in the
+corpus: they are absent from the 26 held chapters and from both manifests, the README excludes them, and the
+phrases quoted in `edu-adverse-proceeding-notice-sd` and `edu-no-foreclosure-disclosure-sd` appear nowhere in the
+14.3 MB of corpus text. It then observed that the shell is policy-denied at the proxy for sdlegislature.gov
+(CONNECT returns 403), with the proxy's own failure log recording that denial *before* those rows were written,
+and concluded that nobody this pass could have read chapter 21-48 - so that the two rows quote text from a source
+that was never available. The reasoning is good and the conclusion is wrong for one reason the agent could not
+see: **every live read this pass went through the built-in browser on the linked device `terra`, not the
+container's shell**, and a subagent has no access to that route and no way to verify a read made through it.
+
+**The two quotations were nonetheless re-verified against a fresh live read on 2026-10-30, and both match
+verbatim.** SDCL 21-48-6.1: "At least twenty-one days prior to the date set for sale, the foreclosing creditor
+shall serve a written copy of the notice of foreclosure sale on the mortgagor and any lien holder or encumbrancer
+whose interest in the property being foreclosed would be affected by the foreclosure." SDCL 21-48-6(8): "The name
+and address of all persons claiming a lien, encumbrance, or other recorded ownership interest in the property."
+Both rows stand unchanged. The same applies to the other rows the agent flagged on the same reasoning
+(`edu-no-government-fee-reimbursement-rule-sd` on chapter 34A-6, `edu-binding-arbitration-sd` on chapter 21-25A,
+and the rows citing SDCL 43-4-44): each rests on a browser read recorded in s 1. The methodological finding is
+real and is carried into s 6 and the SOP items - **a log that records a hash for a live read does not let a
+subagent verify it, so the log must name the retrieval route for every chapter fetched outside the corpus.**
+
+**Resolving two of the agent's bounded rows changed the substance of one of them.** The agent was disciplined
+about boundaries: it quoted nothing from a chapter it could not read, stated each boundary in body and notes, and
+declined to state any interest-rate figure. Both boundaries were then resolved by live reads.
+
+*Construction liens.* Chapter 44-9 was read in full and the material point is invisible from a catchline: SDCL
+44-9-2 deems everyone interested in the land to have authorised improvements on it, "provided that **as against a
+lessor no lien is given for repairs made by or at the instance of his lessee**." So tenant-ordered **repairs**
+cannot reach the landlord's title at all, and the exposure is confined to improvements that are not repairs,
+where the escape is SDCL 44-9-4's notice served on the workers or posted on the premises "within five days after
+knowledge thereof". **A correction was made and left visible on the row**: the first draft described South Dakota
+as running exposure off the owner's *knowledge*, which was read off that section's catchline ("Construction of
+improvements with knowledge of owner subjects land to lien--Exceptions"). The body is not a knowledge test but a
+deemed-authorisation rule, and "knowledge" appears only in the five-day trigger. This is a second worked example,
+independent of the SDCL 21-16-1 error in s 6, of a section being mischaracterised from its catchline - which is
+why that now appears as a proposed SOP change in its own right.
+
+*Interest.* Chapter 54-3 was read in full and every figure in `edu-unpaid-damages-interest-sd` now comes from the
+text: interest runs at the Category F rate, **fifteen percent a year**, on moneys after they become due absent an
+express written contract or a rate on the bill, and "Any interest rate appearing on a bill, statement, or invoice
+may not exceed eighteen percent" (SDCL 54-3-5); the official rates are set at SDCL 54-3-16; twelve percent is the
+maximum where no rate is specified, on a 360-day year (SDCL 54-3-4); judgments and statutory liens take ten
+percent (SDCL 54-3-5.1); and most striking, "Unless a maximum interest rate or charge is specifically established
+elsewhere in the code, there is no maximum interest rate or charge, or usury rate restriction ... if they
+establish the interest rate or charge by written agreement" (SDCL 54-3-1.1). **No clause is proposed, but the
+reason changed**: the agent withheld one because no figure could be read; the figures are now read, and the
+judgment is that a clause is unnecessary because the statutory default of fifteen percent already exceeds what a
+landlord would stipulate.
+
+Four further findings from the agent, each kept.
+**SDCL 43-8-11 and 43-8-12 were absent from the library entirely** (0 rows): a reserved right of reentry needs
+only three days' notice, and an action on a reserved reentry needs none - the most landlord-favourable possession
+provision in the state, and it had no row anywhere.
+**SDCL 43-25-28**, "Attornments of tenants unnecessary to grants of rents, reversions, or remainders", was found
+only after the bare pattern `attorn` returned 514 catchlines swamped by "attorney"; with SDCL 43-8-7 and 43-32-21,
+also at 0 rows each, that is the whole tenancy side of a sale.
+**No drug-nuisance statute exists anywhere in South Dakota** (0 catchlines, 0 full text), which disposes of
+several nuisance comparators at once.
+**The agent declined to assert the six-year contract limitation** at SDCL 15-2-13 that the brief had given it,
+because chapter 15-2 is not held and under the brief's own rule the figure was not citable from the corpus; it
+rested the row on SDCL 53-9-6 instead. That is the correct call on the instructions it had, and the figure is
+independently established in s 1 from a browser read.
+
+**A terminology caution the agent raised and I have adopted.** The library describes SDCL 43-32-9's third remedy
+as "rent escrow". The word escrow never appears in the statute, and the account is **tenant-held** - "a separate
+bank or savings and loan account" - not court-administered as in Minnesota. No existing row is wrong on substance
+and `edu-habitability-duty-sd` records the written-notice precondition correctly, but "escrow" in a
+landlord-facing body implies a neutral holder and a filing step South Dakota does not have. The agent corrected
+two of its own bodies; no existing row was changed.
+
+---
+## 4. Decisions, and the named South Dakota items
+
+**Decisions taken this batch.**
+
+1. **The statewide catchline instrument** (s 1) is the method decision that shapes this pass. Only 26 chapters are held, so a bare zero in them would have forced "Not located" under rule 36 for most topics. Parsing every section catchline in the Code out of the corpus's own title index gives a statewide bound instead, and naming the chapter that would carry a missing provision comes from the same index. Where a topic still turned on text outside the held chapters, the chapter was **fetched live and read** rather than left bounded - five chapters this batch (s 1). Only one boundary remains stated as a boundary in this batch: the Public Utilities Commission's rules in `edu-utility-allowance-cap-sd`.
+2. **Quoting from live text, not the corpus.** The corroboration found the corpus's text extraction inserts spaces around hyphens and before punctuation. Quotations are therefore taken from live text; the corpus is used for screening and batteries.
+3. **`tenant-forward-proceedings` tagged rather than given a new clause.** SDCL 43-32-16 states the duty almost word for word, the shared clause's basis is SERVES_LANDLORD and rests on no other state's statute, and the statute's extra damages limb is carried in the companion education row instead of by redrafting a 50-state clause.
+4. **`carpet-cleaning` tagged** after the rule 26 basis check: the clause is conditional and limited to actual cost, which is what keeps it a restoration charge under SDCL 43-32-24 rather than a penalty void under SDCL 53-9-4.
+5. **`alarm-tampering-fee`, `rent-concession` and `extended-absence-notice` all answered through SDCL 53-9-4 and 53-9-5.** South Dakota's bar on contractual penalties is the operative constraint on three otherwise unrelated topics, and it is the reason each row's cautious course is "charge documented actual cost" or "make the discounted figure the rent" rather than a fixed sum.
+
+**Named item 6 - the full-text smoke and CO alarm battery, and ARSD 61:15's code adoption. Answered; see s 3.** Full text of all 26 held chapters, every word form, controls in the same batch: the only smoke-detector statutes are SDCL 34-18-9.4 and 34-18-22.1 to 34-18-22.3, all transient lodging; `carbon monoxide` is 0 in the held chapters' full text, 0 across all 47,386 catchlines statewide, and 0 in ARSD 61:15. The residential requirement is by rule, not statute: ARSD 61:15:01:14, **61:15:01:15 (multifamily residences housing six or more families)** and 61:15:01:19 (sprinklers in new 6+ buildings). ARSD 61:15:01:01 adopts the IBC, IFC and IMC **2015** editions under SDCL 34-29B-2; ARSD 61:15:01:16 preserves local alternatives for named IFC chapters. **This confirms the existing library row rather than contradicting it** - see s 6. Two new rows carry the findings into topics that had none: `edu-fire-code-standard-sd` and `edu-fire-sprinkler-duty-sd`.
+
+**Named item 7 - currency of the rows added. Answered; see s 1**, including the SB 4 nuance (21 days to return or state reasons; 45 days for an itemized accounting on request) and confirmation that SL 2024 ch 75's repeal of SDCL 21-16-2 and 21-16-7 is not load-bearing for any row added this batch.
+
+**Named items 1 to 5 are not yet reached** and are scheduled with the batches whose topics they belong to: item 1 (optional clauses never screened - crime-free, eviction-fee and the statutory waivers, with ch. 53-9 and SDCL 15-17-42, 21-16-1, 43-32-18, 43-32-8, 43-32-6, 43-32-6.1, 43-32-24); item 2 (`casualty-and-mitigation-waivable`); item 3 (`keys`, `hoa-compliance`, `dv-lockchange`, `dv-eviction-protection`, with ch. 25-10 to be fetched); item 4 (`smoking-policy`, `no-alterations`, `addendum-precedence`, with ch. 34-20G to be fetched); item 5 (`edu-eviction-procedure-sd` against `edu-cares-act-notice`). Chapter 53-9 has already been read in full this pass, and SDCL 43-32-6, 43-32-8, 43-32-18 and 43-32-24 have been read section-open, so item 1 is part-prepared. **Early notice on item 1:** SDCL 43-32-8's express non-waiver sentence - the parties to a residential lease 'may not waive or modify the requirements imposed by this section' - is the direct answer to `habitability-waiver` and `habitability-modifiable`, and **SDCL 53-9-6** ('Every provision in a contract restricting a party from enforcing his rights under it by usual legal proceedings in ordinary tribunals, or limiting his time to do so, is void', arbitration under the Uniform Arbitration Act excepted) is the answer to `jury-waiver` and to any shortened-limitation term. SDCL 53-9-6 appears in **no row anywhere in the library** (anchored section-number grep, rule 28).
+
+**No question needs putting to Taylor from this batch.** Every topic in it resolved on primary text.
+
+### Named items 1 to 5
+
+**Item 1 - optional clauses never screened, and the statutory waivers. Answered.** Chapter 53-9 read in full; SDCL 15-17-42, 21-16-1, 43-32-18, 43-32-8, 43-32-6, 43-32-6.1 and 43-32-24 all read section-open. Results carried into rows: `edu-criminal-activity-sd` with `criminal-activity-ky` tagged (crime-free); `edu-no-eviction-penalty-rule-sd`, `edu-no-notice-service-fee-sd`, `edu-no-collection-fee-rule-sd` (eviction fees); and the nine waiver topics - `edu-habitability-waiver-sd`, `edu-notice-to-quit-waiver-sd`, `edu-jury-waiver-sd`, `edu-homestead-waiver-sd`, `edu-showing-notice-waiver-sd` with `showing-notice-la` tagged, `edu-smoke-drift-waiver-sd`, `edu-security-deposit-nonwaiver-sd`, `edu-part5-nonwaivable-sd`, `edu-rent-receipt-anti-waiver-sd`. The three structural findings: **SDCL 43-32-8's second paragraph is the only express non-waiver sentence in the lease chapter** ('may not waive or modify the requirements imposed by this section'), with one narrow carve-out (specified repairs or maintenance in lieu of rent); **SDCL 53-9-6** voids provisions restricting enforcement 'by usual legal proceedings in ordinary tribunals, or limiting his time to do so' and appears in no other row in the library; and the deposit sections achieve non-waivability by definition and forfeiture rather than by prohibition (SDCL 43-32-6.1's 'deemed to be a security deposit', SDCL 43-32-24's forfeiture of all withholding rights).
+
+**A scope question recorded, not resolved.** SDCL 15-17-42 says chapter 15-17 'applies to any civil action or special proceeding in which the State of South Dakota or any of its divisions, departments or political subdivisions is a party including counties, municipalities, school districts, townships, and other governmental entities.' Read literally that confines SDCL 15-17-39 - which makes an attorney's-fee provision in a note, bond, mortgage or other evidence of debt void as against public policy - to cases with a government party, which would be a surprising reading of a public-policy rule about private instruments. Both sections were read section-open. No row added this pass depends on resolving it: each fee row reaches its conclusion on SDCL 53-9-4 alone, and the caveat is recorded in `edu-no-eviction-penalty-rule-sd`. Flagged for the existing row `edu-attorney-fee-clause-limit-sd`, which is outside this pass's scope fence.
+
+**Item 2 - `casualty-and-mitigation-waivable`. Answered** at `edu-casualty-and-mitigation-waivable-sd`, pointing to the existing `fire-casualty-rent-abatement-sd` for the abatement mechanics. The substance: SDCL 43-32-19(2) gives the tenant a termination right where the greater part of the premises, or the part the landlord had reason to believe was the material inducement, is destroyed other than by the tenant's ordinary negligence - and, unlike SDCL 43-32-8, it carries **no** non-waiver sentence, so the topic's question resolves to "not expressly protected", with the cautious course stated in the row rather than left open.
+
+**Item 3 - shared fee clauses and the DV clauses. Answered.** `keys` and `hoa-compliance`, both already tagged SD, were read against chapter 53-9 and SDCL 43-32-24 and **both read correctly**: `keys` lets the landlord re-key and 'charge the cost to Tenant' - an actual cost, not a fixed fee, so it stays outside SDCL 53-9-4's bar on penalties and is withholdable under SDCL 43-32-24(2) as restoration beyond ordinary wear and tear; `hoa-compliance` passes through an association fine actually incurred, which is a third party's charge rather than a penalty imposed by this contract, and is withholdable as 'Other funds due to the landlord pursuant to an agreement' under SDCL 43-32-24(1)(b). Had either stated a flat fee, the answer would differ. Chapter 25-10 was fetched whole (50 sections) and screened section by section for `dv-lockchange` and `dv-eviction-protection`: **it contains neither a lock-change right nor an eviction protection**, and the mechanism is instead the court's power to exclude the abusing party from the shared dwelling or the petitioner's residence (SDCL 25-10-5(2)). Both rows cross-reference the existing `edu-dv-lease-release-sd` and `edu-dv-confidentiality-sd`, which already carry SDCL 43-32-19.1's termination right.
+
+**Item 4 - `smoking-policy`, `no-alterations`, `addendum-precedence`. Answered; all three read correctly.** Chapter 34-20G was fetched whole (106 sections). `smoking-policy` bans smoking of tobacco, marijuana and vaping anywhere on the property and charges remediation cost. That is consistent with South Dakota's medical cannabis chapter, and the reason is worth stating precisely: a cardholder 'may not be refused enrollment by a school or a lease by a landlord, or otherwise be penalized by a school or landlord solely for the person's status as a cardholder', but the same section provides that it 'does not prevent a landlord from imposing reasonable restrictions on the medical use of cannabis by a cardholder who resides at the landlord's property' (SDCL 34-20G-19). A property-wide restriction on the *mode* of use, applied to all tenants and leaving non-smoked forms available, is a reasonable restriction rather than a penalty for cardholder status; nothing requires a landlord to allow cultivation on the rental property, or to allow a guest, client, customer or other visitor to smoke or vape on it (SDCL 34-20G-27(2), (3)); no landlord may be penalized under state law for leasing to a cardholder (SDCL 34-20G-25); and a contract is not unenforceable merely because cannabis activity is federally prohibited (SDCL 34-20G-17). **The line to watch, flagged for future drafting rather than as a defect:** a clause banning *all* medical cannabis use by a resident cardholder, rather than smoking and cultivation, would test SDCL 34-20G-19's 'reasonable restrictions' limit. The current clause does not do that. `no-alterations` reads correctly: its carve-out for 'any repair, installation, rekeying, or reasonable modification that applicable law entitles Tenant to perform' and for who owns an installation accommodates SDCL 43-32-9's repair-and-deduct remedy, SDCL 43-32-8's repairs-in-lieu-of-rent agreement, and the tenant's fixture rights in chapter 43-33. `addendum-precedence` reads correctly: its exception for any disclosure, notice or addendum that applicable law requires or says controls is what keeps it clear of SDCL 53-9-1 and of SDCL 43-32-8's non-waiver.
+
+**Item 5 - `edu-eviction-procedure-sd` against `edu-cares-act-notice`. Not yet reached**; both rows are existing rows and the comparison is scheduled with the eviction-topic batch.
+
+### Decisions taken in batch 2
+
+1. **`criminal-activity` and `showing-notice-waiver` tagged rather than newly drafted**, in both cases after the rule 26 basis check: each clause's basis is SERVES_LANDLORD, each body is generic, and the other state's statutory analysis sits in that state's note rather than in the clause.
+2. **`jury-waiver` and `casualty-and-mitigation-waivable` resolved under the NEEDS_REVIEW policy with the cautious course stated in the row**, not left for later and not put to Taylor: in each case the cautious course is clear (do not rely on a jury waiver; shape the casualty right with notice, abatement and a repair period rather than remove it) even though the underlying question is unsettled and no South Dakota case was located.
+3. **One limb left as Not located, with the chapter named** (rule 36): `homestead-waiver`'s personal-property-exemption limb turns on SDCL chapter 43-45 (Personal Property Exempt From Process) and chapter 21-19, neither held nor fetched. Named in the row body and notes, with what applies in its place.
+
+**No question needs putting to Taylor from this batch either.** The two unsettled points above are recorded with a recommendation in the rows themselves, and the SDCL 15-17-42 scope question affects only an existing row outside the scope fence.
+
+### Named item 5 - answered
+
+**`edu-eviction-procedure-sd` and `edu-cares-act-notice` agree, and complement each other.** The South Dakota
+row says no federal notice is a **filing condition** in South Dakota - neither chapter 21-16 nor the Rules of
+Civil Procedure in chapter 15-6 imposes one - while expressly preserving the federal duty: 'A landlord whose
+property carries a federally backed mortgage or federal subsidy may still owe a CARES Act notice as a matter of
+federal law; it is simply not something a South Dakota court checks before accepting the filing.' The federal row
+states that duty (30 days' notice to vacate for a covered dwelling, 15 U.S.C. s 9058(c)) and recommends giving it
+before filing. There is no conflict: one is about what a South Dakota court requires to accept a filing, the other
+about what federal law requires of the landlord. **No finding.**
+
+That row also **independently corroborates the correction at s 1**: its notes record 'SDCL 21-16-7 (5-day
+appearance window, amended from 4 to 5 days by SL 2024, ch 75, s 2)' - i.e. the library already had § 21-16-7 as
+amended rather than repealed, which is the point on which the prompt's currency list is inaccurate.
+
+**All seven named items are now answered.**
+
+### Decisions taken in batch 4
+
+1. **`confirmed-absences-habitability` written as an inventory, not a verdict.** The topic asks what a state does
+   not have, so the row lists the absences and names the row where each is proved, rather than re-proving them.
+2. **`habitability-modifiable` and `habitability-waiver` kept as separate rows** rather than one. The statute bars
+   waiver *and* modification in the same sentence, but the topics ask different questions and the modification row
+   carries the point that no conditional-habitability mechanism exists for properties that cannot meet the
+   standard - which is the Alaska comparator and the practically important half.
+3. **`tenant-repair-agreement` written as CONSTRAINED, not RECOMMENDED**, because the in-lieu-of-rent permission is
+   the landlord's own arrangement and the law limits its form - four conditions on the face of the statute
+   (specified repairs; in lieu of rent; an agreement; the duty survives).
+
+**One question for Taylor, batch 15.** `foreign-ownership` is **Present** in South Dakota and the chapter reaches
+residential leases (SDCL 43-2B, SL 2026 ch 177 - "real property interest" expressly includes a lease, no acreage
+limit, no short-lease carve-out). I wrote it as an education row and **did not draft a clause**, because
+SDCL 43-2B-7 removes both the landlord's duty to inquire and any liability for not inquiring, which leaves a
+tenant representation with only one real function: making an attorney-general termination of the leasehold a
+tenant default, so you keep a damages claim and a clean exit rather than an argument. My recommendation is to
+leave it as education, on the ground that a nationality representation in a lease invites a fair housing problem
+(national origin and ancestry are protected at SDCL 20-13-20(1), (2)) out of proportion to a remedy that only
+matters in the rare case where the attorney general has already acted. If you would rather carry the clause, say
+so and I will draft it narrowly - a representation plus a termination right, with no inquiry obligation on the
+landlord and no nationality question in the application. The same question will recur in every state that
+enacted a lease-inclusive foreign-ownership statute in 2024-2026, so it is worth settling once.
+
+**One judgment on verification_status, recorded rather than taken silently.** All 260 new rows are
+`VERIFIED`. That follows the SOP's NEEDS_REVIEW policy as written - a point only case law could settle is stated
+in the row with the cautious course and the row stays VERIFIED, and helpers are not to mark rows NEEDS_REVIEW for
+interpretive doubts alone - and every row carrying an interpretive doubt states the doubt and the cautious course
+in its body. Three rows are a harder case and I want you to see the call rather than discover it: they wait not on
+an interpretation but on a **rule I could not read**, ARSD article 20:10 (Public Utilities Commission), which is
+a tested boundary - the rules index lists it as RuleId 8438 and every printer-friendly endpoint variant returns
+404 while the identical shape serves the three held articles. The sync step in the policy says that for each row
+left NEEDS_REVIEW or open, someone reads the rule it waits on; here nobody can, by any route available this pass.
+I kept all three VERIFIED, with the boundary named in body and notes and the cautious course stated, on the
+ground that marking them NEEDS_REVIEW would queue work that cannot be done and would imply the rows are
+unreliable when what is unreliable is one unreachable article that none of them depends on. **If you would rather
+they carried NEEDS_REVIEW as a standing marker that the article is still unread, say so and I will switch those
+three** - `edu-no-energy-data-release-sd` and the two others that name the article. My recommendation is to leave
+them VERIFIED and instead carry the unreachable article as a channel note for South Dakota, so the next pass tries
+it again deliberately rather than rediscovering it.
+
+---
+## 5. The independent check
+
+**Run.** Per rule 80 as scaled by the prompt: at most two rounds, one agent at a time, the second round re-checking only rows edited after the first, stopping early on a clean round. Round 1 covered all 272 rows and is reported at 5b below. It was not clean, so every error was corrected and a second round was scoped to the 36 rows edited afterwards plus three mechanical sweeps across all 272 - quotation integrity, the house quoting convention and every battery count - because those three fixes were applied by scripted passes over every file and a global edit can break a row it was not aimed at. The rows edited after round 1 are listed in `check_out/edited_after_round1.json` and each carries a marker sentence in its own notes naming what was corrected.
+
+Round 2's result is reported at 5c.
+
+### 5a. Pre-check performed on the delta file itself
+
+Run before the independent round, on the built file rather than the answer sources, because a structural fault
+would waste the checker's effort:
+
+- **Header** byte-identical to the master CSV's 17-column header.
+- **Line endings** match the master's convention exactly: 273 CRLF row terminators (272 rows plus the header),
+  with bare LFs only inside quoted `bodyText` fields as paragraph breaks - 58 here against 3,488 in the master,
+  which uses the same convention. An initial test that counted all LFs flagged this as a fault; the test was
+  wrong, not the file, and is recorded here because the same false positive will recur.
+- **17 columns populated on every row**, no nulls.
+- **Scope fence held.** Of 272 rows, 12 have ids present in the master. On every one of those, `bodyText`,
+  `rule_type`, `lease_clause_basis`, `group`, `title`, `topic_key` and `content_type` are **byte-identical to the
+  master**; only `states` (SD appended), `notes` (appended, master text intact as the prefix) and `last_checked`
+  differ. No existing row was altered in substance.
+- **260 new rows**, every one `states` = SD alone, `is_active` TRUE, `supersedes`, `choice_group` and `is_default`
+  empty, `effective_from` and `last_checked` 2026-10-30.
+- **260 distinct `topic_key` values across 260 new rows** - one topic each, matching the 260 listed topics with no
+  duplicate and no omission. No duplicate `id`; no `id` colliding with a master row.
+- **Groups**: 14 distinct, all already present in the master; no invented group name.
+- `content_type` only LANDLORD_EDUCATION and LEASE_CLAUSE; `rule_type` only the five permitted values.
+
+### 5b. Round 1
+
+One agent, no sight of the drafting, briefed on `/home/claude/work/CHECK-BRIEF.md`. It checked all 272 rows and
+reported **23 errors, 57 warnings and 106 entries it could not verify here**, with explicit positive controls on
+the checks that passed. Every error has been acted on; each corrected row carries a marker sentence in its notes
+naming what changed, so the correction stays visible rather than being quietly absorbed.
+
+**The check earned its keep on quotation integrity, which is where all 19 quotation errors sat.** The agent
+extracted every single-quoted span in all 272 notes - 1,415 of them - normalised for the corpus's hyphen and
+section-symbol artifacts, and matched each against the cited section's own text. The most consequential findings:
+
+- **`'must preserve'` in 9 rows.** SDCL 43-32-10 says the lessee **shall** preserve. The string "must preserve"
+  occurs nowhere in the 26 held chapters, the constitution, the held ARSD articles or the 719 enacted session
+  laws. The phrase sat **unquoted** in my own agent brief's core-law digest and was promoted to a quotation by
+  nine separate rows - a single upstream paraphrase propagating as if it were statutory text, which is the exact
+  shape of error the brief exists to prevent.
+- **`'use contrary to the lease agreement'` in 5 rows.** SDCL 43-32-18(1) reads "When the tenant uses or permits a
+  use of the premises in a manner contrary to the lease agreement". The compression is not in the section, the
+  chapter, or anywhere in the corpus.
+- **SDCL 43-32-5 quoted three different ways in one pass.** One row had it right; one had "subscribed by the
+  lessor" for *signed*; one had a quotation with four substantive departures including **"is void unless" for
+  "is valid unless"** - a reversal of the provision's effect.
+- **SDCL 43-32-12 misquoted and misapplied in `edu-tenant-portal-sd`**, one of mine from batch 15: "holding" for
+  *hiring*, a clause ("when it does not exceed one year") that is not in the section at all, and the residual
+  short-hiring limb presented as the residential default. The residential default is "Rents of lodgings are
+  payable monthly at the end of each month", applying only "When there is no contract or usage to the contrary".
+- A non-statutory formulation of **SDCL 53-9-6** in `edu-liquidated-damages-sd` while other rows quoted it
+  correctly, so the library would have shipped two texts for one section; a paraphrase of the **SDCL 43-32-6**
+  remedy presented as a quotation in `edu-landlord-breach-remedy-sd`; `'Contrary to the policy of express law'`
+  for SDCL 53-9-1's "or to the policy of express law" in 5 rows; a comma-inserted **SDCL 53-9-3** in 4; and the
+  singular `'term, condition, or privilege'` where SDCL 20-13-20(2) is plural.
+
+All nine affected sections were re-read with `sdlib.quote` and every replacement verified verbatim before the
+delta was rebuilt.
+
+**It re-ran the batteries, which is the check I most wanted and the one I could not perform on myself.** 330
+battery claims were parsed and re-executed - 298 statewide catchline counts, 172 held-chapter full-text counts, 9
+session-law counts - and **18 claims in 17 rows did not reproduce.** Two were stated zeroes that were not zero
+(`edu-no-utility-disclosure-attachment-sd`, actually 1; `edu-no-repair-cost-termination-sd`, actually 3), which is
+the serious kind because a stated zero is the whole of an absence claim. The rest were reject-test figures off by
+between 1 and 109, in both directions, including `edu-no-deposit-interest-sd` at 537 against an actual 646 and
+`edu-binding-arbitration-sd` claiming 7 full-text sections against an actual 27. **Every absence verdict survived
+on the merits** - the added hits are off-point in each case - but the figures were wrong, and a figure in a row
+that exists to be verifiable is not decoration. Each is now the re-run figure, with the off-point sections named
+so the count is reproducible, and the correction marked. The instrument constants all checked out: 47,386
+catchlines, 26 chapters, 775 live sections, 719 session-law files.
+
+**Three rule-36 defects.** `edu-jury-waiver-sd` stated **no verdict at all** - it opened on the NEEDS_REVIEW
+policy and answered both limbs without ever saying Present, Confirmed absent or Not located. Three rows
+(`edu-actual-notice-method-sd`, `edu-no-sex-offender-disclosure-sd`, `edu-required-disclosures-sd`) carried a
+**stale "Not located" head verdict** that their own later RESOLVED paragraph had closed, so a reader met a
+boundary the row had already lifted. Both kinds are fixed and marked.
+
+**A house-convention breach at scale.** Single quotes are reserved for statutory wording with the citation
+adjacent; 150 of 272 rows used them around regex battery patterns (210 occurrences), and others around row ids
+and clause text. 180 patterns and 33 row ids are now in backticks and the three clause-text instances in double
+quotes. This is cosmetic next to the misquotations, but it is the same discipline: a single-quoted span in these
+notes should mean "these are the statute's words", and when half the rows use it for a regex it stops meaning
+anything.
+
+**Voice.** 10 bodies ran over the 200-300 word range and 6 were written in the third person rather than the
+second. All 16 were rewritten or trimmed; no legal content was added or removed. One of those rewrites also
+carried out the terminology correction canvassing agent F had raised: `edu-part5-nonwaivable-sd` described SDCL
+43-32-9's third remedy as "escrow rent", and the word escrow appears nowhere in the section - the account is a
+tenant-held "separate bank or savings and loan account", so the body now says "withhold into a separate account".
+
+**One residue on a tagged clause.** `tenant-portal-mn`'s body says "this Lease or **Minnesota** law requires",
+which reads wrong in a South Dakota lease even though the obligation rests on no Minnesota statute. The tag
+stands and the substance is right here; the words are flagged for correction at sync under the scope fence, and
+the TAG note records it.
+
+**What passed, stated as positive controls rather than silence.** Structure: 0 problems of any kind across 272
+files. Citation existence: **825 distinct SDCL sections, 2,134 references, every one resolving** in the statewide
+index - and the agent correctly identified the two apparent misses (SDCL 15-6-4(c) and (d)) as an indexing
+artifact of chapter 15-6's lettered rule numbering rather than bad citations, which matches the instrument
+limitation recorded in s 1a. Rule 28: every new row written on a topic that already had an active SD row names
+that row, 0 exceptions out of 27. Cross-row consistency on the four most-relied-on sections - SDCL 21-16-1,
+43-32-8, 43-32-24, 43-32-27 - **no disagreement**: every row that counts the eviction grounds says seven, the
+21-day and 45-day clocks and the $200 cap agree everywhere, the 180-day defence is attached to the
+notice-to-vacate limb only in every row that mentions it, and the in-lieu-of-rent carve-out is stated
+consistently. Rule 55 on the single new lease clause: basis correctly earned and justified. All 12 TAG notes gave
+a reason and ran the basis check. 312 of 330 battery claims reproduced exactly.
+
+**On the capability gap, handled correctly this time.** The agent reported nothing as an error for being absent
+from the corpus. 104 rows quote the 59 unheld chapters and are listed under `unverifiable_here` with the chapters
+named. Where it could check them it did: every cited section number exists in the statewide index, and **102
+catchline quotations attributed to unheld-chapter sections match their index entries exactly**, with a further 318
+phrases verifying because their text sits in the session laws, constitution or held ARSD articles. That is the
+right use of a bounded instrument, and the contrast with the inference canvassing agent F drew from the same
+absence (s 3) is the reason s 1a now records the retrieval route for every source.
+
+### 5c. Round 2 - and what it caught in round 1's own fixes
+
+Scoped per rule 80 to the 36 rows edited after round 1, plus three mechanical sweeps across all 272 rows -
+quotation integrity, the house quoting convention and every battery count - because those three fixes had been
+applied by scripted passes over every file and a global edit can break a row it was not aimed at. That scoping
+decision is the one that paid: **the most valuable findings of round 2 were defects created by round 1's
+corrections.**
+
+**Round 1's fixes mostly landed.** All nine `'must preserve'` rows now read `'shall preserve'` verbatim with the
+surrounding prose intact; all five SDCL 43-32-18(1) rows read correctly and grammatically; SDCL 43-32-5 now agrees
+across all nine rows that touch it; the SDCL 53-9-3, 53-9-6, 43-32-6, 43-32-12 and 20-13-20(2) replacements are
+verbatim and the 43-32-12 cross-row inconsistency is gone; all 260 education bodies are inside the 200-300 word
+range and all six third-person bodies are genuinely in the second person; every row carries a verdict token.
+
+**Four errors, two of them in rows round 1 had just edited.**
+
+1. **`edu-trespass-notice-sd` claimed `trespass` returns FT 0** - "no chapter held for South Dakota contains the
+   word in a section body". False: it occurs in SDCL 22-1-2 and 22-18-4.6, both held. Now FT 2 sections, named.
+2. **`edu-repair-notice-mechanics-sd` claimed FT 4 sections and named the wrong four.** The pattern returns **6**
+   (SDCL 20-13-32.2, 37-24-6, 43-32-9, 43-32-19, 43-32-27, 43-41B-18); SDCL 43-32-24 and 43-32-24.1, which the row
+   named, are not hits at all - they require a "written statement", not a notice of disrepair. Worse, the row drew
+   an inference from the wrong figure: that the repair limbs are "the only place the Code conditions a tenancy
+   remedy on notice of disrepair". SDCL 43-32-27 is a hit, because the retaliation provision is keyed to the
+   tenant having given a repair notice. The row now says so - and the corrected fact actually reinforces the
+   underlying point, since the same written notice both unlocks the tenant's remedies and starts the retaliation
+   window.
+3. **`edu-no-association-lease-disclosure-sd` - a round 1 COUNT CORRECTED row - stated 7 catchline hits and then
+   named eight sections, one of which (SDCL 43-4-42) is not a hit.** The count was right; the list round 1's fix
+   attached to it was not. This is exactly the failure the round 2 brief asked the checker to watch for.
+4. **`association-approval-la` quoted SDCL 43-32-6.1 as money `'given to secure the performance of'` the lease.**
+   The statute says "the function of which is to secure the performance of". Ten other rows quote the sentence
+   correctly, so this one tag note was the outlier.
+
+**Round 1's own corrections introduced two new classes of defect, both now fixed.**
+
+*The 53-9-1 replacement was dropped into the sentence built for the old one, in all five rows.* Each read
+"... 'Contrary to an express provision of law' or 'or to the policy of express law' ..." - a doubled conjunction,
+because the replacement carried the statute's leading "or" while the row's own "or" stayed. Four of the five also
+capitalised "Contrary", which the statute does not, so the pass was inconsistent with itself on casing. The two
+limbs are one continuous phrase in the section and are now quoted as one:
+'contrary to an express provision of law or to the policy of express law'. The same shape appeared in
+`edu-no-security-deposit-standards-sd` ("being **a** 'terms, conditions, or privileges' of the rental"), now
+reworded. **This is the specific risk of a scripted quotation fix and it is now an SOP item: a correct quotation
+in a sentence built for the wrong one is a new defect, not a fix.**
+
+*The backtick conversion damaged real quotations.* The script that moved 180 battery patterns out of single quotes
+mis-paired quote characters in `edu-no-mold-disclosure-sd` (two apostrophes became backticks; two catchline
+quotations lost a matching delimiter - and backtick parity in that row was coincidentally even, which is why a
+parity check missed it) and in `edu-no-good-cause-notice-sd`, where **one statutory quotation lost its closing
+delimiter and the next lost its opening one** (SDCL 21-16-1(4) and SDCL 43-32-27, both re-verified verbatim after
+repair). A further nine rows had genuine statutory or catchline wording wrongly converted to backticks
+(`runs with the land`, `separate bank or savings and loan account`, `contrary to the lease agreement` and six
+others) - harmless to the law but wrong under the convention the fix was meant to enforce. All are restored.
+The convention residue round 2 counted - about 100 single-quoted bare-word patterns across 73 rows that the
+metacharacter heuristic could not see - was then cleared by a context-aware pass (72 spans in 58 rows, then 19
+more), and a final sweep of all 272 rows confirms **no unbalanced delimiter, no apostrophe-as-backtick, and no
+backticked span that is not a regex pattern or a row id.**
+
+**Four more stale head verdicts** of the shape round 1 fixed in three other rows - `edu-no-contamination-lease-disclosure-sd`,
+`edu-trespass-notice-sd`, `edu-security-deposit-holding-sd` and `edu-no-eviction-record-sealing-sd` - each
+declaring a limb Not located that its own RESOLVED paragraph had closed. All restated. One of the four needed care
+rather than deletion: `edu-security-deposit-holding-sd`'s statutory limb (chapter 36-21A) is resolved, but a
+narrower limb - the Real Estate Commission's own administrative rules - is genuinely still unread, so that row now
+carries a **resolved** statutory verdict and a **live** Not-located limb on the rules alone.
+
+**A substantive find, surfaced by accident.** While re-running another row's battery the checker turned up
+**SDCL 11-5-9, "Firearms regulation--Homeowner association restriction unenforceable" (SL 2024, ch 42, s 1)**,
+which no row in this pass had cited. A homeowners' association "may not include or enforce a provision in a
+governing document that prohibits, restricts, or has the effect of prohibiting or restricting the lawful: (1)
+Possession, transportation, or storing of a firearm, any part of a firearm, or firearm ammunition; or (2) Discharge
+of a firearm." It was read section-open and added to `edu-firearms-sd` (body and notes) and `edu-hoa-sd`. It
+**strengthens** the firearms conclusion rather than qualifying it: the Legislature has now reached a private
+recorded instrument - an association's covenants - and still has not reached a landlord's lease, so the absence of
+any provision touching a lease firearm term is not an oversight about private instruments generally. It also
+corrects `edu-hoa-sd`, which had opened by saying South Dakota has no community-association statute; it has
+exactly one, and it is about firearms rather than renting.
+
+**Two tool cautions the checker recorded, which are instrument limits rather than defects.** `sdlib.sections()`
+registers chapter 15-6's lettered rule subdivisions (for example 15-6-62(a)) with **empty bodies**, so full-text
+counts within that chapter under-report - the checker confirmed `edu-no-good-cause-notice-sd`'s claim that
+`good cause` reaches SDCL 15-6-62(a) against the raw chapter file rather than through the battery, and it holds.
+And `edu-utility-deposit-return-sd`'s "CL 4" for a paired pattern is the forward pattern alone (the union is 7);
+the four named sections are right and the verdict is unaffected. Both are now recorded here rather than
+rediscovered.
+
+**Round 2 was the second and last round the prompt allows, so it is not clean and no third round was run.** Every
+error and every warning above has been corrected, and because no further agent round was available I re-verified
+each correction myself, directly against the corpus: the three corrected quotations confirmed verbatim with
+`sdlib.quote`, all four corrected counts re-run and reproducing exactly (`trespass` FT 2, the repair-notice pattern
+FT 6, the association pattern CL 7, `meter` CL 7), the nine stale strings confirmed absent from all 272
+files, and the delimiter sweep clean. What remains open is listed in s 4: the three rows waiting on the unreachable
+ARSD article 20:10, and the `tenant-portal-mn` clause-body residue deferred to sync under the scope fence.
+
+---
+## 6. Findings on existing rows
+
+Nothing to fix. Three findings carried into this pass from earlier South Dakota phases were **re-tested against the CSV shipped with this prompt (11,962 rows, SHA-256 `f64f322c880394bf45af47b2ecf32466a24f4d5e81a1a5ec55caeebee2903a39`) and all three are already resolved there.** They are recorded as closed so they are not actioned again:
+
+1. **`edu-self-help-eviction-ban-sd` and SDCL 21-3-6.** The carried finding was that the row omitted the treble-damages exposure for forcible exclusion. It does not: the body already states that for forcibly ejecting or excluding a person from possession the measure is three times the compensatory sum, cites SDCL 21-3-6, and adds that whether a tenant can recover under both that section and SDCL 43-32-6 is unsettled, so the larger exposure should be planned for. **Closed, no action.**
+2. **`edu-holdover-mechanics-sd`'s cross-state comparator.** The carried finding was that the sentence comparing South Dakota with CO, KS, NE and ND was wrong about South Dakota. It has already been corrected in place: a MATERIAL CORRECTION dated 2026-10-04 in the same notes records that the row had asserted the opposite of the statute, identifies SDCL 21-3-7, 21-3-8, 21-3-5 and 21-16-10, and states expressly that the cross-state sentence 'is corrected by the same finding: SD has two.' **Closed, no action.**
+3. **`possession-delay`'s reference to `possession-delay-mn`.** The carried finding was that the notes pointed at a row that does not exist. It does exist, as an active row, and the notes' Minnesota segment correctly records that Minnesota now uses it. **Closed, no action.**
+
+**One row re-verified rather than found wrong.** Named item 6 required a full-text alarm battery because the corpus's own no-alarm finding rested on a catchline search. The battery and a full read of ARSD 61:15 confirm `edu-detector-duty-scope-sd` is **correct and current**: it already states the ARSD 61:15:01:15 six-or-more-families rule in terms, the lodging rule at 61:15:01:14, the manufactured-home smoke and CO rule at ARSD 46:04:01:20, the thirty-day compliance notice, and the gap that matters - that a single-family rental, a duplex, or a building under six units falls outside all three. Its own notes record that the 61:15:01:15 omission was caught and corrected on 2026-09-07. **No finding.** Worth noting for other states' passes: that row holds ARSD 46:04:01:20, which this corpus does not contain, so it is a source of law beyond what the corpus can screen.
+
+**One currency point, also not a finding.** SL 2026 ch 179's amendment to SDCL 43-32-24 is already carried correctly, with both deadlines distinguished, by `edu-security-deposit-itemized-accounting-sd` and `edu-advance-rent-vs-deposit-sd`.
+
+### A correction to rows added in this pass - my own error
+
+**I recited SDCL 21-16-1 as five grounds. It has seven.** The section was first read in this pass from an output
+that truncated inside subdivision (5), and I treated the visible list as complete. Subdivisions (6) and (7) were
+missed:
+
+> (6) If a party continues in possession after a judgment in partition, or after a sale under an order or decree of
+> a circuit court;
+> **(7) If a lessee commits waste upon the leased premises, or does or fails to perform any act which, under the
+> terms of the lease operates to terminate the same.**
+
+Subdivision (7) matters, and not marginally. I had written that criminal activity 'is not on that list' and that
+the only route was to terminate under the lease and then sue as for a holdover; and in another row that the grounds
+'contain no conduct ground beyond holdover and nonpayment'. **Both understate the landlord's position: a lease
+covenant drafted so that a breach terminates the lease is a filing ground in its own right.** It also means the
+topic question's Wyoming comparator - a general duty to comply with lawful lease requirements supplying an eviction
+ground - *does* have a South Dakota analogue, which I had recorded as absent.
+
+Caught on review of a canvassing agent's work, which flagged the discrepancy against the library's existing
+`edu-eviction-grounds-sd` - a row that states subdivision (7) correctly. **Four rows added in this pass were
+corrected before delivery**, each carrying a note of the correction: `edu-criminal-activity-sd` (body and notes
+rewritten), the `SD:` segment added to `criminal-activity-ky`, `edu-no-prohibited-acts-renter-list-sd`, and
+`edu-no-single-family-zone-lease-limit-sd`. No existing library row was affected, and `edu-eviction-grounds-sd`
+needs no change.
+
+Recorded here rather than buried because the failure shape is worth naming: **a statute read once from a truncated
+display, then relied on repeatedly across a cluster of rows.** The read was never repeated against the full text,
+and four rows inherited the same gap. It is the same shape as this project's earlier `edu-holdover-mechanics-sd`
+failure, where an absence rested on the wrong chapter and was propagated. The SOP change proposed below is to
+re-read, in full, any section a row's *reasoning* turns on - not merely any section it cites.
+
+**On `edu-fair-housing-additions-sd` (reported by canvassing agent E; notes only, bodyText unaffected; not
+changed).** Two points, both in the row's notes.
+
+1. The row cites the definition as "SDCL 20-13-1(16)". Read in full, the definition is now **subdivision (19)**:
+SL 2020, ch 70, s 1 and ch 71, s 2 added subdivisions, and (16) is now "Real property". The old number survives
+only in the unamended ARSD 20:03:07:02.
+2. The row states that the protected-class list "matches exactly across both sections". **It does not.** SDCL
+20-13-20(1), (2) include familial status; SDCL 20-13-1(19) omits it; and SDCL 20-13-27(5) is a third variant -
+"sex, race, religion or creed, origin, ancestry, familial status, or disability" - with no colour and no national
+origin. A related tension in the same chapter: SDCL 20-13-1(9) and SDCL 20-13-20.1 define "familial status"
+differently.
+
+Per the scope fence this pass added rows and did not fix existing ones. Claude Code to correct both at sync.
+
+**On `late-fee` (the shared clause, SD among 29 states; reported this pass; not changed).** The SD note added
+2026-09-07 triages the clause as "Tier A = boilerplate with **no SD statutory interaction**", and reasons that
+"SD sets no statutory late-fee cap and no mandatory grace period, so the landlord-set fields create no conflict."
+The conclusion is right; the premise is not. Chapter 54-3 was read in full section-open on 2026-10-30 and South
+Dakota defines interest to **include a late charge**: "Interest is the compensation allowed by law for the use, or
+forbearance, or detention of money or its equivalent, including without limitation, points, loan origination
+fees, credit service or carrying charges, **charges for unanticipated late payments**, and any other charges,
+direct or indirect, as an incident to or as a condition of the extension of credit" (SDCL 54-3-1). So a South
+Dakota late fee is statutorily interest, and there is statutory interaction in three places:
+
+1. It is uncapped only because of a general rule, not because the subject is unregulated - "Unless a maximum
+   interest rate or charge is specifically established elsewhere in the code, there is no maximum interest rate or
+   charge, or usury rate restriction ... if they establish the interest rate or charge by **written agreement**"
+   (SDCL 54-3-1.1). The clause's `{{late_fee_amount}}` is therefore uncapped *because the lease is a written
+   agreement*, which is a different and more fragile proposition than "no cap exists".
+2. There is an eighteen percent ceiling the row does not flag, and it bites exactly where a late fee is
+   communicated: "Any interest rate appearing on a bill, statement, or invoice may not exceed eighteen percent"
+   (SDCL 54-3-5). A late charge expressed as a rate on a monthly rent statement is a rate appearing on a
+   statement.
+3. A flat late fee remains exposed as a penalty under SDCL 53-9-4, with the narrow exception at SDCL 53-9-5 -
+   which the row's own Tier A reasoning does not reach because it treats the subject as having no statutory
+   dimension at all.
+
+Nothing in the clause text needs to change and the fields remain lawful. What is wrong is the recorded basis for
+that conclusion, and the missing eighteen percent caveat. Per the scope fence this pass added rows and did not fix
+existing ones; the point is cross-referenced from `edu-unpaid-damages-interest-sd`. Claude Code to correct the
+note at sync.
+
+**On the log's own record of live reads (methodological; no row affected).** Canvassing agent F mounted a
+provenance challenge to two delivered rows - see s 3 - which failed only because the agent could not know that
+live reads went through the browser on the linked device rather than the container's shell. The challenge was
+correct in everything it could check, and it could not check the thing that mattered. A SHA-256 recorded in s 1
+for a chapter fetched outside the corpus is not verifiable by anyone working in the container, so it functions as
+an assertion rather than a check. From this delivery s 1 names the **retrieval route** for every chapter read
+outside the corpus, and the point is proposed as an SOP change.
+
+---
+## 7. Findings for other states
+
+**One, and it is a gap rather than an error.** SDCL 49-34-14 caps what a landlord may charge for rebilled gas or electricity at the amount the utility actually billed, with a civil fine up to five hundred dollars, and expressly exempts electric-vehicle charging; SDCL 49-34A-116 keeps a charging-station operator from becoming a regulated utility. **Neither section appears anywhere in the library** (anchored section-number grep over all 11,962 rows, rule 28), and nor does any chapter 11-10 section. That is a South Dakota gap this delta closes.
+
+The cross-state observation worth passing on is structural, not a correction: **a utility-rebilling markup cap of this kind is a constraint on any clause that lets the landlord bill a tenant for a metered utility, and the library's shared utility clauses are screened against fee rules but not against markup caps.** Rule 26's instruction to screen every shared clause that lets the landlord charge for something against the state's fee rules would catch a *fee*, but a cap on the *amount* of a pass-through is a different shape and would not necessarily be caught. Other states with a comparable anti-markup provision - this is a common feature of utility codes - may have the same unscreened exposure. Flagged for the states whose utility topics are already closed; nothing in another state's rows is asserted to be wrong on the strength of a South Dakota finding, and no other state's rows were examined for it.
+
+No other finding for another state arose from this batch.
+
+**Four further findings, all structural and all flagged rather than asserted.** Nothing below says another
+state's row is wrong; each is a shape this pass met in South Dakota that the library's existing rows for other
+states may share, and none of those rows was examined.
+
+**1. A shared clause can fail a tag in two opposite directions, and rule 26 currently names only one of them.**
+Rule 26 asks whether the clause's basis rests on the other state's statute - the clause importing a limit the
+tagging state does not impose. `rules-ia` fails that way: its **body** recites the Iowa URLTA enforceability
+conditions (purpose, reasonable relation, fair application, explicitness) as conditions on a rule binding the
+tenant, so tagging it into a non-URLTA state imposes limits that state's law does not. That clause already
+carries **11 states**, and any of them without a house-rule statute has the same exposure. `rules-wi` fails the
+**mirror** way, which the rule does not describe: its mid-tenancy limb (a new rule binds only on the tenant's
+written agreement or at renewal) is correct for a fixed term but **omits a modification power the state grants** -
+in South Dakota, SDCL 43-32-13's thirty-day notice that "shall of itself operate" to set new terms on holdover.
+Tagging it would have understated the landlord's position rather than overstated it. Both were declined; the
+reasons are on `edu-rules-regulations-sd`. Proposed as an SOP change below.
+
+**2. Foreign-ownership statutes enacted in 2024-2026 may define the restricted interest to include a lease, and
+the library's rows in 38 states may predate that.** South Dakota's chapter 43-2B (SL 2026, ch 177) defines a
+"real property interest" to include a **lease** and an option, bars a prohibited entity from holding one with no
+acreage limit and no short-lease carve-out, and so reaches an ordinary residential tenancy - while the older
+agricultural chapter it sits beside expressly leaves *leasing* unrestricted. A row written against the
+agricultural chapter alone, or against a pre-2024 alien land law, would state the opposite of the current
+position. Many states legislated in this area in the same two sessions. Worth a currency pass on the
+`foreign-ownership` rows wherever they were written before mid-2026.
+
+**3. The UETA non-waivable refusal right is near-uniform, so the mandatory-portal analysis is probably
+library-wide.** Uniform Electronic Transactions Act section 5(b) - "A party that agrees to conduct a transaction
+by electronic means may refuse to conduct other transactions by electronic means. The right granted by this
+section may not be waived by agreement" - is enacted in South Dakota verbatim at SDCL 53-12-9 and, being uniform
+text, is very likely in materially identical words in almost every state that has adopted the Act. If so, a lease
+term compelling a tenant to receive **all** notices through a landlord's portal is unenforceable to that extent
+in nearly every state, not just this one. The library currently carries portal clauses in two states and the
+`tenant-portal` topic asks the UETA question as a second limb; the finding is that the answer is probably the same
+everywhere and could be stated once. Flagged, not verified outside South Dakota.
+
+**4. A state may have no civil remedy for an unauthorised occupant even where a statute's catchline says
+"unlawful occupancy".** SDCL 22-35-7 is captioned "Affirmative defenses to unlawful occupancy" and states
+defences to **criminal trespass** prosecution; it creates no civil route, and South Dakota has none outside the
+ordinary eviction chapter. A `confirmed-absences-outside-title` row written from catchlines alone could record a
+squatter remedy that does not exist. The method point is in the SOP items below.
+
+---
+## Proposed SOP changes
+
+1. **Build the state's statewide catchline index before writing any absence row.** Where a state's legislature publishes a title or chapter index listing every section with its catchline - South Dakota's `index/titles/` gave 47,386 of them, every section in the Code - parsing it converts rule 36 "Not located" verdicts into bounded confirmed absences across the whole Code, and names the chapter a missing provision would sit in from the same data. It cost one scripted pass and changed the verdict on roughly half this batch. Proposed as a step in the corpus-building rule (24) rather than a per-topic step, with the rule 19 validation (known positives plus nonsense controls in the same batch) applied to the index before it is relied on.
+2. **Quote from live text, not from a corpus's text extraction, unless the extraction has been proved quotable.** The South Dakota corpus's `text/` rendering inserts spaces around hyphens inside spelled-out numbers (`forty - five`) and before punctuation after cross-reference links. Neither changes the law, but both defeat a verbatim quote check, and a row quoting the corpus would fail its own verification. Proposed as a line in rule 24: the corpus-versus-live corroboration should test *quotability*, normalising before comparison and recording the artifacts found, and quotations should then be taken from the source proved clean.
+3. **When a named item asks you to re-run a screen at a deeper level, check the library before reporting a contradiction.** Item 6 asked for a full-text alarm battery because the corpus's finding rested on catchlines. The battery did overturn the corpus's premise - the residential requirement exists, by rule - but the library row already had it right, and had already recorded its own correction. The reportable finding was "confirms the existing row", not "contradicts the corpus". Proposed as an addition to rule 28: before a deepened screen is written up as a finding, grep the library for the rule it uncovers, because the finding may already be shipped.
+
+4. **Re-read in full any section a row's *reasoning* turns on - not just the section it cites.** This is proposed
+because of the pass's one serious error, written up in s 6. SDCL 21-16-1 was read from a display truncated inside
+subdivision (5), the visible list was treated as complete, and "five grounds" was then relied on across a cluster
+of rows - producing the affirmative claims that criminal activity "is not on that list" and that the grounds
+"contain no conduct ground beyond holdover and nonpayment". The section has **seven**, and subdivision (7) makes a
+lease-covenant breach a filing ground in its own right. The existing rules require a section to be read
+section-open before it is *quoted*; they do not require it before it is *reasoned from*, and the reasoning is
+where the damage was done. Proposed wording: before asserting that something is **absent from an enumerated list**,
+re-read the enumeration to its closing punctuation in a fresh retrieval, and record in the notes that the list was
+read to its end.
+5. **Treat a catchline index as conclusive only for subjects a catchline would name, and never as a description of
+the section.** Two limits were established and documented this pass. The index misses **body-only phrases** -
+`fit for human habitation` returns 0 of 47,386 catchlines yet is the operative standard in the bodies of
+SDCL 43-32-8 and 43-32-9 - and it drops **court-rule lettered-subsection entries**, SDCL 15-6-4(c) being absent
+though real. Separately, a catchline can **misdescribe its own section**: SDCL 22-35-7 is captioned "Affirmative
+defenses to unlawful occupancy" but states defences to criminal trespass prosecution and creates no civil remedy.
+Proposed: pair every catchline-based absence with a full-text screen, and never characterise a section's content
+from its catchline without opening it.
+6. **Never state a battery count from expectation; state it from the run.** A count written from what the pattern
+was expected to return, rather than from the output in front of you, is an unverifiable figure in a row that
+exists to be verifiable - and it is the easiest thing in this method to get wrong, because the patterns are
+written before they are run. Proposed as a line in rule 19: the count recorded in a row's notes must be
+transcribed from the run that produced it, in the same working session, and a battery re-run after any pattern
+edit.
+7. **Rule 26's basis check should be asked in both directions.** As drafted it catches a clause whose substance
+rests on the other state's statute - importing a limit the tagging state does not impose. It does not catch the
+mirror failure: a clause that **omits a power the tagging state grants**, and so understates the landlord's
+position. `rules-wi` is the worked example in s 7. Proposed wording: ask both whether the clause imposes a limit
+this state's law does not, and whether it omits a right or mechanism this state's law gives the landlord; record
+the answer to both, and decline the tag on either.
+8. **Prefer a single-section endpoint over a chapter fetch when a state's service offers one.** Where the
+legislature's service serves one section at a stable URL - South Dakota's `/api/Statutes/<section>.html` - reading
+three sections costs a fraction of pulling the chapter that contains them, and the saving compounds across a pass
+with dozens of targeted reads. Proposed as a channel note under rule 24, alongside recording which retrieval
+mechanics actually work for the state, since those differ by service and are expensive to rediscover.
+
+9. **Record the retrieval route, not just a hash, for every source read outside the corpus.** A SHA-256 in the
+log's s 1 lets a later reader confirm that two copies of a chapter are identical; it does not let anyone confirm
+that the chapter was read at all, because nothing in the working container can reproduce a read made through a
+browser on a linked device. Canvassing agent F this pass mounted a careful provenance challenge to two delivered
+rows and reached a false conclusion for exactly that reason - it could verify that the chapter was absent from the
+corpus and that the shell was policy-denied, and had no way to learn that a second route existed. The rows were
+re-verified and stand, but the agent spent real effort on a question the log should have answered. Proposed: s 1
+names, per chapter, **which channel read it** (corpus, shell, or browser on which device) and on what date, and
+the delegation brief states plainly which routes the agent itself does and does not have - so an agent that cannot
+verify something knows that it cannot, rather than inferring that it did not happen.
+10. **Write the lessor-facing proviso into the battery, not just the subject.** Two of this pass's most valuable
+findings were provisos buried at the end of a section whose subject was not landlord-tenant: SDCL 44-9-2's
+"provided that as against a lessor no lien is given for repairs made by or at the instance of his lessee", and
+SDCL 54-3-1's inclusion of "charges for unanticipated late payments" in the definition of interest. Neither is
+findable from a catchline and neither sits in a chapter a landlord-tenant screen would open. Proposed as a line in
+rule 19: for any topic that turns on a third party's rights against the property (liens, nuisance, condemnation,
+foreclosure, utilities, interest), run a battery on the **tenure words themselves** - `lessor`, `lessee`,
+`landlord`, `tenant`, `leasehold` - across the whole corpus and the whole catchline index, independently of the
+topic's subject-matter pattern, and read every hit. That one pattern would have surfaced both.
+
+11. **When a boundary is resolved, correct the body, not only the notes.** Rule 36 requires a Not-located row to
+state its boundary in the body as well as the notes, and that is right - but when a later read resolves the limb,
+the discipline for *removing* it is missing, and the natural move is to append a RESOLVED paragraph to the notes
+and stop. My own pre-check this pass found **three rows whose notes recorded the limb as resolved while the body
+still told the reader the point was unsettled** (`edu-trespass-notice-sd` on chapter 22-35,
+`edu-no-contamination-lease-disclosure-sd` on chapter 34A-17, `edu-no-association-lease-disclosure-sd` on
+SDCL 43-15A-4 - each of which had in fact been read section-open and quoted in the notes). The notes are the audit
+trail; the body is the only part the landlord reads, so a stale boundary sentence there is a false statement to
+the reader even while the row is internally honest. Proposed: make resolving a boundary a two-part edit, body and
+notes, with the body change recorded in the notes so the correction stays visible; and add to the check brief an
+explicit pass for body text asserting a limit that the same row's notes say was resolved. This is cheap to check
+mechanically - grep bodies for boundary phrasing and cross-reference the notes for RESOLVED - and it will not be
+caught by a quotation or citation check, because nothing in the row is misquoted or miscited.
+
+12. **A paraphrase in the delegation brief will come back as a quotation. Quote the statute in the brief, or do
+not put the words in at all.** This is the clearest single lesson of the pass. My agent brief's core-law digest
+rendered SDCL 43-32-10 as the lessee "must preserve" the premises - unquoted, a compression of *shall preserve*,
+and perfectly serviceable as a summary. **Nine separate rows then single-quoted it as statutory text**, and the
+independent check caught it only because it re-verified every quoted span against the section. The same mechanism
+produced the compressed SDCL 43-32-18(1) in five rows. Neither error was anyone's carelessness in the ordinary
+sense: the brief looked like a reliable source, and a drafter reaching for the statute's words found them already
+written down. Proposed, as a rule on the brief rather than on the rows: **every statutory phrase in a delegation
+brief is either a verbatim quotation with its citation adjacent, or it is not in quotation-shaped prose at all** -
+summarised in plainly non-quotable language ("the tenant has a statutory duty to preserve the premises"), with
+the instruction that the section must be opened before any of its words are quoted. And the check brief should
+keep re-verifying every quoted span, because this class of error is invisible from inside the drafting: the text
+is right there, it looks authoritative, and nothing in the row signals that it was never read from the statute.
+13. **State a battery count only from the run that produced it, and name the hits when the count is not zero.**
+This extends item 6 with what round 1 actually found: of 330 re-run battery claims, **18 in 17 rows did not
+reproduce**, in both directions and by as much as 109, and two of them were stated zeroes that were not zero.
+Every absence verdict survived on the merits, so the research was sound and the arithmetic was not - which is
+precisely the failure a reader cannot detect, because a wrong count looks exactly like a right one. Two cheap
+habits would have caught all 18: transcribe the figure from the visible output in the same session rather than
+from memory of what the pattern should return, and **name the sections behind any non-zero count** in the notes,
+which makes the figure self-checking and forces a second look at whether the hits are really off-point.
+
+14. **A scripted fix to quotations or delimiters needs its own check round, because the fix is as likely to
+introduce a defect as the drafting was.** This pass ran two agent rounds, and the second round's most valuable
+findings were **defects created by the first round's corrections**: a corrected SDCL 53-9-1 quotation dropped into
+the sentence built for the old one in all five rows, leaving a doubled conjunction; a backtick conversion that
+mis-paired delimiters on two genuine statutory quotations and wrongly converted nine more; and a corrected count
+whose newly attached list of sections named one that was not a hit. None of these existed before the fixing pass.
+Two concrete proposals. First, **scope the final round to the rows edited since the previous round plus a
+mechanical sweep of whatever the fix touched globally** - that scoping is what caught all of the above, and a
+round that only re-read the original defect list would have missed every one. Second, when replacing a quotation,
+**re-read the whole sentence, not the quoted span**: a verbatim quotation can still make the sentence
+ungrammatical, change its meaning, or duplicate a conjunction the statute already carries. Where the two permitted
+rounds are exhausted and the last one is not clean, the lead should re-verify each correction directly against the
+source rather than ship on the agent's word - which is what was done here and is recorded in s 5c.
+
+---
+## Proposed topic questions
+
+1. **`utility-allowance-cap` and the utility topics generally: add a markup-cap limb.** The topic currently asks whether the regulator's rules bar passing master-metered electricity through except in fixed rent. South Dakota has no such rule but does cap the *amount*: a landlord may not knowingly charge a utility consumer more than the utility billed, on pain of a civil fine (SDCL 49-34-14). Proposed question: *Does a statute or utility rule cap what the landlord may charge for a rebilled utility at the amount actually billed, and what is the penalty for exceeding it?* This is a different shape from a fee cap and is not currently asked anywhere.
+2. **`alarm-tampering-fee`: ask what the state does instead of authorising a fee.** The topic asks whether the lease may charge a fee for tampering and how much. In a state with no authorising statute the useful answer is the pair that replaces it - the criminal provision, and the state's rule on contractual penalties, which is what makes a flat fee unenforceable. Proposed addition: *Where no statute authorises a fee, does the state's contract law void a fixed charge for breach, leaving documented actual cost as the only route?*
+3. **`fire-code-standard`: ask which edition applies to which regime.** South Dakota adopts the 2015 IBC, IFC and IMC for fire safety by rule and the 2024 IBC, IRC and International Property Maintenance Code for building design by statute, at the same time. A single "which code" question invites a single answer and would have produced a wrong row. Proposed addition: *Do the state's fire-safety rules and its building-design statutes adopt different editions of the model codes, and which governs a rental?*
+
+4. **`foreign-ownership`: ask whether the restricted interest includes a lease, and whether the landlord must
+inquire.** The topic's limbs ask about ownership restrictions, a lease-duration carve-out, and whether a
+residential tenancy is a lease of "land". None asks the two questions that decide what a landlord actually does.
+Proposed: *Does the statute's definition of the restricted interest expressly include a lease (and an option), and
+is there any acreage or duration threshold?* and *Does the statute impose on a landlord any duty to determine
+whether a prospective tenant is within the restriction, and any liability for not doing so?* South Dakota answers
+yes to the first and **no duty, no liability** to the second (SDCL 43-2B-1(3), 43-2B-2, 43-2B-7), and the second
+answer is what makes the whole subject a non-event for a landlord's screening practice.
+5. **`tenant-portal`: make the UETA limb ask for the state's own section.** The topic asks whether UETA's
+non-waivable right to refuse further electronic transactions limits a mandatory-portal term. Because the uniform
+text is near-identical across adopting states, the useful form of the question is the citation rather than the
+conclusion. Proposed: *Which section of the state's UETA enacts uniform section 5(b), and does it carry the
+non-waivability sentence unchanged?* - plus a separate limb for payment, which is on different footing from
+notice: *Does any statute prescribe or restrict the method of rent payment, and is a portal convenience fee a
+charge for a service or a penalty under the state's contract law?*
+6. **`maintenance-duty-shift`: ask what consideration the state requires.** The two existing limbs ask about a
+listed-condition shift on a landlord precondition, and a shift on adequate consideration plus a conspicuous
+writing. South Dakota permits a shift in one form only and prescribes the consideration specifically: the tenant
+may "perform specified repairs or maintenance **in lieu of rent**" (SDCL 43-32-8). Proposed: *If a shift is
+permitted, what consideration does the statute require for it - rent specifically, any adequate consideration, or
+none - and must the work be itemised?* A clause drafted for an "adequate consideration" state is void in a
+rent-specific one.
+7. **`rules-regulations`: add a mid-tenancy modification limb.** The topic asks about enforceability conditions, a
+tenant-duty section binding the tenant to rules in force at signing, and a retaliation presumption for a
+substantial alteration of the tenancy. It does not ask the question a landlord asks. Proposed: *May the landlord
+change the rules during the tenancy, and by what mechanism - unilateral notice on a periodic tenancy, the tenant's
+agreement, or renewal only?* South Dakota has no house-rule statute at all but does give a real mechanism at
+SDCL 43-32-13, and missing it is what made one shared clause unsafe to tag.
+8. **`hoa`: ask whether the sale-disclosure regime reaches a lease-option.** Several states require an
+association disclosure on a sale. Where the disclosure chapter defines "transfer" to include a lease with an
+option to purchase, as South Dakota's does (SDCL 43-4-37(3), (5), with the association disclosure at
+SDCL 43-4-44.1), a landlord letting with an option is inside a regime written for sellers. Proposed: *Does the
+state's property-disclosure definition of a transfer include a lease with an option to purchase, and does the
+association disclosure therefore apply to one?*
+9. **`confirmed-absences-outside-title`: make the squatter limb ask whether any remedy is civil.** The limb as
+written - "squatter or unauthorized-occupant specific remedy" - is satisfied by a criminal trespass provision,
+which gives a landlord nothing. Proposed: *Is there a civil summary remedy against an occupant who never held a
+tenancy, or only a criminal trespass offence, and must such an occupant be removed through the ordinary eviction
+action?*
+10. **`farmland-hunting-rights`: ask who may give permission.** The existing limb asks whether a tenant of rented
+farmland has hunting rights absent a written grant. The operative question in a state with no allocation rule is
+the trespass statute's wording. Proposed: *Does the trespass-to-hunt provision require permission from the owner
+alone, or from the "owner or lessee" / "person in possession" - and so can a tenant lawfully authorise hunting on
+the land?* South Dakota, Colorado and Mississippi all name the lessee, which reverses the default landlords
+assume.
+
+---
+
+## Gaps-pass sync review (Claude Code, 2026-10-30)
+
+Merged with `merge-delta.py --base 7f968b2`: 260 new rows (all education rows) and 12 shared clauses tagged, nothing refused. All 260 missing topics are answered. South Dakota now carries 383 active rows, every one VERIFIED; the new rows carry the canvass date in `effective_from` (SOP rule 70). The pass delivered no NEEDS_REVIEW rows.
+
+**ARSD article 20:10 (Public Utilities Commission) is reachable**, at `https://sdlegislature.gov/api/Rules/Rule/20:10.html?all=true` (Desktop's 404s came from other URL shapes). Read at sync: chapters 20:10:15 to 20:10:20 have no submetering, resale, usage-data, lease-disclosure or designee rule; 20:10:20:09 bars disconnecting a landlord-customer's service at a rented address until the tenant has been offered service in their own name where economically feasible; 20:10:26:03-04 require individual gas and electric metering for new multiple-occupancy buildings and substantially remodeled master-metered ones, with exceptions and a variance. Six bodies and the notes of five more rows (and `energy-data-release-wy`'s SD segment) now state the rules instead of a boundary. ARSD 20:69 (Real Estate Commission) is reachable the same way, which corrected `edu-security-deposit-holding-sd`: a licensee holding deposits must keep them in a federally insured institution as a separate ledger balance (SDCL 36-21A-71(5), ARSD 20:69:14:11-12).
+
+**Findings on existing rows (§6), checked against the statute:**
+- `edu-fair-housing-additions-sd`: the definition is SDCL 20-13-1(19), not (16); the protected-class lists don't match across 20-13-1(19), 20-13-20, 20-13-21 and 20-13-27(5), and familial status is defined differently in 20-13-1(9) and 20-13-20.1. Notes corrected; the body was right.
+- `late-fee` (SD segment): SDCL 54-3-1 counts "charges for unanticipated late payments" as interest only "as an incident to ... the extension of credit"; whether a rent late fee is credit is a case-law doubt, so the note takes the cautious course: uncapped only because the lease sets it by written agreement (54-3-1.1), the 18% cap on a rate shown on a bill (54-3-5) matters if a percentage is billed, and a flat fee should be a reasonable estimate of cost (53-9-4, 53-9-5). The shared body stands.
+- `edu-attorney-fee-clause-limit-sd`: SDCL 15-17-42 says chapter 15-17 "applies to" cases with a government party, not "only" to them, and came from the same 1992 act as the general sections, so 15-17-39 most likely reaches private instruments. Whether a lease is "other evidence of debt" only case law could settle; the row's cautious course (don't rely on a fee clause) stands, and its old "flagged for Taylor" line is closed.
+- `tenant-portal-mn`: uniform shared edit, "this Lease or Minnesota law requires" became "this Lease or applicable law requires"; nothing changes for Minnesota. Its SD segment now states the UETA point (SDCL 53-12-9) as a doubt with the cautious course.
+- `edu-foreign-ownership-sd`: SDCL 43-2B-9 has six exclusions, not nine. No clause (my call, agreeing with Desktop): 43-2B-7 removes any duty to inquire and any liability, the attorney general's judgment itself ends the leasehold, and since 43-2B-9 excludes citizens, permanent residents and anyone with lawful status, a tenant question would have to probe immigration status and national origin (SDCL 20-13-20), a fair-housing risk for almost no benefit.
+- The 12 tags: all correct. SD-segment fixes on `pest-cooperation-pr` (a 43-32-8 quotation attributed to 43-32-10), `farmland-sporting-rights-co` (the landlord's hunting entry rests on 43-32-32's "mutually agreed upon" exception), `tenant-caused-fines-as` (21-10-6 read), `association-approval-la` (SD does have association statutes: 11-5-9 and 43-4-44.1; 43-32-6.1's special-conditions exception restored), `showing-notice-la` (43-32-32's notice contents) and `tenant-forward-proceedings-ca` (43-32-17's two exceptions).
+- `showing-notice-la` pointed to a "Landlord's Right of Entry" section South Dakota's lease doesn't have; South Dakota now uses the override `showing-notice-sd`, identical but pointing to "Landlord Access and Entry".
+- **New override `early-termination-sd`:** a flat one month's Rent that ends later Rent, as NE, VT, DE, HI, LA, AR, MS and PR use. The parent's greater-of-30%-of-remaining-Rent fee grows with the time left and reads as damages fixed in advance, which SDCL 53-9-5 voids unless actual damage is impracticable to fix (53-9-4 voids contract penalties). Unlike NE's version it doesn't recite a mitigation duty, since `edu-abandonment-and-mitigation-sd` records that South Dakota has none in statute.
+
+**Edited-after rows:** 59 rows read (every row with a 2026-10-30 correction marker, every row named in round 2, the 21-16-1 seven-grounds rows), every quotation checked against the corpus or the API. 24 fixes, among them: `edu-repair-notice-mechanics-sd` (whether a lease can require written repair requests is hedged, since the non-waiver sentence is in 43-32-8, not 43-32-9); the lease-with-option exception to the association disclosure (43-4-37(5), 43-4-44.1) in two rows; "fit for its intended use" replaced by 43-32-8's "reasonable repair and fit for human habitation" in five rows; `edu-landlord-breach-remedy-sd` (43-32-28 does award fees for retaliation); `edu-liquidated-damages-sd` (severability rests on 53-9-4's "voids their penal clauses"); `edu-no-sex-offender-disclosure-sd` (36-21A-134.1 binds licensees, not owners); `edu-student-housing-sd` (43-32-4's lodgings presumption); `edu-tenant-records-sd` (22-40-19, 22-40-24); `edu-written-notice-required-sd` (repair requests need not be written); and "escrow" replaced by withholding into a separate account in two rows.
+
+**Spot check:** deposit cap and the 21-day and 45-day clocks (43-32-6.1, 43-32-24 as amended by SL 2026 ch 179), eviction grounds and notice (21-16-1's seven grounds, 21-16-2), the repair duty and its non-waiver (43-32-8), tenant remedies (43-32-9), retaliation (43-32-27) and holdover damages (21-3-7, 21-3-8), across all 383 SD rows: consistent; no row recites five grounds, a four-day appearance or "two weeks".
+
+**Decisions (§4):** no product questions for Taylor. Foreign ownership stays education only (above). The ARSD 20:10 rows needed no status call once the article was read.
+
+**Other:**
+- No new `{{variables}}`.
+- SOP 1.89 takes up the pass's 14 proposals as 7 grouped additions, all [Fwd]; proposal 1's conversion of Not-located verdicts into whole-Code confirmed absences was not adopted (rule 36), and proposal 5's claim that the catchline index drops § 15-6-4(c) is wrong (the index lists it; the pass's parse dropped it).
+- Eight topic questions added, all under existing keys.
+- The citations file gained 274 rows.
+- Findings for other states (§7) are in the backlog.
