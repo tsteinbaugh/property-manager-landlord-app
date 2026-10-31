@@ -420,7 +420,7 @@ const CLAUSE_TEMPLATES = [
     id: "residential-use-only",
     title: "Residential Use Only",
     group: "Tenant Responsibilities",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "NY", "WI", "WA", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "NY", "WI", "WA", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP"],
     bodyText:
       "Tenant will use and occupy the property for residential purposes only and will not use or permit the use of the property for any non-residential, illegal, or otherwise inappropriate purpose, including any commercial purpose.",
   },
@@ -1848,7 +1848,7 @@ const CLAUSE_TEMPLATES = [
     states: ["CA"],
     supersedes: "landlords-access",
     bodyText:
-      "Landlord may enter the dwelling unit only in an emergency; to make necessary or agreed repairs, decorations, alterations or improvements, supply necessary or agreed services, exhibit the unit to prospective or actual purchasers, mortgagees, tenants, workers or contractors, or make an initial inspection under Civil Code section 1950.5(f); when Tenant has abandoned or surrendered the premises; or pursuant to court order. Except in an emergency or after abandonment or surrender, Landlord will give Tenant reasonable written notice stating the date, approximate time and purpose of entry, and will enter only during normal business hours unless Tenant consents at the time of entry to a different time. Twenty-four hours is presumed reasonable notice; notice mailed at least six days before entry is presumed reasonable. No notice is required to respond to an emergency, where Tenant is present and consents at the time of entry, or after Tenant has abandoned or surrendered the unit. Landlord will not abuse the right of access or use it to harass Tenant.",
+      "Landlord may enter the dwelling unit only in an emergency; to make necessary or agreed repairs, decorations, alterations or improvements, supply necessary or agreed services, exhibit the unit to prospective or actual purchasers, mortgagees, tenants, workers or contractors, or make an initial inspection under Civil Code section 1950.5(f); for the water submetering purposes in Civil Code section 1954.201 and following, where they apply; to comply with the exterior elevated element inspection law in Health and Safety Code section 17973 and following; when Tenant has abandoned or surrendered the premises; or pursuant to court order. Except in an emergency or after abandonment or surrender, Landlord will give Tenant reasonable written notice stating the date, approximate time and purpose of entry, and will enter only during normal business hours unless Tenant consents at the time of entry to a different time. Twenty-four hours is presumed reasonable notice; notice mailed at least six days before entry is presumed reasonable. No notice is required to respond to an emergency, where Tenant is present and consents at the time of entry, or after Tenant has abandoned or surrendered the unit. Landlord will not abuse the right of access or use it to harass Tenant.",
   },
   // Disclosures
   {
@@ -1966,7 +1966,7 @@ const CLAUSE_TEMPLATES = [
     states: ["CA"],
     supersedes: "early-termination",
     bodyText:
-      "This Section applies to a tenancy for a fixed Term. If the tenancy is month-to-month or another periodic tenancy, the Month-to-Month Termination Notice Section governs ending it instead, and the damages described below do not apply because there is no balance of a Term. Tenant may terminate this Lease before the end of the Term by giving Landlord at least 30 days' written notice. Tenant remains responsible for Rent and other obligations up to the termination date. If this Lease terminates because Tenant breaches it and abandons the property, or because Landlord terminates Tenant's right to possession for breach, Landlord may recover the damages provided by Civil Code section 1951.2. Those damages include the worth at the time of award of the amount by which the unpaid rent for the balance of the Term after the time of award exceeds the amount of the rental loss that Tenant proves could be reasonably avoided. Unpaid rent earned before termination, and rent that would have been earned between termination and the award, shall bear interest at {{judgment_interest_rate}} or, if no rate is stated, at the legal rate. Landlord may terminate this Lease early only as permitted by law, including, where this property is subject to Civil Code section 1946.2, only for a just cause stated in the notice of termination, and only after giving Tenant an opportunity to cure where the law requires one. Nothing in this Section limits any right either party has under applicable law, including Tenant's right to terminate without penalty due to active military service, or due to the property becoming uninhabitable through no fault of Tenant.",
+      "This Section applies to a tenancy for a fixed Term. If the tenancy is month-to-month or another periodic tenancy, the Month-to-Month Termination Notice Section governs ending it instead, and the damages described below do not apply because there is no balance of a Term. Tenant may terminate this Lease before the end of the Term by giving Landlord at least 30 days' written notice and paying Landlord, by the termination date, an early termination fee equal to one month's Rent ({{monthly_rent}}). Tenant remains responsible for Rent and other obligations up to the termination date. If Tenant gives that notice, pays the fee and delivers possession of the property by the termination date, Tenant owes no Rent for any period after the termination date, and the damages described below do not apply. If this Lease terminates because Tenant breaches it and abandons the property, or because Landlord terminates Tenant's right to possession for breach, Landlord may recover the damages provided by Civil Code section 1951.2. Those damages include the worth at the time of award of the amount by which the unpaid rent for the balance of the Term after the time of award exceeds the amount of the rental loss that Tenant proves could be reasonably avoided. Unpaid rent earned before termination, and rent that would have been earned between termination and the award, shall bear interest at {{judgment_interest_rate}} or, if no rate is stated, at the legal rate. Landlord may terminate this Lease early only as permitted by law, including, where this property is subject to Civil Code section 1946.2, only for a just cause stated in the notice of termination, and only after giving Tenant an opportunity to cure where the law requires one. Nothing in this Section limits any right either party has under applicable law, including Tenant's right to terminate without penalty due to active military service, or due to the property becoming uninhabitable through no fault of Tenant.",
   },
   {
     id: "continue-lease-remedy-ca",
@@ -2004,7 +2004,7 @@ const CLAUSE_TEMPLATES = [
     group: "Rules & Regulations",
     states: ["CA"],
     bodyText:
-      "If Tenant has an allotted parking space, Landlord will approve Tenant's written request to install an electric vehicle charging station at that space where the request meets the requirements of Civil Code section 1947.6 and complies with Landlord's procedural approval process for modifications to the property. Tenant's request must include Tenant's consent to a written agreement covering Landlord's requirements for installation, use, maintenance and removal, a complete financial analysis and scope of work, a written description of the proposed modifications, Tenant's obligation to pay all costs associated with the installation and its infrastructure before any work is done, and Tenant's obligation to pay as part of rent the cost of electricity used and of any damage, maintenance, repair, removal and replacement. Tenant and any successor must maintain personal liability coverage in an amount not exceeding ten times the annual rent, covering property damage and personal injury caused by the installation or operation of the station, unless the station is certified by an OSHA-approved Nationally Recognized Testing Laboratory and the work is performed by a licensed electrician. Landlord is not required to provide an additional parking space, and may charge monthly rent for a space that becomes reserved as a result.",
+      "If Tenant has an allotted parking space, Landlord will approve Tenant's written request to install an electric vehicle charging station at that space where the request meets the requirements of Civil Code section 1947.6 and complies with Landlord's procedural approval process for modifications to the property. Tenant's request must include Tenant's consent to a written agreement covering Landlord's requirements for installation, use, maintenance and removal, a complete financial analysis and scope of work, a written description of the proposed modifications, Tenant's obligation to pay all costs associated with the installation and its infrastructure before any work is done, and Tenant's obligation to pay as part of rent the cost of electricity used and of any damage, maintenance, repair, removal and replacement. Tenant and any successor must maintain personal liability coverage of {{ev_liability_coverage_amount}}, which is no more than ten times the annual rent for the dwelling, from installation until the station is removed or Tenant gives up possession, covering property damage and personal injury caused by the installation or operation of the station, unless the station is certified by an OSHA-approved Nationally Recognized Testing Laboratory and the work is performed by a licensed electrician. Landlord is not required to provide an additional parking space, and may charge monthly rent for a space that becomes reserved as a result.",
   },
   // Landlord Responsibilities
   {
@@ -2974,7 +2974,7 @@ const CLAUSE_TEMPLATES = [
     group: "Disclosures",
     states: ["CA"],
     bodyText:
-      "Water Submeter Billing. [Include this section only if Landlord will bill Tenant for water service separately from Rent through a submeter. It must be given in at least 10-point type before this Lease is executed.] Tenant will be billed for water service separately from Rent. Landlord estimates the monthly bill for water service for dwelling units at the property at {{water_bill_estimate}}, based on {{water_bill_estimate_basis}}. Bills are due {{water_bill_due_dates}} and are paid as follows: {{water_bill_payment_procedure}}. Tenant may contact Landlord or Landlord's billing agent with questions about water service billing at {{water_billing_address}}, {{water_billing_email}} and {{water_billing_phone}}. The monthly bill for water service may include only the following charges: the amount due for the usage measured by the submeter, charged at allowable rates; a portion of the fixed fee charged by the water purveyors for water service; a fee for Landlord's or the billing agent's costs; and any late fee, with the amounts and times assessed. Tenant shall notify Landlord of any leaks, drips, water fixtures that do not shut off properly, including a toilet, or other problems with the water system, including problems with water-saving devices, and Landlord is required to investigate and, if necessary, repair these problems within 21 days. Tenant may report any leaks, drips or water fixtures that do not shut off properly to Landlord or Landlord's agent at {{water_repair_address}}, {{water_repair_email}} and {{water_repair_phone}}. Landlord will provide any of the following if Tenant asks: the location of the submeter, the calculations used to determine a monthly bill, and the date the submeter was last certified for use together with the date it is next scheduled for certification. If Tenant believes that the submeter reading is inaccurate or the submeter is malfunctioning, Tenant shall first notify Landlord in writing and request an investigation. This disclosure is only a general overview of the laws regarding submeters, and those laws can be found at Chapter 2.5 (commencing with Section 1954.201) of Title 5 of Part 4 of Division 3 of the Civil Code.",
+      "Water Submeter Billing. [Include this section only if Landlord will bill Tenant for water service separately from Rent through a submeter. It must be given in at least 10-point type before this Lease is executed.] Tenant will be billed for water service separately from Rent. Landlord estimates the monthly bill for water service for dwelling units at the property at {{water_bill_estimate}}, based on {{water_bill_estimate_basis}}. The average family of four uses about 200 gallons of water each day. Bills are due {{water_bill_due_dates}} and are paid as follows: {{water_bill_payment_procedure}}. Tenant may contact Landlord or Landlord's billing agent with questions about water service billing at {{water_billing_address}}, {{water_billing_email}} and {{water_billing_phone}}. Regular telephone service for billing questions is available [insert the days and hours of regular telephone service]. The monthly bill for water service may include only the following charges: the amount due for the usage measured by the submeter, charged at allowable rates; a portion of the fixed fee charged by the water purveyors for water service; a fee for Landlord's or the billing agent's costs; and any late fee, with the amounts and times assessed. Tenant shall notify Landlord of any leaks, drips, water fixtures that do not shut off properly, including a toilet, or other problems with the water system, including problems with water-saving devices, and Landlord is required to investigate and, if necessary, repair these problems within 21 days; otherwise, the water bill will be adjusted as the law provides. Tenant may report any leaks, drips or water fixtures that do not shut off properly to Landlord or Landlord's agent at {{water_repair_address}}, {{water_repair_email}} and {{water_repair_phone}}. Landlord will provide any of the following if Tenant asks: the location of the submeter, the calculations used to determine a monthly bill, and the date the submeter was last certified for use together with the date it is next scheduled for certification. If Tenant believes that the submeter reading is inaccurate or the submeter is malfunctioning, Tenant shall first notify Landlord in writing and request an investigation. If Landlord does not resolve an alleged submeter malfunction, Tenant may contact the local county sealer and request that the submeter be tested. The county sealer may be contacted at [insert the name, address and telephone number of the county sealer for the county where the Premises are located]. This disclosure is only a general overview of the laws regarding submeters, and those laws can be found at Chapter 2.5 (commencing with Section 1954.201) of Title 5 of Part 4 of Division 3 of the Civil Code, available online or at most libraries.",
   },
   {
     id: "mold-booklet-disclosure-ca",
@@ -4184,7 +4184,7 @@ const CLAUSE_TEMPLATES = [
     states: ["CA"],
     supersedes: "security-deposit-use",
     bodyText:
-      "Tenant shall pay Landlord a security deposit of {{security_deposit}} (Security Deposit) prior to occupancy. Landlord may apply the Security Deposit only to: unpaid Rent; repair of damage to the property, beyond ordinary wear and tear, caused by Tenant or by a guest or licensee of Tenant; cleaning needed when the tenancy ends to return the property to the level of cleanliness it was in when the tenancy began; and Tenant's failure to restore, replace or return personal property or appurtenances, beyond ordinary wear and tear. The Security Deposit will not relieve Tenant of any obligation to pay Rent.",
+      "Tenant shall pay Landlord a security deposit of {{security_deposit}} (Security Deposit) prior to occupancy. Landlord may apply the Security Deposit only to: unpaid Rent; repair of damage to the property, beyond ordinary wear and tear, caused by Tenant or by a guest or licensee of Tenant; cleaning needed when the tenancy ends to return the property to the level of cleanliness it was in when the tenancy began; Tenant's failure to restore, replace or return personal property or appurtenances, beyond ordinary wear and tear; and, where Tenant is billed for water service through a submeter, an unpaid water service bill, if the last water service bill showing the amount due is attached to the itemized statement of deductions California law requires. The Security Deposit will not relieve Tenant of any obligation to pay Rent.",
   },
   {
     id: "security-deposit-return-ut",
@@ -16148,6 +16148,184 @@ const CLAUSE_TEMPLATES = [
     supersedes: "tenant-portal-mn",
     bodyText:
       "[Optional.] Landlord may make an online tenant portal available for rent payments, maintenance requests and notices. Tenant's use of the portal for notices is voluntary. Tenant may give any notice this Lease or applicable law requires by the methods this Lease sets out, whether or not Tenant uses the portal. Landlord may require payment through the portal only if paying through it costs Tenant no fee and does not require information about a bank account of Tenant. Otherwise, Tenant may always pay by any method listed in this Lease's Payment Methods Section, whether or not Tenant uses the portal. If Landlord requires or permits payment through the portal, Landlord will provide an alternative way to pay whenever the portal is not working. Landlord will not charge Tenant any fee for using that alternative. Tenant's email address and other electronic contact details for the portal are [enter or leave blank]. Tenant will tell Landlord promptly if those details change.",
+  },
+  // Security Deposit
+  {
+    id: "service-member-additional-security-ca",
+    title: "Additional Security - Service Member",
+    group: "Security Deposit",
+    states: ["CA"],
+    bodyText:
+      "[Include this Section only if Tenant is a service member as defined in Military and Veterans Code section 400 and Landlord is charging more than Landlord's standard or advertised security because of Tenant's credit history, credit score, housing history or another factor related to Tenant.] Additional security. Of the Security Deposit, {{additional_security_amount}} is security charged above Landlord's standard or advertised amount. Landlord has given Tenant, on or before the date this Lease is signed, a written statement of that amount and of the reason it is charged. Landlord will return {{additional_security_amount}} to Tenant on or before {{additional_security_return_date}}, which is no more than six months after Tenant's residency begins, if Tenant is not in arrears for any Rent due during that period. Returning that amount does not affect Landlord's rights in the remainder of the Security Deposit.",
+  },
+  // Rent & Payment
+  {
+    id: "interest-on-unpaid-amounts-ca",
+    title: "Interest on Unpaid Amounts",
+    group: "Rent & Payment",
+    states: ["CA"],
+    bodyText:
+      "Any Rent or other amount Tenant owes under this Lease that is not paid when due will bear interest at {{unpaid_amount_interest_rate}} per year from the date it became due until it is paid. Interest under this Section is in addition to, and is not, a late charge. Landlord may choose not to charge interest on a particular amount without giving up the right to charge it on any other amount.",
+  },
+  // Default & Termination
+  {
+    id: "forfeiture-clause-ca",
+    title: "Forfeiture on Default",
+    group: "Default & Termination",
+    states: ["CA"],
+    bodyText:
+      "If Tenant defaults under this Lease and the default is not cured within the time any notice required by law allows, Landlord may declare this Lease forfeited, in addition to Landlord's other remedies. A declaration of forfeiture ends Tenant's right to possession but does not release Tenant from liability for Rent or for Landlord's other damages, including damages under Civil Code section 1951.2. Landlord must state the election to declare a forfeiture in the notice California law requires, and the declaration is of no effect if Tenant performs within the time that notice allows or if Landlord waives the breach after serving the notice.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "tenant-repair-agreement-ca",
+    title: "Tenant-Performed Maintenance",
+    group: "Tenant Responsibilities",
+    states: ["CA"],
+    bodyText:
+      "[Include this Section only if Tenant is undertaking maintenance or repair work as part of what Tenant gives for this tenancy, and the Rent reflects it.] Tenant-performed maintenance. As part of the consideration for this Lease, Tenant will improve, repair and maintain the following portions of the property: {{tenant_maintenance_scope}}. Monthly Rent under this Lease is {{tenant_maintenance_rent_credit}} lower than it would otherwise be because Tenant is undertaking that work, and that reduction is the consideration for it. Tenant will do the work in a workmanlike manner and keep the property in at least the condition it was in at the start of the tenancy. Any materials, parts or fixtures Tenant installs in doing the work become Landlord's property and may not be removed at the end of the tenancy. This Section does not reduce Landlord's obligations under Civil Code sections 1941 and 1941.1, and does not apply to any condition that renders the property untenantable; Landlord remains responsible for those, and Tenant keeps every right Civil Code sections 1942 to 1942.5 give Tenant.",
+  },
+  {
+    id: "common-area-lighting-ca",
+    title: "Outside-Unit Electric or Gas Service on Tenant's Meter",
+    group: "Tenant Responsibilities",
+    states: ["CA"],
+    bodyText:
+      "[Use only where gas or electric service measured by Tenant's meter also serves an area outside the Premises. Do not use where Tenant's meter measures only the Premises.] Landlord discloses, and Tenant acknowledges being told before this Lease was signed, that gas or electric service measured by Tenant's meter also serves the following areas outside the Premises: [list each area served through Tenant's meter, for example a hallway or stairway light, an exterior or walkway light, a shared laundry or a common outlet]. Landlord and Tenant mutually agree that Tenant will pay the utility for the service supplied through Tenant's meter to those areas, and that in return Landlord will [state what Tenant receives in exchange, for example a stated monthly rent reduction, a stated monthly credit, or Landlord paying another utility; or state that no reduction or credit applies]. Either party may propose a different arrangement in writing at any time, and this clause may be replaced only by a further written agreement signed by both. If Landlord later discovers that Tenant's meter serves an additional area outside the Premises, Landlord will disclose it to Tenant in writing promptly and the parties will agree in writing how that service is to be paid for. Tenant is not responsible for maintaining, repairing or replacing any lighting, wiring, fixture or equipment in a common area or anywhere outside the Premises, which remains Landlord's responsibility.",
+  },
+  // Disclosures
+  {
+    id: "energy-data-consent-ca",
+    title: "Consent to Release Energy Usage Data",
+    group: "Disclosures",
+    states: ["CA"],
+    bodyText:
+      "Energy Usage Data. [Include this section if Landlord benchmarks the building's energy use and the building has fewer than three active utility accounts, so that the utility may release aggregated data only with the accountholder's consent.] Tenant consents to each utility serving the Premises delivering to Landlord, Landlord's agent and the operator of the Property the aggregated energy usage data for the building for each of the 12 prior months, and to that data being uploaded to Landlord's benchmarking account. Tenant will sign any form a utility requires in order to give effect to this consent. Landlord will use the data only to benchmark the building's energy use, to meet any energy reporting requirement that applies to the Property, and to manage the Property's energy costs; Landlord will not use it to set or increase Rent for the Premises. Tenant may withdraw this consent at any time by written notice to Landlord at [insert address or email for notices about energy data], and the withdrawal takes effect for data not already delivered. This Section does not make Tenant responsible for any utility charge Tenant does not otherwise owe under this Lease, does not give Landlord access to the Premises, and does not authorize Landlord to obtain Tenant's individual account records.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "recycling-source-separation-ca",
+    title: "Recycling and Organic Waste Separation",
+    group: "Tenant Responsibilities",
+    states: ["CA"],
+    bodyText:
+      "Recycling and Organic Waste. Tenant shall separate Tenant's recyclable materials and Tenant's organic waste, including food scraps and food-soiled paper, from other solid waste and place each in the container Landlord designates for it. Landlord will supply containers for recyclable materials and for organic waste, located at [describe where the recycling and organic waste containers are kept], and will mark each container to show what belongs in it. Tenant shall not put recyclable materials or organic waste in a trash container, shall not put material in a recycling or organic waste container that the container's marking excludes, and shall not use the Property's containers for waste generated anywhere other than the Premises. If Landlord arranges gardening or landscaping services for the Property, Landlord is responsible for the organic waste those services generate and Tenant need not handle it. Landlord may change the containers, where they are kept, and the separation instructions, on [insert number of days of advance written notice, e.g. 30] days' advance written notice to Tenant, in order to comply with applicable law or the requirements of the local jurisdiction or the waste hauler. Nothing in this Section requires Tenant to sort or handle waste in a way that applicable law does not permit, or to enter any area Tenant is not otherwise entitled to use.",
+  },
+  // Default & Termination
+  {
+    id: "criminal-activity-ca",
+    title: "Criminal Activity",
+    group: "Default & Termination",
+    states: ["CA"],
+    bodyText:
+      "Tenant will not engage in, and will not permit any occupant, household member or guest to engage in, criminal activity on the property, including the common areas, or any criminal activity or criminal threat directed at Landlord or Landlord's agents or employees. Tenant will not use or permit the use of the property for any unlawful purpose, and will not maintain, commit or permit a nuisance on the property. Each of these is a material term of this Lease, and a breach is a material breach for which Landlord may terminate as California law allows. Nothing in this Section limits Landlord's separate right under California law to recover possession on three days' notice to quit where the property is used for an unlawful purpose or a nuisance is maintained. This Section does not apply to, and Landlord will not treat as a breach, criminal activity of which Tenant or a member of Tenant's household is the victim, and does not prohibit or limit anyone's right to summon law enforcement or emergency assistance as, or on behalf of, a victim of abuse, a victim of crime or a person in an emergency; Landlord will impose no penalty for doing so.",
+  },
+  // Rules & Regulations
+  {
+    id: "drug-free-housing-ca",
+    title: "Controlled Substances and Cannabis",
+    group: "Rules & Regulations",
+    states: ["CA"],
+    bodyText:
+      "Tenant, members of Tenant's household, and persons on the premises with Tenant's permission will not manufacture, cultivate, import, transport, sell, distribute, furnish, give away, possess for sale, or use any controlled substance on or about the premises, except a drug lawfully prescribed to and used by the person for whom it was prescribed. Tenant will not permit the premises, any common area, parking area or storage area to be used for any unlawful purpose or for any activity amounting to a nuisance.\n\nSmoking, vaporizing, combusting, ingesting and cultivating cannabis are prohibited in the dwelling unit, on the premises and in all common areas, whether or not any person holds a physician's recommendation and whether or not the conduct is otherwise lawful. Tenant may ask Landlord in writing to consider a reasonable accommodation where cannabis is used for a disability-related purpose, and Landlord will respond in writing.\n\nA breach of this section by Tenant, a member of Tenant's household, or a person on the premises with Tenant's permission is a material breach of this Lease.\n\nThis section will not be enforced against any person because that person is or has been the victim of abuse, violence or a crime, or because that person, or anyone else, summoned law enforcement assistance or emergency assistance as or on behalf of a victim of abuse, a victim of crime, or an individual in an emergency.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "extended-absence-notice-ca",
+    title: "Notice of Extended Absence",
+    group: "Tenant Responsibilities",
+    states: ["CA"],
+    bodyText:
+      "Tenant will occupy the property only as a dwelling unit, unless Landlord agrees otherwise in writing. If Tenant anticipates being away from the property for more than seven consecutive days, Tenant will notify Landlord no later than the first day of the absence. If Tenant willfully fails to give this notice, Landlord may recover the actual damages caused by the failure.\n\nTenant's absence is not by itself a breach of this Lease and is not a ground for terminating it, and this section does not authorize Landlord to enter the property. Landlord may enter only on a ground, and with the notice, that this Lease's Access & Entry terms require.\n\nLandlord will not enforce this section against Tenant, a member of Tenant's household or any other person because that person is or has been away from the property as a result of abuse, violence or a crime, or because law enforcement assistance or emergency assistance was summoned.",
+  },
+  {
+    id: "prohibited-acts-renter-ca",
+    title: "Prohibited Acts by Tenant",
+    group: "Tenant Responsibilities",
+    states: ["CA"],
+    bodyText:
+      "Tenant, members of Tenant's household and persons on the premises with Tenant's permission will conduct themselves so as not to disturb the quiet enjoyment of other residents or of neighbouring occupiers, and will not maintain, commit or permit a nuisance on the premises, or use the premises or any common area for an unlawful purpose.\n\nTenant will not unreasonably withhold consent to Landlord's entry for a purpose this Lease's Access & Entry terms permit, and will not unreasonably deny access to Landlord, Landlord's agent, a contractor or a pest control operator for a necessary or agreed repair, service, inspection for bed bugs or treatment. Nothing in this section requires Tenant to permit an entry for which the notice this Lease requires was not given, or to accept a time that is not reasonable; Tenant may propose another reasonable time, and Tenant may be present.\n\nLandlord will not enforce this section against Tenant, a member of Tenant's household or any other person because that person is or has been the victim of abuse, violence or a crime, or because that person or anyone else summoned law enforcement assistance or emergency assistance as or on behalf of a victim of abuse, a victim of crime or an individual in an emergency.",
+  },
+  // Notices & General
+  {
+    id: "term-change-notice-ca",
+    title: "Changing the Terms of a Periodic Tenancy",
+    group: "Notices & General",
+    states: ["CA"],
+    bodyText:
+      "If this Lease is a tenancy from week to week, from month to month or for any other period less than a month, Landlord and Tenant agree in writing, as California law permits, that a notice changing the terms of this Lease may be given at any time not less than seven days before the expiration of a term, to be effective upon the expiration of that term. Landlord may give a longer notice.\n\nWhen Landlord serves such a notice and Tenant continues to hold the property after the notice takes effect, the terms and conditions stated in the notice become part of this Lease.\n\nThis section does not apply to an increase in rent. Landlord will give an increase in rent the notice period, and serve it by the method, that California law separately requires.\n\nThis section does not shorten any longer notice period required by a state or federal statute or regulation, a recorded regulatory agreement, a contract or a local ordinance, and does not apply where any of those requires a longer period. Landlord will serve each notice under this section in the manner California law requires for a notice changing the terms of a tenancy, and will not charge Tenant any fee for serving, posting or delivering it.\n\nNothing in this section waives any notice or hearing Tenant is entitled to by law, and no notice under this section ends the tenancy or substitutes for a termination notice.",
+  },
+  {
+    id: "tenant-death-notice-ca",
+    title: "Notice of a Tenant's Death or Incapacity",
+    group: "Notices & General",
+    states: ["CA"],
+    bodyText:
+      "[Optional.] Tenant may name a person for Landlord to contact if Tenant dies or becomes unable to manage Tenant's own affairs: [name, address, telephone number and email]. Tenant will tell Landlord in writing if this information changes.\n\nIf Tenant dies or becomes unable to manage Tenant's own affairs, Tenant's representative, or the person named above, will notify Landlord in writing as soon as reasonably possible, giving the date of death or of the appointment of a representative and an address at which Landlord may give notices.\n\nNaming a person under this Section gives that person no right to occupy the property, no right to receive Tenant's security deposit and no right to remove anything from the property. Landlord will deal with Tenant's personal representative, or with another person entitled to act for Tenant's estate under California law, and will handle anything left at the property as California law requires for property remaining after a tenancy ends (Civil Code sections 1980 to 1991).\n\nThis Section does not shorten or extend any notice that California law requires, and it is not a ground for ending this Lease. Landlord may not charge any fee for serving, posting or delivering a notice.",
+  },
+  // Parking & Storage
+  {
+    id: "parking-vehicle-rules-ca",
+    title: "Parking and Vehicle Requirements",
+    group: "Parking & Storage",
+    states: ["CA"],
+    bodyText:
+      "Only operable, currently registered passenger vehicles may be kept in the parking area(s) Landlord designates. Commercial vehicles, recreational vehicles, boats, trailers and oversized vehicles are not permitted without Landlord's prior written consent. Tenant will give Landlord the make, model and licence plate number of each vehicle Tenant keeps at the property and will keep that information current, and will display any parking tag, decal or access card Landlord issues. Vehicle repairs are not permitted at the property except minor emergency repairs needed to move a vehicle, and vehicles may be washed only in areas Landlord designates, if any. Landlord may cause a vehicle to be removed from the property only on a ground and in the manner state law allows, and at the vehicle owner's expense. Nothing in this Section prevents Tenant from owning a personal micromobility device, or from storing and recharging one in the dwelling where state law permits it. If this property is one for which state law requires off-street parking to be let separately from rent, parking is let under the separate parking agreement or addendum and not under this Section, and non-payment of the parking charge is not a ground to end this Lease.",
+  },
+  // Security Deposit
+  {
+    id: "furnishings-included-ca",
+    title: "Furnishings",
+    group: "Security Deposit",
+    states: ["CA"],
+    bodyText:
+      "[Optional. Use only if the property is rented furnished.] Furnishings: The property is rented furnished. The furniture and furnishings Landlord provides, and their condition at the start of this Lease, are: [list each item and its condition, or attach a signed inventory]. Tenant will keep them at the property, will not remove or dispose of any item without Landlord's written consent, will tell Landlord promptly of any damage to them, and will return them at the end of this Lease in the same condition, except for ordinary wear and tear. Landlord may apply the security deposit to Tenant's failure to restore, replace or return any of these items, beyond ordinary wear and tear. No separate or additional deposit is charged for the furnishings.",
+  },
+  // Rules & Regulations
+  {
+    id: "cannabis-restrictions-ca",
+    title: "Cannabis Restrictions (Optional)",
+    group: "Rules & Regulations",
+    states: ["CA"],
+    bodyText:
+      "[Optional.] Cannabis. Tenant, occupants and guests will not cultivate, plant, harvest, dry or process cannabis anywhere at the property, indoors or outdoors, and will not keep cannabis plants at the property. Tenant will not manufacture concentrated cannabis at the property by any method. Smoking or vaping cannabis is permitted only where this Lease and the property's smoking policy permit smoking, and is prohibited everywhere smoking is prohibited, including every area the smoking policy names. Tenant will not allow the odour of cannabis to escape the dwelling so as to disturb another resident, and will not give or sell cannabis to anyone under 21 or allow anyone under 21 to possess or use it at the property. [Optional: Tenant will not possess or use cannabis in any form anywhere at the property.] Nothing in this Section applies to a reasonable accommodation Landlord is required by law to grant, and Tenant should raise any medical need with Landlord in writing rather than assume an exception. A violation of this Section is a breach of this Lease.",
+  },
+  // Notices & General
+  {
+    id: "informal-dispute-resolution-ca",
+    title: "Informal Dispute Resolution",
+    group: "Notices & General",
+    states: ["CA"],
+    bodyText:
+      "Before either party files a court action about a dispute under this Lease, other than an action for possession of the premises, that party will give the other written notice describing the dispute and what the party is asking for, and will offer to meet in person, by telephone or by video within [state a period, for example 10 days] to try to resolve it. Neither party has to accept any proposal.\n\nThis section does not delay, shorten or limit any notice, demand, deadline, defence, right or remedy that California law gives either party. That includes any notice to pay rent or quit, to perform or quit, or to terminate a tenancy; any action for possession; Tenant's repair, withholding and habitability rights; any claim about the security deposit; any application for emergency or injunctive relief; and any limitation period. Nothing in this section is a condition of either party's right to go to court or to defend an action, and neither party gives up any statutory right by not meeting.\n\nIf the dispute is one the small claims court could hear, either party may take it there instead of meeting under this section.",
+  },
+  // Other / Miscellaneous
+  {
+    id: "guaranty-of-lease-ca",
+    title: "Guaranty of Lease",
+    group: "Other / Miscellaneous",
+    states: ["CA"],
+    bodyText:
+      "[Optional. Use only where someone other than Tenant signs as Guarantor.]\n\nBy signing this Lease as Guarantor, [insert the Guarantor's full name] guarantees to Landlord the payment and performance of every obligation of Tenant under this Lease, including rent, late charges, utility charges, amounts for damage to the premises, and any amount Landlord may recover on a breach.\n\nGuarantor agrees now, and Landlord needs no further consent or notice, that this guaranty continues through: any extension or renewal of the Lease; any continuation of the tenancy month to month after the stated term ends; any change in rent or other terms made under this Lease or under California law; and any agreement between Landlord and Tenant that alters when or how Tenant performs, including any payment plan or forbearance.\n\nAny limit on Guarantor's liability is stated here: [state a maximum amount and an end date or event, or write none]. If nothing is stated, there is no limit beyond what Tenant owes.\n\nLandlord may proceed against Guarantor without first suing Tenant and without first applying the security deposit. Guarantor's obligations are not affected by Tenant's bankruptcy or by Tenant being released or discharged. Landlord will give Guarantor a copy of this Lease when Guarantor signs, and Guarantor confirms having read it.",
+  },
+  // Rules & Regulations
+  {
+    id: "rules-regulations-ca",
+    title: "Rules and Regulations",
+    group: "Rules & Regulations",
+    states: ["CA"],
+    bodyText:
+      "Tenant will comply with the written rules and regulations for the Property that are in effect when this Lease is signed, a copy of which Landlord has given to Tenant: [attach the rules, or state that there are none]. Those rules are part of this Lease.\n\nLandlord may adopt, amend or withdraw written rules and regulations during the Term. Landlord will give Tenant written notice of any new or amended rule, and the rule will take effect no earlier than {{rule_change_notice_days}} days after that notice is given.\n\nA rule adopted or amended after this Lease is signed does not change the rent, the length of the Term, or any other sum Tenant owes; Landlord will change any of those only by the notice the law requires for a change in the terms of the tenancy. No rule applies to reduce any right Tenant has under California law or to relieve Landlord of any duty to maintain the Property.\n\nTenant's failure to comply with a rule is a breach of a material term of this Lease. Landlord's acceptance of rent or of other performance that does not conform to a rule is not a waiver of that rule unless Landlord agrees to the waiver in writing.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "residential-use-only-ca",
+    title: "Residential Use Only",
+    group: "Tenant Responsibilities",
+    states: ["CA"],
+    supersedes: "residential-use-only",
+    bodyText:
+      "Tenant will use and occupy the property for residential purposes only and will not use or permit the use of the property for any non-residential, illegal, or otherwise inappropriate purpose, including any commercial purpose. This Section does not prohibit or restrict Tenant's use of the property as a licensed family daycare home as California law allows, after Tenant gives Landlord any written notice California law requires, subject to the conditions California law allows Landlord to impose.",
   },
 ];
 
