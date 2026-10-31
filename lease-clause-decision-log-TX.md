@@ -1270,3 +1270,987 @@ None.
 - `smoking-policy`: Tenant pays for smoking damage caused by "Tenant, an occupant, or a guest or invitee of Tenant", no longer by anyone's smoking.
 - `no-alterations`: the last sentence adds that the clause "does not change who owns an installation that applicable law makes Tenant's property".
 - `addendum-precedence`: a disclosure, notice or addendum "that applicable law says controls over this Lease" now controls, as one the law requires already did.
+
+
+---
+
+# Topic gaps pass (end-of-run consistency pass, 2026-10-30/31): Desktop's log
+
+# Topic gaps: Texas (end-of-run consistency pass) - log
+
+SOP 1.91. Cumulative to date: 238 of 238 missing topics answered, plus the seven Texas items. Delta: 227 new rows, 26 tagged rows. Rows dated 2026-10-31.
+
+## §1 Sources, channel and currency
+
+- **Corpus.** The Texas corpus Claude Code downloaded on 2026-10-30 (`corpus-TX-20261030.tar.xz`, SHA-256 checked against the attached `.sha256` before unpacking). I re-checked its manifest with my own script rather than the shipped `verify_tx.py`: 7,010 files match their recorded hashes, 7,512 are listed as not shipped, and none has a problem. The statutes come from the whole-code downloads on statutes.capitol.texas.gov. Every code is held as text except the Special District Local Laws Code, which is held only in the catchline index. My section parser holds 91,642 sections, which is every non-SD catchline except two Vernon's Civil Statutes entries.
+- **Currency.** The site says: "The statutes available on this website are current through the 89th 2nd Called Legislative Session, 2025. The constitutional provisions found on this website are current through the amendments approved by voters in November 2025." Every row takes its currency from the history line under each section, and the rows cite the latest "Amended by" or "Added by" entry.
+- **Court rules.** The Texas Rules of Civil Procedure are the current compilation on txcourts.gov (last amended October 1, 2026). It includes Rule 510 as rewritten for 2026 (Misc. Docket No. 25-9096, preliminary approval, November 21, 2025; amended order Misc. Docket No. 25-9105, December 31, 2025, "amendments are effective January 1, 2026").
+- **Rule 510 final order (Texas item 4).** As of 2026-10-31, no final Supreme Court order on the Part V eviction amendments has been issued.
+  - The corpus page of 2026 administrative orders (most recent entry 10/30/2026) lists none.
+  - On 2026-10-31 I also checked the live txcourts.gov rules-advisories page (most recent date shown 10/02/2026). Its eviction entries are 25-9105 (preliminary, 12/31/2025), 25-9096 (preliminary, 11/21/2025) and 25-9065 (task force, 09/02/2025). The last final order there is 22-9031 (04/25/2022).
+  - Rows citing Rule 510 cite the rules as effective January 1, 2026, under the preliminary-approval orders.
+- **Session laws.** Enrolled texts of the 88th and 89th Legislatures, including called sessions, as held. Rows cite a session law only where an act's own sections matter (for example, H.B. 2037's application clause).
+- **Vetoes (Texas item 7).** `currency.json` lists 103 vetoed bills, which are not law. I scanned every answer for any H.B. or S.B. number in the vetoed list: none cites a vetoed bill. The only number matches were bills of other sessions, such as S.B. 1367 (2015) and S.B. 18 (2011). Among the vetoed bills, 88th S.B. 2493 (repairs and deposit refunds, vetoed 06/15/2023) and 88th S.B. 1668 (property owners' associations) are not relied on anywhere.
+- **Multiple versions (Texas item 7).**
+  - Tex. Penal Code § 32.56 has four versions, each added by a different 2025 act and all effective September 1, 2025. They are four different offenses that share one number:
+    - gift cards (S.B. 1809);
+    - mail receptacle keys (S.B. 1281);
+    - false documents conveying a real-property interest (S.B. 1333);
+    - financial abuse using AI media or phishing (S.B. 2373).
+    Only the S.B. 1333 version concerns tenancies, and any row citing § 32.56 must cite it by that act.
+  - Tex. Bus. & Com. Code § 17.56 (DTPA venue) has two versions, from 1995 ch. 138 and 1995 ch. 414. No new row relies on it.
+- **Constitution art. 3, § 68 (Texas item 7).** Its note reads "(Added Nov. 4, 2025, subject to resolution of an election contest under Chapter 233, Election Code, pending as of February 2, 2026.)". It concerns the Dementia Prevention and Research Institute, and no row relies on it.
+- **Not held, and so not relied on:** case law, city ordinances, federal law (except where an existing row states it), and most of the Texas Administrative Code. Only the PUC chapter 24 and 25.142 water and electric rules and the TREC rules index are held. The rows name these boundaries in their bodies.
+- **Channel.** All primary text came from the corpus on disk in this cloud session. The one live fetch was the txcourts.gov rules-advisories page above. Agent helpers worked from the same corpus with the same tools, one slice each, at most two at a time.
+- **Attorney general's Renter's Rights page.** The page held in the corpus still gives $10,000 as the justice-court limit for repair suits. Prop. Code § 92.0563(e) now says $20,000. No row relies on the page; noted for monitoring.
+
+
+## §2 Topics answered
+
+One line each: topic - row id - verdict - main citation.
+
+- `accessory-dwelling-unit` - edu-no-adu-statute-tx - Absent - Tex. Loc. Gov't Code § 211.003
+- `actual-notice-method` - edu-actual-notice-method-tx - Present - Tex. Prop. Code § 24.005; Tex. Prop. Code § 92.056
+- `adverse-proceeding-notice` - edu-adverse-proceeding-notice-tx - Present - Tex. Prop. Code § 24.005; Tex. Loc. Gov't Code § 214.001
+- `alarm-tampering-fee` - edu-alarm-tampering-remedies-tx - Present - Tex. Prop. Code § 92.2611; Tex. Prop. Code § 92.258
+- `alt-housing` - edu-no-alt-housing-duty-tx - Absent - Tex. Prop. Code § 92.054; Tex. Prop. Code § 92.062
+- `animal-care-access` - edu-no-animal-care-entry-right-tx, animal-care-access-vi (tag) - Absent + tagged - Tex. Health & Safety Code § 821.022; Tex. Health & Safety Code § 821.021
+- `appliances-excluded` - appliances-excluded-tx - Present - Tex. Prop. Code § 92.052; Tex. Prop. Code § 92.0561
+- `asbestos-hazards` - edu-asbestos-hazards-tx - Present - Tex. Occ. Code § 1954.002; Tex. Occ. Code § 1954.101
+- `association-obligations-disclosure` - edu-association-obligations-disclosure-tx - Present - Tex. Prop. Code § 209.016; Tex. Prop. Code § 82.067
+- `attorney-fees` - edu-attorney-fees-tx - Present - Tex. Prop. Code § 24.006; Tex. Prop. Code § 92.005
+- `automatic-renewal` - edu-no-automatic-renewal-rule-tx - Absent - Tex. Prop. Code § 91.001; Tex. Prop. Code § 94.055
+- `balcony-inspection` - edu-no-balcony-inspection-rule-tx - Absent - Tex. Health & Safety Code § 791.001; Tex. Health & Safety Code § 791.002
+- `bed-bug-cooperation` - edu-pest-treatment-notice-tx, pest-cooperation-pr (tag) - Present + tagged - Tex. Occ. Code § 1951.453; Tex. Prop. Code § 92.052
+- `binding-arbitration` - edu-lease-arbitration-tx - Present - Tex. Civ. Prac. & Rem. Code § 171.001; Tex. Civ. Prac. & Rem. Code § 171.002
+- `cannabis` - edu-cannabis-tx, cannabis-restrictions-ak (tag) - Present + tagged - Tex. Health & Safety Code § 481.121; Tex. Health & Safety Code § 481.120
+- `carpet-cleaning` - edu-carpet-cleaning-tx - Absent - Tex. Prop. Code § 92.001; Tex. Prop. Code § 92.104
+- `casualty-and-mitigation-waivable` - edu-casualty-mitigation-waiver-tx - Present - Tex. Prop. Code § 92.054; Tex. Prop. Code § 92.006
+- `certificate-of-occupancy-disclosure` - edu-no-certificate-of-occupancy-disclosure-tx - Absent - Tex. Prop. Code § 92.023; Tex. Loc. Gov't Code § 214.909
+- `children-occupancy` - edu-children-occupancy-tx - Present - Tex. Prop. Code § 301.004; Tex. Prop. Code § 301.021
+- `cold-weather-vacate-notice` - edu-no-cold-weather-vacate-notice-tx - Absent - Tex. Prop. Code § 92.008; Tex. Prop. Code § 92.052
+- `collection-fee` - edu-collection-fee-tx - Present - Tex. Fin. Code § 392.001; Tex. Fin. Code § 392.303
+- `common-area-lighting` - edu-common-area-lighting-tx - Present - Tex. Prop. Code § 92.052; Tex. Util. Code § 184.034
+- `communal-land-lease-approval` - edu-no-communal-land-lease-approval-tx - Absent - Tex. Bus. & Com. Code § 26.01
+- `condemned-premises-rent-bar` - edu-no-condemned-rent-bar-tx - Absent - Tex. Prop. Code § 92.023; Tex. Prop. Code § 92.054
+- `condition-inspection` - edu-no-condition-inspection-rule-tx - Absent - Tex. Prop. Code § 92.258; Tex. Prop. Code § 92.263
+- `confession-of-judgment` - edu-confession-of-judgment-tx - Present - Tex. Civ. Prac. & Rem. Code § 30.001; Tex. R. Civ. P. 510.8
+- `confirmed-absences-habitability` - edu-confirmed-absences-habitability-tx - Absent - Tex. Prop. Code § 92.061; Tex. Prop. Code § 92.058
+- `confirmed-absences-misc` - edu-confirmed-absences-misc-tx - Absent - Tex. Fin. Code § 345.108
+- `confirmed-absences-outside-title` - edu-confirmed-absences-outside-title-tx - Absent - Tex. Prop. Code § 92.011; Tex. Prop. Code § 24.0053
+- `construction-liens` - edu-construction-liens-tx, no-liens-ar (tag) - Present + tagged - Tex. Prop. Code § 53.001; Tex. Prop. Code § 53.021
+- `conversion-notice` - edu-conversion-notice-tx - Present - Tex. Prop. Code § 82.160; Tex. Prop. Code § 82.154
+- `criminal-activity` - edu-criminal-activity-tx, criminal-activity-ky (tag) - Present + tagged - Tex. Prop. Code § 92.332; Tex. Prop. Code § 92.015
+- `cure-and-eviction-grounds` - edu-cure-and-eviction-grounds-tx - Present - Tex. Prop. Code § 24.002; Tex. Prop. Code § 24.005
+- `defective-drywall-disclosure` - edu-no-drywall-disclosure-tx - Absent - Tex. Bus. & Com. Code § 17.45; Tex. Bus. & Com. Code § 17.46
+- `deposit-cost-schedule` - edu-deposit-cost-schedule-tx - Present - Tex. Prop. Code § 92.101; Tex. Prop. Code § 92.102
+- `deposit-installments` - edu-no-deposit-installments-tx - Absent - Tex. Prop. Code § 92.102; Tex. Prop. Code § 92.111
+- `designated-repairer` - edu-designated-repairer-tx - Present - Tex. Prop. Code § 92.0561; Tex. Prop. Code § 92.006
+- `disability-accommodation` - edu-disability-accommodation-tx - Present - Tex. Prop. Code § 301.025; Tex. Prop. Code § 301.003
+- `disaster-displaced-guests` - edu-no-disaster-guest-rule-tx - Absent - Tex. Prop. Code § 92.010; Tex. Prop. Code § 92.062
+- `disaster-duties` - edu-disaster-duties-tx - Present - Tex. Prop. Code § 92.054; Tex. Prop. Code § 92.0562
+- `double-letting` - edu-no-double-letting-rule-tx - Absent - Tex. Prop. Code § 92.0081; Tex. Bus. & Com. Code § 17.46
+- `drug-free-housing-addendum` - edu-no-drug-free-addendum-tx - Absent - Tex. Prop. Code § 92.332; Tex. Prop. Code § 92.015
+- `dv-confidentiality` - edu-dv-confidentiality-tx - Present - Tex. Prop. Code § 92.0161; Tex. Prop. Code § 92.016
+- `dv-deposit-timing` - edu-no-dv-deposit-timing-rule-tx - Absent - Tex. Prop. Code § 92.016; Tex. Prop. Code § 92.0161
+- `dv-eviction-protection` - edu-no-dv-eviction-protection-tx - Absent - Tex. Prop. Code § 92.015; Tex. Prop. Code § 92.016
+- `dv-lease-termination` - edu-dv-lease-termination-tx - Present - Tex. Prop. Code § 92.016; Tex. Prop. Code § 92.0161
+- `dv-lockchange` - edu-no-dv-lockchange-right-tx - Absent - Tex. Prop. Code § 92.156; Tex. Prop. Code § 92.0081
+- `dv-protection-order-chapter-moved` - edu-dv-protection-order-chapter-moved-tx - Present - Tex. Prop. Code § 92.016; Tex. Prop. Code § 92.0161
+- `dv-qualifying-documents` - edu-dv-qualifying-documents-tx - Present - Tex. Prop. Code § 92.016; Tex. Prop. Code § 92.0161
+- `eminent-domain` - edu-eminent-domain-tx, eminent-domain-vi (tag) - Present + tagged - Tex. Prop. Code § 21.042; Tex. Prop. Code § 21.043
+- `employee-screening` - edu-employee-screening-tx - Present - Tex. Health & Safety Code § 765.001; Tex. Health & Safety Code § 765.002
+- `energy-data-release` - edu-energy-data-release-tx, energy-data-release-wy (tag) - Present + tagged - Tex. Util. Code § 39.107; Tex. Util. Code § 182.051
+- `entity-landlord-court-representation` - edu-entity-landlord-court-representation-tx - Present - Tex. Prop. Code § 24.011; Tex. Gov't Code § 27.031
+- `environmental-event-termination` - edu-no-environmental-event-termination-tx - Absent - Tex. Prop. Code § 92.054; Tex. Prop. Code § 92.055
+- `ev-charging-end-of-tenancy` - edu-no-ev-charging-end-of-tenancy-tx - Absent - see row
+- `ev-charging-requirements` - edu-ev-charging-requirements-tx, ev-charger-installation-hi (tag) - Present + tagged - Tex. Occ. Code § 2311.0101; Tex. Occ. Code § 2311.0201
+- `ev-charging-shared-area` - ev-charging-shared-area-co (tag) - Tagged - Tex. Prop. Code § 92.0131; Tex. Prop. Code § 92.006
+- `eviction-hardship-stay` - edu-no-eviction-hardship-stay-tx - Absent - Tex. Prop. Code § 1.004; Tex. Prop. Code § 24.0043
+- `eviction-penalty-clause-ban` - edu-no-eviction-penalty-rule-tx - Absent - Tex. Prop. Code § 24.006; Tex. R. Civ. P. 510.18
+- `eviction-service-party` - edu-no-eviction-service-party-tx - Absent - Tex. Civ. Prac. & Rem. Code § 30.001; Tex. Prop. Code § 24.005
+- `exculpatory-clauses` - edu-exculpatory-clauses-tx - Present - Tex. Prop. Code § 92.006; Tex. Prop. Code § 92.008
+- `expedited-criminal-eviction` - edu-no-expedited-criminal-eviction-tx - Absent - Tex. Prop. Code § 24.005; Tex. Prop. Code § 24.0051
+- `expedited-deposit-disposition` - edu-no-expedited-deposit-disposition-tx - Absent - Tex. Prop. Code § 92.103; Tex. Prop. Code § 92.104
+- `extended-absence-notice` - extended-absence-notice-ks (tag) - Tagged - Tex. Prop. Code § 92.0081; Tex. Prop. Code § 92.006
+- `family-child-care` - edu-no-family-child-care-rule-tx - Absent - Tex. Hum. Res. Code § 42.002; Tex. Loc. Gov't Code § 250.014
+- `farmland-hunting-rights` - edu-farmland-hunting-rights-tx, farmland-sporting-rights-co (tag) - Present + tagged - PW § 61.022; PW § 61.001
+- `fee-transparency` - edu-no-fee-transparency-law-tx - Absent - Tex. Loc. Gov't Code § 394.9026; Tex. Bus. & Com. Code § 17.46
+- `fee-unprovided-service` - edu-no-fee-unprovided-service-rule-tx - Absent - Tex. Fin. Code § 392.303; Tex. Bus. & Com. Code § 17.46
+- `fire-code-standard` - edu-fire-code-standard-tx - Present - Tex. Loc. Gov't Code § 214.211; Tex. Loc. Gov't Code § 214.212
+- `fire-sprinkler-duty` - edu-fire-sprinkler-duty-tx - Present - Tex. Health & Safety Code § 766.051; Tex. Health & Safety Code § 766.052
+- `foreclosure` - edu-foreclosure-tx - Present - Tex. Prop. Code § 24.002; Tex. Prop. Code § 24.005
+- `foreclosure-disclosure` - edu-no-foreclosure-disclosure-tx - Absent - Tex. Prop. Code § 24.005; Tex. Bus. & Com. Code § 17.45
+- `forfeiture-redemption` - edu-no-forfeiture-relief-tx - Absent - Tex. Prop. Code § 24.004; Tex. Prop. Code § 24.005
+- `frozen-standard-incorporation` - edu-frozen-standard-incorporation-tx - Present - Tex. Loc. Gov't Code § 214.211; Tex. Loc. Gov't Code § 214.212
+- `furnishings-included` - furnishings-included-la (tag) - Tagged - Tex. Prop. Code § 92.001; Tex. Prop. Code § 92.0081
+- `good-cause-notice` - edu-good-cause-notice-tx, good-cause-nonrenewal-tx - Present - Tex. Loc. Gov't Code § 303.042; Tex. Loc. Gov't Code § 303.0421
+- `government-fee-reimbursement` - government-fee-reimbursement-ky (tag) - Tagged - Tex. Prop. Code § 92.018; Tex. Prop. Code § 92.162
+- `guest-rights` - edu-no-guest-rights-statute-tx - Absent - Tex. Prop. Code § 92.026; Tex. Prop. Code § 92.010
+- `habitability-materiality` - edu-habitability-materiality-tx - Present - Tex. Prop. Code § 92.052; Tex. Prop. Code § 92.056
+- `habitability-modifiable` - edu-habitability-modifiable-tx - Present - Tex. Prop. Code § 92.006; Tex. Prop. Code § 92.052
+- `habitability-presumption` - edu-habitability-presumption-tx - Present - Tex. Prop. Code § 92.056; Tex. Prop. Code § 92.0562
+- `habitability-statement` - edu-no-habitability-statement-tx - Absent - Tex. Prop. Code § 92.056; Tex. Prop. Code § 92.061
+- `habitability-waiver` - edu-habitability-waiver-tx - Present - Tex. Prop. Code § 92.006; Tex. Prop. Code § 92.061
+- `hazardous-contamination-disclosure` - edu-contamination-disclosure-tx - Present - Tex. Health & Safety Code § 361.531; Tex. Health & Safety Code § 361.532
+- `health-district-rental-rules` - edu-no-health-district-rental-rules-tx - Absent - Tex. Prop. Code § 92.0561; Tex. Prop. Code § 92.055
+- `heating` - edu-heating-tx - Present - Tex. Prop. Code § 92.0561; Tex. Prop. Code § 92.052
+- `hoa` - edu-hoa-tx - Present - Tex. Prop. Code § 209.016; Tex. Prop. Code § 209.003
+- `holding-deposit` - edu-holding-deposit-tx - Present - Tex. Prop. Code § 92.351; Tex. Prop. Code § 92.3515
+- `holdover-rate` - edu-no-holdover-rate-tx - Absent - Tex. Prop. Code § 24.001; Tex. Prop. Code § 24.002
+- `home-business` - edu-home-business-tx - Present - Tex. Loc. Gov't Code § 229.902; Tex. Loc. Gov't Code § 211.031
+- `homestead-waiver` - edu-homestead-waiver-tx - Present - Tex. Const. art. XVI, § 49; Tex. Const. art. XVI, § 50
+- `infirmity-termination` - edu-no-infirmity-termination-tx - Absent - Tex. Prop. Code § 92.016; Tex. Prop. Code § 92.0161
+- `informal-dispute-resolution` - informal-dispute-resolution-or (tag) - Tagged - Tex. Prop. Code § 24.00506; Tex. Civ. Prac. & Rem. Code § 152.001
+- `inspection-condemnation-disclosure` - edu-no-code-order-disclosure-tx - Absent - Tex. Loc. Gov't Code § 214.001; Tex. Gov't Code § 417.008
+- `inspection-notice-penalty` - edu-no-inspection-notice-penalty-tx - Absent - Tex. Prop. Code § 92.103; Tex. Prop. Code § 92.107
+- `jury-waiver` - edu-jury-waiver-tx - Present - Tex. Prop. Code § 92.006; Tex. Const. art. I, § 15
+- `key-control-policy` - edu-no-key-control-policy-tx - Absent - Tex. Prop. Code § 92.156; Tex. Prop. Code § 92.151
+- `knowing-use-penalty` - edu-knowing-use-penalty-tx - Present - Tex. Prop. Code § 92.0563; Tex. Prop. Code § 94.159
+- `landlord-liability-insurance` - edu-no-landlord-insurance-mandate-tx - Absent - Tex. Prop. Code § 92.054; Tex. Prop. Code § 92.0135
+- `landlord-registration` - edu-no-landlord-registration-tx - Absent - Tex. Occ. Code § 1101.002; Tex. Occ. Code § 1101.005
+- `landlord-remedies-termination` - edu-landlord-remedies-termination-tx - Present - Tex. Prop. Code § 24.004; Tex. Prop. Code § 24.0051
+- `late-fee-limit` - edu-late-fee-limit-tx - Present - Tex. Prop. Code § 92.019; Tex. Prop. Code § 92.002
+- `law-enforcement-cooperation` - edu-no-law-enforcement-cooperation-rule-tx - Absent - Tex. Prop. Code § 92.015; Tex. Prop. Code § 92.332
+- `lead-safe-certification` - edu-no-lead-safe-certificate-tx - Absent - Tex. Occ. Code § 1955.001; Tex. Occ. Code § 1955.051
+- `lead-state-notices` - edu-no-lead-state-notices-tx - Absent - Tex. Occ. Code § 1955.001; Tex. Occ. Code § 1955.051
+- `lease-content-requirements` - edu-lease-content-requirements-tx - Present - Tex. Prop. Code § 92.056; Tex. Prop. Code § 92.016
+- `lease-notice-initial-requirement` - edu-no-lease-initials-requirement-tx - Absent - Tex. Prop. Code § 92.017; Tex. Prop. Code § 94.053
+- `lease-registration` - edu-no-lease-registration-duty-tx - Absent - Tex. Prop. Code § 12.001; Tex. Prop. Code § 13.001
+- `lease-term-limitation` - edu-lease-term-limits-tx - Absent - Tex. Bus. & Com. Code § 26.01; Tex. Fam. Code § 5.001
+- `lease-type-parity` - edu-no-lease-type-parity-tx - Absent - Tex. Prop. Code § 91.001; Tex. Prop. Code § 94.055
+- `lease-type-size` - edu-no-lease-type-size-tx - Absent - Tex. Prop. Code § 94.051; Tex. Prop. Code § 94.053
+- `limitation-of-actions` - edu-limitation-of-actions-tx - Present - Tex. Civ. Prac. & Rem. Code § 16.003; Tex. Civ. Prac. & Rem. Code § 16.004
+- `liquidated-damages` - edu-no-liquidated-damages-rule-tx - Absent - Tex. Bus. & Com. Code § 2A.504; Tex. Prop. Code § 92.019
+- `maintenance-duty-shift` - edu-maintenance-duty-shift-tx - Present - Tex. Prop. Code § 92.006; Tex. Prop. Code § 92.052
+- `meter-conservation-charge` - edu-no-meter-conservation-charge-tx - Absent - Tex. Loc. Gov't Code § 399.002; Tex. Loc. Gov't Code § 399.004
+- `military-air-zone-disclosure` - edu-no-military-zone-disclosure-tx - Absent - Tex. Prop. Code § 5.008; Tex. Loc. Gov't Code § 397.001
+- `minor-tenant-filing` - edu-minor-tenant-filing-tx - Present - Tex. Civ. Prac. & Rem. Code § 129.001; Tex. Fam. Code § 101.003
+- `municipal-utility-lien` - edu-municipal-utility-lien-tx - Present - Tex. Loc. Gov't Code § 552.0025
+- `nonrefundable-deposit-notice` - nonrefundable-fees-wv (tag) - Tagged - Tex. Prop. Code § 92.102; Tex. Prop. Code § 92.111
+- `nonrefundable-deposit-separate-notice` - edu-no-nonrefundable-separate-notice-tx - Absent - Tex. Prop. Code § 92.102; Tex. Prop. Code § 92.111
+- `nonresident-owner-agent` - edu-no-nonresident-owner-agent-tx - Absent - Tex. Prop. Code § 92.003; Tex. Civ. Prac. & Rem. Code § 17.042
+- `notice-service-fee` - edu-no-notice-service-fee-tx - Absent - Tex. Prop. Code § 24.006; Tex. Fin. Code § 392.303
+- `notice-to-quit-waiver` - edu-notice-to-quit-waiver-tx - Present - Tex. Prop. Code § 24.005; Tex. Prop. Code § 91.001
+- `notice-to-vacate-additional-terms` - edu-notice-to-vacate-additional-terms-tx - Present - Tex. Prop. Code § 24.005; Tex. Prop. Code § 24.006
+- `optional-lease-terms` - edu-optional-lease-terms-tx - Present - Tex. Prop. Code § 91.001; Tex. Prop. Code § 24.005
+- `ordnance-demolition-meter-disclosures` - edu-no-ordnance-demolition-meter-disclosure-tx - Absent - Tex. Prop. Code § 92.055; Tex. Prop. Code § 92.0563
+- `other-landlord-facilities` - edu-other-landlord-facilities-tx - Present - Tex. Prop. Code § 92.052; Tex. Prop. Code § 5.008
+- `owner-move-in-reservation` - owner-occupancy-termination-ar (tag) - Tagged - Tex. Prop. Code § 92.0081; Tex. Prop. Code § 24.005
+- `part5-nonwaivable` - edu-part5-nonwaivable-tx - Present - Tex. Prop. Code § 92.006; Tex. Prop. Code § 92.0563
+- `periodic-services-entry` - scheduled-services-entry-la (tag) - Tagged - Tex. Prop. Code § 94.004; Tex. Occ. Code § 1951.453
+- `pest-control-notice` - edu-pest-control-notice-tx - Present - Tex. Occ. Code § 1951.453; Tex. Occ. Code § 1951.454
+- `pet-eviction-fact-sheet` - edu-no-pet-eviction-fact-sheet-tx - Absent - Tex. Loc. Gov't Code § 392.0555
+- `pet-fees` - edu-pet-fees-tx - Present - Tex. Prop. Code § 92.102; Tex. Prop. Code § 92.103
+- `plain-language-consumer-statement` - edu-no-plain-language-consumer-statement-tx - Absent - Tex. Bus. & Com. Code § 17.42; Tex. Bus. & Com. Code § 92.051
+- `political-access` - edu-no-political-access-rule-tx - Absent - Tex. Elec. Code § 259.002; Tex. Elec. Code § 259.003
+- `portable-cooling-device` - edu-no-portable-cooling-rule-tx - Absent - Tex. Prop. Code § 92.0561; Tex. Prop. Code § 92.052
+- `portable-solar` - edu-no-portable-solar-right-tx - Absent - Tex. Prop. Code § 202.010; Tex. Prop. Code § 202.011
+- `portfolio-thresholds` - edu-portfolio-thresholds-tx - Present - Tex. Prop. Code § 92.006; Tex. Prop. Code § 92.019
+- `possession-bond` - edu-possession-bond-tx - Present - Tex. Prop. Code § 24.0061; Tex. Prop. Code § 24.005107
+- `private-well-testing` - edu-no-private-well-testing-tx - Absent - Tex. Prop. Code § 92.052; Tex. Prop. Code § 92.0561
+- `prohibited-acts-renter` - prohibited-acts-renter-wy (tag) - Tagged - Tex. Prop. Code § 92.006; Tex. Prop. Code § 92.052
+- `promises-to-repair` - edu-no-promises-to-repair-rule-tx - Absent - Tex. Prop. Code § 92.061; Tex. Prop. Code § 92.0561
+- `prop65-rental-warning` - edu-no-chemical-warning-rule-tx - Absent - Tex. Health & Safety Code § 503.001; Tex. Prop. Code § 92.052
+- `property-tax-rent-disclosure` - edu-no-property-tax-rent-statement-tx - Absent - Tex. Prop. Code § 92.332; Tex. Prop. Code § 92.331
+- `protected-class-inquiry-ban` - edu-no-protected-class-inquiry-ban-tx - Absent - Tex. Prop. Code § 301.021; Tex. Prop. Code § 301.022
+- `purpose-limitation` - edu-no-purpose-limitation-tx - Absent - Tex. Prop. Code § 91.003; Tex. Prop. Code § 93.001
+- `recycling-notice` - edu-no-recycling-notice-tx - Absent - see row
+- `redemption` - edu-no-redemption-tx - Absent - Tex. Prop. Code § 24.005; Tex. Prop. Code § 24.0053
+- `religious-cultural-display` - edu-no-religious-display-rule-tx - Absent - Tex. Prop. Code § 202.018; Tex. Prop. Code § 202.001
+- `rent-concession` - rent-concession-wi (tag) - Tagged - Tex. Prop. Code § 92.019; Tex. Prop. Code § 92.006
+- `rent-demand-bar` - edu-no-rent-demand-bar-tx - Absent - Tex. Prop. Code § 92.024; Tex. Prop. Code § 92.052
+- `rent-escalation` - rent-escalation-ga (tag), rent-escalation-la (tag), rent-increase-midterm-ky (tag) - Tagged - Tex. Prop. Code § 92.331; Tex. Prop. Code § 92.332
+- `rent-installments` - rent-installments-or (tag) - Tagged - Tex. Prop. Code § 92.019; Tex. Prop. Code § 92.006
+- `rent-into-court-counterclaim` - edu-rent-into-court-counterclaim-tx - Present - Tex. Prop. Code § 24.004; Tex. Prop. Code § 24.005107
+- `rent-receipt-anti-waiver` - edu-no-rent-receipt-anti-waiver-tx - Absent - Tex. Prop. Code § 92.001; Tex. Prop. Code § 92.003
+- `rent-reporting` - edu-rent-reporting-tx - Present - Tex. Prop. Code § 92.110; Tex. Prop. Code § 92.107
+- `rent-tax` - edu-rent-tax-tx - Present - Tex. Tax Code § 151.009; Tex. Tax Code § 151.010
+- `rental-inspection` - edu-rental-inspection-tx, rental-inspection-cooperation-mn (tag) - Present + tagged - Tex. Loc. Gov't Code § 214.219; Tex. Code Crim. Proc. art. 18.05
+- `renters-insurance-rules` - edu-no-renters-insurance-rules-tx - Absent - Tex. Prop. Code § 92.0135; Tex. Fin. Code § 392.303
+- `repair-cost-termination` - edu-no-repair-cost-termination-tx - Absent - Tex. Prop. Code § 92.052; Tex. Prop. Code § 92.054
+- `repair-escrow-exemption-notice` - edu-no-repair-escrow-exemption-tx - Absent - Tex. Prop. Code § 92.006; Tex. Prop. Code § 92.056
+- `repair-notice` - edu-repair-notice-tx - Present - Tex. Prop. Code § 92.052; Tex. Prop. Code § 92.056
+- `required-disclosures` - edu-required-disclosures-tx - Present - Tex. Prop. Code § 92.0135; Tex. Prop. Code § 92.3515
+- `required-fees` - edu-required-fees-tx - Present - Tex. Prop. Code § 92.019; Tex. Prop. Code § 92.008
+- `rights-responsibilities-guide` - edu-rights-responsibilities-guide-tx - Present - 10 § TAC 10.613; 10 § TAC 10.624
+- `rules-regulations` - edu-rules-regulations-tx, rules-tx - Present - Tex. Prop. Code § 92.001; Tex. Prop. Code § 92.013
+- `sale-or-management-change` - edu-sale-or-management-change-tx - Present - Tex. Prop. Code § 92.105; Tex. Prop. Code § 92.003
+- `sanitary-code-variance` - edu-no-code-variance-notice-tx - Absent - Tex. Loc. Gov't Code § 214.0011
+- `scope` - edu-scope-tx - Present - Tex. Prop. Code § 92.001; Tex. Prop. Code § 92.002
+- `seasonal-tenancy` - edu-no-seasonal-tenancy-rule-tx - Absent - Tex. Prop. Code § 91.001; Tex. Prop. Code § 92.001
+- `security-deposit-holding` - edu-security-deposit-holding-tx - Present - Tex. Prop. Code § 92.101; Tex. Prop. Code § 92.102
+- `security-deposit-interest` - edu-no-security-deposit-interest-tx - Absent - Tex. Prop. Code § 92.101; Tex. Prop. Code § 92.102
+- `security-deposit-nonwaiver` - edu-security-deposit-nonwaiver-tx - Present - Tex. Prop. Code § 92.006; Tex. Prop. Code § 92.102
+- `security-deposit-on-sale` - edu-security-deposit-on-sale-tx - Present - Tex. Prop. Code § 92.105; Tex. Prop. Code § 92.106
+- `security-deposit-penalty` - edu-security-deposit-penalty-tx - Present - Tex. Prop. Code § 92.101; Tex. Prop. Code § 92.102
+- `security-deposit-standards` - edu-no-security-deposit-standards-tx - Absent - Tex. Prop. Code § 92.3515; Tex. Prop. Code § 92.111
+- `senior-housing-work-card` - edu-no-senior-housing-work-card-tx - Absent - Tex. Prop. Code § 301.043; Tex. Health & Safety Code § 765.001
+- `service-animal-denial-penalty` - edu-service-animal-denial-penalty-tx - Present - Tex. Hum. Res. Code § 121.002; Tex. Hum. Res. Code § 121.003
+- `servicemember-rights` - edu-servicemember-rights-tx - Present - Tex. Prop. Code § 92.017; Tex. Prop. Code § 92.006
+- `sex-offender-disclosure` - edu-sex-offender-disclosure-tx - Present - Tex. Code Crim. Proc. art. 62.056; Tex. Code Crim. Proc. art. 62.005
+- `sex-offender-occupancy` - edu-sex-offender-occupancy-tx - Present - Tex. Code Crim. Proc. art. 62.064; Tex. Loc. Gov't Code § 341.906
+- `sfr-occupancy-disclosure` - edu-no-sfr-occupancy-disclosure-tx - Absent - Tex. Prop. Code § 94.051
+- `shoreline-access-disclosure` - edu-no-shoreline-disclosure-tx - Absent - Tex. Nat. Res. Code § 61.025; Tex. Nat. Res. Code § 33.135
+- `showing-notice-waiver` - edu-no-showing-notice-waiver-tx - Absent - Tex. Prop. Code § 94.004; Tex. Prop. Code § 92.0081
+- `shutdown-rent-protection` - edu-no-shutdown-rent-protection-tx - Absent - Tex. Prop. Code § 92.019
+- `single-family-zone-lease-limit` - edu-no-single-family-zone-lease-limit-tx - Absent - Tex. Prop. Code § 209.016; Tex. Loc. Gov't Code § 229.902
+- `smart-access` - edu-no-smart-access-law-tx - Absent - Tex. Prop. Code § 92.151; Tex. Prop. Code § 92.153
+- `smoke-drift-waiver` - edu-no-smoke-drift-rule-tx - Absent - Tex. Penal Code § 48.01
+- `social-security-defense` - edu-no-benefit-delay-defense-tx - Absent - Tex. Prop. Code § 24.005; Tex. Prop. Code § 24.0051
+- `special-district-representation` - edu-no-special-district-statement-tx - Absent - Tex. Water Code § 49.452; Tex. Water Code § 49.4521
+- `sprinkler-disclosure` - edu-no-sprinkler-disclosure-tx - Absent - Tex. Loc. Gov't Code § 229.902
+- `statute-of-frauds-lease-term` - edu-statute-of-frauds-lease-term-tx - Present - Tex. Bus. & Com. Code § 26.01; Tex. Prop. Code § 5.021
+- `statutory-caps` - edu-statutory-caps-tx - Present - Tex. Prop. Code § 92.019; Tex. Bus. & Com. Code § 3.506
+- `steam-radiator-covers` - edu-no-steam-radiator-covers-tx - Absent - Tex. Health & Safety Code § 755.025; Tex. Health & Safety Code § 755.022
+- `stigmatized-property` - edu-stigmatized-property-tx - Present - Tex. Occ. Code § 1101.802; Tex. Occ. Code § 1101.556
+- `stove-refrigerator` - edu-no-stove-refrigerator-rule-tx - Absent - Tex. Prop. Code § 92.052; Tex. Loc. Gov't Code § 214.219
+- `student-housing` - edu-no-student-housing-rule-tx - Absent - Tex. Prop. Code § 92.010; Tex. Prop. Code § 92.021
+- `subsidized-inspection-refusal` - edu-no-subsidized-inspection-refusal-rule-tx - Absent - 10 § TAC 10.618; Tex. Prop. Code § 92.331
+- `subsidy-habitability-proration` - edu-subsidy-habitability-proration-tx - Not located - Tex. Prop. Code § 92.0563; Tex. Prop. Code § 92.0561
+- `subsidy-late-fee` - edu-subsidy-late-fee-tx - Present - Tex. Prop. Code § 92.019; 10 § TAC 10.624
+- `substandard-property-receivership` - edu-substandard-property-receivership-tx - Present - Tex. Loc. Gov't Code § 214.001; Tex. Loc. Gov't Code § 214.003
+- `tax-escalation` - tax-insurance-escalation-la (tag) - Tagged - Tex. Prop. Code § 92.332; Tex. Prop. Code § 92.331
+- `telecom-access` - edu-telecom-access-tx - Present - Tex. Util. Code § 54.259; Tex. Util. Code § 54.260
+- `tenancy-at-will` - edu-tenancy-at-will-tx - Present - Tex. Prop. Code § 24.001; Tex. Prop. Code § 24.002
+- `tenant-bankruptcy` - edu-tenant-bankruptcy-tx - Not located - Tex. Prop. Code § 92.103
+- `tenant-confidential-information` - edu-tenant-confidential-information-tx - Present - Tex. Bus. & Com. Code § 521.002; Tex. Bus. & Com. Code § 521.052
+- `tenant-display-rights` - edu-no-tenant-display-rights-tx - Absent - Tex. Prop. Code § 202.012; Tex. Prop. Code § 202.010
+- `tenant-employee-housing` - edu-tenant-employee-housing-tx - Present - Tex. Prop. Code § 92.001; Tex. Prop. Code § 92.002
+- `tenant-insurance-claims` - edu-no-tenant-insurance-claims-rule-tx - Absent - Tex. Prop. Code § 92.006; Tex. Prop. Code § 92.054
+- `tenant-portal` - edu-tenant-portal-tx, tenant-portal-mn (tag) - Present + tagged - Tex. Bus. & Com. Code § 322.005; Tex. Bus. & Com. Code § 322.007
+- `tenant-records` - edu-tenant-records-tx - Present - Tex. Prop. Code § 92.011; Tex. Prop. Code § 92.106
+- `tenant-right-to-organize` - edu-tenant-right-to-organize-tx - Present - Tex. Prop. Code § 92.331; Tex. Prop. Code § 92.332
+- `tenant-rights-statement` - edu-tenant-rights-statement-tx - Present - 10 § TAC 10.613; Tex. Prop. Code § 92.008
+- `tenant-statutory-duties` - edu-tenant-statutory-duties-tx - Present - Tex. Prop. Code § 91.005; Tex. Prop. Code § 92.108
+- `term-change-notice` - edu-term-change-notice-tx - Present - Tex. Prop. Code § 91.001; Tex. Prop. Code § 92.013
+- `tpa-exemption-notice` - edu-no-tpa-exemption-notice-tx - Absent - Tex. Gov't Code § 2306.6726
+- `tpa-notice` - edu-tpa-notice-tx - Present - Tex. Gov't Code § 2306.6726; Tex. Gov't Code § 2306.6725
+- `tpa-sunset` - edu-no-tpa-sunset-tx - Absent - Tex. Prop. Code § 24.005; Tex. Prop. Code § 24.0051
+- `translation-duty` - edu-translation-duty-tx - Present - Tex. Prop. Code § 5.062; Tex. Prop. Code § 5.068
+- `trespass-notice` - edu-trespass-notice-tx - Present - Tex. Penal Code § 30.05; Tex. Penal Code § 32.56 (S.B. 1333 version)
+- `truth-in-renting` - edu-no-truth-in-renting-tx - Absent - Tex. Bus. & Com. Code § 17.45; Tex. Bus. & Com. Code § 17.46
+- `unbundled-parking` - edu-no-unbundled-parking-rule-tx - Absent - Tex. Prop. Code § 92.0132; Tex. Loc. Gov't Code § 218.001
+- `unconscionability` - edu-unconscionability-tx - Present - Tex. Bus. & Com. Code § 2A.102; Tex. Bus. & Com. Code § 2A.103
+- `unpaid-damages-interest` - edu-unpaid-damages-interest-tx - Present - Tex. Prop. Code § 92.019; Tex. Fin. Code § 301.002
+- `usufructuary-lessor` - edu-no-usufructuary-lessor-tx - Absent - Tex. Est. Code § 201.002; Tex. Prop. Code § 5.009
+- `utility-allowance-cap` - edu-utility-allowance-cap-tx - Present - Tex. Water Code § 13.501; Tex. Water Code § 13.503
+- `utility-apportionment` - edu-utility-apportionment-tx - Present - Tex. Water Code § 13.501; Tex. Water Code § 13.502
+- `utility-deposit-return` - edu-utility-deposit-return-tx - Present - 16 § TAC 24.151; 16 § TAC 24.159
+- `utility-disclosure-attachment` - edu-utility-disclosure-attachment-tx - Present - 16 § TAC 24.279; 16 § TAC 25.142(d)
+- `utility-disconnection-notice-authorization` - edu-utility-disconnection-notice-authorization-tx - Not located - Tex. Prop. Code § 92.302; Tex. Util. Code § 17.201
+- `utility-landlord-account` - edu-utility-landlord-account-tx - Present - Tex. Prop. Code § 92.301; Tex. Prop. Code § 92.302
+- `utility-transfer` - edu-no-utility-transfer-cutoff-tx - Absent - Tex. Prop. Code § 92.008; Tex. Loc. Gov't Code § 552.0025
+- `veterans-incentive` - edu-no-veterans-incentive-tx - Absent - Tex. Prop. Code § 301.021; Tex. Loc. Gov't Code § 250.007
+- `waiver-by-acceptance` - edu-no-waiver-by-acceptance-rule-tx - Absent - Tex. Prop. Code § 92.019; Tex. R. Civ. P. 510
+- `water-heater-temperature` - edu-water-heater-temperature-tx - Present - Tex. Prop. Code § 92.052; Tex. Health & Safety Code § 755.001
+- `waterbed` - edu-no-waterbed-rule-tx - Absent - Tex. Prop. Code § 92.102; Tex. Prop. Code § 92.052
+- `window-guards` - edu-no-window-guard-rule-tx - Absent - Tex. Prop. Code § 92.153; Tex. Health & Safety Code § 756.081
+- `written-notice-required` - edu-written-notice-required-tx - Present - Tex. Prop. Code § 24.005; Tex. Prop. Code § 92.0081
+
+## §3 Batteries for every absence
+
+Each battery ran over every Texas code held as text (the corpus of 2026-10-30) unless it says otherwise. The nonsense control is `xqzzyplugh`. The counts are copied from the battery logs.
+
+**`accessory-dwelling-unit`** (edu-no-adu-statute-tx)
+- TX-GAPS-A-01 -  - codes ALL; patterns: `accessory\s+dwelling\w*` 0; `accessory\s+(?:apartment|living\s+unit|residential\s+unit|suite|unit)s?\b` 0; `\bgranny\b|in-law (?:unit|apartment|suite)|mother-in-law|garage apartment|guest\s*houses?\` 0; `secondary (?:dwelling|unit|suite)|second (?:dwelling|residential) units?` 0; `accessory structures?` 6; `owner[- ]occup\w*.{0,120}(?:zoning|accessory|second)|(?:zoning|accessory|second).{0,120}ow` 0; heading screen 0; catchline 0; control 0; positives: CP 16.009 passed
+- TX-GAPS-A-36 -  - codes ALL; patterns: `accessory\s+dwelling\w*` 0; `accessory\s+(?:apartment|living\s+unit|residential\s+unit|suite|unit)s?\b` 0; `\bgranny\b|in-law (?:unit|apartment|suite)|mother-in-law|garage apartment|guest\s*houses?\` 0; `secondary (?:dwelling|unit|suite)|second (?:dwelling|residential) units?` 0; `accessory structures?` 6; `(?s)owner[- ]occup\w*.{0,120}(?:zoning|accessory|second)|(?:zoning|accessory|second).{0,12` 0; heading screen 0; catchline 0; control 0; positives: CP 16.009 passed
+
+**`alt-housing`** (edu-no-alt-housing-duty-tx)
+- TX-GAPS-A-05 -  - codes ALL; patterns: `(?:alternate|alternative|substitute|temporary|comparable)\s+(?:housing|lodging|accommodati` 56; `relocat\w*.{0,150}(?:tenant|occupant)|(?:tenant|occupant).{0,150}relocat\w*` 10; `(?:hotel|motel).{0,150}tenants?\b|tenants?\b.{0,150}(?:hotel|motel)` 1; `(?:displaced|uninhabitable|untenantable)\w*.{0,150}(?:tenant|lease\b|landlord)|(?:tenant|l` 1; heading screen 7; catchline 7; control 0; positives: LG 214.001 passed, GV 2306.936 passed
+- TX-GAPS-A-06 -  - codes ALL; patterns: `(?:move|transfer|relocat)\w*.{0,60}(?:another|different|other|substitute)\s+(?:rental\s+)?` 2; `(?:another|different|substitute)\s+(?:rental\s+)?(?:unit|dwelling|apartment)s?\b.{0,100}(?` 3; heading screen 0; catchline 0; control 0; positives: PR 92.062 passed
+- TX-GAPS-A-15 -  - codes ALL; patterns: `(?:alternate|alternative|substitute|temporary|comparable)\s+(?:housing|lodging|accommodati` 56; `(?s)relocat\w*.{0,150}(?:tenant|occupant)|(?:tenant|occupant).{0,150}relocat\w*` 11; `(?s)(?:hotel|motel).{0,150}tenants?\b|tenants?\b.{0,150}(?:hotel|motel)` 5; `(?s)(?:displaced|uninhabitable|untenantable)\w*.{0,150}(?:tenant|lease\b|landlord)|(?:tena` 2; heading screen 7; catchline 7; control 0; positives: LG 214.001 passed, GV 2306.936 passed
+- TX-GAPS-A-37 -  - codes ALL; patterns: `(?s)(?:move|transfer|relocat)\w*.{0,60}(?:another|different|other|substitute)\s+(?:rental\` 2; `(?s)(?:another|different|substitute)\s+(?:rental\s+)?(?:unit|dwelling|apartment)s?\b.{0,10` 3; heading screen 0; catchline 0; control 0; positives: PR 92.062 passed
+
+**`animal-care-access`** (edu-no-animal-care-entry-right-tx)
+- TX-GAPS-A-07 -  - codes ALL; patterns: `(?:landlord|lessor|tenant)\w*.{0,150}(?:\bpets?\b|animals?\b)|(?:\bpets?\b|animals?\b).{0,` 6; `(?:enter|entry|access)\w*.{0,150}(?:\bpets?\b|animals?\b).{0,100}(?:care|feed|water|remov|` 4; `(?:dwelling|residence|habitation|premises|home)\w*.{0,100}(?:abandon|unattended|left)\w*.{` 4; heading screen 0; catchline 0; control 0; positives: PR 92.013 passed
+- TX-GAPS-A-16 -  - codes ALL; patterns: `(?s)(?:landlord|lessor|tenant)\w*.{0,150}(?:\bpets?\b|animals?\b)|(?:\bpets?\b|animals?\b)` 7; `(?s)(?:enter|entry|access)\w*.{0,150}(?:\bpets?\b|animals?\b).{0,100}(?:care|feed|water|re` 8; `(?s)(?:dwelling|residence|habitation|premises|home)\w*.{0,100}(?:abandon|unattended|left)\` 4; heading screen 0; catchline 0; control 0; positives: PR 92.013 passed
+
+**`automatic-renewal`** (edu-no-automatic-renewal-rule-tx)
+- TX-GAPS-A-19 -  - codes ALL; patterns: `automatic\w*\s+(?:renew|extend|extension)\w*|(?:renew|extend)\w*\s+automatically` 31; `(?s)automatic\w*.{0,100}(?:lease\b|rental agreement|tenancy|tenant)|(?:lease\b|rental agre` 5; `evergreen|negative option` 6; `(?:fails?|failure) to (?:give|provide|reject)\w*.{0,100}(?:renew|extend)\w*` 4; heading screen 1; catchline 1; control 0; positives: BC 92.001 passed, PR 94.055 passed
+- TX-GAPS-A-46 -  - codes ALL; patterns: `automatic\w*\s+(?:renew|extend|extension)\w*|(?:renew|extend)\w*\s+automatically` 31; `(?s)automatic\w*.{0,100}(?:lease\b|rental agreement|tenancy|tenant)|(?:lease\b|rental agre` 5; `evergreen|negative option` 6; `(?s)(?:fails?|failure) to (?:give|provide|reject)\w*.{0,100}(?:renew|extend)\w*` 4; heading screen 1; catchline 1; control 0; positives: BC 92.001 passed, PR 94.055 passed
+
+**`balcony-inspection`** (edu-no-balcony-inspection-rule-tx)
+- TX-GAPS-A-20 -  - codes ALL; patterns: `balcon\w*` 35; `exterior elevated|elevated (?:element|walkway|deck|exterior)|load-bearing (?:component|ele` 0; `(?s)\bdecks?\b.{0,100}(?:inspect|railing|guardrail)\w*|(?:inspect|railing|guardrail)\w*.{0` 0; `(?s)(?:porch|patio|terrace|stairway|walkway)\w*.{0,100}inspect\w*|inspect\w*.{0,100}(?:por` 46; heading screen 3; catchline 3; control 0; positives: HS 791.012 passed
+
+**`carpet-cleaning`** (edu-carpet-cleaning-tx)
+- TX-GAPS-A-24 -  - codes ALL; patterns: `carpet\w*|\brugs?\b|floor covering\w*` 5; `(?s)(?:clean\w*).{0,150}(?:security deposit|tenant|lease\b|move-out|surrender\w*)|(?:secur` 22; `(?s)(?:paint\w*|repaint\w*).{0,150}(?:security deposit|wear and tear)|(?:security deposit|` 1; heading screen 1; catchline 1; control 0; positives: FI 347.002 passed, PR 92.104 FAILED - recorded as failed; see the rerun
+- TX-GAPS-A-40 -  - codes ALL; patterns: `carpet\w*|\brugs?\b|floor covering\w*` 5; `(?s)(?:clean\w*).{0,150}(?:security deposit|tenant|lease\b|move-out|surrender\w*)|(?:secur` 22; `(?s)(?:paint\w*|repaint\w*).{0,150}(?:security deposit|wear and tear)|(?:security deposit|` 1; heading screen 1; catchline 1; control 0; positives: FI 347.002 passed, OC 1304.003 passed
+
+**`certificate-of-occupancy-disclosure`** (edu-no-certificate-of-occupancy-disclosure-tx)
+- TX-GAPS-A-25 -  - codes ALL; patterns: `certificates? of occupancy` 28; `(?s)certificates? of occupancy.{0,200}(?:tenant|landlord|\blease\b|lessee|rental|dwelling)` 5; `(?s)(?:occupancy permit|permit to occupy|rental (?:license|permit|registration)|use permit` 2; heading screen 4; catchline 4; control 0; positives: PR 92.023 passed, LG 214.909 passed
+
+**`cold-weather-vacate-notice`** (edu-no-cold-weather-vacate-notice-tx)
+- TX-GAPS-E-15 -  - codes ALL; patterns: `cold weather|extreme weather|inclement weather|winter weather|freezing (?:temperature|weat` 51; `(?s)(?:freez\w*|frozen)[^.]{0,120}(?:pipe\w*|plumbing|dwelling|tenant\w*|premises|unit\b|v` 4; `(?s)(?:vacat\w*|abandon\w*|absen\w*|leav\w*)[^.]{0,150}(?:freez\w*|cold|winter|\bheat\b|he` 1; `(?s)(?:notice|notify)[^.]{0,80}(?:intent\w* to|before|prior to)[^.]{0,40}(?:vacat\w*|aband` 2; heading screen 2; catchline 2; control 0; positives: CR 46.04 passed, UT 104.258 passed
+- TX-GAPS-E-19 -  - codes ALL; patterns: `\d+ degrees Fahrenheit` 35; `extended freeze|hard freeze|freeze warning|winter storm` 16; `National Weather Service` 16; `(?s)\b(?:heat|heating)\b[^.]{0,100}(?:tenant\w*|dwelling|lease\b|landlord\w*)|(?:tenant\w*` 7; heading screen 2; catchline 1; control 0; positives: PR 92.008 passed, PR 92.0562 passed, PR 92.0561 passed
+
+**`communal-land-lease-approval`** (edu-no-communal-land-lease-approval-tx)
+- TX-GAPS-A-28 -  - codes ALL; patterns: `communal (?:land|property)|land tenure|usufruct|held in common by` 0; `(?s)(?:indian tribe|tribal (?:land|trust|government|council)|\bpueblo\b|alabama-coushatta|` 3; `(?s)(?:approv\w*).{0,60}(?:of|for) (?:the|a|any) (?:residential )?lease\b|lease\b.{0,60}(?` 6; heading screen 0; catchline 0; control 0; positives: BC 26.01 FAILED - recorded as failed; see the rerun
+- TX-GAPS-A-43 -  - codes ALL; patterns: `communal (?:land|property)|land tenure|usufruct|held in common by` 0; `(?s)(?:indian tribe|tribal (?:land|trust|government|council)|\bpueblo\b|alabama-coushatta|` 3; `(?s)(?:approv\w*).{0,60}(?:of|for) (?:the|a|any) (?:residential )?lease\b|lease\b.{0,60}(?` 6; heading screen 0; catchline 0; control 0; positives: TX 151.337 passed, NR 71.010 passed
+
+**`condemned-premises-rent-bar`** (edu-no-condemned-rent-bar-tx)
+- TX-GAPS-A-29 -  - codes ALL; patterns: `(?s)(?:condemn\w*|unfit for (?:human )?habitation|substandard|order\w* (?:to vacate|vacate` 1; `(?s)(?:may not|shall not|is not entitled to)\s+(?:collect|recover|demand|charge|accept)\w*` 0; `(?s)certificates? of occupancy.{0,200}\brent\w*|\brent\w*.{0,200}certificates? of occupanc` 0; heading screen 0; catchline 0; control 0; positives: PR 92.023 FAILED - recorded as failed; see the rerun
+- TX-GAPS-A-44 -  - codes ALL; patterns: `(?s)(?:condemn\w*|unfit for (?:human )?habitation|substandard|order\w* (?:to vacate|vacate` 1; `(?s)(?:may not|shall not|is not entitled to)\s+(?:collect|recover|demand|charge|accept)\w*` 0; `(?s)certificates? of occupancy.{0,200}\brent\w*|\brent\w*.{0,200}certificates? of occupanc` 0; heading screen 0; catchline 0; control 0; positives: WA 61.163 passed
+
+**`condition-inspection`** (edu-no-condition-inspection-rule-tx)
+- TX-GAPS-A-30 -  - codes ALL; patterns: `(?s)(?:inventory|checklist|check-list|condition (?:report|statement|form)|statement of con` 16; `(?s)inspect\w*.{0,100}(?:beginning|start|commencement|end|termination|surrender)\w*.{0,60}` 2; `(?s)(?:existing|pre-existing|prior) (?:damage|condition)s?.{0,150}(?:tenant|landlord|\blea` 1; heading screen 0; catchline 0; control 0; positives: PR 92.014 passed, PR 92.258 FAILED - recorded as failed; see the rerun
+- TX-GAPS-A-45 -  - codes ALL; patterns: `(?s)(?:inventory|checklist|check-list|condition (?:report|statement|form)|statement of con` 16; `(?s)inspect\w*.{0,100}(?:beginning|start|commencement|end|termination|surrender)\w*.{0,60}` 2; `(?s)(?:existing|pre-existing|prior) (?:damage|condition)s?.{0,150}(?:tenant|landlord|\blea` 1; heading screen 0; catchline 0; control 0; positives: PR 92.014 passed, PR 92.263 passed
+
+**`confirmed-absences-habitability`** (edu-confirmed-absences-habitability-tx)
+- TX-GAPS-A-31 -  - codes ALL; patterns: `warrant\w* of (?:habitability|fitness for habitation|suitability|tenantability)|implied wa` 5; `\bhabitab\w*|uninhabitab\w*|fit for (?:human )?habitation` 59; `(?s)withh[oe]ld\w*.{0,60}\brent\b|\brent\b.{0,60}withh[oe]ld\w*` 15; `(?s)\brent\w*.{0,60}(?:escrow|registry of the court|court registry)|(?:escrow|registry of ` 8; `(?:minimum|maximum)\s+(?:indoor\s+)?temperature|degrees fahrenheit` 38; `(?s)air[- ]condition\w*.{0,150}(?:tenant|landlord|dwelling|rental)|(?:tenant|landlord|rent` 2; heading screen 13; catchline 12; control 0; positives: PR 92.061 passed, PR 92.058 passed, PR 92.052 passed, PR 92.0561 passed
+- TX-GAPS-A-47 -  - codes ALL; patterns: `(?s)warrant\w* of (?:habitability|fitness for habitation|suitability|tenantability)|implie` 6; `\bhabitab\w*|uninhabitab\w*|fit for (?:human )?habitation` 59; `(?s)withh[oe]ld\w*.{0,60}\brent\b|\brent\b.{0,60}withh[oe]ld\w*` 15; `(?s)\brent\w*.{0,60}(?:escrow|registry of the court|court registry)|(?:escrow|registry of ` 8; `(?:minimum|maximum)\s+(?:indoor\s+)?temperature|degrees fahrenheit` 38; `(?s)air[- ]condition\w*.{0,150}(?:tenant|landlord|dwelling|rental)|(?:tenant|landlord|rent` 2; heading screen 13; catchline 12; control 0; positives: PR 92.061 passed, PR 92.058 passed, PR 92.052 passed, PR 92.0561 passed
+
+**`confirmed-absences-misc`** (edu-confirmed-absences-misc-tx)
+- TX-GAPS-A-32 -  - codes ALL; patterns: `(?s)(?:rent|rental)\w*\s+(?:payment\s+)?(?:history|payments?|data).{0,150}(?:consumer repo` 0; `(?s)(?:energy (?:use|usage|consumption|efficiency rating|score|benchmark\w*)|utility (?:co` 1; `blank (?:spaces?|lines?)|spaces? left blank|left blank` 23; `(?s)(?:shutdown|lapse in appropriations|delay\w* in (?:benefit|payment)s?).{0,200}(?:tenan` 0; heading screen 1; catchline 1; control 0; positives: PR 92.0191 FAILED, BC 20.01 FAILED - recorded as failed; see the rerun
+- TX-GAPS-A-33 -  - codes ALL; patterns: `(?s)(?:rent|rental)\w*\s+(?:payment\s+)?(?:history|payments?|data).{0,150}(?:consumer repo` 0; `(?s)(?:energy (?:use|usage|consumption|efficiency rating|score|benchmark\w*)|utility (?:co` 1; `blank (?:spaces?|lines?)|spaces? left blank|left blank` 23; `(?s)(?:shutdown|lapse in appropriations|delay\w* in (?:benefit|payment)s?).{0,200}(?:tenan` 0; heading screen 1; catchline 1; control 0; positives: FI 345.108 passed, UT 39.905 passed
+
+**`confirmed-absences-outside-title`** (edu-confirmed-absences-outside-title-tx)
+- TX-GAPS-A-34 -  - codes ALL; patterns: `(?s)(?:regist\w*|licens\w*|permit)\b.{0,150}(?:eviction|forcible (?:entry and )?detainer|p` 3; `rental (?:registration|registry|license|licensing|permit)|landlord (?:registration|registr` 0; heading screen 0; catchline 0; control 0; positives: PR 24.0053 passed
+- TX-GAPS-A-35 -  - codes ALL; patterns: `plain[- ]language|readab\w*` 217; `(?s)(?:type size|point type|\d+-point|\bfont\b|typeface).{0,150}(?:\blease\b|rental agreem` 5; heading screen 9; catchline 8; control 0; positives: FI 341.502 passed
+
+**`defective-drywall-disclosure`** (edu-no-drywall-disclosure-tx)
+- TX-GAPS-B-06 -  - codes ALL; patterns: `\bdry\s?-?walls?\b` 1; `\bgypsum\s+(board|wallboard|panel)s?\b` 1; `\b(wallboard|plasterboard|sheetrock)s?\b` 3; `\b(corrosive|defective|contaminated|imported)\s+(drywall|building materials?|construction ` 0; `\b(building|construction) materials?\b.{0,120}\b(disclos\w*|tenants?|lease)\b|\b(disclos\w` 2; heading screen 0; catchline 0; control 0; positives: LG 233.154 passed, PR 82.052 passed
+
+**`deposit-installments`** (edu-no-deposit-installments-tx)
+- TX-GAPS-B-08 -  - codes ALL; patterns: `\binstall?ments?\b.{0,120}\bdeposits?\b|\bdeposits?\b.{0,120}\binstall?ments?\b` 6; `\b(payment plan|partial payments?|pay\w*\s+(in|over)\s+(two|three|four|several|equal)\b|mo` 2; `\bsecurity deposits?\b.{0,150}\b(maximum|exceed|limit\w*|cap)\b|\b(maximum|exceed|limit\w*` 2; `\binstall?ments?\b` 1623; heading screen 65; catchline 68; control 0; positives: PR 92.111 FAILED, PR 5.062 FAILED - recorded as failed; see the rerun
+- TX-GAPS-B-09 -  - codes ALL; patterns: `\binstall?ments?\b.{0,120}\bdeposits?\b|\bdeposits?\b.{0,120}\binstall?ments?\b` 6; `\b(payment plan|partial payments?|pay\w*\s+(in|over)\s+(two|three|four|several|equal)\b|mo` 2; `\bsecurity deposits?\b.{0,150}\b(maximum|exceed|limit\w*|cap)\b|\b(maximum|exceed|limit\w*` 2; `\bfee in lieu of (a )?security deposit\b` 9; heading screen 1; catchline 1; control 0; positives: LG 131.003 passed, PR 92.111 passed
+
+**`disaster-displaced-guests`** (edu-no-disaster-guest-rule-tx)
+- TX-GAPS-B-11 -  - codes ALL; patterns: `\b(displaced|evacuee\w*|evacuat\w*)\b.{0,150}\b(guests?|tenants?|lease|occupan\w*|dwelling` 5; `\b(disasters?|emergenc\w*|hurricanes?)\b.{0,150}\b(guests?|occupancy limit\w*|additional o` 0; `\b(shelter\w*|hous\w*)\b.{0,80}\b(evacuees?|displaced (persons|individuals|residents|famil` 3; `\bnatural disaster\b` 109; heading screen 7; catchline 7; control 0; positives: PR 21.043 passed, PR 92.062 passed
+
+**`double-letting`** (edu-no-double-letting-rule-tx)
+- TX-GAPS-B-13 -  - codes ALL; patterns: `\bdouble[- ]?(let\w*|leas\w*|rent\w*|book\w*)\b|\bover-?book\w*` 0; `\b(deliver\w*|give|giving|tender\w*)\s+(of\s+)?(actual\s+)?possession\b.{0,150}\b(tenant|l` 0; `\b(same|identical)\s+(premises|dwelling|unit|room|rental unit)\b.{0,120}\b(two|more than o` 0; `\bpossession of the (premises|dwelling|rental unit|leased premises)\b` 31; heading screen 0; catchline 0; control 0; positives: PR 92.0081 passed
+
+**`drug-free-housing-addendum`** (edu-no-drug-free-addendum-tx)
+- TX-GAPS-B-14 -  - codes ALL; patterns: `\bdrug[- ]free\b` 5; `\bcrime[- ]free\b` 0; `\b(lease|rental)\s+addend\w*|\baddend\w*\b.{0,80}\b(lease|rental agreement)\b` 3; `\b(drugs?|controlled substances?|narcotics?|illegal substances?)\b.{0,150}\b(lease|tenan\w` 0; heading screen 1; catchline 1; control 0; positives: PR 92.006 FAILED - recorded as failed; see the rerun
+- TX-GAPS-B-15 -  - codes ALL; patterns: `\bdrug[- ]free\b` 5; `\bcrime[- ]free\b` 0; `\b(lease|rental)\s+addend\w*|\baddend\w*\b.{0,80}\b(lease|rental agreement)\b` 3; `\b(drugs?|controlled substances?|narcotics?|illegal substances?)\b.{0,150}\b(lease|tenan\w` 0; heading screen 1; catchline 1; control 0; positives: PR 92.0135 passed, HS 481.134 passed
+
+**`dv-deposit-timing`** (edu-no-dv-deposit-timing-rule-tx)
+- TX-GAPS-M-08 - DV and deposit timing - codes ALL; patterns: `(family violence|sexual assault|stalking)[^.]{0,250}deposit|deposit[^.]{0,250}(family viol` 9; heading screen 1; catchline 0; control 0; positives: none - no real positive exists; the companion battery cited with it carries real positives
+- TX-GAPS-M-22 - deposit return when cotenants remain (everyday words) - codes ALL; patterns: `(co-?tenant|remaining tenant|other tenant)s?[^.]{0,200}(deposit|surrender)|(deposit|surren` 0; `all (of the )?(tenants|occupants)[^.]{0,80}(vacate|surrender|deliver)` 0; heading screen 0; catchline 0; control 0; positives: PR 92.016 FAILED - recorded as failed; see the rerun
+- TX-GAPS-M-23 - cotenants and deposit surrender (rerun of M-22, pattern limbs split) - codes ALL; patterns: `\bco-?tenants?\b` 104; `surrender\w*[^.]{0,120}deposit|deposit[^.]{0,120}surrender\w*` 16; heading screen 3; catchline 3; control 0; positives: PR 92.016 passed, PR 92.103 passed
+
+**`dv-eviction-protection`** (edu-no-dv-eviction-protection-tx)
+- TX-GAPS-M-10 - DV eviction protection - codes ALL; patterns: `(family violence|domestic violence|dating violence|stalking|sexual assault)[^.]{0,250}(evi` 4; `victim[^.]{0,120}(tenant|lease|landlord|rental)|(tenant|lease|landlord|rental)[^.]{0,120}v` 68; heading screen 2; catchline 2; control 0; positives: PR 92.016 passed
+
+**`dv-lockchange`** (edu-no-dv-lockchange-right-tx)
+- TX-GAPS-M-09 - DV lock change - codes ALL; patterns: `(family violence|stalking|sexual assault|protective order|dating violence)[^.]{0,250}(lock` 0; `rekey\w*|change[sd]? (the )?(door )?locks?` 40; heading screen 3; catchline 3; control 0; positives: PR 92.156 passed
+
+**`environmental-event-termination`** (edu-no-environmental-event-termination-tx)
+- TX-GAPS-B-19 -  - codes ALL; patterns: `\benvironmental\b.{0,60}\b(event|emergency|hazard|contamination|condition)s?\b.{0,200}\b(l` 0; `\b(contaminat\w*|hazardous (substance|material)s?|toxic|mold|chemical spill)\b.{0,150}\b(t` 0; `\bpublic health (event|emergency|disaster)\b.{0,200}\b(lease|tenan\w*|landlord|evict\w*|re` 0; `\bcasualty loss\b|\bclos(e|ing) (a|the) rental (unit|premises)\b` 18; heading screen 3; catchline 3; control 0; positives: PR 92.054 passed, PR 92.055 passed
+
+**`ev-charging-end-of-tenancy`** (edu-no-ev-charging-end-of-tenancy-tx)
+- TX-GAPS-B-21 -  - codes ALL; patterns: `\belectric vehicles?\b` 185; `\b(charging (station|equipment|infrastructure|port|unit|system)s?|vehicle supply equipment` 137; `(?s)\b(electric vehicle|charging)\b.{0,250}\b(tenants?|landlords?|lessees?|lease|dwelling|` 3; `\balternatively fueled vehicle\b` 4; heading screen 14; catchline 14; control 0; positives: OC 2311.0206 passed, UT 31.002 passed, UT 42.0102 passed
+
+**`eviction-hardship-stay`** (edu-no-eviction-hardship-stay-tx)
+- TX-GAPS-E-02 -  - codes ALL; patterns: `\bhardship\w*` 268; `(?s)\bstay(?:s|ed|ing)?\b[^.]{0,120}(?:writ of possession|eviction|forcible|judgment for p` 0; `(?s)(?:postpone\w*|continuance|delay\w*|abate\w*|suspend\w*)[^.]{0,120}(?:writ of possessi` 5; `(?s)(?:illness|disabilit\w*|elderly|children|school year|extreme weather|cold weather|incl` 0; heading screen 10; catchline 14; control 0; positives: PR 24.0043 passed, PR 24.005 passed, AG 161.054 passed
+
+**`eviction-penalty-clause-ban`** (edu-no-eviction-penalty-rule-tx)
+- TX-GAPS-M-19 - fee for notice / eviction filing charged to tenant (rerun of M-05, positive corrected) - codes ALL; patterns: `(fee|charge)[^.]{0,80}(notice to vacate|eviction|forcible detainer|notice to pay rent)|(no` 1; heading screen 0; catchline 0; control 0; positives: PR 24.006 passed
+- TX-GAPS-M-04 - penalty / liquidated damages (general contract law) - codes ALL; patterns: `liquidated damages|liquidation of damages` 32; `penalt\w*[^.]{0,60}(imposed by|in|under) (a |the )?(contract|agreement|lease)|unenforceabl` 9; `(damages|amount)[^.]{0,60}(fixed|determined|agreed) in (advance|anticipation)|in anticipat` 1; heading screen 4; catchline 4; control 0; positives: BC 2A.504 passed
+
+**`eviction-service-party`** (edu-no-eviction-service-party-tx)
+- TX-GAPS-E-03 -  - codes ALL; patterns: `agent (?:for|to (?:receive|accept)) (?:service|process)|agent for service of process` 129; `(?:accept|receiv)\w* service of (?:process|citation)|(?:accept|waive)\w* (?:service|proces` 65; `(?s)(?:tenant\w*|lessee\w*|lease\b|leases\b|rental agreement|landlord\w*|occupant\w*)[^.]{` 5; `(?s)(?:citation|service of process|summons)[^.]{0,150}(?:tenant\w*|lessee\w*|lease\b|lease` 32; heading screen 23; catchline 23; control 0; positives: PR 92.003 passed, CR 58.052 passed, CP 30.001 passed
+
+**`expedited-criminal-eviction`** (edu-no-expedited-criminal-eviction-tx)
+- TX-GAPS-E-04 -  - codes ALL; patterns: `(?s)(?:expedit\w*|accelerat\w*|summary|immediate\w*)[^.]{0,100}evict\w*|evict\w*[^.]{0,100` 1; `(?s)evict\w*[^.]{0,150}(?:drug\w*|controlled substance|criminal|felony|violen\w*|gang|fire` 0; `(?s)terminat\w*[^.]{0,60}\b(?:lease|tenancy|tenant\w*)\b[^.]{0,150}(?:convict\w*|criminal|` 1; `(?s)\btenant\w*\b[^.]{0,120}(?:controlled substance|drug-related|criminal activity|common ` 0; `(?s)(?:serious misconduct|criminal acts?)[^.]{0,150}(?:tenant\w*|lease\b)|(?:tenant\w*|lea` 6; `(?s)terminat\w*[^.]{0,30}\btenant's lease` 3; heading screen 1; catchline 1; control 0; positives: PR 91.003 passed, CP 125.045 passed, PR 92.332 passed
+
+**`expedited-deposit-disposition`** (edu-no-expedited-deposit-disposition-tx)
+- TX-GAPS-B-23 -  - codes ALL; patterns: `(?s)\b(expedit\w*|accelerat\w*|early|earlier|sooner|prompt)\b.{0,80}\b(refund\w*|return\w*` 4; `(?s)\b(administrative|processing|accounting|handling)\s+(fees?|charges?)\b.{0,150}\bdeposi` 7; `(?s)\brefund\w*\b.{0,60}\b(security\s+)?deposits?\b` 90; heading screen 1; catchline 1; control 0; positives: PR 92.103 passed
+
+**`family-child-care`** (edu-no-family-child-care-rule-tx)
+- TX-GAPS-B-26 -  - codes ALL; patterns: `(?s)\b(child[- ]care|day[- ]care|family home|listed family home|registered family home|chi` 25; `(?s)\b(home[- ]based business\w*|home occupation\w*)\b.{0,200}\b(tenants?|landlords?|lease` 1; `\b(listed|registered) family home\b` 55; heading screen 6; catchline 6; control 0; positives: HR 42.002 FAILED - recorded as failed; see the rerun
+- TX-GAPS-B-27 -  - codes ALL; patterns: `(?s)\b(child[- ]care|day[- ]care|family homes?|child care homes?)\b.{0,200}\b(tenants?|lan` 24; `(?s)\b(home[- ]based business\w*|home occupation\w*)\b.{0,200}\b(tenants?|landlords?|lease` 1; `\bfamily homes?\b` 264; heading screen 15; catchline 14; control 0; positives: HR 42.002 passed, LG 229.902 passed
+
+**`fee-transparency`** (edu-no-fee-transparency-law-tx)
+- TX-GAPS-M-06 - all-in pricing / junk fees - codes ALL; patterns: `all-in|total price|junk fee|drip pricing|hidden fee|mandatory fee` 74; `advertis\w*[^.]{0,100}\b(rent|rental|lease|apartment)\b[^.]{0,100}(fee|charge|price)` 1; heading screen 2; catchline 2; control 0; positives: BC 301.052 passed
+
+**`fee-unprovided-service`** (edu-no-fee-unprovided-service-rule-tx)
+- TX-GAPS-M-07 - charging for services not provided - codes ALL; patterns: `(goods|services?)[^.]{0,40}not (been )?(provided|rendered|furnished|delivered)|not (provid` 35; `(fee|charge)[^.]{0,80}(service|amenit\w*)[^.]{0,80}not (provided|available|offered)` 6; heading screen 1; catchline 1; control 0; positives: CR 39.01 passed
+
+**`foreclosure-disclosure`** (edu-no-foreclosure-disclosure-tx)
+- TX-GAPS-C-02 -  - codes ALL; patterns: `(?s)\bforeclos\w*.{0,250}\b(tenants?|lessees?|applicants?|prospective|renters?)\b|\b(tenan` 28; `(?s)\b(disclos\w*|notif\w*|inform\w*)\b.{0,150}\b(pending|threatened|scheduled|posted)\b.{` 1; `(?s)\bnotice of (default|acceleration|sale|trustee\W?s? sale)\b.{0,250}\b(tenants?|lessees` 3; `(?s)\b(mortgage|deed of trust|loan)\w*.{0,60}\b(default\w*|delinquen\w*)\b.{0,250}\b(tenan` 1; `\blis pendens\b` 32; heading screen 5; catchline 5; control 0; positives: PR 24.005 passed, PR 92.0562 passed, PR 12.007 passed
+
+**`forfeiture-redemption`** (edu-no-forfeiture-relief-tx)
+- TX-GAPS-E-13 -  - codes ALL; patterns: `(?s)forfeit\w*[^.]{0,120}\b(?:lease\w*|tenan\w*|leasehold\w*|rental)\b|\b(?:lease\w*|tenan` 66; `relie\w* (?:from|against) (?:a |the )?forfeiture|equitable relief[^.]{0,60}forfeit\w*` 2; `(?s)\b(?:right to cure|cure the default|avoid (?:the )?(?:enforcement|forfeiture))` 29; `(?s)(?:arrear\w*|past[- ]due rent|delinquent rent|rent due)[^.]{0,150}(?:before|prior to)[` 0; heading screen 8; catchline 8; control 0; positives: PR 5.065 passed, PR 5.063 passed
+
+**`guest-rights`** (edu-no-guest-rights-statute-tx)
+- TX-GAPS-C-07 -  - codes ALL; patterns: `(?s)\b(guests?|visitors?|invitees?)\b.{0,200}\b(tenants?|lessees?|renters?|residents?)\b|\` 88; `(?s)\b(right|entitled|may not (prohibit|restrict|limit|bar|deny))\b.{0,120}\b(receive|have` 2; `\b(guest|visitor) (fees?|charges?|limits?|polic\w*)\b|\bfees? (for|per) (a |each |any )?(g` 3; `(?s)\b(caregivers?|home health|personal care attendants?|live-in aides?)\b.{0,250}\b(tenan` 4; heading screen 0; catchline 0; control 0; positives: PR 92.026 passed, PR 92.332 passed
+
+**`habitability-statement`** (edu-no-habitability-statement-tx)
+- TX-GAPS-C-08 -  - codes ALL; patterns: `(?s)\bleases?\b.{0,200}\b(must|shall)\b.{0,100}\b(state|contain|include|provide|recite)\w*` 0; `\bfit (for|to) (human )?(habitation|live|occupancy)\b|\bhabitable\b|\buninhabitable\b|\bha` 97; `warrant\w* of (habitability|fitness|suitability)|implied warrant\w*` 47; `(?s)\b(covenant|promise|agree|warrant)\w*\b.{0,100}\b(deliver|maintain|keep|furnish)\w*\b.` 0; `(?s)\b(conditions?|defects?)\b.{0,100}\b(deemed|considered|presumed)\b.{0,100}\b(material\` 2; heading screen 17; catchline 17; control 0; positives: PR 92.061 passed, PR 94.151 passed, LG 214.219 passed
+
+**`health-district-rental-rules`** (edu-no-health-district-rental-rules-tx)
+- TX-GAPS-C-12 -  - codes ALL; patterns: `(?s)\b(health (districts?|departments?|authority|authorities|officers?|officials?)|public ` 7; `(?s)\bhealth\b.{0,40}\b(regulations?|rules?|codes?|ordinances?)\b.{0,200}\b(lessees?|tenan` 25; `(?s)\bsanitar\w*\b.{0,200}\b(lessees?|tenants?|landlords?|rental|apartments?)\b|\b(lessees` 3; `(?s)\b(on request|upon request|request of (a|the) tenant)\b.{0,150}\b(cop(y|ies)|provide)\` 16; heading screen 0; catchline 0; control 0; positives: LG 214.219 passed, PR 92.0561 passed
+
+**`holdover-rate`** (edu-no-holdover-rate-tx)
+- TX-GAPS-C-17 -  - codes ALL; patterns: `\bhold\w*\s*over\b|\bholdover\b` 21; `double (the )?rent|twice the (monthly |daily )?rent|(two|three) times the (monthly |daily ` 6; `(?s)\b(holding over|holdover|holds over|remains? in possession|retains? possession|after t` 7; `\bmesne profits\b|\buse and occupancy\b|\breasonable rental value\b|\bfair rental value\b` 30; `(?s)\bper diem\b.{0,150}\brent` 0; heading screen 1; catchline 1; control 0; positives: PR 24.002 passed, PR 24.008 passed, PR 92.332 passed
+
+**`infirmity-termination`** (edu-no-infirmity-termination-tx)
+- TX-GAPS-C-20 -  - codes ALL; patterns: `(?s)\b(terminat\w*|vacate|end)\b.{0,200}\b(leases?|tenancy|rental agreements?)\b.{0,250}\b` 0; `(?s)\b(tenants?|lessees?)\b.{0,200}\b(nursing (homes?|facilit\w*)|assisted living|long-ter` 2; `(?s)\bterminat\w*\b.{0,100}\bleases?\b.{0,300}\b(military|family violence|sexual|stalking|` 9; heading screen 0; catchline 0; control 0; positives: PR 92.016 passed, PR 92.017 passed, PR 92.0162 passed
+
+**`inspection-condemnation-disclosure`** (edu-no-code-order-disclosure-tx)
+- TX-GAPS-C-22 -  - codes ALL; patterns: `(?s)\b(disclos\w*|notif\w*|notice|inform\w*)\b.{0,200}\b(code violations?|condemn\w*|subst` 1; `(?s)\b(substandard|dangerous|unsafe)\b.{0,100}\b(buildings?|structures?|dwellings?)\b.{0,2` 3; `(?s)\bcertificates? of occupancy\b.{0,250}\b(tenants?|lessees?|landlords?)\b|\b(tenants?|l` 1; heading screen 1; catchline 1; control 0; positives: LG 214.001 passed, PR 92.023 passed
+
+**`inspection-notice-penalty`** (edu-no-inspection-notice-penalty-tx)
+- TX-GAPS-C-23 -  - codes ALL; patterns: `(?s)\b(move-?in|move-?out|walk-?through|pre-?move|initial|final|joint)\b.{0,50}\binspectio` 0; `(?s)\binspect\w*\b.{0,200}\bsecurity deposits?\b|\bsecurity deposits?\b.{0,200}\binspect\w` 0; `(?s)\b(forfeit\w*|double|treble|three times)\b.{0,200}\b(security )?deposits?\b` 27; `(?s)\b(condition|damage|inventory)\b.{0,30}\b(reports?|checklists?|statements?|forms?)\b.{` 1; heading screen 0; catchline 0; control 0; positives: PR 92.109 passed, PR 92.354 FAILED - recorded as failed; see the rerun
+- TX-GAPS-C-26 -  - codes ALL; patterns: `(?s)\b(move-?in|move-?out|walk-?through|pre-?move|initial|final|joint)\b.{0,50}\binspectio` 0; `(?s)\binspect\w*\b.{0,200}\bsecurity deposits?\b|\bsecurity deposits?\b.{0,200}\binspect\w` 0; `(?s)\b(forfeit\w*|double|treble|three times)\b.{0,200}\b(security )?deposits?\b` 27; `(?s)\b(condition|damage|inventory)\b.{0,30}\b(reports?|checklists?|statements?|forms?)\b.{` 1; heading screen 0; catchline 0; control 0; positives: PR 92.109 passed, PR 92.107 passed
+
+**`key-control-policy`** (edu-no-key-control-policy-tx)
+- TX-GAPS-C-24 -  - codes ALL; patterns: `master keys?|key[- ]control|\bkeys? (log|policy|policies|management)\b` 10; `(?s)\b(keys?|access (devices?|cards?)|key ?cards?|pass ?codes?)\b.{0,200}\b(employees?|sta` 25; `(?s)\b(background checks?|criminal (history|background)\w*)\b.{0,250}\b(employees?|staff|p` 4; heading screen 1; catchline 1; control 0; positives: PR 92.156 passed, PR 92.151 FAILED - recorded as failed; see the rerun
+- TX-GAPS-C-27 -  - codes ALL; patterns: `master keys?|key[- ]control|\bkeys? (log|policy|policies|management)\b` 10; `(?s)\b(keys?|access (devices?|cards?)|key ?cards?|pass ?codes?)\b.{0,200}\b(employees?|sta` 25; `(?s)\b(background checks?|criminal (history|background)\w*)\b.{0,250}\b(employees?|staff|p` 4; heading screen 1; catchline 1; control 0; positives: PR 92.156 passed, PR 92.162 passed
+
+**`landlord-liability-insurance`** (edu-no-landlord-insurance-mandate-tx)
+- TX-GAPS-D-01 -  - codes ALL; patterns: `(?s)\b(landlords?|lessors?|residential rental|rental propert\w*|rental units?|rental dwell` 33; `liability insurance` 586; `proof of (?:liability )?insurance|certificate of insurance|evidence of insurance` 180; `tenants? insurance|renter\W?s insurance|landlord\W?s insurance` 5; heading screen 73; catchline 110; control 0; positives: PR 92.111 passed, PR 82.111 passed, PR 207.003 passed, IN 2251.002 passed
+
+**`landlord-registration`** (edu-no-landlord-registration-tx)
+- TX-GAPS-D-02 -  - codes ALL; patterns: `(?s)\b(regist\w*|licens\w*|permit)\b.{0,100}\b(rental propert\w*|rental housing|rental dwe` 86; `rental registr\w*|registr\w* of rental|landlord registr\w*|rental licens\w*|rental permits` 28; `on-site manager|property manag\w*|management company` 234; `business licens\w*|occupation(?:al)? licens\w* (?:tax|fee)` 41; heading screen 16; catchline 16; control 0; positives: OC 1101.351 passed, HS 754.0141 passed, OC 1101.005 passed, PR 92.201 passed
+
+**`law-enforcement-cooperation`** (edu-no-law-enforcement-cooperation-rule-tx)
+- TX-GAPS-D-03 -  - codes ALL; patterns: `crime[- ]free` 0; `(?s)\b(law enforcement|police|peace officers?|sheriffs?|constables?)\b.{0,120}\b(landlords` 12; `(?s)\bcooperat\w*.{0,80}\b(investigat\w*|law enforcement|police)\b|\b(investigat\w*|law en` 155; `(?s)\b(call\w*|summon\w*|contact\w*|request\w*)\b.{0,60}\b(police|law enforcement|emergenc` 173; heading screen 11; catchline 9; control 0; positives: PR 92.015 passed, PR 24.0061 passed
+- TX-GAPS-D-04 -  - codes ALL; patterns: `(?s)\b(criminal activit\w*|crimes?|criminal acts?)\b.{0,100}\b(leases?|tenan\w*|rental agr` 7; `(?s)\b(landlords?|owners?|owner's)\b.{0,200}\b(notif\w*|report\w*)\b.{0,60}\b(law enforcem` 4; heading screen 0; catchline 0; control 0; positives: PR 92.332 passed, CP 125.002 passed
+
+**`lead-safe-certification`** (edu-no-lead-safe-certificate-tx)
+- TX-GAPS-D-05 -  - codes ALL; patterns: `lead[- ]based paint` 7; `lead[- ]safe|lead[- ]free|lead (?:hazard|inspection|risk assessment|abatement|poisoning)\w` 56; `(?s)\blead\b.{0,80}\b(disclos\w*|pamphlet|notice|certif\w*)\b|\b(disclos\w*|pamphlet|notic` 28; `target housing|child-occupied facilit\w*` 11; heading screen 3; catchline 3; control 0; positives: OC 1955.001 passed, HS 88.008 passed, PR 5.008 passed, OC 1955.051 passed
+
+**`lead-state-notices`** (edu-no-lead-state-notices-tx)
+- TX-GAPS-D-05 -  - codes ALL; patterns: `lead[- ]based paint` 7; `lead[- ]safe|lead[- ]free|lead (?:hazard|inspection|risk assessment|abatement|poisoning)\w` 56; `(?s)\blead\b.{0,80}\b(disclos\w*|pamphlet|notice|certif\w*)\b|\b(disclos\w*|pamphlet|notic` 28; `target housing|child-occupied facilit\w*` 11; heading screen 3; catchline 3; control 0; positives: OC 1955.001 passed, HS 88.008 passed, PR 5.008 passed, OC 1955.051 passed
+
+**`lease-notice-initial-requirement`** (edu-no-lease-initials-requirement-tx)
+- TX-GAPS-D-07 -  - codes ALL; patterns: `\binitial(?:ed|ing|led|s)\b` 57; `(?s)\b(sign\w*|acknowledg\w*)\b.{0,40}\bseparate\w*\b|\bseparate\w*\b.{0,40}\b(sign\w*|ack` 42; `(?s)\b(underlined|bold\w*|conspicuous\w*|capital\w* letters)\b.{0,80}\b(leases?|rental agr` 21; heading screen 1; catchline 0; control 0; positives: PR 94.053 passed, PR 92.017 passed, PR 92.103 passed
+
+**`lease-registration`** (edu-no-lease-registration-duty-tx)
+- TX-GAPS-D-08 -  - codes ALL; patterns: `(?s)memorandum of (?:the )?lease|\brecord\w*\b.{0,60}\bleases?\b|\bleases?\b.{0,60}\b(reco` 34; `(?s)unrecorded (?:lease|instrument|conveyance)s?|\bvoid as to\b.{0,80}\b(purchaser|credito` 9; `(?s)\b(possession|occupancy|in possession)\b.{0,100}\b(notice)\b.{0,100}\b(purchaser|buyer` 1; `land regist\w*|registry of (?:deeds|leases|titles)|title regist\w*|torrens` 1; heading screen 2; catchline 2; control 0; positives: PR 13.001 passed, PR 12.001 FAILED - recorded as failed; see the rerun
+- TX-GAPS-D-29 -  - codes ALL; patterns: `(?s)memorandum of (?:the )?lease|\brecord\w*\b.{0,60}\bleases?\b|\bleases?\b.{0,60}\b(reco` 34; `(?s)unrecorded (?:lease|instrument|conveyance)s?|\bvoid as to\b.{0,80}\b(purchaser|credito` 9; `(?s)\b(possession|occupancy|in possession)\b.{0,100}\b(notice)\b.{0,100}\b(purchaser|buyer` 1; `land regist\w*|registry of (?:deeds|leases|titles)|title regist\w*|torrens` 1; heading screen 2; catchline 2; control 0; positives: PR 13.001 passed, PR 82.056 passed
+
+**`lease-term-limitation`** (edu-lease-term-limits-tx)
+- TX-GAPS-D-09 -  - codes ALL; patterns: `(?s)\blease\w*\b[^.]{0,120}\b(?:term|period)s? (?:of )?(?:not (?:more|longer) than|no (?:m` 46; `(?s)\bleases?\b.{0,60}\b(?:longer|more) than (?:one|1) years?|\b(?:one|1) years? or (?:mor` 78; `perpetuit\w*` 26; `(?s)\bhomestead\b.{0,100}\b(leases?|rent\w*)\b|\b(leases?|rent\w*)\b.{0,100}\bhomestead\b` 5; heading screen 7; catchline 7; control 0; positives: BC 26.01 passed, LG 281.045 passed, CN 1.26 passed, PR 41.003 passed
+
+**`lease-type-parity`** (edu-no-lease-type-parity-tx)
+- TX-GAPS-D-10 -  - codes ALL; patterns: `(?s)\bmonth[- ]to[- ]month\b.{0,200}\b(fixed[- ]term|term lease|lease term|longer term|ter` 2; `(?s)\b(month[- ]to[- ]month|periodic|short[- ]term lease)\w*\b.{0,150}\b(premium|surcharge` 1; `month[- ]to[- ]month|tenancy from month to month|periodic tenanc\w*` 8; heading screen 0; catchline 0; control 0; positives: PR 91.001 passed, PR 94.055 passed
+
+**`lease-type-size`** (edu-no-lease-type-size-tx)
+- TX-GAPS-D-11 -  - codes ALL; patterns: `\b\d+[- ]point\b|\b(?:six|eight|ten|eleven|twelve|fourteen)[- ]point\b|point (?:type|font)` 196; `\b(small print|fine print|legibl\w*|readab\w*)\b` 292; `(?s)\b(type|print|font)\b.{0,80}\b(leases?|rental agreements?)\b|\b(leases?|rental agreeme` 30; heading screen 5; catchline 5; control 0; positives: PR 94.051 passed, PR 94.053 passed, PR 92.103 passed
+
+**`liquidated-damages`** (edu-no-liquidated-damages-rule-tx)
+- TX-GAPS-M-04 - penalty / liquidated damages (general contract law) - codes ALL; patterns: `liquidated damages|liquidation of damages` 32; `penalt\w*[^.]{0,60}(imposed by|in|under) (a |the )?(contract|agreement|lease)|unenforceabl` 9; `(damages|amount)[^.]{0,60}(fixed|determined|agreed) in (advance|anticipation)|in anticipat` 1; heading screen 4; catchline 4; control 0; positives: BC 2A.504 passed
+
+**`meter-conservation-charge`** (edu-no-meter-conservation-charge-tx)
+- TX-GAPS-D-14 -  - codes ALL; patterns: `conservation charges?|meter (?:conservation|charges?|fees?|surcharges?)\b` 0; `on-bill|energy[- ]efficiency (?:charges?|surcharges?|improvement\w*|loans?|financing)` 10; `(?s)\b(tenants?|lessees?)\b.{0,150}\b(energy efficien\w*|qualified improvement)\b|\b(energ` 0; `(?s)\bsubmeter\w*\b.{0,150}\b(surcharge|service charge|markup|mark-up|cost per gallon)\b|\` 1; heading screen 0; catchline 0; control 0; positives: LG 376.001 passed, WA 13.503 passed
+
+**`military-air-zone-disclosure`** (edu-no-military-zone-disclosure-tx)
+- TX-GAPS-D-15 -  - codes ALL; patterns: `military installation|military base|air installation|compatible use|joint land use|acciden` 299; `(?s)\b(military installation|military base|air installation|airports?)\b.{0,150}\b(leases?` 26; `(?s)\b(noise|overflights?|aircraft)\b.{0,100}\b(disclos\w*|notice)\b|\b(disclos\w*|notice)` 14; heading screen 21; catchline 21; control 0; positives: PR 5.008 passed, LG 397.007 passed
+
+**`nonrefundable-deposit-separate-notice`** (edu-no-nonrefundable-separate-notice-tx)
+- TX-GAPS-D-18 -  - codes ALL; patterns: `(?s)\b(fees?|deposits?|charges?)\b.{0,150}\bseparate (?:written )?(?:documents?|notices?|w` 7; `(?s)\bseparately (?:signed|initialed|acknowledged)\b|\bsigned separately\b` 6; heading screen 0; catchline 0; control 0; positives: PR 92.006 FAILED, PR 92.0135 FAILED - recorded as failed; see the rerun
+- TX-GAPS-D-27 -  - codes ALL; patterns: `(?s)\b(fees?|deposits?|charges?)\b.{0,150}\bseparate (?:written )?(?:documents?|notices?|w` 7; `(?s)\bseparately (?:signed|initialed|acknowledged)\b|\bsigned separately\b` 6; heading screen 0; catchline 0; control 0; positives: FI 345.208 passed, BC 2.205 passed
+- TX-GAPS-D-26 -  - codes ALL; patterns: `non-?refundable|not (?:be )?refundable|will not be refunded` 188; `however (?:denominated|designated|described|labell?ed|called)` 9; `(?s)\b(pet|cleaning|redecorat\w*|move[- ]in|administrative|amenity|reservation|holding)\b ` 212; `(?s)\bsecurity deposit\W{0,3}\s*(?:is|means)\b` 12; heading screen 17; catchline 17; control 0; positives: PR 92.111 passed, PR 92.3515 passed, PR 92.102 passed
+
+**`nonresident-owner-agent`** (edu-no-nonresident-owner-agent-tx)
+- TX-GAPS-D-19 -  - codes ALL; patterns: `(?s)\b(nonresidents?|non-residents?|out[- ]of[- ]state|resides? outside (?:this|the) state` 15; `agents? for service|registered agents?|resident agents?|local agents?` 431; `(?s)\bwithh(?:o|e)ld\w*\b.{0,60}\b(rent|rental income)\b` 10; heading screen 50; catchline 50; control 0; positives: PR 92.003 passed, CP 17.044 passed, CP 17.003 passed
+
+**`notice-service-fee`** (edu-no-notice-service-fee-tx)
+- TX-GAPS-M-05 - fee for notice / eviction filing charged to tenant - codes ALL; patterns: `(fee|charge)[^.]{0,80}(notice to vacate|eviction|forcible detainer|notice to pay rent)|(no` 1; heading screen 0; catchline 0; control 0; positives: PR 24.0061 FAILED - recorded as failed; see the rerun
+- TX-GAPS-M-19 - fee for notice / eviction filing charged to tenant (rerun of M-05, positive corrected) - codes ALL; patterns: `(fee|charge)[^.]{0,80}(notice to vacate|eviction|forcible detainer|notice to pay rent)|(no` 1; heading screen 0; catchline 0; control 0; positives: PR 24.006 passed
+- TX-GAPS-M-04 - penalty / liquidated damages (general contract law) - codes ALL; patterns: `liquidated damages|liquidation of damages` 32; `penalt\w*[^.]{0,60}(imposed by|in|under) (a |the )?(contract|agreement|lease)|unenforceabl` 9; `(damages|amount)[^.]{0,60}(fixed|determined|agreed) in (advance|anticipation)|in anticipat` 1; heading screen 4; catchline 4; control 0; positives: BC 2A.504 passed
+
+**`ordnance-demolition-meter-disclosures`** (edu-no-ordnance-demolition-meter-disclosure-tx)
+- TX-GAPS-D-21 -  - codes ALL; patterns: `ordnance|munitions|unexploded|explosive remnants` 7; `(?s)\bdemoli\w*\b.{0,120}\b(tenants?|leases?|lessees?|occupants?)\b|\b(tenants?|leases?|le` 13; `(?s)master[- ]meter\w*|(?:shared|common) meters?|\bmeters?\b.{0,80}\b(serv\w* (?:more than` 52; heading screen 3; catchline 3; control 0; positives: PR 92.055 passed, WA 13.501 passed, GV 437.004 passed
+
+**`pet-eviction-fact-sheet`** (edu-no-pet-eviction-fact-sheet-tx)
+- TX-GAPS-F-05 -  - codes ALL; patterns: `fact sheets?|information sheets?|informational (?:sheet|pamphlet|brochure)s?` 39; `(?:pets?|dogs?|cats?|animals?)\b[^.]{0,150}(?:evict\w*|writ of possession|notice to vacate` 0; `\b(?:pets?|dogs?|cats?)\b[^.]{0,150}(?:tenant|lease\b|landlord|lessee)|(?:tenant|landlord|` 4; `animals?\b[^.]{0,100}(?:abandon\w*|left behind|remain\w*)[^.]{0,100}(?:premises|dwelling|u` 1; heading screen 2; catchline 2; control 0; positives: LG 392.0555 passed
+
+**`plain-language-consumer-statement`** (edu-no-plain-language-consumer-statement-tx)
+- TX-GAPS-F-06 -  - codes ALL; patterns: `plain language|plain[- ]English` 101; `readab\w*|Flesch` 112; `consumer restrictions?|statement of (?:the )?(?:consumer\W?s? )?(?:rights and )?restrictio` 2; `attorney general[^.]{0,150}(?:approv\w*|certif\w*|review\w*)[^.]{0,80}(?:lease|contract|fo` 106; `(?:lease|rental agreement)[^.]{0,120}(?:clear and (?:understandable|conspicuous)|easily un` 1; heading screen 10; catchline 8; control 0; positives: BC 92.051 passed
+
+**`political-access`** (edu-no-political-access-rule-tx)
+- TX-GAPS-F-07 -  - codes ALL; patterns: `canvass\w*[^.]{0,150}(?:apartment|tenant|dwelling|multi-?(?:unit|family)|door|residen\w*)|` 13; `(?:candidate|campaign\w*|political|electioneering|voter registration)[^.]{0,150}(?:tenant|` 67; `political (?:advertising )?signs?|signs? advertising a candidate` 14; `door[- ]to[- ]door|distribut\w*[^.]{0,30}(?:literature|leaflets?|handbills?|pamphlets?)` 17; `tenant (?:organization|association|union)s?|tenants\W? (?:organization|association|union)s` 5; heading screen 4; catchline 4; control 0; positives: PR 202.013 passed, EL 259.002 passed, PR 92.331 passed
+
+**`portable-cooling-device`** (edu-no-portable-cooling-rule-tx)
+- TX-GAPS-F-08 -  - codes ALL; patterns: `(?:window|portable|room)[^.]{0,30}(?:air[- ]condition\w*|cooling (?:unit|device)s?|air[- ]` 2; `air[- ]condition\w*[^.]{0,150}(?:tenant|landlord|lease\b|dwelling|rental|lessee)|(?:tenant` 2; `cool(?:ing|ed)\b[^.]{0,150}(?:tenant|landlord|lease\b|dwelling|rental|lessee)|(?:tenant|la` 3; `install\w*[^.]{0,80}(?:air[- ]condition\w*|cooling|fans?\b)[^.]{0,80}(?:window|tenant|unit` 0; heading screen 0; catchline 0; control 0; positives: PR 92.0561 passed
+
+**`portable-solar`** (edu-no-portable-solar-right-tx)
+- TX-GAPS-F-09 -  - codes ALL; patterns: `solar[^.]{0,200}(?:tenant|lease\b|landlord|lessee|renter|rental)|(?:tenant|landlord|lessee` 11; `(?:plug-in|portable|balcony)[^.]{0,40}(?:solar|photovoltaic|generat\w*|batter\w*)` 5; `distributed (?:renewable )?generation[^.]{0,200}(?:tenant|lease\b|landlord|renter|resident` 0; `solar energy devices?|solar (?:energy )?(?:systems?|panels?|collectors?)` 70; heading screen 5; catchline 5; control 0; positives: PR 202.010 passed
+
+**`private-well-testing`** (edu-no-private-well-testing-tx)
+- TX-GAPS-F-10 -  - codes ALL; patterns: `(?:private|water|domestic|drinking water) wells?[^.]{0,200}(?:tenant|lease\b|landlord|rent` 6; `well water|private water (?:system|supply|well)s?` 12; `water[^.]{0,40}(?:test\w*|sampl\w*|analys\w*)[^.]{0,150}(?:tenant|landlord|lease\b|rental|` 1; heading screen 0; catchline 0; control 0; positives: LG 211.053 passed
+
+**`promises-to-repair`** (edu-no-promises-to-repair-rule-tx)
+- TX-GAPS-F-12 -  - codes ALL; patterns: `(?:promis\w*|agree\w*|represent\w*)[^.]{0,80}\bto (?:repair|clean|improve|redecorate|paint` 2; `(?:repairs?|improvements?|cleaning)[^.]{0,120}(?:completion date|date (?:of|for) completio` 4; `(?:repairs?|improvements?)[^.]{0,80}(?:before|prior to)[^.]{0,60}(?:occupancy|the lease|th` 3; `(?:need for|necessity of)[^.]{0,40}(?:repair|replacement)|work or services[^.]{0,60}(?:per` 10; heading screen 0; catchline 0; control 0; positives: PR 92.0561 passed, BC 17.46 passed
+
+**`prop65-rental-warning`** (edu-no-chemical-warning-rule-tx)
+- TX-GAPS-F-13 -  - codes ALL; patterns: `carcinogen\w*|known to (?:the state )?(?:to )?cause cancer` 3; `reproductive (?:toxicity|toxicant|harm)s?|birth defects?` 34; `warnings?\b[^.]{0,150}(?:tenant|lease\b|landlord|lessee|rental (?:property|unit|housing|dw` 10; `Proposition 65|Prop\.? 65|Safe Drinking Water and Toxic Enforcement` 0; `(?:hazardous|toxic) (?:substance|chemical)s?[^.]{0,150}(?:tenant|landlord|lessee|residenti` 0; heading screen 0; catchline 0; control 0; positives: HS 503.001 passed
+
+**`property-tax-rent-disclosure`** (edu-no-property-tax-rent-statement-tx)
+- TX-GAPS-F-14 -  - codes ALL; patterns: `(?:property|ad valorem) tax\w*[^.]{0,150}(?:\brent\b|\brents\b|rental|tenant|lessee)|(?:\b` 16; `(?:portion|share|part|percent\w*)[^.]{0,40}\brent\w*[^.]{0,60}(?:property|ad valorem|real ` 0; `certificates? of rent paid|renter\W?s\W? (?:credit|rebate|refund|tax credit)|rent (?:rebat` 0; `(?:landlord|lessor|owner)[^.]{0,100}(?:statement|disclos\w*|notif\w*)[^.]{0,100}(?:taxes|t` 0; heading screen 0; catchline 0; control 0; positives: GV 496.003 passed
+
+**`protected-class-inquiry-ban`** (edu-no-protected-class-inquiry-ban-tx)
+- TX-GAPS-F-15 -  - codes ALL; patterns: `(?:inquir\w*|ask\w*|question\w*)[^.]{0,150}(?:race|color|religion|sex|familial status|nati` 22; `(?:record|retain|maintain|keep)\w*[^.]{0,100}(?:race|religion|national origin|disabilit\w*` 0; `preference, limitation, or discrimination` 2; `(?:applicant|tenant|renter|prospective (?:tenant|renter|buyer))s?\b[^.]{0,150}(?:race|reli` 96; heading screen 3; catchline 3; control 0; positives: PR 301.022 passed
+
+**`purpose-limitation`** (edu-no-purpose-limitation-tx)
+- TX-GAPS-F-16 -  - codes ALL; patterns: `lease[^.]{0,150}(?:void|voidable|forfeit\w*|annul\w*|terminat\w*)[^.]{0,150}(?:nuisance|pr` 1; `(?:used|use|using)[^.]{0,30}(?:for|as)[^.]{0,30}(?:an? )?(?:unlawful|illegal|immoral) purp` 1; `common nuisance[^.]{0,200}(?:lease\b|tenant|lessee|landlord)|(?:lease\b|tenant|lessee|land` 2; `(?:terminat\w*|cancel\w*|evict\w*)[^.]{0,120}(?:tenant|lessee)[^.]{0,120}(?:convict\w*|cri` 0; heading screen 0; catchline 0; control 0; positives: PR 93.013 passed
+- TX-GAPS-F-26 -  - codes ALL; patterns: `right of possession terminates|possession reverts to the landlord` 2; `lease[^.]{0,200}(?:is|becomes|shall be) void\b|\bvoid[^.]{0,60}\blease\b` 23; `terminat\w*[^.]{0,250}(?:convict\w*|prostitution|gambl\w*|controlled substance|nuisance)` 37; `(?:unlawful|illegal|immoral|criminal) (?:use|purpose|activit\w*)[^.]{0,200}(?:lease\b|tena` 7; heading screen 3; catchline 3; control 0; positives: PR 91.003 passed, PR 93.013 passed
+
+**`recycling-notice`** (edu-no-recycling-notice-tx)
+- TX-GAPS-F-17 -  - codes ALL; patterns: `recycl\w*[^.]{0,200}(?:tenant|apartment|multifamily|multi-family|landlord|dwelling units?|` 0; `recycl\w*[^.]{0,100}(?:notice|notif\w*|inform\w*|educat\w*)[^.]{0,100}(?:resident\w*|occup` 0; `(?:solid waste|garbage|trash|refuse)[^.]{0,150}(?:tenant|apartment|multifamily|multi-famil` 12; `recycl\w*` 811; heading screen 35; catchline 36; control 0; positives: HS 361.003 passed
+
+**`redemption`** (edu-no-redemption-tx)
+- TX-GAPS-E-12 -  - codes ALL; patterns: `(?s)(?:\bredeem\w*|\bredemption\b)[^.]{0,150}(?:tenan\w*|lease\b|possession|evict\w*|forci` 46; `(?s)reinstat\w*[^.]{0,100}(?:tenancy|lease\b|tenant\w*)|(?:tenancy|lease\b)[^.]{0,100}rein` 15; `(?s)(?:pay\w*|tender\w*)[^.]{0,100}(?:before|prior to)[^.]{0,60}(?:writ of possession|exec` 0; `(?s)(?:charit\w*|nonprofit|rental assistance|third[- ]party)[^.]{0,120}(?:\brent\b|tenant\` 9; heading screen 2; catchline 2; control 0; positives: PR 24.0062 passed, PR 209.011 passed
+
+**`religious-cultural-display`** (edu-no-religious-display-rule-tx)
+- TX-GAPS-F-18 -  - codes ALL; patterns: `religious[^.]{0,150}(?:display\w*|items?|symbols?|objects?|decorations?|apparel)|display\w` 13; `mezuzah|menorah|crucifix|nativity|rosary` 2; `display\w*[^.]{0,150}(?:tenant|lease\b|landlord|lessee)|(?:tenant|landlord|lessee)[^.]{0,1` 14; `(?:cultural|ethnic|holiday)[^.]{0,60}(?:display\w*|decorations?|symbols?)` 1; heading screen 1; catchline 1; control 0; positives: PR 202.018 passed
+
+**`rent-demand-bar`** (edu-no-rent-demand-bar-tx)
+- TX-GAPS-E-11 -  - codes ALL; patterns: `(?s)(?:may not|shall not|is not entitled to|not entitled to)[^.]{0,40}(?:demand|collect|ch` 2; `(?s)\brent\w*\b[^.]{0,100}(?:withh[eo]ld\w*|suspend\w*|abat\w*|reduc\w*|deduct\w*)|(?:with` 88; `(?s)(?:substandard|uninhabit\w*|unfit for|code violation\w*|housing code|building code)[^.` 0; `(?s)(?:certificate of occupancy|unregistered|unlicensed|registration)[^.]{0,120}\brent\w*\` 4; heading screen 6; catchline 6; control 0; positives: PR 92.0563 passed, PR 92.0561 passed
+
+**`rent-receipt-anti-waiver`** (edu-no-rent-receipt-anti-waiver-tx)
+- TX-GAPS-M-12 - rent receipt split from repair duty - codes ALL; patterns: `(receiv|collect)\w* (the )?rent[^.]{0,200}(repair|duty|obligation)|(repair|duty|obligation` 5; `rent is normally paid` 4; `rent collector` 5; heading screen 0; catchline 0; control 0; positives: PR 92.052 passed, PR 92.003 passed
+
+**`renters-insurance-rules`** (edu-no-renters-insurance-rules-tx)
+- TX-GAPS-F-25 -  - codes ALL; patterns: `renter\W?s\W? insurance|tenant\W?s\W? insurance|tenant insurance|renters insurance|tenants` 5; `(?:liability|property|contents|personal property|hazard) insurance[^.]{0,150}(?:tenant|les` 6; `requir\w*[^.]{0,80}(?:tenant|lessee|renter)[^.]{0,80}(?:insurance|insured|coverage)|(?:ten` 0; `force[- ]placed|lender[- ]placed|(?:landlord|lessor)[^.]{0,60}(?:purchase|procure|obtain)\` 0; heading screen 0; catchline 0; control 0; positives: PR 92.0135 passed
+
+**`repair-cost-termination`** (edu-no-repair-cost-termination-tx)
+- TX-GAPS-F-02 -  - codes ALL; patterns: `cost\w*[^.]{0,60}(?:repair\w*|remed\w*)[^.]{0,120}(?:exceed\w*|unreasonabl\w*|disproportio` 5; `(?:terminat\w*|clos\w*)[^.]{0,120}(?:in lieu of|instead of|rather than)[^.]{0,60}repair\w*` 0; `clos\w* (?:the|a) rental (?:unit|premises)|uneconomic\w*|economically (?:feasible|unfeasib` 62; `(?:demolish\w*|no longer use)[^.]{0,120}(?:rental unit|residential purposes|dwelling)` 1; heading screen 2; catchline 2; control 0; positives: PR 92.055 passed
+
+**`repair-escrow-exemption-notice`** (edu-no-repair-escrow-exemption-tx)
+- TX-GAPS-F-03 -  - codes ALL; patterns: `(?:rent|rental) escrow|escrow\w*[^.]{0,80}\brent\b|\brent\b[^.]{0,80}escrow\w*` 0; `(?:pay|deposit)\w*[^.]{0,40}\brent\b[^.]{0,80}(?:registry|clerk of (?:the )?court)` 5; `(?:one|two|three|four|five|\d+) or fewer (?:dwelling |rental |residential )?units|owns? on` 9; `(?:exempt\w*|do(?:es)? not apply)[^.]{0,120}landlord[^.]{0,80}(?:units?|dwellings?)[^.]{0,` 0; heading screen 0; catchline 0; control 0; positives: PR 92.006 passed, PR 24.0053 passed
+
+**`sanitary-code-variance`** (edu-no-code-variance-notice-tx)
+- TX-GAPS-G-05 -  - codes ALL; patterns: `(?s)\bvarian\w*[^.]{0,150}(?:housing|dwelling|rental|tenan\w*|lease|sanitar\w*)|(?:housing` 1; `sanitary code|sanitation code|state housing code` 2; `(?s)(?:health|housing|sanitar\w*|building) codes?[^.]{0,150}(?:waive\w*|waiver|exempt\w*|v` 1; heading screen 0; catchline 0; control 0; positives: GV 511.009 passed
+
+**`seasonal-tenancy`** (edu-no-seasonal-tenancy-rule-tx)
+- TX-GAPS-G-07 -  - codes ALL; patterns: `(?s)\bseasonal\w*[^.]{0,120}(?:lease|tenan\w*|rent\w*|dwelling|housing|occup\w*|living qua` 10; `short-term rental|vacation rental` 6; `(?s)\b(?:summer|winter|school year)[^.]{0,60}(?:lease|tenan\w*|rental)` 6; heading screen 1; catchline 1; control 0; positives: GV 2306.921 passed, TX 156.001 passed
+
+**`security-deposit-interest`** (edu-no-security-deposit-interest-tx)
+- TX-GAPS-G-09 -  - codes ALL; patterns: `(?s)interest (?:on|earned on|accru\w* on) (?:a |the |any )?(?:customer\W{0,2}s? |tenant\W{` 25; `(?s)security deposits?[^.]{0,150}\binterest\b|\binterest\b[^.]{0,150}security deposits?` 8; `(?s)(?:tenant|lessee|renter)\W{0,2}s? deposits?[^.]{0,150}\binterest\b` 0; heading screen 4; catchline 4; control 0; positives: PR 53.161 passed
+
+**`security-deposit-standards`** (edu-no-security-deposit-standards-tx)
+- TX-GAPS-G-12 -  - codes ALL; patterns: `(?s)(?:standards?|criteria|polic(?:y|ies)|schedule)[^.]{0,120}security deposits?|security ` 1; `selection criteria` 72; `(?s)(?:amount|calculat\w*) of (?:any |the )?(?:security )?deposits?` 47; `(?s)(?:post|posted|display\w*)[^.]{0,100}(?:deposit|criteria)` 40; heading screen 4; catchline 4; control 0; positives: PR 92.3515 passed, PR 94.053 passed
+
+**`senior-housing-work-card`** (edu-no-senior-housing-work-card-tx)
+- TX-GAPS-G-13 -  - codes ALL; patterns: `work (?:card|permit)s?` 2; `(?s)housing for (?:older persons|the elderly|elderly)|senior (?:housing|apartment\w*|livin` 39; `(?s)(?:employee|staff|worker|applicant)s?[^.]{0,150}(?:criminal history|background check)[` 0; `(?s)(?:55|fifty-five|62|sixty-two) years (?:of age )?(?:or|and) older[^.]{0,150}(?:housing` 5; `residential dwelling project` 12; heading screen 3; catchline 4; control 0; positives: PR 301.043 passed, HS 765.002 passed
+
+**`sfr-occupancy-disclosure`** (edu-no-sfr-occupancy-disclosure-tx)
+- TX-GAPS-G-18 -  - codes ALL; patterns: `(?s)notar\w*.{0,150}(?:lease|rental agreement|tenan\w*)|(?:lease|rental agreement|tenan\w*` 6; `(?s)(?:\d+|ten|twelve|fourteen|twenty-four)-point.{0,200}(?:lease|tenan\w*|rental)|(?:leas` 9; `(?s)presum\w*.{0,120}(?:lawful(?:ly)? occup\w*|unlawful(?:ly)? occup\w*|not (?:a )?tenant)` 0; `(?s)top of the first page|first page of the (?:lease|rental agreement)` 4; heading screen 0; catchline 0; control 0; positives: PR 94.051 passed, PR 24.0052 passed
+
+**`shoreline-access-disclosure`** (edu-no-shoreline-disclosure-tx)
+- TX-GAPS-G-19 -  - codes ALL; patterns: `(?s)(?:public beach|open beaches?|shoreline|coastal area|tidally influenced|vegetation lin` 19; `(?s)(?:beach|coastal|shoreline)[^.]{0,100}(?:disclos\w*|notice)` 10; heading screen 0; catchline 0; control 0; positives: NR 61.025 passed, NR 33.135 passed
+
+**`showing-notice-waiver`** (edu-no-showing-notice-waiver-tx)
+- TX-GAPS-M-02 - entry notice / showings - codes ALL; patterns: `(enter|entry)[^.]{0,80}(dwelling|premises|rental unit|residence|apartment)[^.]{0,120}notic` 15; `prospective (tenant|purchaser|buyer|lessee)s?[^.]{0,120}(show|enter|entry|access)|(show|en` 9; `landlord.{0,20}right of entry|right to enter` 19; heading screen 5; catchline 6; control 0; positives: PR 94.004 passed
+- TX-GAPS-M-26 - entry notice / showings (rerun of M-02 with dot-matches-newline) - codes ALL; patterns: `(enter|entry)[^.]{0,80}(dwelling|premises|rental unit|residence|apartment)[^.]{0,120}notic` 15; `(?s)prospective (tenant|purchaser|buyer|lessee)s?.{0,120}(show|enter|entry)` 6; `(?s)landlord.{0,20}right of entry|right to enter` 19; heading screen 5; catchline 6; control 0; positives: PR 94.004 passed
+
+**`shutdown-rent-protection`** (edu-no-shutdown-rent-protection-tx)
+- TX-GAPS-G-20 -  - codes ALL; patterns: `(?s)(?:government|federal) (?:shutdown|furlough)|(?:shutdown|furlough\w*|lapse in appropri` 7; `(?s)(?:federal|state) (?:government )?(?:employees?|workers?)[^.]{0,150}(?:\brent\b|evict\` 2; `(?s)(?:delay\w*|late|interrupt\w*) (?:in )?(?:pay|wages|salary|paycheck)[^.]{0,150}(?:rent` 3; heading screen 1; catchline 1; control 0; positives: GV 659.016 passed
+
+**`single-family-zone-lease-limit`** (edu-no-single-family-zone-lease-limit-tx)
+- TX-GAPS-G-21 -  - codes ALL; patterns: `(?s)owner[- ]occup\w*` 9; `(?s)single[- ]family[^.]{0,150}(?:zon\w*|district)[^.]{0,150}(?:lease|rent\w*|tenan\w*|occ` 0; `(?s)(?:prohibit|restrict|limit)\w*[^.]{0,100}(?:leasing|rental|renting)[^.]{0,100}(?:home|` 12; `(?s)(?:zoning|zone)[^.]{0,150}(?:rental|leasing|\blease)\b` 10; `(?s)restriction relating to (?:occupancy or )?leasing|leasing restrictions?` 1; heading screen 0; catchline 0; control 0; positives: LG 214.003 passed, PR 209.016 passed
+
+**`smart-access`** (edu-no-smart-access-law-tx)
+- TX-GAPS-G-22 -  - codes ALL; patterns: `(?s)(?:smart|electronic|keypad|app-based|digital|biometric|wireless|remote)[- ]?(?:locks?|` 67; `biometric (?:identifier|data|information)s?` 52; `(?s)security devices?[^.]{0,150}(?:electronic|card|combination|code)` 5; `(?s)key ?cards?|key fobs?|access codes?|entry codes?` 14; heading screen 11; catchline 10; control 0; positives: BC 503.001 passed, PR 92.156 passed
+
+**`smoke-drift-waiver`** (edu-no-smoke-drift-rule-tx)
+- TX-GAPS-M-03 - smoke drift / smoke-free housing - codes ALL; patterns: `smok\w*[^.]{0,100}(common area|hallway|apartment|multifamily|multiunit|dwelling|residentia` 25; `secondhand smoke|second-hand smoke|environmental tobacco smoke|smoke-free|smoke free|tobac` 0; `smoking (is )?prohibited|prohibit\w* smoking` 4; heading screen 0; catchline 0; control 0; positives: PE 48.01 passed
+
+**`social-security-defense`** (edu-no-benefit-delay-defense-tx)
+- TX-GAPS-E-10 -  - codes ALL; patterns: `social security` 748; `(?s)(?:benefit\w*|public assistance|housing assistance|voucher\w*|subsid\w*|government age` 5; `(?s)government agency[^.]{0,120}\brent\b|\brent\b[^.]{0,120}government agency` 6; `housing choice voucher|section 8\b|federal housing assistance` 317; heading screen 20; catchline 21; control 0; positives: PR 24.0053 passed, PR 24.0054 passed, CP 30.014 passed
+
+**`special-district-representation`** (edu-no-special-district-statement-tx)
+- TX-GAPS-G-23 -  - codes ALL; patterns: `(?s)(?:special|taxing|utility|improvement|water|municipal utility) districts?.{0,200}(?:le` 29; `notice to purchasers?` 17; `(?s)(?:district|assessment)s?[^.]{0,200}(?:disclos\w*|notice)[^.]{0,200}(?:lessee|tenan\w*` 5; heading screen 8; catchline 8; control 0; positives: WA 49.452 passed
+
+**`sprinkler-disclosure`** (edu-no-sprinkler-disclosure-tx)
+- TX-GAPS-G-24 -  - codes ALL; patterns: `(?s)sprinkler.{0,150}(?:disclos\w*|notice|notif\w*|lease|tenan\w*|rental)|(?:disclos\w*|no` 12; `(?s)fire (?:protection|suppression) (?:systems?|sprinklers?).{0,150}(?:disclos\w*|notice|l` 6; heading screen 0; catchline 0; control 0; positives: IN 6003.002 passed
+
+**`steam-radiator-covers`** (edu-no-steam-radiator-covers-tx)
+- TX-GAPS-H-01 -  - codes ALL; patterns: `radiator\w*` 1; `steam[- ]heat\w*` 4; `(?s)(?:heating|hot)[- ](?:pipes?|surfaces?|elements?|risers?)[^.]{0,80}(?:covers?|guards?|` 0; heading screen 0; catchline 0; control 0; positives: HS 361.2755 passed, HS 755.001 passed
+
+**`stove-refrigerator`** (edu-no-stove-refrigerator-rule-tx)
+- TX-GAPS-H-03 -  - codes ALL; patterns: `refrigerat\w*` 155; `\bstoves?\b|cooking (?:ranges?|appliances?|facilit\w*|equipment)` 12; `(?s)kitchen\w*[^.]{0,100}(?:\btenants?\b|landlord|\blease\b|\blessee|rental|apartment)|(?:` 1; heading screen 4; catchline 4; control 0; positives: HS 343.011 passed, BC 121.002 passed
+
+**`student-housing`** (edu-no-student-housing-rule-tx)
+- TX-GAPS-H-04 -  - codes ALL; patterns: `(?s)\bstudents?\b[^.]{0,80}(?:\blease\b|\btenants?\b|landlord|apartment|off[- ]campus|rent` 9; `dormitor\w*|residence halls?|student housing` 63; `(?s)off[- ]campus[^.]{0,100}(?:housing|residen\w*)` 1; heading screen 7; catchline 8; control 0; positives: ED 107.61 passed
+
+**`subsidized-inspection-refusal`** (edu-no-subsidized-inspection-refusal-rule-tx)
+- TX-GAPS-H-05 -  - codes ALL; patterns: `(?s)(?:refus\w*|den(?:y|ies|ied)|fail\w*)[^.]{0,80}(?:access|entry|admi\w*|permi\w*)[^.]{0` 55; `housing quality standards?` 0; `(?s)inspect\w*[^.]{0,120}(?:assisted|subsidized|voucher|section 8|housing choice)|(?:assis` 29; heading screen 5; catchline 5; control 0; positives: HS 483.050 passed
+
+**`subsidy-habitability-proration`** (edu-subsidy-habitability-proration-tx)
+- TX-GAPS-H-06 -  - codes ALL; patterns: `housing assistance payments?|\bassistance payments?` 35; `(?s)(?:tenant|family|household)\W{0,2}s? (?:share|portion) of (?:the )?(?:total )?(?:month` 3; `(?s)\babat\w*[^.]{0,100}(?:\brent\b|rental|payments?)` 3; `(?s)late (?:fees?|charges?|payments?)[^.]{0,200}(?:subsidi\w*|assisted|assistance|voucher|` 1; `(?s)\brent\w*[^.]{0,60}subsidized|subsidized[^.]{0,60}\brent` 8; heading screen 0; catchline 0; control 0; positives: PR 92.333 passed, LG 303.0425 passed
+
+**`tenant-bankruptcy`** (edu-tenant-bankruptcy-tx)
+- TX-GAPS-H-10 -  - codes ALL; patterns: `(?s)bankrupt\w*[^.]{0,150}(?:\btenants?\b|\blease\b|\blessee|evict\w*|landlord|rental|forc` 3; `automatic stay` 2; heading screen 0; catchline 0; control 0; positives: PR 92.103 passed
+
+**`tenant-display-rights`** (edu-no-tenant-display-rights-tx)
+- TX-GAPS-H-12 -  - codes ALL; patterns: `(?s)\bflags?\b[^.]{0,150}(?:\btenants?\b|landlord|\blease\b|resident|apartment)|(?:\btenan` 1; `(?s)(?:display|post|affix)\w*[^.]{0,100}(?:signs?|banners?|decorations?|religious items?)[` 5; `(?s)\bflags?\b[^.]{0,80}display\w*|display\w*[^.]{0,80}\bflags?\b` 76; heading screen 9; catchline 10; control 0; positives: PR 202.012 passed, PR 202.018 passed
+
+**`tenant-insurance-claims`** (edu-no-tenant-insurance-claims-rule-tx)
+- TX-GAPS-H-14 -  - codes ALL; patterns: `(?s)(?:tenant|renter|lessee|resident)\W{0,2}s? (?:insurance|insurer|policy|policies)` 11; `(?s)(?:claim|file)\w*[^.]{0,120}(?:renter|tenant|lessee)\W{0,2}s? (?:insurance|policy|insu` 0; `renters?\W{0,2}s? insurance|tenant insurance` 1; heading screen 0; catchline 0; control 0; positives: PR 92.0135 passed
+
+**`tpa-exemption-notice`** (edu-no-tpa-exemption-notice-tx)
+- TX-GAPS-H-21 -  - codes ALL; patterns: `(?s)opportunity to purchase|right to (?:purchase|buy)[^.]{0,100}(?:\btenants?\b|building|d` 4; `(?s)right of first (?:refusal|offer)[^.]{0,200}(?:\btenants?\b|residents?)|(?:\btenants?\b` 7; `(?s)(?:intent|offer|decision) to sell[^.]{0,200}(?:\btenants?\b|residents?)|(?:notify|noti` 5; `(?s)(?:exempt\w*|exclu\w*)[^.]{0,150}(?:opportunity to purchase|right of first refusal)` 3; heading screen 1; catchline 1; control 0; positives: GV 2306.6726 passed, PR 12.020 passed
+
+**`tpa-sunset`** (edu-no-tpa-sunset-tx)
+- TX-GAPS-J-01 - tpa-sunset: dated repeal or expiry of tenancy law - codes ALL; patterns: `\bsunset\w*` 315; `(?s)this (section|chapter|subchapter|article) expires` 347; `(?s)(section|chapter|subchapter) (is repealed|expires) (on|effective)` 119; `(?s)(landlord|tenant|lease|tenancy|dwelling)\w*[^.]{0,150}\b(expires on|is repealed effect` 2; heading screen 121; catchline 131; control 0; positives: AG 11.003 passed, PR 70.405 passed
+
+**`truth-in-renting`** (edu-no-truth-in-renting-tx)
+- TX-GAPS-J-03 - truth-in-renting: state statement of rights / clauses misstating rights - codes ALL; patterns: `truth.in.(renting|leasing|lending)` 26; `(?s)statement of (the )?(rights|responsibilities)[^.]{0,150}(tenant|landlord|lessee|reside` 2; `(?s)(tenant|renter|resident|landlord)s?.? rights[^.]{0,100}(statement|guide|booklet|pamphl` 0; `(?s)(lease|rental agreement)[^.]{0,150}(violates|in violation of|contrary to)[^.]{0,60}(ri` 3; heading screen 0; catchline 0; control 0; positives: HS 242.501 passed
+
+**`unbundled-parking`** (edu-no-unbundled-parking-rule-tx)
+- TX-GAPS-J-04 - unbundled-parking: parking priced separately from rent - codes ALL; patterns: `unbundl\w*` 53; `(?s)parking[^.]{0,150}(separate\w*|apart from|in addition to)[^.]{0,60}(rent|lease)` 0; `(?s)(rent|lease)\w*[^.]{0,150}parking[^.]{0,60}separate\w*` 0; `(?s)parking[^.]{0,100}(fee|charge|price|cost)s?[^.]{0,100}(tenant|dwelling|residential|apa` 1; `parking spaces? per dwelling unit` 1; heading screen 4; catchline 4; control 0; positives: UT 39.051 passed, LG 218.102 passed
+
+**`usufructuary-lessor`** (edu-no-usufructuary-lessor-tx)
+- TX-GAPS-J-07 - usufructuary-lessor: usufruct / naked owner / life tenant leases - codes ALL; patterns: `usufruct\w*` 0; `\bnaked owner\w*` 0; `(?s)(life tenant|life estate)\w*[^.]{0,200}(lease|lessee)|(lease|lessee)[^.]{0,200}(life t` 0; `life tenant\w*|life estate\w*` 29; heading screen 2; catchline 2; control 0; positives: PR 5.009 passed, ES 201.002 passed
+- TX-GAPS-J-08 - usufructuary-lessor everyday words: lease ending on the lessor death or limited estate - codes ALL; patterns: `(?s)(lease|rental)\w*[^.]{0,200}\b(dies|death)\b` 31; `(?s)(lessor|landlord|owner)[^.]{0,80}\b(dies|death)\b[^.]{0,150}(lease|tenant)` 1; `(?s)estate for (life|years)` 3; heading screen 0; catchline 0; control 0; positives: PR 92.0162 passed, PR 23.003 passed
+
+**`utility-disconnection-notice-authorization`** (edu-utility-disconnection-notice-authorization-tx)
+- TX-GAPS-J-13 - utility-disconnection-notice-authorization: third party or landlord copies of shutoff notices - codes ALL; patterns: `(?s)(third.party|designat\w*|another person|landlord|owner)[^.]{0,150}(notice|notif\w*)[^.` 3; `(?s)(disconnect\w*|discontinu\w*)[^.]{0,150}(notice|notif\w*)[^.]{0,150}(landlord|owner|th` 0; `third.party notif\w*` 0; heading screen 0; catchline 0; control 0; positives: PR 92.302 passed, UT 17.202 FAILED - recorded as failed; see the rerun
+- TX-GAPS-J-25 - utility-disconnection-notice-authorization rerun of J-13 with notice-of-disconnection-to limb - codes ALL; patterns: `(?s)(third.party|designat\w*|another person|landlord|owner)[^.]{0,150}(notice|notif\w*)[^.` 3; `(?s)(disconnect\w*|discontinu\w*)[^.]{0,150}(notice|notif\w*)[^.]{0,150}(landlord|owner|th` 0; `third.party notif\w*` 0; `(?s)notice of (service )?(disconnection|discontinuance|termination)[^.]{0,150}\bto (a|the|` 6; heading screen 0; catchline 0; control 0; positives: PR 92.302 passed, UT 17.202 passed, UT 104.352 passed
+
+**`utility-transfer`** (edu-no-utility-transfer-cutoff-tx)
+- TX-GAPS-J-15 - utility-transfer: tenant transfer of utilities into own name / landlord cutoff of landlord-name service - codes ALL; patterns: `(?s)(transfer\w*|put|place|establish\w*|connect\w*)[^.]{0,80}(utilit\w*|service)[^.]{0,80}` 0; `(?s)(tenant\W{0,3}s? name|name of the tenant)[^.]{0,150}(utilit\w*|service|account)` 1; `(?s)(utilit\w*|service|account)[^.]{0,150}(name of the landlord|landlord\W{0,3}s? name|nam` 1; heading screen 0; catchline 0; control 0; positives: LG 552.0025 FAILED, WA 54.2051 passed - recorded as failed; see the rerun
+- TX-GAPS-J-26 - utility-transfer rerun of J-15 with connected-in-tenant-name limb - codes ALL; patterns: `(?s)(transfer\w*|put|place|establish\w*|connect\w*)[^.]{0,80}(utilit\w*|service)[^.]{0,80}` 0; `(?s)(tenant\W{0,3}s? name|name of the tenant)[^.]{0,150}(utilit\w*|service|account)` 1; `(?s)(utilit\w*|service|account)[^.]{0,150}(name of the landlord|landlord\W{0,3}s? name|nam` 1; `(?s)(service|utilit\w*)[^.]{0,40}connected in (a|the) tenant\W{0,3}s? name` 2; heading screen 0; catchline 0; control 0; positives: LG 552.0025 passed, WA 54.2051 passed
+
+**`veterans-incentive`** (edu-no-veterans-incentive-tx)
+- TX-GAPS-J-16 - veterans-incentive: landlord incentives or rules for renting to veterans - codes ALL; patterns: `(?s)veteran\w*[^.]{0,150}(landlord|lease|lessor|rent\w*|tenant)|(landlord|lease|lessor|ren` 46; `(?s)veteran\w*[^.]{0,100}(tax credit|incentive|bonus|grant)|(tax credit|incentive|bonus|gr` 39; `military status` 2; heading screen 6; catchline 4; control 0; positives: LG 250.007 passed, GV 434.017 passed
+
+**`waiver-by-acceptance`** (edu-no-waiver-by-acceptance-rule-tx)
+- TX-GAPS-M-01 - waiver by acceptance of rent - codes ALL; patterns: `accept\w*[^.]{0,80}\brent\b|\brent\b[^.]{0,80}accept\w*` 14; `acceptance of (the )?(rent|payment)` 8; `waive\w*[^.]{0,80}(notice to vacate|forfeiture|breach)|(notice to vacate|forfeiture|breach` 12; heading screen 2; catchline 2; control 0; positives: BC 2A.516 passed
+
+**`waterbed`** (edu-no-waterbed-rule-tx)
+- TX-GAPS-J-18 - waterbed: waterbeds and water-filled furniture (term of art; no real positive) - codes ALL; patterns: `water.?beds?\b` 0; `water-filled` 0; `flotation (bed|mattress)\w*` 0; `(?s)(liquid|water)[^.]{0,20}(filled|bed)[^.]{0,40}furniture` 0; heading screen 0; catchline 0; control 0; positives: HS 341.0646 FAILED - recorded as failed; see the rerun
+- TX-GAPS-J-27 - waterbed rerun of J-18 with flotation limb (real positive) - codes ALL; patterns: `water.?beds?\b` 0; `water-filled` 0; `flotation (bed|mattress)\w*` 0; `(?s)(liquid|water)[^.]{0,20}(filled|bed)[^.]{0,40}furniture` 0; `flotation\w*` 14; heading screen 0; catchline 0; control 0; positives: HS 341.0646 passed
+- TX-GAPS-J-19 - waterbed everyday words: heavy furniture, floor loads, tenant furniture - codes ALL; patterns: `(?s)floor[^.]{0,40}(load|weight)` 1; `(?s)(heavy|bulky) (furniture|objects?|items?|appliances?)` 0; `(?s)furniture[^.]{0,100}\b(tenant|lessee)\b|\b(tenant|lessee)\b[^.]{0,100}furniture` 3; heading screen 0; catchline 0; control 0; positives: HS 791.007 passed, PR 92.0081 passed
+
+**`window-guards`** (edu-no-window-guard-rule-tx)
+- TX-GAPS-J-20 - window-guards: window guards, stops, falls, security bars, latches - codes ALL; patterns: `window guard\w*` 0; `window (stop|limiter)s?\b` 0; `(?s)window\w*[^.]{0,80}(fall\w*|falling)|(fall\w*|falling)[^.]{0,80}window` 0; `security bars?\b` 21; `window latch\w*` 6; heading screen 1; catchline 1; control 0; positives: HS 756.082 passed, PR 92.153 passed
+- TX-GAPS-J-21 - window-guards everyday words: children and windows, window openings - codes ALL; patterns: `(?s)child\w*[^.]{0,120}window\w*|window\w*[^.]{0,120}child\w*` 0; `(?s)window\w*[^.]{0,60}open\w*[^.]{0,60}(inches|limit\w*)` 0; `(?s)window\w*[^.]{0,80}(tenant|dwelling unit|apartment)` 5; heading screen 0; catchline 0; control 0; positives: HS 757.007 FAILED, PR 92.0081 passed - recorded as failed; see the rerun
+- TX-GAPS-J-28 - window-guards everyday words rerun of J-21 with corrected positive - codes ALL; patterns: `(?s)child\w*[^.]{0,120}window\w*|window\w*[^.]{0,120}child\w*` 0; `(?s)window\w*[^.]{0,60}open\w*[^.]{0,60}(inches|limit\w*)` 0; `(?s)window\w*[^.]{0,80}(tenant|dwelling unit|apartment)` 5; heading screen 0; catchline 0; control 0; positives: HS 757.008 passed, PR 92.0081 passed
+
+## §4 Decisions, and questions asked of Taylor
+
+**Questions asked of Taylor:** none. Every unsettled point that only case law could decide is written on the cautious course, stated as such in the row.
+
+### Texas item 1: statutory waivers and fee clauses (14 topics)
+
+- **Sections read whole:** Tex. Prop. Code § 92.006 (last amended by Acts 2015, 84th Leg., R.S., Ch. 1198 (S.B. 1367)), § 92.005, § 24.005 (as amended by S.B. 38, effective January 1, 2026) and § 24.006, and Tex. Civ. Prac. & Rem. Code ch. 38 (§§ 38.001-38.006; the chapter ends at § 38.006).
+- **Hub row.** I answered the waiver family once, in the hub row `edu-part5-nonwaivable-tx` (topic `part5-nonwaivable`). It sets out § 92.006 subsection by subsection and points to `edu-non-waivable-terms-tx`, which is unchanged.
+- **Rows that point to the hub:** `habitability-waiver`, `security-deposit-nonwaiver`, `jury-waiver`, `notice-to-quit-waiver`, `showing-notice-waiver` and `smoke-drift-waiver`.
+  - Each of these says only what is specific to its own topic.
+  - For example, § 92.006(c)-(f) for repairs, § 92.006(h) for jury trial, and § 24.005(a) for the contractable notice to vacate.
+- **Fee clauses:** `attorney-fees`, `collection-fee`, `notice-service-fee`, `eviction-penalty-clause-ban`, `liquidated-damages`, `waiver-by-acceptance`, `confession-of-judgment` and `jury-waiver`. Each is answered once and points to the others by row id.
+  - `attorney-fees` rests on § 24.006 (eviction), § 92.005 (ch. 92 suits) and CPRC §§ 38.001(b)(8) and 38.002 (contract claims).
+  - `collection-fee` rests on Tex. Fin. Code §§ 392.303(a)(2) and 392.304(a)(12)-(13).
+  - `confession-of-judgment` rests on CPRC § 30.001.
+- **No general penalty statute.** Texas has no general statute on contract penalties or liquidated damages. The Business & Commerce Code rule, § 2A.504, covers leases of goods only.
+  - So `notice-service-fee`, `eviction-penalty-clause-ban` and `liquidated-damages` are confirmed absences.
+  - Each states the cautious course: recover costs through the judgment, and charge only actual, documented costs that the lease authorizes.
+- **Waiver by acceptance** has no statute or rule. The row gives the cautious course (refuse or return rent after a notice to vacate, or accept it only with a written non-waiver) and states no rule of law.
+- **Jury waiver.**
+  - § 92.006(h) bars a lease waiver only "in an action brought under this chapter".
+  - For evictions and rent suits, enforceability is case law, which I did not read. The row's cautious course is to leave jury waivers out of the lease.
+  - It cites Tex. Const. art. I, § 15 and Tex. R. Civ. P. 510.15(c), the jury demand in eviction.
+
+### Texas item 2: the seven `dv-` topics
+
+- **Sections read whole:** Tex. Prop. Code §§ 92.016 (last amended 2019, S.B. 234) and 92.0161 (last amended 2025, H.B. 47), and Tex. Fam. Code ch. 85: §§ 85.021 and 85.025 read whole, with the section list of ch. 85 checked. I also read §§ 71.004 and 93.001, Code Crim. Proc. arts. 17.292, 58.152 and 7B.001, and Prop. Code ch. 24A.
+- **Tag first.** No shared row on any `dv-` topic states Texas law as written. The candidate rows rest on other states' statutes, with their own notice periods, documents and deposit rules. So I wrote seven Texas rows and tagged none.
+- **Pointers.** Each row points to `edu-early-termination-rights-tx` and `early-termination-rights-statement-tx`, unchanged. Those carry the military and death rights and the required lease statements.
+- **Verdicts.** Three topics are confirmed absences (`dv-deposit-timing`, `dv-eviction-protection`, `dv-lockchange`); four are present (`dv-lease-termination`, `dv-qualifying-documents`, `dv-confidentiality`, `dv-protection-order-chapter-moved`). Two need a note:
+  - `dv-confidentiality`: § 92.0161(j) is the only statutory confidentiality rule, and it covers sex offenses and stalking. § 92.016 has none for family violence. The row states the cautious practice for family-violence documents as practice, not law.
+  - `dv-protection-order-chapter-moved`: every protective-order citation in §§ 92.016 and 92.0161 resolves to a provision in force. One stale cross-reference was found, in § 24A.001(3) (see §6).
+
+### Texas item 3: fees and receipts
+
+- **Sections read whole:** Tex. Prop. Code § 92.011 (cash payments), § 92.019 (late fees), § 92.0191 (late-fee statement) and § 92.0081 (lockouts; no lockout-fee provision). I also read §§ 92.008(r), 92.156(e), 92.162(b) and 54.044(c), the fee rules that make a charge depend on the lease.
+- **Rows:**
+  - `required-fees`, `pet-fees` and `late-fee-limit` are present.
+  - `fee-transparency`, `fee-unprovided-service` and `rent-receipt-anti-waiver` are confirmed absent.
+  - `late-fee-limit` points to `edu-late-fee-rules-tx`, unchanged. It adds the ch. 94 manufactured-home lot-lease rules (§ 94.053(c)(5), (d), (e)), which set no cap.
+- **H.B. 21 (2025).** Tex. Loc. Gov't Code § 394.9026(a)(8) defines "rent", for housing-finance-corporation tax-exempt developments, to include recurring mandatory fees. It is noted in `required-fees`, `fee-transparency` and `pet-fees`, and it gives rise to the finding in §6.
+
+### Texas item 4: eviction after S.B. 38
+
+- **Current law only.** Slice E answered the 17 eviction topics from current Prop. Code ch. 24 as amended by S.B. 38 (Act of May 28, 2025, 89th Leg., R.S., ch. 960 (S.B. 38)). That act took effect January 1, 2026, except § 16, which took effect September 1, 2025 (§ 18), and it applies to petitions filed on or after January 1, 2026 (§ 17). The rows also rest on Rule 510 as amended effective January 1, 2026 (preliminary approval; see §1 for the status of the final order). No row states pre-2026 law as current.
+- **Squatters and fake leases.** For `trespass-notice`, the helper read ch. 24B (S.B. 1333), Penal Code § 30.05 and the S.B. 1333 version of Penal Code § 32.56 (the false lease or deed offense), and cited only that version. The row points to `edu-unauthorized-occupant-removal-tx` rather than repeating it.
+- **Batteries.** All 18 slice E batteries passed every positive. E-19 was added because E-15 missed § 92.008(i), the electricity cutoff when the temperature is 32°F or below.
+- **Good cause.** `good-cause-notice` is present, with an education row plus a conditional required-disclosure clause, `good-cause-nonrenewal-tx`. Texas requires good-cause nonrenewal terms for three kinds of affordable housing:
+  - multifamily developments of a public facility corporation claiming the tax exemption (Loc. Gov't Code § 303.0425(i)-(j));
+  - income-restricted units of a housing finance corporation (§ 394.9026(c)(9), H.B. 21, 2025);
+  - TDHCA-monitored tax-credit, TCAP and Exchange developments (10 Tex. Admin. Code § 10.613(a)).
+- **Lead decision on `good-cause-nonrenewal-tx`.** Keep the education row for every Texas landlord, and offer the clause only behind an explicit property-program question that defaults to off. **For Claude Code at sync:** the builder needs that gating question; the row's `rule_type` is CONDITIONAL and it is not a default.
+- **Lead decision on `eviction-service-party`.** Tenants in the address-confidentiality program may be served through the attorney general (Code Crim. Proc. art. 58.052(c)), but Rule 510.8(d) requires a sheriff or constable to serve the eviction citation. The row keeps the cautious course: serve under Rule 510.8 and also deliver to the attorney general, after advice. Only case law could settle which route controls; it was not read.
+
+### Texas item 5: `keys-tx` and `hoa-compliance`
+
+Both rows read correctly. Neither conflicts with the statute, so I propose no wording.
+
+- **`keys-tx`.** Read against Tex. Prop. Code §§ 92.156 (H.B. 2404, 2015), 92.162, 92.163, 92.104 and 92.006(a). Every sentence matches:
+  - turnover rekeying is at the landlord's expense within seven days (§ 92.156(a));
+  - additional rekeying is at the tenant's expense on request (§ 92.156(b));
+  - the breach-vacate deduction is effective only with an underlined or bold provision, matching § 92.156(e), "underlined or printed in boldface type";
+  - the misuse repair charge is effective only with an underlined provision, matching § 92.162(b), "an underlined provision in a written lease", "and not by normal wear and tear";
+  - the tenant alteration ban carries the repair-and-deduct exception (§ 92.163, "Except as provided by Section 92.164(a)(1) or 92.165(1)").
+  - The deposit deduction is a charge "for which the tenant is legally liable under the lease" (§ 92.104(a)). No sentence waives a Subchapter D duty (§ 92.006(a)).
+  - The clause does not restate the § 92.162(d) cap on tenant-paid rekeying. That is an omission, not a conflict, and `edu-security-device-duties-tx` states the cap.
+- **`hoa-compliance`.** Read against Prop. Code chs. 202 (§§ 202.001-202.024) and 209 (§§ 209.001-209.017).
+  - The ch. 209 fine procedure runs between the association and the owner. Before it levies a fine, the association must give "written notice to the owner by certified mail" (§ 209.006(a), last amended 2021, S.B. 1588).
+  - Neither chapter bars a lease making the tenant answer for association fines the tenant's violations cause. § 92.018 bars passing on only fines imposed by a "governmental entity", defined as "the state, an agency of the state, or a political subdivision of the state" (§ 92.018(a)); an owners' association is none of these.
+  - The association-side limits run against the association, not against the lease. The association may not require tenant approval or credit reports (§ 209.016(b)) and may not restrict renting by method of payment (§ 202.024(b)).
+  - § 92.006 is not engaged, because the clause waives no landlord duty. **No conflict.**
+
+### Texas item 6: three shared clauses
+
+- **`smoking-policy` reads correctly in Texas.**
+  - No statute protects smoking or vaping in rental housing. The only statewide ban is Penal Code § 48.01 (public places).
+  - Possession of marihuana is an offense under Health & Safety Code § 481.121 (last amended 2023, H.B. 6).
+  - The Compassionate Use Program in ch. 487 (amended 2025 by H.B. 46, which allows pulmonary-inhalation devices, § 487.107(c)(2)) has no landlord, lease or housing provision. Batteries TX-GAPS-M-24 (failed positive) and TX-GAPS-M-25 (rerun, every positive passed, control 0) confirm this.
+  - The remediation charge is damage the tenant is liable for (§ 92.104(a)), not normal wear and tear.
+- **`no-alterations` reads correctly in Texas.** It defers to the § 92.164(a)(1) and § 92.165(1) repair-and-deduct remedies and to § 92.163, which requires landlord permission otherwise. It also defers to the reasonable-modification right in the Texas Fair Housing Act (Prop. Code § 301.025(c)(1), at the tenant's expense). § 92.163 makes installed security devices fixtures, which the ownership sentence does not change.
+- **`addendum-precedence` reads correctly in Texas.** Its carve-out for disclosures that law requires protects the § 92.0135 flood notice (amended 2025, S.B. 2349) and the §§ 92.016(f), 92.0161(g) and 92.017(g) statements.
+
+### Texas item 7: currency, vetoes and CARES
+
+- **Currency and vetoes:** see §1.
+- **CARES consistency.** No Texas eviction row contradicts `edu-cares-act-notice`.
+  - The Texas rows (`edu-eviction-notice-tx`, `edu-no-for-cause-eviction-tx`) state § 24.005(c-1). A federal notice period does not delay filing or the suit, but the writ "may not be served on the tenant until the period between the delivery of the notice under this section and the service of the writ equals or exceeds the period prescribed by the federal requirement" (§ 24.005(c-1)(3)).
+  - The CARES row says the tenant may not be required to vacate until 30 days after notice. That is consistent: the writ is what requires vacating.
+  - The CARES row's safe course (30 days' notice before filing) is more cautious than Texas requires, not contrary to it.
+  - Current Tex. R. Civ. P. 510 has no CARES statement in the petition or citation. The CARES row says only that "some state court rules" ask for one, so it does not contradict Texas. A note is in §6.
+
+### Helper questions settled by the lead (rule 76: not put to Taylor)
+
+Each was a drafting choice where the cautious course was clear, so I decided it and recorded it here.
+
+- **`criminal-activity`.** Should `default-by-tenant-tx` get a no-cure limb for breaches of the Criminal Activity Section? That would edit an existing row, which this pass may not do. It is recorded as a proposal in §6. The tag of `criminal-activity-ky` stands: its termination limb defers to the lease's default terms and applicable law.
+- **`designated-repairer`.** No clause naming a landlord-preferred repairer. § 92.006(c) bars waiving Subchapter B remedies except as (d)-(f) allow, and § 92.0561(f) fixes who may repair. The education row says so.
+- **`environmental-event-termination`.** No landlord exit clause. § 92.054 (casualty) and § 92.055 (closing the unit) already give the exits, and a broader contractual exit after a reported condition invites a § 92.006(c) argument. The confirmed-absence row says so.
+- **`binding-arbitration`.** Education only, no clause, consistent with how earlier states handled the same doubt. The Texas Arbitration Act excludes agreements involving $50,000 or less unless each party's attorney signs (Tex. Civ. Prac. & Rem. Code § 171.002(a)(2), (b)), and § 92.006(h) bars jury waivers in ch. 92 actions. Federal Arbitration Act preemption is not reviewed.
+- **Declined tags.** `ev-charging-end-of-tenancy-co` is not tagged. It makes a tenant-paid charger the tenant's property, which conflicts with `no-alterations` and with the TX-tagged `ev-charger-installation-hi`.
+- **More declined tags (slice A).**
+  - `detector-care-la`: it duplicates `smoke-alarm-tx` and adds carbon-monoxide detectors, which Texas does not require.
+  - `appliances-excluded-la`: its "seriously affects health or safety" carve-out is narrower than the Texas repair test in § 92.052. A Texas clause, `appliances-excluded-tx`, was written instead.
+  - `carpet-cleaning-ar`: its required cleaning charge risks a deduction for normal wear and tear, which § 92.104 bars.
+- **Kept despite a narrow overlap (slice A).** The tag of `pest-cooperation-pr` stands. Under a county poison program, Health & Safety Code § 825.024(b) charges the landowner a tenant's poison costs for listed pests, but that is too narrow to block the tag.
+- **Slice C helper questions, decided by the lead.**
+  - **`holding-deposit`: no forfeiture clause.** § 92.351(1) defines an application deposit as one "refundable to the applicant if the applicant is rejected". Subchapter I says nothing about an accepted applicant who backs out. The row tells the landlord to state the terms in writing and to treat the deposit cautiously; whether it may be kept is case law, not read.
+  - **`hazardous-contamination-disclosure`: education only, for now.** The owner of land over a closed municipal solid waste landfill "shall notify each lessee and each occupant" (Health & Safety Code § 361.539(b)), and § 361.537 conditions leasing such land on notice to the prospective lessee. Neither requires the text in the lease, so this is not a required-disclosure clause under rule 55. The situation is rare, and the education row tells the landlord to give the notice. If Taylor wants a fill-in notice clause, the slot is ready.
+  - **Tags from slice C.** `furnishings-included-la` is lawful as written in Texas: it excepts normal wear and tear, consistent with § 92.104. `government-fee-reimbursement-ky` excludes fines, consistent with § 92.018, and gives the express lease authorization that Fin. Code § 392.303(a)(2) requires. `informal-dispute-resolution-or` excludes possession suits and does not delay any statutory deadline.
+- **Slice D helper questions, decided by the lead on the cautious course.**
+  - **`landlord-registration`.** An out-of-state entity that owns and leases Texas rentals should register as a foreign entity under Bus. Orgs. Code ch. 9. Whether leasing goes beyond the activities that do not count as "transacting business" in Texas (§ 9.251) is case law, not read. The row says to register or get advice.
+  - **`lease-term-limitation`.** Have both spouses sign a lease of a married owner's homestead (Fam. Code § 5.001). Whether a lease "encumbers" the homestead is not settled by the text.
+  - **`owner-move-in-reservation`.** `owner-occupancy-termination-ar` is tagged. **For Claude Code at sync:** show the Prop. Code § 92.331 six-month retaliation caution next to the clause; the TX note states it.
+- **Overlap noted, not merged.** `edu-pest-control-notice-tx` (topic `pest-control-notice`) and `edu-pest-treatment-notice-tx` (topic `bed-bug-cooperation`) both cite the Occ. Code § 1951.453 48-hour notice. They are split by topic: the general pest-control notice rules (§§ 1951.453-.457) on one side, tenant cooperation in a bed-bug or pest treatment on the other. Each points to the other. The independent check is asked to confirm that they agree.
+- **`nonrefundable-deposit-separate-notice`** (confirmed absent) relies on the `nonrefundable-fees-wv` tag, which is in this delta.
+- **Slice F: lead decisions and corrections.**
+  - **Correction to my own slice brief.** I pointed the helper to Prop. Code § 202.009 and § 202.011 for flags. The corpus shows § 202.009 is not in force; that subject moved to Elec. Code § 259.002 in 2019. § 202.011 covers roofing materials, flags are § 202.012, and solar is § 202.010. The helper followed the corpus, and later briefs were corrected.
+  - **`rent-concession`.** When a concession lowers the rent due for a period, figure the § 92.019(a-1) late-fee percentage on the reduced rent actually due. That is the cautious reading; the statute measures the fee against "the amount of rent for the rental period under the lease" (§ 92.019(a-1)(1)(A)) and is not settled by the text. The tag note records this course, and the late-fee rows are unchanged.
+  - **`rent-escalation`: three tags.**
+    - `rent-escalation-ga` fits the § 92.332(a)(1) utilities, taxes or insurance safe harbor exactly.
+    - `rent-escalation-la` is a scheduled or index-based change.
+    - `rent-increase-midterm-ky` is a unilateral increase with 30 days' notice and a fee-free exit for the tenant. It follows Taylor's IN library decision, as KY, AK, AR, MS, VI, AS and KS did. Its TX note says to use it or the LA clause's no-other-change sentence, not both.
+    - I kept all three tags. If Taylor does not want unilateral mid-term increases offered in Texas, drop the KY tag at sync.
+  - **`promises-to-repair`.** The WY and WI clauses quote their own statutes, so they cannot be tagged. A Texas promised-work list would be a lawful option; it is not offered in this pass.
+- **Slice G.**
+  - **New clause `rules-tx`.** Neither shared rules clause fits Texas (`rules-ia` and `rules-wi` rest on their own states' rule-change statutes), so this Texas clause was written. It uses the delivery methods in § 92.013 and reuses `{{rule_change_notice_days}}`. Its bracketed note carries the § 94.008(c) rule for manufactured home communities.
+  - **Lead correction from a helper's finding.** `edu-lease-term-limits-tx`, written earlier in this pass, said Texas adds no "power-of-attorney formality" for a long lease. But an estate for more than one year "must be subscribed and delivered by the conveyor or by the conveyor's agent authorized in writing" (Prop. Code § 5.021). The body now states the written-authority rule. This is listed in §5 for the independent check.
+- **Slice H, decided by the lead.**
+  - **Tax-escalation overlap.** Texas is now tagged on two optional pass-through clauses:
+    - `rent-escalation-ga`: utilities, taxes or insurance, choose one or more;
+    - `tax-insurance-escalation-la`: a share of tax and insurance increases over a base year.
+    Both fit the § 92.332(a)(1) safe harbor. **For Claude Code at sync:** let the builder offer one of them for taxes and insurance, not both. My preference is the LA clause for taxes and insurance, with the GA clause used for utilities. Both tags stand.
+  - **`subsidy-late-fee`.** For a subsidized tenant, the cautious course is to figure the § 92.019 percentage on the tenant's share of the rent only. The statute does not settle this.
+  - **`tenant-portal-mn`.** Its promise of a fee-free backup way to pay is voluntary in Texas, and lawful. The tag stands.
+  - **Not located.** `subsidy-habitability-proration` and `tenant-bankruptcy` rest on federal law (housing-program rules; the Bankruptcy Code's automatic stay), which is not in the corpus. Each row states what Texas law and the Texas rules provide, and names what would answer the rest.
+- **Slice J.**
+  - **Declined tag.** `utility-allowance-cap-co` is not tagged for Texas. In Texas, having tenants pay the overage on a master-metered bill is an allocation. For electricity that covers apartment houses of two or more units (Util. Code §§ 184.051-184.052); for water, five or more units (Water Code § 13.5031). Both regimes impose their own rules, so the clause as written would mislead in most multiunit buildings.
+  - **A required-disclosure clause still to come, for allocated electricity and central-system costs.** The Utilities Code requires the PUC's rule to make the "rental agreement contain" "a clear written description of the method of computing the allocation" and "a statement of the average apartment unit monthly bill for all apartment units" for the previous calendar year (Util. Code § 184.052(b)(1)(A), (B)). That rule is 16 TAC § 25.141, which the corpus does not hold; only its title appears in the PUC index. Host copies exist (Cornell LII, Justia), but rule 12 bars resting a row on a secondary copy.
+    - The education row `edu-utility-disclosure-attachment-tx` tells landlords to include both statements and to get advice.
+    - **For Claude Code at the next staging:** fetch 16 TAC § 25.141 from the PUC and add a CONDITIONAL REQUIRED_DISCLOSURE clause modeled on `utility-submetering-disclosure-tx`. This is in Proposed topic questions.
+  - **Not located.** `utility-disconnection-notice-authorization` rests on the PUC electric customer-protection rules, which are not held.
+
+
+
+## §5 Independent check
+
+This is rule 80, scaled down as the prompt allows: at most two rounds, one agent at a time. Each checker worked from the delta CSV and the corpus. Neither saw the answer files, this log, or the earlier round's results.
+
+**Round 1** checked 98 of the 253 rows:
+- in full: all 29 lease clauses (3 new Texas clauses and 26 tagged shared clauses), every row the lead had edited after a helper wrote it, and the two overlapping pest-notice rows;
+- a seeded random sample of 45 of the remaining 200 rows (seed 20261031).
+
+The checker opened every cited section whole, checked history lines, the batteries behind every absence and the failed-positive reruns, and spot-checked quotes. It also ran one search of its own per absence row.
+
+Result: **87 PASS, 11 FIX, 0 FAIL.** All 11 fixes were applied exactly as proposed, as edits to body or notes (`check/r1/edits.json`):
+1. `good-cause-nonrenewal-tx`: the use note now says the clause does not supply the different lease statement that 10 TAC § 10.613(b) requires for HOME, ERA, TCAP RF, NHTF, NSP and HOME-ARP developments.
+2. `rent-escalation-ga` (TX segment): adds a caution. An increase tied to master-metered water or wastewater costs is an allocation under Water Code §§ 13.503 and 13.5031, whose saving clause covers only rent "unrelated to utility costs".
+3. `rental-inspection-cooperation-mn` (TX segment): the § 214.219 inspection program applies only to cities of 1.7 million or more, and art. 18.05(e) limits building-code warrants in counties of 3.3 million or more.
+4. `edu-actual-notice-method-tx`:
+   - It now states the electronic-transactions act (Bus. & Com. Code §§ 322.005, 322.008) and § 92.113 e-mail deposit notices. Previously it wrongly said no statute lets parties add a method, which also contradicted `edu-electronic-notices-tx`.
+   - The § 92.056(c) receipt rule is now limited to § 92.056(b)(4)-(5).
+5. `edu-children-occupancy-tx`: adds the § 92.010(b) exceptions to the three-adults-per-bedroom cap.
+6. `edu-no-environmental-event-termination-tx`: the § 92.055 closing rule now carries the moves-out-by-end-of-term condition and the § 92.0563(a)(3)-(5) remedies.
+7. `edu-pest-treatment-notice-tx`: the "who pays" absence is narrowed to insects. Health & Safety Code § 825.024(b) charges a tenant's costs of poisoning listed pests to the landowner.
+8. `edu-utility-deposit-return-tx`: 16 TAC § 24.281(a) bars passing the utility's fees to tenants; the sentence previously pointed the wrong way.
+9. `edu-tenant-portal-tx`: 10 TAC § 10.613(o)(3)(B) applies only to designated units under the 2025 federal HOME rule.
+10. `edu-no-ordnance-demolition-meter-disclosure-tx`: the same § 92.055 fix as item 6.
+11. `edu-no-political-access-rule-tx`: only § 202.013 protects residents; Elec. Code § 259.002 protects only property owners.
+
+Round 1 also passed four points with notes. `edu-unpaid-damages-interest-tx` hedges the 10 percent figure. `edu-translation-duty-tx` reads § 92.302 defensibly. `appliances-excluded-tx` gives a cautious written-request instruction. The `pest-cooperation-pr` caveat agrees with fix 7.
+
+**Error kinds and rule 59.** The § 92.055 error turned up twice, so round 2 was given every remaining row citing § 92.055. Scope errors (city-size, program and owner-only limits) turned up three times. Round 2 was told to test every rule it reads for its applicability subsection and definitions.
+
+**Round 2** checked 53 rows:
+- the 11 rows edited after round 1, diffed against their old text;
+- the 2 other rows citing § 92.055;
+- a fresh seeded sample of 40 of the rows round 1 did not check (seed 1031), tested specifically for scope limits and dropped consequences.
+
+The checker ran 33 searches of its own for the absence claims and found no statute that any row missed. All quotes were verbatim, and all batteries and reruns were in order.
+
+Result: **edited list 5 PASS, 6 FIX; § 92.055 list 2 FIX; sample 31 PASS, 9 FIX; 0 FAIL overall.** All 17 fixes were applied as proposed (`check/r2/edits.json`, plus two of the lead's own rows edited in source):
+- **§ 92.055 closing rule, now stated the same way in four rows** (`edu-no-environmental-event-termination-tx`, `edu-no-ordnance-demolition-meter-disclosure-tx`, `edu-no-health-district-rental-rules-tx`, `edu-no-repair-cost-termination-tx`):
+  - a closing before any repair notice leaves no repair remedies;
+  - after a repair notice, the tenant is entitled "only" to the § 92.0563(a)(3)-(5) remedies and, if they move out by the end of the term, the (d) payments;
+  - the six-month bar applies to every closing;
+  - occupancy waits for the official's certification.
+- **`rent-escalation-ga` (TX segment):** "apartment house" means five or more units (Water Code § 13.501(1)), and there is a new electric-metering caution under Util. Code § 184.013(c).
+- **`edu-actual-notice-method-tx`:** adds the § 322.008(d)(2) first-class-mail exception and the H.B. 2037 transition limit on § 92.113, with history lines recorded. `edu-tenant-portal-tx` gets the same § 92.113 limit.
+- **`edu-no-political-access-rule-tx`:** § 202.013 excludes 501(c)(3) associations and common areas not offered for meetings.
+- **`edu-portfolio-thresholds-tx`:** the "in the business" test applies only to the single-family exemption, and § 301.024 is blockbusting.
+- **`edu-no-smart-access-law-tx`:** the biometric law applies to capture "for a commercial purpose", stated as a cautious reading.
+- **`edu-confession-of-judgment-tx`:** the backup officer serves on an alias citation at the landlord's request (Rule 510.8(d); § 24.0051(f)).
+- **`edu-utility-disconnection-notice-authorization-tx`:** § 92.302's full definition, the in-a-city condition and the paid-bill exception.
+- **`edu-municipal-utility-lien-tx`:** the § 552.0025(f) limit to ordinances adopted on or after August 28, 1989.
+- **`edu-no-notice-service-fee-tx`:** history lines recorded in the notes.
+- **`edu-disability-accommodation-tx`:** adds the 30 hours of community service under § 121.004(a).
+- **`edu-habitability-materiality-tx`:** the repair-and-deduct conditions, notice of intent and cap, and the § 92.056(b)(2) limit on remedies.
+- **`edu-habitability-modifiable-tx`:** the full § 92.006(e)-(f) conditions.
+- **`edu-no-environmental-event-termination-tx`:** § 92.023's "not in default" condition, in addition to the § 92.055 fix above.
+
+**Rows edited after the last round (round 2), not re-checked by an independent agent because the prompt caps the check at two rounds:** `edu-actual-notice-method-tx`, `edu-confession-of-judgment-tx`, `edu-disability-accommodation-tx`, `edu-habitability-materiality-tx`, `edu-habitability-modifiable-tx`, `edu-municipal-utility-lien-tx`, `edu-no-environmental-event-termination-tx`, `edu-no-health-district-rental-rules-tx`, `edu-no-notice-service-fee-tx`, `edu-no-ordnance-demolition-meter-disclosure-tx`, `edu-no-political-access-rule-tx`, `edu-no-repair-cost-termination-tx`, `edu-no-smart-access-law-tx`, `edu-portfolio-thresholds-tx`, `edu-tenant-portal-tx`, `edu-utility-disconnection-notice-authorization-tx`, `rent-escalation-ga`. Each edit is the checker's own proposed wording, quoting the statute. The assembler re-verified every quote in these rows against the sections read, and every cited section is listed in its row's sections read.
+
+**Coverage and residual risk.**
+- The two rounds checked 140 of the 253 rows. Every clause, every tag and every lead-edited row was checked in full. The other 113 rows were checked by neither round.
+- The random samples found wording fixes in 4 of 45 rows (round 1) and 9 of 40 (round 2, which targeted scope and consequences): 13 of 85, about 15%.
+- None of these were wrong conclusions. All were precision faults: a dropped condition, an unstated scope limit, or an incomplete consequence.
+- **At that rate, roughly 15-20 of the 113 unchecked rows likely carry a similar precision fault.** A third check scoped to those 113 rows would find them; it is outside this prompt's two-round cap, so it is Taylor's call (see Proposed SOP changes).
+
+
+
+**Lead edits to helper rows before delivery.** These are quote-convention and battery-rerun edits to notes, plus one body correction: `edu-lease-term-limits-tx` now states the Prop. Code § 5.021 written-authority rule for agents. Each goes to the independent check with its pre-edit text.
+
+- `edu-actual-notice-method-tx`: "'agreed in writing' near 'electronic' 1" changed
+- `edu-asbestos-hazards-tx`: "danger to "the occupants of the building" the department" changed; ""shall require a building or facility owner or the owner's authorized " changed
+- `edu-carpet-cleaning-tx`: "the cost 'as damages caused by Tenant's noncompliance'," changed
+- `edu-children-occupancy-tx`: "54.042 'children's toys';" changed
+- `edu-common-area-lighting-tx`: "an owner may not 'recover that charge through a metered charge to a re" changed
+- `edu-construction-liens-tx`: "(regime noun 'owner's agent')" changed; "on tenant-as-agent and 'by implication of law' not read" changed
+- `edu-criminal-activity-tx`: "and commercial rental property "means rental property that is not cove" changed; "positives PR 92.332, CP 125.0015 NOT ALL PASSED; Battery TX-GAPS-B-05" changed
+- `edu-designated-repairer-tx`: "and added 'an independent' and the licensing sentence" changed; "('Unless the landlord and tenant agree otherwise under Subsection (g)'" changed
+- `edu-disaster-duties-tx`: "'leasing ... lodging ... or another necessity' under § 17.46(b)(27)" changed
+- `edu-eminent-domain-tx`: "21.0111 (an offer 'to purchase or lease')" changed
+- `edu-employee-screening-tx`: "Hits read: 'residential dwelling project' only in" changed
+- `edu-ev-charging-requirements-tx`: "Hits read: 'electric vehicle' = OC" changed; "UT 42.0101 (findings: 'property whose owners or tenants desire to inst" changed
+- `edu-exculpatory-clauses-tx`: "pattern 3 ('landlord is not liable')" changed; "The § 92.054 positive failed (its text has no pattern match) and is di" changed
+- `edu-farmland-hunting-rights-tx`: "on 'owner's agent' not read" changed
+- `edu-fire-code-standard-tx`: "'fire code' near rental words" changed
+- `edu-lease-arbitration-tx`: "(it uses 'This chapter does not apply', not 'arbitrat*' near" changed
+- `edu-lease-term-limits-tx`: "Texas adds no seal, acknowledgment or power-of-attorney formality for " changed
+- `edu-no-condition-inspection-rule-tx`: "(its 'determine ... at the beginning of the tenant's possession' does " changed; "which contains 'inspect' near 'beginning of a tenant's possession'" changed
+- `edu-no-disaster-guest-rule-tx`: "pattern 4 'natural disaster' Prop. Code hits" changed
+- `edu-no-environmental-event-termination-tx`: "'casualty loss' / 'close the rental unit'" changed
+- `edu-no-ev-charging-end-of-tenancy-tx`: "a fixtures screen ('(?s)trade fixtures?|tenant's fixtures|fixtures ins" changed; "its first sentence ('A charging system installed at Tenant's expense r" changed
+- `edu-no-family-child-care-rule-tx`: "'family home' in the Property Code = PR 202.003(b) only, which protect" changed; "uses 'Family home' without 'listed' or 'registered'.)" changed
+- `extended-absence-notice-ks`: "the § 92.0081 positive failed only because § 92.0081(b)(2) puts 'premi" changed
+- `owner-occupancy-termination-ar`: "recorded as failed (recorded as failed, rerun as TX-GAPS-D-30 with pos" changed
+- `pest-cooperation-pr`: "Entry goes through 'this Lease's entry section'" changed; "its own 'reasonable notice' entry standard" changed; "('the tenant; a lawful occupant in the tenant's dwelling; a member of " changed
+- `rent-increase-midterm-ky`: "Use either this clause or `rent-escalation-la`'s no-other-change sente" changed
+
+## §6 Findings on existing rows
+
+1. **`edu-fees-as-rent-tx`: "Texas statutes do not define rent".** That row says "Texas statutes do not define rent or say whether a fee can be treated as rent", and its battery covered only the Property, Business & Commerce, Civil Practice & Remedies and Finance Codes. Tex. Loc. Gov't Code § 394.9026(a)(8) (added by Acts 2025, 89th Leg., R.S., Ch. 208 (H.B. 21), Sec. 9, eff. May 28, 2025) reads: "'Rent' means any recurring fee or charge a tenant is required to pay as a condition of occupancy, including a fee or charge for the use of a common area or facility reasonably associated with residential rental property. The term does not include fees and charges for services or amenities that are optional for a tenant, such as pet fees and fees for storage or covered parking." The definition applies only to the housing-finance-corporation tax-exemption conditions in that section. **Proposed wording:** "Texas's landlord-tenant statutes do not define rent or say whether a fee can be treated as rent. (One narrow exception: for a development claiming the housing-finance-corporation tax exemption, Tex. Loc. Gov't Code § 394.9026(a)(8) counts recurring mandatory fees as rent.)" Severity: low. The general statement remains true for ch. 92 tenancies.
+2. **`edu-no-entry-notice-statute-tx`: boundary only, not a defect.** The row's absence claim is bounded to ch. 92. All-codes battery TX-GAPS-M-02 confirms there is no residential entry-notice rule anywhere in the codes. The one entry-consent rule is § 94.004 (manufactured homes in a community), which the new row `edu-no-showing-notice-waiver-tx` mentions. No change needed. If the row is ever revised, its boundary could say "all Texas codes searched; the manufactured-home-community rule in § 94.004 differs".
+3. **`edu-unauthorized-occupant-removal-tx`: Penal Code § 32.56 not read.** The row's notes say the Penal Code sections S.B. 1333 "reportedly added (ss32.56-.57, fraudulent leases or deeds) NOT read". § 32.56 has four versions sharing one number (see §1). The S.B. 1333 version is "FALSE, FRAUDULENT, OR FICTITIOUS DOCUMENT CONVEYING REAL PROPERTY INTEREST". If the row is ever revised to cite it, it must cite the S.B. 1333 version by act. Slice E reads ch. 24B and the S.B. 1333 sections for `unauthorized-occupant-removal` and `trespass-notice`; any further finding will be added here.
+4. **Statute cross-reference, recorded for monitoring; no row relies on it.** Tex. Prop. Code § 24A.001(3) still defines "Peace officer" as "a person listed under Article 2.12(1) or (2), Code of Criminal Procedure". Article 2.12 is not in the corpus. The peace-officer list now sits in Code Crim. Proc. art. 2A.001, which was added by Acts 2023, 88th Leg., R.S., Ch. 765 (H.B. 4504), eff. January 1, 2025, and which names sheriffs in (1) and constables in (2). The new row `edu-dv-protection-order-chapter-moved-tx` tells landlords to read the reference as art. 2A.001(1)-(2). No existing row cites § 24A.001(3).
+5. **`edu-cares-act-notice` (shared row): consistency note, no defect.** For Texas, the row's safe course ("give at least 30 days' written notice to vacate before filing") goes beyond what Texas requires. Under § 24.005(c-1), a landlord need not delay filing because of a federal notice period, but the writ may not be served until that period has run. The two are compatible. **Proposed TX: segment, if Claude Code wants one:** "TX: Tex. Prop. Code § 24.005(c-1) (as amended by S.B. 38, eff. Jan. 1, 2026) lets the landlord file before a federal notice period ends but bars serving the writ until it has run; current Tex. R. Civ. P. 510 asks for no CARES statement."
+6. **`default-by-tenant-tx`: proposal, not a defect.** With `criminal-activity-ky` tagged for Texas, a drug or violent-crime breach falls under this row's voluntary cure promise ("does not cure the failure after receiving written notice"). Texas requires no cure: § 92.332(b)(3) treats violating "written lease provisions prohibiting serious misconduct or criminal acts" as a material breach. **Proposed wording:** add a limb (d) to the no-cure list, "a breach of the Criminal Activity Section of this Lease". This is a drafting choice for Taylor.
+7. **`edu-no-ev-charging-right-tx`: boundary could be widened.** The row's boundary says the Utilities Code and local codes were not searched. Battery TX-GAPS-B-21, run over all Texas codes, confirms that no statute gives a tenant a charging right: Occ. Code ch. 2311 and Util. Code ch. 42 regulate providers only. The conclusion is unchanged. **Proposed boundary:** "all Texas codes searched; local codes not reviewed".
+8. **`assistance-animal-accommodation` (TX segment): a second basis.** The TX segment was read against Prop. Code chs. 24, 54, 91, 92 and 301 only. Tex. Hum. Res. Code § 121.003(h) (no extra compensation or deposit for a service animal; liable for damage except reasonable wear and tear) and § 121.004 are a second Texas basis for the clause's no-fee and damage sentences. The clause is correct as written.
+9. **`edu-repair-duty-tx` and `habitability-timeline-tx`: transition rule, noted, not a defect.** H.B. 2037 (2025) changed who may make repair-and-deduct repairs (§ 92.0561(f)) only for leases entered into or renewed on or after September 1, 2025 (H.B. 2037, SECTION 5). Both rows state the current rule, which is right for leases signed now.
+10. **New 2025 local-government limits, for any future Texas home-business or child-care row.** Tex. Loc. Gov't Code § 229.902 (H.B. 2464) stops cities banning no-impact home businesses but keeps private agreements such as leases enforceable. § 250.014 (S.B. 599) bars cities from holding licensed, registered or listed family homes to stricter health and safety standards than the state's. Neither changes an existing row.
+11. **`edu-no-plain-language-rule-tx`: boundary could be widened.** Battery TX-GAPS-A-35 searched every Texas code for a plain-language lease rule and found none. The row's conclusion is unchanged; its boundary note could say "all Texas codes searched".
+12. **Court rule cross-reference, for monitoring; no row relies on it.** Tex. R. Civ. P. 510.19(d)(2)(D), as amended effective January 1, 2026, ties the writ issued without a hearing to the notice required by Rule 510.16, the default-judgment rule. The statute, Prop. Code § 24.0054(a), ties it to the notice given on appeal. The slice E rows follow the statute. This is worth raising if the Supreme Court takes comments before final approval.
+13. **Corpus quirk, recorded for monitoring; no row affected.** The official text prints the note "For expiration of this section, see Subsection (i)" under Health & Safety Code § 766.053, which has no subsection (i). The expiry date is in § 766.054(i).
+14. **Statute cross-reference, recorded for monitoring; no row affected.** Prop. Code § 92.0561(e)(2) points to "Paragraph (A)" for the potable-water condition, but the water event is in Paragraph (B). This looks like a drafting error in the statute. The new private-well row follows the substance.
+15. **`edu-fair-housing-tx`: the same reading as a row fixed in round 2.** Round 2 found that `edu-portfolio-thresholds-tx` read the "in the business" test of Prop. Code § 301.041(d) as removing every exemption. The test works only through § 301.041(a)(1)(B)(i), the single-family exemption's condition; it does not reach the owner-occupant exemption in (a)(2). The checker reports that the existing `edu-fair-housing-tx` uses the same reading. **Proposed:** align that row's exemption sentence with the corrected wording in `edu-portfolio-thresholds-tx`.
+16. (from topic `good-cause-notice`) `edu-no-for-cause-eviction-tx` says "Texas has no just-cause or good-cause eviction rule" (`edu-no-for-cause-eviction-tx` body) and limits the exceptions to federally assisted housing (not reviewed) and situational rules; its battery covered only the Property Code. Texas statutes impose good-cause nonrenewal terms on some housing: "the landlord may only choose to not renew the lease if the tenant" (Tex. Loc. Gov't Code § 303.0425(i)(2), public facility corporation multifamily developments claiming the exemption, with a 30-day written notice of proposed nonrenewal, § 303.0425(i)(3), non-waivable, § 303.0425(j)); the same for income-restricted units in housing finance corporation developments (§ 394.9026(c)(9), added 2025 by H.B. 21); and the TDHCA rule requires HTC, TCAP and Exchange leases to state that evictions or terminations for other than good cause are prohibited (10 TAC § 10.613(a), under Tex. Gov't Code § 2306.6735). Suggest the row add one sentence, for example `State law imposes good-cause nonrenewal terms on some tax-advantaged affordable housing; see edu-good-cause-notice-tx.` Not changed.
+17. (from topic `inspection-condemnation-disclosure`) Minor, `edu-repair-duty-tx` (TX): the row says If a city revokes the certificate of occupancy because you failed to maintain the property, but Tex. Prop. Code § 92.023 reaches revocation by "a municipality or a county" (§ 92.023). Suggest: If a city or county revokes. Not changed.
+18. (from topic `security-deposit-holding`) `edu-no-deposit-cap-or-interest-tx` (TX row, not an error): its body says chapter 92 does not require "hold it in a separate or interest-bearing account" and its notes bound the claim to ch. 92. The all-codes batteries TX-GAPS-G-08 and G-09 confirm no statute anywhere requires segregation or interest; the only holding and interest rules are for brokers (22 TAC § 535.146) and Section 811 PRA units (10 TAC § 10.624(f)(2)(A)). The lead may widen that row's boundary and point it to `edu-security-deposit-holding-tx` and `edu-no-security-deposit-interest-tx`; no change made.
+19. (from topic `security-deposit-on-sale`) `edu-security-deposit-rules-tx` (TX row, minor omission, not wrong): it says the seller "stays liable until the buyer receives or assumes the deposits", but § 92.105(b-1) ends "unless otherwise specified by the parties in a written contract" (Tex. Prop. Code § 92.105(b-1)). The lead may add the exception or point to `edu-security-deposit-on-sale-tx`; no change made.
+20. (from topic `service-animal-denial-penalty`) `edu-service-animal-tx` (TX row; its NEEDS_REVIEW condition can now be closed): its notes say the official site contradicts itself on Hum. Res. Code ch. 121 and ask whether H.B. 4164 changed § 121.002. The corpus (official whole-code text, current through the 89th Leg., 2nd C.S.) shows § 121.006 as amended by Acts 2023, 88th Leg., R.S., Ch. 757 (H.B. 4164), "a fine of not more than $1,000" (Tex. Hum. Res. Code § 121.006(a)(1)), and § 121.002 last amended by Acts 2013, Ch. 838 (H.B. 489), so H.B. 4164 did not change the definition. The row's figures ($300 denial fine, 30 hours, $300 presumed damages, $1,000 misrepresentation fine) match §§ 121.004 and 121.006. No change made.
+21. (from topic `trespass-notice`) `edu-unauthorized-occupant-removal-tx` (no error found; one omission and one stale note). (1) The prescribed complaint also requires the owner to declare that "The person is not an owner or co-owner of the property and any title to the property that lists the person as an owner or co-owner is fraudulent" (§ 24B.002(a), item 7); the row lists the eligibility conditions of § 24B.001 but not this declaration. (2) Its notes say the Penal Code sections S.B. 1333 added were NOT read; they now are: the S.B. 1333 version of Penal Code § 32.56 makes it a Class A misdemeanor to knowingly present a fake lease or deed "with intent to enter or remain on real property" (§ 32.56(a)), which the new `edu-trespass-notice-tx` states. Suggest adding item 7 and a pointer; not changed.
+
+## §7 Findings for other states
+
+1. (from topic `furnishings-included`) `furnishings-included-la` sits in group Security Deposit although it is a furnishings-care clause; Tenant Responsibilities may fit better (not changed).
+
+## New variables
+
+None.
+
+## Proposed SOP changes
+
+1. **Rule 59 / canvass brief: put the quote convention in the brief template itself.** Helpers in this pass followed my brief, which used double quotes for statute wording. They also double-quoted search terms in battery lines, as rule 59 [AK 4] intends, so the two were mixed. The assembler had to decide each quote's type from the data: a quoted passage becomes single-quoted only if it appears verbatim in a section the answer read. **Proposed text:** "Canvass briefs show the convention by example: statute wording in single quotes, immediately followed by its parenthetical citation; search terms, labels and clause text in double quotes. The assembler converts by verbatim match and reports both misses and single-quoted text without a citation."
+2. **Rule 16: number collisions within one code.** Where several acts of one session add sections with the same number (Texas Penal Code § 32.56 has four versions, all different offenses), a row citing the number names the version by act ("§ 32.56, as added by S.B. 1333"). The corpus helper should key versions by catchline, not only by number.
+3. **Rule 19: proximity patterns must cross line breaks.** In this pass's corpus helper, `.` in a pattern did not match a newline, and Texas text puts each subdivision on its own line. So `A.{0,80}B` missed matches that span subdivisions. The slice B helper caught this, which surfaced Prop. Code § 93.013, and every proximity pattern was rerun with `(?s)`. **Proposed text:** "The corpus search tool compiles every pattern with DOTALL. A battery that ran without it is rerun before an absence is written."
+4. **Rule 19: enforce "recorded as failed, rerun as N" in the assembler.** Helpers twice treated a failed positive as disregarded when other positives passed. The assembler now refuses an answer that cites a battery with a failed positive unless a rerun is cited. **Proposed text:** "Any failed positive, even beside passing ones, requires a rerun under a new id; the assembler checks this."
+5. **Rule 80: scale the check to the error rate, not only to the round cap.** In this pass the independent check's random samples found precision faults in about 15% of rows: dropped conditions, unstated scope limits, incomplete consequences. With two rounds covering 140 of 253 rows, about 113 rows went unchecked. **Proposed text:** "If a round's random sample shows a fault rate above 10%, the next round covers every unchecked row of the kinds that failed, even beyond the default round cap, unless Taylor says otherwise."
+6. **Canvass brief: check applicability before stating a rule.** Most faults were statutes stated without their own applicability subsection: a population threshold, one program's units, owners not residents, listed pests only, lines exclusively serving the unit. **Proposed text for the brief:** "Before stating any rule, read the section's applicability subsection and the chapter's definitions, and say in the body who and what it covers. State every consequence with the conditions that trigger it."
+7. **Rule 59: write recurring statutory consequences once and reuse them.** The § 92.055 closing rule appeared in five rows in four different paraphrases, and two rounds were needed to make them agree. **Proposed text:** "Before drafting, write one statutory wording for any rule several rows will state (closing a unit, repair-and-deduct, deposit refund), and have helpers reuse it verbatim."
+
+
+## Proposed topic questions
+
+1. **Allocated electricity and central-system costs (topic `utility-disclosure-attachment`).** Add a CONDITIONAL REQUIRED_DISCLOSURE clause for Texas apartment houses that allocate central-system or nonsubmetered master-metered electricity costs. It would carry the allocation-method description and the previous year's average monthly bill that Util. Code § 184.052(b)(1) requires, once 16 TAC § 25.141 is in the corpus. The question for the topic list: should `utility-disclosure-attachment` cover allocation disclosures as well as submetering ones? Texas treats them as separate regimes.
+
+---
+
+## Gaps-pass sync review (Claude Code, 2026-10-31)
+
+Merged with `merge-delta.py --base 1704572`: 227 new rows and 26 shared rows tagged, nothing refused. All 238 missing topics are answered; the pass delivered no NEEDS_REVIEW rows. Texas now carries 406 active rows, every one VERIFIED; the new rows carry the canvass date in `effective_from` (SOP rule 70).
+
+**The rows the check didn't reach.** Desktop's check sampled precision faults in about 15% of rows (dropped conditions, missing applicability limits, incomplete consequences), and its two rounds didn't cover every row. At sync, all 184 new education rows the log didn't name were screened for exactly those faults, reading each cited section's applicability subsection and the chapter's definitions. 52 fixes in 46 rows; the other 138 passed. Among the fixes:
+- the § 301.041 owner exemptions;
+- § 92.302's coverage (any apartment or condominium);
+- § 92.0161(c-1)'s stalking right reaching only stalking on the premises;
+- `edu-no-dv-lockchange-right-tx` cited the wrong section (now §§ 92.161, 92.165);
+- the § 92.110(b) forwarding-address exception;
+- § 92.1031's tenant-found versus landlord-found split;
+- the § 92.0562(d) affidavit delays.
+
+**Edited-after rows:** the 17 named in §5 were read; 7 fixes.
+
+**Findings on existing rows (§6) and the items:**
+- **New and override rows:**
+  - New required clause `electric-allocation-disclosure-tx`: Util. Code § 184.052(b)(1) and 16 TAC § 25.141(e), fetched from the PUC, for apartment houses that allocate central-system or master-metered electricity.
+  - `early-termination-tx`: a flat one month's Rent superseding `early-termination-ks`. § 91.006(b) makes the landlord's duty to mitigate non-waivable, and a fee that grows with the remaining Term sits poorly beside it.
+  - `default-by-tenant-tx` gains a no-cure ground for breach of the Criminal Activity Section (§ 92.332(b)(3)).
+- **Other fixes:**
+  - `edu-fair-housing-tx`'s exemptions (§ 301.041);
+  - `edu-unauthorized-occupant-removal-tx`: ch. 24B's complaint items, and Penal Code § 32.56 as added by S.B. 1333 (cited by act);
+  - `edu-security-deposit-rules-tx`: § 92.105(b-1);
+  - `edu-cares-act-notice`'s Texas segment: § 24.005(c-1).
+
+**Tags:** all 26 confirmed, with six notes-segment fixes; every section pointer resolves.
+
+**Spot check:** deposits (§§ 92.101-92.113), entry (no statute for a rented dwelling; § 94.004 covers manufactured-home lots only), repairs (§§ 92.052-92.0563), lockouts and utility cutoffs (§§ 92.0081, 92.008) and the eviction notice (§ 24.005 as amended by S.B. 38) across all Texas rows: consistent after the fixes.
+
+**Decisions (§4):** no product questions held the sync. Builder points to the backlog:
+- `good-cause-nonrenewal-tx` only behind a property-program question;
+- the § 92.331 retaliation caution beside owner move-in;
+- one tax-and-insurance escalation clause, not two.
+
+**Other:**
+- No new `{{variables}}`.
+- SOP 1.94 takes up 5 of the pass's 7 proposals. Proposal 5 (extend the check past the round cap when a sample's fault rate passes 10%) was not adopted, since the cap is Taylor's usage budget; the screen above covered that gap here.
+- The topic question became the new electricity clause.
+- The citations file gained 255 rows. Two farm-hunting rows cite the Parks and Wildlife Code, which the extractor doesn't read, and are GENERIC there.
+- Minor omissions the screen noted but did not edit are in the backlog.
