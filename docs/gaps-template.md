@@ -19,6 +19,7 @@ If this chat is too long to continue (it says it's full, or it slows down or los
 - **Add rows; don't change existing ones.** Don't edit, re-verify or re-audit any existing {ST} row or any shared row's text. Two things are allowed on existing rows:
   - Tagging an existing shared clause or education row with {ST}, when it answers a missing topic. Add `{ST}` to `states` and a `{ST}: …` segment to `notes`, as in a full pass (SOP rule 26).
   - Nothing else. If your research shows an existing row is wrong, don't fix it. Quote the statute and the row's words under "Findings on existing rows" in your log; Claude Code fixes it at sync.
+  - A requirement the statute places on the landlord that no existing row states, on a topic {STATE_NAME} already answers, goes under "Findings on existing rows" as a proposed row: the statute quoted, and every field Claude Code needs (id, group, rule_type, `lease_clause_basis`, topic_key, bodyText, notes), so it can be added at sync without a new research pass. [NV-gaps 2, 2026-10-30]
 - **Only {STATE_NAME}.** Don't touch other states' rows. Problems you notice elsewhere go under "Findings for other states".
 - **Every answer is a row.** A topic {STATE_NAME} has law on gets a clause or an education row; a topic it has no law on gets a confirmed-absence education row backed by a battery (SOP rules 19 and 27). One subject per row, keyed by the topic's `topic_key` (rule 57).
 

@@ -628,7 +628,7 @@ const CLAUSE_TEMPLATES = [
     id: "default-by-tenant",
     title: "Default by Tenant",
     group: "Default & Termination",
-    states: ["WY", "MN", "ND", "CA", "NV", "AZ", "GA", "SC", "TN", "VA", "PA", "UT", "IL", "ID", "MO", "IN", "NM", "MT", "MA", "NH", "VT", "AR", "MS", "VI", "AS", "MP"],
+    states: ["WY", "MN", "ND", "CA", "AZ", "GA", "SC", "TN", "VA", "PA", "UT", "IL", "ID", "MO", "IN", "NM", "MT", "MA", "NH", "VT", "AR", "MS", "VI", "AS", "MP"],
     bodyText:
       "Tenant will be in default under this Lease if Tenant fails to pay Rent when due and does not cure the failure within the time period specified by applicable law after receiving written notice from Landlord. Tenant will also be in default if Tenant fails to comply with any other obligation under this Lease and does not cure the failure after receiving written notice. Landlord need not give Tenant an opportunity to cure any breach, including a failure to pay Rent, where applicable law permits Landlord to proceed without one. Except as required by applicable law, Tenant's failure to pay an assessed late fee, apart from the underlying Rent itself, will not by itself entitle Landlord to terminate this Lease or pursue eviction. If Tenant is in default, Landlord may exercise all rights and remedies available under applicable law, including terminating this Lease, regaining possession of the property, and recovering unpaid Rent, late fees, and reasonable costs and expenses, less amounts obtained from the Security Deposit. Landlord will use reasonable efforts to mitigate damages resulting from Tenant's default to the extent required by applicable law. To the extent permitted under applicable law, the prevailing party may recover from the other party court costs and reasonable attorneys' fees and expenses incurred in connection with any legal proceedings related to this Lease.",
   },
@@ -636,7 +636,7 @@ const CLAUSE_TEMPLATES = [
     id: "default-by-tenant-co",
     title: "Default by Tenant",
     group: "Default & Termination",
-    states: ["CO", "NY"],
+    states: ["CO", "NY", "NV"],
     supersedes: "default-by-tenant",
     bodyText:
       "Tenant will be in default under this Lease if Tenant fails to pay Rent when due and does not cure the failure within the time period specified by applicable law after receiving written notice from Landlord. Tenant will also be in default if Tenant fails to comply with any other obligation under this Lease and does not cure the failure after receiving written notice. Landlord need not give Tenant an opportunity to cure any breach, including a failure to pay Rent, where applicable law permits Landlord to proceed without one. Except as required by applicable law, Tenant's failure to pay an assessed late fee, apart from the underlying Rent itself, will not by itself entitle Landlord to terminate this Lease or pursue eviction. If Tenant is in default, Landlord may exercise all rights and remedies available under applicable law, including terminating this Lease, regaining possession of the property, and recovering unpaid Rent and late fees, less amounts obtained from the Security Deposit. Landlord will use reasonable efforts to mitigate damages resulting from Tenant's default to the extent required by applicable law. To the extent permitted under applicable law, the prevailing party may recover from the other party court costs and reasonable attorneys' fees and expenses incurred in connection with any legal proceedings related to this Lease.",
@@ -1087,7 +1087,7 @@ const CLAUSE_TEMPLATES = [
     id: "prohibited-acts-renter-wy",
     title: "Prohibited Acts by Tenant",
     group: "Tenant Responsibilities",
-    states: ["WY", "AK", "HI", "AR", "MS", "DC", "GU", "AS", "MP", "CO", "NE", "OH"],
+    states: ["WY", "AK", "HI", "AR", "MS", "DC", "GU", "AS", "MP", "CO", "NE", "OH", "NV"],
     bodyText:
       "Tenant will not intentionally or negligently destroy, deface, damage, or impair any part of the property, or knowingly permit any other person to do so; interfere with another person's peaceful enjoyment of the property; or unreasonably deny access to, refuse entry to, or withhold consent to enter the property to Landlord or Landlord's agent for the purpose of making repairs, inspecting the property, or showing it for rent or sale.",
   },
@@ -1180,7 +1180,7 @@ const CLAUSE_TEMPLATES = [
     id: "extended-absence-notice-ks",
     title: "Notice of Extended Absence",
     group: "Tenant Responsibilities",
-    states: ["KS", "TN", "VA", "IA", "NM", "MT", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "NH", "ME", "VT", "LA", "AR", "MS", "DC", "PR", "VI", "AS", "MP", "CO", "OH"],
+    states: ["KS", "TN", "VA", "IA", "NM", "MT", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "NH", "ME", "VT", "LA", "AR", "MS", "DC", "PR", "VI", "AS", "MP", "CO", "OH", "NV"],
     bodyText:
       "Tenant will occupy the property only as a dwelling unit unless otherwise agreed. If Tenant anticipates being away from the property for more than 7 consecutive days, Tenant will notify Landlord no later than the first day of the absence. If Tenant willfully fails to give this notice, Landlord may recover actual damages resulting from the failure.",
   },
@@ -1217,7 +1217,7 @@ const CLAUSE_TEMPLATES = [
     id: "early-termination-ks",
     title: "Early Termination",
     group: "Default & Termination",
-    states: ["KS", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "NJ", "IN", "AZ", "OK", "GA", "MI", "IA", "NC", "NV", "TX", "NY", "KY", "WV", "MD", "MA", "NH", "VI", "AS", "MP"],
+    states: ["KS", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "NJ", "IN", "AZ", "OK", "GA", "MI", "IA", "NC", "TX", "NY", "KY", "WV", "MD", "MA", "NH", "VI", "AS", "MP"],
     supersedes: "early-termination",
     bodyText:
       "Tenant may terminate this Lease before the end of the Term by providing Landlord at least 30 days' written notice. Tenant will pay an early termination fee equal to one month's Rent ({{monthly_rent}}) or 30% of the remaining Rent due under the Term, whichever is greater, and remains responsible for Rent and other obligations up to the termination date. This early-termination option and fee apply only if this Lease has a fixed Term; a month-to-month or other periodic tenancy ends on the notice that applicable law and this Lease provide, without an early termination fee. Landlord may terminate this Lease early in accordance with this Lease's Tenant Default and notice provisions, or if Tenant vacates or abandons the property without notifying Landlord. Nothing in this Section limits any right either party has under applicable law, including a Tenant's right to terminate without penalty due to active military service under the Servicemembers Civil Relief Act, due to the property becoming uninhabitable through no fault of Tenant, or, except as prohibited by law in the case of a Tenant's death, any other termination right or limitation provided by applicable law.",
@@ -2064,7 +2064,7 @@ const CLAUSE_TEMPLATES = [
     id: "tenant-forward-proceedings-ca",
     title: "Notice of Proceedings Against the Property",
     group: "Tenant Responsibilities",
-    states: ["CA", "TX", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "WY", "KS", "MN", "NE", "SD", "OH"],
+    states: ["CA", "TX", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "WY", "KS", "MN", "NE", "SD", "OH", "NV"],
     bodyText:
       "If Tenant receives notice of any proceeding to recover the property or its possession, Tenant shall immediately inform Landlord of the proceeding and deliver the notice to Landlord if it is in writing.",
   },
@@ -2269,7 +2269,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "abandoned-property-nv",
-    title: "Property Left After Tenancy",
+    title: "Handling of Property Left Behind",
     group: "Default & Termination",
     states: ["NV"],
     bodyText:
@@ -6967,7 +6967,7 @@ const CLAUSE_TEMPLATES = [
     id: "rent-concession-wi",
     title: "Rent Concessions",
     group: "Rent & Payment",
-    states: ["WI", "CT", "RI", "NH", "ME", "VT", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "KS", "MN", "NE", "OH"],
+    states: ["WI", "CT", "RI", "NH", "ME", "VT", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "KS", "MN", "NE", "OH", "NV"],
     bodyText:
       "[Use only if Landlord gives Tenant any rent concession.] In connection with this Lease, Landlord gives Tenant the following rent concession, which is part of this Lease: [describe each period of free or reduced Rent, credit, rebate or other concession, with its amount or value and the rental periods to which it applies].",
   },
@@ -7718,7 +7718,7 @@ const CLAUSE_TEMPLATES = [
     id: "informal-dispute-resolution-or",
     title: "Informal Dispute Resolution",
     group: "Notices & General",
-    states: ["OR", "AR", "MS", "DC", "GU", "VI", "AS", "MP", "CO", "WY", "KS", "MN", "NE", "OH"],
+    states: ["OR", "AR", "MS", "DC", "GU", "VI", "AS", "MP", "CO", "WY", "KS", "MN", "NE", "OH", "NV"],
     bodyText:
       "Before either party starts a court action about a dispute under this Lease, other than an action for possession, the party will give the other written notice describing the dispute and offer to meet, in person or by phone, within 10 days to try to resolve it informally. This Section does not delay or limit any notice, deadline or remedy that applicable law provides, including any action for possession or for emergency relief, and does not require either party to accept any proposal.",
   },
@@ -7869,7 +7869,7 @@ const CLAUSE_TEMPLATES = [
     id: "criminal-activity-ky",
     title: "Criminal Activity",
     group: "Default & Termination",
-    states: ["KY", "AR", "MS", "PR", "GU", "VI", "AS", "MP", "SD"],
+    states: ["KY", "AR", "MS", "PR", "GU", "VI", "AS", "MP", "SD", "NV"],
     bodyText:
       "Tenant, occupants and guests will not engage in criminal activity on or near the property that threatens the health, safety or right to peaceful enjoyment of the premises by others, or that involves the unlawful manufacture, sale, distribution or possession of a controlled substance on the property. A violation is a material noncompliance with this Lease, and Landlord may terminate this Lease for it with the notice that this Lease's Default by Tenant terms and applicable law require. This Section does not apply to criminal activity in which Tenant or a member of Tenant's household is the victim, including conduct that is the subject of a protective order protecting them, or to any request for help from the police or other emergency assistance.",
   },
@@ -9450,7 +9450,7 @@ const CLAUSE_TEMPLATES = [
     id: "tenant-death-contact-nh",
     title: "Emergency and Death Contact",
     group: "Notices & General",
-    states: ["NH", "ME", "VT", "AK", "AR", "MS", "GU", "VI", "AS", "MP"],
+    states: ["NH", "ME", "VT", "AK", "AR", "MS", "GU", "VI", "AS", "MP", "NV"],
     bodyText:
       "[Optional.] Tenant names the following person for Landlord to contact if Tenant dies or has an emergency: [name, address and telephone number]. Tenant will tell Landlord in writing if this information changes. Naming a contact does not give that person any right to occupy the property or to remove Tenant's belongings; if Tenant dies, Landlord will deal with Tenant's personal representative or heirs as applicable law requires, and will handle any property left at the property under this Lease's Handling of Property Left Behind Section and applicable law.",
   },
@@ -11055,7 +11055,7 @@ const CLAUSE_TEMPLATES = [
     id: "furnishings-included-la",
     title: "Furnishings",
     group: "Security Deposit",
-    states: ["LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "WY", "MN", "NE", "OH"],
+    states: ["LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "WY", "MN", "NE", "OH", "NV"],
     bodyText:
       "[Optional. Use only if the property is rented furnished.] Furnishings: The property is rented furnished. The furniture and furnishings Landlord provides, and their condition at the start of this Lease, are: [list each item and its condition, or attach a signed inventory]. Tenant will keep them at the property, will not remove or dispose of any item without Landlord's written consent, will tell Landlord promptly of any damage to them, and will return them at the end of this Lease in the same condition, except for normal wear and tear.",
   },
@@ -12945,7 +12945,7 @@ const CLAUSE_TEMPLATES = [
     id: "eminent-domain-vi",
     title: "Condemnation (Optional)",
     group: "Default & Termination",
-    states: ["VI", "MP", "KS", "MN", "NE", "SD"],
+    states: ["VI", "MP", "KS", "MN", "NE", "SD", "NV"],
     bodyText:
       "[Optional.] If all of the property is taken by eminent domain, or so much of it is taken that the rest cannot reasonably be lived in, this Lease ends on the date Tenant must give up possession, Rent is apportioned to that date, and Landlord will refund any Rent paid for later days. If a smaller part is taken and the rest can reasonably be lived in, this Lease continues and Rent is reduced in proportion to Tenant's loss of use. Any award for the taking of the property, including any value of this Lease, belongs to Landlord, except any relocation payment or other separate payment made to Tenant for Tenant's own moving costs or personal property. If this Lease ends under this Section, Landlord will return the Security Deposit, less lawful deductions, as this Lease provides.",
   },
@@ -13029,7 +13029,7 @@ const CLAUSE_TEMPLATES = [
     id: "tenant-caused-fines-as",
     title: "Fines Caused by Tenant (Optional)",
     group: "Rent & Payment",
-    states: ["AS", "MP", "WY", "MN", "NE", "SD"],
+    states: ["AS", "MP", "WY", "MN", "NE", "SD", "NV"],
     bodyText:
       "[Optional.] If a government agency fines or penalizes Landlord, or charges Landlord the cost of abating a nuisance, because of a condition or violation that Tenant, a member of Tenant's household, or a person on the Premises with Tenant's consent caused or permitted, Tenant will reimburse Landlord the amount Landlord paid within [number of days] days after Landlord gives Tenant written notice with a copy of the citation, order or bill. This Section does not apply to a fine or charge for a condition Landlord is responsible for under this Lease or the law, and Landlord will not deduct the amount from a Rent payment.",
   },
@@ -13114,7 +13114,7 @@ const CLAUSE_TEMPLATES = [
     id: "guaranty-as",
     title: "Guaranty (Optional)",
     group: "Default & Termination",
-    states: ["AS", "MP", "CO", "KS", "MN", "NE"],
+    states: ["AS", "MP", "CO", "KS", "MN", "NE", "NV"],
     bodyText:
       "[Optional. Use only if a guarantor signs this Lease.] GUARANTY. [guarantor's full name] (\"Guarantor\") signs this Lease to guarantee to Landlord that Tenant will pay the Rent and perform Tenant's other obligations under this Lease, up to a total maximum of $[maximum amount]. This guaranty covers the Term and [choose one: also covers any renewal, extension or month-to-month continuation of this Lease, including any change in Rent made under this Lease / ends when the Term ends, except for amounts that became due during the Term]. Guarantor's obligations are never larger than Tenant's. Landlord may ask Guarantor to pay without first suing Tenant. Guarantor has read this Lease and received a copy.",
   },
@@ -13551,7 +13551,7 @@ const CLAUSE_TEMPLATES = [
     id: "farmland-sporting-rights-co",
     title: "Hunting, Fishing and Trapping Reserved (Optional)",
     group: "Rules & Regulations",
-    states: ["CO", "SD"],
+    states: ["CO", "SD", "NV"],
     bodyText:
       "[Optional. For rural or agricultural property.] Landlord reserves to Landlord all rights to hunt, fish and trap on the Property and all rights to grant those privileges to others. Tenant will not hunt, fish or trap on the Property, and will not give any other person permission to enter the Property to hunt, fish or trap, unless Landlord has agreed in writing. If Landlord gives that written agreement, Tenant will comply with every condition in it and with all state and local wildlife and firearms law, and nothing in it makes Landlord responsible for the acts of anyone Tenant allows on to the Property. Landlord and anyone Landlord authorizes may enter the unoccupied land of the Property to hunt, fish or trap, and will do so without unreasonably interfering with Tenant's use of the Property or with any crop or livestock, and will not enter any dwelling on the Property except as this Lease otherwise allows.",
   },
@@ -13950,7 +13950,7 @@ const CLAUSE_TEMPLATES = [
     id: "energy-data-release-wy",
     title: "Energy Usage Data Authorization",
     group: "Notices & General",
-    states: ["WY", "SD"],
+    states: ["WY", "SD", "NV"],
     bodyText:
       "[Optional. Use where the electric, gas or water account for the property is in Tenant's name and Landlord wants usage data for building benchmarking, an energy audit, a rebate application or utility allocation.] Tenant authorizes each electric, gas and water utility serving the property to release to Landlord or Landlord's designated agent the monthly usage and billing history for the property for the period of Tenant's tenancy, for the purpose of benchmarking, auditing or improving the energy or water performance of the building, or applying for a utility or government efficiency program. Tenant will, within ten (10) days of Landlord's written request, sign and deliver whatever release, authorization or online consent the utility requires to give effect to this paragraph. Landlord will use the data only for the purposes stated above, will not disclose Tenant's individual data to any other person except a contractor or consultant performing the benchmarking or audit, or as required by law, and will report the building's data to any third party only in aggregated form. Tenant may withdraw this authorization at any time by written notice to Landlord, and withdrawal is not a breach of this Agreement.",
   },
@@ -15995,6 +15995,159 @@ const CLAUSE_TEMPLATES = [
     supersedes: "early-termination-ks",
     bodyText:
       "Tenant may terminate this Lease before the end of the Term by providing Landlord at least 30 days' written notice. Tenant will pay Landlord, by the termination date, an early termination fee equal to one month's Rent ({{monthly_rent}}), and remains responsible for Rent and other obligations up to the termination date. If Tenant gives that notice, pays the fee and delivers possession of the property by the termination date, Tenant owes no Rent for any period after the termination date. If Tenant leaves before the end of the Term without using this option, Tenant's liability is governed by Ohio law. This early-termination option and fee apply only if this Lease has a fixed Term; a month-to-month or other periodic tenancy ends on the notice that applicable law and this Lease provide, without an early termination fee. Landlord may terminate this Lease early in accordance with this Lease's Tenant Default and notice provisions, or if Tenant vacates or abandons the property without notifying Landlord. Nothing in this Section limits any right either party has under applicable law, including a Tenant's right to terminate without penalty due to active military service under the Servicemembers Civil Relief Act, due to the property becoming uninhabitable through no fault of Tenant, or, except as prohibited by law in the case of a Tenant's death, any other termination right or limitation provided by applicable law.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "appliances-excluded-nv",
+    title: "Items Not Supplied by Landlord",
+    group: "Landlord Responsibilities",
+    states: ["NV"],
+    bodyText:
+      "[Optional. Use only for an item Landlord leaves at the property but does not supply under this Lease. Never list heating, air-conditioning, a water heater, plumbing or electrical fixtures, smoke detectors, door locks, garbage receptacles, or any item Landlord must supply or maintain under this Lease or applicable law.] The following items at the property are not supplied by Landlord as part of this Lease, and Landlord will not repair, maintain or replace them: [list each item]. Tenant may use them or ask Landlord to remove them; if Tenant uses an item, Tenant will use it in a reasonable manner. This Section does not change Landlord's duties for any other part of the property or Landlord's responsibility for its own acts or omissions.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "pest-cooperation-nv",
+    title: "Pest Reporting and Treatment",
+    group: "Tenant Responsibilities",
+    states: ["NV"],
+    bodyText:
+      "[Optional.] Tenant will promptly tell Landlord if Tenant knows or reasonably suspects that the property has bed bugs or another infestation of insects, rodents or other pests. Tenant will allow Landlord, Landlord's agents and pest control operators to enter the property to inspect for and treat the infestation as this Lease's entry section allows, and will follow the reasonable written preparation instructions Landlord or the pest control operator gives. If the infestation results from the deliberate or negligent act or omission of Tenant, a member of Tenant's household or another person on the premises with Tenant's consent, Tenant will pay the reasonable cost of treatment. Otherwise, Landlord will pay for treatment.",
+  },
+  // Rules & Regulations
+  {
+    id: "cannabis-restrictions-nv",
+    title: "Cannabis Restrictions",
+    group: "Rules & Regulations",
+    states: ["NV"],
+    bodyText:
+      "[Optional.] Cannabis. Tenant will not, and will not permit any occupant or guest to, [choose one or more: smoke or vape cannabis or cannabis products; cultivate cannabis plants; process or manufacture cannabis; sell, deliver or transfer cannabis] anywhere on the property, including inside the dwelling unit, in common areas and on the grounds. This restriction applies whether the cannabis is for adult use or medical use.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "carpet-cleaning-nv",
+    title: "Professional Carpet Cleaning at Move-Out",
+    group: "Tenant Responsibilities",
+    states: ["NV"],
+    bodyText:
+      "[Optional. Use only if the carpets were professionally cleaned immediately before the tenancy began.] The carpets at the property were professionally cleaned immediately before this tenancy began. When the tenancy ends, Tenant will have the carpets professionally cleaned and give Landlord the receipt. If Tenant does not, Landlord may have the carpets professionally cleaned, to the extent reasonably necessary, and claim the reasonable cost Landlord actually pays from the Security Deposit as a cost of cleaning the premises, listed in Landlord's itemized written accounting of the Security Deposit.",
+  },
+  {
+    id: "no-liens-nv",
+    title: "No Liens for Tenant Work",
+    group: "Tenant Responsibilities",
+    states: ["NV"],
+    bodyText:
+      "[Optional.] Tenant will not order any construction, alteration or repair work at the property without Landlord's prior written consent. For any work Tenant orders, Tenant will pay in full everyone Tenant hires or whose work, materials or equipment Tenant orders, and will not allow a lien to be recorded against the property for that work. Before any work begins, Tenant will record and serve any notice and post any security that the lien law requires of a tenant who orders work, and will give Landlord a copy. Tenant will tell each contractor and supplier in writing, before work begins, that Tenant, not Landlord, is responsible for paying for the work, and will give Landlord a copy of any notice of right to lien Tenant receives within [number] days after receiving it. Tenant will cooperate with Landlord's recording and service of any notice of nonresponsibility. If a lien is recorded because of work Tenant ordered, Tenant will have it released within [number] days after Tenant learns of it and will reimburse Landlord's reasonable out-of-pocket costs of obtaining the release, not including attorney's fees. Any consent Landlord gives to work under this Lease is consent only as between Landlord and Tenant and is not an agreement by Landlord to pay for the work.",
+  },
+  {
+    id: "disability-modification-restoration-nv",
+    title: "Disability Modifications and Restoration",
+    group: "Tenant Responsibilities",
+    states: ["NV"],
+    bodyText:
+      "[Optional.] If Tenant or an Occupant with a disability asks to modify the Premises, Landlord will not refuse a reasonable modification that Tenant or that person pays for and that is necessary for that person to use and enjoy the Premises. Tenant will describe the proposed work to Landlord in writing before it starts. Where it is reasonable to do so, Landlord may make its approval conditional on Tenant restoring the interior of the Premises, when Tenant's occupancy ends, to the condition that existed before the modification, reasonable wear and tear excepted. Landlord will not increase its usual Security Deposit because a modification is requested. If an additional deposit is needed to ensure the restoration, Tenant may pay it over a reasonable period, it will not exceed the actual cost of the restoration, Landlord will hold it in an interest-bearing account, and the interest will be paid to Tenant.",
+  },
+  {
+    id: "garbage-removal-by-tenant-nv",
+    title: "Garbage and Rubbish Removal by Tenant",
+    group: "Tenant Responsibilities",
+    states: ["NV"],
+    bodyText:
+      "[Optional. Include only if Tenant, not Landlord, will arrange garbage and rubbish removal.] Tenant will arrange and pay for the removal of garbage and rubbish from the premises [describe, e.g. by subscribing directly with the local collection service and setting containers out on collection days]. Landlord will provide an adequate number of appropriate receptacles for garbage and rubbish in clean condition and good repair at the start of the Term. This Section does not change any other obligation of Landlord to keep the premises habitable.",
+  },
+  // Notices & General
+  {
+    id: "lease-copy-receipt-nv",
+    title: "Copies of This Lease",
+    group: "Notices & General",
+    states: ["NV"],
+    bodyText:
+      "[Optional.] Tenant acknowledges receiving a copy of this Lease before signing it. Landlord will give Tenant one copy of this Lease, signed by all parties, free of charge when this Lease is signed, and will give Tenant additional copies within a reasonable time after Tenant asks, for a reasonable fee of [amount per copy, or \"no charge\"].",
+  },
+  // Access & Entry
+  {
+    id: "scheduled-services-entry-nv",
+    title: "Entry for Regularly Scheduled Services",
+    group: "Access & Entry",
+    states: ["NV"],
+    bodyText:
+      "[Optional.] Scheduled Services. Landlord will provide the following services to the dwelling unit on a regular schedule, and Tenant agrees to them: [list each service and its schedule, for example changing air-conditioning filters every [number] months or pest treatment every [number] months]. For each scheduled visit, Landlord will give Tenant at least 24 hours' notice of its intent to enter, by [state method, for example text message, e-mail or a notice posted on the door], and will enter only at a reasonable time during normal business hours, unless Tenant expressly agrees to shorter notice or to entry outside business hours for that particular visit. Tenant will not unreasonably withhold consent to a scheduled visit.",
+  },
+  // Rent & Payment
+  {
+    id: "rent-escalation-nv",
+    title: "Scheduled Rent Changes",
+    group: "Rent & Payment",
+    states: ["NV"],
+    bodyText:
+      "[Optional.] Monthly Rent will change during the Term only as follows: [state each new Monthly Rent as a single total figure that includes every mandatory fee, and the date it takes effect]. Each increase takes effect only after the written notice this Lease requires before any increase in Rent. Monthly Rent will not change during the Term in any other way.",
+  },
+  {
+    id: "unpaid-amounts-interest-nv",
+    title: "Interest on Unpaid Amounts Other Than Rent",
+    group: "Rent & Payment",
+    states: ["NV"],
+    bodyText:
+      "[Optional.] Any amount Tenant owes under this Lease other than Rent or an amount payable as Rent, such as the cost of repairing damage beyond what the Security Deposit covers, that is not paid within [number] days after Landlord's written demand will bear simple interest at [state the annual rate] percent per year from the end of that period until paid. No interest or other charge will be added to late Rent beyond the one late fee this Lease allows.",
+  },
+  // Notices & General
+  {
+    id: "utility-shutoff-notice-designee-nv",
+    title: "Copy of Gas or Electric Shutoff Notices to Landlord",
+    group: "Notices & General",
+    states: ["NV"],
+    bodyText:
+      "[Optional. Use only where Tenant holds a gas or electric account for the premises in Tenant's own name.] Tenant may ask the utility in writing to send Landlord a duplicate of any notice of intended shutoff of that service. Tenant is not required to make this request, may withdraw it at any time, and a refusal or withdrawal is not a breach of this Lease. Naming Landlord does not make Landlord responsible for paying Tenant's utility bill. If Landlord receives such a notice, Landlord may contact Tenant about it.",
+  },
+  // Default & Termination
+  {
+    id: "early-termination-nv",
+    title: "Early Termination",
+    group: "Default & Termination",
+    states: ["NV"],
+    supersedes: "early-termination-ks",
+    bodyText:
+      "Tenant may terminate this Lease before the end of the Term by providing Landlord at least 30 days' written notice. Tenant will pay Landlord, by the termination date, an early termination fee equal to one month's Rent ({{monthly_rent}}), and remains responsible for Rent and other obligations up to the termination date. If Tenant gives that notice, pays the fee and delivers possession of the property by the termination date, Tenant owes no Rent for any period after the termination date. If Tenant leaves before the end of the Term without using this option, Tenant's liability is governed by Nevada law, including Landlord's duty to make reasonable efforts to re-rent the property at a fair rental and Tenant's liability for Landlord's actual damages as NRS 118.175 provides. This early-termination option and fee apply only if this Lease has a fixed Term; a month-to-month or other periodic tenancy ends on the notice that applicable law and this Lease provide, without an early termination fee. Landlord may terminate this Lease early in accordance with this Lease's Tenant Default and notice provisions, or if Tenant vacates or abandons the property without notifying Landlord. Nothing in this Section limits any right either party has under applicable law, including a Tenant's right to terminate without penalty due to active military service under the Servicemembers Civil Relief Act, due to the property becoming uninhabitable through no fault of Tenant, under NRS 118A.340 (relocation for care or treatment, or the death of a spouse or cotenant, of a tenant who is 60 or older or has a physical or mental disability), or as a victim of domestic violence, harassment, sexual assault or stalking under NRS 118A.345, or, except as prohibited by law in the case of a Tenant's death, any other termination right or limitation provided by applicable law.",
+  },
+  // Disclosures
+  {
+    id: "stop-payment-notice-nv",
+    title: "Notice on Stopping Payment of a Rent Check",
+    group: "Disclosures",
+    states: ["NV"],
+    bodyText:
+      "[BUILDER: print this entire Section in clearly legible boldface type. NRS 205.380(5).] NOTICE ON STOPPING PAYMENT (NRS 205.380(5)): The stopping of payment on a check or other instrument given in payment for property which can be returned in the same condition in which it was originally received, rent or labor which was completed in a workmanlike manner, and the failure to return or offer to return the property in that condition or to specify in what way the labor was deficient within 5 days after receiving notice of nonpayment is punishable: 1. If the value of the property, rent or labor fraudulently obtained was less than $1,200, as a misdemeanor by imprisonment in the county jail for not more than 6 months, or by a fine of not more than $1,000, or by both fine and imprisonment. 2. If the value of the property, rent or labor fraudulently obtained was $1,200 or more but less than $5,000, as a category D felony by imprisonment in the state prison for a minimum term of not less than 1 year and a maximum term of not more than 4 years, or by a fine of not more than $5,000, or by both fine and imprisonment. 3. If the value of the property, rent or labor fraudulently obtained was $5,000 or more but less than $25,000, as a category C felony by imprisonment in the state prison for a minimum term of not less than 1 year and a maximum term of not more than 5 years, or by a fine of not more than $10,000, or by both fine and imprisonment. 4. If the value of the property, rent or labor fraudulently obtained was $25,000 or more but less than $100,000, as a category B felony by imprisonment in the state prison for a minimum term of not less than 1 year and a maximum term of not more than 10 years, and by a fine of not more than $10,000. 5. If the value of the property, rent or labor fraudulently obtained was $100,000 or more, as a category B felony by imprisonment in the state prison for a minimum term of not less than 1 year and a maximum term of not more than 20 years, and by a fine of not more than $15,000.",
+  },
+  // Rent & Payment
+  {
+    id: "rent-installments-nv",
+    title: "Rent Paid in Installments",
+    group: "Rent & Payment",
+    states: ["NV"],
+    supersedes: "rent-installments-or",
+    bodyText:
+      "[Optional. Use only in a Lease with a fixed Term.] During the Term, Landlord and Tenant agree that Monthly Rent will be paid in installments as follows: [state each installment amount and the day of the month it is due; the installments must add up to the Monthly Rent]. Installments paid on this schedule are not partial payments of Rent. A late fee applies only as this Lease's Late Fee Section allows for the rental period. This schedule ends when the Term ends. If Tenant stays after the Term with Landlord's consent, the full Monthly Rent is due in one payment on the day this Lease sets for Rent.",
+  },
+  // Default & Termination
+  {
+    id: "owner-occupancy-termination-nv",
+    title: "Owner Occupancy (Optional)",
+    group: "Default & Termination",
+    states: ["NV"],
+    supersedes: "owner-occupancy-termination-ar",
+    bodyText:
+      "[Optional. Use only for a fixed Term.] Owner Occupancy: Landlord may end this Lease before the end of the Term if Landlord, or the following member of Landlord's family, will occupy the property as a residence: [name or relationship]. The notice period for doing so is 30 days, unless this Lease lets Tenant end it early on written notice, in which case it is the same number of days' notice that Tenant must give. Landlord will give Tenant written notice at least that many days before the termination date, and the termination date will be the last day of a monthly rental period. Tenant owes Rent only through the termination date, and Landlord will refund any Rent paid for a later period. If Tenant does not leave by the termination date, Landlord may regain possession only through a court eviction.",
+  },
+  // Notices & General
+  {
+    id: "tenant-portal-nv",
+    title: "Online Tenant Portal",
+    group: "Notices & General",
+    states: ["NV"],
+    supersedes: "tenant-portal-mn",
+    bodyText:
+      "[Optional.] Landlord may make an online tenant portal available for rent payments, maintenance requests and notices. Tenant's use of the portal for notices is voluntary. Tenant may give any notice this Lease or applicable law requires by the methods this Lease sets out, whether or not Tenant uses the portal. Landlord may require payment through the portal only if paying through it costs Tenant no fee and does not require information about a bank account of Tenant. Otherwise, Tenant may always pay by any method listed in this Lease's Payment Methods Section, whether or not Tenant uses the portal. If Landlord requires or permits payment through the portal, Landlord will provide an alternative way to pay whenever the portal is not working. Landlord will not charge Tenant any fee for using that alternative. Tenant's email address and other electronic contact details for the portal are [enter or leave blank]. Tenant will tell Landlord promptly if those details change.",
   },
 ];
 
