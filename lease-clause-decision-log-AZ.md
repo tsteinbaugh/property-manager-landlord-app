@@ -1082,3 +1082,1021 @@ Not a re-audit; nothing else in this state was reviewed.
 - `smoking-policy`: Tenant pays for smoking damage caused by "Tenant, an occupant, or a guest or invitee of Tenant", no longer by anyone's smoking.
 - `no-alterations`: the last sentence adds that the clause "does not change who owns an installation that applicable law makes Tenant's property".
 - `addendum-precedence`: a disclosure, notice or addendum "that applicable law says controls over this Lease" now controls, as one the law requires already did.
+
+
+# Topic gaps pass (end-of-run consistency pass, 2026-11-04 to 11-05): Desktop's log
+
+# Topic gaps: Arizona — gaps log (cumulative)
+
+Final copy, 2026-11-05. Topics answered so far: 250 of 250. Main pass: 58; helper slice A: 96; helper slice B: 96.
+
+## §1 Sources, channel and currency
+
+- **Step A (2026-11-04):** `lease-clauses.csv` decompressed to 52,616,417 bytes, SHA-256 `bc7f9020…cdbece1b3b6` (matches); 13,952 rows, 13,841 active, 124 active rows carry AZ; `missing-topics-AZ.md` lists 250 topics. All match. Old output copies were cleared before starting.
+- **Statutes, session laws, Constitution:** the attached corpus `corpus-AZ-20261102.tar.xz` (SHA-256 `25a4f37d…6169ee07e`, matches its `.sha256`). It was extracted to its own directory and read only by script. It holds:
+  - the whole text of A.R.S. Titles 1, 9, 11, 12, 13, 26, 32, 33, 36, 40, 41, 42, 44, 46 and 49 (azleg.gov section pages, mostly dated 09/09/26);
+  - catchlines of all 49 titles;
+  - 786 chapter laws from the 2024-2026 sessions;
+  - the Arizona Constitution.
+  Every relied-on section was opened whole with the reader script, and the assembler refuses a row that cites an unopened section. Quotes in notes were checked by script against the cited section: 0 mismatches.
+- **Not held, flagged, not resolved:**
+  - the Arizona Administrative Code, including Corporation Commission utility rules (A.A.C. title 14);
+  - the Rules of Procedure for Eviction Actions;
+  - case law (leads only);
+  - city and county codes;
+  - Titles 20 (insurance) and 47 (UCC), held as headings only.
+- **Federal:** sections were read on govinfo.gov in Taylor's built-in browser. The excerpts relied on were saved to the workspace and verified line by line against the browser text by hash:
+  - 42 U.S.C. §§ 3604, 3617;
+  - 15 U.S.C. § 9058;
+  - 34 U.S.C. § 12491.
+  On 2026-11-04 the helpers' queued needs were read and saved the same way:
+  - 9 U.S.C. § 2;
+  - 15 U.S.C. § 7003;
+  - 25 U.S.C. § 415;
+  - 42 U.S.C. § 3603;
+  - 24 C.F.R. § 982.310 (CFR annual edition, 2025-04-01);
+  - 40 C.F.R. §§ 61.141, 61.145 (CFR annual edition, 2025-07-01).
+  On 2026-11-05 four more were read the same way:
+  - 42 U.S.C. §§ 4852d(a), 13663(a);
+  - 24 C.F.R. §§ 100.202, 100.203.
+  Also on 2026-11-05:
+  - 50 U.S.C. § 3955(a)-(b);
+  - 11 U.S.C. §§ 362(a)(3), (b)(22)-(23) and 365(e)(1);
+  - 42 U.S.C. §§ 4851b(27), 13664(a)(2);
+  - 24 C.F.R. §§ 982.310(b), (e), 982.404, 982.405, 982.451(b)(5), 982.551(d).
+  Not read: 47 C.F.R. § 1.4000; the FCRA sections helpers queued (15 U.S.C. §§ 1681b(b), 1681s-2(a)) and the remaining parts of 40 C.F.R. § 61.145. Rows that rely on them say so.
+  The CFR text is the annual edition; eCFR was not checked.
+- **Arizona sections outside the corpus:** A.R.S. §§ 43-1072 and 28-8484 (2026-11-04), and §§ 17-304, 18-551, 18-552 and 25-214 (2026-11-05), in titles held as headings only, were read on azleg.gov in Taylor's built-in browser and saved with the same line-hash check. No 2024-2026 act amends either (a search of `laws/`). § 43-1072(C) turned a helper's NEEDS_REVIEW absence row into a Present row.
+- **Currency:**
+  - **AZG-CUR-001** (rerun of item 9, with a control): no 2024-2026 act amends a section of A.R.S. §§ 33-1301 to 33-1381. Three acts cite ARLTA sections while amending others: Laws 2025, ch. 111 (§ 33-1126); Laws 2026, ch. 147 (Title 40); and Laws 2026, ch. 194 (§§ 12-1567, 22-247).
+  - **AZG-CUR-002:** 0 line-broken section numbers. The two act-name hits (Laws 2024, ch. 64 and Laws 2025, ch. 241) are mobile-home and Department of Housing acts.
+  - **AZG-M-009** (non-ARLTA sections relied on): only Laws 2026, ch. 242 amends a relied-on section (§ 13-3602, which stays in place), and Laws 2026, ch. 69 amends §§ 12-1171 and 12-1173 (unlawful occupants; § 12-1173(C) leaves ARLTA remedies untouched). STATUTES.TXT already shows both.
+  - Laws 2024, ch. 52, a real-estate licensing act, amends 23 sections of Title 32 (including §§ 32-2101, 32-2108.01 and 32-2174). Of the sections the main pass relies on, it amends only § 32-2174, and in that section only subsection (A) changes (trust-account titling). STATUTES.TXT shows the amended text. The figure was corrected after helper A pointed out the act also amends § 32-2108.01.
+  - Helpers ran their own `laws/` checks for the sections they rely on; these are recorded in each row's notes.
+
+## §2 Topics answered
+
+Each line gives: topic — row id(s) — Present, Absent or tagged — citation.
+
+- `accessory-dwelling-unit` — `edu-accessory-dwelling-unit-az` — Present — A.R.S. §§ 9-461.18, 11-810.01, 9-500.39(B)(9), 11-269.17(B)(9)
+- `actual-notice-method` — `edu-no-agreed-notice-method-rule-az` — Absent — A.R.S. § 33-1313(B); FEDERAL: 15 U.S.C. § 7003(b)(2)(B); no agreed-method statute (battery AZG-A-002)
+- `adverse-proceeding-notice` — `edu-adverse-proceeding-notice-az` — Present — A.R.S. § 33-1331; no tenant-to-landlord duty (battery AZG-A-003)
+- `alarm-tampering-fee` — `edu-no-alarm-tampering-fee-az` — Absent — No statute (battery AZG-A-004); A.R.S. §§ 36-1637(B)-(C), 33-1341(6), 33-1368(C)
+- `alt-housing` — `edu-alt-housing-az` — Present — A.R.S. § 33-1364(A)(3), (F)-(H); no landlord rehousing duty (battery AZG-A-005)
+- `animal-care-access` — `edu-animal-care-access-az` — Present — A.R.S. §§ 33-1314(E)-(G), 33-1370(E), 33-1343
+- `appliances-excluded` — `edu-appliances-excluded-az` — Present — A.R.S. §§ 33-1324(A)(4), (A)(6), (C)-(D), 33-1310(11), 33-1315(A)(3); no presumption (battery AZG-A-006)
+- `application-fees` — `edu-application-fees-az` — Absent — No statute; A.R.S. §§ 33-1321(B), 41-1491.19
+- `asbestos-hazards` — `edu-no-asbestos-rule-az` — Absent — No state statute (battery AZG-A-007); A.R.S. § 33-1324(A)(1)-(2); FEDERAL: 40 C.F.R. §§ 61.141, 61.145(a), (b)(1)
+- `association-obligations-disclosure` — `edu-no-association-disclosure-az` — Absent — No statute (battery AZG-A-008); A.R.S. §§ 33-1260.01, 33-1806.01
+- `attorney-fees` — `edu-attorney-fees-az` — Present — A.R.S. §§ 33-1315(A)(2), 12-341.01, 33-1368(B)-(C), 33-1377, 12-1178
+- `automatic-renewal` — `edu-no-automatic-renewal-rule-az` — Absent — No statute (battery AZG-A-009); A.R.S. §§ 33-1314(A), (D), 33-1375, 33-1310(18)
+- `balcony-inspection` — `edu-no-balcony-inspection-rule-az` — Absent — No statute (battery AZG-A-010); A.R.S. § 33-1324(A)(1)-(3)
+- `bed-bug-cooperation` — `pest-cooperation-pr` — tagged — A.R.S. §§ 33-1319(B), 33-1314(A), 33-1343; tag pest-cooperation-pr
+- `binding-arbitration` — `edu-no-lease-arbitration-statute-az` — Absent — No lease-arbitration statute (battery AZG-A-011); A.R.S. §§ 12-3006(A), 12-3004(B)(4), 33-1315(A)(1), 33-1305(B); FEDERAL: 9 U.S.C. § 2
+- `cannabis` — `edu-cannabis-az` — Present — A.R.S. §§ 36-2813(A), 36-2814(A)(2), 36-2851(7), (14), 36-2852(A)
+- `carpet-cleaning` — `carpet-cleaning-ar` — tagged — A.R.S. §§ 33-1321(D), 33-1314(A), 33-1341(2); tag carpet-cleaning-ar
+- `casualty-and-mitigation-waivable` — `edu-casualty-mitigation-nonwaivable-az` — Present — A.R.S. §§ 33-1315(A)(1), (B), 33-1366, 33-1305(A), 33-1370(C)
+- `certificate-of-occupancy-disclosure` — `edu-no-certificate-of-occupancy-disclosure-az` — Absent — No statute (battery AZG-A-014); A.R.S. §§ 33-1324(A)(1), 9-1303(13), 9-1302(B)
+- `children-occupancy` — `edu-children-occupancy-az` — Present — A.R.S. §§ 33-1317, 41-1491.01, 41-1491.14, 41-1491.04
+- `cold-weather-vacate-notice` — `edu-no-cold-weather-vacate-notice-az` — Absent — No statute (battery AZG-A-015); A.R.S. §§ 33-1341(5), (8), 33-1324(A)(6)
+- `collection-fee` — `edu-collection-fee-az`, `collection-fee-az` — Present — A.R.S. §§ 32-1051(3), 32-1004(A), 33-1314(A), 33-1315(A)(2)
+- `common-area-lighting` — `edu-no-common-area-lighting-rule-az` — Absent — No statute (battery AZG-A-017); A.R.S. §§ 33-1324(A)(1), (3), 9-1303(1)(h)
+- `communal-land-lease-approval` — `edu-no-communal-land-lease-approval-az` — Absent — No state approval statute (battery AZG-A-018); Ariz. Const. art. 20, § 4; FEDERAL: 25 U.S.C. § 415(a)
+- `condemned-premises-rent-bar` — `edu-no-condemned-rent-bar-az` — Absent — No condemnation rent bar (battery AZG-A-020); A.R.S. §§ 33-1366, 33-1361(A), 33-1364, 33-1365, 33-343
+- `confession-of-judgment` — `edu-confession-of-judgment-az` — Present — A.R.S. § 44-143
+- `confirmed-absences-habitability` — `edu-confirmed-absences-habitability-az` — Present — A.R.S. §§ 33-1324, 33-1315(A)(1), 33-1361, 33-1363, 33-1364, 33-1365, 33-1368(B), 9-1303; absences in batteries AZG-A-004, -007, -010, -017, -021
+- `confirmed-absences-misc` — `edu-confirmed-absences-misc-az` — Absent — No statute (battery AZG-A-022); inventory of absence rows
+- `confirmed-absences-outside-title` — `edu-confirmed-absences-outside-title-az` — Present — A.R.S. §§ 12-1173(A)(3)(b), (B), (C), 33-1378, 33-1902(C); no registration-precondition statute (battery AZG-A-023)
+- `construction-liens` — `edu-construction-liens-az`, `no-liens-az` — Present — A.R.S. §§ 33-981(A)-(B), 33-992.01(A)(3), 33-1008(A); no lessor-protection statute (battery AZG-A-024)
+- `conversion-notice` — `edu-no-conversion-notice-az` — Absent — No tenant conversion statute (battery AZG-A-025); A.R.S. §§ 33-1215(A)(11), 32-2181(A)(24), 33-1375, 33-1476.01(A)
+- `cure-and-eviction-grounds` — `edu-cure-and-eviction-grounds-az` — Present — A.R.S. § 33-1368(A), (B), (G); § 33-1315(A)(1)
+- `defective-drywall-disclosure` — `edu-no-drywall-disclosure-az` — Absent — No statute (battery AZG-A-026); A.R.S. § 33-1324(A)(1)-(2)
+- `deposit-cost-schedule` — `edu-deposit-cost-schedule-az` — Present — A.R.S. §§ 33-1321(B), (D), 33-1310(15)
+- `deposit-installments` — `edu-no-deposit-installment-rule-az` — Absent — No statute
+- `deposit-last-month-rent` — `edu-deposit-last-month-rent-az` — Present — A.R.S. § 33-1321(A), (D); § 33-1318(D)
+- `deposit-surrender-notice` — `edu-deposit-surrender-notice-az` — Present — A.R.S. §§ 33-1321(D), 33-1310(3)
+- `designated-repairer` — `edu-no-designated-repairer-rule-az` — Absent — No designated-repairer statute (battery AZG-A-027); A.R.S. §§ 33-1363(A), 33-1364(H), 33-1315(A)(1)
+- `disability-accommodation` — `edu-disability-accommodation-az` — Present — A.R.S. § 41-1491.19(C), (E)(1)-(2); FEDERAL: 42 U.S.C. § 3604(f)(3); FEDERAL: 24 C.F.R. § 100.203(a)-(b) (no deposit increase; negotiated interest-bearing restoration escrow); no AZ escrow or lease-inclusion rule (battery AZG-A-029)
+- `disaster-displaced-guests` — `edu-no-disaster-guest-rule-az` — Absent — No disaster-guest statute (batteries AZG-A-030, AZG-A-032); A.R.S. §§ 33-1308(4), 33-1342, 33-1378
+- `disaster-duties` — `edu-no-disaster-tenancy-rule-az` — Absent — No declared-disaster tenancy rule (batteries AZG-A-031, AZG-A-033); A.R.S. §§ 33-1366, 33-343, 33-1304, 26-303(E), 41-110, 12-515
+- `double-letting` — `edu-no-double-letting-rule-az` — Absent — No double-letting statute (battery AZG-A-034); A.R.S. §§ 33-1323, 33-1362
+- `drug-free-housing-addendum` — `edu-drug-free-housing-addendum-az` — Present — A.R.S. §§ 33-1260.01(G), 33-1806.01(G), 33-1368(A)
+- `dv-confidentiality` — `edu-dv-confidentiality-az` — Absent — No state landlord confidentiality duty; A.R.S. §§ 41-161 to 41-166; FEDERAL: 34 U.S.C. § 12491(c)(4)
+- `dv-deposit-timing` — `edu-dv-deposit-timing-az` — Present — A.R.S. §§ 33-1318(D), (J), 33-1321(D)
+- `dv-eviction-protection` — `edu-dv-eviction-protection-az` — Absent — No state bar; A.R.S. §§ 33-1315(A)(4)-(5), 33-1318(L); FEDERAL: 34 U.S.C. § 12491(b)
+- `dv-lockchange` — `edu-dv-lockchange-az` — Present — A.R.S. § 33-1318(E)-(G)
+- `dv-protection-order-chapter-moved` — `edu-dv-protection-order-chapter-moved-az` — Present — A.R.S. §§ 33-1318, 13-3601, 13-3602, 13-1406, 12-1809
+- `dv-qualifying-documents` — `edu-dv-qualifying-documents-az` — Present — A.R.S. §§ 33-1318(A)-(C), 33-1318.01(A); FEDERAL: 34 U.S.C. § 12491(c)
+- `electric-submetering-disclosure` — `edu-electric-submetering-disclosure-az` — Present — A.R.S. § 33-1314.01(A)-(B), (E); Ariz. Const. art. 15, § 2
+- `emergency-assistance-right` — `edu-emergency-assistance-right-az` — Present — A.R.S. § 33-1315(A)(4)-(5), (B); no presumed defense (battery AZG-A-036); A.R.S. § 33-1381(A)
+- `emergency-contact` — `edu-no-emergency-contact-rule-az`, `emergency-contact-co` — Absent — No emergency-number or emergency-contact duty (battery AZG-A-037); A.R.S. §§ 33-1322(A)-(C), (E), 33-1314(A), (E)
+- `eminent-domain` — `edu-no-eminent-domain-lease-rule-az`, `eminent-domain-vi` — Absent — No lease-end or rent rule on a taking (battery AZG-A-038); A.R.S. §§ 12-1116(A), 12-1120, 12-1122(A)(1), 11-961 to 11-963; tag eminent-domain-vi
+- `employee-screening` — `edu-no-employee-screening-rule-az` — Absent — No apartment-employee screening statute (battery AZG-A-039); A.R.S. §§ 12-558.03, 32-2108.01(A)
+- `energy-data-release` — `edu-no-energy-data-release-az` — Absent — No lease energy-data release statute (battery AZG-A-040); A.R.S. §§ 9-500.36, 11-269.14, 44-1376(4), 44-1376.01(A), 44-1376.02(B)
+- `entity-landlord-court-representation` — `edu-entity-landlord-representation-az` — Absent — No statute (battery AZG-A-041); court rules decide (Ariz. R. Sup. Ct. and Ariz. R.P. Eviction Actions, not held)
+- `environmental-event-termination` — `edu-no-environmental-event-termination-az` — Absent — No environmental-event termination statute (battery AZG-A-043); A.R.S. §§ 33-1366, 33-1314(A), 33-1312, 33-1374
+- `ev-charging-end-of-tenancy` — `edu-no-ev-charging-end-of-tenancy-az` — Absent — No end-of-tenancy charger rule (battery AZG-A-045); A.R.S. §§ 33-1314(A), 33-1370(E)
+- `ev-charging-requirements` — `edu-ev-charging-requirements-az`, `ev-charger-installation-hi` — Present+tag — A.R.S. § 40-213; A.R.S. § 33-1314.01(A)-(B), (E)-(G); no tenant installation right (battery AZG-A-044); tag ev-charger-installation-hi
+- `ev-charging-shared-area` — `edu-no-ev-charging-shared-area-az` — Absent — No shared-area charging statute (battery AZG-A-047); A.R.S. §§ 33-1342(A), 33-1314.01(B)
+- `eviction-hardship-stay` — `edu-no-eviction-hardship-stay-az` — Absent — No hardship stay (battery AZG-A-050); A.R.S. §§ 12-1178(C), 12-1179(C)-(E), 33-1377(C)
+- `eviction-penalty-clause-ban` — `edu-no-eviction-penalty-ban-az` — Absent — No statute; A.R.S. §§ 33-1315, 33-1368(B)
+- `eviction-service-party` — `edu-no-eviction-service-party-az` — Absent — No tenant service-agent rule (battery AZG-A-052); A.R.S. §§ 33-1377(B), 33-1322(A)(2), 41-162(C)
+- `exculpatory-clauses` — `edu-exculpatory-clauses-az` — Present — A.R.S. §§ 33-1315(A)(3), (B), 33-1325
+- `expedited-criminal-eviction` — `edu-expedited-criminal-eviction-az` — Present — A.R.S. §§ 33-1368(A), (F), 33-1377(E), 12-1179(E)
+- `expedited-deposit-disposition` — `edu-no-expedited-deposit-disposition-az` — Absent — No expedited deposit procedure or fee (battery AZG-A-054); A.R.S. § 33-1321(B), (D)-(E)
+- `extended-absence-notice` — `edu-no-extended-absence-notice-az`, `extended-absence-notice-ks` — Absent — No statutory absence-notice duty (battery AZG-A-056); A.R.S. §§ 33-1370(J), 33-1343(E), 33-1314(A), 33-1368(C); tag extended-absence-notice-ks
+- `family-child-care` — `edu-no-family-child-care-rule-az` — Absent — No landlord-tenant child care rule (battery AZG-A-058); A.R.S. §§ 36-897.01(A), 46-807(A), 33-1314(A)
+- `farmland-hunting-rights` — `edu-no-farmland-hunting-rule-az` — Absent — No held statute allocates hunting rights between farmland owner and tenant (battery AZG-A-059); A.R.S. § 17-304(A), (C), (D) (landowners or lessees may post); A.R.S. §§ 33-1551, 13-1502; Laws 2025, ch. 54, §§ 1-2
+- `fee-in-lieu-of-deposit` — `edu-no-fee-in-lieu-of-deposit-rule-az` — Absent — No statute; A.R.S. §§ 33-1321(A)-(B), 33-1310(15)
+- `fee-transparency` — `edu-fee-transparency-az` — Absent — No statute; A.R.S. § 44-1522
+- `fee-unprovided-service` — `edu-fee-unprovided-service-az` — Present — A.R.S. §§ 33-1314.01(B), 33-1364(B), 33-1321(B), 44-1522
+- `fire-code-standard` — `edu-fire-code-standard-az` — Present — A.R.S. § 37-1383(A)(2), (5), (8) (as amended by Laws 2025, ch. 99, § 2); A.R.S. §§ 11-861(C)(2), 33-1324(A)(1), 9-1303(7)
+- `fire-sprinkler-duty` — `edu-no-fire-sprinkler-duty-az` — Absent — No sprinkler or retrofit duty for rentals (battery AZG-A-060); A.R.S. §§ 9-807(A), 11-861(E), 9-461.18, 9-462.13, 33-1324(A)(1), 9-1303(7)(b), 32-1121(D)(1)
+- `firearms` — `edu-firearms-az`, `firearm-rules-la` — Present+tag — A.R.S. § 12-781(A)-(C); A.R.S. § 33-1368(A); no in-unit or permit-holder rule (battery AZG-A-061); tag firearm-rules-la
+- `flood-disclosure` — `edu-no-flood-disclosure-az` — Absent — No landlord flood disclosure (battery AZG-A-062); seller-only A.R.S. §§ 33-422(F) item 6, 33-423(A)(1)
+- `forfeiture-redemption` — `edu-forfeiture-redemption-az` — Present — A.R.S. § 33-1368(B) (reinstatement before filing, after filing, after judgment at landlord's discretion)
+- `frozen-standard-incorporation` — `edu-frozen-standard-incorporation-az` — Present — A.R.S. §§ 33-1324(A)(1), 9-1303, 9-802, 11-861(A), (C), 41-1492.03, 41-1491.19(D), 1-255
+- `furnishings-included` — `furnishings-included-la` — tagged — Tag furnishings-included-la; A.R.S. §§ 33-1310(11), 33-1341(6), 33-1321(A), (D), 33-322; no furnished-rental rule (battery AZG-A-063)
+- `good-cause-notice` — `edu-no-good-cause-notice-az` — Absent — No good-cause or reason-stating notice for dwelling units (battery AZG-A-064); A.R.S. § 33-1375(A)-(B); contrast §§ 33-1476(A)-(B), 33-1491(C), 33-2143(A)-(B)
+- `government-fee-reimbursement` — `edu-no-government-fee-passthrough-az`, `government-fee-reimbursement-az` — Absent — No pass-through rule (battery AZG-A-065); A.R.S. §§ 33-1314(A), 33-1315(A)(3), 33-1902(E), (G), (I), 9-1305, 11-1705, 42-6004(H)
+- `governmental-fines` — `edu-no-governmental-fines-rule-az`, `governmental-fines-az` — Absent — No fine pass-through ban or authority (battery AZG-A-067); A.R.S. §§ 33-1368(C), (F), 33-1315(A)(3), 9-499(A), (J), 11-268(A)-(B), 36-602(A)
+- `guarantor-renewal` — `edu-no-guarantor-renewal-rule-az`, `guaranty-as` — Absent — No lease-guarantor renewal rule (battery AZG-A-068); A.R.S. §§ 44-101(2), 12-1641, 12-1642, 33-1321(A); tag guaranty-as
+- `guest-rights` — `edu-no-guest-rights-az` — Absent — No guest or supplier access right or guest-fee rule for dwelling units (battery AZG-A-069); A.R.S. §§ 33-1342(A), 33-1368(F), 33-1378; contrast §§ 33-1413.02, 33-1414(A)(5), 33-2105(K)
+- `habitability-materiality` — `edu-habitability-materiality-az` — Present — A.R.S. §§ 33-1361(A)-(B), 33-1363(B), 33-1364(A), 33-1365(A), 33-1324(A)(1), 9-1303
+- `habitability-modifiable` — `edu-habitability-modifiable-az` — Present — A.R.S. § 33-1324(A)(6), (C)
+- `habitability-presumption` — `edu-no-habitability-presumption-az` — Absent — No habitability presumption (battery AZG-A-070); retaliation presumption only, A.R.S. § 33-1381(B)-(C)
+- `habitability-statement` — `edu-no-habitability-statement-az` — Absent — No lease habitability statement required (battery AZG-A-072); duty applies by statute, A.R.S. § 33-1324(A); disclosures A.R.S. § 33-1322
+- `habitability-waiver` — `edu-habitability-waiver-az` — Present — A.R.S. §§ 33-1324(C)-(D), 33-1315(A)(1), 33-1316
+- `hazardous-contamination-disclosure` — `edu-hazardous-contamination-disclosure-az`, `environmental-use-restriction-az` — Present — A.R.S. §§ 49-152(G), 49-158(C) (DEUR terms incorporated into any lease); no general contamination disclosure (battery AZG-A-073); sale-only § 33-434.01
+- `health-district-rental-rules` — `edu-no-health-district-rental-rules-az` — Absent — No health-district rental rules or copy duty (battery AZG-A-074); A.R.S. §§ 36-602(A), 33-1381(A)(1), 9-1303
+- `heating` — `edu-heating-az` — Present — A.R.S. §§ 33-1324(A)(6), (C)-(D), 33-1364(A)-(C), (E), (H), 9-1303(1)(d)
+- `home-business` — `edu-no-home-business-rule-az` — Absent — No tenant home-business right against a lease (battery AZG-A-075); county zoning limit only, A.R.S. § 11-820; A.R.S. § 33-1314(A)
+- `homestead-waiver` — `edu-homestead-waiver-az` — Present — A.R.S. §§ 33-1132, 33-1122, 33-1104(A)-(B), 33-1101(A), 33-1123(A), 33-1372
+- `infirmity-termination` — `edu-no-infirmity-termination-az` — Absent — No death, incapacity or care-facility termination rule (battery AZG-A-076); A.R.S. §§ 33-1375(B), 33-1305(A), 33-1314(E)-(G); only §§ 33-1318, 33-1318.01 early termination
+- `informal-dispute-resolution` — `informal-dispute-resolution-or` — tagged — Tag informal-dispute-resolution-or; no AZ rule (battery AZG-A-078); A.R.S. §§ 33-1314(A), 33-1315(A)(1), 12-2238(A)-(B), 12-134(A)
+- `inspection-condemnation-disclosure` — `edu-no-condemnation-disclosure-az` — Absent — No duty to disclose inspection, code-violation or condemnation orders (battery AZG-A-079); A.R.S. §§ 33-1904, 33-1901(3), 33-1361(A), 33-343
+- `inspection-notice-penalty` — `edu-inspection-notice-penalty-az` — Present — A.R.S. § 33-1376(B) (injunction or termination, actual damages not less than one month's rent); A.R.S. § 33-1343(D)
+- `jury-waiver` — `edu-jury-waiver-az` — Absent — Ariz. Const. art. 2, § 23; A.R.S. §§ 12-1176, 33-1377(A); no lease jury-waiver statute
+- `key-control-policy` — `edu-no-key-control-policy-az` — Absent — No key-control policy or employee background-check mandate (battery AZG-A-081); keys rules A.R.S. §§ 33-1310(3), 33-1318, 33-1343(D)
+- `knowing-use-penalty` — `edu-knowing-use-penalty-az` — Present — A.R.S. § 33-1315(B) (actual damages and not more than two months' periodic rent); A.R.S. § 33-1364(E)
+- `landlord-breach-remedy` — `edu-landlord-breach-remedy-az` — Present — A.R.S. §§ 33-1361 to 33-1367, 33-1376(B), 33-1381(B), 33-1305(A)
+- `landlord-liability-insurance` — `edu-no-landlord-insurance-mandate-az` — Absent — No landlord liability-insurance mandate (battery AZG-A-082); STR insurance option A.R.S. §§ 9-500.39(B)(8), 11-269.17(B)(8); A.R.S. § 33-1315(A)(3)
+- `landlord-lien` — `edu-landlord-lien-az` — Present — A.R.S. §§ 33-1372, 33-1304, 33-1374, 33-1367; ch. 3 lien A.R.S. §§ 33-361(D), 33-362; A.R.S. § 33-1132
+- `landlord-remedies-termination` — `edu-landlord-remedies-termination-az` — Present — A.R.S. §§ 33-1373, 33-1368(C), 33-1377(B), (F), 12-1178(A), 33-1305(A)
+- `late-fee-limit` — `edu-late-fee-limit-az` — Present — A.R.S. §§ 33-1368(B), 33-1377(F); § 33-2105(A)(2) (RV spaces only)
+- `law-enforcement-cooperation` — `edu-law-enforcement-cooperation-az` — Present — A.R.S. §§ 33-1315(A)(4)-(5), 13-3010(J), 33-1378, 33-1906, 33-1806.01(G), 33-1260.01(G); no general cooperation duty (battery AZG-A-083)
+- `lead-safe-certification` — `edu-no-lead-safe-certification-az` — Absent — No state lead-safe certificate (battery AZG-A-085); A.R.S. §§ 36-1672 to 36-1676; FEDERAL: 42 U.S.C. § 4852d(a)(1)
+- `lead-state-notices` — `edu-no-lead-state-notices-az` — Absent — No state lead notice beyond the federal disclosure (battery AZG-A-087); A.R.S. §§ 36-1672 to 36-1676; FEDERAL: 42 U.S.C. § 4852d(a)(1)
+- `lease-content-requirements` — `edu-lease-content-requirements-az` — Present — A.R.S. §§ 33-1322, 33-1321(B)-(C), 33-1314.01(B), (G), 33-1331(A), 33-1368(B), 36-1681(E), 33-1319(A); no content list or first-page rule (battery AZG-A-088)
+- `lease-copy` — `edu-lease-copy-az`, `lease-copy-receipt-hi` — Present+tag — A.R.S. §§ 33-1322(E), 33-1321(C), 33-1342(A)(6)
+- `lease-notice-initial-requirement` — `edu-no-lease-initials-requirement-az` — Absent — No initials or separate-signature rule for lease terms (battery AZG-A-089); A.R.S. §§ 32-2175(D), 33-1322(A)-(B)
+- `lease-registration` — `edu-lease-registration-az` — Present — A.R.S. §§ 33-401(A), 33-411(A), 33-411.01, 33-412
+- `lease-term-limitation` — `edu-lease-term-limits-az`, `edu-lease-spousal-joinder-az` — Present — A.R.S. §§ 44-101(6), 33-401(A)-(B), 33-452, 33-454, 33-1314(D); no maximum term (battery AZG-A-090); § 25-214 heading only, not read
+- `lease-type-parity` — `edu-no-lease-type-parity-az` — Absent — No lease-type parity rule (battery AZG-A-092); A.R.S. §§ 33-1314(A), (D), 33-1375(A)-(B), 33-1311, 33-1312
+- `lease-type-size` — `edu-no-lease-type-size-az` — Absent — No minimum type size for residential leases (battery AZG-A-094); contrast A.R.S. §§ 33-1703(B), 44-1763
+- `limitation-of-actions` — `edu-limitation-of-actions-az` — Present — A.R.S. §§ 12-548(A)(1), 12-543(1), 12-542(3), (6), 12-541(5), 12-550, 12-501, 12-508
+- `liquidated-damages` — `edu-no-liquidated-damages-rule-az` — Absent — No statute for dwelling leases; A.R.S. §§ 33-1373, 33-1370(C), 33-1305(A)
+- `lockout-for-rent-delinquency` — `edu-lockout-for-rent-delinquency-az` — Present — A.R.S. §§ 33-1367, 33-1374, 33-1368(D)
+- `maintenance-duty-shift` — `edu-maintenance-duty-shift-az` — Present — A.R.S. § 33-1324(C)-(D); A.R.S. §§ 33-1310(16), 33-1341
+- `meter-conservation-charge` — `edu-no-meter-conservation-charge-az` — Absent — No statute; A.R.S. § 33-1314.01(B)
+- `military-air-zone-disclosure` — `edu-no-military-zone-disclosure-az` — Absent — No landlord military-zone disclosure (battery AZG-A-096); A.R.S. §§ 28-8484(A), (C), (E), 32-2113(A), 32-2183, 33-423(A)(2)-(3)
+- `minor-tenant-filing` — `edu-minor-tenants-az` — Present — A.R.S. §§ 1-215(3), (21), 12-2451(A), 12-2454(A); no lease-capacity or minor-eviction statute (battery AZG-A-097)
+- `municipal-utility-lien` — `edu-municipal-utility-lien-az` — Present — A.R.S. §§ 9-511.02(A)-(C), (F)-(H), 11-264(C)-(E), (H), 9-511.01(G)-(H), 40-376; no other utility lien (battery AZG-A-098)
+- `nonpayment-notice` — `edu-nonpayment-notice-az` — Present — A.R.S. § 33-1368(B), (G); § 33-1313(B)
+- `nonrefundable-deposit-separate-notice` — `edu-nonrefundable-deposit-notice-az` — Present — A.R.S. § 33-1321(B)
+- `nonresident-owner-agent` — `edu-nonresident-owner-agent-az` — Present — A.R.S. § 33-1902(B); § 33-1322(A)(2), (D)
+- `notice-service-fee` — `edu-no-notice-service-fee-rule-az` — Absent — No statute; A.R.S. §§ 33-1368(B), 33-1377(F), 12-1178(A)
+- `notice-to-quit-waiver` — `edu-notice-to-quit-waiver-az` — Present — A.R.S. §§ 33-1315(A)(1), 33-1368, 33-1375
+- `notice-to-vacate-additional-terms` — `edu-no-notice-to-vacate-terms-rule-az` — Absent — none found; A.R.S. §§ 33-1324(A), 33-1367, 33-1315(A)(1)
+- `optional-lease-terms` — `edu-optional-lease-terms-az` — Present — A.R.S. §§ 33-1314(A), (C)-(E), 33-1344, 33-1324(C)-(D), 33-1321(B), (D), 33-1325
+- `ordnance-demolition-meter-disclosures` — `edu-no-ordnance-demolition-meter-disclosure-az` — Absent — none found; A.R.S. §§ 32-2113, 32-2183.05 (sales only); § 33-1314.01
+- `other-landlord-facilities` — `edu-other-landlord-facilities-az` — Present — A.R.S. § 33-1324(A)(3)-(6)
+- `owner-move-in-reservation` — `owner-occupancy-termination-ar` — tagged — A.R.S. §§ 33-1314(A), 33-1375(B)-(C), 33-1381; no owner-use statute
+- `parking-rules-notice` — `edu-parking-rules-notice-az` — Present — A.R.S. § 33-1342(A)(6), (B); § 9-499.05(B)
+- `part5-nonwaivable` — `edu-part5-nonwaivable-az` — Present — A.R.S. §§ 33-1315, 33-1312, 33-1306, 33-1316, 33-1364(E)
+- `periodic-services-entry` — `edu-no-periodic-services-entry-rule-az`, `scheduled-services-entry-az` — Present — A.R.S. § 33-1343(A), (B), (D); § 33-1376(B); no no-notice exception
+- `pest-control-notice` — `edu-no-pest-control-notice-az` — Absent — none found; A.R.S. §§ 33-1343(D), 33-1319
+- `pet-eviction-fact-sheet` — `edu-no-pet-eviction-fact-sheet-az` — Absent — none found; A.R.S. §§ 33-1370(E), 33-1368(E), 33-1314(E)
+- `pet-fees` — `edu-pet-fees-az` — Present — A.R.S. §§ 33-1321(A)-(B), 33-1310(15), 41-1491.19(E)(2)
+- `plain-language` — `edu-no-plain-language-rule-az` — Absent — none found; A.R.S. § 33-1322(B), (E)
+- `plain-language-consumer-statement` — `edu-no-plain-language-statement-az` — Absent — none found; A.R.S. § 33-1315
+- `political-access` — `edu-no-political-access-rule-az` — Absent — none found; A.R.S. §§ 33-1261(D), 33-1808(H) (associations only); § 33-1381(A)(3)
+- `portable-cooling-device` — `edu-no-portable-cooling-rule-az` — Absent — none for dwelling units; A.R.S. §§ 33-1452(F)(9), 33-2132(C)(9) (parks only); §§ 33-1324, 33-1364
+- `portable-solar` — `edu-portable-solar-az` — Present — A.R.S. § 33-439(A); § 44-1761(8); no tenant plug-in statute
+- `portfolio-thresholds` — `edu-portfolio-thresholds-az` — Present — A.R.S. §§ 41-1491.02, 33-1331(D), 33-1319(D), 33-1324(C)-(D), 49-746(D)
+- `possession-bond` — `edu-no-possession-bond-az` — Absent — none found; A.R.S. §§ 33-1310(15), 33-1315(A)(1), 33-1375(C), 12-1179
+- `post-eviction-property` — `edu-post-eviction-property-az` — Present — A.R.S. § 33-1368(D)-(E); § 33-1370(D)-(I); § 12-1178(C)-(E)
+- `private-well-testing` — `edu-no-private-well-testing-az` — Absent — none found; A.R.S. § 33-1324(A)(1), (2), (6)
+- `prohibited-acts-renter` — `prohibited-acts-renter-wy` — tagged — A.R.S. §§ 33-1341(6)-(7), 33-1343(A), 33-1376(A)
+- `promises-to-repair` — `edu-promises-to-repair-az` — Present — A.R.S. § 33-1361(A)-(B); § 33-1310(13)
+- `prop65-rental-warning` — `edu-no-chemical-warning-rule-az` — Absent — none found
+- `property-tax-rent-disclosure` — `edu-property-tax-rent-statement-az` — Present — A.R.S. § 43-1072(C) (read by main pass outside corpus)
+- `protected-class-inquiry-ban` — `edu-no-protected-class-inquiry-ban-az` — Absent — none found; A.R.S. §§ 41-1491.14, 41-1491.15, 41-1491.19 (general bans); FEDERAL: 24 C.F.R. § 100.202(c)
+- `purpose-limitation` — `edu-no-purpose-limitation-az` — Absent — none voids the lease; A.R.S. §§ 33-1368(A), 12-991, 12-992, 12-997, 12-802, 12-806
+- `recycling-notice` — `edu-no-recycling-notice-az` — Absent — none found; A.R.S. §§ 49-746(D), 9-500.07 (related)
+- `redemption` — `edu-redemption-az` — Present — A.R.S. §§ 33-1368(B), 33-1371
+- `religious-cultural-display` — `edu-no-religious-display-rule-az` — Absent — none found; A.R.S. § 41-1491.14(B) (general)
+- `rent-demand-bar` — `edu-no-rent-demand-bar-az` — Absent — none found; A.R.S. §§ 33-1316, 33-1362, 33-1364(A)(3), 33-1365, 33-1368(B) (general)
+- `rent-escalation` — `edu-rent-escalation-az`, `rent-escalation-la`, `rent-increase-midterm-ky` — Present+tag — A.R.S. §§ 33-1314(A), 33-1381(A)-(B), 33-1329(A), 33-1312(A)
+- `rent-installments` — `edu-rent-installments-az`, `rent-installments-or` — Present+tag — A.R.S. § 33-1314(C)-(D); § 33-1371(A)
+- `rent-into-court-counterclaim` — `edu-rent-into-court-counterclaim-az` — Present — A.R.S. § 33-1365(A)-(B); § 12-1179(D); § 33-1377(C)
+- `rent-receipt-anti-waiver` — `edu-rent-receipt-anti-waiver-az` — Present — A.R.S. § 33-1316
+- `rent-receipts` — `edu-no-rent-receipt-rule-az` — Absent — No statute
+- `rent-reporting` — `edu-no-rent-reporting-rule-az` — Absent — none found; A.R.S. § 44-1695(C) (general)
+- `rental-inspection` — `edu-rental-inspection-az` — Present — A.R.S. §§ 9-1302(C), 11-1704, 33-1904(A)(1), 33-1343
+- `renters-insurance-rules` — `edu-no-renters-insurance-rules-az` — Absent — none found; A.R.S. §§ 33-1314(A), 33-1315(A)(3), (B) (general)
+- `repair-cost-termination` — `edu-no-repair-cost-termination-az` — Absent — none found; A.R.S. §§ 33-1324(A), 33-1316, 33-1363(A), 33-1366, 33-1375, 33-1381 (general)
+- `repair-escrow-exemption-notice` — `edu-no-repair-escrow-exemption-az` — Absent — none found; A.R.S. §§ 33-1308, 33-1315(A)(1), (B) (general)
+- `repair-notice` — `edu-repair-notice-az` — Present — A.R.S. §§ 33-1341(8), 33-1313(A)-(B), 33-1361(A), 33-1363(A), 33-1364(A), (H)
+- `required-disclosures` — `edu-required-disclosures-az` — Present — A.R.S. §§ 33-1322(A)-(D), 33-1314.01(B), (G), 33-1321(B)-(C), 33-1319(A), 33-1331, 33-1342, 36-1681(E), 43-1072(C); FEDERAL: 42 U.S.C. § 4852d(a)(1)(A)-(B), (a)(4), 4851b(27)
+- `required-fees` — `edu-required-fees-az` — Present — A.R.S. §§ 33-1314(A), 33-1314.01(B), 33-1368(B), 33-1377(F), 12-1178(A)
+- `rights-responsibilities-guide` — `edu-no-rights-guide-az` — Absent — No statute; A.R.S. § 33-1322(B)
+- `sanitary-code-variance` — `edu-no-code-variance-notice-az` — Absent — none found; A.R.S. §§ 33-1324(A)-(B), 9-1303 (general)
+- `scope` — `edu-scope-az` — Present — A.R.S. §§ 33-1304, 33-1307, 33-1308, 33-1310(4), 33-381, 33-1406, 33-1407, 33-2101
+- `seasonal-tenancy` — `edu-no-seasonal-tenancy-rule-az` — Absent — none found; A.R.S. §§ 33-1308(4), 33-1314(D), 33-1375, 33-2101(A) (general)
+- `security-deposit-cap` — `edu-security-deposit-cap-az` — Present — A.R.S. § 33-1321(A)
+- `security-deposit-holding` — `edu-security-deposit-holding-az`, `security-deposit-disposition-az` — Present — A.R.S. §§ 33-1321(G), 32-2174(D)-(E)
+- `security-deposit-nonwaiver` — `edu-security-deposit-nonwaiver-az` — Present — A.R.S. §§ 33-1321, 33-1315(A)(1), 33-1325(A)
+- `security-deposit-on-sale` — `edu-security-deposit-on-sale-az` — Present — A.R.S. §§ 33-1321(H), 33-1325(A), 33-1330
+- `security-deposit-penalty` — `edu-security-deposit-penalty-az` — Present — A.R.S. § 33-1321(D)-(F); § 33-1315(B)
+- `security-deposit-standards` — `edu-no-deposit-standards-rule-az` — Absent — No statute
+- `security-devices` — `edu-no-security-device-rule-az` — Absent — none found; A.R.S. §§ 33-1324(A), 9-1303(1)(e), 33-1318(E)-(F), 36-1681(C)(3) (general)
+- `self-help-eviction` — `edu-self-help-eviction-az` — Present — A.R.S. §§ 33-1374, 33-1367, 33-1364(C)-(D), 33-1368(D), 33-1376(B)
+- `senior-housing-work-card` — `edu-no-senior-housing-work-card-az` — Absent — none found; A.R.S. § 41-1491.04 (general)
+- `service-animal-denial-penalty` — `edu-no-service-animal-denial-penalty-az` — Absent — none found for housing; A.R.S. §§ 11-1024(A), (J), (M)(4); 41-1491.19(E)(2); 41-1491.33; 41-1491.35(B)
+- `service-animal-misrepresentation` — `edu-no-service-animal-misrepresentation-housing-az` — Absent — none found for housing; A.R.S. §§ 11-1024(K), (M)(4); 33-1368(A)(1); 41-1491.38
+- `sex-offender-disclosure` — `edu-sex-offender-disclosure-az` — Present — A.R.S. § 32-2156(A)(3), (B)
+- `sex-offender-occupancy` — `edu-no-sex-offender-occupancy-rule-az` — Absent — none found for landlords; A.R.S. §§ 13-3727, 33-1260.01(H), 33-1806.01(H), 9-500.39(B)(3) (general); FEDERAL: 42 U.S.C. § 13663(a) (federally assisted housing); FEDERAL: 42 U.S.C. § 13664(a)(2)
+- `sfr-occupancy-disclosure` — `edu-no-sfr-occupancy-disclosure-az` — Absent — none found; A.R.S. § 12-1173(A)(3)(b), (B)-(C) (general)
+- `shoreline-access-disclosure` — `edu-no-shoreline-disclosure-az` — Absent — none found
+- `showing-notice-waiver` — `edu-showing-notice-waiver-az` — Present — A.R.S. §§ 33-1343(A)-(D), 33-1315(A)(1)
+- `shutdown-rent-protection` — `edu-no-shutdown-rent-protection-az` — Absent — none found; A.R.S. §§ 33-1314(C), 33-1368(B), 33-1371(A) (general)
+- `single-family-zone-lease-limit` — `edu-no-single-family-zone-lease-limit-az` — Absent — none found; A.R.S. §§ 9-461.18(B)(1)-(2), 11-810.01(C)(1)-(2), 9-462.13(B)(5), 33-1806.01(A) (general)
+- `smart-access` — `edu-no-smart-access-rule-az` — Absent — none found; A.R.S. §§ 33-1343(B)-(E), 33-1367, 33-1318(E)-(F) (general)
+- `smoke-drift-waiver` — `edu-smoke-drift-waiver-az` — Present — A.R.S. § 36-601.01(A)(9), (B), (D), (E); § 33-1315(A)(3)
+- `social-security-defense` — `edu-no-benefit-delay-defense-az` — Absent — none found; A.R.S. §§ 33-1368(B), 33-1377(C) (general); FEDERAL: 24 C.F.R. § 982.310(b)(1)-(2)
+- `special-district-representation` — `edu-no-special-district-statement-az` — Absent — none found; A.R.S. §§ 32-2181(A)(14), 32-2101 (subdividers only); 33-1314(A)
+- `sprinkler-disclosure` — `edu-no-sprinkler-disclosure-az` — Absent — none found; A.R.S. §§ 33-1324(A)(1), 9-1303(7)(b), 9-807(A) (general)
+- `statute-of-frauds-lease-term` — `edu-statute-of-frauds-lease-term-az` — Present — A.R.S. §§ 44-101(6), 33-401(A), 33-1310(13), 33-1314(D), 33-1322(E)
+- `statutory-caps` — `edu-statutory-caps-az` — Present — A.R.S. §§ 33-1321(A)-(B), (E), 33-1314.01(B), 33-1329(A), 33-1315(B), 33-1367, 33-1375(C), 33-1376(B), 33-1381(B), 44-6852, 12-671(A)
+- `statutory-early-termination` — `edu-statutory-early-termination-az` — Present — A.R.S. §§ 33-1318, 33-1318.01, 33-1366(A), 33-1361(A), 33-1362(A), 33-1367, 33-1376(B), 33-1315(A)(1); FEDERAL: 50 U.S.C. § 3955(a)-(b)
+- `steam-radiator-covers` — `edu-no-radiator-cover-rule-az` — Absent — none found; A.R.S. §§ 33-1324(A)(4), (6), 33-1341(5) (general)
+- `stove-refrigerator` — `edu-no-stove-refrigerator-rule-az` — Absent — none found; A.R.S. §§ 33-1324(A)(4), 9-1303(1)(b), 33-1310(14), 36-1651 (general)
+- `student-housing` — `edu-student-housing-az` — Present — A.R.S. §§ 33-1308(1), (3), 41-1491.14, 44-101(2)
+- `subsidized-inspection-refusal` — `edu-no-subsidized-inspection-refusal-rule-az` — Absent — none found; A.R.S. §§ 33-1343(A), (D), 33-1376(A), 33-1308(7), 33-1371(B) (general); FEDERAL: 24 C.F.R. §§ 982.405(a)-(b), (d), 982.551(d)
+- `subsidy-habitability-proration` — `edu-no-subsidy-proration-rule-az` — Absent — none found; A.R.S. §§ 33-1366(A)(2), 33-1364(A)(2), 33-1361(B), 33-1310(6), (12) (general); FEDERAL: 24 C.F.R. § 982.404(a)(1)-(4), (b)(1)
+- `subsidy-late-fee` — `edu-no-subsidy-late-fee-rule-az` — Absent — none found; A.R.S. §§ 33-1368(B), 33-1377(F), 33-1371(B) (general); FEDERAL: 24 C.F.R. §§ 982.451(b)(5), 982.310(b)(1)
+- `substandard-property-receivership` — `edu-substandard-property-receivership-az` — Present — A.R.S. §§ 33-1901(3), 33-1903, 33-1904(A)(2), (B), 33-1905, 12-996, 33-2603(B)(4)
+- `tax-escalation` — `edu-tax-escalation-az`, `tax-insurance-escalation-la` — Present+tag — A.R.S. §§ 33-1314(A), 33-1321(D), 42-6004(H), 43-1072(C), 33-1381(A)
+- `telecom-access` — `edu-no-telecom-access-rule-az` — Absent — none found for dwellings; A.R.S. §§ 33-2301 (commercial buildings), 9-600 (local governments), 33-1314(A)
+- `tenancy-at-will` — `edu-tenancy-at-will-az` — Present — A.R.S. §§ 33-1314(D), 33-1375(A)-(C), 33-1310(13), 33-381, 33-1304, 12-1173(A)(1), (C)
+- `tenant-bankruptcy` — `edu-no-tenant-bankruptcy-rule-az` — Absent — none in Arizona law; A.R.S. § 33-1303; FEDERAL: 11 U.S.C. §§ 362(a)(3), (b)(22)-(23), 365(e)(1)
+- `tenant-confidential-information` — `edu-tenant-confidential-information-az` — Present — A.R.S. §§ 33-1260.01(C), (E)(1), 33-1806.01(C), (E)(1), 44-1373(A), 44-7601(A), 18-551, 18-552(A)-(B), (E)-(F), (J); no general disclosure bar (battery AZG-B-081)
+- `tenant-display-rights` — `edu-no-display-rights-statute-az` — Absent — none found for tenants; A.R.S. §§ 33-1808(A)-(D), 33-1261(A)-(F) (association members only), 33-1342(A)-(B), 41-1491.14(B)
+- `tenant-employee-housing` — `edu-tenant-employee-housing-az` — Present — A.R.S. §§ 33-1308(5), 12-1173(A)(1), 9-461.18; no disclosure rule (battery AZG-B-083)
+- `tenant-insurance-claims` — `edu-no-tenant-insurance-claims-az` — Absent — none found; A.R.S. §§ 33-1315(A)(3), 33-1324(A), (C)-(D), 33-1341(6), 33-1368(C) (general)
+- `tenant-portal` — `edu-tenant-portal-az` — Present — A.R.S. §§ 44-7005(B)-(C), 33-1314(C), 33-1313(B), 33-1371(A), (C); no portal statute (battery AZG-B-086)
+- `tenant-records` — `edu-tenant-records-az` — Present — A.R.S. §§ 32-2175(A), (C), (H), 33-1330, 33-1321(D), 44-7601(A), 44-1373(A); no rent-ledger rule (battery AZG-B-088)
+- `tenant-repair-remedies` — `edu-tenant-repair-remedies-az` — Present — A.R.S. §§ 33-1361, 33-1363, 33-1364, 33-1365(A), 33-1368(B), 12-1179(D)-(E); no certified-unfit escrow (battery AZG-B-090)
+- `tenant-right-to-organize` — `edu-tenant-right-to-organize-az` — Present — A.R.S. §§ 33-1381(A)(3), (B), (C), 33-1367; no affirmative organizing right (battery AZG-B-091)
+- `tenant-rights-statement` — `edu-no-tenant-rights-statement-az` — Absent — No statute; A.R.S. § 33-1322(B)
+- `tenant-screening` — `edu-tenant-screening-az` — Present — A.R.S. §§ 41-1491.14, 33-1317(F), 13-911(I)(5), 13-905(M)(3)-(4), 33-1368(A)(2), 44-1698(J), (N)(13); no screening regime (battery AZG-B-092); FCRA FEDERAL, not read
+- `tenant-statutory-duties` — `edu-tenant-statutory-duties-az` — Present — A.R.S. §§ 33-1341, 33-1343(A), 33-1344, 33-1319(B), 36-1637(B), 33-1368(A), (C), (F), 33-1369
+- `term-change-notice` — `edu-term-change-notice-az` — Present — A.R.S. §§ 33-1342(B)-(C), 33-1364(C), 33-1375(A)-(B); no other modification notice rule (batteries AZG-B-094, AZG-B-038)
+- `tpa-exemption-notice` — `edu-no-tpa-exemption-notice-az` — Absent — none; A.R.S. §§ 33-1329(A), 33-1308 (battery AZG-B-096)
+- `tpa-notice` — `edu-no-tpa-notice-az` — Absent — none; A.R.S. §§ 33-1329(A)-(B), 33-1375(B) (battery AZG-B-095)
+- `tpa-sunset` — `edu-no-tpa-sunset-az` — Absent — none (battery AZG-B-097; AZG-CUR-001)
+- `translation-duty` — `edu-no-translation-duty-az` — Absent — none; Ariz. Const. art. 28, §§ 2, 3 (battery AZG-B-099)
+- `trespass-notice` — `edu-trespass-notice-az`, `barred-person-covenant-ne` — Present+tag — A.R.S. §§ 13-1501(2), 13-1502(A)-(C), 13-1504(A)(1), 12-1178(D)-(E); no landlord barring rule (battery AZG-B-100)
+- `truth-in-renting` — `edu-no-truth-in-renting-az` — Absent — none; A.R.S. §§ 33-1322(B), (E), 33-1315 (battery AZG-B-101)
+- `unbundled-parking` — `edu-no-unbundled-parking-rule-az` — Absent — none; A.R.S. §§ 33-1310(11)-(12), 33-1314(A) (battery AZG-B-102)
+- `unconscionability` — `edu-unconscionability-az` — Present — A.R.S. § 33-1312
+- `unpaid-damages-interest` — `edu-unpaid-damages-interest-az`, `interest-on-unpaid-amounts-ca` — Present+tag — A.R.S. §§ 44-1201(A)(2), (B), (D)(1), (F), 44-1202, 33-1312(A)(1)
+- `usufructuary-lessor` — `edu-no-usufructuary-lessor-rule-az` — Absent — none; A.R.S. §§ 33-231, 33-1322(A) (battery AZG-B-104)
+- `utility-allowance-cap` — `edu-utility-allowance-cap-az` — Present — A.R.S. § 33-1314.01(B)
+- `utility-apportionment` — `edu-utility-apportionment-az` — Present — A.R.S. § 33-1314.01(A), (C), (F)-(G)
+- `utility-deposit-return` — `edu-no-utility-deposit-rule-az` — Absent — No statute
+- `utility-disclosure-attachment` — `edu-utility-disclosure-attachment-az` — Present — A.R.S. § 33-1314.01(B), (G)
+- `utility-disconnection-notice-authorization` — `edu-no-utility-notice-authorization-rule-az` — Absent — No statute
+- `utility-interruption-submeter` — `edu-utility-interruption-submeter-az` — Present — A.R.S. §§ 33-1364(B)-(C), 33-1368(D), 33-1374
+- `utility-landlord-account` — `edu-utility-landlord-account-az` — Present — A.R.S. § 33-1364(A)(1)
+- `utility-shutoff-statute` — `edu-no-utility-shutoff-statute-az` — Absent — No statute; A.R.S. §§ 33-1364, 33-1368(D)
+- `utility-transfer` — `edu-utility-transfer-az` — Present — A.R.S. §§ 33-1364(B)-(C), 33-1374
+- `veterans-incentive` — `edu-no-veterans-incentive-az` — Absent — none; A.R.S. § 41-608.04 (tenant-side stipend) (battery AZG-B-105)
+- `waiver-by-acceptance` — `edu-waiver-by-acceptance-az` — Present — A.R.S. § 33-1371(A)-(C)
+- `water-heater-temperature` — `edu-no-water-heater-temperature-rule-az` — Absent — none; A.R.S. § 33-1324(A)(4), (6) (battery AZG-B-106)
+- `waterbed` — `edu-no-waterbed-rule-az`, `waterbed-mn` — Absent — none; A.R.S. §§ 33-1314(A), 33-1310(15) (battery AZG-B-107)
+- `window-guards` — `edu-no-window-guard-rule-az` — Absent — none for window guards; A.R.S. § 36-1681(C)(3) pool windows (battery AZG-B-108)
+- `written-notice-required` — `edu-written-notice-required-az` — Present — A.R.S. §§ 33-1313(B), 33-1315(A)(1), 33-1322, 33-1321, 33-1368, 33-1369, 33-1375 and others; entry and new-rule notices not required in writing (§§ 33-1343(D), 33-1342(B))
+
+## §3 Batteries
+
+Every battery ran a nonsense control (0 hits) and a known positive. The full patterns, hit lists and argv are in `batteries.jsonl`; each absence row's notes name the battery and the sections behind each count. A superseded run is kept and named, never cited.
+
+- **AZG-CUR-001** (main, topic `currency`, scope law, 786 units): pattern hits 3; 3; positives passed; control 0.
+- **AZG-CUR-002** (main, topic `currency`, scope law, 786 units): pattern hits 0; 2; 2; positives passed; control 0.
+- **AZG-B-001** (B, topic `nonpayment-notice`, scope all, 12084 units): pattern hits 3; 6; 0; 1; positives passed; control 0. Cited by: nonpayment-notice.
+- **AZG-M-001** (M, topic `jury-waiver`, scope all, 12084 units): pattern hits 119; 19; 27; 0; 14; positives passed; control 0. Cited by: jury-waiver.
+- **AZG-M-002** (M, topic `liquidated-damages`, scope all, 12084 units): pattern hits 7; 2; 13; 0; 1; positives passed; control 0. Cited by: eviction-penalty-clause-ban, liquidated-damages.
+- **AZG-M-003** (M, topic `notice-service-fee`, scope all, 12084 units): pattern hits 133; 13; 8; positive FAILED: ARS 41-1004; control 0. Superseded by AZG-M-004.
+- **AZG-M-004** (M, topic `notice-service-fee`, scope all, 12084 units): pattern hits 75; 13; 10; 27; positives passed; control 0. Supersedes AZG-M-003 (positive ARS 41-1004 failed (guessed unit); first pattern too broad; narrowed and real positives chosen). Cited by: eviction-penalty-clause-ban, notice-service-fee.
+- **AZG-M-005** (M, topic `smoke-drift-waiver`, scope all, 12084 units): pattern hits 0; 0; 6; 1; 3; positives passed; control 0. Superseded by AZG-M-007.
+- **AZG-M-006** (M, topic `collection-fee`, scope all, 12084 units): pattern hits 20; 29; 2; positives passed; control 0. Superseded by AZG-M-008.
+- **AZG-B-002** (B, topic `nonresident-owner-agent`, scope all, 12084 units): pattern hits 7; 10; 4; 18; 2; positives passed; control 0. Cited by: nonresident-owner-agent.
+- **AZG-M-007** (M, topic `smoke-drift-waiver`, scope all, 12084 units): pattern hits 0; 1; 6; 1; 3; positives passed; control 0. Supersedes AZG-M-005 (INFLECTION on \bsmoke\b in pattern 2; rerun with smok stem). Cited by: smoke-drift-waiver.
+- **AZG-M-008** (M, topic `collection-fee`, scope all, 12084 units): pattern hits 20; 38; 3; positives passed; control 0. Supersedes AZG-M-006 (INFLECTION on \brent\b; rerun with rent(?:s|ed|ing)?). Cited by: collection-fee.
+- **AZG-A-001** (A, topic `actual-notice-method`, scope all, 12084 units): pattern hits 15; 2; 7; 0; 0; 0; positives passed; control 0. Superseded by AZG-A-002.
+- **AZG-M-009** (M, topic `currency`, scope law, 786 units): pattern hits 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 1; 1; 16; 9; 10; positives passed; control 0.
+- **AZG-A-002** (A, topic `actual-notice-method`, scope all, 12084 units): pattern hits 15; 2; 7; 0; 0; 0; positives passed; control 0. Supersedes AZG-A-001 (INFLECTION: \bemail\b missed emails). Cited by: actual-notice-method.
+- **AZG-B-003** (B, topic `notice-to-vacate-additional-terms`, scope all, 12084 units): pattern hits 4; 0; 5; 0; 0; positives passed; control 0. Cited by: notice-to-vacate-additional-terms.
+- **AZG-A-003** (A, topic `adverse-proceeding-notice`, scope all, 12084 units): pattern hits 0; 0; 1; 0; 3; 1; positives passed; control 0. Cited by: adverse-proceeding-notice.
+- **AZG-B-004** (B, topic `optional-lease-terms`, scope all, 12084 units): pattern hits 0; 0; 1; 1; positives passed; control 0. Superseded by AZG-B-005.
+- **AZG-B-005** (B, topic `optional-lease-terms`, scope all, 12084 units): pattern hits 0; 0; 1; 1; positives passed; control 0. Supersedes AZG-B-004 (INFLECTION on residence; rerun with plural). Cited by: optional-lease-terms.
+- **AZG-A-004** (A, topic `alarm-tampering-fee`, scope all, 12084 units): pattern hits 0; 5; 1; 1; 3; positives passed; control 0. Cited by: alarm-tampering-fee.
+- **AZG-B-006** (B, topic `ordnance-demolition-meter-disclosures`, scope all, 12084 units): pattern hits 1; 6; 4; 6; 0; positives passed; control 0. Cited by: ordnance-demolition-meter-disclosures.
+- **AZG-B-007** (B, topic `other-landlord-facilities`, scope all, 12085 units): pattern hits 0; 0; 0; 0; positives passed; control 0. Cited by: other-landlord-facilities.
+- **AZG-A-005** (A, topic `alt-housing`, scope all, 12085 units): pattern hits 4; 13; 10; 0; positives passed; control 0. Cited by: alt-housing.
+- **AZG-M-010** (M, topic `dv-confidentiality`, scope all, 12085 units): pattern hits 18; 1; 27; 15; positives passed; control 0. Cited by: dv-confidentiality.
+- **AZG-M-011** (M, topic `dv-eviction-protection`, scope all, 12085 units): pattern hits 19; 1; 2; positives passed; control 0. Cited by: dv-eviction-protection.
+- **AZG-B-008** (B, topic `owner-move-in-reservation`, scope all, 12085 units): pattern hits 7; 0; 0; 3; positives passed; control 0. Cited by: owner-move-in-reservation.
+- **AZG-A-006** (A, topic `appliances-excluded`, scope all, 12085 units): pattern hits 1; 4; 1; positives passed; control 0. Cited by: appliances-excluded.
+- **AZG-B-009** (B, topic `parking-rules-notice`, scope all, 12085 units): pattern hits 14; 0; 1; 0; positives passed; control 0. Cited by: parking-rules-notice.
+- **AZG-A-007** (A, topic `asbestos-hazards`, scope all, 12085 units): pattern hits 15; 0; 0; positives passed; control 0. Cited by: asbestos-hazards.
+- **AZG-M-012** (M, topic `rent-receipts`, scope all, 12085 units): pattern hits 8; 59; 19; 22; 12; positives passed; control 0. Superseded by AZG-M-013.
+- **AZG-B-010** (B, topic `periodic-services-entry`, scope all, 12085 units): pattern hits 70; 2; 9; 0; positives passed; control 0. Superseded by AZG-B-011.
+- **AZG-A-008** (A, topic `association-obligations-disclosure`, scope all, 12085 units): pattern hits 6; 2; 6; positives passed; control 0. Cited by: association-obligations-disclosure.
+- **AZG-M-013** (M, topic `rent-receipts`, scope all, 12085 units): pattern hits 8; 59; 19; 22; 12; positives passed; control 0. Supersedes AZG-M-012 (INFLECTION on \bcash\b). Cited by: rent-receipts.
+- **AZG-B-011** (B, topic `periodic-services-entry`, scope all, 12085 units): pattern hits 70; 2; 9; 0; positives passed; control 0. Supersedes AZG-B-010 (INFLECTION on access; rerun with inflected forms). Cited by: periodic-services-entry.
+- **AZG-M-014** (M, topic `deposit-installments`, scope all, 12085 units): pattern hits 6; 5; 3; 0; positives passed; control 0. Cited by: deposit-installments.
+- **AZG-M-015** (M, topic `security-deposit-holding`, scope all, 12085 units): pattern hits 109; 9; 3; positives passed; control 0. Superseded by AZG-M-018.
+- **AZG-M-016** (M, topic `security-deposit-standards`, scope all, 12085 units): pattern hits 110; 4; positives passed; control 0. Cited by: security-deposit-standards.
+- **AZG-M-017** (M, topic `fee-in-lieu-of-deposit`, scope all, 12085 units): pattern hits 24; 1; 3; 5; positive FAILED: ARS 12-1127; control 0. Superseded by AZG-M-019.
+- **AZG-M-018** (M, topic `security-deposit-holding`, scope all, 12085 units): pattern hits 140; 9; 3; positives passed; control 0. Supersedes AZG-M-015 (INFLECTION on \bbond\b). Cited by: security-deposit-holding.
+- **AZG-M-019** (M, topic `fee-in-lieu-of-deposit`, scope all, 12085 units): pattern hits 24; 1; 3; 5; positives passed; control 0. Supersedes AZG-M-017 (positive ARS 12-1127 failed (no "in lieu of" in that unit); real positive chosen). Cited by: fee-in-lieu-of-deposit.
+- **AZG-A-009** (A, topic `automatic-renewal`, scope all, 12085 units): pattern hits 9; 14; 3; 0; positives passed; control 0. Cited by: automatic-renewal.
+- **AZG-M-020** (M, topic `utility-deposit-return`, scope all, 12085 units): pattern hits 1; 32; 13; positives passed; control 0. Cited by: utility-deposit-return.
+- **AZG-M-021** (M, topic `utility-shutoff-statute`, scope all, 12085 units): pattern hits 14; 5; 4; positives passed; control 0. Cited by: utility-disconnection-notice-authorization, utility-interruption-submeter, utility-landlord-account, utility-shutoff-statute.
+- **AZG-B-012** (B, topic `pest-control-notice`, scope all, 12085 units): pattern hits 0; 12; 5; 0; positives passed; control 0. Cited by: pest-control-notice.
+- **AZG-M-022** (M, topic `meter-conservation-charge`, scope all, 12085 units): pattern hits 9; 2; 0; positives passed; control 0. Cited by: meter-conservation-charge.
+- **AZG-M-023** (M, topic `application-fees`, scope all, 12085 units): pattern hits 133; 42; 1; 19; positive FAILED: ARS 32-2124; control 0. Superseded by AZG-M-025.
+- **AZG-M-024** (M, topic `fee-transparency`, scope all, 12085 units): pattern hits 59; 0; 21; 60; positives passed; control 0. Cited by: fee-transparency, fee-unprovided-service, required-fees.
+- **AZG-A-010** (A, topic `balcony-inspection`, scope all, 12085 units): pattern hits 4; 0; 1; 3; positives passed; control 0. Cited by: balcony-inspection.
+- **AZG-M-025** (M, topic `application-fees`, scope all, 12085 units): pattern hits 133; 42; 1; 19; positives passed; control 0. Supersedes AZG-M-023 (positive ARS 32-2124 failed (guessed); INFLECTION on \brental\b). Cited by: application-fees.
+- **AZG-B-013** (B, topic `pet-eviction-fact-sheet`, scope all, 12085 units): pattern hits 3; 1; 16; 2; positives passed; control 0. Superseded by AZG-B-014.
+- **AZG-B-014** (B, topic `pet-eviction-fact-sheet`, scope all, 12085 units): pattern hits 3; 1; 16; 5; positives passed; control 0. Supersedes AZG-B-013 (INFLECTION on lease; rerun with inflected forms). Cited by: pet-eviction-fact-sheet.
+- **AZG-B-015** (B, topic `plain-language`, scope all, 12085 units): pattern hits 32; 5; 1; 0; 0; positive FAILED: ARS 20-2108; control 0. Superseded by AZG-B-016.
+- **AZG-A-011** (A, topic `binding-arbitration`, scope all, 12085 units): pattern hits 1; 0; 0; positives passed; control 0. Cited by: binding-arbitration.
+- **AZG-B-016** (B, topic `plain-language`, scope all, 12085 units): pattern hits 32; 5; 1; 0; 0; positives passed; control 0. Supersedes AZG-B-015 (positive ARS 20-2108 is heading only (Title 20 not held); rerun with a held positive). Cited by: plain-language, plain-language-consumer-statement.
+- **AZG-B-017** (B, topic `plain-language-consumer-statement`, scope all, 12085 units): pattern hits 1; 1; 4; 1; positives passed; control 0. Cited by: plain-language-consumer-statement.
+- **AZG-B-018** (B, topic `political-access`, scope all, 12085 units): pattern hits 0; 6; 5; 5; positives passed; control 0. Cited by: political-access.
+- **AZG-A-012** (A, topic `carpet-cleaning`, scope all, 12085 units): pattern hits 3; 0; 0; positives passed; control 0. Superseded by AZG-A-013.
+- **AZG-A-013** (A, topic `carpet-cleaning`, scope all, 12085 units): pattern hits 3; 0; 0; positives passed; control 0. Supersedes AZG-A-012 (positive did not contain the searched term). Cited by: carpet-cleaning.
+- **AZG-A-014** (A, topic `certificate-of-occupancy-disclosure`, scope all, 12085 units): pattern hits 34; 5; 6; 0; positives passed; control 0. Cited by: certificate-of-occupancy-disclosure.
+- **AZG-B-019** (B, topic `portable-cooling-device`, scope all, 12085 units): pattern hits 8; 7; 11; 2; positives passed; control 0. Cited by: portable-cooling-device.
+- **AZG-M-026** (M, topic `lease-registration`, scope all, 12085 units): pattern hits 53; 8; 6; 2; positives passed; control 0. Superseded by AZG-M-028.
+- **AZG-M-027** (M, topic `tenant-rights-statement`, scope all, 12085 units): pattern hits 24; 8; 5; 1; positives passed; control 0. Superseded by AZG-M-029.
+- **AZG-M-028** (M, topic `lease-registration`, scope all, 12085 units): pattern hits 53; 8; 6; 2; positives passed; control 0. Supersedes AZG-M-026 (inflection rerun (recorders, leaseholds)). Cited by: lease-registration.
+- **AZG-M-029** (M, topic `tenant-rights-statement`, scope all, 12085 units): pattern hits 24; 8; 5; 1; positives passed; control 0. Supersedes AZG-M-027 (inflection rerun (websites)). Cited by: rights-responsibilities-guide, tenant-rights-statement.
+- **AZG-B-020** (B, topic `portable-solar`, scope all, 12085 units): pattern hits 1; 6; 12; 14; positives passed; control 0. Cited by: portable-solar.
+- **AZG-A-015** (A, topic `cold-weather-vacate-notice`, scope all, 12085 units): pattern hits 0; 1; 1; 0; positives passed; control 0. Cited by: cold-weather-vacate-notice.
+- **AZG-A-016** (A, topic `common-area-lighting`, scope all, 12085 units): pattern hits 8; 4; 16; positives passed; control 0. Superseded by AZG-A-017.
+- **AZG-A-017** (A, topic `common-area-lighting`, scope all, 12085 units): pattern hits 8; 4; 0; positives passed; control 0. Supersedes AZG-A-016 (third pattern caught meter in tax and length contexts; narrowed to electric or utility meters). Cited by: common-area-lighting.
+- **AZG-B-021** (B, topic `portfolio-thresholds`, scope all, 12085 units): pattern hits 21; 0; 0; positives passed; control 0. Cited by: portfolio-thresholds.
+- **AZG-M-030** (M, topic `early-termination`, scope all, 12085 units): pattern hits 5; 0; 108; 1; positives passed; control 0.
+- **AZG-A-018** (A, topic `communal-land-lease-approval`, scope all, 12085 units): pattern hits 15; 1; 7; 0; positives passed; control 0. Cited by: communal-land-lease-approval.
+- **AZG-B-022** (B, topic `possession-bond`, scope all, 12085 units): pattern hits 18; 0; 3; 15; positives passed; control 0. Cited by: possession-bond.
+- **AZG-A-019** (A, topic `condemned-premises-rent-bar`, scope all, 12085 units): pattern hits 3; 0; 1; 2; positives passed; control 0. Superseded by AZG-A-020.
+- **AZG-A-020** (A, topic `condemned-premises-rent-bar`, scope all, 12085 units): pattern hits 3; 0; 1; 3; positives passed; control 0. Supersedes AZG-A-019 (INFLECTION: \brent\b missed rented, rental). Cited by: condemned-premises-rent-bar.
+- **AZG-B-023** (B, topic `post-eviction-property`, scope all, 12085 units): pattern hits 0; 5; 0; 0; positives passed; control 0. Cited by: post-eviction-property.
+- **AZG-B-024** (B, topic `private-well-testing`, scope all, 12085 units): pattern hits 0; 33; 16; 0; positives passed; control 0. Cited by: private-well-testing.
+- **AZG-A-021** (A, topic `confirmed-absences-habitability`, scope all, 12085 units): pattern hits 2; 1; 0; positives passed; control 0. Cited by: confirmed-absences-habitability.
+- **AZG-A-022** (A, topic `confirmed-absences-misc`, scope all, 12085 units): pattern hits 6; 0; 0; positives passed; control 0. Cited by: confirmed-absences-misc.
+- **AZG-B-025** (B, topic `promises-to-repair`, scope all, 12085 units): pattern hits 76; 2; 4; 1; positives passed; control 0. Cited by: promises-to-repair.
+- **AZG-B-026** (B, topic `prop65-rental-warning`, scope all, 12085 units): pattern hits 6; 5; 26; 0; positives passed; control 0. Cited by: prop65-rental-warning.
+- **AZG-B-027** (B, topic `property-tax-rent-disclosure`, scope all, 12092 units): pattern hits 5; 7; 0; 0; positive FAILED: ARS 42-12054; control 0. Superseded by AZG-B-028.
+- **AZG-B-028** (B, topic `property-tax-rent-disclosure`, scope all, 12092 units): pattern hits 5; 7; 0; 0; positives passed; control 0. Supersedes AZG-B-027 (positive ARS 42-12054 failed (hyphenation differs); rerun with a positive that contains the term). Cited by: property-tax-rent-disclosure.
+- **AZG-A-023** (A, topic `confirmed-absences-outside-title`, scope all, 12094 units): pattern hits 0; 0; 1; 0; positives passed; control 0. Cited by: confirmed-absences-outside-title.
+- **AZG-A-024** (A, topic `construction-liens`, scope all, 12094 units): pattern hits 1; 5; 1; 0; 0; positives passed; control 0. Cited by: construction-liens.
+- **AZG-B-029** (B, topic `protected-class-inquiry-ban`, scope all, 12094 units): pattern hits 22; 1; 3; 0; positives passed; control 0. Superseded by AZG-B-030.
+- **AZG-B-030** (B, topic `protected-class-inquiry-ban`, scope all, 12094 units): pattern hits 22; 1; 3; 0; positives passed; control 0. Supersedes AZG-B-029 (INFLECTION on \bsex\b; rerun with sex(?:es)?). Cited by: protected-class-inquiry-ban.
+- **AZG-A-025** (A, topic `conversion-notice`, scope all, 12094 units): pattern hits 5; 0; 2; 0; positives passed; control 0. Cited by: conversion-notice.
+- **AZG-B-031** (B, topic `purpose-limitation`, scope all, 12094 units): pattern hits 16; 3; 225; 6; positive FAILED: ARS 32-2183; control 0. Superseded by AZG-B-032.
+- **AZG-B-032** (B, topic `purpose-limitation`, scope all, 12094 units): pattern hits 18; 3; 0; 6; positive FAILED: ARS 33-405; control 0. Superseded by AZG-B-033. Supersedes AZG-B-031 (lease and lessee inflections; failed heading-only positive; over-broad third pattern narrowed).
+- **AZG-B-033** (B, topic `purpose-limitation`, scope all, 12094 units): pattern hits 18; 3; 0; 6; positives passed; control 0. Supersedes AZG-B-032 (positive 33-405 failed (joint tenancy word order); new positive 33-1414). Cited by: purpose-limitation.
+- **AZG-A-026** (A, topic `defective-drywall-disclosure`, scope all, 12094 units): pattern hits 2; 0; 1; 0; positives passed; control 0. Cited by: defective-drywall-disclosure.
+- **AZG-B-034** (B, topic `recycling-notice`, scope all, 12094 units): pattern hits 2; 5; 3; 0; positives passed; control 0. Cited by: recycling-notice.
+- **AZG-A-027** (A, topic `designated-repairer`, scope all, 12094 units): pattern hits 2; 2; 0; 0; positives passed; control 0. Cited by: designated-repairer.
+- **AZG-A-028** (A, topic `disability-accommodation`, scope all, 12094 units): pattern hits 5; 7; 0; 8; positives passed; control 0. Superseded by AZG-A-029.
+- **AZG-A-029** (A, topic `disability-accommodation`, scope all, 12094 units): pattern hits 5; 7; 0; 8; positives passed; control 0. Supersedes AZG-A-028 (INFLECTION on \blease\b; rerun with inflected lease forms). Cited by: disability-accommodation.
+- **AZG-B-035** (B, topic `religious-cultural-display`, scope all, 12094 units): pattern hits 4; 0; 6; 1; positives passed; control 0. Cited by: religious-cultural-display.
+- **AZG-A-030** (A, topic `disaster-displaced-guests`, scope all, 12094 units): pattern hits 2; 0; 2; positives passed; control 0. Cited by: disaster-displaced-guests.
+- **AZG-A-031** (A, topic `disaster-duties`, scope all, 12094 units): pattern hits 6; 11; 4; 0; positives passed; control 0. Cited by: disaster-duties.
+- **AZG-B-036** (B, topic `rent-demand-bar`, scope all, 12094 units): pattern hits 0; 1; 0; 2; positives passed; control 0. Superseded by AZG-B-037.
+- **AZG-B-037** (B, topic `rent-demand-bar`, scope all, 12094 units): pattern hits 0; 7; 1; 2; 0; positives passed; control 0. Supersedes AZG-B-036 (B-036 printed an INFLECTION warning on \brent\b; rerun with inflections and slum-property and condemnation terms). Cited by: rent-demand-bar.
+- **AZG-A-032** (A, topic `disaster-displaced-guests`, scope all, 12094 units): pattern hits 1; 0; 0; 0; positives passed; control 0. Cited by: disaster-displaced-guests.
+- **AZG-A-033** (A, topic `disaster-duties`, scope all, 12094 units): pattern hits 1; 6; 1; 1; positives passed; control 0. Cited by: disaster-duties.
+- **AZG-B-038** (B, topic `rent-escalation`, scope all, 12094 units): pattern hits 1; 11; 10; 3; 3; positives passed; control 0. Cited by: rent-escalation, term-change-notice.
+- **AZG-B-039** (B, topic `rent-installments`, scope all, 12094 units): pattern hits 3; 3; 1; 1; positives passed; control 0. Cited by: rent-installments.
+- **AZG-A-034** (A, topic `double-letting`, scope all, 12094 units): pattern hits 6; 0; 1; 0; positives passed; control 0. Cited by: double-letting.
+- **AZG-B-040** (B, topic `rent-into-court-counterclaim`, scope all, 12094 units): pattern hits 2; 5; 5; 0; 4; positives passed; control 0. Cited by: rent-into-court-counterclaim.
+- **AZG-A-035** (A, topic `emergency-assistance-right`, scope all, 12094 units): pattern hits 25; 0; 4; 2; positives passed; control 0. Superseded by AZG-A-036.
+- **AZG-B-041** (B, topic `rent-reporting`, scope all, 12094 units): pattern hits 0; 3; 3; 1; positives passed; control 0. Cited by: rent-reporting.
+- **AZG-A-036** (A, topic `emergency-assistance-right`, scope all, 12094 units): pattern hits 0; 0; 4; 2; positives passed; control 0. Supersedes AZG-A-035 (pattern 1 too broad (presumption near any law-enforcement mention, 25 criminal-law units); narrowed to summoning police or emergency assistance). Cited by: emergency-assistance-right.
+- **AZG-B-042** (B, topic `renters-insurance-rules`, scope all, 12094 units): pattern hits 3; 13; 1; 43; 0; positives passed; control 0. Cited by: renters-insurance-rules.
+- **AZG-A-037** (A, topic `emergency-contact`, scope all, 12094 units): pattern hits 10; 0; 4; 2; positives passed; control 0. Cited by: emergency-contact.
+- **AZG-A-038** (A, topic `eminent-domain`, scope all, 12094 units): pattern hits 5; 3; 5; 9; positives passed; control 0. Cited by: eminent-domain.
+- **AZG-B-043** (B, topic `repair-cost-termination`, scope all, 12094 units): pattern hits 12; 1; 0; 0; positives passed; control 0. Superseded by AZG-B-044.
+- **AZG-B-044** (B, topic `repair-cost-termination`, scope all, 12094 units): pattern hits 12; 1; 0; 0; positives passed; control 0. Supersedes AZG-B-043 (INFLECTION on \bend\b; rerun with end(?:s|ed|ing)?). Cited by: repair-cost-termination.
+- **AZG-B-045** (B, topic `repair-escrow-exemption-notice`, scope all, 12094 units): pattern hits 3; 6; 2; 1; positives passed; control 0. Cited by: repair-escrow-exemption-notice.
+- **AZG-A-039** (A, topic `employee-screening`, scope all, 12094 units): pattern hits 1; 7; 0; 0; positives passed; control 0. Cited by: employee-screening.
+- **AZG-B-046** (B, topic `repair-notice`, scope all, 12094 units): pattern hits 68; 0; 16; 1; positives passed; control 0. Cited by: repair-notice.
+- **AZG-A-040** (A, topic `energy-data-release`, scope all, 12094 units): pattern hits 2; 2; 0; 0; positives passed; control 0. Cited by: energy-data-release.
+- **AZG-B-047** (B, topic `required-disclosures`, scope all, 12094 units): pattern hits 2; 0; 11; 21; positives passed; control 0. Cited by: required-disclosures.
+- **AZG-A-041** (A, topic `entity-landlord-court-representation`, scope all, 12094 units): pattern hits 0; 2; 3; 1; positives passed; control 0. Cited by: entity-landlord-court-representation.
+- **AZG-A-042** (A, topic `environmental-event-termination`, scope all, 12094 units): pattern hits 26; 0; 1; 0; positives passed; control 0. Superseded by AZG-A-043.
+- **AZG-A-043** (A, topic `environmental-event-termination`, scope all, 12094 units): pattern hits 0; 0; 1; 0; positives passed; control 0. Supersedes AZG-A-042 (pattern 1 too broad (environmental condition or hazard in 26 tax, contractor and waste units); narrowed to environmental event and environmental public health event). Cited by: environmental-event-termination.
+- **AZG-B-048** (B, topic `sanitary-code-variance`, scope all, 12094 units): pattern hits 4; 4; 3; 4; positives passed; control 0. Cited by: sanitary-code-variance.
+- **AZG-A-044** (A, topic `ev-charging-requirements`, scope all, 12094 units): pattern hits 8; 0; 0; 1; positives passed; control 0. Cited by: ev-charging-requirements.
+- **AZG-A-045** (A, topic `ev-charging-end-of-tenancy`, scope all, 12094 units): pattern hits 0; 1; 0; 4; positives passed; control 0. Cited by: ev-charging-end-of-tenancy.
+- **AZG-B-049** (B, topic `scope`, scope all, 12094 units): pattern hits 14; 0; 6; 9; 5; positives passed; control 0. Cited by: scope.
+- **AZG-A-046** (A, topic `ev-charging-shared-area`, scope all, 12094 units): pattern hits 0; 0; 30; 5; positives passed; control 0. Superseded by AZG-A-047.
+- **AZG-A-047** (A, topic `ev-charging-shared-area`, scope all, 12094 units): pattern hits 0; 0; 0; 5; positives passed; control 0. Supersedes AZG-A-046 (pattern 3 was a three-term NEAR (malformed per SOP rule 19 note) and returned 30 unrelated condominium units; replaced with a two-term AND form). Cited by: ev-charging-shared-area.
+- **AZG-B-050** (B, topic `seasonal-tenancy`, scope all, 12094 units): pattern hits 0; 1; 1; 5; positives passed; control 0. Cited by: seasonal-tenancy.
+- **AZG-B-051** (B, topic `security-devices`, scope all, 12094 units): pattern hits 3; 2; 1; 2; positives passed; control 0. Cited by: security-devices.
+- **AZG-A-048** (A, topic `eviction-hardship-stay`, scope all, 12094 units): pattern hits 0; 0; 2; 17; positives passed; control 0. Superseded by AZG-A-049.
+- **AZG-A-049** (A, topic `eviction-hardship-stay`, scope all, 12094 units): pattern hits 0; 0; 2; 0; positives passed; control 0. Superseded by AZG-A-050. Supersedes AZG-A-048 (pattern 4 matched age inside damages, manage and similar words (17 noise hits); added word boundaries).
+- **AZG-A-050** (A, topic `eviction-hardship-stay`, scope all, 12094 units): pattern hits 0; 0; 2; 0; positives passed; control 0. Supersedes AZG-A-049 (tool flagged INFLECTION on \bage\b; rerun with ages/aged). Cited by: eviction-hardship-stay.
+- **AZG-B-052** (B, topic `senior-housing-work-card`, scope all, 12094 units): pattern hits 0; 0; 0; 13; positives passed; control 0. Superseded by AZG-B-053.
+- **AZG-B-053** (B, topic `senior-housing-work-card`, scope all, 12094 units): pattern hits 0; 0; 0; 2; 0; positives passed; control 0. Supersedes AZG-B-052 (pattern 4 was a malformed three-term NEAR; replaced with AND and a two-term NEAR). Cited by: senior-housing-work-card.
+- **AZG-A-051** (A, topic `eviction-service-party`, scope all, 12094 units): pattern hits 0; 0; 1; 21; positives passed; control 0. Superseded by AZG-A-052.
+- **AZG-A-052** (A, topic `eviction-service-party`, scope all, 12094 units): pattern hits 0; 0; 1; 0; positives passed; control 0. Supersedes AZG-A-051 (pattern 4 was a three-term NEAR (malformed, 21 unrelated notice units); replaced with a two-term tenant-agent pattern). Cited by: eviction-service-party.
+- **AZG-B-054** (B, topic `service-animal-denial-penalty`, scope all, 12094 units): pattern hits 7; 0; 3; 0; positives passed; control 0. Cited by: service-animal-denial-penalty.
+- **AZG-A-053** (A, topic `expedited-deposit-disposition`, scope all, 12094 units): pattern hits 2; 0; 0; 1; positives passed; control 0. Superseded by AZG-A-054.
+- **AZG-A-054** (A, topic `expedited-deposit-disposition`, scope all, 12094 units): pattern hits 2; 0; 0; 1; positives passed; control 0. Supersedes AZG-A-053 (pattern 2 used three AND terms, which the tool may not parse (SOP rule 19 note); replaced with a two-term AND). Cited by: expedited-deposit-disposition.
+- **AZG-B-055** (B, topic `service-animal-misrepresentation`, scope all, 12094 units): pattern hits 3; 0; 0; 0; positives passed; control 0. Superseded by AZG-B-056.
+- **AZG-B-056** (B, topic `service-animal-misrepresentation`, scope all, 12094 units): pattern hits 3; 0; 0; 0; 3; positives passed; control 0. Supersedes AZG-B-055 (pattern 4 was a malformed three-term NEAR; replaced with AND; adds rental-application falsification test). Cited by: service-animal-misrepresentation.
+- **AZG-A-055** (A, topic `extended-absence-notice`, scope all, 12094 units): pattern hits 1; 4; 0; 27; positives passed; control 0. Superseded by AZG-A-056.
+- **AZG-A-056** (A, topic `extended-absence-notice`, scope all, 12094 units): pattern hits 1; 4; 0; 1; positives passed; control 0. Supersedes AZG-A-055 (pattern 4 was a three-term NEAR (malformed, 27 notice units); replaced with a two-term NEAR). Cited by: extended-absence-notice.
+- **AZG-B-057** (B, topic `sex-offender-disclosure`, scope all, 12094 units): pattern hits 27; 5; 0; positives passed; control 0. Cited by: sex-offender-disclosure.
+- **AZG-A-057** (A, topic `family-child-care`, scope all, 12094 units): pattern hits 2; 0; 1; 0; positive FAILED: ARS 46-807, ARS 41-1964; control 0. Superseded by AZG-A-058.
+- **AZG-A-058** (A, topic `family-child-care`, scope all, 12094 units): pattern hits 2; 0; 1; 0; positives passed; control 0. Supersedes AZG-A-057 (both positives failed (terms taken from catchlines, not section text); positives replaced with body-text terms). Cited by: family-child-care.
+- **AZG-B-058** (B, topic `sex-offender-occupancy`, scope all, 12094 units): pattern hits 19; 0; 1; 1; positives passed; control 0. Cited by: sex-offender-occupancy.
+- **AZG-A-059** (A, topic `farmland-hunting-rights`, scope all, 12094 units): pattern hits 0; 3; 0; 2; positives passed; control 0. Cited by: farmland-hunting-rights.
+- **AZG-B-059** (B, topic `sfr-occupancy-disclosure`, scope all, 12094 units): pattern hits 1; 17; 5; 1; positives passed; control 0. Cited by: sfr-occupancy-disclosure.
+- **AZG-B-060** (B, topic `shoreline-access-disclosure`, scope all, 12094 units): pattern hits 3; 6; 4; 15; positives passed; control 0. Superseded by AZG-B-061.
+- **AZG-B-061** (B, topic `shoreline-access-disclosure`, scope all, 12094 units): pattern hits 3; 6; 4; 3; 0; positives passed; control 0. Supersedes AZG-B-060 (pattern 4 was a malformed three-term NEAR; replaced with AND plus a two-term NEAR). Cited by: shoreline-access-disclosure.
+- **AZG-B-062** (B, topic `shutdown-rent-protection`, scope all, 12094 units): pattern hits 36; 0; 0; 186; positives passed; control 0. Superseded by AZG-B-063.
+- **AZG-A-060** (A, topic `fire-sprinkler-duty`, scope all, 12094 units): pattern hits 0; 8; 8; 25; positives passed; control 0. Cited by: fire-sprinkler-duty.
+- **AZG-B-063** (B, topic `shutdown-rent-protection`, scope all, 12094 units): pattern hits 36; 0; 0; 0; positives passed; control 0. Supersedes AZG-B-062 (pattern 4 was too broad (any stay or continuance near federal or government); replaced with a shutdown-and-eviction AND test). Cited by: shutdown-rent-protection.
+- **AZG-B-064** (B, topic `single-family-zone-lease-limit`, scope all, 12094 units): pattern hits 23; 2; 18; 0; positives passed; control 0. Superseded by AZG-B-065.
+- **AZG-A-061** (A, topic `firearms`, scope all, 12094 units): pattern hits 2; 6; 10; 3; positives passed; control 0. Cited by: firearms.
+- **AZG-B-065** (B, topic `single-family-zone-lease-limit`, scope all, 12094 units): pattern hits 23; 2; 4; 0; positives passed; control 0. Supersedes AZG-B-064 (pattern 3 was a malformed three-term NEAR; replaced with AND). Cited by: single-family-zone-lease-limit.
+- **AZG-A-062** (A, topic `flood-disclosure`, scope all, 12095 units): pattern hits 15; 5; 15; 6; positives passed; control 0. Cited by: flood-disclosure.
+- **AZG-B-066** (B, topic `smart-access`, scope all, 12099 units): pattern hits 5; 2; 4; 3; positives passed; control 0. Cited by: smart-access.
+- **AZG-B-067** (B, topic `social-security-defense`, scope all, 12099 units): pattern hits 1; 1; 0; 1; positives passed; control 0. Cited by: social-security-defense.
+- **AZG-A-063** (A, topic `furnishings-included`, scope all, 12099 units): pattern hits 0; 24; 8; 0; positives passed; control 0. Cited by: furnishings-included.
+- **AZG-A-064** (A, topic `good-cause-notice`, scope all, 12099 units): pattern hits 11; 5; 1; 2; positives passed; control 0. Cited by: good-cause-notice.
+- **AZG-B-068** (B, topic `special-district-representation`, scope all, 12099 units): pattern hits 9; 13; 6; positives passed; control 0. Cited by: special-district-representation.
+- **AZG-B-069** (B, topic `sprinkler-disclosure`, scope all, 12099 units): pattern hits 6; 8; 3; 0; positives passed; control 0. Cited by: sprinkler-disclosure.
+- **AZG-A-065** (A, topic `government-fee-reimbursement`, scope all, 12099 units): pattern hits 14; 2; 3; 4; positives passed; control 0. Cited by: government-fee-reimbursement.
+- **AZG-A-066** (A, topic `governmental-fines`, scope all, 12099 units): pattern hits 97; 14; 12; 0; positives passed; control 0. Superseded by AZG-A-067. Cited by: governmental-fines.
+- **AZG-A-067** (A, topic `governmental-fines`, scope all, 12099 units): pattern hits 18; 13; 12; 0; positives passed; control 0. Supersedes AZG-A-066 (pattern 1 lacked \b on fines and matched define/defined). Cited by: governmental-fines.
+- **AZG-B-070** (B, topic `statutory-early-termination`, scope all, 12099 units): pattern hits 2; 14; 1; 3; positives passed; control 0. Cited by: statutory-early-termination.
+- **AZG-A-068** (A, topic `guarantor-renewal`, scope all, 12099 units): pattern hits 16; 1; 0; 5; positives passed; control 0. Cited by: guarantor-renewal.
+- **AZG-B-071** (B, topic `steam-radiator-covers`, scope all, 12099 units): pattern hits 0; 0; 0; 1; positives passed; control 0. Cited by: steam-radiator-covers.
+- **AZG-A-069** (A, topic `guest-rights`, scope all, 12099 units): pattern hits 16; 6; 6; 23; positives passed; control 0. Cited by: guest-rights.
+- **AZG-B-072** (B, topic `stove-refrigerator`, scope all, 12099 units): pattern hits 3; 17; 0; positives passed; control 0. Cited by: stove-refrigerator.
+- **AZG-B-073** (B, topic `student-housing`, scope all, 12099 units): pattern hits 4; 1; 0; 5; positives passed; control 0. Cited by: student-housing.
+- **AZG-A-070** (A, topic `habitability-presumption`, scope all, 12099 units): pattern hits 6; 2; 15; 0; positives passed; control 0. Cited by: habitability-presumption.
+- **AZG-B-074** (B, topic `subsidized-inspection-refusal`, scope all, 12099 units): pattern hits 7; 6; 5; 0; positives passed; control 0. Cited by: subsidized-inspection-refusal.
+- **AZG-B-075** (B, topic `subsidy-habitability-proration`, scope all, 12099 units): pattern hits 7; 2; positives passed; control 0. Cited by: subsidy-habitability-proration.
+- **AZG-A-071** (A, topic `habitability-statement`, scope all, 12099 units): pattern hits 0; 4; 0; 18; positives passed; control 0. Superseded by AZG-A-072. Cited by: habitability-statement.
+- **AZG-B-076** (B, topic `subsidy-late-fee`, scope all, 12099 units): pattern hits 0; 5; positives passed; control 0. Cited by: subsidy-late-fee.
+- **AZG-A-072** (A, topic `habitability-statement`, scope all, 12099 units): pattern hits 0; 4; 0; 18; positives passed; control 0. Supersedes AZG-A-071 (INFLECTION on \blease\b in pattern 2; rerun with inflected forms). Cited by: habitability-statement.
+- **AZG-A-073** (A, topic `hazardous-contamination-disclosure`, scope all, 12099 units): pattern hits 10; 12; 12; 4; positives passed; control 0. Cited by: hazardous-contamination-disclosure.
+- **AZG-A-074** (A, topic `health-district-rental-rules`, scope all, 12099 units): pattern hits 0; 0; 9; 2; positives passed; control 0. Cited by: health-district-rental-rules.
+- **AZG-B-077** (B, topic `tax-escalation`, scope all, 12099 units): pattern hits 6; 5; 3; 0; positives passed; control 0. Cited by: tax-escalation.
+- **AZG-A-075** (A, topic `home-business`, scope all, 12099 units): pattern hits 2; 58; 5; 0; positives passed; control 0. Cited by: home-business.
+- **AZG-B-078** (B, topic `telecom-access`, scope all, 12099 units): pattern hits 5; 14; 0; 0; positives passed; control 0. Superseded by AZG-B-079.
+- **AZG-B-079** (B, topic `telecom-access`, scope all, 12099 units): pattern hits 5; 14; 0; 0; positives passed; control 0. Supersedes AZG-B-078 (inflection rerun: cable to cables?). Cited by: telecom-access.
+- **AZG-A-076** (A, topic `infirmity-termination`, scope all, 12099 units): pattern hits 84; 1; 84; 10; positives passed; control 0. Cited by: infirmity-termination.
+- **AZG-B-080** (B, topic `tenant-bankruptcy`, scope all, 12099 units): pattern hits 3; 2; 0; 1; positives passed; control 0. Cited by: tenant-bankruptcy.
+- **AZG-A-077** (A, topic `informal-dispute-resolution`, scope all, 12099 units): pattern hits 69; 1; 0; 9; positives passed; control 0. Superseded by AZG-A-078. Cited by: informal-dispute-resolution.
+- **AZG-A-078** (A, topic `informal-dispute-resolution`, scope all, 12099 units): pattern hits 0; 0; 0; 0; positives passed; control 0. Supersedes AZG-A-077 (mediat\w* lacked a leading \b and matched immediate/immediately). Cited by: informal-dispute-resolution.
+- **AZG-B-081** (B, topic `tenant-confidential-information`, scope all, 12099 units): pattern hits 4; 1; 6; positives passed; control 0. Cited by: tenant-confidential-information.
+- **AZG-A-079** (A, topic `inspection-condemnation-disclosure`, scope all, 12099 units): pattern hits 3; 3; 15; 6; positives passed; control 0. Cited by: inspection-condemnation-disclosure.
+- **AZG-B-082** (B, topic `tenant-display-rights`, scope all, 12099 units): pattern hits 0; 1; 6; 0; positives passed; control 0. Cited by: tenant-display-rights.
+- **AZG-A-080** (A, topic `key-control-policy`, scope all, 12099 units): pattern hits 6; 0; 3; 3; positive FAILED: ARS 33-1318; control 0. Superseded by AZG-A-081. Cited by: key-control-policy.
+- **AZG-A-081** (A, topic `key-control-policy`, scope all, 12099 units): pattern hits 6; 0; 2; 3; positives passed; control 0. Supersedes AZG-A-080 (positive phrase not found in ARS 33-1318; pattern 3 was a three-part NEAR, replaced by AND). Cited by: key-control-policy.
+- **AZG-B-083** (B, topic `tenant-employee-housing`, scope all, 12099 units): pattern hits 26; 4; 0; positives passed; control 0. Cited by: tenant-employee-housing.
+- **AZG-B-084** (B, topic `tenant-insurance-claims`, scope all, 12099 units): pattern hits 0; 385; 0; 14; positives passed; control 0. Superseded by AZG-B-085.
+- **AZG-B-085** (B, topic `tenant-insurance-claims`, scope all, 12099 units): pattern hits 0; 0; 0; 14; positives passed; control 0. Supersedes AZG-B-084 (second pattern lacked an insurance term and was over-broad). Cited by: tenant-insurance-claims.
+- **AZG-B-086** (B, topic `tenant-portal`, scope all, 12099 units): pattern hits 9; 1; 0; 1; positives passed; control 0. Cited by: tenant-portal.
+- **AZG-B-087** (B, topic `tenant-records`, scope all, 12099 units): pattern hits 13; 8; 0; 11; positives passed; control 0. Superseded by AZG-B-088.
+- **AZG-B-088** (B, topic `tenant-records`, scope all, 12099 units): pattern hits 13; 8; 0; 11; positives passed; control 0. Supersedes AZG-B-087 (inflection rerun: keep to keep(?:s|ing)?|kept). Cited by: tenant-records.
+- **AZG-A-082** (A, topic `landlord-liability-insurance`, scope all, 12099 units): pattern hits 4; 5; 0; 14; positives passed; control 0. Cited by: landlord-liability-insurance.
+- **AZG-B-089** (B, topic `tenant-repair-remedies`, scope all, 12101 units): pattern hits 3; 5; 2; 0; positives passed; control 0. Superseded by AZG-B-090.
+- **AZG-B-090** (B, topic `tenant-repair-remedies`, scope all, 12101 units): pattern hits 3; 5; 4; 0; positives passed; control 0. Supersedes AZG-B-089 (inflection rerun on rent). Cited by: tenant-repair-remedies.
+- **AZG-A-083** (A, topic `law-enforcement-cooperation`, scope all, 12101 units): pattern hits 1; 0; 3; 2; positives passed; control 0. Cited by: law-enforcement-cooperation.
+- **AZG-B-091** (B, topic `tenant-right-to-organize`, scope all, 12110 units): pattern hits 6; 33; 6; 18; positives passed; control 0. Cited by: tenant-right-to-organize.
+- **AZG-A-084** (A, topic `lead-safe-certification`, scope all, 12110 units): pattern hits 0; 0; 1; 2; positives passed; control 0. Superseded by AZG-A-085. Cited by: lead-safe-certification.
+- **AZG-A-085** (A, topic `lead-safe-certification`, scope all, 12110 units): pattern hits 0; 0; 1; 2; positives passed; control 0. Supersedes AZG-A-084 (pattern 4 used bare \blease\b; inflected forms added). Cited by: lead-safe-certification.
+- **AZG-A-086** (A, topic `lead-state-notices`, scope all, 12110 units): pattern hits 2; 1; 1; 1; positives passed; control 0. Superseded by AZG-A-087. Cited by: lead-state-notices.
+- **AZG-A-087** (A, topic `lead-state-notices`, scope all, 12110 units): pattern hits 2; 1; 1; 1; positives passed; control 0. Supersedes AZG-A-086 (bare \blead\b flagged INFLECTION; replaced by explicit lead-material phrases). Cited by: lead-state-notices.
+- **AZG-A-088** (A, topic `lease-content-requirements`, scope all, 12110 units): pattern hits 13; 5; 4; 3; positives passed; control 0. Cited by: lease-content-requirements.
+- **AZG-B-092** (B, topic `tenant-screening`, scope all, 12110 units): pattern hits 20; 4; 0; 2; 2; positives passed; control 0. Cited by: tenant-screening.
+- **AZG-A-089** (A, topic `lease-notice-initial-requirement`, scope all, 12110 units): pattern hits 5; 3; 3; 4; positives passed; control 0. Cited by: lease-notice-initial-requirement.
+- **AZG-B-093** (B, topic `term-change-notice`, scope all, 12110 units): pattern hits 19; 1; 29; 1; positives passed; control 0. Superseded by AZG-B-094.
+- **AZG-B-094** (B, topic `term-change-notice`, scope all, 12110 units): pattern hits 19; 1; 0; 1; positives passed; control 0. Supersedes AZG-B-093 (patterns 3 and 4 were three-part NEAR forms; rewritten as two-part NEAR). Cited by: term-change-notice.
+- **AZG-B-095** (B, topic `tpa-notice`, scope all, 12110 units): pattern hits 8; 1; 7; 0; positives passed; control 0. Cited by: tpa-exemption-notice, tpa-notice.
+- **AZG-A-090** (A, topic `lease-term-limitation`, scope all, 12110 units): pattern hits 5; 0; 1; 2; positives passed; control 0. Cited by: lease-term-limitation.
+- **AZG-B-096** (B, topic `tpa-exemption-notice`, scope all, 12110 units): pattern hits 34; 0; 0; positives passed; control 0. Cited by: tpa-exemption-notice.
+- **AZG-A-091** (A, topic `lease-type-parity`, scope all, 12110 units): pattern hits 1; 0; 0; 4; positives passed; control 0. Superseded by AZG-A-092. Cited by: lease-type-parity.
+- **AZG-B-097** (B, topic `tpa-sunset`, scope all, 12110 units): pattern hits 0; 0; 0; 1; positives passed; control 0. Cited by: tpa-sunset.
+- **AZG-A-092** (A, topic `lease-type-parity`, scope all, 12110 units): pattern hits 1; 0; 0; 4; positives passed; control 0. Supersedes AZG-A-091 (pattern 3 used bare \brent\b; inflections added). Cited by: lease-type-parity.
+- **AZG-A-093** (A, topic `lease-type-size`, scope all, 12110 units): pattern hits 6; 4; 6; 0; positive FAILED: ARS 33-1703; control 0. Superseded by AZG-A-094. Cited by: lease-type-size.
+- **AZG-B-098** (B, topic `translation-duty`, scope all, 12110 units): pattern hits 0; 0; 12; 0; positives passed; control 0. Superseded by AZG-B-099.
+- **AZG-A-094** (A, topic `lease-type-size`, scope all, 12110 units): pattern hits 6; 4; 6; 0; positives passed; control 0. Supersedes AZG-A-093 (positive phrase for ARS 33-1703 was wrong (text reads ten-point bold-faced type)). Cited by: lease-type-size.
+- **AZG-B-099** (B, topic `translation-duty`, scope all, 12110 units): pattern hits 0; 0; 12; 0; positives passed; control 0. Supersedes AZG-B-098 (positives did not contain the searched terms; rerun with units that do). Cited by: translation-duty.
+- **AZG-A-095** (A, topic `limitation-of-actions`, scope all, 12110 units): pattern hits 1; 1; 0; 23; positives passed; control 0. Cited by: limitation-of-actions.
+- **AZG-B-100** (B, topic `trespass-notice`, scope all, 12110 units): pattern hits 2; 0; 0; 0; positives passed; control 0. Cited by: trespass-notice.
+- **AZG-A-096** (A, topic `military-air-zone-disclosure`, scope all, 12110 units): pattern hits 15; 10; 15; 22; positives passed; control 0. Cited by: military-air-zone-disclosure.
+- **AZG-B-101** (B, topic `truth-in-renting`, scope all, 12110 units): pattern hits 0; 2; 7; 2; positives passed; control 0. Cited by: truth-in-renting.
+- **AZG-B-102** (B, topic `unbundled-parking`, scope all, 12110 units): pattern hits 2; 10; 0; 3; positives passed; control 0. Cited by: unbundled-parking.
+- **AZG-A-097** (A, topic `minor-tenant-filing`, scope all, 12110 units): pattern hits 16; 5; 0; 1; positives passed; control 0. Cited by: minor-tenant-filing.
+- **AZG-B-103** (B, topic `usufructuary-lessor`, scope all, 12110 units): pattern hits 0; 1; 0; 0; positive FAILED: ARS 14-2804; control 0. Superseded by AZG-B-104.
+- **AZG-B-104** (B, topic `usufructuary-lessor`, scope all, 12110 units): pattern hits 0; 1; 0; 0; positives passed; control 0. Supersedes AZG-B-103 (positive ARS 14-2804 failed (title 14 is headings only); rerun with read positives). Cited by: usufructuary-lessor.
+- **AZG-A-098** (A, topic `municipal-utility-lien`, scope all, 12110 units): pattern hits 3; 3; 5; 2; positives passed; control 0. Cited by: municipal-utility-lien.
+- **AZG-B-105** (B, topic `veterans-incentive`, scope all, 12110 units): pattern hits 9; 13; 1; positives passed; control 0. Cited by: veterans-incentive.
+- **AZG-B-106** (B, topic `water-heater-temperature`, scope all, 12110 units): pattern hits 12; 1; 1; 0; positives passed; control 0. Cited by: water-heater-temperature.
+- **AZG-B-107** (B, topic `waterbed`, scope all, 12110 units): pattern hits 0; 0; 6; positives passed; control 0. Cited by: waterbed.
+- **AZG-B-108** (B, topic `window-guards`, scope all, 12111 units): pattern hits 0; 2; 4; 1; positives passed; control 0. Cited by: window-guards.
+
+## §4 Decisions and questions asked of Taylor
+
+### Arizona items
+
+1. **Waivers, prohibited provisions and remedies.** Read whole: §§ 33-1312, 33-1315, 33-1325, 33-1371, 33-1373, 33-1377, 12-341.01, 44-143. Each of the 17 topics has its own row.
+   - The central row is `edu-part5-nonwaivable-az`. The others point to it and to `edu-prohibited-lease-terms-az` and `edu-partial-payments-az`, which are unchanged.
+   - **jury-waiver:** no clause offered. A waiver of a jury in the Act's actions risks § 33-1315(A)(1), and no Arizona statute authorizes a pre-dispute residential jury waiver (AZG-M-001).
+   - **notice-service-fee and eviction-penalty-clause-ban:** absence rows, and no fee clause. This keeps the SOP 1.13 retro decision.
+   - **collection-fee:** an optional `collection-fee-az` clause (CONDITIONAL, SERVES_LANDLORD, rule 54). It covers the agency's actual charge up to a stated percentage and no attorney fees (§ 33-1315(A)(2); §§ 32-1051(3) and 32-1004(A) are the collection-agency rules).
+   - **liquidated-damages:** no Arizona dwelling statute (AZG-M-002, AZG-M-030). Case law was not searched. See item 7.
+   - **waiver-by-acceptance:** answered from § 33-1371. The single-state non-waiver clauses of other states are not tagged, because § 33-1371(C) governs partial payment in Arizona.
+2. **Domestic violence.** Read whole: § 33-1318 (all subsections), §§ 13-3601, 13-3602, 13-1406; FEDERAL: 34 U.S.C. § 12491 (excerpt saved). All six topics are answered and point to `edu-dv-lease-termination-az`, which is unchanged.
+   - Laws 2026, ch. 242 amends § 13-3602 but does not move it, so `dv-protection-order-chapter-moved` is answered "not moved".
+   - **dv-confidentiality** and **dv-eviction-protection** are absent at state level (AZG-M-010, AZG-M-011). VAWA covers covered housing only.
+3. **Deposits, fees and utilities.** Read whole: §§ 33-1310, 33-1314, 33-1314.01, 33-1321, 33-1325, 33-1330, 33-1342, 33-1364, 33-1367, 33-1368, 33-1374, 32-2171 to 32-2174, 41-1491.19, 46-731; Ariz. Const. art. 15, § 2.
+   - **security-deposit-cap:** a row now exists (`edu-security-deposit-cap-az`).
+   - **New CONDITIONAL clause `security-deposit-disposition-az`**, basis REQUIRED_DISCLOSURE: A.R.S. § 32-2174(E). That subsection says 'Each rental agreement executed by a property manager shall include a provision that clearly states the disposition of any tenant deposits.' (A.R.S. § 32-2174(E)). No library row stated this before.
+   - **Absences:**
+
+     | Topic | Battery |
+     |---|---|
+     | deposit-installments | AZG-M-014 |
+     | security-deposit-standards | AZG-M-016 |
+     | fee-in-lieu-of-deposit | AZG-M-019 |
+     | application-fees | AZG-M-025 |
+     | fee-transparency | AZG-M-024 |
+     | rent-receipts | AZG-M-013 |
+     | utility-deposit-return | AZG-M-020 |
+     | utility-shutoff-statute | AZG-M-021 |
+     | utility-disconnection-notice-authorization | AZG-M-021 |
+     | meter-conservation-charge | AZG-M-022 |
+
+   - **Cautious courses** (each stated in its row):
+     - Application fees: state the fee's purpose in writing, even though § 33-1321(B) may not reach applicants.
+     - Pet fees: none for assistance animals.
+     - Utility transfer: no clause letting the landlord cut off landlord-name service (§ 33-1364(C)).
+     - Fee in lieu of deposit: any refundable or securing part counts toward the cap.
+     - Electric submetering: whether a reselling landlord is a public service corporation is left open, because Corporation Commission rules aren't held.
+   - **Rows pointed to, unchanged:** `edu-security-deposit-az`, `security-deposit-return-az`, `nonrefundable-fees-az`, `edu-holding-deposit-az`, `late-fee-az`, `utility-billing-disclosure-az`, `edu-no-fee-caps-az`, `edu-fees-as-rent-az`.
+4. **Local rules and registration.** Read whole: §§ 33-1329, 9-1301 to 9-1305, 11-1704, 11-1705, 11-269.11, 33-1902, 33-1904, 33-1322, 33-1343, 33-401, 33-411, 33-411.01, 33-412, 44-101.
+   - **lease-registration:** Present. There is no duty to record; § 33-411.01 excludes leases from its recording rule; recording affects only priority (§§ 33-411, 33-412). Battery AZG-M-028.
+   - **rental-inspection:** education only. A city needs owner or tenant consent, or a warrant (§ 9-1302(C)). No inspector-entry clause was offered.
+   - **tenant-rights-statement** and **rights-responsibilities-guide:** absent. Only the § 33-1322(B) website notice applies, which `landlord-disclosure-az` already gives. Battery AZG-M-029.
+   - `landlord-registration` and `rent-increase-notice` are not in the missing list.
+   - Rows pointed to, unchanged: `edu-local-preemption-az`, `edu-rental-registration-az`.
+5. **Shared fee clauses** (read against §§ 33-1315, 33-1321, 33-1324, 33-1318(E)-(F), 33-1342, 33-1260.01, 33-1806.01).
+   - **`keys`: no conflict.**
+     - Charging rekey cost for unreturned or replaced keys is a charge 'as specified in the signed lease agreement' (A.R.S. § 33-1321(D)), so it may come out of the deposit.
+     - The § 33-1318(E) victim lock change is at the tenant's cost anyway.
+     - § 33-1318(F) lets the landlord refuse a key to the abuser "notwithstanding any provision in the rental agreement", and the clause says nothing contrary.
+     - § 33-1324 sets no rekey or lock duty.
+   - **`hoa-compliance`: no conflict.**
+     - Passing association fines the tenant causes to the tenant is a lease charge. The association statutes limit only what an association may demand of a renting owner (§§ 33-1260.01(C)-(F), 33-1806.01(C)-(F)). They do not limit what the lease may require of the tenant.
+     - One drafting point is reported under §6: association rules bind the tenant through the lease only if the tenant has them. Compare § 33-1342(A)(6), notice at signing, and (B), 30 days' notice for later rules.
+6. **Central shared edits.**
+   - **`smoking-policy`: reads correctly in Arizona.**
+     - The no-smoking-anywhere clause is a term § 33-1314(A) allows.
+     - Adult-use: § 36-2851(7) preserves a private owner's power 'to prohibit or regulate conduct otherwise allowed by this chapter on or in such property' (A.R.S. § 36-2851(7)).
+     - Medical: a smoking ban penalizes conduct, not 'status as a cardholder' (A.R.S. § 36-2813(A)).
+     - § 36-601.01 already bans smoking in enclosed common areas of apartment buildings. The landlord's sign and ashtray duties there are stated in `edu-smoke-drift-waiver-az`.
+     - The 2026-10-04 narrowing to Tenant, occupants and guests only reduces Tenant's liability.
+   - **`addendum-precedence`: reads correctly.** No Arizona statute makes an addendum control over the lease. Deferring to documents that law makes controlling cannot breach Arizona law, and nothing in A.R.S. §§ 33-1301 to 33-1381 bears on it.
+7. **Early termination** (`early-termination-ks`). Read whole: §§ 33-1370(C), 33-1373, 33-1375, 33-1318, 33-1318.01, 33-1312, 33-1366. Battery AZG-M-030 found no Arizona statute on early-termination fees or liquidated damages in a dwelling lease. The only liquidated-damages statute is for property management agreements: § 32-2173 allows 'reasonable liquidated damages or cancellation fees' there.
+   - **Statute level: the fee holds.** No statute bars it.
+   - **The risk is case law, not searched.** Arizona has a statutory duty to re-rent at a fair rental (§ 33-1370(C)) and limits the landlord to actual damages after termination (§ 33-1373). A fee of 30% of the remaining Rent on a long Term (about 3.3 months' Rent with 11 months left) could be attacked as a penalty or as unconscionable (§ 33-1312).
+   - **Cautious course:** an `early-termination-az` override matching NV, TX and NJ: a flat one-month fee, with release from later Rent. Its full fields are under §6. **Asked of Taylor (pending):** adopt the override? Recommendation: yes. It is the course the library already took where a statutory duty to re-rent exists.
+8. **CARES Act: no contradiction.**
+   - `edu-eviction-process-az` describes the § 33-1368 5-day and 10-day notices as state procedure. It does not say that federal law can't add to them, and no AZ row says a covered tenant can be required to vacate sooner than 30 days.
+   - The eviction court rules, which may ask for a CARES statement in the complaint, are not held and are flagged.
+   - Optional: add a pointer sentence to `edu-eviction-process-az` ("Some properties also need the federal 30-day notice; see edu-cares-act-notice"). This is not an error, so it is listed here and not under §6.
+9. **Currency.** Rerun as AZG-CUR-001 and AZG-CUR-002 with a control (see §1). Other relied-on sections were checked in AZG-M-009, and by the helpers per row.
+
+### Main-pass decisions (rule 54 cautious courses)
+- No jury-waiver, notice-service-fee or eviction-fee clause.
+- Optional `collection-fee-az`.
+- New CONDITIONAL `security-deposit-disposition-az` (§ 32-2174(E)).
+- No inspector-entry clause.
+- No utility-cutoff clause for failure to transfer service.
+- Smoke drift: education only.
+
+### Questions for Taylor (1-5 asked in chat 2026-11-04, 6-7 on 2026-11-05, 8-10 on 2026-11-05; answers pending)
+1. **early-termination (item 7):** adopt the flat one-month `early-termination-az` override? Recommended: yes.
+2. **appliances-excluded** (helper A): offer no Arizona appliance-exclusion clause. Recommended. § 33-1324(A)(4) covers appliances 'supplied or required to be supplied', and § 33-1315(A)(3) bars limiting the landlord's liability.
+3. **binding-arbitration** (helper A): offer no Arizona arbitration clause. Recommended. § 33-1315(A)(1) bars waiving the Act's remedies 'by action'; the FAA question (9 U.S.C. § 2) is queued and not read.
+4. **cannabis** (helper A): offer no separate cannabis clause. Recommended. `smoking-policy` already covers smoking. A cultivation or possession ban would need a medical-cardholder exception (§§ 36-2813(A), 36-2814(A)(2)).
+5. **portable-solar** (helper B): treat § 33-439(A) as reaching leases, so no flat ban on solar devices. Recommended.
+6. **renters-insurance-rules** (helper B): no Arizona force-placed renter's insurance clause until Title 20 (insurance licensing) is read. Recommended.
+7. **EV charger electricity** (helper A): bill it under § 33-1314.01(B), which allows cost plus an actual-cost administrative fee, disclosed in the lease, not under § 40-213(B). Recommended.
+8. **government-fee-reimbursement** (helper A): offer the optional `government-fee-reimbursement-az` clause for ordinary registration and licensing fees, with fines, civil penalties and code-violation inspection fees excluded. This treats reimbursing such a fee as outside § 33-1315(A)(3)'s indemnity bar. Recommended.
+9. **homestead-waiver** (helper A): no waiver clause. § 33-1132 voids waivers "except … when done with notice", and that phrase is undefined. Recommended.
+10. **disability-accommodation** (helper A): count a restoration escrow negotiated under 24 C.F.R. § 100.203(a) toward the 1½-month security cap in § 33-1321(A). Recommended.
+11. **landlord-lien** (helper A): no Arizona lien clause. § 33-1372(A) bars a lien on household goods, and whether the chapter 3 lien in § 33-361(D) survives for other goods is unsettled; the row tells landlords to collect by judgment. Recommended.
+12. **tenant-right-to-organize** (helper B): keep the cautious wording. Whether the six-month presumption of retaliation in § 33-1381(B) covers organizing under (A)(3) is not settled by the text. Recommended.
+- *Resolved without asking:* lease-term-limitation. The main pass read A.R.S. § 25-214 on azleg.gov. Both spouses must join in any lease of community real property of one year or more (§ 25-214(C)(1)), so `edu-lease-spousal-joinder-az` is now VERIFIED. Acknowledging long leases stays a cautious course.
+- *Resolved without asking:* tenant-confidential-information (helper B). The main pass read A.R.S. §§ 18-551 and 18-552 (breach notice) on azleg.gov rather than ask.
+
+New `{{variables}}`: none so far.
+
+**Per-topic decisions recorded with the answers:**
+
+- jury-waiver: no lease jury-waiver clause offered (cautious course; § 33-1315(A)(1) via § 33-1377(A)); education row per rule 54.
+- collection-fee: optional collection-fee-az clause offered (rule 54), actual agency charge with a percentage ceiling, no attorney fees (§ 33-1315(A)(2)).
+- security-deposit-holding: new CONDITIONAL clause security-deposit-disposition-az (A.R.S. § 32-2174(E) requires leases executed by a property manager to state the disposition of tenant deposits).
+- rental-inspection: no inspector-entry lease clause (A.R.S. § 9-1302(C) requires owner or tenant consent or a warrant at the time; landlord access limited by § 33-1343(D)-(E)); education row only.
+- accessory-dwelling-unit: education row only; no AZ statute requires an ADU lease term, and the other states' ADU premises clauses rest on their own statutes (CO § 29-35-403, ND § 47-16-27, MN § 504B.161), so none was tagged.
+- adverse-proceeding-notice: Present on the landlord side (A.R.S. § 33-1331), absent on the tenant side; the shared clause tenant-forward-proceedings-ca is already tagged AZ, so no new clause.
+- animal-care-access: answered from A.R.S. §§ 33-1314(E)-(G) and 33-1370(E); no new clause, since authorized-person-contact-az already offers the statutory designation; no advance-consent entry clause for a mere absence was offered, because A.R.S. § 33-1343(E) limits access and a consent clause could be read as waiving the two-day notice in (D).
+- QUESTION FOR TAYLOR: appliances-excluded: Arizona's maintenance duty covers appliances 'supplied or required to be supplied' (A.R.S. § 33-1324(A)(4)), 'premises' includes 'existing facilities and appurtenances' (§ 33-1310(11)), and a lease can't limit liability arising under law (§ 33-1315(A)(3)); no statute says whether a left-behind, disclaimed appliance is 'supplied'. Recommendation: offer no Arizona exclusion clause (the education row tells landlords to remove what they won't maintain and to use maintenance-allocation-az to shift upkeep); revisit only if case law, which was not searched, settles it.
+- automatic-renewal: absence row only; no AZ renewal clause written (lawful under A.R.S. § 33-1314(A), but any month-to-month renewal must leave termination to § 33-1375(B)); the main pass may add one if Taylor wants it.
+- alarm-tampering-fee: absence row steering to actual cost under A.R.S. § 33-1368(C); no fee clause offered, since a fixed charge for breach turns on the main pass's liquidated-damages answer.
+- alarm-tampering-fee: shared clause detector-care-la not tagged: its 'tell Landlord promptly' notice differs from the written notification that shifts repair to the landlord under A.R.S. § 36-1637(B), it adds carbon monoxide detectors Arizona doesn't require, and smoke-detector-duty-az already carries Arizona's detector duties.
+- bed-bug-cooperation: tagged pest-cooperation-pr (entry through the lease's entry section, so Arizona's two-day notice governs); bed-bug-cooperation-* single-state clauses rest on their own statutes.
+- QUESTION FOR TAYLOR: cannabis: Arizona lets a private property owner ban adult-use conduct on the property (A.R.S. § 36-2851(7)) but bars penalizing a person 'solely for his status as a cardholder' (§ 36-2813(A)) and keeps patient rights intact (§ 36-2851(14)); the medical act's property carve-out covers only a 'guest, client, customer or other visitor' (§ 36-2814(A)(2)). Recommendation: offer no Arizona cannabis-restriction clause for now (cannabis-restrictions-ak not tagged, since it reaches medical use); if Taylor wants one, limit it to adult-use smoking, vaping, cultivation and possession with an express exception for a registered cardholder's medical possession and non-smoked use, leaving smoking to smoking-policy.
+- carpet-cleaning: tagged carpet-cleaning-ar; Arizona's deposit statute lets security cover 'all charges as specified in the signed lease agreement' (A.R.S. § 33-1321(D)), and no AZ carpet rule exists.
+- actual-notice-method: absence row; the shared notices clause (tagged AZ) already defers to statutory methods, so no new clause.
+- actual-notice-method (revision): FEDERAL: 15 U.S.C. § 7003(b)(2)(B) now quoted from the saved unit; body adds that the federal § 7001 rule does not apply to residential default, eviction or right-to-cure notices; § 7001 itself queued.
+- QUESTION FOR TAYLOR: binding-arbitration: Arizona's arbitration act enforces written arbitration agreements (A.R.S. § 12-3006(A)) and the federal act makes a written arbitration provision in 'a contract evidencing a transaction involving commerce' enforceable save on general contract-revocation grounds (FEDERAL: 9 U.S.C. § 2), but the landlord-tenant act bars a tenant waiver of 'rights or remedies under this chapter' (§ 33-1315(A)(1)) and makes those rights enforceable 'by action', defined to include an action for possession (§§ 33-1305(B), 33-1310(1)); no text read settles whether a lease arbitration clause is such a waiver or whether the federal act displaces the bar, and case law (including FAA preemption cases) was not searched. Recommendation: offer no Arizona arbitration clause; the education row advises against one and, if used, a lawyer-drafted mutual clause that leaves possession cases and statutory remedies in court.
+- binding-arbitration (revision): FEDERAL: 9 U.S.C. § 2 now quoted from the saved unit; no AZ clause still.
+- asbestos-hazards (revision): federal NESHAP excerpts now quoted; the 'Facility' definition excludes residential buildings with four or fewer dwelling units; larger buildings get the § 61.145(a) inspection and (b)(1) notice duties. Status stays Absent (no Arizona statute).
+- communal-land-lease-approval (revision): FEDERAL: 25 U.S.C. § 415(a) now quoted; Secretary of the Interior approval stated for restricted Indian lands; status stays Absent for Arizona.
+- confirmed-absences-outside-title: squatter remedy present (A.R.S. § 12-1173(A)(3)(b), Laws 2026, ch. 69); rent receipts left to the main pass (rent-receipts); registration-as-precondition absent (AZG-A-023) and confirms the PARTIAL note already in edu-rental-registration-az.
+- construction-liens: no-liens-ar not tagged; new no-liens-az drops the landlord-cost reimbursement limb and adds the A.R.S. § 33-1008(D) waiver-and-release and § 33-1363 carve-out.
+- QUESTION FOR TAYLOR: construction-liens: does a tenant promise to reimburse the landlord's costs caused by a mechanic's lien from tenant-ordered work fall within A.R.S. § 33-1315(A)(3) ('indemnify the landlord for that liability or the costs connected therewith', for liability 'arising under law', here A.R.S. § 33-981)? Recommendation: keep it out of the AZ clause (no-liens-az has the tenant discharge the lien at its own expense instead) and don't tag no-liens-ar for AZ.
+- conversion-notice: absence row; mentions the buyer-side conversion disclosures and the mobile-home 180-day change-in-use notice; noted the dangling 'as defined in section 33-1202' cross-reference in A.R.S. § 32-2181(A)(24).
+- cure-and-eviction-grounds: short own-key row (rule 57) consistent with edu-eviction-process-az; no new clause (default-by-tenant already tagged AZ and covers the carve-outs).
+- designated-repairer: no AZ clause; a lease limit on the tenant's repairer beyond A.R.S. § 33-1363(A)'s licensed contractor would risk A.R.S. § 33-1315(A)(1).
+- disaster-displaced-guests: no AZ statute; § 33-1308(4) keeps transient hotel stays outside the act; guests governed by the lease, § 33-1342 and § 33-1378. Reused battery AZG-A-030 (run by the earlier helper) and added AZG-A-032 for AND forms and hotel terms.
+- disaster-duties: Absent of a disaster-specific rule; points to edu-casualty-termination-az (§ 33-1366). Included § 12-515 pandemic immunity for lessors and § 41-110 emergency fund as the only disaster provisions that reach landlords.
+- double-letting: no AZ prohibition or rent-suspension rule; the § 33-1362 failure-to-deliver remedy governs; points to edu-possession-delay-az.
+- drug-free-housing-addendum: Present (crime free addendum expressly allowed, §§ 33-1260.01(G), 33-1806.01(G)); no separate AZ drug-free clause, points to crime-free-addendum-az which already covers drug-related criminal activity.
+- emergency-assistance-right: Present, § 33-1315(A)(4)-(5); no presumed-defense or retaliation protection for calls for help (AZG-A-036). Education only; no clause (restating a tenant right).
+- emergency-contact: Absent of any emergency-number or contact duty; tagged the generic optional emergency-contact-co for AZ (fields must be completed or the clause omitted, § 33-1322(E)); pointed to landlord-disclosure-az (§ 33-1322(A)) and authorized-person-contact-az (§ 33-1314(E)).
+- eminent-domain: no AZ lease-end, rent or award-allocation rule; tagged eminent-domain-vi (optional, SERVES_LANDLORD) and added an education row on the condemnation procedure points that reach tenants (§§ 12-1116, 12-1120, 12-1122) and relocation payments (§§ 11-961 to 11-963).
+- employee-screening: Absent; noted A.R.S. § 12-558.03 employer limited liability for hiring ex-offenders (premises owner included) and § 32-2108.01 fingerprint card for real estate licence applicants.
+- Log note for the main pass: §1 of the AZ log says Laws 2024, ch. 52 amends only § 32-2174(A); the act also amends § 32-2108.01 (seen in this topic's currency check). STATUTES.TXT already shows the amended § 32-2108.01.
+- energy-data-release: Absent; no AZ clause offered (whether a utility treats a lease term as customer consent turns on A.A.C. title 14 rules, not held); stated the §§ 9-500.36/11-269.14 ban on local benchmarking mandates and the § 44-1376.01 authorization rule. A.R.S. § 30-805 (confidential customer information, electric competition) is heading only and is flagged, not relied on.
+- entity-landlord-court-representation: Absent in statute; NEEDS_REVIEW because court rules decide (not held, flagged); points to edu-eviction-court-rules-az for the property-manager limit without restating court-rule content beyond that row.
+- environmental-event-termination: Absent; no new AZ clause (casualty-landlord-termination-az already covers fire or casualty; a broader environmental-event option has no statutory footing and is left to the lease, with the § 33-1312 and § 33-1374 limits stated).
+- ev-charging-requirements: Present (§ 40-213; § 33-1314.01 for separately billed electricity); tagged ev-charger-installation-hi with an AZ note on limb (d).
+- QUESTION FOR TAYLOR: when a landlord bills a tenant for electricity used at a landlord-owned or tenant-installed charger, does A.R.S. § 33-1314.01(B) (utility cost plus actual administrative fee only, lease disclosure) govern, or may the landlord price it as an "electric charging provider" under A.R.S. § 40-213(B) (energy fee plus time or fixed fees)? Recommendation: treat tenant-billed charger electricity under § 33-1314.01 (cost only, disclosed), as the rows now say, until counsel confirms otherwise; neither text addresses landlords.
+- ev-charging-end-of-tenancy: Absent; points to the end-of-lease limb of ev-charger-installation-hi (tagged for AZ under ev-charging-requirements).
+- ev-charging-shared-area: Absent; points to the § 33-1342 rules test for shared chargers and to edu-ev-charging-requirements-az for billing.
+- eviction-hardship-stay: Absent; states the statutory delays only (§ 33-1377(C) postponement, § 12-1178(C) five-day writ wait, § 12-1179 supersedeas stay with rent into court); court rules flagged as not held.
+- eviction-service-party: Absent; no AZ clause naming a tenant's service agent (service follows § 33-1377(B) and court rules, not held); states the § 41-162(C) substitute-address service option for address confidentiality participants.
+- expedited-criminal-eviction: Present (§§ 33-1368(A), 33-1377(E)); short row keyed to this topic that points to edu-eviction-process-az, which already states the track inside the general eviction row.
+- expedited-deposit-disposition: Absent; no AZ clause for an expedited-processing fee (fee legality is the main pass's); points to edu-security-deposit-az.
+- extended-absence-notice: Absent of a statutory duty; tagged extended-absence-notice-ks (7-day notice, actual damages for willful failure) for AZ, with the § 33-1370(J) abandonment and § 33-1343 access points in the note.
+- family-child-care: Absent; lease governs; noted DHS group-home certification (§ 36-897.01) and DES home-provider certification standards (§ 46-807).
+- fire-code-standard: Present; A.R.S. § 37-1383 read from Laws 2025, ch. 99, § 2 (Title 37 is heading only); the code edition is in A.A.C. (not held, flagged). Fire-district inspections do not reach residential property (Laws 2024, ch. 71).
+- fire-sprinkler-duty: Absent of a landlord retrofit duty; stated the local-code bar for one- and two-unit residences (§§ 9-807, 11-861(E)), ADU and middle-housing sprinkler bars, and the § 33-1324(A)(1)/§ 9-1303(7)(b) code-compliance duty.
+- firearms: Present (§ 12-781 parking rule, voids conflicting landlord rules, with exceptions); no in-unit or permit-holder protection (AZG-A-061); tagged firearm-rules-la (its locked-vehicle carve-out matches § 12-781(A)).
+- flood-disclosure: Absent for leases (AZG-A-062); noted the seller-only floodplain affidavit (§ 33-422) and optional third-party report (§ 33-423). No library flood clause tags AZ (all rest on other states' statutes).
+- forfeiture-redemption: Present (§ 33-1368(B) three-stage reinstatement); new short row pointing to edu-eviction-process-az, which states the same rule under another key (rule 57). No library row tags AZ (all rest on other states' statutes).
+- frozen-standard-incorporation: Present as an education row: no ARLTA edition freeze; codes adopted locally by reference (§§ 9-802, 11-861); existing-building rule in § 9-1303(7)(b), (12); accessibility for new construction only (§ 41-1492.03); FHAG with no edition (§ 41-1491.19(D)); statutes roll forward (§ 1-255).
+- furnishings-included: tagged furnishings-included-la (no AZ furnished-rental rule, AZG-A-063; § 33-1310(11) puts furniture in the premises; § 33-1341(6) and § 33-322 back the no-removal term). No new row: the tag is keyed to this topic.
+- government-fee-reimbursement: Absent (no AZ pass-through rule, AZG-A-065); new edu row plus an AZ-only optional clause (KY clause not tagged: no code-violation inspection fee exclusion, and its emergency-response exclusion rests on KRS 65.111).
+- QUESTION FOR TAYLOR: Does a lease term making the tenant reimburse an ordinary government registration or licensing fee charged to the landlord count as indemnifying the landlord for a 'liability of the landlord arising under law' under A.R.S. § 33-1315(A)(3)? Recommendation: no for ordinary registration and licensing fees (they are a cost of renting, not a liability for wrongdoing), so offer the clause as drafted; but keep fines, civil penalties and code-violation inspection fees out of it, as the clause does.
+- governmental-fines: Absent of a ban or tenant-liability default (AZG-A-067, superseding AZG-A-066); new edu row and AZ-only optional clause carrying the § 33-1368(F) guest condition in its text. tenant-caused-fines-as not tagged (its 'any person on the Premises with Tenant's consent' reach is wider than § 33-1368(F)).
+- guarantor-renewal: Absent of a lease-guaranty rule (AZG-A-068); edu row states § 44-101(2) writing rule and the § 12-1641 surety notice-to-sue discharge (whether it reaches lease guarantors left to case law); tagged guaranty-as with that caveat.
+- guest-rights: Absent for ARLTA dwelling units (AZG-A-069); pointed to § 33-1342 rules test, § 33-1368(F), § 33-1378 and the existing guest rows; mobile-home and RV guest-fee rules noted as a contrast only.
+- habitability-materiality: Present (statutory thresholds per remedy: § 33-1361(A) material / materially affecting health and safety; § 33-1361(B) any noncompliance; § 33-1363(B) breach of fit and habitable; § 33-1364(A) deliberate or negligent; § 9-1303 list via § 33-1324(A)(1)); no general definition of material; case law left open.
+- habitability-presumption: Absent (AZG-A-070); the only related presumption is retaliation within six months of a code or repair complaint (§ 33-1381(B)), stated with its exceptions.
+- habitability-statement: Absent (AZG-A-072, superseding AZG-A-071 for an inflection flag); duty applies by § 33-1324 regardless; no clause per Taylor's no-restatement stance.
+- hazardous-contamination-disclosure: Present: §§ 49-152(G) and 49-158(C) require each party to a recorded declaration of environmental use restriction to incorporate its terms into any lease (in full or by reference); new edu row and AZ clause (REQUIRED_DISCLOSURE); no general contamination disclosure (AZG-A-073); seller-only § 33-434.01. Who counts as a 'party' left cautious (any owner of restricted property).
+- health-district-rental-rules: Absent (AZG-A-074); noted § 36-602 nuisance orders to owner or occupant and § 33-1381(A)(1) complaint protection.
+- heating: Present (§ 33-1324(A)(6) duty with its two exceptions; § 33-1324(C) written SFR shift; § 33-1364 remedies and (C) no later transfer of utility payment); no statewide temperature; city cooling ordinances flagged, not resolved.
+- home-business: Absent of a tenant right against a lease (AZG-A-075); § 11-820 limits county zoning only (covers tenant-run businesses); lease may restrict (§ 33-1314(A)); pointed to residential-use-only (already AZ-tagged).
+- homestead-waiver: Present: personal property exemption waivers void notwithstanding agreement (§ 33-1132, exceptions § 33-1122 and 'when done with notice'); homestead waived only by acknowledged recorded declaration (§ 33-1104(B)); landlord household-goods lien unenforceable and distraint abolished (§ 33-1372). PROHIBITED education row; no clause.
+- QUESTION FOR TAYLOR: A.R.S. § 33-1132 voids exemption waivers 'except as specifically provided in section 33-1122 and when done with notice'. Should the library read 'when done with notice' as allowing a lease waiver of personal property exemptions if the tenant gets notice? Recommendation: no. The phrase is undefined, ARLTA § 33-1372 already bars a landlord lien on household goods, and offering a waiver clause risks a void term; keep the PROHIBITED education row and offer no clause.
+- infirmity-termination: Absent (AZG-A-076); only DV/sexual assault (§ 33-1318) and law-enforcement harassment-injunction (§ 33-1318.01) early termination; pointed to § 33-1375(B), § 33-1305(A) mitigation and § 33-1314(E)-(G) property retrieval on death or incapacity. No clause (early-termination fees are the main pass's).
+- informal-dispute-resolution: tagged informal-dispute-resolution-or (no AZ rule, AZG-A-078 superseding AZG-A-077; clause preserves every notice, deadline and remedy so § 33-1315(A)(1) is not engaged; non-binding, not arbitration).
+- inspection-condemnation-disclosure: Absent (AZG-A-079); noted § 33-1904 slum-property and unregistered-rental inspections (tenant consent, owner pays), § 33-1361(A) material falsification of written condition statements, § 33-343 untenantable premises.
+- inspection-notice-penalty: Present (§ 33-1376(B): injunction or termination plus actual damages not less than one month's rent); new short row pointing to landlords-access-az (rule 57).
+- key-control-policy: Absent (AZG-A-081, superseding AZG-A-080); pointed to keys, edu-dv-lockchange-az, edu-no-employee-screening-rule-az and the § 33-1343(D) notice rule.
+- knowing-use-penalty: Present (§ 33-1315(B)); own short row pointing to edu-prohibited-lease-terms-az and edu-part5-nonwaivable-az, as instructed; only other ARLTA voidness clause is § 33-1364(E), which has no penalty of its own.
+- landlord-breach-remedy: Present (§§ 33-1361 to 33-1367, 33-1376(B), 33-1381(B)); summary row pointing to habitability-timeline-az, edu-possession-delay-az, edu-casualty-termination-az, edu-prohibited-practices-az and the new edu-inspection-notice-penalty-az.
+- farmland-hunting-rights: Absent of an owner-tenant allocation of hunting rights (AZG-A-059). Revised 2026-11-05 after reading A.R.S. § 17-304 whole: landowners or lessees may post private land closed (with the (C) sign rules), state or federal land only with commission consent, and entry to take wildlife is criminal trespass only under (D); since § 17-304 does not allocate rights between owner and tenant, the absence now rests on text read whole and the row is VERIFIED (was NEEDS_REVIEW).
+- disability-accommodation: no AZ restoration clause; the restoration condition is allowed only 'where it is reasonable to do so' (A.R.S. § 41-1491.19(E)(1)), so the row advises putting it in each written approval rather than a blanket lease term.
+- disability-accommodation: Laws 2025, ch. 191 enacts the immunity section as 41-1497.38; the compilation numbers it A.R.S. § 41-1491.38 (renumbering noted, rows cite the compiled number).
+- disability-accommodation: revised 2026-11-05 after reading FEDERAL: 24 C.F.R. § 100.203(a)-(b) (saved excerpt): body now states the no-deposit-increase rule, the negotiated interest-bearing restoration escrow (interest to the tenant, amount not over restoration cost) and the description and workmanlike-assurance condition; (c) not in the saved unit. The fedqueue line for § 100.203(a)-(c) is answered for (a)-(b).
+- QUESTION FOR TAYLOR: Does a restoration escrow negotiated under 24 C.F.R. § 100.203(a) count as 'security, however denominated' under the one and one-half month cap of A.R.S. § 33-1321(A)? Recommendation: treat it as counting toward the cap (it is money 'given to assure payment or performance', A.R.S. § 33-1310(15)) and tell landlords to keep deposit plus escrow within the cap, as the row now says, unless Taylor prefers a legal opinion.
+- landlord-liability-insurance: Absent (AZG-A-082); noted the optional city/county short-term-rental insurance requirement (§§ 9-500.39(B)(8), 11-269.17(B)(8)) as outside ARLTA under § 33-1308(4).
+- landlord-lien: Present (§ 33-1372; chapter 3 lien §§ 33-361(D), 33-362 yields under § 33-1304; § 33-1374 bars removal of possessions); no lien clause offered.
+- QUESTION FOR TAYLOR: A.R.S. § 33-1372(A) bars only a landlord lien in the tenant's 'household goods'; the chapter 3 lien in §§ 33-361(D) and 33-362 reaches all non-exempt tenant property on the premises. Whether a landlord of a dwelling unit keeps a court-enforceable chapter 3 lien on non-household goods (for example a vehicle or business equipment) isn't settled by the statutes (no case law searched). Recommendation: keep edu-landlord-lien-az's cautious course (no seizure, no lien clause, collect by judgment) and don't offer a lien clause for Arizona.
+- landlord-remedies-termination: Present (§§ 33-1373, 33-1368(C), 33-1377(B), (F), 12-1178(A)); short row pointing to edu-landlord-remedies-after-breach-az; court jurisdiction/small claims (Title 22, heading only) flagged, not stated.
+- law-enforcement-cooperation: Present (§ 33-1315(A)(4)-(5), § 13-3010(J), § 33-1378, crime-free §§ 33-1806.01(G), 33-1260.01(G), 33-1906); no general cooperation duty (AZG-A-083).
+- lead-safe-certification: Absent (AZG-A-085, superseding AZG-A-084); pointed to the federal disclosure clause lead-based-paint (FEDERAL: 42 U.S.C. § 4852d(a)(1)); RRP certification queued.
+- lead-state-notices: Absent (AZG-A-087, superseding AZG-A-086); pointed to lead-based-paint and the saved federal units 42 U.S.C. §§ 4852d(a)(1), (a)(4), 4851b(27).
+- lease-content-requirements: Present (written-term items §§ 33-1322, 33-1321(B)-(C), 33-1314.01, 33-1331, 33-1368(B), 36-1681(E), 33-1319) with no general content list or first-page rule (AZG-A-088); pointer row to the existing item rows.
+- lease-copy: Present+tag (§ 33-1322(E), § 33-1321(C)); new edu-lease-copy-az and tag of lease-copy-receipt-hi; whether a missing copy is a defense is not stated (statute says only material noncompliance).
+- lease-notice-initial-requirement: Absent (AZG-A-089); read the topic as tenant initials on lease terms (ND example) and also pointed to the § 33-1322(A)-(B) start-of-tenancy written notices in landlord-disclosure-az, as the coordinator's note asked.
+- lease-type-parity: Absent (AZG-A-092, superseding AZG-A-091); general limits §§ 33-1311, 33-1312 noted.
+- lease-type-size: Absent (AZG-A-094, superseding AZG-A-093).
+- limitation-of-actions: Present (§§ 12-548, 12-543, 12-542, 12-541(5), 12-550, 12-501, 12-508); partial-payment restart not addressed by statute (AZG-A-095); which period fits each claim left to case law, not searched.
+- maintenance-duty-shift: Present (§ 33-1324(C)-(D)); short row pointing to maintenance-allocation-az and edu-habitability-modifiable-az; no tag (garbage-setout-as rests on another territory's solid waste rules).
+- military-air-zone-disclosure: Absent for landlords (AZG-A-096); § 28-8484 binds public reports, reservation documents and residential sellers; subdivider leases flagged as reachable through § 32-2183.
+- minor-tenant-filing: Present (age 18, § 1-215; emancipation §§ 12-2451, 12-2454) with no lease-capacity or minor-eviction statute (AZG-A-097); currency for § 1-215 rests on a search for amending language across the 12 citing acts rather than opening each.
+- municipal-utility-lien: Present (sewer lien §§ 9-511.02, 11-264 with lessee exemption; four-or-fewer-units payment rule §§ 9-511.01(G)-(H), 9-511.02(G), 40-376); no electric, gas or garbage lien (AZG-A-098).
+- good-cause-notice: Absent for ARLTA dwelling units (AZG-A-064); stated the § 33-1375 no-reason periodic notice, the § 33-1368(A) breach-notice content, the mobile-home and RV acts' good-cause and reason rules as a contrast, and the HCV ground limits (saved 24 C.F.R. § 982.310(a)).
+- good-cause-notice (revised 2026-11-05 at the coordinator's request): replaced the 'FEDERAL, not read' mention of 24 C.F.R. § 982.310(e) with the saved text of (e)(1)(i)-(ii) and (e)(2)(i)-(ii) in notes, and added the HCV notice-of-grounds and PHA-copy duties to bodyText.
+- lease-term-limitation: Present (§ 44-101(6) writing; § 33-401(A) conveyance writing; no maximum term, AZG-A-090); spouse row first NEEDS_REVIEW (§ 25-214 heading only), then VERIFIED after the main pass read § 25-214.
+- lease-term-limitation (main pass, 2026-11-05): A.R.S. § 25-214 read on azleg.gov; spouse row now VERIFIED (joinder for any lease of one year or more of community real property); the § 33-401(B) acknowledgment point stays a cautious course, not a question.
+- nonpayment-notice: § 33-1368(B) counts five days 'after written notice' while (A) says 'after receipt'; row advises counting from receipt (cautious course).
+- nonresident-owner-agent: kept VERIFIED; the tax-withholding absence rests on Title 43 headings only (text not held), stated in the body and sent to a tax adviser.
+- pest-control-notice: kept VERIFIED; Title 3, ch. 20 is heading only and pest management rules (A.A.C.) are not held, both stated in the body; any applicator duty there binds the pest control company, not the landlord, so far as headings show.
+- QUESTION FOR TAYLOR: Does A.R.S. § 33-439(A), which voids any restriction in a 'contract ... or other instrument affecting ... any interest in, real property' that effectively prohibits a solar energy device, reach a residential lease? Recommendation: treat it as reaching leases (cautious course written into edu-portable-solar-az: no flat ban; reasonable placement, installation, damage and removal conditions only); no case law was searched.
+- owner-move-in-reservation: tagged owner-occupancy-termination-ar rather than writing an AZ row; the no-statute finding sits in the tag note with battery AZG-B-008.
+- owner-move-in-reservation: revised 2026-11-04 (step 0 of batch 2) to use the saved 24 C.F.R. § 982.310(a), (d)(1)-(2) excerpt in place of "FEDERAL, not read"; tag otherwise unchanged; fedqueue line left in place.
+- portfolio-thresholds: revised 2026-11-04 (step 0 of batch 2) to use the saved 42 U.S.C. § 3603(b)-(c) excerpt (and § 3604(c)) in place of "FEDERAL, not read"; body now names the two federal differences (advertising ban survives the exemption; wider broker/business test); fedqueue line left in place.
+- property-tax-rent-disclosure: revised 2026-11-04 (step 0 of batch 2): now Present. The NEEDS_REVIEW absence row edu-no-property-tax-rent-statement-az is replaced by VERIFIED edu-property-tax-rent-statement-az on A.R.S. § 43-1072(C), which the main pass read in the browser outside the corpus.
+- property-tax-rent-disclosure: the row says 'certain residents 65 or older' from the section heading and does not state income limits or amounts, because the saved excerpt holds only (A) lead-in, (A)(2), (C) and (H)(2)-(3).
+- ordnance-demolition-meter-disclosures: revised 2026-11-04 (step 0 of batch 2): A.R.S. § 28-8484, read by the main pass outside the corpus, binds public reports (A), reservation documents (C) and sellers (E) only; the "check § 28-8484" advice is dropped and the row stays VERIFIED.
+- purpose-limitation: Absent; WY clause purpose-limitation-wy not tagged (rests on Wyo. Stat. § 1-21-1204(a)(v)); Arizona's answer is the landlord's § 33-1368(A) termination right and the § 12-991 abatement duty.
+- recycling-notice: Absent; the OR and CA clauses rest on their own statutes and were not tagged.
+- redemption: Present on A.R.S. § 33-1368(B) three-stage reinstatement plus § 33-1371 partial payments; short own row keyed to the topic though edu-eviction-process-az covers part of it (rule 57).
+- redemption: the charity-check and post-judgment levy sub-questions are answered from the controlling sections without an absence battery; flag if the main pass wants batteries for sub-questions.
+- religious-cultural-display: Absent; NV clause religious-display-nv rests on NRS 118A.200(3)(o) and was not tagged.
+- rent-demand-bar: Absent; ran AZG-B-037, which supersedes AZG-B-036 (left by the earlier helper, INFLECTION on \brent\b). Condemnation is slice A's edu-no-condemned-rent-bar-az; this row covers code violations, citations, slum designation and assessor registration and points there.
+- rent-installments: tagged rent-installments-or; the MN, ND, OH and NV clauses rest on those states' late-fee or tenancy statutes and were not tagged.
+- rent-into-court-counterclaim: Present (A.R.S. § 33-1365); the mandatory-counterclaim and deposit-to-defend questions are statutory absences; the eviction rules (not held) may say more and are flagged, not resolved.
+- rent-reporting: Absent; A.R.S. § 44-1697 (credit or loan accounts) not applied to rent; federal furnisher duties queued.
+- renters-insurance-rules: Absent; the AZ clause is tenants-property-insurance-ks-oh-ca (already AZ, topic tenants-property-insurance), so this row points to it. renters-insurance-requirement-wy rests on Wyoming statutes and was not tagged.
+- QUESTION FOR TAYLOR: should a landlord force-placing renter's insurance and charging the tenant be treated as an insurance-licensing issue in Arizona? Title 20 is heading only here; recommendation: keep the row's caution (check Title 20 first) and do not offer a force-placement clause for AZ until Title 20 is read.
+- repair-cost-termination: Absent; battery AZG-B-044 supersedes AZG-B-043 (inflection rerun on \bend\b).
+- repair-escrow-exemption-notice: Absent; repair-escrow-exemption-notice-oh (Ohio R.C. 5321.07 notice) not tagged.
+- repair-notice: Present; the AZ clauses (tenant-maintenance, landlord-maintenance) are on other keys and already AZ, so this row points to them; repair-request-procedure-ne, habitability-notice-co and repair-notice-method-ar not tagged (other states' notice statutes).
+- sanitary-code-variance: Absent; sanitary-code-variance-ma and safety-exception-notice-nj rest on those states' codes and were not tagged.
+- scope: Present; vacation and short-term rentals left unsettled (recreational lodging undefined) rather than guessed.
+- seasonal-tenancy: Absent; seasonal-tenancy-ri, seasonal-nonrenewable-lease-de and seasonal-tenancy-wy rest on those states' statutes and were not tagged.
+- security-devices: Absent; the TX, CA and WY clauses rest on those states' lock statutes and were not tagged.
+- self-help-eviction: Present; short pointer row to edu-prohibited-practices-az and the main pass's edu-lockout-for-rent-delinquency-az.
+- senior-housing-work-card: Absent; edu-senior-housing-work-card-nv rests on Nevada law, not tagged. Battery AZG-B-053 supersedes AZG-B-052 (malformed NEAR).
+- service-animal-misrepresentation: Absent for housing; edu-assistance-animals-az already says the misrepresentation penalty applies to public places; this row gives the topic its own key. Battery AZG-B-056 supersedes AZG-B-055 (malformed NEAR).
+- sex-offender-disclosure: Present (A.R.S. § 32-2156 immunity); short row pointing to edu-disclosure-immunity-az (topic stigmatized-property).
+- sfr-occupancy-disclosure: Absent; noted the 2026 unauthorized-occupant forcible detainer (A.R.S. § 12-1173(A)(3)(b), Laws 2026, ch. 69) as the AZ route; effective date of ch. 69 not verified (no effective-date section; general effective date not held).
+- shoreline-access-disclosure: Absent; battery AZG-B-061 supersedes AZG-B-060 (malformed NEAR).
+- shutdown-rent-protection: Absent; battery AZG-B-063 supersedes AZG-B-062 (over-broad pattern).
+- single-family-zone-lease-limit: Absent; Arizona's ADU and middle-housing statutes bar local owner-occupancy and anti-rental rules, noted with a pointer to the main pass's edu-local-preemption-az. Battery AZG-B-065 supersedes AZG-B-064 (malformed NEAR).
+- service-animal-denial-penalty: Absent for housing; the row adds a cautious note that a leasing office open to the public may be a 'public place' under A.R.S. § 11-1024(M)(4), which edu-assistance-animals-az does not mention.
+- rent-escalation: tagged rent-escalation-la and rent-increase-midterm-ky; rent-escalation-ga (GA/TX safe harbour), rent-cost-adjustment-mi, midterm-rent-increase-in and the single-state clauses rest on other states' statutes and were not tagged.
+- rent-escalation: rent-escalation-la's index example names the CPI South Region; tagged anyway because the index is a bracketed fill-in, with a note that an Arizona lease should name an index covering Arizona.
+- special-district-representation: Absent for landlords; the A.R.S. § 32-2181(A)(14) district-debt statement is noted as a subdivider duty, with the build-to-rent subdivider question left open (A.A.C. and case law not held).
+- sprinkler-disclosure: Absent; points to slice A's edu-no-fire-sprinkler-duty-az and edu-fire-code-standard-az for the code duties; the general appropriations acts' fire suppression lines are wildfire funding, not a retrofit program.
+- statute-of-frauds-lease-term: Present; own short row pointing to edu-lease-registration-az for recording and priority; assignments and surrenders of long leases left to the cautious course (in writing), case law not searched.
+- statutory-caps: Present as a summary row of Arizona money limits pointing to the main-pass deposit, fee and late-fee rows; no new figures beyond the cited sections.
+- steam-radiator-covers: Absent; the NJ radiator rider not tagged (NJ rule).
+- stove-refrigerator: Absent; points to slice A's edu-appliances-excluded-az; CA refrigerator clause not tagged (CA statute).
+- student-housing: Present (the A.R.S. § 33-1308(1) and (3) exclusions); private or master-leased student buildings treated as covered by the Act (cautious course; 'at an institution' undefined, case law not searched).
+- substandard-property-receivership: Present from A.R.S. §§ 33-1901 to 33-1905; adds the nuisance receiver (A.R.S. § 12-996) and lender receivers for 1-4 unit rentals (A.R.S. § 33-2603(B)(4)); local repair orders left to local codes.
+- tax-escalation: Present+tag; tagged tax-insurance-escalation-la (generic optional clause already carried in NE, TX, NJ and others); state-specific clauses (MA, RI, NH, DE, MP, ND, OH) rest on their own statutes and were not tagged.
+- telecom-access: Absent for dwellings; A.R.S. § 33-2301 noted as commercial only and A.R.S. § 9-600 as a limit on local governments; federal OTARD and exclusive-contract rules queued; battery AZG-B-079 supersedes AZG-B-078 (inflection).
+- tenancy-at-will: Present (no tenancy at will under the Act; A.R.S. § 33-1314(D) month-to-month default; A.R.S. § 33-341 limited to non-dwellings by A.R.S. § 33-381).
+- tenant-display-rights: Absent for tenants; association flag and sign protections (A.R.S. §§ 33-1808, 33-1261) read as limited to members and unit owners, consistent with edu-no-political-access-rule-az.
+- tenant-employee-housing: Present (A.R.S. § 33-1308(5) exclusion); cautious course for excluded manager or custodian removal (separate written agreement; forcible detainer reach is case law, not searched).
+- tenant-insurance-claims: Absent; cautious course (no repair delay pending a tenant claim; tenant's written consent before claiming on the tenant's policy); battery AZG-B-085 supersedes AZG-B-084.
+- tenant-portal: Present (UETA refusal right, notice and partial-payment rules applied to portals); no portal statute (battery AZG-B-086); portal fees left to the main pass's required-fees row.
+- protected-class-inquiry-ban: Absent. Arizona's act has no inquiry or record words; the row does not claim a spoken question is a prohibited 'statement' under § 41-1491.15 (case law not searched) and says only that the answer cannot be used.
+- protected-class-inquiry-ban: Laws 2025, ch. 191 prints the new section as 41-1497.38 while azleg codifies it as § 41-1491.38; noted in the row, not a finding (edu-assistance-animals-az already cites § 41-1491.38).
+- protected-class-inquiry-ban (revised 2026-11-05): the saved FEDERAL: 24 C.F.R. § 100.202(c) disability-inquiry ban and its five permitted inquiries now stated in the body and quoted in notes; Arizona statute absence unchanged.
+- tenant-repair-remedies: Present; short row keyed to this topic pointing to habitability-timeline-az and edu-landlord-breach-remedy-az for the self-help remedies, and answering the escrow and rent-into-court questions from A.R.S. §§ 33-1365(A), 33-1368(B) and 12-1179(D)-(E); certified-unfit escrow, early release procedure and bad-faith deposit liability confirmed absent (AZG-B-090).
+- tenant-right-to-organize: Present via the A.R.S. § 33-1381(A)(3) retaliation bar; no meeting, canvassing or recognition right for dwelling tenants (AZG-B-091). The row does not apply the six-month presumption to organizing, because the statute ties it to 'a complaint'; cautious course stated. Mobile home and RV park meeting rights mentioned as separate acts only.
+- QUESTION FOR TAYLOR: Does the A.R.S. § 33-1381(B) six-month presumption ('evidence of a complaint') reach a tenant's organizing under (A)(3)? Recommendation: keep the row's cautious wording (not settled by the text; treat actions against organizers as open to challenge) unless case law is reviewed.
+- tenant-statutory-duties: Present; one education row listing A.R.S. § 33-1341 duties plus the access, use, rules, bedbug, smoke-detector and guest duties, and the landlord's remedies; no clause added (the duties apply by statute; the shared tenant-maintenance clause already carries AZ).
+- tenant-screening: Present (fair housing, children and occupancy, sealed records, certificate of second chance, falsification, credit freeze) with a confirmed absence of a screening-specific regime (AZG-B-092); FCRA marked FEDERAL, not read, and queued.
+- tenant-screening: the certificate-of-second-chance protection is stated only as the evidence protection A.R.S. § 13-905(M)(3) borrows from § 12-558.03(B); the row does not say how the employer rule's negligent-hiring wording maps onto a negligent-leasing suit.
+- term-change-notice: Present for rules (30-day notice, no substantial modification), legal amendments (immediate, written notice with description and effective date) and utility shifts (tenant's written consent); no other modification or fee-increase notice rule (AZG-B-094; rent side AZG-B-038). Month-to-month route stated as the A.R.S. § 33-1375 termination notice with new terms offered; binding effect of staying on left to case law (not searched). No clause: the term-change-notice-gu, -wy and -ca clauses rest on their own states' statutes.
+- tpa-exemption-notice: Absent; nothing to be exempt from (no rent cap or just-cause law, rent control preempted by A.R.S. § 33-1329(A)); tpa-exemption-notice-ca not tagged (California statute).
+- tpa-sunset: Absent; no repeal clock on A.R.S. §§ 33-1301 to 33-1381 or the eviction statutes in 2024-2026 session laws (AZG-B-097, AZG-CUR-001); dated as of 2026-11-05.
+- tpa-notice: Absent; no rent cap, just-cause rule or tenant purchase right for dwellings (AZG-B-095); rent control preempted (A.R.S. § 33-1329); tpa-notice-ca not tagged (California statute).
+- translation-duty: Absent; no translation, language-of-negotiation, type-size or verbatim-text rule for dwelling leases (AZG-B-099); official-English amendment noted as binding government; translated-lease practice advice given (controlling version).
+- trespass-notice: Present (A.R.S. §§ 13-1502(A)(1), 12-1178(D)) with no landlord-specific barring or guest-defense rule (AZG-B-100); tagged barred-person-covenant-ne for AZ: its DV carve-out is broader than A.R.S. § 33-1318(A)'s evidence categories, which only narrows the landlord's power.
+- truth-in-renting: Absent (AZG-B-101); the nearest Arizona rules (A.R.S. § 33-1322(B) website notice, § 33-1315 prohibited provisions and penalty, § 33-1322(E) blanks) are pointed to by existing row ids; NJ and MI clauses not tagged.
+- unbundled-parking: Absent (AZG-B-102); no clause offered (separating parking is a pricing choice the existing parking clauses already allow); unbundled-parking-ca not tagged.
+- unpaid-damages-interest: Present (A.R.S. § 44-1201: 10% absent a written rate, any written rate, judgment rate rules, no prejudgment interest on unliquidated damages); tagged interest-on-unpaid-amounts-ca for AZ (its variable rate fits A.R.S. § 44-1201(A)(2); the CA 10% guardrail noted as California-only). Late fees left to the main pass.
+- usufructuary-lessor: Absent (no usufruct; no statute on leases by a life tenant; AZG-B-104); absence id per brief (edu-no-...); title 14 trust apportionment flagged as heading only.
+- veterans-incentive: Absent (AZG-B-105); military family relief fund (A.R.S. § 41-608.04) stated as a tenant-side stipend, not a landlord incentive.
+- water-heater-temperature: Absent (AZG-B-106); hot-water duty in A.R.S. § 33-1324(A)(6) stated; boiler law flagged (title 23 heading only; A.A.C. not held).
+- waterbed: Absent (AZG-B-107); tagged waterbed-mn (plain consent clause, no fee) for AZ; insurance and deposit variants not tagged.
+- window-guards: Absent for guards and security bars (AZG-B-108); the A.R.S. § 36-1681(C)(3) pool-access window latch rule stated with its exclusions; local codes flagged.
+- written-notice-required: Present; one row listing the Landlord and Tenant Act's written-notice requirements on both sides, the A.R.S. § 33-1315(A)(1) bar on downgrading them, and the two notices (entry, new rules) the act does not require in writing.
+- tenant-confidential-information: Present (association limits, SSN and disposal rules, breach notice) with a confirmed absence of a general landlord disclosure bar. Revised 2026-11-05: A.R.S. §§ 18-551 and 18-552 read as saved excerpts (coordinator); the earlier QUESTION FOR TAYLOR on reading them is resolved. Subsections (B)(2)(b), (L) and (N) were read but not saved, so they are stated without quotes.
+- tenant-records: Present (deposit list, property-manager retention, records transfer on sale) with a confirmed absence of a rent-ledger or records-request rule; data-security half points to edu-tenant-confidential-information-az and the queued A.R.S. § 18-552 read.
+- tenant-records: revised 2026-11-05 to state the breach-notice duty from the A.R.S. §§ 18-551 and 18-552 excerpts (coordinator); data-security detail stays in edu-tenant-confidential-information-az.
+- smart-access: Absent; no AZ clause offered and the WY and MN smart-access clauses not tagged (their text or notes rest on WY and MN statutes); whether an electronic-lock reset meets A.R.S. § 33-1318(E) left to the cautious course (reset codes and revoke credentials).
+- smart-access: revised 2026-11-05 with the A.R.S. §§ 18-551 and 18-552 excerpts; whether biometric or credential data is a 'specified data element' is not stated because those paragraphs of § 18-551(11) were not saved.
+- social-security-defense: Absent; voucher-share rule (24 C.F.R. § 982.310(b)) queued, body flags federal program rules without describing them.
+- social-security-defense (revised 2026-11-05): voucher-share rule now stated from the saved FEDERAL: 24 C.F.R. § 982.310(b)(1)-(2) excerpt; the queued line is answered.
+- statutory-early-termination: Present as a list row; A.R.S. § 33-1361(A) material falsification treated as Arizona's fraud-inducement analogue (notice and cure); A.R.S. § 33-1364 left out because it gives no termination right; early-termination fees left to the main pass; SCRA queued (50 U.S.C. § 3955).
+- statutory-early-termination (revised 2026-11-05): military termination now stated from the saved FEDERAL: 50 U.S.C. § 3955(a)-(b) excerpt; subsections (c)-(i) (notice, effective date, deposits) not read and flagged in the body.
+- subsidized-inspection-refusal: Absent; program inspection treated as the landlord's own entry under A.R.S. § 33-1343 (cautious course); federal HCV inspection rules queued; the IL tenant-refusal clause not tagged (IL statute).
+- subsidized-inspection-refusal (revised 2026-11-05): PHA inspection schedule and the family's duty to allow inspection now stated from saved FEDERAL: 24 C.F.R. §§ 982.405 and 982.551(d); HQS (982.401) still not read.
+- subsidy-habitability-proration: Absent; federal HCV abatement rule queued (24 C.F.R. § 982.404); the body tells landlords not to pass agency abatements to the tenant unless program rules allow (cautious course).
+- subsidy-habitability-proration (revised 2026-11-05): owner HQS duty, cure times, tenant-caused waiver and family responsibility stated from saved FEDERAL: 24 C.F.R. § 982.404(a)-(b)(1); abatement text not saved, said so.
+- subsidy-late-fee: Absent; cautious course (late fee on the tenant's own late share only); 24 C.F.R. § 982.451 queued.
+- subsidy-late-fee (revised 2026-11-05): PHA prompt-payment duty and HAP-contract late penalties stated from saved FEDERAL: 24 C.F.R. § 982.451(b)(5)(i)-(ii)(A), with § 982.310(b)(1); the listed circumstances not saved, said so.
+- tenant-bankruptcy: Absent; cautious course (pause collection and eviction on notice of filing); federal Bankruptcy Code queued; A.R.S. § 33-362 left out of the body because chapter 3 does not reach dwellings (A.R.S. § 33-381).
+- tenant-bankruptcy (revised 2026-11-05): automatic stay and the (b)(22)-(23) exceptions now stated from saved FEDERAL: 11 U.S.C. § 362 excerpts, and the § 365(e)(1) opening for bankruptcy-triggered lease terms; § 362(l)-(m) and the § 365(e)(1) conditions not saved, flagged in the body.
+- required-disclosures: Present, as a checklist pointing to the AZ disclosure rows; the coverage-notice, first-page-form and option-to-purchase questions are absences.
+- required-disclosures (revised 2026-11-05): item (10) now states the saved FEDERAL: 42 U.S.C. § 4852d(a)(1)(A)-(B) and (a)(4) duties; the pre-1978 cutoff is no longer stated because the target-housing definition (42 U.S.C. § 4851b) was not read (queued); 24 C.F.R. part 35 and 40 C.F.R. part 745 not read.
+- required-disclosures (revised 2026-11-05): pre-1978 target-housing wording restored with its exceptions from the saved FEDERAL: 42 U.S.C. § 4851b(27) excerpt; 24 C.F.R. part 35 and 40 C.F.R. part 745 still not read.
+- sex-offender-occupancy: Absent for landlords; A.R.S. § 13-3727 binds the offender and is described as such.
+- sex-offender-occupancy (revised 2026-11-05): the saved FEDERAL: 42 U.S.C. § 13663(a) admission bar for federally assisted housing now stated in the body and quoted in notes; definition section 42 U.S.C. § 13664 queued.
+- sex-offender-occupancy (revised 2026-11-05): federally assisted housing now described from the saved FEDERAL: 42 U.S.C. § 13664(a)(2)(A)-(E) excerpt; items after (E), if any, not saved.
+
+## §5 Independent check
+
+**Round 1 (2026-11-05).** One checker, briefed only from the delivered rows and the primary sources (not the helper brief), checked all 145 Present and clause rows. It also checked 30 of the 127 absence rows (chosen with `random.seed(80)`) by re-running one printed battery pattern per row.
+
+Result: 1 ERROR and 20 FIXes, all applied as once-only errata to the frozen row files (`errata.py` asserts that each old string occurs exactly once).
+- **ERROR:** `edu-written-notice-required-az` listed "essential-service notices" among the notices that must be in writing. § 33-1364(A) asks only for 'reasonable notice'. Only the notice of intent to pay the landlord's utility bill must be written (§ 33-1364(A)(1)).
+- **FIX:** three repair-remedy rows said a tenant has no remedy at all for a tenant- or guest-caused condition:
+  - `edu-habitability-materiality-az`
+  - `edu-landlord-breach-remedy-az`
+  - `edu-tenant-repair-remedies-az`
+
+  The statute bars only termination (§ 33-1361(A)(2)), repair-and-deduct (§ 33-1363(B)) and the essential-services remedies (§ 33-1364(H)), and only for a deliberate or negligent act.
+- **FIX: other wording points:**
+  - five-day receipt applies to registered or certified mail only (§ 33-1313(B));
+  - "up to" two months' rent (§ 33-1367);
+  - the RV late fee counts from the due date (§ 33-2105(A)(2));
+  - the § 33-1364(C) repair exception;
+  - homestead abandonment by transfer or removal (§ 33-1104(A));
+  - key return and disposal (§ 33-1370(I));
+  - the § 9-511.02(F) sewer-lien scope;
+  - the § 33-1314.01(D) consequence;
+  - the § 33-1367 motive;
+  - the § 33-1318(J) deposit clock;
+  - the § 26-168(D) citation (Laws 2026, ch. 104 amends § 26-168 but adds no text to (D));
+  - a tax-escalation statement that rested on an unread act.
+- **FIX: guest responsibility.** Two shared clauses tagged for AZ make the tenant answer for every guest, which goes further than § 33-1368(F):
+  - `barred-person-covenant-ne`: its shared clause text was left unchanged (scope fence), and its AZ note now qualifies the guest sentence.
+  - `pest-cooperation-pr`: its AZ note was corrected.
+- **Reproducibility:** three printed battery counts now re-run one higher. The extra hits are federal units loaded after those batteries ran, so the notes now say so. A script then swept every row for the same wordings and fixed four more:
+  - `edu-no-agreed-notice-method-rule-az` (mailed-notice rule);
+  - `edu-nonpayment-notice-az` (mailed-notice rule);
+  - the repeated AZG-M-021 text in two utility rows.
+- **What held:**
+  - the deposit, waiver, prohibited-provision, entry, eviction-notice, reinstatement and DV rows;
+  - all 27 clause rows under § 33-1315 and their bases, apart from the guest point;
+  - 27 of the 30 sampled absence rows re-ran to their printed counts.
+
+**Full battery re-run (2026-11-05).** A script re-ran all 238 logged batteries over the current units, with no logging.
+- 56 pattern counts differ. Every difference is an added hit in a unit loaded after the battery ran: a federal excerpt, or one of A.R.S. §§ 17-304, 18-551 or 43-1072 read on azleg.gov.
+- No hit was lost and no positive check changed.
+- Two main-pass absence rows (`edu-no-tenant-rights-statement-az`, `edu-security-deposit-holding-az`) now name the added unit. Their findings stand. The output is `check/rerun.txt`.
+
+
+
+**Round 2 (2026-11-05, the last round allowed).** A fresh checker diffed the 26 edited rows against their round 1 versions and checked a consistency set of 47 rows citing the same sections. It found 0 ERROR, 17 FIX and 3 NOTE.
+
+Round 2 caught four points where round 1 was itself wrong or incomplete:
+- Round 1 used `edu-confirmed-absences-habitability-az` as its model, but that row had the same missing deliberate-or-negligent element.
+- The re-run note in `edu-no-tenant-rights-statement-az` now names two added units, not one. The second is FEDERAL: 34 U.S.C. § 12491(c)(3)(D).
+- Round 1's "for any reason" in the submeter row contradicted that row's own repair and writ exceptions.
+- Two more rows still described the fault bar or the utility-notice point the old way: `edu-alt-housing-az` and `edu-repair-notice-az`.
+
+In the consistency set, no row still states the old wording on the fixed two months' rent, the five-day mailing rule or shutoff only after a writ. The § 33-1368(F) guest rows agree with each other.
+
+All 20 findings were applied as errata. The validator then reported 250 topics, 272 rows and 1,660 quotes checked, with 0 flagged. Because round 2 still produced changes, the main pass re-read each edited sentence whole against its section (§§ 33-1361, 33-1363, 33-1364, 33-1367, 33-1368, 33-1313, 33-1104, 33-1314, 33-1370 and 33-1318(J), and FEDERAL: 34 U.S.C. § 12491) before delivery.
+
+The round 2 checker could not reproduce the exact printed counts of AZG-M-021 and AZG-M-029 from their prose descriptions. The exact patterns are in `batteries.jsonl`, and the script re-run reproduces them, apart from the later-loaded units.
+
+**Edited after the last check (for Claude Code to read against the statutes at sync):**
+- `barred-person-covenant-ne` (AZ note)
+- `edu-alt-housing-az`
+- `edu-confirmed-absences-habitability-az`
+- `edu-dv-deposit-timing-az`
+- `edu-habitability-materiality-az`
+- `edu-homestead-waiver-az`
+- `edu-landlord-lien-az`
+- `edu-no-agreed-notice-method-rule-az`
+- `edu-no-tenant-rights-statement-az`
+- `edu-repair-notice-az`
+- `edu-utility-disclosure-attachment-az`
+- `edu-utility-interruption-submeter-az`
+- `edu-utility-transfer-az`
+- `edu-written-notice-required-az`
+- `pest-cooperation-pr` (AZ note)
+
+## §6 Findings on existing rows
+
+### `early-termination-ks`: proposed `early-termination-az` override (item 7; pending Taylor's answer)
+
+Fields (the 17 columns):
+
+| Column | Value |
+|---|---|
+| id | `early-termination-az` |
+| group | Default & Termination |
+| title | Early Termination |
+| states | AZ |
+| is_active | TRUE |
+| supersedes | early-termination-ks |
+| rule_type | REQUIRED |
+| content_type | LEASE_CLAUSE |
+| verification_status | VERIFIED |
+| effective_from | the sync date |
+| last_checked | the sync date |
+| choice_group | blank |
+| is_default | blank |
+| topic_key | early-termination |
+| lease_clause_basis | SERVES_LANDLORD |
+
+**bodyText:** "Tenant may terminate this Lease before the end of the Term by providing Landlord at least 30 days' written notice. Tenant will pay Landlord, by the termination date, an early termination fee equal to one month's Rent ({{monthly_rent}}), and remains responsible for Rent and other obligations up to the termination date. If Tenant gives that notice, pays the fee and delivers possession of the property by the termination date, Tenant owes no Rent for any period after the termination date. If Tenant leaves before the end of the Term without using this option, Tenant's liability is governed by Arizona law, including Landlord's duty under A.R.S. 33-1370 to make reasonable efforts to re-rent the property at a fair rental and Landlord's claim for actual damages under A.R.S. 33-1373. This early-termination option and fee apply only if this Lease has a fixed Term; a month-to-month or other periodic tenancy ends on the notice that applicable law and this Lease provide, without an early termination fee. Landlord may terminate this Lease early in accordance with this Lease's Tenant Default and notice provisions, or if Tenant vacates or abandons the property without notifying Landlord. Nothing in this Section limits any right either party has under applicable law, including a Tenant's right to terminate without penalty due to active military service under the Servicemembers Civil Relief Act; as a victim of domestic violence or sexual assault, or as a law enforcement officer protected by an injunction against harassment, under A.R.S. 33-1318 and 33-1318.01; due to the property becoming uninhabitable through no fault of Tenant, including fire or casualty damage under A.R.S. 33-1366; or any other termination right or limitation provided by applicable law."
+
+**notes:** "AZ: section-open (corpus STATUTES.TXT, from azleg.gov section pages dated 09/09/26; no 2024-2026 act amends a section of A.R.S. §§ 33-1301 to 33-1381, battery AZG-CUR-001). Replaces early-termination-ks for AZ (gaps pass 2026-11, item 7). No statute caps or bars a dwelling early-termination fee; battery AZG-M-030 found none. The only liquidated-damages statute is for property management agreements: 'Provide for reasonable liquidated damages or cancellation fees for early termination of the agreement.' (A.R.S. § 32-2173). Mitigation: 'If the tenant abandons the dwelling unit, the landlord shall make reasonable efforts to rent the dwelling unit at a fair rental.' (A.R.S. § 33-1370(C)). After termination, 'a separate claim for actual damages for breach of the rental agreement' (A.R.S. § 33-1373). Unconscionability: § 33-1312. The greater-of fee (30% of remaining Rent) could exceed any forecast of loss on a long Term, so the flat one-month fee with release matches NV, TX and NJ. Liquidated-damages case law was not searched. Periodic tenancies: § 33-1375(A)-(B). DV and officer termination: §§ 33-1318, 33-1318.01 (no early termination penalties or fees). Fire: § 33-1366."
+
+**Delta changes if adopted:** add the row, and drop AZ from `early-termination-ks` states with the note "AZ: moved to early-termination-az". That is a change to an existing row, so Claude Code makes it at the sync.
+
+### `hoa-compliance`: proposed AZ note addition (item 5; not a conflict)
+"AZ: Give Tenant a copy of the association rules at signing. A rule binds the tenant through the lease only if the tenant has notice when signing, and a later rule only after 30 days' notice without a substantial modification (A.R.S. § 33-1342(A)(6), (B), applied by analogy; no statute says whether association rules are landlord 'rules or regulations', case law not searched)."
+
+### `no-alterations`: proposed AZ note addition (from helper B, portable-solar)
+"A.R.S. § 33-439(A) may void a lease term that effectively prohibits a tenant's solar energy device; the carve-out covers it (see edu-portable-solar-az)." No clause text change.
+
+### `smoking-policy`: Smoke-Free Arizona Act duties
+These are now stated in `edu-smoke-drift-waiver-az` (signs and ashtray removal in enclosed apartment common areas, § 36-601.01). No separate row is needed.
+- (from `smoke-drift-waiver`) Proposed row (statute places a duty no AZ row states): Smoke-Free Arizona Act signs and ashtrays in apartment common areas. Now stated in edu-smoke-drift-waiver-az (topic smoke-drift-waiver); no separate row needed unless Claude Code wants it under smoking-policy.
+- (from `ev-charging-requirements`) edu-no-ev-charging-right-az (topic ev-charging): the row's notes list the hits of an earlier azleg phrase search and do not mention A.R.S. § 40-213 ('Notwithstanding any other law, services engaged by companies to charge batteries for electric vehicles does not qualify electric charging providers as public service corporations.' (A.R.S. § 40-213(A))), which the phrase search missed. The body ("Arizona statutes do not give a residential tenant a right to install an electric vehicle charger at a rental and do not require a landlord to allow one.") stays correct (battery AZG-A-044). Proposed fix: add to notes "Charging-provider status and fees: A.R.S. § 40-213; see edu-ev-charging-requirements-az." No body change.
+- (from `frozen-standard-incorporation`) edu-landlord-maintenance-az notes still say "§9-1303 NOT READ (fetch returned 404 on the path tried; L.5 dependency)" although its later experience-screen note says § 9-1303 was read section-open and the body cites it. § 9-1303 is now read whole in the corpus (dated 09/08/26). Proposed fix: delete the "NOT READ" parenthesis from the first note segment.
+- (from `maintenance-duty-shift`) maintenance-allocation-az (LEASE_CLAUSE, tenant-repair-agreement): bodyText puts a bracket right beside a builder variable, "{{tenant_maintained_items}} [check each that applies: ...]" and "{{maintenance_consideration}} [state the consideration Tenant receives, e.g. a Monthly Rent reduction of $__]", which the library's drafting rule forbids (never put a bracket beside a variable). Proposed fix: move the checklist and the consideration instruction into the opening bracketed use instruction (e.g. "[Optional. ... In the builder, choose the tasks for {{tenant_maintained_items}} from: lawn and landscaping care ...; state the consideration in {{maintenance_consideration}}, e.g. a Monthly Rent reduction.]") and leave the two variables bare in the text. Substance matches A.R.S. § 33-1324(C)-(D) ('specified repairs, maintenance tasks', 'separate writing signed by the parties and supported by adequate consideration').
+- (from `portable-solar`) no-alterations (AZ note): the carve-out list names A.R.S. §§ 33-1363, 33-1318(E) and 41-1491.19(E)(1); A.R.S. § 33-439(A) ('Any covenant, restriction or condition contained in any deed, contract, security agreement or other instrument affecting the transfer or sale of, or any interest in, real property which effectively prohibits the installation or use of a solar energy device ... is void and unenforceable') may also be an installation the law entitles a tenant to make; proposed addition to the AZ note: "A.R.S. § 33-439(A) may void a lease term that effectively prohibits a tenant's solar energy device; the carve-out covers it (see edu-portable-solar-az)." No clause text change needed.
+- (from `service-animal-denial-penalty`) Finding on edu-assistance-animals-az: it says "Arizona's service-animal rules on permitted questions, fees and a $250 civil penalty for misrepresenting an animal apply to public places, not to rental housing." The statute defines "Public place" as 'any office or place of business or recreation to which the general public is invited' (A.R.S. § 11-1024(M)(4)), which can include a leasing office. Proposed fix: add "A leasing office or other area open to the public may be a public place, where those rules and the class 2 misdemeanor in A.R.S. § 11-1024(J) apply."
+- (from `rent-escalation`) Finding on rent-escalation-la (now tagged AZ): its index example reads "Consumer Price Index for All Urban Consumers (CPI-U), South Region", which does not cover Arizona. Proposed fix: make the example region-neutral (for example "the CPI-U for the region that includes the property") so the row reads correctly in every tagged state; no statute is involved.
+- (from `tenant-right-to-organize`) edu-retaliation-az: the row says the remedy is "the ouster remedy (greater of two months' rent or twice actual damages)", but A.R.S. § 33-1367 allows 'an amount not more than two months' periodic rent or twice the actual damages sustained by him, whichever is greater.' The figure is a ceiling, and the remedy also includes recovering possession or terminating. Proposed fix: "the tenant may recover possession or end the lease and recover up to two months' rent or twice actual damages, whichever is greater, and has a defense to eviction."
+
+## §7 Findings for other states
+
+- **`barred-person-covenant-ne`** is tagged in other states. Its shared sentence "Tenant is responsible for compliance by every person Tenant admits" carries no condition. Arizona limits a tenant's responsibility for guests in A.R.S. § 33-1368(F), and other states tagged on the clause may have a similar limit. Recommend checking each tagged state, or adding to the clause text, centrally, "to the extent applicable law makes a tenant responsible for the acts of guests". Arizona handles it in its AZ note instead, because this pass may not edit shared text.
+- **`pest-cooperation-pr`:** the same guest point applies to its fault-based cost limb in other tagged states.
+- (from `construction-liens`) no-liens-ar (shared, 11 states): the limb "will pay Landlord's reasonable costs caused by it" was not tagged for AZ because of A.R.S. § 33-1315(A)(3) (no indemnity for landlord liability 'arising under law' or 'the costs connected therewith'); states with a URLTA-style indemnity bar may want the same look (NE note already flags attorney fees only).
+- (from `government-fee-reimbursement`) government-fee-reimbursement-ky (tagged KY, AR, MS, KS, NE, TX, NJ) excludes fines, penalties, construction fees and emergency response fees but not inspection or reinspection fees charged because of a code violation or the landlord's failure to correct one. Where a state bars lease indemnity of the landlord's statutory liabilities (as A.R.S. § 33-1315(A)(3) does in Arizona), each tagged state may want that exclusion checked; not researched for those states.
+
+## Proposed SOP changes
+
+- **Rule 19 (proximity patterns):** a NEAR pattern with three parts returns 0 hits, or wrong hits, without any error. Both the main pass and all helpers hit this (AZG-M-024, AZG-B-052/055/060/064, AZG-A-080). Proposal:
+  - the battery tool refuses a NEAR with more than two parts;
+  - the brief tells writers to use AND for three-way tests.
+- **Rule 19 and rule 80 (re-runs after the unit set grows):** sections read later (federal excerpts and out-of-corpus A.R.S. sections) joined the "all" scope after earlier batteries ran. A script re-run then showed 56 higher counts, and the checkers had to reconcile each one. Proposal:
+  - each battery records the unit-set size and a list hash when it runs;
+  - the re-run tool reports any difference made only of later-added units as "scope growth", not "mismatch";
+  - a row prints its count "when run".
+- **Rule 80 (fault-bar wording):** the "no remedy if the tenant or a guest caused it" shorthand appeared in five rows and survived round 1. Round 1 had used one of those rows as its model. Proposal:
+  - the check brief names the statute-level qualifiers (here, "deliberate or negligent" and the three remedies the bar actually reaches);
+  - the sweep greps for the shorthand before round 1 ends.
+- **Out-of-corpus statutes (rule 12):** helpers twice marked a row NEEDS_REVIEW, and once Absent, where the answer sat in a title held as headings only (§§ 43-1072, 25-214). The main pass then read the section on azleg.gov and reversed it. Proposal: the brief tells helpers to queue an out-of-corpus A.R.S. section for the main pass to fetch, as they already do for federal sections, before writing an absence or NEEDS_REVIEW row on it.
+- **Usage:** a weekly usage limit stopped both helpers mid-batch. The resumed agents also died silently overnight. Proposal: check helper liveness by file timestamps at each resume, and relaunch fresh rather than resume a stopped agent.
+
+## Proposed topic questions
+
+- **lease-term-limitation:** add the question "If the property is community property, must both spouses sign a lease of a given length?" Arizona requires both spouses to join in any lease of one year or more (A.R.S. § 25-214(C)(1)). Other community-property states may have similar rules.
+- **property-tax-rent-disclosure:** add the question "Must the landlord, on request, give a statement of the share of rent attributable to property tax for a state tax credit?" (A.R.S. § 43-1072(C)).
+- **tenant-records / tenant-confidential-information:** add the question "Does the state's data-breach notice law reach a landlord holding applicants' identification and financial data?" (A.R.S. §§ 18-551, 18-552).
+
+
+## Gaps-pass sync review (Claude Code, 2026-11-05)
+
+Merged with `merge-delta.py --base e258994`: 252 new rows and 20 shared rows tagged (272, matching the log's count), nothing refused. All 250 missing topics are answered. With the override below, Arizona has 396 active rows: 394 VERIFIED, 2 NEEDS_REVIEW.
+
+**Edited after the last round.** All 15 rows the log lists were read against the corpus (STATUTES.TXT, azleg.gov pages dated 09/08/26 to 09/09/26). Each holds, and none was changed: `edu-alt-housing-az` (§ 33-1364(A), (F)-(H), including the 25% excess cap and the one-period limit for deliberate failure), `edu-confirmed-absences-habitability-az` and `edu-habitability-materiality-az` (§§ 33-1324, 33-1361, 33-1363's $300 or half-month threshold, 33-1364), `edu-dv-deposit-timing-az` (§§ 33-1318, 33-1321(D), 14 days excluding weekends and holidays), `edu-homestead-waiver-az` and `edu-landlord-lien-az` (§§ 33-1101's $400,000, 33-1123's $15,000, 33-1132, 33-1372), `edu-no-agreed-notice-method-rule-az` (§ 33-1313's five-day mailing rule), `edu-no-tenant-rights-statement-az` (§ 33-1322(B); the summary duty in § 33-1432(G) is the mobile-home act's, as the row says), `edu-repair-notice-az`, `edu-written-notice-required-az`, the three utility rows (§§ 33-1364(C), 33-1367, 33-1368(D)) and the AZ notes on `barred-person-covenant-ne` and `pest-cooperation-pr` (§§ 33-1314(A), 33-1319(B)(2), 33-1368(F), 13-1501(2), each quote found).
+
+**Taylor's answers (2026-11-05).** All 12 questions in §4 were answered as recommended. On question 8, Taylor approved offering `government-fee-reimbursement-az` on condition that Claude Code read its support. § 33-1315(A)(3) bars a term indemnifying the landlord for "any liability of the landlord arising under law" or "the costs connected therewith"; an ordinance fee owed by the landlord reads, on the text, as such a liability, and "Rent" (§ 33-1310(12)) doesn't clearly take in a reimbursement. The row is therefore NEEDS_REVIEW and stays optional. Questions 6 (renter's insurance, pending Title 20) and 12 (organizing and the § 33-1381(B) presumption) are holding positions to revisit. Question 3's federal arbitration question is cross-state and is queued in the backlog.
+
+**§6 findings applied** (each quote re-read in the corpus first): `early-termination-az` added (flat one-month fee with release from later Rent; §§ 33-1370(C), 33-1373, 33-1312, 32-2173; the §§ 33-1318.01 and 33-1366 references checked), and AZ untagged from `early-termination-ks` with an "Untagged" note (New Jersey's missing note from its 2026-10-31 sync added at the same time); AZ notes on `hoa-compliance` (§ 33-1342(A)(6), (B)) and `no-alterations` (§ 33-439(A)); `edu-no-ev-charging-right-az` notes now cite § 40-213; the stale "§9-1303 NOT READ" parenthesis removed from `edu-landlord-maintenance-az`; `maintenance-allocation-az` now keeps its two builder variables bare, with the task list and consideration instruction moved into the opening bracket; `edu-assistance-animals-az` adds the leasing-office point (§ 11-1024(M)(4), (J)); `rent-escalation-la`'s CPI example is now region-neutral; `edu-retaliation-az` states § 33-1367's remedy as a ceiling with possession or termination. `smoking-policy` needed no change.
+
+**§7 findings for other states** are queued in `docs/backlog.md`: the guest-responsibility qualifier on `barred-person-covenant-ne` and `pest-cooperation-pr`, the indemnity look at `no-liens-ar`, and the code-violation inspection fee exclusion on `government-fee-reimbursement-ky`.
+
+**Topic questions and SOP.** Two of the log's three proposed topic questions were added to `topic-questions.csv` (`lease-term-limitation`, `property-tax-rent-disclosure`); the data-breach question is already there from Massachusetts. `lease-clause-topics.md` was regenerated. The 5 proposed SOP changes were adopted as SOP 1.96 (rules 12, 19, 27, 80). Citations: 273 rows were added to `lease-clause-citations-AZ.csv`, 270 CITED from the log's §2 table or the row's AZ notes, 2 CONFIRMED_ABSENT, and `early-termination-az`.
