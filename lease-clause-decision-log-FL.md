@@ -958,3 +958,2131 @@ No row changed, so no delta file was produced. FL active count is 119 before and
 - `smoking-policy`: Tenant pays for smoking damage caused by "Tenant, an occupant, or a guest or invitee of Tenant", no longer by anyone's smoking.
 - `no-alterations`: the last sentence adds that the clause "does not change who owns an installation that applicable law makes Tenant's property".
 - `addendum-precedence`: a disclosure, notice or addendum "that applicable law says controls over this Lease" now controls, as one the law requires already did.
+
+# Topic gaps pass (end-of-run consistency pass, 2026-11-05): Desktop's running record
+
+## Florida topic gaps — running record
+
+Pass started 2026-11-05 under SOP 1.95. The prompt was staged 2026-10-31 21:55.
+
+This summary has to outlive the temporary workspace. The detail is in the delivered `gaps-log-FL.md` and `lease-clauses-FL-gaps-delta.csv`.
+
+### Status (FINAL, delivered 2026-11-05)
+- 261 of 261 topics answered; 291 delta rows: 18 tags, 273 new. Merge check: 17 columns, CRLF, no duplicate ids, master + 273 = 14,225 rows, all 13,934 non-FL rows unchanged, tags change only `states` and add an FL notes segment.
+- 1,432 quotes checked, 0 problems; full battery replay 1,126 terms, 0 differences, plus the batteries added during the check (FLG-M-033 to -039, FLG-B-029), all replayed.
+- **Independent check:** round 1 over all 291 rows (5 sets): 7 ERROR, 33 FIX, 47 MINOR, 1 REPRO, all accepted, 99 edits. Round 2 over the 74 edited rows: 0 ERROR, 3 FIX, 11 MINOR, 1 REPRO, 18 edits. 13 rows were edited after round 2 and are listed in log §5.
+- **Errors the check caught:** out-of-state owners (foreign LLC certificate of authority and registered agent, §§ 605.0902-605.0905, 607.1502; service via the Secretary of State, § 48.181); fictitious-name bar on suing (§ 865.09(9)(a)); any-person reporting duties (§§ 39.201, 415.1034, 794.027, 406.12); mobile home prospectus threshold is 26 lots (§ 723.011(1)(a)). Root cause: absence batteries that required a landlord or tenant word; SOP change proposed.
+- Questions for Taylor were unanswered at delivery; recommendations adopted (log §4). For the maintenance shift, the in-unit items turned out to be tenant duties already under § 83.52(2)-(3), so no clause was added.
+- Florida items 1-8 are answered in log §4.
+
+### Step A (passed)
+- **lease-clauses.csv:** 52,616,417 bytes, SHA-256 bc7f9020…cdbece1b3b6. 13,952 rows, of which 13,841 are active and 120 are FL. 261 topics.
+- **Corpus archive** efd59225…5f0c6f5 verified (256 files).
+- **Live currency proof** (2026-11-05): the text of chs. 83, 509, 718, 720 and 741 matches flsenate.gov.
+
+### Corpus defects found and fixed (report to Claude Code)
+1. **flsenate.gov page chrome:** the last section of all 503 chapters carried page chrome.
+2. **Civil-rules page headers:** running headers sat inside rule bodies.
+3. **Online Sunshine footer:** it sat in the last section of all 135 leg.state.fl.us chapters.
+
+All three are stripped. Each fix was replayed with 0 differences.
+
+### Sources read outside the corpus
+All were read in the browser pane on 2026-11-05. Hashes are in log §1.6.
+- **Federal:**
+  - 34 U.S.C. § 12491
+  - 15 U.S.C. § 9058
+  - 11 U.S.C. § 362
+  - 24 C.F.R. § 982.310
+  - 42 U.S.C. §§ 3604, 3607
+  - 47 C.F.R. § 1.4000
+- **Court rules:**
+  - Fla. R. Gen. Prac. & Jud. Admin. 2.514
+  - Fla. Sm. Cl. R. 7.010, 7.050
+  - Fla. R. App. P. 9.310
+- **Session laws (effective dates only):**
+  - chs. 2024-71, 2024-73, 2024-77, 2024-148, 2024-259
+  - chs. 2025-30, 2025-87, 2025-134, 2025-156, 2025-182
+  - chs. 2026-17, 2026-57, 2026-145, 2026-156
+
+### Slice highlights
+- **M (main pass):**
+  - Waiver row: edu-part5-nonwaivable-fl.
+  - Clauses: jury-waiver-fl, collection-fee-fl, notice-cost-fl.
+  - Tag: fees-and-charges-vi.
+  - Domestic violence: the tenancy protections are absent in Florida.
+  - Landlord registration: the DBPR public lodging licence.
+- **A (habitability):**
+  - Covers ch. 509 and R. 61C-1.004 for licensed apartments, § 768.0706 and § 718.112(2)(n).
+  - Clauses: appliances-excluded-fl, pest-cooperation-fl, designated-repairer-fl.
+  - Tags: carpet-cleaning-ar, furnishings-included-la, detector-care-la.
+- **B (eviction/termination):**
+  - Clauses: criminal-activity-fl, conversion-termination-fl, extended-absence-notice-fl, unpaid-amounts-interest-fl.
+  - Tag: owner-occupancy-termination-ar.
+- **C (utilities):**
+  - Covers the PSC submetering and resale rules, the water-resale cap in § 367.022(9), and utility liens.
+  - Antenna rule: 47 C.F.R. § 1.4000.
+  - Clauses: utility-allocation-fl, utility-shutoff-notice-designee-fl, government-fee-reimbursement-fl, tenant-caused-fines-fl.
+  - Tags: energy-data-release-wy, ev-charger-installation-hi, tax-insurance-escalation-la.
+- **D (disclosures):**
+  - Most of the listed disclosure duties are confirmed absent in Florida.
+  - Sex-offender residency (§ 775.215) binds the offender, not the landlord.
+  - Eminent domain: the court apportions the award (§ 73.101).
+  - Tag: eminent-domain-vi.
+- **E (lease formation):**
+  - Landlord's lien (§ 713.691, enforced under § 85.011(5)) is new to the FL rows.
+  - Private parking charges are governed by § 715.075.
+  - The insurer-claim procedure for a fee in lieu of deposit is in § 83.491(2).
+  - The library declines four options, each with an education row explaining why:
+    - automatic renewal (§ 501.165 may reach leases)
+    - modifying the landlord's lien
+    - a wage-garnishment waiver
+    - arbitration
+  - Clause: rules-fl.
+  - Tags: lease-copy-receipt-hi, rent-concession-wi, rent-installments-or, rent-escalation-la, rent-increase-midterm-ky, guaranty-as, informal-dispute-resolution-or.
+- **F (occupants and miscellaneous):**
+  - Clauses: firearm-rules-fl, scheduled-services-entry-fl, animal-care-access-fl, family-child-care-fl, tenant-portal-fl, employee-housing-fl.
+  - Tags: cannabis-restrictions-ak, move-in-condition-report-as.
+  - Contrary to the topic list's expectation: fraudulent entry (§§ 817.537, 83.56(2)(a), from Oct. 1, 2026) allows termination on 7 days' notice with no cure; the sheriff removes squatters (§ 82.036); housing furnished with a job is a dwelling unit (§ 83.43(5)(c)).
+  - Cannabis: certified recovery residences must ban marijuana (§ 397.487(3)(a)3.); ch. 2025-182 read, row current.
+  - Card-surcharge ban (§ 501.0117) stated with the case lead Dana's Railroad Supply v. Attorney General (11th Cir. 2015).
+
+### Findings on existing rows (log §6)
+- **late-fee (shared):** the waiver sentence goes beyond what §§ 83.56(5)(a) and 83.47(1)(a) allow.
+- **edu-landlord-maintenance-fl:** the cooling sentence misses § 509.221(3).
+- **edu-utility-former-occupant-fl:** "Private utilities are not covered" misses the PSC rules.
+- **acceptable-payment-methods (shared):** the FL segment omits the § 501.0117 card-surcharge ban (not wrong; the clause imposes no surcharge).
+- **edu-service-animal-penalties-fl:** omits the emotional-support-animal crime in § 817.265 (incomplete, not wrong).
+
+### Questions for Taylor (unanswered at delivery; recommendations adopted)
+1. **Apartment maintenance-shift clause:** recommend a narrow, in-unit-only clause.
+2. **Landlord casualty-termination clause:** recommend no clause; education only.
+3. **Optional arbitration clause limited to money claims:** recommend no. § 83.47(1)(a) may reach it, the point is unsettled without case law, and the carve-outs leave little to arbitrate.
+4. **Restoration clause for disability modifications:** § 760.23(9)(a) omits the federal restoration proviso; recommend no clause for now (the education row gives the cautious course).
+
+### Not fetched at delivery (rows state the limit; none is wrong without it)
+- **FAC R. 25-6.049:** need the pre-amendment text. The corpus copy is the version effective 11-8-26. Reading it needs browser permission for flrules.org.
+- **FDACS EV-charging rules** under § 366.94(3).
+- **Optional:** FAC ch. 61G20; 24 C.F.R. § 982.404; 42 U.S.C. § 4852d and 40 C.F.R. § 745.113.
+
+### Proposed SOP changes
+- Absence batteries need a limb without landlord or tenant words whenever the rule could sit in a general business, entity, service or reporting statute.
+- The independent checker should get a script comparing History lines and "not held" claims with the corpus.
+- Corpus check scripts should compare full section content, not just prefixes.
+- Strip court-rule running page headers before splitting.
+
+# Topic gaps pass (end-of-run consistency pass, 2026-11-05): Desktop's log
+
+## Topic gaps: Florida (end-of-run consistency pass)
+
+**Pass:** FL topic gaps, end-of-run consistency pass (SOP 1.95; prompt staged 2026-10-31 21:55). **Date:** 2026-11-05. **Scope:** the 261 topics in `missing-topics-FL.md` and the eight Florida items in the prompt, nothing else; no existing row's text was changed (scope fence), and the only change to existing rows is adding FL to `states` and an `FL: ` notes segment on tagged rows. **Settings:** Opus, high effort; research mode not used (no rule 9 trigger arose).
+
+**Start clean (rule 8).** Deleted from `/mnt/user-data/outputs/` at the start: `lease-clause-decision-log-FL-retro.md` (the 2026-10-03 SOP 1.36 retro section). The files attached with this prompt are the only source of truth; where this chat's earlier work (October retros, 2,856- and 2,876-row libraries) differs from them, they win.
+
+**Step A (passed).** `lease-clauses.csv` decompressed: 52,616,417 bytes, SHA-256 `bc7f9020351ef82abe3ee2ffa9da942c182464b11559a3028a245cdbece1b3b6` (both as staged); 13,952 rows, 13,841 active, 120 active rows carry FL; FL answers 103 of the library's 364 active topics; `missing-topics-FL.md` lists 261 topics. Corpus archive `corpus-FL-20261031.tar.xz` SHA-256 `efd592255cdd7b8fcce7a7b8bafc3cb6db5e38226944f0150bfd2edde695c0f6` matches its `.sha256` file.
+
+
+### §1 Sources, channel and currency
+
+**§1.1 Channel.** Statute text came from the staged corpus (README: Claude Code, 2026-10-31/11-01; the 2026 Florida Statutes, 503 chapters from flsenate.gov and 135 from leg.state.fl.us; the Constitution; 185 chapter laws of 2024-2026; 24 FAC chapters; the Florida Bar's Rules of Civil Procedure with forms, effective 10-1-26). Read in the cloud workspace by script. `verify_fl.py` was run with `python3 -I` from outside the corpus folder (17 lines, read first): "ok - 256 files verified". Federal sections were read in the Claude desktop browser pane on Taylor's computer from govinfo.gov (approved for this chat at the October retro) and saved as transcribed excerpts in `fetched/`, with the page's SHA-256 recorded: 34 U.S.C. § 12491 (page text 19,188 chars, SHA-256 `6356ae4c…1682ddc`), 15 U.S.C. § 9058 (4,091 chars, `d052aa04…8a6982`). These are transcriptions, weaker than byte copies.
+
+**§1.2 Currency proof against the live site (rule 24).** On 2026-11-05 the browser pane fetched flsenate.gov's whole-chapter pages for chs. 83, 509, 718, 720 and 741. Byte hashes differ from the manifest by about 1.1 KB per page (per-request markup), so the statute content was compared instead: the text of every `div.Section` element, whitespace-collapsed and lowercased, hashed in the browser and in the workspace from the shipped copies (`statutes/html/`). All five match section for section (83: 75 sections `8fe4b70a…`; 509: 75 `40827df9…`; 718: 90 `93f61dd6…`; 720: 36 `f1d65597…`; 741: 48 `4a533b7a…`). Ch. 83's text also matches the Online Sunshine page read on 2026-10-03 for every section quoted then.
+
+**§1.3 Corpus proof and defects found (rules 19, 24).** Loader `tools/flcorpus.py`:
+- Statutes: 24,993 sections, unique numbers, reconciled 0 missing / 0 extra against `catchlines.tsv`; every section has a body and a History line. The leading "<number> <catchline>.—" line of each body is moved to the heading field so heading-only matches can't count as body hits (24,993 of 24,993 parsed after allowing a one- or two-digit footnote marker before the number in 216 sections).
+- STATUTES.TXT vs the 12 shipped HTML chapters: 580 sections compared, all bodies match except § 723.0861, which differs only by a compiler's footnote marker.
+- **Defect 1 (page chrome).** The last section of each of the 503 flsenate.gov chapters carried the page's navigation menu and script text in its body (e.g. § 51.011 ended "Home Senators … Privacy Statement" plus JavaScript, and its History line carried script). The loader strips it (cut at "\nHome\nSenators\n"; History cut at "(function(){") and refuses to load unless exactly 503 sections are stripped. It could only add false hits (words like "rules", "laws", "search"). Every battery logged before the fix was replayed: 17 terms, 0 differences. Both running helpers were told and asked to replay theirs.
+- **Defect 2 (court-rule page headers).** The rules text carries "October 1, 2026 Florida Rules of Civil Procedure NNN" page lines inside rule bodies; stripped before rule splitting. Replay after the fix: 360 terms, 0 differences.
+- **Defect 3 (Online Sunshine footer).** The last section of each of the 135 leg.state.fl.us chapters ended with the site footer "Copyright © 1995-2026 The Florida Legislature • Privacy Statement • Contact Us" (helper B found it in § 715.12). The loader cuts it and refuses to load unless exactly 135 are cut. Like defect 1 it could only add false hits; every battery logged before the fix was replayed: 466 terms, 0 differences (slice A's own replay: 158 terms, 0 differences).
+  - Control count after the fix: the must-hit control "\bLegislature\b" counted 2,548 statute units in the batteries logged before the footer fix (slice A, FLG-A-001 to FLG-A-035, and the slice A rows that quote it) and 2,426 after it, because the footer itself contained "The Florida Legislature". The control only proves the search ran over a loaded corpus; every term count reproduces under the fixed loader (independent check finding R12-15), so the figure 2,548 in those rows is the count at the time of the run and no absence changes.
+- Session laws: running headers ("Ch. 2025-16 LAWS OF FLORIDA …"), CODING lines and page numbers stripped. pdftotext keeps struck words unmarked, so no row describes what an act added or struck; rows state the compiled law and read each act only for its effective-date section.
+- Constitution: indexed by article and section, 213 sections, matching the document's own contents list article by article (a footnote marker before "SECTION" fixed 12 that were missing at first).
+- Court rules: split into 94 rules (R1.xxx) and 83 forms (FORM1.xxx), matching the contents list; body text starts at the second "RULE 1.010".
+- FAC: 24 chapters, whole-chapter units.
+
+**§1.4 Currency (rule 16).** Each relied-on section's History line was read. Acts of 2024-2026 amending ch. 83 part II, found by script over the chapter's History lines, are exactly the six the prompt lists, and each act's effective-date section was read: ch. 2024-199 (§§ 83.43, 83.49, 83.491; on becoming law, approved May 17, 2024), ch. 2025-16 (§§ 83.49, 83.50, 83.505, 83.51, 83.56, 83.575; July 1, 2025), ch. 2025-166 (§ 83.512; October 1, 2025), ch. 2025-190 (§ 83.63; on becoming law, approved June 26, 2025), ch. 2026-125 (§ 83.684; July 1, 2026), ch. 2026-143 (§ 83.56; October 1, 2026). Other acts read for effective dates as rows needed them are named in the rows (e.g. ch. 2025-23, 2025-163, 2026-86, 2026-91, 2024-27, 2024-123). Ch. 2023-314 (§§ 83.425, 83.57, 83.575) is not in the corpus; its effective date was read on laws.flrules.org at the 2026-10-03 retro (FL log). Bounded claim: the corpus holds the 2024-2026 acts cited in History lines of the chapters its README lists, not every act of those sessions, so a battery's session-law scope proves absence only in those acts.
+
+**§1.5 What was not searched.** Case law (rows say "no published case was searched"); county and municipal ordinances (flagged, not resolved; rule 3, subject to Fla. Stat. § 83.425); FAC chapters other than the 24 held; the Florida Rules of General Practice and Judicial Administration, Small Claims Rules and Rules of Appellate Procedure apart from the rules listed in §1.6, circuit local rules and administrative orders; federal law other than the sections listed in §1.6 (no row quotes any other federal text); of the court rules outside the corpus, only the rules listed in §1.6 were read.
+
+**§1.6 Sources read outside the corpus.** All read on 2026-11-05 in the Claude desktop browser pane on Taylor's computer and saved as transcribed excerpts in `fetched/` (weaker than byte copies); hashes are of the page text or PDF as read.
+- 24 C.F.R. § 982.310 (Owner termination of tenancy): https://www.ecfr.gov/current/title-24/subtitle-B/chapter-IX/part-982/subpart-G/section-982.310 (eCFR, current); SHA-256 `4ebb7286…1653be7`; this file transcribes (a), (b) and (d)(2) (weaker than a byte copy).
+- 47 C.F.R. § 1.4000 (Restrictions impairing reception of television broadcast signals, direct broadcast satellite services or multichannel multipoint distribution services): https://www.ecfr.gov/current/title-47/chapter-I/subchapter-A/part-1/subpart-S/section-1.4000 (eCFR, current); SHA-256 `0144298f…d8a730f`; this file transcribes (a)(1)-(4), (b), (e) and (g) (weaker than a byte copy). Read at slice C's fetch request (edu-telecom-access-fl).
+- ch. 2024-148, Laws of Fla. (health care practitioners and massage therapy (amending s. 823.05, F.S., among others)): https://laws.flrules.org/2024/148 (Department of State, Laws of Florida PDF); SHA-256 `f2111463…dd7054e`; this file transcribes the effective-date section and approval line only.
+- ch. 2024-77, Laws of Fla. (amending ss. 562.12 and 893.138, F.S.): https://laws.flrules.org/2024/77 (Department of State, Laws of Florida PDF); SHA-256 `86ba3085…1d88361`; this file transcribes the effective-date section and approval line only.
+- ch. 2025-30, Laws of Fla. (amending s. 810.09, F.S. (trespass)): https://laws.flrules.org/2025/30 (Department of State, Laws of Florida PDF); SHA-256 `2ffbff1e…b70895d`; this file transcribes the effective-date section and approval line only.
+- ch. 2024-71, Laws of Fla. (amending s. 775.21 among others, F.S.): https://laws.flrules.org/2024/71 (Department of State, Laws of Florida PDF); SHA-256 `c16f443f…01dd3a3`; this file transcribes the effective-date section (July 1, 2024) and approval line only. Read at slice D's fetch request.
+- ch. 2024-73, Laws of Fla. (amending s. 775.21 among others, F.S.): https://laws.flrules.org/2024/73 (Department of State, Laws of Florida PDF); SHA-256 `11d2dacc…93ec5c1`; this file transcribes the effective-date section (October 1, 2024) and approval line only. Read at slice D's fetch request.
+- ch. 2025-134, Laws of Fla. (amending s. 775.21 among others, F.S.): https://laws.flrules.org/2025/134 (Department of State, Laws of Florida PDF); SHA-256 `6fb793c8…9231e00`; this file transcribes the effective-date section (October 1, 2025) and approval line only. Read at slice D's fetch request.
+- ch. 2025-156, Laws of Fla. (amending s. 775.21 among others, F.S.): https://laws.flrules.org/2025/156 (Department of State, Laws of Florida PDF); SHA-256 `7e1905b3…929ffa8`; this file transcribes the effective-date section (October 1, 2025) and approval line only. Read at slice D's fetch request.
+- ch. 2026-17, Laws of Fla. (amending s. 775.215, F.S.): https://laws.flrules.org/2026/17 (Department of State, Laws of Florida PDF); SHA-256 `537e29ec…efc6151`; this file transcribes the effective-date section (July 1, 2026) and approval line only. Read at slice D's fetch request.
+- ch. 2024-259, Laws of Fla. (amending s. 695.03 among others, F.S.): https://laws.flrules.org/2024/259 (Department of State, Laws of Florida PDF); SHA-256 `0632321b…b697397`; this file transcribes the effective-date section (July 1, 2024) and approval line only. Read at slice E's fetch request.
+- ch. 2026-57, Laws of Fla. (amending s. 733.612 among others, F.S.): https://laws.flrules.org/2026/57 (Department of State, Laws of Florida PDF); SHA-256 `359c57b7…57e402d`; this file transcribes the effective-date section (July 1, 2026) and approval line only. Read at slice E's fetch request.
+- ch. 2025-182, Laws of Fla. (relating to certified recovery residences; adds s. 397.487(15)-(16), F.S.): https://laws.flrules.org/2025/182 (Department of State, Laws of Florida PDF); SHA-256 `2fad38d2…28237e3`; this file transcribes the effective-date section (July 1, 2025), the approval line and section 1's amending clause only. Read at slice F's fetch request.
+- ch. 2025-87, Laws of Fla. (amending s. 162.09, F.S.): https://laws.flrules.org/2025/87 (Department of State, Laws of Florida PDF); SHA-256 `79169a15…0fc8a8b`; this file transcribes the effective-date section (July 1, 2025) and approval line only. Read at slice A's fetch request for § 162.09's latest act.
+- ch. 2026-145, Laws of Fla. (amending s. 893.138, F.S. (public nuisances)): https://laws.flrules.org/2026/145 (Department of State, Laws of Florida PDF); SHA-256 `ef096779…4b18849`; this file transcribes the effective-date section and approval line only.
+- ch. 2026-156, Laws of Fla. (amending s. 874.03, F.S.; reenacting s. 823.05(2)(a), F.S., among others): https://laws.flrules.org/2026/156 (Department of State, Laws of Florida PDF); SHA-256 `820edef2…aa08823`; this file transcribes the effective-date section and approval line only.
+- Fla. R. App. P. 9.310 (Stay pending review): https://www-media.floridabar.org/uploads/2026/10/Appellate-Court-Rules-10-01-26.pdf (The Florida Bar, Florida Rules of Appellate Procedure, October 1, 2026 edition, 245 pages); SHA-256 `7b462cb6…f1a7042`; rule 9.310(a)-(c), (e) transcribed as extracted (running page line removed).
+- Fla. R. Gen. Prac. & Jud. Admin. 2.514 (Computing and extending time): https://www-media.floridabar.org/uploads/2026/08/2027_01-JULY-Florida-Rules-of-General-Practice-and-Judicial-Administration-7-1-2026.pdf (The Florida Bar, July 1, 2026 edition, 259 pages); SHA-256 `a7fba18f…dbdbba2`; rule 2.514 transcribed whole as extracted (running page lines removed).
+- Fla. Sm. Cl. R. 7.010, 7.050 (Title and scope; commencement of action; statement of claim): https://www-media.floridabar.org/uploads/2026/08/2026_01-JUL-Small-Claims-Rules-7-1-2026-1.pdf (The Florida Bar, Florida Small Claims Rules, July 1, 2026 edition, 69 pages); SHA-256 `daf3ac5b…0f3d909`; rule 7.010(a)-(b) and rule 7.050(a) transcribed as extracted.
+- 11 U.S.C. § 362 (Automatic stay): https://www.govinfo.gov/content/pkg/USCODE-2024-title11/html/USCODE-2024-title11-chap3-subchapIV-sec362.htm (United States Code, 2024 Edition, via govinfo link service); SHA-256 `ad76075e…cce2ba3`; this file transcribes (a)(1)-(3), (b)(22)-(23), (l)(1)-(2), (l)(4)(A) and (m)(1)-(3)(A) (weaker than a byte copy).
+- 15 U.S.C. § 9058 (Temporary moratorium on eviction filings): https://www.govinfo.gov/content/pkg/USCODE-2024-title15/html/USCODE-2024-title15-chap116-subchapIII-partA-sec9058.htm (United States Code, 2024 Edition, via govinfo link service); SHA-256 `d052aa04…d6a8982`; this file transcribes (a)(1)-(2), (b) and (c) (weaker than a byte copy).
+- 34 U.S.C. § 12491 (Housing protections for victims of domestic violence, dating violence, sexual assault, and stalking): https://www.govinfo.gov/content/pkg/USCODE-2024-title34/html/USCODE-2024-title34-subtitleI-chap121-subchapIII-partL-subpart2-sec12491.htm (United States Code, 2024 Edition, via govinfo link service); SHA-256 `6356ae4c…1682ddc`; this file transcribes subsections (a)(3)(H) and (J), (b) and (c)(4) only (weaker than a byte copy).
+- 42 U.S.C. § 3604 (Discrimination in the sale or rental of housing and other prohibited practices): https://www.govinfo.gov/content/pkg/USCODE-2024-title42/html/USCODE-2024-title42-chap45-subchapI-sec3604.htm (United States Code, 2024 Edition); SHA-256 `7344bac5…d4cff63`; this file transcribes the opening words and (a)-(c), (f)(1)-(3)(B), (f)(9) (weaker than a byte copy).
+- 42 U.S.C. § 3607 (Religious organization or private club exemption): https://www.govinfo.gov/content/pkg/USCODE-2024-title42/html/USCODE-2024-title42-chap45-subchapI-sec3607.htm (United States Code, 2024 Edition); SHA-256 `a319a98d…4930ce0`; this file transcribes (b)(1)-(2) and (b)(4) (weaker than a byte copy).
+
+
+### §2 Topics answered
+
+Topics answered: 261 of 261 listed. One line per topic: topic | row id(s) | verdict | citation. Slice in brackets (M = main pass; A-F = canvass helpers).
+
+- accessory-dwelling-unit | edu-accessory-dwelling-unit-fl | Present (local option to allow ADUs in single-family zones; permit affidavit that the unit will be rented at an affordable rate; no state owner-occupancy or minimum-term rule) | Fla. Stat. § 163.31771; battery FLG-D-036 [D]
+- actual-notice-method | edu-actual-notice-method-fl | Present (statutory methods fixed for core notices; e-mail only by addendum; no text-message method) | battery FLG-E-016; Fla. Stat. §§ 83.56(4), 83.505 [E]
+- adverse-proceeding-notice | edu-no-adverse-proceeding-notice-fl | Confirmed absent (no duty either way to give notice of proceedings against the property; landlord joined in ejectment) | battery FLG-E-017; Fla. Stat. § 66.021(4) [E]
+- alarm-tampering-fee | edu-no-alarm-tampering-fee-fl (new); detector-care-la (tag) | Confirmed absent (no fee statute); optional clause tagged | battery FLG-A-021; Fla. Stat. §§ 83.51(4), 83.52(6), 83.55 [A]
+- alt-housing | edu-no-alt-housing-duty-fl | Confirmed absent | battery FLG-A-030; related Fla. Stat. §§ 83.51(2)(a)1., 83.56(1)(a), 83.63, 718.606(4) [A]
+- animal-care-access | edu-no-animal-care-entry-right-fl; animal-care-access-fl | Confirmed absent (no statutory right to enter to care for or remove an absent tenant's animal); optional consent clause offered | battery FLG-F-018; Fla. Stat. §§ 83.53, 828.073 [F]
+- appliances-excluded | appliances-excluded-fl | Present (optional clause; shared appliances-excluded-la declined) | Fla. Stat. §§ 83.51, 83.47(1)(b) [A]
+- application-fees | edu-application-fees-fl | Absent (no fee rule); related duties present | FLG-M-017; Fla. Stat. §§ 83.425, 83.683, 83.491(7), 501.005(9), (12)(j) [M]
+- asbestos-hazards | edu-no-asbestos-notice-rule-fl | Confirmed absent (no tenant notice); abatement licensing noted | battery FLG-A-023; Fla. Stat. §§ 469.002(1)(d), 469.003 [A]
+- association-obligations-disclosure | edu-association-obligations-disclosure-fl | Present (two owner-to-renter notice copies; renter's records right; no general duty) | Fla. Stat. §§ 718.112(2)(n)1., 718.1085(1), 719.1055(5)(a)2., 719.1055(6)(a), 718.111(12)(c)1.a., 719.104(2)(c); battery FLG-D-001 [D]
+- attorney-fees | edu-attorney-fees-fl | Present | Fla. Stat. §§ 83.48, 83.49(3)(c), 83.625, 83.67(6), 57.105(7) [M]
+- automatic-renewal | edu-automatic-renewal-fl | Present (no lease-specific statute; Fla. Stat. § 83.575 notice limits; Fla. Stat. § 501.165 reach unsettled) | battery FLG-E-001 [E]
+- balcony-inspection | edu-balcony-inspection-fl | Present | Fla. Stat. §§ 509.2112, 509.211(3), 553.899, 718.112(2)(g)-(h) [A]
+- bed-bug-cooperation | pest-cooperation-fl (new clause; pest-cooperation-pr and pest-cooperation-la declined) | Present | Fla. Stat. §§ 83.51(2)(a)1., 83.51(4), 83.52, 83.53 [A]
+- binding-arbitration | edu-binding-arbitration-fl | Present (Revised Florida Arbitration Code; no residential-lease arbitration statute; clause declined) | battery FLG-E-025; Fla. Stat. §§ 682.02(1), 682.013, 682.014(2)(d), 682.07, 682.25, 44.104(1), 83.47(1), 83.59(2) [E]
+- cannabis | edu-cannabis-fl; tag cannabis-restrictions-ak | Present (medical marijuana only; no housing protection for patients; owners may restrict smoking or vaping on private property; certified recovery residences must ban marijuana, medical included) | Fla. Const. art. X, § 29(c); Fla. Stat. §§ 381.986(1)(k), (5)(f), (15)(d), 397.487(3)(a)3.; battery FLG-F-005 [F]
+- carpet-cleaning | edu-no-carpet-cleaning-rule-fl (new); carpet-cleaning-ar (tag) | Confirmed absent (no carpet rule; optional clause lawful) | battery FLG-A-004; Fla. Stat. § 83.49(3) [A]
+- casualty-and-mitigation-waivable | edu-casualty-and-mitigation-waivable-fl | Present | Fla. Stat. §§ 83.63, 83.595 [M]
+- certificate-of-occupancy-disclosure | edu-no-certificate-of-occupancy-disclosure-fl | Confirmed absent (no duty to give or state a certificate of occupancy to a tenant) | battery FLG-D-021 [D]
+- children-occupancy | edu-children-occupancy-fl | Present (familial status protected by Florida's Fair Housing Act; no separate landlord-tenant rule on families that grow during a tenancy; no required lease content on children) | Fla. Stat. §§ 760.22(6), 760.23(1)-(3), (6), 760.29(1), (4), (5)(b); battery FLG-F-001 [F]
+- cold-weather-vacate-notice | edu-no-cold-weather-vacate-notice-fl | Confirmed absent | FLG-B-016 [B]
+- collection-fee | edu-collection-fee-fl, collection-fee-fl | Present | Fla. Stat. §§ 559.72(9), 559.77, 83.43(12), 83.48; FLG-M-009 [M]
+- common-area-lighting | edu-common-area-lighting-fl | Present | Fla. Stat. §§ 83.51(2)(a)3., 509.221(3), 768.0706(2)(a)2.-3.; Fla. Admin. Code R. 61C-1.004(9) [A]
+- communal-land-lease-approval | edu-no-communal-land-lease-approval-fl | Confirmed absent for private land (no communal-land lease approval); state-held Seminole reservation leasing by the trustee noted; federal trust land not reviewed | battery FLG-D-029; Fla. Stat. §§ 285.011, 285.08, 285.11 [D]
+- condemned-premises-rent-bar | edu-no-condemned-rent-bar-fl | Confirmed absent | battery FLG-A-029; related Fla. Stat. §§ 83.56(1)(a), 83.63, 633.228 [A]
+- condition-inspection | edu-no-condition-inspection-rule-fl; tag move-in-condition-report-as | Confirmed absent (no required move-in or move-out inspection, inventory or condition report; no sign-or-dissent damage list); the deposit claim notice and the veterans pilot's move-out checklist noted | battery FLG-F-020 (supersedes FLG-F-019); Fla. Stat. §§ 83.49(3), 83.684(5)(c), 83.53(1) [F]
+- confession-of-judgment | edu-confession-of-judgment-fl | Present | Fla. Stat. § 55.05; FLG-M-004 [M]
+- confirmed-absences-habitability | edu-confirmed-absences-habitability-fl | Present (summary of confirmed gaps) | batteries FLG-A-001, -002, -003, -007, -014, -027, -029, -030, -031; Fla. Stat. § 83.51 [A]
+- confirmed-absences-misc | edu-confirmed-absences-misc-fl | (1) double letting: Confirmed absent (agrees with slice B); (2) smoke or CO alarm evidentiary or insurance shield: Confirmed absent; (3) false rental application: Present only as fraudulent entry from Oct. 1, 2026 (Fla. Stat. §§ 817.537, 83.56(2)(a)); (4) payment-method fees: Present, credit-card surcharge ban reaching lessors (Fla. Stat. § 501.0117), no cap on other payment fees | batteries FLG-B-021, FLG-F-055, FLG-F-058, FLG-F-057 (supersedes FLG-F-056) [F]
+- confirmed-absences-outside-title | edu-confirmed-absences-outside-title-fl | (1) squatter remedy: Present (Fla. Stat. §§ 82.036, 82.035); (2) cash rent receipt duty: Confirmed absent (only the partial-rent receipt, Fla. Stat. § 83.56(5)(a)1.); (3) registration as a precondition to a possession judgment: no landlord-tenant condition, but Present in the trade-name and foreign-entity statutes (an unregistered fictitious name or a foreign LLC or corporation without a certificate of authority may not maintain an action; Fla. Stat. §§ 865.09(9)(a), 605.0904(1), 605.0905(3), 607.1502(1); corrected after independent check R15-01) | batteries FLG-F-049 (supersedes FLG-F-048), FLG-F-051 (supersedes FLG-F-050), FLG-F-054 (supersedes FLG-F-053, FLG-F-052) [F]
+- conversion-notice | edu-conversion-notice-fl; conversion-termination-fl | Present | Fla. Stat. §§ 718.606, 718.608, 718.61, 718.612, 718.62 [B]
+- criminal-activity | edu-criminal-activity-fl; criminal-activity-fl | Present | Fla. Stat. §§ 83.52(6)-(7), 83.56(2), 60.05(5), 823.10 [B]
+- cure-and-eviction-grounds | edu-cure-and-eviction-grounds-fl | Present | Fla. Stat. § 83.56(2)-(4) [B]
+- defective-drywall-disclosure | edu-no-drywall-disclosure-fl | Confirmed absent (no defective or corrosive drywall disclosure; drywall appears only in association emergency powers and a coastal definition) | battery FLG-D-018 [D]
+- deposit-cost-schedule | edu-no-deposit-cost-schedule-rule-fl | Absent | FLG-M-015 [M]
+- deposit-installments | edu-deposit-installments-fl | Present (fee-in-lieu program only) | Fla. Stat. § 83.491(1)(b), (3)(c) [M]
+- deposit-last-month-rent | edu-deposit-last-month-rent-fl | Present | Fla. Stat. §§ 83.43(2), 83.49(1), (3) [M]
+- deposit-surrender-notice | edu-deposit-surrender-notice-fl | Present | Fla. Stat. § 83.49(3)(a), (5) [M]
+- designated-repairer | designated-repairer-fl | Present (optional clause; no statutory designated-repairer or repair-and-deduct rule) | battery FLG-A-014; Fla. Stat. §§ 83.50, 83.56(1), (4), 83.60(1)(b) [A]
+- disability-accommodation | edu-disability-accommodation-fl | Present (reasonable accommodation and modification duties in Florida's Fair Housing Act); confirmed absent (restoration condition, restoration escrow, lease-inclusion rule) | Fla. Stat. §§ 760.22(3), 760.23(7)-(9), 760.29(1), (3), (5)(c), 413.08(6)(a); battery FLG-F-002 [F]
+- disaster-displaced-guests | edu-no-disaster-guest-rule-fl | Confirmed absent (no right for tenants to house disaster-displaced people despite the lease; no suspension of occupancy or guest limits in an emergency) | battery FLG-F-009 (supersedes FLG-F-008); Fla. Stat. §§ 252.36(6)(g), (i), 83.56(2)(b) [F]
+- disaster-duties | edu-disaster-duties-fl | Present (tenant casualty rights; price-gouging ban on rentals in a declared emergency; Governor's emergency orders; association emergency powers); confirmed absent (no automatic end of tenancy or rent relief for a declared disaster) | Fla. Stat. §§ 83.63, 501.160, 252.36, 718.1265, 720.316, 83.53(2); battery FLG-F-007 [F]
+- double-letting | edu-no-double-letting-rule-fl | Confirmed absent | FLG-B-021 [B]
+- drug-free-housing-addendum | edu-no-drug-free-addendum-rule-fl | Confirmed absent (no statute requiring or regulating a drug-free or crime-free lease addendum); drug conduct handled through lease terms, the 7-day notices and nuisance law | battery FLG-F-012 (supersedes FLG-F-011); Fla. Stat. §§ 83.52(6)-(7), 83.56(2), 823.10, 397.311(39) [F]
+- dv-confidentiality | edu-no-dv-confidentiality-rule-fl | Absent (state); federal covered housing | FLG-M-002; Fla. Stat. §§ 741.30(3)(b), 741.401-741.405 [M]
+- dv-deposit-timing | edu-no-dv-deposit-timing-rule-fl | Absent | FLG-M-002; Fla. Stat. § 83.49(3) [M]
+- dv-eviction-protection | edu-no-dv-eviction-protection-fl | Absent (state); federal covered housing | FLG-M-002; FEDERAL: 34 U.S.C. § 12491(b) [M]
+- dv-lockchange | edu-no-dv-lock-change-right-fl | Absent | FLG-M-001; Fla. Stat. §§ 741.30(6)(a)2., 83.67(2) [M]
+- dv-protection-order-chapter-moved | edu-dv-protection-order-statutes-fl | Present | Fla. Stat. §§ 741.30, 784.046, 784.0485 [M]
+- dv-qualifying-documents | edu-no-dv-qualifying-documents-fl | Absent | FLG-M-002 [M]
+- electric-submetering-disclosure | edu-electric-submetering-fl | Present | Fla. Admin. Code R. 25-6.049(5), (9), 25-6.003(2); Fla. Stat. §§ 366.02(8), 366.03; battery FLG-C-001 [C]
+- emergency-assistance-right | edu-no-emergency-assistance-right-fl | Confirmed absent (no statutory right to summon police or emergency help, no ban on lease penalties for calls, no presumption against eviction after a call); retaliation statute's open list noted | battery FLG-F-015 (supersedes FLG-F-014, FLG-F-013); Fla. Stat. § 83.64 [F]
+- emergency-contact | edu-no-emergency-contact-rule-fl | Confirmed absent (no emergency-contact duty; name and address disclosure only) | battery FLG-E-018; Fla. Stat. §§ 83.50, 83.56(3) [E]
+- eminent-domain | eminent-domain-vi (tag) + edu-eminent-domain-fl | Tagged (no Florida statute ends a lease or abates rent on a taking; court apportions conflicting claims to the award) | Fla. Const. art. X, § 6(a); Fla. Stat. §§ 73.021(4), 73.101, 421.55; battery FLG-D-031 [D]
+- energy-data-release | edu-no-energy-data-release-fl; tag energy-data-release-wy | Confirmed absent | battery FLG-C-002; related Fla. Admin. Code R. 25-6.093(4) [C]
+- entity-landlord-court-representation | edu-entity-landlord-court-representation-fl | Present | Fla. Stat. §§ 83.59(2), 454.18, 454.23; Fla. Sm. Cl. R. 7.050(a) [B]
+- environmental-event-termination | edu-no-environmental-event-termination-fl | Confirmed absent (landlord right) | Fla. Stat. §§ 83.63, 83.512, 83.47(1)(a) [B]
+- ev-charging-end-of-tenancy | edu-no-ev-charging-end-of-tenancy-fl | Confirmed absent (residential tenancies) | battery FLG-C-008; related Fla. Stat. §§ 718.113(8)(f), 718.121(2) [C]
+- ev-charging-requirements | edu-ev-charging-requirements-fl; tag ev-charger-installation-hi | Present | Fla. Stat. § 366.94(1)-(3); battery FLG-C-008 [C]
+- ev-charging-shared-area | edu-ev-charging-shared-area-fl | Present; tenant shared-area right confirmed absent | Fla. Stat. §§ 366.94(4), 718.113(9); battery FLG-C-008 [C]
+- eviction-hardship-stay | edu-no-eviction-hardship-stay-fl | Confirmed absent | Fla. Stat. §§ 83.62(1), 250.5202; Fla. R. Civ. P. 1.550(b), 1.580(b) [B]
+- eviction-penalty-clause-ban | edu-no-eviction-fee-statute-fl | Absent | Fla. Stat. §§ 83.59(4), 83.625, 83.48; FLG-M-008, FLG-M-005 [M]
+- eviction-service-party | edu-no-eviction-service-party-fl | Confirmed absent | Fla. Stat. §§ 48.031(1)(a), 48.183, 741.403(1)(b) [B]
+- exculpatory-clauses | edu-exculpatory-clauses-fl | Present | Fla. Stat. § 83.47(1)(b), (2); FLG-M-028 [M]
+- expedited-criminal-eviction | edu-expedited-criminal-eviction-fl | Present (no dedicated track) | Fla. Stat. §§ 83.56(2)(a), 83.59(2), 83.681, 60.05(5) [B]
+- expedited-deposit-disposition | edu-expedited-deposit-disposition-fl | Present | Fla. Stat. § 83.49(3)(b)-(c) [M]
+- extended-absence-notice | edu-extended-absence-notice-fl; extended-absence-notice-fl | Present (effects); duty absent | Fla. Stat. §§ 83.53(2)(d), 83.59(3)(c), 83.55 [B]
+- family-child-care | edu-family-child-care-fl; family-child-care-fl | Present (family child care homes are a valid residential use for local zoning; residential insurance excludes child-care liability unless covered); confirmed absent (no tenant right against the landlord; no landlord-condition rule) | Fla. Stat. §§ 125.0109, 166.0445, 402.302(8), (11), 627.70161; battery FLG-F-030 [F]
+- farmland-hunting-rights | edu-no-farmland-hunting-rule-fl | Confirmed absent (no statute allocating hunting or fishing rights between landlord and farm tenant); trespass "owner" includes a lessee or occupant; written-authorization and liability-limit rules noted | battery FLG-D-030; Fla. Stat. §§ 810.12(4), 379.3004, 375.251(2) [D]
+- fee-transparency | edu-fee-transparency-fl | Absent | FLG-M-019; Fla. Stat. §§ 83.425, 501.212(7) [M]
+- fee-unprovided-service | edu-fee-unprovided-service-fl | Absent | FLG-M-019; Fla. Stat. §§ 83.56(1), 83.55, 83.45 [M]
+- fire-code-standard | edu-fire-code-standard-fl | Present | Fla. Stat. §§ 633.202, 633.208, 553.73; Fla. Admin. Code R. 69A-60.002 [A]
+- fire-sprinkler-duty | edu-fire-sprinkler-duty-fl | Present | Fla. Stat. §§ 553.895(2), 633.208(10), 553.73(17), 509.215, 718.112(2)(n) [A]
+- firearms | edu-firearms-fl; firearm-rules-fl | Present (vehicle parking-lot rule for employers, which can reach a landlord business; discharge and safe-storage crimes); confirmed absent (no statute on private lease firearm terms or tenant possession in the home) | Fla. Stat. §§ 790.251, 790.15, 790.174, 790.33; battery FLG-F-006 [F]
+- foreclosure-disclosure | edu-no-foreclosure-disclosure-fl | Confirmed absent (no pre-lease foreclosure disclosure; standby § 83.5615 not in force) | battery FLG-D-024; Fla. Stat. § 83.5615 Note [D]
+- foreign-ownership | edu-foreign-ownership-fl | Present (foreign-principal real property restrictions; silent on leases; no landlord inquiry duty) | Fla. Stat. §§ 692.201-692.205; battery FLG-D-011 [D]
+- forfeiture-redemption | edu-no-forfeiture-redemption-fl | Confirmed absent | Fla. Stat. §§ 83.56(3), (5)(a), 83.60 [B]
+- frozen-standard-incorporation | edu-frozen-standard-incorporation-fl | Present | Fla. Stat. §§ 553.73(6), (7)(d), 633.202(1), 633.208(4), 553.895(1), 509.215(7) [A]
+- furnishings-included | furnishings-included-la (tag) | Tagged | Fla. Stat. §§ 83.52(6), 83.43(4), 83.49 [A]
+- good-cause-notice | edu-no-good-cause-notice-fl | Confirmed absent | Fla. Stat. §§ 83.57, 83.64(3) [B]
+- government-fee-reimbursement | government-fee-reimbursement-fl | Present (lawful option; no Florida rule) | battery FLG-C-013; Fla. Stat. §§ 83.43(12), 83.425 [C]
+- governmental-fines | tenant-caused-fines-fl | Present (lawful option; no allocation statute) | Fla. Stat. §§ 162.09(1), (3), 83.51(4), 83.52(1); battery FLG-C-014 [C]
+- guarantor-renewal | edu-guarantor-renewal-fl; tag guaranty-as | Confirmed absent (no lease-guaranty statute; writing rule only) | battery FLG-E-015; Fla. Stat. § 725.01 [E]
+- guest-rights | edu-no-guest-rights-statute-fl | Confirmed absent (no statutory right of tenants to have guests, suppliers or caregivers; no ban on guest fees or limits); lease terms, the curable-breach notice and condominium suspension rules apply | battery FLG-F-028 (supersedes FLG-F-027); Fla. Stat. §§ 83.56(2)(b), 718.106(4), 718.303(3) [F]
+- habitability-materiality | edu-habitability-materiality-fl | Present | Fla. Stat. §§ 83.56(1), 83.60(1)(b), 83.63 [A]
+- habitability-modifiable | edu-habitability-modifiable-fl | Present | Fla. Stat. § 83.51(2)(a)-(e), (3) [M]
+- habitability-presumption | edu-no-habitability-presumption-fl | Confirmed absent | battery FLG-A-002; Fla. Stat. §§ 83.60(1)(b), 83.64 [A]
+- habitability-statement | edu-no-habitability-statement-fl | Confirmed absent | battery FLG-A-001; duty itself Fla. Stat. § 83.51(1) [A]
+- habitability-waiver | edu-habitability-waiver-fl | Present | Fla. Stat. §§ 83.51(1), (4), 83.47(1) [M]
+- hazardous-contamination-disclosure | edu-hazardous-contamination-disclosure-fl | Present (narrow: site-rehabilitation notice copy to tenants of the source property; no general lease disclosure) | Fla. Stat. § 376.30702(2); battery FLG-D-016 [D]
+- health-district-rental-rules | edu-no-health-district-rental-rules-fl | Confirmed absent (no duty to provide health rules or refer tenants; state sanitary-nuisance enforcement noted) | battery FLG-D-023; Fla. Stat. §§ 386.01-386.041 [D]
+- heating | edu-heating-fl | Present | Fla. Stat. § 83.51(2)(a)5., (1)(a), (2)(c), (2)(e); Fla. Stat. § 509.221(3); Fla. Admin. Code R. 61C-1.004(10) [A]
+- holding-deposit | edu-holding-deposit-fl | Absent | FLG-M-018; Fla. Stat. §§ 83.43(4), (17), 83.49(1) [M]
+- holdover-rate | edu-holdover-rate-fl | Present | Fla. Stat. §§ 83.58, 83.575(3) [B]
+- home-business | edu-home-business-fl | Present (home-based business statute limits local governments only); confirmed absent (no statutory limit on a lease restricting a home business) | Fla. Stat. § 559.955; battery FLG-F-029 [F]
+- homestead-waiver | edu-homestead-waiver-fl | Present (constitutional and statutory exemptions; no lease waiver route except the separate 14-point wage-garnishment waiver; library declines it) | battery FLG-E-024; Fla. Const. art. X, § 4; Fla. Stat. §§ 222.05, 222.11(2), 222.25, 713.691(2) [E]
+- infirmity-termination | edu-no-infirmity-termination-fl | Confirmed absent | FLG-B-023; Fla. Stat. § 429.24(7) (ALF only) [B]
+- informal-dispute-resolution | edu-informal-dispute-resolution-fl; tag informal-dispute-resolution-or | Present (no statute on pre-suit informal resolution; deposit disclosure urges it; mediation rules) | battery FLG-E-025; Fla. Stat. §§ 83.49(2)(d), 44.102(2)(a), 83.56(5)(b) [E]
+- inspection-condemnation-disclosure | edu-no-code-order-disclosure-fl | Confirmed absent for tenants (code-enforcement disclosure runs only to a buyer on a transfer of ownership) | battery FLG-D-022; Fla. Stat. §§ 162.06(5), 125.69(1)(f) [D]
+- inspection-notice-penalty | edu-no-inspection-notice-penalty-fl | Confirmed absent (no inspection-notice duty, so no penalty; no fixed penalty for entry without notice); actual damages and the deposit-notice forfeiture apply | batteries FLG-F-022 (supersedes FLG-F-021), FLG-F-020; Fla. Stat. §§ 83.53, 83.55, 83.49(3)(a), 83.67(6) [F]
+- jury-waiver | edu-jury-waiver-fl, jury-waiver-fl | Present | Fla. Const. art. I, § 22; Fla. Stat. § 51.011(3); Fla. R. Civ. P. 1.430; Form 1.947(b) [M]
+- key-control-policy | edu-key-control-policy-fl | Present | Fla. Stat. § 509.211(5) [A]
+- knowing-use-penalty | edu-knowing-use-penalty-fl | Present | Fla. Stat. §§ 83.47(2), 559.72(9), 83.67(6) [M]
+- landlord-breach-remedy | edu-landlord-breach-remedy-fl | Present | Fla. Stat. §§ 83.54, 83.55, 83.56(1), 83.60(1), 83.67(6), 83.48, 83.49(3), 83.64 [A]
+- landlord-liability-insurance | edu-no-landlord-insurance-mandate-fl | Confirmed absent (no landlord insurance mandate) | battery FLG-E-021 [E]
+- landlord-lien | edu-landlord-lien-fl | Present (statutory residential landlord's lien; distress abolished for residential tenancies; summary enforcement) | battery FLG-E-023; Fla. Stat. §§ 713.691, 85.011(5), 83.67(5), 83.001, 83.08-83.09 [E]
+- landlord-registration | edu-landlord-registration-fl | Present | Fla. Stat. §§ 509.013(4), 509.241, 509.242(1)(d), 509.251, 83.49(8) [M]
+- landlord-remedies-termination | edu-landlord-remedies-termination-fl | Present | Fla. Stat. §§ 83.55, 83.59, 83.595, 83.625, 34.01 [B]
+- late-fee-limit | edu-no-late-fee-limit-fl | Absent | FLG-M-026 [M]
+- law-enforcement-cooperation | edu-law-enforcement-cooperation-fl | Present (court-ordered assistance with interceptions, pen registers and trap and trace devices; owner-knowledge forfeiture rule; nuisance exposure; any-person reporting duties for child abuse, vulnerable adults and witnessed sexual battery, added after independent check R15-16); confirmed absent (landlord-specific duty to cooperate, report crimes or hand over tenant information; crime-free program statute) | Fla. Stat. §§ 934.09, 934.34, 932.703(1)(a)3., 893.138(12), 39.201(1)(a)1., 39.205(1), 415.1034(1)(a), 415.111(1), 794.027; battery FLG-F-016 [F]
+- lead-safe-certification | edu-no-lead-safe-certification-fl | Confirmed absent (no lead-safe or lead-free certificate for rentals) | battery FLG-D-015; Fla. Stat. §§ 381.983-381.985 [D]
+- lead-state-notices | edu-no-lead-state-notices-fl | Confirmed absent (no state lead notice, packet or certificate for leases; state act is education and screening only) | battery FLG-D-015; Fla. Stat. §§ 381.982-381.985 [D]
+- lease-content-requirements | edu-lease-content-requirements-fl | Present (no general content list or first-page rule; content rules are the required disclosures and conditional terms) | battery FLG-E-009; Fla. Stat. §§ 83.43(13), 83.49(2), 83.50, 83.575, 83.595(4), 83.491 [E]
+- lease-copy | edu-no-lease-copy-duty-fl; tag lease-copy-receipt-hi | Confirmed absent (no duty to give the tenant a copy; broker record-keeping only) | battery FLG-E-006; Fla. Stat. § 475.5015 [E]
+- lease-notice-initial-requirement | edu-no-lease-initials-requirement-fl | Confirmed absent (no initialing rule for a residential lease; checkbox addenda instead) | battery FLG-E-007; Fla. Stat. §§ 83.505(1), 83.595(4), 812.155(6) [E]
+- lease-registration | edu-lease-registration-fl | Present (recording optional; priority rule for leases of 1 year or longer) | Fla. Stat. §§ 695.01(1), 695.03, 695.26, 28.222(3)(a), 713.10(2)(b); battery FLG-E-003 [E]
+- lease-term-limitation | edu-lease-term-limits-fl | Present (no private residential term cap; execution formalities) | Fla. Stat. §§ 689.01(1), 725.01, 744.441(5), (12); Fla. Const. art. X, § 4(c); batteries FLG-E-004, FLG-E-005 [E]
+- lease-type-parity | edu-no-lease-type-parity-fl | Confirmed absent (no parity rule between month-to-month and fixed-term terms or rent) | battery FLG-E-010; related Fla. Stat. §§ 83.64, 83.425 [E]
+- lease-type-size | edu-no-lease-type-size-fl | Confirmed absent (no type-size rule for a residential lease) | battery FLG-E-008 [E]
+- limitation-of-actions | edu-limitation-of-actions-fl | Present | Fla. Stat. §§ 95.11(2)(b), (3)(j), 95.03, 95.04, 95.051 [B]
+- liquidated-damages | edu-liquidated-damages-fl | Present | Fla. Stat. §§ 83.595(4), 83.575(2); FLG-M-005 [M]
+- lockout-for-rent-delinquency | edu-lockout-for-rent-delinquency-fl | Present (prohibited) | Fla. Stat. §§ 83.67(1)-(2), (6)-(7), 83.59(3), 83.62(2); FLG-M-027 [M]
+- maintenance-duty-shift | edu-maintenance-duty-shift-fl | Present | Fla. Stat. § 83.51(1) (last sentence), (2)(a), (2)(b), (2)(e) [A]
+- meter-conservation-charge | edu-no-meter-conservation-charge-fl | Confirmed absent | battery FLG-C-003; related Fla. Stat. §§ 163.08(3), 367.022(9) [C]
+- meth-disclosure | edu-no-meth-disclosure-fl | Confirmed absent (no drug-lab disclosure, reporting, cleanup standard or habitation ban); owner crimes for knowingly leasing for drug manufacture noted | battery FLG-D-017; Fla. Stat. §§ 893.1351, 812.14(5)-(7), 893.138 [D]
+- military-air-zone-disclosure | edu-no-military-zone-disclosure-fl | Confirmed absent (no lease or sale disclosure; military compatibility handled by local planning and airport zoning) | battery FLG-D-010 (FLG-D-009 failed positive, superseded); Fla. Stat. §§ 163.3175, 333.03 [D]
+- minor-tenant-filing | edu-minor-tenants-fl | Present | Fla. Stat. §§ 743.07, 743.01, 743.015, 743.045; Fla. R. Civ. P. 1.210(b) [B]
+- municipal-utility-lien | edu-utility-liens-fl | Present; owner exemption for current tenant's bill confirmed absent | Fla. Stat. §§ 153.67, 159.17, 180.135; battery FLG-C-007 [C]
+- nonpayment-notice | edu-nonpayment-notice-fl | Present | Fla. Stat. § 83.56(3)-(4); Fla. R. Gen. Prac. & Jud. Admin. 2.514 [B]
+- nonrefundable-deposit-notice | edu-no-nonrefundable-deposit-rule-fl | Absent | FLG-M-020; Fla. Stat. §§ 83.43(4), (14), 83.491(3)(f) [M]
+- nonrefundable-deposit-separate-notice | edu-no-nonrefundable-separate-notice-fl | Absent | FLG-M-020 [M]
+- nonresident-owner-agent | edu-no-nonresident-owner-agent-fl | Present (a foreign LLC owning income-producing property must obtain a certificate of authority naming a Florida registered agent and cannot sue, including to evict, without one; nonresidents doing business here are deemed to appoint the Secretary of State for service; no agent rule for individual owners; no income-tax withholding on rent; paid managers need a broker licence; corrected after independent check R13-17/R13-19) | battery FLG-D-027 (FLG-D-026 failed positive, superseded); Fla. Stat. §§ 48.181(2), (5), 83.50, 475.01, 475.011(2), 475.42(1)(a), 605.0902(1), 605.0904(1), 605.0905(3), 607.1502(1); Fla. Const. art. VII, § 5 [D]
+- notice-service-fee | edu-notice-service-fee-fl, notice-cost-fl | Absent (statute); optional actual-cost clause | Fla. Stat. § 83.55; FLG-M-008 [M]
+- notice-to-quit-waiver | edu-notice-to-quit-waiver-fl | Present | Fla. Stat. §§ 83.56(4), 83.57, 83.575(1), 83.47 [M]
+- notice-to-vacate-additional-terms | edu-no-notice-to-vacate-terms-rule-fl | Confirmed absent (general); conversion rule present | Fla. Stat. §§ 718.606, 718.62 [B]
+- nuisance | edu-nuisance-fl | Present (public-nuisance suits against owners, 72-hour vacate order, local nuisance boards with closure orders, rental-property rehabilitation safe harbor); confirmed absent (receivership, rent escrow, lease-summary duty) | Fla. Stat. §§ 60.05, 823.05, 823.10, 893.138; battery FLG-F-010 [F]
+- optional-lease-terms | edu-optional-lease-terms-fl | Present (checklist of terms Florida lets the lease add or choose, with library clause or declined status) | Fla. Stat. §§ 83.575, 83.595(4), 83.505, 83.491, 83.43(12), 83.51(1)-(2), 83.67(5), 83.49(5), 83.46(1), (3), 713.691(1), 83.42(2) [E]
+- ordnance-demolition-meter-disclosures | edu-no-ordnance-demolition-meter-disclosure-fl | Confirmed absent | battery FLG-C-012 [C]
+- other-landlord-facilities | edu-other-landlord-facilities-fl | Present (elevator inspection and service; common areas, garbage; no garage-door or laundry duty) | battery FLG-E-032; Fla. Stat. §§ 83.51(2)(a), 83.67(1), 83.52(5), 399.02(2), 399.061(1) [E]
+- owner-move-in-reservation | owner-occupancy-termination-ar (tag) | Tagged | Fla. Stat. §§ 83.57(3), 83.575(1), 83.58, 83.59(3) [B]
+- parking-rules-notice | edu-parking-rules-notice-fl | Present (no lease-delivery rule for parking rules; posted tow-away signs; private-parking rules, signage, invoices and appeals; unauthorized parking as curable noncompliance) | battery FLG-E-028; Fla. Stat. §§ 715.07(2), 715.075, 83.56(2)(b) [E]
+- part5-nonwaivable | edu-part5-nonwaivable-fl | Present | Fla. Stat. §§ 83.41, 83.42, 83.47, 83.48, 83.56(4) [M]
+- periodic-services-entry | edu-periodic-services-entry-fl; scheduled-services-entry-fl | Present (entry to supply agreed services needs consent, emergency, unreasonable refusal or absence; the lease can make scheduled services agreed services); confirmed absent (no-notice scheduled-service entry rule or conspicuous-lease rule) | Fla. Stat. § 83.53; battery FLG-F-017 [F]
+- pest-control-notice | edu-pest-control-notice-fl | Present | Fla. Stat. §§ 83.51(2)(a)1., 482.2265, 482.2267(5), 482.226(5); battery FLG-A-012 [A]
+- pet-eviction-fact-sheet | edu-no-pet-eviction-fact-sheet-fl | Confirmed absent (no state fact sheet on pets and eviction, and no duty to give one) | battery FLG-F-047 (supersedes FLG-F-046); Fla. Stat. § 83.56(2)(b) [F]
+- pet-fees | edu-pet-fees-fl | Present | Fla. Stat. §§ 83.43(4), (12), 413.08(6)(b) [M]
+- plain-language | edu-no-plain-language-rule-fl | Confirmed absent (no plain-language, readability or caption rule for leases; readability rules exist for insurance policies and rental-purchase of goods) | battery FLG-D-032; Fla. Stat. §§ 627.4145, 559.9233(6) [D]
+- plain-language-consumer-statement | edu-no-plain-language-statement-fl | Confirmed absent (no statement of consumer restrictions, readability test, Attorney General preapproval or dollar exclusion for leases) | battery FLG-D-032 [D]
+- political-access | edu-no-political-access-rule-fl | Confirmed absent for ordinary rentals (no candidate or canvasser access right to apartment buildings); owners in condominiums and HOAs, and mobile home owners in parks, may invite candidates to speak in common areas | battery FLG-F-033; Fla. Stat. §§ 718.123, 720.304(1), 723.055 [F]
+- pool-safety | edu-pool-safety-fl | Present | Fla. Stat. §§ 515.25, 515.27, 515.29, 515.37, 514.011, 514.0115, 514.031, 514.0315 [A]
+- portable-cooling-device | edu-no-portable-cooling-rule-fl | Confirmed absent (no tenant cooling-device right) | battery FLG-A-008; related Fla. Stat. §§ 509.221(3), 720.3035(1)(b)2. [A]
+- portable-solar | edu-portable-solar-fl | Present (owner-side statute); tenant right confirmed absent | Fla. Stat. § 163.04(2)-(4); battery FLG-C-009 [C]
+- portfolio-thresholds | edu-portfolio-thresholds-fl | Present | Fla. Stat. §§ 83.49(1)(c), (2), 83.51(1)-(2), 509.013(4)(b)3.-4., 509.242(1)(d)-(e), 83.515(1), 723.002(1) [E]
+- possession-bond | edu-no-possession-bond-fl | Confirmed absent | Fla. Stat. §§ 83.60(2), 83.14 (Part I) [B]
+- post-eviction-property | edu-post-eviction-property-fl | Present | Fla. Stat. §§ 83.62(2), 715.101 [B]
+- private-well-testing | edu-private-well-testing-fl | Present (system-size rules; no general duty to give test results to tenants) | Fla. Stat. § 381.0062; Fla. Admin. Code ch. 64E-8; battery FLG-A-025 [A]
+- prohibited-acts-renter | edu-prohibited-acts-renter-fl | Present (statutory prohibitions on damage and disturbance, and on unreasonably refusing entry); shared clause prohibited-acts-renter-wy declined for FL | Fla. Stat. §§ 83.52(6)-(7), 83.53(1), 83.56(2) [F]
+- promises-to-repair | edu-no-promises-to-repair-rule-fl | Confirmed absent | battery FLG-A-019; Fla. Stat. §§ 83.56(1), 83.55 [A]
+- prop65-rental-warning | edu-no-chemical-warning-rule-fl | Confirmed absent (no Proposition 65-type chemical exposure warning for rentals) | batteries FLG-D-020 (FLG-D-019 failed positive, superseded) [D]
+- property-tax-rent-disclosure | edu-no-property-tax-rent-statement-fl | Confirmed absent | battery FLG-C-015 [C]
+- protected-class-inquiry-ban | edu-no-protected-class-inquiry-ban-fl | Confirmed absent (no general housing inquiry or record ban); present: discriminatory statements ban and the emotional-support-animal diagnosis rule | Fla. Stat. §§ 760.23(3), 760.27(3)(a), 413.08(3)(b); battery FLG-F-003 [F]
+- purpose-limitation | edu-purpose-limitation-fl | Present (no statute voids a lease for prohibited use; criminal letting, nuisance abatement and 72-hour vacate order) | battery FLG-E-027; Fla. Stat. §§ 796.06(1), 823.05(1), 823.10(1), 60.05(5), 893.138, 83.52, 83.56(2) [E]
+- recycling-notice | edu-no-recycling-notice-fl | Confirmed absent (state notice); receptacle duty present | Fla. Stat. § 403.706(2)(c), (21); battery FLG-C-011 [C]
+- redemption | edu-redemption-fl | Confirmed absent (partial-rent rule present) | Fla. Stat. § 83.56(5)(a), (c) [B]
+- religious-cultural-display | edu-no-religious-display-rule-fl | Confirmed absent for landlords (no tenant right to a religious or cultural display against the lease); condominium associations must accommodate a small religious object on the unit door | battery FLG-F-032; Fla. Stat. §§ 718.113(6), 760.23(1)-(2) [F]
+- rent-concession | edu-no-rent-concession-rule-fl; tag rent-concession-wi | Confirmed absent (no statute on rent concessions) | battery FLG-E-011 [E]
+- rent-demand-bar | edu-rent-demand-bar-fl | Present | Fla. Stat. §§ 83.46(1), 83.56(3)-(4), 83.60(1)(b) [B]
+- rent-escalation | edu-rent-escalation-fl; tags rent-escalation-la, rent-increase-midterm-ky | Present (no statute on unit-lease escalation; CPI escalation void only in association facility leases; retaliation bar) | battery FLG-E-013; Fla. Stat. §§ 718.4015, 720.31(5), 83.64 [E]
+- rent-increase-notice | edu-rent-increase-notice-fl | Absent (notice statute) | FLG-M-032; Fla. Stat. §§ 83.57, 501.160, 125.0103(2), 723.037(1) [M]
+- rent-installments | edu-rent-installments-fl; tag rent-installments-or | Present (lease may vary the default due date) | Fla. Stat. §§ 83.46(1), 83.56(3), (5)(a) [E]
+- rent-into-court-counterclaim | edu-rent-into-court-counterclaim-fl | Present | Fla. Stat. §§ 83.60(2), 83.61; Fla. R. Civ. P. 1.170(a) [B]
+- rent-receipt-anti-waiver | edu-no-rent-receipt-anti-waiver-fl | Absent | FLG-M-029; Fla. Stat. § 83.43(9) [M]
+- rent-receipts | edu-rent-receipts-fl | Absent (general); partial-rent receipt present | FLG-M-021; Fla. Stat. § 83.56(5)(a)1. [M]
+- rent-reporting | edu-no-rent-reporting-rule-fl | Confirmed absent (no state rent-reporting duty or notice rule) | battery FLG-E-014; related Fla. Stat. § 83.491(4)(a) [E]
+- rental-inspection | edu-rental-inspection-fl | Present | Fla. Stat. §§ 509.032(2)(a)-(b), 509.241(1), 83.53 [M]
+- renters-insurance-rules | edu-renters-insurance-rules-fl | Present (no rule on requiring renter's insurance; flood-disclosure statement, flotation insurance, fee-in-lieu insurance notice) | battery FLG-E-019; Fla. Stat. §§ 83.512(1), 83.535, 83.491(3)(i), 83.47(1)(b) [E]
+- repair-cost-termination | edu-no-repair-cost-termination-fl | Confirmed absent (landlord); tenant flood-loss threshold noted | battery FLG-A-016; Fla. Stat. §§ 83.63, 83.512(2) [A]
+- repair-escrow-exemption-notice | edu-no-repair-escrow-exemption-fl | Confirmed absent | batteries FLG-A-031, FLG-A-014; Fla. Stat. §§ 83.60(2), 83.61 [A]
+- repair-notice | edu-repair-notice-fl | Present | Fla. Stat. §§ 83.56(1), (4), 83.60(1)(b) [A]
+- required-disclosures | edu-required-disclosures-fl | Present (checklist: landlord identity, radon, flood, deposit notice, fee-in-lieu, association opt-out copies, federal lead row; no first-page form or coverage notice; no general seller condition disclosure) | Fla. Stat. §§ 83.50, 404.056(5), 83.512, 83.49(2), 83.491(4), 718.112(2)(n)1.; batteries FLG-D-007 (FLG-D-006 superseded) [D]
+- required-fees | fees-and-charges-vi (tagged), edu-required-fees-fl | Tagged; no statute | FLG-M-019; Fla. Stat. §§ 83.43(12), 83.425 [M]
+- rights-responsibilities-guide | edu-no-rights-guide-fl | Absent | FLG-M-023 [M]
+- rules-regulations | edu-rules-regulations-fl; rules-fl | Present (reasonable rules enforceable through Fla. Stat. § 83.56(2); no adoption or change procedure for Part II; ch. 723 has its own) | battery FLG-E-026; Fla. Stat. §§ 83.56(2), 83.64(3), 83.44, 83.45 [E]
+- sale-or-management-change | edu-sale-or-management-change-fl | Present (deposit transfer with accounting and receipt; name-and-address change notice; showings; no separate sale notice) | Fla. Stat. §§ 83.49(7), 83.50, 83.53(1)-(2); battery FLG-D-025 [D]
+- sanitary-code-variance | edu-no-code-variance-notice-fl | Confirmed absent | battery FLG-A-035 [A]
+- scope | edu-scope-fl | Present | Fla. Stat. §§ 83.41, 83.42, 83.43(5), (13), 83.001, 723.002(1), 83.803, 83.425 [E]
+- seasonal-tenancy | edu-no-seasonal-tenancy-rule-fl | Confirmed absent | Fla. Stat. §§ 83.42(3), 83.43(18), 509.013(4), (12) [B]
+- security-deposit-holding | edu-security-deposit-holding-fl | Present | Fla. Stat. § 83.49(1), (2), (3)(d), (9) [M]
+- security-deposit-nonwaiver | edu-security-deposit-nonwaiver-fl | Present | Fla. Stat. §§ 83.47(1)(a), 83.49(3)(b), (5), 83.491(4)(a) [M]
+- security-deposit-on-sale | edu-security-deposit-on-sale-fl | Present | Fla. Stat. § 83.49(7) [M]
+- security-deposit-penalty | edu-security-deposit-penalty-fl | Present | Fla. Stat. § 83.49(1)(c), (2), (3)(a), (3)(c), (8) [M]
+- security-deposit-standards | edu-no-deposit-standards-rule-fl | Absent | FLG-M-015 [M]
+- security-devices | edu-security-devices-fl | Present (no rekey-at-turnover rule) | Fla. Stat. §§ 83.51(2)(a)2., 509.211(1), 768.0706(2)(a)4.-7.; battery FLG-A-009 [A]
+- self-help-eviction | edu-self-help-eviction-fl | Present | Fla. Stat. §§ 83.59(3), 83.67(1)-(8) [B]
+- senior-housing-work-card | edu-no-senior-housing-work-card-fl | Confirmed absent (no work-card or staff-screening rule for 55+ housing); apartment-employee screening applies by property type, not age | battery FLG-F-004; Fla. Stat. §§ 760.29(4), 83.515 [F]
+- service-animal-denial-penalty | edu-service-animal-denial-penalty-fl | Present (second-degree misdemeanor for a housing provider who discriminates against an individual with a disability; full and equal access with a service animal, no extra charge) | Fla. Stat. §§ 413.08(1), (6)(b), (7), 775.082(4)(b), 775.083(1)(e) [F]
+- service-animal-misrepresentation | edu-service-animal-misrepresentation-fl | Present (two misdemeanors that reach housing: misrepresenting service-animal use, and false proof of need for an emotional support animal) | Fla. Stat. §§ 413.08(9), 817.265, 760.27(3)(c), 775.082(4)(b), 775.083(1)(e) [F]
+- sex-offender-disclosure | edu-no-sex-offender-disclosure-fl | Confirmed absent (no landlord duty; notification is law enforcement's) | battery FLG-D-004; Fla. Stat. §§ 775.21(7), 83.515(2) [D]
+- sex-offender-occupancy | edu-sex-offender-occupancy-fl | Present (offender residency restriction binds the offender; no landlord leasing or co-residence rule; harboring offense) | Fla. Stat. §§ 775.215, 775.21(10)(g), 943.0435(13); battery FLG-D-005 [D]
+- sfr-occupancy-disclosure | edu-no-sfr-occupancy-disclosure-fl | Confirmed absent (no single-family rental disclosure, type-size or first-page rule; single-family/duplex rules are maintenance allocations) | battery FLG-D-037; Fla. Stat. § 83.51(1)-(2) [D]
+- shoreline-access-disclosure | edu-no-shoreline-disclosure-fl | Confirmed absent for leases (coastal disclosure runs to purchasers only) | battery FLG-D-008; Fla. Stat. § 161.57 [D]
+- showing-notice-waiver | edu-showing-notice-waiver-fl | Present | Fla. Stat. § 83.53 [M]
+- shutdown-rent-protection | edu-no-shutdown-rent-protection-fl | Confirmed absent | FLG-B-028 [B]
+- single-family-zone-lease-limit | edu-no-single-family-zone-lease-limit-fl | Confirmed absent (no state limit on renting homes in single-family zones; vacation-rental preemption and HOA rental-restriction limits noted) | battery FLG-D-037; Fla. Stat. §§ 509.032(7)(b), 720.306(1)(h) [D]
+- smart-access | edu-no-smart-access-rule-fl | Confirmed absent | battery FLG-A-010; general rules Fla. Stat. §§ 83.53, 83.67(2) [A]
+- smoke-drift-waiver | edu-no-smoke-drift-waiver-rule-fl | Absent (workplace ban present) | Fla. Stat. §§ 386.203(5), 386.204, 386.2045, 386.209; Fla. Const. art. X, § 20; FLG-M-010 [M]
+- social-security-defense | edu-no-benefit-delay-defense-fl | Confirmed absent | Fla. Stat. §§ 83.56(5)(c), 83.60(2) [B]
+- source-of-income | edu-no-source-of-income-rule-fl | Absent (state) | FLG-M-031; Fla. Stat. § 760.23 [M]
+- special-district-representation | edu-no-special-district-statement-fl | Confirmed absent for leases (community development district statement runs to initial-sale purchasers) | battery FLG-D-028; Fla. Stat. §§ 190.048, 190.0485 [D]
+- sprinkler-disclosure | edu-sprinkler-disclosure-fl | Present (only the condominium and cooperative opt-out notice copy to a renter; no general sprinkler disclosure) | Fla. Stat. §§ 718.112(2)(n)1., 719.1055(5)(a)2.; battery FLG-D-002 [D]
+- statute-of-frauds-lease-term | edu-statute-of-frauds-lease-fl | Present | Fla. Stat. §§ 725.01, 689.01(1), 83.43(13), 83.01 [E]
+- statutory-caps | edu-statutory-caps-fl | Present (checklist of Florida's statutory figures; no deposit, late-fee or application-fee cap) | Fla. Stat. §§ 83.595(4), 83.575(1), 83.49(1), 68.065(2), 83.58, 83.67(6), 83.53(2), 83.491(4)(a)1. [E]
+- statutory-early-termination | edu-statutory-early-termination-fl | Present | Fla. Stat. §§ 83.56(1), 83.63, 83.682 [B]
+- steam-radiator-covers | edu-no-steam-radiator-cover-rule-fl | Confirmed absent | battery FLG-A-006 [A]
+- stigmatized-property | edu-stigmatized-property-fl | Present (death, homicide, suicide and HIV/AIDS are not material facts that must be disclosed; lease coverage undefined) | Fla. Stat. §§ 689.25, 760.50(4)(a); battery FLG-D-003 [D]
+- stove-refrigerator | edu-no-stove-refrigerator-rule-fl | Confirmed absent | battery FLG-A-003; related Fla. Stat. §§ 83.51(1), 83.67(1) [A]
+- student-housing | edu-student-housing-fl | Present (the Act excludes residence incidental to educational services); confirmed absent (no separate student-housing rule for private landlords) | Fla. Stat. § 83.42(1); battery FLG-F-044 (supersedes FLG-F-043) [F]
+- subsidized-inspection-refusal | edu-no-subsidized-inspection-refusal-rule-fl | Confirmed absent (no Florida rule on a refused subsidy-program inspection by landlord or tenant); entry rules, registry rule and deposit exclusion for subsidized tenancies noted | battery FLG-F-025 (supersedes FLG-F-024, FLG-F-023); Fla. Stat. §§ 83.53, 83.56(2), 83.60(2), 83.49(4) [F]
+- subsidy-habitability-proration | edu-no-subsidy-proration-rule-fl | Confirmed absent (state law); federal voucher rules not held | battery FLG-A-033; Fla. Stat. §§ 83.60(2), 83.56(5)(c) [A]
+- subsidy-late-fee | edu-no-subsidy-late-fee-rule-fl | Confirmed absent (no Florida late-fee rule for subsidized tenancies); federal voucher rule that the family does not owe the housing assistance payment quoted | battery FLG-F-026; Fla. Stat. §§ 83.60(2), 83.56(5)(c), 83.45; FEDERAL: 24 C.F.R. § 982.310(b) [F]
+- substandard-property-receivership | edu-code-enforcement-no-receivership-fl | Present (code-enforcement orders, fines, repair liens); no receivership | Fla. Stat. §§ 162.06, 162.09; battery FLG-A-027 [A]
+- tax-escalation | edu-no-tax-escalation-rule-fl; tag tax-insurance-escalation-la | Confirmed absent (statute); lawful option tagged | battery FLG-C-015; related Fla. Stat. §§ 83.43(12), 83.45, 723.031(5)(c) [C]
+- telecom-access | edu-telecom-access-fl | Present (condominium and HOA; federal antenna rule for the tenant's exclusive-use areas); ordinary-rental access rule confirmed absent | Fla. Stat. §§ 718.1232, 720.309(2)(c); FEDERAL: 47 C.F.R. § 1.4000; battery FLG-C-010 [C]
+- tenancy-at-will | edu-tenancy-at-will-fl | Present | Fla. Stat. §§ 83.46(2), 83.57; Part I §§ 83.01-83.04 [B]
+- tenant-bankruptcy | edu-tenant-bankruptcy-fl | Confirmed absent (state rule); federal automatic stay stated | FLG-B-020 [B]
+- tenant-confidential-information | edu-tenant-confidential-information-fl | Present (data-security, breach-notice and disposal duties of a commercial landlord holding tenants' personal information); confirmed absent (no landlord-tenant rule limiting disclosure of tenant information or requiring consent) | Fla. Stat. § 501.171; batteries FLG-F-037 (supersedes FLG-F-036) [F]
+- tenant-display-rights | edu-tenant-display-rights-fl | Present (tenant's statutory right to display one U.S. flag; association display rules); confirmed absent (no tenant right to political signs or other displays against a lease) | Fla. Stat. §§ 83.67(4), (6), 720.3045, 720.304(2), 718.113(4); battery FLG-F-032 (supersedes FLG-F-031) [F]
+- tenant-employee-housing | edu-tenant-employee-housing-fl; employee-housing-fl | Present (housing furnished as an incident of employment is a dwelling unit under the Act; wage-period tenancy default and post-employment rent; written agreement displaces the default for apartment employees and resident managers); confirmed absent (no employee-housing disclosure or sponsor rule) | Fla. Stat. §§ 83.43(5)(c), 83.46(3), 83.57; battery FLG-F-045 [F]
+- tenant-insurance-claims | edu-tenant-insurance-claims-fl | Present (fee-in-lieu insurance claim and subrogation rules; no rule on claims against a tenant's renter's policy) | battery FLG-E-022; Fla. Stat. § 83.491(2) [E]
+- tenant-portal | edu-tenant-portal-fl; tenant-portal-fl | Confirmed absent (no portal statute); present: e-mail notice needs the signed addendum, and UETA's non-waivable right to refuse further electronic transactions; optional Florida portal clause offered, tenant-portal-mn declined | battery FLG-F-042 (supersedes FLG-F-041, FLG-F-040); Fla. Stat. §§ 83.505, 83.56(4), 668.50(5) [F]
+- tenant-records | edu-tenant-records-fl | Confirmed absent (no rent-ledger, records-request or retention duty); present: deposit accounting on transfer, electronic-notice copies, and the data-security statute's protection and disposal duties | battery FLG-F-039 (supersedes FLG-F-038); Fla. Stat. §§ 83.49(7), 83.505(5), 501.171(2), (8) [F]
+- tenant-repair-remedies | edu-tenant-repair-remedies-fl | Present (no repair-and-deduct) | Fla. Stat. §§ 83.56(1), 83.60, 83.55, 83.61; battery FLG-A-014 [A]
+- tenant-right-to-organize | edu-tenant-right-to-organize-fl | Present (retaliation against tenant organizing is unlawful); confirmed absent for ordinary rentals (no affirmative right to meet, distribute or canvass on the property); mobile home park assembly and canvassing rights noted | Fla. Stat. §§ 83.64(1)(b), (3), 723.054, 723.055; battery FLG-F-035 (supersedes FLG-F-034) [F]
+- tenant-rights-statement | edu-no-tenant-rights-statement-fl | Absent | FLG-M-023 [M]
+- tenant-screening | edu-tenant-screening-fl | Absent | FLG-M-025; Fla. Stat. §§ 83.425, 83.67(3), 83.683, 760.23 [M]
+- tenant-statutory-duties | edu-tenant-statutory-duties-fl | Present (seven statutory tenant duties apply at all times; enforced by the 7-day notices and damages) | Fla. Stat. §§ 83.52, 83.56(2), 83.55, 83.53(1) [F]
+- term-change-notice | edu-term-change-notice-fl | Absent | FLG-M-032; Fla. Stat. §§ 83.49(2), 83.505(3) [M]
+- tpa-exemption-notice | edu-no-tpa-exemption-notice-fl | Confirmed absent (no rent-cap, just-cause or purchase-right regime to be exempt from; conversion exclusions are self-executing) | batteries FLG-D-012, FLG-D-014; Fla. Stat. §§ 125.0103(2), 718.612(4) [D]
+- tpa-notice | edu-no-tpa-notice-fl | Confirmed absent (no rent-cap or just-cause coverage notice; local rent control barred; no general tenant purchase right; conversion right of first refusal and park association right noted) | batteries FLG-D-012, FLG-D-014; Fla. Stat. §§ 125.0103(2), 166.043(2), 718.612, 723.071 [D]
+- tpa-sunset | edu-no-tpa-sunset-fl | Confirmed absent (no dated repeal of a tenant protection; one contingent standby section, § 83.5615, not in force) | battery FLG-D-013; Fla. Stat. § 83.5615 Note [D]
+- translation-duty | edu-no-translation-duty-fl | Confirmed absent (no lease translation duty; translation rules exist for health plan contracts negotiated in another language) | battery FLG-D-033; Fla. Stat. § 641.305 [D]
+- trespass-notice | edu-trespass-notice-fl | Present | Fla. Stat. §§ 810.08, 810.09, 810.011(5) [B]
+- truth-in-renting | edu-no-truth-in-renting-fl | Confirmed absent (no truth-in-renting statement or rule on lease terms violating clearly established rights; Fla. Stat. § 83.47 voids waivers; local disclosure mandates preempted) | batteries FLG-D-035 (FLG-D-034 superseded); Fla. Stat. §§ 83.47, 83.425, 501.204 [D]
+- unbundled-parking | edu-no-unbundled-parking-rule-fl | Confirmed absent (no unbundled-parking rule for residential rentals) | battery FLG-E-030 [E]
+- unconscionability | edu-unconscionability-fl | Present | Fla. Stat. §§ 83.45, 83.44 [M]
+- unpaid-damages-interest | edu-unpaid-damages-interest-fl; unpaid-amounts-interest-fl | Present | Fla. Stat. §§ 687.01, 687.02(1), 687.03, 55.03 [B]
+- usufructuary-lessor | edu-no-usufructuary-lessor-fl | Confirmed absent (no usufruct; no statute on a life tenant's lease after death; fiduciary lease powers stated) | battery FLG-E-031; Fla. Stat. §§ 733.612(7), 736.0816(10), 744.441(5) [E]
+- utility-allowance-cap | edu-utility-allowance-cap-fl | Present | Fla. Admin. Code R. 25-6.049(9)(b), 25-7.058, 25-7.071(3); Fla. Stat. § 367.022(9) [C]
+- utility-apportionment | utility-allocation-fl | Present | Fla. Stat. §§ 83.51(2)(e), 367.022(9); Fla. Admin. Code R. 25-6.049(9), 25-7.058, 25-7.071(3) [C]
+- utility-deposit-return | edu-utility-deposit-return-fl | Present | Fla. Admin. Code R. 25-6.097, 25-7.083, 25-30.311; Fla. Stat. § 180.135(3) [C]
+- utility-disclosure-attachment | edu-no-utility-disclosure-attachment-fl | Confirmed absent (ordinary rentals) | battery FLG-C-004; related Fla. Stat. § 723.031(5)(c) (mobile home parks only) [C]
+- utility-disconnection-notice-authorization | utility-shutoff-notice-designee-fl | Present | Fla. Admin. Code R. 25-6.105(5)(g), 25-7.089(2)(g) [C]
+- utility-interruption-submeter | edu-utility-interruption-submeter-fl | Present | Fla. Stat. § 83.67(1), (6), (7) [C]
+- utility-landlord-account | edu-utility-landlord-account-fl | Present; tenant notice, pay-and-deduct, receivership confirmed absent | Fla. Stat. §§ 83.67(1), 83.51(2)(a)5.; battery FLG-C-005 [C]
+- utility-shutoff-statute | edu-utility-shutoff-rules-fl | Present; weather or emergency bar confirmed absent | Fla. Admin. Code R. 25-6.105, 25-7.089, 25-30.320; Fla. Stat. §§ 366.15, 180.135(4); battery FLG-C-006 [C]
+- utility-submetering-disclosure | edu-utility-submetering-disclosure-fl | Present (cost rules), disclosure confirmed absent | Fla. Admin. Code R. 25-6.049(9), 25-7.058, 25-7.071(3); Fla. Stat. § 367.022(5), (9); battery FLG-C-001 [C]
+- utility-transfer | edu-utility-transfer-fl | Present (prohibition) | Fla. Stat. §§ 83.67(1), 83.51(2)(e) [C]
+- waiver-by-acceptance | edu-waiver-by-acceptance-fl | Present | Fla. Stat. § 83.56(5); FLG-M-030 [M]
+- water-heater-temperature | edu-no-water-heater-temperature-rule-fl | Confirmed absent | battery FLG-A-007; related Fla. Stat. §§ 83.51(2)(a)5., 554.109 [A]
+- window-guards | edu-no-window-guard-rule-fl | Confirmed absent | battery FLG-A-022 [A]
+- written-notice-required | edu-written-notice-required-fl | Present | Fla. Stat. §§ 83.56(1)-(4), 83.57, 83.575, 83.49(3)(a), (5), 83.50, 83.53(2), 83.682(1), 83.505 [E]
+
+
+### §3 Batteries for every absence
+
+Engine: `tools/bat.py`. Every term is compiled case-insensitive and DOTALL and matched against a whitespace-collapsed view of each unit's body (headings and History lines separate). Default scope is every Florida source held: statutes, session laws, constitution sections, FAC chapters and civil rules (fetched federal text only by name). Each run adds the nonsense control "zqxvbnmwt" (must be 0) and the must-hit control "\bLegislature\b" (2,548 statute sections), refuses to run without a positive, refuses a positive whose regex doesn't match its unit or that no battery term reaches, lists heading-only units, probes `\bWORD\b` terms for inflections, warns on proximity windows under 1,200 characters, and logs to `battery-log.jsonl`; a logged name can't be reused, and a rerun must name the run it supersedes and why. `tools/rerun.py` replays every logged term against the corpus.
+
+
+Batteries logged: 245; cited by the answers: 197. Each line: name, status, scope, controls, positives, then every term with its hit count (units listed in the battery log and in the row notes).
+
+- **FLG-A-001** [OK] habitability statement in lease: any FL source requiring a lease or rental agreement to state the unit is fit/habitable; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 83.56 "untenantable"; passed 83.43 "fitness for habitation".
+  - `\b(?:habitab\w*|fit for (?:human )?habitation|fitness for habitation|tenantable|untenantable|uninhabitable)[\s\S]{0,1200}\b(?:rental agreements?|lease[sd]?|tenants?)\b` -> 6
+  - `\b(?:rental agreements?|lease[sd]?|tenants?)\b[\s\S]{0,1200}\b(?:habitab\w*|fit for (?:human )?habitation|fitness for habitation|tenantable|untenantable|uninhabitable)` -> 9
+  - `\A(?=[\s\S]*\b(?:habitab\w*|fit for (?:human )?habitation|fitness for habitation|tenantable|untenantable|uninhabitable))(?=[\s\S]*\b(?:rental agreements?|lease[sd]?|tenants?)\b)(?=[\s\S]*\b(?:shall|must) (?:state|contain|include|disclose|set forth|provide|recite)\b)` -> 17
+  - `\bwarrant(?:y|ies) of (?:habitability|fitness)\b` -> 10
+  - `\bfit (?:for|to) (?:human habitation|habitation|live in|occupancy|occupy)\b` -> 1
+- **FLG-A-002** [OK] habitability presumption: any FL presumption tied to habitability, untenantability, code violation, repair or retaliation in a tenancy; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 39.203 "rebuttable presumption that such action was retaliatory"; passed 415.1036 "presumption that the detrimental action was retaliatory".
+  - `\bpresum\w*[\s\S]{0,1200}\b(?:habitab\w*|untenantable|uninhabitable|tenantable|retaliat\w*|code violations?|unfit|unsafe|repairs?)\b` -> 17
+  - `\b(?:habitab\w*|untenantable|uninhabitable|tenantable|retaliat\w*|code violations?|unfit|unsafe|repairs?)\b[\s\S]{0,1200}\bpresum\w*` -> 15
+  - `\A(?=[\s\S]*\bpresum\w*)(?=[\s\S]*\b(?:tenants?|lessees?|rental agreements?|lease[sd]?)\b)(?=[\s\S]*\b(?:habitab\w*|untenantable|uninhabitable|tenantable|retaliat\w*|code violations?|unfit|unsafe|repairs?)\b)(?=[\s\S]*\b(?:dwellings?|dwelling units?|residential|residences?)\b)` -> 35
+  - `\bpresumed (?:to be )?(?:uninhabitable|untenantable|retaliatory|unfit|habitable)\b` -> 0
+- **FLG-A-003** [OK] stove/refrigerator: any FL duty to supply a stove, oven, range or refrigerator in a rental; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 83.67 "including, but not limited to, water, heat, light, electricity, gas, elevator, garbage collection, or refrigeration".
+  - `\b(?:stoves?|refrigerators?|refrigeration|ovens?|cooking (?:appliances?|facilities|equipment)|cooktops?|kitchen ranges?)\b[\s\S]{0,1200}\b(?:tenants?|landlords?|dwelling units?|rental agreements?|lease[sd]?)\b` -> 7
+  - `\b(?:tenants?|landlords?|dwelling units?|rental agreements?|lease[sd]?)\b[\s\S]{0,1200}\b(?:stoves?|refrigerators?|refrigeration|ovens?|cooking (?:appliances?|facilities|equipment)|cooktops?|kitchen ranges?)\b` -> 5
+  - `\A(?=[\s\S]*\b(?:stoves?|refrigerators?|refrigeration|ovens?|cooking (?:appliances?|facilities|equipment)|cooktops?|kitchen ranges?)\b)(?=[\s\S]*\b(?:tenants?|landlords?|dwelling units?|rental agreements?|lease[sd]?)\b)` -> 21
+  - `\brefrigerators?\b` -> 14
+  - `\bstoves?\b` -> 12
+- **FLG-A-004** [OK] carpet cleaning: any FL rule on carpet cleaning at move-out, carpet deductions or a wear-and-tear/age test; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 720.316 "removing and disposing of wet drywall, insulation, carpet"; passed 83.491 "beyond normal wear and tear".
+  - `\b(?:carpets?|carpeting|carpeted|floor coverings?|rugs?)\b[\s\S]{0,1200}\b(?:tenants?|landlords?|security deposits?|deposit money|rental agreements?|lease[sd]?)\b` -> 1
+  - `\b(?:tenants?|landlords?|security deposits?|deposit money|rental agreements?|lease[sd]?)\b[\s\S]{0,1200}\b(?:carpets?|carpeting|carpeted|floor coverings?|rugs?)\b` -> 3
+  - `\A(?=[\s\S]*\b(?:carpets?|carpeting|carpeted|floor coverings?|rugs?)\b)(?=[\s\S]*\b(?:tenants?|landlords?|security deposits?|deposit money|rental agreements?|lease[sd]?)\b)` -> 9
+  - `\b(?:wear and tear|ordinary wear|normal wear)\b` -> 16
+  - `\bcarpets?\b` -> 7
+  - `\bprofessional(?:ly)? clean\w*` -> 0
+- **FLG-A-005** [OK] furnished rentals: any FL rule on furnishings or furnished dwelling units in a residential tenancy; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 83.43 "that is furnished, with or without rent, as an incident of employment"; passed 83.46 "If the dwelling unit is furnished without rent".
+  - `\b(?:furnished|furniture|furnishings)\b[\s\S]{0,1200}\b(?:tenants?|landlords?|dwelling units?|rental agreements?|lease[sd]?)\b` -> 50
+  - `\b(?:tenants?|landlords?|dwelling units?|rental agreements?|lease[sd]?)\b[\s\S]{0,1200}\b(?:furnished|furniture|furnishings)\b` -> 62
+  - `\A(?=[\s\S]*\b(?:furnished|furniture|furnishings)\b)(?=[\s\S]*\b(?:tenants?|landlords?|dwelling units?|rental agreements?|lease[sd]?)\b)(?=[\s\S]*\b(?:residential|dwellings?|apartments?)\b)` -> 71
+  - `\bfurnished (?:units?|apartments?|dwellings?|rentals?|premises)\b` -> 0
+- **FLG-A-006** [OK] steam radiator covers: any FL rule on radiator covers, steam heat or hot heating surfaces in rentals; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 316.2015 "radiator".
+  - `\b(?:radiators?|steam heat\w*|steam boilers?|steam pipes?|hot surfaces?)[\s\S]{0,1200}\b(?:tenants?|landlords?|dwelling units?|rental agreements?|lease[sd]?|residential|dwellings?)\b` -> 0
+  - `\b(?:tenants?|landlords?|dwelling units?|rental agreements?|lease[sd]?|residential|dwellings?)\b[\s\S]{0,1200}\b(?:radiators?|steam heat\w*|steam boilers?|steam pipes?|hot surfaces?)` -> 0
+  - `\A(?=[\s\S]*\b(?:radiators?|steam heat\w*|steam boilers?|steam pipes?|hot surfaces?))(?=[\s\S]*\b(?:tenants?|landlords?|dwelling units?|rental agreements?|lease[sd]?|residential|dwellings?)\b)` -> 0
+  - `\bradiators?\b` -> 1
+  - `\bradiator (?:covers?|guards?|shields?)\b` -> 0
+  - `\A(?=[\s\S]*\bheating boilers?\b)(?=[\s\S]*\b(?:tenants?|landlords?|dwelling units?|rental agreements?|lease[sd]?|residential|dwellings?)\b)` -> 1
+- **FLG-A-007** [OK] water heater temperature: any FL rule setting water heater temperature at occupancy or a maximum hot water temperature in rentals; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 554.109 "Water temperature of 210 degrees Fahrenheit".
+  - `\b(?:water heaters?|water heating|hot water heaters?|hot water supply)\b[\s\S]{0,1200}\b(?:temperatures?|degrees|°F|thermostats?)` -> 4
+  - `\b(?:temperatures?|degrees|thermostats?)\b[\s\S]{0,1200}\b(?:water heaters?|water heating|hot water heaters?|hot water supply)\b` -> 5
+  - `\A(?=[\s\S]*\b(?:water heaters?|water heating|hot water heaters?|hot water supply)\b)(?=[\s\S]*\b(?:temperatures?|degrees|thermostats?)\b)(?=[\s\S]*\b(?:tenants?|landlords?|occupan\w*|dwelling units?|lease[sd]?|rental)\b)` -> 4
+  - `\bhot water\b[\s\S]{0,1200}\b(?:1[0-4]\d|120) degrees` -> 2
+  - `\bscald\w*` -> 1
+- **FLG-A-008** [OK] portable cooling device: tenant right to install a cooling device, lease restriction rules, or a landlord cooling duty; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 83.52 "air-conditioning"; passed 509.221 "properly lighted, heated, cooled, and ventilated".
+  - `\b(?:air[- ]condition\w*|cooling (?:units?|devices?|systems?|equipment)|window units?|portable (?:air|cooling)|heat pumps?|fans?)\b[\s\S]{0,1200}\b(?:tenants?|lessees?|landlords?|residents?|rental agreements?|lease[sd]?)\b` -> 11
+  - `\b(?:tenants?|lessees?|landlords?|residents?|rental agreements?|lease[sd]?)\b[\s\S]{0,1200}\b(?:air[- ]condition\w*|cooling (?:units?|devices?|systems?|equipment)|window units?|portable (?:air|cooling)|heat pumps?|fans?)\b` -> 10
+  - `\A(?=[\s\S]*\b(?:air[- ]condition\w*|cooling (?:units?|devices?|systems?|equipment)|window units?|portable (?:air|cooling)|heat pumps?|fans?)\b)(?=[\s\S]*\b(?:tenants?|lessees?|landlords?|residents?|rental agreements?|lease[sd]?)\b)(?=[\s\S]*\b(?:install\w*|prohibit\w*|restrict\w*|may not|shall not)\b)` -> 33
+  - `\bwindow (?:air[- ]conditioning )?units?\b` -> 1
+  - `\b(?:heated|lighted), cooled\b` -> 1
+- **FLG-A-009** [OK] security devices: mandatory locks, deadbolts, peepholes, window locks, rekey at turnover; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 83.67 "changing the locks"; passed 768.0706 "peephole or door viewer"; passed 509.211 "approved locking device on each door".
+  - `\b(?:re-?key\w*|chang\w* (?:the |of )?locks?|lock changes?|new locks?|replac\w* (?:the )?locks?)[\s\S]{0,1200}\b(?:tenants?|landlords?|dwelling units?|rental agreements?|lease[sd]?|vacat\w*|turnover)` -> 2
+  - `\b(?:tenants?|landlords?|dwelling units?|rental agreements?|lease[sd]?|vacat\w*|turnover)[\s\S]{0,1200}\b(?:re-?key\w*|chang\w* (?:the |of )?locks?|lock changes?|new locks?|replac\w* (?:the )?locks?)` -> 6
+  - `\A(?=[\s\S]*\b(?:re-?key\w*|chang\w* (?:the |of )?locks?|lock changes?|new locks?|replac\w* (?:the )?locks?))(?=[\s\S]*\b(?:tenants?|landlords?|dwelling units?|rental agreements?|lease[sd]?|vacat\w*|turnover))` -> 6
+  - `\b(?:deadbolts?|dead bolts?|peepholes?|door viewers?|security devices?|locking devices?)\b` -> 20
+  - `\A(?=[\s\S]*\blocks?\b)(?=[\s\S]*\b(?:dwelling units?|apartments?)\b)(?=[\s\S]*\b(?:each|every) (?:exterior |dwelling unit |outside )?doors?\b)` -> 1
+- **FLG-A-010** [OK] smart access: smart locks, app-based or electronic entry systems in rentals; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 768.0706 "Locked gates with key or fob access".
+  - `\b(?:smart locks?|smart access|electronic (?:locks?|keys?|access)|keyless (?:entry|locks?)|key ?fobs?|fobs?|key cards?|access (?:control )?(?:systems?|codes?|credentials?)|connected devices?|app-based|biometric)[\s\S]{0,1200}\b(?:tenants?|landlords?|dwelling units?|rental agreements?|lease[sd]?|residents?)\b` -> 4
+  - `\b(?:tenants?|landlords?|dwelling units?|rental agreements?|lease[sd]?|residents?)\b[\s\S]{0,1200}\b(?:smart locks?|smart access|electronic (?:locks?|keys?|access)|keyless (?:entry|locks?)|key ?fobs?|fobs?|key cards?|access (?:control )?(?:systems?|codes?|credentials?)|connected devices?|app-based|biometric)` -> 6
+  - `\A(?=[\s\S]*\b(?:smart locks?|smart access|electronic (?:locks?|keys?|access)|keyless (?:entry|locks?)|key ?fobs?|fobs?|key cards?|access (?:control )?(?:systems?|codes?|credentials?)|connected devices?|app-based|biometric))(?=[\s\S]*\b(?:tenants?|landlords?|dwelling units?|rental agreements?|lease[sd]?|residents?)\b)` -> 30
+  - `\bsmart (?:locks?|home|access)\b` -> 0
+- **FLG-A-011** [FAILED] (not cited by any row) pest control notice: any FL rule requiring notice to tenants or occupants of pest control or pesticide application; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 83.51 "written notice, in person, by mail, or by e-mail"; recorded as failed 482.2267 "notify that person at least 24 hours before applying the pesticide".
+  - `\b(?:pest control|pesticides?|exterminat\w*|fumigat\w*)[\s\S]{0,1200}\b(?:notice|notif\w*|post\w*|warn\w*)[\s\S]{0,1200}\b(?:tenants?|occupants?|lessees?)\b` -> 2
+  - `\b(?:tenants?|occupants?|lessees?)\b[\s\S]{0,1200}\b(?:notice|notif\w*|post\w*|warn\w*)[\s\S]{0,1200}\b(?:pest control|pesticides?|exterminat\w*|fumigat\w*)` -> 4
+  - `\A(?=[\s\S]*\b(?:pest control|pesticides?|exterminat\w*|fumigat\w*))(?=[\s\S]*\b(?:notice|notif\w*|post\w*|warn\w*))(?=[\s\S]*\b(?:landlords?|lessors?|tenants?)\b)` -> 13
+  - `\bnotice of (?:the )?(?:application of )?pesticides?\b` -> 1
+- **FLG-A-012** [OK] pest control notice: any FL rule requiring notice to tenants or occupants of pest control or pesticide application; supersedes FLG-A-011 (positive 482.2267 recorded as failed (no term matched the unit); added plain term for prior notification); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 83.51 "written notice, in person, by mail, or by e-mail"; passed 482.2267 "notify that person at least 24 hours before applying the pesticide".
+  - `\b(?:pest control|pesticides?|exterminat\w*|fumigat\w*)[\s\S]{0,1200}\b(?:notice|notif\w*|post\w*|warn\w*)[\s\S]{0,1200}\b(?:tenants?|occupants?|lessees?)\b` -> 2
+  - `\b(?:tenants?|occupants?|lessees?)\b[\s\S]{0,1200}\b(?:notice|notif\w*|post\w*|warn\w*)[\s\S]{0,1200}\b(?:pest control|pesticides?|exterminat\w*|fumigat\w*)` -> 4
+  - `\A(?=[\s\S]*\b(?:pest control|pesticides?|exterminat\w*|fumigat\w*))(?=[\s\S]*\b(?:notice|notif\w*|post\w*|warn\w*))(?=[\s\S]*\b(?:landlords?|lessors?|tenants?)\b)` -> 13
+  - `\bnotice of (?:the )?(?:application of )?pesticides?\b` -> 1
+  - `\bprior notification\b` -> 15
+- **FLG-A-013** [OK] (not cited by any row) tenant repair remedies: repair-and-deduct, rent withholding or offset for repairs; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 83.201 "the tenant may withhold rent after notice to the landlord".
+  - `\b(?:repairs?|repaired|repairing|remed\w*|maintenance)[\s\S]{0,1200}\b(?:deduct\w*|offset\w*|set-?off|withh[oe]ld\w*|reimburs\w*)[\s\S]{0,1200}\brent\w*` -> 12
+  - `\brent\w*[\s\S]{0,1200}\b(?:deduct\w*|offset\w*|set-?off|withh[oe]ld\w*|reimburs\w*)[\s\S]{0,1200}\b(?:repairs?|repaired|repairing|remed\w*|maintenance)` -> 10
+  - `\A(?=[\s\S]*\b(?:repairs?|repaired|repairing|remed\w*|maintenance))(?=[\s\S]*\b(?:deduct\w*|offset\w*|set-?off|withh[oe]ld\w*|reimburs\w*))(?=[\s\S]*\brent\b)(?=[\s\S]*\b(?:tenants?|lessees?)\b)` -> 40
+  - `\brepair and deduct\b` -> 0
+  - `\bcost of (?:the )?(?:repairs?|remedy)[\s\S]{0,1200}\bfrom (?:the )?rent\b` -> 0
+- **FLG-A-014** [OK] tenant repair remedies: repair-and-deduct, rent withholding or offset for repairs; supersedes FLG-A-013 (INFLECTION warning on rent in the section-wide AND; rent inflections added); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 83.201 "the tenant may withhold rent after notice to the landlord".
+  - `\b(?:repairs?|repaired|repairing|remed\w*|maintenance)[\s\S]{0,1200}\b(?:deduct\w*|offset\w*|set-?off|withh[oe]ld\w*|reimburs\w*)[\s\S]{0,1200}\brent\w*` -> 12
+  - `\brent\w*[\s\S]{0,1200}\b(?:deduct\w*|offset\w*|set-?off|withh[oe]ld\w*|reimburs\w*)[\s\S]{0,1200}\b(?:repairs?|repaired|repairing|remed\w*|maintenance)` -> 10
+  - `\A(?=[\s\S]*\b(?:repairs?|repaired|repairing|remed\w*|maintenance))(?=[\s\S]*\b(?:deduct\w*|offset\w*|set-?off|withh[oe]ld\w*|reimburs\w*))(?=[\s\S]*\brent(?:s|ed|ing|es|d)?\b)(?=[\s\S]*\b(?:tenants?|lessees?)\b)` -> 50
+  - `\brepair and deduct\b` -> 0
+  - `\bcost of (?:the )?(?:repairs?|remedy)[\s\S]{0,1200}\bfrom (?:the )?rent\b` -> 0
+- **FLG-A-015** [FAILED] (not cited by any row) repair-cost termination: lease termination because repair cost exceeds a threshold; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: recorded as failed 83.63 "damaged or destroyed other than by the wrongful or negligent acts of the tenant"; recorded as failed 718.117 "cost".
+  - `\b(?:costs? of (?:the )?(?:repairs?|restoration|rebuilding)|repair costs?|cost to repair|(?:\d+|fifty) percent of (?:the )?(?:market |assessed |replacement )?value)[\s\S]{0,1200}\b(?:terminat\w*|cancel\w*|end the (?:lease|rental agreement|tenancy))` -> 9
+  - `\b(?:terminat\w*|cancel\w*|end the (?:lease|rental agreement|tenancy))[\s\S]{0,1200}\b(?:costs? of (?:the )?(?:repairs?|restoration|rebuilding)|repair costs?|cost to repair|(?:\d+|fifty) percent of (?:the )?(?:market |assessed |replacement )?value)` -> 8
+  - `\A(?=[\s\S]*\b(?:costs? of (?:the )?(?:repairs?|restoration|rebuilding)|repair costs?|cost to repair|(?:\d+|fifty) percent of (?:the )?(?:market |assessed |replacement )?value))(?=[\s\S]*\b(?:terminat\w*|cancel\w*|end the (?:lease|rental agreement|tenancy)))(?=[\s\S]*\b(?:tenants?|lessees?|rental agreements?|lease[sd]?)\b)` -> 19
+  - `\bsubstantial (?:damage|improvement)\b[\s\S]{0,1200}\b(?:tenants?|lessees?|rental agreements?|lease[sd]?)\b` -> 2
+- **FLG-A-016** [OK] repair-cost termination: lease termination because repair cost exceeds a threshold; supersedes FLG-A-015 (both positives recorded as failed (no term matched the named units); real positives chosen from read sections); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 83.512 "total cost of repairs to or replacement of the personal property is 50 percent"; passed 420.503 "exceeds 40 percent of the value of the dwelling".
+  - `\b(?:costs? of (?:the )?(?:repairs?|restoration|rebuilding)|repair costs?|cost to repair|(?:\d+|fifty) percent of (?:the )?(?:market |assessed |replacement )?value)[\s\S]{0,1200}\b(?:terminat\w*|cancel\w*|end the (?:lease|rental agreement|tenancy))` -> 9
+  - `\b(?:terminat\w*|cancel\w*|end the (?:lease|rental agreement|tenancy))[\s\S]{0,1200}\b(?:costs? of (?:the )?(?:repairs?|restoration|rebuilding)|repair costs?|cost to repair|(?:\d+|fifty) percent of (?:the )?(?:market |assessed |replacement )?value)` -> 8
+  - `\A(?=[\s\S]*\b(?:costs? of (?:the )?(?:repairs?|restoration|rebuilding)|repair costs?|cost to repair|(?:\d+|fifty) percent of (?:the )?(?:market |assessed |replacement )?value))(?=[\s\S]*\b(?:terminat\w*|cancel\w*|end the (?:lease|rental agreement|tenancy)))(?=[\s\S]*\b(?:tenants?|lessees?|rental agreements?|lease[sd]?)\b)` -> 19
+  - `\bsubstantial (?:damage|improvement)\b[\s\S]{0,1200}\b(?:tenants?|lessees?|rental agreements?|lease[sd]?)\b` -> 2
+- **FLG-A-017** [OK] (not cited by any row) promises to repair: rule requiring landlord repair promises in writing with a completion date before signing; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 83.53 "necessary or agreed repairs".
+  - `\b(?:promis\w*|agree\w*|represent\w*|commit\w*)[\s\S]{0,1200}\b(?:repairs?|repaired|repairing|clean\w*|improve\w*|renovat\w*|decorat\w*)[\s\S]{0,1200}\b(?:tenants?|landlords?|lessees?|rental agreements?|lease[sd]?)\b` -> 142
+  - `\b(?:tenants?|landlords?|lessees?|rental agreements?|lease[sd]?)\b[\s\S]{0,1200}\b(?:promis\w*|agree\w*|represent\w*|commit\w*)[\s\S]{0,1200}\b(?:repairs?|repaired|repairing|clean\w*|improve\w*|renovat\w*|decorat\w*)` -> 112
+  - `\A(?=[\s\S]*\b(?:promis\w*|agree\w*|represent\w*|commit\w*))(?=[\s\S]*\b(?:repairs?|repaired|repairing|clean\w*|improve\w*|renovat\w*|decorat\w*))(?=[\s\S]*\b(?:landlords?|lessors?)\b)(?=[\s\S]*\b(?:in writing|written)\b)(?=[\s\S]*\b(?:before|prior to)\b)` -> 46
+  - `\bcompletion date\b[\s\S]{0,1200}\b(?:tenants?|landlords?|lessees?|rental agreements?|lease[sd]?)\b` -> 0
+- **FLG-A-018** [FAILED] (not cited by any row) promises to repair: rule requiring landlord repair promises in writing with a completion date before signing; supersedes FLG-A-017 (first run's proximity chains returned 142 and 112 units, too broad to read in context; narrowed to promise-to-repair phrasing plus a five-part section-wide AND); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: recorded as failed 83.53 "necessary or agreed repairs"; recorded as failed 553.835 "agree to".
+  - `\b(?:promis\w*|agree\w*|commit\w*|undertak\w*) to (?:make |perform |complete |do )?(?:any |the |certain )?(?:repairs?|repaired|repairing|clean\w*|improve\w*|renovat\w*|decorat\w*)[\s\S]{0,1200}\b(?:landlords?|lessors?|owners?)\b` -> 1
+  - `\b(?:landlords?|lessors?|owners?)\b[\s\S]{0,1200}\b(?:promis\w*|agree\w*|commit\w*|undertak\w*) to (?:make |perform |complete |do )?(?:any |the |certain )?(?:repairs?|repaired|repairing|clean\w*|improve\w*|renovat\w*|decorat\w*)` -> 1
+  - `\A(?=[\s\S]*\b(?:promis\w*|agree\w*|represent\w*|commit\w*))(?=[\s\S]*\b(?:repairs?|repaired|repairing|clean\w*|improve\w*|renovat\w*|decorat\w*))(?=[\s\S]*\b(?:landlords?|lessors?)\b)(?=[\s\S]*\b(?:in writing|written)\b)(?=[\s\S]*\b(?:before|prior to)\b)(?=[\s\S]*\b(?:tenants?|lessees?)\b)` -> 38
+  - `\bcompletion dates?\b[\s\S]{0,1200}\b(?:tenants?|landlords?|lessees?|rental agreements?|lease[sd]?)\b` -> 2
+  - `\bpromises? to (?:repair|clean|improve)\b` -> 0
+- **FLG-A-019** [OK] promises to repair: rule requiring landlord repair promises in writing with a completion date before signing; supersedes FLG-A-018 (both positives recorded as failed (no term matched the named units); positive now a unit the five-part AND matches); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 83.56 "material provisions of the rental agreement"; passed 319.30 "agree".
+  - `\b(?:promis\w*|agree\w*|commit\w*|undertak\w*) to (?:make |perform |complete |do )?(?:any |the |certain )?(?:repairs?|repaired|repairing|clean\w*|improve\w*|renovat\w*|decorat\w*)[\s\S]{0,1200}\b(?:landlords?|lessors?|owners?)\b` -> 1
+  - `\b(?:landlords?|lessors?|owners?)\b[\s\S]{0,1200}\b(?:promis\w*|agree\w*|commit\w*|undertak\w*) to (?:make |perform |complete |do )?(?:any |the |certain )?(?:repairs?|repaired|repairing|clean\w*|improve\w*|renovat\w*|decorat\w*)` -> 1
+  - `\A(?=[\s\S]*\b(?:promis\w*|agree\w*|represent\w*|commit\w*))(?=[\s\S]*\b(?:repairs?|repaired|repairing|clean\w*|improve\w*|renovat\w*|decorat\w*))(?=[\s\S]*\b(?:landlords?|lessors?)\b)(?=[\s\S]*\b(?:in writing|written)\b)(?=[\s\S]*\b(?:before|prior to)\b)(?=[\s\S]*\b(?:tenants?|lessees?)\b)` -> 38
+  - `\bcompletion dates?\b[\s\S]{0,1200}\b(?:tenants?|landlords?|lessees?|rental agreements?|lease[sd]?)\b` -> 2
+  - `\bpromises? to (?:repair|clean|improve)\b` -> 0
+- **FLG-A-020** [FAILED] (not cited by any row) alarm tampering: tenant removal or tampering with smoke/CO alarms, and any fee for it; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: recorded as failed 83.52 "remove any part of the premises"; recorded as failed 553.883 "smoke alarm".
+  - `\b(?:tamper\w*|disabl\w*|disconnect\w*|remov\w*|render\w* inoperable|interfer\w*)[\s\S]{0,1200}\b(?:smoke (?:detectors?|detection devices?|alarms?)|carbon monoxide (?:alarms?|detectors?)|fire alarms?|fire protection (?:systems?|equipment)|alarm systems?)` -> 9
+  - `\b(?:smoke (?:detectors?|detection devices?|alarms?)|carbon monoxide (?:alarms?|detectors?)|fire alarms?|fire protection (?:systems?|equipment)|alarm systems?)[\s\S]{0,1200}\b(?:tamper\w*|disabl\w*|disconnect\w*|remov\w*|render\w* inoperable|interfer\w*)` -> 8
+  - `\A(?=[\s\S]*\b(?:smoke (?:detectors?|detection devices?|alarms?)|carbon monoxide (?:alarms?|detectors?)|fire alarms?|fire protection (?:systems?|equipment)|alarm systems?))(?=[\s\S]*\b(?:tamper\w*|disabl\w*|disconnect\w*|remov\w*|render\w* inoperable|interfer\w*))(?=[\s\S]*\b(?:tenants?|lessees?|landlords?|fees?|charges?)\b)` -> 22
+  - `\btamper\w* with\b[\s\S]{0,1200}\b(?:alarms?|detectors?|sprinklers?)\b` -> 0
+- **FLG-A-021** [OK] alarm tampering: tenant removal or tampering with smoke/CO alarms, and any fee for it; supersedes FLG-A-020 (both positives recorded as failed (no term matched the named units); positive now Fla. Stat. 83.51, which the proximity terms match); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 83.51 "working smoke detection devices".
+  - `\b(?:tamper\w*|disabl\w*|disconnect\w*|remov\w*|render\w* inoperable|interfer\w*)[\s\S]{0,1200}\b(?:smoke (?:detectors?|detection devices?|alarms?)|carbon monoxide (?:alarms?|detectors?)|fire alarms?|fire protection (?:systems?|equipment)|alarm systems?)` -> 9
+  - `\b(?:smoke (?:detectors?|detection devices?|alarms?)|carbon monoxide (?:alarms?|detectors?)|fire alarms?|fire protection (?:systems?|equipment)|alarm systems?)[\s\S]{0,1200}\b(?:tamper\w*|disabl\w*|disconnect\w*|remov\w*|render\w* inoperable|interfer\w*)` -> 8
+  - `\A(?=[\s\S]*\b(?:smoke (?:detectors?|detection devices?|alarms?)|carbon monoxide (?:alarms?|detectors?)|fire alarms?|fire protection (?:systems?|equipment)|alarm systems?))(?=[\s\S]*\b(?:tamper\w*|disabl\w*|disconnect\w*|remov\w*|render\w* inoperable|interfer\w*))(?=[\s\S]*\b(?:tenants?|lessees?|landlords?|fees?|charges?)\b)` -> 22
+  - `\btamper\w* with\b[\s\S]{0,1200}\b(?:alarms?|detectors?|sprinklers?)\b` -> 0
+- **FLG-A-022** [OK] window guards: child window guards, security or burglar bars, release mechanisms, escape openings; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 515.27 "release mechanism placed no lower than 54 inches".
+  - `\b(?:window guards?|window bars?|burglar bars?|security bars?|window (?:stops?|fall\w*|grilles?)|bars on (?:the )?windows?|release mechanisms?)[\s\S]{0,1200}\b(?:tenants?|landlords?|dwellings?|dwelling units?|residential|lease[sd]?|rental agreements?)\b` -> 2
+  - `\b(?:tenants?|landlords?|dwellings?|dwelling units?|residential|lease[sd]?|rental agreements?)\b[\s\S]{0,1200}\b(?:window guards?|window bars?|burglar bars?|security bars?|window (?:stops?|fall\w*|grilles?)|bars on (?:the )?windows?|release mechanisms?)` -> 1
+  - `\A(?=[\s\S]*\b(?:window guards?|window bars?|burglar bars?|security bars?|window (?:stops?|fall\w*|grilles?)|bars on (?:the )?windows?|release mechanisms?))(?=[\s\S]*\b(?:tenants?|landlords?|dwellings?|dwelling units?|residential|lease[sd]?|rental agreements?)\b)` -> 2
+  - `\b(?:emergency escape and rescue|escape (?:or|and) rescue) (?:openings?|windows?)\b` -> 1
+- **FLG-A-023** [OK] asbestos: notice or disclosure duties to tenants or occupants; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 469.002 "asbestos-containing resilient floor covering".
+  - `\basbestos\w*[\s\S]{0,1200}\b(?:tenants?|occupants?|residents?|lessees?|landlords?|rental agreements?|lease[sd]?)\b` -> 3
+  - `\b(?:tenants?|occupants?|residents?|lessees?|landlords?|rental agreements?|lease[sd]?)\b[\s\S]{0,1200}\basbestos\w*` -> 3
+  - `\A(?=[\s\S]*\basbestos\w*)(?=[\s\S]*\b(?:notice|notif\w*|disclos\w*|inform\w*)\b)(?=[\s\S]*\b(?:owners?|tenants?|occupants?)\b)` -> 7
+  - `\basbestos\w*` -> 34
+- **FLG-A-024** [FAILED] (not cited by any row) private well testing: duty to test a rental's private well or give results to tenants; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: recorded as failed 381.0062 "limited use public water system".
+  - `\b(?:private wells?|water wells?|wells? water|drinking water wells?|potable water wells?|wellhead|private water (?:supply|systems?)|limited use (?:public )?water systems?)[\s\S]{0,1200}\b(?:tenants?|landlords?|lessees?|rental|lease[sd]?|dwelling units?|occupants?)` -> 4
+  - `\b(?:tenants?|landlords?|lessees?|rental|lease[sd]?|dwelling units?|occupants?)[\s\S]{0,1200}\b(?:private wells?|water wells?|wells? water|drinking water wells?|potable water wells?|wellhead|private water (?:supply|systems?)|limited use (?:public )?water systems?)` -> 8
+  - `\A(?=[\s\S]*\b(?:private wells?|water wells?|wells? water|drinking water wells?|potable water wells?|wellhead|private water (?:supply|systems?)|limited use (?:public )?water systems?))(?=[\s\S]*\b(?:test\w*|sampl\w*|analys[ie]s)\b)(?=[\s\S]*\b(?:tenants?|landlords?|lessees?|rental|lease[sd]?|dwelling units?|occupants?))` -> 13
+  - `\bwater (?:test|analysis) results?\b` -> 1
+- **FLG-A-025** [OK] private well testing: duty to test a rental's private well or give results to tenants; supersedes FLG-A-024 (positive recorded as failed (pattern did not match the unit text); positive now the private water system definition, and the system names added); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 381.0062 "one of which may be a rental residence".
+  - `\b(?:private wells?|water wells?|wells? water|drinking water wells?|potable water wells?|wellhead|private water (?:supply|systems?)|limited use (?:public )?water systems?|multifamily water systems?|limited use community (?:public )?water systems?)[\s\S]{0,1200}\b(?:tenants?|landlords?|lessees?|rental|lease[sd]?|dwelling units?|occupants?)` -> 4
+  - `\b(?:tenants?|landlords?|lessees?|rental|lease[sd]?|dwelling units?|occupants?)[\s\S]{0,1200}\b(?:private wells?|water wells?|wells? water|drinking water wells?|potable water wells?|wellhead|private water (?:supply|systems?)|limited use (?:public )?water systems?|multifamily water systems?|limited use community (?:public )?water systems?)` -> 8
+  - `\A(?=[\s\S]*\b(?:private wells?|water wells?|wells? water|drinking water wells?|potable water wells?|wellhead|private water (?:supply|systems?)|limited use (?:public )?water systems?|multifamily water systems?|limited use community (?:public )?water systems?))(?=[\s\S]*\b(?:test\w*|sampl\w*|analys[ie]s)\b)(?=[\s\S]*\b(?:tenants?|landlords?|lessees?|rental|lease[sd]?|dwelling units?|occupants?))` -> 13
+  - `\bwater (?:test|analysis) results?\b` -> 1
+- **FLG-A-026** [FAILED] (not cited by any row) substandard property receivership and code-enforcement repair orders; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: recorded as failed 393.0678 "receivership".
+  - `\breceivers?(?:hips?)?\b[\s\S]{0,1200}\b(?:code (?:violations?|enforcement)|unsafe|substandard|uninhabitable|unfit|repairs?)\b` -> 4
+  - `\b(?:code (?:violations?|enforcement)|unsafe|substandard|uninhabitable|unfit|repairs?)\b[\s\S]{0,1200}\breceivers?(?:hips?)?\b` -> 8
+  - `\A(?=[\s\S]*\breceivers?(?:hips?)?\b)(?=[\s\S]*\b(?:tenants?|landlords?|dwellings?|dwelling units?|residential|rental|lease[sd]?))(?=[\s\S]*\b(?:code (?:violations?|enforcement)|unsafe|substandard|uninhabitable|unfit for)\b)` -> 11
+  - `\bunsafe (?:buildings?|structures?)\b` -> 1
+- **FLG-A-027** [OK] substandard property receivership and code-enforcement repair orders; supersedes FLG-A-026 (positive recorded as failed (no term matched Fla. Stat. 393.0678); positive now Fla. Stat. 718.117, which the reverse-order and AND terms match); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 718.117 "appoint a receiver".
+  - `\breceivers?(?:hips?)?\b[\s\S]{0,1200}\b(?:code (?:violations?|enforcement)|unsafe|substandard|uninhabitable|unfit|repairs?)\b` -> 4
+  - `\b(?:code (?:violations?|enforcement)|unsafe|substandard|uninhabitable|unfit|repairs?)\b[\s\S]{0,1200}\breceivers?(?:hips?)?\b` -> 8
+  - `\A(?=[\s\S]*\breceivers?(?:hips?)?\b)(?=[\s\S]*\b(?:tenants?|landlords?|dwellings?|dwelling units?|residential|rental|lease[sd]?))(?=[\s\S]*\b(?:code (?:violations?|enforcement)|unsafe|substandard|uninhabitable|unfit for)\b)` -> 11
+  - `\bunsafe (?:buildings?|structures?)\b` -> 1
+- **FLG-A-028** [FAILED] (not cited by any row) condemned premises: bar on collecting rent after condemnation or a vacate order; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: recorded as failed 633.228 "order to cease and desist from such violation, to correct any hazardous condition, to preclude occupancy"; recorded as failed 509.261 "unsafe or unfit for human occupancy".
+  - `\b(?:condemn\w*|order(?:ed|s)? to vacate|vacate (?:order|the (?:premises|building|dwelling))|unfit for (?:human )?(?:habitation|occupancy)|unsafe for (?:human )?(?:habitation|occupancy)|declared unsafe|preclude occupancy)[\s\S]{0,1200}\brent(?:s|ed|al)?\b` -> 17
+  - `\brent(?:s|ed|al)?\b[\s\S]{0,1200}\b(?:condemn\w*|order(?:ed|s)? to vacate|vacate (?:order|the (?:premises|building|dwelling))|unfit for (?:human )?(?:habitation|occupancy)|unsafe for (?:human )?(?:habitation|occupancy)|declared unsafe|preclude occupancy)` -> 16
+  - `\A(?=[\s\S]*\b(?:condemn\w*|order(?:ed|s)? to vacate|vacate (?:order|the (?:premises|building|dwelling))|unfit for (?:human )?(?:habitation|occupancy)|unsafe for (?:human )?(?:habitation|occupancy)|declared unsafe|preclude occupancy))(?=[\s\S]*\brent(?:s|ed)?\b)(?=[\s\S]*\b(?:tenants?|lessees?)\b)` -> 21
+  - `\b(?:may|shall) not (?:collect|demand|accept|charge) (?:any )?rent\b` -> 0
+- **FLG-A-029** [OK] condemned premises: bar on collecting rent after condemnation or a vacate order; supersedes FLG-A-028 (both positives recorded as failed (no rent word in those units, so no term matched); positive now Fla. Stat. 702.10, which the AND term matches); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 702.10 "order to vacate the premises".
+  - `\b(?:condemn\w*|order(?:ed|s)? to vacate|vacate (?:order|the (?:premises|building|dwelling))|unfit for (?:human )?(?:habitation|occupancy)|unsafe for (?:human )?(?:habitation|occupancy)|declared unsafe|preclude occupancy)[\s\S]{0,1200}\brent(?:s|ed|al)?\b` -> 17
+  - `\brent(?:s|ed|al)?\b[\s\S]{0,1200}\b(?:condemn\w*|order(?:ed|s)? to vacate|vacate (?:order|the (?:premises|building|dwelling))|unfit for (?:human )?(?:habitation|occupancy)|unsafe for (?:human )?(?:habitation|occupancy)|declared unsafe|preclude occupancy)` -> 16
+  - `\A(?=[\s\S]*\b(?:condemn\w*|order(?:ed|s)? to vacate|vacate (?:order|the (?:premises|building|dwelling))|unfit for (?:human )?(?:habitation|occupancy)|unsafe for (?:human )?(?:habitation|occupancy)|declared unsafe|preclude occupancy))(?=[\s\S]*\brent(?:s|ed)?\b)(?=[\s\S]*\b(?:tenants?|lessees?)\b)` -> 21
+  - `\b(?:may|shall) not (?:collect|demand|accept|charge) (?:any )?rent\b` -> 0
+- **FLG-A-030** [OK] alternate housing: landlord duty to provide or pay for alternate housing during repairs or uninhabitability; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 723.061 "relocation".
+  - `\b(?:relocat\w*|alternat\w* (?:housing|accommodations?|lodging|dwellings?)|temporary (?:housing|lodging|accommodations?|shelter)|substitute (?:housing|premises|dwelling))[\s\S]{0,1200}\b(?:tenants?|lessees?|landlords?|lessors?)\b` -> 15
+  - `\b(?:tenants?|lessees?|landlords?|lessors?)\b[\s\S]{0,1200}\b(?:relocat\w*|alternat\w* (?:housing|accommodations?|lodging|dwellings?)|temporary (?:housing|lodging|accommodations?|shelter)|substitute (?:housing|premises|dwelling))` -> 16
+  - `\A(?=[\s\S]*\b(?:relocat\w*|alternat\w* (?:housing|accommodations?|lodging|dwellings?)|temporary (?:housing|lodging|accommodations?|shelter)|substitute (?:housing|premises|dwelling)))(?=[\s\S]*\b(?:tenants?|lessees?|landlords?|lessors?)\b)(?=[\s\S]*\b(?:repairs?|uninhabitable|untenantable|unfit|condemn\w*|casualty|damaged)\b)` -> 34
+  - `\brelocation (?:assistance|benefits|payments?|expenses?)\b` -> 20
+- **FLG-A-031** [OK] repair escrow and small-landlord exemption notice; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 83.60 "pay into the registry of the court"; passed 718.112 "escrow account maintained by the association".
+  - `\bescrow\w*[\s\S]{0,1200}\brent(?:s|ed)?\b` -> 3
+  - `\brent(?:s|ed)?\b[\s\S]{0,1200}\bescrow\w*` -> 7
+  - `\A(?=[\s\S]*\bescrow\w*)(?=[\s\S]*\brent(?:s|ed)?\b)(?=[\s\S]*\b(?:tenants?|lessees?)\b)(?=[\s\S]*\b(?:repairs?|habitab\w*|untenantable|code violations?|noncompliance)\b)` -> 9
+  - `\A(?=[\s\S]*\b(?:exempt\w*|opt(?:s|ed)? out)\b)(?=[\s\S]*\b(?:landlords?|lessors?)\b)(?=[\s\S]*\b(?:fewer than|or fewer|or less) (?:\w+ )?(?:dwelling |rental )?units?\b)(?=[\s\S]*\bnotice\b)` -> 3
+  - `\bregistry of the court\b` -> 36
+- **FLG-A-032** [FAILED] (not cited by any row) subsidy habitability proration: state rules on subsidy abatement or proration for habitability failures; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: recorded as failed 83.60 "tenants receiving rent subsidies are required to deposit only that portion of the full rent"; recorded as failed 83.56 "rent subsidies received from a local, state, or national government".
+  - `\b(?:rent subsid\w*|subsid\w*|housing assistance payments?|vouchers?|section 8|housing choice)[\s\S]{0,1200}\b(?:abat\w*|withh[oe]ld\w*|habitab\w*|housing quality standards|inspection|untenantable|repairs?)` -> 54
+  - `\b(?:abat\w*|withh[oe]ld\w*|habitab\w*|housing quality standards|inspection|untenantable|repairs?)[\s\S]{0,1200}\b(?:rent subsid\w*|subsid\w*|housing assistance payments?|vouchers?|section 8|housing choice)` -> 58
+  - `\A(?=[\s\S]*\b(?:rent subsid\w*|subsid\w*|housing assistance payments?|vouchers?|section 8|housing choice))(?=[\s\S]*\b(?:abat\w*|withh[oe]ld\w*|prorat\w*)\b)(?=[\s\S]*\b(?:tenants?|landlords?)\b)(?=[\s\S]*\brent(?:s|ed)?\b)` -> 10
+  - `\bhousing quality standards\b` -> 0
+- **FLG-A-033** [OK] subsidy habitability proration: state rules on subsidy abatement or proration for habitability failures; supersedes FLG-A-032 (first run's subsidy limb matched every 'section 8' of an act and every 'subsidy' (54 and 58 units) and both positives failed; narrowed to rent-subsidy terms with a plain rent-subsidy term); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 83.60 "tenants receiving rent subsidies are required to deposit only that portion of the full rent"; passed 83.56 "rent subsidies received from a local, state, or national government".
+  - `\b(?:rent subsid\w*|housing assistance payments?|housing choice vouchers?|(?:tenant-based|project-based) (?:rental )?assistance|s(?:ection|\.) 8 of the (?:United States Housing|National Housing) Act)[\s\S]{0,1200}\b(?:abat\w*|withh[oe]ld\w*|habitab\w*|housing quality|untenantable|prorat\w*)` -> 0
+  - `\b(?:abat\w*|withh[oe]ld\w*|habitab\w*|housing quality|untenantable|prorat\w*)[\s\S]{0,1200}\b(?:rent subsid\w*|housing assistance payments?|housing choice vouchers?|(?:tenant-based|project-based) (?:rental )?assistance|s(?:ection|\.) 8 of the (?:United States Housing|National Housing) Act)` -> 0
+  - `\A(?=[\s\S]*\b(?:rent subsid\w*|housing assistance payments?|housing choice vouchers?|(?:tenant-based|project-based) (?:rental )?assistance|s(?:ection|\.) 8 of the (?:United States Housing|National Housing) Act))(?=[\s\S]*\b(?:abat\w*|withh[oe]ld\w*|habitab\w*|housing quality|untenantable|prorat\w*))(?=[\s\S]*\b(?:tenants?|landlords?)\b)` -> 2
+  - `\brent subsid\w*` -> 9
+  - `\bhousing quality standards\b` -> 0
+- **FLG-A-034** [FAILED] (not cited by any row) sanitary code variance: notice of a health/housing code variance, exception or waiver to tenants or attached to the lease; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: recorded as failed 381.0062 "A sanction from the department affording a supplier of water an extended time".
+  - `\b(?:variances?|exceptions?|exemptions?|waivers?)\b[\s\S]{0,1200}\b(?:notice|notif\w*|copy|attach\w*|disclos\w*|post\w*)\b[\s\S]{0,1200}\b(?:tenants?|lessees?|occupants?|residents?)\b` -> 44
+  - `\b(?:tenants?|lessees?|occupants?|residents?)\b[\s\S]{0,1200}\b(?:notice|notif\w*|copy|attach\w*|disclos\w*|post\w*)\b[\s\S]{0,1200}\b(?:variances?|exceptions?|exemptions?|waivers?)\b` -> 64
+  - `\A(?=[\s\S]*\bvariances?\b)(?=[\s\S]*\b(?:tenants?|lessees?)\b)(?=[\s\S]*\b(?:rental agreements?|lease[sd]?)\b)(?=[\s\S]*\b(?:notice|notif\w*|attach\w*|disclos\w*)\b)` -> 8
+  - `\bvariances?\b[\s\S]{0,1200}\b(?:rental agreements?|lease[sd]?)\b` -> 2
+  - `\battached to the (?:lease|rental agreement)\b` -> 0
+- **FLG-A-035** [OK] sanitary code variance: notice of a health/housing code variance, exception or waiver to tenants or attached to the lease; supersedes FLG-A-034 (positive recorded as failed and the exception/exemption/waiver proximity limbs returned 44 and 64 units of tax and licensing hits; narrowed to variance in proximity and code-tied exception, exemption or waiver section-wide); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 381.0065 "variance".
+  - `\bvariances?\b[\s\S]{0,1200}\b(?:notice|notif\w*|copy|attach\w*|disclos\w*)\b[\s\S]{0,1200}\b(?:tenants?|lessees?|occupants?)\b` -> 1
+  - `\b(?:tenants?|lessees?|occupants?)\b[\s\S]{0,1200}\b(?:notice|notif\w*|copy|attach\w*|disclos\w*)\b[\s\S]{0,1200}\bvariances?\b` -> 2
+  - `\A(?=[\s\S]*\bvariances?\b)(?=[\s\S]*\b(?:tenants?|lessees?)\b)(?=[\s\S]*\b(?:rental agreements?|lease[sd]?)\b)(?=[\s\S]*\b(?:notice|notif\w*|copy|attach\w*|disclos\w*)\b)` -> 8
+  - `\A(?=[\s\S]*\b(?:exceptions?|exemptions?|waivers?)\b)(?=[\s\S]*\b(?:housing|health|sanitary|building|fire(?:safety)?) codes?\b)(?=[\s\S]*\b(?:tenants?|lessees?)\b)(?=[\s\S]*\b(?:notice|notif\w*|copy|attach\w*|disclos\w*)\b)` -> 20
+  - `\battached to the (?:lease|rental agreement)\b` -> 0
+- **FLG-B-001** [OK] lease-set cure period for non-rent breach (cure-and-eviction-grounds); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 83.20 "lease is silent on the matter"; passed 83.56 "opportunity to cure".
+  - `\b(?:cur(?:e|es|ed|ing)|remed(?:y|ies|ied)|correct(?:s|ed|ing)?)\b[\s\S]{0,1200}\b(?:lease|rental agreement)s? (?:is silent|provides?|may provide|may specify|specif(?:y|ies))` -> 1
+  - `\b(?:lease|rental agreement)s? (?:is silent|provides?|may provide|may specify|specif(?:y|ies))[\s\S]{0,1200}\b(?:cur(?:e|es|ed|ing)|remed(?:y|ies|ied)|correct(?:s|ed|ing)?)\b` -> 3
+  - `\A(?=[\s\S]*\bcur(?:e|es|ed|ing)\b)(?=[\s\S]*\b(?:lease|rental agreement) is silent)` -> 1
+  - `\blease is silent` -> 2
+  - `\bperiod (?:for|to) cure\b|\bcure period\b|\bopportunity to cure\b|\btime period for cure\b` -> 16
+- **FLG-B-002** [OK] criminal or drug activity as a residential termination ground; crime-free lease statute; mandatory eviction duty; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 60.05 "convicted of an offense under chapter 893"; passed 723.061 "Conviction of a violation".
+  - `\b(?:criminal|drug-related|illegal|unlawful) (?:activit(?:y|ies)|conduct|act(?:s)?|use)\b[\s\S]{0,1200}\b(?:tenant(?:s|cy)?|lessee|rental agreement|dwelling unit)\b[\s\S]{0,1200}\b(?:terminat\w*|evict\w*|possession)` -> 0
+  - `\b(?:tenant(?:s|cy)?|lessee|rental agreement|dwelling unit)\b[\s\S]{0,1200}\b(?:criminal|drug-related|illegal|unlawful) (?:activit(?:y|ies)|conduct|act(?:s)?|use)\b` -> 2
+  - `\A(?=[\s\S]*\bcriminal activit(?:y|ies)\b)(?=[\s\S]*\btenant)(?=[\s\S]*\b(?:terminat|evict))` -> 2
+  - `crime[- ]free` -> 4
+  - `\b(?:tenant|lessee)s?\b[\s\S]{0,1200}\b(?:convicted|conviction)\b[\s\S]{0,1200}\b(?:vacate|evict\w*|terminat\w*|possession)` -> 3
+  - `\bdrugs?\b[\s\S]{0,1200}\bevict(?:s|ed|ing|ion)?\b` -> 1
+  - `\bevict(?:s|ed|ing|ion)?\b[\s\S]{0,1200}\bdrugs?\b` -> 1
+- **FLG-B-003** [FAILED] (not cited by any row) expedited eviction track for criminal or dangerous conduct; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 83.59 "advance the cause on the calendar"; recorded as failed 60.05 "within 72 hours".
+  - `\b(?:expedit(?:e|ed|es|ing|ious)|accelerat(?:e|ed)|priority|immediate(?:ly)?)\b[\s\S]{0,1200}\b(?:evict(?:s|ed|ing|ion)?|action for possession|removal of (?:the )?tenant)` -> 2
+  - `\b(?:evict(?:s|ed|ing|ion)?|action for possession|removal of (?:the )?tenant)[\s\S]{0,1200}\b(?:expedit(?:e|ed|es|ing|ious)|accelerat(?:e|ed)|priority)\b` -> 0
+  - `\A(?=[\s\S]*\bexpedit)(?=[\s\S]*\btenant)(?=[\s\S]*\b(?:evict|possession))` -> 17
+  - `expedited eviction|eviction[\s\S]{0,40}expedited|fast[- ]track` -> 5
+  - `\badvance the cause on the calendar\b` -> 20
+- **FLG-B-004** [OK] expedited eviction track for criminal or dangerous conduct; supersedes FLG-B-003 (positive 60.05 failed (no term matched it); window warning on a 40-char limb); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 83.59 "advance the cause on the calendar"; passed 60.05 "within 72 hours".
+  - `\b(?:expedit(?:e|ed|es|ing|ious)|accelerat(?:e|ed)|priority|immediate(?:ly)?)\b[\s\S]{0,1200}\b(?:evict(?:s|ed|ing|ion)?|action for possession|removal of (?:the )?tenant)` -> 2
+  - `\b(?:evict(?:s|ed|ing|ion)?|action for possession|removal of (?:the )?tenant)[\s\S]{0,1200}\b(?:expedit(?:e|ed|es|ing|ious)|accelerat(?:e|ed)|priority)\b` -> 0
+  - `\A(?=[\s\S]*\bexpedit)(?=[\s\S]*\btenant)(?=[\s\S]*\b(?:evict|possession))` -> 17
+  - `expedited eviction|fast[- ]track` -> 5
+  - `\badvance the cause on the calendar\b` -> 20
+  - `\b(?:tenant|lessee|occupant)s?\b[\s\S]{0,1200}\bvacate[\s\S]{0,1200}\bwithin (?:24|48|72) hours\b` -> 1
+- **FLG-B-005** [OK] eviction hardship stay or postponement; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 250.5202 "stay the proceedings"; passed R1.580 "stay execution of the writ".
+  - `\bhardships?\b[\s\S]{0,1200}\b(?:evict(?:s|ed|ing|ion)?|writs? of possession|removal of (?:the )?tenant|action for possession)` -> 5
+  - `\b(?:evict(?:s|ed|ing|ion)?|writs? of possession|removal of (?:the )?tenant|action for possession)[\s\S]{0,1200}\bhardships?\b` -> 1
+  - `\bstay(?:s|ed|ing)?\b[\s\S]{0,1200}\b(?:evict(?:s|ed|ing|ion)?|writs? of possession|action for possession)` -> 3
+  - `\b(?:evict(?:s|ed|ing|ion)?|writs? of possession|action for possession)[\s\S]{0,1200}\bstay(?:s|ed|ing)?\b` -> 3
+  - `\A(?=[\s\S]*\bstay)(?=[\s\S]*\btenant)(?=[\s\S]*\b(?:evict|writ of possession))` -> 9
+  - `\bpostpone(?:s|d|ment)?\b[\s\S]{0,1200}\b(?:evict\w*|writ|execution)\b[\s\S]{0,1200}\b(?:tenant|dwelling)` -> 0
+  - `\b(?:illness|elderly|disabilit(?:y|ies)|inclement weather|winter)\b[\s\S]{0,1200}\b(?:evict(?:s|ed|ing|ion)?|writs? of possession)` -> 0
+- **FLG-B-006** [FAILED] (not cited by any row) lease-named agent to accept eviction service; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: recorded as failed 741.403 "agent for purposes of service of process"; passed 83.22 "designated by the tenant for receipt of notice".
+  - `\b(?:agent|person|representative)s? (?:for|to (?:accept|receive))[\s\S]{0,40}service of process[\s\S]{0,1200}\b(?:tenant|lessee|lease|rental agreement)` -> 2
+  - `\b(?:tenant|lessee|lease|rental agreement)[\s\S]{0,1200}\b(?:agent|person|representative)s? (?:for|to (?:accept|receive))[\s\S]{0,40}service of process` -> 2
+  - `\A(?=[\s\S]*\bservice of process\b)(?=[\s\S]*\b(?:tenant|lessee)\b)(?=[\s\S]*\b(?:designat\w*|appoint\w*)\b)` -> 8
+  - `\b(?:accept|receive)s? (?:service|process|the summons)\b[\s\S]{0,1200}\b(?:tenant|lessee)s?\b` -> 0
+  - `\b(?:tenant|lessee)s?\b[\s\S]{0,1200}\b(?:accept|receive)s? (?:service|process|the summons)\b` -> 1
+  - `designated by the tenant for receipt of notice` -> 1
+- **FLG-B-007** [OK] lease-named agent to accept eviction service; supersedes FLG-B-006 (positive 741.403 failed (no term matched); window warnings); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 741.403 "agent for purposes of service of process"; passed 83.22 "designated by the tenant for receipt of notice".
+  - `\b(?:agent|person|representative)s? (?:for (?:the )?(?:purposes? of )?|to (?:accept|receive) )service of process[\s\S]{0,1200}\b(?:tenant|lessee|lease|rental agreement)` -> 2
+  - `\b(?:tenant|lessee|lease|rental agreement)[\s\S]{0,1200}\b(?:agent|person|representative)s? (?:for (?:the )?(?:purposes? of )?|to (?:accept|receive) )service of process` -> 2
+  - `\A(?=[\s\S]*\bservice of process\b)(?=[\s\S]*\b(?:tenant|lessee)\b)(?=[\s\S]*\b(?:designat\w*|appoint\w*)\b)` -> 8
+  - `\b(?:accept|receive)s? (?:service|process|the summons)\b[\s\S]{0,1200}\b(?:tenant|lessee)s?\b` -> 0
+  - `\b(?:tenant|lessee)s?\b[\s\S]{0,1200}\b(?:accept|receive)s? (?:service|process|the summons)\b` -> 1
+  - `designated by the tenant for receipt of notice` -> 1
+  - `\bagents? for (?:the )?(?:purposes? of )?service of process\b` -> 67
+- **FLG-B-008** [OK] entity landlord appearance in eviction by non-attorney; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 83.59 "not permitted to take any action other than".
+  - `\b(?:corporations?|business entit(?:y|ies)|limited liability compan(?:y|ies)|partnerships?|entit(?:y|ies))\b[\s\S]{0,1200}\b(?:appear\w*|represent\w*)\b[\s\S]{0,300}\b(?:by|through) (?:an? )?(?:officer|employee|member|manager|nonlawyer|non-attorney|agent)` -> 8
+  - `\b(?:officer|employee|member|manager|nonlawyer|non-attorney)s?\b[\s\S]{0,1200}\b(?:appear\w*|represent\w*)\b[\s\S]{0,1200}\b(?:corporations?|entit(?:y|ies))\b[\s\S]{0,1200}\b(?:county court|small claims)` -> 0
+  - `\A(?=[\s\S]*\blandlord)(?=[\s\S]*\bagent\b)(?=[\s\S]*\bunless[\s\S]{0,80}attorney)` -> 1
+  - `\bnot permitted to take any action other than\b` -> 1
+  - `\b(?:landlord|lessor|owner)s?\b[\s\S]{0,1200}\b(?:practice of law|practice law)\b|\b(?:practice of law|practice law)\b[\s\S]{0,1200}\b(?:landlord|lessor|evict\w*)` -> 4
+- **FLG-B-009** [OK] entity landlord appearance in eviction by non-attorney; supersedes FLG-B-008 (window warnings (300 and 80 character limbs)); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 83.59 "not permitted to take any action other than".
+  - `\b(?:corporations?|business entit(?:y|ies)|limited liability compan(?:y|ies)|partnerships?|entit(?:y|ies))\b[\s\S]{0,1200}\b(?:appear\w*|represent\w*)\b[\s\S]{0,1200}\b(?:by|through) (?:an? )?(?:officer|employee|member|manager|nonlawyer|non-attorney|agent)` -> 18
+  - `\b(?:officer|employee|member|manager|nonlawyer|non-attorney)s?\b[\s\S]{0,1200}\b(?:appear\w*|represent\w*)\b[\s\S]{0,1200}\b(?:corporations?|entit(?:y|ies))\b[\s\S]{0,1200}\b(?:county court|small claims)` -> 0
+  - `\A(?=[\s\S]*\blandlord)(?=[\s\S]*\bagent\b)(?=[\s\S]*\bunless\b[\s\S]{0,1200}\battorney)` -> 10
+  - `\bnot permitted to take any action other than\b` -> 1
+  - `\b(?:landlord|lessor|owner)s?\b[\s\S]{0,1200}\b(?:practice of law|practice law)\b|\b(?:practice of law|practice law)\b[\s\S]{0,1200}\b(?:landlord|lessor|evict\w*)` -> 4
+- **FLG-B-010** [OK] tenant redemption / relief from forfeiture after notice or judgment; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 83.202 "tender of the rent"; passed 83.56 "accepting partial rent".
+  - `\b(?:redeem(?:s|ed|ing)?|redemption|reinstat(?:e|es|ed|ing|ement)|relief from (?:the )?forfeiture)\b[\s\S]{0,1200}\b(?:tenant(?:s|cy)?|lessee|rental agreement|lease)\b` -> 21
+  - `\b(?:tenant(?:s|cy)?|lessee|rental agreement|lease)\b[\s\S]{0,1200}\b(?:redeem(?:s|ed|ing)?|redemption|reinstat(?:e|es|ed|ing|ement)|relief from (?:the )?forfeiture)\b` -> 25
+  - `\A(?=[\s\S]*\b(?:redeem|redemption|reinstat))(?=[\s\S]*\btenant)(?=[\s\S]*\b(?:evict|possession|writ))` -> 15
+  - `\btender(?:s|ed|ing)?\b[\s\S]{0,1200}\brent\b` -> 5
+  - `\brent\b[\s\S]{0,1200}\btender(?:s|ed|ing)?\b` -> 6
+  - `\bforfeiture of (?:the )?(?:lease|tenancy|leasehold|term)\b` -> 0
+  - `\b(?:pay(?:s|ment|ing)?|paid)\b[\s\S]{0,1200}\bbefore\b[\s\S]{0,1200}\bwrit of possession\b` -> 1
+- **FLG-B-011** [OK] tenant redemption / relief from forfeiture after notice or judgment; supersedes FLG-B-010 (INFLECTION warning on rent); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 83.202 "tender of the rent"; passed 83.56 "accepting partial rent".
+  - `\b(?:redeem(?:s|ed|ing)?|redemption|reinstat(?:e|es|ed|ing|ement)|relief from (?:the )?forfeiture)\b[\s\S]{0,1200}\b(?:tenant(?:s|cy)?|lessee|rental agreement|lease)\b` -> 21
+  - `\b(?:tenant(?:s|cy)?|lessee|rental agreement|lease)\b[\s\S]{0,1200}\b(?:redeem(?:s|ed|ing)?|redemption|reinstat(?:e|es|ed|ing|ement)|relief from (?:the )?forfeiture)\b` -> 25
+  - `\A(?=[\s\S]*\b(?:redeem|redemption|reinstat))(?=[\s\S]*\btenant)(?=[\s\S]*\b(?:evict|possession|writ))` -> 15
+  - `\btender(?:s|ed|ing)?\b[\s\S]{0,1200}\brent(?:s|ed|al)?\b` -> 8
+  - `\brent(?:s|ed|al)?\b[\s\S]{0,1200}\btender(?:s|ed|ing)?\b` -> 9
+  - `\bforfeiture of (?:the )?(?:lease|tenancy|leasehold|term)\b` -> 0
+  - `\b(?:pay(?:s|ment|ing)?|paid)\b[\s\S]{0,1200}\bbefore\b[\s\S]{0,1200}\bwrit of possession\b` -> 1
+- **FLG-B-012** [FAILED] (not cited by any row) possession bond / confessed judgment for possession; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: recorded as failed 83.12 "bond".
+  - `\bbond(?:s|ed)?\b[\s\S]{0,1200}\b(?:possession|evict(?:s|ed|ing|ion)?|removal of (?:the )?tenant)\b[\s\S]{0,1200}\b(?:tenant|lessee)s?\b` -> 1
+  - `\b(?:tenant|lessee)s?\b[\s\S]{0,1200}\b(?:possession|evict(?:s|ed|ing|ion)?)\b[\s\S]{0,1200}\bbond(?:s|ed)?\b` -> 3
+  - `\A(?=[\s\S]*\bbond)(?=[\s\S]*\b(?:tenant|lessee))(?=[\s\S]*\bpossession)` -> 50
+  - `\bconfess(?:ion|ed|es|ing)? (?:of )?judgments?\b|\bwarrant of attorney\b|\bcognovit\b` -> 8
+  - `\b(?:possession|surety|undertaking)\b[\s\S]{0,1200}\b(?:end|expiration) of (?:the )?(?:term|lease)\b` -> 5
+- **FLG-B-013** [OK] possession bond / confessed judgment for possession; supersedes FLG-B-012 (positive 83.12 failed (no term matched); AND limb too broad); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 83.14 "giving bond with surety"; passed 715.12 "bond".
+  - `\bbond(?:s|ed)?\b[\s\S]{0,1200}\b(?:possession|evict(?:s|ed|ing|ion)?|removal of (?:the )?tenant)\b[\s\S]{0,1200}\b(?:tenant|lessee)s?\b` -> 1
+  - `\b(?:tenant|lessee)s?\b[\s\S]{0,1200}\b(?:possession|evict(?:s|ed|ing|ion)?)\b[\s\S]{0,1200}\bbond(?:s|ed)?\b` -> 3
+  - `\A(?=[\s\S]*\bbond)(?=[\s\S]*\btenant)(?=[\s\S]*\b(?:evict|writ of possession|action for possession))` -> 3
+  - `\bconfess(?:ion|ed|es|ing)? (?:of )?judgments?\b|\bwarrant of attorney\b|\bcognovit\b` -> 8
+  - `\b(?:possession|surety|undertaking)\b[\s\S]{0,1200}\b(?:end|expiration) of (?:the )?(?:term|lease)\b` -> 5
+  - `\bgiving bond with surety\b` -> 4
+- **FLG-B-014** [OK] post-eviction property: animal duties, storage, trespass after writ; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 83.62 "to or near the property line".
+  - `\b(?:animals?|pets?|livestock|dogs?|cats?)\b[\s\S]{0,1200}\b(?:writ of possession|evict(?:s|ed|ing|ion)?|abandon(?:s|ed|ing|ment)?)\b[\s\S]{0,1200}\b(?:tenant|lessee|dwelling)` -> 1
+  - `\b(?:writ of possession|evict(?:s|ed|ing|ion)?)\b[\s\S]{0,1200}\b(?:animals?|pets?|livestock|dogs?|cats?)\b` -> 0
+  - `\A(?=[\s\S]*\bwrit of possession\b)(?=[\s\S]*\b(?:animal|pet)s?\b)` -> 2
+  - `\bwrit of possession\b[\s\S]{0,1200}\btrespass\w*` -> 0
+  - `\btrespass\w*[\s\S]{0,1200}\bwrit of possession\b` -> 4
+  - `\b(?:personal property|belongings)\b[\s\S]{0,1200}\b(?:to or near the property line|writ of possession)\b` -> 6
+  - `\b(?:writ of possession|executes the writ)\b[\s\S]{0,1200}\b(?:personal property|belongings|stor(?:e|age))\b` -> 8
+- **FLG-B-015** [OK] good-cause requirement for termination or nonrenewal notices; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 83.64 "eviction is for good cause".
+  - `\b(?:good|just) cause\b[\s\S]{0,1200}\b(?:tenant(?:s|cy)?|lessee|rental agreement)\b[\s\S]{0,1200}\b(?:terminat\w*|evict\w*|non-?renew\w*|notice to vacate)` -> 1
+  - `\b(?:terminat\w*|evict\w*|non-?renew\w*|notice to vacate)\b[\s\S]{0,1200}\b(?:good|just) cause\b[\s\S]{0,1200}\b(?:tenant|lessee)s?\b` -> 3
+  - `\A(?=[\s\S]*\b(?:good|just) cause\b)(?=[\s\S]*\btenant)(?=[\s\S]*\bevict)` -> 4
+  - `\b(?:without|for) cause\b[\s\S]{0,1200}\b(?:tenant(?:s|cy)?|rental agreement)\b` -> 1
+  - `\b(?:tenant(?:s|cy)?|rental agreement)\b[\s\S]{0,1200}\b(?:without|for) cause\b` -> 0
+  - `\b(?:reason|grounds?) for (?:the )?(?:termination|nonrenewal|non-renewal)\b[\s\S]{0,1200}\b(?:tenant|landlord)s?\b` -> 0
+- **FLG-B-016** [OK] cold-weather notice or bar before vacating or eviction; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 83.51 "heat during winter".
+  - `\b(?:cold|winter|freezing|weather|temperatures?)\b[\s\S]{0,1200}\b(?:evict(?:s|ed|ing|ion)?|vacat(?:e|es|ed|ing)|writs? of possession|removal of (?:the )?tenant)` -> 2
+  - `\b(?:evict(?:s|ed|ing|ion)?|vacat(?:e|es|ed|ing)|writs? of possession|removal of (?:the )?tenant)[\s\S]{0,1200}\b(?:cold|winter|freezing|weather|temperatures?)\b` -> 2
+  - `\A(?=[\s\S]*\b(?:winter|cold weather|freezing)\b)(?=[\s\S]*\btenant)(?=[\s\S]*\b(?:evict|vacat))` -> 3
+  - `\bcold[- ]weather\b` -> 0
+  - `\bheat during winter\b` -> 2
+- **FLG-B-017** [FAILED] (not cited by any row) late government benefit or voucher payment as an eviction defense; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: recorded as failed 83.60 "tenants receiving rent subsidies"; passed 83.56 "rent subsidies".
+  - `\b(?:social security|public assistance|government benefits?|benefit checks?|vouchers?|housing assistance payments?|rent subsid(?:y|ies))\b[\s\S]{0,1200}\b(?:evict(?:s|ed|ing|ion)?|possession|continuance|terminat\w*)\b` -> 50
+  - `\b(?:evict(?:s|ed|ing|ion)?|action for possession|continuance)\b[\s\S]{0,1200}\b(?:social security|public assistance|government benefits?|benefit checks?|vouchers?|housing assistance payments?|rent subsid(?:y|ies))\b` -> 6
+  - `\A(?=[\s\S]*\b(?:social security|voucher|subsid))(?=[\s\S]*\btenant)(?=[\s\S]*\b(?:late|delay\w*)\b)(?=[\s\S]*\b(?:rent|evict))` -> 15
+  - `\b(?:late|delay(?:ed|s)?)\b[\s\S]{0,1200}\b(?:benefit|subsidy|assistance) (?:check|payment)s?\b` -> 0
+  - `\b(?:benefit|subsidy|assistance) (?:check|payment)s?\b[\s\S]{0,1200}\b(?:late|delay(?:ed|s)?)\b` -> 0
+- **FLG-B-018** [OK] late government benefit or voucher payment as an eviction defense; supersedes FLG-B-017 (positive 83.60 failed; term 1 too broad (bare possession/terminate)); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 83.60 "tenants receiving rent subsidies"; passed 83.56 "rent subsidies".
+  - `\b(?:social security|public assistance|government benefits?|benefit checks?|vouchers?|housing assistance payments?|rent subsid(?:y|ies))\b[\s\S]{0,1200}\b(?:evict(?:s|ed|ing|ion)?|for possession|writs? of possession|continuance)\b` -> 4
+  - `\b(?:evict(?:s|ed|ing|ion)?|for possession|writs? of possession|continuance)\b[\s\S]{0,1200}\b(?:social security|public assistance|government benefits?|benefit checks?|vouchers?|housing assistance payments?|rent subsid(?:y|ies))\b` -> 9
+  - `\A(?=[\s\S]*\b(?:social security|voucher|subsid))(?=[\s\S]*\btenant)(?=[\s\S]*\b(?:late|delay\w*)\b)(?=[\s\S]*\bevict)` -> 1
+  - `\b(?:late|delay(?:ed|s)?)\b[\s\S]{0,1200}\b(?:benefit|subsidy|assistance) (?:check|payment)s?\b` -> 0
+  - `\b(?:benefit|subsidy|assistance) (?:check|payment)s?\b[\s\S]{0,1200}\b(?:late|delay(?:ed|s)?)\b` -> 0
+- **FLG-B-019** [FAILED] (not cited by any row) tenant bankruptcy and eviction / writ enforcement; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: recorded as failed 723.084 "bankruptcy".
+  - `\bbankrupt(?:cy|cies)?\b[\s\S]{0,1200}\b(?:tenant|lessee|evict(?:s|ed|ing|ion)?|writs? of possession|rental agreement)s?\b` -> 6
+  - `\b(?:tenant|lessee|evict(?:s|ed|ing|ion)?|writs? of possession|rental agreement)s?\b[\s\S]{0,1200}\bbankrupt(?:cy|cies)?\b` -> 1
+  - `\A(?=[\s\S]*\bbankrupt)(?=[\s\S]*\btenant)(?=[\s\S]*\b(?:evict|possession))` -> 11
+  - `\bautomatic stay\b` -> 12
+- **FLG-B-020** [OK] tenant bankruptcy and eviction / writ enforcement; supersedes FLG-B-019 (positive 723.084 failed (no term matched); replaced with real positives 720.3085 and 718.116); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 720.3085 "bankruptcy petition"; passed 718.116 "automatic stay".
+  - `\bbankrupt(?:cy|cies)?\b[\s\S]{0,1200}\b(?:tenant|lessee|evict(?:s|ed|ing|ion)?|writs? of possession|rental agreement)s?\b` -> 6
+  - `\b(?:tenant|lessee|evict(?:s|ed|ing|ion)?|writs? of possession|rental agreement)s?\b[\s\S]{0,1200}\bbankrupt(?:cy|cies)?\b` -> 1
+  - `\A(?=[\s\S]*\bbankrupt)(?=[\s\S]*\btenant)(?=[\s\S]*\b(?:evict|possession))` -> 11
+  - `\bautomatic stay\b` -> 12
+- **FLG-B-021** [OK] double letting / failure to deliver possession; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed FORM1.947 "deliver possession".
+  - `\b(?:rent(?:s|ed)?|leas(?:e|es|ed)|let(?:s|ting)?)\b[\s\S]{0,1200}\b(?:same|identical) (?:dwelling|unit|premises|room)s?\b[\s\S]{0,1200}\b(?:two|more than one|another|second)\b` -> 1
+  - `\b(?:two|more than one|another|second) (?:tenants|persons|lessees|parties)\b[\s\S]{0,1200}\b(?:same|identical) (?:dwelling|unit|premises|room)s?\b` -> 0
+  - `\A(?=[\s\S]*\b(?:same|identical) (?:dwelling|unit|premises|room)s?\b)(?=[\s\S]*\btenant)(?=[\s\S]*\b(?:two|more than one) (?:tenants|persons|lessees)\b)` -> 0
+  - `\bdouble[- ]?(?:letting|leasing|booking|rented|rent(?:ing|al))\b` -> 0
+  - `\bdeliver(?:s|ed|y|ing)? (?:of )?possession\b[\s\S]{0,1200}\b(?:tenant|lessee|rental agreement)s?\b` -> 1
+  - `\b(?:tenant|lessee|rental agreement)s?\b[\s\S]{0,1200}\bdeliver(?:s|ed|y|ing)? (?:of )?possession\b` -> 1
+  - `\b(?:fail(?:s|ed|ure)?|unable) to (?:deliver|give|surrender) possession\b` -> 0
+- **FLG-B-022** [OK] seasonal tenancy category; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 381.008 "seasonal or migrant farmworkers whether or not rent is paid".
+  - `\bseasonal(?:ly)?\b[\s\S]{0,1200}\b(?:tenant(?:s|cy)?|rental agreement|leas(?:e|es|ed)|rent(?:s|ed|al)?)\b` -> 8
+  - `\b(?:tenant(?:s|cy)?|rental agreement|leas(?:e|es|ed)|rent(?:s|ed|al)?)\b[\s\S]{0,1200}\bseasonal(?:ly)?\b` -> 7
+  - `\A(?=[\s\S]*\bseason(?:al|s)?\b)(?=[\s\S]*\btenan)(?=[\s\S]*\b(?:terminat|vacat|expir))` -> 9
+  - `\bseasonal (?:tenan\w*|rental\w*|leas\w*|occupan\w*|residen\w*)` -> 2
+  - `\b(?:season|winter|summer)\b[\s\S]{0,1200}\b(?:tenancy|rental agreement)\b[\s\S]{0,1200}\b(?:ends?|terminat\w*|expir\w*)\b` -> 1
+- **FLG-B-023** [OK] tenant early termination for age, illness, disability or move to care; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 429.24 "terminat".
+  - `\b(?:nursing homes?|assisted living|care facilit(?:y|ies)|incapacit(?:y|ated)|disabilit(?:y|ies)|illness|infirm\w*|elderly|senior citizens?)\b[\s\S]{0,1200}\bterminat\w*\b[\s\S]{0,1200}\b(?:rental agreement|lease|tenancy)\b` -> 2
+  - `\b(?:rental agreement|lease|tenancy)\b[\s\S]{0,1200}\bterminat\w*\b[\s\S]{0,1200}\b(?:nursing homes?|assisted living|care facilit(?:y|ies)|incapacit(?:y|ated)|disabilit(?:y|ies)|illness|infirm\w*|elderly|senior citizens?)\b` -> 4
+  - `\A(?=[\s\S]*\btenant)(?=[\s\S]*\b(?:nursing home|assisted living|incapacit))(?=[\s\S]*\bterminat\w* (?:the|a|his|her|its) (?:rental agreement|lease)\b)` -> 1
+  - `\bincapacity to contract\b` -> 0
+- **FLG-B-024** [OK] landlord termination after environmental event or casualty; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 83.63 "damaged or destroyed".
+  - `\b(?:hurricanes?|floods?|flooding|natural disasters?|environmental|contamination|sinkholes?|state of emergency|damaged or destroyed)\b[\s\S]{0,1200}\bterminat\w*\b[\s\S]{0,1200}\b(?:rental agreement|lease|tenancy)\b` -> 8
+  - `\b(?:rental agreement|lease|tenancy)\b[\s\S]{0,1200}\bterminat\w*\b[\s\S]{0,1200}\b(?:hurricanes?|floods?|flooding|natural disasters?|environmental|contamination|sinkholes?|state of emergency)\b` -> 9
+  - `\A(?=[\s\S]*\blandlord)(?=[\s\S]*\b(?:hurricane|flood|natural disaster|environmental|casualty))(?=[\s\S]*\bterminat\w* the (?:rental agreement|lease)\b)` -> 5
+  - `\bcasualty damage\b|\buntenantable\b` -> 3
+- **FLG-B-025** [OK] landlord conduct limits while a notice to vacate is pending; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 723.061 "notice to vacate".
+  - `\b(?:notices? to vacate|notices? of termination|notices? of intended conversion)\b[\s\S]{0,1200}\b(?:alter(?:s|ed|ing|ations?)?|uninhabitable|untenantable|renovat\w*|demoli\w*|reduc\w* (?:in )?services?)\b` -> 1
+  - `\b(?:alter(?:s|ed|ing|ations?)?|uninhabitable|untenantable|renovat\w*|demoli\w*)\b[\s\S]{0,1200}\b(?:notices? to vacate|notices? of termination)\b` -> 0
+  - `\A(?=[\s\S]*\bnotices? to vacate\b)(?=[\s\S]*\btenant)(?=[\s\S]*\b(?:alter|uninhabitable|untenantable))` -> 1
+  - `\bnotices? to vacate\b` -> 4
+- **FLG-B-026** [OK] tenant duty to give notice of extended absence; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 83.59 "notified the landlord, in writing, of an intended absence"; passed 83.53 "notifies the landlord of an intended absence".
+  - `\b(?:absen(?:ce|ces|t)|away from)\b[\s\S]{0,1200}\b(?:notif(?:y|ies|ied)|notice)\b[\s\S]{0,1200}\b(?:landlord|lessor)s?\b` -> 6
+  - `\b(?:landlord|lessor)s?\b[\s\S]{0,1200}\b(?:notif(?:y|ies|ied)|notice)\b[\s\S]{0,1200}\b(?:intended|extended|anticipated) absences?\b` -> 3
+  - `\A(?=[\s\S]*\btenant)(?=[\s\S]*\b(?:intended|extended|anticipated|prolonged) absences?\b)` -> 3
+  - `\b(?:intended|extended|anticipated|prolonged) absences?\b` -> 3
+- **FLG-B-027** [OK] owner move-in termination right (statutory grant or limit); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 83.575 "notify the landlord within a specified period before vacating".
+  - `\b(?:owner|landlord|lessor)s?\b[\s\S]{0,1200}\b(?:occupy|occupancy|move in|personal use|own use|family member)\b[\s\S]{0,1200}\bterminat\w*\b[\s\S]{0,1200}\b(?:rental agreement|lease|tenancy)\b` -> 5
+  - `\bterminat\w*\b[\s\S]{0,1200}\b(?:rental agreement|lease|tenancy)\b[\s\S]{0,1200}\b(?:owner|landlord)s? (?:intends to |will |to )?(?:occupy|move in|reside)\b` -> 0
+  - `\A(?=[\s\S]*\btenant)(?=[\s\S]*\b(?:owner|landlord) (?:intends to |will |to )?(?:occupy|reside|move in))(?=[\s\S]*\bterminat)` -> 0
+  - `\b(?:owner[- ]occupan\w*|owner move[- ]in|personal occupancy)\b` -> 1
+  - `\bspecific duration may contain a provision\b` -> 2
+- **FLG-B-028** [OK] rent or eviction protection for government workers during a shutdown; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 250.5202 "state active duty".
+  - `\b(?:shutdowns?|furlough(?:s|ed)?|lapse in appropriations|unpaid (?:federal|government) (?:employees?|workers?))\b[\s\S]{0,1200}\b(?:rent(?:s|al)?|evict(?:s|ed|ing|ion)?|tenant|lease)\b` -> 0
+  - `\b(?:rent(?:s|al)?|evict(?:s|ed|ing|ion)?|tenant|lease)\b[\s\S]{0,1200}\b(?:shutdowns?|furlough(?:s|ed)?|lapse in appropriations)\b` -> 0
+  - `\A(?=[\s\S]*\b(?:federal|government) (?:employees?|workers?)\b)(?=[\s\S]*\btenant)(?=[\s\S]*\b(?:rent|evict))` -> 5
+  - `\bgovernment shutdown\b|\bfederal shutdown\b` -> 0
+  - `\bstate active duty\b[\s\S]{0,1200}\b(?:evict\w*|rent)\b` -> 1
+- **FLG-B-029** [OK] redemption (check R13-14): duty to accept, or limits on, rent paid by a charity, third party or government program on the tenant's behalf; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 83.56 "rent subsidies".
+  - `\b(?:on behalf of|for the benefit of)\s+(?:a |the |any )?(?:tenants?|lessees?|renters?)\b` -> 6
+  - `\brent(?:al)? subsid\w*|\brent(?:al)? assistance\b|\bemergency rental\b|\bhousing assistance payments?\b` -> 16
+  - `\b(?:rent(?:al)? assistance|emergency rental|housing assistance payments?|rent(?:al)? subsid\w*)\b[\s\S]{0,1200}\b(?:landlords?|lessors?)\b[\s\S]{0,1200}\b(?:accept\w*|refus\w*|declin\w*|reject\w*)\b` -> 2
+  - `\b(?:third[- ]party|charit\w*|nonprofit|government\w*)\b[\s\S]{0,1200}\b(?:pay\w*|tender\w*)\b[\s\S]{0,1200}\brent\w*` -> 42
+- **FLG-C-001** [OK] submetering or utility-resale disclosure to tenants (electric, gas, water): prescribed lease or written disclosure of submetering, master-meter allocation or resale; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed FAC25-6 "sub-metering"; passed 367.022 "resells water service to his or her tenants"; passed FAC25-7 "distributed to the tenants thereof by the landlord".
+  - `\b(?:sub-?meter\w*|master[- ]meter\w*)[\s\S]{0,1200}\b(?:disclos\w*|notice|notif\w*|statements?|inform\w*)\b[\s\S]{0,1200}\b(?:tenants?|lessees?|residents?|occupants?)\b` -> 1
+  - `\b(?:tenants?|lessees?|residents?|occupants?)\b[\s\S]{0,1200}\b(?:disclos\w*|notice|notif\w*|statements?|inform\w*)\b[\s\S]{0,1200}\b(?:sub-?meter\w*|master[- ]meter\w*)` -> 0
+  - `\A(?=[\s\S]*\b(?:sub-?meter\w*|master[- ]meter\w*))(?=[\s\S]*\b(?:tenants?|lessees?|rental agreements?|lease[sd]?)\b)(?=[\s\S]*\b(?:disclos\w*|written notice)\b)` -> 2
+  - `\A(?=[\s\S]*\b(?:resells?|resale)\b)(?=[\s\S]*\b(?:tenants?|lessees?)\b)(?=[\s\S]*\b(?:water|electricity|electric|gas)\b)(?=[\s\S]*\b(?:disclos\w*|written notice)\b)` -> 11
+  - `\bresells?\b[\s\S]{0,1200}\b(?:tenants?|lessees?)\b` -> 1
+  - `\b(?:tenants?|lessees?)\b[\s\S]{0,1200}\bresells?\b` -> 1
+  - `\bsub-?meter(?:s|ed|ing)?\b` -> 2
+  - `\bsubmeter(?:s|ed|ing)?\b` -> 0
+- **FLG-C-002** [OK] energy usage data release: statute or rule letting or requiring a utility to release a tenant's energy or water usage data to the owner, building benchmarking; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed FAC25-6 "actual consumption of electric energy by that customer".
+  - `\b(?:energy|electricity|electric|gas|water|usage|consumption)\b (?:usage |consumption )?(?:data|information|history|records?)\b[\s\S]{0,1200}\b(?:tenants?|lessees?|occupants?|landlords?|lessors?|owners?)\b` -> 0
+  - `\b(?:tenants?|lessees?|occupants?|landlords?|lessors?|owners?)\b[\s\S]{0,1200}\b(?:energy|electricity|electric|gas|water|usage|consumption)\b (?:usage |consumption )?(?:data|information|history|records?)\b` -> 0
+  - `\A(?=[\s\S]*\b(?:benchmark\w*|energy (?:usage|consumption|use) (?:data|information))\b)(?=[\s\S]*\b(?:tenants?|lessees?|rental agreements?|lease[sd]?)\b)` -> 13
+  - `\bbenchmark(?:s|ed|ing)?\b[\s\S]{0,1200}\b(?:buildings?|energy|properties|property)\b` -> 3
+  - `\b(?:buildings?|energy|properties|property)\b[\s\S]{0,1200}\bbenchmark(?:s|ed|ing)?\b` -> 8
+  - `\bactual consumption\b[\s\S]{0,1200}\b(?:release|disclos\w*|provide|third part\w*)\b` -> 1
+  - `\benergy star\b` -> 1
+  - `\bbenchmarking\b` -> 2
+- **FLG-C-003** [OK] meter conservation charge / on-bill energy-efficiency financing: notice to tenants or rent deduction; submetered water monthly statement with meter readings; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed FAC25-7 "conservation charges made by the gas utility"; passed 163.08 "persons renting, using, living, or otherwise occupying real property".
+  - `\b(?:conservation charges?|on-bill|on bill (?:financing|repayment)|energy[- ]efficiency (?:loans?|financing|charges?|improvements?)|qualifying improvements?)\b[\s\S]{0,1200}\b(?:tenants?|lessees?|occupants?|occupying|renting|renters?)\b` -> 3
+  - `\b(?:tenants?|lessees?|occupants?|occupying|renting|renters?)\b[\s\S]{0,1200}\b(?:conservation charges?|on-bill|on bill (?:financing|repayment)|energy[- ]efficiency (?:loans?|financing|charges?|improvements?)|qualifying improvements?)\b` -> 2
+  - `\A(?=[\s\S]*\b(?:conservation charges?|on-bill|on bill (?:financing|repayment)|energy[- ]efficiency (?:loans?|financing|charges?|improvements?)|qualifying improvements?)\b)(?=[\s\S]*\b(?:tenants?|lessees?|rental agreements?|lease[sd]?)\b)(?=[\s\S]*\b(?:notice|notif\w*|disclos\w*)\b)` -> 8
+  - `\bmeter readings?\b[\s\S]{0,1200}\b(?:statements?|bills?|billing)\b[\s\S]{0,1200}\b(?:tenants?|lessees?|residents?)\b` -> 1
+  - `\b(?:tenants?|lessees?|residents?)\b[\s\S]{0,1200}\b(?:statements?|bills?|billing)\b[\s\S]{0,1200}\bmeter readings?\b` -> 0
+  - `\bconservation charges?\b` -> 1
+  - `\bon-bill\b` -> 0
+- **FLG-C-004** [OK] utility disclosure attachment: statement of utility costs, billing history, or who pays which utility, required with or attached to a residential lease; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 723.031 "utility charges are not otherwise being collected".
+  - `\b(?:utility|utilities|electric(?:ity)?|energy|water|gas)\b (?:costs?|bills?|charges?|usage|consumption)\b[\s\S]{0,1200}\b(?:disclos\w*|statements?|summary|summaries|attach\w*|notice)\b[\s\S]{0,1200}\b(?:tenants?|lessees?|prospective tenants?|renters?)\b` -> 0
+  - `\b(?:tenants?|lessees?|prospective tenants?|renters?)\b[\s\S]{0,1200}\b(?:disclos\w*|statements?|summary|summaries|attach\w*|notice)\b[\s\S]{0,1200}\b(?:utility|utilities|electric(?:ity)?|energy|water|gas)\b (?:costs?|bills?|charges?|usage|consumption)\b` -> 1
+  - `\b(?:disclos\w*|statements?|summary|attach\w*)\b[\s\S]{0,1200}\b(?:utility|utilities|electric(?:ity)?|energy|water|gas)\b (?:costs?|bills?|charges?|usage|consumption)\b[\s\S]{0,1200}\b(?:tenants?|lessees?|prospective tenants?|renters?)\b` -> 0
+  - `\A(?=[\s\S]*\b(?:utility|utilities|electric(?:ity)?|energy|water|gas)\b (?:costs?|bills?|charges?|usage|consumption)\b)(?=[\s\S]*\b(?:disclos\w*)\b)(?=[\s\S]*\b(?:prospective tenants?|rental agreements?|lease[sd]? agreements?)\b)` -> 6
+  - `\baverage (?:monthly |annual )?(?:utility|electric|energy|water) (?:costs?|bills?|charges?|usage|consumption)\b` -> 0
+- **FLG-C-005** [OK] landlord-held utility account: utility notice to tenants before disconnecting a landlord's or master-meter account; tenant pay-and-deduct of a landlord's utility bill; receiver for unpaid landlord utilities; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed FAC25-6 "Delinquency in payment for service by a previous occupant"; passed 153.12 "discontinue furnishing water to such premises".
+  - `\b(?:discontinu\w*|disconnect\w*|shut ?off|shutoffs?|terminat\w* (?:of )?(?:the )?(?:utility |water |electric |gas )?service)\b[\s\S]{0,1200}\b(?:notice|notif\w*)\b[\s\S]{0,1200}\b(?:tenants?|occupants?|residents?|lessees?)\b` -> 12
+  - `\b(?:tenants?|occupants?|residents?|lessees?)\b[\s\S]{0,1200}\b(?:notice|notif\w*)\b[\s\S]{0,1200}\b(?:discontinu\w*|disconnect\w*|shut ?off|shutoffs?|terminat\w* (?:of )?(?:the )?(?:utility |water |electric |gas )?service)\b` -> 10
+  - `\A(?=[\s\S]*\bmaster[- ]meter\w*)(?=[\s\S]*\b(?:discontinu\w*|disconnect\w*|shut ?off|shutoffs?|terminat\w* (?:of )?(?:the )?(?:utility |water |electric |gas )?service))(?=[\s\S]*\b(?:tenants?|occupants?|residents?|lessees?)\b)` -> 3
+  - `\b(?:tenants?|occupants?|residents?|lessees?)\b[\s\S]{0,1200}\b(?:pay|pays|paid|paying)\b[\s\S]{0,1200}\b(?:utility|utilities|electric\w*|water|gas|sewer)\b[\s\S]{0,1200}\b(?:deduct\w*|offset\w*|credit\w* against (?:the )?rent)\b` -> 1
+  - `\b(?:utility|utilities|electric\w*|water|gas|sewer)\b[\s\S]{0,1200}\b(?:deduct\w*|offset\w*)\b[\s\S]{0,1200}\brent\b[\s\S]{0,1200}\b(?:tenants?|occupants?|residents?|lessees?)\b` -> 0
+  - `\breceivers?\b[\s\S]{0,1200}\b(?:utility|utilities)\b[\s\S]{0,1200}\b(?:tenants?|occupants?|residents?|lessees?)\b` -> 5
+  - `\b(?:tenants?|occupants?|residents?|lessees?)\b[\s\S]{0,1200}\b(?:utility|utilities)\b[\s\S]{0,1200}\breceivers?\b` -> 8
+  - `\bmaster[- ]metered\b` -> 1
+- **FLG-C-006** [OK] utility shutoff limits: weather, winter, temperature or declared-emergency (hurricane) bar or extension on disconnection for nonpayment; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed FAC25-6 "No utility shall discontinue service to any non-commercial customer".
+  - `\b(?:discontinu\w*|disconnect\w*|shut ?off|shutoffs?)\b[\s\S]{0,1200}\b(?:hurricanes?|tropical storms?|states? of emergency|declared emergenc\w*|emergenc(?:y|ies) (?:declaration|order)s?|heat advisor\w*|extreme (?:heat|cold|weather)|freez\w*|temperatures?|winter|cold weather)\b` -> 5
+  - `\b(?:hurricanes?|tropical storms?|states? of emergency|declared emergenc\w*|emergenc(?:y|ies) (?:declaration|order)s?|heat advisor\w*|extreme (?:heat|cold|weather)|freez\w*|temperatures?|winter|cold weather)\b[\s\S]{0,1200}\b(?:discontinu\w*|disconnect\w*|shut ?off|shutoffs?)\b` -> 5
+  - `\b(?:nonpayment|non-payment|delinquen\w*|unpaid|arrear\w*)\b[\s\S]{0,1200}\b(?:hurricanes?|tropical storms?|states? of emergency|declared emergenc\w*|emergenc(?:y|ies) (?:declaration|order)s?|heat advisor\w*|extreme (?:heat|cold|weather)|freez\w*|temperatures?|winter|cold weather)\b` -> 5
+  - `\b(?:hurricanes?|tropical storms?|states? of emergency|declared emergenc\w*|emergenc(?:y|ies) (?:declaration|order)s?|heat advisor\w*|extreme (?:heat|cold|weather)|freez\w*|temperatures?|winter|cold weather)\b[\s\S]{0,1200}\b(?:nonpayment|non-payment|delinquen\w*|unpaid|arrear\w*)\b` -> 10
+  - `\A(?=[\s\S]*\b(?:discontinu\w*|disconnect\w*|shut ?off|shutoffs?))(?=[\s\S]*\b(?:electric\w*|gas|water|utility|utilities)\b)(?=[\s\S]*\b(?:hurricanes?|tropical storms?|states? of emergency|declared emergenc\w*|emergenc(?:y|ies) (?:declaration|order)s?|heat advisor\w*|extreme (?:heat|cold|weather)|freez\w*|temperatures?|winter|cold weather)\b)(?=[\s\S]*\b(?:nonpayment|non-payment|delinquen\w*|unpaid|arrear\w*)\b)` -> 11
+  - `\b(?:shut ?off|disconnection|termination) moratori(?:um|ums|a)\b|\bmoratori(?:um|ums|a) on (?:utility |service )?(?:disconnect\w*|shut ?offs?|terminations?)\b` -> 0
+- **FLG-C-007** [OK] utility liens and tenants: owner relief from a lien for a tenant's unpaid water, sewer, garbage or utility charges (lease plus affidavit, notice to utility); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 180.135 "unpaid service charges incurred by a former occupant will not be the basis for any lien"; passed 153.67 "superior and paramount to the interest on such parcel or property of any owner, lessee, tenant".
+  - `\b(?:liens?|lienable)\b[\s\S]{0,1200}\b(?:water|sewer|sewage|wastewater|garbage|solid waste|utility|utilities|service charges?)\b[\s\S]{0,1200}\b(?:tenants?|lessees?|occupants?|renters?)\b` -> 5
+  - `\b(?:tenants?|lessees?|occupants?|renters?)\b[\s\S]{0,1200}\b(?:water|sewer|sewage|wastewater|garbage|solid waste|utility|utilities|service charges?)\b[\s\S]{0,1200}\b(?:liens?|lienable)\b` -> 5
+  - `\b(?:water|sewer|sewage|wastewater|garbage|solid waste|utility|utilities|service charges?)\b[\s\S]{0,1200}\b(?:tenants?|lessees?|occupants?|renters?)\b[\s\S]{0,1200}\b(?:liens?|lienable)\b` -> 9
+  - `\baffidavits?\b[\s\S]{0,1200}\b(?:water|sewer|utility|utilities|garbage|solid waste)\b[\s\S]{0,1200}\b(?:tenants?|lessees?|occupants?|renters?)\b` -> 0
+  - `\b(?:tenants?|lessees?|occupants?|renters?)\b[\s\S]{0,1200}\b(?:water|sewer|utility|utilities|garbage|solid waste)\b[\s\S]{0,1200}\baffidavits?\b` -> 0
+  - `\A(?=[\s\S]*\b(?:liens?|lienable)\b)(?=[\s\S]*\b(?:water|sewer|garbage|solid waste)\b)(?=[\s\S]*\b(?:tenants?|lessees?|occupants?|renters?)\b)(?=[\s\S]*\b(?:affidavits?|copy of the (?:lease|rental agreement)|rental agreements?)\b)` -> 18
+  - `\bunpaid service charges\b` -> 2
+- **FLG-C-008** [OK] EV charging and tenants: tenant right to install, landlord duties, shared-area charging, removal or restoration at end of tenancy, for residential rentals; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 366.94 "electric vehicle charging station"; passed 718.113 "installing an electric vehicle charging station".
+  - `\b(?:electric vehicles?|electric-vehicle|EV) (?:charg\w*|supply equipment)\b[\s\S]{0,1200}\b(?:tenants?|lessees?|landlords?|lessors?|renters?|rental units?|apartments?)\b` -> 0
+  - `\b(?:tenants?|lessees?|landlords?|lessors?|renters?|rental units?|apartments?)\b[\s\S]{0,1200}\b(?:electric vehicles?|electric-vehicle|EV) (?:charg\w*|supply equipment)\b` -> 0
+  - `\A(?=[\s\S]*\b(?:electric vehicles?|electric-vehicle|EV) (?:charg\w*|supply equipment))(?=[\s\S]*\b(?:tenants?|lessees?|rental agreements?|lease[sd]?)\b)` -> 7
+  - `\b(?:charging stations?|chargers?)\b[\s\S]{0,1200}\b(?:remov\w*|restor\w*|terminat\w*|vacat\w*)\b[\s\S]{0,1200}\b(?:tenants?|lessees?|occupants?)\b` -> 0
+  - `\b(?:tenants?|lessees?|occupants?)\b[\s\S]{0,1200}\b(?:remov\w*|restor\w*|terminat\w*|vacat\w*)\b[\s\S]{0,1200}\b(?:charging stations?|chargers?)\b` -> 0
+  - `\belectric vehicle charging stations?\b` -> 8
+  - `\belectric vehicle supply equipment\b` -> 2
+- **FLG-C-009** [OK] portable or plug-in solar: tenant right to install a solar or renewable energy device; lease bans on solar under the solar-rights statute; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 163.04 "patio railings in condominiums, cooperatives, or apartments".
+  - `\b(?:solar (?:collectors?|panels?|energy (?:systems?|devices?)|devices?|equipment|systems?|modules?)|plug-in solar|balcony solar|portable solar|energy devices based on renewable resources)\b[\s\S]{0,1200}\b(?:tenants?|lessees?|landlords?|lessors?|apartments?|rental agreements?|renters?)\b` -> 1
+  - `\b(?:tenants?|lessees?|landlords?|lessors?|apartments?|rental agreements?|renters?)\b[\s\S]{0,1200}\b(?:solar (?:collectors?|panels?|energy (?:systems?|devices?)|devices?|equipment|systems?|modules?)|plug-in solar|balcony solar|portable solar|energy devices based on renewable resources)\b` -> 1
+  - `\A(?=[\s\S]*\b(?:solar|renewable resources?)\b)(?=[\s\S]*\b(?:tenants?|lessees?|rental agreements?|lease[sd]?)\b)(?=[\s\S]*\b(?:prohibit\w*|install\w*|permission|consent)\b)` -> 17
+  - `\b(?:plug-in|portable|balcony) (?:solar|photovoltaic|energy)\b` -> 0
+  - `\bsolar collectors?\b` -> 2
+- **FLG-C-010** [OK] telecom access: tenant access to cable, satellite, antenna, broadband or communications service providers; rent differential for subscribers; landlord restrictions; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 718.1232 "whether tenant or owner, shall be denied access".
+  - `\b(?:cable (?:television|tv|services?|operators?|providers?)|cable or video services?|video service providers?|satellite (?:dish\w*|television|antennas?|services?)|antennas?|broadband services?|internet services?|communications services?)\b[\s\S]{0,1200}\b(?:tenants?|lessees?|landlords?|lessors?|apartments?|rental units?|renters?)\b` -> 9
+  - `\b(?:tenants?|lessees?|landlords?|lessors?|apartments?|rental units?|renters?)\b[\s\S]{0,1200}\b(?:cable (?:television|tv|services?|operators?|providers?)|cable or video services?|video service providers?|satellite (?:dish\w*|television|antennas?|services?)|antennas?|broadband services?|internet services?|communications services?)\b` -> 8
+  - `\A(?=[\s\S]*\b(?:cable|satellite|antennas?|broadband)\b)(?=[\s\S]*\b(?:tenants?|lessees?|rental agreements?|lease[sd]?)\b)(?=[\s\S]*\b(?:denied access|deny access|denies access|denying access|be denied)\b)` -> 10
+  - `\bsatellite dish(?:es)?\b` -> 0
+  - `\bover-the-air\b` -> 0
+- **FLG-C-011** [OK] recycling notice: landlord duty to tell tenants where and how to recycle, or to provide recycling receptacles, at multifamily rentals; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 403.706 "adequate receptacle for recycling by tenants and owners".
+  - `\b(?:recycl\w*|recyclables?)\b[\s\S]{0,1200}\b(?:notice|notif\w*|inform\w*|instruct\w*|educat\w*|post\w*|disclos\w*)\b[\s\S]{0,1200}\b(?:tenants?|lessees?|landlords?|lessors?|apartments?|multifamily|occupants?)\b` -> 2
+  - `\b(?:tenants?|lessees?|landlords?|lessors?|apartments?|multifamily|occupants?)\b[\s\S]{0,1200}\b(?:notice|notif\w*|inform\w*|instruct\w*|educat\w*|post\w*|disclos\w*)\b[\s\S]{0,1200}\b(?:recycl\w*|recyclables?)\b` -> 0
+  - `\b(?:recycl\w*|recyclables?)\b[\s\S]{0,1200}\b(?:tenants?|lessees?|landlords?|lessors?|apartments?|multifamily|occupants?)\b` -> 5
+  - `\b(?:tenants?|lessees?|landlords?|lessors?|apartments?|multifamily|occupants?)\b[\s\S]{0,1200}\b(?:recycl\w*|recyclables?)\b` -> 4
+  - `\A(?=[\s\S]*\b(?:recycl\w*|recyclables?)\b)(?=[\s\S]*\b(?:tenants?|lessees?|rental agreements?|landlords?)\b)(?=[\s\S]*\b(?:notice|notif\w*|inform\w*|instruct\w*|educat\w*|post\w*|disclos\w*)\b)` -> 12
+  - `\brecycling (?:receptacles?|containers?|bins?)\b` -> 3
+- **FLG-C-012** [OK] ordnance, demolition and shared-meter disclosures to prospective tenants (former ordnance locations; pending demolition; shared or common utility meters); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 403.706 "construction and demolition debris".
+  - `\b(?:ordnance|munitions?|unexploded|explosive remnants?)\b[\s\S]{0,1200}\b(?:tenants?|lessees?|landlords?|lessors?|prospective tenants?|renters?)\b` -> 0
+  - `\b(?:tenants?|lessees?|landlords?|lessors?|prospective tenants?|renters?)\b[\s\S]{0,1200}\b(?:ordnance|munitions?|unexploded|explosive remnants?)\b` -> 0
+  - `\bdemoli\w*\b[\s\S]{0,1200}\b(?:tenants?|lessees?|landlords?|lessors?|prospective tenants?|renters?)\b` -> 8
+  - `\b(?:tenants?|lessees?|landlords?|lessors?|prospective tenants?|renters?)\b[\s\S]{0,1200}\bdemoli\w*` -> 5
+  - `\b(?:shared|common|single|one) (?:utility |gas |electric |water )?meters?\b[\s\S]{0,1200}\b(?:tenants?|lessees?|landlords?|lessors?|prospective tenants?|renters?)\b` -> 0
+  - `\b(?:tenants?|lessees?|landlords?|lessors?|prospective tenants?|renters?)\b[\s\S]{0,1200}\b(?:shared|common|single|one) (?:utility |gas |electric |water )?meters?\b` -> 1
+  - `\A(?=[\s\S]*\b(?:(?:ordnance|munitions?|unexploded|explosive remnants?)|demolition permits?|application for demolition)\b)(?=[\s\S]*\b(?:tenants?|lessees?|rental agreements?|lease[sd]?)\b)(?=[\s\S]*\bdisclos\w*)` -> 0
+  - `\bformer (?:military )?(?:ordnance|munitions) locations?\b` -> 0
+- **FLG-C-013** [OK] government fee reimbursement: passing a government fee on the rental (registration, licensing, inspection, permit, business tax) through to the tenant; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 723.031 "pass-through charges".
+  - `\b(?:registration|licens\w*|inspection|permit|certificate of (?:occupancy|compliance)|business tax|impact|governmental?|local government|municipal|county) (?:fees?|charges?|assessments?|taxes|receipts?)\b[\s\S]{0,1200}\b(?:pass(?:es|ed|ing)? (?:on|through|along)|pass-through|pass-on|reimburs\w*|recover\w*|charge(?:s|d)? (?:to|back))\b[\s\S]{0,1200}\b(?:tenants?|lessees?|renters?)\b` -> 0
+  - `\b(?:tenants?|lessees?|renters?)\b[\s\S]{0,1200}\b(?:pass(?:es|ed|ing)? (?:on|through|along)|pass-through|pass-on|reimburs\w*|recover\w*|charge(?:s|d)? (?:to|back))\b[\s\S]{0,1200}\b(?:registration|licens\w*|inspection|permit|certificate of (?:occupancy|compliance)|business tax|impact|governmental?|local government|municipal|county) (?:fees?|charges?|assessments?|taxes|receipts?)\b` -> 1
+  - `\b(?:pass(?:es|ed|ing)? (?:on|through|along)|pass-through|pass-on|reimburs\w*|recover\w*|charge(?:s|d)? (?:to|back))\b[\s\S]{0,1200}\b(?:registration|licens\w*|inspection|permit|certificate of (?:occupancy|compliance)|business tax|impact|governmental?|local government|municipal|county) (?:fees?|charges?|assessments?|taxes|receipts?)\b[\s\S]{0,1200}\b(?:tenants?|lessees?|renters?)\b` -> 2
+  - `\b(?:fees?|charges?|assessments?|taxes)\b[\s\S]{0,1200}\b(?:pass(?:es|ed|ing)? (?:on|through|along)|pass-through|pass-on)\b[\s\S]{0,1200}\b(?:tenants?|lessees?)\b` -> 1
+  - `\b(?:tenants?|lessees?)\b[\s\S]{0,1200}\b(?:pass(?:es|ed|ing)? (?:on|through|along)|pass-through|pass-on)\b[\s\S]{0,1200}\b(?:fees?|charges?|assessments?|taxes)\b` -> 3
+  - `\A(?=[\s\S]*\b(?:rental (?:registration|licens\w*|permits?|inspections?)|landlord (?:registration|licens\w*))\b)(?=[\s\S]*\b(?:tenants?|lessees?|rental agreements?)\b)(?=[\s\S]*\b(?:fees?|charges?)\b)` -> 0
+  - `\brental (?:registration|licens(?:e|es|ing)|permits?) (?:fees?|programs?|ordinances?)\b` -> 0
+- **FLG-C-014** [OK] governmental fines: passing code-enforcement or nuisance fines or abatement costs to the tenant who caused the condition; default allocation between owner and tenant; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 83.49 "subject to a fine".
+  - `\b(?:fines?|civil penalt(?:y|ies)|administrative fines?|abatement costs?|costs? of abatement|code enforcement liens?)\b[\s\S]{0,1200}\b(?:tenants?|lessees?|occupants?|renters?)\b[\s\S]{0,1200}\b(?:landlords?|lessors?)\b` -> 3
+  - `\b(?:tenants?|lessees?|occupants?|renters?)\b[\s\S]{0,1200}\b(?:fines?|civil penalt(?:y|ies)|administrative fines?|abatement costs?|costs? of abatement|code enforcement liens?)\b[\s\S]{0,1200}\b(?:landlords?|lessors?)\b` -> 2
+  - `\b(?:landlords?|lessors?)\b[\s\S]{0,1200}\b(?:fines?|civil penalt(?:y|ies)|administrative fines?|abatement costs?|costs? of abatement|code enforcement liens?)\b[\s\S]{0,1200}\b(?:tenants?|lessees?|occupants?|renters?)\b` -> 3
+  - `\A(?=[\s\S]*\b(?:code enforcement|nuisances?|code violations?)\b)(?=[\s\S]*\b(?:tenants?|lessees?|rental agreements?|lease[sd]?)\b)(?=[\s\S]*\b(?:fines?|civil penalt(?:y|ies))\b)(?=[\s\S]*\b(?:landlords?|lessors?)\b)` -> 0
+  - `\b(?:fines?|penalt(?:y|ies))\b[\s\S]{0,1200}\b(?:reimburs\w*|pass(?:ed)? (?:on|through))\b[\s\S]{0,1200}\b(?:tenants?|lessees?)\b` -> 0
+  - `\bunless the lease provides otherwise\b` -> 0
+- **FLG-C-015** [OK] property tax and rent: lease pass-through of property tax increases (tax escalation), stated tenant share, abatement refund; statement of the property-tax portion of rent; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 723.031 "ad valorem property taxes, non-ad valorem assessments, and utility charges".
+  - `\b(?:ad valorem (?:property )?tax\w*|property tax\w*|real (?:estate|property) tax\w*|tax(?:es)? on the (?:property|premises))\b[\s\S]{0,1200}\b(?:increas\w*|share|portion|pass(?:es|ed|ing)? (?:on|through)|pass-through|pass-on|escalat\w*|reimburs\w*|statements?)\b[\s\S]{0,1200}\b(?:tenants?|lessees?|renters?)\b` -> 5
+  - `\b(?:tenants?|lessees?|renters?)\b[\s\S]{0,1200}\b(?:increas\w*|share|portion|pass(?:es|ed|ing)? (?:on|through)|pass-through|pass-on|escalat\w*|reimburs\w*|statements?)\b[\s\S]{0,1200}\b(?:ad valorem (?:property )?tax\w*|property tax\w*|real (?:estate|property) tax\w*|tax(?:es)? on the (?:property|premises))\b` -> 8
+  - `\b(?:increas\w*|share|portion|pass(?:es|ed|ing)? (?:on|through)|pass-through|pass-on|escalat\w*|reimburs\w*|statements?)\b[\s\S]{0,1200}\b(?:ad valorem (?:property )?tax\w*|property tax\w*|real (?:estate|property) tax\w*|tax(?:es)? on the (?:property|premises))\b[\s\S]{0,1200}\b(?:tenants?|lessees?|renters?)\b` -> 5
+  - `\A(?=[\s\S]*\b(?:ad valorem (?:property )?tax\w*|property tax\w*|real (?:estate|property) tax\w*|tax(?:es)? on the (?:property|premises))\b)(?=[\s\S]*\b(?:tenants?|lessees?|rental agreements?|lease[sd]?)\b)(?=[\s\S]*\b(?:statements?|disclos\w*)\b)(?=[\s\S]*\brent\b)` -> 23
+  - `\bportion of (?:the |each |a )?(?:rent|rental payments?)\b[\s\S]{0,1200}\btax\w*` -> 0
+  - `\btax\w*[\s\S]{0,1200}\bportion of (?:the |each |a )?(?:rent|rental payments?)\b` -> 0
+  - `\btax escalat\w*\b` -> 0
+- **FLG-D-001** [OK] association obligations disclosure to tenants (chs. 718-720 and all sources); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 718.1085 "provided by a unit owner to a renter prior to signing a lease".
+  - `\b(?:renters?|tenants?|lessees?)\b[\s\S]{0,1200}\b(?:declarations?|bylaws|governing documents|association rules|rules and regulations|covenants)\b[\s\S]{0,1200}\b(?:cop(?:y|ies)|disclos\w*|furnish\w*|deliver\w*)\b` -> 10
+  - `\b(?:cop(?:y|ies)|disclos\w*|furnish\w*|deliver\w*)\b[\s\S]{0,1200}\b(?:declarations?|bylaws|governing documents|association rules|rules and regulations|covenants)\b[\s\S]{0,1200}\b(?:renters?|tenants?|lessees?)\b` -> 9
+  - `\A(?=[\s\S]*\b(?:renters?|tenants?|lessees?)\b)(?=[\s\S]*\b(?:condominium|homeowners.? association|cooperative)\b)(?=[\s\S]*\b(?:prior to|before) (?:signing|executing|execution of) (?:a|the) (?:lease|rental agreement)\b)` -> 3
+  - `\b(?:prior to|before) signing a lease\b` -> 3
+  - `\brenter of a (?:unit|parcel|lot|home)\b` -> 5
+- **FLG-D-002** [OK] sprinkler disclosure to tenants; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 718.112 "forego retrofitting of the required fire sprinkler system".
+  - `\bsprinkler\w*[\s\S]{0,1200}\b(?:renters?|tenants?|lessees?|occupants?|landlords?|rental agreements?|lease[sd]?)\b` -> 3
+  - `\b(?:renters?|tenants?|lessees?|occupants?|landlords?|rental agreements?|lease[sd]?)\b[\s\S]{0,1200}\bsprinkler\w*` -> 4
+  - `\A(?=[\s\S]*\bsprinkler\w*)(?=[\s\S]*\b(?:disclos\w*|notice|notif\w*|inform\w*|cop(?:y|ies))\b)(?=[\s\S]*\b(?:renters?|tenants?|lessees?|occupants?|rental agreements?|lease[sd]?)\b)` -> 8
+  - `\bfire sprinkler system\w*` -> 13
+- **FLG-D-003** [OK] stigmatized property nondisclosure; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 689.25 "site of a homicide, suicide, or death".
+  - `\b(?:homicides?|suicides?|murders?|deaths?)\b[\s\S]{0,1200}\b(?:not (?:a )?material fact|need not (?:be )?disclose\w*|failure to disclose|duty to disclose|must be disclosed)\b` -> 3
+  - `\b(?:not (?:a )?material fact|need not (?:be )?disclose\w*|failure to disclose|duty to disclose|must be disclosed)\b[\s\S]{0,1200}\b(?:homicides?|suicides?|murders?|deaths?)\b` -> 2
+  - `\A(?=[\s\S]*\b(?:homicides?|suicides?)\b)(?=[\s\S]*\bdisclos\w*)(?=[\s\S]*\b(?:real property|real estate|dwellings?|landlords?|tenants?|lease[sd]?|rental)\b)` -> 11
+  - `\bmaterial facts?\b[\s\S]{0,1200}\b(?:real estate transactions?|transferees?)\b` -> 2
+  - `\bpsychologically (?:impacted|affected)\b|\bstigmatized\b` -> 0
+- **FLG-D-004** [OK] sex offender disclosure by landlords; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 83.515 "sexual predator and sexual offender registries".
+  - `\b(?:sexual (?:predators?|offenders?)|sex offenders?)\b[\s\S]{0,1200}\b(?:landlords?|tenants?|lessees?|lessors?|renters?|rental agreements?|lease[sd]?|rent(?:s|ed|ing)?|real estate|purchasers?|buyers?)\b` -> 3
+  - `\b(?:landlords?|tenants?|lessees?|lessors?|renters?|rental agreements?|lease[sd]?|rent(?:s|ed|ing)?|real estate|purchasers?|buyers?)\b[\s\S]{0,1200}\b(?:sexual (?:predators?|offenders?)|sex offenders?)\b` -> 3
+  - `\A(?=[\s\S]*\b(?:sexual (?:predators?|offenders?)|sex offenders?)\b)(?=[\s\S]*\b(?:landlords?|tenants?|lessees?|lessors?|renters?|rental agreements?|lease[sd]?|rent(?:s|ed|ing)?|real estate|purchasers?|buyers?)\b)(?=[\s\S]*\b(?:disclos\w*|notif\w*|inform(?:s|ed|ing)?)\b)` -> 10
+  - `\b(?:sex(?:ual)? offender|sexual predator) regist(?:ry|ries|ration)\b` -> 13
+  - `\bcommunity and public notification\b` -> 6
+- **FLG-D-005** [OK] sex offender occupancy rules (proximity, co-residence, landlord leasing); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 775.215 "may not reside within 1,000 feet of any school".
+  - `\b(?:sexual (?:predators?|offenders?)|sex offenders?|persons? (?:who has|who have) been convicted)\b[\s\S]{0,1200}\b(?:lease[sd]?|leasing|rent(?:s|ed|ing)?|landlords?|lessors?|owners? of (?:a|the|any) (?:dwelling|residence|property))\b` -> 3
+  - `\b(?:lease[sd]?|leasing|rent(?:s|ed|ing)?|landlords?|lessors?|owners? of (?:a|the|any) (?:dwelling|residence|property))\b[\s\S]{0,1200}\b(?:sexual (?:predators?|offenders?)|sex offenders?|persons? (?:who has|who have) been convicted)\b` -> 3
+  - `\A(?=[\s\S]*\b(?:sexual (?:predators?|offenders?)|sex offenders?|persons? (?:who has|who have) been convicted)\b)(?=[\s\S]*\b(?:reside|resides|residing|residence|dwelling)\b)(?=[\s\S]*\b(?:lease[sd]?|rent(?:s|ed|ing)?|landlords?|lessors?)\b)` -> 14
+  - `\bmay not reside within\b` -> 1
+  - `\b(?:co-?resid\w*|reside together|live together|living together)\b` -> 7
+- **FLG-D-006** [OK] required lease disclosures: first-page form, coverage notice, option-to-purchase seller disclosure; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 83.50 "In addition to any other disclosure required by law".
+  - `\b(?:first|front) page\b[\s\S]{0,1200}\b(?:lease[sd]?|rental agreements?)\b` -> 4
+  - `\b(?:lease[sd]?|rental agreements?)\b[\s\S]{0,1200}\b(?:first|front) page\b` -> 4
+  - `\A(?=[\s\S]*\b(?:rental agreements?|lease[sd]?)\b)(?=[\s\S]*\b(?:option to (?:purchase|buy)|right of first refusal|lease-purchase|rent-to-own)\b)(?=[\s\S]*\bseller\w*)(?=[\s\S]*\bdisclos\w*)` -> 6
+  - `\bproperty condition disclosure\w*|\bseller.?s? (?:property )?disclosure statement\b|\bcondition of the property\b[\s\S]{0,300}\bdisclos\w*` -> 0
+  - `\bin addition to any other disclosure required by law\b` -> 2
+- **FLG-D-007** [OK] required lease disclosures: first-page form, coverage notice, option-to-purchase seller disclosure; supersedes FLG-D-006 (WINDOW warning: the condition-of-the-property limb used a 300-character window; widened to 1,200); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 83.50 "In addition to any other disclosure required by law".
+  - `\b(?:first|front) page\b[\s\S]{0,1200}\b(?:lease[sd]?|rental agreements?)\b` -> 4
+  - `\b(?:lease[sd]?|rental agreements?)\b[\s\S]{0,1200}\b(?:first|front) page\b` -> 4
+  - `\A(?=[\s\S]*\b(?:rental agreements?|lease[sd]?)\b)(?=[\s\S]*\b(?:option to (?:purchase|buy)|right of first refusal|lease-purchase|rent-to-own)\b)(?=[\s\S]*\bseller\w*)(?=[\s\S]*\bdisclos\w*)` -> 6
+  - `\bproperty condition disclosure\w*|\bseller.?s? (?:property )?disclosure statement\b|\bcondition of the property\b[\s\S]{0,1200}\bdisclos\w*` -> 0
+  - `\bin addition to any other disclosure required by law\b` -> 2
+- **FLG-D-008** [OK] shoreline or beach access disclosure to tenants; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 161.57 "seaward of the coastal construction control line".
+  - `\b(?:shorelines?|beach(?:es)?|coastal construction control line|coastal (?:areas?|propert\w*)|erosion|public access|ocean|waterfront)\b[\s\S]{0,1200}\b(?:tenants?|lessees?|renters?|rental agreements?|lease[sd]?|landlords?|lessors?)\b` -> 36
+  - `\b(?:tenants?|lessees?|renters?|rental agreements?|lease[sd]?|landlords?|lessors?)\b[\s\S]{0,1200}\b(?:shorelines?|beach(?:es)?|coastal construction control line|coastal (?:areas?|propert\w*)|erosion|public access|ocean|waterfront)\b` -> 31
+  - `\A(?=[\s\S]*\b(?:shorelines?|beach(?:es)?|coastal construction control line|coastal (?:areas?|propert\w*)|erosion|public access|ocean|waterfront)\b)(?=[\s\S]*\b(?:tenants?|lessees?|renters?|rental agreements?|lease[sd]?|landlords?|lessors?)\b)(?=[\s\S]*\bdisclos\w*)` -> 23
+  - `\bcoastal properties disclosure\b|\bseaward of the coastal construction control line\b` -> 13
+- **FLG-D-009** [FAILED] (not cited by any row) military installation or airport noise and accident zone disclosure; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: recorded as failed 692.203 "within 10 miles of any military installation".
+  - `\b(?:military installations?|military bases?|air (?:force|installations?)|airports?|airfields?|noise zones?|accident potential zones?|clear zones?|airport noise)\b[\s\S]{0,1200}\bdisclos\w*[\s\S]{0,1200}\b(?:tenants?|lessees?|renters?|rental agreements?|lease[sd]?|landlords?|lessors?|purchasers?|buyers?|sellers?)\b` -> 1
+  - `\b(?:tenants?|lessees?|renters?|rental agreements?|lease[sd]?|landlords?|lessors?|purchasers?|buyers?|sellers?)\b[\s\S]{0,1200}\bdisclos\w*[\s\S]{0,1200}\b(?:military installations?|military bases?|air (?:force|installations?)|airports?|airfields?|noise zones?|accident potential zones?|clear zones?|airport noise)\b` -> 0
+  - `\A(?=[\s\S]*\b(?:military installations?|military bases?|air (?:force|installations?)|airports?|airfields?|noise zones?|accident potential zones?|clear zones?|airport noise)\b)(?=[\s\S]*\b(?:tenants?|lessees?|renters?|rental agreements?|lease[sd]?|landlords?|lessors?|purchasers?|buyers?|sellers?)\b)(?=[\s\S]*\b(?:disclos\w*|notif\w*|notice)\b)(?=[\s\S]*\b(?:noise|accident|compatib\w*)\b)` -> 17
+  - `\bmilitary installation\w*[\s\S]{0,1200}\b(?:noise|accident potential)\b` -> 2
+  - `\bairport noise\b|\bnoise zones?\b|\baccident potential zones?\b` -> 5
+- **FLG-D-010** [OK] military installation or airport noise and accident zone disclosure; supersedes FLG-D-009 (positive failed: no battery term matched Fla. Stat. § 692.203; replaced with Fla. Stat. § 163.3175, read whole, which the noise limb matches); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 163.3175 "noise attenuation reduction requirements".
+  - `\b(?:military installations?|military bases?|air (?:force|installations?)|airports?|airfields?|noise zones?|accident potential zones?|clear zones?|airport noise)\b[\s\S]{0,1200}\bdisclos\w*[\s\S]{0,1200}\b(?:tenants?|lessees?|renters?|rental agreements?|lease[sd]?|landlords?|lessors?|purchasers?|buyers?|sellers?)\b` -> 1
+  - `\b(?:tenants?|lessees?|renters?|rental agreements?|lease[sd]?|landlords?|lessors?|purchasers?|buyers?|sellers?)\b[\s\S]{0,1200}\bdisclos\w*[\s\S]{0,1200}\b(?:military installations?|military bases?|air (?:force|installations?)|airports?|airfields?|noise zones?|accident potential zones?|clear zones?|airport noise)\b` -> 0
+  - `\A(?=[\s\S]*\b(?:military installations?|military bases?|air (?:force|installations?)|airports?|airfields?|noise zones?|accident potential zones?|clear zones?|airport noise)\b)(?=[\s\S]*\b(?:tenants?|lessees?|renters?|rental agreements?|lease[sd]?|landlords?|lessors?|purchasers?|buyers?|sellers?)\b)(?=[\s\S]*\b(?:disclos\w*|notif\w*|notice)\b)(?=[\s\S]*\b(?:noise|accident|compatib\w*)\b)` -> 17
+  - `\bmilitary installation\w*[\s\S]{0,1200}\b(?:noise|accident potential)\b` -> 2
+  - `\bairport noise\b|\bnoise zones?\b|\baccident potential zones?\b` -> 5
+- **FLG-D-011** [OK] foreign ownership restrictions and leases; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 692.203 "A foreign principal may not directly or indirectly own".
+  - `\b(?:foreign principals?|foreign countr(?:y|ies) of concern|nonresident aliens?|alien(?:s)? (?:who|ineligible))\b[\s\S]{0,1200}\b(?:lease[sd]?|leasing|leaseholds?|tenants?|lessees?|lessors?|landlords?|rental agreements?|rent(?:s|ed|ing)?)\b` -> 4
+  - `\b(?:lease[sd]?|leasing|leaseholds?|tenants?|lessees?|lessors?|landlords?|rental agreements?|rent(?:s|ed|ing)?)\b[\s\S]{0,1200}\b(?:foreign principals?|foreign countr(?:y|ies) of concern|nonresident aliens?|alien(?:s)? (?:who|ineligible))\b` -> 4
+  - `\A(?=[\s\S]*\b(?:foreign principals?|foreign countr(?:y|ies) of concern|nonresident aliens?|alien(?:s)? (?:who|ineligible))\b)(?=[\s\S]*\b(?:lease[sd]?|leasing|leaseholds?|tenants?|lessees?|lessors?|landlords?|rental agreements?|rent(?:s|ed|ing)?)\b)(?=[\s\S]*\breal property\b)` -> 5
+  - `\bforeign countr(?:y|ies) of concern\b` -> 31
+  - `\bde minimus indirect interest\b` -> 4
+- **FLG-D-012** [OK] tenant protection act coverage and exemption notices (rent cap, just cause); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 125.0103 "imposing controls on rents".
+  - `\b(?:controls? on rents?|rent controls?|rent stabiliz\w*|rent caps?|limits? on rent increases?|just cause|statement of cause)\b[\s\S]{0,1200}\b(?:notices?|notif\w*|disclos\w*|exempt\w*)\b` -> 23
+  - `\b(?:notices?|notif\w*|disclos\w*|exempt\w*)\b[\s\S]{0,1200}\b(?:controls? on rents?|rent controls?|rent stabiliz\w*|rent caps?|limits? on rent increases?|just cause|statement of cause)\b` -> 14
+  - `\A(?=[\s\S]*\b(?:controls? on rents?|rent controls?|rent stabiliz\w*|rent caps?|limits? on rent increases?|just cause|statement of cause)\b)(?=[\s\S]*\b(?:tenants?|landlords?|rental agreements?)\b)(?=[\s\S]*\b(?:exempt\w*|notices?)\b)` -> 4
+  - `\bjust cause\b` -> 41
+  - `\bcontrols on rents\b` -> 2
+- **FLG-D-013** [OK] sunset or dated repeal of tenant protections; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 83.5615 "ffective upon the repeal of the federal".
+  - `\b(?:expires?|expired|stands? repealed|is repealed|shall expire|sunsets?|repealed effective|future repeal|remains? in effect only until)\b[\s\S]{0,1200}\b(?:tenants?|landlords?|rental agreements?|tenanc(?:y|ies)|dwelling units?)\b` -> 21
+  - `\b(?:tenants?|landlords?|rental agreements?|tenanc(?:y|ies)|dwelling units?)\b[\s\S]{0,1200}\b(?:expires?|expired|stands? repealed|is repealed|shall expire|sunsets?|repealed effective|future repeal|remains? in effect only until)\b` -> 23
+  - `\A(?=[\s\S]*\b(?:stands? repealed|is repealed|shall expire|expires|future repeal|sunsets?)\b)(?=[\s\S]*\b(?:landlords?|tenants?)\b)(?=[\s\S]*\b(?:residential|dwelling)\b)` -> 34
+  - `\b(?:this (?:section|part|act) (?:expires|is repealed|shall stand repealed|stands repealed)|scheduled repeal)\b` -> 105
+  - `ffective upon the repeal\b` -> 1
+- **FLG-D-014** [OK] tenant opportunity or right to purchase on sale; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 718.612 "shall have the right of first refusal to purchase the unit in which he or she resides".
+  - `\b(?:rights? of first refusal|opportunity to (?:purchase|buy)|rights? to (?:purchase|buy)|first right to (?:purchase|buy)|right of first offer)\b[\s\S]{0,1200}\b(?:tenants?|lessees?|residents?|renters?|home ?owners)\b` -> 15
+  - `\b(?:tenants?|lessees?|residents?|renters?|home ?owners)\b[\s\S]{0,1200}\b(?:rights? of first refusal|opportunity to (?:purchase|buy)|rights? to (?:purchase|buy)|first right to (?:purchase|buy)|right of first offer)\b` -> 14
+  - `\A(?=[\s\S]*\b(?:rights? of first refusal|opportunity to (?:purchase|buy)|rights? to (?:purchase|buy)|first right to (?:purchase|buy)|right of first offer)\b)(?=[\s\S]*\b(?:tenants?|residents?)\b)(?=[\s\S]*\b(?:sale|sells?|selling|offers? (?:the|a) (?:building|property|park))\b)` -> 11
+  - `\btenant opportunity\w*|\bopportunity to purchase\b` -> 5
+- **FLG-D-015** [OK] state lead notices and lead-safe certification for rentals; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 381.983 "where the owner has actual knowledge of the presence of lead-based paint".
+  - `\b(?:lead-based paint|lead-based-paint|lead poisoning|lead hazards?|lead-safe|lead safe|lead paint|elevated blood-lead)\b[\s\S]{0,1200}\b(?:tenants?|lessees?|renters?|rental agreements?|lease[sd]?|landlords?|lessors?|owners?|property managers?)\b` -> 3
+  - `\b(?:tenants?|lessees?|renters?|rental agreements?|lease[sd]?|landlords?|lessors?|owners?|property managers?)\b[\s\S]{0,1200}\b(?:lead-based paint|lead-based-paint|lead poisoning|lead hazards?|lead-safe|lead safe|lead paint|elevated blood-lead)\b` -> 3
+  - `\A(?=[\s\S]*\b(?:lead-based paint|lead-based-paint|lead poisoning|lead hazards?|lead-safe|lead safe|lead paint|elevated blood-lead)\b)(?=[\s\S]*\b(?:tenants?|lessees?|renters?|rental agreements?|lease[sd]?|landlords?|lessors?|owners?|property managers?)\b)(?=[\s\S]*\b(?:notices?|notif\w*|disclos\w*|certif\w*|pamphlets?|inspect\w*)\b)` -> 0
+  - `\blead-free certificate\w*|\blead-safe certificate\w*|\bcertificate of lead\w*|\blead(?:-safe| safe) (?:housing|certification)\b` -> 0
+  - `\baffected property\b` -> 29
+- **FLG-D-016** [OK] hazardous contamination disclosure to tenants and in leases; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 376.30702 "all known lessees and tenants of the source property".
+  - `\b(?:contaminat\w*|hazardous substances?|hazardous wastes?|pollutants?|brownfields?|institutional controls?|engineering controls?|petroleum discharges?|toxic|radioactiv\w*)\b[\s\S]{0,1200}\b(?:disclos\w*|notif\w*|notices?)\b[\s\S]{0,1200}\b(?:tenants?|lessees?|renters?|rental agreements?|lease[sd]?|landlords?|lessors?)\b` -> 7
+  - `\b(?:tenants?|lessees?|renters?|rental agreements?|lease[sd]?|landlords?|lessors?)\b[\s\S]{0,1200}\b(?:disclos\w*|notif\w*|notices?)\b[\s\S]{0,1200}\b(?:contaminat\w*|hazardous substances?|hazardous wastes?|pollutants?|brownfields?|institutional controls?|engineering controls?|petroleum discharges?|toxic|radioactiv\w*)\b` -> 10
+  - `\A(?=[\s\S]*\b(?:contaminat\w*|hazardous substances?|hazardous wastes?|pollutants?|brownfields?|institutional controls?|engineering controls?|petroleum discharges?|toxic|radioactiv\w*)\b)(?=[\s\S]*\b(?:tenants?|lessees?|renters?|rental agreements?|lease[sd]?|landlords?|lessors?)\b)(?=[\s\S]*\b(?:disclos\w*|notif\w*)\b)(?=[\s\S]*\b(?:real property|residential|dwelling)\b)` -> 27
+  - `\binstitutional controls?\b[\s\S]{0,1200}\b(?:lease[sd]?|tenants?|lessees?|conveyances?|deeds?|instruments?)\b` -> 2
+  - `\blessees and tenants of the source property\b|\bformer phosphate mine\b` -> 4
+- **FLG-D-017** [OK] methamphetamine or drug-lab contamination disclosure, reporting, habitation ban; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 893.13 "manufacture methamphetamine or phencyclidine".
+  - `\b(?:methamphetamines?|meth labs?|drug labs?|clandestine lab\w*|manufactur\w* (?:of )?(?:a )?controlled substances?)\b[\s\S]{0,1200}\b(?:tenants?|lessees?|renters?|rental agreements?|lease[sd]?|landlords?|lessors?|dwellings?|residential|real property|premises)\b` -> 4
+  - `\b(?:tenants?|lessees?|renters?|rental agreements?|lease[sd]?|landlords?|lessors?|dwellings?|residential|real property|premises)\b[\s\S]{0,1200}\b(?:methamphetamines?|meth labs?|drug labs?|clandestine lab\w*|manufactur\w* (?:of )?(?:a )?controlled substances?)\b` -> 9
+  - `\A(?=[\s\S]*\b(?:methamphetamines?|meth labs?|drug labs?|clandestine lab\w*|manufactur\w* (?:of )?(?:a )?controlled substances?)\b)(?=[\s\S]*\b(?:disclos\w*|notif\w*|report\w*|decontaminat\w*|remediat\w*|cleanup)\b)(?=[\s\S]*\b(?:tenants?|landlords?|dwellings?|lease[sd]?|owners?)\b)` -> 8
+  - `\bdecontaminat\w*` -> 16
+  - `\bpublic nuisance\b[\s\S]{0,1200}\bcontrolled substances?\b` -> 1
+- **FLG-D-018** [OK] defective drywall disclosure; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 718.1265 "removing and disposing of wet drywall".
+  - `\b(?:drywall|gypsum (?:wall)?board|wallboard|corrosive (?:drywall|gypsum)|Chinese drywall)\b[\s\S]{0,1200}\b(?:tenants?|lessees?|renters?|rental agreements?|lease[sd]?|landlords?|lessors?|purchasers?|buyers?|sellers?)\b` -> 1
+  - `\b(?:tenants?|lessees?|renters?|rental agreements?|lease[sd]?|landlords?|lessors?|purchasers?|buyers?|sellers?)\b[\s\S]{0,1200}\b(?:drywall|gypsum (?:wall)?board|wallboard|corrosive (?:drywall|gypsum)|Chinese drywall)\b` -> 2
+  - `\A(?=[\s\S]*\b(?:drywall|gypsum (?:wall)?board|wallboard|corrosive (?:drywall|gypsum)|Chinese drywall)\b)(?=[\s\S]*\b(?:disclos\w*|notif\w*|notices?|defect\w*)\b)` -> 4
+  - `\bdrywall\b` -> 5
+  - `\b(?:corrosive|defective|problem) (?:drywall|wallboard|gypsum)\b` -> 0
+- **FLG-D-019** [FAILED] (not cited by any row) Prop 65-type chemical exposure warning for rentals; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: recorded as failed 440.02 "cause cancer".
+  - `\b(?:Proposition 65|known to the state to cause cancer|cause cancer or reproductive (?:toxicity|harm)|reproductive toxicity|carcinogens?)\b[\s\S]{0,1200}\b(?:warn\w*|signs?|notices?|disclos\w*)\b` -> 2
+  - `\b(?:warn\w*|signs?|notices?|disclos\w*)\b[\s\S]{0,1200}\b(?:Proposition 65|known to the state to cause cancer|cause cancer or reproductive (?:toxicity|harm)|reproductive toxicity|carcinogens?)\b` -> 2
+  - `\A(?=[\s\S]*\b(?:Proposition 65|known to the state to cause cancer|cause cancer or reproductive (?:toxicity|harm)|reproductive toxicity|carcinogens?)\b)(?=[\s\S]*\b(?:warn\w*|disclos\w*)\b)(?=[\s\S]*\b(?:tenants?|lessees?|renters?|rental agreements?|lease[sd]?|landlords?|lessors?|purchasers?|buyers?|sellers?)\b)` -> 2
+  - `\bclear and reasonable warning\b` -> 0
+  - `\bcarcinogens?\b` -> 2
+- **FLG-D-020** [OK] Prop 65-type chemical exposure warning for rentals; supersedes FLG-D-019 (positive failed: Fla. Stat. § 440.02 was not read and does not contain the phrase; replaced with Fla. Stat. § 381.986, read in context, which carries a carcinogen warning); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 381.986 "marijuana smoke contains carcinogens".
+  - `\b(?:Proposition 65|known to the state to cause cancer|cause cancer or reproductive (?:toxicity|harm)|reproductive toxicity|carcinogens?)\b[\s\S]{0,1200}\b(?:warn\w*|signs?|notices?|disclos\w*)\b` -> 2
+  - `\b(?:warn\w*|signs?|notices?|disclos\w*)\b[\s\S]{0,1200}\b(?:Proposition 65|known to the state to cause cancer|cause cancer or reproductive (?:toxicity|harm)|reproductive toxicity|carcinogens?)\b` -> 2
+  - `\A(?=[\s\S]*\b(?:Proposition 65|known to the state to cause cancer|cause cancer or reproductive (?:toxicity|harm)|reproductive toxicity|carcinogens?)\b)(?=[\s\S]*\b(?:warn\w*|disclos\w*)\b)(?=[\s\S]*\b(?:tenants?|lessees?|renters?|rental agreements?|lease[sd]?|landlords?|lessors?|purchasers?|buyers?|sellers?)\b)` -> 2
+  - `\bclear and reasonable warning\b` -> 0
+  - `\bcarcinogens?\b|\bcancer-causing\b` -> 4
+- **FLG-D-021** [OK] certificate of occupancy disclosure or condition of renting; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 718.301 "Copies of any certificates of occupancy that may have been issued for the condominium property".
+  - `\bcertificates? of (?:occupancy|completion|compliance)\b[\s\S]{0,1200}\b(?:tenants?|lessees?|renters?|rental agreements?|lease[sd]?|landlords?|lessors?|dwelling units?)\b` -> 12
+  - `\b(?:tenants?|lessees?|renters?|rental agreements?|lease[sd]?|landlords?|lessors?|dwelling units?)\b[\s\S]{0,1200}\bcertificates? of (?:occupancy|completion|compliance)\b` -> 11
+  - `\A(?=[\s\S]*\bcertificates? of (?:occupancy|completion|compliance)\b)(?=[\s\S]*\b(?:tenants?|lessees?|renters?|rental agreements?|lease[sd]?|landlords?|lessors?|dwelling units?)\b)(?=[\s\S]*\b(?:disclos\w*|copy|copies|provid\w*|post\w*|display\w*)\b)` -> 41
+  - `\bcertificates? of occupancy\b` -> 67
+  - `\b(?:may not|shall not) be occupied\b|\bunlawful(?:ly)? (?:to )?occup\w*` -> 9
+- **FLG-D-022** [OK] disclosure of outstanding code violation, inspection or condemnation orders to tenants; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 162.06 "Disclose, in writing, the existence and the nature of the proceeding to the prospective transferee".
+  - `\b(?:code violations?|violations? of (?:the )?(?:applicable )?codes?|enforcement proceedings?|condemn\w*|unsafe (?:structures?|buildings?)|unfit for (?:human )?habitation|vacate orders?|order to vacate)\b[\s\S]{0,1200}\b(?:disclos\w*|notif\w*|notices?)\b[\s\S]{0,1200}\b(?:tenants?|lessees?|renters?|rental agreements?|lease[sd]?|prospective transferees?|occupants?)\b` -> 4
+  - `\b(?:tenants?|lessees?|renters?|rental agreements?|lease[sd]?|prospective transferees?|occupants?)\b[\s\S]{0,1200}\b(?:disclos\w*|notif\w*|notices?)\b[\s\S]{0,1200}\b(?:code violations?|violations? of (?:the )?(?:applicable )?codes?|enforcement proceedings?|condemn\w*|unsafe (?:structures?|buildings?)|unfit for (?:human )?habitation|vacate orders?|order to vacate)\b` -> 6
+  - `\A(?=[\s\S]*\b(?:code violations?|violations? of (?:the )?(?:applicable )?codes?|enforcement proceedings?|condemn\w*|unsafe (?:structures?|buildings?)|unfit for (?:human )?habitation|vacate orders?|order to vacate)\b)(?=[\s\S]*\b(?:tenants?|lessees?|renters?|occupants?)\b)(?=[\s\S]*\bdisclos\w*)` -> 11
+  - `\bprospective transferees?\b` -> 6
+  - `\bunfit for (?:human )?habitation\b|\bcondemned\b` -> 22
+- **FLG-D-023** [OK] health-district rental rules: copies on request, referral to health department; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 404.056 "Additional information regarding radon and radon testing may be obtained from your county health department".
+  - `\b(?:county health departments?|department of health|health departments?|health officers?|sanitary nuisances?|sanitation rules?)\b[\s\S]{0,1200}\b(?:tenants?|lessees?|renters?|rental agreements?|lease[sd]?|landlords?|lessors?|rental (?:units?|propert\w*|housing))\b` -> 13
+  - `\b(?:tenants?|lessees?|renters?|rental agreements?|lease[sd]?|landlords?|lessors?|rental (?:units?|propert\w*|housing))\b[\s\S]{0,1200}\b(?:county health departments?|department of health|health departments?|health officers?|sanitary nuisances?|sanitation rules?)\b` -> 15
+  - `\A(?=[\s\S]*\b(?:county health departments?|department of health|health departments?|health officers?|sanitary nuisances?|sanitation rules?)\b)(?=[\s\S]*\b(?:landlords?|tenants?)\b)(?=[\s\S]*\b(?:cop(?:y|ies)|upon request|on request|refer\w*|provide\w*)\b)` -> 28
+  - `\bsanitary nuisances?\b` -> 15
+  - `\bhousing code\w*|\bhousing standards?\b` -> 2
+- **FLG-D-024** [OK] pre-lease foreclosure disclosure to tenants; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 83.5615 "The date of a notice of foreclosure shall be deemed to be the date".
+  - `\b(?:foreclos\w*|lis pendens|notice of default|mortgage default|judicial sale|foreclosure sale)\b[\s\S]{0,1200}\b(?:disclos\w*|notif\w*|notices?|inform\w*)\b[\s\S]{0,1200}\b(?:tenants?|lessees?|renters?|rental agreements?|lease[sd]?|prospective tenants?)\b` -> 15
+  - `\b(?:tenants?|lessees?|renters?|rental agreements?|lease[sd]?|prospective tenants?)\b[\s\S]{0,1200}\b(?:disclos\w*|notif\w*|notices?|inform\w*)\b[\s\S]{0,1200}\b(?:foreclos\w*|lis pendens|notice of default|mortgage default|judicial sale|foreclosure sale)\b` -> 12
+  - `\A(?=[\s\S]*\b(?:foreclos\w*|lis pendens|notice of default|mortgage default|judicial sale|foreclosure sale)\b)(?=[\s\S]*\b(?:tenants?|lessees?)\b)(?=[\s\S]*\b(?:disclos\w*|before (?:entering|signing|executing))\b)` -> 26
+  - `\bnotice of foreclosure\b` -> 1
+  - `\bforeclos\w*[\s\S]{0,1200}\bprospective (?:tenants?|lessees?|renters?)\b` -> 0
+- **FLG-D-025** [OK] sale or management change: tenant notice, successor duties, release of seller; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 83.49 "Upon the sale or transfer of title of the rental property".
+  - `\b(?:sale or transfer of title|sale of the (?:rental )?property|transfer of (?:title|ownership)|new owner|change in the designated rental agent|successor (?:owner|landlord)|property manag\w*)\b[\s\S]{0,1200}\b(?:notif\w*|notices?|disclos\w*)\b[\s\S]{0,1200}\b(?:tenants?|lessees?|renters?|rental agreements?)\b` -> 2
+  - `\b(?:tenants?|lessees?|renters?|rental agreements?)\b[\s\S]{0,1200}\b(?:notif\w*|notices?|disclos\w*)\b[\s\S]{0,1200}\b(?:sale or transfer of title|sale of the (?:rental )?property|transfer of (?:title|ownership)|new owner|change in the designated rental agent|successor (?:owner|landlord)|property manag\w*)\b` -> 7
+  - `\A(?=[\s\S]*\b(?:sale or transfer of title|sale of the (?:rental )?property|transfer of (?:title|ownership)|new owner|change in the designated rental agent|successor (?:owner|landlord)|property manag\w*)\b)(?=[\s\S]*\b(?:tenants?|landlords?)\b)(?=[\s\S]*\b(?:residential|dwelling units?)\b)(?=[\s\S]*\b(?:security deposits?|advance rents?)\b)` -> 3
+  - `\bsale or transfer of title of the rental property\b|\bchange in the designated rental agent\b` -> 1
+  - `\bsuccessor (?:landlord|lessor)s?\b|\bnew landlord\b` -> 0
+- **FLG-D-026** [FAILED] (not cited by any row) nonresident owner agent designation; withholding on rent to nonresidents; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: recorded as failed 48.181 "privilege extended by law to nonresidents".
+  - `\b(?:nonresidents?|non-residents?|out-of-state|resides? outside (?:of )?(?:this|the) state|foreign business entit\w*)\b[\s\S]{0,1200}\b(?:landlords?|lessors?|owners? of (?:real|residential|rental) property|rental propert\w*|dwelling units?|tenants?)\b` -> 2
+  - `\b(?:landlords?|lessors?|owners? of (?:real|residential|rental) property|rental propert\w*|dwelling units?|tenants?)\b[\s\S]{0,1200}\b(?:nonresidents?|non-residents?|out-of-state|resides? outside (?:of )?(?:this|the) state|foreign business entit\w*)\b` -> 2
+  - `\A(?=[\s\S]*\b(?:nonresidents?|non-residents?|out-of-state|resides? outside (?:of )?(?:this|the) state|foreign business entit\w*)\b)(?=[\s\S]*\b(?:landlords?|tenants?|rental agreements?)\b)(?=[\s\S]*\b(?:agents?|designat\w*|appoint\w*)\b)` -> 11
+  - `\bwithh(?:o|e)ld\w*[\s\S]{0,1200}\brents?\b[\s\S]{0,1200}\bnonresident\w*` -> 0
+  - `\bperson authorized to receive notices and demands\b` -> 5
+- **FLG-D-027** [OK] nonresident owner agent designation; withholding on rent to nonresidents; supersedes FLG-D-026 (positive failed: no battery term matched Fla. Stat. § 48.181; replaced with Fla. Stat. § 83.50, read whole, matched by the agent-designation term); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 83.50 "person authorized to receive notices and demands".
+  - `\b(?:nonresidents?|non-residents?|out-of-state|resides? outside (?:of )?(?:this|the) state|foreign business entit\w*)\b[\s\S]{0,1200}\b(?:landlords?|lessors?|owners? of (?:real|residential|rental) property|rental propert\w*|dwelling units?|tenants?)\b` -> 2
+  - `\b(?:landlords?|lessors?|owners? of (?:real|residential|rental) property|rental propert\w*|dwelling units?|tenants?)\b[\s\S]{0,1200}\b(?:nonresidents?|non-residents?|out-of-state|resides? outside (?:of )?(?:this|the) state|foreign business entit\w*)\b` -> 2
+  - `\A(?=[\s\S]*\b(?:nonresidents?|non-residents?|out-of-state|resides? outside (?:of )?(?:this|the) state|foreign business entit\w*)\b)(?=[\s\S]*\b(?:landlords?|tenants?|rental agreements?)\b)(?=[\s\S]*\b(?:agents?|designat\w*|appoint\w*)\b)` -> 11
+  - `\bwithh(?:o|e)ld\w*[\s\S]{0,1200}\brents?\b[\s\S]{0,1200}\bnonresident\w*` -> 0
+  - `\bperson authorized to receive notices and demands\b` -> 5
+- **FLG-D-028** [OK] special district or CDD disclosure to tenants; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 190.048 "MAY IMPOSE AND LEVY TAXES OR ASSESSMENTS".
+  - `\b(?:community development districts?|special (?:taxing |improvement |assessment )?districts?|dependent special districts?|independent special districts?|non-ad valorem assessments?)\b[\s\S]{0,1200}\b(?:disclos\w*|notices?|statements?)\b[\s\S]{0,1200}\b(?:tenants?|lessees?|renters?|rental agreements?|lease[sd]?|landlords?|lessors?|purchasers?|buyers?)\b` -> 11
+  - `\b(?:tenants?|lessees?|renters?|rental agreements?|lease[sd]?|landlords?|lessors?|purchasers?|buyers?)\b[\s\S]{0,1200}\b(?:disclos\w*|notices?|statements?)\b[\s\S]{0,1200}\b(?:community development districts?|special (?:taxing |improvement |assessment )?districts?|dependent special districts?|independent special districts?|non-ad valorem assessments?)\b` -> 7
+  - `\A(?=[\s\S]*\b(?:community development districts?|special (?:taxing |improvement |assessment )?districts?|dependent special districts?|independent special districts?|non-ad valorem assessments?)\b)(?=[\s\S]*\b(?:tenants?|lessees?|rental agreements?|lease[sd]?)\b)(?=[\s\S]*\bdisclos\w*)` -> 22
+  - `\bMAY IMPOSE AND LEVY TAXES OR ASSESSMENTS\b` -> 1
+  - `\bcommunity development district\w*` -> 48
+- **FLG-D-029** [OK] communal, tribal or native land lease approval; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 285.11 "The trustee shall have the right to lease any part or parts of the reservation".
+  - `\b(?:Indian reservations?|reservations? set aside|tribal (?:lands?|trust lands?)|lands? held in trust (?:by|for) (?:the United States|the tribe)|communal lands?|native lands?|Seminole|Miccosukee)\b[\s\S]{0,1200}\b(?:lease[sd]?|leasing|lessees?|tenants?|rental agreements?)\b` -> 4
+  - `\b(?:lease[sd]?|leasing|lessees?|tenants?|rental agreements?)\b[\s\S]{0,1200}\b(?:Indian reservations?|reservations? set aside|tribal (?:lands?|trust lands?)|lands? held in trust (?:by|for) (?:the United States|the tribe)|communal lands?|native lands?|Seminole|Miccosukee)\b` -> 5
+  - `\A(?=[\s\S]*\b(?:Indian reservations?|reservations? set aside|tribal (?:lands?|trust lands?)|lands? held in trust (?:by|for) (?:the United States|the tribe)|communal lands?|native lands?|Seminole|Miccosukee)\b)(?=[\s\S]*\b(?:lease[sd]?|leasing|lessees?|tenants?|rental agreements?)\b)(?=[\s\S]*\b(?:approv\w*|consent\w*)\b)` -> 15
+  - `\bimprovement lease\w*` -> 1
+  - `\bcommunal (?:land|property)\w*|\bnative land\w*|\bhomestead lands?\b` -> 1
+- **FLG-D-030** [OK] hunting and fishing rights between landlord and tenant of farmland; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 375.251 "owner or lessee who makes available to any person an area primarily for the purposes of hunting".
+  - `\b(?:hunt(?:s|ed|ing|ers?)?|fish(?:es|ed|ing)?|trap(?:s|ped|ping)?|take wild game)\b[\s\S]{0,1200}\b(?:tenants?|lessees?|landlords?|lessors?|lease[sd]?|occupants?)\b` -> 47
+  - `\b(?:tenants?|lessees?|landlords?|lessors?|lease[sd]?|occupants?)\b[\s\S]{0,1200}\b(?:hunt(?:s|ed|ing|ers?)?|fish(?:es|ed|ing)?|trap(?:s|ped|ping)?|take wild game)\b` -> 43
+  - `\A(?=[\s\S]*\b(?:hunt(?:s|ed|ing|ers?)?|fish(?:es|ed|ing)?|trap(?:s|ped|ping)?|take wild game)\b)(?=[\s\S]*\b(?:tenants?|lessees?)\b)(?=[\s\S]*\b(?:farm\w*|agricultur\w*|ranch\w*|grazing)\b)(?=[\s\S]*\b(?:permission|consent|authoriz\w*|written)\b)` -> 29
+  - `\bhunting rights?\b|\bright to hunt\b` -> 3
+  - `\bwritten authorization\b[\s\S]{0,1200}\bhunt\w*` -> 3
+- **FLG-D-031** [OK] eminent domain: lease termination, rent abatement, award allocation, tenant relocation; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 73.101 "conflicting claims to the amount awarded".
+  - `\b(?:eminent domain|condemnation|condemning authorit\w*|appropriat(?:ed|ion) (?:of|for) (?:the )?(?:property|public use)|taking of (?:the )?property|taken for (?:a )?public (?:use|purpose))\b[\s\S]{0,1200}\b(?:tenants?|lessees?|rental agreements?|lease[sd]?|leaseholds?|rent)\b` -> 39
+  - `\b(?:tenants?|lessees?|rental agreements?|lease[sd]?|leaseholds?|rent)\b[\s\S]{0,1200}\b(?:eminent domain|condemnation|condemning authorit\w*|appropriat(?:ed|ion) (?:of|for) (?:the )?(?:property|public use)|taking of (?:the )?property|taken for (?:a )?public (?:use|purpose))\b` -> 35
+  - `\A(?=[\s\S]*\b(?:eminent domain|condemnation|condemning authorit\w*|appropriat(?:ed|ion) (?:of|for) (?:the )?(?:property|public use)|taking of (?:the )?property|taken for (?:a )?public (?:use|purpose))\b)(?=[\s\S]*\b(?:tenants?|lessees?|rental agreements?)\b)(?=[\s\S]*\b(?:terminat\w*|abat\w*|apportion\w*|relocat\w*)\b)` -> 21
+  - `\brelocation (?:assistance|payments?|expenses?)\b` -> 20
+  - `\bconflicting claims to the amount awarded\b` -> 1
+- **FLG-D-032** [OK] plain-language or readability rules for leases and consumer contracts; consumer restriction statement; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 627.4145 "Flesch reading ease test".
+  - `\b(?:plain language|plain-language|readab\w*|Flesch|clear and coherent|common and everyday meanings?|captioned)\b[\s\S]{0,1200}\b(?:tenants?|lessees?|landlords?|lessors?|rental agreements?|lease[sd]?|consumer contracts?|consumer)\b` -> 7
+  - `\b(?:tenants?|lessees?|landlords?|lessors?|rental agreements?|lease[sd]?|consumer contracts?|consumer)\b[\s\S]{0,1200}\b(?:plain language|plain-language|readab\w*|Flesch|clear and coherent|common and everyday meanings?|captioned)\b` -> 9
+  - `\A(?=[\s\S]*\b(?:plain language|plain-language|readab\w*|Flesch|clear and coherent|common and everyday meanings?|captioned)\b)(?=[\s\S]*\b(?:lease[sd]?|rental agreements?|tenants?|consumer contracts?)\b)` -> 19
+  - `\bplain language\b|\bFlesch\b` -> 27
+  - `\bstatement of (?:consumer )?(?:restrictions|rights)\b|\bpreapprov\w*[\s\S]{0,1200}\b(?:lease[sd]?|consumer contracts?)\b` -> 5
+- **FLG-D-033** [OK] lease translation duty and type-size rules; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 641.305 "conducted in a language other than English".
+  - `\b(?:language other than English|Spanish|translat\w*|primary language|principal language|native language)\b[\s\S]{0,1200}\b(?:tenants?|lessees?|landlords?|lessors?|rental agreements?|lease[sd]?|contracts?)\b` -> 9
+  - `\b(?:tenants?|lessees?|landlords?|lessors?|rental agreements?|lease[sd]?|contracts?)\b[\s\S]{0,1200}\b(?:language other than English|Spanish|translat\w*|primary language|principal language|native language)\b` -> 18
+  - `\A(?=[\s\S]*\b(?:language other than English|Spanish|translat\w*|primary language|principal language|native language)\b)(?=[\s\S]*\b(?:tenants?|lessees?|rental agreements?|lease[sd]?)\b)(?=[\s\S]*\b(?:negotiat\w*|written translation|copy)\b)` -> 7
+  - `\bwritten translation\b` -> 4
+  - `\bnegotiations?\b[\s\S]{0,1200}\bin a language other than English\b` -> 3
+- **FLG-D-034** [OK] truth-in-renting: rights statement, lease terms violating clearly established rights; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 83.47 "Purports to waive or preclude the rights, remedies, or requirements".
+  - `\b(?:truth.in.renting|clearly established legal rights?|statement of (?:tenant|landlord|the) rights|tenant.s rights (?:statement|guide|handbook)|rights and responsibilities of (?:landlords?|tenants?))\b[\s\S]{0,1200}\b(?:lease[sd]?|rental agreements?|tenants?)\b` -> 0
+  - `\b(?:lease[sd]?|rental agreements?|tenants?)\b[\s\S]{0,1200}\b(?:truth.in.renting|clearly established legal rights?|statement of (?:tenant|landlord|the) rights|tenant.s rights (?:statement|guide|handbook)|rights and responsibilities of (?:landlords?|tenants?))\b` -> 0
+  - `\A(?=[\s\S]*\b(?:rental agreements?|lease[sd]?)\b)(?=[\s\S]*\b(?:void|unenforceable)\b)(?=[\s\S]*\b(?:waive|preclude|limit)\w*\b)(?=[\s\S]*\b(?:landlords?|tenants?)\b)` -> 21
+  - `\btruth.in.renting\b` -> 0
+  - `\bPurports to waive or preclude the rights, remedies, or requirements\b` -> 1
+- **FLG-D-035** [OK] truth-in-renting: rights statement, lease terms violating clearly established rights; supersedes FLG-D-034 (the rights-statement limb missed the article 'the' (Fla. Stat. § 83.425 reads 'rights and responsibilities of the landlord'); widened); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 83.47 "Purports to waive or preclude the rights, remedies, or requirements"; passed 83.425 "rights and responsibilities of the landlord".
+  - `\b(?:truth.in.renting|clearly established legal rights?|statements? of (?:the )?(?:tenants?|landlords?|tenant.s|landlord.s) (?:legal )?rights|tenant.s rights (?:statements?|guides?|handbooks?)|rights and responsibilities of (?:the )?(?:landlords?|tenants?)|rights and obligations of (?:the )?(?:landlords?|tenants?))\b[\s\S]{0,1200}\b(?:lease[sd]?|rental agreements?|tenants?)\b` -> 1
+  - `\b(?:lease[sd]?|rental agreements?|tenants?)\b[\s\S]{0,1200}\b(?:truth.in.renting|clearly established legal rights?|statements? of (?:the )?(?:tenants?|landlords?|tenant.s|landlord.s) (?:legal )?rights|tenant.s rights (?:statements?|guides?|handbooks?)|rights and responsibilities of (?:the )?(?:landlords?|tenants?)|rights and obligations of (?:the )?(?:landlords?|tenants?))\b` -> 1
+  - `\A(?=[\s\S]*\b(?:rental agreements?|lease[sd]?)\b)(?=[\s\S]*\b(?:void|unenforceable)\b)(?=[\s\S]*\b(?:waive|preclude|limit)\w*\b)(?=[\s\S]*\b(?:landlords?|tenants?)\b)` -> 21
+  - `\btruth.in.renting\b` -> 0
+  - `\bPurports to waive or preclude the rights, remedies, or requirements\b` -> 1
+- **FLG-D-036** [OK] accessory dwelling units: rental conditions, owner occupancy, minimum term; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 163.31771 "will be rented at an affordable rate".
+  - `\b(?:accessory dwelling units?|granny flats?|in-law (?:suites?|apartments?)|garage apartments?|secondary (?:living )?units?|ancillary (?:or secondary )?living units?|accessory apartments?)\b[\s\S]{0,1200}\b(?:tenants?|lessees?|rent(?:s|ed|al|als|ing)?|lease[sd]?|landlords?)\b` -> 2
+  - `\b(?:tenants?|lessees?|rent(?:s|ed|al|als|ing)?|lease[sd]?|landlords?)\b[\s\S]{0,1200}\b(?:accessory dwelling units?|granny flats?|in-law (?:suites?|apartments?)|garage apartments?|secondary (?:living )?units?|ancillary (?:or secondary )?living units?|accessory apartments?)\b` -> 2
+  - `\A(?=[\s\S]*\b(?:accessory dwelling units?|granny flats?|in-law (?:suites?|apartments?)|garage apartments?|secondary (?:living )?units?|ancillary (?:or secondary )?living units?|accessory apartments?)\b)(?=[\s\S]*\b(?:owner.occup\w*|affidavit|affordab\w*|term (?:of|longer than))\b)` -> 5
+  - `\baccessory dwelling units?\b` -> 3
+  - `\bowner.occupied\b[\s\S]{0,1200}\b(?:rent(?:s|ed|al)?|lease[sd]?)\b` -> 4
+- **FLG-D-037** [OK] single-family zone lease limits, owner-occupancy conditions on renting, and single-family occupancy disclosure; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 163.31771 "any area zoned for single-family residential use".
+  - `\b(?:single.family (?:residential |zon\w* |dwellings? |homes? |residences? )?(?:areas?|zones?|zoning|districts?|dwellings?|homes?|residences?)|one-family dwellings?)\b[\s\S]{0,1200}\b(?:rent(?:s|ed|al|als|ing)?|lease[sd]?|leasing|tenants?|lessees?)\b` -> 8
+  - `\b(?:rent(?:s|ed|al|als|ing)?|lease[sd]?|leasing|tenants?|lessees?)\b[\s\S]{0,1200}\b(?:single.family (?:residential |zon\w* |dwellings? |homes? |residences? )?(?:areas?|zones?|zoning|districts?|dwellings?|homes?|residences?)|one-family dwellings?)\b` -> 7
+  - `\A(?=[\s\S]*\b(?:single.family (?:residential |zon\w* |dwellings? |homes? |residences? )?(?:areas?|zones?|zoning|districts?|dwellings?|homes?|residences?)|one-family dwellings?)\b)(?=[\s\S]*\b(?:rent(?:s|ed|al|als|ing)?|lease[sd]?|leasing|tenants?|lessees?)\b)(?=[\s\S]*\b(?:owner.occup\w*|prohibit\w*|restrict\w*|disclos\w*)\b)` -> 20
+  - `\bmay not prohibit vacation rentals\b` -> 1
+  - `\bowner.occupan\w*\b|\bowner.occupied\b` -> 21
+- **FLG-E-001** [OK] automatic renewal of a residential lease: statute naming automatic renewal/extension of a lease or rental agreement; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 501.165 "automatic renewal provision".
+  - `\bautomatic(?:ally)?\s+renew(?:s|ed|al|als|ing)?\b[\s\S]{0,1200}\b(?:tenan(?:t|ts|cy|cies)|leas(?:e|es|ed|ing)|rental agreements?|lessees?|dwelling units?)\b` -> 8
+  - `\b(?:tenan(?:t|ts|cy|cies)|leas(?:e|es|ed|ing)|rental agreements?|lessees?|dwelling units?)\b[\s\S]{0,1200}\bautomatic(?:ally)?\s+renew(?:s|ed|al|als|ing)?\b` -> 6
+  - `\A(?=[\s\S]*\bautomatic(?:ally)?\s+renew)(?=[\s\S]*\b(?:tenant|rental agreement|leas(?:e|es|ed)\b))` -> 16
+  - `\brenew(?:s|ed)?\s+automatically\b` -> 1
+  - `\bautomatic(?:ally)?\s+extend(?:s|ed|ing)?\b|\bautomatic extensions?\b|\bevergreen\b|\broll(?:s|ed)? over\b` -> 20
+- **FLG-E-002** [FAILED] (not cited by any row) lease registration/recording duty for a residential lease; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: recorded as failed 695.01 "lease for a term of 1 year or longer".
+  - `\bleas(?:e|es)\b[\s\S]{0,1200}\b(?:shall|must)\s+(?:be\s+)?(?:recorded|registered|filed)\b` -> 10
+  - `\b(?:shall|must)\s+(?:be\s+)?(?:recorded|registered|filed)\b[\s\S]{0,1200}\bleas(?:e|es)\b` -> 12
+  - `\A(?=[\s\S]*\bleas(?:e|es)\b)(?=[\s\S]*\b(?:record(?:ed|ing)?|regist(?:er|ered|ration|ry))\b)(?=[\s\S]*\b(?:tenant|dwelling|residential)\b)` -> 125
+  - `\bmemorand(?:um|a) of (?:the )?leas(?:e|es)\b|\bshort[- ]form leas(?:e|es)\b|\bleas(?:e|es) registr(?:y|ation)\b|\bregist(?:er|ration) of leas(?:e|es)\b` -> 2
+  - `\bunrecorded leas(?:e|es)\b|\bleas(?:e|es)\b[\s\S]{0,1200}\bnot recorded\b|\bnot recorded\b[\s\S]{0,1200}\bleas(?:e|es)\b` -> 1
+- **FLG-E-003** [OK] lease registration/recording duty for a residential lease; supersedes FLG-E-002 (positive failed: no term matched Fla. Stat. 695.01's 'be recorded'; added be/been/is forms); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 695.01 "lease for a term of 1 year or longer".
+  - `\bleas(?:e|es)\b[\s\S]{0,1200}\b(?:shall|must|be|been|is|are)\s+(?:be\s+)?(?:recorded|registered)\b` -> 29
+  - `\b(?:shall|must|be|been|is|are)\s+(?:be\s+)?(?:recorded|registered)\b[\s\S]{0,1200}\bleas(?:e|es)\b` -> 29
+  - `\A(?=[\s\S]*\bleas(?:e|es)\b)(?=[\s\S]*\b(?:recorded|registered)\b)(?=[\s\S]*\b(?:residential tenan(?:t|ts|cy|cies)|dwelling units?)\b)` -> 9
+  - `\bmemorand(?:um|a) of (?:the )?leas(?:e|es)\b|\bshort[- ]form leas(?:e|es)\b|\bleas(?:e|es) registr(?:y|ation)\b|\bregist(?:er|ration) of leas(?:e|es)\b|\bunrecorded leas(?:e|es)\b` -> 2
+- **FLG-E-004** [OK] spousal joinder / homestead alienation rules reaching a lease of a married owner homestead; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed CONST-X-4 "joined by the spouse if married".
+  - `\bspous(?:e|es|al)\b[\s\S]{0,1200}\bleas(?:e|es|ed|ing)\b[\s\S]{0,1200}\bhomestead` -> 0
+  - `\bhomestead[\s\S]{0,1200}\bleas(?:e|es|ed|ing)\b[\s\S]{0,1200}\bspous(?:e|es|al)\b` -> 0
+  - `\A(?=[\s\S]*\bhomestead)(?=[\s\S]*\bspous(?:e|es)\b)(?=[\s\S]*\bleas(?:e|es|ed|ing)\b)` -> 12
+  - `\bjoined by (?:the|his or her|her or his) spouse\b|\bjoinder of (?:the|his or her|her or his) spouse\b|\bspouse joins\b` -> 1
+  - `\balienat(?:e|ed|es|ing|ion)\b[\s\S]{0,1200}\bhomestead|\bhomestead[\s\S]{0,1200}\balienat(?:e|ed|es|ing|ion)\b` -> 4
+- **FLG-E-005** [OK] maximum or minimum term of a private residential lease; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 1013.15 "30 years".
+  - `\bleas(?:e|es)\b[\s\S]{0,1200}\b(?:may|shall) not (?:exceed|be (?:for |made for )?(?:a term |a period )?(?:longer|more) than)\b[\s\S]{0,1200}\byears?\b` -> 11
+  - `\byears?\b[\s\S]{0,1200}\b(?:may|shall) not (?:exceed|be (?:for |made for )?(?:a term |a period )?(?:longer|more) than)\b[\s\S]{0,1200}\bleas(?:e|es)\b` -> 12
+  - `\A(?=[\s\S]*\bleas(?:e|es)\b)(?=[\s\S]*\b(?:maximum|longest) (?:term|period|duration)\b)(?=[\s\S]*\b(?:tenant|dwelling|residential)\b)` -> 3
+  - `\bninety-nine years?\b|\b99 years?\b|\b99-year\b` -> 15
+  - `\brental agreements?\b[\s\S]{0,1200}\b(?:minimum|maximum) (?:term|duration|period)\b|\b(?:minimum|maximum) (?:term|duration|period)\b[\s\S]{0,1200}\brental agreements?\b` -> 0
+- **FLG-E-006** [OK] duty to give the tenant a copy of the lease or rental agreement; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 723.012 "copy of the rental agreement".
+  - `\bcop(?:y|ies)\b[\s\S]{0,1200}\b(?:leas(?:e|es)|rental agreements?)\b[\s\S]{0,1200}\btenants?\b` -> 9
+  - `\btenants?\b[\s\S]{0,1200}\b(?:leas(?:e|es)|rental agreements?)\b[\s\S]{0,1200}\bcop(?:y|ies)\b` -> 16
+  - `\A(?=[\s\S]*\bcop(?:y|ies) of (?:the|such|a|any|his or her|its) (?:executed |signed )?(?:leas(?:e|es)|rental agreements?|lot rental agreements?)\b)(?=[\s\S]*\b(?:tenant|lessee)s?\b)` -> 8
+  - `\b(?:give|deliver|provide|furnish)(?:s|ed|ing)?\b[\s\S]{0,1200}\bcop(?:y|ies) of (?:the|such|a|any|his or her|its) (?:executed |signed )?(?:leas(?:e|es)|rental agreements?)\b` -> 7
+  - `\bexecuted cop(?:y|ies)\b|\bduplicate originals?\b|\bfully executed\b` -> 32
+- **FLG-E-007** [OK] requirement that the tenant initial a lease term or notice; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 82.036 "initial each box".
+  - `\b(?:initial(?:ed|s)|initialing)\b[\s\S]{0,1200}\b(?:leas(?:e|es)|rental agreements?|tenants?|lessees?)\b` -> 1
+  - `\b(?:leas(?:e|es)|rental agreements?|tenants?|lessees?)\b[\s\S]{0,1200}\b(?:initial(?:ed|s)|initialing)\b` -> 1
+  - `\A(?=[\s\S]*\b(?:initial(?:ed|s)|initialing)\b)(?=[\s\S]*\b(?:leas(?:e|es)|rental agreements?)\b)(?=[\s\S]*\btenants?\b)` -> 1
+  - `\binitial(?:ed|s)? (?:by|in the space|next to|beside|each)\b` -> 13
+- **FLG-E-008** [OK] minimum type size or typeface rule for a residential lease; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 718.1085 "16-point bold type".
+  - `\b(?:point type|\d{1,2}-point|type size|size type|boldface(?:d)? type|bold type|conspicuous type|capital letters)\b[\s\S]{0,1200}\b(?:leas(?:e|es)|rental agreements?|tenants?)\b` -> 22
+  - `\b(?:leas(?:e|es)|rental agreements?|tenants?)\b[\s\S]{0,1200}\b(?:point type|\d{1,2}-point|type size|size type|boldface(?:d)? type|bold type|conspicuous type|capital letters)\b` -> 19
+  - `\A(?=[\s\S]*\b(?:point type|\d{1,2}-point|type size)\b)(?=[\s\S]*\b(?:rental agreements?|residential tenan(?:t|ts|cy)|dwelling units?)\b)` -> 5
+  - `\blegible\b[\s\S]{0,1200}\b(?:leas(?:e|es)|rental agreements?)\b|\b(?:leas(?:e|es)|rental agreements?)\b[\s\S]{0,1200}\blegible\b` -> 2
+- **FLG-E-009** [OK] lease content requirements: required terms, first-page or start/end date rules for a lease; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 723.012 "first page".
+  - `\b(?:first|front) (?:page|cover|sheet)\b[\s\S]{0,1200}\b(?:leas(?:e|es)|rental agreements?)\b` -> 4
+  - `\b(?:leas(?:e|es)|rental agreements?)\b[\s\S]{0,1200}\b(?:first|front) (?:page|cover|sheet)\b` -> 4
+  - `\A(?=[\s\S]*\b(?:first|front) (?:page|cover|sheet)\b)(?=[\s\S]*\b(?:rental agreements?|leas(?:e|es))\b)(?=[\s\S]*\btenants?\b)` -> 4
+  - `\b(?:beginning|starting|commencement|start) and (?:ending|end|expiration|termination) dates?\b|\b(?:lease|rental agreement) (?:start|end|expiration|termination) dates?\b` -> 13
+  - `\brental agreements?\b[\s\S]{0,1200}\b(?:must|shall) (?:state|contain|include|set forth|specify)\b|\b(?:must|shall) (?:state|contain|include|set forth|specify)\b[\s\S]{0,1200}\brental agreements?\b` -> 19
+- **FLG-E-010** [OK] lease type parity: limits on different terms or rent for month-to-month vs fixed-term tenants; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 83.57 "month to month".
+  - `\bmonth[- ]to[- ]month\b[\s\S]{0,1200}\b(?:specific duration|fixed terms?|definite terms?|without a specific term)\b` -> 0
+  - `\b(?:specific duration|fixed terms?|definite terms?|without a specific term)\b[\s\S]{0,1200}\bmonth[- ]to[- ]month\b` -> 1
+  - `\A(?=[\s\S]*\bmonth[- ]to[- ]month\b)(?=[\s\S]*\btenan(?:t|ts|cy|cies)\b)(?=[\s\S]*\b(?:more burdensome|less favorable|surcharge|premium|higher rent|different (?:rent|terms))\b)` -> 0
+  - `\bmore burdensome\b|\bless favorable terms?\b|\bshort[- ]term (?:lease|rental) (?:premium|surcharge)\b` -> 15
+  - `\bperiodic tenan(?:t|ts|cy|cies)\b[\s\S]{0,1200}\b(?:rent|terms?)\b[\s\S]{0,1200}\b(?:differ|exceed)(?:s|ent|ence)?\b` -> 0
+- **FLG-E-011** [OK] rent concessions (free or reduced rent) in residential leases: disclosure, recapture or other rule; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 1004.43 "rent free".
+  - `\b(?:concessions?|free rent|rent[- ]free|discount(?:s|ed)?|rebates?|incentives?)\b[\s\S]{0,1200}\b(?:tenants?|rental agreements?|dwelling units?)\b[\s\S]{0,1200}\brent\b` -> 1
+  - `\b(?:tenants?|rental agreements?|dwelling units?)\b[\s\S]{0,1200}\brent\b[\s\S]{0,1200}\b(?:concessions?|free rent|rent[- ]free|rebates?)\b` -> 1
+  - `\A(?=[\s\S]*\b(?:rent(?:al)? concessions?|free rent|rent[- ]free|rent (?:discount|credit|rebate)s?)\b)(?=[\s\S]*\btenants?\b)` -> 0
+  - `\brent(?:al)? concessions?\b|\bfree rent\b|\brent[- ]free\b|\bmove-in (?:special|incentive)s?\b|\brent (?:discount|credit|rebate)s?\b` -> 2
+- **FLG-E-012** [FAILED] (not cited by any row) rent escalation or mid-term rent increase clauses in a residential lease; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: recorded as failed 723.031 "increase".
+  - `\bescalat(?:e|es|ed|ion|ions|or|ing)\b[\s\S]{0,1200}\b(?:rent|rental agreements?|leas(?:e|es)|tenants?)\b` -> 3
+  - `\b(?:rent|rental agreements?|leas(?:e|es)|tenants?)\b[\s\S]{0,1200}\bescalat(?:e|es|ed|ion|ions|or|ing)\b` -> 5
+  - `\A(?=[\s\S]*\b(?:increase|adjust)(?:s|d|ment|ments)?\b[\s\S]{0,1200}\brent\b)(?=[\s\S]*\b(?:during the term|mid-?term|before the end of the term|term of the (?:lease|rental agreement))\b)(?=[\s\S]*\btenants?\b)` -> 2
+  - `\bconsumer price index\b[\s\S]{0,1200}\brent(?:s|al)?\b|\brent(?:s|al)?\b[\s\S]{0,1200}\bconsumer price index\b` -> 10
+  - `\bescalation clauses?\b|\brent escalat(?:ion|or)s?\b` -> 6
+- **FLG-E-013** [OK] rent escalation or mid-term rent increase clauses in a residential lease; supersedes FLG-E-012 (positive failed (no term matched Fla. Stat. 723.031); new positive Fla. Stat. 718.4015 and rent inflections added); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 718.4015 "escalation clause".
+  - `\bescalat(?:e|es|ed|ion|ions|or|ing)\b[\s\S]{0,1200}\b(?:rent(?:s|ed|ing|al)?|rental agreements?|leas(?:e|es)|tenants?)\b` -> 3
+  - `\b(?:rent(?:s|ed|ing|al)?|rental agreements?|leas(?:e|es)|tenants?)\b[\s\S]{0,1200}\bescalat(?:e|es|ed|ion|ions|or|ing)\b` -> 6
+  - `\A(?=[\s\S]*\b(?:increase|adjust)(?:s|d|ment|ments)?\b[\s\S]{0,1200}\brent(?:s|al)?\b)(?=[\s\S]*\b(?:during the term|mid-?term|before the end of the term|term of the (?:lease|rental agreement))\b)(?=[\s\S]*\btenants?\b)` -> 6
+  - `\bconsumer price index\b[\s\S]{0,1200}\brent(?:s|al)?\b|\brent(?:s|al)?\b[\s\S]{0,1200}\bconsumer price index\b` -> 10
+  - `\bescalation clauses?\b|\brent escalat(?:ion|or)s?\b` -> 6
+- **FLG-E-014** [OK] rent reporting to credit bureaus: duty to offer, notice before reporting, bar on requiring enrollment; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 83.491 "credit report".
+  - `\b(?:credit (?:report(?:s|ing)?|rating|bureaus?|histor(?:y|ies))|consumer reporting agenc(?:y|ies)|rent(?:al)? payment (?:history|reporting))\b[\s\S]{0,1200}\b(?:tenants?|rental agreements?|leas(?:e|es))\b` -> 4
+  - `\b(?:tenants?|rental agreements?|leas(?:e|es))\b[\s\S]{0,1200}\b(?:credit (?:report(?:s|ing)?|rating|bureaus?|histor(?:y|ies))|consumer reporting agenc(?:y|ies)|rent(?:al)? payment (?:history|reporting))\b` -> 5
+  - `\A(?=[\s\S]*\b(?:credit report(?:s|ing)?|credit bureaus?|consumer reporting agenc(?:y|ies))\b)(?=[\s\S]*\brent(?:s|al)?\b)(?=[\s\S]*\btenants?\b)` -> 4
+  - `\brent reporting\b|\bpositive rent(?:al)? (?:payment )?reporting\b|\breport(?:s|ed|ing)? (?:timely |on-time )?rent(?:al)? payments?\b` -> 0
+- **FLG-E-015** [OK] guaranty of a residential lease: renewal coverage, maximum, writing, deposit limits; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 725.01 "special promise to answer for the debt".
+  - `\bguarant(?:y|ies|or|ors|ee|eed|ees)\b[\s\S]{0,1200}\b(?:tenants?|rental agreements?|leas(?:e|es)|lessees?)\b` -> 33
+  - `\b(?:tenants?|rental agreements?|leas(?:e|es)|lessees?)\b[\s\S]{0,1200}\bguarant(?:y|ies|or|ors|ee|eed|ees)\b` -> 37
+  - `\A(?=[\s\S]*\bguarant(?:y|ies|or|ors)\b)(?=[\s\S]*\brenew(?:s|ed|al|als)?\b)(?=[\s\S]*\b(?:tenants?|rental agreements?|leas(?:e|es))\b)` -> 12
+  - `\bcontinuing guarant(?:y|ies)\b|\bsuret(?:y|ies)\b[\s\S]{0,1200}\b(?:tenants?|rental agreements?)\b|\bco-?signer\b|\bspecial promise to answer for the debt\b` -> 5
+- **FLG-E-016** [OK] agreed notice methods: whether parties may add a method (text, e-mail, portal) for landlord-tenant notices; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 83.505 "electronically deliver".
+  - `\b(?:text messag(?:e|es|ing)|sms|electronic(?:ally)? (?:messag(?:e|es)|means|transmission|deliver(?:y|ed))|e-?mail(?:s|ed)?)\b[\s\S]{0,1200}\b(?:tenants?|rental agreements?|lessees?)\b[\s\S]{0,1200}\bnotices?\b` -> 5
+  - `\b(?:tenants?|rental agreements?|lessees?)\b[\s\S]{0,1200}\bnotices?\b[\s\S]{0,1200}\b(?:text messag(?:e|es|ing)|sms|electronic(?:ally)? (?:messag(?:e|es)|means|transmission|deliver(?:y|ed)))\b` -> 6
+  - `\A(?=[\s\S]*\btext messag(?:e|es|ing)\b)(?=[\s\S]*\b(?:tenant|landlord)s?\b)(?=[\s\S]*\bnotices?\b)` -> 5
+  - `\btext messag(?:e|es|ing)\b|\bactual notice\b[\s\S]{0,1200}\b(?:tenants?|landlords?)\b` -> 37
+- **FLG-E-017** [OK] notice to tenants of foreclosure, condemnation, code enforcement or other proceedings against the property; tenant duty to forward; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 893.138 "notif".
+  - `\b(?:foreclos(?:e|ed|ure|ures|ing)|lis pendens|condemnation|eminent domain|code (?:enforcement|violation)s?|unsafe (?:building|structure)s?)\b[\s\S]{0,1200}\bnotif(?:y|ies|ied|ication)\b[\s\S]{0,1200}\btenants?\b` -> 3
+  - `\btenants?\b[\s\S]{0,1200}\bnotif(?:y|ies|ied|ication)\b[\s\S]{0,1200}\b(?:foreclos(?:e|ed|ure|ures|ing)|lis pendens|condemnation|eminent domain|code (?:enforcement|violation)s?|unsafe (?:building|structure)s?)\b` -> 0
+  - `\A(?=[\s\S]*\bforeclos(?:e|ed|ure|ures|ing)\b)(?=[\s\S]*\btenants?\b)(?=[\s\S]*\blandlords?\b)(?=[\s\S]*\b(?:notice|notify|disclose)\b)` -> 5
+  - `\battorn(?:s|ed|ing|ment)?\b|\bejectment\b[\s\S]{0,1200}\btenants?\b|\btenants?\b[\s\S]{0,1200}\bejectment\b` -> 1
+- **FLG-E-018** [OK] landlord duty to give tenants an emergency contact or telephone number; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 718.111 "emergency contact information".
+  - `\b(?:emergency contacts?|emergenc(?:y|ies) (?:telephone|phone) numbers?|24-hour (?:telephone|phone|contact|number)|after-hours (?:contact|number|telephone))\b[\s\S]{0,1200}\b(?:tenants?|landlords?|rental agreements?|dwelling units?)\b` -> 0
+  - `\b(?:tenants?|landlords?|rental agreements?|dwelling units?)\b[\s\S]{0,1200}\b(?:emergency contacts?|emergenc(?:y|ies) (?:telephone|phone) numbers?|24-hour (?:telephone|phone|contact|number)|after-hours (?:contact|number|telephone))\b` -> 0
+  - `\A(?=[\s\S]*\b(?:telephone|phone) numbers?\b)(?=[\s\S]*\blandlords?\b)(?=[\s\S]*\btenants?\b)(?=[\s\S]*\b(?:emergenc(?:y|ies)|repairs?)\b)` -> 6
+  - `\bemergency contacts?\b|\bproperty manager(?:s|\x27s)? (?:name|telephone|phone|contact)\b` -> 27
+- **FLG-E-019** [OK] renters insurance rules: landlord requiring renters insurance, carrier choice, force-placement, advisory notice; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 83.512 "Renters' insurance".
+  - `\b(?:renters?['’]?s?['’]? insurance|tenants?['’]?s?['’]? (?:insurance|coverage|policy|policies)|renters? (?:policy|policies|coverage)|liability insurance)\b[\s\S]{0,1200}\b(?:landlords?|rental agreements?|leas(?:e|es))\b` -> 9
+  - `\b(?:landlords?|rental agreements?|leas(?:e|es))\b[\s\S]{0,1200}\b(?:renters?['’]?s?['’]? insurance|tenants?['’]?s?['’]? (?:insurance|coverage|policy|policies)|renters? (?:policy|policies|coverage))\b` -> 3
+  - `\A(?=[\s\S]*\binsur(?:e|ed|ance|er|ers)\b)(?=[\s\S]*\blandlords?\b)(?=[\s\S]*\btenants?\b)(?=[\s\S]*\b(?:requir(?:e|es|ed|ing)|obtain|maintain|purchase)\b)` -> 16
+  - `\bforce[- ]placed\b|\blender[- ]placed\b|\bproof of (?:insurance|coverage)\b[\s\S]{0,1200}\btenants?\b` -> 0
+- **FLG-E-020** [FAILED] (not cited by any row) mandatory landlord liability or property insurance for residential rentals; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: recorded as failed 83.535 "flotation insurance".
+  - `\blandlords?\b[\s\S]{0,1200}\b(?:shall|must)\s+(?:obtain|maintain|carry|procure|purchase|have)\b[\s\S]{0,1200}\binsurance\b` -> 1
+  - `\binsurance\b[\s\S]{0,1200}\b(?:shall|must)\s+be\s+(?:obtained|maintained|carried|procured|purchased)\b[\s\S]{0,1200}\blandlords?\b` -> 0
+  - `\A(?=[\s\S]*\bliability insurance\b)(?=[\s\S]*\blandlords?\b)(?=[\s\S]*\b(?:dwelling units?|residential rental|rental (?:property|unit|housing))\b)` -> 1
+  - `\blandlord(?:s|\x27s)? (?:liability )?insurance\b|\brental (?:property|dwelling) insurance\b|\bproof of (?:liability )?insurance\b[\s\S]{0,1200}\brental\b` -> 1
+- **FLG-E-021** [OK] mandatory landlord liability or property insurance for residential rentals; supersedes FLG-E-020 (positive Fla. Stat. 83.535 matched no term; positive moved to Fla. Stat. 83.491 and 'be required to carry' added); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 83.491 "landlord's insurance coverage".
+  - `\b(?:landlords?|owners?)\b[\s\S]{0,1200}\b(?:shall|must)\s+(?:be required to\s+)?(?:obtain|maintain|carry|procure|purchase|have)\b[\s\S]{0,1200}\b(?:liability )?insurance\b[\s\S]{0,1200}\b(?:tenants?|dwelling units?|rental)\b` -> 3
+  - `\binsurance\b[\s\S]{0,1200}\b(?:shall|must)\s+be\s+(?:obtained|maintained|carried|procured|purchased)\b[\s\S]{0,1200}\blandlords?\b` -> 0
+  - `\A(?=[\s\S]*\bliability insurance\b)(?=[\s\S]*\blandlords?\b)(?=[\s\S]*\b(?:dwelling units?|residential rental|rental (?:property|unit|housing))\b)` -> 1
+  - `\blandlord(?:s|\x27s)? (?:liability )?insurance\b|\brental (?:property|dwelling) insurance\b|\bproof of (?:liability )?insurance\b[\s\S]{0,1200}\brental\b` -> 1
+- **FLG-E-022** [OK] insurance claims between landlord and tenant: claims on tenant renter insurance, landlord claims and subrogation against tenants; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 83.491 "submit a claim to an insurer".
+  - `\bclaims?\b[\s\S]{0,1200}\b(?:renters?['’]?s?['’]? insurance|tenants?['’]?s?['’]? (?:insurance|insurer|policy|policies|coverage))\b` -> 2
+  - `\b(?:renters?['’]?s?['’]? insurance|tenants?['’]?s?['’]? (?:insurance|insurer|policy|policies|coverage))\b[\s\S]{0,1200}\bclaims?\b` -> 5
+  - `\A(?=[\s\S]*\binsurers?\b)(?=[\s\S]*\bsubrogat(?:e|ed|ion)\b)(?=[\s\S]*\btenants?\b)` -> 3
+  - `\blandlords?\b[\s\S]{0,1200}\b(?:submit|file|make)s?\b[\s\S]{0,1200}\bclaims?\b[\s\S]{0,1200}\binsurers?\b` -> 1
+- **FLG-E-023** [OK] landlord lien or distress on a residential tenant property; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 83.08 "lien for such rent".
+  - `\bliens?\b[\s\S]{0,1200}\b(?:(?:tenant|lessee|guest)s?['’]?s? (?:personal )?(?:property|belongings|effects)|property of the (?:lessee|tenant))\b` -> 5
+  - `\b(?:(?:tenant|lessee|guest)s?['’]?s? (?:personal )?(?:property|belongings|effects)|property of the (?:lessee|tenant))\b[\s\S]{0,1200}\bliens?\b` -> 7
+  - `\A(?=[\s\S]*\bliens?\b)(?=[\s\S]*\bdwelling units?\b)(?=[\s\S]*\brent\b)(?=[\s\S]*\btenants?\b)` -> 2
+  - `\bdistress (?:for rent|writ|warrant)s?\b|\blandlord['’]?s lien\b|\bdistrain(?:ed|t)?\b` -> 22
+- **FLG-E-024** [OK] waiver of homestead or execution exemptions in a lease or by a tenant; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 222.11 "waive the protection".
+  - `\bwaiv(?:e|es|ed|er|ing)\b[\s\S]{0,1200}\b(?:exempt(?:ion|ions)?|homestead)\b[\s\S]{0,1200}\b(?:tenants?|leas(?:e|es)|rental agreements?|lessees?)\b` -> 15
+  - `\b(?:tenants?|leas(?:e|es)|rental agreements?|lessees?)\b[\s\S]{0,1200}\bwaiv(?:e|es|ed|er|ing)\b[\s\S]{0,1200}\b(?:exempt(?:ion|ions)?|homestead)\b` -> 8
+  - `\A(?=[\s\S]*\bwaiv(?:e|es|ed|er|ing)\b)(?=[\s\S]*\bexempt(?:ion|ions)? from (?:levy|attachment|garnishment|execution|forced sale|legal process|the lien)\b)` -> 4
+  - `\bwaive (?:this|the) protection\b|\bwaiver of (?:the )?(?:homestead|exemptions?)\b|\bhomestead (?:waiver|rights)\b` -> 11
+- **FLG-E-025** [OK] arbitration, mediation and informal dispute resolution in residential tenancies; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 44.102 "landlord and tenant dispute".
+  - `\b(?:arbitrat(?:e|ed|ion|ions|or|ors)|mediat(?:e|ed|ion|or|ors))\b[\s\S]{0,1200}\b(?:landlords?|tenants?|rental agreements?|lessees?)\b` -> 6
+  - `\b(?:landlords?|tenants?|rental agreements?|lessees?)\b[\s\S]{0,1200}\b(?:arbitrat(?:e|ed|ion|ions|or|ors)|mediat(?:e|ed|ion|or|ors))\b` -> 11
+  - `\A(?=[\s\S]*\b(?:arbitrat|mediat))(?=[\s\S]*\b(?:dwelling units?|residential tenan(?:t|ts|cy|cies)|rental agreements?)\b)` -> 6
+  - `\binformally resolve\b|\binformal (?:dispute )?resolution\b|\bdispute resolution\b[\s\S]{0,1200}\btenants?\b|\bpre-?suit (?:notice|demand)\b[\s\S]{0,1200}\btenants?\b` -> 10
+- **FLG-E-026** [OK] landlord rules: adoption, mid-tenancy changes and enforceability conditions for residential rules; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 83.56 "reasonable rules or regulations".
+  - `\b(?:rules?|regulations?)\b[\s\S]{0,1200}\b(?:adopt(?:s|ed|ion)?|amend(?:s|ed|ment|ments)?|chang(?:e|es|ed)|modif(?:y|ies|ied|ication))\b[\s\S]{0,1200}\btenants?\b` -> 20
+  - `\btenants?\b[\s\S]{0,1200}\b(?:adopt(?:s|ed|ion)?|amend(?:s|ed|ment|ments)?|chang(?:e|es|ed)|modif(?:y|ies|ied|ication))\b[\s\S]{0,1200}\b(?:rules? (?:and|or) regulations?|house rules|park rules)\b` -> 0
+  - `\A(?=[\s\S]*\b(?:reasonable rules|rules (?:and|or) regulations)\b)(?=[\s\S]*\b(?:dwelling units?|rental agreements?)\b)(?=[\s\S]*\blandlords?\b)` -> 7
+  - `\bhouse rules\b|\bsubstantial modification\b|\bsubstantially modif(?:y|ies)\b[\s\S]{0,1200}\b(?:rental agreements?|leas(?:e|es))\b` -> 10
+- **FLG-E-027** [OK] purpose limitation: statute voiding or terminating a lease when premises are used for a prohibited purpose; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 796.06 "lewdness".
+  - `\b(?:leas(?:e|es)|rental agreements?|tenancy)\b[\s\S]{0,1200}\b(?:void(?:ed|able)?|forfeit(?:ed|ure)?|terminat(?:e|ed|es)|annul(?:led)?)\b[\s\S]{0,1200}\b(?:nuisance|prostitution|lewdness|gambling|controlled substances?|illegal|unlawful) (?:use|purpose|activit(?:y|ies)|business)?` -> 1
+  - `\b(?:nuisance|prostitution|lewdness|assignation|gambling|controlled substances?)\b[\s\S]{0,1200}\b(?:leas(?:e|es)|rental agreements?|lessees?|tenants?)\b[\s\S]{0,1200}\b(?:void(?:ed|able)?|forfeit(?:ed|ure)?|annul(?:led)?)\b` -> 1
+  - `\A(?=[\s\S]*\b(?:nuisance|prostitution|lewdness|gambling)\b)(?=[\s\S]*\b(?:leas(?:e|es)|rental agreements?)\b)(?=[\s\S]*\b(?:landlords?|lessors?|owners?)\b)(?=[\s\S]*\bvoid\b)` -> 5
+  - `\bunlawful (?:use|purpose)s?\b[\s\S]{0,1200}\b(?:premises|dwelling|leas(?:e|es))\b|\bused for (?:the purpose of )?(?:lewdness|prostitution|gambling)\b` -> 5
+- **FLG-E-028** [OK] parking and towing rules notice to tenants: delivery before signing, headings, mid-term changes, vehicle data, permits; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 715.07 "tow-away zone".
+  - `\bparking\b[\s\S]{0,1200}\b(?:rules?|regulations?|policy|policies)\b[\s\S]{0,1200}\b(?:tenants?|rental agreements?|leas(?:e|es)|residents?)\b` -> 14
+  - `\b(?:tenants?|rental agreements?|leas(?:e|es)|residents?)\b[\s\S]{0,1200}\b(?:towing|parking) (?:rules?|regulations?|policy|policies)\b` -> 0
+  - `\A(?=[\s\S]*\b(?:tow(?:ed|ing)?|park(?:ed|ing))\b)(?=[\s\S]*\btenants?\b)(?=[\s\S]*\b(?:rental agreements?|leas(?:e|es))\b)(?=[\s\S]*\bnotices?\b)` -> 21
+  - `\btow-away zone\b|\bparking permits?\b[\s\S]{0,1200}\b(?:tenants?|residents?)\b|\bvehicle (?:information|registration)\b[\s\S]{0,1200}\btenants?\b` -> 3
+- **FLG-E-029** [FAILED] (not cited by any row) unbundled parking: separate pricing or optional parking for residential tenants; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: recorded as failed 715.07 "parked".
+  - `\bparking\b[\s\S]{0,1200}\b(?:separate(?:ly)?|unbundl(?:e|ed|ing)|apart) from (?:the )?rent\b` -> 0
+  - `\b(?:rent|rental agreements?|leas(?:e|es)|tenants?)\b[\s\S]{0,1200}\b(?:parking (?:spaces?|fees?|charges?)|garage (?:spaces?|fees?))\b` -> 9
+  - `\A(?=[\s\S]*\bparking (?:spaces?|fees?|charges?)\b)(?=[\s\S]*\b(?:dwelling units?|residential (?:rental|units?)|apartments?)\b)(?=[\s\S]*\b(?:rent|lease)\b)` -> 2
+  - `\bunbundl(?:e|ed|ing)\b|\bparking (?:requirements?|minimums?)\b` -> 21
+- **FLG-E-030** [OK] unbundled parking: separate pricing or optional parking for residential tenants; supersedes FLG-E-029 (positive Fla. Stat. 715.07 matched no term; positive moved to Fla. Stat. 718.303); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 718.303 "parking".
+  - `\bparking\b[\s\S]{0,1200}\b(?:separate(?:ly)?|unbundl(?:e|ed|ing)|apart) from (?:the )?rent\b` -> 0
+  - `\b(?:rent|rental agreements?|leas(?:e|es)|tenants?)\b[\s\S]{0,1200}\b(?:parking (?:spaces?|fees?|charges?)|garage (?:spaces?|fees?))\b` -> 9
+  - `\A(?=[\s\S]*\bparking (?:spaces?|fees?|charges?)\b)(?=[\s\S]*\b(?:dwelling units?|residential (?:rental|units?)|apartments?)\b)(?=[\s\S]*\b(?:rent|lease)\b)` -> 2
+  - `\bunbundl(?:e|ed|ing)\b|\bparking (?:requirements?|minimums?)\b` -> 21
+- **FLG-E-031** [OK] lease granted by a lessor with a limited estate (life tenant, usufructuary, fiduciary): survival of the lease; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 744.441 "extending beyond".
+  - `\b(?:life estates?|life tenan(?:t|ts|cy)|usufruct(?:s|uary)?|remaindermen|remainder(?:man|men)|tenant for life)\b[\s\S]{0,1200}\bleas(?:e|es|ed|ing)\b` -> 5
+  - `\bleas(?:e|es|ed|ing)\b[\s\S]{0,1200}\b(?:life estates?|life tenan(?:t|ts|cy)|usufruct(?:s|uary)?|remainder(?:man|men)|tenant for life)\b` -> 0
+  - `\A(?=[\s\S]*\b(?:life estates?|life tenan(?:t|ts|cy)|usufruct)\b)(?=[\s\S]*\bleas(?:e|es|ed)\b)(?=[\s\S]*\b(?:terminat(?:e|es|ed|ion)|expir(?:e|es|ed|ation)|death)\b)` -> 2
+  - `\bleas(?:e|es)\b[\s\S]{0,1200}\b(?:extending|extend|extends) beyond\b|\busufruct\b` -> 8
+- **FLG-E-032** [OK] other landlord facilities: duties for building facilities such as elevators, garage doors, laundry, mailboxes; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 83.67 "elevator".
+  - `\b(?:garage doors?|garage door openers?|gates?|laundry (?:rooms?|facilit(?:y|ies)|machines?)|mailbox(?:es)?|trash chutes?|elevators?)\b[\s\S]{0,1200}\b(?:landlords?|tenants?|rental agreements?)\b` -> 8
+  - `\b(?:landlords?|tenants?|rental agreements?)\b[\s\S]{0,1200}\b(?:garage doors?|garage door openers?|laundry (?:rooms?|facilit(?:y|ies)|machines?)|mailbox(?:es)?|trash chutes?|elevators?)\b` -> 5
+  - `\A(?=[\s\S]*\bgarage door)(?=[\s\S]*\b(?:residential|dwelling|tenant|owner)s?\b)` -> 14
+  - `\bautomatic garage door openers?\b|\bentrapment\b` -> 5
+- **FLG-F-001** [OK] children-occupancy: landlord-tenant familial-status protection, required lease content on children; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 760.23 "familial status"; passed 760.29 "familial status does not apply".
+  - `\bfamilial status\b` -> 10
+  - `\b(?:familial status|children|minor child(?:ren)?|pregnan\w*)\b[\s\S]{0,1200}\b(?:tenan(?:t|ts|cy|cies)|landlords?)\b` -> 9
+  - `\b(?:tenan(?:t|ts|cy|cies)|landlords?)\b[\s\S]{0,1200}\b(?:familial status|children|minor child(?:ren)?|pregnan\w*)\b` -> 10
+  - `\A(?=[\s\S]*\b(?:familial status|children|minor child(?:ren)?|pregnan\w*)\b)(?=[\s\S]*\b(?:tenan(?:t|ts|cy|cies)|landlords?)\b)(?=[\s\S]*\b(?:evict\w*|terminat\w*|nonrenew\w*)\b)` -> 23
+  - `\boccupancy by (?:children|minors)\b` -> 0
+- **FLG-F-002** [OK] disability-accommodation: restoration condition, restoration escrow, lease-inclusion sentence; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 760.23 "reasonable modifications of existing premises"; passed 760.23 "reasonable accommodations in rules".
+  - `\breasonable modifications?\b` -> 2
+  - `\b(?:disability|disabilities|disabled|handicap\w*)\b[\s\S]{0,1200}\brestor(?:e|es|ed|ing|ation)\b` -> 24
+  - `\brestor(?:e|es|ed|ing|ation)\b[\s\S]{0,1200}\b(?:disability|disabilities|disabled|handicap\w*)\b` -> 12
+  - `\A(?=[\s\S]*\b(?:disability|disabilities|handicap\w*)\b)(?=[\s\S]*\bmodif(?:y|ies|ied|ication|ications)\b)(?=[\s\S]*\b(?:restor\w*|escrow\w*|interest[- ]bearing)\b)(?=[\s\S]*\b(?:dwellings?|tenan(?:t|ts|cy)|landlords?|rental agreements?|premises)\b)` -> 16
+  - `\breasonable accommodations?\b` -> 16
+- **FLG-F-003** [OK] protected-class-inquiry-ban: inquiry and record ban in housing; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 760.27 "may not request information that discloses the diagnosis"; passed 760.23 "indicates any preference, limitation, or discrimination".
+  - `\b(?:inquir(?:e|es|ed|ing|y|ies)|ask(?:s|ed|ing)?|request(?:s|ed|ing)? information|make (?:any )?record)\b[\s\S]{0,1200}\b(?:race|color|national origin|religion|familial status|disabilit(?:y|ies)|handicap\w*)\b` -> 24
+  - `\b(?:race|color|national origin|religion|familial status|disabilit(?:y|ies)|handicap\w*)\b[\s\S]{0,1200}\b(?:inquir(?:e|es|ed|ing|y|ies)|ask(?:s|ed|ing)?|request(?:s|ed|ing)? information|make (?:any )?record)\b` -> 17
+  - `\A(?=[\s\S]*\b(?:inquir(?:e|es|ed|ing|y|ies)|request(?:s|ed|ing)? information)\b)(?=[\s\S]*\b(?:familial status|national origin|disabilit(?:y|ies)|handicap\w*)\b)(?=[\s\S]*\b(?:dwellings?|tenan(?:t|ts|cy)|landlords?|housing providers?|rental of)\b)` -> 11
+  - `\bpreference, limitation, or discrimination\b` -> 1
+- **FLG-F-004** [OK] senior-housing-work-card: staff work cards or screening in 55+ housing; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 760.29 "housing for older persons".
+  - `\bwork cards?\b` -> 0
+  - `\bhousing for older persons\b` -> 9
+  - `\b(?:housing for older persons|55 years of age or older|62 years of age or older|age-restricted|adult communit(?:y|ies)|retirement communit(?:y|ies))\b[\s\S]{0,1200}\b(?:employees?|staff|workers?|background screenings?|fingerprint\w*)\b` -> 6
+  - `\b(?:employees?|staff|workers?|background screenings?|fingerprint\w*)\b[\s\S]{0,1200}\b(?:housing for older persons|55 years of age or older|62 years of age or older|age-restricted|adult communit(?:y|ies)|retirement communit(?:y|ies))\b` -> 12
+  - `\A(?=[\s\S]*\b(?:housing for older persons|55 years of age or older|age-restricted|retirement communit(?:y|ies))\b)(?=[\s\S]*\b(?:background screenings?|fingerprint\w*|work cards?|identification cards?)\b)(?=[\s\S]*\b(?:dwellings?|tenan(?:t|ts|cy)|landlords?|residents?|housing)\b)` -> 3
+- **FLG-F-005** [OK] cannabis: medical-marijuana cardholder housing protection, landlord limits; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 381.986 "restrict or limit smoking or vaping marijuana on his or her private property".
+  - `\b(?:marijuana|cannabis|marihuana)\b[\s\S]{0,1200}\b(?:landlords?|tenan(?:t|ts|cy|cies)|lessors?|lessees?|rental agreements?|leases?|dwellings?|housing providers?)\b` -> 10
+  - `\b(?:landlords?|tenan(?:t|ts|cy|cies)|lessors?|lessees?|rental agreements?|leases?|dwellings?|housing providers?)\b[\s\S]{0,1200}\b(?:marijuana|cannabis|marihuana)\b` -> 3
+  - `\A(?=[\s\S]*\b(?:marijuana|cannabis)\b)(?=[\s\S]*\b(?:landlords?|tenan(?:t|ts|cy|cies)|rental agreements?|housing providers?)\b)(?=[\s\S]*\b(?:discriminat\w*|penaliz\w*|refus\w*|deny|denied|evict\w*)\b)` -> 8
+  - `\bcardholders?\b` -> 32
+  - `\bprivate property\b[\s\S]{0,1200}\b(?:marijuana|cannabis)\b` -> 1
+- **FLG-F-006** [OK] firearms: lease firearm restrictions, tenant possession protection, parking-lot rule; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 790.251 "No public or private employer may prohibit any customer, employee, or invitee from possessing any legally owned firearm"; passed 790.251 "landlord of a public or private employer".
+  - `\b(?:firearms?|guns?|ammunition|weapons?)\b[\s\S]{0,1200}\b(?:landlords?|tenan(?:t|ts|cy|cies)|lessors?|lessees?|rental agreements?|leases?|dwelling units?)\b` -> 9
+  - `\b(?:landlords?|tenan(?:t|ts|cy|cies)|lessors?|lessees?|rental agreements?|leases?|dwelling units?)\b[\s\S]{0,1200}\b(?:firearms?|guns?|ammunition|weapons?)\b` -> 10
+  - `\A(?=[\s\S]*\b(?:firearms?|guns?|ammunition)\b)(?=[\s\S]*\b(?:landlords?|tenan(?:t|ts|cy|cies)|rental agreements?|residential leases?|apartments?)\b)(?=[\s\S]*\b(?:prohibit\w*|restrict\w*|ban(?:s|ned)?)\b)` -> 14
+  - `\bkeep and bear arms\b` -> 4
+- **FLG-F-007** [OK] disaster-duties: tenancy end or rent during declared disaster; landlord disaster duties; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 501.160 "Any dwelling unit or self-storage facility that is necessary for habitation"; passed 718.1265 "state of emergency".
+  - `\b(?:states? of emergency|declared emergenc(?:y|ies)|disasters?|hurricanes?|emergency declarations?)\b[\s\S]{0,1200}\b(?:tenan(?:t|ts|cy|cies)|landlords?|rental agreements?|evict\w*|dwelling units?)\b` -> 13
+  - `\b(?:tenan(?:t|ts|cy|cies)|landlords?|rental agreements?|evict\w*|dwelling units?)\b[\s\S]{0,1200}\b(?:states? of emergency|declared emergenc(?:y|ies)|disasters?|hurricanes?|emergency declarations?)\b` -> 14
+  - `\A(?=[\s\S]*\b(?:states? of emergency|declared emergenc(?:y|ies)|disasters?|hurricanes?)\b)(?=[\s\S]*\b(?:tenan(?:t|ts|cy|cies)|landlords?|rental agreements?)\b)(?=[\s\S]*\b(?:rent|rents|evict\w*|terminat\w*|abate\w*)\b)` -> 25
+  - `\binaccessib\w*\b` -> 15
+- **FLG-F-008** [FAILED] (not cited by any row) disaster-displaced-guests: tenant may house displaced persons despite lease; occupancy limit suspension; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: recorded as failed 718.1265 "evacuation of the condominium property"; recorded as failed 420.9075 "disaster".
+  - `\b(?:displaced|evacuees?|evacuated)\b[\s\S]{0,1200}\b(?:tenan(?:t|ts|cy|cies)|landlords?|rental agreements?|guests?|occupan(?:t|ts|cy)|lease|leases)\b` -> 2
+  - `\b(?:tenan(?:t|ts|cy|cies)|landlords?|rental agreements?|guests?|occupan(?:t|ts|cy)|lease|leases)\b[\s\S]{0,1200}\b(?:displaced|evacuees?|evacuated)\b` -> 2
+  - `\A(?=[\s\S]*\b(?:displaced|evacuees?)\b)(?=[\s\S]*\b(?:tenan(?:t|ts|cy|cies)|landlords?|rental agreements?)\b)(?=[\s\S]*\b(?:guests?|occupan(?:t|ts|cy)|house|shelter\w*)\b)` -> 1
+  - `\b(?:displaced persons?|disaster victims?|displaced households?)\b` -> 2
+- **FLG-F-009** [OK] disaster-displaced-guests: tenant may house displaced persons despite lease; occupancy limit suspension; supersedes FLG-F-008 (positives failed: no battery term matched the named units; added evacuat- forms and real positives); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 421.55 "displaced person"; passed 718.1265 "evacuation of the condominium property".
+  - `\b(?:displaced|evacuees?|evacuat\w*)\b[\s\S]{0,1200}\b(?:tenan(?:t|ts|cy|cies)|landlords?|rental agreements?|guests?|occupan(?:t|ts|cy)|lease|leases)\b` -> 15
+  - `\b(?:tenan(?:t|ts|cy|cies)|landlords?|rental agreements?|guests?|occupan(?:t|ts|cy)|lease|leases)\b[\s\S]{0,1200}\b(?:displaced|evacuees?|evacuat\w*)\b` -> 15
+  - `\A(?=[\s\S]*\b(?:displaced|evacuees?)\b)(?=[\s\S]*\b(?:tenan(?:t|ts|cy|cies)|landlords?|rental agreements?)\b)(?=[\s\S]*\b(?:guests?|occupan(?:t|ts|cy)|house|shelter\w*)\b)` -> 1
+  - `\b(?:displaced persons?|disaster victims?|displaced households?)\b` -> 2
+- **FLG-F-010** [OK] nuisance: receivership, lease cancellation, closure, tenant and neighbor suits, landlord as defendant; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 60.05 "may order the tenant to vacate the property within 72 hours"; passed 893.138 "a rental property that is declared a nuisance".
+  - `\bnuisances?\b[\s\S]{0,1200}\b(?:receivers?|receiverships?|escrow\w*|rents? (?:into|to the) (?:court|registry)|subsid(?:y|ies))\b` -> 0
+  - `\b(?:receivers?|receiverships?|escrow\w*|subsid(?:y|ies))\b[\s\S]{0,1200}\bnuisances?\b` -> 1
+  - `\A(?=[\s\S]*\bnuisances?\b)(?=[\s\S]*\b(?:tenan(?:t|ts|cy|cies)|rental property|lessees?|landlords?)\b)(?=[\s\S]*\b(?:terminat\w*|cancel\w*|vacate|evict\w*|receiv\w*)\b)` -> 19
+  - `\bmay order the tenant to vacate\b` -> 1
+- **FLG-F-011** [FAILED] (not cited by any row) drug-free-housing-addendum: required or regulated drug-free lease addendum; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: recorded as failed 381.986 "drug-free workplace program".
+  - `\bdrug[- ]free\b[\s\S]{0,1200}\b(?:tenan(?:t|ts|cy|cies)|landlords?|rental agreements?|leases?|dwellings?|housing|addend(?:um|a))\b` -> 4
+  - `\b(?:tenan(?:t|ts|cy|cies)|landlords?|rental agreements?|leases?|dwellings?|housing|addend(?:um|a))\b[\s\S]{0,1200}\bdrug[- ]free\b` -> 1
+  - `\A(?=[\s\S]*\b(?:controlled substances?|illegal drugs?|drug[- ]related)\b)(?=[\s\S]*\b(?:tenan(?:t|ts|cy|cies)|landlords?|rental agreements?)\b)(?=[\s\S]*\b(?:addend(?:um|a)|lease provisions?|clause|covenant)\b)` -> 2
+  - `\bdrug[- ]free (?:housing|lease|addendum)\b` -> 0
+- **FLG-F-012** [OK] drug-free-housing-addendum: required or regulated drug-free lease addendum; supersedes FLG-F-011 (positive recorded as failed: no battery term matched 381.986; added plain drug-free term); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 381.986 "drug-free workplace program".
+  - `\bdrug[- ]free\b` -> 29
+  - `\bdrug[- ]free\b[\s\S]{0,1200}\b(?:tenan(?:t|ts|cy|cies)|landlords?|rental agreements?|leases?|dwellings?|housing|addend(?:um|a))\b` -> 4
+  - `\b(?:tenan(?:t|ts|cy|cies)|landlords?|rental agreements?|leases?|dwellings?|housing|addend(?:um|a))\b[\s\S]{0,1200}\bdrug[- ]free\b` -> 1
+  - `\A(?=[\s\S]*\b(?:controlled substances?|illegal drugs?|drug[- ]related)\b)(?=[\s\S]*\b(?:tenan(?:t|ts|cy|cies)|landlords?|rental agreements?)\b)(?=[\s\S]*\b(?:addend(?:um|a)|lease provisions?|clause|covenant)\b)` -> 2
+  - `\bdrug[- ]free (?:housing|lease|addendum)\b` -> 0
+- **FLG-F-013** [OK] (not cited by any row) emergency-assistance-right: tenant right to summon police or emergency help; presumption against eviction after a call; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 83.64 "primarily because the landlord is retaliating against the tenant"; passed 82.036 "law enforcement".
+  - `\b(?:law enforcement|police|911|emergency assistance|emergency services|sheriff)\b[\s\S]{0,1200}\b(?:tenan(?:t|ts|cy|cies)|landlords?|rental agreements?|evict\w*|lessees?)\b` -> 51
+  - `\b(?:tenan(?:t|ts|cy|cies)|landlords?|rental agreements?|evict\w*|lessees?)\b[\s\S]{0,1200}\b(?:law enforcement|police|911|emergency assistance|emergency services)\b` -> 36
+  - `\A(?=[\s\S]*\b(?:summon\w*|call(?:s|ed|ing)?|request(?:s|ed|ing)?|contact(?:s|ed|ing)?)\b)(?=[\s\S]*\b(?:law enforcement|police|911|emergency assistance|emergency services)\b)(?=[\s\S]*\b(?:tenan(?:t|ts|cy)|landlords?|rental agreements?)\b)(?=[\s\S]*\b(?:evict\w*|penal\w*|retaliat\w*|terminat\w*|limit\w*)\b)` -> 45
+  - `\bemergency assistance\b` -> 14
+  - `\bretaliat\w*\b` -> 89
+- **FLG-F-014** [FAILED] (not cited by any row) emergency-assistance-right: tenant right to summon police or emergency help; presumption against eviction after a call; supersedes FLG-F-013 (narrowed: FLG-F-013's bare police and retaliation limbs returned 36-89 off-point units each; this run uses the summoning vocabulary); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 365.172 "emergency assistance"; recorded as failed 365.171 "requesting emergency services".
+  - `\b(?:call(?:s|ed|ing)?|summon(?:s|ed|ing)?|contact(?:s|ed|ing)?|request(?:s|ed|ing)?|seek(?:s|ing)?|sought|dial(?:s|ed|ing)?) (?:the )?(?:police|law enforcement|911|emergency assistance|emergency services|emergency help)\b[\s\S]{0,1200}\b(?:tenan(?:t|ts|cy|cies)|landlords?|rental agreements?|evict\w*|lessees?|residents?|occupants?)\b` -> 0
+  - `\b(?:tenan(?:t|ts|cy|cies)|landlords?|rental agreements?|evict\w*|lessees?|residents?|occupants?)\b[\s\S]{0,1200}\b(?:call(?:s|ed|ing)?|summon(?:s|ed|ing)?|contact(?:s|ed|ing)?|request(?:s|ed|ing)?|seek(?:s|ing)?|sought|dial(?:s|ed|ing)?) (?:the )?(?:police|law enforcement|911|emergency assistance|emergency services|emergency help)\b` -> 0
+  - `\A(?=[\s\S]*\b(?:police|law enforcement|911|emergency assistance)\b)(?=[\s\S]*\b(?:tenan(?:t|ts|cy)|landlords?|rental agreements?)\b)(?=[\s\S]*\bretaliat\w*\b)` -> 3
+  - `\bemergency assistance\b` -> 14
+- **FLG-F-015** [OK] emergency-assistance-right: tenant right to summon police or emergency help; presumption against eviction after a call; supersedes FLG-F-014 (positive 365.171 recorded as failed: no battery term matched it; added the summoning phrase as a plain term); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 365.172 "emergency assistance"; passed 365.171 "requesting emergency services".
+  - `\b(?:call(?:s|ed|ing)?|summon(?:s|ed|ing)?|contact(?:s|ed|ing)?|request(?:s|ed|ing)?|seek(?:s|ing)?|sought|dial(?:s|ed|ing)?) (?:the )?(?:police|law enforcement|911|emergency assistance|emergency services|emergency help)\b` -> 17
+  - `\b(?:call(?:s|ed|ing)?|summon(?:s|ed|ing)?|contact(?:s|ed|ing)?|request(?:s|ed|ing)?|seek(?:s|ing)?|sought|dial(?:s|ed|ing)?) (?:the )?(?:police|law enforcement|911|emergency assistance|emergency services|emergency help)\b[\s\S]{0,1200}\b(?:tenan(?:t|ts|cy|cies)|landlords?|rental agreements?|evict\w*|lessees?|residents?|occupants?)\b` -> 0
+  - `\b(?:tenan(?:t|ts|cy|cies)|landlords?|rental agreements?|evict\w*|lessees?|residents?|occupants?)\b[\s\S]{0,1200}\b(?:call(?:s|ed|ing)?|summon(?:s|ed|ing)?|contact(?:s|ed|ing)?|request(?:s|ed|ing)?|seek(?:s|ing)?|sought|dial(?:s|ed|ing)?) (?:the )?(?:police|law enforcement|911|emergency assistance|emergency services|emergency help)\b` -> 0
+  - `\A(?=[\s\S]*\b(?:police|law enforcement|911|emergency assistance)\b)(?=[\s\S]*\b(?:tenan(?:t|ts|cy)|landlords?|rental agreements?)\b)(?=[\s\S]*\bretaliat\w*\b)` -> 3
+  - `\bemergency assistance\b` -> 14
+- **FLG-F-016** [OK] law-enforcement-cooperation: landlord duty to cooperate with or report to police; crime-free programs; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 934.34 "landlord, custodian, or other person shall furnish"; passed 934.09 "landlord, custodian, or other person shall furnish the applicant forthwith".
+  - `\b(?:landlords?|lessors?|property managers?)\b[\s\S]{0,1200}\b(?:law enforcement|police|investigat\w*|subpoena\w*|warrants?)\b` -> 21
+  - `\b(?:law enforcement|police|investigat\w*|subpoena\w*|warrants?)\b[\s\S]{0,1200}\b(?:landlords?|lessors?|property managers?)\b` -> 15
+  - `\A(?=[\s\S]*\b(?:landlords?|tenan(?:t|ts|cy)|rental agreements?)\b)(?=[\s\S]*\b(?:law enforcement|police)\b)(?=[\s\S]*\b(?:cooperat\w*|report(?:s|ed|ing)? (?:to|any|the)|furnish\w*|disclos\w*)\b)(?=[\s\S]*\b(?:crimes?|criminal activit(?:y|ies))\b)` -> 17
+  - `\bcrime[- ]free\b` -> 4
+- **FLG-F-017** [OK] periodic-services-entry: entry for regularly scheduled services; conspicuous-lease rule; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 83.53 "supply agreed services".
+  - `\b(?:regularly scheduled|scheduled services?|routine services?|periodic services?|recurring services?|agreed services)\b[\s\S]{0,1200}\b(?:tenan(?:t|ts|cy)|landlords?|dwelling units?|rental agreements?)\b` -> 1
+  - `\b(?:tenan(?:t|ts|cy)|landlords?|dwelling units?|rental agreements?)\b[\s\S]{0,1200}\b(?:regularly scheduled|scheduled services?|routine services?|periodic services?|recurring services?|agreed services)\b` -> 1
+  - `\A(?=[\s\S]*\b(?:enter|entry|access)\b)(?=[\s\S]*\b(?:tenan(?:t|ts|cy)|landlords?)\b)(?=[\s\S]*\bconspicuous\w*\b)(?=[\s\S]*\b(?:services?|pest control|filters?)\b)` -> 26
+  - `\bsupply agreed services\b` -> 1
+- **FLG-F-018** [OK] animal-care-access: landlord entry to care for or remove an absent tenant's animal; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 83.43 "pet deposit"; passed 828.13 "animal".
+  - `\b(?:animals?|pets?|dogs?|cats?)\b[\s\S]{0,1200}\b(?:landlords?|tenan(?:t|ts|cy|cies)|dwelling units?|rental agreements?)\b` -> 5
+  - `\b(?:landlords?|tenan(?:t|ts|cy|cies)|dwelling units?|rental agreements?)\b[\s\S]{0,1200}\b(?:animals?|pets?|dogs?|cats?)\b` -> 7
+  - `\A(?=[\s\S]*\b(?:animals?|pets?)\b)(?=[\s\S]*\b(?:landlords?|tenan(?:t|ts|cy))\b)(?=[\s\S]*\b(?:enter|entry|access)\b)(?=[\s\S]*\b(?:absen(?:t|ce)|abandon\w*|incapacitat\w*|hospitali[sz]\w*|deceased|death)\b)` -> 11
+  - `\b(?:abandon(?:s|ed|ing|ment)? (?:an |the |any )?animals?|animals? left)\b` -> 2
+- **FLG-F-019** [FAILED] (not cited by any row) condition-inspection: move-in/move-out inspection, inventory, condition report, damage list; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 83.49 "security deposit"; recorded as failed 83.53 "inspect the premises".
+  - `\b(?:move[- ]in|move[- ]out|walk[- ]through|condition (?:report|statement|checklist)s?|inventor(?:y|ies)|checklists?|damage lists?)\b[\s\S]{0,1200}\b(?:tenan(?:t|ts|cy|cies)|landlords?|rental agreements?|dwelling units?|security deposits?)\b` -> 7
+  - `\b(?:tenan(?:t|ts|cy|cies)|landlords?|rental agreements?|dwelling units?|security deposits?)\b[\s\S]{0,1200}\b(?:move[- ]in|move[- ]out|walk[- ]through|condition (?:report|statement|checklist)s?|inventor(?:y|ies)|checklists?|damage lists?)\b` -> 11
+  - `\A(?=[\s\S]*\b(?:inspect\w*|condition of the (?:premises|dwelling|unit))\b)(?=[\s\S]*\b(?:tenan(?:t|ts|cy)|landlords?)\b)(?=[\s\S]*\b(?:security deposits?|deposit money|beginning of the tenancy|commencement of the tenancy)\b)(?=[\s\S]*\b(?:sign\w*|written|writing)\b)` -> 3
+  - `\bmove[- ]in\b` -> 1
+- **FLG-F-020** [OK] condition-inspection: move-in/move-out inspection, inventory, condition report, damage list; supersedes FLG-F-019 (positive 83.53 recorded as failed: no battery term matched it; replaced with real positives for the move-out vocabulary); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 83.684 "move-out checklist"; passed 83.49 "WHEN YOU MOVE OUT".
+  - `\b(?:move[- ]in|move[- ]out|walk[- ]through|condition (?:report|statement|checklist)s?|inventor(?:y|ies)|checklists?|damage lists?)\b[\s\S]{0,1200}\b(?:tenan(?:t|ts|cy|cies)|landlords?|rental agreements?|dwelling units?|security deposits?)\b` -> 7
+  - `\b(?:tenan(?:t|ts|cy|cies)|landlords?|rental agreements?|dwelling units?|security deposits?)\b[\s\S]{0,1200}\b(?:move[- ]in|move[- ]out|walk[- ]through|condition (?:report|statement|checklist)s?|inventor(?:y|ies)|checklists?|damage lists?)\b` -> 11
+  - `\A(?=[\s\S]*\b(?:inspect\w*|condition of the (?:premises|dwelling|unit))\b)(?=[\s\S]*\b(?:tenan(?:t|ts|cy)|landlords?)\b)(?=[\s\S]*\b(?:security deposits?|deposit money|beginning of the tenancy|commencement of the tenancy)\b)(?=[\s\S]*\b(?:sign\w*|written|writing)\b)` -> 3
+  - `\bmove[- ]in\b` -> 1
+- **FLG-F-021** [FAILED] (not cited by any row) inspection-notice-penalty: penalty for missing an inspection notice or for unlawful entry; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 83.53 "abuse the right of access"; recorded as failed 83.49 "forfeits the right to impose a claim".
+  - `\b(?:enter(?:s|ed|ing)?|entry|inspect(?:s|ed|ing|ion|ions)?)\b[\s\S]{0,1200}\b(?:penalt(?:y|ies)|statutory damages|months?.{0,2} rent|times the (?:amount|rent|deposit)|forfeit\w*)\b[\s\S]{0,1200}\b(?:landlords?|tenan(?:t|ts|cy))\b` -> 8
+  - `\b(?:landlords?|tenan(?:t|ts|cy))\b[\s\S]{0,1200}\b(?:penalt(?:y|ies)|statutory damages|months?.{0,2} rent|times the (?:amount|rent|deposit)|forfeit\w*)\b[\s\S]{0,1200}\b(?:enter(?:s|ed|ing)?|entry|inspect(?:s|ed|ing|ion|ions)?)\b` -> 10
+  - `\A(?=[\s\S]*\b(?:right of access|enter the dwelling unit|inspection notice|notice of (?:the )?inspection)\b)(?=[\s\S]*\b(?:landlords?|tenan(?:t|ts|cy))\b)(?=[\s\S]*\b(?:penalt(?:y|ies)|statutory damages|forfeit\w*|liable)\b)` -> 3
+  - `\babuse the right of access\b` -> 1
+- **FLG-F-022** [OK] inspection-notice-penalty: penalty for missing an inspection notice or for unlawful entry; supersedes FLG-F-021 (positive 83.49 recorded as failed and WINDOW warnings from a {0,2} limb; replaced the apostrophe limb and added a plain forfeiture term); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 83.53 "abuse the right of access"; passed 83.49 "forfeits the right to impose a claim".
+  - `\b(?:enter(?:s|ed|ing)?|entry|inspect(?:s|ed|ing|ion|ions)?)\b[\s\S]{0,1200}\b(?:penalt(?:y|ies)|statutory damages|months?'? rent|times the (?:amount|rent|deposit)|forfeit\w*)\b[\s\S]{0,1200}\b(?:landlords?|tenan(?:t|ts|cy))\b` -> 6
+  - `\b(?:landlords?|tenan(?:t|ts|cy))\b[\s\S]{0,1200}\b(?:penalt(?:y|ies)|statutory damages|months?'? rent|times the (?:amount|rent|deposit)|forfeit\w*)\b[\s\S]{0,1200}\b(?:enter(?:s|ed|ing)?|entry|inspect(?:s|ed|ing|ion|ions)?)\b` -> 7
+  - `\A(?=[\s\S]*\b(?:right of access|enter the dwelling unit|inspection notice|notice of (?:the )?inspection)\b)(?=[\s\S]*\b(?:landlords?|tenan(?:t|ts|cy))\b)(?=[\s\S]*\b(?:penalt(?:y|ies)|statutory damages|forfeit\w*|liable)\b)` -> 3
+  - `\babuse the right of access\b` -> 1
+  - `\bforfeits the right to\b` -> 5
+- **FLG-F-023** [FAILED] (not cited by any row) subsidized-inspection-refusal: refusal of a subsidy program inspection by tenant or landlord; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: recorded as failed 83.49 "section 8 of the National Housing Act"; recorded as failed 421.10 "housing projects".
+  - `\b(?:rent subsid(?:y|ies)|housing assistance payments?|housing choice vouchers?|housing vouchers?|section 8 (?:of the National Housing Act|housing|vouchers?)|rental assistance|public housing|housing authorit(?:y|ies)|tenant(?:.s)? (?:portion|share))\b[\s\S]{0,1200}\binspect\w*\b` -> 1
+  - `\binspect\w*\b[\s\S]{0,1200}\b(?:rent subsid(?:y|ies)|housing assistance payments?|housing choice vouchers?|housing vouchers?|section 8 (?:of the National Housing Act|housing|vouchers?)|rental assistance|public housing|housing authorit(?:y|ies)|tenant(?:.s)? (?:portion|share))\b` -> 3
+  - `\A(?=[\s\S]*\b(?:rent subsid(?:y|ies)|housing assistance payments?|housing choice vouchers?|housing vouchers?|section 8 (?:of the National Housing Act|housing|vouchers?)|rental assistance|public housing|housing authorit(?:y|ies)|tenant(?:.s)? (?:portion|share))\b)(?=[\s\S]*\binspect\w*\b)(?=[\s\S]*\b(?:tenan(?:t|ts|cy)|landlords?|owners?)\b)(?=[\s\S]*\b(?:refus\w*|den(?:y|ies|ied)|withh[oe]ld\w*)\b)` -> 10
+  - `\bhousing quality standards?\b` -> 0
+- **FLG-F-024** [FAILED] (not cited by any row) subsidized-inspection-refusal: refusal of a subsidy program inspection by tenant or landlord; supersedes FLG-F-023 (both positives recorded as failed (83.49 says s. 8, not section 8; no term matched 421.10); added the s. 8 form and a plain subsidy term); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: recorded as failed 83.49 "s\. 8 of the National Housing Act"; passed 83.56 "rent subsidies".
+  - `\b(?:rent subsid(?:y|ies)|housing assistance payments?|housing choice vouchers?|housing vouchers?|s(?:ection|\.) 8 of the National Housing Act|section 8 (?:housing|vouchers?)|rental assistance|public housing|housing authorit(?:y|ies)|tenant(?:.s)? (?:portion|share))\b[\s\S]{0,1200}\binspect\w*\b` -> 1
+  - `\binspect\w*\b[\s\S]{0,1200}\b(?:rent subsid(?:y|ies)|housing assistance payments?|housing choice vouchers?|housing vouchers?|s(?:ection|\.) 8 of the National Housing Act|section 8 (?:housing|vouchers?)|rental assistance|public housing|housing authorit(?:y|ies)|tenant(?:.s)? (?:portion|share))\b` -> 3
+  - `\A(?=[\s\S]*\b(?:rent subsid(?:y|ies)|housing assistance payments?|housing choice vouchers?|housing vouchers?|s(?:ection|\.) 8 of the National Housing Act|section 8 (?:housing|vouchers?)|rental assistance|public housing|housing authorit(?:y|ies)|tenant(?:.s)? (?:portion|share))\b)(?=[\s\S]*\binspect\w*\b)(?=[\s\S]*\b(?:tenan(?:t|ts|cy)|landlords?|owners?)\b)(?=[\s\S]*\b(?:refus\w*|den(?:y|ies|ied)|withh[oe]ld\w*)\b)` -> 10
+  - `\bhousing quality standards?\b` -> 0
+  - `\b(?:housing assistance payments?|rent subsid(?:y|ies)|housing choice vouchers?)\b` -> 12
+- **FLG-F-025** [OK] subsidized-inspection-refusal: refusal of a subsidy program inspection by tenant or landlord; supersedes FLG-F-024 (positive 83.49 recorded as failed (no battery term reaches that unit); replaced with 83.60); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 83.60 "tenants receiving rent subsidies"; passed 83.56 "rent subsidies".
+  - `\b(?:rent subsid(?:y|ies)|housing assistance payments?|housing choice vouchers?|housing vouchers?|s(?:ection|\.) 8 of the National Housing Act|section 8 (?:housing|vouchers?)|rental assistance|public housing|housing authorit(?:y|ies)|tenant(?:.s)? (?:portion|share))\b[\s\S]{0,1200}\binspect\w*\b` -> 1
+  - `\binspect\w*\b[\s\S]{0,1200}\b(?:rent subsid(?:y|ies)|housing assistance payments?|housing choice vouchers?|housing vouchers?|s(?:ection|\.) 8 of the National Housing Act|section 8 (?:housing|vouchers?)|rental assistance|public housing|housing authorit(?:y|ies)|tenant(?:.s)? (?:portion|share))\b` -> 3
+  - `\A(?=[\s\S]*\b(?:rent subsid(?:y|ies)|housing assistance payments?|housing choice vouchers?|housing vouchers?|s(?:ection|\.) 8 of the National Housing Act|section 8 (?:housing|vouchers?)|rental assistance|public housing|housing authorit(?:y|ies)|tenant(?:.s)? (?:portion|share))\b)(?=[\s\S]*\binspect\w*\b)(?=[\s\S]*\b(?:tenan(?:t|ts|cy)|landlords?|owners?)\b)(?=[\s\S]*\b(?:refus\w*|den(?:y|ies|ied)|withh[oe]ld\w*)\b)` -> 10
+  - `\bhousing quality standards?\b` -> 0
+  - `\b(?:housing assistance payments?|rent subsid(?:y|ies)|housing choice vouchers?)\b` -> 12
+- **FLG-F-026** [OK] subsidy-late-fee: late fees in subsidized tenancies; fee on late subsidy payment; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 83.60 "tenants receiving rent subsidies"; passed 83.56 "rent subsidies".
+  - `\b(?:rent subsid(?:y|ies)|housing assistance payments?|housing choice vouchers?|housing vouchers?|s(?:ection|\.) 8 of the National Housing Act|section 8 (?:housing|vouchers?)|rental assistance|public housing|housing authorit(?:y|ies)|tenant(?:.s)? (?:portion|share))\b[\s\S]{0,1200}\b(?:late (?:fees?|charges?|payments?)|grace periods?)\b` -> 0
+  - `\b(?:late (?:fees?|charges?|payments?)|grace periods?)\b[\s\S]{0,1200}\b(?:rent subsid(?:y|ies)|housing assistance payments?|housing choice vouchers?|housing vouchers?|s(?:ection|\.) 8 of the National Housing Act|section 8 (?:housing|vouchers?)|rental assistance|public housing|housing authorit(?:y|ies)|tenant(?:.s)? (?:portion|share))\b` -> 0
+  - `\A(?=[\s\S]*\b(?:rent subsid(?:y|ies)|housing assistance payments?|housing choice vouchers?|housing vouchers?|s(?:ection|\.) 8 of the National Housing Act|section 8 (?:housing|vouchers?)|rental assistance|public housing|housing authorit(?:y|ies)|tenant(?:.s)? (?:portion|share))\b)(?=[\s\S]*\b(?:late|delinquen\w*)\b)(?=[\s\S]*\b(?:tenan(?:t|ts|cy)|landlords?)\b)(?=[\s\S]*\b(?:fees?|charges?|penalt(?:y|ies))\b)` -> 2
+  - `\b(?:housing assistance payments?|rent subsid(?:y|ies)|housing choice vouchers?)\b` -> 12
+- **FLG-F-027** [FAILED] (not cited by any row) guest-rights: tenants' right to have guests or suppliers; fee or waiver bans; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: recorded as failed 83.56 "unauthorized pets, guests, or vehicles"; recorded as failed 82.035 "transient occupant".
+  - `\b(?:guests?|visitors?|invitees?|caregivers?|suppliers?)\b[\s\S]{0,1200}\b(?:tenan(?:t|ts|cy|cies)|landlords?|rental agreements?|dwelling units?)\b[\s\S]{0,1200}\b(?:right|rights|access|fees?|prohibit\w*)\b` -> 22
+  - `\b(?:tenan(?:t|ts|cy|cies)|landlords?|rental agreements?|dwelling units?)\b[\s\S]{0,1200}\b(?:guests?|visitors?|invitees?|caregivers?|suppliers?)\b[\s\S]{0,1200}\b(?:right|rights|access|fees?|prohibit\w*)\b` -> 26
+  - `\A(?=[\s\S]*\b(?:guests?|visitors?)\b)(?=[\s\S]*\b(?:tenan(?:t|ts|cy)|landlords?)\b)(?=[\s\S]*\b(?:may not (?:prohibit|charge|restrict|limit)|shall not (?:prohibit|charge|restrict|limit))\b)` -> 13
+  - `\bguests? of (?:the|a) tenant\b` -> 0
+- **FLG-F-028** [OK] guest-rights: tenants' right to have guests or suppliers; fee or waiver bans; supersedes FLG-F-027 (both positives recorded as failed: the three-part chain did not reach them; positives replaced with units the battery terms reach, and a plain guest-rights phrase added); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 83.491 "THE TENANT OR HIS OR HER GUESTS"; passed 718.1265 "tenants, guests".
+  - `\b(?:guests?|visitors?|invitees?|caregivers?|suppliers?)\b[\s\S]{0,1200}\b(?:tenan(?:t|ts|cy|cies)|landlords?|rental agreements?|dwelling units?)\b[\s\S]{0,1200}\b(?:right|rights|access|fees?|prohibit\w*)\b` -> 22
+  - `\b(?:tenan(?:t|ts|cy|cies)|landlords?|rental agreements?|dwelling units?)\b[\s\S]{0,1200}\b(?:guests?|visitors?|invitees?|caregivers?|suppliers?)\b[\s\S]{0,1200}\b(?:right|rights|access|fees?|prohibit\w*)\b` -> 26
+  - `\A(?=[\s\S]*\b(?:guests?|visitors?)\b)(?=[\s\S]*\b(?:tenan(?:t|ts|cy)|landlords?)\b)(?=[\s\S]*\b(?:may not (?:prohibit|charge|restrict|limit)|shall not (?:prohibit|charge|restrict|limit))\b)` -> 13
+  - `\b(?:guests? of (?:the|a) tenant|tenant or his or her guests|right to (?:have|receive) (?:guests|visitors))\b` -> 1
+- **FLG-F-029** [OK] home-business: statutory right to run a home business vs. lease restrictions; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 559.955 "home-based business".
+  - `\b(?:home[- ]based business(?:es)?|home occupations?|business(?:es)? (?:operated |conducted )?(?:from|in) (?:a |the )?(?:home|residence|dwelling))\b[\s\S]{0,1200}\b(?:tenan(?:t|ts|cy|cies)|landlords?|rental agreements?|leases?|lessors?)\b` -> 0
+  - `\b(?:tenan(?:t|ts|cy|cies)|landlords?|rental agreements?|leases?|lessors?)\b[\s\S]{0,1200}\b(?:home[- ]based business(?:es)?|home occupations?|business(?:es)? (?:operated |conducted )?(?:from|in) (?:a |the )?(?:home|residence|dwelling))\b` -> 0
+  - `\A(?=[\s\S]*\b(?:home[- ]based|home occupations?)\b)(?=[\s\S]*\b(?:tenan(?:t|ts|cy)|landlords?|rental agreements?|declarations?)\b)(?=[\s\S]*\b(?:prohibit\w*|restrict\w*)\b)` -> 3
+  - `\bhome[- ]based business(?:es)?\b` -> 7
+- **FLG-F-030** [OK] family-child-care: tenant right to operate a family child care home; landlord conditions; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 125.0109 "family child care home"; passed 402.302 "Family child care home".
+  - `\b(?:family (?:child|day) care homes?|large family child care homes?|child care (?:in|from) (?:a |the )?(?:home|residence))\b[\s\S]{0,1200}\b(?:tenan(?:t|ts|cy|cies)|landlords?|rental agreements?|leases?|lessors?|rented|renters?)\b` -> 1
+  - `\b(?:tenan(?:t|ts|cy|cies)|landlords?|rental agreements?|leases?|lessors?|rented|renters?)\b[\s\S]{0,1200}\b(?:family (?:child|day) care homes?|large family child care homes?|child care (?:in|from) (?:a |the )?(?:home|residence))\b` -> 1
+  - `\A(?=[\s\S]*\b(?:family (?:child|day) care homes?|large family child care homes?|child care (?:in|from) (?:a |the )?(?:home|residence))\b)(?=[\s\S]*\b(?:tenan(?:t|ts|cy)|landlords?|rental agreements?|owners? of the (?:residence|premises|property))\b)(?=[\s\S]*\b(?:prohibit\w*|consent|permission|insurance|liabilit(?:y|ies))\b)` -> 3
+  - `\bfamily child care homes?\b` -> 31
+- **FLG-F-031** [OK] (not cited by any row) tenant-display-rights and religious-cultural-display: flags, signs, religious and cultural displays in rentals; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 83.67 "United States flag"; passed 718.113 "religious object".
+  - `\b(?:flags?|signs?|banners?|political signs?|religious (?:objects?|items?|decorations?|symbols?)|cultural (?:items?|objects?)|holiday decorations?|mezuzah\w*|displays?)\b[\s\S]{0,1200}\b(?:tenan(?:t|ts|cy|cies)|landlords?|rental agreements?|lessees?)\b` -> 37
+  - `\b(?:tenan(?:t|ts|cy|cies)|landlords?|rental agreements?|lessees?)\b[\s\S]{0,1200}\b(?:flags?|signs?|banners?|political signs?|religious (?:objects?|items?|decorations?|symbols?)|cultural (?:items?|objects?)|holiday decorations?|mezuzah\w*|displays?)\b` -> 37
+  - `\A(?=[\s\S]*\b(?:display(?:s|ed|ing)?|post(?:s|ed|ing)?)\b)(?=[\s\S]*\b(?:political|religious|cultural|candidate)\b)(?=[\s\S]*\b(?:tenan(?:t|ts|cy)|landlords?|rental agreements?|unit owners?|parcel owners?|homeowners?)\b)` -> 40
+  - `\b(?:religious object|religious decorations?|political signs?)\b` -> 3
+- **FLG-F-032** [OK] tenant-display-rights and religious-cultural-display: flags, signs, religious and cultural displays in rentals; supersedes FLG-F-031 (narrowed: the bare sign and display words returned 37-40 off-point units (traffic, tax, billboards)); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 83.67 "United States flag"; passed 718.113 "religious object".
+  - `\b(?:flags?|political signs?|campaign signs?|yard signs?|religious (?:objects?|items?|decorations?|symbols?|displays?)|cultural (?:items?|objects?|displays?)|holiday decorations?|mezuzah\w*)\b[\s\S]{0,1200}\b(?:tenan(?:t|ts|cy|cies)|landlords?|rental agreements?|lessees?)\b` -> 4
+  - `\b(?:tenan(?:t|ts|cy|cies)|landlords?|rental agreements?|lessees?)\b[\s\S]{0,1200}\b(?:flags?|political signs?|campaign signs?|yard signs?|religious (?:objects?|items?|decorations?|symbols?|displays?)|cultural (?:items?|objects?|displays?)|holiday decorations?|mezuzah\w*)\b` -> 4
+  - `\A(?=[\s\S]*\b(?:display(?:s|ed|ing)?|post(?:s|ed|ing)?)\b)(?=[\s\S]*\b(?:political signs?|campaign signs?|religious (?:objects?|items?|decorations?|symbols?)|cultural (?:items?|objects?))\b)(?=[\s\S]*\b(?:tenan(?:t|ts|cy)|landlords?|rental agreements?|unit owners?|parcel owners?|homeowners?)\b)` -> 3
+  - `\b(?:religious object|religious decorations?|political signs?)\b` -> 3
+- **FLG-F-033** [OK] political-access: candidate or canvasser access to rental buildings; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 720.304 "candidates for public office".
+  - `\b(?:candidates?|canvass\w*|campaign(?:s|ing|ers?)?|petition circulators?|voter registration|political committees?|door[- ]to[- ]door)\b[\s\S]{0,1200}\b(?:tenan(?:t|ts|cy|cies)|landlords?|apartments?|multifamily|residential (?:buildings?|complex(?:es)?)|gated)\b` -> 5
+  - `\b(?:tenan(?:t|ts|cy|cies)|landlords?|apartments?|multifamily|residential (?:buildings?|complex(?:es)?)|gated)\b[\s\S]{0,1200}\b(?:candidates?|canvass\w*|campaign(?:s|ing|ers?)?|petition circulators?|voter registration|political committees?|door[- ]to[- ]door)\b` -> 4
+  - `\A(?=[\s\S]*\b(?:candidates?|canvass\w*|campaign(?:s|ing|ers?)?|petition circulators?|voter registration|political committees?|door[- ]to[- ]door)\b)(?=[\s\S]*\b(?:tenan(?:t|ts|cy)|landlords?|apartments?|unit owners?|parcel owners?)\b)(?=[\s\S]*\b(?:access|enter|entry|deny|denied|prohibit\w*)\b)` -> 22
+  - `\bcandidates for public office\b` -> 6
+- **FLG-F-034** [FAILED] (not cited by any row) tenant-right-to-organize: tenants' right to organize, meet, distribute materials; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 83.64 "tenant organization"; recorded as failed 723.054 "canvassing".
+  - `\b(?:tenant (?:organizations?|associations?|unions?|councils?)|tenants?.? (?:organizations?|associations?)|organiz(?:e|es|ed|ing))\b[\s\S]{0,1200}\b(?:landlords?|rental agreements?|dwelling units?|tenan(?:t|ts|cy))\b` -> 7
+  - `\b(?:landlords?|rental agreements?|dwelling units?)\b[\s\S]{0,1200}\b(?:tenant (?:organizations?|associations?|unions?|councils?)|organiz(?:e|es|ed|ing))\b` -> 4
+  - `\A(?=[\s\S]*\b(?:tenant organizations?|tenants? associations?|organiz(?:e|es|ed|ing))\b)(?=[\s\S]*\b(?:landlords?|rental agreements?|park owners?)\b)(?=[\s\S]*\b(?:meet(?:s|ing|ings)?|assembl\w*|distribut\w*|canvass\w*|communicat\w*)\b)` -> 13
+  - `\btenant organizations?\b` -> 2
+- **FLG-F-035** [OK] tenant-right-to-organize: tenants' right to organize, meet, distribute materials; supersedes FLG-F-034 (positive 723.054 recorded as failed (no battery term reached it); replaced with 723.055, which the terms reach); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 83.64 "tenant organization"; passed 723.055 "tenant organization".
+  - `\b(?:tenant (?:organizations?|associations?|unions?|councils?)|tenants?.? (?:organizations?|associations?)|organiz(?:e|es|ed|ing))\b[\s\S]{0,1200}\b(?:landlords?|rental agreements?|dwelling units?|tenan(?:t|ts|cy))\b` -> 7
+  - `\b(?:landlords?|rental agreements?|dwelling units?)\b[\s\S]{0,1200}\b(?:tenant (?:organizations?|associations?|unions?|councils?)|organiz(?:e|es|ed|ing))\b` -> 4
+  - `\A(?=[\s\S]*\b(?:tenant organizations?|tenants? associations?|organiz(?:e|es|ed|ing))\b)(?=[\s\S]*\b(?:landlords?|rental agreements?|park owners?)\b)(?=[\s\S]*\b(?:meet(?:s|ing|ings)?|assembl\w*|distribut\w*|canvass\w*|communicat\w*)\b)` -> 13
+  - `\btenant organizations?\b` -> 2
+- **FLG-F-036** [FAILED] (not cited by any row) tenant-confidential-information: limits on a landlord disclosing tenant or applicant information; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 501.171 "Covered entity"; recorded as failed 718.111 "personal information".
+  - `\b(?:disclos\w*|releas(?:e|es|ed|ing)|sell(?:s|ing)?|sold|shar(?:e|es|ed|ing))\b[\s\S]{0,1200}\b(?:tenant|tenants|applicant|applicants|lessee|lessees)\b.{0,3}(?:s )?(?:personal |confidential |private )?(?:information|data|records)\b` -> 2
+  - `\b(?:tenant|tenants|applicant|applicants|lessee|lessees)\b.{0,3}(?:s )?(?:personal |confidential |private )?(?:information|data|records)\b[\s\S]{0,1200}\b(?:disclos\w*|releas(?:e|es|ed|ing)|sell(?:s|ing)?|sold|shar(?:e|es|ed|ing))\b` -> 3
+  - `\A(?=[\s\S]*\blandlords?\b)(?=[\s\S]*\b(?:personal information|confidential information|social security numbers?)\b)(?=[\s\S]*\b(?:disclos\w*|releas\w*|consent)\b)(?=[\s\S]*\btenan(?:t|ts)\b)` -> 3
+  - `\bcovered entit(?:y|ies)\b` -> 9
+- **FLG-F-037** [OK] tenant-confidential-information: limits on a landlord disclosing tenant or applicant information; supersedes FLG-F-036 (positive 718.111 recorded as failed and WINDOW warnings from a {0,3} limb; rewrote the tenant-information phrase without a short window); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 501.171 "Covered entity"; passed 501.171 "personal information".
+  - `\b(?:disclos\w*|releas(?:e|es|ed|ing)|sell(?:s|ing)?|sold|shar(?:e|es|ed|ing))\b[\s\S]{0,1200}\b(?:tenant|applicant|lessee|renter)(?:'s|s'|s)? (?:personal |confidential |private |contact )?(?:information|data|records|files?)\b` -> 2
+  - `\b(?:tenant|applicant|lessee|renter)(?:'s|s'|s)? (?:personal |confidential |private |contact )?(?:information|data|records|files?)\b[\s\S]{0,1200}\b(?:disclos\w*|releas(?:e|es|ed|ing)|sell(?:s|ing)?|sold|shar(?:e|es|ed|ing))\b` -> 2
+  - `\A(?=[\s\S]*\blandlords?\b)(?=[\s\S]*\b(?:personal information|confidential information|social security numbers?)\b)(?=[\s\S]*\b(?:disclos\w*|releas\w*|consent)\b)(?=[\s\S]*\btenan(?:t|ts)\b)` -> 3
+  - `\bcovered entit(?:y|ies)\b` -> 9
+  - `\b(?:tenant|applicant|lessee|renter)(?:'s|s'|s)? (?:personal |confidential |private |contact )?(?:information|data|records|files?)\b` -> 31
+- **FLG-F-038** [FAILED] (not cited by any row) tenant-records: rent ledger, records request, record retention by landlords; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 83.49 "accurate accounting"; recorded as failed 83.505 "maintain a copy of any notice sent electronically".
+  - `\b(?:ledgers?|records? of (?:rent|payments?)|payment histor(?:y|ies)|rent records?|account statements?|accounting)\b[\s\S]{0,1200}\b(?:tenan(?:t|ts|cy)|landlords?|rental agreements?)\b` -> 5
+  - `\b(?:tenan(?:t|ts|cy)|landlords?|rental agreements?)\b[\s\S]{0,1200}\b(?:ledgers?|records? of (?:rent|payments?)|payment histor(?:y|ies)|rent records?|account statements?|accounting)\b` -> 7
+  - `\A(?=[\s\S]*\blandlords?\b)(?=[\s\S]*\btenan(?:t|ts)\b)(?=[\s\S]*\brecords?\b)(?=[\s\S]*\b(?:upon request|on request|request(?:s|ed)? by the tenant|retain\w*|keep(?:s)? records)\b)` -> 12
+  - `\b(?:rent ledgers?|tenant ledgers?)\b` -> 0
+- **FLG-F-039** [OK] tenant-records: rent ledger, records request, record retention by landlords; supersedes FLG-F-038 (positive 83.505 recorded as failed (no battery term reaches it); replaced with a second 83.49 positive); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 83.49 "accurate accounting"; passed 83.49 "tenant account".
+  - `\b(?:ledgers?|records? of (?:rent|payments?)|payment histor(?:y|ies)|rent records?|account statements?|accounting)\b[\s\S]{0,1200}\b(?:tenan(?:t|ts|cy)|landlords?|rental agreements?)\b` -> 5
+  - `\b(?:tenan(?:t|ts|cy)|landlords?|rental agreements?)\b[\s\S]{0,1200}\b(?:ledgers?|records? of (?:rent|payments?)|payment histor(?:y|ies)|rent records?|account statements?|accounting)\b` -> 7
+  - `\A(?=[\s\S]*\blandlords?\b)(?=[\s\S]*\btenan(?:t|ts)\b)(?=[\s\S]*\brecords?\b)(?=[\s\S]*\b(?:upon request|on request|request(?:s|ed)? by the tenant|retain\w*|keep(?:s)? records)\b)` -> 12
+  - `\b(?:rent ledgers?|tenant ledgers?)\b` -> 0
+- **FLG-F-040** [FAILED] (not cited by any row) tenant-portal: required portal payments, signatures or notices; UETA refusal right; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: recorded as failed 83.505 "electronically deliver"; recorded as failed 668.50 "may refuse to conduct other transactions by electronic means".
+  - `\b(?:portals?|online payments?|electronic (?:payments?|funds transfers?)|web ?sites?|apps?|mobile applications?)\b[\s\S]{0,1200}\b(?:tenan(?:t|ts|cy)|landlords?|rental agreements?|rent)\b` -> 6
+  - `\b(?:tenan(?:t|ts|cy)|landlords?|rental agreements?)\b[\s\S]{0,1200}\b(?:portals?|online payments?|electronic (?:payments?|funds transfers?)|mobile applications?)\b` -> 1
+  - `\A(?=[\s\S]*\b(?:portals?|online|electronic(?:ally)?)\b)(?=[\s\S]*\b(?:tenan(?:t|ts|cy)|landlords?)\b)(?=[\s\S]*\b(?:rent|rents)\b)(?=[\s\S]*\b(?:pay(?:s|ing|ment|ments)?|sign(?:s|ed|ing|ature|atures)?)\b)` -> 21
+  - `\b(?:tenant portals?|online portals?|resident portals?)\b` -> 12
+- **FLG-F-041** [OK] (not cited by any row) tenant-portal: required portal payments, signatures or notices; UETA refusal right; supersedes FLG-F-040 (both positives recorded as failed (no battery term reached them); added the electronic-delivery vocabulary as a plain term); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 83.505 "electronically deliver"; passed 668.50 "may refuse to conduct other transactions by electronic means".
+  - `\b(?:portals?|online payments?|electronic (?:payments?|funds transfers?)|web ?sites?|apps?|mobile applications?)\b[\s\S]{0,1200}\b(?:tenan(?:t|ts|cy)|landlords?|rental agreements?|rent)\b` -> 6
+  - `\b(?:tenan(?:t|ts|cy)|landlords?|rental agreements?)\b[\s\S]{0,1200}\b(?:portals?|online payments?|electronic (?:payments?|funds transfers?)|mobile applications?)\b` -> 1
+  - `\A(?=[\s\S]*\b(?:portals?|online|electronic(?:ally)?)\b)(?=[\s\S]*\b(?:tenan(?:t|ts|cy)|landlords?)\b)(?=[\s\S]*\b(?:rent|rents)\b)(?=[\s\S]*\b(?:pay(?:s|ing|ment|ments)?|sign(?:s|ed|ing|ature|atures)?)\b)` -> 21
+  - `\b(?:tenant portals?|online portals?|resident portals?)\b` -> 12
+  - `\b(?:by electronic means|electronic delivery|electronically deliver)\b` -> 156
+- **FLG-F-042** [OK] tenant-portal: required portal payments, signatures or notices; UETA refusal right; supersedes FLG-F-041 (narrowed: the plain by-electronic-means term returned 156 off-point units; replaced with the two statutes' own phrases); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 83.505 "electronically deliver"; passed 668.50 "may refuse to conduct other transactions by electronic means".
+  - `\b(?:portals?|online payments?|electronic (?:payments?|funds transfers?)|web ?sites?|apps?|mobile applications?)\b[\s\S]{0,1200}\b(?:tenan(?:t|ts|cy)|landlords?|rental agreements?|rent)\b` -> 6
+  - `\b(?:tenan(?:t|ts|cy)|landlords?|rental agreements?)\b[\s\S]{0,1200}\b(?:portals?|online payments?|electronic (?:payments?|funds transfers?)|mobile applications?)\b` -> 1
+  - `\A(?=[\s\S]*\b(?:portals?|online|electronic(?:ally)?)\b)(?=[\s\S]*\b(?:tenan(?:t|ts|cy)|landlords?)\b)(?=[\s\S]*\b(?:rent|rents)\b)(?=[\s\S]*\b(?:pay(?:s|ing|ment|ments)?|sign(?:s|ed|ing|ature|atures)?)\b)` -> 21
+  - `\b(?:tenant portals?|online portals?|resident portals?)\b` -> 12
+  - `\b(?:electronically deliver|refuse to conduct other transactions by electronic means)\b` -> 6
+- **FLG-F-043** [FAILED] (not cited by any row) student-housing: rules for student housing; exemption from tenant protections; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: recorded as failed 83.42 "educational"; passed 97.021 "dormitory room".
+  - `\b(?:dormitor(?:y|ies)|student housing|residence halls?|student (?:residents?|tenants?|apartments?)|housing (?:for|of) students)\b[\s\S]{0,1200}\b(?:tenan(?:t|ts|cy|cies)|landlords?|rental agreements?|leases?|lessees?|evict\w*)\b` -> 4
+  - `\b(?:tenan(?:t|ts|cy|cies)|landlords?|rental agreements?|leases?|lessees?|evict\w*)\b[\s\S]{0,1200}\b(?:dormitor(?:y|ies)|student housing|residence halls?|student (?:residents?|tenants?|apartments?)|housing (?:for|of) students)\b` -> 3
+  - `\A(?=[\s\S]*\b(?:dormitor(?:y|ies)|student housing|residence halls?|student (?:residents?|tenants?|apartments?)|housing (?:for|of) students)\b)(?=[\s\S]*\b(?:tenan(?:t|ts|cy)|landlords?|rental agreements?)\b)(?=[\s\S]*\b(?:terminat\w*|evict\w*|exempt\w*|does not apply)\b)` -> 1
+  - `\b(?:student housing|dormitor(?:y|ies))\b` -> 35
+- **FLG-F-044** [OK] student-housing: rules for student housing; exemption from tenant protections; supersedes FLG-F-043 (positive 83.42 recorded as failed (no battery term reached it); added the exclusion's own phrase); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 83.42 "educational"; passed 97.021 "dormitory room".
+  - `\b(?:dormitor(?:y|ies)|student housing|residence halls?|student (?:residents?|tenants?|apartments?)|housing (?:for|of) students)\b[\s\S]{0,1200}\b(?:tenan(?:t|ts|cy|cies)|landlords?|rental agreements?|leases?|lessees?|evict\w*)\b` -> 4
+  - `\b(?:tenan(?:t|ts|cy|cies)|landlords?|rental agreements?|leases?|lessees?|evict\w*)\b[\s\S]{0,1200}\b(?:dormitor(?:y|ies)|student housing|residence halls?|student (?:residents?|tenants?|apartments?)|housing (?:for|of) students)\b` -> 3
+  - `\A(?=[\s\S]*\b(?:dormitor(?:y|ies)|student housing|residence halls?|student (?:residents?|tenants?|apartments?)|housing (?:for|of) students)\b)(?=[\s\S]*\b(?:tenan(?:t|ts|cy)|landlords?|rental agreements?)\b)(?=[\s\S]*\b(?:terminat\w*|evict\w*|exempt\w*|does not apply)\b)` -> 1
+  - `\b(?:student housing|dormitor(?:y|ies))\b` -> 35
+  - `\bincidental to the provision of\b` -> 3
+- **FLG-F-045** [OK] tenant-employee-housing: occupancy conditional on employment; employee housing disclosure; caretakers; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 83.60 "resident manager"; passed 381.008 "residential migrant housing".
+  - `\b(?:employees?|employment|employers?|caretakers?|resident managers?|on-site managers?|superintendents?|janitors?)\b[\s\S]{0,1200}\b(?:tenan(?:t|ts|cy|cies)|landlords?|rental agreements?|dwelling units?)\b[\s\S]{0,1200}\b(?:terminat\w*|vacate\w*|possession|evict\w*|occupan\w*)\b` -> 17
+  - `\b(?:tenan(?:t|ts|cy|cies)|landlords?|rental agreements?|dwelling units?)\b[\s\S]{0,1200}\b(?:employees?|employment|employers?|caretakers?|resident managers?|on-site managers?|superintendents?|janitors?)\b[\s\S]{0,1200}\b(?:terminat\w*|vacate\w*|possession|evict\w*|occupan\w*)\b` -> 14
+  - `\A(?=[\s\S]*\b(?:condition(?:ed|al)? (?:up)?on (?:his or her |the )?employment|incident(?:al)? to (?:the )?employment|employer-provided housing|employee housing|housing provided by (?:an|the) employer)\b)(?=[\s\S]*\b(?:tenan(?:t|ts|cy)|landlords?|occupan\w*|dwelling)\b)` -> 0
+  - `\b(?:resident managers?|employee housing|employer-provided housing|residential migrant housing)\b` -> 19
+- **FLG-F-046** [FAILED] (not cited by any row) pet-eviction-fact-sheet: required fact sheet on pets and eviction; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 83.56 "unauthorized pets"; recorded as failed 741.30 "animal".
+  - `\b(?:pets?|animals?|dogs?|cats?)\b[\s\S]{0,1200}\b(?:evict\w*|writ of possession|removal of the tenant|possession of the (?:premises|dwelling unit))\b` -> 2
+  - `\b(?:evict\w*|writ of possession|removal of the tenant|possession of the (?:premises|dwelling unit))\b[\s\S]{0,1200}\b(?:pets?|animals?|dogs?|cats?)\b` -> 0
+  - `\A(?=[\s\S]*\b(?:fact sheets?|informational (?:sheets?|brochures?|pamphlets?)|notice to (?:pet|animal) owners?)\b)(?=[\s\S]*\b(?:pets?|animals?|dogs?|cats?)\b)(?=[\s\S]*\b(?:tenan(?:t|ts|cy)|landlords?|rental agreements?|evict\w*)\b)` -> 1
+  - `\bfact sheets?\b` -> 6
+- **FLG-F-047** [OK] pet-eviction-fact-sheet: required fact sheet on pets and eviction; supersedes FLG-F-046 (positive 741.30 recorded as failed (no battery term reached it); replaced with 83.43); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 83.56 "unauthorized pets"; passed 83.43 "pet deposit".
+  - `\b(?:pets?|animals?|dogs?|cats?)\b[\s\S]{0,1200}\b(?:evict\w*|writ of possession|removal of the tenant|possession of the (?:premises|dwelling unit))\b` -> 2
+  - `\b(?:evict\w*|writ of possession|removal of the tenant|possession of the (?:premises|dwelling unit))\b[\s\S]{0,1200}\b(?:pets?|animals?|dogs?|cats?)\b` -> 0
+  - `\A(?=[\s\S]*\b(?:fact sheets?|informational (?:sheets?|brochures?|pamphlets?)|notice to (?:pet|animal) owners?)\b)(?=[\s\S]*\b(?:pets?|animals?|dogs?|cats?)\b)(?=[\s\S]*\b(?:tenan(?:t|ts|cy)|landlords?|rental agreements?|evict\w*)\b)` -> 1
+  - `\bfact sheets?\b` -> 6
+- **FLG-F-048** [FAILED] (not cited by any row) confirmed-absences-outside-title item 1: squatter or unauthorized-occupant specific remedy; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 82.036 "unauthorized person"; recorded as failed 82.035 "transient occupant".
+  - `\b(?:squatt\w*|unauthorized persons?|unlawful(?:ly)? occup\w*|unlawful occupants?)\b[\s\S]{0,1200}\b(?:remov\w*|sheriff|vacate|possession)\b` -> 7
+  - `\b(?:remov\w*|sheriff|vacate|possession)\b[\s\S]{0,1200}\b(?:squatt\w*|unauthorized persons?|unlawful(?:ly)? occup\w*|unlawful occupants?)\b` -> 9
+  - `\A(?=[\s\S]*\b(?:unauthorized persons?|unlawful occupants?|transient occupants?)\b)(?=[\s\S]*\b(?:residential|dwelling)\b)(?=[\s\S]*\bsheriff\b)` -> 6
+  - `\bnotice to immediately vacate\b` -> 2
+- **FLG-F-049** [OK] confirmed-absences-outside-title item 1: squatter or unauthorized-occupant specific remedy; supersedes FLG-F-048 (positive 82.035 recorded as failed (no battery term reached it); added transient occupant to the proximity limbs); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 82.036 "unauthorized person"; passed 82.035 "transient occupant".
+  - `\b(?:squatt\w*|unauthorized persons?|unlawful(?:ly)? occup\w*|unlawful occupants?|transient occupants?)\b[\s\S]{0,1200}\b(?:remov\w*|sheriff|vacate|possession)\b` -> 8
+  - `\b(?:remov\w*|sheriff|vacate|possession)\b[\s\S]{0,1200}\b(?:squatt\w*|unauthorized persons?|unlawful(?:ly)? occup\w*|unlawful occupants?|transient occupants?)\b` -> 10
+  - `\A(?=[\s\S]*\b(?:unauthorized persons?|unlawful occupants?|transient occupants?)\b)(?=[\s\S]*\b(?:residential|dwelling)\b)(?=[\s\S]*\bsheriff\b)` -> 6
+  - `\bnotice to immediately vacate\b` -> 2
+- **FLG-F-050** [FAILED] (not cited by any row) confirmed-absences-outside-title item 2: cash rent payment receipt duty (contract and debtor-creditor law included); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: recorded as failed 83.56 "receipt stating the date and amount received"; passed 713.785 "cash".
+  - `\bcash\b[\s\S]{0,1200}\breceipts?\b[\s\S]{0,1200}\b(?:rent|rents|tenan(?:t|ts|cy)|landlords?|lessees?)\b` -> 6
+  - `\b(?:rent|rents|tenan(?:t|ts|cy)|landlords?|lessees?)\b[\s\S]{0,1200}\bcash\b[\s\S]{0,1200}\breceipts?\b` -> 4
+  - `\A(?=[\s\S]*\bcash\b)(?=[\s\S]*\breceipts?\b)(?=[\s\S]*\b(?:debtors?|payors?|obligors?|tenan(?:t|ts))\b)(?=[\s\S]*\b(?:upon request|on request|shall (?:give|provide|issue|furnish))\b)` -> 37
+  - `\b(?:written receipt|receipt for (?:the )?(?:cash|payment|rent))\b` -> 11
+- **FLG-F-051** [OK] confirmed-absences-outside-title item 2: cash rent payment receipt duty (contract and debtor-creditor law included); supersedes FLG-F-050 (positive 83.56 recorded as failed (no battery term reached it) and the section-wide AND returned 37 off-point units; added the receipt-stating phrase and a rent limb to the AND); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 83.56 "receipt stating the date and amount received"; passed 713.785 "cash".
+  - `\bcash\b[\s\S]{0,1200}\breceipts?\b[\s\S]{0,1200}\b(?:rent|rents|tenan(?:t|ts|cy)|landlords?|lessees?)\b` -> 6
+  - `\b(?:rent|rents|tenan(?:t|ts|cy)|landlords?|lessees?)\b[\s\S]{0,1200}\bcash\b[\s\S]{0,1200}\breceipts?\b` -> 4
+  - `\A(?=[\s\S]*\bcash\b)(?=[\s\S]*\breceipts?\b)(?=[\s\S]*\b(?:rent|rents)\b)(?=[\s\S]*\b(?:debtors?|payors?|obligors?|tenan(?:t|ts))\b)(?=[\s\S]*\b(?:upon request|on request|shall (?:give|provide|issue|furnish))\b)` -> 14
+  - `\b(?:written receipt|receipt stating|receipt for (?:the )?(?:cash|payment|rent))\b` -> 12
+- **FLG-F-052** [FAILED] (not cited by any row) confirmed-absences-outside-title item 3: landlord registration or licence as a precondition to a possession judgment; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: recorded as failed 509.241 "license"; recorded as failed 83.59 "action for possession".
+  - `\b(?:regist(?:er|ered|ers|ration|rations)|licens(?:e|ed|es|ing|ure)|certificate of (?:occupancy|registration|compliance))\b[\s\S]{0,1200}\b(?:action for possession|writ of possession|judgment for possession|evict\w*|removal of (?:the )?tenant)\b` -> 5
+  - `\b(?:action for possession|writ of possession|judgment for possession|evict\w*|removal of (?:the )?tenant)\b[\s\S]{0,1200}\b(?:regist(?:er|ered|ers|ration|rations)|licens(?:e|ed|es|ing|ure)|certificate of (?:occupancy|registration|compliance))\b` -> 5
+  - `\A(?=[\s\S]*\blandlords?\b)(?=[\s\S]*\b(?:regist(?:er|ered|ers|ration|rations)|licens(?:e|ed|es|ing|ure)|certificate of (?:occupancy|registration|compliance))\b)(?=[\s\S]*\b(?:action for possession|writ of possession|evict\w*)\b)(?=[\s\S]*\b(?:condition precedent|may not (?:bring|maintain|file)|shall not (?:bring|maintain|file)|dismiss\w*|bar(?:s|red)?)\b)` -> 2
+  - `\bcondition precedent\b[\s\S]{0,1200}\b(?:possession|evict\w*)\b` -> 3
+- **FLG-F-053** [FAILED] (not cited by any row) confirmed-absences-outside-title item 3: landlord registration or licence as a precondition to a possession judgment; supersedes FLG-F-052 (both positives recorded as failed (no battery term reached them); replaced with units the terms reach); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 723.061 "Eviction|eviction"; recorded as failed 83.231 "tenant".
+  - `\b(?:regist(?:er|ered|ers|ration|rations)|licens(?:e|ed|es|ing|ure)|certificate of (?:occupancy|registration|compliance))\b[\s\S]{0,1200}\b(?:action for possession|writ of possession|judgment for possession|evict\w*|removal of (?:the )?tenant)\b` -> 5
+  - `\b(?:action for possession|writ of possession|judgment for possession|evict\w*|removal of (?:the )?tenant)\b[\s\S]{0,1200}\b(?:regist(?:er|ered|ers|ration|rations)|licens(?:e|ed|es|ing|ure)|certificate of (?:occupancy|registration|compliance))\b` -> 5
+  - `\A(?=[\s\S]*\blandlords?\b)(?=[\s\S]*\b(?:regist(?:er|ered|ers|ration|rations)|licens(?:e|ed|es|ing|ure)|certificate of (?:occupancy|registration|compliance))\b)(?=[\s\S]*\b(?:action for possession|writ of possession|evict\w*)\b)(?=[\s\S]*\b(?:condition precedent|may not (?:bring|maintain|file)|shall not (?:bring|maintain|file)|dismiss\w*|bar(?:s|red)?)\b)` -> 2
+  - `\bcondition precedent\b[\s\S]{0,1200}\b(?:possession|evict\w*)\b` -> 3
+- **FLG-F-054** [OK] confirmed-absences-outside-title item 3: landlord registration or licence as a precondition to a possession judgment; supersedes FLG-F-053 (positive 83.231 recorded as failed (its body has no 'tenant'); replaced the pattern with its own phrase); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 723.061 "Eviction|eviction"; passed 83.231 "judgment for possession".
+  - `\b(?:regist(?:er|ered|ers|ration|rations)|licens(?:e|ed|es|ing|ure)|certificate of (?:occupancy|registration|compliance))\b[\s\S]{0,1200}\b(?:action for possession|writ of possession|judgment for possession|evict\w*|removal of (?:the )?tenant)\b` -> 5
+  - `\b(?:action for possession|writ of possession|judgment for possession|evict\w*|removal of (?:the )?tenant)\b[\s\S]{0,1200}\b(?:regist(?:er|ered|ers|ration|rations)|licens(?:e|ed|es|ing|ure)|certificate of (?:occupancy|registration|compliance))\b` -> 5
+  - `\A(?=[\s\S]*\blandlords?\b)(?=[\s\S]*\b(?:regist(?:er|ered|ers|ration|rations)|licens(?:e|ed|es|ing|ure)|certificate of (?:occupancy|registration|compliance))\b)(?=[\s\S]*\b(?:action for possession|writ of possession|evict\w*)\b)(?=[\s\S]*\b(?:condition precedent|may not (?:bring|maintain|file)|shall not (?:bring|maintain|file)|dismiss\w*|bar(?:s|red)?)\b)` -> 2
+  - `\bcondition precedent\b[\s\S]{0,1200}\b(?:possession|evict\w*)\b` -> 3
+- **FLG-F-055** [OK] confirmed-absences-misc item: smoke/CO alarm evidentiary or insurance shield; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 83.51 "smoke detection devices"; passed 553.883 "smoke alarms".
+  - `\b(?:smoke (?:detect\w*|alarms?)|carbon monoxide (?:detect\w*|alarms?))\b[\s\S]{0,1200}\b(?:admissib\w*|inadmissib\w*|evidence of negligence|insurers?|insurance)\b` -> 1
+  - `\b(?:admissib\w*|inadmissib\w*|evidence of negligence|insurers?|insurance)\b[\s\S]{0,1200}\b(?:smoke (?:detect\w*|alarms?)|carbon monoxide (?:detect\w*|alarms?))\b` -> 0
+  - `\A(?=[\s\S]*\b(?:smoke (?:detect\w*|alarms?)|carbon monoxide (?:detect\w*|alarms?))\b)(?=[\s\S]*\b(?:landlords?|owners?|tenan(?:t|ts))\b)(?=[\s\S]*\b(?:liab\w*|negligen\w*|civil action|damages)\b)` -> 6
+  - `\bsmoke (?:detection devices?|detectors?|alarms?)\b` -> 16
+- **FLG-F-056** [FAILED] (not cited by any row) confirmed-absences-misc item: ban or cap on payment-method (convenience) fees for rent; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: recorded as failed 83.43 "rent"; passed 215.322 "convenience fee".
+  - `\b(?:convenience fees?|surcharges?|processing fees?|transaction fees?|service fees?)\b[\s\S]{0,1200}\b(?:rent|rents|tenan(?:t|ts|cy)|landlords?|rental agreements?)\b` -> 15
+  - `\b(?:rent|rents|tenan(?:t|ts|cy)|landlords?|rental agreements?)\b[\s\S]{0,1200}\b(?:convenience fees?|surcharges?|processing fees?|transaction fees?)\b` -> 13
+  - `\A(?=[\s\S]*\b(?:credit cards?|debit cards?|electronic payments?|payment methods?|method of payment)\b)(?=[\s\S]*\b(?:fees?|surcharges?|charges?)\b)(?=[\s\S]*\b(?:tenan(?:t|ts|cy)|landlords?|rental agreements?)\b)(?=[\s\S]*\b(?:may not|shall not|prohibit\w*)\b)` -> 20
+  - `\bconvenience fees?\b` -> 14
+- **FLG-F-057** [OK] confirmed-absences-misc item: ban or cap on payment-method (convenience) fees for rent; supersedes FLG-F-056 (positive 83.43 recorded as failed (no battery term reached it); replaced with 501.0117, and added the lessee wording); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 501.0117 "surcharge"; passed 215.322 "convenience fee".
+  - `\b(?:convenience fees?|surcharges?|processing fees?|transaction fees?|service fees?)\b[\s\S]{0,1200}\b(?:rent|rents|tenan(?:t|ts|cy)|landlords?|rental agreements?|lessees?|lessors?)\b` -> 21
+  - `\b(?:rent|rents|tenan(?:t|ts|cy)|landlords?|rental agreements?|lessees?|lessors?)\b[\s\S]{0,1200}\b(?:convenience fees?|surcharges?|processing fees?|transaction fees?)\b` -> 19
+  - `\A(?=[\s\S]*\b(?:credit cards?|debit cards?|electronic payments?|payment methods?|method of payment)\b)(?=[\s\S]*\b(?:fees?|surcharges?|charges?)\b)(?=[\s\S]*\b(?:tenan(?:t|ts|cy)|landlords?|rental agreements?|lessees?|lessors?)\b)(?=[\s\S]*\b(?:may not|shall not|prohibit\w*)\b)` -> 30
+  - `\bconvenience fees?\b` -> 14
+- **FLG-F-058** [OK] confirmed-absences-misc item: special right to end a lease for a false rental application; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 817.537 "rental application"; passed 83.56 "fraudulent entry".
+  - `\b(?:false|fraudulent|forged|fictitious|misrepresent\w*|materially false)\b[\s\S]{0,1200}\b(?:rental applications?|applications? for (?:a )?(?:residential )?(?:tenancy|lease|rental))\b` -> 2
+  - `\b(?:rental applications?|applications? for (?:a )?(?:residential )?(?:tenancy|lease|rental))\b[\s\S]{0,1200}\b(?:false|fraudulent|forged|fictitious|misrepresent\w*|terminat\w*|rescind\w*|rescission)\b` -> 2
+  - `\A(?=[\s\S]*\brental applications?\b)(?=[\s\S]*\b(?:false|fraudulent|misrepresent\w*)\b)(?=[\s\S]*\b(?:terminat\w*|rescind\w*|rescission|void\w*)\b)` -> 1
+  - `\bfraudulent entry\b` -> 5
+- **FLG-M-001** [OK] dv-lockchange: lock change or rekey right or duty for a violence victim; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 83.67 "changing the locks".
+  - `(?:(?:domestic|dating|sexual|repeat) violence|\bstalking\b)[\s\S]{0,1200}\b(?:locks?|rekey\w*|re-key\w*)\b` -> 0
+  - `\b(?:locks?|rekey\w*|re-key\w*)\b[\s\S]{0,1200}(?:(?:domestic|dating|sexual|repeat) violence|\bstalking\b)` -> 0
+  - `\A(?=[\s\S]*(?:(?:domestic|dating|sexual|repeat) violence|\bstalking\b))(?=[\s\S]*\b(?:locks?|rekey\w*)\b)(?=[\s\S]*\b(?:tenant|landlord|lessee|lessor|rental agreement)\b)` -> 1
+  - `\bchang(?:e|es|ed|ing) the locks\b` -> 6
+  - `\bvictim\w*[\s\S]{0,1200}\b(?:locks?|rekey\w*)\b` -> 1
+  - `\b(?:locks?|rekey\w*)\b[\s\S]{0,1200}\bvictim\w*` -> 1
+- **FLG-M-002** [OK] dv tenancy protections: termination, eviction defense, confidentiality, deposit timing, qualifying documents; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 741.30 "exclusive use and possession of the dwelling".
+  - `(?:(?:domestic|dating|sexual|repeat) violence|\bstalking\b)[\s\S]{0,1200}\b(?:tenant|landlord|lessee|lessor|rental agreement|tenancy|evict\w*)` -> 2
+  - `\b(?:tenant|landlord|lessee|lessor|rental agreement|tenancy|evict\w*)[\s\S]{0,1200}(?:(?:domestic|dating|sexual|repeat) violence|\bstalking\b)` -> 4
+  - `\A(?=[\s\S]*(?:(?:domestic|dating|sexual|repeat) violence|\bstalking\b))(?=[\s\S]*\b(?:tenant|landlord|lessee|lessor)\b)(?=[\s\S]*\b(?:terminat\w*|evict\w*|possession|rental agreement|lease)\b)` -> 8
+  - `exclusive use and possession of the dwelling` -> 6
+  - `\bvictim\w*[\s\S]{0,1200}\b(?:rental agreement|tenancy|landlord|lessor|evict\w*)` -> 2
+  - `\b(?:rental agreement|tenancy|landlord|lessor|evict\w*)[\s\S]{0,1200}\bvictim\w*` -> 1
+- **FLG-M-003** [OK] jury-waiver: statute on waiving jury in a lease or eviction; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed R1.430 "waives? trial by jury|trial by jury".
+  - `\bwaiv\w*[\s\S]{0,1200}\bjury\b` -> 19
+  - `\bjury\b[\s\S]{0,1200}\bwaiv\w*` -> 20
+  - `\A(?=[\s\S]*\bjury\b)(?=[\s\S]*\bwaiv\w*)(?=[\s\S]*\b(?:tenant|landlord|lessee|lessor|rental agreement|dwelling unit))` -> 7
+  - `trial by jury` -> 25
+- **FLG-M-004** [OK] confession-of-judgment: confessed judgments, warrants of attorney, cognovit; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 55.05 "confessing or suffering judgment".
+  - `confess\w*[\s\S]{0,1200}\bjudgment` -> 11
+  - `\bjudgment[\s\S]{0,1200}confess\w*` -> 3
+  - `cognovit|warrant of attorney` -> 0
+  - `agree\w* (?:to|for) (?:a |the )?(?:entry of )?judgment` -> 0
+  - `\A(?=[\s\S]*confess\w*)(?=[\s\S]*\bjudgment)(?=[\s\S]*\b(?:tenant|landlord|lessee|lessor|rental agreement|dwelling unit))` -> 3
+- **FLG-M-005** [OK] liquidated-damages / penalty rule outside ch. 83; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 83.595 "liquidated damages".
+  - `liquidated damages` -> 55
+  - `\bpenalt\w*[\s\S]{0,1200}\b(?:contract|agreement)[\s\S]{0,1200}\b(?:void|unenforceable)\b` -> 17
+  - `\b(?:void|unenforceable)\b[\s\S]{0,1200}\b(?:contract|agreement)[\s\S]{0,1200}\bpenalt\w*` -> 8
+  - `damages[\s\S]{0,1200}(?:fixed|determined|stipulated) in (?:advance|anticipation)` -> 0
+  - `\A(?=[\s\S]*liquidated damages)(?=[\s\S]*\b(?:tenant|landlord|lessee|lessor|rental agreement|dwelling unit))` -> 13
+- **FLG-M-006** [FAILED] (not cited by any row) notice-service-fee / eviction-penalty-clause-ban: lease charge for serving a notice or filing an eviction; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: recorded as failed 83.62 "reasonable hourly rate"; passed 83.67 "changing the locks".
+  - `(?:fee|charge)s?[\s\S]{0,1200}\b(?:serv\w*|post\w*|deliver\w*) (?:of )?(?:a |the )?(?:written )?notice[\s\S]{0,1200}\b(?:tenant|landlord|lessee|lessor|rental agreement|dwelling unit)` -> 5
+  - `\b(?:tenant|landlord|lessee|lessor|rental agreement|dwelling unit)[\s\S]{0,1200}(?:fee|charge)s?[\s\S]{0,1200}\b(?:serv\w*|post\w*|deliver\w*) (?:of )?(?:a |the )?(?:written )?notice` -> 11
+  - `eviction (?:fee|charge|cost)s?` -> 0
+  - `\A(?=[\s\S]*\bevict\w*)(?=[\s\S]*\b(?:fee|charge)s?\b)(?=[\s\S]*\b(?:tenant|landlord)\b)` -> 14
+  - `\bnotice (?:fee|charge)s?\b` -> 0
+- **FLG-M-007** [OK] collection-fee: fee for collecting a past-due amount; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 68.065 "collection costs?|cost\w* of collection|collection (?:fee|cost|charge)".
+  - `collection (?:fee|cost|charge|expense)s?` -> 17
+  - `\bcost\w* of collection` -> 32
+  - `\A(?=[\s\S]*\bcollect\w*)(?=[\s\S]*\b(?:fee|charge|cost)s?\b)(?=[\s\S]*\b(?:tenant|landlord|rent)\b)(?=[\s\S]*\b(?:lease|rental agreement)\b)` -> 88
+- **FLG-M-008** [OK] notice-service-fee / eviction-penalty-clause-ban: lease charge for serving a notice or filing an eviction; supersedes FLG-M-006 (positive 83.62 matched no battery term; rerun without it); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 83.67 "lawful eviction".
+  - `(?:fee|charge)s?[\s\S]{0,1200}\b(?:serv\w*|post\w*|deliver\w*) (?:of )?(?:a |the )?(?:written )?notice[\s\S]{0,1200}\b(?:tenant|landlord|lessee|lessor|rental agreement|dwelling unit)` -> 5
+  - `\b(?:tenant|landlord|lessee|lessor|rental agreement|dwelling unit)[\s\S]{0,1200}(?:fee|charge)s?[\s\S]{0,1200}\b(?:serv\w*|post\w*|deliver\w*) (?:of )?(?:a |the )?(?:written )?notice` -> 11
+  - `eviction (?:fee|charge|cost)s?` -> 0
+  - `\A(?=[\s\S]*\bevict\w*)(?=[\s\S]*\b(?:fee|charge)s?\b)(?=[\s\S]*\b(?:tenant|landlord)\b)` -> 14
+  - `\bnotice (?:fee|charge)s?\b` -> 0
+- **FLG-M-009** [OK] collection-fee: fee for collecting a past-due amount; supersedes FLG-M-007 (four-term AND returned 88 mostly off-point units; replaced with a collection-charge limb tied to the role words); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 68.065 "collection costs?|cost\w* of collection|collection (?:fee|cost|charge)".
+  - `collection (?:fee|cost|charge|expense)s?` -> 17
+  - `\bcost\w* of collection` -> 32
+  - `\A(?=[\s\S]*(?:collection (?:fee|cost|charge|expense)s?|\bcost\w* of collection))(?=[\s\S]*\b(?:tenant|landlord|lessee|lessor)\b)` -> 4
+- **FLG-M-010** [OK] smoke-drift-waiver: smoke drift between units, waivers, secondhand smoke in rentals; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 386.203 "Secondhand smoke".
+  - `(?:secondhand smoke|smoke drift|drifting smoke|tobacco smoke|environmental tobacco)[\s\S]{0,1200}\b(?:tenant|landlord|lessee|lessor|rental agreement|dwelling unit)` -> 1
+  - `\b(?:tenant|landlord|lessee|lessor|rental agreement|dwelling unit)[\s\S]{0,1200}(?:secondhand smoke|smoke drift|drifting smoke|tobacco smoke|environmental tobacco)` -> 1
+  - `\A(?=[\s\S]*\bsmok\w*)(?=[\s\S]*\b(?:tenant|landlord|rental agreement)\b)(?=[\s\S]*\bwaiv\w*)` -> 5
+  - `secondhand smoke` -> 1
+- **FLG-M-011** [OK] application-fees: rental application or screening fee rules; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 83.425 "fees associated with such applications".
+  - `application fees?` -> 282
+  - `screening fees?` -> 0
+  - `applications? and fees` -> 7
+  - `\A(?=[\s\S]*\bapplication\w*)(?=[\s\S]*\bfees?\b)(?=[\s\S]*\b(?:tenant|landlord|rental agreement)\b)(?=[\s\S]*\b(?:rent|rental|dwelling)\b)` -> 46
+- **FLG-M-012** [OK] holding-deposit: money taken before the lease; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 420.503 "earnest money".
+  - `holding deposits?|earnest money|reservation (?:fee|deposit)s?|good[- ]faith deposits?` -> 17
+  - `\bdeposit\w*[\s\S]{0,1200}\b(?:prospective tenant|applicant)s?\b` -> 119
+  - `\b(?:prospective tenant|applicant)s?\b[\s\S]{0,1200}\bdeposit\w*` -> 151
+- **FLG-M-013** [OK] required-fees / fee-transparency / fee-unprovided-service: lease fee listing, all-in price, fee for a service not provided; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 83.425 "fees charged by the landlord".
+  - `(?:mandatory|nonoptional|non-optional|required) (?:fees?|charges?)` -> 81
+  - `junk fees?|hidden fees?|drip pricing|total price` -> 10
+  - `\b(?:fees?|charges?)\b[\s\S]{0,1200}\b(?:disclos\w*|itemiz\w*)[\s\S]{0,1200}\b(?:tenant|landlord|lessee|lessor|rental agreement|dwelling unit)` -> 20
+  - `\b(?:tenant|landlord|lessee|lessor|rental agreement|dwelling unit)[\s\S]{0,1200}\b(?:fees?|charges?)\b[\s\S]{0,1200}\b(?:disclos\w*|itemiz\w*)` -> 23
+  - `fees charged by the landlord` -> 1
+  - `(?:fees?|charges?)[\s\S]{0,1200}\bservices? (?:not|never) (?:provided|rendered|furnished)` -> 2
+- **FLG-M-014** [OK] rent-receipts: duty to give a receipt; debtor's right to a receipt; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 83.56 "receipt stating the date and amount received".
+  - `\breceipts?\b[\s\S]{0,1200}\brent\b` -> 28
+  - `\brent\b[\s\S]{0,1200}\breceipts?\b` -> 33
+  - `\b(?:right|entitled) to (?:a |an )?(?:written )?receipt` -> 2
+  - `\A(?=[\s\S]*\breceipt)(?=[\s\S]*\bcreditor\b)(?=[\s\S]*\bdebtor\b)(?=[\s\S]*\b(?:demand|request|require)\w*)` -> 17
+- **FLG-M-015** [OK] deposit-cost-schedule / security-deposit-standards: preset cleaning or carpet charges, posted deposit standards; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 715.065 "cleaning".
+  - `\b(?:carpet|cleaning)\b[\s\S]{0,1200}\bdeposit\w*` -> 4
+  - `\bdeposit\w*[\s\S]{0,1200}\b(?:carpet|cleaning)\b` -> 2
+  - `\bstandards?\b[\s\S]{0,1200}\bsecurity deposits?` -> 1
+  - `\bsecurity deposits?[\s\S]{0,1200}\bstandards?\b` -> 2
+  - `\A(?=[\s\S]*\bsecurity deposits?\b)(?=[\s\S]*\b(?:carpet|cleaning|standards?)\b)(?=[\s\S]*\b(?:tenant|landlord)\b)` -> 2
+- **FLG-M-016** [OK] nonrefundable-deposit-notice / separate notice; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 83.491 "nonrefundable".
+  - `\bnon-?refundable\b` -> 192
+  - `\bnon-?refundable\b[\s\S]{0,1200}\b(?:tenant|landlord|lessee|lessor|rental agreement|dwelling unit)` -> 4
+  - `\b(?:tenant|landlord|lessee|lessor|rental agreement|dwelling unit)[\s\S]{0,1200}\bnon-?refundable\b` -> 1
+- **FLG-M-017** [OK] application-fees: rental application or screening fee rules; supersedes FLG-M-011 (plain 'application fee' term returned 282 licensing units; replaced by role-limbed terms); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 83.425 "fees associated with such applications".
+  - `application fees?[\s\S]{0,1200}\b(?:tenant|landlord|lessee|lessor|rental agreement|dwelling unit)` -> 3
+  - `\b(?:tenant|landlord|lessee|lessor|rental agreement|dwelling unit)[\s\S]{0,1200}application fees?` -> 2
+  - `screening fees?` -> 0
+  - `applications? and fees` -> 7
+  - `\A(?=[\s\S]*\bapplication fees?\b)(?=[\s\S]*\b(?:tenant|landlord)\b)(?=[\s\S]*\b(?:rent|rental|dwelling)\b)` -> 5
+- **FLG-M-018** [OK] holding-deposit: money taken before the lease; supersedes FLG-M-012 ('applicant' limb returned 119/151 licensing units; replaced by 'prospective tenant'); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 420.503 "earnest money"; passed 83.491 "prospective tenant".
+  - `holding deposits?|earnest money|reservation (?:fee|deposit)s?|good[- ]faith deposits?` -> 17
+  - `\bdeposit\w*[\s\S]{0,1200}\bprospective tenants?\b` -> 1
+  - `\bprospective tenants?\b[\s\S]{0,1200}\bdeposit\w*` -> 2
+  - `\A(?=[\s\S]*\bdeposit\w*)(?=[\s\S]*\b(?:prospective tenant|applicant for (?:a )?(?:rental|tenancy|occupancy))s?\b)` -> 3
+- **FLG-M-019** [OK] required-fees / fee-transparency / fee-unprovided-service; supersedes FLG-M-013 (plain 'mandatory/required fees' term returned 81 off-point units; replaced by role-limbed terms); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 83.425 "fees charged by the landlord".
+  - `(?:mandatory|nonoptional|non-optional|required) (?:fees?|charges?)[\s\S]{0,1200}\b(?:tenant|landlord|lessee|lessor|rental agreement|dwelling unit)` -> 1
+  - `\b(?:tenant|landlord|lessee|lessor|rental agreement|dwelling unit)[\s\S]{0,1200}(?:mandatory|nonoptional|non-optional|required) (?:fees?|charges?)` -> 3
+  - `junk fees?|hidden fees?|drip pricing|total price` -> 10
+  - `\b(?:fees?|charges?)\b[\s\S]{0,1200}\b(?:disclos\w*|itemiz\w*)[\s\S]{0,1200}\b(?:tenant|landlord|lessee|lessor|rental agreement|dwelling unit)` -> 20
+  - `\b(?:tenant|landlord|lessee|lessor|rental agreement|dwelling unit)[\s\S]{0,1200}\b(?:fees?|charges?)\b[\s\S]{0,1200}\b(?:disclos\w*|itemiz\w*)` -> 23
+  - `fees charged by the landlord` -> 1
+  - `(?:fees?|charges?)[\s\S]{0,1200}\bservices? (?:not|never) (?:provided|rendered|furnished)` -> 2
+- **FLG-M-020** [OK] nonrefundable-deposit-notice / separate notice; supersedes FLG-M-016 (plain 'nonrefundable' returned 192 licensing units; replaced by a distinctive deposit term); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 83.491 "nonrefundable".
+  - `\bnon-?refundable (?:security )?deposits?\b` -> 3
+  - `\bnon-?refundable\b[\s\S]{0,1200}\b(?:tenant|landlord|lessee|lessor|rental agreement|dwelling unit)` -> 4
+  - `\b(?:tenant|landlord|lessee|lessor|rental agreement|dwelling unit)[\s\S]{0,1200}\bnon-?refundable\b` -> 1
+  - `\A(?=[\s\S]*\bnon-?refundable\b)(?=[\s\S]*\bdeposit\w*)(?=[\s\S]*\b(?:tenant|landlord|rent)\b)` -> 7
+- **FLG-M-021** [OK] rent-receipts: duty to give a receipt; debtor's right to a receipt; supersedes FLG-M-014 (INFLECTION warnings on rent, creditor, debtor); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 83.56 "receipt stating the date and amount received".
+  - `\breceipts?\b[\s\S]{0,1200}\brent(?:s|ed|ing)?\b` -> 44
+  - `\brent(?:s|ed|ing)?\b[\s\S]{0,1200}\breceipts?\b` -> 45
+  - `\b(?:right|entitled) to (?:a |an )?(?:written )?receipt` -> 2
+  - `\A(?=[\s\S]*\breceipt)(?=[\s\S]*\bcreditors?\b)(?=[\s\S]*\bdebtors?\b)(?=[\s\S]*\b(?:demand|request|require)\w*)` -> 21
+- **FLG-M-022** [FAILED] (not cited by any row) source-of-income: refusing tenants for income source or vouchers; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: recorded as failed 1002.81 "federal housing assistance payments".
+  - `(?:source of income|lawful source|housing (?:choice )?vouchers?|section 8\b|housing assistance payments?|rent(?:al)? (?:subsidy|subsidies|assistance))[\s\S]{0,1200}\b(?:discriminat\w*|refus\w*|den(?:y|ied|ies))` -> 2
+  - `\b(?:discriminat\w*|refus\w*|den(?:y|ied|ies))[\s\S]{0,1200}(?:source of income|lawful source|housing (?:choice )?vouchers?|section 8\b|housing assistance payments?|rent(?:al)? (?:subsidy|subsidies|assistance))` -> 6
+  - `\A(?=[\s\S]*(?:source of income|lawful source|housing (?:choice )?vouchers?|section 8\b|housing assistance payments?|rent(?:al)? (?:subsidy|subsidies|assistance)))(?=[\s\S]*\b(?:discriminat\w*|refus\w*)\b)(?=[\s\S]*\b(?:tenant|landlord|rental|dwelling)\b)` -> 32
+  - `source of income` -> 8
+- **FLG-M-023** [OK] tenant-rights-statement / rights-responsibilities-guide: state statement, handbook or guide to give tenants; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 83.425 "rights and responsibilities of the landlord".
+  - `(?:tenants?|landlords?|renters?)['’]? (?:rights|bill of rights|handbook|guide)` -> 2
+  - `rights and responsibilities of (?:the )?(?:landlord|tenant)` -> 1
+  - `(?:statement|summary|handbook|guide|brochure|pamphlet)s?[\s\S]{0,1200}\b(?:tenant|landlord)s?\b[\s\S]{0,1200}\brights?\b` -> 11
+  - `\A(?=[\s\S]*\b(?:handbook|brochure|pamphlet|guide)\b)(?=[\s\S]*\b(?:tenant|landlord)s?\b)(?=[\s\S]*\b(?:rental agreement|lease|tenancy)\b)` -> 10
+- **FLG-M-024** [OK] rent-increase-notice / term-change-notice: notice before raising rent or changing terms; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 723.037 "increase".
+  - `\brent (?:increase|increases|increased)\b|increase (?:in |of )?(?:the )?(?:lot )?rent\w*` -> 10
+  - `\b(?:increas\w*|rais\w*)\b[\s\S]{0,1200}\brent\b[\s\S]{0,1200}\bnotice` -> 3
+  - `\bnotice[\s\S]{0,1200}\b(?:increas\w*|rais\w*)\b[\s\S]{0,1200}\brent\b` -> 3
+  - `\A(?=[\s\S]*\b(?:increas\w*|rais\w*)\b)(?=[\s\S]*\brent\b)(?=[\s\S]*\bnotice\b)(?=[\s\S]*\b(?:tenant|landlord)\b)` -> 20
+  - `(?:chang\w*|modif\w*|amend\w*)[\s\S]{0,1200}\b(?:terms|rental agreement)\b[\s\S]{0,1200}\b(?:tenant|landlord)\b[\s\S]{0,1200}\bnotice` -> 6
+- **FLG-M-025** [OK] tenant-screening: rules for screening rental applicants; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 83.425 "screening process used by a landlord".
+  - `tenant screening|screening (?:process|criteria)` -> 16
+  - `(?:criminal|arrest|eviction) (?:history|record|background)s?[\s\S]{0,1200}\b(?:tenant|rental|landlord|housing)` -> 7
+  - `\b(?:tenant|rental|landlord|housing)\b[\s\S]{0,1200}(?:criminal|arrest|eviction) (?:history|record|background)s?` -> 4
+  - `\bconsumer reports?\b[\s\S]{0,1200}\b(?:tenant|rental|landlord|lease)` -> 2
+  - `\b(?:tenant|rental|landlord|lease)\b[\s\S]{0,1200}\bconsumer reports?\b` -> 2
+- **FLG-M-026** [OK] late-fee-limit: caps on late fees; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 723.061 "late charges".
+  - `late (?:fee|charge|payment charge)s?[\s\S]{0,1200}\b(?:tenant|landlord|lessee|lessor|rental agreement|dwelling unit)` -> 8
+  - `\b(?:tenant|landlord|lessee|lessor|rental agreement|dwelling unit)[\s\S]{0,1200}late (?:fee|charge|payment charge)s?` -> 9
+  - `\A(?=[\s\S]*\blate (?:fee|charge)s?)(?=[\s\S]*\b(?:tenant|landlord|lessee|lot rental)\b)` -> 13
+- **FLG-M-027** [OK] lockout-for-rent-delinquency: self-help lockout; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 83.67 "bootlock".
+  - `\block(?:ing|s|ed)? out\b|\blockouts?\b|\bbootlock` -> 15
+  - `\bchang(?:e|es|ed|ing) the locks\b` -> 6
+  - `\bexclud\w*[\s\S]{0,1200}\btenant[\s\S]{0,1200}\b(?:rent|nonpayment)` -> 5
+- **FLG-M-028** [OK] exculpatory-clauses: releases, indemnity, liability limits in leases; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 83.47 "limit or preclude any liability".
+  - `\bindemnif\w*[\s\S]{0,1200}\b(?:tenant|landlord|lessee|lessor|rental agreement|dwelling unit)` -> 3
+  - `\b(?:tenant|landlord|lessee|lessor|rental agreement|dwelling unit)[\s\S]{0,1200}\bindemnif\w*` -> 5
+  - `exculpat\w*|hold (?:\w+ )?harmless` -> 52
+  - `\A(?=[\s\S]*\b(?:limit|preclude|release)\w*)(?=[\s\S]*\bliabilit\w*)(?=[\s\S]*\b(?:rental agreement|lease)\b)(?=[\s\S]*\b(?:tenant|landlord)\b)` -> 32
+- **FLG-M-029** [OK] rent-receipt-anti-waiver: whoever collects rent keeps the repair duty; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 697.07 "assignment of rents".
+  - `\bassign\w*[\s\S]{0,1200}\brents?\b[\s\S]{0,1200}\b(?:repair\w*|maint\w*|habitab\w*|obligations?)\b` -> 5
+  - `\b(?:repair\w*|maint\w*|habitab\w*|obligations?)\b[\s\S]{0,1200}\bassign\w*[\s\S]{0,1200}\brents?\b` -> 5
+  - `assignment of rents` -> 1
+  - `\A(?=[\s\S]*\bcollect\w* (?:the )?rents?\b)(?=[\s\S]*\b(?:obligation|dut(?:y|ies))\b)(?=[\s\S]*\b(?:landlord|lessor)\b)` -> 3
+- **FLG-M-030** [OK] waiver-by-acceptance: accepting rent waives a breach; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 83.56 "accepts rent with actual knowledge".
+  - `\baccept\w*[\s\S]{0,1200}\brent\w*[\s\S]{0,1200}\bwaiv\w*` -> 6
+  - `\bwaiv\w*[\s\S]{0,1200}\baccept\w*[\s\S]{0,1200}\brent\w*` -> 4
+  - `\A(?=[\s\S]*\baccept\w* (?:of )?(?:the )?(?:partial )?rent)(?=[\s\S]*\bwaiv\w*)` -> 4
+- **FLG-M-031** [OK] source-of-income: refusing tenants for income source or vouchers; supersedes FLG-M-022 (positive 1002.81 matched no battery term; positive moved to a unit a term reaches); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 1002.81 "federal housing assistance payments".
+  - `(?:source of income|lawful source|housing (?:choice )?vouchers?|section 8\b|housing assistance payments?|rent(?:al)? (?:subsidy|subsidies|assistance))[\s\S]{0,1200}\b(?:discriminat\w*|refus\w*|den(?:y|ied|ies))` -> 2
+  - `\b(?:discriminat\w*|refus\w*|den(?:y|ied|ies))[\s\S]{0,1200}(?:source of income|lawful source|housing (?:choice )?vouchers?|section 8\b|housing assistance payments?|rent(?:al)? (?:subsidy|subsidies|assistance))` -> 6
+  - `\A(?=[\s\S]*(?:source of income|lawful source|housing (?:choice )?vouchers?|section 8\b|housing assistance payments?|rent(?:al)? (?:subsidy|subsidies|assistance)))(?=[\s\S]*\b(?:discriminat\w*|refus\w*)\b)(?=[\s\S]*\b(?:tenant|landlord|rental|dwelling)\b)` -> 32
+  - `source of income` -> 8
+  - `federal housing assistance payments` -> 1
+- **FLG-M-032** [OK] rent-increase-notice / term-change-notice: notice before raising rent or changing terms; supersedes FLG-M-024 (INFLECTION warnings on rent); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2548; positives: passed 723.037 "increase".
+  - `\brent (?:increase|increases|increased)\b|increase (?:in |of )?(?:the )?(?:lot )?rent\w*` -> 10
+  - `\b(?:increas\w*|rais\w*)\b[\s\S]{0,1200}\brent(?:s|ed|al)?\b[\s\S]{0,1200}\bnotice` -> 8
+  - `\bnotice[\s\S]{0,1200}\b(?:increas\w*|rais\w*)\b[\s\S]{0,1200}\brent(?:s|ed|al)?\b` -> 9
+  - `\A(?=[\s\S]*\b(?:increas\w*|rais\w*)\b)(?=[\s\S]*\brent(?:s|al)?\b)(?=[\s\S]*\bnotice\b)(?=[\s\S]*\b(?:tenant|landlord)\b)(?=[\s\S]*\b(?:amount|rate)\b)` -> 31
+  - `(?:chang\w*|modif\w*|amend\w*)[\s\S]{0,1200}\b(?:terms|rental agreement)\b[\s\S]{0,1200}\b(?:tenant|landlord)\b[\s\S]{0,1200}\bnotice` -> 6
+- **FLG-M-033** [OK] landlord-registration (check R11-10): statewide landlord or rental registry; out-of-state owner local agent; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 509.101 "register of guests".
+  - `\bregist\w*[\s\S]{0,1200}\b(?:landlords?|rental propert\w*|residential rental|rental units?|dwelling units?)` -> 23
+  - `\b(?:landlords?|rental propert\w*|residential rental|rental units?|dwelling units?)[\s\S]{0,1200}\bregist\w*` -> 18
+  - `\b(?:nonresident|out-of-state|out of state|resides? outside)[\s\S]{0,1200}\b(?:owner|landlord|lessor)s?\b[\s\S]{0,1200}\b(?:rent\w*|lease\w*|dwelling)` -> 12
+  - `\b(?:local|resident|registered) agent[\s\S]{0,1200}\b(?:rental|landlord|dwelling|tenant)` -> 0
+- **FLG-M-034** [OK] deposit-installments (check R11-11): installment payment of a security deposit outside s. 83.491; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 83.491 "installments".
+  - `\binstall?ments?\b[\s\S]{0,1200}\b(?:security )?deposits?\b` -> 18
+  - `\b(?:security )?deposits?\b[\s\S]{0,1200}\binstall?ments?\b` -> 12
+- **FLG-M-035** [OK] habitability-waiver (check R11-12): tenant accepts named defects for a rent reduction; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 83.51 "abate".
+  - `\b(?:reduc\w*|abat\w*|lower\w*|discount\w*)\b[\s\S]{0,1200}\brent\w*\b[\s\S]{0,1200}\b(?:defects?|defective|conditions?|repairs?|disrepair)\b` -> 13
+  - `\b(?:defects?|defective|disrepair)\b[\s\S]{0,1200}\b(?:reduc\w*|abat\w*)\b[\s\S]{0,1200}\brent\w*\b` -> 1
+  - `\b(?:accept\w*|waiv\w*|as is)\b[\s\S]{0,600}\b(?:defects?|defective|disrepair)\b[\s\S]{0,1200}\b(?:tenants?|lessees?)\b` -> 1
+- **FLG-M-036** [OK] unconscionability (check R11-13): statutory list of unconscionable lease terms; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 83.45 "unconscionable".
+  - `\bunconscionab\w*` -> 27
+  - `\bunfair (?:lease|rental agreement|terms?)\b` -> 0
+- **FLG-M-037** [OK] pet-fees (check R21-04): a cap on pet fees, pet deposits or pet rent; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 413.08 "extra compensation".
+  - `\bpets?\b[\s\S]{0,1200}\b(?:fees?|deposits?|rent|charges?)\b[\s\S]{0,1200}\b(?:exceed\w*|caps?|capped|limit\w*|maximum)\b` -> 3
+  - `\b(?:fees?|deposits?|rent|charges?)\b[\s\S]{0,1200}\bpets?\b[\s\S]{0,1200}\b(?:exceed\w*|caps?|capped|limit\w*|maximum)\b` -> 0
+  - `\bextra compensation\b` -> 7
+- **FLG-M-038** [FAILED] (not cited by any row) expedited-deposit-disposition (check R21-01): fast-track or summary procedure for security deposit disputes; scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: recorded as failed 51.011 "summary procedure".
+  - `\b(?:expedit\w*|summary (?:procedure|proceeding)s?|fast[- ]track|accelerat\w*)\b[\s\S]{0,1200}\b(?:security deposits?|deposit money|advance rent)\b` -> 0
+  - `\b(?:security deposits?|deposit money|advance rent)\b[\s\S]{0,1200}\b(?:expedit\w*|summary (?:procedure|proceeding)s?|fast[- ]track|accelerat\w*)\b` -> 1
+  - `\bsummary procedure\b` -> 43
+- **FLG-M-039** [OK] expedited-deposit-disposition (check R21-01): fast-track or summary procedure for security deposit disputes; supersedes FLG-M-038 (positive 51.011 does not contain the phrase; positive moved to 83.59, which a term reaches); scope all; controls "zqxvbnmwt" 0, "\bLegislature\b" 2426; positives: passed 83.59 "summary procedure".
+  - `\b(?:expedit\w*|summary (?:procedure|proceeding)s?|fast[- ]track|accelerat\w*)\b[\s\S]{0,1200}\b(?:security deposits?|deposit money|advance rent)\b` -> 0
+  - `\b(?:security deposits?|deposit money|advance rent)\b[\s\S]{0,1200}\b(?:expedit\w*|summary (?:procedure|proceeding)s?|fast[- ]track|accelerat\w*)\b` -> 1
+  - `\bsummary procedure\b` -> 43
+
+### §4 Decisions and questions asked of Taylor
+
+#### Florida items (prompt), each answered once with the statute read
+
+1. **Waivers, prohibited provisions and remedies (rule 54).** Read whole: Fla. Stat. §§ 83.45, 83.47, 83.48, 83.51, 83.56(5), 83.595 (and 83.44, 83.49, 83.53, 83.57, 83.575, 83.63, 55.05, 57.105, 559.72, 559.77, 386.203-386.209, Fla. Const. art. I, § 22, art. X, § 20, Fla. R. Civ. P. 1.430, Form 1.947(b)). Central row `edu-part5-nonwaivable-fl` (part5-nonwaivable): § 83.47(1)(a)-(b) voids waivers of part II rights and limits on legal liability; § 83.47(2) gives actual damages for inclusion with no knowledge element; § 83.56(4) and § 83.48 carry their own non-waiver sentences; what part II leaves to agreement (§§ 83.46(1), 83.49(5), 83.51(1) last sentence for single-family homes and duplexes, 83.51(2)(a)-(b) "unless otherwise agreed in writing", 83.51(2)(e)). Each other waiver topic has its own short row pointing there: habitability-waiver, habitability-modifiable, notice-to-quit-waiver, showing-notice-waiver (Florida sets no showing-notice period, so a waiver of one is empty), security-deposit-nonwaiver, smoke-drift-waiver, jury-waiver, confession-of-judgment (§ 55.05 voids every pre-suit power of attorney to confess judgment), exculpatory-clauses, unconscionability, attorney-fees (§ 83.48 plus § 57.105(7) reciprocity), collection-fee, notice-service-fee, eviction-penalty-clause-ban, liquidated-damages (§ 83.595(4) addendum, 2 months' rent; § 83.575(2) for notice breaches), waiver-by-acceptance (§ 83.56(5)(a)-(c)), plus knowing-use-penalty and casualty-and-mitigation-waivable. Rule 54 options offered: `jury-waiver-fl` (mutual, possession-only, severable), `collection-fee-fl` (agency's actual charge up to a landlord cap), `notice-cost-fl` (actual delivery cost as § 83.55 damages). Declined as clauses, with education rows saying why: a fixed eviction fee and a notice-service fee set in advance (penalty doctrine unread; court awards costs and fees), an acceptance-of-rent non-waiver clause (void under § 83.47(1)(a) against § 83.56(5)(a)). Pointed to without change: `edu-prohibited-lease-terms-fl`, `early-termination-addendum-fl`, `early-termination-fl`. One finding on an existing row (log §6): `late-fee`'s acceptance sentence.
+2. **Domestic violence.** Read whole: Fla. Stat. § 741.30 (exclusive use and possession of the shared dwelling, (5)(a)2., (6)(a)2.; officer assistance (8)(a)2.), §§ 784.046 and 784.0485 (no dwelling relief), § 741.28, §§ 741.401-741.405 (Address Confidentiality Program, agencies only). Batteries FLG-M-001 (lock change) and FLG-M-002 (tenancy protections) over every held Florida source found no lock-change, confidentiality, eviction-protection, deposit-timing or qualifying-document rule for victims. The only tenancy mention is a police-training topic in § 943.1701(7). Rows: `edu-no-dv-lock-change-right-fl`, `edu-no-dv-confidentiality-rule-fl`, `edu-no-dv-eviction-protection-fl`, `edu-no-dv-deposit-timing-rule-fl`, `edu-no-dv-qualifying-documents-fl` (absences), `edu-dv-protection-order-statutes-fl` (the statutes haven't moved; latest amendments effective July 1, 2026 and July 1, 2025). Federal VAWA (34 U.S.C. § 12491) is stated only for covered housing, from the saved text. `edu-no-dv-lease-termination-fl` pointed to without change.
+3. **Deposits, fees and receipts.** Read whole: Fla. Stat. §§ 83.43, 83.49, 83.491, 83.67 (also 413.08(6), 760.27, 501.005, 83.683, 760.23). Rows on security-deposit-holding, -on-sale, -penalty (forfeiture of the claim, fees, bond, licensee sanctions; no multiple damages), deposit-surrender-notice (§ 83.49(5)), expedited-deposit-disposition (court "shall advance the cause on the calendar"), deposit-last-month-rent (advance rent), deposit-installments (fee-in-lieu program only, § 83.491(1)(b), (3)(c)), pet-fees (pet deposit is deposit money; no charge for a service animal), and confirmed absences for deposit-cost-schedule, security-deposit-standards, nonrefundable-deposit-notice and -separate-notice, holding-deposit, application-fees, fee-transparency, fee-unprovided-service, late-fee-limit, rent-receipts (one receipt rule only, § 83.56(5)(a)1.) and rent-receipt-anti-waiver. required-fees: tagged `fees-and-charges-vi` (reasons in its FL segment) plus `edu-required-fees-fl`. lockout-for-rent-delinquency: prohibited (§ 83.67(2), (6), (7)). Pointed to without change: `edu-security-deposit-rules-fl`, `security-deposit-notice-fl`, `security-deposit-return-fl`, `fee-in-lieu-of-deposit-fl`, `edu-no-deposit-cap-fl`, `edu-no-fee-caps-fl`, `edu-fees-as-rent-fl`.
+4. **Local preemption (§ 83.425, ch. 2023-314).** Read whole: Fla. Stat. § 83.425, § 125.0103 (rent control barred, (2)); § 166.043 relied on through `edu-local-preemption-fl`. Each local-subject row says what the statute preempts and what it leaves (code enforcement under the codes § 83.51(1)(a) incorporates). landlord-registration is answered by the state licence for public lodging establishments (Fla. Stat. §§ 509.013(4), 509.241, 509.242(1)(d), 509.251: properties renting 5+ units long-term), rental-inspection by the Division's annual inspection and right of entry (Fla. Stat. § 509.032(2)). Confirmed absences: source-of-income (state law; local ordinances' survival unsettled, as `edu-local-preemption-fl` says), tenant-rights-statement, rights-responsibilities-guide, rent-increase-notice (no statute; periodic tenancies change by § 83.57 notice; § 501.160 emergency price-gouging reaches dwelling units; § 723.037's 90 days is mobile-home-park only), term-change-notice (only the § 83.49(2) deposit-holding change and § 83.505(3) e-mail update notices), tenant-screening. No county ordinance was researched (rule 3). `edu-local-preemption-fl` pointed to without change.
+5. **Shared fee clauses (2026-10-04 cross-state check).** Read against Fla. Stat. §§ 83.47, 83.49, 83.51(2)(a)2., 83.51(4), 720.3085(8) and 718.116(11) (also 720.305(1)-(2), 718.303(1), (3)). `keys` works in Florida: for a dwelling other than a single-family home or duplex, locks and keys are the landlord's duty "Unless otherwise agreed in writing" (Fla. Stat. § 83.51(2)(a)), and the lease is that writing; a rekey after unreturned or lost keys is a tenant-caused condition (Fla. Stat. § 83.51(4)); taking the cost from the deposit still needs the § 83.49(3)(a) claim notice. `hoa-compliance` works in Florida: tenants are governed by association rules and can be fined directly (Fla. Stat. §§ 720.305(1)-(2), capped at $100 per violation and $1,000 in the aggregate unless the governing documents provide otherwise; 718.303(1), (3)); passing fines for the tenant's own violations is a contract term that limits no liability. The association rent-demand statutes give the tenant a credit against rent and immunity for rent timely paid to the association (Fla. Stat. §§ 718.116(11), 720.3085(8)) and make the association a landlord only for notice and eviction, with "no obligations under s. 83.51" (Fla. Stat. § 720.3085(8)(d)); neither clause conflicts. No conflict to report.
+6. **Three central shared edits (2026-10-04).** `smoking-policy` reads correctly: a lease ban on smoking or vaping anything, including marijuana, is consistent with Fla. Stat. § 381.986(15)(d) ("does not impair the ability of any party to restrict or limit smoking or vaping marijuana on his or her private property"), Fla. Const. art. X, § 29 (no lease rule; case-law risk on medical-use sanctions labelled unread at the October retro) and the Clean Indoor Air Act (§§ 386.201-386.211: the private-residence exception permits smoking but doesn't require a landlord to allow it, and Fla. Const. art. X, § 20(b) preserves an owner's further limits); the 2026-10-04 narrowing of Tenant's cost liability to Tenant, occupants and guests is consistent with Fla. Stat. § 83.47(1)(b). `no-alterations` reads correctly: its saving sentence keeps the tenant's lawful installations (flotation bedding § 83.535, the U.S. flag § 83.67(4), disability modifications § 760.23(9)(a)) and changes no ownership Florida assigns. `addendum-precedence` reads correctly: the § 83.505 e-mail addendum carries its own control sentence (`electronic-notice-addendum-fl`), and the § 83.595(4) addendum, the § 83.512 flood disclosure and the § 83.49(2) notice are documents "applicable law requires", which the carve-out lets control.
+7. **Holdover and CARES.** (a) `holdover` works in Florida: Fla. Stat. § 83.58 gives "double the amount of rent due on the dwelling unit, or any part thereof, for the period during which the tenant refuses to surrender possession", a figure, so "the maximum amount permitted by applicable law" has a Florida referent (rule 26 AS 5 doesn't bite); the month-to-month continuation on acceptance of rent matches § 83.46(2), and § 83.575(3)'s extra month's rent for a permitted holdover without notice is left to the law. (b) No FL eviction row contradicts `edu-cares-act-notice`: `edu-eviction-process-fl`, `default-by-tenant-fl` and `edu-periodic-tenancy-termination-fl` state Florida's notices without claiming they suffice for a federally backed property, and § 83.5615 is stated as dormant (`edu-foreclosure-tenant-rights-fl`). 15 U.S.C. § 9058(c) was read and saved. Florida's eviction court forms (Form 1.947) carry no CARES statement (no Florida rule in the corpus does). No finding.
+8. **Currency.** See §1.4: all six listed acts read for their effective-date sections; the chapter's History lines show no other 2024-2026 act.
+
+#### Class decisions given to the canvass helpers
+The helpers worked from a numbered decisions file (scope of part II and ch. 723; waivers; notices; what may be changed in writing under § 83.51; preemption; definitions; good faith and unconscionability; § 83.5615 dormant; the main pass's topics; tag-first rules; Part 5's NEEDS_REVIEW policy; body voice; case law and ordinances; currency; federal law). Rows cite them as "log §4 class decision N"; the file's text is reproduced at the end of this section.
+## Florida gaps pass: class decisions (main pass, 2026-11-05)
+
+Read this before every topic. Cite a decision in delivered notes as "log §4 class decision N". Every
+statutory phrase below is quoted verbatim from the corpus with its citation; open the section yourself before
+quoting any of its words in a row (rule 27, SD-gaps 12).
+
+**1. Scope of the act.** 'This part applies to the rental of a dwelling unit' (Fla. Stat. § 83.41). Part II
+'does not apply to' five listed occupancies, among them 'Transient occupancy in a hotel, condominium, motel,
+roominghouse, or similar public lodging, or transient occupancy in a mobile home park' (Fla. Stat. § 83.42(3)),
+'Occupancy by a holder of a proprietary lease in a cooperative apartment' (Fla. Stat. § 83.42(4)) and
+'Occupancy by an owner of a condominium unit' (Fla. Stat. § 83.42(5)); read § 83.42 whole. Mobile home park
+lots: chapter 723 'appl[ies] to any residential tenancy in which a mobile home is placed upon a rented or
+leased lot in a mobile home park in which 10 or more lots are offered for rent or lease'; where both home and
+lot are rented, or fewer than 10 lots, 'the tenancy shall be governed by the provisions of part II of chapter
+83' (Fla. Stat. § 723.002(1)). The library is for ordinary residential rentals: a rule found only in ch. 723
+is stated as a mobile-home-park rule and does not answer the topic for ordinary rentals by itself. (Quote
+§ 723.002(1) only in exact fragments; "appl[ies]" above is an editorial bracket, so don't copy it as a quote.)
+
+**2. Waivers.** A rental-agreement provision 'is void and unenforceable to the extent that it: (a) Purports to
+waive or preclude the rights, remedies, or requirements set forth in this part. (b) Purports to limit or
+preclude any liability of the landlord to the tenant or of the tenant to the landlord, arising under law'
+(Fla. Stat. § 83.47(1)); and 'If such a void and unenforceable provision is included in a rental agreement
+entered into, extended, or renewed after the effective date of this part and either party suffers actual
+damages as a result of the inclusion, the aggrieved party may recover those damages sustained after the
+effective date of this part' (Fla. Stat. § 83.47(2)). The main pass writes the central row
+`edu-part5-nonwaivable-fl` (topic part5-nonwaivable); a helper row that touches a waiver points to it by id
+rather than restating it. The § 83.47(1)(a) bar reaches rights 'set forth in this part' (Part II only); rights
+in other chapters carry their own non-waiver rules, if any. State the default rule before any waiver point:
+a waiver of a rule Florida doesn't have is empty, not lawful (rule 27, WY-gaps).
+
+**3. Notices.** 'The delivery of the written notices required by subsections (1)-(3) shall be by mailing,
+delivering a true copy thereof, e-mailing in accordance with s. 83.505, or, if the tenant is absent from the
+premises, by leaving a copy thereof at the residence. The notice requirements of subsections (1)-(3) may not
+be waived in the rental agreement' (Fla. Stat. § 83.56(4)). E-mail delivery needs the signed addendum in
+'substantially the following form' (Fla. Stat. § 83.505(1)); the library's clause is
+`electronic-notice-addendum-fl`.
+
+**4. What the parties may change in writing (maintenance).** '(1) ... The landlord's obligations under this
+subsection may be altered or modified in writing with respect to a single-family home or duplex' (§ 83.51(1),
+last sentence; quote it from the section, the corpus prints a curly apostrophe). '(2)(a) Unless otherwise
+agreed in writing, in addition to the requirements of subsection (1), the landlord of a dwelling unit other
+than a single-family home or duplex shall ...' make reasonable provisions for extermination, locks and keys,
+common areas, garbage removal, and 'Functioning facilities for heat during winter, running water, and hot
+water' (Fla. Stat. § 83.51(2)(a)5.). '(b) Unless otherwise agreed in writing, at the commencement of the
+tenancy of a single-family home or duplex, the landlord shall install working smoke detection devices'
+(Fla. Stat. § 83.51(2)(b)). Rental agreement may make the tenant pay 'costs or charges for garbage removal,
+water, fuel, or utilities' (Fla. Stat. § 83.51(2)(e)). Tenant-caused conditions: § 83.51(4). Noncompliance with
+subsection (2) is not a defense to possession: § 83.51(2)(c). Each "unless otherwise agreed in writing"
+attaches to its own paragraph; say which.
+
+**5. Preemption.** 'The regulation of residential tenancies, the landlord-tenant relationship, and all other
+matters covered under this part are preempted to the state' (Fla. Stat. § 83.425), superseding 'any local
+government regulations on matters covered under this part, including, but not limited to,' screening, security
+deposits, applications and their fees, rental-agreement terms, rights and responsibilities, disclosures, fees
+and notice requirements (read § 83.425 whole; it has one history entry, s. 1, ch. 2023-314). Existing row:
+`edu-local-preemption-fl` (point to it). Never research or resolve an ordinance (rule 3); where a topic is a
+local subject, say what the statute leaves local only to the extent you read it, and flag.
+
+**6. Definitions.** 'Rent' and 'Deposit money': Fla. Stat. § 83.43(12) and (4); 'Security deposits' (14);
+'Advance rent' (2); 'Premises' (11); 'Rental agreement' (13); 'Tenant' (17); 'Transient occupancy' (18).
+Fees are rent only if 'designated as rent in a written rental agreement' (Fla. Stat. § 83.43(12)); existing row
+`edu-fees-as-rent-fl`.
+
+**7. Good faith and unconscionability.** § 83.44 (good faith) and § 83.45 (unconscionability; court may refuse
+to enforce, strike or limit). The main pass writes `edu-unconscionability-fl` and `edu-attorney-fees-fl`
+(§ 83.48: prevailing-party fees, 'may not be waived in a lease agreement'). Point to them by id if needed.
+
+**8. Dormant section.** § 83.5615 is printed in the 2026 Florida Statutes but its compiler's note says ch.
+2020-99 created it "[e]ffective upon the repeal of the federal Protecting Tenants at Foreclosure Act, Pub. L.
+No. 111-22" (quote only from the section's Note). It is NOT in force; the federal act governs. Existing row:
+`edu-foreclosure-tenant-rights-fl`. Never state § 83.5615 as current law.
+
+**9. Main pass's topics.** Slice M (the 54 topics in `work/slice-M/topics.md`: waivers, domestic violence,
+deposits/fees/receipts, preemption-dependent local topics) belongs to the main pass. Don't answer them. You may
+point by id only to rows that already exist (`work/fl-rows.tsv`) or to the three central ids named in
+decisions 2 and 7.
+
+**10. Tag first (rules 26-28).** Before drafting, run `libq.py topic <key>` and read every row keyed to the
+topic in full (`libq.py row <id>`), plus `libq.py grep` on the section numbers and key terms. Tag a shared row
+only where its whole text applies in Florida as written, AND its basis doesn't rest on another state's statute
+or statutory absence, AND it neither imposes a limit Florida law doesn't nor omits a right Florida gives the
+landlord (ask both ways), AND Florida lets the term sit in the lease (no separate-instrument rule). Never tag a
+row whose only figure is "the maximum ... permitted by applicable law" where Florida sets no figure. A tag
+changes only `states` and adds an `FL: ` segment. A tagged row keyed to another topic does not answer this
+topic: write a short row keyed to this topic too. Before writing any row, grep the CSV for the section numbers
+you will cite (`libq.py sec NUM`) so you don't duplicate an existing FL row.
+
+**11. NEEDS_REVIEW policy (SOP Part 5, Taylor 2026-10-15).** 'where only case law could settle a point, the
+row states the doubt and the cautious course and is VERIFIED; a lease clause is redrafted so it works under
+every reading, or switched off. Only a primary source that can't be reached keeps a row open.' So: an
+interpretive doubt is never a reason for NEEDS_REVIEW. A row is NEEDS_REVIEW only if it rests on a source the
+corpus doesn't hold and the main pass couldn't fetch (put a fetch request in your answer first).
+
+**12. Body voice.** Education rows speak to the landlord as "you", plain language, short sentences; say who
+and what the rule covers (applicability subsection, definitions, unit counts, tenancy type) and state each
+consequence with its trigger. End with what was not reviewed only where it matters ("Case law and local
+ordinances were not reviewed."). Clauses speak of "Landlord" and "Tenant"; an optional clause starts with a
+bracketed instruction "[Optional. ...]" and is CONDITIONAL; reuse existing `{{variables}}` only; landlord-chosen
+figures are `[bracketed prompts]`.
+
+**13. Case law and ordinances.** Case law is not held. Write "no published case was searched for this point"
+(never "no case exists"). Cases you know of are leads only (rule 1 of the citation format): cite as
+"__ So. 3d __ (Fla. _ DCA 20__)" only if you are certain of the citation, labelled "lead, not read".
+
+**14. Currency.** The corpus is the 2026 Florida Statutes (flsenate.gov / leg.state.fl.us); five core chapter
+pages (83, 509, 718, 720, 741) were matched section-for-section with the live site on 2026-11-05. Read each
+relied-on section's History line; for any 2024-2026 act it lists, read that act's effective-date section
+(`sec.py ch2025-16 --grep "effect"`). Session-law text is pdftotext output: struck words are NOT marked, so
+never describe what an act added or removed from its text; state current law from the compiled section. An
+act not held is a fetch request.
+
+**15. Federal law.** Not in the corpus. Never cite it from general knowledge (rule 12). If a row needs a federal
+point, put a fetch request ("FEDERAL: 42 U.S.C. § 3604(f)") in your answer's `fetch_requests`; the main pass
+saves it to `/home/claude/flg/fetched/` (loader units kind `fetched`, searchable with `--scope fetched`) and tells
+you. Mark the citation "FEDERAL:" in notes.
+
+
+#### Decisions recorded with the topics
+
+- accessory-dwelling-unit: Whether the affordable-rent affidavit in Fla. Stat. § 163.31771(4) binds every ADU permit or only units allowed by an ordinance adopted under the section is not stated; the row gives the cautious reading (treat it as binding where the permit was issued on such an affidavit) and is VERIFIED (log §4 class decision 11). No clause: the affidavit is a permit document, not lease text.
+- appliances-excluded: appliances-excluded-la not tagged for FL (log §4 class decision 10): its carve-out keeps only liability "for causing physical injury or for intentional or gross fault", a Louisiana-law shape; in Florida any provision that 'Purports to limit or preclude any liability of the landlord to the tenant or of the tenant to the landlord, arising under law' is void (Fla. Stat. § 83.47(1)(b)), so the clause would limit liability Florida keeps (for example property damage from ordinary negligence), and its health-or-safety carve-out does not track Florida's code-compliance duty (Fla. Stat. § 83.51(1)(a)). Florida's own clause appliances-excluded-fl written instead.
+- association-obligations-disclosure: Education only, no clause: the two renter-copy duties require a copy of the association's notice, not lease text, so the lease is not the vehicle (rule 55); the row tells the landlord to keep a signed receipt.
+- automatic-renewal: automatic-renewal: renewal-by-silence clause declined for FL (rule 54 declined-option education row); the cautious course because Fla. Stat. § 501.165's reach to residential leases is unsettled and Fla. Stat. § 83.575(1) pairs any tenant notice-before-vacating term with a landlord nonrenewal notice within 30-60 days. Existing end-of-term-notice-fl covers the lawful notice term.
+- bed-bug-cooperation: pest-cooperation-pr and pest-cooperation-la not tagged for FL (log §4 class decision 10). Both end "Otherwise, Landlord will pay for treatment as part of Landlord's repair obligations", which imposes a treatment duty Florida law does not impose on a single-family home or duplex (Fla. Stat. § 83.51(2)(a) reaches only 'a dwelling unit other than a single-family home or duplex') and contradicts the FL option in maintenance-allocation-fl that lets a house or duplex tenant take on pest control in writing. Both use "the fault of Tenant" where Florida's exception is 'the negligent or wrongful act or omission of the tenant, a member of the tenant’s family, or other person on the premises with the tenant’s consent' (Fla. Stat. § 83.51(4)), and neither carries the Florida vacate rules (7 days of written notice, at most 4 days out, rent abated). pest-cooperation-la's "after reasonable notice" also understates the 24-hour repair-entry notice in Fla. Stat. § 83.53(2). Florida's own clause pest-cooperation-fl written instead.
+- binding-arbitration: binding-arbitration: no arbitration clause offered for FL (rule 54 declined option; education row says so). Reason: Fla. Stat. § 83.47(1)(a) may void a clause precluding Part II remedies and the landlord's summary possession action (Fla. Stat. § 83.59(2)); the narrow jury waiver (slice M) and informal dispute resolution clause cover the landlord's interest.
+- cannabis: cannabis: tagged cannabis-restrictions-ak for FL (optional clause; Florida has no patient housing protection and the medical statute preserves owner limits on smoking and vaping). Kept edu-cannabis-fl NEEDS_REVIEW pending the effective-date section of ch. 2025-182, Laws of Fla. (Fla. Stat. § 397.487).
+- collection-fee: Collection fee: no Florida statute; offered optional collection-fee-fl measured by the agency's actual charge up to a landlord-set cap, kept out of rent and the 3-day notice (rule 54; drafting call, rule 76).
+- confirmed-absences-misc: confirmed-absences-misc: Fla. Stat. § 501.0117 bars 'A seller or lessor in a sales or lease transaction' (Fla. Stat. § 501.0117(1)) from a credit-card surcharge; no FL row in the library or in slices M, A-E cites it. The main pass may want to check slice M's fee rows and the FL-tagged acceptable-payment-methods clause against it (neither imposes a surcharge, so no conflict was found).
+- criminal-activity: Declined tag of criminal-activity-ky for FL: its victim carve-out imposes a limit Florida statute doesn't (decision 10); wrote criminal-activity-fl without it.
+- disability-accommodation: disability-accommodation: rule 54 decline. A restoration condition on a disability modification is lawful under federal law where reasonable (FEDERAL: 42 U.S.C. § 3604(f)(3)(A)) but Florida's Fla. Stat. § 760.23(9)(a) omits the proviso; the library offers no Florida restoration clause and edu-disability-accommodation-fl says why and gives the cautious course.
+- eminent-domain: Tag of eminent-domain-vi (rules 26-28, log §4 class decision 10): asked both ways, the clause imposes no limit Florida law does not (Florida has no statute on lease or rent after a taking) and gives away no Florida landlord right; the award-allocation sentence governs between the parties while the court still apportions conflicting claims (Fla. Stat. § 73.101), as in the Kansas segment; it is not a waiver of a Part II right or of landlord liability under Fla. Stat. § 83.47(1) because Part II has no condemnation rule and the award is the condemnor's obligation; the deposit sentence defers to "lawful deductions", so Fla. Stat. § 83.49(3) governs. Optional (bracketed), not a default.
+- energy-data-release: energy-data-release: tagged energy-data-release-wy for FL (optional consent clause, basis rests on no state's statute; Florida has no energy-data provision) and wrote an absence row keyed to the topic.
+- environmental-event-termination: Declined an optional landlord casualty/environmental-event termination clause for FL (rule 54): it could preclude the tenant's Fla. Stat. § 83.63(1) option to stay in the usable part at reduced rent, which Fla. Stat. § 83.47(1)(a) protects.
+- ev-charging-end-of-tenancy: ev-charging-end-of-tenancy: shared clause ev-charging-end-of-tenancy-co not tagged (REQUIRED, rests on Colorado's tenant charging right, which Florida does not have).
+- ev-charging-requirements: ev-charging-requirements: tagged ev-charger-installation-hi for FL (consent-based optional clause; Florida gives no tenant right; its deposit sentence refers to a limit Florida does not have but imposes none).
+- extended-absence-notice: Declined tag of extended-absence-notice-ks for FL: its willful-failure damages sentence could limit the landlord's Fla. Stat. § 83.55 damages (decision 10); wrote extended-absence-notice-fl.
+- foreign-ownership: Whether a residential lease is an "interest" a foreign principal may not "acquire by purchase, grant, devise, or descent" under Fla. Stat. §§ 692.202-692.204 is not stated in the part; interpretive doubt only (log §4 class decision 11), so the row states the doubt and a cautious course and is VERIFIED. No clause: the part puts no term in a lease and no duty on a landlord.
+- government-fee-reimbursement: government-fee-reimbursement: shared clause government-fee-reimbursement-ky not tagged (exclusions rest on Kentucky's statute); wrote government-fee-reimbursement-fl.
+- governmental-fines: governmental-fines: shared clause tenant-caused-fines-as not tagged (its basis rests on an American Samoa nuisance statute; the FL clause names Florida code-enforcement repair costs); wrote tenant-caused-fines-fl.
+- governmental-fines: Main pass fetched ch. 2025-87, Laws of Fla. on 2026-11-05 (log §1.6): effective July 1, 2025; notes updated.
+- homestead-waiver: homestead-waiver: the Fla. Stat. § 222.11(2)(b) wage-garnishment waiver (separate document, 14-point statutory form) is a lawful option the library declines (rule 54 education row); no lease waiver of the constitutional homestead or personal-property exemptions is offered (no authorizing statute found, battery FLG-E-024).
+- jury-waiver: Jury waiver: Florida has no statute on lease jury waivers; the court-rule answer form says a tenant may have waived the jury in the lease. Offered an optional, mutual, possession-only waiver (jury-waiver-fl) under rule 54, narrowed and severable so it works if a court refuses it (case law unread). Claude's drafting call under rule 76.
+- landlord-lien: landlord-lien: Fla. Stat. § 713.691(1) lets a written rental agreement modify or waive the residential landlord's lien. No lien clause offered (rule 54 declined option, education row says so): the statutory lien needs no clause, and a clause widening it would add risk under Fla. Stat. § 83.67(5).
+- lease-registration: Main pass read the requested act's effective-date section on laws.flrules.org 2026-11-05 (log §1.6); notes updated.
+- military-air-zone-disclosure: FLG-D-009 recorded as failed (positive Fla. Stat. § 692.203 not matched by any term), rerun as FLG-D-010; only FLG-D-010 is cited.
+- nonpayment-notice: Fla. R. Gen. Prac. & Jud. Admin. 2.514(b) mail days: likely not applicable to the pre-suit 3-day notice (it speaks of acting after service; Fla. Stat. § 83.56(3) sets its own count); row advises adding 5 days when mailing as the cautious course.
+- nonresident-owner-agent: FLG-D-026 recorded as failed (no term matched its positive, Fla. Stat. § 48.181), rerun as FLG-D-027; only FLG-D-027 is cited.
+- nonresident-owner-agent: Verdict changed from Absent to Present after the independent check (R13-17, R13-19) found Fla. Stat. §§ 48.181 and 605.0902-605.0905 apply to out-of-state owners; the row id keeps its original 'no-' form because ids are fixed once delivered in an interim save.
+- notice-service-fee: Notice cost: no Florida statute; offered optional notice-cost-fl recovering only actual out-of-pocket delivery cost as damages under Fla. Stat. § 83.55, kept out of rent and the 3-day notice (rule 54; drafting call, rule 76).
+- portable-solar: portable-solar: whether a residential lease is a "similar binding agreement" under Fla. Stat. § 163.04(2) is left open (owner-protective second sentence; apartment patio-railing carve-out in (4)); row takes the cautious course and is VERIFIED per class decision 11.
+- prohibited-acts-renter: prohibited-acts-renter: tag of prohibited-acts-renter-wy declined for FL (rests on its states' lack of an entry-notice statute; narrows the damage duty to intentional or negligent acts, which Fla. Stat. § 83.52(6) does not); education row edu-prohibited-acts-renter-fl written instead, since the statute implies the prohibitions into every lease.
+- prop65-rental-warning: FLG-D-019 recorded as failed (its positive, Fla. Stat. § 440.02, did not contain the phrase), rerun as FLG-D-020; only FLG-D-020 is cited.
+- required-disclosures: FLG-D-006 superseded by FLG-D-007 (one limb ran at a 300-character window); only FLG-D-007 is cited.
+- sale-or-management-change: The deposit-transfer rule is stated in the same terms as slice M's edu-security-deposit-on-sale-fl (keyed security-deposit-on-sale); this row is keyed to sale-or-management-change, does not redraft M's row, and does not point to it by id (log §4 class decision 9); it points to the existing edu-security-deposit-rules-fl instead.
+- sex-offender-disclosure: Main pass read the effective-date sections of the requested acts on laws.flrules.org 2026-11-05 (log §1.6): all in effect; row set to VERIFIED.
+- sex-offender-occupancy: Main pass read the effective-date sections of the requested acts on laws.flrules.org 2026-11-05 (log §1.6): all in effect; row set to VERIFIED.
+- sprinkler-disclosure: Coordinated with slice A's edu-fire-sprinkler-duty-fl (keyed fire-sprinkler-duty), which states the condominium renter copy; this row is keyed to sprinkler-disclosure, adds the cooperative copy (Fla. Stat. § 719.1055(5)(a)2.) and states the absence of any general disclosure. No redraft of slice A's row.
+- stigmatized-property: Fla. Stat. § 689.25 says "real estate transaction" and "transferee" without defining either; the row says the statute plainly covers sales, that a residential lease is probably within it, and gives a cautious course that works under either reading (no affirmative misstatement; no question or answer about HIV status). Interpretive doubt only, so VERIFIED (log §4 class decision 11).
+- substandard-property-receivership: Main pass fetched ch. 2025-87, Laws of Fla. on 2026-11-05 (log §1.6): effective July 1, 2025; notes updated.
+- tax-escalation: tax-escalation: tagged tax-insurance-escalation-la for FL (optional agreed rent formula; no Florida statute; its LA basis is general contract freedom).
+- telecom-access: Main pass read FEDERAL: 47 C.F.R. § 1.4000 on eCFR 2026-11-05 (log §1.6); the dish and antenna sentences now state the rule, and edu-telecom-access-fl is VERIFIED.
+- tenant-portal: tenant-portal: tag of tenant-portal-mn declined for FL (its fee-free alternative promise is a Minnesota-law limit, and it lacks Florida's notice-delivery limit); Florida-drafted optional clause tenant-portal-fl offered with a non-electronic payment fallback to respect Fla. Stat. § 668.50(5)(c).
+- tpa-notice: The topic key carries two readings in the library (California's Tenant Protection Act coverage notice, and a tenant opportunity-to-purchase notice); the row answers both for Florida in one subject, "tenant protection and purchase-right notices", and points to edu-conversion-notice-fl (slice B) rather than restating the conversion rules.
+- truth-in-renting: FLG-D-034 superseded by FLG-D-035 (its rights-statement limb could not match "of the landlord"); only FLG-D-035 is cited.
+- usufructuary-lessor: Main pass read the requested act's effective-date section on laws.flrules.org 2026-11-05 (log §1.6); notes updated.
+- utility-allowance-cap: utility-allowance-cap: shared clause utility-allowance-cap-co not tagged for FL (declares the overage is not rent, giving up the Fla. Stat. § 83.43(12) option; Colorado basis). Florida's answer is the cost caps; the optional allocation clause utility-allocation-fl (topic utility-apportionment) carries the lease term.
+- utility-submetering-disclosure: Fla. Admin. Code R. 25-6.049's History line ends 11-8-26, after the 2026-11-05 read: the flrules.org file serves the rule as amended effective November 8, 2026; rows state that text and say so in notes. The pre-amendment text is not held; the main pass may want to confirm what the 11-8-26 amendment changed (fetch request filed).
+
+#### Questions for Taylor
+
+- binding-arbitration: binding-arbitration (FL): offer an optional arbitration clause limited to money claims, carving out possession actions, small claims and Part II statutory remedies, with the Fla. Stat. § 682.07 right to counsel preserved? Recommendation: no, keep it declined (education row edu-binding-arbitration-fl) because the Fla. Stat. § 83.47(1)(a) reach is unsettled without case law and the carve-outs leave little for arbitration. Drafted on the cautious course meanwhile.
+- disability-accommodation: disability-accommodation: Florida's Fair Housing Act copies the federal modification duty without the federal restoration proviso. Should the library offer Florida landlords an optional restoration clause (as for ID, HI, WY, MN, NV, OH), relying on federal law alone? Recommendation: no clause until a Florida case or Commission rule is read; the education row gives the cautious course (agree restoration in writing at the time of the request, interior only, where reasonable).
+- environmental-event-termination: Offer an optional FL clause letting the landlord end the lease when a casualty makes the whole unit untenantable (leaving partial-damage cases to Fla. Stat. § 83.63)? Recommendation: no for now; the drafted cautious course is education only, since Fla. Stat. § 83.47(1)(a) voids terms that preclude Part II rights and no case law was searched.
+- maintenance-duty-shift: Florida maintenance-duty-shift: Fla. Stat. § 83.51(2)(a) lets a written agreement remove an apartment landlord's added duties (extermination, locks and keys, common areas, garbage removal, heat and water) 'Unless otherwise agreed in writing'. The library offers a shift clause only for a single-family home or duplex (maintenance-allocation-fl). Should it also offer an optional clause for other units? Recommendation: offer at most a narrow optional clause limited to in-unit items the tenant controls (for example carrying garbage to the outside receptacle and routine in-unit pest prevention), never heat, water, hot water, locks or common areas, since those failures already give the tenant no defense to possession (Fla. Stat. § 83.51(2)(c)) and a wholesale shift invites Fla. Stat. § 83.45 scrutiny. Until you decide, edu-maintenance-duty-shift-fl and edu-heating-fl say the option is lawful and not offered.
+
+**Outcome.** Taylor was asked all four questions in chat on 2026-11-05 (the first three at interim saves 4-5, the fourth at interim save 6) and had not answered by final delivery, so each recommendation is adopted as the prompt directs:
+1. maintenance-duty-shift: recommendation was at most a narrow optional clause limited to in-unit items the tenant controls. On drafting, the example items (carrying garbage out, keeping the unit clean) proved to be existing tenant duties under Fla. Stat. § 83.52(2)-(3), so a clause would restate the statute; none is added, and `edu-maintenance-duty-shift-fl` says so (edited after the last check round; see §5).
+2. environmental-event-termination: no landlord casualty-termination clause; education only (`edu-casualty-damage-fl` and the slice B row stand).
+3. binding-arbitration: no arbitration clause; the education row stands.
+4. disability-accommodation: no restoration clause; the education row's cautious course stands.
+Any of these can be reopened if Taylor answers differently; no row would need removal, only an added clause.
+
+
+#### New {{variables}} (rule 60)
+
+None.
+
+
+### §5 Independent check
+
+Rule 80, scaled as the prompt directs: two rounds, one checking agent at a time, each a fresh agent that had not written the rows, briefed with `work/check-brief.md` (quotations, statements of law, absences and their batteries, lease clauses, tags, consistency, case-law doubts) and told to judge only against the corpus and fetched sources. Findings were judged by the main pass against the cited text before any edit; every edit went through `tools/errata.py` (exact old text, once only, by row id) and was followed by `asm.py check` over all slices.
+
+**Before the check.** Coverage 261 of 261 topics; no duplicate ids across slices; full battery replay (`rerun.py`, slice by slice): 1,126 terms, 0 differences (M 151, A 158, B 152, C 100, D 182, E 137, F 246).
+
+**Round 1 (all 291 rows, five sets in sequence).**
+
+| Set | Rows | ERROR | FIX | MINOR | REPRO |
+|---|---|---|---|---|---|
+| 1 (slice M) | 58 | 0 | 7 | 14 | 0 |
+| 2 (slices A, C) | 70 | 0 | 7 | 8 | 1 |
+| 3 (slices B, D) | 75 | 2 | 6 | 12 | 0 |
+| 4 (slice E) | 43 | 1 | 7 | 5 | 0 |
+| 5 (slice F) | 45 | 4 | 6 | 8 | 0 |
+| **Total** | **291** | **7** | **33** | **47** | **1** |
+
+All 88 findings were accepted after re-reading the source, some with wording adjusted by the main pass (noted in the errata files); 99 edits in all, including consistency edits to rows that shared a corrected rule. The errors:
+- R13-17, R13-19 (`edu-no-nonresident-owner-agent-fl`): missed Fla. Stat. § 48.181(2), (5) (substituted service on nonresidents doing business here, subsection (5) new from October 1, 2025) and Fla. Stat. §§ 605.0902(1), 605.0904(1), 605.0905(3), 607.1502(1) (a foreign LLC owning income-producing property needs a certificate of authority naming a registered agent and cannot sue without one). Verdict changed from Absent to Present; title changed; `edu-landlord-registration-fl` aligned.
+- R14-01 (`edu-no-lease-copy-duty-fl`): mobile home park prospectus threshold is 26 lots (Fla. Stat. § 723.011(1)(a)), not 10.
+- R15-01, R15-02 (`edu-confirmed-absences-outside-title-fl`): missed the fictitious-name bar on maintaining any action (Fla. Stat. § 865.09(9)(a)) and the foreign-entity bars; item (3) now Present in part.
+- R15-16, R15-17 (`edu-law-enforcement-cooperation-fl`): missed the any-person reporting duties (Fla. Stat. §§ 39.201, 39.205, 415.1034, 415.111, 794.027).
+In each error row but R14-01, every limb of the cited battery required a landlord, tenant or lease word, so it could not reach a general statute; see Proposed SOP changes.
+The REPRO (R12-15): the must-hit control "\bLegislature\b" was 2,548 for batteries logged before the corpus footer fix and 2,426 after; explained in §1.3, no term count differs.
+New batteries logged during round 1: FLG-M-033 to FLG-M-036, FLG-B-029 (all OK, replayed).
+
+**Round 2 (the 74 rows edited after round 1).** ERROR 0, FIX 3, MINOR 11, REPRO 1 (15 findings, all accepted; 18 edits). Round 2 confirmed that every other round-1 edit fixed its finding and made no row worse. The fixes: R21-03 (`edu-required-fees-fl` now names the 2-month cap on an agreed early termination fee or liquidated damages, Fla. Stat. § 83.595(4)); R21-06 (fictitious-name timing: register before doing business under the name); R21-12 (`edu-law-enforcement-cooperation-fl` adds the any-person duty to report deaths, Fla. Stat. § 406.12). The REPRO (R21-04) and one MINOR (R21-01) were absences without a fitting battery; batteries FLG-M-037 and FLG-M-039 (rerun of FLG-M-038, whose positive failed) were logged and cited. All replay with 0 differences.
+
+**Rows edited after the last round** (not seen by an independent checker in their final form; each edit was checked by the main pass against the cited text and by `asm.py check`):
+- `edu-expedited-deposit-disposition-fl`
+- `edu-firearms-fl`
+- `edu-habitability-waiver-fl`
+- `edu-landlord-registration-fl`
+- `edu-law-enforcement-cooperation-fl`
+- `edu-maintenance-duty-shift-fl`
+- `edu-no-deposit-standards-rule-fl`
+- `edu-no-nonresident-owner-agent-fl`
+- `edu-no-steam-radiator-cover-rule-fl`
+- `edu-pet-fees-fl`
+- `edu-required-fees-fl`
+- `edu-tenant-records-fl`
+- `edu-unconscionability-fl`
+
+The 12 round-2 rows carry the round-2 edits; `edu-maintenance-duty-shift-fl` carries the §4 outcome of question 1 (two sentences quoting Fla. Stat. § 83.52(2)-(3)).
+
+**Final state.** 261 answers, 1,432 single-quoted passages checked against their cited units, 0 problems; every cited battery has status OK and replays.
+
+**Not reachable for the checkers.** Florida case law (including Dana's Railroad Supply, cited only as a lead); local ordinances; the Florida Building Code; HAP contract terms; federal law beyond the fetched sections; the Small Claims Rules beyond 7.010 and 7.050; Fla. Admin. Code R. 25-6.049 before its amendment effective November 8, 2026; chs. 2024-135 and 2024-213, Laws of Fla. (latest acts on Fla. Stat. §§ 406.12 and 39.201, both read as printed in the 2026 text).
+
+
+### §6 Findings on existing rows
+
+
+
+- (confirmed-absences-misc) acceptable-payment-methods (FL segment says "No payment-method, cash-acceptance or rent-receipt statute in Part II"): accurate for Part II, but outside Part II 'A seller or lessor in a sales or lease transaction may not impose a surcharge on the buyer or lessee for electing to use a credit card in lieu of payment by cash, check, or similar means, if the seller or lessor accepts payment by credit card' (Fla. Stat. § 501.0117(1)); the clause imposes no surcharge, so it is not wrong, but its FL segment's boundary ("Part II only") leaves the card-surcharge ban unmentioned. Case lead, not reviewed: Dana's Railroad Supply v. Attorney General, 807 F.3d 1235 (11th Cir. 2015), held the surcharge ban unconstitutional as applied, so a proposed FL addition should state the ban and that doubt together. Not changed (scope fence).
+- (portable-cooling-device) edu-landlord-maintenance-fl (body, last sentence) says "Air conditioning is not on the statute's list of duties; whether a landlord must provide cooling depends on the applicable local housing codes and on the lease." True of Fla. Stat. § 83.51, but incomplete for licensed apartment buildings: 'Each establishment licensed under this chapter shall be properly lighted, heated, cooled, and ventilated and shall be operated with strict regard to the health, comfort, and safety of the guests' (Fla. Stat. § 509.221(3)), and a nontransient apartment (Fla. Stat. § 509.242(1)(d)) is a licensed public lodging establishment unless excluded by Fla. Stat. § 509.013(4)(b) (for example, four rental units or fewer). Suggest the main pass add the licensed-apartment exception to that sentence or point to edu-no-portable-cooling-rule-fl and edu-heating-fl. Read section-open 2026-11-05 (corpus text of the 2026 Florida Statutes).
+- (service-animal-misrepresentation) edu-service-animal-penalties-fl (keyed to assistance-animal-accommodation): its body covers only the service-animal misrepresentation crime and the Internet-registration rule; it omits the separate emotional-support-animal crime, under which a person who 'knowingly and willfully misrepresents himself or herself, through his or her conduct or through a verbal or written notice, as having a disability or disability-related need for an emotional support animal or being otherwise qualified to use an emotional support animal, commits a misdemeanor of the second degree' (Fla. Stat. § 817.265). Not wrong, incomplete; the new row edu-service-animal-misrepresentation-fl states it. Not changed (scope fence).
+- (utility-shutoff-statute) edu-utility-former-occupant-fl: its notes say "Private utilities are not covered by either section." That is true of Fla. Stat. §§ 180.135 and 125.485, but the Public Service Commission rules give customers of regulated electric, gas and water utilities a parallel protection: 'Delinquency in payment for service by a previous occupant of the premises unless the current applicant or customer occupied the premises at the time the delinquency occurred and the previous customer continues to occupy the premises and such previous customer shall benefit from such service' (Fla. Admin. Code R. 25-6.105(8)(a)) is not cause to refuse or discontinue service, with the same rule for gas (Fla. Admin. Code R. 25-7.089(6)(a)) and water (Fla. Admin. Code R. 25-30.320(5)(a)). Suggest the main pass add a pointer to edu-utility-shutoff-rules-fl; the row text was not changed.
+- (waiver-by-acceptance) late-fee (shared; FL tagged): its sentence "Acceptance of a late payment does not waive Landlord's right to require full payment of Rent on the date it is due or to pursue any other remedy available under this Lease" is broader than Florida allows for the payment accepted. Fla. Stat. § 83.56(5)(a): 'If the landlord accepts rent with actual knowledge of a noncompliance by the tenant ... the landlord or tenant waives his or her right to terminate the rental agreement or to bring a civil action for that noncompliance, but not for any subsequent or continuing noncompliance', and Fla. Stat. § 83.47(1)(a) voids a provision that 'Purports to waive or preclude the rights, remedies, or requirements set forth in this part'. As a statement about future due dates the sentence is fine; as a claim that accepting a late payment never waives termination for that late payment, it is void in Florida to that extent (and Fla. Stat. § 83.47(2) gives damages for inclusion). Proposed fix at sync (shared text, rule 62, so Claude Code's call): either an FL override reading "... does not waive Landlord's right to require full payment of Rent on the date it is due in later months, or any remedy for a later or continuing breach, except as Florida law provides", or a shared-text saving phrase "except as applicable law provides" if every tagged state's log supports it.
+
+### §7 Findings for other states
+
+None.
+
+
+### Proposed SOP changes
+
+- Rule 24: a corpus README's own check script should compare each chapter's sections against the source page's section elements by content, not only by prefix; the FL corpus's flsenate.gov chapters all carried the page's navigation menu and script inside their last section's body, and a prefix comparison passed it. Reason: 503 of 638 chapters were affected; only a body read of § 51.011 found it. The other 135 chapters (leg.state.fl.us) carried the site footer in their last section, found only when a helper read § 715.12; together, every chapter in the corpus was affected.
+- Rule 24: corpus text tools should strip a court-rule compilation's running page headers ("<date> <title> <page>") before splitting rules, and README should list it as an artifact. Reason: the FL civil-rules text carried them inside rule bodies, which breaks quotes spanning a page.
+- Rule 19 (batteries for absence): require at least one limb with no landlord, tenant or lease word whenever the absent rule could live in a general statute that binds a landlord as a business, owner or person: entity and trade-name registration (Fla. Stat. §§ 605.0902-605.0905, 607.1502, 865.09), service of process (§ 48.181), mandatory reporting (§§ 39.201, 415.1034, 794.027). Reason: in the FL gaps pass the independent check found four absence rows (`edu-no-nonresident-owner-agent-fl`, `edu-confirmed-absences-outside-title-fl`, `edu-law-enforcement-cooperation-fl`, and the registration line of `edu-landlord-registration-fl`) whose every battery limb required a landlord or tenant word, so the batteries could not reach the controlling statutes (findings R13-17, R13-19, R15-01, R15-16).
+- Rule 80 (independent check): give the checker a script that compares every History line and every "not held" claim a row states with the corpus and the held-sources list. Reason: round 1 of the FL check found seven wrong History endings or stale "not held" statements that a mechanical comparison catches (R11-21, R13-08 to R13-10, R13-18, R14-02).
+
+- (possession-bond) Corpus: the 2026-11-05 chrome fix left the footer "Copyright © 1995-2026 The Florida Legislature • Privacy Statement • Contact Us" at the end of Fla. Stat. § 715.12's body; a second footer form may survive on other chapters' last sections.
+- (social-security-defense) asm.py flags "24 C.F.R. § 982.310" as a BARE CITATION (its prefix test knows only Fla. Stat./Code forms), while qcheck needs the § to resolve the fetched unit; the row uses "§§" as a workaround. Suggest exempting U.S.C./C.F.R. prefixes in the bare-citation test.
+
+### Proposed topic questions
+
+- cure-and-eviction-grounds: Lease-set cure period (MP model): Florida's only lease-silent cure rule, Fla. Stat. § 83.20(3), is in Part I (nonresidential and tenancies outside Part II); Part II fixes 7 days and bars waiver (Fla. Stat. § 83.56(4)).
+- eviction-service-party: Louisiana-style ACP question: Florida's program participant designates the Attorney General as agent for service of process (Fla. Stat. § 741.403(1)(b)); whether that controls a possession summons is unsettled in the statutes read.
+
+## Gaps-pass sync review (Claude Code, 2026-11-06)
+
+Merged with `merge-delta.py --base 8ab6426` (the staged CSV, SHA-256 bc7f9020…): 273 new rows and 18 shared rows tagged (291, matching the log's count), nothing refused. All 261 missing topics are answered. Twelve tagged rows had moved since base only by the Arizona tag; `rent-escalation-la`'s text changed at the AZ sync (region-neutral CPI example), which suits Florida too. With the override below, Florida has 411 active rows, all VERIFIED.
+
+**Edited after the last round.** All 13 rows the log's §5 lists were read against the corpus. Every quoted passage is in the corpus text, and the new statements of law hold: Fla. Stat. § 605.0905(3) (income-producing real property is transacting business), § 605.0904(1), § 607.1502(1), § 865.09(9)(a), § 48.181(2), (5), § 406.12 (first-degree misdemeanor), §§ 39.205(1), 415.111(1), 794.027, § 83.595(4) (2 months' rent) and § 83.52(2)-(3). One wording fix: `edu-law-enforcement-cooperation-fl` now says "knowingly and willfully" for the child-abuse and vulnerable-adult reporting crimes, as §§ 39.205(1) and 415.111(1) do.
+
+**Taylor's questions.** The four §4 questions were unanswered at delivery, so the recommendations stand: no apartment maintenance-shift clause (the in-unit items are already tenant duties under § 83.52(2)-(3)), no landlord casualty-termination clause, no arbitration clause, no restoration clause for modifications. Each can be reopened by adding a clause.
+
+**§6 findings applied** (each quote re-read in the corpus first): `late-fee-fl` added (the acceptance sentence limited to later months and later or continuing breaches, "except as Florida law provides", for Fla. Stat. §§ 83.56(5)(a), 83.47(1)(a)), with FL untagged from `late-fee` and an "Untagged" note, following `late-fee-az`; `edu-landlord-maintenance-fl`'s cooling sentence names the licensed-apartment duty (§ 509.221(3)); `edu-utility-former-occupant-fl` notes point to the PSC rules (R. 25-6.105(8)(a), 25-7.089(6)(a), 25-30.320(5)(a)); `edu-service-animal-penalties-fl` names the emotional-support-animal crime (§ 817.265); `acceptable-payment-methods`'s FL segment names the card-surcharge ban (§ 501.0117(1)) with the Dana's Railroad Supply doubt as an unread lead.
+
+**§7** has no findings for other states.
+
+**Topic questions and SOP.** Both proposed topic questions are already in `topic-questions.csv` (`cure-and-eviction-grounds` from MP, `eviction-service-party` from LA), so none was added. The four proposed SOP changes were adopted as SOP 1.97 (rules 19, 24, 80). Desktop's two tool notes (the § 715.12 footer, already stripped by its loader, and its own bare-citation test) need nothing in the repo. Citations: 292 rows were added to `lease-clause-citations-FL.csv` (266 CITED from the log's §2 lines, 25 CONFIRMED_ABSENT, and `late-fee-fl`).

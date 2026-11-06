@@ -235,7 +235,7 @@ const CLAUSE_TEMPLATES = [
     id: "late-fee",
     title: "Late Fee",
     group: "Rent & Payment",
-    states: ["CO", "WY", "MN", "ND", "SD", "OH", "FL", "GA", "SC", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "MT", "NY", "WI", "WV", "VT", "HI", "LA", "AR", "MS", "VI", "AS", "MP"],
+    states: ["CO", "WY", "MN", "ND", "SD", "OH", "GA", "SC", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "MT", "NY", "WI", "WV", "VT", "HI", "LA", "AR", "MS", "VI", "AS", "MP"],
     bodyText:
       "If Tenant fails to pay Monthly Rent in full within {{late_fee_grace_days}} days after it is due, a late fee of {{late_fee_amount}} will be assessed. Acceptance of a late payment does not waive Landlord's right to require full payment of Rent on the date it is due or to pursue any other remedy available under this Lease.",
   },
@@ -2869,6 +2869,15 @@ const CLAUSE_TEMPLATES = [
     supersedes: "late-fee",
     bodyText:
       "If Tenant fails to pay Monthly Rent in full within {{late_fee_grace_days}} days after it is due, a late fee of {{late_fee_amount}} will be assessed. The late fee is a charge under this Lease and is not Rent. Landlord is not required to accept a partial payment of Rent or other charges. If Landlord accepts a partial payment, the terms of that payment, including the date the balance is due, will be set out in a written agreement Tenant signs at the time of the payment.",
+  },
+  {
+    id: "late-fee-fl",
+    title: "Late Fee",
+    group: "Rent & Payment",
+    states: ["FL"],
+    supersedes: "late-fee",
+    bodyText:
+      "If Tenant fails to pay Monthly Rent in full within {{late_fee_grace_days}} days after it is due, a late fee of {{late_fee_amount}} will be assessed. Acceptance of a late payment does not waive Landlord's right to require full payment of Rent on the date it is due in later months, or any remedy for a later or continuing breach, except as Florida law provides.",
   },
   // Pets
   {
@@ -6967,7 +6976,7 @@ const CLAUSE_TEMPLATES = [
     id: "rent-concession-wi",
     title: "Rent Concessions",
     group: "Rent & Payment",
-    states: ["WI", "CT", "RI", "NH", "ME", "VT", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "KS", "MN", "NE", "OH", "NV", "TX", "NJ"],
+    states: ["WI", "CT", "RI", "NH", "ME", "VT", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "KS", "MN", "NE", "OH", "NV", "TX", "NJ", "FL"],
     bodyText:
       "[Use only if Landlord gives Tenant any rent concession.] In connection with this Lease, Landlord gives Tenant the following rent concession, which is part of this Lease: [describe each period of free or reduced Rent, credit, rebate or other concession, with its amount or value and the rental periods to which it applies].",
   },
@@ -7327,7 +7336,7 @@ const CLAUSE_TEMPLATES = [
     id: "rent-installments-or",
     title: "Rent Paid in Installments",
     group: "Rent & Payment",
-    states: ["OR", "CT", "RI", "NH", "ME", "VT", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "WY", "KS", "NE", "TX", "NJ", "AZ"],
+    states: ["OR", "CT", "RI", "NH", "ME", "VT", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "WY", "KS", "NE", "TX", "NJ", "AZ", "FL"],
     bodyText:
       "Landlord and Tenant agree that Monthly Rent will be paid in installments as follows: [state each installment amount and the day of the month it is due]. Installments paid on this schedule are not partial payments of Rent. A late charge applies only as this Lease's late charge provision allows for the rental period.",
   },
@@ -7718,7 +7727,7 @@ const CLAUSE_TEMPLATES = [
     id: "informal-dispute-resolution-or",
     title: "Informal Dispute Resolution",
     group: "Notices & General",
-    states: ["OR", "AR", "MS", "DC", "GU", "VI", "AS", "MP", "CO", "WY", "KS", "MN", "NE", "OH", "NV", "TX", "NJ", "AZ"],
+    states: ["OR", "AR", "MS", "DC", "GU", "VI", "AS", "MP", "CO", "WY", "KS", "MN", "NE", "OH", "NV", "TX", "NJ", "AZ", "FL"],
     bodyText:
       "Before either party starts a court action about a dispute under this Lease, other than an action for possession, the party will give the other written notice describing the dispute and offer to meet, in person or by phone, within 10 days to try to resolve it informally. This Section does not delay or limit any notice, deadline or remedy that applicable law provides, including any action for possession or for emergency relief, and does not require either party to accept any proposal.",
   },
@@ -7915,7 +7924,7 @@ const CLAUSE_TEMPLATES = [
     id: "rent-increase-midterm-ky",
     title: "Mid-Term Rent Increase",
     group: "Rent & Payment",
-    states: ["KY", "AK", "AR", "MS", "VI", "AS", "KS", "TX", "AZ"],
+    states: ["KY", "AK", "AR", "MS", "VI", "AS", "KS", "TX", "AZ", "FL"],
     bodyText:
       "[Optional.] During the Term, Landlord may increase Monthly Rent by giving Tenant written notice at least 30 days before the increase takes effect, stating the new Monthly Rent and its effective date. Tenant may instead end this Lease, without an early termination fee, by giving Landlord written notice before the increase takes effect, effective on the last day before the increase. Landlord will not increase Rent to retaliate against Tenant for any complaint, request or other conduct the law protects.",
   },
@@ -10338,7 +10347,7 @@ const CLAUSE_TEMPLATES = [
     id: "cannabis-restrictions-ak",
     title: "Marijuana Restrictions (Optional)",
     group: "Rules & Regulations",
-    states: ["AK", "MS", "DC", "PR", "GU", "AS", "MP", "CO", "TX"],
+    states: ["AK", "MS", "DC", "PR", "GU", "AS", "MP", "CO", "TX", "FL"],
     bodyText:
       "[Optional.] Marijuana. Tenant will not, and will not permit any occupant or guest to, [choose one or more: smoke, vape or otherwise inhale marijuana; grow marijuana plants; possess or use marijuana in any form] anywhere on the property, including inside the dwelling unit, in common areas and on the grounds. This restriction applies whether the marijuana is used for medical or other purposes.",
   },
@@ -10791,7 +10800,7 @@ const CLAUSE_TEMPLATES = [
     id: "ev-charger-installation-hi",
     title: "Tenant EV Charger Installation",
     group: "Parking & Storage",
-    states: ["HI", "GU", "VI", "AS", "MP", "KS", "NE", "TX", "AZ"],
+    states: ["HI", "GU", "VI", "AS", "MP", "KS", "NE", "TX", "AZ", "FL"],
     bodyText:
       "[Optional. Use only if Landlord is willing to let Tenant install an electric vehicle charging system.] Tenant may install an electric vehicle charging system at [identify the parking space], at Tenant's own expense, only with Landlord's prior written consent to the specific system and location. Tenant will: (a) have the system installed by a duly licensed contractor, in compliance with Landlord's written specifications, applicable codes and any required permits; (b) if the property is in a condominium, townhouse or other association, comply with the association's rules for charging systems and give Landlord, promptly after installation, the information Landlord needs to register the system with the association and to obtain any consent the association requires; (c) [carry liability insurance covering the system and name Landlord as an additional insured]; and (d) reimburse Landlord for the electricity the system uses, measured by [a separate meter / Landlord's reasonable calculation, described here], within [number] days after Landlord bills Tenant. Any money Landlord holds to secure Tenant's obligations for the system is part of the Security Deposit and counts toward its legal limit. When this Lease ends, Tenant will [remove the system and repair any damage its installation or removal caused / leave the system in place, and it will belong to Landlord], unless Landlord and Tenant agree otherwise in writing.",
   },
@@ -10870,7 +10879,7 @@ const CLAUSE_TEMPLATES = [
     id: "lease-copy-receipt-hi",
     title: "Receipt of Lease Copy and Rules",
     group: "Notices & General",
-    states: ["HI", "GU", "VI", "AS", "MP", "KS", "NE", "AZ"],
+    states: ["HI", "GU", "VI", "AS", "MP", "KS", "NE", "AZ", "FL"],
     bodyText:
       "[Optional.] By signing this Lease, Tenant acknowledges that Landlord has given Tenant a copy of this Lease and of the following written rules, which were brought to Tenant's attention before Tenant signed: [list the rules or attachments, or write \"none\"]. Landlord will also give each Tenant a copy of this Lease signed by all parties promptly after all parties sign.",
   },
@@ -11022,7 +11031,7 @@ const CLAUSE_TEMPLATES = [
     id: "rent-escalation-la",
     title: "Scheduled Rent Changes",
     group: "Rent & Payment",
-    states: ["LA", "MS", "PR", "GU", "VI", "AS", "WY", "KS", "MN", "NE", "TX", "NJ", "AZ"],
+    states: ["LA", "MS", "PR", "GU", "VI", "AS", "WY", "KS", "MN", "NE", "TX", "NJ", "AZ", "FL"],
     bodyText:
       "[Optional. Choose one.] [A: Monthly Rent will change during the Term as follows: [state each new amount and the date it takes effect].] [B: On [state each adjustment date, e.g. each anniversary of the Start Date], Monthly Rent will be adjusted, up or down, by the percentage change in [name a published index, e.g. the Consumer Price Index for All Urban Consumers (CPI-U) for the region that includes the property, published by the U.S. Bureau of Labor Statistics] between [base month and year] and the most recent month published before the adjustment date[, but by no more than [percent] percent for any one adjustment]. Landlord will give Tenant written notice of each adjusted Monthly Rent, showing the calculation, at least [number] days before it takes effect. If the index is no longer published, Monthly Rent will stay at the last adjusted amount.] Monthly Rent will not change during the Term in any other way, except as any tax and insurance escalation Section of this Lease, if used, provides.",
   },
@@ -11030,7 +11039,7 @@ const CLAUSE_TEMPLATES = [
     id: "tax-insurance-escalation-la",
     title: "Tax and Insurance Increases",
     group: "Rent & Payment",
-    states: ["LA", "AR", "MS", "PR", "GU", "VI", "WY", "KS", "NE", "TX", "NJ", "AZ"],
+    states: ["LA", "AR", "MS", "PR", "GU", "VI", "WY", "KS", "NE", "TX", "NJ", "AZ", "FL"],
     bodyText:
       "[Optional.] Tax and Insurance Increases: If the ad valorem property taxes assessed on [the Property / the building or parcel of which the Property is a part] for any calendar year during the Term are higher than the taxes for [base year][, or if Landlord's premium for property insurance on [the Property / that building] for any policy year during the Term is higher than the premium for [base policy year]], Tenant will pay Landlord [percent] percent of the increase, which is the Property's share of [the building or parcel]. Landlord will give Tenant written notice of each amount due, with a copy of the tax bill [and premium notice] and the calculation, at least [number] days before it is due, and Tenant may pay it [in one payment / in equal monthly installments with Rent over [number] months]. Tenant will not pay any part of a penalty or interest charged for Landlord's late payment of taxes or premiums. If taxes [or premiums] for a period for which Tenant paid a share are later reduced, abated or refunded, Landlord will credit or refund Tenant the same percentage of the reduction.",
   },
@@ -11055,7 +11064,7 @@ const CLAUSE_TEMPLATES = [
     id: "furnishings-included-la",
     title: "Furnishings",
     group: "Security Deposit",
-    states: ["LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "WY", "MN", "NE", "OH", "NV", "TX", "NJ", "AZ"],
+    states: ["LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "WY", "MN", "NE", "OH", "NV", "TX", "NJ", "AZ", "FL"],
     bodyText:
       "[Optional. Use only if the property is rented furnished.] Furnishings: The property is rented furnished. The furniture and furnishings Landlord provides, and their condition at the start of this Lease, are: [list each item and its condition, or attach a signed inventory]. Tenant will keep them at the property, will not remove or dispose of any item without Landlord's written consent, will tell Landlord promptly of any damage to them, and will return them at the end of this Lease in the same condition, except for normal wear and tear.",
   },
@@ -11310,7 +11319,7 @@ const CLAUSE_TEMPLATES = [
     id: "detector-care-la",
     title: "Smoke and Carbon Monoxide Detectors",
     group: "Tenant Responsibilities",
-    states: ["LA", "MS", "PR", "GU", "VI", "AS", "MP", "NJ"],
+    states: ["LA", "MS", "PR", "GU", "VI", "AS", "MP", "NJ", "FL"],
     bodyText:
       "[Optional.] SMOKE AND CARBON MONOXIDE DETECTORS. Tenant will not remove, disconnect, disable or cover any smoke or carbon monoxide detector in the Premises, or remove a working battery from one. Tenant will tell Landlord promptly if a detector is missing, damaged, sounds a low-battery or end-of-life signal, or does not work when tested. Tenant will pay the reasonable cost of repairing or replacing any detector that Tenant, or a person on the Premises with Tenant's consent, removes, disables or damages.",
   },
@@ -11357,7 +11366,7 @@ const CLAUSE_TEMPLATES = [
     id: "carpet-cleaning-ar",
     title: "Professional Carpet Cleaning at Move-Out",
     group: "Tenant Responsibilities",
-    states: ["AR", "MS", "PR", "VI", "AS", "MP", "KS", "NE", "SD", "NJ", "AZ"],
+    states: ["AR", "MS", "PR", "VI", "AS", "MP", "KS", "NE", "SD", "NJ", "AZ", "FL"],
     bodyText:
       "[Optional. Use only if the carpets were professionally cleaned immediately before the tenancy began.] The carpets at the property were professionally cleaned immediately before this tenancy began. When the tenancy ends, Tenant will have the carpets professionally cleaned and give Landlord the receipt. If Tenant does not, Landlord may have the carpets professionally cleaned and apply the reasonable cost Landlord actually pays to the Security Deposit as damages caused by Tenant's noncompliance with this Lease, listed in Landlord's itemized deposit notice.",
   },
@@ -11402,7 +11411,7 @@ const CLAUSE_TEMPLATES = [
     id: "owner-occupancy-termination-ar",
     title: "Owner Occupancy (Optional)",
     group: "Default & Termination",
-    states: ["AR", "MS", "PR", "GU", "VI", "AS", "MP", "WY", "KS", "NE", "OH", "TX", "AZ"],
+    states: ["AR", "MS", "PR", "GU", "VI", "AS", "MP", "WY", "KS", "NE", "OH", "TX", "AZ", "FL"],
     bodyText:
       "[Optional. Use only for a fixed Term.] Owner Occupancy: Landlord may end this Lease before the end of the Term if Landlord, or the following member of Landlord's family, will occupy the property as a residence: [name or relationship]. To do so, Landlord will give Tenant written notice at least [number, not less than 30] days before the termination date, and the termination date will be the last day of a monthly rental period. Tenant owes Rent only through the termination date, and Landlord will refund any Rent paid for a later period. If Tenant does not leave by the termination date, Landlord may regain possession only through a court eviction.",
   },
@@ -12862,7 +12871,7 @@ const CLAUSE_TEMPLATES = [
     id: "fees-and-charges-vi",
     title: "Fees and Charges",
     group: "Rent & Payment",
-    states: ["VI", "MP", "KS", "NE", "OH", "NJ"],
+    states: ["VI", "MP", "KS", "NE", "OH", "NJ", "FL"],
     bodyText:
       "In addition to the Monthly Rent of {{monthly_rent}} and the Security Deposit of {{security_deposit}}, the following are all of the fees and charges Tenant may be required to pay under this Lease: [list each fee or charge, with its amount or how it is calculated and when it is due, and mark any optional fee as optional; or write \"None\"]. Landlord will not charge Tenant any other fee or charge except an amount stated in another Section of this Lease, an amount a court awards, or a tax the law requires Tenant to pay. Landlord will not add a fee or charge during the Term unless Tenant agrees in writing.",
   },
@@ -12945,7 +12954,7 @@ const CLAUSE_TEMPLATES = [
     id: "eminent-domain-vi",
     title: "Condemnation (Optional)",
     group: "Default & Termination",
-    states: ["VI", "MP", "KS", "MN", "NE", "SD", "NV", "TX", "NJ", "AZ"],
+    states: ["VI", "MP", "KS", "MN", "NE", "SD", "NV", "TX", "NJ", "AZ", "FL"],
     bodyText:
       "[Optional.] If all of the property is taken by eminent domain, or so much of it is taken that the rest cannot reasonably be lived in, this Lease ends on the date Tenant must give up possession, Rent is apportioned to that date, and Landlord will refund any Rent paid for later days. If a smaller part is taken and the rest can reasonably be lived in, this Lease continues and Rent is reduced in proportion to Tenant's loss of use. Any award for the taking of the property, including any value of this Lease, belongs to Landlord, except any relocation payment or other separate payment made to Tenant for Tenant's own moving costs or personal property. If this Lease ends under this Section, Landlord will return the Security Deposit, less lawful deductions, as this Lease provides.",
   },
@@ -13062,7 +13071,7 @@ const CLAUSE_TEMPLATES = [
     id: "move-in-condition-report-as",
     title: "Move-In Condition Report (Optional)",
     group: "Security Deposit",
-    states: ["AS", "MP", "WY", "NJ"],
+    states: ["AS", "MP", "WY", "NJ", "FL"],
     bodyText:
       "[Optional.] Before Tenant moves in, Landlord and Tenant will inspect the Premises together and complete a written condition report, with dated photographs, listing the condition of each room and of any furnishings or appliances Landlord provides. Both will sign it and each will keep a copy. Tenant may add written comments to the report within [number of days] days after moving in. At the end of the tenancy Landlord will offer Tenant a joint inspection, and the signed report will be used to decide what damage, beyond normal wear and tear, Tenant is responsible for.",
   },
@@ -13114,7 +13123,7 @@ const CLAUSE_TEMPLATES = [
     id: "guaranty-as",
     title: "Guaranty (Optional)",
     group: "Default & Termination",
-    states: ["AS", "MP", "CO", "KS", "MN", "NE", "NV", "NJ", "AZ"],
+    states: ["AS", "MP", "CO", "KS", "MN", "NE", "NV", "NJ", "AZ", "FL"],
     bodyText:
       "[Optional. Use only if a guarantor signs this Lease.] GUARANTY. [guarantor's full name] (\"Guarantor\") signs this Lease to guarantee to Landlord that Tenant will pay the Rent and perform Tenant's other obligations under this Lease, up to a total maximum of $[maximum amount]. This guaranty covers the Term and [choose one: also covers any renewal, extension or month-to-month continuation of this Lease, including any change in Rent made under this Lease / ends when the Term ends, except for amounts that became due during the Term]. Guarantor's obligations are never larger than Tenant's. Landlord may ask Guarantor to pay without first suing Tenant. Guarantor has read this Lease and received a copy.",
   },
@@ -13950,7 +13959,7 @@ const CLAUSE_TEMPLATES = [
     id: "energy-data-release-wy",
     title: "Energy Usage Data Authorization",
     group: "Notices & General",
-    states: ["WY", "SD", "NV", "TX"],
+    states: ["WY", "SD", "NV", "TX", "FL"],
     bodyText:
       "[Optional. Use where the electric, gas or water account for the property is in Tenant's name and Landlord wants usage data for building benchmarking, an energy audit, a rebate application or utility allocation.] Tenant authorizes each electric, gas and water utility serving the property to release to Landlord or Landlord's designated agent the monthly usage and billing history for the property for the period of Tenant's tenancy, for the purpose of benchmarking, auditing or improving the energy or water performance of the building, or applying for a utility or government efficiency program. Tenant will, within ten (10) days of Landlord's written request, sign and deliver whatever release, authorization or online consent the utility requires to give effect to this paragraph. Landlord will use the data only for the purposes stated above, will not disclose Tenant's individual data to any other person except a contractor or consultant performing the benchmarking or audit, or as required by law, and will report the building's data to any third party only in aggregated form. Tenant may withdraw this authorization at any time by written notice to Landlord, and withdrawal is not a breach of this Agreement.",
   },
@@ -16574,6 +16583,191 @@ const CLAUSE_TEMPLATES = [
     states: ["AZ"],
     bodyText:
       "[Use when a property management firm or property manager executes this Lease for the owner.] The Security Deposit and any other refundable deposits Tenant pays under this Lease will be held by [name of owner or property management firm] in [the owner's account / the property management firm's trust account for the benefit of the owner], and will be applied and refunded as this Lease and A.R.S. 33-1321 provide. Nonrefundable fees, if any, are listed with their purposes in this Lease's nonrefundable fees terms.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "appliances-excluded-fl",
+    title: "Items Not Included",
+    group: "Landlord Responsibilities",
+    states: ["FL"],
+    bodyText:
+      "[Optional. Use only for appliances or equipment Landlord leaves at the property but does not include in this Lease. Never list a smoke detection device, a lock, a water heater, or any heating, plumbing, electrical or structural item, or any item a building, housing or health code requires.] Notwithstanding this Lease's Maintenance & Repairs terms, the following items left at the property are not included in this Lease, and Landlord does not promise to repair, maintain or replace them: [list each item]. Tenant may use them at Tenant's own risk or ask Landlord in writing to remove them. This Section does not reduce any duty Landlord has under Florida law, including the duty to comply with applicable building, housing and health codes and, for a unit other than a single-family home or duplex, to provide functioning facilities for heat during winter, running water and hot water, and it does not limit any liability of Landlord arising under law.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "pest-cooperation-fl",
+    title: "Pest Reporting and Treatment",
+    group: "Tenant Responsibilities",
+    states: ["FL"],
+    bodyText:
+      "[Optional.] Tenant will promptly tell Landlord if Tenant knows or reasonably suspects that the property has bed bugs or another infestation of insects, rodents or other pests. Tenant will allow Landlord, Landlord's agents and pest control operators to enter the property to inspect for and treat the infestation as this Lease's entry section allows, and will follow the reasonable written preparation instructions Landlord or the pest control operator gives. If the infestation was caused by the negligent or wrongful act or omission of Tenant, a member of Tenant's family, or another person on the property with Tenant's consent, Tenant will pay the reasonable cost of treatment and of repairing the resulting damage. Otherwise, treatment is handled as this Lease's maintenance terms and Florida law provide. If the property is not a single-family home or duplex and Tenant must temporarily leave the property for extermination, Landlord will give Tenant at least 7 days' written notice, Tenant will not be required to stay out for more than 4 days, and Rent will be abated for that time.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "designated-repairer-fl",
+    title: "Repair Requests and Approved Repairers",
+    group: "Landlord Responsibilities",
+    states: ["FL"],
+    bodyText:
+      "[Optional.] Tenant will report repair needs to Landlord at [Landlord's repair contact: name, telephone and e-mail]. Tenant will not make, or hire anyone to make, any repair at Landlord's expense, and will not deduct any repair cost from Rent, unless Landlord first consents in writing; Landlord's written consent will name the person or company Landlord approves to do the work and any cost limit. Any part or material installed in an approved repair becomes part of the property and belongs to Landlord. This Section does not limit where or how Tenant may deliver any notice Florida law allows, does not reduce any duty Landlord has under Florida law to maintain the property, and does not limit any right, remedy or defense Florida law gives Tenant if Landlord fails to comply.",
+  },
+  // Default & Termination
+  {
+    id: "criminal-activity-fl",
+    title: "Criminal Activity (Optional)",
+    group: "Default & Termination",
+    states: ["FL"],
+    bodyText:
+      "[Optional. Use where Landlord wants a crime-free term.] Criminal Activity: Tenant, all occupants and Tenant's guests will not engage in criminal activity on the property that threatens the health, safety or peaceful enjoyment of the premises by others, and will not use or allow the property to be used for the unlawful manufacture, sale, delivery, keeping or use of a controlled substance. Landlord and Tenant intend this term to be a material provision of this Lease. Landlord may terminate this Lease for a violation only by the written notice and in the manner Florida law requires, as stated in this Lease's Tenant Default terms.",
+  },
+  {
+    id: "conversion-termination-fl",
+    title: "Condominium Conversion Termination (Optional)",
+    group: "Default & Termination",
+    states: ["FL"],
+    bodyText:
+      "[Optional. Use only if Landlord is converting the building to condominium and this Lease is signed after Landlord delivered the written notice of intended conversion to all tenants of the building.] CONDOMINIUM CONVERSION: THE EXISTING IMPROVEMENTS, INCLUDING THE BUILDING IN WHICH THE PROPERTY IS LOCATED, ARE TO BE CONVERTED TO CONDOMINIUM. Landlord may terminate this Lease by giving Tenant at least 60 days' written notice, delivered as Florida's condominium conversion law provides.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "extended-absence-notice-fl",
+    title: "Notice of Extended Absence (Optional)",
+    group: "Tenant Responsibilities",
+    states: ["FL"],
+    bodyText:
+      "[Optional.] Extended Absence: If Tenant expects to be away from the property for more than [number] consecutive days, Tenant will give Landlord written notice no later than the first day of the absence, stating the date Tenant expects to return and how Landlord can reach Tenant. Tenant is liable for the damages caused by Tenant's failure to give this notice. Landlord's right to enter the property during Tenant's absence is as stated in this Lease's access terms and Florida law.",
+  },
+  // Rent & Payment
+  {
+    id: "unpaid-amounts-interest-fl",
+    title: "Interest on Unpaid Amounts (Optional)",
+    group: "Rent & Payment",
+    states: ["FL"],
+    bodyText:
+      "[Optional.] Interest on Unpaid Amounts: Any amount Tenant owes Landlord under this Lease that remains unpaid 30 days after it is due will bear simple interest at [rate, not more than 18 percent per year] from the due date until paid. Interest under this Section does not apply to any amount for which Tenant has been charged a late fee. After a court enters a judgment, the judgment bears interest as Florida law provides.",
+  },
+  {
+    id: "utility-allocation-fl",
+    title: "Shared or Submetered Utilities",
+    group: "Rent & Payment",
+    states: ["FL"],
+    bodyText:
+      "[Optional. Use only if Landlord pays a master-metered electric or water and sewer account that also serves other units, and the utility does not meter this unit separately. Do not use it for gas unless Landlord's gas utility confirms in writing that its submetering policy covers the building; otherwise include gas in Monthly Rent.] Tenant will pay Landlord Tenant's share of the following utilities billed to Landlord's master account: [electricity / water and sewer]. Tenant's share will be measured by [a submeter serving the Property / the following method: describe it, such as square footage or number of occupants]. For electricity, Tenant's charges will reimburse Landlord for no more than Landlord's actual cost of the electricity under the utility's tariff, including applicable taxes and fees, and will not include late payment charges, returned check charges, the cost of Landlord's distribution system behind the master meter, or Landlord's cost of billing. For water and sewer, Tenant's charges will not exceed Tenant's share of the actual purchase price of the water and wastewater service plus Landlord's actual cost of meter reading and billing, and that billing cost will not exceed 9 percent of the actual cost of service. Landlord will bill Tenant [monthly], showing [the submeter readings / the calculation], and will give Tenant a copy of the utility's bill on request. Tenant will pay each bill within [number] days after receiving it. [These charges are additional rent under this Lease. / These charges are not rent.] Landlord will not interrupt or cut off any utility service because Tenant fails to pay these charges.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "utility-shutoff-notice-designee-fl",
+    title: "Copies of Utility Shutoff Notices",
+    group: "Tenant Responsibilities",
+    states: ["FL"],
+    bodyText:
+      "[Optional. Use only if Tenant will hold an electric or gas account for the Property in Tenant's own name with a utility regulated by the Florida Public Service Commission, and Landlord or Landlord's agent has an address in that utility's service area. Florida's water utility rules have no such designation, so do not apply this to water.] For each electric or gas account for the Property in Tenant's name, Tenant will ask the utility, when the account is opened, to send a copy of any delinquent-bill or disconnection notice to [Landlord / Landlord's agent: name and address in the utility's service area], and will keep that request in place during the Term. Tenant will give Landlord written confirmation of the request within [number] days after the account is opened, and again on request. Receiving these copies does not make Landlord a guarantor of Tenant's account or liable for any amount Tenant owes the utility. Tenant remains responsible for paying the account and keeping service on as this Lease requires. Landlord will use these notices only to protect the Property and Tenant's continued service.",
+  },
+  // Rent & Payment
+  {
+    id: "government-fee-reimbursement-fl",
+    title: "Government Fees on the Rental",
+    group: "Rent & Payment",
+    states: ["FL"],
+    bodyText:
+      "[Optional. Florida law neither requires nor bars passing a government fee on to a tenant, so Tenant pays one only if this Lease says so. Use only for fees that apply specifically to renting the Property.] If a city, county or state agency charges Landlord a fee that applies specifically to renting the Property, such as a rental registration, rental license or rental inspection fee, and the fee is in effect when this Lease is signed or takes effect during the Term, Tenant will reimburse Landlord [all / [percent] percent] of each such fee charged for the Term. Landlord will give Tenant written notice of the amount with a copy of the government's bill or receipt, and Tenant will pay within [number] days after receiving it. This Section does not cover fines or penalties, interest or late charges caused by Landlord's late payment, property taxes, or taxes on Landlord's income. [This reimbursement is additional rent under this Lease. / This reimbursement is not rent.]",
+  },
+  // Tenant Responsibilities
+  {
+    id: "tenant-caused-fines-fl",
+    title: "Government Fines Caused by Tenant",
+    group: "Tenant Responsibilities",
+    states: ["FL"],
+    bodyText:
+      "[Optional. Florida has no statute deciding whether a landlord may pass a government fine to the tenant who caused it, so Tenant pays one only if this Lease says so.] If a government agency or code enforcement board fines Landlord, or charges Landlord the cost of repairs or abatement, because of a condition or violation that Tenant, a member of Tenant's household, or a person on the Property with Tenant's consent caused, Tenant will reimburse Landlord the amount Landlord paid within [number] days after Landlord gives Tenant written notice with a copy of the citation, order or bill. This Section does not apply to a fine or charge for a condition that Landlord is responsible for under this Lease or Florida law, or to any amount added because Landlord paid late. [This reimbursement is additional rent under this Lease. / This reimbursement is not rent.]",
+  },
+  // Rules & Regulations
+  {
+    id: "rules-fl",
+    title: "Rules and Changes to Rules",
+    group: "Rules & Regulations",
+    states: ["FL"],
+    bodyText:
+      "[Optional.] Tenant will comply with Landlord's reasonable written rules for the property that are in effect when this Lease is signed: [attach the rules, or state that there are none]. The rules are part of this Lease. During the Term, Landlord may adopt a new reasonable written rule or change a rule if the rule applies alike to all tenants of the property, does not increase Rent or add a fee, and does not reduce the services or facilities this Lease provides. Landlord will give Tenant written notice of each new or changed rule at least {{rule_change_notice_days}} days before it takes effect, delivered by mail, by hand delivery, by e-mail if the parties have signed an electronic notice addendum, or, if Tenant is absent from the premises, by leaving a copy at the dwelling. A new or changed rule that substantially changes Tenant's rights or duties under this Lease binds Tenant during the Term only if Tenant agrees to it in writing. Rules of a condominium or homeowners' association that governs the property apply as that association's documents provide.",
+  },
+  {
+    id: "firearm-rules-fl",
+    title: "Firearm Discharge and Storage",
+    group: "Rules & Regulations",
+    states: ["FL"],
+    bodyText:
+      "[Optional.] Tenant, occupants and guests will not discharge any firearm at the property except when lawfully defending life or property, and will store any firearm kept at the property as Florida law requires, including keeping a loaded firearm in a securely locked box or container, in a location a reasonable person would believe to be secure, or secured with a trigger lock whenever a child under 16 is likely to gain access to it without the permission of the child's parent or the person in charge of the child, or without the supervision the law requires. Nothing in this Lease prohibits a person from keeping a legally owned firearm locked inside or locked to a private motor vehicle in the property's parking areas.",
+  },
+  // Access & Entry
+  {
+    id: "scheduled-services-entry-fl",
+    title: "Entry for Agreed Scheduled Services",
+    group: "Access & Entry",
+    states: ["FL"],
+    bodyText:
+      "[Optional.] Agreed Scheduled Services: Landlord will supply the following regularly scheduled services, which are agreed services under this Lease: [list each service and its schedule, for example pest treatment every [number] months or changing air-conditioning filters every [number] months]. Tenant consents to entry by Landlord or Landlord's agent to supply each scheduled service between [state hours, for example 9:00 a.m. and 6:00 p.m.] and will not unreasonably withhold consent to any scheduled visit. Landlord will give Tenant notice of each visit at least [state notice, at least 24 hours] in advance by [state method, for example text message, e-mail or a notice posted on the door], and will knock and announce before entering. If Tenant withdraws consent for a particular visit, Landlord may enter for that visit only as Florida law allows. This section adds to, and does not limit, Landlord's other rights of entry under this Lease.",
+  },
+  // Pets
+  {
+    id: "animal-care-access-fl",
+    title: "Animal Care if Tenant Is Absent",
+    group: "Pets",
+    states: ["FL"],
+    bodyText:
+      "[Optional.] Animal Care: Tenant will tell Landlord in writing about every animal kept at the property. Tenant names the following person to care for or remove Tenant's animals if Tenant cannot because Tenant is hospitalized, incapacitated, detained or otherwise absent and an animal is left without care: [name and telephone number]. In that case, after trying to reach Tenant, Landlord may let that person into the property for that purpose only, and Tenant consents to that entry. If that person cannot be reached, Landlord may ask a law enforcement officer, an animal control officer or a humane society to take charge of the animal. Landlord will leave written notice in the property of any entry under this section. Tenant will tell Landlord in writing if this information changes. This section adds to, and does not limit, Landlord's other rights of entry under this Lease and Florida law. This permission ends at Tenant's death; after that, Landlord will deal with Tenant's animals only through Tenant's personal representative or heirs or as the law otherwise allows.",
+  },
+  // Rules & Regulations
+  {
+    id: "family-child-care-fl",
+    title: "Family Child Care Home Conditions",
+    group: "Rules & Regulations",
+    states: ["FL"],
+    bodyText:
+      "[Optional. Use only if Landlord agrees to allow Tenant to operate a family child care home at the property.] Family Child Care Home: Notwithstanding the residential-use terms of this Lease, Tenant may operate a family child care home or large family child care home at the property only while Tenant: (a) holds the license or registration Florida law requires for it and gives Landlord a copy before starting care and after each renewal; (b) cares for no more children than that license or registration allows; (c) keeps in force, at Tenant's expense, liability insurance covering the child care operation with limits of at least [amount], naming Landlord as an additional insured, and gives Landlord proof of it before starting care and at each renewal; (d) complies with all laws and any association rules that apply to the property; and (e) makes no alteration to the property for the child care operation without Landlord's prior written consent. If any of these conditions is not met, Tenant will stop providing child care at the property until it is met, and the failure is a noncompliance with this Lease.",
+  },
+  // Notices & General
+  {
+    id: "tenant-portal-fl",
+    title: "Online Portal",
+    group: "Notices & General",
+    states: ["FL"],
+    bodyText:
+      "[Optional.] Online Portal: Landlord may provide an online portal for paying Rent, submitting maintenance requests and viewing documents. [Choose one: (A) Tenant may pay Rent through the portal or by any other method this Lease accepts. (B) Tenant will pay Rent through the portal, except that Tenant may instead pay by [state a non-electronic method, for example check or money order delivered to Landlord's address] if the portal is not working or if Tenant tells Landlord in writing that Tenant no longer agrees to pay electronically.] Posting a message or document on the portal is not delivery of any notice required by this Lease or Florida law; those notices will be delivered only by a method this Lease and Florida law allow, including e-mail under any signed Electronic Delivery of Notices Addendum. Tenant will keep Tenant's portal login information private and will tell Landlord promptly of any unauthorized use of Tenant's account.",
+  },
+  // Default & Termination
+  {
+    id: "employee-housing-fl",
+    title: "Employee Housing",
+    group: "Default & Termination",
+    states: ["FL"],
+    bodyText:
+      "[Optional. Use only where Landlord furnishes the property to Tenant as an incident of Tenant's employment by Landlord, for example as a resident manager or other employee of Landlord's apartment house or apartment complex.] Employee Housing: Tenant occupies the property as an incident of Tenant's employment by Landlord as [position]. While Tenant is employed, [choose one: no rent is charged / Tenant will pay rent of [amount] per month, charged separately from wages]. This section is the parties' written agreement about the duration of the tenancy. When Tenant's employment ends for any reason, the tenancy continues as a [choose one: week-to-week / month-to-month] tenancy, which either party may end by the written notice Florida law requires for that kind of tenancy, and from the day after Tenant's employment ends until Tenant vacates, Tenant will pay rent of [amount] per [week or month], apportioned by the day. If Tenant does not vacate when the tenancy ends, Landlord will recover possession only through the court process Florida law requires.",
+  },
+  {
+    id: "jury-waiver-fl",
+    title: "Jury Trial Waiver for Possession",
+    group: "Default & Termination",
+    states: ["FL"],
+    bodyText:
+      "[Optional. Present this paragraph in conspicuous type with its own initial lines. Without it, a jury hears a Florida eviction only if a party demands one in time.] To the extent Florida law permits, Landlord and Tenant each knowingly and voluntarily waive the right to a trial by jury in any action by Landlord to recover possession of the property and in the determination of the rent or other money claimed in that action. This waiver does not apply to any counterclaim by Tenant, any claim for personal injury or property damage, or any separate action, and it does not waive any other right either party has under applicable law. If a court holds this paragraph unenforceable in whole or in part, the rest of this Lease is unaffected. Tenant's initials: ______ Landlord's initials: ______",
+  },
+  // Rent & Payment
+  {
+    id: "collection-fee-fl",
+    title: "Collection Agency Charges",
+    group: "Rent & Payment",
+    states: ["FL"],
+    bodyText:
+      "[Optional.] If any Rent or other amount Tenant owes under this Lease remains unpaid after it is due and Landlord refers it to a third-party collection agency, Tenant will pay, in addition to the amount owed, the amount that agency actually charges Landlord to collect it, not to exceed [state a cap, for example 15 percent of the amount referred]. Landlord will give Tenant written notice of the amount charged. This charge applies only to an amount Tenant actually owed when it was referred. It is not Rent, and Landlord will not include it in any notice demanding Rent or possession. It does not include attorney's fees or court costs, which are recoverable only as a court awards them.",
+  },
+  // Default & Termination
+  {
+    id: "notice-cost-fl",
+    title: "Cost of Delivering Required Notices",
+    group: "Default & Termination",
+    states: ["FL"],
+    bodyText:
+      "[Optional.] If Tenant's breach of this Lease requires Landlord to deliver a notice that Florida law requires before Landlord may end the tenancy or bring an action, Tenant will reimburse Landlord, as damages for that breach, Landlord's actual out-of-pocket cost of delivering it, such as a process server's or certified-mail charge. Landlord will give Tenant a written itemization when Landlord charges it and will charge no more than the amount actually spent. This charge is not Rent, Landlord will not include it in any notice demanding Rent or possession, and Tenant's failure to pay it does not by itself entitle Landlord to end this Lease. It does not cover attorney's fees, court costs or the value of Landlord's own time.",
   },
 ];
 
