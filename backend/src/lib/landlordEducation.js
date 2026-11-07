@@ -156422,6 +156422,103 @@ const LANDLORD_EDUCATION = [
       "No. Florida forbids you to prevent a tenant from gaining reasonable access to the home by any means, including changing the locks or using a bootlock or similar device, and forbids you to cut off utilities the tenant uses, whether or not you control or pay for them. That holds even if the rent is late and even if the lease has an opt-in lockout clause, which would be void. A violation makes you liable for the tenant's actual and consequential damages or 3 months' rent, whichever is greater, plus costs and attorney's fees, with a separate award for each later violation that is not contemporaneous with the first, and it counts as irreparable harm for an injunction. You may recover possession only through the court eviction procedure, or when the tenant has surrendered or abandoned the unit or, in limited cases, the last remaining tenant has died. After a judgment, the sheriff executes the writ after 24 hours' notice, and you may then change the locks with the sheriff standing by (see `edu-eviction-process-fl`).",
     notes: "FL: Present (prohibition). Basis: section-open, corpus text of the 2026 Florida Statutes (flsenate.gov), read 2026-11-05. Read whole: Fla. Stat. § 83.67 (History ends s. 2, ch. 2007-136), § 83.59 (ends s. 11, ch. 2013-136), § 83.62 (ends s. 13, ch. 2013-136). 'A landlord of any dwelling unit governed by this part shall not prevent the tenant from gaining reasonable access to the dwelling unit by any means, including, but not limited to, changing the locks or using any bootlock or similar device' (Fla. Stat. § 83.67(2)); utilities: Fla. Stat. § 83.67(1); damages 'actual and consequential damages or 3 months' (Fla. Stat. § 83.67(6)) rent, whichever is greater, plus costs; 'A violation of this section constitutes irreparable harm for the purposes of injunctive relief' (Fla. Stat. § 83.67(7)). 'The landlord shall not recover possession of a dwelling unit except' (Fla. Stat. § 83.59(3)) by court action, surrender, abandonment or the deceased-last-tenant route. Post-judgment lock change: 'the landlord may request the sheriff to stand by to keep the peace while the landlord changes the locks and removes the personal property from the premises' (Fla. Stat. § 83.62(2)). Battery FLG-M-027 (whole Florida corpus; controls passed; positive passed: 83.67 \"bootlock\"): lockout/locked out/bootlock 15 units, the residential-tenancy one is Fla. Stat. § 83.67 (others: labor, schools, juvenile facilities, lodging Fla. Stat. §§ 509.403-509.405, criminal codes); \"change the locks\" 6 units (Fla. Stat. §§ 82.036, 82.037, 83.62, 83.67, chs. 2024-44, 2025-112, Laws of Fla.); exclude tenant near rent/nonpayment 5 units (Fla. Stat. §§ 83.49, 83.56, 83.60, 196.1979, ch. 2025-16): no self-help permission. Void clause: Fla. Stat. § 83.47(1)(a). Related: edu-prohibited-practices-fl, edu-eviction-process-fl.",
   },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-binding-arbitration-ct",
+    title: "Arbitration Clauses in Connecticut Leases",
+    group: "Compliance & Prohibited Terms",
+    states: ["CT"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "binding-arbitration",
+    bodyText:
+      "No Connecticut statute deals specifically with arbitration clauses in residential leases. The arbitration act makes a written agreement to arbitrate an existing or later dispute valid, enforceable and irrevocable except on grounds that would undo any contract, and before a dispute arises neither side may give up the right to a lawyer at the arbitration (Conn. Gen. Stat. §§ 52-407dd, 52-407ff). The catch is the lease statute: a lease may not have the tenant waive rights under any state statute unless that statute allows it (§ 47a-4(a)(1)), and in most civil cases either side may claim a jury (§ 52-215). Eviction cases have no jury, and possession stays in court anyway. Federal law also matters here: the Federal Arbitration Act overrides state rules that block arbitration directly or indirectly (for example, a rule against giving up a jury). On that basis the library offers an optional clause, `arbitration-agreement`: money claims only, with possession, small claims, security-deposit, injury, emergency and government-agency matters kept out, every remedy and the right to a lawyer kept, the arbitration fees above a court filing fee paid by you, a 30-day opt-out for the tenant, and separate initials. A court here could still refuse to enforce it; if one did, the dispute would simply go to court.",
+    notes: "CT: Added 2026-11-06 by Claude Code (arbitration screen of the eight states verified before the topic existed; Taylor's offer rule: offer where state law allows it or blocks it only in a way the FAA displaces under Kindred, and no penalty attaches to a prohibited term). Each relied-on section read whole on the official site 2026-11-06; quotes and URLs in docs/sweeps/arbitration-CT-DE-MD-MA.md. Case law not read.",
+  },
+  {
+    id: "edu-binding-arbitration-de",
+    title: "Why the Library Has No Arbitration Clause for Delaware",
+    group: "Compliance & Prohibited Terms",
+    states: ["DE"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "binding-arbitration",
+    bodyText:
+      "Delaware's arbitration act makes a written agreement to arbitrate an existing or future dispute valid, enforceable and irrevocable except on grounds that would undo any contract, and a party's right to a lawyer cannot be waived in advance (10 Del. C. §§ 5701, 5707). Unless the agreement names that act, the Court of Chancery applies the Federal Arbitration Act instead (§ 5702(c)). The obstacle is the Landlord-Tenant Code. A lease may not have the tenant waive or forgo rights or remedies under the Code, and a lease term that conflicts with the Code is unenforceable unless the Code allows it (25 Del. C. §§ 5101(a), 5301(a)(1)). No Delaware statute says whether sending a tenant's money claims to an arbitrator is such a waiver, and Delaware case law was not reviewed. Guessing wrong is costly: if you try to enforce a lease term you know is prohibited, the tenant can sue you for 3 months' rent plus court costs (§ 5301(b)), and asking a court to send a tenant's claim to arbitration is an attempt to enforce. For that reason this library does not offer an arbitration clause for Delaware. If you want one anyway, have a Delaware lawyer draft it, and keep summary possession in the Justice of the Peace Court.",
+    notes: "DE: Added 2026-11-06 by Claude Code (arbitration screen of the eight states verified before the topic existed; Taylor's offer rule: offer where state law allows it or blocks it only in a way the FAA displaces under Kindred, and no penalty attaches to a prohibited term). Each relied-on section read whole on the official site 2026-11-06; quotes and URLs in docs/sweeps/arbitration-CT-DE-MD-MA.md. Case law not read.",
+  },
+  {
+    id: "edu-binding-arbitration-md",
+    title: "Why the Library Has No Arbitration Clause for Maryland",
+    group: "Compliance & Prohibited Terms",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "binding-arbitration",
+    bodyText:
+      "Maryland's arbitration act makes a provision in a written contract to arbitrate future disputes valid, enforceable and irrevocable except on grounds that would undo any contract (Md. Code Ann., Cts. & Jud. Proc. § 3-206(a)). The landlord-tenant law points the other way. You may not use a lease that has the tenant waive the right to a jury trial, or waive or forgo any right or remedy the law provides (Md. Code Ann., Real Prop. § 8-208(d)(2), (4)), and a jury waiver in a lease of the tenant's primary residence is invalid and unenforceable (Real Prop. § 8-603(a)). An arbitration clause takes the disputes it covers away from a jury, so it could be read as exactly that kind of term. Guessing wrong is costly: if you offer a lease containing a prohibited provision, or try or threaten to enforce one, the tenant may recover actual damages and reasonable attorney's fees, whether or not you knew the term was prohibited (Real Prop. § 8-208(g)(2)). Federal law may override the jury rule as applied to arbitration, but a court would decide that only after you had offered the lease, and Maryland case law was not reviewed. For that reason this library does not offer an arbitration clause for Maryland.",
+    notes: "MD: Added 2026-11-06 by Claude Code (arbitration screen of the eight states verified before the topic existed; Taylor's offer rule: offer where state law allows it or blocks it only in a way the FAA displaces under Kindred, and no penalty attaches to a prohibited term). Each relied-on section read whole on the official site 2026-11-06; quotes and URLs in docs/sweeps/arbitration-CT-DE-MD-MA.md. Case law not read.",
+  },
+  {
+    id: "edu-binding-arbitration-ma",
+    title: "Why the Library Has No Arbitration Clause for Massachusetts",
+    group: "Compliance & Prohibited Terms",
+    states: ["MA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "binding-arbitration",
+    bodyText:
+      "Massachusetts's arbitration act makes a provision in a written contract to arbitrate later disputes valid, enforceable and irrevocable except on grounds that would undo any contract (Mass. Gen. Laws ch. 251, § 1). But a residential lease term by which the tenant agrees to waive the right to a jury trial in any later litigation with you is against public policy and void (Mass. Gen. Laws ch. 186, § 15F), and an arbitration clause takes the disputes it covers away from a jury. Putting an unlawful term in a rental agreement is also treated as an unfair or deceptive practice under the Attorney General's consumer protection rules. A tenant injured by one can recover actual damages or $25, whichever is greater, two to three times that if the violation was willful or knowing, plus attorney's fees (Mass. Gen. Laws ch. 93A, § 9(3), (4)), and the Attorney General can seek civil penalties of up to $5,000 per violation (ch. 93A, § 4). Federal law may override the jury rule as applied to arbitration, but a court would decide that only after the lease was in use, and Massachusetts case law was not reviewed. Because guessing wrong can mean multiplied damages, this library does not offer an arbitration clause for Massachusetts.",
+    notes: "MA: Added 2026-11-06 by Claude Code (arbitration screen of the eight states verified before the topic existed; Taylor's offer rule: offer where state law allows it or blocks it only in a way the FAA displaces under Kindred, and no penalty attaches to a prohibited term). Each relied-on section read whole on the official site 2026-11-06; quotes and URLs in docs/sweeps/arbitration-CT-DE-MD-MA.md. Case law not read.",
+  },
+  {
+    id: "edu-binding-arbitration-me",
+    title: "Arbitration Clauses in Maine Leases: Why the Library Does Not Offer One",
+    group: "Compliance & Prohibited Terms",
+    states: ["ME"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "binding-arbitration",
+    bodyText:
+      "Maine's arbitration act makes a written agreement to arbitrate future disputes valid and enforceable, and a party's right to a lawyer cannot be waived in advance (14 M.R.S. §§ 5927, 5932). Maine's rental law points the other way for residential leases, though. Requiring a tenant to sign a lease term that has the effect of waiving any tenant right in Maine's eviction, rental property or security deposit chapters is an unfair trade practice (14 M.R.S. § 6030(1)). Those chapters give tenants rights they enforce in court. For example, a tenant may file a habitability complaint in the District Court or Superior Court, and any other waiver of those rights is void (§ 6021(3), (5)). The Legislature allowed lease arbitration and jury waivers only in commercial leases (§ 6017(4), (5)). A violation exposes you to the tenant's damages and mandatory attorney's fees, and to Attorney General civil penalties of up to $10,000 per intentional violation (5 M.R.S. §§ 209, 213). Federal arbitration law may override some of these limits, but because Maine attaches penalties to the lease term itself, the library does not offer an arbitration clause for Maine. Maine case law was not reviewed.",
+    notes: "ME: Added 2026-11-06 by Claude Code (arbitration screen of the eight states verified before the topic existed; Taylor's offer rule: offer where state law allows it or blocks it only in a way the FAA displaces under Kindred, and no penalty attaches to a prohibited term). Each relied-on section read whole on the official site 2026-11-06; quotes and URLs in docs/sweeps/arbitration-ME-NH-RI-VT.md. Case law not read.",
+  },
+  {
+    id: "edu-binding-arbitration-nh",
+    title: "Arbitration Clauses in New Hampshire Leases",
+    group: "Compliance & Prohibited Terms",
+    states: ["NH"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "binding-arbitration",
+    bodyText:
+      "No New Hampshire statute deals specifically with arbitration clauses in residential leases. The general arbitration statute makes a written provision to arbitrate later disputes arising out of the contract valid, irrevocable and enforceable, except on grounds that would undo any contract, and it excludes only employer-employee agreements (RSA 542:1). A lease cannot waive a tenant's rights under the eviction chapter, deposit rights, or Consumer Protection Act damages (RSA 540:28; 540-A:8, III; 358-A:10, I). Such a term is void, but no statute penalizes you for including it. Tenants may also petition the district court over lockouts, utility shutoffs and similar violations (RSA 540-A:4, II). The library offers an optional clause, `arbitration-agreement`. It covers money claims only. Possession, small claims, security-deposit, injury, emergency and government-agency matters stay out. Every remedy and the right to a lawyer are kept, you pay the arbitration fees above a court filing fee, the tenant has 30 days to opt out, and both of you initial it separately. Parts of it rest on federal arbitration law, so a court here could still refuse to enforce it. If one did, the dispute would simply go to court. New Hampshire case law was not reviewed.",
+    notes: "NH: Added 2026-11-06 by Claude Code (arbitration screen of the eight states verified before the topic existed; Taylor's offer rule: offer where state law allows it or blocks it only in a way the FAA displaces under Kindred, and no penalty attaches to a prohibited term). Each relied-on section read whole on the official site 2026-11-06; quotes and URLs in docs/sweeps/arbitration-ME-NH-RI-VT.md. Case law not read.",
+  },
+  {
+    id: "edu-binding-arbitration-ri",
+    title: "Arbitration Clauses in Rhode Island Leases: Why the Library Does Not Offer One",
+    group: "Compliance & Prohibited Terms",
+    states: ["RI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "binding-arbitration",
+    bodyText:
+      "Rhode Island's Arbitration Act makes a clearly written agreement to arbitrate future disputes valid and enforceable (R.I. Gen. Laws § 10-3-2(a)). In consumer arbitration, the right to a lawyer cannot be waived, and a drafting party that doesn't pay the arbitration fees within 30 days of the due date loses the right to arbitrate and faces court sanctions (§§ 10-3-22 to 10-3-25). The Residential Landlord and Tenant Act is the problem. A rental agreement may not make the tenant waive or forgo rights or remedies under the Act (§ 34-18-17(a)(1)), and the Act places claims arising under it in the district or housing court (§ 34-18-9). If you deliberately use a lease containing terms you know are prohibited, the tenant may recover actual damages plus up to three months' periodic rent and attorney's fees (§ 34-18-17(b)). Whether an arbitration clause counts as such a waiver is unsettled. Federal arbitration law may override a rule that requires a courtroom, but because Rhode Island attaches a penalty to the lease term itself, the library does not offer an arbitration clause for Rhode Island. Rhode Island case law was not reviewed.",
+    notes: "RI: Added 2026-11-06 by Claude Code (arbitration screen of the eight states verified before the topic existed; Taylor's offer rule: offer where state law allows it or blocks it only in a way the FAA displaces under Kindred, and no penalty attaches to a prohibited term). Each relied-on section read whole on the official site 2026-11-06; quotes and URLs in docs/sweeps/arbitration-ME-NH-RI-VT.md. Case law not read.",
+  },
+  {
+    id: "edu-binding-arbitration-vt",
+    title: "Arbitration Clauses in Vermont Leases: Why the Library Does Not Offer One",
+    group: "Compliance & Prohibited Terms",
+    states: ["VT"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "binding-arbitration",
+    bodyText:
+      "Vermont's arbitration act makes a written agreement to arbitrate future disputes valid and enforceable, but only if the parties also sign a prominently displayed \"Acknowledgment of Arbitration\" in the form the statute sets out (12 V.S.A. § 5652). A right to a lawyer cannot be waived in advance, and no arbitration agreement can stop anyone from going to court over constitutional or civil rights (§§ 5653(b), 5655). Two other laws matter for leases. Your lease may not contain any provision that attempts to circumvent the rental chapter's obligations and remedies (9 V.S.A. § 4454). In a standard-form lease that an individual tenant couldn't negotiate, a waiver of the tenant's right to a jury trial or to bring a class action is presumed unconscionable. If you try to enforce one and a court finds it unconscionable, it may treat that as an unfair and deceptive practice and award up to $1,000 per term plus attorney's fees (§ 6055). An arbitration clause gives up a jury. Federal arbitration law may override some of these rules, but because Vermont attaches money damages to enforcing such a term, the library does not offer an arbitration clause for Vermont. Vermont case law was not reviewed.",
+    notes: "VT: Added 2026-11-06 by Claude Code (arbitration screen of the eight states verified before the topic existed; Taylor's offer rule: offer where state law allows it or blocks it only in a way the FAA displaces under Kindred, and no penalty attaches to a prohibited term). Each relied-on section read whole on the official site 2026-11-06; quotes and URLs in docs/sweeps/arbitration-ME-NH-RI-VT.md. Case law not read.",
+  },
 ];
 
 module.exports = { LANDLORD_EDUCATION };
