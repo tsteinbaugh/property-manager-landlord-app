@@ -693,3 +693,976 @@ Citations file: no new section beyond those `holdover-rate-ga` already lists, ex
 - `smoking-policy`: Tenant pays for smoking damage caused by "Tenant, an occupant, or a guest or invitee of Tenant", no longer by anyone's smoking.
 - `no-alterations`: the last sentence adds that the clause "does not change who owns an installation that applicable law makes Tenant's property".
 - `addendum-precedence`: a disclosure, notice or addendum "that applicable law says controls over this Lease" now controls, as one the law requires already did.
+
+# Topic gaps pass (end-of-run consistency pass, 2026-11-06): Desktop's running record
+
+## GA topic gaps: running record
+
+Pass: Georgia topic gaps (GAPS-PROMPT.md, SOP 1.95), started 2026-11-06. Sources: official O.C.G.A. on advance.lexis.com ("Current through the 2026 Special Session of the General Assembly"); U.S. Code from uscode.house.gov (through Pub. L. 119-138); eCFR (titles 24, 40 as of 2026-11-05); legis.ga.gov for acts.
+
+### Batch 1: deposits, fees and money limits (delivered 2026-11-06)
+
+31 of 258 topics. Georgia items 1 (attorney fees, liquidated damages) and 3 (deposits) answered; items 5-8 concluded in log §4; item 9 act list compiled from Lexis history lines and legis.ga.gov. Question to Taylor: OK to hand the `early-termination-ga` flat one-month override (fields in log §4 item 7) to Claude Code at sync.
+
+### Batches 2-3 in part: dispossessory, notices, lease terms, family violence, misc started (delivered 2026-11-06)
+
+90 of 258 topics. Article 3 read whole (both § 44-7-50 versions). Tag GA on `rent-concession-wi`. No new clauses. Case-law-only topics (waiver by acceptance, breach materiality, self-help damages) state the cautious course.
+
+### Batches 3-12: remaining topics (delivered 2026-11-06)
+
+All 258 of 258 topics answered: 240 new GA education rows and 30 GA tags on shared clauses; no new GA lease clauses (every Georgia rule either already has a GA clause or imposes nothing the lease must say). Key finds: O.C.G.A. § 36-74-30(b) (no local rental registration; inspections only on probable cause; proposed fix to `edu-local-preemption-ga` in log §6); § 12-5-180.1 (water and sewer rebilling capped at cost plus a reasonable billing fee, terms disclosed before signing); § 8-3-202(a)(8), (b) (public-housing firearm rule; small-owner exemptions); § 15-10-43 (employee may represent an entity in magistrate court); § 2-1-7 (foreign-adversary possessory interests near military sites); § 10-6A-6(b) (broker disclosure); § 41-2-7(b) (prima-facie unfitness finding); PTFA (12 U.S.C. § 5220 note). Late in the pass the site raised a CAPTCHA on section opens (not solved); rows relying on sections not read say so.
+
+### Independent check: two rounds (delivered 2026-11-06)
+
+Round 1: all 270 rows in four slices (errata r1a-r1g, 216 changes; 12 ERRORs including the § 13-5-30(b) signature rule, § 41-2-7(b), the sprinkler 'as built' rule and the EV-charger residence exclusion). Searches the checker found missing were run and saved before fixing. Round 2: the 129 rows edited after round 1 in two slices (errata r2a, r2b, 44 changes; 1 ERROR, the § 30-4-3(b) service-dog fee bar). The battery preamble's control wording was corrected in every row. 33 rows edited after round 2 are listed in log §5. Final: 270 quotations matched by script (4 HB 404 line-number artifacts checked by hand).
+
+### Rows so far (240 new, 30 tags)
+
+- `security-deposit-cap` → `edu-security-deposit-cap-ga`
+- `security-deposit-nonwaiver` → `edu-security-deposit-nonwaiver-ga`
+- `security-deposit-penalty` → `edu-security-deposit-penalty-ga`
+- `deposit-last-month-rent` → `edu-deposit-last-month-rent-ga`
+- `pet-fees` → `edu-pet-fees-ga`
+- `nonrefundable-deposit-separate-notice` → `edu-no-nonrefundable-separate-notice-ga`
+- `security-deposit-standards` → `edu-no-deposit-standards-rule-ga`
+- `deposit-installments` → `edu-no-deposit-installments-ga`
+- `deposit-surrender-notice` → `edu-deposit-no-move-out-notice-condition-ga`
+- `expedited-deposit-disposition` → `edu-no-expedited-deposit-disposition-ga`
+- `holding-deposit` → `edu-holding-deposit-ga`
+- `fee-in-lieu-of-deposit` → `edu-no-fee-in-lieu-of-deposit-rule-ga`
+- `application-fees` → `edu-application-fees-ga`
+- `utility-deposit-return` → `edu-no-utility-deposit-rule-ga`
+- `fee-transparency` → `edu-no-fee-transparency-rule-ga`
+- `required-fees` → `edu-no-required-fee-list-ga`
+- `fee-unprovided-service` → `edu-no-fee-unprovided-service-rule-ga`
+- `late-fee-limit` → `edu-no-late-fee-limit-ga`
+- `attorney-fees` → `edu-attorney-fees-ga`
+- `liquidated-damages` → `edu-liquidated-damages-ga`
+- `collection-fee` → `edu-collection-fee-ga`
+- `notice-service-fee` → `edu-no-notice-fee-rule-ga`
+- `eviction-penalty-clause-ban` → `edu-no-eviction-fee-ban-ga`
+- `limitation-of-actions` → `edu-limitation-of-actions-ga`
+- `binding-arbitration` → `edu-binding-arbitration-ga`
+- `deposit-cost-schedule` → `edu-no-deposit-cost-schedule-ga`
+- `security-deposit-on-sale` → `edu-security-deposit-on-sale-ga`
+- `carpet-cleaning` → `edu-carpet-cleaning-ga`
+- `statutory-caps` → `edu-statutory-caps-ga`
+- `sale-or-management-change` → `edu-sale-or-management-change-ga`
+- `abandonment-and-mitigation` → `edu-abandonment-and-mitigation-ga`
+- `actual-notice-method` → `edu-actual-notice-method-ga`
+- `confession-of-judgment` → `edu-no-confession-of-judgment-lease-ga`
+- `cure-and-eviction-grounds` → `edu-eviction-grounds-no-cure-ga`
+- `eviction-hardship-stay` → `edu-no-eviction-hardship-stay-ga`
+- `expedited-criminal-eviction` → `edu-no-expedited-criminal-eviction-ga`
+- `forfeiture-redemption` → `edu-nonpayment-tender-defense-ga`
+- `redemption` → `edu-redemption-ga`
+- `good-cause-notice` → `edu-no-good-cause-notice-ga`
+- `landlord-remedies-termination` → `edu-landlord-remedies-on-termination-ga`
+- `lockout-for-rent-delinquency` → `edu-no-lockout-for-rent-ga`
+- `nonpayment-notice` → `edu-nonpayment-notice-ga`
+- `notice-to-quit-waiver` → `edu-notice-to-quit-not-waivable-ga`
+- `notice-to-vacate-additional-terms` → `edu-no-notice-to-vacate-extra-terms-ga`
+- `possession-bond` → `edu-no-possession-bond-ga`
+- `post-eviction-property` → `edu-post-eviction-property-ga`
+- `rent-demand-bar` → `edu-no-rent-demand-bar-ga`
+- `rent-into-court-counterclaim` → `edu-rent-into-court-and-counterclaims-ga`
+- `rent-receipt-anti-waiver` → `edu-repair-duty-not-severable-ga`
+- `self-help-eviction` → `edu-self-help-eviction-ga`
+- `social-security-defense` → `edu-no-benefit-delay-defense-ga`
+- `tenant-bankruptcy` → `edu-tenant-bankruptcy-ga`
+- `waiver-by-acceptance` → `edu-waiver-by-acceptance-ga`
+- `landlord-breach-remedy` → `edu-landlord-breach-remedies-ga`
+- `tenancy-at-will` → `edu-tenancy-at-will-basics-ga`
+- `statutory-early-termination` → `edu-statutory-early-termination-ga`
+- `cold-weather-vacate-notice` → `edu-no-cold-weather-eviction-rule-ga`
+- `infirmity-termination` → `edu-no-infirmity-termination-ga`
+- `trespass-notice` → `edu-trespass-notice-ga`
+- `law-enforcement-cooperation` → `edu-no-law-enforcement-cooperation-rule-ga`
+- `written-notice-required` → `edu-written-notices-ga`
+- `entity-landlord-court-representation` → `edu-entity-landlord-representation-ga`
+- `eviction-service-party` → `edu-dispossessory-service-ga`
+- `jury-waiver` → `edu-jury-waiver-ga`
+- `minor-tenant-filing` → `edu-minor-tenants-ga`
+- `seasonal-tenancy` → `edu-seasonal-and-hotel-stays-ga`
+- `usufructuary-lessor` → `edu-usufruct-lease-ga`
+- `purpose-limitation` → `edu-illegal-purpose-lease-void-ga`
+- `statute-of-frauds-lease-term` → `edu-statute-of-frauds-lease-ga`
+- `lease-term-limitation` → `edu-lease-formalities-ga`
+- `unconscionability` → `edu-no-unconscionability-statute-ga`
+- `consumer-protection-act` → `edu-fair-business-practices-act-ga`
+- `part5-nonwaivable` → `edu-nonwaivable-landlord-tenant-rules-ga`
+- `exculpatory-clauses` → `edu-exculpatory-clauses-ga`
+- `double-letting` → `edu-no-double-letting-rule-ga`
+- `hoa` → `edu-association-rules-bind-tenants-ga`
+- `truth-in-renting` → `edu-no-truth-in-renting-act-ga`
+- `rights-responsibilities-guide` → `edu-no-tenant-rights-guide-ga`
+- `tenant-rights-statement` → `edu-no-tenant-rights-statement-ga`
+- `lease-type-parity` → `edu-no-lease-type-parity-ga`
+- `tenant-right-to-organize` → `edu-tenant-organizing-ga`
+- `single-family-zone-lease-limit` → `edu-no-single-family-rental-limit-ga`
+- `accessory-dwelling-unit` → `edu-no-adu-statute-ga`
+- `tenant-statutory-duties` → `edu-tenant-statutory-duties-ga`
+- `prohibited-acts-renter` → `edu-prohibited-acts-renter-ga`
+- `automatic-renewal` → `edu-automatic-renewal-ga`
+- `lease-registration` → `edu-lease-recording-ga`
+- `dv-qualifying-documents` → `edu-dv-qualifying-documents-ga`
+- `dv-eviction-protection` → `edu-no-dv-eviction-defense-ga`
+- `dv-lockchange` → `edu-no-dv-lock-change-ga`
+- `dv-deposit-timing` → `edu-dv-deposit-timing-ga`
+- `dv-protection-order-chapter-moved` → `edu-dv-order-statutes-current-ga`
+- `dv-confidentiality` → `edu-dv-address-confidentiality-ga`
+- `sex-offender-disclosure` → `edu-no-sex-offender-disclosure-ga`
+- `sex-offender-occupancy` → `edu-sex-offender-residency-ga`
+- `conversion-notice` → `edu-condominium-conversion-ga`
+- `municipal-utility-lien` → `edu-utility-liens-tenant-bills-ga`
+- `pest-control-notice` → `edu-no-pest-control-notice-ga`
+- `bed-bug-cooperation` → `edu-no-bed-bug-cooperation-rule-ga`
+- `waterbed` → `edu-no-waterbed-rule-ga`
+- `smart-access` → `edu-no-smart-access-rule-ga`
+- `shutdown-rent-protection` → `edu-no-shutdown-rent-protection-ga`
+- `portfolio-thresholds` → `edu-portfolio-threshold-ga`
+- `health-district-rental-rules` → `edu-no-health-district-rental-rules-ga`
+- `senior-housing-work-card` → `edu-no-senior-housing-staff-rule-ga`
+- `tenant-employee-housing` → `edu-employee-housing-ga`
+- `scope` → `edu-scope-ga`
+- `construction-liens` → `edu-construction-liens-tenant-work-ga`
+- `cannabis` → `edu-cannabis-ga`
+- `appliances-excluded` → `edu-no-appliance-rule-ga`
+- `stove-refrigerator` → `edu-no-stove-refrigerator-duty-ga`
+- `alt-housing` → `edu-no-relocation-duty-ga`
+- `alarm-tampering-fee` → `edu-alarm-tampering-ga`
+- `firearms` → `edu-firearms-in-leases-ga`
+- `guest-rights` → `edu-no-guest-rights-statute-ga`
+- `family-child-care` → `edu-no-family-child-care-right-ga`
+- `fire-code-standard` → `edu-fire-code-standard-ga`
+- `tax-escalation` → `edu-tax-escalation-ga`
+- `tenant-repair-agreement` → `edu-tenant-repair-agreements-ga`
+- `tenant-screening` → `edu-tenant-screening-ga`
+- `tenant-records` → `edu-no-tenant-records-rule-ga`
+- `tenant-confidential-information` → `edu-no-tenant-information-disclosure-rule-ga`
+- `rent-reporting` → `edu-no-rent-reporting-rule-ga`
+- `pet-eviction-fact-sheet` → `edu-no-pet-eviction-fact-sheet-ga`
+- `parking-rules-notice` → `edu-no-parking-statute-ga`
+- `unbundled-parking` → `edu-no-unbundled-parking-rule-ga`
+- `veterans-incentive` → `edu-no-veterans-rental-incentive-ga`
+- `tenant-display-rights` → `edu-no-display-rights-statute-ga`
+- `religious-cultural-display` → `edu-no-religious-display-right-ga`
+- `political-access` → `edu-no-political-access-right-ga`
+- `telecom-access` → `edu-no-telecom-access-rule-ga`
+- `water-heater-temperature` → `edu-no-water-heater-temperature-rule-ga`
+- `emergency-contact` → `edu-no-emergency-contact-rule-ga`
+- `knowing-use-penalty` → `edu-no-knowing-use-penalty-ga`
+- `rental-inspection` → `edu-rental-inspection-ga`
+- `condemned-premises-rent-bar` → `edu-condemned-premises-ga`
+- `inspection-condemnation-disclosure` → `edu-no-inspection-order-disclosure-ga`
+- `substandard-property-receivership` → `edu-no-housing-receivership-ga`
+- `inspection-notice-penalty` → `edu-deposit-list-forfeiture-ga`
+- `habitability-statement` → `edu-habitability-statement-ga`
+- `habitability-waiver` → `edu-habitability-not-waivable-ga`
+- `habitability-modifiable` → `edu-habitability-modifiable-ga`
+- `habitability-materiality` → `edu-no-habitability-materiality-rule-ga`
+- `habitability-presumption` → `edu-no-habitability-presumption-ga`
+- `confirmed-absences-habitability` → `edu-confirmed-absences-habitability-ga`
+- `heating` → `edu-no-heat-standard-ga`
+- `maintenance-duty-shift` → `edu-repair-duty-not-shiftable-ga`
+- `promises-to-repair` → `edu-no-written-repair-promise-rule-ga`
+- `designated-repairer` → `edu-no-designated-repairer-rule-ga`
+- `tenant-repair-remedies` → `edu-tenant-repair-remedies-ga`
+- `repair-notice` → `edu-no-repair-notice-rule-ga`
+- `repair-cost-termination` → `edu-no-repair-cost-termination-ga`
+- `repair-escrow-exemption-notice` → `edu-no-repair-escrow-ga`
+- `frozen-standard-incorporation` → `edu-code-edition-at-construction-ga`
+- `sanitary-code-variance` → `edu-no-sanitary-code-variance-ga`
+- `casualty-and-mitigation-waivable` → `edu-casualty-terms-ga`
+- `environmental-event-termination` → `edu-no-environmental-termination-ga`
+- `disaster-duties` → `edu-no-disaster-tenancy-rule-ga`
+- `disability-accommodation` → `edu-disability-accommodation-ga`
+- `children-occupancy` → `edu-children-occupancy-ga`
+- `protected-class-inquiry-ban` → `edu-advertising-and-inquiries-ga`
+- `student-housing` → `edu-student-housing-ga`
+- `smoke-drift-waiver` → `edu-no-smoke-free-statute-ga`
+- `drug-free-housing-addendum` → `edu-no-drug-free-housing-program-ga`
+- `communal-land-lease-approval` → `edu-no-communal-land-approval-ga`
+- `lease-notice-initial-requirement` → `edu-no-initials-rule-ga`
+- `sfr-occupancy-disclosure` → `edu-no-disclosure-placement-rule-ga`
+- `lease-type-size` → `edu-no-lease-type-size-ga`
+- `plain-language` → `edu-no-plain-language-law-ga`
+- `plain-language-consumer-statement` → `edu-no-consumer-restriction-statement-ga`
+- `translation-duty` → `edu-no-translation-duty-ga`
+- `lease-content-requirements` → `edu-lease-content-requirements-ga`
+- `required-disclosures` → `edu-required-disclosures-ga`
+- `optional-lease-terms` → `edu-option-to-purchase-ga`
+- `tpa-notice` → `edu-no-tenant-purchase-right-ga`
+- `tpa-exemption-notice` → `edu-no-tpa-exemption-notice-ga`
+- `tpa-sunset` → `edu-no-sunset-statutes-ga`
+- `subsidy-late-fee` → `edu-no-subsidy-late-fee-rule-ga`
+- `subsidized-inspection-refusal` → `edu-no-voucher-inspection-rule-ga`
+- `subsidy-habitability-proration` → `edu-no-subsidy-proration-rule-ga`
+- `ordnance-demolition-meter-disclosures` → `edu-no-ordnance-demolition-disclosure-ga`
+- `military-air-zone-disclosure` → `edu-no-military-zone-disclosure-ga`
+- `shoreline-access-disclosure` → `edu-no-shoreline-disclosure-ga`
+- `defective-drywall-disclosure` → `edu-no-drywall-disclosure-ga`
+- `asbestos-hazards` → `edu-no-asbestos-tenant-notice-ga`
+- `hazardous-contamination-disclosure` → `edu-no-contamination-disclosure-ga`
+- `common-area-lighting` → `edu-no-common-area-lighting-rule-ga`
+- `balcony-inspection` → `edu-no-balcony-inspection-rule-ga`
+- `steam-radiator-covers` → `edu-no-radiator-cover-rule-ga`
+- `key-control-policy` → `edu-no-key-control-statute-ga`
+- `employee-screening` → `edu-no-employee-screening-rule-ga`
+- `private-well-testing` → `edu-no-private-well-testing-ga`
+- `recycling-notice` → `edu-no-recycling-notice-ga`
+- `portable-cooling-device` → `edu-no-portable-cooling-right-ga`
+- `portable-solar` → `edu-no-portable-solar-right-ga`
+- `prop65-rental-warning` → `edu-no-prop65-equivalent-ga`
+- `utility-transfer` → `edu-no-utility-transfer-rule-ga`
+- `foreclosure` → `edu-foreclosure-ga`
+- `foreclosure-disclosure` → `edu-no-foreclosure-disclosure-ga`
+- `renters-insurance-rules` → `edu-renters-insurance-rules-ga`
+- `tenant-insurance-claims` → `edu-no-tenant-claims-rule-ga`
+- `landlord-liability-insurance` → `edu-no-landlord-insurance-mandate-ga`
+- `nonresident-owner-agent` → `edu-nonresident-owner-agent-ga`
+- `term-change-notice` → `edu-term-change-notice-ga`
+- `confirmed-absences-misc` → `edu-confirmed-absences-misc-ga`
+- `confirmed-absences-outside-title` → `edu-confirmed-absences-outside-title-ga`
+- `nuisance` → `edu-nuisance-ga`
+- `guarantor-renewal` → `edu-guarantor-renewal-ga`
+- `fire-sprinkler-duty` → `edu-no-residential-sprinkler-mandate-ga`
+- `sprinkler-disclosure` → `edu-no-sprinkler-disclosure-ga`
+- `utility-submetering-disclosure` → `edu-water-submetering-ga`
+- `utility-apportionment` → `edu-utility-apportionment-ga`
+- `utility-allowance-cap` → `edu-utility-cost-cap-ga`
+- `utility-disclosure-attachment` → `edu-utility-disclosure-attachment-ga`
+- `electric-submetering-disclosure` → `edu-no-electric-submetering-rule-ga`
+- `utility-interruption-submeter` → `edu-no-utility-interruption-submeter-rule-ga`
+- `utility-landlord-account` → `edu-landlord-utility-account-ga`
+- `utility-shutoff-statute` → `edu-no-utility-shutoff-rule-ga`
+- `utility-disconnection-notice-authorization` → `edu-no-utility-notice-authorization-ga`
+- `meter-conservation-charge` → `edu-no-meter-conservation-charge-ga`
+- `adverse-proceeding-notice` → `edu-attornment-and-adverse-claims-ga`
+- `special-district-representation` → `edu-no-special-district-tenant-rule-ga`
+- `ev-charging-end-of-tenancy` → `edu-no-ev-charging-end-of-tenancy-rule-ga`
+- `ev-charging-shared-area` → `edu-no-ev-shared-area-rule-ga`
+- `property-tax-rent-disclosure` → `edu-no-property-tax-rent-statement-ga`
+- `security-devices` → `edu-security-devices-ga`
+- `window-guards` → `edu-no-window-guard-rule-ga`
+- `lead-state-notices` → `edu-lead-state-notices-ga`
+- `lead-safe-certification` → `edu-no-lead-safe-certificate-ga`
+- `association-obligations-disclosure` → `edu-no-association-obligations-lease-disclosure-ga`
+- `certificate-of-occupancy-disclosure` → `edu-no-certificate-of-occupancy-disclosure-ga`
+- `disaster-displaced-guests` → `edu-no-disaster-guest-rule-ga`
+- `ev-charging-requirements` → `edu-ev-charging-stations-ga`
+- `farmland-hunting-rights` → `edu-hunting-rights-on-leased-land-ga`
+- `foreign-ownership` → `edu-foreign-ownership-ga`
+- `home-business` → `edu-no-home-business-statute-ga`
+- `other-landlord-facilities` → `edu-elevator-duties-ga`
+- `pool-safety` → `edu-pool-rules-ga`
+- `service-animal-misrepresentation` → `edu-service-dog-misrepresentation-ga`
+- `rent-tax` → `edu-rent-tax-ga`
+- tag GA on `nonrefundable-fees-wv`
+- tag GA on `carpet-cleaning-ar`
+- tag GA on `rent-concession-wi`
+- tag GA on `government-fee-reimbursement-ky`
+- tag GA on `tenant-caused-fines-as`
+- tag GA on `lease-copy-receipt-hi`
+- tag GA on `informal-dispute-resolution-or`
+- tag GA on `electronic-notice-ma`
+- tag GA on `tenant-portal-mn`
+- tag GA on `showing-notice-la`
+- tag GA on `scheduled-services-entry-la`
+- tag GA on `extended-absence-notice-ks`
+- tag GA on `furnishings-included-la`
+- tag GA on `appliances-excluded-la`
+- tag GA on `detector-care-la`
+- tag GA on `pest-cooperation-la`
+- tag GA on `animal-care-access-vi`
+- tag GA on `energy-data-release-wy`
+- tag GA on `rent-installments-or`
+- tag GA on `owner-occupancy-termination-ar`
+- tag GA on `association-approval-la`
+- tag GA on `firearm-rules-la`
+- tag GA on `cannabis-restrictions-ak`
+- tag GA on `eminent-domain-vi`
+- tag GA on `no-liens-ar`
+- tag GA on `prohibited-acts-renter-wy`
+- tag GA on `rules-wi`
+- tag GA on `rental-inspection-cooperation-mn`
+- tag GA on `guaranty-as`
+- tag GA on `farmland-sporting-rights-co`
+
+### Key statute wording relied on
+
+- O.C.G.A. § 44-7-30.1: 'No landlord shall demand or receive a security deposit in an amount that exceeds the equivalent of two months' rent.' (Ga. L. 2024, p. 91, § 4/HB 404, eff. 2024-07-01; HB 404 § 6: applies to leases 'entered into or renewed on or after July 1, 2024')
+- O.C.G.A. § 44-7-34(a): 'No security deposit shall be retained to cover ordinary wear and tear'; retention allowed 'for repair work or cleaning contracted for by the tenant with third parties' and 'for actual damages caused by the tenant's breach, provided that the landlord attempts to mitigate the actual damages'
+- O.C.G.A. § 44-7-36: ten-or-fewer-unit natural-person owners exempt from §§ 44-7-31, 44-7-32, 44-7-33 and 44-7-35 only (not 44-7-30.1 or 44-7-34); not if managed by third persons for a fee
+- O.C.G.A. § 44-7-3(a): change of owner/agent/manager names and addresses must be given to each tenant 'within 30 days after the change either in writing or by posting a notice of the change in a conspicuous place'
+- O.C.G.A. § 13-6-7: agreed damages bind 'unless the agreement violates some principle of law'
+- O.C.G.A. § 9-9-2(c)(7): Georgia Arbitration Code does not apply to consumer transactions as defined in § 10-1-392 (which covers leases of real property for personal, family or household purposes)
+- O.C.G.A. § 7-4-2(a)(1)(A): legal rate 7 percent simple where no written rate; O.C.G.A. § 44-7-16: rent bears interest from the due date
+- FEDERAL: 15 U.S.C. § 1692f(1) bars a debt collector collecting any amount 'unless such amount is expressly authorized by the agreement creating the debt or permitted by law'; 9 U.S.C. § 2 (FAA) read
+- O.C.G.A. § 44-7-50(d): demand for possession and three-day notice 'shall be posted in a sealed envelope conspicuously on the door of the property and delivered via any additional method or methods agreed upon in the rental agreement'
+- O.C.G.A. § 44-7-52(a): tender within seven days of service is a complete defense; landlord is required to accept it 'only once in any 12 month period'
+- O.C.G.A. § 44-7-55(c): landlord 'shall not be a bailee' of property removed under a writ; after execution it is 'regarded as abandoned'
+- O.C.G.A. § 44-7-14.1(b): unlawful to 'knowingly and willfully' suspend utilities (cooling, heat, light, water) until final disposition of the dispossessory; fine up to $500
+- O.C.G.A. § 44-7-2(b)(1)-(7): non-waivable list (repair duty, repair liability, § 36-61-11 ordinances, Articles 2, 3, 4, Title 9 ch. 11)
+- O.C.G.A. § 44-7-23(e): family-violence termination 'shall not be waived or modified by the agreement of the parties under any circumstances'
+- O.C.G.A. § 44-3-87(a): conversion notice at least 120 days before requiring the tenant to vacate
+- O.C.G.A. § 36-60-17(d), (f): no water, gas, sewer or electric lien on real property unless the owner incurred the charges
+
+### Open items
+
+- Taylor: OK to hand the `early-termination-ga` flat one-month override (fields in log §4 item 7) to Claude Code at sync?
+- Taylor: OK for Claude Code to apply the `edu-local-preemption-ga` replacement in log §6 (O.C.G.A. § 36-74-30(b), no local rental registration)?
+- Unread because of the site CAPTCHA (rows say so): O.C.G.A. §§ 8-3-201, 8-3-205, 10-7-21, 10-7-24, 11-2-102, 11-2A-103, 16-12-191 (current), 16-12-200, 30-4-1, 31-41-15, 41-2-2, 41-3-1.1, 41-3-9, 44-3-93, 44-3-109, 44-3-222, 44-3-226, 44-3-235, 48-4-45, 48-5-9, 48-8-2, 50-18-152, 50-18-154. § 10-7-24 may bear on `guaranty-as`.
+- Act PDFs other than HB 404 were not opened (log §4 item 9).
+
+# Topic gaps pass (end-of-run consistency pass, 2026-11-06): Desktop's log
+
+## Georgia topic gaps: log (cumulative, interim)
+
+Pass: Georgia topic gaps, end-of-run consistency pass (GAPS-PROMPT.md, SOP 1.95). All 258 topics answered (batches 1 to 12). This copy precedes the independent check in §5. Dates: research 2026-11-06. Rows are dated `effective_from` and `last_checked` 2026-11-06.
+
+### §1 Sources, channel and currency
+
+- **O.C.G.A.** Official Code of Georgia Annotated on advance.lexis.com, the General Assembly's free LexisNexis public access, read in the built-in browser. Site currency line on every section read: "Current through the 2026 Special Session of the General Assembly." Sections are read whole; each section's text (to the start of its annotations) is saved with its history line and SHA-256 matched to the browser copy. Where Lexis shows two versions of a section (for example O.C.G.A. § 44-7-50, until and from January 1, 2027), both are saved and named by version. The first document open triggered a CAPTCHA, which Taylor cleared on 2026-11-06; nothing was solved by Claude.
+- **Searches.** Lexis terms-and-connectors full-text search of the annotated code (hits include case notes and editor's notes). Quoted phrases are honoured: "ten or fewer rental units" returns 1 hit (O.C.G.A. § 44-7-36) and the reversed "ten fewer rental units" returns 0. A nonsense control ("zqxvbnmwt" and per-batch variants) returns 0 in every batch. Each battery for an absence is paired with a positive pattern that reaches the target section.
+- **Session laws.** legis.ga.gov (Georgia General Assembly) for bill status, act numbers and act PDFs. HB 404 (2024, Safe at Home Act, Act 392) PDF read whole; § 6: "This Act shall apply to residential lease agreements that are entered into or renewed on or after July 1, 2024."
+- **Federal.** U.S. Code from uscode.house.gov (Office of the Law Revision Counsel; site line "current through Public Law 119-138 (November 3, 2026)"; the site notes it is "currently operating in a temporary format"). C.F.R. from ecfr.gov (Titles 24 and 40 up to date as of 2026-11-05). Saved whole and SHA-256 matched as for the O.C.G.A. Federal citations in rows are marked FEDERAL:.
+- **Local ordinances** are flagged, not resolved (O.C.G.A. § 44-7-19 and the local-rule rows).
+- Not used: no secondary source, no memory. A section that could not be reached would make its row NEEDS_REVIEW; none so far.
+
+
+Sections saved this pass: 261 O.C.G.A. sections and 38 federal sections; every saved text SHA-256 matched to the browser copy.
+
+O.C.G.A. sections saved: 1-2-11, 1-3-1, 1-3-7, 2-1-7, 3-10-5, 5-6-47, 7-4-2, 8-2-4, 8-2-20, 8-2-25, 8-2-38, 8-2-101, 8-3-11, 8-3-17, 8-3-200, 8-3-202, 8-3-203, 9-3-22, 9-3-23, 9-3-24, 9-3-25, 9-3-26, 9-3-110, 9-3-112, 9-8-3, 9-9-2, 9-11-4, 9-11-17, 9-11-38, 9-11-39, 9-11-55, 9-11-60, 9-12-18, 9-13-176, 10-1-220 [Effective January 1, 2028], 10-1-224 [Effective January 1, 2028], 10-1-228 [Effective January 1, 2028], 10-1-392, 10-1-393, 10-1-396, 10-1-399, 10-6-2, 10-7-1, 10-7-3, 10-7-22, 10-12-3, 10-12-7, 10-12-8, 10-6A-5, 10-6A-6, 11-2-302, 11-2A-108, 12-5-180.1, 13-1-8, 13-1-11, 13-1-15, 13-3-20, 13-3-21, 13-4-60, 13-5-30, 13-5-31, 13-6-5, 13-6-7, 13-6-11, 13-6-15, 13-7-1, 13-8-1, 13-8-2, 13-12-1, 13-12-2, 13-12-3, 13-12-4, 14-2-504, 15-10-2 [Effective January 1, 2027], 15-10-41, 15-10-43, 15-10-45, 15-10-87, 15-19-50, 15-19-51, 15-19-52, 16-3-23, 16-5-90, 16-5-94, 16-5-95, 16-7-21.1, 16-7-21, 16-7-23, 16-11-127, 16-11-135, 16-11-173, 16-12-82, 16-12-190 [Effective July 1, 2026], 16-12-191 [Effective until July 1, 2026], 16-13-1, 16-13-30, 16-15-7, 19-13-1, 19-13-3, 19-13-4, 24-14-26, 25-2-12, 25-2-13, 25-2-40, 25-11-2, 25-11-8, 27-3-1 [Effective July 1, 2026], 30-4-3 [Effective July 1, 2026], 30-4-4 [Effective July 1, 2026], 31-2-13, 31-41-12, 31-41-13, 31-41-14, 31-41-18, 31-45-2, 31-45-3, 31-45-12, 31-45-13, 31-2A-4, 33-24-4, 36-31-5, 36-60-17, 36-61-11, 36-66-7, 36-74-30, 39-1-1, 41-1-1, 41-2-1, 41-2-5, 41-2-7, 41-2-8, 41-2-9, 41-2-10, 41-2-11, 41-3-1, 42-1-12, 42-1-15, 43-21-1, 43-21-3, 43-21-3.1, 43-21-3.2, 43-40-20, 44-2-9, 44-3-76, 44-3-80 [Effective July 1, 2026], 44-3-86, 44-3-87, 44-3-106, 44-3-111, 44-3-232 [Effective until January 1, 2027], 44-5-60, 44-5-81, 44-5-169, 44-6-86, 44-6-100, 44-6-101, 44-6-103, 44-6-105, 44-6-106, 44-7-1, 44-7-2, 44-7-3, 44-7-4, 44-7-5, 44-7-6, 44-7-7, 44-7-8, 44-7-9, 44-7-10, 44-7-11, 44-7-12, 44-7-13, 44-7-14, 44-7-14.1, 44-7-15, 44-7-16, 44-7-17, 44-7-18, 44-7-19, 44-7-20, 44-7-21, 44-7-22, 44-7-23, 44-7-24, 44-7-25, 44-7-30, 44-7-30.1, 44-7-31, 44-7-32, 44-7-33, 44-7-34, 44-7-35, 44-7-36, 44-7-37, 44-7-49, 44-7-50 [Effective January 1, 2027], 44-7-50 [Effective until January 1, 2027], 44-7-51, 44-7-52, 44-7-53, 44-7-54, 44-7-55, 44-7-56, 44-7-57, 44-7-58, 44-7-59, 44-7-70, 44-7-71, 44-7-72, 44-7-73, 44-7-74, 44-7-75, 44-7-76, 44-7-77, 44-7-78, 44-7-79, 44-7-80, 44-7-81, 44-7-82, 44-7-100, 44-7-101, 44-7-102, 44-7-103, 44-7-110, 44-7-111, 44-7-112, 44-7-113, 44-7-114, 44-7-115 [Effective July 1, 2026], 44-7-116, 44-7-117, 44-7-118, 44-7-119, 44-8-1, 44-11-33, 44-14-162, 44-14-162.1, 44-14-162.2, 44-14-162.4, 44-14-162.3, 44-14-232, 44-14-233, 44-14-344, 44-14-349, 44-14-361, 46-3-326, 46-5-7, 48-8-30, 48-13-50.2 [Effective until July 1, 2026], 48-13-50.2 [Effective July 1, 2026], 48-13-51 [Effective July 1, 2026], 50-18-150 [Effective July 1, 2026], 50-18-151 [Effective July 1, 2026], 50-18-153 [Effective July 1, 2026], 50-18-155 [Effective July 1, 2026], 50-40-1, 51-1-6, 51-3-1, 51-9-3, 51-12-5.1, 51-12-5.
+
+Federal sections saved: 11 USC 362, 11 USC 365, 12 USC 5220, 15 USC 1681a, 15 USC 1681b, 15 USC 1681m, 15 USC 1692a, 15 USC 1692f, 15 USC 7001, 15 USC 9058, 24 CFR 100.202, 24 CFR 100.203, 24 CFR 100.204, 24 CFR 100.7, 24 CFR 35.88, 24 CFR 35.92, 24 CFR 5.2005, 24 CFR 5.2009, 24 CFR 982.308, 24 CFR 982.310, 24 CFR 982.453, 34 USC 12491, 40 CFR 745.107, 40 CFR 745.113, 42 USC 1437f, 42 USC 3602, 42 USC 3603, 42 USC 3604, 42 USC 3605, 42 USC 3606, 42 USC 3607, 42 USC 3617, 42 USC 4852d, 50 USC 3911, 50 USC 3951, 50 USC 3953, 50 USC 3955, 9 USC 2.
+
+
+### §2 Topics answered
+
+- `abandonment-and-mitigation`: `edu-abandonment-and-mitigation-ga`, Absent, O.C.G.A. § 13-6-5; O.C.G.A. § 44-7-34(a)
+- `accessory-dwelling-unit`: `edu-no-adu-statute-ga`, Absent, absence shown by battery (§3)
+- `actual-notice-method`: `edu-actual-notice-method-ga`, Present, O.C.G.A. § 44-7-50(d)
+- `adverse-proceeding-notice`: `edu-attornment-and-adverse-claims-ga`, Absent, O.C.G.A. § 44-7-9
+- `alarm-tampering-fee`: `edu-alarm-tampering-ga`, Present in part, O.C.G.A. § 25-2-40(a)(2); O.C.G.A. § 13-6-7.
+- `alarm-tampering-fee`: `detector-care-la`, tagged, O.C.G.A. § 25-2-40(f)(2); O.C.G.A. § 13-6-7.
+- `alt-housing`: `edu-no-relocation-duty-ga`, Absent, O.C.G.A. § 44-7-15.
+- `animal-care-access`: `animal-care-access-vi`, tagged, absence shown by battery (§3)
+- `appliances-excluded`: `edu-no-appliance-rule-ga`, Absent, O.C.G.A. § 44-7-13(a)
+- `appliances-excluded`: `appliances-excluded-la`, tagged, O.C.G.A. §§ 44-7-2(b)(1)
+- `application-fees`: `edu-application-fees-ga`, Absent, absence shown by battery (§3)
+- `asbestos-hazards`: `edu-no-asbestos-tenant-notice-ga`, Absent, absence shown by battery (§3)
+- `association-obligations-disclosure`: `edu-no-association-obligations-lease-disclosure-ga`, Absent, O.C.G.A. § 44-3-111; O.C.G.A. § 44-3-76.
+- `attorney-fees`: `edu-attorney-fees-ga`, Present, O.C.G.A. § 44-7-2(c); O.C.G.A. § 13-6-11; O.C.G.A. § 44-7-35(c)
+- `automatic-renewal`: `edu-automatic-renewal-ga`, Present, O.C.G.A. § 13-12-1(4); O.C.G.A. § 13-12-2; O.C.G.A. § 13-12-3(a)
+- `balcony-inspection`: `edu-no-balcony-inspection-rule-ga`, Absent, absence shown by battery (§3)
+- `bed-bug-cooperation`: `edu-no-bed-bug-cooperation-rule-ga`, Absent, O.C.G.A. § 44-7-13.
+- `bed-bug-cooperation`: `pest-cooperation-la`, tagged, O.C.G.A. §§ 44-7-2(b)(1)
+- `binding-arbitration`: `edu-binding-arbitration-ga`, Present, O.C.G.A. § 9-9-2(c); O.C.G.A. § 10-1-392(a)(10); O.C.G.A. § 44-7-2(b)(4)
+- `cannabis`: `edu-cannabis-ga`, Absent, absence shown by battery (§3)
+- `cannabis`: `cannabis-restrictions-ak`, tagged, absence shown by battery (§3)
+- `carpet-cleaning`: `edu-carpet-cleaning-ga`, Absent, O.C.G.A. § 44-7-34(a); O.C.G.A. § 44-7-33(a)
+- `carpet-cleaning`: `carpet-cleaning-ar`, tagged, O.C.G.A. § 44-7-34(a)
+- `casualty-and-mitigation-waivable`: `edu-casualty-terms-ga`, Present, O.C.G.A. § 44-7-15; O.C.G.A. § 44-7-2(b); O.C.G.A. § 13-6-5
+- `certificate-of-occupancy-disclosure`: `edu-no-certificate-of-occupancy-disclosure-ga`, Absent, absence shown by battery (§3)
+- `children-occupancy`: `edu-children-occupancy-ga`, Present, O.C.G.A. § 8-3-202(a)(1); O.C.G.A. §§ 8-3-201
+- `cold-weather-vacate-notice`: `edu-no-cold-weather-eviction-rule-ga`, Absent, O.C.G.A. § 44-7-55(a); O.C.G.A. § 44-7-14.1(b)
+- `collection-fee`: `edu-collection-fee-ga`, Absent, O.C.G.A. §§ 13-6-7
+- `common-area-lighting`: `edu-no-common-area-lighting-rule-ga`, Absent, absence shown by battery (§3)
+- `communal-land-lease-approval`: `edu-no-communal-land-approval-ga`, Absent, absence shown by battery (§3)
+- `condemned-premises-rent-bar`: `edu-condemned-premises-ga`, Present in part, O.C.G.A. § 41-2-9(a)(4); O.C.G.A. § 41-2-8(2); O.C.G.A. § 36-61-11
+- `confession-of-judgment`: `edu-no-confession-of-judgment-lease-ga`, Present, O.C.G.A. § 9-12-18(a); O.C.G.A. § 44-7-2(b)(4); O.C.G.A. § 44-7-51(b)
+- `confirmed-absences-habitability`: `edu-confirmed-absences-habitability-ga`, Summary, O.C.G.A. § 44-7-13; O.C.G.A. § 44-7-2(b)(1); O.C.G.A. §§ 44-7-14
+- `confirmed-absences-misc`: `edu-confirmed-absences-misc-ga`, Summary, O.C.G.A. § 13-1-15(e); O.C.G.A. § 13-6-15; O.C.G.A. § 44-7-36
+- `confirmed-absences-outside-title`: `edu-confirmed-absences-outside-title-ga`, Summary, O.C.G.A. § 36-74-30(b)
+- `construction-liens`: `edu-construction-liens-tenant-work-ga`, Present in part, O.C.G.A. § 44-14-361(b)
+- `construction-liens`: `no-liens-ar`, tagged, O.C.G.A. § 44-14-361(b)
+- `consumer-protection-act`: `edu-fair-business-practices-act-ga`, Present, O.C.G.A. § 10-1-392(a)(10); O.C.G.A. § 10-1-393(a); O.C.G.A. § 10-1-399(a)
+- `conversion-notice`: `edu-condominium-conversion-ga`, Present, O.C.G.A. § 44-3-87(a)
+- `cure-and-eviction-grounds`: `edu-eviction-grounds-no-cure-ga`, Present, O.C.G.A. § 44-7-50(a); O.C.G.A. § 44-7-52(a)
+- `defective-drywall-disclosure`: `edu-no-drywall-disclosure-ga`, Absent, absence shown by battery (§3)
+- `deposit-cost-schedule`: `edu-no-deposit-cost-schedule-ga`, Absent, O.C.G.A. § 44-7-34(a); O.C.G.A. § 44-7-33(b)(1); O.C.G.A. § 44-7-36
+- `deposit-installments`: `edu-no-deposit-installments-ga`, Absent, absence shown by battery (§3)
+- `deposit-last-month-rent`: `edu-deposit-last-month-rent-ga`, Present, O.C.G.A. § 44-7-30(3); O.C.G.A. § 44-7-34(a)
+- `deposit-surrender-notice`: `edu-deposit-no-move-out-notice-condition-ga`, Absent, O.C.G.A. § 44-7-33(b)(2); O.C.G.A. § 44-7-34(a); O.C.G.A. § 44-7-2(b)(6)
+- `designated-repairer`: `edu-no-designated-repairer-rule-ga`, Absent, O.C.G.A. § 44-7-3(a)
+- `disability-accommodation`: `edu-disability-accommodation-ga`, Present, O.C.G.A. § 8-3-202(a)(7)(B)(i); O.C.G.A. § 44-7-30.1.
+- `disaster-displaced-guests`: `edu-no-disaster-guest-rule-ga`, Absent, absence shown by battery (§3)
+- `disaster-duties`: `edu-no-disaster-tenancy-rule-ga`, Absent, O.C.G.A. § 44-7-15.
+- `double-letting`: `edu-no-double-letting-rule-ga`, Absent, O.C.G.A. § 44-7-1(a)
+- `drug-free-housing-addendum`: `edu-no-drug-free-housing-program-ga`, Absent, O.C.G.A. § 44-7-24(d)(2)(C)
+- `dv-confidentiality`: `edu-dv-address-confidentiality-ga`, Present in part, O.C.G.A. § 50-18-151(a); O.C.G.A. § 50-18-153(a); O.C.G.A. § 44-7-23
+- `dv-deposit-timing`: `edu-dv-deposit-timing-ga`, Absent, O.C.G.A. § 44-7-33(b)(1); O.C.G.A. § 44-7-34(a); O.C.G.A. § 44-7-23(d)
+- `dv-eviction-protection`: `edu-no-dv-eviction-defense-ga`, Absent, O.C.G.A. § 44-7-23
+- `dv-lockchange`: `edu-no-dv-lock-change-ga`, Absent, O.C.G.A. § 19-13-4; O.C.G.A. § 44-7-23
+- `dv-protection-order-chapter-moved`: `edu-dv-order-statutes-current-ga`, Present, O.C.G.A. § 44-7-23(a)(1); O.C.G.A. § 19-13-1; O.C.G.A. § 19-13-4(a)(2)
+- `dv-qualifying-documents`: `edu-dv-qualifying-documents-ga`, Present, O.C.G.A. § 44-7-23(a)(1); O.C.G.A. § 44-7-23
+- `electric-submetering-disclosure`: `edu-no-electric-submetering-rule-ga`, Absent, absence shown by battery (§3)
+- `emergency-contact`: `edu-no-emergency-contact-rule-ga`, Absent, O.C.G.A. § 44-7-3(a)
+- `eminent-domain`: `eminent-domain-vi`, tagged, absence shown by battery (§3)
+- `employee-screening`: `edu-no-employee-screening-rule-ga`, Absent, absence shown by battery (§3)
+- `energy-data-release`: `energy-data-release-wy`, tagged, absence shown by battery (§3)
+- `entity-landlord-court-representation`: `edu-entity-landlord-representation-ga`, Present, O.C.G.A. § 15-10-43(i); O.C.G.A. § 15-19-51(a)(1); O.C.G.A. § 15-19-50(1)
+- `environmental-event-termination`: `edu-no-environmental-termination-ga`, Absent, O.C.G.A. § 44-7-15.
+- `ev-charging-end-of-tenancy`: `edu-no-ev-charging-end-of-tenancy-rule-ga`, Absent, absence shown by battery (§3)
+- `ev-charging-requirements`: `edu-ev-charging-stations-ga`, Present, O.C.G.A. § 10-1-224(a); O.C.G.A. §§ 10-1-220
+- `ev-charging-shared-area`: `edu-no-ev-shared-area-rule-ga`, Absent, absence shown by battery (§3)
+- `eviction-hardship-stay`: `edu-no-eviction-hardship-stay-ga`, Absent, O.C.G.A. § 44-7-55(a); O.C.G.A. § 44-7-56(b); O.C.G.A. § 9-11-60
+- `eviction-penalty-clause-ban`: `edu-no-eviction-fee-ban-ga`, Absent, O.C.G.A. § 13-6-7; O.C.G.A. § 44-7-2(b)(4)
+- `eviction-service-party`: `edu-dispossessory-service-ga`, Present, O.C.G.A. § 44-7-51(a); O.C.G.A. § 50-18-151(c)(2); O.C.G.A. §§ 50-18-150
+- `exculpatory-clauses`: `edu-exculpatory-clauses-ga`, Present, O.C.G.A. § 44-7-2(b)(1); O.C.G.A. § 44-7-14; O.C.G.A. § 13-8-2(b)
+- `expedited-criminal-eviction`: `edu-no-expedited-criminal-eviction-ga`, Absent, O.C.G.A. §§ 44-7-50(a); O.C.G.A. §§ 44-7-13
+- `expedited-deposit-disposition`: `edu-no-expedited-deposit-disposition-ga`, Absent, O.C.G.A. §§ 44-7-33(b)
+- `extended-absence-notice`: `extended-absence-notice-ks`, tagged, absence shown by battery (§3)
+- `family-child-care`: `edu-no-family-child-care-right-ga`, Absent, absence shown by battery (§3)
+- `farmland-hunting-rights`: `edu-hunting-rights-on-leased-land-ga`, Present, O.C.G.A. § 27-3-1(a); O.C.G.A. § 27-4-30
+- `farmland-hunting-rights`: `farmland-sporting-rights-co`, tagged, O.C.G.A. § 27-3-1(a)
+- `fee-in-lieu-of-deposit`: `edu-no-fee-in-lieu-of-deposit-rule-ga`, Absent, O.C.G.A. § 44-7-30(1); O.C.G.A. § 44-7-32(a)
+- `fee-transparency`: `edu-no-fee-transparency-rule-ga`, Absent, absence shown by battery (§3)
+- `fee-unprovided-service`: `edu-no-fee-unprovided-service-rule-ga`, Absent, absence shown by battery (§3)
+- `fire-code-standard`: `edu-fire-code-standard-ga`, Present, O.C.G.A. § 8-2-20(9)(B)(i); O.C.G.A. § 8-2-25(a); O.C.G.A. § 25-2-40(a)
+- `fire-sprinkler-duty`: `edu-no-residential-sprinkler-mandate-ga`, Present, O.C.G.A. § 8-2-4; O.C.G.A. §§ 25-11-2; O.C.G.A. § 25-11-2(9)
+- `firearms`: `edu-firearms-in-leases-ga`, Absent, O.C.G.A. § 16-11-173(b)(1); O.C.G.A. § 16-11-135(a); O.C.G.A. § 16-11-127(c)
+- `firearms`: `firearm-rules-la`, tagged, O.C.G.A. § 16-11-135
+- `foreclosure`: `edu-foreclosure-ga`, Absent, O.C.G.A. §§ 44-14-162; O.C.G.A. § 44-7-32(a); O.C.G.A. § 44-7-50(a)
+- `foreclosure-disclosure`: `edu-no-foreclosure-disclosure-ga`, Absent, O.C.G.A. § 10-1-393(a)
+- `foreign-ownership`: `edu-foreign-ownership-ga`, Present, O.C.G.A. § 2-1-7(b)(1); O.C.G.A. § 1-2-11(b)
+- `forfeiture-redemption`: `edu-nonpayment-tender-defense-ga`, Present, O.C.G.A. § 44-7-52(a); O.C.G.A. §§ 44-7-49
+- `frozen-standard-incorporation`: `edu-code-edition-at-construction-ga`, Present, O.C.G.A. § 41-2-8(1)
+- `furnishings-included`: `furnishings-included-la`, tagged, O.C.G.A. § 44-7-13(a); O.C.G.A. § 44-7-33; O.C.G.A. § 44-7-36
+- `good-cause-notice`: `edu-no-good-cause-notice-ga`, Absent, O.C.G.A. § 44-7-7; O.C.G.A. § 44-7-24
+- `government-fee-reimbursement`: `government-fee-reimbursement-ky`, tagged, O.C.G.A. § 36-74-30(b); O.C.G.A. § 44-7-2(b)
+- `governmental-fines`: `tenant-caused-fines-as`, tagged, O.C.G.A. § 25-2-40(f)(2); O.C.G.A. § 13-6-7.
+- `guarantor-renewal`: `edu-guarantor-renewal-ga`, Present, O.C.G.A. § 10-7-3; O.C.G.A. § 10-7-22; O.C.G.A. § 13-5-30(a)(2)
+- `guarantor-renewal`: `guaranty-as`, tagged, O.C.G.A. § 13-5-30(a)(2); O.C.G.A. § 10-7-3; O.C.G.A. § 10-7-22
+- `guest-rights`: `edu-no-guest-rights-statute-ga`, Absent, absence shown by battery (§3)
+- `habitability-materiality`: `edu-no-habitability-materiality-rule-ga`, Absent, O.C.G.A. § 44-7-13; O.C.G.A. § 44-7-2(b)(1)
+- `habitability-modifiable`: `edu-habitability-modifiable-ga`, Absent, O.C.G.A. § 44-7-13; O.C.G.A. § 44-7-2(b)(1)
+- `habitability-presumption`: `edu-no-habitability-presumption-ga`, Absent, O.C.G.A. § 41-2-7(b); O.C.G.A. § 44-7-24(f); O.C.G.A. § 44-7-13
+- `habitability-statement`: `edu-habitability-statement-ga`, Present, O.C.G.A. § 44-7-13; O.C.G.A. § 44-7-2(b)(1); O.C.G.A. § 41-2-10(a)
+- `habitability-waiver`: `edu-habitability-not-waivable-ga`, Present, O.C.G.A. § 44-7-13; O.C.G.A. § 44-7-2(b)(1); O.C.G.A. § 44-7-2(b)(3)
+- `hazardous-contamination-disclosure`: `edu-no-contamination-disclosure-ga`, Absent, absence shown by battery (§3)
+- `health-district-rental-rules`: `edu-no-health-district-rental-rules-ga`, Absent, absence shown by battery (§3)
+- `heating`: `edu-no-heat-standard-ga`, Absent, O.C.G.A. § 44-7-14.1(a); O.C.G.A. § 44-7-13; O.C.G.A. § 44-7-2(b)(1)
+- `hoa`: `edu-association-rules-bind-tenants-ga`, Present, O.C.G.A. § 44-3-76; O.C.G.A. § 44-5-60(d)(6); O.C.G.A. §§ 44-3-93
+- `hoa`: `association-approval-la`, tagged, O.C.G.A. § 44-3-76; O.C.G.A. § 44-5-60(d)(6)
+- `holding-deposit`: `edu-holding-deposit-ga`, Absent, O.C.G.A. § 44-7-30(3)
+- `home-business`: `edu-no-home-business-statute-ga`, Absent, absence shown by battery (§3)
+- `infirmity-termination`: `edu-no-infirmity-termination-ga`, Absent, O.C.G.A. § 44-7-8; O.C.G.A. § 44-6-86
+- `informal-dispute-resolution`: `informal-dispute-resolution-or`, tagged, O.C.G.A. § 44-7-2(b)(4)
+- `inspection-condemnation-disclosure`: `edu-no-inspection-order-disclosure-ga`, Absent, O.C.G.A. § 41-2-8(6)(E); O.C.G.A. § 41-2-9(a)(3); O.C.G.A. § 10-6A-6(b)(1)
+- `inspection-notice-penalty`: `edu-deposit-list-forfeiture-ga`, Present, O.C.G.A. § 44-7-35(a); O.C.G.A. § 44-7-33(c); O.C.G.A. § 44-7-36.
+- `jury-waiver`: `edu-jury-waiver-ga`, Present in part, O.C.G.A. § 15-10-41(a); O.C.G.A. § 9-11-38; O.C.G.A. § 9-11-39(a)
+- `key-control-policy`: `edu-no-key-control-statute-ga`, Absent, O.C.G.A. § 44-7-4(a)
+- `knowing-use-penalty`: `edu-no-knowing-use-penalty-ga`, Absent, O.C.G.A. § 44-7-2(b); O.C.G.A. § 10-1-393(a)
+- `landlord-breach-remedy`: `edu-landlord-breach-remedies-ga`, Present in part, O.C.G.A. §§ 44-7-2(b)(1); O.C.G.A. § 44-7-35; O.C.G.A. § 44-7-24
+- `landlord-liability-insurance`: `edu-no-landlord-insurance-mandate-ga`, Absent, O.C.G.A. § 36-74-30(b)
+- `landlord-remedies-termination`: `edu-landlord-remedies-on-termination-ga`, Present, O.C.G.A. § 44-7-55(a); O.C.G.A. § 44-7-51(c); O.C.G.A. § 44-7-10
+- `late-fee-limit`: `edu-no-late-fee-limit-ga`, Absent, O.C.G.A. § 13-6-7.; O.C.G.A. §§ 44-7-110
+- `law-enforcement-cooperation`: `edu-no-law-enforcement-cooperation-rule-ga`, Absent, O.C.G.A. § 44-7-24(d)(2)(C); O.C.G.A. § 44-7-23(c); O.C.G.A. § 44-7-23
+- `lead-safe-certification`: `edu-no-lead-safe-certificate-ga`, Absent, O.C.G.A. § 31-41-15
+- `lead-state-notices`: `edu-lead-state-notices-ga`, Present in part, O.C.G.A. § 31-41-13; O.C.G.A. § 31-41-14(a); O.C.G.A. § 31-41-18
+- `lease-content-requirements`: `edu-lease-content-requirements-ga`, Present, O.C.G.A. §§ 44-7-3(a)
+- `lease-copy`: `lease-copy-receipt-hi`, tagged, absence shown by battery (§3)
+- `lease-notice-initial-requirement`: `edu-no-initials-rule-ga`, Absent, O.C.G.A. § 43-21-3.2; O.C.G.A. § 9-9-2(c)(8)
+- `lease-registration`: `edu-lease-recording-ga`, Present, O.C.G.A. § 44-2-9; O.C.G.A. § 44-5-169
+- `lease-term-limitation`: `edu-lease-formalities-ga`, Absent, O.C.G.A. § 13-5-30(a); O.C.G.A. § 10-6-2
+- `lease-type-parity`: `edu-no-lease-type-parity-ga`, Absent, O.C.G.A. §§ 44-7-6
+- `lease-type-size`: `edu-no-lease-type-size-ga`, Absent, absence shown by battery (§3)
+- `limitation-of-actions`: `edu-limitation-of-actions-ga`, Present, O.C.G.A. § 9-3-24; O.C.G.A. § 9-3-25; O.C.G.A. § 9-3-26
+- `liquidated-damages`: `edu-liquidated-damages-ga`, Present, O.C.G.A. § 13-6-7; O.C.G.A. § 44-7-34(a)
+- `lockout-for-rent-delinquency`: `edu-no-lockout-for-rent-ga`, Present, O.C.G.A. § 44-7-2(b)(4); O.C.G.A. § 44-7-10; O.C.G.A. § 44-7-14.1(b)
+- `maintenance-duty-shift`: `edu-repair-duty-not-shiftable-ga`, Present, O.C.G.A. § 44-7-2(b)(1)
+- `meter-conservation-charge`: `edu-no-meter-conservation-charge-ga`, Absent, O.C.G.A. § 12-5-180.1(a)
+- `military-air-zone-disclosure`: `edu-no-military-zone-disclosure-ga`, Absent, absence shown by battery (§3)
+- `minor-tenant-filing`: `edu-minor-tenants-ga`, Present, O.C.G.A. § 39-1-1(a); O.C.G.A. § 13-3-20(a); O.C.G.A. § 13-3-21.
+- `municipal-utility-lien`: `edu-utility-liens-tenant-bills-ga`, Present, O.C.G.A. § 36-60-17(a)
+- `nonpayment-notice`: `edu-nonpayment-notice-ga`, Present, O.C.G.A. § 44-7-50(b); O.C.G.A. § 44-7-52(a); O.C.G.A. §§ 44-7-49
+- `nonrefundable-deposit-notice`: `nonrefundable-fees-wv`, tagged, O.C.G.A. § 44-7-30(1); O.C.G.A. § 44-7-30(3); O.C.G.A. § 44-7-30.1
+- `nonrefundable-deposit-separate-notice`: `edu-no-nonrefundable-separate-notice-ga`, Absent, O.C.G.A. § 44-7-30(1)
+- `nonresident-owner-agent`: `edu-nonresident-owner-agent-ga`, Present in part, O.C.G.A. § 44-7-3(a)(1); O.C.G.A. § 44-7-25
+- `notice-delivery-methods`: `electronic-notice-ma`, tagged, O.C.G.A. § 44-7-50(d); O.C.G.A. § 10-12-3
+- `notice-service-fee`: `edu-no-notice-fee-rule-ga`, Absent, O.C.G.A. § 13-6-7; O.C.G.A. § 44-7-52(a); O.C.G.A. § 44-7-2(c)
+- `notice-to-quit-waiver`: `edu-notice-to-quit-not-waivable-ga`, Present, O.C.G.A. § 44-7-2(b)(4); O.C.G.A. § 44-7-7
+- `notice-to-vacate-additional-terms`: `edu-no-notice-to-vacate-extra-terms-ga`, Absent, O.C.G.A. § 44-7-14.1(a); O.C.G.A. § 44-7-13.
+- `nuisance`: `edu-nuisance-ga`, Present, O.C.G.A. § 41-1-1; O.C.G.A. § 41-2-1; O.C.G.A. § 41-3-1(b)
+- `optional-lease-terms`: `edu-option-to-purchase-ga`, Absent, O.C.G.A. § 13-5-30(a)(4)
+- `ordnance-demolition-meter-disclosures`: `edu-no-ordnance-demolition-disclosure-ga`, Absent, absence shown by battery (§3)
+- `other-landlord-facilities`: `edu-elevator-duties-ga`, Present, O.C.G.A. § 8-2-101(a)
+- `owner-move-in-reservation`: `owner-occupancy-termination-ar`, tagged, O.C.G.A. § 44-7-2(b)(4); O.C.G.A. § 44-7-7
+- `parking-rules-notice`: `edu-no-parking-statute-ga`, Absent, absence shown by battery (§3)
+- `part5-nonwaivable`: `edu-nonwaivable-landlord-tenant-rules-ga`, Present, O.C.G.A. § 44-7-2(b)(1); O.C.G.A. § 44-7-23(e); O.C.G.A. § 44-7-22(f)
+- `periodic-services-entry`: `scheduled-services-entry-la`, tagged, O.C.G.A. § 44-7-2(b)
+- `pest-control-notice`: `edu-no-pest-control-notice-ga`, Absent, O.C.G.A. § 44-7-13.
+- `pet-eviction-fact-sheet`: `edu-no-pet-eviction-fact-sheet-ga`, Absent, O.C.G.A. § 44-7-55(c)
+- `pet-fees`: `edu-pet-fees-ga`, Present, O.C.G.A. § 44-7-30(1); O.C.G.A. § 44-7-30(3); O.C.G.A. § 44-7-34(a)
+- `plain-language`: `edu-no-plain-language-law-ga`, Absent, absence shown by battery (§3)
+- `plain-language-consumer-statement`: `edu-no-consumer-restriction-statement-ga`, Absent, absence shown by battery (§3)
+- `political-access`: `edu-no-political-access-right-ga`, Absent, absence shown by battery (§3)
+- `pool-safety`: `edu-pool-rules-ga`, Present, O.C.G.A. § 31-45-3; O.C.G.A. § 31-45-13; O.C.G.A. §§ 31-45-2
+- `portable-cooling-device`: `edu-no-portable-cooling-right-ga`, Absent, O.C.G.A. § 44-7-14.1(a); O.C.G.A. § 44-7-13(a)
+- `portable-solar`: `edu-no-portable-solar-right-ga`, Absent, absence shown by battery (§3)
+- `portfolio-thresholds`: `edu-portfolio-threshold-ga`, Present, O.C.G.A. § 44-7-36; O.C.G.A. § 8-3-202(b)(1)(A)(i)
+- `possession-bond`: `edu-no-possession-bond-ga`, Absent, O.C.G.A. § 44-7-54(a); O.C.G.A. § 44-7-56(b)(3)
+- `post-eviction-property`: `edu-post-eviction-property-ga`, Present, O.C.G.A. § 44-7-55(c); O.C.G.A. § 44-7-59; O.C.G.A. § 16-7-21(b)(2)
+- `private-well-testing`: `edu-no-private-well-testing-ga`, Absent, absence shown by battery (§3)
+- `prohibited-acts-renter`: `edu-prohibited-acts-renter-ga`, Present in part, O.C.G.A. § 44-7-11; O.C.G.A. § 16-7-21(a); O.C.G.A. § 44-7-18(b)
+- `prohibited-acts-renter`: `prohibited-acts-renter-wy`, tagged, O.C.G.A. § 44-7-11
+- `promises-to-repair`: `edu-no-written-repair-promise-rule-ga`, Absent, O.C.G.A. § 13-5-30(a)(5)
+- `prop65-rental-warning`: `edu-no-prop65-equivalent-ga`, Absent, absence shown by battery (§3)
+- `property-tax-rent-disclosure`: `edu-no-property-tax-rent-statement-ga`, Absent, absence shown by battery (§3)
+- `protected-class-inquiry-ban`: `edu-advertising-and-inquiries-ga`, Present in part, O.C.G.A. § 8-3-202(a)(1)
+- `purpose-limitation`: `edu-illegal-purpose-lease-void-ga`, Present, O.C.G.A. § 44-7-18(b); O.C.G.A. § 13-8-1; O.C.G.A. §§ 44-7-1
+- `recycling-notice`: `edu-no-recycling-notice-ga`, Absent, absence shown by battery (§3)
+- `redemption`: `edu-redemption-ga`, Present, O.C.G.A. § 44-7-52(a)
+- `religious-cultural-display`: `edu-no-religious-display-right-ga`, Absent, absence shown by battery (§3)
+- `rent-concession`: `rent-concession-wi`, tagged, O.C.G.A. § 13-5-30(a)(5); O.C.G.A. § 10-1-393(a)
+- `rent-demand-bar`: `edu-no-rent-demand-bar-ga`, Absent, O.C.G.A. § 44-7-13(a); O.C.G.A. § 44-7-2(b)(1); O.C.G.A. § 44-7-51(b)
+- `rent-installments`: `rent-installments-or`, tagged, absence shown by battery (§3)
+- `rent-into-court-counterclaim`: `edu-rent-into-court-and-counterclaims-ga`, Present, O.C.G.A. § 44-7-51(b); O.C.G.A. § 44-7-53(b); O.C.G.A. § 44-7-54(a)
+- `rent-receipt-anti-waiver`: `edu-repair-duty-not-severable-ga`, Present in part, O.C.G.A. § 44-7-2(b)(1); O.C.G.A. § 44-14-344; O.C.G.A. §§ 44-14-341
+- `rent-reporting`: `edu-no-rent-reporting-rule-ga`, Absent, absence shown by battery (§3)
+- `rent-tax`: `edu-rent-tax-ga`, Present in part, O.C.G.A. § 48-8-30(a)(1); O.C.G.A. § 48-13-51(a)(1)(A); O.C.G.A. § 48-13-50.2(2)
+- `rental-inspection`: `edu-rental-inspection-ga`, Present, O.C.G.A. § 36-74-30(b); O.C.G.A. § 41-2-11(3); O.C.G.A. § 31-2-13
+- `rental-inspection`: `rental-inspection-cooperation-mn`, tagged, O.C.G.A. § 36-74-30(b)
+- `renters-insurance-rules`: `edu-renters-insurance-rules-ga`, Absent, absence shown by battery (§3)
+- `repair-cost-termination`: `edu-no-repair-cost-termination-ga`, Absent, O.C.G.A. §§ 44-7-13
+- `repair-escrow-exemption-notice`: `edu-no-repair-escrow-ga`, Absent, O.C.G.A. § 44-7-54
+- `repair-notice`: `edu-no-repair-notice-rule-ga`, Absent, O.C.G.A. § 44-7-24(b)(2)
+- `required-disclosures`: `edu-required-disclosures-ga`, Present, O.C.G.A. §§ 44-7-3(a)
+- `required-fees`: `edu-no-required-fee-list-ga`, Absent, absence shown by battery (§3)
+- `rights-responsibilities-guide`: `edu-no-tenant-rights-guide-ga`, Absent, O.C.G.A. § 44-7-3; O.C.G.A. § 44-7-20; O.C.G.A. §§ 44-7-31
+- `rules-regulations`: `rules-wi`, tagged, O.C.G.A. § 13-5-30(a)(5); O.C.G.A. § 44-3-76
+- `sale-or-management-change`: `edu-sale-or-management-change-ga`, Present in part, O.C.G.A. § 44-7-3(a)
+- `sanitary-code-variance`: `edu-no-sanitary-code-variance-ga`, Absent, absence shown by battery (§3)
+- `scope`: `edu-scope-ga`, Present, O.C.G.A. § 44-7-30(2); O.C.G.A. § 44-7-59; O.C.G.A. §§ 44-7-110
+- `seasonal-tenancy`: `edu-seasonal-and-hotel-stays-ga`, Present, O.C.G.A. § 43-21-1; O.C.G.A. § 43-21-3.1(a); O.C.G.A. § 43-21-3.2
+- `security-deposit-cap`: `edu-security-deposit-cap-ga`, Present, O.C.G.A. § 44-7-30.1; O.C.G.A. § 44-7-30(3); O.C.G.A. § 44-7-36
+- `security-deposit-nonwaiver`: `edu-security-deposit-nonwaiver-ga`, Present, O.C.G.A. § 44-7-2(b); O.C.G.A. § 44-7-36; O.C.G.A. §§ 44-7-30
+- `security-deposit-on-sale`: `edu-security-deposit-on-sale-ga`, Absent, O.C.G.A. § 44-7-31; O.C.G.A. § 44-7-32(a); O.C.G.A. § 44-7-36
+- `security-deposit-penalty`: `edu-security-deposit-penalty-ga`, Present, O.C.G.A. § 44-7-35(a); O.C.G.A. § 44-7-35(b); O.C.G.A. § 44-7-35(c)
+- `security-deposit-standards`: `edu-no-deposit-standards-rule-ga`, Absent, absence shown by battery (§3)
+- `security-devices`: `edu-security-devices-ga`, Present, O.C.G.A. § 44-7-4(a)
+- `self-help-eviction`: `edu-self-help-eviction-ga`, Present, O.C.G.A. § 44-7-2(b)(4); O.C.G.A. § 44-7-10; O.C.G.A. § 44-7-14.1(b)
+- `senior-housing-work-card`: `edu-no-senior-housing-staff-rule-ga`, Absent, absence shown by battery (§3)
+- `service-animal-misrepresentation`: `edu-service-dog-misrepresentation-ga`, Present, O.C.G.A. § 30-4-4(b); O.C.G.A. § 30-4-1
+- `sex-offender-disclosure`: `edu-no-sex-offender-disclosure-ga`, Absent, O.C.G.A. § 42-1-12
+- `sex-offender-occupancy`: `edu-sex-offender-residency-ga`, Present, O.C.G.A. § 42-1-15(b)
+- `sfr-occupancy-disclosure`: `edu-no-disclosure-placement-rule-ga`, Absent, absence shown by battery (§3)
+- `shoreline-access-disclosure`: `edu-no-shoreline-disclosure-ga`, Absent, absence shown by battery (§3)
+- `showing-notice-waiver`: `showing-notice-la`, tagged, O.C.G.A. § 44-7-2(b)
+- `shutdown-rent-protection`: `edu-no-shutdown-rent-protection-ga`, Absent, O.C.G.A. § 44-7-52(a)
+- `single-family-zone-lease-limit`: `edu-no-single-family-rental-limit-ga`, Absent, O.C.G.A. § 44-7-19
+- `smart-access`: `edu-no-smart-access-rule-ga`, Absent, absence shown by battery (§3)
+- `smoke-drift-waiver`: `edu-no-smoke-free-statute-ga`, Absent, absence shown by battery (§3)
+- `social-security-defense`: `edu-no-benefit-delay-defense-ga`, Absent, O.C.G.A. § 44-7-52(a)
+- `special-district-representation`: `edu-no-special-district-tenant-rule-ga`, Absent, absence shown by battery (§3)
+- `sprinkler-disclosure`: `edu-no-sprinkler-disclosure-ga`, Absent, absence shown by battery (§3)
+- `statute-of-frauds-lease-term`: `edu-statute-of-frauds-lease-ga`, Present, O.C.G.A. § 44-7-2(a); O.C.G.A. § 13-5-30(a)(4); O.C.G.A. § 13-5-31
+- `statutory-caps`: `edu-statutory-caps-ga`, Summary, O.C.G.A. § 44-7-30.1; O.C.G.A. § 13-6-15(a); O.C.G.A. § 44-7-16
+- `statutory-early-termination`: `edu-statutory-early-termination-ga`, Present, O.C.G.A. § 44-7-22; O.C.G.A. § 44-7-23; O.C.G.A. § 44-7-37
+- `steam-radiator-covers`: `edu-no-radiator-cover-rule-ga`, Absent, absence shown by battery (§3)
+- `stove-refrigerator`: `edu-no-stove-refrigerator-duty-ga`, Absent, absence shown by battery (§3)
+- `student-housing`: `edu-student-housing-ga`, Absent, O.C.G.A. § 8-3-17; O.C.G.A. § 39-1-1(a)
+- `subsidized-inspection-refusal`: `edu-no-voucher-inspection-rule-ga`, Absent, absence shown by battery (§3)
+- `subsidy-habitability-proration`: `edu-no-subsidy-proration-rule-ga`, Absent, O.C.G.A. § 44-7-15.
+- `subsidy-late-fee`: `edu-no-subsidy-late-fee-rule-ga`, Absent, absence shown by battery (§3)
+- `substandard-property-receivership`: `edu-no-housing-receivership-ga`, Absent, O.C.G.A. §§ 41-2-9; O.C.G.A. § 9-8-3; O.C.G.A. § 41-2-9(a)(7)
+- `tax-escalation`: `edu-tax-escalation-ga`, Present in part, O.C.G.A. § 44-7-24(d)(1)(A)
+- `telecom-access`: `edu-no-telecom-access-rule-ga`, Absent, absence shown by battery (§3)
+- `tenancy-at-will`: `edu-tenancy-at-will-basics-ga`, Present, O.C.G.A. § 44-7-6; O.C.G.A. § 44-7-7; O.C.G.A. § 44-7-50(a)
+- `tenant-bankruptcy`: `edu-tenant-bankruptcy-ga`, Absent, O.C.G.A. § 44-7-52
+- `tenant-confidential-information`: `edu-no-tenant-information-disclosure-rule-ga`, Absent, absence shown by battery (§3)
+- `tenant-display-rights`: `edu-no-display-rights-statute-ga`, Absent, absence shown by battery (§3)
+- `tenant-employee-housing`: `edu-employee-housing-ga`, Present in part, O.C.G.A. § 44-7-57
+- `tenant-insurance-claims`: `edu-no-tenant-claims-rule-ga`, Absent, absence shown by battery (§3)
+- `tenant-portal`: `tenant-portal-mn`, tagged, O.C.G.A. § 44-7-50(d); O.C.G.A. § 10-12-8(a); O.C.G.A. § 10-12-8(b)(1)
+- `tenant-records`: `edu-no-tenant-records-rule-ga`, Absent, O.C.G.A. § 44-7-50(a)
+- `tenant-repair-agreement`: `edu-tenant-repair-agreements-ga`, Present, O.C.G.A. § 44-7-2(b)(1); O.C.G.A. § 44-7-13(a)
+- `tenant-repair-remedies`: `edu-tenant-repair-remedies-ga`, Present in part, O.C.G.A. §§ 44-7-14; O.C.G.A. §§ 41-2-9
+- `tenant-right-to-organize`: `edu-tenant-organizing-ga`, Present, O.C.G.A. § 44-7-24(b)(4)
+- `tenant-rights-statement`: `edu-no-tenant-rights-statement-ga`, Absent, absence shown by battery (§3)
+- `tenant-screening`: `edu-tenant-screening-ga`, Absent, absence shown by battery (§3)
+- `tenant-statutory-duties`: `edu-tenant-statutory-duties-ga`, Present, O.C.G.A. § 44-7-11; O.C.G.A. § 44-7-10; O.C.G.A. § 44-7-9
+- `term-change-notice`: `edu-term-change-notice-ga`, Absent, O.C.G.A. § 44-7-7; O.C.G.A. § 13-5-30(b)
+- `tpa-exemption-notice`: `edu-no-tpa-exemption-notice-ga`, Absent, absence shown by battery (§3)
+- `tpa-notice`: `edu-no-tenant-purchase-right-ga`, Absent, absence shown by battery (§3)
+- `tpa-sunset`: `edu-no-sunset-statutes-ga`, Absent, O.C.G.A. § 44-7-50; O.C.G.A. § 50-18-151
+- `translation-duty`: `edu-no-translation-duty-ga`, Absent, absence shown by battery (§3)
+- `trespass-notice`: `edu-trespass-notice-ga`, Present, O.C.G.A. § 16-7-21(b)(2)
+- `truth-in-renting`: `edu-no-truth-in-renting-act-ga`, Absent, absence shown by battery (§3)
+- `unbundled-parking`: `edu-no-unbundled-parking-rule-ga`, Absent, absence shown by battery (§3)
+- `unconscionability`: `edu-no-unconscionability-statute-ga`, Absent, O.C.G.A. § 11-2-302(1); O.C.G.A. § 11-2A-108; O.C.G.A. § 13-8-2(a)
+- `usufructuary-lessor`: `edu-usufruct-lease-ga`, Present, O.C.G.A. § 44-7-1(a); O.C.G.A. § 44-6-86
+- `utility-allowance-cap`: `edu-utility-cost-cap-ga`, Present, O.C.G.A. § 12-5-180.1(a); O.C.G.A. § 44-7-36
+- `utility-apportionment`: `edu-utility-apportionment-ga`, Present, O.C.G.A. § 12-5-180.1(a)
+- `utility-deposit-return`: `edu-no-utility-deposit-rule-ga`, Absent, O.C.G.A. § 44-7-30(3); O.C.G.A. § 44-7-34(a)
+- `utility-disclosure-attachment`: `edu-utility-disclosure-attachment-ga`, Present, O.C.G.A. § 12-5-180.1(a)
+- `utility-disconnection-notice-authorization`: `edu-no-utility-notice-authorization-ga`, Absent, absence shown by battery (§3)
+- `utility-interruption-submeter`: `edu-no-utility-interruption-submeter-rule-ga`, Absent, O.C.G.A. § 44-7-14.1.
+- `utility-landlord-account`: `edu-landlord-utility-account-ga`, Present in part, O.C.G.A. § 44-7-14.1(b); O.C.G.A. § 36-60-17(a)
+- `utility-shutoff-statute`: `edu-no-utility-shutoff-rule-ga`, Absent, O.C.G.A. § 44-7-14.1.
+- `utility-submetering-disclosure`: `edu-water-submetering-ga`, Present, O.C.G.A. § 12-5-180.1(a)
+- `utility-transfer`: `edu-no-utility-transfer-rule-ga`, Absent, absence shown by battery (§3)
+- `veterans-incentive`: `edu-no-veterans-rental-incentive-ga`, Absent, absence shown by battery (§3)
+- `waiver-by-acceptance`: `edu-waiver-by-acceptance-ga`, Absent, O.C.G.A. § 44-7-52(a)
+- `water-heater-temperature`: `edu-no-water-heater-temperature-rule-ga`, Absent, O.C.G.A. §§ 44-7-13
+- `waterbed`: `edu-no-waterbed-rule-ga`, Absent, O.C.G.A. § 44-7-30.1
+- `window-guards`: `edu-no-window-guard-rule-ga`, Absent, absence shown by battery (§3)
+- `written-notice-required`: `edu-written-notices-ga`, Present, O.C.G.A. §§ 44-7-3(a); O.C.G.A. § 44-7-7
+
+Topics answered so far: 258 of 258.
+
+
+### §3 Batteries
+
+Re-run check (2026-11-06, fresh searches after all rows were written): 10 recorded patterns re-run, all with the same count ("agreed upon in the rental agreement" 2; "accessory dwelling" 0; rights-and-responsibilities guide 0; possession bond 3; unconscionable 58; double letting 0; pest control 0; government shutdown 0; knowingly-used lease terms 0; control "zqxvbnmwtk" 0).
+
+Every query run, with its hit count and the rows that rely on it. Hit titles are kept in the battery files (`ga-bat-01` to `ga-bat-03`); each absence row's notes name the landlord-tenant hits and the kinds of the rest. "Run for a later batch" means the query has been run and will be cited when its topic's row is written.
+
+- zqxvbnmwt → 0 (control)
+- "ten or fewer rental units" → 1 (`edu-no-nonrefundable-separate-notice-ga`, `edu-no-deposit-standards-rule-ga`, `edu-no-deposit-installments-ga`, `edu-deposit-no-move-out-notice-condition-ga`, `edu-no-expedited-deposit-disposition-ga`, `edu-holding-deposit-ga`, `edu-no-fee-in-lieu-of-deposit-rule-ga`, `edu-application-fees-ga`, `edu-no-utility-deposit-rule-ga`, `edu-no-fee-transparency-rule-ga`, `edu-no-required-fee-list-ga`, `edu-no-fee-unprovided-service-rule-ga`, `edu-no-late-fee-limit-ga`, `edu-liquidated-damages-ga`, `edu-collection-fee-ga`, `edu-no-eviction-fee-ban-ga`, `edu-no-deposit-cost-schedule-ga`, `edu-security-deposit-on-sale-ga`, `edu-abandonment-and-mitigation-ga`, `edu-actual-notice-method-ga`, `edu-no-confession-of-judgment-lease-ga`, `edu-eviction-grounds-no-cure-ga`, `edu-no-eviction-hardship-stay-ga`, `edu-no-expedited-criminal-eviction-ga`, `edu-redemption-ga`, `edu-no-good-cause-notice-ga`, `edu-no-lockout-for-rent-ga`, `edu-notice-to-quit-not-waivable-ga`, `edu-no-notice-to-vacate-extra-terms-ga`, `edu-no-possession-bond-ga`, `edu-post-eviction-property-ga`, `edu-no-rent-demand-bar-ga`, `edu-repair-duty-not-severable-ga`, `edu-no-benefit-delay-defense-ga`, `edu-tenant-bankruptcy-ga`, `edu-waiver-by-acceptance-ga`, `edu-no-cold-weather-eviction-rule-ga`, `edu-no-infirmity-termination-ga`, `edu-trespass-notice-ga`, `edu-no-law-enforcement-cooperation-rule-ga`, `edu-written-notices-ga`, `edu-entity-landlord-representation-ga`, `edu-dispossessory-service-ga`, `edu-jury-waiver-ga`, `edu-minor-tenants-ga`, `edu-seasonal-and-hotel-stays-ga`, `edu-usufruct-lease-ga`, `edu-statute-of-frauds-lease-ga`, `edu-lease-formalities-ga`, `edu-no-unconscionability-statute-ga`, `edu-fair-business-practices-act-ga`, `edu-exculpatory-clauses-ga`, `edu-no-double-letting-rule-ga`, `edu-association-rules-bind-tenants-ga`, `edu-no-truth-in-renting-act-ga`, `edu-no-tenant-rights-guide-ga`, `edu-no-lease-type-parity-ga`, `edu-tenant-organizing-ga`, `edu-no-single-family-rental-limit-ga`, `edu-no-adu-statute-ga`, `edu-automatic-renewal-ga`, `edu-lease-recording-ga`, `edu-dv-qualifying-documents-ga`, `edu-no-dv-eviction-defense-ga`, `edu-no-dv-lock-change-ga`, `edu-dv-deposit-timing-ga`, `edu-dv-address-confidentiality-ga`, `edu-no-sex-offender-disclosure-ga`, `edu-sex-offender-residency-ga`, `edu-condominium-conversion-ga`, `edu-utility-liens-tenant-bills-ga`, `edu-no-pest-control-notice-ga`, `edu-no-bed-bug-cooperation-rule-ga`, `edu-no-waterbed-rule-ga`, `edu-no-smart-access-rule-ga`, `edu-no-shutdown-rent-protection-ga`, `edu-portfolio-threshold-ga`, `edu-no-health-district-rental-rules-ga`, `edu-no-senior-housing-staff-rule-ga`, `edu-employee-housing-ga`, `edu-scope-ga`, `edu-construction-liens-tenant-work-ga`, `edu-cannabis-ga`, `edu-no-appliance-rule-ga`, `edu-no-relocation-duty-ga`, `edu-alarm-tampering-ga`, `edu-firearms-in-leases-ga`, `edu-no-guest-rights-statute-ga`, `edu-no-family-child-care-right-ga`, `edu-fire-code-standard-ga`, `edu-tax-escalation-ga`, `edu-tenant-repair-agreements-ga`, `edu-tenant-screening-ga`, `edu-no-tenant-records-rule-ga`, `edu-no-tenant-information-disclosure-rule-ga`, `edu-no-rent-reporting-rule-ga`, `edu-no-pet-eviction-fact-sheet-ga`, `edu-no-parking-statute-ga`, `edu-no-veterans-rental-incentive-ga`, `edu-no-display-rights-statute-ga`, `edu-no-political-access-right-ga`, `edu-no-telecom-access-rule-ga`, `edu-no-water-heater-temperature-rule-ga`, `edu-no-emergency-contact-rule-ga`, `edu-no-knowing-use-penalty-ga`, `edu-rental-inspection-ga`, `edu-condemned-premises-ga`, `edu-no-housing-receivership-ga`, `edu-habitability-statement-ga`, `edu-habitability-not-waivable-ga`, `edu-habitability-modifiable-ga`, `edu-no-habitability-materiality-rule-ga`, `edu-no-habitability-presumption-ga`, `edu-confirmed-absences-habitability-ga`, `edu-no-heat-standard-ga`, `edu-repair-duty-not-shiftable-ga`, `edu-no-written-repair-promise-rule-ga`, `edu-no-designated-repairer-rule-ga`, `edu-tenant-repair-remedies-ga`, `edu-no-repair-notice-rule-ga`, `edu-no-repair-cost-termination-ga`, `edu-no-repair-escrow-ga`, `edu-code-edition-at-construction-ga`, `edu-no-sanitary-code-variance-ga`, `edu-no-environmental-termination-ga`, `edu-disability-accommodation-ga`, `edu-children-occupancy-ga`, `edu-advertising-and-inquiries-ga`, `edu-student-housing-ga`, `edu-no-smoke-free-statute-ga`, `edu-no-drug-free-housing-program-ga`, `edu-no-communal-land-approval-ga`, `edu-no-initials-rule-ga`, `edu-no-plain-language-law-ga`, `edu-no-translation-duty-ga`, `edu-lease-content-requirements-ga`, `edu-option-to-purchase-ga`, `edu-no-subsidy-late-fee-rule-ga`, `edu-no-voucher-inspection-rule-ga`, `edu-no-subsidy-proration-rule-ga`, `edu-no-ordnance-demolition-disclosure-ga`, `edu-no-military-zone-disclosure-ga`, `edu-no-shoreline-disclosure-ga`, `edu-no-drywall-disclosure-ga`, `edu-no-asbestos-tenant-notice-ga`, `edu-no-contamination-disclosure-ga`, `edu-no-common-area-lighting-rule-ga`, `edu-no-balcony-inspection-rule-ga`, `edu-no-radiator-cover-rule-ga`, `edu-no-key-control-statute-ga`, `edu-no-employee-screening-rule-ga`, `edu-no-private-well-testing-ga`, `edu-no-recycling-notice-ga`, `edu-no-portable-cooling-right-ga`, `edu-no-portable-solar-right-ga`, `edu-no-prop65-equivalent-ga`, `edu-no-utility-transfer-rule-ga`, `edu-foreclosure-ga`, `edu-no-foreclosure-disclosure-ga`, `edu-renters-insurance-rules-ga`, `edu-no-tenant-claims-rule-ga`, `edu-no-landlord-insurance-mandate-ga`, `edu-nonresident-owner-agent-ga`, `edu-term-change-notice-ga`, `edu-confirmed-absences-misc-ga`, `edu-nuisance-ga`, `edu-no-residential-sprinkler-mandate-ga`, `edu-water-submetering-ga`, `edu-utility-cost-cap-ga`, `edu-landlord-utility-account-ga`, `edu-no-utility-shutoff-rule-ga`, `edu-no-utility-notice-authorization-ga`, `edu-no-meter-conservation-charge-ga`, `edu-attornment-and-adverse-claims-ga`, `edu-no-special-district-tenant-rule-ga`, `edu-no-ev-charging-end-of-tenancy-rule-ga`, `edu-no-ev-shared-area-rule-ga`, `edu-no-property-tax-rent-statement-ga`, `edu-security-devices-ga`, `edu-no-window-guard-rule-ga`, `edu-lead-state-notices-ga`, `edu-no-lead-safe-certificate-ga`, `edu-no-association-obligations-lease-disclosure-ga`, `edu-no-certificate-of-occupancy-disclosure-ga`, `edu-no-disaster-guest-rule-ga`, `edu-ev-charging-stations-ga`, `edu-foreign-ownership-ga`, `edu-no-home-business-statute-ga`, `edu-elevator-duties-ga`, `edu-pool-rules-ga`, `edu-service-dog-misrepresentation-ga`, `edu-rent-tax-ga`)
+- "ten fewer rental units" → 0 (`edu-no-nonrefundable-separate-notice-ga`, `edu-no-deposit-standards-rule-ga`, `edu-no-deposit-installments-ga`, `edu-deposit-no-move-out-notice-condition-ga`, `edu-no-expedited-deposit-disposition-ga`, `edu-holding-deposit-ga`, `edu-no-fee-in-lieu-of-deposit-rule-ga`, `edu-application-fees-ga`, `edu-no-utility-deposit-rule-ga`, `edu-no-fee-transparency-rule-ga`, `edu-no-required-fee-list-ga`, `edu-no-fee-unprovided-service-rule-ga`, `edu-no-late-fee-limit-ga`, `edu-liquidated-damages-ga`, `edu-collection-fee-ga`, `edu-no-eviction-fee-ban-ga`, `edu-no-deposit-cost-schedule-ga`, `edu-security-deposit-on-sale-ga`, `edu-abandonment-and-mitigation-ga`, `edu-actual-notice-method-ga`, `edu-no-confession-of-judgment-lease-ga`, `edu-eviction-grounds-no-cure-ga`, `edu-no-eviction-hardship-stay-ga`, `edu-no-expedited-criminal-eviction-ga`, `edu-redemption-ga`, `edu-no-good-cause-notice-ga`, `edu-no-lockout-for-rent-ga`, `edu-notice-to-quit-not-waivable-ga`, `edu-no-notice-to-vacate-extra-terms-ga`, `edu-no-possession-bond-ga`, `edu-post-eviction-property-ga`, `edu-no-rent-demand-bar-ga`, `edu-repair-duty-not-severable-ga`, `edu-no-benefit-delay-defense-ga`, `edu-tenant-bankruptcy-ga`, `edu-waiver-by-acceptance-ga`, `edu-no-cold-weather-eviction-rule-ga`, `edu-no-infirmity-termination-ga`, `edu-trespass-notice-ga`, `edu-no-law-enforcement-cooperation-rule-ga`, `edu-written-notices-ga`, `edu-entity-landlord-representation-ga`, `edu-dispossessory-service-ga`, `edu-jury-waiver-ga`, `edu-minor-tenants-ga`, `edu-seasonal-and-hotel-stays-ga`, `edu-usufruct-lease-ga`, `edu-statute-of-frauds-lease-ga`, `edu-lease-formalities-ga`, `edu-no-unconscionability-statute-ga`, `edu-fair-business-practices-act-ga`, `edu-exculpatory-clauses-ga`, `edu-no-double-letting-rule-ga`, `edu-association-rules-bind-tenants-ga`, `edu-no-truth-in-renting-act-ga`, `edu-no-tenant-rights-guide-ga`, `edu-no-lease-type-parity-ga`, `edu-tenant-organizing-ga`, `edu-no-single-family-rental-limit-ga`, `edu-no-adu-statute-ga`, `edu-automatic-renewal-ga`, `edu-lease-recording-ga`, `edu-dv-qualifying-documents-ga`, `edu-no-dv-eviction-defense-ga`, `edu-no-dv-lock-change-ga`, `edu-dv-deposit-timing-ga`, `edu-dv-address-confidentiality-ga`, `edu-no-sex-offender-disclosure-ga`, `edu-sex-offender-residency-ga`, `edu-condominium-conversion-ga`, `edu-utility-liens-tenant-bills-ga`, `edu-no-pest-control-notice-ga`, `edu-no-bed-bug-cooperation-rule-ga`, `edu-no-waterbed-rule-ga`, `edu-no-smart-access-rule-ga`, `edu-no-shutdown-rent-protection-ga`, `edu-portfolio-threshold-ga`, `edu-no-health-district-rental-rules-ga`, `edu-no-senior-housing-staff-rule-ga`, `edu-employee-housing-ga`, `edu-scope-ga`, `edu-construction-liens-tenant-work-ga`, `edu-cannabis-ga`, `edu-no-appliance-rule-ga`, `edu-no-relocation-duty-ga`, `edu-alarm-tampering-ga`, `edu-firearms-in-leases-ga`, `edu-no-guest-rights-statute-ga`, `edu-no-family-child-care-right-ga`, `edu-fire-code-standard-ga`, `edu-tax-escalation-ga`, `edu-tenant-repair-agreements-ga`, `edu-tenant-screening-ga`, `edu-no-tenant-records-rule-ga`, `edu-no-tenant-information-disclosure-rule-ga`, `edu-no-rent-reporting-rule-ga`, `edu-no-pet-eviction-fact-sheet-ga`, `edu-no-parking-statute-ga`, `edu-no-veterans-rental-incentive-ga`, `edu-no-display-rights-statute-ga`, `edu-no-political-access-right-ga`, `edu-no-telecom-access-rule-ga`, `edu-no-water-heater-temperature-rule-ga`, `edu-no-emergency-contact-rule-ga`, `edu-no-knowing-use-penalty-ga`, `edu-rental-inspection-ga`, `edu-condemned-premises-ga`, `edu-no-housing-receivership-ga`, `edu-habitability-statement-ga`, `edu-habitability-not-waivable-ga`, `edu-habitability-modifiable-ga`, `edu-no-habitability-materiality-rule-ga`, `edu-no-habitability-presumption-ga`, `edu-confirmed-absences-habitability-ga`, `edu-no-heat-standard-ga`, `edu-repair-duty-not-shiftable-ga`, `edu-no-written-repair-promise-rule-ga`, `edu-no-designated-repairer-rule-ga`, `edu-tenant-repair-remedies-ga`, `edu-no-repair-notice-rule-ga`, `edu-no-repair-cost-termination-ga`, `edu-no-repair-escrow-ga`, `edu-code-edition-at-construction-ga`, `edu-no-sanitary-code-variance-ga`, `edu-no-environmental-termination-ga`, `edu-disability-accommodation-ga`, `edu-children-occupancy-ga`, `edu-advertising-and-inquiries-ga`, `edu-student-housing-ga`, `edu-no-smoke-free-statute-ga`, `edu-no-drug-free-housing-program-ga`, `edu-no-communal-land-approval-ga`, `edu-no-initials-rule-ga`, `edu-no-plain-language-law-ga`, `edu-no-translation-duty-ga`, `edu-lease-content-requirements-ga`, `edu-option-to-purchase-ga`, `edu-no-subsidy-late-fee-rule-ga`, `edu-no-voucher-inspection-rule-ga`, `edu-no-subsidy-proration-rule-ga`, `edu-no-ordnance-demolition-disclosure-ga`, `edu-no-military-zone-disclosure-ga`, `edu-no-shoreline-disclosure-ga`, `edu-no-drywall-disclosure-ga`, `edu-no-asbestos-tenant-notice-ga`, `edu-no-contamination-disclosure-ga`, `edu-no-common-area-lighting-rule-ga`, `edu-no-balcony-inspection-rule-ga`, `edu-no-radiator-cover-rule-ga`, `edu-no-key-control-statute-ga`, `edu-no-employee-screening-rule-ga`, `edu-no-private-well-testing-ga`, `edu-no-recycling-notice-ga`, `edu-no-portable-cooling-right-ga`, `edu-no-portable-solar-right-ga`, `edu-no-prop65-equivalent-ga`, `edu-no-utility-transfer-rule-ga`, `edu-foreclosure-ga`, `edu-no-foreclosure-disclosure-ga`, `edu-renters-insurance-rules-ga`, `edu-no-tenant-claims-rule-ga`, `edu-no-landlord-insurance-mandate-ga`, `edu-nonresident-owner-agent-ga`, `edu-term-change-notice-ga`, `edu-confirmed-absences-misc-ga`, `edu-nuisance-ga`, `edu-no-residential-sprinkler-mandate-ga`, `edu-water-submetering-ga`, `edu-utility-cost-cap-ga`, `edu-landlord-utility-account-ga`, `edu-no-utility-shutoff-rule-ga`, `edu-no-utility-notice-authorization-ga`, `edu-no-meter-conservation-charge-ga`, `edu-attornment-and-adverse-claims-ga`, `edu-no-special-district-tenant-rule-ga`, `edu-no-ev-charging-end-of-tenancy-rule-ga`, `edu-no-ev-shared-area-rule-ga`, `edu-no-property-tax-rent-statement-ga`, `edu-security-devices-ga`, `edu-no-window-guard-rule-ga`, `edu-lead-state-notices-ga`, `edu-no-lead-safe-certificate-ga`, `edu-no-association-obligations-lease-disclosure-ga`, `edu-no-certificate-of-occupancy-disclosure-ga`, `edu-no-disaster-guest-rule-ga`, `edu-ev-charging-stations-ga`, `edu-foreign-ownership-ga`, `edu-no-home-business-statute-ga`, `edu-elevator-duties-ga`, `edu-pool-rules-ga`, `edu-service-dog-misrepresentation-ga`, `edu-rent-tax-ga`)
+- (deposit OR deposits) w/30 (foreclosure) → 5 (`edu-security-deposit-on-sale-ga`)
+- "security deposit" w/30 (standard OR standards OR criteria OR guideline OR guidelines) → 0 (`edu-no-deposit-standards-rule-ga`)
+- "security deposit" w/30 (escrow) → 2 (`edu-no-deposit-standards-rule-ga`)
+- (deposit OR deposits) w/15 (installment OR installments OR increments OR "partial payment" OR "partial payments") → 10 (`edu-no-deposit-installments-ga`)
+- (deposit OR deposits) w/30 ("forwarding address" OR "notice of intent" OR "intent to vacate" OR "new address") → 1 (`edu-deposit-no-move-out-notice-condition-ga`)
+- (deposit OR deposits) w/30 ("last known address") → 11 (`edu-deposit-no-move-out-notice-condition-ga`)
+- (deposit OR deposits) w/30 (expedite OR expedited OR "processing fee" OR "administrative fee" OR "accounting fee") → 2 (`edu-no-expedited-deposit-disposition-ga`)
+- (nonrefundable OR "non-refundable") w/30 (notice OR notify OR "separate writing" OR "written notice") → 6 (`edu-no-nonrefundable-separate-notice-ga`)
+- ("holding deposit" OR "holding fee" OR "earnest money" OR "reservation fee" OR "reservation deposit") AND (lease OR tenant OR "rental agreement" OR landlord) → 25 (`edu-holding-deposit-ga`)
+- ("in lieu of" w/10 (deposit OR deposits OR "security deposit")) OR "deposit alternative" OR "deposit waiver" → 27 (`edu-no-fee-in-lieu-of-deposit-rule-ga`)
+- alternative w/10 "security deposits" → 1 (`edu-no-fee-in-lieu-of-deposit-rule-ga`)
+- (application OR screening OR "background check") w/5 (fee OR fees OR charge OR charges) AND (tenant OR tenants OR lessee OR landlord OR "rental agreement" OR dwelling) → 24 (`edu-application-fees-ga`)
+- "application fee" OR "application fees" → 130 (`edu-application-fees-ga`)
+- "utility deposit" OR "utility deposits" OR ((deposit OR deposits) w/10 (utility OR utilities) w/30 (tenant OR landlord OR lessee)) → 0 (`edu-no-utility-deposit-rule-ga`)
+- deposit w/50 utilities → 12 (`edu-no-utility-deposit-rule-ga`)
+- "total price" OR "all-in" OR "junk fee" OR "junk fees" OR "mandatory fee" OR "mandatory fees" OR "hidden fee" OR "hidden fees" OR "drip pricing" → 64 (`edu-no-fee-transparency-rule-ga`)
+- (fee OR fees OR charge OR charges) w/15 ("rental agreement" OR lease) w/15 (disclose OR disclosed OR list OR listed OR "set forth" OR itemize OR itemized) → 5 (`edu-no-required-fee-list-ga`)
+- (fee OR fees OR charge OR charges) w/15 (service OR services) w/15 ("not provided" OR "not rendered" OR "does not provide" OR "not actually") → 6 (`edu-no-fee-unprovided-service-rule-ga`)
+- ("collection fee" OR "collection fees" OR "collection costs" OR "cost of collection" OR "costs of collection" OR "collection charge") → 72 (`edu-collection-fee-ga`)
+- "attorney's fees" w/10 "evidence of indebtedness" → 1 (run for a later batch)
+- ("late fee" OR "late fees" OR "late charge" OR "late charges") AND ("mobile home" OR "manufactured home") → 2 (`edu-no-late-fee-limit-ga`)
+- "liquidated damages" w/30 (lease OR tenant OR landlord OR rent OR "rental agreement") → 11 (`edu-liquidated-damages-ga`)
+- (deposit OR deposits) w/30 (sale OR sell OR sold OR transfer OR transferee OR successor OR purchaser OR grantee OR "new owner") AND (tenant OR tenants OR landlord OR lessor OR lessee) → 51 (`edu-security-deposit-on-sale-ga`)
+- (deposit OR deposits) w/30 (carpet OR carpets OR cleaning OR schedule) → 7 (`edu-no-deposit-cost-schedule-ga`, `edu-carpet-cleaning-ga`)
+- (nonrefundable OR "non-refundable") w/30 (agreed OR agreement) → 9 (`edu-no-nonrefundable-separate-notice-ga`)
+- (abandon OR abandons OR abandoned OR abandonment) w/25 (premises OR lease OR tenant OR tenancy) w/25 (rent OR mitigate OR mitigation OR relet OR reletting) → 10 (`edu-abandonment-and-mitigation-ga`)
+- mitigate w/30 "actual damages" → 4 (`edu-abandonment-and-mitigation-ga`)
+- "actual notice" w/30 (tenant OR landlord OR lease OR "rental agreement" OR lessee) → 14 (`edu-actual-notice-method-ga`)
+- "agreed upon in the rental agreement" → 2 (`edu-actual-notice-method-ga`)
+- ("notice to quit" OR "notice to vacate" OR "demand for possession") w/30 (waive OR waiver OR waived OR shorten OR shortened) → 3 (`edu-notice-to-quit-not-waivable-ga`, `edu-no-lease-type-parity-ga`, `edu-term-change-notice-ga`)
+- (lease OR leases) w/15 (record OR recorded OR recording OR registered OR registration) w/30 ("real property" OR land OR "real estate" OR clerk) → 13 (`edu-lease-recording-ga`)
+- (lease OR leases OR "rental agreement") w/30 (spouse OR seal OR "power of attorney" OR acknowledged OR notarized OR witness) → 64 (`edu-lease-formalities-ga`)
+- (tenant OR lessee OR tenancy) w/30 ("good cause" OR "just cause") w/30 (notice OR terminate OR termination OR evict OR eviction OR dispossessory) → 1 (`edu-no-good-cause-notice-ga`)
+- zqxvbnmwtd → 0 (control)
+- (county OR municipal OR municipality OR "local government") w/30 (rental OR "rental property" OR "residential rental") w/30 (registration OR register OR license OR licensing OR permit OR inspection OR inspect) → 10 (run for a later batch)
+- "accessory dwelling" OR "accessory dwelling unit" OR "accessory dwelling units" OR "granny flat" OR "in-law suite" → 0 (`edu-no-adu-statute-ga`)
+- ("rights and responsibilities" OR handbook OR pamphlet OR guide OR "statement of rights") w/30 (tenant OR tenants OR landlord OR landlords) → 0 (`edu-no-tenant-rights-guide-ga`)
+- ("single-family" OR "single family") w/30 (rent OR rental OR lease OR leasing) w/30 (zone OR zoning OR ordinance OR "owner-occupied" OR "owner occupied") → 2 (`edu-no-single-family-rental-limit-ga`, `edu-no-adu-statute-ga`)
+- ("truth in renting" OR "tenant protection act" OR "tenant opportunity to purchase" OR "right of first refusal" OR "right to purchase") w/30 (tenant OR tenants OR rental) → 4 (`edu-no-truth-in-renting-act-ga`)
+- (dispossessory OR eviction) w/30 (stay OR stayed OR hardship OR continuance OR postpone OR postponed) → 16 (`edu-no-eviction-hardship-stay-ga`, `edu-no-expedited-criminal-eviction-ga`)
+- (dispossessory OR eviction OR "writ of possession") w/30 (winter OR "cold weather" OR freezing OR temperature OR holiday OR holidays) → 3 (`edu-no-cold-weather-eviction-rule-ga`)
+- (receiver OR receivership) w/30 (rent OR rents OR tenant OR tenants OR "rental property" OR dwelling) → 22 (`edu-no-housing-receivership-ga`, `edu-nuisance-ga`)
+- "right of first refusal" w/30 (tenant OR tenants OR lessee) → 2 (`edu-no-truth-in-renting-act-ga`)
+- (dispossessory OR eviction) w/30 ("social security" OR benefit OR benefits OR voucher OR subsidy OR assistance) → 2 (`edu-no-benefit-delay-defense-ga`, `edu-no-shutdown-rent-protection-ga`)
+- ("statute of frauds" OR "required to be in writing") w/30 (lease OR land OR "real estate") → 39 (`edu-statute-of-frauds-lease-ga`)
+- zqxvbnmwte → 0 (control)
+- (fee OR fees OR charge OR charges OR cost OR costs) w/15 (notice OR dispossessory OR eviction OR filing) w/30 (tenant OR lease OR "rental agreement") → 27 (`edu-no-eviction-fee-ban-ga`)
+- (penalty OR penalties) w/15 (lease OR tenant OR "rental agreement") → 20 (`edu-no-eviction-fee-ban-ga`)
+- (condemn OR condemned OR condemnation OR "unfit for human habitation" OR "vacate order") w/30 (rent OR tenant OR tenants OR landlord OR dwelling) → 49 (`edu-no-rent-demand-bar-ga`, `edu-condemned-premises-ga`)
+- (variance OR waiver OR exception) w/30 ("housing code" OR "building code" OR "sanitary code" OR "minimum standards") w/30 (tenant OR tenants OR lease OR landlord) → 0 (`edu-no-sanitary-code-variance-ga`)
+- (dispossessory OR "demand for possession") w/30 ("criminal activity" OR drug OR drugs OR violent OR felony OR nuisance) → 0 (`edu-no-expedited-criminal-eviction-ga`, `edu-no-drug-free-housing-program-ga`)
+- (sprinkler OR sprinklers) w/30 (dwelling OR apartment OR residential OR tenant OR landlord OR "multifamily") → 4 (`edu-no-residential-sprinkler-mandate-ga`)
+- ("incapacity" OR "incapacitated" OR "incompetent" OR "insanity") w/30 (lease OR tenancy OR tenant OR "tenancy at will") → 11 (`edu-no-infirmity-termination-ga`)
+- (minor OR minors OR "under 18" OR "under the age") w/30 (lease OR tenant OR dispossessory OR "rental agreement") → 25 (`edu-minor-tenants-ga`)
+- ("window guard" OR "window guards" OR "burglar bar" OR "burglar bars" OR "security bars" OR "window bars") → 2 (`edu-no-window-guard-rule-ga`)
+- "confession of judgment" OR "confess judgment" OR "cognovit" OR "warrant of attorney" → 35 (`edu-no-confession-of-judgment-lease-ga`)
+- ("rent receipt" OR "receipt for rent" OR receipts) w/30 (tenant OR landlord OR rent) → 34 (`edu-repair-duty-not-severable-ga`)
+- (balcony OR balconies OR deck OR decks OR "exterior elevated") w/30 (inspect OR inspection OR inspected) → 3 (`edu-no-balcony-inspection-rule-ga`)
+- ("swimming pool" OR pool OR pools OR spa) w/30 (barrier OR fence OR fencing OR enclosure OR safety) w/30 (apartment OR residential OR rental OR tenant OR landlord OR dwelling) → 0 (`edu-pool-rules-ga`)
+- (jury) w/15 (waive OR waiver OR waived) w/30 (contract OR lease OR agreement) → 17 (`edu-jury-waiver-ga`)
+- ("water heater" OR "hot water") w/30 (temperature OR degrees OR thermostat) → 10 (`edu-no-water-heater-temperature-rule-ga`, `edu-confirmed-absences-habitability-ga`)
+- (rent OR rents) w/30 ("assignment of rents" OR "assign the rents" OR "collect the rents") w/30 (repair OR repairs OR habitable OR habitability) → 0 (`edu-repair-duty-not-severable-ga`)
+- (heat OR heating OR "heating equipment") w/30 (tenant OR landlord OR lessee OR "rental agreement" OR dwelling OR premises) w/30 (furnish OR provide OR supply OR maintain OR temperature) → 8 (`edu-no-heat-standard-ga`)
+- "usufruct" w/30 (lease OR tenant OR landlord OR rent) → 25 (`edu-usufruct-lease-ga`, `edu-no-double-letting-rule-ga`)
+- (arbitration OR arbitrate) w/30 (lease OR tenant OR landlord OR "real property" OR "residential") → 34 (run for a later batch)
+- ("common area" OR "common areas" OR hallway OR hallways) w/30 (lighting OR lights OR illuminated OR illumination) → 1 (`edu-no-common-area-lighting-rule-ga`)
+- ("life estate" OR "life tenant") w/30 (lease OR lessee OR tenant) → 89 (`edu-usufruct-lease-ga`)
+- (waive OR waiver OR waives) w/30 ("acceptance of rent" OR "accepting rent" OR "accepts rent" OR "receipt of rent" OR "accepts payment") → 1 (`edu-waiver-by-acceptance-ga`)
+- ("acceptance of rent" OR "accepting rent" OR "accepts rent" OR "partial payment" OR "partial rent") w/30 (tenant OR landlord OR dispossessory OR lease) → 7 (`edu-redemption-ga`, `edu-waiver-by-acceptance-ga`)
+- ("self-help" OR lockout OR "lock out" OR "locked out" OR "change the locks" OR "changing the locks") w/30 (tenant OR landlord OR premises OR dwelling) → 7 (`edu-no-lockout-for-rent-ga`)
+- (tenant OR tenants OR "tenant organization" OR "tenants association" OR "tenant association") w/30 (organize OR organizing OR organization OR association OR assemble) → 29 (`edu-no-tenant-rights-guide-ga`, `edu-tenant-organizing-ga`)
+- ("bankruptcy") w/30 (tenant OR lessee OR dispossessory OR "writ of possession") → 22 (`edu-tenant-bankruptcy-ga`)
+- ("writ of possession" OR dispossessory) w/30 (sheriff OR marshal OR constable) w/30 (property OR belongings OR "personal property" OR animal OR animals OR pet OR pets) → 8 (`edu-post-eviction-property-ga`)
+- (exculpate OR exculpatory OR "hold harmless" OR indemnify OR indemnity) w/30 (lease OR landlord OR tenant OR lessor OR lessee) → 26 (`edu-exculpatory-clauses-ga`, `edu-no-knowing-use-penalty-ga`)
+- ("radiator" OR radiators) w/30 (cover OR covers OR guard OR guards) → 0 (`edu-no-radiator-cover-rule-ga`)
+- ("possession bond" OR "bond for possession" OR "supersedeas") w/30 (tenant OR landlord OR dispossessory OR lease) → 3 (`edu-no-possession-bond-ga`)
+- ("smoke-free" OR "smokefree" OR smoking) w/30 (apartment OR apartments OR "multi-unit" OR "multifamily" OR residential OR dwelling OR "common area") → 8 (`edu-no-smoke-free-statute-ga`)
+- unconscionable OR unconscionability → 58 (`edu-no-unconscionability-statute-ga`)
+- (lock OR locks OR deadbolt OR deadbolts OR "door viewer" OR peephole OR rekey OR rekeyed OR "security device") w/30 (tenant OR landlord OR dwelling OR apartment OR premises) → 36 (`edu-security-devices-ga`)
+- (key OR keys) w/30 (control OR policy OR employee OR employees) w/30 (apartment OR apartments OR tenant OR complex) → 2 (`edu-no-key-control-statute-ga`)
+- ("plain language" OR "plain English" OR "readable" OR readability) w/30 (lease OR contract OR agreement OR consumer) → 33 (`edu-no-plain-language-law-ga`, `edu-no-translation-duty-ga`)
+- (employee OR employees OR staff) w/30 ("background check" OR screening OR "criminal history") w/30 (apartment OR apartments OR tenant OR tenants OR residential OR "senior housing") → 0 (`edu-no-employee-screening-rule-ga`)
+- "written in plain" OR "plain English" OR "in plain language" OR "easily readable" OR "simple and understandable" → 17 (`edu-no-plain-language-law-ga`)
+- "International Fire Code" OR "Life Safety Code" OR "International Building Code" OR "International Property Maintenance Code" → 12 (run for a later batch)
+- ("type size" OR "point type" OR "10-point" OR "12-point" OR "boldface" OR "bold type" OR "bold-faced") w/30 (lease OR "rental agreement" OR tenant OR landlord) → 3 (`edu-no-initials-rule-ga`)
+- (edition OR editions) w/30 (code OR codes OR standard OR standards) w/30 (incorporated OR adopted OR "by reference") → 8 (`edu-fire-code-standard-ga`, `edu-code-edition-at-construction-ga`)
+- (translate OR translation OR "language other than English" OR Spanish) w/30 (lease OR "rental agreement" OR tenant OR landlord) → 0 (`edu-no-translation-duty-ga`)
+- ("limitation" OR limitations OR "shall be brought within") w/30 (rent OR rents OR lease OR landlord) → 279 (run for a later batch)
+- ("partial payment" OR "part payment" OR acknowledgment OR "new promise") w/30 (limitation OR limitations OR renew OR revive OR toll) → 48 (run for a later batch)
+- "double letting" OR "let the same premises" OR "rent the same premises" OR ("same dwelling" w/10 (two OR another) w/10 (tenant OR tenants)) → 0 (`edu-no-double-letting-rule-ga`)
+- "nonresident" w/30 (landlord OR owner OR lessor) w/30 (rent OR rental OR agent OR withhold OR withholding) → 4 (`edu-nonresident-owner-agent-ga`)
+- zqxvbnmwtc → 0 (control)
+- (tenant OR lessee OR occupant) w/30 (fine OR fines OR penalty OR penalties) w/30 (landlord OR owner) w/30 (reimburse OR reimbursement OR "pass through" OR charge) → 1 (run for a later batch)
+- ("automatic renewal" OR "automatically renew" OR "automatically renews" OR "auto-renewal" OR "renew automatically")  → 35 (`edu-automatic-renewal-ga`)
+- (submeter OR submetering OR submetered OR "sub-meter" OR "submeters")  → 3 (`edu-water-submetering-ga`)
+- ("month-to-month" OR "month to month" OR periodic OR "tenancy at will") w/30 ("fixed term" OR "fixed-term" OR "more burdensome" OR parity) → 0 (`edu-no-lease-type-parity-ga`)
+- (utility OR utilities OR electricity OR water OR gas) w/30 (tenant OR tenants OR lessee) w/30 (allocate OR allocation OR apportion OR apportionment OR "ratio utility" OR "master meter" OR "master-metered") → 6 (`edu-water-submetering-ga`)
+- (lease OR "rental agreement") w/30 ("first page" OR "commencement date" OR "start date" OR "ending date") → 2 (`edu-lease-content-requirements-ga`)
+- (disconnect OR disconnection OR terminate OR termination OR "shut off" OR shutoff) w/30 (utility OR service OR electric OR water OR gas) w/30 (tenant OR tenants OR landlord OR "rental unit" OR occupant) → 13 (`edu-no-notice-to-vacate-extra-terms-ga`, `edu-no-utility-shutoff-rule-ga`, `edu-no-utility-notice-authorization-ga`)
+- (utility OR utilities OR water OR sewer OR garbage) w/30 lien w/30 (tenant OR tenants OR lessee OR owner OR landlord) → 10 (`edu-utility-liens-tenant-bills-ga`)
+- ("copy of the lease" OR "copy of the rental agreement" OR "copy of such lease" OR "executed copy" OR "signed copy")  → 25 (run for a later batch)
+- (utility OR utilities OR account) w/30 (transfer OR transferred OR "in the name of") w/30 (tenant OR tenants OR landlord) → 3 (`edu-no-utility-transfer-rule-ga`)
+- ("cable television" OR cable OR satellite OR broadband OR telecommunications) w/30 (tenant OR tenants OR apartment OR apartments OR "multifamily" OR landlord) → 1 (run for a later batch)
+- ("energy usage" OR "energy use" OR benchmarking OR "usage data" OR "energy data") w/30 (tenant OR tenants OR building OR owner) → 3 (run for a later batch)
+- ("electric vehicle" OR "charging station" OR "charging stations" OR "charging station") w/30 (tenant OR tenants OR lessee OR landlord OR apartment OR condominium OR association) → 3 (`edu-no-ev-charging-end-of-tenancy-rule-ga`, `edu-no-ev-shared-area-rule-ga`, `edu-ev-charging-stations-ga`)
+- (solar OR "solar energy") w/30 (tenant OR tenants OR lessee OR landlord OR restriction OR covenant OR association) → 4 (`edu-no-portable-solar-right-ga`)
+- ("air conditioning" OR "air conditioner" OR "window unit" OR cooling) w/30 (tenant OR tenants OR landlord OR lessee OR dwelling) → 16 (`edu-no-portable-cooling-right-ga`)
+- (recycle OR recycling OR recyclable) w/30 (apartment OR apartments OR "multifamily" OR tenant OR tenants OR landlord) → 2 (`edu-no-recycling-notice-ga`)
+- ("private well" OR well OR wells) w/30 (test OR testing OR tested) w/30 (tenant OR lease OR rental OR landlord OR dwelling) → 0 (`edu-no-private-well-testing-ga`)
+- asbestos w/30 (tenant OR tenants OR lease OR landlord OR residential OR dwelling OR notify OR notice) → 9 (`edu-no-asbestos-tenant-notice-ga`)
+- (drywall OR "chinese drywall" OR "corrosive drywall") → 15 (`edu-no-drywall-disclosure-ga`)
+- (contamination OR contaminated OR "hazardous substance" OR "environmental covenant" OR brownfield) w/30 (lease OR lessee OR tenant OR tenants OR disclose OR disclosure) → 17 (`edu-no-contamination-disclosure-ga`)
+- ("military installation" OR "military base" OR "air installation" OR "accident potential" OR "noise zone") w/30 (lease OR lessee OR tenant OR disclose OR disclosure OR notice) → 4 (`edu-no-military-zone-disclosure-ga`)
+- (shoreline OR shore OR beach OR "marshlands" OR "tidelands") w/30 (lease OR tenant OR disclose OR disclosure OR access) → 14 (`edu-no-shoreline-disclosure-ga`)
+- (ordnance OR munitions OR "demolition permit" OR demolish OR demolition) w/30 (tenant OR tenants OR lease OR "prospective tenant" OR disclose) → 4 (`edu-no-ordnance-demolition-disclosure-ga`)
+- ("certificate of occupancy") w/30 (tenant OR tenants OR lease OR landlord OR rent OR rental) → 1 (run for a later batch)
+- (cure OR cured) w/20 (lease OR tenant OR tenancy OR "rental agreement") w/20 (breach OR default OR violation) → 2 (`edu-eviction-grounds-no-cure-ga`)
+- ("sex offender" OR "sexual offender") w/30 (tenant OR tenants OR lease OR landlord OR rental OR reside OR residence) → 8 (`edu-no-sex-offender-disclosure-ga`, `edu-sex-offender-residency-ga`)
+- "real estate" w/10 (contract OR contracts) w/30 arbitration → 4 (run for a later batch)
+- ("pest control" OR pesticide OR pesticides OR extermination) w/30 (tenant OR tenants OR occupant OR occupants OR notice OR notify) w/30 (apartment OR residential OR dwelling OR landlord) → 0 (`edu-no-pest-control-notice-ga`)
+- ("bed bug" OR "bed bugs" OR bedbug OR bedbugs) → 5 (`edu-no-pest-control-notice-ga`, `edu-no-bed-bug-cooperation-rule-ga`, `edu-no-health-district-rental-rules-ga`)
+- (waterbed OR waterbeds OR "water bed" OR "water beds") → 1 (`edu-no-waterbed-rule-ga`)
+- ("certificate" OR certification OR "lead-safe" OR "lead free" OR "lead-free") w/30 (lead w/5 (paint OR hazard OR hazards)) w/30 (rental OR tenant OR lease OR dwelling) → 0 (`edu-no-lead-safe-certificate-ga`)
+- zqxvbnmwtf → 0 (control)
+- (corporation OR corporations OR "limited liability company" OR partnership OR entity) w/30 ("magistrate court" OR dispossessory) w/30 (represent OR represented OR appear OR "attorney at law" OR "practice of law" OR officer OR employee) → 3 (`edu-entity-landlord-representation-ga`)
+- (seasonal OR vacation OR "short-term rental" OR "short term rental" OR "vacation rental") w/30 (tenant OR tenancy OR lease OR rental OR occupant OR guest) → 22 (`edu-seasonal-and-hotel-stays-ga`)
+- (death OR dies OR died OR deceased OR incapacity) w/30 ("tenancy at will" OR lease OR tenancy OR tenant) w/30 (terminate OR termination OR end OR ends OR notice) → 22 (`edu-no-infirmity-termination-ga`)
+- (serve OR service OR served) w/15 (agent OR designate OR designated OR "registered agent") w/30 (dispossessory OR tenant OR summons) → 21 (`edu-dispossessory-service-ga`)
+- "address confidentiality" OR "confidential address" OR (("family violence" OR stalking) w/30 address w/30 (confidential OR confidentiality OR shield)) → 13 (`edu-dv-address-confidentiality-ga`)
+- ("family violence" OR stalking OR "protective order") w/30 (lock OR locks OR rekey OR "change the locks") → 0 (`edu-no-dv-lock-change-ga`)
+- ("family violence" OR stalking OR "protective order") w/30 (dispossessory OR evict OR eviction OR terminate OR "rental agreement") → 11 (`edu-dv-qualifying-documents-ga`, `edu-no-dv-eviction-defense-ga`, `edu-no-dv-lock-change-ga`, `edu-dv-deposit-timing-ga`)
+- ("criminal trespass" OR trespass) w/30 (tenant OR tenants OR landlord OR "common area" OR apartment OR premises) w/30 (notice OR notify OR forbid OR forbidden) → 10 (`edu-trespass-notice-ga`)
+- zqxvbnmwtg → 0 (control)
+- ("smoke detector" OR "smoke alarm" OR "smoke detectors" OR "carbon monoxide") w/30 (tamper OR tampering OR disable OR disabled OR remove OR removal)  → 0 (`edu-alarm-tampering-ga`)
+- (relocation OR relocate OR "alternate housing" OR "alternative housing" OR "temporary housing") w/30 (tenant OR tenants OR landlord OR displaced) → 37 (`edu-no-relocation-duty-ga`)
+- (appliance OR appliances OR stove OR range OR refrigerator) w/30 (landlord OR tenant OR lease OR "rental agreement" OR dwelling) → 18 (`edu-no-appliance-rule-ga`)
+- (police OR "law enforcement") w/30 (tenant OR tenants OR landlord OR lease) w/30 (cooperate OR cooperation OR call OR calls OR report) → 6 (`edu-no-law-enforcement-cooperation-rule-ga`)
+- ("writ of possession" OR dispossessory) w/30 (December OR holiday OR weather OR "extreme heat" OR "heat advisory") → 3 (`edu-no-cold-weather-eviction-rule-ga`)
+- (condominium OR "property owners association" OR "homeowners association") w/30 (lease OR leasing OR tenant OR tenants OR lessee OR rent) → 54 (`edu-association-rules-bind-tenants-ga`, `edu-condominium-conversion-ga`, `edu-no-association-obligations-lease-disclosure-ga`)
+- ("prepaid rent" OR "rent paid in advance" OR "advance rent") w/30 (tenant OR landlord OR lease OR sale OR purchaser) → 1 (`edu-deposit-last-month-rent-ga`)
+- zqxvbnmwth → 0 (control)
+- "notice" w/10 ("in writing" OR written) w/30 (tenant OR landlord OR lease OR "rental agreement") w/30 (terminate OR termination OR vacate) → 7 (`edu-written-notices-ga`)
+- (electronic OR "e-mail" OR email OR "text message") w/30 (notice OR notices) w/30 (tenant OR landlord OR lease OR "rental agreement") → 11 (run for a later batch)
+- ("medical cannabis" OR "low THC oil" OR "low THC" OR marijuana OR cannabis) w/30 (tenant OR lease OR landlord OR residence OR dwelling OR housing) → 29 (`edu-cannabis-ga`, `edu-no-drug-free-housing-program-ga`)
+- (student OR students OR dormitory OR "student housing") w/30 (lease OR tenant OR housing OR rental) → 76 (`edu-student-housing-ga`)
+- (employee OR employer OR caretaker OR servant) w/30 (housing OR dwelling OR premises OR quarters) w/30 (vacate OR terminate OR possession OR eviction) → 34 (`edu-employee-housing-ga`)
+- "mobile home park" OR "manufactured home community" OR "manufactured housing community" OR "mobile home parks" → 14 (`edu-no-smart-access-rule-ga`, `edu-scope-ga`)
+- (senior OR elderly OR "55 and older" OR "older persons") w/30 (housing OR apartment OR residential) w/30 (employee OR staff OR exempt OR exemption) → 8 (`edu-no-senior-housing-staff-rule-ga`)
+- ("electronic lock" OR "smart lock" OR keyless OR "access control") w/30 (tenant OR dwelling OR apartment OR residential) → 1 (`edu-no-smart-access-rule-ga`)
+- (child OR children OR "familial status") w/30 (occupancy OR occupants OR tenant OR tenancy OR rental) w/30 (refuse OR deny OR terminate OR discriminate) → 7 (`edu-children-occupancy-ga`)
+- (lien OR liens) w/30 (lessee OR tenant OR leasehold) w/30 (improvement OR improvements OR contractor OR materialman OR consent) → 22 (`edu-construction-liens-tenant-work-ga`)
+- ("fair business practices" OR "unfair or deceptive") w/30 (lease OR leases OR rental OR landlord OR tenant) → 6 (`edu-fair-business-practices-act-ga`)
+- ("federal employee" OR "government shutdown" OR furlough OR furloughed) w/30 (rent OR tenant OR lease OR eviction) → 0 (`edu-no-shutdown-rent-protection-ga`)
+- ("rental units" OR "dwelling units") w/15 (four OR five OR ten OR "more than") w/30 (landlord OR owner OR exempt OR exemption) → 1 (`edu-portfolio-threshold-ga`)
+- ("communicable disease" OR "health department" OR "board of health") w/30 (rental OR "rental housing" OR tenant OR landlord) → 1 (`edu-no-health-district-rental-rules-ga`)
+- (rule OR rules OR regulations) w/30 (tenant OR tenants OR "rental agreement" OR lease) w/30 (amend OR amended OR change OR modify OR modification OR adopt OR adopted) → 19 (run for a later batch)
+- (radon OR mold OR asbestos OR lead) w/30 (disclose OR disclosure OR notify) w/30 (tenant OR lessee OR rental) → 0 (run for a later batch)
+- (interpreter OR "language access" OR "limited English") w/30 (tenant OR housing OR lease OR rental OR landlord) → 0 (`edu-no-translation-duty-ga`)
+- ("reasonable accommodation" OR "reasonable modification" OR "reasonable accommodations" OR "reasonable modifications") w/30 (housing OR dwelling OR tenant OR landlord OR rental) → 4 (`edu-disability-accommodation-ga`, `edu-advertising-and-inquiries-ga`)
+- (disaster OR "state of emergency" OR hurricane OR "declared emergency") w/30 (tenant OR tenants OR rent OR lease OR eviction OR dispossessory) → 8 (`edu-no-environmental-termination-ga`)
+- ("option to purchase" OR "lease-purchase" OR "rent-to-own" OR "lease with an option") w/30 ("real property" OR residence OR dwelling OR home) → 23 (`edu-option-to-purchase-ga`)
+- (condemn OR condemnation OR "eminent domain" OR taking) w/30 (lease OR leasehold OR lessee OR tenant) w/30 (rent OR terminate OR termination OR compensation OR apportion) → 65 (run for a later batch)
+- (eviction OR dispossessory) w/30 (record OR records OR registry OR report) w/30 (tenant OR seal OR sealed OR confidential) → 6 (run for a later batch)
+- (nuisance) w/30 (lease OR tenant OR landlord OR premises) w/30 (abate OR abatement OR void OR forfeit OR forfeiture OR padlock OR closure) → 9 (`edu-nuisance-ga`)
+- ("firearm" OR firearms OR weapon OR weapons OR gun OR guns) w/30 (lease OR tenant OR tenants OR landlord OR apartment OR residence OR "rental property") → 61 (`edu-firearms-in-leases-ga`)
+- (foreclosure OR foreclosed OR "power of sale" OR "sale under power") w/30 (tenant OR tenants OR lease OR lessee OR occupant OR dispossessory) → 62 (`edu-foreclosure-ga`, `edu-no-foreclosure-disclosure-ga`)
+- (water OR sewer OR garbage OR sanitation) w/30 (tenant OR tenants OR occupant) w/30 (bill OR bills OR charge OR charges OR deposit OR account) → 11 (run for a later batch)
+- ("nonresident alien" OR "foreign adversary" OR "foreign principal" OR "foreign government" OR alien) w/30 (land OR "real property" OR lease OR acquire OR acquisition) → 10 (`edu-foreign-ownership-ga`)
+- (repair OR repairs) w/30 (tenant OR lessee) w/30 (agree OR agreement OR agrees OR deduct OR withhold OR escrow) → 23 (`edu-landlord-breach-remedies-ga`, `edu-tenant-repair-agreements-ga`, `edu-confirmed-absences-habitability-ga`, `edu-repair-duty-not-shiftable-ga`, `edu-no-written-repair-promise-rule-ga`, `edu-tenant-repair-remedies-ga`, `edu-no-repair-cost-termination-ga`, `edu-no-repair-escrow-ga`)
+- (notice OR notify) w/15 (repair OR repairs OR defect OR defects) w/30 (landlord OR tenant OR lessor) → 9 (`edu-no-habitability-materiality-rule-ga`, `edu-confirmed-absences-habitability-ga`, `edu-no-designated-repairer-rule-ga`, `edu-no-repair-notice-rule-ga`)
+- (furnish OR furnished OR furniture OR furnishings) w/30 (lease OR tenant OR landlord OR "rental agreement" OR dwelling) → 108 (run for a later batch)
+- (fine OR fines OR citation OR penalty) w/30 (ordinance OR code OR "code enforcement") w/30 (tenant OR tenants OR occupant OR owner OR landlord) → 63 (run for a later batch)
+- zqxvbnmwti → 0 (control)
+- (guaranty OR guarantor OR surety OR suretyship) w/30 (lease OR rent OR renewal OR extension OR modification) → 89 (run for a later batch)
+- (guest OR guests OR visitor OR visitors OR invitee) w/30 (tenant OR tenants OR "rental agreement" OR lease OR landlord) w/30 (right OR rights OR fee OR fees OR prohibit) → 9 (`edu-no-guest-rights-statute-ga`)
+- ("home-based business" OR "home based business" OR "home occupation" OR "home business") → 3 (`edu-no-home-business-statute-ga`)
+- ("child care" OR "day care" OR "family day care" OR "family child care") w/30 (tenant OR lease OR landlord OR residence OR dwelling) → 17 (`edu-no-family-child-care-right-ga`)
+- (hunt OR hunting OR fishing OR fish) w/30 (lessee OR tenant OR lease) w/30 (permission OR consent OR written) → 6 (run for a later batch)
+- ("Uniform Fire Code" OR "fire code" OR "minimum fire safety standards" OR "state minimum standard codes") w/30 (dwelling OR apartment OR residential OR multifamily) → 5 (`edu-alarm-tampering-ga`, `edu-fire-code-standard-ga`)
+- ("minimum standards" OR "housing code" OR "housing codes") w/30 (dwelling OR dwellings OR rental OR tenant) → 5 (`edu-habitability-statement-ga`, `edu-habitability-modifiable-ga`, `edu-no-habitability-materiality-rule-ga`, `edu-no-habitability-presumption-ga`, `edu-confirmed-absences-habitability-ga`, `edu-no-sanitary-code-variance-ga`)
+- (animal OR animals OR pet OR pets) w/30 (abandon OR abandoned OR care OR feed OR custody) w/30 (tenant OR premises OR landlord OR dwelling OR "rental property") → 8 (run for a later batch)
+- (heat OR heating OR "hot water" OR "running water") w/30 (waive OR waiver OR agreement OR "in writing") → 6 (`edu-habitability-not-waivable-ga`)
+- (sprinkler OR sprinklers) w/30 (retrofit OR existing OR "high-rise" OR "high rise" OR apartment OR residential) → 3 (`edu-no-residential-sprinkler-mandate-ga`)
+- (tribal OR tribe OR "Indian" OR reservation) w/30 (lease OR leases OR land OR lands) w/30 (approval OR approve OR consent) → 4 (`edu-no-communal-land-approval-ga`)
+- ("insurance" OR insured OR insurer) w/30 (tenant OR tenants OR lessee OR "renter" OR "renters") w/30 (landlord OR lessor OR premises OR property) → 50 (`edu-renters-insurance-rules-ga`, `edu-no-tenant-claims-rule-ga`, `edu-no-landlord-insurance-mandate-ga`)
+- (emergency OR "24-hour" OR "after-hours") w/30 (contact OR telephone OR number) w/30 (tenant OR tenants OR apartment OR management OR landlord) → 41 (`edu-no-emergency-contact-rule-ga`)
+- (absence OR absent OR absences) w/30 (tenant OR lessee OR occupant) w/30 (notice OR notify OR days) → 9 (run for a later batch)
+- (screen OR screening OR "consumer report" OR "criminal history" OR "credit report") w/30 (tenant OR tenants OR applicant OR applicants OR rental OR housing) → 67 (`edu-tenant-screening-ga`, `edu-no-rent-reporting-rule-ga`)
+- ("Social Security number" OR "personal information" OR "personal data") w/30 (tenant OR tenants OR landlord OR applicant OR applicants OR lessee) → 30 (`edu-no-tenant-records-rule-ga`, `edu-no-tenant-information-disclosure-rule-ga`)
+- (inspect OR inspection OR inspector OR inspectors) w/30 (rental OR dwelling OR tenant OR tenants) w/30 (warrant OR consent OR entry OR access OR enter) → 10 (`edu-rental-inspection-ga`)
+- (knowingly OR willfully) w/30 (lease OR "rental agreement") w/30 (provision OR term OR clause) w/30 (void OR prohibited OR unenforceable) → 0 (`edu-no-knowing-use-penalty-ga`)
+- ("rent reporting" OR "credit bureau" OR "consumer reporting agency") w/30 (rent OR tenant OR tenants OR landlord) → 0 (`edu-no-rent-reporting-rule-ga`)
+- ("owner occupancy" OR "owner-occupied" OR "personal use" OR "own use" OR "owner occupied") w/30 (tenant OR terminate OR termination OR possession) → 35 (run for a later batch)
+- ("sales tax" OR "sales and use tax" OR "hotel-motel" OR "excise tax") w/30 (rent OR rental OR lodging OR "living quarters" OR accommodations) → 49 (`edu-rent-tax-ga`)
+- (pet OR pets OR dog OR dogs OR cat OR cats) w/30 (eviction OR dispossessory OR "writ of possession" OR landlord OR tenant) → 13 (`edu-no-pet-eviction-fact-sheet-ga`)
+- (parking OR tow OR towing OR "parking facility") w/30 (tenant OR tenants OR apartment OR residential OR lease) → 115 (`edu-no-parking-statute-ga`)
+- (veteran OR veterans) w/30 (rent OR rental OR housing OR landlord OR lease OR incentive) → 27 (`edu-no-veterans-rental-incentive-ga`)
+- ("religious" OR religion) w/30 (display OR displays OR symbol OR symbols) w/30 (door OR dwelling OR tenant OR association) → 0 (`edu-no-display-rights-statute-ga`)
+- (candidate OR candidates OR canvass OR canvassing OR political) w/30 (apartment OR tenant OR tenants OR multifamily OR residential) w/30 (access OR enter OR solicit OR door) → 3 (`edu-no-political-access-right-ga`)
+- (flag OR flags OR "political sign" OR "political signs" OR sign OR signs) w/30 (tenant OR tenants OR lessee OR association OR "rental property") → 86 (`edu-no-display-rights-statute-ga`)
+- ("satellite" OR antenna OR "over-the-air" OR cable) w/30 (tenant OR tenants OR apartment OR multifamily OR "multiple dwelling" OR landlord) → 2 (`edu-no-telecom-access-rule-ga`)
+- ("water heater" OR "hot water") w/30 (tenant OR landlord OR rental OR dwelling OR apartment) → 3 (`edu-no-water-heater-temperature-rule-ga`)
+- waterbed OR waterbeds OR "water bed" OR "liquid-filled furniture" → 1 (run for a later batch)
+- ("lead" w/5 paint OR "lead-based") w/30 (tenant OR tenants OR rental OR lessor OR disclose OR disclosure OR notice) → 3 (run for a later batch)
+- ("pool" OR pools OR "swimming pool" OR "public pool") w/30 (rule OR rules OR regulation OR regulations OR permit OR barrier) → 69 (run for a later batch)
+- (record OR recorded OR recording) w/15 (lease OR leases OR "memorandum of lease") w/30 (notice OR purchaser OR "bona fide" OR priority) → 9 (run for a later batch)
+- ("bed bug" OR "bed bugs" OR bedbug OR bedbugs OR pest OR pests OR vermin OR rodent OR rodents) w/30 (tenant OR tenants OR landlord OR dwelling OR rental) → 8 (run for a later batch)
+- zqxvbnmwtj → 0 (control)
+- (cancer OR "reproductive harm" OR "reproductive toxicity") w/30 (warning OR notice) w/30 (tenant OR rental OR premises OR dwelling) → 0 (`edu-no-prop65-equivalent-ga`)
+- (disconnect OR disconnection OR "shut off" OR termination) w/30 (electric OR electricity OR gas OR water OR utility) w/30 (winter OR temperature OR medical OR "life support" OR weather OR emergency) → 1 (`edu-no-utility-shutoff-rule-ga`)
+- (landlord OR owner) w/30 (utility OR electric OR water OR gas) w/30 (account OR bill OR bills) w/30 (tenant OR tenants OR occupant) → 7 (`edu-landlord-utility-account-ga`)
+- (misrepresent OR misrepresentation OR falsely OR "false representation") w/30 ("service animal" OR "service dog" OR "assistance animal" OR "assistance dog") → 1 (`edu-service-dog-misrepresentation-ga`)
+- (resell OR resale OR "master meter" OR "master-metered" OR "master metered") w/30 (electric OR electricity OR gas OR water) → 37 (`edu-utility-cost-cap-ga`)
+- (voucher OR "housing choice" OR "Section 8" OR subsidized OR "housing assistance") w/30 (tenant OR landlord OR inspection OR rent OR "late fee") → 18 (`edu-no-subsidy-late-fee-rule-ga`, `edu-no-voucher-inspection-rule-ga`, `edu-no-subsidy-proration-rule-ga`)
+- (conservation OR surcharge) w/30 (meter OR meters OR metered) w/30 (tenant OR tenants OR landlord OR apartment) → 0 (`edu-no-meter-conservation-charge-ga`)
+- (conversion OR converted OR convert) w/30 (condominium OR cooperative) w/30 (tenant OR tenants OR lessee OR notice) → 5 (run for a later batch)
+- ("garage door" OR elevator OR elevators OR escalator OR escalators) w/30 (owner OR landlord OR apartment OR residential OR building) w/30 (inspect OR inspection OR safety OR duty) → 12 (`edu-elevator-duties-ga`)
+- ("ad valorem" OR "property tax" OR taxes) w/30 (tenant OR tenants OR lessee) w/30 (pass OR increase OR escalation OR reimburse OR share) → 13 (`edu-tax-escalation-ga`, `edu-no-property-tax-rent-statement-ga`)
+- (inspection OR condemnation OR "repair order" OR violation) w/30 (disclose OR disclosure OR notify) w/30 (tenant OR tenants OR "prospective tenant" OR lessee) → 6 (`edu-no-inspection-order-disclosure-ga`)
+- (inquire OR inquiry OR inquiries OR ask) w/30 (race OR religion OR "national origin" OR familial OR disability OR handicap) w/30 (rental OR dwelling OR housing OR sale) → 0 (`edu-advertising-and-inquiries-ga`)
+- ("unfit for human habitation" OR "fit for human habitation" OR uninhabitable OR habitability OR habitable) → 23 (run for a later batch)
+- ("special district" OR "community improvement district" OR "tax allocation district" OR "special service district") w/30 (tenant OR lessee OR vote OR representation OR election) → 63 (`edu-no-special-district-tenant-rule-ga`)
+- (notice OR notify) w/30 (tenant OR tenants) w/30 (foreclosure OR "tax sale" OR receivership OR bankruptcy) w/30 (landlord OR owner) → 4 (`edu-attornment-and-adverse-claims-ga`)
+- (window OR windows) w/30 (guard OR guards OR screen OR screens OR bars OR lock OR locks) w/30 (dwelling OR apartment OR tenant OR landlord OR building) → 5 (`edu-no-window-guard-rule-ga`)
+- ("security deposit" OR deposit) w/30 ("family violence" OR stalking OR "protective order") → 1 (run for a later batch)
+- ("swimming pool" OR pools OR pool) w/30 (apartment OR residential OR multifamily OR "public pool" OR "semi-public") → 22 (`edu-pool-rules-ga`)
+- (mediation OR mediate OR "dispute resolution") w/30 (tenant OR landlord OR lease OR dispossessory) → 2 (run for a later batch)
+- ("public housing" OR "housing authority") w/30 (lease OR tenant OR tenants OR eviction OR grievance) → 17 (run for a later batch)
+- ("security" OR safety) w/30 (lock OR locks OR deadbolt OR deadbolts OR lighting) w/30 ordinance → 0 (run for a later batch)
+- (enter OR entry OR access) w/30 (landlord OR lessor OR owner) w/30 (notice OR "reasonable time" OR emergency) w/30 (tenant OR premises OR dwelling) → 9 (run for a later batch)
+- (certificate w/5 occupancy) w/30 (dwelling OR rental OR building OR occupy OR occupied) → 10 (`edu-no-certificate-of-occupancy-disclosure-ga`)
+- (guest OR guests OR occupant OR occupants) w/30 (disaster OR emergency OR displaced OR evacuee OR evacuees) → 7 (`edu-no-disaster-guest-rule-ga`)
+- (lead w/5 (poisoning OR hazard OR hazards)) w/30 (owner OR landlord OR tenant OR residence OR dwelling) → 11 (`edu-lead-state-notices-ga`, `edu-no-lead-safe-certificate-ga`)
+- zqxvbnmwtk → 0 (control)
+- zqxvbnmwtl → 0 (control)
+- (deposit OR deposits) w/30 ("last month" OR "final month" OR "last month's rent") → 0 (`edu-deposit-last-month-rent-ga`)
+- ("pet fee" OR "pet fees" OR "pet deposit" OR "pet deposits" OR "pet rent") → 3 (`edu-pet-fees-ga`)
+- (estoppel w/5 certificate) OR ((sale OR purchaser) w/30 (lease OR tenant) w/30 (disclose OR release OR released)) → 13 (`edu-sale-or-management-change-ga`)
+- "rent contract" w/30 (transfer OR transferee OR assign OR assignment) → 3 (`edu-repair-duty-not-severable-ga`)
+- (redeem OR redemption OR reinstate) w/30 (tenant OR lease OR dispossessory) → 13 (`edu-nonpayment-tender-defense-ga`)
+- (depreciation OR "useful life") w/30 (deposit OR tenant OR lease) → 12 (`edu-carpet-cleaning-ga`)
+- "security deposit" w/30 (different OR differ OR uniform OR same) → 0 (`edu-no-deposit-standards-rule-ga`)
+- zqxvbnmwtm → 0 (control)
+- (Indian OR tribal OR "trust land" OR reservation) w/30 (lease OR tenant OR landlord) → 83 (run for a later batch)
+- ("police" OR "law enforcement" OR "emergency assistance" OR "9-1-1") w/30 (tenant OR lease OR evict OR eviction OR dispossessory OR nuisance) → 37 (`edu-no-law-enforcement-cooperation-rule-ga`, `edu-no-dv-eviction-defense-ga`, `edu-nuisance-ga`)
+- zqxvbnmwtn → 0 (control)
+- (concession OR concessions OR "free rent" OR "reduced rent" OR rebate) w/30 (tenant OR lease OR landlord OR rent) → 17 (`edu-confirmed-absences-misc-ga`)
+- (installment OR installments OR "partial payment" OR "partial payments") w/30 (rent OR tenant OR lease) → 52 (run for a later batch)
+- (lease OR leasing OR tenant) w/30 (approval OR approve OR consent) w/30 (association OR condominium OR declaration) → 8 (run for a later batch)
+- (nuisance OR abatement) w/30 (rent OR rents OR receiver OR receivership OR escrow) → 6 (`edu-nuisance-ga`)
+
+### §4 Decisions and questions to Taylor
+
+Georgia items (answered once each; items 2, 4 and 9 are being completed in later batches):
+
+1. **Waivers, exculpation, attorney fees, liquidated damages, waiver by acceptance.** Answered from O.C.G.A. §§ 44-7-2, 44-7-13 and 44-7-14 (read whole) and § 13-6-7. Batch 1 holds `edu-attorney-fees-ga` and `edu-liquidated-damages-ga`; the exculpation and waiver-by-acceptance rows come in the lease-terms batch and point back to these.
+2. **Family violence.** Answered from O.C.G.A. § 44-7-23 (read whole) with Title 19 ch. 13 (§§ 19-13-1, 19-13-3, 19-13-4), § 16-5-94 and the address confidentiality program (§§ 50-18-151, 50-18-153, effective July 1, 2026): `edu-dv-qualifying-documents-ga`, `edu-no-dv-eviction-defense-ga`, `edu-no-dv-lock-change-ga`, `edu-dv-deposit-timing-ga`, `edu-dv-order-statutes-current-ga`, `edu-dv-address-confidentiality-ga`. Georgia has one victim provision for tenants (early termination, non-waivable); no eviction defense, lock-change right or confidentiality duty; FEDERAL: 34 U.S.C. § 12491 for covered housing.
+3. **Deposits, fees and receipts:** batch 1, from O.C.G.A. §§ 44-7-30 to 44-7-37 read whole. The ten-unit exemption (O.C.G.A. § 44-7-36) reaches §§ 44-7-31, 44-7-32, 44-7-33 and 44-7-35 only, so the § 44-7-30.1 cap and the § 44-7-34 return and wear-and-tear rules bind every landlord.
+4. **Local rules (§ 44-7-19).** O.C.G.A. § 44-7-19 bars counties and cities from regulating 'the amount of rent' on private residential rental property (existing `edu-local-preemption-ga`). Other state limits on local rules found this pass: O.C.G.A. § 36-74-30(b) (as amended by Ga. L. 2025, p. 882, § 1/HB 399, effective July 1, 2025): 'No local government is authorized to perform investigations or inspections of residential rental property unless there is probable cause ... and in no event may a local government require the registration of residential rental property' (`edu-rental-inspection-ga`; see §6 for the existing row it contradicts); O.C.G.A. § 16-11-173(b)(1) preempts local firearm regulation (`edu-firearms-in-leases-ga`). Local powers that remain: minimum security standards (O.C.G.A. § 44-7-4), unfit-dwelling ordinances (O.C.G.A. §§ 36-61-11, 41-2-7 to 41-2-11; non-waivable under § 44-7-2(b)(3); `edu-condemned-premises-ga`). Individual ordinances are flagged, not resolved.
+5. **`keys` and `hoa-compliance`:** no conflict with Georgia law found. Georgia has no statute on key return, rekeying or key charges, and none on a tenant's duty to follow association rules that the wording would offend.
+6. **Shared clauses GA is tagged on:**
+   - `smoking-policy`: reads correctly; Georgia has no statute on smoking in a private dwelling that the clause would breach.
+   - `addendum-precedence`: reads correctly; nothing in Title 13 ch. 2 or Title 44 ch. 7 bars a contract term ranking its own parts.
+   - `no-alterations`: reads correctly; it does not touch the landlord's non-waivable repair duty (O.C.G.A. §§ 44-7-2(b)(1), 44-7-13).
+7. **`early-termination-ks` fee under O.C.G.A. § 13-6-7.** The statute cannot settle it: § 13-6-7 binds the parties to agreed damages "unless the agreement violates some principle of law", and the penalty test is case law this pass has not read. A fee of the greater of one month's Rent or 30% of the remaining Rent grows with the remaining term, which is the shape courts most often treat as a penalty, and Georgia deposits may be kept only for "actual damages caused by the tenant's breach, provided that the landlord attempts to mitigate the actual damages" (O.C.G.A. § 44-7-34(a)). The cautious course is the flat fee the NV, TX, NJ and AZ checks moved to. Proposed override fields (for Claude Code to add at sync, removing GA from `early-termination-ks`'s `states`):
+   - `id` early-termination-ga; `group` Default & Termination; `title` Early Termination; `states` GA; `is_active` TRUE; `supersedes` early-termination-ks; `rule_type` REQUIRED; `content_type` LEASE_CLAUSE; `verification_status` VERIFIED; `effective_from` and `last_checked` 2026-11-06; `choice_group` and `is_default` blank; `topic_key` early-termination; `lease_clause_basis` SERVES_LANDLORD.
+   - `bodyText`: "Tenant may terminate this Lease before the end of the Term by providing Landlord at least 30 days' written notice. Tenant will pay Landlord, by the termination date, an early termination fee equal to one month's Rent ({{monthly_rent}}), and remains responsible for Rent and other obligations up to the termination date. If Tenant gives that notice, pays the fee and delivers possession of the property by the termination date, Tenant owes no Rent for any period after the termination date. If Tenant leaves before the end of the Term without using this option, Tenant's liability is governed by Georgia law. This early-termination option and fee apply only if this Lease has a fixed Term; a month-to-month or other periodic tenancy ends on the notice that applicable law and this Lease provide, without an early termination fee. Landlord may terminate this Lease early in accordance with this Lease's Tenant Default and notice provisions, or if Tenant vacates or abandons the property without notifying Landlord. Nothing in this Section limits any right either party has under applicable law, including a Tenant's right to terminate without penalty due to active military service under the Servicemembers Civil Relief Act or O.C.G.A. § 44-7-22 or § 44-7-37, due to a family violence or stalking order under O.C.G.A. § 44-7-23, or due to the property becoming uninhabitable through no fault of Tenant."
+   - `notes`: "GA: Override of `early-termination-ks` (GA gaps pass 2026-11-06, Georgia item 7). Flat one-month fee instead of the greater of one month or 30% of remaining Rent: O.C.G.A. § 13-6-7 enforces agreed damages 'unless the agreement violates some principle of law'; penalty case law not read, and a fee that scales with the remaining term is the cautious-course risk. O.C.G.A. § 44-7-34(a) (deposit kept only for actual damages, with mitigation). Military: O.C.G.A. §§ 44-7-22, 44-7-37; FEDERAL: 50 U.S.C. § 3955. Family violence: O.C.G.A. § 44-7-23. Tenancy at will: O.C.G.A. § 44-7-7. Sources as for the GA gaps rows (advance.lexis.com, 'Current through the 2026 Special Session of the General Assembly')."
+   - **Question for Taylor:** OK to hand this override to Claude Code at sync? It changes GA off the shared clause, which this pass may not do itself.
+8. **`edu-cares-act-notice`:** no GA eviction row contradicts it. `edu-eviction-process-ga` states the CARES 30-day notice for covered properties alongside the Georgia notice to vacate or pay, consistent with the federal row. FEDERAL: 15 U.S.C. § 9058 read whole 2026-11-06.
+9. **Currency, 2024-2026 acts touching Title 44 ch. 7** (act numbers and effective dates read on legis.ga.gov; history lines read on each section in Lexis):
+   - HB 404 (2024), Ga. L. 2024, p. 91 (Act 392), effective July 1, 2024: O.C.G.A. §§ 44-7-13, 44-7-14.1, 44-7-30.1, 44-7-50. Act PDF read whole.
+   - HB 1203 (2024), Ga. L. 2024, p. 403, § 1 (Act 484), effective April 24, 2024: O.C.G.A. § 44-7-55.
+   - SB 450 (2024), Ga. L. 2024, p. 201, § 10 (Act 424), effective April 22, 2024: O.C.G.A. § 44-7-56.
+   - HB 270 (2025), Ga. L. 2025, p. 626, § 2 (Act 255), effective July 1, 2025: O.C.G.A. § 44-7-51.
+   - SB 153 (2025), Ga. L. 2025, p. 1029, § 44(6) (Act 371), effective July 1, 2025: O.C.G.A. § 44-7-55 (Code revision).
+   - HB 399 (2025), Ga. L. 2025, p. 882, § 2 (Act 315), effective July 1, 2025: O.C.G.A. § 44-7-25.
+   - HB 1268 (2026), Ga. L. 2026, p. 1069, § 44(19), (20), effective July 1, 2026: O.C.G.A. §§ 44-7-20, 44-7-115 (Code revision).
+   - SB 406 (2026), Ga. L. 2026, p. 988, § 8 (Act 715), effective January 1, 2027: O.C.G.A. § 44-7-50 (both versions saved).
+   - Also outside ch. 7 but relied on: HB 399 § 1 amended O.C.G.A. § 36-74-30 (local registration ban; §6 finding); SB 420 (Ga. L. 2024, p. 446, effective July 1, 2024) and HB 358 (Ga. L. 2025, p. 642, effective July 1, 2025) enacted and amended O.C.G.A. § 2-1-7 (`edu-foreign-ownership-ga`). The address confidentiality article (O.C.G.A. §§ 50-18-150 and following) was enacted by Ga. L. 2024, p. 698, § 3/SB 324, effective July 1, 2026 (history line read).
+   - Channel note: effective dates were read on the legis.ga.gov status pages and on each section's Lexis history line. Only the HB 404 act PDF was opened; the other act PDFs were not, so the section lists above come from the history lines.
+
+Other decisions in batch 1:
+- `edu-binding-arbitration-ga`: no arbitration clause offered (rule 54). The Georgia Arbitration Code excludes consumer transactions (O.C.G.A. § 9-9-2(c)(7)), and a residential lease is one under O.C.G.A. § 10-1-392(a)(10); how far the Federal Arbitration Act reaches a residential lease is case law not read.
+- `carpet-cleaning-ar` tagged GA with two cautions (wear and tear; list the charge), instead of a GA clause.
+- `rent-concession-wi` tagged GA (no Georgia concession statute; writing rule and the Fair Business Practices Act noted).
+- Dispossessory topics answered from Article 3 read whole; where only case law decides (waiver by acceptance, materiality of a breach, self-help damages, shortening the tenancy-at-will notice), the row says so and gives the cautious course instead of a rule.
+- No new clauses so far: every Georgia answer in batches 1 to 3 is an education row or a tag, because Georgia's statutes in these areas either already have a GA clause (`default-by-tenant`, `notices`, `serious-misconduct-prohibition-ga`, `hoa-compliance`) or impose nothing the lease must say.
+- Tags (30 in all): shared clauses that read correctly under Georgia law were tagged before any GA row was written (rules 26-28), each with a GA note; `rules-wi` was chosen over `rules-ia` because O.C.G.A. § 13-5-30(b) requires written, signed modifications of leases over a year; `tenant-repair-agreement-hi` was not tagged because O.C.G.A. § 44-7-2(b)(1) bars shifting the repair duty (`edu-tenant-repair-agreements-ga` instead).
+- `electronic-notice-ma` tagged with a caution: an e-mail address agreed in the lease may count as an 'additional method ... agreed upon in the rental agreement' for the dispossessory notices (O.C.G.A. § 44-7-50(d)).
+- Declined clause options (rule 54): binding arbitration, jury waiver, tenant repair agreements.
+- New variables: none.
+- "Cooling" in the utility shut-off rule: O.C.G.A. § 44-7-14.1(a) now reads 'cooling, heat, light, and water service'; cooling was added by Ga. L. 2024, p. 91, § 3/HB 404, and HB 404 § 6 says the Act 'shall apply to residential lease agreements that are entered into or renewed on or after July 1, 2024'. Rows state the current text without that date; a lease made before July 1, 2024 and never renewed since may not carry the cooling rule, but the library writes new leases, all made after that date, so no row repeats the caveat.
+
+
+### §5 Independent check
+
+Two rounds, one agent at a time, each judging rows only against the saved sources (`check/BRIEF.md`, `check/BRIEF2.md`); no agent wrote files. Each finding was checked against the saved source before it was applied, and each was applied once to row text through errata files (row generators frozen at check start).
+
+**Round 1 (all 270 rows, four slices of 66-68 rows):**
+- Slice 1 (68 rows): 3 ERROR, 37 FIX reported; applied as `r1a` (44 changes), `r1b` (7, the same defect swept from other rows) and `r1c` (15, follow-ups that needed new searches and sections).
+- Slice 2 (68 rows): findings led by an ERROR in `edu-statute-of-frauds-lease-ga` (a modification needs every party's signature, § 13-5-30(b)); applied with a repair-duty sweep as `r1d` (46 changes).
+- Site CAPTCHA (sections could no longer be opened; not solved, Taylor told): rows relying on unread sections softened to say so and the police battery added, as `r1e` (10 changes).
+- Slice 3 (68 rows): 7 ERROR, 23 FIX; applied as `r1f` (44 changes). Example: `edu-no-habitability-presumption-ga` now gives § 41-2-7(b)'s prima-facie unfitness finding.
+- Slice 4 (66 rows: 36 NEW, 30 TAG): 2 ERROR (the sprinkler row's "as built" rule and owner-staff repairs, § 25-11-8(e); the EV-charger residence exclusion, § 10-1-220(6), (7)), 23 FIX; applied as `r1g` (50 changes). No TAG body conflicted with Georgia law. Its reproducibility findings (no saved search behind the concession, installment and association-approval absences; § 41-3-1.1 cited from an unsaved search) were cured by running and saving those searches (17, 52 and 8 hits, the nuisance-rents search 6 hits, the police search 37 hits) before the errata were written.
+
+**Round 2 (the 129 rows edited after round 1, two slices, previous and current text side by side):**
+- Slice 1 (65 rows): 1 ERROR (`edu-pet-fees-ga` said § 30-4-3 has no fee term; (b) bars extra compensation for a service dog), 12 FIX across 13 rows; applied as `r2a` (23 changes, including three optional NOTE wordings).
+- After slice 1 the standard battery preamble was corrected in every row: it had said control "zqxvbnmwt" ran 'in the same batch', which was not true of every battery; it now says nonsense controls "zqxvbnmwt" and 12 lettered variants ran throughout the session, all 0 hits (all 13 saved). Slice 2 saw the corrected wording.
+- Slice 2 (64 rows): 0 ERROR, 14 FIX (one in two rows: the 13-hit disconnection search was said to include § 44-7-14.1, which it does not); applied as `r2b` (21 changes).
+
+**Rows edited after the last round (round 2), not re-checked by an agent (33):** `association-approval-la`, `edu-association-rules-bind-tenants-ga`, `edu-cannabis-ga`, `edu-children-occupancy-ga`, `edu-confirmed-absences-misc-ga`, `edu-deposit-last-month-rent-ga`, `edu-dispossessory-service-ga`, `edu-elevator-duties-ga`, `edu-employee-housing-ga`, `edu-fire-code-standard-ga`, `edu-landlord-utility-account-ga`, `edu-limitation-of-actions-ga`, `edu-no-dv-eviction-defense-ga`, `edu-no-dv-lock-change-ga`, `edu-no-inspection-order-disclosure-ga`, `edu-no-law-enforcement-cooperation-rule-ga`, `edu-no-lead-safe-certificate-ga`, `edu-no-military-zone-disclosure-ga`, `edu-no-portable-cooling-right-ga`, `edu-no-required-fee-list-ga`, `edu-no-residential-sprinkler-mandate-ga`, `edu-no-shutdown-rent-protection-ga`, `edu-no-utility-notice-authorization-ga`, `edu-no-utility-shutoff-rule-ga`, `edu-nuisance-ga`, `edu-pet-fees-ga`, `edu-portfolio-threshold-ga`, `edu-required-disclosures-ga`, `edu-sale-or-management-change-ga`, `edu-service-dog-misrepresentation-ga`, `edu-statutory-early-termination-ga`, `rent-concession-wi`, `tenant-portal-mn`. Each change is the checker's wording or a narrower one, checked against the saved section text before applying; the quotation script passes. The preamble correction also changed the notes of 209 rows (boilerplate only).
+
+**Mechanical checks (final build):** 270 rows (240 new, 30 tags), all 258 topics answered; 270 single-quoted statute passages matched by script against the saved section texts, the only 4 unmatched being the HB 404 § 6 sentence, which matches the act PDF once its printed line numbers are removed; every backticked row reference resolves; ids unique and none collides with the master; required fields present; clauses carry a basis and education rows none; 261 saved sections SHA-256 matched to the manifest.
+
+**Unread at the end (site CAPTCHA, not solved):** O.C.G.A. §§ 8-3-201, 8-3-205, 10-7-21, 10-7-24, 11-2-102, 11-2A-103, 16-12-191 (current), 16-12-200, 30-4-1, 31-41-15, 41-2-2, 41-3-1.1, 41-3-9, 44-3-93, 44-3-109, 44-3-222, 44-3-226, 44-3-235, 48-4-45, 48-5-9, 48-8-2, 50-18-152, 50-18-154. Each row that mentions one says it was not read. § 10-7-24 (a surety discharged when the creditor refuses to sue the principal after the surety's notice) may bear on `guaranty-as`'s 'without first suing Tenant'; the tag rests on §§ 10-7-1, 10-7-3 and 10-7-22, which were read, and Claude Code may wish to re-check it once § 10-7-24 can be opened. Search timestamps are saved in UTC (2026-11-07T00:44Z to 02:55Z), which is 2026-11-06 US time, the date the rows give.
+
+
+### §6 Findings on existing rows
+
+1. **`edu-local-preemption-ga` (rent-control) understates state preemption.** The row's notes say O.C.G.A. § 44-7-19 'does NOT preempt rental registration, licensing, inspection, fees, screening or notice rules', and its body says 'Georgia law does not preempt other local landlord rules generally'. That is true of § 44-7-19 alone, but O.C.G.A. § 36-74-30(b), read whole 2026-11-06 (history: Ga. L. 2025, p. 882, § 1/HB 399, effective July 1, 2025), says: 'No local government is authorized to perform investigations or inspections of residential rental property unless there is probable cause to believe there is or has been a violation or violations of applicable codes, and in no event may a local government require the registration of residential rental property.' Proposed replacement (same id, for Claude Code at sync):
+   - `id` edu-local-preemption-ga; `group` Compliance & Prohibited Terms; `title` State Limits on Local Rent Regulation; `states` GA; `is_active` TRUE; `supersedes` blank; `rule_type` RECOMMENDED; `content_type` LANDLORD_EDUCATION; `verification_status` VERIFIED; `effective_from` 2026-11-06; `last_checked` 2026-11-06; `choice_group` and `is_default` blank; `topic_key` rent-control; `lease_clause_basis` blank.
+   - `bodyText`: "No Georgia county or city may enact, keep or enforce any ordinance or resolution that regulates in any way the amount of rent charged for privately owned single-family or multi-unit residential rental property. Local governments and their housing authorities may still regulate rents on property they own, and may enter agreements with private owners that regulate rent (for example, in exchange for public funding). Since July 1, 2025, a local government also may not require registration of residential rental property, and may inspect or investigate it only with probable cause to believe a code violation exists or has existed. Cities and counties may still set minimum security standards for rental dwellings and enforce unfit-dwelling ordinances, which a lease cannot waive. Other local ordinances are outside this library's scope."
+   - `notes`: keep the existing GA notes, replacing the sentence beginning "It does NOT preempt" with: "It does not itself preempt registration, inspection, fees, screening or notice rules; but O.C.G.A. § 36-74-30(b) (Ga. L. 2025, p. 882, § 1/HB 399, effective July 1, 2025; read whole 2026-11-06 on advance.lexis.com, 'Current through the 2026 Special Session of the General Assembly') bars local rental registration and limits local inspections of residential rental property to probable cause. See `edu-rental-inspection-ga`."
+2. **`edu-nonresident-landlord-broker-ga` (landlord-registration).** Not wrong, but HB 399 (Ga. L. 2025, p. 882) also amended O.C.G.A. § 36-74-30 (§ 1 of the act), which the row does not mention; Claude Code may add a cross-reference to `edu-rental-inspection-ga`.
+
+
+### §7 Findings for other states
+
+None so far.
+
+
+### Proposed SOP changes
+
+1. When a state's public-access code site runs in an iframe-capable app, allow several hidden-iframe search workers in parallel but cap them at about four; above that the site slowed sharply in this pass (about one result per two minutes per worker with seven running).
+2. Add to the local-rules step: search the local-government titles (here O.C.G.A. Title 36) for limits on rental registration and inspection, not only the landlord-tenant chapter's preemption section; Georgia's limit sits in O.C.G.A. § 36-74-30(b).
+
+
+### Proposed topic questions
+
+1. `landlord-registration` / `rental-inspection`: "Does a statute outside the landlord-tenant chapter bar local governments from requiring rental registration or from inspecting rentals without probable cause? (Georgia: O.C.G.A. § 36-74-30(b), 2025.)"
+2. `firearms`: "Does the state fair housing act restrict firearm bans in public housing specifically? (Georgia: O.C.G.A. § 8-3-202(a)(8).)"
+3. `utility-submetering-disclosure`: "Does a water-resources statute, rather than the utility regulator, cap water and sewer rebilling at cost plus a billing fee and require disclosure before signing? (Georgia: O.C.G.A. § 12-5-180.1.)"
