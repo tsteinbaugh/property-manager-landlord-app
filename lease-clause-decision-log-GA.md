@@ -1666,3 +1666,252 @@ None so far.
 1. `landlord-registration` / `rental-inspection`: "Does a statute outside the landlord-tenant chapter bar local governments from requiring rental registration or from inspecting rentals without probable cause? (Georgia: O.C.G.A. § 36-74-30(b), 2025.)"
 2. `firearms`: "Does the state fair housing act restrict firearm bans in public housing specifically? (Georgia: O.C.G.A. § 8-3-202(a)(8).)"
 3. `utility-submetering-disclosure`: "Does a water-resources statute, rather than the utility regulator, cap water and sewer rebilling at cost plus a billing fee and require disclosure before signing? (Georgia: O.C.G.A. § 12-5-180.1.)"
+
+# Topic gaps pass, round 3 (2026-11-06): GA Desktop chat check of the 33 rows edited after round 2
+
+One checking agent read the 33 rows edited after round 2. It judged each row only against the saved section texts and saved searches, wrote no files, and opened no new Lexis sections (no CAPTCHA came up). I checked every finding against the saved source before it went in this report. The attached `ga-round3-rows.md` matches the delivered delta word for word, titles included.
+
+`ga-round3-rows.md` holds row bodies only, so where an old_str comes from the GA notes it is marked **(notes)** and copied from the GA notes in the delivered delta. For a tag row, that means the GA segment of the notes.
+
+**Holds (22):** `association-approval-la`, `edu-cannabis-ga`, `edu-confirmed-absences-misc-ga`, `edu-deposit-last-month-rent-ga`, `edu-dispossessory-service-ga`, `edu-elevator-duties-ga`, `edu-employee-housing-ga`, `edu-limitation-of-actions-ga`, `edu-no-inspection-order-disclosure-ga`, `edu-no-law-enforcement-cooperation-rule-ga`, `edu-no-lead-safe-certificate-ga`, `edu-no-portable-cooling-right-ga`, `edu-no-required-fee-list-ga`, `edu-no-shutdown-rent-protection-ga`, `edu-no-utility-notice-authorization-ga`, `edu-no-utility-shutoff-rule-ga`, `edu-nuisance-ga`, `edu-portfolio-threshold-ga`, `edu-service-dog-misrepresentation-ga`, `edu-statutory-early-termination-ga`, `rent-concession-wi`, `tenant-portal-mn`
+
+#### `edu-association-rules-bind-tenants-ga`
+
+Verdict: FIX
+Reason: O.C.G.A. § 44-5-60(d)(6) has no "recorded" condition. Also, the notes say the fee-cap and rent-collection absence rests on three unopened sections, when most of the 54 hits in that search were never opened.
+
+old_str:
+```
+The same duty binds occupants in a planned subdivision of 15 or more lots under its recorded covenants.
+```
+new_str:
+```
+The same duty binds occupants in a planned subdivision of 15 or more lots under its covenants.
+```
+
+old_str (notes):
+```
+the fee-cap and rent-collection absence rests on their headings.
+```
+new_str:
+```
+the fee-cap and rent-collection absence rests on their headings and on the headings of the other hits that were not opened (most of the 54, for example §§ 44-3-75, 44-3-77, 44-3-101); of the Article 3 and 6 hits only §§ 44-3-76, 44-3-80 [Effective July 1, 2026], 44-3-86, 44-3-87, 44-3-106 and 44-3-111 were saved.
+```
+
+Quotes:
+- O.C.G.A. § 44-5-60(d)(6): 'In every planned subdivision containing no fewer than 15 individual plots, every person owning plots affected by such covenant owner and all those entitled to occupy such property shall comply with all lawful provisions of said covenants and the instrument containing such covenants.' (44-5-60.txt)
+- Saved search: of the Article 3 and 6 hits, show.py reports §§ 44-3-75, 44-3-77, 44-3-101 and others NOT SAVED; §§ 44-3-76, 44-3-80 [Effective July 1, 2026], 44-3-86, 44-3-87, 44-3-106, 44-3-111 are saved.
+
+#### `edu-children-occupancy-ga`
+
+Verdict: FIX
+Reason: No saved source calls Georgia's article the "Fair Housing Act"; that name appears only for the federal Act. `edu-portfolio-threshold-ga` already says "fair housing article", so the two rows should match.
+
+old_str:
+```
+Georgia's Fair Housing Act bars refusing to rent
+```
+new_str:
+```
+Georgia's fair housing article bars refusing to rent
+```
+
+Quotes:
+- O.C.G.A. § 8-3-200(b): 'The general purposes of this article are:' (8-3-200.txt)
+- O.C.G.A. § 2-1-7(a)(3)(A)(ii): 'shall not be in conflict with the federal Fair Housing Act' (2-1-7.txt)
+
+#### `edu-fire-code-standard-ga`
+
+Verdict: FIX
+Reason: The notes misdescribe the first search hit: it is the Title 8, Chapter 2 heading, not Title 25.
+
+old_str (notes):
+```
+5 hits, the Title 25 ch. 2 heading,
+```
+new_str:
+```
+5 hits, the Title 8 ch. 2 heading,
+```
+
+Quotes:
+- Saved search ("Uniform Fire Code" OR "fire code" OR ...): n=5; first hit 'CHAPTER 2 Standards and Requirements for Construction and Alteration of Buildings and Other Structures', breadcrumb O.C.G.A. Title 8, Ch. 2
+
+#### `edu-landlord-utility-account-ga`
+
+Verdict: FIX
+Reason: The body says no statute lets tenants petition for a receiver, but the notes cite no search for that. The saved receivership search supports it, so the notes should cite it.
+
+old_str (notes):
+```
+no tenant pay-and-deduct rule.
+```
+new_str:
+```
+no tenant pay-and-deduct rule. Receivership: (receiver OR receivership) w/30 (rent OR rents OR tenant OR tenants OR "rental property" OR dwelling): 22 hits, general equity receivers (§§ 9-8-2 to 9-8-4), mortgage foreclosure, landlord-tenant §§ 44-7-5, 44-7-11, 44-7-15 and other subjects; no tenant petition for a receiver over unpaid utilities.
+```
+
+Quotes:
+- Saved search (receiver OR receivership) w/30 (rent OR rents OR tenant OR ...): n=22; hits include §§ 9-8-2, 9-8-3, 9-8-4, 44-7-5, 44-7-11, 44-7-15; none on utilities
+
+#### `edu-no-dv-eviction-defense-ga`
+
+Verdict: FIX
+Reason: The early-termination right belongs to a tenant protected by an issued order (or whose minor child is protected), not to every victim. Other rows already say it this way.
+
+old_str:
+```
+Georgia law gives a victim of family violence or stalking a right to end the lease early, but no statute
+```
+new_str:
+```
+Georgia law lets a tenant end the lease early when a family violence or stalking order protects the tenant or the tenant's minor child, but no statute
+```
+
+Quotes:
+- O.C.G.A. § 44-7-23(b): 'A tenant may terminate his or her residential rental or lease agreement for real estate effective 30 days after providing the landlord with a written notice of termination when a civil family violence order, civil stalking order, criminal family violence order, or criminal stalking order has been issued:' (44-7-23.txt)
+
+#### `edu-no-dv-lock-change-ga`
+
+Verdict: FIX
+Reason: The body now covers stalking orders, but the notes cite only the family violence section. § 16-5-94(d)(1) is saved, supports the stalking half, and shows stalking orders list no exclusion term.
+
+old_str (notes):
+```
+Protective orders: O.C.G.A. § 19-13-4 (contents of protective orders; read whole; (a)(2), (5) let the order give the petitioner possession and exclude or evict the respondent).
+```
+new_str:
+```
+Protective orders: O.C.G.A. § 19-13-4 (contents of protective orders; read whole; (a)(1) ('Direct the respondent to refrain from such acts'); (a)(2), (5) let the order give the petitioner possession and exclude or evict the respondent); O.C.G.A. § 16-5-94(d)(1) (stalking orders may 'Direct a party to refrain from such conduct'; (d) lists no possession or exclusion term).
+```
+
+Quotes:
+- O.C.G.A. § 19-13-4(a)(1): 'Direct the respondent to refrain from such acts;' (19-13-4.txt)
+- O.C.G.A. § 16-5-94(d)(1): 'Direct a party to refrain from such conduct;' (16-5-94.txt)
+
+#### `edu-no-military-zone-disclosure-ga`
+
+Verdict: FIX
+Reason: The body relies on the residential-property definition in § 2-1-7(a)(4), which refers to § 8-3-201. That section was not saved, and the notes should say so.
+
+old_str (notes):
+```
+O.C.G.A. § 2-1-7 (foreign acquisitions near installations; read whole)
+```
+new_str:
+```
+O.C.G.A. § 2-1-7 (foreign acquisitions near installations; read whole; (a)(4) defines residential property by reference to 'Code Section 8-3-201', which was not saved)
+```
+
+Quotes:
+- O.C.G.A. § 2-1-7(a)(4): '“Residential property” means real estate intended to be used as the purchaser’s dwelling, as such term is defined in Code Section 8-3-201.' (2-1-7.txt)
+
+#### `edu-no-residential-sprinkler-mandate-ga`
+
+Verdict: ERROR
+Reason: The body says the work takes a "licensed" contractor or inspector. The saved sections only define those licenses. What § 25-11-8 requires is a certificate holder, employed full time, to do or supervise the work. The sections on who must hold a license (§§ 25-11-3 to 25-11-7) were not saved.
+
+old_str:
+```
+Installing or altering a sprinkler system takes a licensed sprinkler contractor, and inspections a licensed contractor or licensed sprinkler system inspector; your own staff may
+```
+new_str:
+```
+Installing, altering or inspecting a sprinkler system is work for a sprinkler contractor that employs a state-certified supervisor full time to do or supervise it (the state also licenses sprinkler contractors and sprinkler system inspectors; the sections on who must hold those licenses were not read); your own staff may
+```
+
+old_str (notes):
+```
+O.C.G.A. §§ 25-11-2, 25-11-8 (installation by licensees; read whole); O.C.G.A. § 25-11-2(9), (10) (fire protection system inspectors; read whole);
+```
+new_str:
+```
+O.C.G.A. § 25-11-2(2), (4) ('supervises, performs, or supervises and performs the installation, repair, alteration, addition, maintenance, or inspection of water-based fire protection systems'), (5), (9), (10) (licenses and inspectors defined only; the license-requirement sections §§ 25-11-3 to 25-11-7 were not saved), read whole; O.C.G.A. § 25-11-8(a) ('No person shall act as a fire protection sprinkler contractor unless a certificate holder is employed full time'), read whole;
+```
+
+Quotes:
+- O.C.G.A. § 25-11-8(a): 'No person shall act as a fire protection sprinkler contractor unless a certificate holder is employed full time, in office or on site or combination thereof, to supervise or perform the installation, repair, alteration, addition, maintenance, or inspection of water-based fire protection systems.' (25-11-8.txt)
+- O.C.G.A. § 25-11-8(d): 'Only fire protection sprinkler contractors or certificate of competency holders shall alter or renovate water-based fire protection systems except as otherwise provided by this chapter.' (25-11-8.txt)
+- O.C.G.A. § 25-11-2(10): '“Fire protection system inspector’s license” means a document issued by the Commissioner which authorizes the fire protection system inspector to engage in the business of inspecting water-based fire protection systems.' (25-11-2.txt)
+
+#### `edu-pet-fees-ga`
+
+Verdict: FIX
+Reason: The cross-reference does not resolve: no row is titled "Assistance Animals". The target `assistance-animal-accommodation-ga` is titled "Service Dogs and Other Assistance Animals".
+
+old_str:
+```
+see the Assistance Animals row before charging
+```
+new_str:
+```
+see Service Dogs and Other Assistance Animals before charging
+```
+
+Quotes:
+- lease-clauses.csv: `assistance-animal-accommodation-ga`, title 'Service Dogs and Other Assistance Animals'
+
+#### `edu-required-disclosures-ga`
+
+Verdict: FIX
+Reason: "Pre-1978" rests on the Lead Warning Statement in § 4852d, because the target-housing definition (§ 4851b) was not saved. The notes should say so.
+
+old_str (notes):
+```
+FEDERAL: 42 U.S.C. § 4852d.
+```
+new_str:
+```
+FEDERAL: 42 U.S.C. § 4852d (the target housing definition in § 4851b was not saved; "pre-1978" rests on the Lead Warning Statement in § 4852d(a)(3), 'built prior to 1978').
+```
+
+Quotes:
+- FEDERAL: 42 U.S.C. § 4852d(a)(3): 'residential real property on which a residential dwelling was built prior to 1978' (42 U.S.C. § 4852d, saved)
+
+#### `edu-sale-or-management-change-ga`
+
+Verdict: FIX
+Reason: "(same battery)" does not resolve: the deposit-on-sale row uses two other searches, and those support the buyer-liability absence.
+
+old_str (notes):
+```
+Deposits: `edu-security-deposit-on-sale-ga` (same battery).
+```
+new_str:
+```
+Deposits and buyer liability: `edu-security-deposit-on-sale-ga` and its batteries ((deposit OR deposits) w/30 (sale OR sell OR sold OR transfer OR transferee OR successor OR purchaser OR grantee OR "new owner") AND (tenant OR tenants OR landlord OR lessor OR lessee): 51 hits; (deposit OR deposits) w/30 (foreclosure): 5 hits).
+```
+
+Quotes:
+- Saved search (deposit OR deposits) w/30 (sale OR sell OR sold OR ...): n=51
+- Saved search (deposit OR deposits) w/30 (foreclosure): n=5
+- Saved search (estoppel w/5 certificate) OR ...: n=13, a different query
+
+### Outside the 33 (found in passing)
+
+#### `edu-no-initials-rule-ga`
+
+Verdict: FIX
+Reason: Outside the 33. Its notes call § 44-3-2 a condominium section, but the saved search shows it is in Article 1, Georgia Land Sales Act (`edu-sale-or-management-change-ga` already says this).
+
+old_str (notes):
+```
+self-storage § 10-4-218 and condominium §§ 44-3-2, 44-3-111;
+```
+new_str:
+```
+self-storage § 10-4-218, Georgia Land Sales Act definitions § 44-3-2 and condominium § 44-3-111;
+```
+
+Quotes:
+- Saved search hit for § 44-3-2: breadcrumb 'Article 1 Georgia Land Sales Act'
+
+### Could not check
+
+- Anything that rests on unsaved sections, beyond whether the row says they are unread: §§ 8-3-201, 8-3-205, 16-12-191 (current), 16-12-200, 25-11-3 to 25-11-7, 30-4-1, 31-41-15, 41-2-2, 41-3-1.1, 41-3-9, 44-3-93, 44-3-109, 44-3-222, 44-3-226, 44-3-235, 50-18-152, 50-18-154; FEDERAL: 42 U.S.C. § 4851b.
+- PSC Rule 515-3-2-.05 and the current code editions adopted by rule.
+- Case-law points the rows frame as cautious courses.
+
+Rows checked: 33; holds: 22; FIX: 10; ERROR: 1. Plus one FIX outside the 33 (`edu-no-initials-rule-ga`).
+
+Applied by Claude Code 2026-11-06: all 14 edits (12 rows) matched exactly once and went in as written; the sprinkler row's citation line now cites §§ 25-11-2 and 25-11-8(a). The "could not check" list joins the unread-sections item in docs/backlog.md.
