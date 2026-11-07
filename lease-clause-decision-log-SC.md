@@ -616,3 +616,1827 @@ SC stays at 121 active rows, and every other state's count is unchanged. Checks:
 - `smoking-policy`: Tenant pays for smoking damage caused by "Tenant, an occupant, or a guest or invitee of Tenant", no longer by anyone's smoking.
 - `no-alterations`: the last sentence adds that the clause "does not change who owns an installation that applicable law makes Tenant's property".
 - `addendum-precedence`: a disclosure, notice or addendum "that applicable law says controls over this Lease" now controls, as one the law requires already did.
+
+# Topic gaps pass (end-of-run consistency pass, 2026-11-07): Desktop's running record
+
+## SC topic gaps — running record (SOP 1.98, 2026-11-07) — COMPLETE
+
+Final delivery 2026-11-07: `lease-clauses-SC-gaps-delta.csv` (266 records: 223 edu rows + 1 optional clause `licensee-status-disclosure-sc`, all states=SC; 42 shared clauses tagged SC) and `gaps-log-SC.md`. 253/253 topics answered; 617 statute quotes machine-matched to the saved official text; independent check 2 rounds (round 1: 4 ERROR / 4 GAP / 16 MINOR, all fixed; round 2: 0 ERROR / 1 GAP / 10 MINOR, all fixed; 11 rows edited after the last round are listed in log §5).
+
+Workspace: `/home/claude/scgaps/` (rows/b1-b7.py, log/, tools/assemble.py, batteries.jsonl, check-round1.md, check-round2.md). Corpus saved 2026-11-07 from scstatehouse.gov via the built-in browser (Code parts sha 5c91a795 / 0a1753de / 0ad534b0 / 8d61b9a4; regs; constitution; acts 2024-26). Late fetches read in-page: Regs. ch. 27 (Word, sha df135597…) and "Chapter 61-80 through 61-92" (PDF, sha 042ace23…).
+
+### Batches
+1. Waivers/remedies/Chapter 40 core — 33 topics (`edu-waiver-by-acceptance-sc` replaced the batch-1 absence row: § 27-37-150).
+2. Domestic violence — 6 topics (§ 27-40-350, 2026 Act No. 184 eff 2026-05-18).
+3. Deposits/fees — 26 topics; 6 tags.
+4. Local limits/inspections/nuisance — 18 topics (+ `edu-lease-option-disclosure-sc`, `licensee-status-disclosure-sc` on required-disclosures).
+5. Unlawful occupants/ejectment — 16 topics (2026 Act No. 252 eff 2026-06-30; Act No. 214 eff 2027-01-01).
+6/7. 154 remaining topics drafted by two parallel agents (b6: 63 rows, 25 tags; b7: 66 rows, 11 tags), reviewed and machine-checked.
+
+### Findings needing Taylor (log §6)
+1. `early-termination-ks` (SC tagged): "30% of the remaining Rent" limb fails the cautious reading of § 27-40-330(c) with § 27-40-730(c)/§ 27-40-50(a); proposed `early-termination-sc` override with the flat one-month fee (as GA/AZ). Not done (scope fence).
+2. `nonpayment-notice-sc` statutory "no other notice" vs CARES 30-day notice: proposed one-sentence pointer in `edu-eviction-process-sc`.
+Other findings (no approval strictly needed): `edu-lead-hazards-sc` misses § 44-53-1440 and Act 146 agency change; four no-disclosure rows (radon, mold, drug lab, flood) incomplete for lease-options (§ 27-50-20(3)); `hoa-compliance` optional notes line; R. 103-535(O) vs § 27-33-50(B).
+Decision for Taylor's awareness: `arbitration-agreement` not tagged for SC (§ 15-48-10(a) first-page notice).
+
+# Topic gaps pass (end-of-run consistency pass, 2026-11-07): Desktop's log
+
+## South Carolina — topic gaps log (end-of-run consistency pass, SOP 1.98)
+
+Run date 2026-11-07. Scope: answer the 253 topics in `missing-topics-SC.md` with new rows (or SC tags on existing shared rows), plus the 11 South Carolina items in GAPS-PROMPT.md. No existing row's text was changed. This log is cumulative and is replaced at each batch delivery.
+
+**Status:** complete. All 253 topics are answered by 224 new rows (223 education rows and 1 optional lease clause, `licensee-status-disclosure-sc`) plus South Carolina tags on 42 existing shared clauses: 266 delta records. Every single-quoted statute quotation (617) was matched by script against the saved official text. The independent check ran two rounds (§5). Two findings need your approval (§6 items 1 and 2).
+
+### §1 Sources, channel, currency
+
+**Channel.** The workspace shell can't reach scstatehouse.gov (the proxy returns 403), so every source was fetched with the built-in browser on Taylor's computer, saved as a blob download to the Downloads folder, staged into the workspace, and checked against a SHA-256 computed in the page over the same bytes (37 files, all matched; `manifest-downloads.txt`). Every quotation in a row was then checked by script against the saved text of the cited section (SOP rule 59).
+
+**Code of Laws.** All 1,319 chapter pages of the official Code of Laws on scstatehouse.gov, saved 2026-11-07 in four parts (part1 5c91a795…, part2 0a1753de…, part3 0ad534b0…, part4 8d61b9a4…). Each page reads "current through the 2026 Session of the General Assembly". Split into 31,342 sections by their SECTION headers; 137 sections print two versions (for example S.C. Code Ann. § 8-21-1010, a version effective until January 1, 2027 and one effective from that date), and rows quote the version in force and say when the other starts.
+
+**Regulations.** Code of Regulations chapters 8, 28, 60, 61 (sub-files 1-17, 18-58 and 71), 64, 65, 71, 103, 105 and 117, saved as the official PDFs 2026-11-07. Each reads "current through State Register Volume 50, Issue 3, effective March 27, 2026". A regulation chapter not in this set is a fetch request, not an absence (SOP rule 36). Two more were fetched late in the pass to answer fetch requests: "Chapter 61-80 through 61-92" (official PDF, 568,045 bytes, SHA-256 042ace237b273aa3158d34e83f7ec945ec41b300effe44e108c5e29dde357e80, for Regs. 61-86.1) and chapter 27 (official Word file from getfile.php, 352,696 bytes, SHA-256 df1355971bdfc291e1ca2de2d245d826d452aa189f35c5f1e4b0689d06719119). Both were read in the page: the PDF with pdf.js 4.0.379 from cdnjs, the Word file by unzipping document.xml. Every other chapter 61 file (61-62 to 61-79, 61-93 to 61-125) was screened in the page for lead rules. Both downloads failed to land in the Downloads folder, so they aren't in the workspace and their text isn't available to the quote checker.
+
+**Constitution.** The preamble, articles I-XVII (with VIII-A) and the amendments page, saved as the official PDFs 2026-11-07.
+
+**Session laws.** The 2024, 2025 and 2026 act lists (148, 94 and 180 acts) and each act's text page, saved 2026-11-07 (da84b08e…). Effective-date sections were read for each 2026 act relied on (SC item 11).
+
+**Court rules.** Cited as `Rule 4(d), SCRCP` and `Rule 1, SCRMC`. The South Carolina Judicial Branch's rule set doesn't print an abbreviation for the magistrates' court rules; SCRMC is used for consistency with the earlier SC logs.
+
+**Case law.** Not searched (SOP). Where a topic turns on case law, the row says so and gives the cautious course (Part 5).
+
+
+### §2 Topics answered
+
+253 of 253 topics answered so far (224 new rows, 42 tagged rows). One line per topic: topic, row id, result, citation.
+
+- `habitability-waiver`: `edu-habitability-waiver-sc` (edu, PROHIBITED), Present; S.C. Code Ann. § 27-40-330(a); S.C. Code Ann. § 27-40-330(b); S.C. Code Ann. § 27-40-340
+- `habitability-modifiable`: `edu-habitability-modifiable-sc` (edu, CONSTRAINED), Present; S.C. Code Ann. § 27-40-440(a)(5); S.C. Code Ann. § 27-40-440(a)(4); S.C. Code Ann. § 27-40-440(b)
+- `maintenance-duty-shift`: `edu-maintenance-duty-shift-sc` (edu, CONSTRAINED), Present; S.C. Code Ann. § 27-40-440(c); S.C. Code Ann. § 27-40-440(d); S.C. Code Ann. § 27-40-440(d)(1)
+- `notice-to-quit-waiver`: `edu-notice-to-quit-waiver-sc` (edu, PROHIBITED), Present; S.C. Code Ann. § 27-40-330(a); S.C. Code Ann. § 27-40-710(A); S.C. Code Ann. § 27-40-770(a)
+- `showing-notice-waiver`: `edu-showing-notice-waiver-sc` (edu, CONSTRAINED), Present; S.C. Code Ann. § 27-40-530(a); S.C. Code Ann. § 27-40-530(c); S.C. Code Ann. § 27-40-330(a)(1)
+- `security-deposit-nonwaiver`: `edu-security-deposit-nonwaiver-sc` (edu, PROHIBITED), Present; S.C. Code Ann. § 27-40-330(a); S.C. Code Ann. § 27-40-410(a); S.C. Code Ann. § 27-40-410(b)
+- `part5-nonwaivable`: `edu-part5-nonwaivable-sc` (edu, PROHIBITED), Present; S.C. Code Ann. § 27-40-330(a); S.C. Code Ann. § 27-40-330(b); S.C. Code Ann. § 27-40-330(c)
+- `smoke-drift-waiver`: `edu-no-smoke-drift-rule-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. §§ 5-25-1310 to 5-25-1340, 23-9-155; S.C. Code Ann. § 44-95-20; S.C. Code Ann. § 44-95-20(5)
+- `jury-waiver`: `edu-jury-waiver-sc` (edu, RECOMMENDED), Present / Absent; S.C. Code Ann. § 27-37-80; S.C. Const. art. I, § 14; S.C. Code Ann. §§ 14-7-1090, 14-25-125, 16-3-20, 62-1-306
+- `confession-of-judgment`: `edu-confession-of-judgment-sc` (edu, PROHIBITED), Present; S.C. Code Ann. § 27-40-330(a); S.C. Code Ann. § 27-40-330(a)(2); S.C. Code Ann. § 27-40-330(b)
+- `exculpatory-clauses`: `edu-exculpatory-clauses-sc` (edu, PROHIBITED), Present; S.C. Code Ann. § 27-40-330(a); S.C. Code Ann. § 27-40-330(a)(3); S.C. Code Ann. § 27-40-330(b)
+- `unconscionability`: `edu-unconscionability-sc` (edu, RECOMMENDED), Present; S.C. Code Ann. § 27-40-230(a)(1); S.C. Code Ann. § 27-40-230(a)(2); S.C. Code Ann. § 27-40-230(a)(3)
+- `attorney-fees`: `edu-attorney-fees-sc` (edu, RECOMMENDED), Present; S.C. Code Ann. § 27-40-710(C); S.C. Code Ann. § 27-40-750; S.C. Code Ann. § 27-40-770(c)
+- `collection-fee`: `edu-no-collection-fee-rule-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-37-155(B)(5); S.C. Code Ann. §§ 37-2-413, 37-3-404; S.C. Code Ann. § 37-2-106
+- `notice-service-fee`: `edu-no-notice-service-fee-rule-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 58-37-50; S.C. Code Ann. § 4-12-30; S.C. Code Ann. § 27-40-210(11)
+- `eviction-penalty-clause-ban`: `edu-no-eviction-fee-rule-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 16-17-560; S.C. Code Ann. § 8-21-1010(A)(9); S.C. Code Ann. § 8-21-1010
+- `liquidated-damages`: `edu-liquidated-damages-sc` (edu, CONSTRAINED), Present; S.C. Code Ann. § 27-40-330(c)
+- `casualty-and-mitigation-waivable`: `edu-casualty-and-mitigation-waivable-sc` (edu, PROHIBITED), Present; S.C. Code Ann. § 27-40-330(a); S.C. Code Ann. § 27-40-650(a); S.C. Code Ann. § 27-40-50(a)
+- `waiver-by-acceptance`: `edu-waiver-by-acceptance-sc` (edu, RECOMMENDED), Present / Absent; S.C. Code Ann. § 27-37-150; S.C. Code Ann. §§ 27-40-320, 27-37-150; S.C. Code Ann. § 27-40-320(a)
+- `knowing-use-penalty`: `edu-knowing-use-penalty-sc` (edu, RECOMMENDED), Present; S.C. Code Ann. § 27-40-330(b); S.C. Code Ann. § 27-40-350, 2026
+- `abandonment-and-mitigation`: `edu-abandonment-and-mitigation-sc` (edu, RECOMMENDED), Present; S.C. Code Ann. § 27-40-730(a); S.C. Code Ann. § 27-40-730(b); S.C. Code Ann. § 27-40-730(c)
+- `landlord-breach-remedy`: `edu-landlord-breach-remedy-sc` (edu, RECOMMENDED), Present; S.C. Code Ann. § 27-40-610(a); S.C. Code Ann. § 27-40-610(a)(2); S.C. Code Ann. § 27-40-610(b)
+- `landlord-remedies-termination`: `edu-landlord-remedies-termination-sc` (edu, RECOMMENDED), Present; S.C. Code Ann. § 27-40-710(B); S.C. Code Ann. § 27-40-710(A); S.C. Code Ann. § 27-40-710(C)
+- `tenant-repair-remedies`: `edu-tenant-repair-remedies-sc` (edu, RECOMMENDED), Present; S.C. Code Ann. § 27-40-630(a); S.C. Code Ann. § 27-40-630(a)(1); S.C. Code Ann. § 27-40-630(a)(2)
+- `rent-receipt-anti-waiver`: `edu-rent-receipt-anti-waiver-sc` (edu, PROHIBITED), Present; S.C. Code Ann. § 27-40-340; S.C. Code Ann. § 27-40-410(e); S.C. Code Ann. § 27-40-420(b)
+- `rent-into-court-counterclaim`: `edu-rent-into-court-counterclaim-sc` (edu, RECOMMENDED), Present; S.C. Code Ann. § 27-40-790; S.C. Code Ann. § 27-40-790(a); S.C. Code Ann. § 27-40-790(b)
+- `landlord-lien`: `edu-landlord-lien-sc` (edu, RECOMMENDED), Present; S.C. Code Ann. § 27-40-740(a); S.C. Code Ann. § 27-40-740(b); S.C. Code Ann. § 27-39-210
+- `habitability-materiality`: `edu-habitability-materiality-sc` (edu, RECOMMENDED), Present; S.C. Code Ann. § 27-40-610(a); S.C. Code Ann. § 27-40-630(a); S.C. Code Ann. § 27-40-640(b)(1)
+- `habitability-presumption`: `edu-no-habitability-presumption-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-40-440(a)(5); S.C. Code Ann. § 27-40-910(e)
+- `habitability-statement`: `edu-no-habitability-statement-rule-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-40-430; S.C. Code Ann. § 27-40-440(a); S.C. Code Ann. § 27-40-710(B)
+- `cure-and-eviction-grounds`: `edu-cure-and-eviction-grounds-sc` (edu, RECOMMENDED), Present; S.C. Code Ann. § 27-40-710(A); S.C. Code Ann. § 27-40-710(B); S.C. Code Ann. § 27-40-540
+- `tenant-statutory-duties`: `edu-tenant-statutory-duties-sc` (edu, RECOMMENDED), Present; S.C. Code Ann. § 27-40-510; S.C. Code Ann. § 27-40-510(1); S.C. Code Ann. § 27-40-510(2)
+- `confirmed-absences-habitability`: `edu-confirmed-absences-habitability-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-40-630(c); S.C. Code Ann. § 27-40-790; S.C. Code Ann. § 27-40-800(d)
+- `dv-confidentiality`: `edu-no-dv-confidentiality-rule-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. §§ 1-7-1110, 16-3-2070, 63-7-1990; S.C. Code Ann. § 16-25-130(B); S.C. Code Ann. § 16-25-130(B)(2)(b)
+- `dv-deposit-timing`: `edu-dv-deposit-timing-sc` (edu, CONSTRAINED), Present; S.C. Code Ann. § 27-40-350(A)(2); S.C. Code Ann. § 27-40-350(C); 2026 Act No. 184
+- `dv-eviction-protection`: `edu-dv-eviction-protection-sc` (edu, RECOMMENDED), Present / Absent; S.C. Code Ann. § 27-40-350(D)(1); S.C. Code Ann. § 27-40-350(E); S.C. Code Ann. § 27-40-350(C)
+- `dv-lockchange`: `edu-no-dv-lockchange-rule-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-40-530(e); S.C. Code Ann. § 20-4-60(C)(3); S.C. Code Ann. § 20-4-60(A)(2)
+- `dv-protection-order-chapter-moved`: `edu-dv-protection-order-chapter-moved-sc` (edu, RECOMMENDED), Present; S.C. Code Ann. § 27-40-210(20); 2026 Act No. 184; S.C. Code Ann. § 20-4-10
+- `dv-qualifying-documents`: `edu-dv-qualifying-documents-sc` (edu, CONDITIONAL), Present; S.C. Code Ann. § 27-40-350(B); S.C. Code Ann. § 27-40-210(20); S.C. Code Ann. § 27-40-350(A)(1)
+- `deposit-cost-schedule`: `edu-no-deposit-cost-schedule-rule-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-40-410(a); S.C. Code Ann. § 27-40-510(8); S.C. Code Ann. § 27-40-330(a)(1)
+- `deposit-escheat`: `edu-deposit-escheat-sc` (edu, RECOMMENDED), Present; S.C. Code Ann. § 27-18-20(10)(b); S.C. Code Ann. § 27-18-20(8); S.C. Code Ann. § 27-18-30(A)
+- `deposit-installments`: `edu-no-deposit-installments-rule-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 11-48-50; S.C. Code Ann. § 27-40-210(18)
+- `deposit-last-month-rent`: `edu-no-deposit-last-month-rule-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-40-410(b); S.C. Code Ann. § 27-40-210(18)
+- `deposit-surrender-notice`: `edu-no-deposit-surrender-notice-rule-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-40-410(a); S.C. Code Ann. §§ 27-40-410; S.C. Code Ann. § 27-40-330(a)(1)
+- `expedited-deposit-disposition`: `edu-no-expedited-deposit-disposition-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-40-130(a); S.C. Code Ann. § 27-40-410(b)
+- `fee-in-lieu-of-deposit`: `edu-no-fee-in-lieu-rule-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-40-210(18)
+- `fee-transparency`: `edu-no-fee-transparency-rule-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. §§ 40-8-150, 27-32-60; S.C. Code Ann. § 39-5-20(a); S.C. Code Ann. § 39-5-10(b)
+- `fee-unprovided-service`: `edu-no-fee-unprovided-service-rule-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-47-310(E); S.C. Code Ann. § 39-5-20(a)
+- `holding-deposit`: `edu-no-holding-deposit-rule-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 22-3-10(13); S.C. Code Ann. § 27-18-175; S.C. Code Ann. § 37-11-90
+- `nonrefundable-deposit-separate-notice`: `edu-no-nonrefundable-separate-notice-rule-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-50-240(B); S.C. Code Ann. § 37-2-706; S.C. Code Ann. § 27-40-210(18)
+- `pet-fees`: `edu-pet-fees-sc` (edu, RECOMMENDED), Present / Absent; S.C. Code Ann. § 27-40-210(18); S.C. Code Ann. § 40-57-136(C)(2); S.C. Code Ann. § 27-40-210(11)
+- `security-deposit-holding`: `edu-security-deposit-holding-sc` (edu, RECOMMENDED), Present; S.C. Code Ann. § 27-40-210(18); S.C. Code Ann. § 40-57-136(A)(3); S.C. Code Ann. § 40-57-136(C)(1)(a)
+- `security-deposit-on-sale`: `edu-security-deposit-on-sale-sc` (edu, RECOMMENDED), Present; S.C. Code Ann. § 27-40-450(a); S.C. Code Ann. § 27-40-410(e); S.C. Code Ann. § 27-40-450(b)
+- `security-deposit-penalty`: `edu-security-deposit-penalty-sc` (edu, RECOMMENDED), Present; S.C. Code Ann. § 27-40-410(b); S.C. Code Ann. § 27-40-410(a); S.C. Code Ann. § 27-40-410(c)
+- `statutory-caps`: `edu-statutory-caps-sc` (edu, RECOMMENDED), Present; S.C. Code Ann. § 27-39-60; S.C. Code Ann. § 27-40-410(a); S.C. Code Ann. § 27-40-660
+- `late-fee-limit`: `edu-no-park-late-fee-cap-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-40-210(11); S.C. Code Ann. § 27-47-310(D)(7)
+- `subsidy-late-fee`: `edu-no-subsidy-late-fee-rule-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-40-210(11)
+- `utility-deposit-return`: `edu-utility-deposit-return-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-40-210(18); S.C. Code Ann. § 27-18-90(A)
+- `alarm-tampering-fee`: `edu-alarm-tampering-fee-sc` (edu, RECOMMENDED), Present; S.C. Code Ann. § 5-25-1330(C); S.C. Code Ann. § 27-40-510(6)
+- `accessory-dwelling-unit`: `edu-no-adu-rule-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 6-29-720(A); S.C. Code Ann. § 27-39-60
+- `single-family-zone-lease-limit`: `edu-no-owner-occupancy-zone-rule-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. §§ 11-11-156, 12-37-220; S.C. Code Ann. § 27-39-60
+- `landlord-registration`: `edu-no-landlord-registration-rule-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 6-1-825; S.C. Code Ann. §§ 40-57-370, 40-57-520; S.C. Code Ann. § 27-40-420(a)
+- `landlord-liability-insurance`: `edu-no-landlord-insurance-mandate-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 37-4-202; S.C. Code Ann. § 38-75-60; S.C. Code Ann. § 27-39-60
+- `rental-inspection`: `edu-rental-inspection-sc` (edu, RECOMMENDED), Present; S.C. Code Ann. § 31-15-20; S.C. Code Ann. § 31-15-30(4); S.C. Code Ann. §§ 31-15-320, 31-15-330
+- `substandard-property-receivership`: `edu-no-substandard-receivership-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 31-15-20; S.C. Code Ann. § 31-15-30(6); S.C. Code Ann. § 23-9-150
+- `health-district-rental-rules`: `edu-no-health-district-rules-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-40-440(a)(1); S.C. Code Ann. § 27-39-60
+- `good-cause-notice`: `edu-no-good-cause-rule-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-40-770(a); S.C. Code Ann. § 27-40-910(a); S.C. Code Ann. § 27-39-60
+- `tpa-notice`: `edu-condo-conversion-tenant-offer-sc` (edu, RECOMMENDED), Present; S.C. Code Ann. § 27-31-420(A); S.C. Code Ann. § 27-31-420(A)(3); S.C. Code Ann. § 27-31-420(B)
+- `tpa-exemption-notice`: `edu-no-tpa-exemption-notice-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-31-420; S.C. Code Ann. § 27-39-60
+- `tpa-sunset`: `edu-no-tpa-sunset-sc` (edu, RECOMMENDED), Absent; 1986 Act No. 336; 2026 Act No. 155
+- `required-disclosures`: `edu-required-disclosures-sc` (edu, RECOMMENDED), Present; S.C. Code Ann. § 27-40-420(a); S.C. Code Ann. § 27-40-410(c); S.C. Code Ann. § 27-40-710(B)
+- `portfolio-thresholds`: `edu-portfolio-thresholds-sc` (edu, RECOMMENDED), Present; S.C. Code Ann. § 27-40-440(a)(3); S.C. Code Ann. § 27-40-410(c); S.C. Code Ann. § 27-40-910(e)
+- `rent-demand-bar`: `edu-no-rent-demand-bar-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-40-640(a); S.C. Code Ann. § 27-40-790(a); S.C. Code Ann. § 27-40-630(a)
+- `condemned-premises-rent-bar`: `edu-no-condemned-rent-bar-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 31-15-30(4); S.C. Code Ann. § 27-40-440(a)(2); S.C. Code Ann. § 27-40-610
+- `inspection-condemnation-disclosure`: `edu-no-condemnation-disclosure-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 31-15-30(2); S.C. Code Ann. § 31-15-30(4)
+- `subsidized-inspection-refusal`: `edu-no-subsidized-inspection-rule-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 4-9-195; S.C. Code Ann. § 31-21-40(4)
+- `nuisance`: `edu-nuisance-sc` (edu, RECOMMENDED), Present; S.C. Code Ann. § 15-43-10(A); S.C. Code Ann. § 15-43-80; S.C. Code Ann. § 15-43-110
+- `required-disclosures`: `edu-lease-option-disclosure-sc` (edu, REQUIRED), Present; S.C. Code Ann. § 27-50-20; S.C. Code Ann. § 27-50-20(3); S.C. Code Ann. § 27-50-40(A)
+- `required-disclosures`: `licensee-status-disclosure-sc` (clause, CONDITIONAL), Present; S.C. Code Ann. § 40-57-135(F)(1); S.C. Code Ann. § 40-57-135(F)(1)(c); S.C. Code Ann. § 40-57-135(F)(1)(a)
+- `trespass-notice`: `edu-trespass-notice-sc` (edu, RECOMMENDED), Present; S.C. Code Ann. § 16-11-620; S.C. Code Ann. § 27-37-310; 2026 Act No. 252
+- `expedited-criminal-eviction`: `edu-no-expedited-criminal-eviction-sc` (edu, RECOMMENDED), Present / Absent; S.C. Code Ann. § 27-40-540; S.C. Code Ann. § 27-40-710(B); S.C. Code Ann. § 27-40-710(A)
+- `criminal-activity`: `edu-criminal-activity-sc` (edu, RECOMMENDED), Present; S.C. Code Ann. § 27-40-540; S.C. Code Ann. § 27-40-710(B); S.C. Code Ann. § 44-53-380(a)(6)
+- `possession-bond`: `edu-possession-bond-sc` (edu, RECOMMENDED), Present; S.C. Code Ann. § 27-40-800(b); S.C. Code Ann. § 27-40-800(c); S.C. Code Ann. § 27-40-800(d)
+- `eviction-hardship-stay`: `edu-no-eviction-hardship-stay-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-40-800(b); S.C. Code Ann. § 27-37-160; S.C. Code Ann. §§ 27-40-800
+- `post-eviction-property`: `edu-post-eviction-property-sc` (edu, RECOMMENDED), Present; S.C. Code Ann. § 27-40-710(D); S.C. Code Ann. § 27-40-730(d); S.C. Code Ann. § 27-37-160
+- `tenant-records`: `edu-tenant-records-sc` (edu, RECOMMENDED), Present; S.C. Code Ann. § 27-40-790(a); S.C. Code Ann. § 40-57-136(F)(2)(c); S.C. Code Ann. § 40-57-136(F)(1)
+- `eviction-service-party`: `edu-eviction-service-party-sc` (edu, RECOMMENDED), Present; S.C. Code Ann. § 27-40-420(a); S.C. Code Ann. § 27-40-420(c); S.C. Code Ann. § 27-37-30(A)
+- `minor-tenant-filing`: `edu-minor-tenant-filing-sc` (edu, RECOMMENDED), Present / Absent; S.C. Const. art. XVII, § 14; S.C. Code Ann. § 63-5-310; S.C. Code Ann. § 27-37-160
+- `redemption`: `edu-no-redemption-right-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-37-150; S.C. Code Ann. § 27-40-790(a)
+- `forfeiture-redemption`: `edu-no-forfeiture-relief-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-40-710(B); S.C. Code Ann. § 27-40-640(a); S.C. Code Ann. § 27-40-790
+- `social-security-defense`: `edu-no-benefit-delay-defense-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-40-710(B)
+- `tenant-bankruptcy`: `edu-no-tenant-bankruptcy-rule-sc` (edu, RECOMMENDED), Absent; FEDERAL: 11 U.S.C. § 362(a
+- `confirmed-absences-outside-title`: `edu-confirmed-absences-outside-title-sc` (edu, RECOMMENDED), Present / Absent; S.C. Code Ann. § 27-37-200(5); S.C. Code Ann. § 27-37-210; S.C. Code Ann. § 27-37-230(A)
+- `lockout-for-rent-delinquency`: `edu-no-rent-lockout-sc` (edu, PROHIBITED), Present; S.C. Code Ann. § 27-40-760; S.C. Code Ann. § 27-40-660; S.C. Code Ann. § 27-40-330(a)(1)
+- `written-notice-required`: `edu-written-notice-required-sc` (edu, RECOMMENDED), Present; S.C. Code Ann. § 27-40-240(B); S.C. Code Ann. § 27-40-240(B)(3); S.C. Code Ann. §§ 27-40-420(a), 27-40-710(A)
+- `actual-notice-method`: `edu-no-agreed-notice-method-rule-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-40-240(B); S.C. Code Ann. § 27-40-240(B)(1); S.C. Code Ann. § 27-40-240(B)(3)
+- `adverse-proceeding-notice`: `edu-no-adverse-proceeding-notice-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-35-80; S.C. Code Ann. § 27-35-50; S.C. Code Ann. § 31-15-60
+- `animal-care-access`: `edu-no-animal-care-entry-right-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. §§ 27-37-240, 27-37-250; S.C. Code Ann. § 27-40-530(d); S.C. Code Ann. §§ 27-40-720
+- `alt-housing`: `edu-no-alt-housing-duty-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 39-5-145; S.C. Code Ann. § 27-40-650(a); S.C. Code Ann. § 27-40-630(a)(1)
+- `asbestos-hazards`: `edu-asbestos-sc` (edu, RECOMMENDED), Present / Absent; S.C. Code Ann. § 27-50-20; S.C. Code Ann. § 27-50-20(3); S.C. Code Ann. § 27-50-40(A)(6)
+- `association-obligations-disclosure`: `edu-no-association-disclosure-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-1-60; S.C. Code Ann. §§ 27-31-420 to 27-31-440; S.C. Code Ann. § 27-30-130(A)(1)
+- `hoa`: `edu-hoa-sc` (edu, RECOMMENDED), Present / Absent; S.C. Code Ann. § 27-31-100(h); S.C. Code Ann. § 27-31-170; S.C. Code Ann. § 27-31-280
+- `automatic-renewal`: `edu-no-automatic-renewal-rule-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-31-420; S.C. Code Ann. § 27-40-910; S.C. Code Ann. § 27-40-310(a)
+- `balcony-inspection`: `edu-no-balcony-inspection-rule-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 45-5-50; S.C. Code Ann. § 6-9-50(A); S.C. Code Ann. § 6-9-60
+- `binding-arbitration`: `edu-binding-arbitration-sc` (edu, RECOMMENDED), Present / Absent; S.C. Code Ann. § 15-48-10(a); S.C. Code Ann. § 15-48-10(b)(4); S.C. Code Ann. § 27-40-130(a)
+- `cannabis`: `edu-cannabis-sc` (edu, RECOMMENDED), Present / Absent; S.C. Code Ann. § 44-53-370(c); S.C. Code Ann. § 44-53-110; S.C. Code Ann. § 46-55-20(A)(1)
+- `certificate-of-occupancy-disclosure`: `edu-no-certificate-of-occupancy-disclosure-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-31-30; S.C. Code Ann. § 6-9-50(A); S.C. Code Ann. § 27-40-440(a)(1)
+- `children-occupancy`: `edu-children-occupancy-sc` (edu, RECOMMENDED), Present; S.C. Code Ann. § 31-21-30(6); S.C. Code Ann. § 31-21-40(1); S.C. Code Ann. § 31-21-40(2)
+- `cold-weather-vacate-notice`: `edu-no-cold-weather-vacate-notice-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 40-10-20; S.C. Code Ann. § 27-40-510(5); S.C. Code Ann. § 27-40-530(b)(1)
+- `communal-land-lease-approval`: `edu-communal-land-lease-sc` (edu, RECOMMENDED), Present / Absent; S.C. Code Ann. § 27-15-10; S.C. Code Ann. § 27-15-20; S.C. Code Ann. § 27-16-30(10)
+- `construction-liens`: `edu-construction-liens-sc` (edu, RECOMMENDED), Present / Absent; S.C. Code Ann. § 29-5-10(a); S.C. Code Ann. § 27-40-630(c)
+- `consumer-protection-act`: `edu-consumer-protection-act-sc` (edu, RECOMMENDED), Present / Absent; S.C. Code Ann. § 39-5-20(a); S.C. Code Ann. § 39-5-10(b); S.C. Code Ann. § 39-5-40(a)
+- `disaster-duties`: `edu-disaster-duties-sc` (edu, RECOMMENDED), Present / Absent; S.C. Code Ann. § 39-5-145(B)(1)(b); S.C. Code Ann. § 39-5-145(C)(1)(b); S.C. Code Ann. § 39-5-145(D)
+- `disaster-displaced-guests`: `edu-no-disaster-guest-rule-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. §§ 31-6-90, 31-7-90; S.C. Code Ann. §§ 25-9-20, 25-9-420; S.C. Code Ann. § 39-5-145(B)(1)(b)
+- `defective-drywall-disclosure`: `edu-no-drywall-disclosure-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 40-11-410; S.C. Code Ann. § 27-50-20; S.C. Code Ann. § 27-50-20(3)
+- `designated-repairer`: `edu-no-designated-repairer-rule-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-40-630; S.C. Code Ann. § 27-40-440(c); S.C. Code Ann. § 27-40-630(a)(1)
+- `disability-accommodation`: `edu-disability-accommodation-sc` (edu, RECOMMENDED), Present; S.C. Code Ann. § 31-21-70(G)(2); S.C. Code Ann. § 31-21-70(G)(1); S.C. Code Ann. § 31-21-40(6)
+- `double-letting`: `edu-no-double-letting-rule-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-40-620(a); S.C. Code Ann. § 27-40-620(a)(1); S.C. Code Ann. § 27-40-620(b)
+- `electric-submetering-disclosure`: `edu-no-submetering-disclosure-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 58-27-10(7); S.C. Code Ann. § 58-33-220(20); S.C. Code Ann. § 27-33-50(C)
+- `employee-screening`: `edu-no-employee-screening-rule-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 40-57-510(F)
+- `entity-landlord-court-representation`: `edu-entity-landlord-court-representation-sc` (edu, RECOMMENDED), Present; S.C. Code Ann. § 33-1-103; S.C. Code Ann. § 31-3-70; 2026 Act No. 233
+- `environmental-event-termination`: `edu-no-environmental-event-termination-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 44-4-570; S.C. Code Ann. § 27-40-650(a); S.C. Code Ann. § 27-40-650(a)(1)
+- `ev-charging-requirements`: `edu-ev-charging-requirements-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 58-27-1060(A); S.C. Code Ann. § 58-27-1060(A)(1); S.C. Code Ann. § 27-40-310(a)
+- `ev-charging-shared-area`: `edu-ev-charging-shared-area-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-40-440(a)(3)
+- `ev-charging-end-of-tenancy`: `edu-ev-charging-end-of-tenancy-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-40-410(a); S.C. Code Ann. § 27-40-510(8); S.C. Code Ann. § 27-40-730(d)
+- `family-child-care`: `edu-family-child-care-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 63-13-210(A); S.C. Code Ann. § 27-40-540
+- `home-business`: `edu-home-business-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 48-60-20; S.C. Code Ann. § 27-40-540; S.C. Code Ann. § 27-39-60
+- `fire-code-standard`: `edu-fire-code-standard-sc` (edu, RECOMMENDED), Present; S.C. Code Ann. § 6-9-50(A); S.C. Code Ann. § 6-9-60; S.C. Code Ann. § 27-40-440(a)(1)
+- `fire-sprinkler-duty`: `edu-no-fire-sprinkler-duty-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. §§ 12-6-3622, 12-37-220, 12-37-3130; S.C. Code Ann. § 6-9-55(B); S.C. Code Ann. § 23-9-155
+- `firearms`: `edu-firearms-sc` (edu, RECOMMENDED), Present / Absent; S.C. Code Ann. § 23-31-220(A)(2); S.C. Code Ann. § 23-31-220(B); S.C. Code Ann. § 16-11-620
+- `foreclosure`: `edu-foreclosure-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-35-50; S.C. Code Ann. § 27-31-210(a); FEDERAL: Protecting Tenants at Foreclosure Act, 12 U.S.C. § 5220 note (cited for context, not read in this pass
+- `foreign-ownership`: `edu-foreign-ownership-sc` (edu, RECOMMENDED), Present / Absent; S.C. Code Ann. § 27-13-10; S.C. Code Ann. § 27-13-30; S.C. Code Ann. § 27-13-40
+- `frozen-standard-incorporation`: `edu-code-editions-sc` (edu, RECOMMENDED), Present; S.C. Code Ann. § 6-9-50(A); S.C. Code Ann. § 6-9-40(A); S.C. Code Ann. § 1-34-30(A)
+- `guest-rights`: `edu-no-guest-rights-statute-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-40-510(7); S.C. Code Ann. § 27-40-510(6); S.C. Code Ann. § 27-40-520(a)
+- `hazardous-contamination-disclosure`: `edu-no-contamination-disclosure-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-50-40(A)(6); S.C. Code Ann. § 27-50-20; S.C. Code Ann. § 27-50-20(3)
+- `heating`: `edu-heating-sc` (edu, RECOMMENDED), Present; S.C. Code Ann. § 27-40-440(a)(4); S.C. Code Ann. § 27-40-440(a)(5); S.C. Code Ann. § 27-40-210(17)
+- `homestead-waiver`: `edu-no-homestead-waiver-sc` (edu, RECOMMENDED), Absent; S.C. Const. art. III, § 28; S.C. Code Ann. § 15-41-30(A); S.C. Code Ann. § 27-40-740
+- `infirmity-termination`: `edu-no-infirmity-termination-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-40-730(c); S.C. Code Ann. § 31-21-70(G)(2)
+- `key-control-policy`: `edu-no-key-control-policy-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-40-530(e); S.C. Code Ann. § 27-40-530(d); S.C. Code Ann. § 27-40-530(d)(1)
+- `lead-state-notices`: `edu-lead-state-notices-sc` (edu, RECOMMENDED), Present; S.C. Code Ann. § 44-53-1430(A)(1); S.C. Code Ann. § 44-53-1430(A)(2); S.C. Code Ann. § 44-53-1430(B)
+- `lead-safe-certification`: `edu-no-lead-safe-certification-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 44-53-1440; S.C. Code Ann. § 44-53-1320(4); 2026 Act No. 146
+- `lease-content-requirements`: `edu-lease-content-requirements-sc` (edu, RECOMMENDED), Present; S.C. Code Ann. § 27-40-420(a); S.C. Code Ann. § 27-40-410(c); S.C. Code Ann. § 27-40-530(b)(2)
+- `lease-copy`: `edu-no-lease-copy-duty-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 39-20-40; S.C. Code Ann. § 40-57-135(D)(1); S.C. Code Ann. § 40-57-135(D)(1)(a)
+- `lease-notice-initial-requirement`: `edu-no-lease-initials-requirement-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-40-710(B); S.C. Code Ann. § 27-37-10; S.C. Code Ann. § 27-40-530(b)(2)
+- `lease-registration`: `edu-lease-recording-sc` (edu, RECOMMENDED), Present; S.C. Code Ann. § 30-7-10; S.C. Code Ann. § 27-35-50
+- `lease-term-limitation`: `edu-lease-term-limits-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-23-60; S.C. Code Ann. § 32-3-10(4); S.C. Code Ann. § 30-7-10
+- `lease-type-parity`: `edu-no-lease-type-parity-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-40-710(B); S.C. Code Ann. § 27-40-310(d); S.C. Code Ann. § 27-40-770(a)
+- `lease-type-size`: `edu-no-lease-type-size-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. §§ 27-40-710(B), 27-37-10, 27-40-530(b)(2); S.C. Code Ann. § 40-57-135(F)(1)(c); S.C. Code Ann. § 15-48-10(a)
+- `inspection-notice-penalty`: `edu-no-inspection-notice-penalty-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-40-410(b)
+- `law-enforcement-cooperation`: `edu-no-law-enforcement-cooperation-rule-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-40-540; S.C. Code Ann. § 27-40-530(d)(3); S.C. Code Ann. § 15-43-10(A)
+- `limitation-of-actions`: `edu-limitation-of-actions-sc` (edu, RECOMMENDED), Present; S.C. Code Ann. § 15-3-530; S.C. Code Ann. § 15-3-530(2); S.C. Code Ann. § 15-3-530(3)
+- `military-air-zone-disclosure`: `edu-no-military-zone-disclosure-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 6-1-320; S.C. Code Ann. § 27-39-60
+- `municipal-utility-lien`: `edu-municipal-utility-lien-sc` (edu, RECOMMENDED), Present; S.C. Code Ann. § 27-33-50(A); S.C. Code Ann. § 27-33-50(B); S.C. Code Ann. § 27-33-50(C)
+- `notice-to-vacate-additional-terms`: `edu-no-notice-to-vacate-terms-rule-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-40-440(a)(2); S.C. Code Ann. § 27-40-760; S.C. Code Ann. § 27-40-530(c)
+- `optional-lease-terms`: `edu-optional-lease-terms-sc` (edu, RECOMMENDED), Present; S.C. Code Ann. § 27-40-310(c); S.C. Code Ann. § 27-40-310(d); S.C. Code Ann. § 27-40-540
+- `ordnance-demolition-meter-disclosures`: `edu-no-ordnance-demolition-meter-disclosure-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-40-910(c); S.C. Code Ann. § 58-37-50(H)(3)
+- `other-landlord-facilities`: `edu-other-landlord-facilities-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-40-440(a)(5); S.C. Code Ann. § 27-40-440(a)(3); S.C. Code Ann. § 27-40-210(10)
+- `confirmed-absences-misc`: `edu-confirmed-absences-misc-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-40-310(a)
+- `pest-control-notice`: `edu-no-pest-control-notice-rule-sc` (edu, CONDITIONAL), Absent; S.C. Code Ann. § 27-40-530(b)(2); S.C. Code Ann. § 27-40-530(c); S.C. Code Ann. § 46-13-30(C)
+- `pet-eviction-fact-sheet`: `edu-no-pet-eviction-fact-sheet-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 47-1-70(A); S.C. Code Ann. § 27-40-710(D); S.C. Code Ann. § 27-40-730
+- `plain-language`: `edu-no-plain-language-rule-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 38-61-30; S.C. Code Ann. § 37-2-106(1); S.C. Code Ann. § 27-40-520(a)(4)
+- `plain-language-consumer-statement`: `edu-no-consumer-restrictions-statement-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-40-330(a)(1); S.C. Code Ann. § 27-40-330(a)(2); S.C. Code Ann. § 27-40-330(a)(3)
+- `political-access`: `edu-no-political-access-rule-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-16-130; S.C. Code Ann. § 48-62-310; S.C. Code Ann. § 27-40-520(a)
+- `pool-safety`: `edu-pool-safety-sc` (edu, CONDITIONAL), Present / Absent; S.C. Code Ann. § 44-55-2320(5); S.C. Code Ann. § 44-55-2340(B); S.C. Code Ann. § 44-55-2340(C)
+- `portable-cooling-device`: `edu-no-portable-cooling-rule-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-40-510(5); S.C. Code Ann. § 27-40-210(17); S.C. Code Ann. § 27-40-440(a)(5)
+- `portable-solar`: `edu-no-portable-solar-right-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. §§ 58-27-2610, 58-27-2660; S.C. Code Ann. § 27-40-510(5); S.C. Code Ann. § 27-40-520(a)
+- `private-well-testing`: `edu-no-well-testing-rule-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 44-55-20; S.C. Code Ann. § 44-55-20(14); S.C. Code Ann. § 16-3-1020
+- `promises-to-repair`: `edu-promises-to-repair-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-40-210(12); S.C. Code Ann. § 27-40-610(a); S.C. Code Ann. § 27-40-610(b)
+- `prop65-rental-warning`: `edu-no-chemical-warning-rule-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 40-43-30; S.C. Code Ann. § 44-56-200; FEDERAL: 42 U.S.C. § 4852d (lead disclosure
+- `property-tax-rent-disclosure`: `edu-no-property-tax-rent-statement-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 12-44-20
+- `protected-class-inquiry-ban`: `edu-protected-class-inquiry-sc` (edu, CONSTRAINED), Absent; S.C. Code Ann. § 31-21-40(3); S.C. Code Ann. § 31-21-70(L); S.C. Code Ann. § 31-21-70(N)(1)
+- `purpose-limitation`: `edu-purpose-limitation-sc` (edu, RECOMMENDED), Present / Absent; S.C. Code Ann. § 27-40-540; S.C. Code Ann. § 27-40-710(B); S.C. Code Ann. § 15-43-10(A)
+- `recycling-notice`: `edu-no-recycling-notice-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 16-17-680; S.C. Code Ann. § 27-40-510(3); S.C. Code Ann. § 27-40-440(a)(3)
+- `religious-cultural-display`: `edu-no-religious-display-rule-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-1-60(B)(3); S.C. Code Ann. § 31-21-40(2); S.C. Code Ann. § 27-40-520(a)(3)
+- `tenant-display-rights`: `edu-tenant-display-rights-sc` (edu, CONSTRAINED), Present / Absent; S.C. Code Ann. § 27-1-60(A); S.C. Code Ann. § 27-1-60(B)(3); S.C. Code Ann. § 27-1-60(C)(4)
+- `rent-reporting`: `edu-no-rent-reporting-rule-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. §§ 37-20-110 to 37-20-180; FEDERAL: 15 U.S.C. § 1681s-2 (duties of furnishers
+- `rent-tax`: `edu-rent-tax-sc` (edu, CONDITIONAL), Present / Absent; S.C. Code Ann. § 12-36-920(A); S.C. Code Ann. § 12-36-920(A)(1); S.C. Code Ann. § 12-36-920(A)(2)
+- `renters-insurance-rules`: `edu-no-renters-insurance-rules-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 38-75-60; S.C. Code Ann. § 27-40-330(a)(3)
+- `tenant-insurance-claims`: `edu-tenant-insurance-claims-sc` (edu, RECOMMENDED), Present; S.C. Code Ann. § 38-75-60; S.C. Code Ann. § 27-40-510(6); S.C. Code Ann. § 27-40-710(C)
+- `repair-notice`: `edu-repair-notice-sc` (edu, RECOMMENDED), Present; S.C. Code Ann. § 27-40-610(a); S.C. Code Ann. § 27-40-630(a); S.C. Code Ann. § 5-25-1330(B)
+- `repair-cost-termination`: `edu-no-repair-cost-termination-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-40-440(a)(2); S.C. Code Ann. § 27-40-650(a); S.C. Code Ann. § 27-40-910(c)(3)
+- `repair-escrow-exemption-notice`: `edu-no-repair-escrow-exemption-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-40-790; S.C. Code Ann. §§ 27-40-610, 27-40-630; S.C. Code Ann. § 27-40-630(c)
+- `rights-responsibilities-guide`: `edu-no-rights-guide-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-40-420(a); S.C. Code Ann. § 27-39-60
+- `tenant-rights-statement`: `edu-no-tenant-rights-statement-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-40-420(a); S.C. Code Ann. § 27-40-710(B); S.C. Code Ann. § 27-40-530(b)(2)
+- `sanitary-code-variance`: `edu-no-code-variance-notice-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-40-440(a)(1); S.C. Code Ann. § 27-40-210(2); S.C. Code Ann. § 27-39-60
+- `seasonal-tenancy`: `edu-seasonal-tenancy-sc` (edu, CONDITIONAL), Present / Absent; S.C. Code Ann. § 27-50-230(3); S.C. Code Ann. § 27-50-220(B)(3); S.C. Code Ann. § 27-50-240(A)
+- `security-devices`: `edu-no-security-devices-rule-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-40-530(e); S.C. Code Ann. § 27-40-440(a)(1); S.C. Code Ann. §§ 27-40-410(a), 27-40-510(8)
+- `smart-access`: `edu-no-smart-access-rule-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 39-1-90; S.C. Code Ann. § 27-40-530(c); S.C. Code Ann. § 27-40-530(e)
+- `service-animal-denial-penalty`: `edu-no-service-animal-denial-penalty-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 43-33-70(d); S.C. Code Ann. § 43-33-40(A)(1); S.C. Code Ann. § 43-33-40(B)
+- `service-animal-misrepresentation`: `edu-service-animal-misrepresentation-sc` (edu, RECOMMENDED), Present; S.C. Code Ann. § 47-3-980(A); S.C. Code Ann. § 47-3-980(B); S.C. Code Ann. § 47-3-980(C)
+- `senior-housing-work-card`: `edu-no-senior-housing-work-card-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 31-21-70(L); S.C. Code Ann. § 31-21-30(8); S.C. Code Ann. § 31-21-30(8)(b)
+- `sex-offender-disclosure`: `edu-no-sex-offender-disclosure-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 23-3-520(B); S.C. Code Ann. § 23-3-525; S.C. Code Ann. § 27-50-90(B)(3)
+- `sex-offender-occupancy`: `edu-sex-offender-occupancy-sc` (edu, RECOMMENDED), Present / Absent; S.C. Code Ann. § 23-3-535(B); S.C. Code Ann. § 23-3-535(A)(4); S.C. Code Ann. § 23-3-535(C)
+- `stigmatized-property`: `edu-stigmatized-property-sc` (edu, RECOMMENDED), Present; S.C. Code Ann. § 40-57-740(A); S.C. Code Ann. § 40-57-740(A)(2); S.C. Code Ann. § 40-57-740(B)
+- `tenant-screening`: `edu-tenant-screening-sc` (edu, CONSTRAINED), Absent; S.C. Code Ann. § 31-21-70(F); S.C. Code Ann. § 31-21-70(E); S.C. Code Ann. § 31-21-70(K)
+- `sfr-occupancy-disclosure`: `edu-no-sfr-occupancy-disclosure-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 40-57-135(F)(1)(c); S.C. Code Ann. § 40-57-135(F)(1); S.C. Code Ann. § 27-40-210(14)
+- `shoreline-access-disclosure`: `edu-no-shoreline-disclosure-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 48-39-330; S.C. Code Ann. §§ 48-39-250(8), 48-39-260(6)
+- `special-district-representation`: `edu-no-special-district-statement-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-40-210(11)
+- `steam-radiator-covers`: `edu-no-steam-radiator-cover-rule-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 40-11-410; S.C. Code Ann. § 27-40-440(a)(4)
+- `shutdown-rent-protection`: `edu-no-shutdown-rent-protection-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-40-710(B)
+- `sprinkler-disclosure`: `edu-no-sprinkler-disclosure-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 12-6-3622(A)(1); S.C. Code Ann. § 12-6-3622(A)(2); S.C. Code Ann. § 12-6-3622(C)
+- `statute-of-frauds-lease-term`: `edu-statute-of-frauds-lease-sc` (edu, RECOMMENDED), Present; S.C. Code Ann. § 27-23-60; S.C. Code Ann. § 27-23-50; S.C. Code Ann. § 32-3-10(4)
+- `tenancy-at-will`: `edu-tenancy-at-will-sc` (edu, RECOMMENDED), Present; S.C. Code Ann. § 27-33-10(3); S.C. Code Ann. § 27-35-130; S.C. Code Ann. § 27-35-30
+- `statutory-early-termination`: `edu-statutory-early-termination-sc` (edu, RECOMMENDED), Present; S.C. Code Ann. § 27-40-350(A)(1); 2026 Act No. 184; S.C. Code Ann. § 27-40-620
+- `stove-refrigerator`: `edu-no-stove-refrigerator-rule-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-40-440(a)(5); S.C. Code Ann. § 27-40-210(17); S.C. Code Ann. § 27-40-210(13)
+- `student-housing`: `edu-student-housing-sc` (edu, RECOMMENDED), Present / Absent; S.C. Code Ann. § 27-40-120(1); S.C. Code Ann. § 31-21-70(M); S.C. Code Ann. § 59-23-540(D)
+- `subsidy-habitability-proration`: `edu-no-subsidy-proration-rule-sc` (edu, RECOMMENDED), Absent; FEDERAL: 24 C.F.R. § 982.404 and the HUD tenancy addendum (cited for context, not read in this pass
+- `tenant-confidential-information`: `edu-no-tenant-information-statute-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 39-1-90(A); S.C. Code Ann. § 37-20-180(A)(1); S.C. Code Ann. § 16-25-130(D)
+- `tenant-employee-housing`: `edu-tenant-employee-housing-sc` (edu, RECOMMENDED), Present / Absent; S.C. Code Ann. § 27-40-120(5); S.C. Code Ann. § 27-37-10(A); S.C. Code Ann. § 27-35-130
+- `tenant-right-to-organize`: `edu-no-tenant-organizing-right-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-40-910(a)(1); S.C. Code Ann. § 27-40-520(a); FEDERAL: 24 C.F.R. § 245.100 (tenant organizations in certain HUD multifamily housing
+- `term-change-notice`: `edu-no-term-change-notice-rule-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-31-170; S.C. Code Ann. § 27-40-770(a); S.C. Code Ann. § 27-40-520(b)
+- `translation-duty`: `edu-no-translation-duty-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-40-710(B); S.C. Code Ann. § 27-40-530(b)(2); S.C. Code Ann. § 27-40-230
+- `truth-in-renting`: `edu-no-truth-in-renting-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-40-330(a); S.C. Code Ann. § 39-5-20(a)
+- `unbundled-parking`: `edu-no-unbundled-parking-rule-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-40-210(11); S.C. Code Ann. § 27-40-210(10)
+- `usufructuary-lessor`: `edu-usufructuary-lessor-sc` (edu, RECOMMENDED), Present; S.C. Code Ann. § 27-41-10; S.C. Code Ann. § 27-41-20; S.C. Code Ann. § 27-41-30
+- `veterans-incentive`: `edu-no-veterans-incentive-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 31-21-40(1)
+- `utility-apportionment`: `edu-no-utility-apportionment-rule-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-33-50(C); S.C. Code Ann. § 27-33-50(A)
+- `utility-disclosure-attachment`: `edu-utility-disclosure-attachment-sc` (edu, RECOMMENDED), Present / Absent; S.C. Code Ann. § 58-37-50(H)(3)
+- `utility-interruption-submeter`: `edu-utility-interruption-submeter-sc` (edu, RECOMMENDED), Present / Absent; S.C. Code Ann. § 27-40-660; S.C. Code Ann. § 27-40-760; S.C. Code Ann. § 27-40-630(a)
+- `utility-landlord-account`: `edu-utility-landlord-account-sc` (edu, RECOMMENDED), Present; S.C. Code Ann. § 27-33-50(A); S.C. Code Ann. § 27-33-50(B)(1); S.C. Code Ann. § 27-33-50(C)
+- `utility-shutoff-statute`: `edu-utility-shutoff-rules-sc` (edu, RECOMMENDED), Present; S.C. Code Ann. § 58-27-2520(A); S.C. Code Ann. § 58-27-2540
+- `utility-submetering-disclosure`: `edu-no-submetering-disclosure-rule-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-33-50(A)
+- `water-heater-temperature`: `edu-no-water-heater-temperature-rule-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-40-440(a)(4); S.C. Code Ann. § 27-40-440(a)(5)
+- `window-guards`: `edu-no-window-guard-rule-sc` (edu, RECOMMENDED), Absent; S.C. Code Ann. § 27-40-440(a)(1); S.C. Code Ann. § 27-40-210(2); S.C. Code Ann. § 27-39-60
+- `nonrefundable-deposit-notice`: `nonrefundable-fees-wv`, tagged; S.C. Code Ann. § 27-40-210(18); S.C. Code Ann. § 27-40-330(a)(1)
+- `carpet-cleaning`: `carpet-cleaning-ar`, tagged; S.C. Code Ann. § 27-40-410(a); S.C. Code Ann. § 27-40-510(8)
+- `required-fees`: `fees-and-charges-vi`, tagged; S.C. Code Ann. § 39-5-20(a); S.C. Code Ann. § 27-47-310(D)(7); S.C. Code Ann. § 27-40-210(11)
+- `unpaid-damages-interest`: `interest-on-unpaid-amounts-ca`, tagged; S.C. Code Ann. § 34-31-20(A); S.C. Code Ann. § 34-31-20(B); S.C. Code Ann. § 37-2-106
+- `government-fee-reimbursement`: `government-fee-reimbursement-ky`, tagged; S.C. Code Ann. § 27-39-60; S.C. Code Ann. § 27-40-330(a)(3); S.C. Code Ann. § 27-40-210(11)
+- `governmental-fines`: `tenant-caused-fines-as`, tagged; S.C. Code Ann. § 27-40-710(C); S.C. Code Ann. § 27-40-330(a)(3)
+- `hoa`: `association-approval-la`, tagged; S.C. Code Ann. § 27-31-100(h); S.C. Code Ann. § 27-40-430; S.C. Code Ann. § 27-40-620(a)
+- `automatic-renewal`: `automatic-renewal-ks`, tagged; S.C. Code Ann. § 27-40-310(a); S.C. Code Ann. § 27-40-310(d); S.C. Code Ann. § 27-40-330(a)(1)
+- `bed-bug-cooperation`: `pest-cooperation-pr`, tagged; S.C. Code Ann. § 27-40-530; S.C. Code Ann. § 27-40-510(2); S.C. Code Ann. § 27-40-510(6)
+- `cannabis`: `cannabis-restrictions-ak`, tagged; S.C. Code Ann. § 44-53-370(c); S.C. Code Ann. § 46-55-20(A)(1); S.C. Code Ann. § 27-40-540
+- `cold-weather-vacate-notice`: `cold-weather-vacate-notice-wy`, tagged; S.C. Code Ann. § 27-40-510(5); S.C. Code Ann. § 27-40-530(b)(1); S.C. Code Ann. § 27-40-440(a)(4)
+- `common-area-lighting`: `common-area-lighting-ks`, tagged; S.C. Code Ann. § 27-47-450; S.C. Code Ann. § 27-40-310(a); S.C. Code Ann. § 27-40-440(a)(3)
+- `construction-liens`: `no-liens-ar`, tagged; S.C. Code Ann. § 29-5-10(a); S.C. Code Ann. § 27-40-710(C); S.C. Code Ann. § 27-40-330(a)(3)
+- `disability-accommodation`: `disability-modification-restoration-mn`, tagged; S.C. Code Ann. § 31-21-70(G)(1); S.C. Code Ann. § 43-33-70(c); S.C. Code Ann. § 27-40-330(a)(1)
+- `drug-free-housing-addendum`: `drug-free-housing-ca`, tagged; S.C. Code Ann. § 27-40-540; S.C. Code Ann. § 27-40-710(B); S.C. Code Ann. § 27-40-710(A)
+- `emergency-contact`: `emergency-contact-co`, tagged; S.C. Code Ann. § 27-40-530(d); S.C. Code Ann. § 27-40-330(a)(1)
+- `eminent-domain`: `eminent-domain-vi`, tagged; S.C. Code Ann. § 28-2-30(6); S.C. Code Ann. § 28-2-230(B); S.C. Code Ann. § 28-11-10
+- `energy-data-release`: `energy-data-release-wy`, tagged; S.C. Code Ann. § 27-40-330(a)(1)
+- `ev-charging-requirements`: `ev-charger-installation-conditions-nd`, tagged; S.C. Code Ann. § 27-40-310(a); S.C. Code Ann. § 58-27-1060(A); S.C. Code Ann. § 58-27-1060(A)(2)
+- `ev-charging-shared-area`: `ev-charging-shared-area-co`, tagged; S.C. Code Ann. § 27-40-210(11); S.C. Code Ann. § 27-40-510(6); S.C. Code Ann. § 27-40-330(a)(3)
+- `extended-absence-notice`: `extended-absence-notice-ks`, tagged; S.C. Code Ann. § 27-40-540; S.C. Code Ann. § 27-40-310(a); S.C. Code Ann. § 27-40-530
+- `farmland-hunting-rights`: `hunting-rights-ms`, tagged; S.C. Code Ann. § 50-1-90; S.C. Code Ann. § 27-3-20(c); S.C. Code Ann. § 27-40-530
+- `firearms`: `firearm-rules-ks`, tagged; S.C. Code Ann. § 23-31-220(A)(2); S.C. Code Ann. § 27-40-510(6); S.C. Code Ann. § 27-40-330(a)(3)
+- `foreclosure-disclosure`: `foreclosure-disclosure-nv`, tagged; S.C. Code Ann. § 39-5-20(a); S.C. Code Ann. § 27-40-330(a)(1)
+- `furnishings-included`: `furnishings-included-la`, tagged; S.C. Code Ann. § 27-40-410(a); S.C. Code Ann. § 27-40-510(6); S.C. Code Ann. § 27-40-440(a)(5)
+- `guarantor-renewal`: `guaranty-as`, tagged; S.C. Code Ann. § 32-3-10(2); S.C. Code Ann. § 32-3-10; S.C. Code Ann. § 27-40-330(a)(1)
+- `informal-dispute-resolution`: `informal-dispute-resolution-or`, tagged; S.C. Code Ann. § 27-40-330(a)(1); S.C. Code Ann. § 27-40-130(a)
+- `key-control-policy`: `lock-change-ak`, tagged; S.C. Code Ann. § 27-40-530(e); S.C. Code Ann. § 27-40-530(b); S.C. Code Ann. § 27-40-330(a)(1)
+- `lease-copy`: `lease-copy-receipt-hi`, tagged; S.C. Code Ann. § 27-40-520(a)(6); S.C. Code Ann. § 27-40-330(a)(1)
+- `owner-move-in-reservation`: `owner-occupancy-termination-ar`, tagged; S.C. Code Ann. § 27-33-10; S.C. Code Ann. § 27-40-310(a); S.C. Code Ann. § 27-40-770(b)
+- `parking-rules-notice`: `parking-rules-notice-co`, tagged; S.C. Code Ann. § 27-40-520(a)(6); S.C. Code Ann. § 27-40-520(b); S.C. Code Ann. § 27-40-330(a)(1)
+- `prohibited-acts-renter`: `prohibited-acts-renter-wy`, tagged; S.C. Code Ann. § 27-40-510(6); S.C. Code Ann. § 27-40-510(7); S.C. Code Ann. § 27-40-530(a)
+- `rent-concession`: `rent-concession-wi`, tagged; S.C. Code Ann. § 27-40-210(11); S.C. Code Ann. § 27-40-210(12); S.C. Code Ann. § 27-40-330(c)
+- `rent-escalation`: `rent-escalation-la`, tagged; S.C. Code Ann. § 27-40-910; S.C. Code Ann. § 27-40-210(11); S.C. Code Ann. § 27-40-910(a)
+- `rent-installments`: `rent-installments-or`, tagged; S.C. Code Ann. § 27-40-310(c); S.C. Code Ann. § 27-40-210(11); S.C. Code Ann. § 27-40-710(B)
+- `tax-escalation`: `tax-insurance-escalation-la`, tagged; S.C. Code Ann. § 12-4-540; S.C. Code Ann. § 27-40-310(a); S.C. Code Ann. § 27-40-330(a)(3)
+- `telecom-access`: `telecom-access-mn`, tagged; S.C. Code Ann. § 58-9-3040; S.C. Code Ann. § 27-40-510(6); FEDERAL: 47 C.F.R. § 1.4000, cited for context, not read in this pass
+- `tenant-portal`: `tenant-portal-mn`, tagged; S.C. Code Ann. § 26-6-50(B); S.C. Code Ann. § 26-6-50(C); S.C. Code Ann. § 26-6-30(B)(2)(c)(ii)
+- `utility-allowance-cap`: `utility-allowance-cap-co`, tagged; S.C. Code Ann. § 27-33-50(A); S.C. Code Ann. § 27-40-210(11); S.C. Code Ann. §§ 27-40-760, 27-40-660
+- `utility-disconnection-notice-authorization`: `utility-shutoff-notice-authorization-co`, tagged; S.C. Code Ann. § 58-27-2530; S.C. Code Ann. § 27-33-50(A)
+- `utility-transfer`: `utility-transfer-nj`, tagged; S.C. Code Ann. § 27-33-50(A); S.C. Code Ann. § 27-40-210(11); S.C. Code Ann. § 27-40-660
+- `waterbed`: `waterbed-mn`, tagged; S.C. Code Ann. § 27-40-510(8); S.C. Code Ann. § 27-40-510(6); S.C. Code Ann. § 27-40-210(18)
+
+Not yet answered (0): 
+
+### §3 Batteries
+
+Every battery runs over the whole saved Code (1,319 chapters, 31,342 sections) with a null control ("zqxvbnmwt", must be 0 hits) and a positive control ("General Assembly", must exceed 1,000) in the same run, and each pattern is first tested against a known positive string. "Tenancy-filtered" counts the hits with a tenancy word (tenan, landlord, lease, rental, dwelling unit, lessee) within the context window.
+
+**SC-B1-001** (`waiver-by-acceptance`). Controls: null 0, positive 3389. Title 27 and whole Code; rent-acceptance-after-default waiver rule
+- "accept-rent" `accept\w*\W+(?:of\W+)?(?:\w+\W+){0,3}(?:rent|payment)`: 112 hits in 82 sections; tenancy-filtered 3: 27-40-320, 27-50-240
+- "waive-accept" `(?:waiv\w*|waiver)\W+(?:\w+\W+){0,12}(?:accept\w*|receiv\w*|receipt)\W+(?:\w+\W+){0,4}(?:rent|payment)`: 1 hits in 1 sections; tenancy-filtered 0: none
+- "accept-waive" `(?:accept\w*|receipt|receiv\w*)\W+(?:\w+\W+){0,4}(?:rent|payment)\W+(?:\w+\W+){0,15}(?:waiv\w*|waiver)`: 1 hits in 1 sections; tenancy-filtered 0: none
+- "reservation" `without reservation|under reservation|with reservation|reservation of rights`: 14 hits in 9 sections; tenancy-filtered 2: 27-40-320
+
+**SC-B1-002** (`jury-waiver`). Controls: null 0, positive 3389. jury waiver in leases
+- "jury-waive" `\bjury\b\W+(?:\w+\W+){0,10}waiv\w*|waiv\w*\W+(?:\w+\W+){0,10}(?:trial by )?\bjury\b`: 17 hits in 13 sections; tenancy-filtered 0: none
+- "jury-ll" `\bjury\b`: 972 hits in 318 sections; tenancy-filtered 9: 15-67-100, 27-37-155, 27-37-70, 27-37-80, 27-37-90
+
+**SC-B1-003** (`collection-fee`). Controls: null 0, positive 3389. collection fees on rent debts
+- "collection-cost" `(?:collection\W+(?:cost|fee|charge|expense)s?|costs?\W+of\W+collection|collection\W+agenc\w+)`: 63 hits in 32 sections; tenancy-filtered 1: 27-37-155
+
+**SC-B1-004** (`notice-service-fee`). Controls: null 0, positive 3389. lease charge for serving a notice
+- "fee-notice" `(?:fee|charge|cost)s?\W+(?:\w+\W+){0,4}(?:serv\w+|prepar\w+|post\w+|deliver\w+)\W+(?:\w+\W+){0,3}notices?`: 7 hits in 7 sections; tenancy-filtered 0: none
+- "notice-fee" `notices?\W+(?:\w+\W+){0,6}(?:fee|charge)\b`: 36 hits in 25 sections; tenancy-filtered 4: 4-12-30, 58-37-50
+
+**SC-B1-005** (`eviction-penalty-clause-ban`). Controls: null 0, positive 3389. lease charges for an eviction
+- "fee-evict" `(?:fee|charge|penalt\w+|cost)s?\W+(?:\w+\W+){0,8}(?:evict\w*|eject\w*)`: 1 hits in 1 sections; sections: 16-17-560
+- "evict-fee" `(?:evict\w*|eject\w*)\W+(?:\w+\W+){0,8}(?:fee|charge|penalt\w+)`: 6 hits in 4 sections; sections: 36-2-715, 38-43-80, 56-19-70, 56-3-890
+
+**SC-B1-005b** (`eviction-penalty-clause-ban`). Controls: null 0, positive 3389. lease charges for an eviction; rerun with leading word boundary (SC-B1-005 matched "rejected")
+- "fee-evict" `(?:fee|charge|penalt\w+|cost)s?\W+(?:\w+\W+){0,8}\b(?:evict\w*|eject\w*)`: 1 hits in 1 sections; sections: 16-17-560
+- "evict-fee" `\b(?:evict\w*|eject\w*)\W+(?:\w+\W+){0,8}(?:fee|charge|penalt\w+)`: 0 hits in 0 sections; sections: 
+- "landlord-proceeding-fee" `landlord\W+(?:\w+\W+){0,6}(?:proceeding|action|case)s?\W+(?:\w+\W+){0,8}(?:fee|charge|cost)`: 0 hits in 0 sections; sections: 
+
+**SC-B1-006** (`smoke-drift-waiver`). Controls: null 0, positive 3389. smoke drift, smoke-free housing, workplace law reach to apartment common areas
+- "smoke-dwelling" `\bsmok\w*\W+(?:\w+\W+){0,20}(?:apartment|multi-?unit|multifamily|dwelling|condominium|common area|hallway|residen\w+)`: 6 hits in 5 sections; sections: 23-9-155, 44-95-20, 5-25-1160, 5-25-1330, 5-25-1340
+- "dwelling-smoke" `(?:apartment|multi-?unit|multifamily|dwelling|condominium|common area|hallway)\W+(?:\w+\W+){0,20}\bsmok\w*`: 6 hits in 3 sections; sections: 23-9-155, 5-25-1310, 5-25-1330
+
+**SC-B1-007** (`confession-of-judgment`). Controls: null 0, positive 3389. confessed judgments
+- "confess" `confess\w*\W+(?:\w+\W+){0,3}judgment|judgment\W+(?:\w+\W+){0,3}confession`: 36 hits in 23 sections; sections: 14-17-540, 14-17-560, 15-35-180, 15-35-350, 15-35-360, 15-35-370, 15-35-380, 15-50-70, 22-3-10, 27-40-330, 33-41-310, 34-29-170, 36-3-104, 37-2-415, 37-2-712, 37-3-407, 37-5-202, 49-19-1820, 56-9-352, 56-9-354, 56-9-360, 62-8-212, 8-21-310
+
+**SC-B1-008** (`habitability-modifiable`). Controls: null 0, positive 3389. No statute on wells/catchment in rentals, rent reduction in exchange for accepting conditions, or as-is rentals.
+- "well-water" `\b(?:private|domestic|individual|drinking water|potable) (?:water )?wells?\b`: 6 hits in 3 sections; tenancy-filtered 2: 6-1-190
+- "rent-reduction" `\brent\b.{0,30}\b(?:abat|reduc|diminish)\w*|\b(?:abat|reduc|diminution)\w*.{0,25}\brent`: 8 hits in 6 sections; tenancy-filtered 8: 12-6-3795, 27-40-620, 27-40-630, 27-40-650, 27-40-790, 31-1-630
+- "accept-condition" `\b(?:as is|as-is)\b`: 384 hits in 355 sections; tenancy-filtered 8: 10-1-179, 27-40-910, 27-50-110, 54-15-250, 55-9-90, 56-16-60, 58-17-2780, 59-31-250
+
+**SC-B1-009** (`habitability-presumption`). Controls: null 0, positive 3389. Presumptions near tenancy words; looking for any habitability presumption.
+- "presume" `\bpresum\w*`: 427 hits in 282 sections; tenancy-filtered 14: 15-67-260, 16-27-55, 16-3-2090, 25-11-820, 27-18-170, 27-40-440, 27-40-910, 37-1-201, 40-54-10, 44-53-586, 62-2-805, 62-7-917, 63-3-530, 63-7-2570
+- "prima-facie" `\bprima facie\b`: 252 hits in 171 sections; tenancy-filtered 1: 36-2A-503
+
+**SC-B1-010** (`confirmed-absences-habitability`). Controls: null 0, positive 3389. Residential heat standard; rent escrow or withholding outside S.C. Code Ann. § 27-40-790.
+- "temperature" `\b\d{2} degrees\b|\bdegrees fahrenheit\b`: 49 hits in 18 sections; tenancy-filtered 0: none
+- "escrow" `\bescrow\w*`: 277 hits in 102 sections; tenancy-filtered 41: 11-47-30, 13-7-10, 24-3-40, 27-32-55, 27-32-90, 27-40-800, 31-23-40, 37-11-50, 37-11-90, 37-7-108, 38-12-270, 38-12-30, 38-12-480, 40-6-150, 48-46-30
+- "withhold-rent" `\bwithh\w* (?:the |of )?rent\b|\brent\b.{0,20}\bwithh\w*`: 0 hits in 0 sections; tenancy-filtered 0: none
+
+**SC-B2-001** (`dv-lockchange`). Controls: null 0, positive 3389. Lock-change right for a domestic-violence victim; any lock-change rule.
+- "lock-dv" `\block(?:s|ed|smith)?\b(?:\W+\w+){0,25}?\W+(?:domestic|victim|protection order|order of protection|restraining order|stalk|abuse)|(?:domestic|victim|protection order|order of protection|restraining order|stalk|abuse)(?:\W+\w+){0,25}?\W+\block(?:s|ed|smith)?\b`: 0 hits in 0 sections; tenancy-filtered 0: none
+- "change-locks" `\bchang\w* (?:the |of )?locks?\b|\block(?:s)? (?:be |are )?(?:changed|rekeyed|re-keyed)\b|\brekey\w*`: 2 hits in 2 sections; tenancy-filtered 1: 27-40-530
+
+**SC-B2-002** (`dv-confidentiality`). Controls: null 0, positive 3389. Landlord duty to keep domestic-violence information confidential.
+- "confid-dv" `\bconfidential\w*(?:\W+\w+){0,30}?\W+(?:domestic|victim|protection order|order of protection|restraining order|stalk|abuse)|(?:domestic|victim|protection order|order of protection|restraining order|stalk|abuse)(?:\W+\w+){0,30}?\W+confidential\w*`: 44 hits in 35 sections; tenancy-filtered 5: 1-7-1110, 16-3-2070, 38-9-180, 44-81-40, 63-7-1990
+- "disclos-dv" `\bdisclos\w*(?:\W+\w+){0,20}?\W+(?:domestic|victim|protection order|order of protection|restraining order|stalk|abuse)`: 20 hits in 14 sections; tenancy-filtered 1: 63-7-940
+
+**SC-B2-003** (`dv-eviction-protection`). Controls: null 0, positive 3389. Eviction protection for victims; nuisance or police-call protection.
+- "evict-victim" `\b(?:evict\w*|eject\w*|terminat\w* (?:the |a )?(?:tenancy|lease|rental agreement))(?:\W+\w+){0,25}?\W+(?:domestic|victim|protection order|order of protection|restraining order|stalk|abuse)|(?:domestic|victim|protection order|order of protection|restraining order|stalk|abuse)(?:\W+\w+){0,25}?\W+(?:evict\w*|\beject\w*)`: 0 hits in 0 sections; tenancy-filtered 0: none
+- "police-call" `\b(?:call\w*|request\w*|summon\w*)\W+(?:\w+\W+){0,4}(?:police|law enforcement|emergency assistance|peace officer)`: 49 hits in 43 sections; tenancy-filtered 4: 23-31-215, 30-2-510, 56-1-3350
+
+**SC-B1-011** (`eviction-penalty-clause-ban`). Controls: null 0, positive 3389. General statute voiding fixed charges as penalties (outside S.C. Code Ann. § 27-40-330(c)).
+- "liquidated" `\bliquidated damages?\b`: 8 hits in 8 sections; tenancy-filtered 1: 48-20-170
+- "penalty-contract" `\b(?:penalty|forfeiture)\b(?:\W+\w+){0,8}?\W+(?:contract|agreement|lease)\b`: 9 hits in 9 sections; tenancy-filtered 1: 48-43-380
+
+**SC-B3-001** (`deposit-installments`). Controls: null 0, positive 3389. Deposit installment right.
+- "deposit-installment" `\binstall?ments?\b(?:\W+\w+){0,6}?\W+deposit|\bdeposit\w*(?:\W+\w+){0,6}?\W+install?ments?\b`: 2 hits in 1 sections; tenancy-filtered 0: none
+
+**SC-B3-002** (`deposit-last-month-rent`). Controls: null 0, positive 3389. Rule on applying a deposit to the last month.
+- "last-month" `\b(?:last|final) month'?s'? rent\b|\blast month of (?:the )?(?:tenancy|lease|term)\b`: 0 hits in 0 sections; tenancy-filtered 0: none
+
+**SC-B3-003** (`holding-deposit`). Controls: null 0, positive 3389. Pre-lease holding deposits.
+- "holding" `\bholding deposit|\bdeposit to hold\b|\bearnest money\b|\bapplication deposit\b|\breservation (?:deposit|fee)\b`: 17 hits in 8 sections; tenancy-filtered 4: 22-3-10, 27-18-175, 37-11-90
+
+**SC-B3-004** (`fee-in-lieu-of-deposit`). Controls: null 0, positive 3389. Fee in lieu of a deposit.
+- "in-lieu" `\bin lieu of (?:a |the |any )?(?:security )?deposit|\bdeposit (?:alternative|waiver|replacement)\b|\bsurety bond\b(?:\W+\w+){0,6}?\W+(?:security )?deposit`: 13 hits in 10 sections; tenancy-filtered 0: none
+
+**SC-B3-005** (`fee-transparency`). Controls: null 0, positive 3389. Fee-transparency or all-in pricing rule.
+- "fee-trans" `\bjunk fees?\b|\btotal price\b|\ball-in (?:price|rent)\b|\b(?:mandatory|nonoptional|non-optional|required|hidden) fees?\b|\bdrip pricing\b`: 109 hits in 79 sections; tenancy-filtered 2: 27-32-60, 40-8-150
+
+**SC-B3-006** (`nonrefundable-deposit-notice`). Controls: null 0, positive 3389. Nonrefundable deposits or fees in tenancies.
+- "nonrefundable" `\bnon-?refundable\b`: 132 hits in 97 sections; tenancy-filtered 4: 27-50-240, 37-11-90, 37-2-706, 56-1-2090
+
+**SC-B3-007** (`pet-fees`). Controls: null 0, positive 3389. Pet deposits and fees.
+- "pet-money" `\bpet (?:deposits?|fees?|rent)\b`: 1 hits in 1 sections; tenancy-filtered 1: 40-57-136
+
+**SC-B3-008** (`carpet-cleaning`). Controls: null 0, positive 3389. Carpet-cleaning charges or condition-and-age tests.
+- "carpet" `\bcarpets?\b|\bprofessional(?:ly)? clean\w*`: 2 hits in 2 sections; tenancy-filtered 0: none
+
+**SC-B3-009** (`deposit-surrender-notice`). Controls: null 0, positive 3389. Conditions on a deposit refund (notice, keys, address).
+- "refund-condition" `\b(?:return|surrender)\w* (?:of )?(?:the |all )?keys?\b|\bnotice of (?:intent to )?vacat\w*|\bforwarding address\b`: 5 hits in 4 sections; tenancy-filtered 2: 27-40-410, 27-47-520
+
+**SC-B3-010** (`alarm-tampering-fee`). Controls: null 0, positive 3389. Fee or penalty for tampering with alarms.
+- "alarm-fee" `\b(?:smoke|carbon monoxide|fire) (?:detectors?|alarms?)\b(?:\W+\w+){0,25}?\W+(?:fee|charge|tamper\w*|disabl\w*|remov\w*)\b`: 0 hits in 0 sections; tenancy-filtered 0: none
+
+**SC-B3-011** (`governmental-fines`). Controls: null 0, positive 3389. Passing government fines or fees to tenants.
+- "fine-pass" `\b(?:fines?|penalt(?:y|ies))\b(?:\W+\w+){0,12}?\W+(?:tenants?|lessees?|occupants?)\b`: 6 hits in 6 sections; tenancy-filtered 6: 12-21-2716, 27-35-170, 37-1-107, 37-13-40, 41-18-150, 52-19-360
+- "gov-fee" `\b(?:false alarm|re-?inspection|special pick-?up|impound) (?:fees?|charges?)\b`: 0 hits in 0 sections; tenancy-filtered 0: none
+
+**SC-B3-012** (`subsidy-late-fee`). Controls: null 0, positive 3389. Late fees where a subsidy pays part of the rent.
+- "subsidy-late" `\b(?:housing assistance|subsid\w*|section 8|vouchers?|housing authority)\b(?:\W+\w+){0,20}?\W+late\b`: 4 hits in 4 sections; tenancy-filtered 0: none
+
+**SC-B3-013** (`security-deposit-holding`). Controls: null 0, positive 3389. How a deposit must be held.
+- "deposit-held" `\b(?:security|rental|pet|damage) deposits?\b(?:\W+\w+){0,15}?\W+(?:trust|escrow|interest|bank|financial institution)\b`: 4 hits in 3 sections; tenancy-filtered 4: 27-40-210, 37-2-407, 40-57-136
+
+**SC-B3-014** (`unpaid-damages-interest`). Controls: null 0, positive 3389. Contract interest on unpaid rent; usury limits.
+- "contract-rate" `\b(?:rate of interest|interest rate)\b(?:\W+\w+){0,15}?\W+(?:agree\w*|written|contract\w*)`: 30 hits in 19 sections; tenancy-filtered 1: 6-24-100
+- "usury" `\busur\w*`: 21 hits in 15 sections; tenancy-filtered 0: none
+
+**SC-B3-015** (`late-fee-limit`). Controls: null 0, positive 3389. Late-fee caps, including the Manufactured Home Park Tenancy Act.
+- "late-charge" `\blate (?:fees?|charges?|payment (?:fees?|charges?))\b`: 43 hits in 30 sections; tenancy-filtered 2: 27-32-335, 27-40-210
+
+**SC-B3-016** (`expedited-deposit-disposition`). Controls: null 0, positive 3389. Fast-track or special procedure for deposit disputes.
+- "deposit-proc" `\b(?:security|rental|security/rental) deposits?\b(?:\W+\w+){0,30}?\W+(?:hearing|expedit\w*|priority|small claims|summary|interpleader|mediat\w*)\b`: 0 hits in 0 sections; tenancy-filtered 0: none
+
+**SC-B3-017** (`fee-unprovided-service`). Controls: null 0, positive 3389. Fee for a service the landlord does not provide.
+- "user-fee" `\buser fees?\b`: 513 hits in 115 sections; tenancy-filtered 9: 12-2-110, 12-28-1730, 12-28-310, 12-6-3780, 27-47-210, 27-47-310
+- "service-not" `\b(?:fees?|charges?)\b(?:\W+\w+){0,10}?\W+(?:services?|amenit\w*)\b(?:\W+\w+){0,6}?\W+not (?:provided|rendered|furnished|available)\b`: 0 hits in 0 sections; tenancy-filtered 0: none
+
+**SC-B3-018** (`deposit-cost-schedule`). Controls: null 0, positive 3389. Pre-set deduction or cleaning charges against a deposit.
+- "schedule" `\b(?:schedule|list)\b(?:\W+\w+){0,6}?\W+(?:of )?(?:charges|costs|fees|deductions)\b(?:\W+\w+){0,20}?\W+(?:deposit|tenant|lease)`: 0 hits in 0 sections; tenancy-filtered 0: none
+- "cleaning" `\bclean(?:ing)? (?:fees?|charges?)\b`: 0 hits in 0 sections; tenancy-filtered 0: none
+
+**SC-B4-001** (`accessory-dwelling-unit`). Controls: null 0, positive 3389. State limits on local ADU rules.
+- "adu" `\baccessory (?:dwelling|apartment|living) (?:units?|quarters)?|\bgranny (?:flat|unit)|\bin-law (?:suite|unit|apartment)|\bgarage apartment`: 0 hits in 0 sections; tenancy-filtered 0: none
+
+**SC-B4-002** (`single-family-zone-lease-limit`). Controls: null 0, positive 3389. Owner-occupancy conditions on renting in single-family zones.
+- "owner-occ" `\bowner[- ]occup\w*`: 43 hits in 19 sections; tenancy-filtered 27: 11-11-155, 11-11-156, 11-11-157, 12-3-10, 12-37-220, 12-37-252, 12-43-215, 12-43-220, 12-43-350, 12-6-3535, 31-13-450, 38-75-485, 4-10-970, 5-37-100, 5-37-40, 5-37-50
+
+**SC-B4-003** (`landlord-registration`). Controls: null 0, positive 3389. State landlord or rental registration.
+- "register-rental" `\b(?:regist\w*|licens\w*|permit\w*)\b(?:\W+\w+){0,6}?\W+(?:rental (?:property|properties|units?|dwellings?|housing)|landlords?)\b|\b(?:rental (?:property|properties|units?|dwellings?|housing)|landlords?)\b(?:\W+\w+){0,6}?\W+(?:regist\w*|licens\w*|permit)\b`: 5 hits in 4 sections; tenancy-filtered 5: 27-40-210, 40-57-370, 40-57-520, 6-1-825
+
+**SC-B4-004** (`landlord-liability-insurance`). Controls: null 0, positive 3389. Mandatory landlord insurance.
+- "ll-insurance" `\b(?:landlords?|lessors?|rental property owners?)\b(?:\W+\w+){0,10}?\W+(?:liability )?insurance\b`: 2 hits in 2 sections; tenancy-filtered 2: 37-4-202, 38-75-60
+
+**SC-B4-005** (`rental-inspection`). Controls: null 0, positive 3389. Rental inspection programs; inspector entry.
+- "inspect-rental" `\binspect\w*\b(?:\W+\w+){0,10}?\W+(?:rental (?:property|properties|units?|dwellings?|housing)|dwelling units?|dwellings?)\b`: 4 hits in 3 sections; tenancy-filtered 4: 31-21-40, 5-25-340, 5-25-370
+
+**SC-B4-006** (`substandard-property-receivership`). Controls: null 0, positive 3389. Code-enforcement or nuisance receivership of rentals.
+- "receiver-housing" `\breceiver\w*\b(?:\W+\w+){0,20}?\W+(?:dwellings?|rental|housing|tenants?|rents)\b`: 4 hits in 4 sections; tenancy-filtered 0: none
+
+**SC-B4-007** (`health-district-rental-rules`). Controls: null 0, positive 3389. Health-district rental regulations.
+- "health-rental" `\bhealth (?:districts?|departments?|officers?)\b(?:\W+\w+){0,20}?\W+(?:rental|tenants?|landlords?|dwellings?)\b`: 0 hits in 0 sections; tenancy-filtered 0: none
+
+**SC-B4-008** (`good-cause-notice`). Controls: null 0, positive 3389. Just-cause or good-cause eviction rules and notices.
+- "good-cause" `\b(?:good|just) cause\b(?:\W+\w+){0,15}?\W+(?:evict\w*|terminat\w*|tenan\w*|leases?)\b`: 11 hits in 4 sections; tenancy-filtered 0: none
+
+**SC-B4-009** (`tpa-notice`). Controls: null 0, positive 3389. Tenant opportunity-to-purchase rules.
+- "tenant-offer" `\b(?:right of first refusal|opportunity to purchase|offer to (?:sell|convey))\b(?:\W+\w+){0,20}?\W+tenants?\b|\btenants?\b(?:\W+\w+){0,20}?\W+(?:right of first refusal|opportunity to purchase|offer to (?:sell|convey))\b`: 3 hits in 2 sections; tenancy-filtered 3: 15-61-25, 27-31-420
+
+**SC-B4-010** (`tpa-sunset`). Controls: null 0, positive 3389. Dated repeal of a tenant-protection statute.
+- "sunset" `\b(?:shall expire|expires on|is repealed|are repealed|sunset)\b`: 414 hits in 278 sections; tenancy-filtered 7: 11-11-240, 48-39-130, 50-11-500, 56-1-40, 59-146-50, 60-11-110
+
+**SC-B4-011** (`required-disclosures`). Controls: null 0, positive 3389. Lease notices of law coverage; option-to-purchase disclosures.
+- "option-purchase" `\boption to (?:purchase|buy)\b`: 40 hits in 33 sections; tenancy-filtered 18: 12-54-122, 27-28-30, 27-50-20, 31-23-20, 31-9-60, 36-1-203, 36-2A-218, 37-13-10, 37-2-105, 44-7-1540, 48-3-80, 56-15-70, 56-16-120, 59-31-240, 62-3-715, 62-7-816
+- "law-coverage-notice" `\b(?:rent stabiliz\w*|rent control|rent increase law|just cause)\b`: 44 hits in 35 sections; tenancy-filtered 0: none
+
+**SC-B4-012** (`portfolio-thresholds`). Controls: null 0, positive 3389. Duties tiered by number of units.
+- "unit-threshold" `\b(?:more than|fewer than|less than) (?:one|two|three|four|five|ten|\d+) (?:adjoining )?(?:residential )?(?:dwelling |rental )?units?\b`: 9 hits in 9 sections; tenancy-filtered 7: 12-36-510, 27-32-250, 27-40-410, 27-40-440, 27-40-910, 27-50-20, 34-28-30
+
+**SC-B4-013** (`condemned-premises-rent-bar`). Controls: null 0, positive 3389. Bar on demanding or collecting rent for condemned or unfit premises.
+- "rent-unfit" `\b(?:collect\w*|demand\w*|charg\w*|recover\w*|accept\w*)\b(?:\W+\w+){0,6}?\W+rent\b(?:\W+\w+){0,25}?\W+(?:unfit|condemn\w*|substandard|uninhabitable|code violations?|placard\w*)\b`: 0 hits in 0 sections; tenancy-filtered 0: none
+
+**SC-B4-014** (`inspection-condemnation-disclosure`). Controls: null 0, positive 3389. Disclosure of inspection or condemnation orders.
+- "disclose-order" `\bdisclos\w*\b(?:\W+\w+){0,15}?\W+(?:code violations?|condemn\w*|inspection (?:orders?|reports?)|unfit)\b`: 1 hits in 1 sections; tenancy-filtered 0: none
+
+**SC-B4-015** (`subsidized-inspection-refusal`). Controls: null 0, positive 3389. Subsidized tenancies, inspections, source of income.
+- "voucher" `\b(?:housing (?:choice )?vouchers?|section 8|housing assistance payments?|source of income)\b`: 2309 hits in 1639 sections; tenancy-filtered 97: 1-23-280, 11-50-50, 16-1-100, 2-15-60, 2-17-80, 20-3-150, 23-3-430, 23-3-436, 23-3-437, 23-3-460, 23-3-462, 23-3-463, 23-3-490, 23-3-538, 27-40-790, 34-19-120, 34-19-20, 34-19-60, 34-19-70, 34-3-360, 37-2-102, 37-2-105, 37-2-106, 37-2-202, 37-2-401
+
+**SC-B4-015b** (`subsidized-inspection-refusal`). Controls: null 0, positive 3389. Rerun of SC-B4-015 with a case-sensitive "Section 8" (the first run matched SECTION 8 in history lines).
+- "voucher" `\bhousing (?:choice )?vouchers?\b|(?-i:\bSection 8)(?![-\d.])|\bhousing assistance payments?\b|\bsource of income\b`: 22 hits in 19 sections; tenancy-filtered 2: 4-9-195, 8-13-1301
+
+**SC-B1-001b** (`waiver-by-acceptance`). Controls: null 0, positive 3389. Rerun of SC-B1-001 with a wider window after S.C. Code Ann. § 27-37-150 surfaced in batch 5 (the first run allowed only three words between "accept" and "rent").
+- "accept-rent-wide" `\baccept\w*\W+(?:\w+\W+){0,8}?(?:rents?|payments?)\b`: 155 hits in 116 sections; tenancy-filtered 11: 27-37-150, 27-40-320, 27-50-240, 36-2A-221, 36-2A-523, 41-10-60, 56-1-10, 56-1-2030, 56-5-5630
+- "waiv-rent" `\bwaiv\w*\b(?:\W+\w+){0,25}?\W+(?:ejectment|evict\w*|possession|terminat\w*)\b`: 22 hits in 20 sections; tenancy-filtered 3: 27-37-150, 33-44-404, 63-9-820
+
+**SC-B5-001** (`redemption`). Controls: null 0, positive 3389. Tenant redemption or reinstatement by paying before ejectment.
+- "pay-before" `\b(?:pay\w*|tender\w*)\b(?:\W+\w+){0,15}?\W+(?:before|prior to)\b(?:\W+\w+){0,8}?\W+(?:ejectment|eviction|writ|judgment)\b`: 4 hits in 3 sections; tenancy-filtered 0: none
+- "redeem" `\bredeem\w*\b|\bredemption\b`: 540 hits in 239 sections; tenancy-filtered 12: 11-9-620, 12-51-130, 12-51-96, 29-3-10, 44-7-1560, 59-127-510, 59-130-440, 59-147-40, 6-21-390, 6-21-440
+
+**SC-B5-002** (`social-security-defense`). Controls: null 0, positive 3389. Continuance when a benefit payment is late.
+- "benefit-late" `\b(?:social security|benefits?|public assistance|subsid\w*|voucher)\b(?:\W+\w+){0,20}?\W+(?:continuance|late|delay\w*)\b`: 3 hits in 3 sections; tenancy-filtered 0: none
+
+**SC-B5-003** (`tenant-bankruptcy`). Controls: null 0, positive 3389. Writ enforcement after a tenant bankruptcy.
+- "bankruptcy" `\bbankrupt\w*`: 176 hits in 110 sections; tenancy-filtered 6: 31-21-30, 33-41-20, 36-1-203, 43-5-220
+
+**SC-B5-004** (`eviction-hardship-stay`). Controls: null 0, positive 3389. Hardship stays of eviction.
+- "stay-eject" `\bstay\w*\b(?:\W+\w+){0,10}?\W+(?:ejectment|eviction|writ)\b`: 11 hits in 5 sections; tenancy-filtered 8: 27-37-130, 27-40-800
+- "ill-elderly" `\b(?:ill|elderly|hardship|medical)\b(?:\W+\w+){0,10}?\W+(?:tenants?|dispossess\w*|eviction)\b`: 1 hits in 1 sections; tenancy-filtered 1: 27-37-160
+
+**SC-B5-005** (`eviction-service-party`). Controls: null 0, positive 3389. Lease-designated agent to accept eviction papers.
+- "agent-service" `\bagent\b(?:\W+\w+){0,10}?\W+service of process\b|\bservice of process\b(?:\W+\w+){0,10}?\W+agent\b`: 110 hits in 81 sections; tenancy-filtered 2: 27-40-420, 27-47-410
+
+**SC-B5-006** (`criminal-activity`). Controls: null 0, positive 3389. Crime-free addenda; mandatory eviction duties.
+- "crime-free" `\bcrime[- ]free\b`: 0 hits in 0 sections; tenancy-filtered 0: none
+- "mandatory-evict" `\b(?:shall|must)\b(?:\W+\w+){0,6}?\W+(?:evict|terminate the (?:lease|tenancy|rental agreement))\b`: 0 hits in 0 sections; tenancy-filtered 0: none
+
+**SC-B5-007** (`tenant-records`). Controls: null 0, positive 3389. Rent-ledger duties.
+- "ledger" `\b(?:rent|payment) (?:ledgers?|records?|histor(?:y|ies))\b|\bledger\b(?:\W+\w+){0,8}?\W+tenants?\b`: 13 hits in 13 sections; tenancy-filtered 1: 12-6-3550
+
+**SC-B5-008** (`minor-tenant-filing`). Controls: null 0, positive 3389. Minors as tenants or eviction defendants; age of majority for leases.
+- "minor-lease" `\b(?:minors?|infan\w*|under (?:the age of )?eighteen)\b(?:\W+\w+){0,15}?\W+(?:leases?|rental agreements?|tenan\w*|eject\w*|evict\w*)\b|\b(?:leases?|rental agreements?|tenan\w*|eject\w*|evict\w*)\b(?:\W+\w+){0,15}?\W+(?:minors?|infan\w*)\b`: 5 hits in 4 sections; sections: 34-19-30, 34-28-640, 34-30-1650, 63-5-660
+
+**SC-B5-009** (`lockout-for-rent-delinquency`). Controls: null 0, positive 3389. Opt-in lockout for rent delinquency.
+- "lockout" `\block(?:ed)?[- ]?out\b|\bchang\w* (?:the )?locks?\b|\bexclud\w* the tenant\b`: 11 hits in 10 sections; tenancy-filtered 2: 27-40-530, 27-40-660
+
+**SC-B6-001** (`actual-notice-method`). Controls: null 0, positive 3389. Agreed additional method of giving actual notice (text, e-mail) in a tenancy.
+- "agreed-method" `\b(?:agree\w*|agreement)\b(?:\W+\w+){0,8}?\W+(?:method|manner|means)\b(?:\W+\w+){0,4}?\W+(?:notice|notification|delivery)\b`: 3 hits in 3 sections; tenancy-filtered 0: none
+- "text-notice" `\btext messag\w*\b(?:\W+\w+){0,8}?\W+notic\w*|\bnotic\w*\b(?:\W+\w+){0,8}?\W+text messag\w*`: 0 hits in 0 sections; tenancy-filtered 0: none
+
+**SC-B7-001** (`pest-control-notice`). Controls: null 0, positive 3389. Landlord or applicator notice to tenants of pesticide or pest-control treatment.
+- "pest-notice" `\b(?:pest\w*|fumigat\w*|exterminat\w*|termite\w*|insecticid\w*|rodenticid\w*)\b(?:\W+\w+){0,10}?\W+(?:notice|notices|notif\w*|disclos\w*|warn\w*|post\w*)\b|\b(?:notice|notices|notif\w*|disclos\w*|warn\w*)\b(?:\W+\w+){0,10}?\W+(?:pest\w*|fumigat\w*|exterminat\w*|termite\w*)\b`: 9 hits in 6 sections; tenancy-filtered 0: none
+- "pest-tenancy" `\b(?:pesticid\w*|pest control|pest treatment|fumigat\w*|exterminat\w*|termite\w*)\b(?:\W+\w+){0,25}?\W+(?:tenan\w*|lessees?|occupants?|dwelling units?|apartments?|residents?|rental agreements?|leases?)\b|\b(?:tenan\w*|lessees?|occupants?|dwelling units?|apartments?|rental agreements?|leases?)\b(?:\W+\w+){0,25}?\W+(?:pesticid\w*|pest control|pest treatment|fumigat\w*|exterminat\w*|termite\w*)\b`: 1 hits in 1 sections; tenancy-filtered 1: 27-40-530
+
+**SC-B6-002** (`adverse-proceeding-notice`). Controls: null 0, positive 3389. Landlord duty to tell tenants of proceedings affecting the property; tenant duty to forward notices of proceedings to the landlord.
+- "notify-tenant-proceeding" `\b(?:notif\w*|notice|inform\w*|serve\w*)\b(?:\W+\w+){0,8}?\W+(?:tenants?|occupants?|lessees?)\b(?:\W+\w+){0,12}?\W+(?:proceeding|action|suit|foreclos\w*|condemn\w*|summons)\b`: 2 hits in 2 sections; sections: 39-20-45, 44-96-85
+- "tenant-forward" `\b(?:tenants?|lessees?)\b(?:\W+\w+){0,10}?\W+(?:inform|notify|deliver|forward)\w*\b(?:\W+\w+){0,10}?\W+(?:landlord|lessor)\b`: 6 hits in 5 sections; sections: 27-40-610, 27-40-650, 27-40-910, 36-2A-508, 36-2A-516
+
+**SC-B7-002** (`pet-eviction-fact-sheet`). Controls: null 0, positive 3389. State fact sheet or other duty about pets when a tenant is evicted.
+- "pet-eviction" `\b(?:pets?|dogs?|cats?|animals?|companion animals?)\b(?:\W+\w+){0,15}?\W+(?:evict\w*|eject\w*|dispossess\w*|writs?|abandon\w*)\b|\b(?:evict\w*|eject\w*|dispossess\w*)\b(?:\W+\w+){0,15}?\W+(?:pets?|dogs?|cats?|animals?)\b`: 10 hits in 7 sections; tenancy-filtered 0: none
+- "fact-sheet" `fact sheets?|informational (?:sheet|pamphlet|brochure)`: 13 hits in 6 sections; tenancy-filtered 0: none
+
+**SC-B7-003** (`plain-language`). Controls: null 0, positive 3389. Plain-language or readability law reaching residential leases; statement of consumer restrictions.
+- "plain-language" `plain language|plain english|readab\w*|easily understood|understandable language|everyday words`: 60 hits in 47 sections; tenancy-filtered 0: none
+- "consumer-statement" `\b(?:statement|summary|list)\b(?:\W+\w+){0,6}?\W+(?:consumer restrictions|restrictions on the consumer|waivers?)\b`: 6 hits in 5 sections; tenancy-filtered 0: none
+
+**SC-B6-003** (`animal-care-access`). Controls: null 0, positive 3389. Landlord right to enter a dwelling to care for or remove a tenant animal; tenant animal left without care.
+- "enter-animal" `\b(?:enter|entry|access)\w*\b(?:\W+\w+){0,10}?\W+(?:animals?|pets?)\b|\b(?:animals?|pets?)\b(?:\W+\w+){0,10}?\W+(?:enter|entry|access)\w*\b`: 40 hits in 26 sections; tenancy-filtered 3: 27-37-240, 27-37-250, 47-3-720
+- "animal-tenant" `\b(?:tenant|lessee|occupant)\w*\b(?:\W+\w+){0,10}?\W+(?:animals?|pets?)\b(?:\W+\w+){0,10}?\W+(?:care|feed|remov\w*|abandon\w*)`: 0 hits in 0 sections; tenancy-filtered 0: none
+
+**SC-B6-004** (`alt-housing`). Controls: null 0, positive 3389. Landlord duty to provide or pay for alternative or substitute housing, relocation of tenants.
+- "substitute-housing" `\b(?:substitute|alternative|alternate|temporary|comparable|replacement)\s+(?:housing|dwelling|lodging|accommodations?|quarters|premises|units?)\b`: 21 hits in 10 sections; tenancy-filtered 11: 10-5-220, 10-5-250, 27-40-410, 39-5-145
+- "relocation" `\breloca\w*\b(?:\W+\w+){0,10}?\W+(?:tenants?|occupants?|residents?|households?)\b|\b(?:tenants?|occupants?|residents?)\b(?:\W+\w+){0,10}?\W+reloca\w*`: 10 hits in 5 sections; tenancy-filtered 0: none
+
+**SC-B7-004** (`political-access`). Controls: null 0, positive 3389. Candidate, canvasser or petition-circulator access to apartment buildings or tenants.
+- "political-access" `\b(?:candidat\w*|campaign\w*|canvasser\w*|petition circulat\w*|voter registration|door[- ]to[- ]door|political)\b(?:\W+\w+){0,20}?\W+(?:apartments?|multi[- ]?(?:unit|family)\w*|tenan\w*|residential (?:buildings?|propert\w*|premises)|dwelling units?|condominiums?)\b|\b(?:apartments?|multi[- ]?(?:unit|family)\w*|tenan\w*|residential (?:buildings?|propert\w*|premises)|dwelling units?)\b(?:\W+\w+){0,20}?\W+(?:candidat\w*|campaign\w*|canvasser\w*|petition circulat\w*|door[- ]to[- ]door)\b`: 2 hits in 2 sections; tenancy-filtered 0: none
+
+**SC-B6-005** (`asbestos-hazards`). Controls: null 0, positive 3389. Asbestos disclosure, notice or management duty running to tenants; asbestos licensing.
+- "asbestos" `\basbestos\b`: 124 hits in 34 sections; tenancy-filtered 0: none
+- "asbestos-notice" `\basbestos\b(?:\W+\w+){0,10}?\W+(?:disclos\w*|notif\w*|notice|warn\w*|inform\w*)|\b(?:disclos\w*|notif\w*|notice|warn\w*|inform\w*)\b(?:\W+\w+){0,10}?\W+asbestos\b`: 0 hits in 0 sections; tenancy-filtered 0: none
+
+**SC-B6-006** (`hoa`). Controls: null 0, positive 3389. Association rules on tenants: approval of leases, rent collection from tenants, disclosure of association documents to tenants.
+- "assoc-tenant" `\b(?:associations?|co-owners?|regime|condominiums?)\b(?:\W+\w+){0,10}?\W+(?:tenants?|lessees?|renters?)\b|\b(?:tenants?|lessees?|renters?)\b(?:\W+\w+){0,10}?\W+(?:homeowners associations?|co-owners?|regime|condominiums?)\b`: 26 hits in 18 sections; tenancy-filtered 26: 23-35-175, 27-1-60, 27-31-30, 27-31-420, 27-31-430, 27-31-440, 31-23-40, 33-41-720, 33-47-410, 34-28-620, 48-28-30, 57-5-1495, 58-11-10, 58-27-10, 58-5-920, 58-9-10, 58-9-297, 62-1-501
+- "assoc-lease-approval" `\b(?:approv\w*|consent)\b(?:\W+\w+){0,8}?\W+(?:lease|leasing|rental)\b(?:\W+\w+){0,8}?\W+(?:units?|apartments?|lots?)\b`: 0 hits in 0 sections; tenancy-filtered 0: none
+
+**SC-B7-005** (`pool-safety`). Controls: null 0, positive 3389. Pool barrier, safety-notice or lease duty on residential landlords; regs searched too.
+- "pool-barrier" `\b(?:swimming pools?|pools?|spas?|hot tubs?)\b(?:\W+\w+){0,12}?\W+(?:fenc\w*|barriers?|enclos\w*|gates?|alarms?|covers?|safety notice|warnings?)\b`: 1 hits in 1 sections; tenancy-filtered 0: none
+- "pool-tenancy" `\b(?:swimming pools?|spas?|hot tubs?)\b(?:\W+\w+){0,20}?\W+(?:tenan\w*|lessees?|landlords?|rental\w*|apartments?|leases?)\b|\b(?:tenan\w*|lessees?|landlords?|rental\w*|apartments?|leases?)\b(?:\W+\w+){0,20}?\W+(?:swimming pools?|spas?|hot tubs?)\b`: 0 hits in 0 sections; tenancy-filtered 0: none
+
+**SC-B6-007** (`automatic-renewal`). Controls: null 0, positive 3389. Automatic renewal of residential leases: format, reminder notice, limits.
+- "auto-renew" `\b(?:automatic\w*\W+(?:\w+\W+){0,3}?renew\w*|renew\w*\W+(?:\w+\W+){0,3}?automatic\w*)`: 29 hits in 11 sections; tenancy-filtered 1: 27-31-420
+- "renew-notice-tenant" `\brenew\w*\b(?:\W+\w+){0,10}?\W+(?:tenants?|lessees?|rental agreement|lease)\b|\b(?:tenants?|lessees?|rental agreement|lease)\b(?:\W+\w+){0,10}?\W+renew\w*`: 54 hits in 28 sections; tenancy-filtered 54: 1-11-55, 1-11-56, 12-37-3150, 12-37-620, 12-37-940, 12-54-122, 27-40-910, 27-47-310, 31-23-40, 36-1-203, 36-2A-103, 36-2A-201, 37-5-109, 37-5-110, 37-9-101, 38-12-30, 4-29-70, 40-57-135, 58-27-2560, 58-27-2600, 58-27-2610, 58-27-2620, 58-27-2630, 58-27-2660, 58-39-130
+
+**SC-B7-006** (`portable-cooling-device`). Controls: null 0, positive 3389. Tenant right to install a portable or window cooling device; heat-event rules.
+- "cooling-tenancy" `\b(?:air[- ]condition\w*|cooling (?:devices?|units?|systems?|equipment)|window units?|heat pumps?|evaporative coolers?)\b(?:\W+\w+){0,20}?\W+(?:tenan\w*|lessees?|landlords?|leases?|rental agreements?|residents?|renters?)\b|\b(?:tenan\w*|lessees?|landlords?|leases?|rental agreements?|renters?)\b(?:\W+\w+){0,20}?\W+(?:air[- ]condition\w*|cooling (?:devices?|units?|systems?|equipment)|window units?|heat pumps?)\b`: 4 hits in 4 sections; tenancy-filtered 4: 27-40-510, 27-47-210, 38-12-270, 38-12-480
+- "heat-event" `extreme heat|heat (?:event|emergenc\w*|advisor\w*|wave)|maximum (?:indoor )?temperature`: 1 hits in 1 sections; tenancy-filtered 0: none
+
+**SC-B7-007** (`portable-solar`). Controls: null 0, positive 3389. Tenant solar right; statute voiding covenant or lease restrictions on solar devices.
+- "solar-restriction" `\bsolar\b(?:\W+\w+){0,15}?\W+(?:covenants?|restrict\w*|deeds?|leases?|tenan\w*|renters?|homeowners|associations?|prohibit\w*|void\w*)\b|\b(?:covenants?|restrict\w*|leases?|tenan\w*|renters?|associations?|prohibit\w*)\b(?:\W+\w+){0,15}?\W+solar\b`: 2 hits in 2 sections; sections: 58-27-2610, 58-27-2660
+- "plug-in-solar" `plug[- ]in (?:solar|generat\w*)|portable (?:solar|generat\w*)|balcony solar|solar (?:generation )?devices?`: 0 hits in 0 sections; sections: 
+
+**SC-B6-008** (`bed-bug-cooperation`). Controls: null 0, positive 3389. Tenant duty to report or cooperate with bed bug or pest inspection and treatment; cost allocation.
+- "pests" `\bbed ?bugs?\b|\bvermin\b|\bextermin\w*|\binfestation\w*`: 27 hits in 17 sections; tenancy-filtered 0: none
+- "pest-tenant" `\b(?:pests?|insects?|rodents?)\b(?:\W+\w+){0,10}?\W+(?:tenants?|lessees?|dwelling units?)\b|\b(?:tenants?|lessees?|dwelling units?)\b(?:\W+\w+){0,10}?\W+(?:pests?|insects?|rodents?)\b`: 0 hits in 0 sections; tenancy-filtered 0: none
+
+**SC-B6-009** (`balcony-inspection`). Controls: null 0, positive 3389. Periodic balcony, deck or exterior elevated element inspection duty.
+- "balcony" `\bbalcon\w*|\bdecks?\b(?:\W+\w+){0,6}?\W+(?:inspect\w*|load|repair\w*)|\bexterior elevated\b|\belevated (?:walkway|landing|structure)s?\b`: 9 hits in 4 sections; sections: 45-4-60, 45-5-50, 56-5-1570, 56-5-2530
+
+**SC-B7-008** (`private-well-testing`). Controls: null 0, positive 3389. Private well testing or disclosure of results to tenants; regs searched too.
+- "well-tenancy" `\bwells?\b(?:\W+\w+){0,20}?\W+(?:tenan\w*|lessees?|landlords?|leases?|rental\w*|renters?|lessors?)\b|\b(?:tenan\w*|lessees?|landlords?|leases?|rental\w*|renters?|lessors?)\b(?:\W+\w+){0,20}?\W+(?:private|domestic|individual|residential) (?:water )?wells?\b`: 7 hits in 7 sections; sections: 16-3-1020, 27-33-10, 48-43-30, 48-43-390, 55-11-630, 6-17-70, 62-7-920
+- "well-testing" `\b(?:private|domestic|individual|residential) (?:drinking )?(?:water )?wells?\b(?:\W+\w+){0,20}?\W+(?:test\w*|sampl\w*|analy\w*|results?|disclos\w*)\b`: 0 hits in 0 sections; sections: 
+
+**SC-B6-010** (`binding-arbitration`). Controls: null 0, positive 3389. Arbitration of residential landlord-tenant disputes; lease arbitration clauses.
+- "arbitration" `\barbitrat\w*`: 278 hits in 94 sections; tenancy-filtered 2: 56-28-90, 62-5-422
+- "arb-lease" `\barbitrat\w*\b(?:\W+\w+){0,12}?\W+(?:lease|rental agreement|tenan\w*|landlord|dwelling)\b|\b(?:lease|rental agreement|tenan\w*|landlord|dwelling)\b(?:\W+\w+){0,12}?\W+arbitrat\w*`: 0 hits in 0 sections; tenancy-filtered 0: none
+
+**SC-B6-011** (`cannabis`). Controls: null 0, positive 3389. Medical-cannabis or hemp housing protection; landlord limits on cannabis smoking or growing (SC item: Title 44 Ch. 53).
+- "cannabis-housing" `\b(?:marijuana|cannabi\w*|hemp)\b(?:\W+\w+){0,12}?\W+(?:tenants?|landlords?|lease|rental|housing|dwelling|residen\w*)\b|\b(?:tenants?|landlords?|lease|rental|housing|dwelling)\b(?:\W+\w+){0,12}?\W+(?:marijuana|cannabi\w*|hemp)\b`: 0 hits in 0 sections; sections: 
+- "medical-cannabis" `\bmedical (?:cannabis|marijuana)\b`: 1 hits in 1 sections; sections: 44-53-1840
+
+**SC-B7-009** (`promises-to-repair`). Controls: null 0, positive 3389. Landlord promises to repair or clean: writing, completion date, timing rules.
+- "repair-promise" `\b(?:promis\w*|agreed|agreements?|represent\w*)\b(?:\W+\w+){0,8}?\W+(?:repair\w*|clean\w*|improvements?|renovat\w*)\b|\b(?:repairs?|improvements?)\b(?:\W+\w+){0,8}?\W+(?:promised|agreed to|in writing|completion date)\b`: 34 hits in 34 sections; tenancy-filtered 8: 13-12-40, 13-19-40, 13-21-50, 27-40-530, 32-2-10, 36-2A-309, 36-2A-310, 56-3-840
+
+**SC-B7-010** (`prop65-rental-warning`). Controls: null 0, positive 3389. Chemical-exposure warning (Prop 65 style, formaldehyde notice) for rental housing.
+- "chemical-warning" `formaldehyde|carcinogen\w*|reproductive (?:toxicity|harm)|(?:chemical|toxic\w*) (?:exposure )?warnings?|Proposition 65`: 5 hits in 2 sections; tenancy-filtered 0: none
+
+**SC-B7-011** (`property-tax-rent-disclosure`). Controls: null 0, positive 3389. Statement of property-tax share of rent; renter property-tax credit.
+- "rent-property-tax" `\b(?:rent|rental payments?)\b(?:\W+\w+){0,12}?\W+(?:property tax\w*|real property tax\w*|ad valorem)\b|\b(?:property tax\w*|ad valorem tax\w*)\b(?:\W+\w+){0,12}?\W+(?:paid as rent|attributable to rent|portion of (?:the )?rent|renters?|tenants?)\b`: 1 hits in 1 sections; sections: 12-44-20
+- "renter-credit" `renters?'? (?:tax )?credit|rent rebate|property tax (?:credit|rebate|refund)\w*(?:\W+\w+){0,10}?\W+(?:renters?|tenants?)`: 0 hits in 0 sections; sections: 
+
+**SC-B6-012** (`certificate-of-occupancy-disclosure`). Controls: null 0, positive 3389. Disclosure to tenants of certificate-of-occupancy status; rent bar without a certificate.
+- "co-disclose" `\bcertificates? of occupancy\b`: 27 hits in 17 sections; tenancy-filtered 0: none
+- "co-tenant" `\bcertificates? of occupancy\b(?:\W+\w+){0,15}?\W+(?:tenants?|lease|rent\w*|lessees?|disclos\w*)\b|\b(?:tenants?|lease|rent\w*|lessees?|disclos\w*)\b(?:\W+\w+){0,15}?\W+certificates? of occupancy\b`: 1 hits in 1 sections; tenancy-filtered 0: none
+
+**SC-B6-013** (`children-occupancy`). Controls: null 0, positive 3389. Lease content on children; familial-status occupancy rules; occupancy standards.
+- "children-lease" `\b(?:children|minors?|child)\b(?:\W+\w+){0,10}?\W+(?:tenants?|lease|rental agreement|dwelling unit|occupan\w*)\b|\b(?:tenants?|lease|rental agreement|dwelling unit)\b(?:\W+\w+){0,10}?\W+(?:children|minors?)\b`: 11 hits in 10 sections; tenancy-filtered 8: 34-19-30, 34-28-640, 34-30-1650, 44-53-1430, 44-53-1440, 62-1-201, 63-5-660
+- "occupancy-standard" `\b(?:occupancy|occupants?)\b(?:\W+\w+){0,6}?\W+(?:standards?|limits?|maximum)\b|\bpersons? per (?:bedroom|room|square)`: 4 hits in 4 sections; tenancy-filtered 2: 31-21-70, 34-26-500
+
+**SC-B7-012** (`protected-class-inquiry-ban`). Controls: null 0, positive 3389. Ban on inquiring about or recording a protected class, distinct from the discrimination ban.
+- "class-inquiry" `\b(?:inquir\w*|ask\w*|questions?|records?|application)\b(?:\W+\w+){0,12}?\W+(?:race|color|religion|national origin|familial status|handicap|disabilit\w*|sex|sexual orientation|gender identity|immigration status|citizenship)\b`: 42 hits in 33 sections; tenancy-filtered 1: 31-21-70
+
+**SC-B6-014** (`cold-weather-vacate-notice`). Controls: null 0, positive 3389. Tenant notice before vacating in cold weather; freeze protection.
+- "freeze" `\bfreez\w*\b(?:\W+\w+){0,10}?\W+(?:pipes?|plumbing)\b|\b(?:pipes?|plumbing)\b(?:\W+\w+){0,10}?\W+freez\w*`: 1 hits in 1 sections; sections: 40-10-20
+- "cold-vacate" `\b(?:cold weather|winter|heating season)\b(?:\W+\w+){0,15}?\W+(?:vacat\w*|abandon\w*|tenants?|notice)\b`: 0 hits in 0 sections; sections: 
+
+**SC-B7-013** (`purpose-limitation`). Controls: null 0, positive 3389. Statute voiding or annulling a lease when premises are used for a prohibited purpose.
+- "lease-void" `\b(?:leases?|rental agreements?|tenanc\w*|lessees?|demise)\b(?:\W+\w+){0,20}?\W+(?:void\w*|forfeit\w*|annul\w*)\b|\b(?:void\w*|forfeit\w*|annul\w*)\b(?:\W+\w+){0,20}?\W+(?:leases?|rental agreements?|tenanc\w*)\b`: 26 hits in 26 sections; tenancy-filtered 25: 10-9-10, 12-37-3150, 27-15-50, 27-23-40, 27-50-270, 31-1-190, 31-1-610, 36-2A-304, 36-2A-305, 36-2A-308, 37-2-407, 37-2-415, 48-43-380, 51-1-60, 58-17-740, 59-117-65, 59-125-130, 59-127-85, 59-130-60, 59-133-60, 59-53-1784, 59-53-2430, 59-53-290, 59-53-630, 59-53-740
+- "unlawful-use-tenancy" `\b(?:nuisance|prostitut\w*|lewd\w*|gaming|gambl\w*|controlled substances?|illegal activit\w*|unlawful purpose)\b(?:\W+\w+){0,25}?\W+(?:leases?|rental agreements?|tenan\w*|lessees?|lessors?)\b|\b(?:leases?|rental agreements?|tenan\w*|lessees?|lessors?)\b(?:\W+\w+){0,25}?\W+(?:nuisance|prostitut\w*|lewd\w*|gaming|gambl\w*|illegal activit\w*|unlawful purpose)\b`: 4 hits in 4 sections; tenancy-filtered 4: 15-43-10, 16-1-10, 16-15-100, 27-40-540
+
+**SC-B7-014** (`recycling-notice`). Controls: null 0, positive 3389. Landlord duty to provide or tell tenants about recycling.
+- "recycling-tenancy" `\brecycl\w*\b(?:\W+\w+){0,20}?\W+(?:tenan\w*|multi[- ]?family|multi[- ]?unit|apartments?|landlords?|residential rental|lessees?|occupants?)\b|\b(?:tenan\w*|multi[- ]?family|multi[- ]?unit|apartments?|landlords?|lessees?)\b(?:\W+\w+){0,20}?\W+recycl\w*`: 1 hits in 1 sections; sections: 16-17-680
+
+**SC-B7-015** (`religious-cultural-display`). Controls: null 0, positive 3389. Tenant or owner right to display religious or cultural items.
+- "religious-display" `\b(?:religious|cultural)\b(?:\W+\w+){0,10}?\W+(?:displays?|symbols?|items?|objects?|signs?|decorations?|mezuzah\w*)\b`: 9 hits in 8 sections; tenancy-filtered 3: 57-25-140, 57-25-430, 57-25-640
+
+**SC-B6-015** (`common-area-lighting`). Controls: null 0, positive 3389. Common-area lighting on a tenant-paid electric service; common-area lighting duty.
+- "common-light" `\bcommon (?:areas?|hallways?|stairways?|elements?)\b(?:\W+\w+){0,12}?\W+(?:meter\w*|electric\w*|lights?|lighting|utilit\w*)\b|\b(?:meter\w*|lighting|lights?)\b(?:\W+\w+){0,12}?\W+common (?:areas?|hallways?|stairways?)\b`: 1 hits in 1 sections; sections: 27-47-450
+- "tenant-meter" `\btenant\W+s?\W*(?:own\W+)?(?:meter|electric service)\b|\b(?:meter|electric service)\b(?:\W+\w+){0,6}?\W+serv\w*\b(?:\W+\w+){0,6}?\W+(?:outside|other units?|common)`: 0 hits in 0 sections; sections: 
+
+**SC-B6-016** (`communal-land-lease-approval`). Controls: null 0, positive 3389. Government approval of leases of tribal, communal or public trust land.
+- "tribal-lease" `\b(?:Indian|tribal|Tribe|native|communal|reservation)\b(?:\W+\w+){0,10}?\W+(?:lands?)\b(?:\W+\w+){0,12}?\W+(?:lease\w*|leasing)\b|\blease\w*\b(?:\W+\w+){0,10}?\W+(?:Indian|tribal|Catawba)\b`: 5 hits in 4 sections; tenancy-filtered 5: 27-15-20, 27-15-40, 27-15-50, t27c015
+- "lease-approval" `\blease\w*\b(?:\W+\w+){0,10}?\W+(?:approv\w*|consent)\b(?:\W+\w+){0,8}?\W+(?:Governor|Secretary|Board|Commission|department)\b`: 10 hits in 10 sections; tenancy-filtered 10: 31-1-180, 4-29-67, 56-3-840, 58-27-1300, 59-125-130, 59-130-50, 59-133-50, 59-135-50, 59-136-150, 59-19-250
+
+**SC-B7-016** (`tenant-display-rights`). Controls: null 0, positive 3389. Tenant display rights: flags, political signs, banners; lease or covenant limits.
+- "display-tenancy" `\b(?:display\w*|flags?|political signs?|campaign signs?|banners?|yard signs?)\b(?:\W+\w+){0,15}?\W+(?:tenan\w*|lease|rental agreements?|restrictive covenants?|homeowners.? association\w*)\b|\b(?:tenan\w*|lease|rental agreements?|restrictive covenants?)\b(?:\W+\w+){0,15}?\W+(?:display\w*|flags?|political signs?|campaign signs?|banners?)\b`: 12 hits in 7 sections; tenancy-filtered 12: 27-1-60, 34-26-410, 37-2-307, 37-2-308, 57-25-430, 57-25-640, 58-23-50
+- "political-sign" `political (?:campaign )?signs?|campaign signs?`: 3 hits in 1 sections; tenancy-filtered 0: none
+
+**SC-B6-017** (`construction-liens`). Controls: null 0, positive 3389. Construction liens for tenant-ordered work and the landlord interest; notice of nonresponsibility.
+- "lien-lessee" `\b(?:mechanic\W*s|construction|materialm[ae]n\W*s)?\s*liens?\b(?:\W+\w+){0,15}?\W+(?:tenants?|lessees?|lessors?|leasehold)\b|\b(?:tenants?|lessees?|lessors?|leasehold)\b(?:\W+\w+){0,15}?\W+(?:mechanic\W*s|construction) liens?\b`: 14 hits in 11 sections; tenancy-filtered 14: 27-39-10, 27-40-630, 27-40-740, 29-1-10, 29-1-20, 29-13-10, 29-13-30, 31-13-170, 36-9-317, 36-9-521, 56-19-10
+- "nonresponsibility" `\bnotice of non-?responsibility\b|\bnot (?:be )?subject to (?:any )?liens?\b`: 1 hits in 1 sections; tenancy-filtered 0: none
+
+**SC-B7-017** (`rent-concession`). Controls: null 0, positive 3389. Rent concessions: statement in lease, clawback, disclosure.
+- "rent-concession" `\b(?:rent(?:al)?|move[- ]in)\b(?:\W+\w+){0,4}?\W+(?:concessions?|credits?|rebates?|discounts?|abatements?|free)\b|\bfree rent\b|\bconcessions?\b(?:\W+\w+){0,8}?\W+(?:rent|tenan\w*|lease)`: 13 hits in 7 sections; tenancy-filtered 13: 41-18-30, 41-18-40, 57-3-205, 57-5-1320, 59-20-20, 59-31-260, 59-31-270
+
+**SC-B6-018** (`consumer-protection-act`). Controls: null 0, positive 3389. Consumer protection act reach to residential leases; blank spaces and copy-at-signing as unlawful practices.
+- "utpa-lease" `\b(?:unfair|deceptive)\b(?:\W+\w+){0,10}?\W+(?:practices?|acts?)\b(?:\W+\w+){0,15}?\W+(?:lease|leases|rental agreements?|tenants?|landlords?|dwelling units?)\b`: 0 hits in 0 sections; tenancy-filtered 0: none
+- "blank-copy" `\bblank spaces?\b|\b(?:copy|copies)\b(?:\W+\w+){0,6}?\W+(?:lease|rental agreement)\b(?:\W+\w+){0,6}?\W+(?:sign\w*|execut\w*)`: 1 hits in 1 sections; tenancy-filtered 0: none
+
+**SC-B7-018** (`rent-escalation`). Controls: null 0, positive 3389. Rent escalation or mid-term increase clauses; limits, notice, retaliation interplay.
+- "rent-escalation" `\b(?:escalat\w*|index\w*|consumer price index|cost[- ]of[- ]living)\b(?:\W+\w+){0,12}?\W+(?:rent|rental|lease)\b|\b(?:rent|rental payments?)\b(?:\W+\w+){0,12}?\W+(?:escalat\w*|consumer price index|adjust\w*)\b|\b(?:increas\w*|rais\w*)\b(?:\W+\w+){0,6}?\W+rent\b`: 3 hits in 1 sections; tenancy-filtered 3: 27-40-910
+
+**SC-B7-019** (`rent-installments`). Controls: null 0, positive 3389. Rent paid in installments; partial-payment treatment; installment late charges.
+- "rent-installments" `partial (?:payments?|rent)|installments?\b(?:\W+\w+){0,8}?\W+(?:of )?rent\b|\brent\b(?:\W+\w+){0,20}?\W+installments?\b`: 21 hits in 19 sections; tenancy-filtered 2: 27-40-310, 36-2A-522
+
+**SC-B7-020** (`rent-reporting`). Controls: null 0, positive 3389. Positive rent reporting offers; notice before reporting late rent to a credit bureau.
+- "rent-reporting" `\b(?:rent(?:al)? payments?|rent(?:al)? history|payment history)\b(?:\W+\w+){0,15}?\W+(?:report\w*|credit (?:bureau|reporting)|consumer reporting)\b|\b(?:credit (?:bureaus?|reporting agenc\w*)|consumer reporting agenc\w*)\b(?:\W+\w+){0,15}?\W+(?:rent\w*|tenan\w*|landlords?|lease)\b`: 0 hits in 0 sections; sections: 
+
+**SC-B6-019** (`disaster-duties`). Controls: null 0, positive 3389. Declared disaster effects on tenancies and rent; housing displaced persons as guests.
+- "disaster-tenancy" `\b(?:disasters?|states? of emergency|hurricanes?|evacuat\w*)\b(?:\W+\w+){0,15}?\W+(?:tenan\w*|lease\w*|rental agreements?|evict\w*|ejectment|rent)\b|\b(?:tenan\w*|lease\w*|rental agreements?|evict\w*|ejectment)\b(?:\W+\w+){0,15}?\W+(?:disasters?|states? of emergency|hurricanes?|evacuat\w*)\b`: 4 hits in 2 sections; sections: 27-50-260, 39-5-145
+- "displaced" `\b(?:displaced|evacuees?|disaster victims?)\b(?:\W+\w+){0,15}?\W+(?:guests?|housing|shelter\w*|occupan\w*|lodging|tenants?)\b`: 4 hits in 4 sections; sections: 25-9-20, 25-9-420, 31-6-90, 31-7-90
+
+**SC-B6-020** (`defective-drywall-disclosure`). Controls: null 0, positive 3389. Defective or corrosive drywall disclosure.
+- "drywall" `\bdrywall\b|\bsheetrock\b|\bgypsum (?:board|wallboard)\b|\bwallboard\b`: 1 hits in 1 sections; sections: 40-11-410
+
+**SC-B7-021** (`rent-tax`). Controls: null 0, positive 3389. Sales or rental tax on residential rent; transient accommodations tax reach; pass-through of taxes to tenants.
+- "rent-tax-tenancy" `\b(?:sales|excise|rental|occupancy|accommodations?) tax\w*\b(?:\W+\w+){0,20}?\W+(?:residential (?:rent\w*|leases?|propert\w*)|dwelling units?|apartments?|tenan\w*)\b|\b(?:residential (?:rent\w*|leases?)|dwelling units?|apartments?|tenan\w*)\b(?:\W+\w+){0,20}?\W+(?:sales|excise|rental|occupancy|accommodations?) tax\w*\b`: 1 hits in 1 sections; sections: 11-11-157
+- "tax-pass-through" `\bpass\w*\b(?:\W+\w+){0,6}?\W+(?:through|on)\b(?:\W+\w+){0,8}?\W+(?:tenants?|lessees?|renters?)\b`: 4 hits in 3 sections; sections: 36-2A-219, 38-12-270, 38-12-480
+
+**SC-B7-022** (`renters-insurance-rules`). Controls: null 0, positive 3389. Renter's insurance requirements: carrier choice, force-placed cost, advisory notice.
+- "renters-insurance" `renters?'?s? insurance|tenants?'?s? insurance|\b(?:tenan\w*|lessees?|renters?)\b(?:\W+\w+){0,12}?\W+(?:insurance (?:polic\w*|coverage)|insurers?|insure)\b|\b(?:insurance (?:polic\w*|coverage)|insurers?)\b(?:\W+\w+){0,12}?\W+(?:tenan\w*|lessees?|renters?)\b`: 18 hits in 12 sections; tenancy-filtered 18: 13-7-30, 36-2A-220, 38-12-30, 38-43-500, 38-57-75, 38-75-60, 38-97-40, 39-5-180, 41-18-100, 41-18-90, 58-23-50, 62-2-803
+
+**SC-B6-021** (`designated-repairer`). Controls: null 0, positive 3389. Landlord-designated repairer; tenant-made repairs at landlord cost.
+- "repairer" `\b(?:designat\w*|approv\w*|authoriz\w*)\b(?:\W+\w+){0,6}?\W+(?:repair\w*|contractors?|repairm[ae]n)\b(?:\W+\w+){0,12}?\W+(?:tenants?|landlords?|dwelling units?|rental)\b`: 1 hits in 1 sections; tenancy-filtered 1: 27-40-630
+- "tenant-repair" `\btenants?\b(?:\W+\w+){0,10}?\W+(?:make|makes|making|perform\w*)\W+(?:\w+\W+){0,3}?repairs?\b`: 2 hits in 2 sections; tenancy-filtered 2: 27-40-440, 27-40-630
+
+**SC-B7-023** (`repair-notice`). Controls: null 0, positive 3389. Form or method of tenant repair notices; lease designation of notice method.
+- "repair-request" `\b(?:repair|maintenance) requests?\b|\brequests? for (?:repairs?|maintenance)\b|\b(?:notice|notify|notif\w*)\b(?:\W+\w+){0,8}?\W+(?:of )?(?:the )?(?:need for |needed )?repairs?\b`: 17 hits in 14 sections; tenancy-filtered 5: 5-25-1330, 57-1-430, 57-1-470, 58-36-20
+
+**SC-B6-022** (`double-letting`). Controls: null 0, positive 3389. Double letting of a room or unit; remedies.
+- "double-let" `\b(?:double|twice)\W+(?:let\w*|rent\w*|lease\w*|book\w*)\b|\b(?:rent|lease|let)\w*\b(?:\W+\w+){0,6}?\W+(?:same|identical)\W+(?:\w+\W+){0,3}?(?:room|unit|dwelling|premises)\b(?:\W+\w+){0,8}?\W+(?:two|more than one|another)\b`: 0 hits in 0 sections; sections: 
+
+**SC-B6-023** (`drug-free-housing-addendum`). Controls: null 0, positive 3389. Drug-free or crime-free lease addendum rules.
+- "drug-free" `\bdrug[- ]free\b(?:\W+\w+){0,10}?\W+(?:hous\w*|lease|addend\w*|tenan\w*|rental)\b|\bcrime[- ]free\b`: 0 hits in 0 sections; sections: 
+- "drug-lease" `\b(?:controlled substances?|drugs?)\b(?:\W+\w+){0,12}?\W+(?:lease|rental agreement|tenancy|tenants?)\b(?:\W+\w+){0,12}?\W+(?:terminat\w*|evict\w*|breach)\b`: 0 hits in 0 sections; sections: 
+
+**SC-B7-024** (`repair-cost-termination`). Controls: null 0, positive 3389. Termination of a lease because repair cost exceeds a threshold.
+- "repair-cost-threshold" `\b(?:cost|costs|expense)s?\b(?:\W+\w+){0,8}?\W+(?:repair\w*|rehabilitat\w*|restor\w*)\b(?:\W+\w+){0,12}?\W+(?:exceed\w*|more than|greater than|percent)\b|\b(?:repair\w*|rehabilitat\w*)\b(?:\W+\w+){0,10}?\W+(?:exceed\w*|more than)\b(?:\W+\w+){0,6}?\W+(?:value|percent)\b`: 24 hits in 11 sections; tenancy-filtered 0: none
+
+**SC-B7-025** (`repair-escrow-exemption-notice`). Controls: null 0, positive 3389. Rent escrow or repair remedies with a small-landlord exemption notice.
+- "rent-escrow-exemption" `\b(?:rent|rents)\b(?:\W+\w+){0,6}?\W+(?:escrow\w*|withh\w*|deposited with the court|into court|paid into)\b|\b(?:payment|pay|deposit)\w* of rent into court\b|\bescrow\w*\b(?:\W+\w+){0,10}?\W+(?:rent|tenan\w*)\b|repair and deduct|(?:three|four) or fewer dwelling units`: 3 hits in 3 sections; tenancy-filtered 3: 27-40-790, 27-47-520, 38-12-30
+
+**SC-B7-026** (`rights-responsibilities-guide`). Controls: null 0, positive 3389. State-published rights guide or statement of tenant rights given with the lease.
+- "rights-guide" `\b(?:guide|handbook|pamphlet|brochure|summary|statement|booklet)\b(?:\W+\w+){0,10}?\W+(?:rights|responsibilities)\b(?:\W+\w+){0,10}?\W+(?:tenan\w*|landlords?|renters?|lessees?)\b|\b(?:tenan\w*|landlords?|renters?)\b(?:\W+\w+){0,4}?\W+(?:rights|bill of rights)\b(?:\W+\w+){0,10}?\W+(?:guide|handbook|pamphlet|brochure|summary|statement|booklet)\b`: 0 hits in 0 sections; sections: 
+
+**SC-B6-024** (`electric-submetering-disclosure`). Controls: null 0, positive 3389. Electric submetering, master metering and resale of electricity to tenants.
+- "submeter" `\bsub-?meter\w*|\bmaster[- ]meter\w*|\bindividual meter\w*`: 2 hits in 2 sections; tenancy-filtered 1: 27-33-50
+- "resale" `\bresold\b|\bresell\w*\b|\bresale\b(?:\W+\w+){0,6}?\W+(?:electric\w*|current|power|water|gas)\b`: 96 hits in 58 sections; tenancy-filtered 12: 16-11-910, 16-11-915, 16-11-930, 27-32-55, 56-16-10, 58-27-10, 58-31-310, 58-33-220, 58-4-150
+
+**SC-B6-025** (`emergency-contact`). Controls: null 0, positive 3389. Emergency contact or emergency phone requirements in tenancies.
+- "emergency-contact" `\bemergency contact\w*|\b(?:contact|telephone|phone) (?:number|information)\b(?:\W+\w+){0,10}?\W+emergenc\w*`: 7 hits in 7 sections; tenancy-filtered 0: none
+
+**SC-B6-026** (`eminent-domain`). Controls: null 0, positive 3389. Effect of eminent domain on residential leases; tenant share of award.
+- "condemn-lease" `\b(?:condemn\w*|eminent domain|taking)\b(?:\W+\w+){0,12}?\W+(?:lease\w*|tenan\w*|lessee\w*|rental agreements?)\b|\b(?:lease\w*|tenan\w*|lessee\w*|rental agreements?)\b(?:\W+\w+){0,12}?\W+(?:condemn\w*|eminent domain)\b`: 17 hits in 17 sections; sections: 11-40-40, 16-15-100, 27-50-240, 3-5-100, 31-3-450, 36-1-201, 36-2A-103, 44-113-20, 48-11-110, 49-19-1440, 55-11-10, 55-11-140, 55-11-340, 55-11-630, 55-9-80, 55-9-90, 57-25-190
+
+**SC-B7-027** (`sanitary-code-variance`). Controls: null 0, positive 3389. Notice to tenants of a housing, sanitary or building code variance or exception.
+- "variance-tenancy" `\b(?:variances?|exceptions?|waivers?)\b(?:\W+\w+){0,20}?\W+(?:tenan\w*|lessees?|occupants?|rental agreements?|leases?)\b|\b(?:tenan\w*|lessees?|occupants?)\b(?:\W+\w+){0,20}?\W+(?:variances?)\b`: 15 hits in 13 sections; tenancy-filtered 14: 27-35-30, 27-37-150, 33-31-1202, 36-2A-208, 36-2A-514, 37-1-107, 37-15-40, 39-57-20, 4-12-30, 50-11-160, 59-23-230, 6-29-770
+- "code-variance" `\b(?:variances?|exceptions?)\b(?:\W+\w+){0,10}?\W+(?:building|housing|sanitary|health|fire) codes?\b|\b(?:building|housing|sanitary|fire) codes?\b(?:\W+\w+){0,10}?\W+(?:variances?|exceptions?)\b`: 2 hits in 2 sections; tenancy-filtered 0: none
+
+**SC-B7-028** (`seasonal-tenancy`). Controls: null 0, positive 3389. Seasonal or vacation tenancies: scope, nonrenewal, special eviction rules.
+- "seasonal-rental" `\bseasonal\b(?:\W+\w+){0,10}?\W+(?:tenan\w*|leases?|rentals?|occupan\w*|dwellings?|residen\w*)\b|\bvacation rentals?\b|\bwinter (?:rental|tenan\w*)|\bsummer (?:rental|tenan\w*)`: 37 hits in 13 sections; sections: 12-43-220, 16-17-446, 27-18-175, 27-50-110, 27-50-210, 27-50-220, 27-50-230, 27-50-240, 27-50-260, 27-50-270, 27-50-40, 40-57-710, 6-1-825
+
+**SC-B6-027** (`employee-screening`). Controls: null 0, positive 3389. Background screening of apartment or property-management employees.
+- "employee-bg" `\b(?:background|criminal (?:history|record))\W+(?:check\w*|screen\w*|investigat\w*)\b(?:\W+\w+){0,15}?\W+(?:apartment|landlord|property manag\w*|rental|tenants?|leasing|maintenance)\b|\b(?:apartment|landlord|property manag\w*|leasing|maintenance)\b(?:\W+\w+){0,15}?\W+(?:background|criminal (?:history|record))\W+(?:check\w*|screen\w*)`: 3 hits in 1 sections; sections: 40-57-510
+
+**SC-B6-028** (`energy-data-release`). Controls: null 0, positive 3389. Release of tenant energy usage data to owners; benchmarking.
+- "energy-data" `\b(?:energy|electric\w*|utility|usage|consumption)\W+(?:usage\W+)?data\b|\bbenchmark\w*`: 33 hits in 23 sections; tenancy-filtered 1: 44-96-330
+- "customer-info" `\bcustomer\W+(?:information|data|records?)\b(?:\W+\w+){0,10}?\W+(?:utilit\w*|electric\w*|release|disclos\w*)`: 0 hits in 0 sections; tenancy-filtered 0: none
+
+**SC-B6-029** (`environmental-event-termination`). Controls: null 0, positive 3389. Landlord right to end a lease after an environmental or public-health event or government order.
+- "env-event" `\b(?:environmental|public health)\W+(?:\w+\W+){0,2}?(?:events?|emergenc\w*|hazards?)\b(?:\W+\w+){0,15}?\W+(?:lease\w*|tenan\w*|rental agreements?|terminat\w*)\b`: 2 hits in 1 sections; sections: 44-4-570
+- "uninhabitable-term" `\b(?:uninhabitable|unfit for (?:human )?habitation|condemned)\b(?:\W+\w+){0,15}?\W+(?:landlord|lessor)\b(?:\W+\w+){0,10}?\W+terminat\w*`: 0 hits in 0 sections; sections: 
+
+**SC-B7-029** (`security-devices`). Controls: null 0, positive 3389. Landlord security-device and rekey duties; smart-lock or electronic access rules.
+- "lock-tenancy" `\b(?:dead ?bolts?|door viewers?|peepholes?|re-?key\w*|security devices?|window latch\w*|keyless (?:bolting|entry)|locks?)\b(?:\W+\w+){0,15}?\W+(?:tenan\w*|landlords?|dwelling units?|rental\w*|lessees?|apartments?)\b|\b(?:tenan\w*|landlords?|dwelling units?|rental\w*|apartments?)\b(?:\W+\w+){0,15}?\W+(?:dead ?bolts?|door viewers?|peepholes?|re-?key\w*|security devices?|locks?)\b`: 1 hits in 1 sections; tenancy-filtered 1: 27-40-530
+- "smart-access" `smart (?:locks?|access)|electronic (?:locks?|entry|access)|key ?(?:fobs?|cards?|codes?)|access (?:codes?|credentials?)|biometric\w*`: 29 hits in 21 sections; tenancy-filtered 1: 39-1-90
+
+**SC-B6-030** (`ev-charging-requirements`). Controls: null 0, positive 3389. EV charging in tenancies: installation conditions, shared areas, removal at end of tenancy (covers ev-charging-requirements, ev-charging-shared-area, ev-charging-end-of-tenancy).
+- "ev" `\belectric vehicle charg\w*|\bcharging (?:station|system|equipment)s?\b|\bplug-in electric vehicles?\b`: 22 hits in 4 sections; tenancy-filtered 0: none
+- "ev-tenancy" `\b(?:electric vehicle|charging station|charging system)s?\b(?:\W+\w+){0,15}?\W+(?:tenants?|lease|landlords?|rental|parking (?:space|spot)s?|associations?|condominium)\b`: 0 hits in 0 sections; tenancy-filtered 0: none
+
+**SC-B7-030** (`service-animal-denial-penalty`). Controls: null 0, positive 3389. Penalty for denying an assistance or service animal in housing; misrepresentation penalty reach.
+- "animal-penalty" `\b(?:unlawful|misdemeanor|guilty|fined?|penalt\w*)\b(?:\W+\w+){0,25}?\W+(?:assistance dogs?|guide dogs?|service animals?|dog guides?|assistance animals?)\b|\b(?:assistance dogs?|guide dogs?|service animals?|assistance animals?)\b(?:\W+\w+){0,25}?\W+(?:unlawful|misdemeanor|guilty|penalt\w*)\b`: 22 hits in 11 sections; sections: 16-1-100, 31-21-70, 47-3-920, 47-3-930, 47-3-940, 47-3-950, 47-3-960, 47-3-970, 47-3-980, 47-3-990, 56-7-10
+- "animal-housing" `\b(?:housing accommodations?|dwellings?|rental housing|tenan\w*|landlords?|lease)\b(?:\W+\w+){0,30}?\W+(?:assistance dogs?|guide dogs?|service animals?|assistance animals?|emotional support animals?)\b|\b(?:assistance dogs?|guide dogs?|service animals?|assistance animals?|emotional support animals?)\b(?:\W+\w+){0,30}?\W+(?:housing accommodations?|dwellings?|rental housing|tenan\w*|landlords?)\b`: 3 hits in 2 sections; sections: 31-21-70, 43-33-70
+
+**SC-B7-031** (`senior-housing-work-card`). Controls: null 0, positive 3389. Work cards or background checks for staff in 55+ or senior housing.
+- "senior-staff-check" `work (?:cards?|permits?)\b(?:\W+\w+){0,20}?\W+(?:housing|apartments?|residen\w*|senior|elderly|age)|\b(?:senior|elderly|age[- ]restricted|55 (?:and|or) older|older persons)\b(?:\W+\w+){0,20}?\W+(?:background checks?|criminal (?:history|records?) checks?|employees?|staff)\b`: 6 hits in 5 sections; tenancy-filtered 0: none
+
+**SC-B6-031** (`farmland-hunting-rights`). Controls: null 0, positive 3389. Hunting, fishing or sporting rights on leased residential or farm land.
+- "hunt-lease" `\b(?:hunt\w*|fishing|trapping|sporting)\W+(?:\w+\W+){0,3}?rights?\b(?:\W+\w+){0,12}?\W+(?:lease\w*|tenan\w*|lessee\w*|reserv\w*)\b|\b(?:lease\w*|tenan\w*|lessee\w*)\b(?:\W+\w+){0,12}?\W+(?:hunt\w*|fishing) rights?\b`: 0 hits in 0 sections; sections: 
+
+**SC-B6-032** (`extended-absence-notice`). Controls: null 0, positive 3389. Tenant notice of extended absence; landlord entry during absence.
+- "absence-notice" `\b(?:extended|anticipated|prolonged)\W+absence\b|\babsen\w*\b(?:\W+\w+){0,10}?\W+(?:notif\w*|notice)\b(?:\W+\w+){0,10}?\W+(?:landlord|lessor)\b`: 0 hits in 0 sections; sections: 
+
+**SC-B6-033** (`family-child-care`). Controls: null 0, positive 3389. Tenant family child care home: landlord or association limits, insurance.
+- "childcare-lease" `\bchild ?care\b(?:\W+\w+){0,15}?\W+(?:lease|landlord|tenants?|rental|lessor|restrictive covenants?)\b|\b(?:lease|landlord|tenants?|rental)\b(?:\W+\w+){0,15}?\W+(?:family|group) child ?care\b`: 2 hits in 2 sections; sections: 12-6-3440, 59-19-125
+
+**SC-B6-034** (`home-business`). Controls: null 0, positive 3389. Tenant home business: statutory right or limits; landlord consent.
+- "home-business" `\bhome[- ]based business\w*|\bhome (?:business|occupation)s?\b|\bbusiness\b(?:\W+\w+){0,8}?\W+(?:residence|dwelling unit|home)\b(?:\W+\w+){0,10}?\W+(?:lease|tenant|landlord|rental)\b`: 1 hits in 1 sections; sections: 48-60-20
+
+**SC-B7-032** (`sex-offender-occupancy`). Controls: null 0, positive 3389. Sex-offender occupancy or disclosure duties of landlords; stigmatized-property disclosure.
+- "offender-tenancy" `(?:sex offenders?|offender registry|registered offenders?)\b(?:\W+\w+){0,25}?\W+(?:landlords?|tenan\w*|lease|rental agreements?|rent|lessees?|lessors?|renters?|apartments?)\b|\b(?:landlords?|tenan\w*|lease|rental agreements?|lessees?|lessors?)\b(?:\W+\w+){0,25}?\W+(?:sex offenders?|offender registry|registered offenders?)\b`: 0 hits in 0 sections; sections: 
+- "offender-cohabitation" `(?:sex offenders?)\b(?:\W+\w+){0,12}?\W+(?:resid\w*|reside|live|living)\b(?:\W+\w+){0,12}?\W+(?:together|same (?:dwelling|residence|household)|another (?:sex )?offender)`: 0 hits in 0 sections; sections: 
+- "stigma" `psychologically (?:affected|impacted)|stigmas?\b|psychological (?:impacts?|effects?)`: 11 hits in 6 sections; sections: 27-50-90, 40-57-740, 44-33-10, 44-53-110, 47-6-10, 53-3-205
+
+**SC-B6-035** (`fire-sprinkler-duty`). Controls: null 0, positive 3389. Fire sprinkler retrofit or installation duty for residential rentals; apartment fire protection.
+- "sprinkler-res" `\bsprinkler\w*\b(?:\W+\w+){0,15}?\W+(?:apartments?|residential|dwellings?|rental|landlords?|tenants?|multi-?family)\b|\b(?:apartments?|residential|dwellings?|rental|multi-?family)\b(?:\W+\w+){0,15}?\W+sprinkler\w*`: 4 hits in 4 sections; sections: 12-37-220, 12-37-3130, 12-6-3622, 6-9-55
+- "fire-protection" `\bfire protection system\b`: 10 hits in 8 sections; sections: 23-9-155, 4-19-10, 4-19-160, 4-19-50, 4-23-1220, 58-5-390, 6-11-140, 6-11-180
+
+**SC-B7-033** (`tenant-screening`). Controls: null 0, positive 3389. Tenant screening rules: criminal-history timing, look-backs, income tests, negligence shield.
+- "screening-tenancy" `\b(?:screen\w*|background checks?|criminal (?:history|records?|convictions?)|credit (?:checks?|reports?|history)|minimum income|income requirements?)\b(?:\W+\w+){0,20}?\W+(?:tenan\w*|applicants? for (?:housing|rental)|rental housing|landlords?|lease|lessees?|renters?)\b|\b(?:tenan\w*|landlords?|rental housing|lessees?|renters?)\b(?:\W+\w+){0,20}?\W+(?:screen\w*|background checks?|criminal (?:history|records?|convictions?))\b`: 2 hits in 2 sections; sections: 37-2-308, 37-20-160
+- "record-negligence-shield" `\b(?:negligen\w*|liab\w*)\b(?:\W+\w+){0,20}?\W+(?:criminal (?:history|records?|convictions?)|ex-offenders?|formerly incarcerated)\b(?:\W+\w+){0,20}?\W+(?:hous\w*|rent\w*|leas\w*|tenan\w*)\b`: 0 hits in 0 sections; sections: 
+
+**SC-B6-036** (`firearms`). Controls: null 0, positive 3389. Landlord firearm rules in private rentals; carry on premises.
+- "firearm-tenancy" `\b(?:firearms?|handguns?|concealable weapons?|guns?)\b(?:\W+\w+){0,15}?\W+(?:tenants?|landlords?|lease|rental agreements?|dwelling units?|apartments?)\b|\b(?:tenants?|landlords?|rental agreements?|dwelling units?)\b(?:\W+\w+){0,15}?\W+(?:firearms?|handguns?|concealable weapons?)\b`: 2 hits in 2 sections; sections: 16-23-30, 16-23-530
+- "premises-carry" `\bperson in legal possession or control\b`: 3 hits in 1 sections; sections: 23-31-220
+
+**SC-B6-037** (`foreclosure`). Controls: null 0, positive 3389. Tenant rights in foreclosure; landlord disclosure of pending foreclosure (covers foreclosure and foreclosure-disclosure).
+- "foreclosure-tenant" `\bforeclos\w*\b(?:\W+\w+){0,15}?\W+(?:tenants?|lessees?|occupants?|leases?|rental agreements?)\b|\b(?:tenants?|lessees?|occupants?|leases?|rental agreements?)\b(?:\W+\w+){0,15}?\W+foreclos\w*`: 2 hits in 2 sections; sections: 12-37-3150, 27-31-210
+- "foreclosure-notice" `\bforeclos\w*\b(?:\W+\w+){0,10}?\W+(?:disclos\w*|notif\w*|notice)\b(?:\W+\w+){0,10}?\W+(?:tenants?|prospective|occupants?)\b`: 0 hits in 0 sections; sections: 
+
+**SC-B7-034** (`sfr-occupancy-disclosure`). Controls: null 0, positive 3389. Single-family rental occupancy disclosure with font or first-page placement rules.
+- "sfr-disclosure" `\bsingle[- ]family (?:residences?|homes?|dwellings?|houses?)\b(?:\W+\w+){0,25}?\W+(?:disclos\w*|notices?|font|type size|first page)\b|\b(?:font|type size|first page)\b(?:\W+\w+){0,20}?\W+(?:leases?|rental agreements?)\b`: 2 hits in 1 sections; tenancy-filtered 2: 40-57-135
+
+**SC-B7-035** (`shoreline-access-disclosure`). Controls: null 0, positive 3389. Shoreline or beachfront public access disclosure in leases.
+- "shore-disclosure" `\b(?:disclos\w*)\b(?:\W+\w+){0,25}?\W+(?:setback line|beachfront|shoreline|seaward|baseline|critical area|tidelands?|public access)\b|\b(?:setback line|beachfront|shoreline|seaward|baseline)\b(?:\W+\w+){0,25}?\W+(?:disclos\w*)\b`: 2 hits in 2 sections; sections: 40-47-190, 48-39-330
+- "shore-tenancy" `\b(?:beach\w*|shore\w*|tidelands?|setback line)\b(?:\W+\w+){0,20}?\W+(?:tenan\w*|lease|rental agreements?|lessees?)\b|\b(?:tenan\w*|rental agreements?|lessees?)\b(?:\W+\w+){0,20}?\W+(?:beach\w*|shore\w*|tidelands?|setback line)\b`: 0 hits in 0 sections; sections: 
+
+**SC-B6-038** (`foreign-ownership`). Controls: null 0, positive 3389. Foreign or alien ownership or leasing of land; nonresident-alien statements in leases.
+- "alien-land" `\b(?:aliens?|foreign (?:persons?|entit\w*|corporations?|nationals?|adversar\w*))\b(?:\W+\w+){0,12}?\W+(?:land|real property|real estate|lease\w*|own\w*)\b`: 12 hits in 7 sections; sections: 27-13-30, 27-13-40, 33-4-104, 33-9-100, 33-9-110, 38-90-10, 5-7-40
+- "nonresident-tenant" `\bnonresident aliens?\b(?:\W+\w+){0,12}?\W+(?:lease|tenant|lessee|statement)\b`: 0 hits in 0 sections; sections: 
+
+**SC-B7-036** (`special-district-representation`). Controls: null 0, positive 3389. Lease acknowledgment or disclosure of a special district.
+- "district-disclosure" `\b(?:special (?:tax|taxing|assessment|purpose) districts?|improvement districts?|assessment districts?|benefit charges?)\b(?:\W+\w+){0,25}?\W+(?:disclos\w*|tenan\w*|lease|purchaser|buyer|acknowledg\w*)\b`: 7 hits in 6 sections; tenancy-filtered 4: 4-29-65, 55-9-30, 6-11-345
+
+**SC-B7-037** (`steam-radiator-covers`). Controls: null 0, positive 3389. Steam radiator covers or burn-protection rider.
+- "radiator" `radiators?|steam heat\w*|steam boilers?`: 2 hits in 1 sections; tenancy-filtered 0: none
+
+**SC-B7-038** (`shutdown-rent-protection`). Controls: null 0, positive 3389. Rent-timing or eviction protection for government workers during a shutdown.
+- "shutdown" `(?:government|federal) (?:shutdown|furlough\w*)|lapse in (?:federal )?appropriations|furlough\w*\b(?:\W+\w+){0,20}?\W+(?:rent|tenan\w*|evict\w*|eject\w*)`: 0 hits in 0 sections; sections: 
+
+**SC-B6-039** (`guarantor-renewal`). Controls: null 0, positive 3389. Lease guaranty scope over renewals and extensions.
+- "guaranty-lease" `\bguarant\w*\b(?:\W+\w+){0,12}?\W+(?:leases?|rental agreements?|tenants?|rent|renewals?)\b|\b(?:leases?|rental agreements?|tenants?)\b(?:\W+\w+){0,12}?\W+guarant(?:or|y|ies)\b`: 4 hits in 4 sections; tenancy-filtered 3: 44-7-3230, 57-3-205, 58-17-750
+
+**SC-B6-040** (`guest-rights`). Controls: null 0, positive 3389. Tenant right to receive guests or service providers; guest limits.
+- "guest-rights" `\bguests?\b(?:\W+\w+){0,10}?\W+(?:tenants?|dwelling units?|rental|landlords?|apartments?)\b|\b(?:tenants?|landlords?)\b(?:\W+\w+){0,10}?\W+guests?\b`: 0 hits in 0 sections; sections: 
+
+**SC-B7-039** (`sprinkler-disclosure`). Controls: null 0, positive 3389. Sprinkler disclosure to tenants; sprinkler retrofit duties or programs.
+- "sprinkler" `\bsprinkler\w*\b(?:\W+\w+){0,25}?\W+(?:tenan\w*|leases?|rental\w*|dwelling units?|apartments?|residential|disclos\w*|notice)\b|\b(?:tenan\w*|leases?|apartments?|residential|dwelling units?)\b(?:\W+\w+){0,25}?\W+sprinkler\w*`: 11 hits in 9 sections; sections: 12-37-220, 12-37-3130, 12-6-3622, 40-10-20, 40-10-230, 40-10-40, 40-11-410, 45-5-80, 6-9-55
+
+**SC-B6-041** (`furnishings-included`). Controls: null 0, positive 3389. Furnished rentals: furniture inventory, deposit, condition.
+- "furnished" `\bfurnish(?:ed|ings)\b(?:\W+\w+){0,10}?\W+(?:rental|dwelling units?|apartments?|tenants?|lease)\b|\b(?:furniture)\b(?:\W+\w+){0,10}?\W+(?:tenants?|landlords?|dwelling units?|deposits?|inventory)\b`: 12 hits in 7 sections; sections: 11-1-120, 11-35-3030, 27-32-250, 27-37-30, 29-5-440, 31-1-610, 57-5-1660
+
+**SC-B7-040** (`stove-refrigerator`). Controls: null 0, positive 3389. Duty to supply a stove or refrigerator; tenant-supplied appliance.
+- "appliance" `\b(?:refrigerators?|stoves?|ranges?|cooking (?:appliances?|facilities))\b(?:\W+\w+){0,20}?\W+(?:landlords?|tenan\w*|rental\w*|dwelling units?|lease)\b|\b(?:landlords?|tenan\w*|dwelling units?)\b(?:\W+\w+){0,20}?\W+(?:refrigerators?|stoves?|cooking (?:appliances?|facilities))\b`: 2 hits in 1 sections; sections: 27-40-210
+
+**SC-B7-041** (`student-housing`). Controls: null 0, positive 3389. Student housing rules: exemptions, college-owned housing termination procedures.
+- "student-housing" `\bstudent (?:housing|dwellings?|residen\w*|apartments?)\b|\bdormitor\w*\b|\b(?:students?)\b(?:\W+\w+){0,12}?\W+(?:tenan\w*|leases?|rental agreements?|landlords?)\b`: 29 hits in 25 sections; sections: 13-11-60, 23-3-465, 23-37-10, 31-21-70, 46-39-140, 5-25-630, 59-101-290, 59-101-450, 59-109-30, 59-117-65, 59-122-10, 59-123-220, 59-123-230, 59-125-130, 59-127-85, 59-130-220, 59-130-420, 59-130-60, 59-133-60, 59-136-310, 59-136-505, 59-147-30, 59-23-540, 59-4-20, 59-53-630
+
+**SC-B6-042** (`hazardous-contamination-disclosure`). Controls: null 0, positive 3389. Disclosure to tenants of contamination, Superfund, brownfield or environmental-covenant restrictions.
+- "contam-tenant" `\b(?:contaminat\w*|hazardous substances?|hazardous waste|environmental covenants?|restrictive covenants?)\b(?:\W+\w+){0,15}?\W+(?:lease\w*|tenants?|lessees?|renters?|rental)\b|\b(?:lease\w*|tenants?|lessees?)\b(?:\W+\w+){0,15}?\W+(?:contaminat\w*|hazardous substances?)\b`: 2 hits in 2 sections; sections: 27-1-60, 27-50-40
+- "contam-disclose" `\b(?:contaminat\w*|hazardous substances?|brownfields?)\b(?:\W+\w+){0,12}?\W+(?:disclos\w*|notif\w*)\b`: 0 hits in 0 sections; sections: 
+
+**SC-B7-042** (`statutory-early-termination`). Controls: null 0, positive 3389. Statutory early-termination rights and any lease statement of them.
+- "early-termination" `\bearly termination\b|\bterminat\w*\b(?:\W+\w+){0,6}?\W+(?:early|before the end of the term|prior to the expiration)\b|\b(?:fraudulent(?:ly)? misrepresent\w*|misrepresentation)\b(?:\W+\w+){0,20}?\W+(?:lease|rental agreement|tenan\w*)\b`: 15 hits in 7 sections; tenancy-filtered 6: 27-40-350, 39-54-20, 39-54-40
+
+**SC-B6-043** (`homestead-waiver`). Controls: null 0, positive 3389. Lease waiver of homestead or debtor exemptions.
+- "waive-exempt" `\bwaiv\w*\b(?:\W+\w+){0,10}?\W+(?:exemptions?|homestead)\b|\b(?:exemptions?|homestead)\b(?:\W+\w+){0,10}?\W+waiv\w*`: 19 hits in 16 sections; tenancy-filtered 0: none
+
+**SC-B6-044** (`infirmity-termination`). Controls: null 0, positive 3389. Tenant early termination for age, infirmity, illness or care-facility admission.
+- "infirm" `\b(?:nursing (?:home|facility)|assisted living|medical condition|disabilit\w*|infirm\w*|age of sixty|senior citizen|elderly)\b(?:\W+\w+){0,15}?\W+(?:terminat\w*|lease|rental agreement)\b(?:\W+\w+){0,10}?\W+(?:tenants?|lessees?|rental agreement|lease)\b`: 0 hits in 0 sections; sections: 
+
+**SC-B6-045** (`informal-dispute-resolution`). Controls: null 0, positive 3389. Informal dispute resolution or mediation of landlord-tenant disputes.
+- "mediation" `\bmediat\w*\b(?:\W+\w+){0,12}?\W+(?:tenants?|landlords?|lease|rental|ejectment|magistrate\w*|housing)\b|\b(?:tenants?|landlords?|ejectment|magistrate\w*)\b(?:\W+\w+){0,12}?\W+mediat\w*`: 0 hits in 0 sections; sections: 
+
+**SC-B6-046** (`key-control-policy`). Controls: null 0, positive 3389. Landlord key-control policy; lock changes by tenant or landlord.
+- "key-control" `\bkey[- ]control\w*|\b(?:master )?keys?\b(?:\W+\w+){0,10}?\W+(?:policy|log|records?|secur\w*)\b(?:\W+\w+){0,10}?\W+(?:dwelling|apartment|tenant|landlord|employee)`: 1 hits in 1 sections; tenancy-filtered 0: none
+- "lock-change" `\b(?:change|rekey|re-key|replace)\w*\W+(?:\w+\W+){0,2}?locks?\b`: 2 hits in 2 sections; tenancy-filtered 1: 27-40-530
+
+**SC-B7-043** (`subsidy-habitability-proration`). Controls: null 0, positive 3389. Abatement or proration of a rent subsidy for failed habitability inspections; tenant share.
+- "subsidy-abatement" `\b(?:housing assistance payments?|subsid\w*|vouchers?|Section 8|housing quality standards)\b(?:\W+\w+){0,25}?\W+(?:abat\w*|withh\w*|suspend\w*|prorat\w*|inspect\w*)\b|\babat\w*\b(?:\W+\w+){0,15}?\W+(?:housing assistance|subsid\w*)\b`: 19 hits in 19 sections; sections: 12-54-44, 12-6-3795, 12-60-30, 14-17-560, 33-49-160, 38-73-1060, 40-55-140, 40-75-160, 46-13-90, 56-3-660, 63-17-1460, 63-17-1570, 63-17-1890, 8-1-100, 8-11-33, 8-11-96, 8-13-1127, 8-13-1366, 8-13-360
+
+**SC-B7-044** (`tax-escalation`). Controls: null 0, positive 3389. Passing real estate tax or insurance increases to a residential tenant.
+- "tax-pass-through" `\b(?:propert\w* tax\w*|real (?:estate|property) tax\w*|ad valorem tax\w*|insurance premiums?)\b(?:\W+\w+){0,20}?\W+(?:tenan\w*|lessees?|renters?)\b(?:\W+\w+){0,15}?\W+(?:pay\w*|reimburs\w*|shar\w*|increas\w*)\b|\b(?:tenan\w*|lessees?)\b(?:\W+\w+){0,10}?\W+(?:pay\w*|reimburs\w*)\b(?:\W+\w+){0,10}?\W+(?:propert\w* tax\w*|real (?:estate|property) tax\w*|ad valorem tax\w*)\b`: 1 hits in 1 sections; tenancy-filtered 1: 12-4-540
+
+**SC-B7-045** (`telecom-access`). Controls: null 0, positive 3389. Cable, satellite or broadband access to multi-unit rentals; subscriber rent differential.
+- "telecom-tenancy" `\b(?:cable (?:television|operators?|services?|systems?)|satellite (?:dishes|dish|television)|antennas?|video service providers?|broadband|internet service)\b(?:\W+\w+){0,25}?\W+(?:tenan\w*|landlords?|multiple dwelling\w*|apartments?|multi[- ]?unit|lessees?|residents?)\b|\b(?:tenan\w*|landlords?|apartments?|multi[- ]?unit|multiple dwelling\w*)\b(?:\W+\w+){0,25}?\W+(?:cable (?:television|operators?|services?)|satellite|antennas?|broadband)\b`: 4 hits in 3 sections; sections: 58-9-2660, 58-9-3040, 63-17-2310
+
+**SC-B7-043b** (`subsidy-habitability-proration`). Controls: null 0, positive 3389. Rerun of SC-B7-043 with a case-sensitive Section 8 limb (the first run matched SECTION 8 headings).
+- "subsidy-abatement" `\b(?:housing assistance payments?|subsid\w*|vouchers?|(?-i:Section 8 (?:housing|voucher|tenant|program))|housing quality standards|housing choice)\b(?:\W+\w+){0,25}?\W+(?:abat\w*|withh\w*|suspend\w*|prorat\w*|inspect\w*)\b|\babat\w*\b(?:\W+\w+){0,15}?\W+(?:housing assistance|subsid\w*)\b`: 0 hits in 0 sections; sections: 
+
+**SC-B6-047** (`lead-safe-certification`). Controls: null 0, positive 3389. State lead-safe certification or inspection of rentals; lead notices to tenants (covers lead-safe-certification and lead-state-notices).
+- "lead-cert" `\blead[- ](?:safe|free)\b|\blead\b(?:\W+\w+){0,8}?\W+(?:certif\w*|inspection|risk assessment|abatement)\b(?:\W+\w+){0,12}?\W+(?:rental|dwelling|tenants?|landlords?|owners?)\b`: 0 hits in 0 sections; sections: 
+- "lead-tenant" `\blead-based\b(?:\W+\w+){0,15}?\W+(?:tenants?|rent\w*|lease\w*|landlords?|occupan\w*)\b`: 1 hits in 1 sections; sections: 44-53-1440
+
+**SC-B7-046** (`tenant-confidential-information`). Controls: null 0, positive 3389. Bar on landlord disclosure of tenant information; consent rules.
+- "tenant-info" `\b(?:disclos\w*|shar\w*|sell\w*|releas\w*)\b(?:\W+\w+){0,15}?\W+(?:tenant|applicant|lessee|renter)s?.? (?:information|data|records?|personal)\b|\b(?:tenant|applicant|lessee|renter)s?.? (?:information|data|records?)\b`: 1 hits in 1 sections; sections: 59-25-115
+
+**SC-B7-047** (`tenant-portal`). Controls: null 0, positive 3389. Requiring rent payment, notices or signatures through an online portal.
+- "portal" `\b(?:online|electronic|web)\b(?:\W+\w+){0,4}?\W+(?:portals?|payment systems?|platforms?)\b(?:\W+\w+){0,20}?\W+(?:rent|tenan\w*|lease|landlords?)\b|\b(?:rent|tenan\w*|landlords?)\b(?:\W+\w+){0,20}?\W+(?:online|electronic) (?:portals?|payments?)\b`: 0 hits in 0 sections; sections: 
+
+**SC-B7-048** (`tenant-right-to-organize`). Controls: null 0, positive 3389. Tenant right to organize, join a tenant association or meet; retaliation for organizing.
+- "organize" `\b(?:tenants?'? (?:associations?|unions?|organizations?|councils?)|organiz\w*)\b(?:\W+\w+){0,15}?\W+(?:tenan\w*|landlords?|lease|dwelling|apartments?|residents?)\b|\b(?:tenan\w*)\b(?:\W+\w+){0,10}?\W+(?:organiz\w*|assembl\w*|meet\w*)\b`: 54 hits in 40 sections; tenancy-filtered 28: 12-21-3980, 12-21-4020, 27-32-250, 27-40-210, 31-21-30, 31-21-70, 31-23-20, 33-44-101, 33-49-250, 33-57-140, 37-2-106, 38-12-270, 38-12-30, 38-12-480, 38-33-50, 4-31-360, 4-31-60, 43-39-100, 43-41-100, 43-43-100, 48-9-30, 57-5-1495, 58-21-30, 58-27-1310, 58-7-50
+
+**SC-B7-049** (`term-change-notice`). Controls: null 0, positive 3389. Notice to change the terms of a periodic tenancy (rent or other terms).
+- "term-change" `\b(?:chang\w*|modif\w*|amend\w*)\b(?:\W+\w+){0,10}?\W+(?:terms?|conditions?)\b(?:\W+\w+){0,15}?\W+(?:tenanc\w*|rental agreements?|leases?|month[- ]to[- ]month|periodic)\b`: 1 hits in 1 sections; tenancy-filtered 1: 27-31-170
+
+**SC-B6-048** (`lease-content-requirements`). Controls: null 0, positive 3389. Residential lease form rules: required content, first-page items, copy delivery, initials, type size (covers lease-content-requirements, lease-copy, lease-notice-initial-requirement, lease-type-size).
+- "lease-contain" `\b(?:lease|rental agreement)s?\b(?:\W+\w+){0,4}?\W+(?:must|shall)\W+(?:\w+\W+){0,2}?(?:contain|include|state|set forth)\b`: 13 hits in 12 sections; tenancy-filtered 13: 12-37-620, 22-3-10, 27-31-30, 31-23-40, 37-2-308, 39-20-40, 4-12-20, 4-12-30, 4-29-60, 4-29-67, 51-1-60, 59-144-100
+- "first-page" `\bfirst page\b(?:\W+\w+){0,12}?\W+(?:lease|rental agreement|contract)\b|\b(?:lease|rental agreement|contract)\b(?:\W+\w+){0,12}?\W+first page\b`: 4 hits in 3 sections; tenancy-filtered 2: 40-57-135
+- "copy-deliver" `\bcopy\b(?:\W+\w+){0,10}?\W+(?:lease|rental agreement)\b(?:\W+\w+){0,10}?\W+(?:given|deliver\w*|furnish\w*|provid\w*)\b(?:\W+\w+){0,6}?\W+(?:tenant|occupant|lessee)\b`: 0 hits in 0 sections; tenancy-filtered 0: none
+- "initials" `\binitial(?:s|ed|led)\b(?:\W+\w+){0,10}?\W+(?:tenant|lessee|occupant)\b|\b(?:tenant|lessee)\b(?:\W+\w+){0,10}?\W+initial(?:s|ed|led)\b`: 0 hits in 0 sections; tenancy-filtered 0: none
+- "type-size" `\b\w+[- ]point (?:type|font)\b|\btype size\b`: 30 hits in 26 sections; tenancy-filtered 0: none
+
+**SC-B6-049** (`lease-type-parity`). Controls: null 0, positive 3389. Parity between month-to-month and fixed-term lease terms or rent.
+- "parity" `\bmonth[- ]to[- ]month\b(?:\W+\w+){0,15}?\W+(?:fixed[- ]term|term lease|lease term|more (?:burdensome|onerous)|higher rent|premium)\b|\b(?:fixed[- ]term)\b(?:\W+\w+){0,15}?\W+month[- ]to[- ]month\b`: 1 hits in 1 sections; sections: 27-40-710
+
+**SC-B6-050** (`lease-term-limitation`). Controls: null 0, positive 3389. Formalities or maximum terms for long residential leases; spousal joinder.
+- "spouse-lease" `\b(?:spouses?|husband|wife)\b(?:\W+\w+){0,12}?\W+(?:join\w*|consent\w*|sign\w*)\b(?:\W+\w+){0,10}?\W+(?:lease|leasing)\b`: 0 hits in 0 sections; sections: 
+- "max-term" `\blease\w*\b(?:\W+\w+){0,10}?\W+(?:exceed\w*|longer than|more than)\b(?:\W+\w+){0,7}?\W+(?:years?|lives)\b`: 7 hits in 7 sections; sections: 12-37-3150, 27-15-10, 27-23-60, 4-29-67, 44-7-3110, 48-52-660, 55-15-40
+
+**SC-B7-050** (`translation-duty`). Controls: null 0, positive 3389. Lease translation duty; prescribed type sizes.
+- "translation" `\b(?:translat\w*|Spanish|language other than English|primary language|foreign language)\b(?:\W+\w+){0,20}?\W+(?:leases?|rental agreements?|tenan\w*|contracts?|landlords?)\b|\b(?:leases?|rental agreements?|tenan\w*|contracts?)\b(?:\W+\w+){0,20}?\W+(?:translat\w*|Spanish|language other than English|primary language)\b`: 0 hits in 0 sections; sections: 
+- "type-size" `\b(?:\d+|ten|twelve|fourteen)[- ]point type\b|\btype size\b`: 14 hits in 13 sections; sections: 26-2-70, 27-32-410, 37-11-35, 37-2-202, 37-2-305, 37-3-202, 37-3-305, 37-3-413, 38-61-30, 38-71-1940, 38-87-40, 39-57-30, 46-53-50
+
+**SC-B7-051** (`truth-in-renting`). Controls: null 0, positive 3389. Truth-in-renting act or statement; voiding of lease terms that misstate the law.
+- "truth-in-renting" `truth in renting|\b(?:misstat\w*|misrepresent\w*)\b(?:\W+\w+){0,12}?\W+(?:rights)\b(?:\W+\w+){0,12}?\W+(?:tenan\w*|lessees?|consumers?)\b|\b(?:leases?|rental agreements?)\b(?:\W+\w+){0,15}?\W+(?:violat\w*|contrary to) (?:the )?(?:law|statute)`: 0 hits in 0 sections; sections: 
+
+**SC-B7-052** (`unbundled-parking`). Controls: null 0, positive 3389. Unbundled or separately charged parking in residential leases.
+- "parking-tenancy" `\bparking\b(?:\W+\w+){0,20}?\W+(?:tenan\w*|rent\b|leases?|rental agreements?|dwelling units?|apartments?|residential)\b|\bunbundl\w*`: 9 hits in 6 sections; tenancy-filtered 2: 38-12-270, 38-12-480
+
+**SC-B7-053** (`veterans-incentive`). Controls: null 0, positive 3389. Rent concessions or preferences for veterans; veteran status protection.
+- "veteran-housing" `\b(?:veterans?|servicemembers?|military)\b(?:\W+\w+){0,20}?\W+(?:rent\w*|tenan\w*|landlords?|leases?|housing|discount\w*|concessions?|preference\w*)\b`: 19 hits in 12 sections; tenancy-filtered 8: 16-23-240, 25-1-1370, 25-1-1620, 3-1-40, 40-36-520, 55-1-200, 59-63-33
+
+**SC-B6-051** (`inspection-notice-penalty`). Controls: null 0, positive 3389. Notice of move-in or move-out inspection rights and penalties for omitting it.
+- "inspect-notice" `\b(?:move-?in|move-?out|pre-?move|walk-?through|condition)\W+(?:inspection|checklist|report)\b|\binspection\b(?:\W+\w+){0,10}?\W+(?:security deposit|deposit)\b`: 2 hits in 2 sections; sections: 27-18-240, 35-11-530
+
+**SC-B6-052** (`law-enforcement-cooperation`). Controls: null 0, positive 3389. Landlord cooperation with law enforcement: access, crime-free programs, reporting, penalties for calling police.
+- "police-tenancy" `\b(?:law enforcement|police|sheriff)\b(?:\W+\w+){0,12}?\W+(?:tenants?|landlords?|rental|lease|dwelling units?)\b(?:\W+\w+){0,12}?\W+(?:cooperat\w*|access|report\w*|evict\w*|addend\w*|summon\w*)\b`: 0 hits in 0 sections; sections: 
+- "crime-free" `\bcrime[- ]free\b|\bnuisance (?:property|abatement) (?:ordinance|program)\b`: 0 hits in 0 sections; sections: 
+
+**SC-B6-053** (`military-air-zone-disclosure`). Controls: null 0, positive 3389. Disclosure of military air installation noise or accident zones to tenants or buyers.
+- "military-zone" `\b(?:air installation|AICUZ|accident potential zone|noise zone|military (?:installation|base|airfield|air ?base)s?)\b`: 76 hits in 33 sections; tenancy-filtered 2: 6-1-320
+
+**SC-B6-054** (`municipal-utility-lien`). Controls: null 0, positive 3389. Municipal utility charges as liens on property; tenant-account exemptions.
+- "utility-lien" `\b(?:water|sewer\w*|garbage|solid waste|utility)\b(?:\W+\w+){0,10}?\W+(?:charges?|bills?|fees?|rates?)\b(?:\W+\w+){0,12}?\W+liens?\b`: 13 hits in 9 sections; sections: 5-31-2010, 5-31-2030, 5-31-2040, 6-1-1040, 6-11-1210, 6-11-1230, 6-11-1240, 6-15-110, 6-15-90
+- "tenant-lien-exempt" `\bliens?\b(?:\W+\w+){0,15}?\W+(?:tenants?|lessees?|occupants?)\b(?:\W+\w+){0,10}?\W+(?:water|sewer\w*|garbage|utility|utilities)\b|\b(?:tenants?|lessees?|occupants?)\b(?:\W+\w+){0,15}?\W+(?:water|sewer\w*|garbage|utility)\b(?:\W+\w+){0,10}?\W+liens?\b`: 0 hits in 0 sections; sections: 
+
+**SC-B6-055** (`notice-to-vacate-additional-terms`). Controls: null 0, positive 3389. Landlord conduct limits while a notice to vacate is pending.
+- "ntv-terms" `\bnotice to (?:vacate|quit)\b(?:\W+\w+){0,15}?\W+(?:alter\w*|renovat\w*|uninhabitable|services?|repair\w*)\b|\b(?:alter\w*|renovat\w*)\b(?:\W+\w+){0,15}?\W+notice to (?:vacate|quit)\b`: 0 hits in 0 sections; sections: 
+
+**SC-B6-056** (`ordnance-demolition-meter-disclosures`). Controls: null 0, positive 3389. Disclosures of former ordnance sites, pending demolition and shared utility meters.
+- "ordnance" `\b(?:ordnance|munitions)\b(?:\W+\w+){0,15}?\W+(?:disclos\w*|notice|tenants?|lease|buyers?|purchasers?)\b`: 0 hits in 0 sections; sections: 
+- "demolition" `\bdemoli\w*\b(?:\W+\w+){0,15}?\W+(?:tenants?|prospective tenants?|lease|rental|disclos\w*)\b`: 1 hits in 1 sections; sections: 27-40-910
+- "shared-meter" `\b(?:gas|electric\w*|utility)\W+meters?\b(?:\W+\w+){0,12}?\W+(?:serv\w*|shared|common|other units?|outside)\b(?:\W+\w+){0,10}?\W+(?:tenants?|dwelling units?|premises)\b`: 0 hits in 0 sections; sections: 
+
+**SC-B6-057** (`other-landlord-facilities`). Controls: null 0, positive 3389. Landlord duties for shared facilities and amenities beyond the general maintenance duty.
+- "facility-duty" `\b(?:garage door openers?|elevators?|laundry|swimming pools?|amenit\w*|shared facilit\w*)\b(?:\W+\w+){0,15}?\W+(?:landlords?|tenants?|rental|dwelling units?)\b`: 2 hits in 2 sections; sections: 27-40-440, 27-47-310
+
+**SC-B6-058** (`owner-move-in-reservation`). Controls: null 0, positive 3389. Owner move-in or owner-occupancy termination of a residential lease.
+- "owner-occupy" `\b(?:owner|landlord)\W+(?:\w+\W+){0,4}?(?:occup\w*|move[- ]in|personal use|own use)\b(?:\W+\w+){0,15}?\W+(?:terminat\w*|tenants?|lease|rental agreement|notice)\b`: 8 hits in 8 sections; tenancy-filtered 3: 27-33-10, 39-20-40, 39-20-47
+
+**SC-B6-059** (`parking-rules-notice`). Controls: null 0, positive 3389. Written parking rules or notice for tenants.
+- "parking-rules" `\bparking\b(?:\W+\w+){0,6}?\W+(?:rules?|regulations?|policies?)\b(?:\W+\w+){0,15}?\W+(?:tenants?|landlords?|lease|rental|apartment|residents?)\b|\b(?:tenants?|landlords?|lease|apartment|residents?)\b(?:\W+\w+){0,15}?\W+parking\W+(?:rules?|regulations?)\b`: 0 hits in 0 sections; sections: 
+
+**SC-B7-054** (`utility-submetering-disclosure`). Controls: null 0, positive 3389. Landlord submetering, ratio or allocated utility billing; disclosure; resale. Also used for utility-apportionment.
+- "submeter-allocation" `sub-?meter\w*|master[- ]meter\w*|ratio (?:utility )?billing|allocat\w*\b(?:\W+\w+){0,10}?\W+(?:utilit\w*|water|electric\w*|gas) (?:charges?|bills?|costs?|usage)|resale of (?:electric\w*|water|gas)|resell\w*\b(?:\W+\w+){0,6}?\W+(?:electric\w*|water|natural gas)`: 3 hits in 3 sections; sections: 27-33-50, 58-27-1060, 58-27-2630
+
+**SC-B7-055** (`utility-transfer`). Controls: null 0, positive 3389. Tenant duty to transfer utility accounts; landlord cutoff of landlord-name service.
+- "account-transfer" `\b(?:transfer\w*|put|place|open\w*)\b(?:\W+\w+){0,8}?\W+(?:utilit\w*|accounts?|services?)\b(?:\W+\w+){0,8}?\W+(?:tenant.s name|name of the tenant|own name|customer of record)\b|\btenants?\b(?:\W+\w+){0,15}?\W+(?:utility accounts?)\b`: 1 hits in 1 sections; sections: t36c008
+
+**SC-B7-056** (`utility-allowance-cap`). Controls: null 0, positive 3389. Utility allowance with tenant-paid overage; caps on rebilling.
+- "utility-allowance" `utility allowances?|\b(?:allowance|cap)\b(?:\W+\w+){0,8}?\W+(?:utilit\w*|electric\w*|water)\b(?:\W+\w+){0,10}?\W+(?:tenan\w*|rent)\b|\b(?:overage|excess)\b(?:\W+\w+){0,8}?\W+(?:utilit\w*|electric\w*|water) (?:charges?|costs?|usage)`: 0 hits in 0 sections; sections: 
+
+**SC-B7-057** (`utility-shutoff-statute`). Controls: null 0, positive 3389. Utility disconnection rules: notice, winter or medical protection, emergency moratorium.
+- "shutoff-moratorium" `\b(?:disconnect\w*|terminat\w*|shut ?off|discontinu\w*)\b(?:\W+\w+){0,15}?\W+services?\b(?:\W+\w+){0,25}?\W+(?:emergenc\w*|hurricane|storm|extreme (?:heat|cold)|winter|December through March|temperature)\b|\bservices?\b(?:\W+\w+){0,15}?\W+(?:emergenc\w*|hurricane|storm|extreme (?:heat|cold)|winter|December through March|temperature)\b(?:\W+\w+){0,15}?\W+(?:disconnect\w*|terminat\w*|shut ?off|discontinu\w*)\b`: 2 hits in 2 sections; sections: 58-31-540, 6-11-2540
+
+**SC-B7-058** (`utility-disclosure-attachment`). Controls: null 0, positive 3389. Utility cost, tariff or availability disclosure attached to a lease.
+- "utility-disclosure" `\b(?:disclos\w*|notice|notif\w*)\b(?:\W+\w+){0,15}?\W+(?:utilit\w*|electric\w*|energy|water|gas) (?:charges?|costs?|bills?|availability|tariffs?|usage)\b(?:\W+\w+){0,25}?\W+(?:tenan\w*|lease|rental|landlords?)\b|\b(?:tenan\w*|landlords?)\b(?:\W+\w+){0,20}?\W+(?:notice of meter conservation charge)`: 2 hits in 1 sections; sections: 58-37-50
+
+**SC-B7-059** (`utility-landlord-account`). Controls: null 0, positive 3389. Utility shutoff where the landlord holds the account; tenant protections; notice to units.
+- "landlord-account" `\blandlord.?s?\b(?:\W+\w+){0,15}?\W+(?:accounts?|bills?|nonpayment|delinquen\w*|arrear\w*)\b(?:\W+\w+){0,20}?\W+(?:utilit\w*|electric\w*|gas|water|sewer\w*|service)\b|\b(?:utilit\w*|electric\w*|gas|water|sewer\w*) (?:service|utility)\b(?:\W+\w+){0,25}?\W+landlord.?s?\b(?:\W+\w+){0,10}?\W+(?:accounts?|nonpayment|fail\w*)`: 1 hits in 1 sections; sections: 27-33-50
+
+**SC-B7-060** (`water-heater-temperature`). Controls: null 0, positive 3389. Water heater temperature setting at new occupancy.
+- "water-heater" `\bwater heaters?\b(?:\W+\w+){0,20}?\W+(?:temperature|degrees|thermostat|setting)\b|\b(?:temperature|degrees)\b(?:\W+\w+){0,15}?\W+(?:hot water|water heaters?)\b`: 0 hits in 0 sections; sections: 
+
+**SC-B7-061** (`waterbed`). Controls: null 0, positive 3389. Waterbed or liquid-filled furniture rules in leases.
+- "waterbed" `water ?beds?|flotation (?:bedding|beds?)|liquid[- ]filled (?:furniture|beds?)`: 0 hits in 0 sections; sections: 
+
+**SC-B7-062** (`window-guards`). Controls: null 0, positive 3389. Window guards, security bars and release mechanisms in rentals.
+- "window-guard" `window (?:guards?|stops?|fall prevention)|\b(?:security|burglar) bars?\b|\bbars?\b(?:\W+\w+){0,6}?\W+windows?\b(?:\W+\w+){0,12}?\W+(?:release|escape|egress)\b`: 0 hits in 0 sections; sections: 
+
+### §4 Decisions and questions to Taylor
+
+No questions to Taylor so far; every call below was made on the cautious course.
+
+- **`showing-notice-waiver`: `showing-notice-la` not tagged.** The shared clause lets showings run on shorter notice than the entry section. South Carolina requires at least 24 hours' notice for any entry outside emergencies, scheduled periodic services and tenant-requested services (S.C. Code Ann. § 27-40-530(c)), and a tenant can't waive rights under the Act (S.C. Code Ann. § 27-40-330(a)(1)). New edu row `edu-showing-notice-waiver-sc` instead (two-way basis check: the clause's basis fails in SC; the statute's rule is answered by the edu row).
+- **`jury-waiver`.** South Carolina gives either side a jury in ejectment (S.C. Code Ann. § 27-37-80) and preserves the jury right (S.C. Const. art. I, § 14); no statute addresses advance lease waivers, and the Chapter 40 waiver ban doesn't name Chapter 37. Enforceability is case law. Cautious course: no jury waiver in SC leases; row stays VERIFIED (Part 5).
+- **`waiver-by-acceptance`, `collection-fee`, `notice-service-fee`, `eviction-penalty-clause-ban`.** No statute (batteries SC-B1-001, -003, -004, -005b). Each row states the cautious course; the penalty doctrine and acceptance-waiver rules are case law.
+- **`casualty-and-mitigation-waivable`.** Treated as non-waivable: both rules are in Chapter 40 and S.C. Code Ann. § 27-40-330(a)(1) bars waiving Chapter 40 rights. This matches the 2026-09-30 retro, which declined the no-abatement sentence for SC.
+
+- **DV topics (SC item 2).** South Carolina has one domestic-violence provision, S.C. Code Ann. § 27-40-350 (2026 Act No. 184, effective on approval May 18, 2026; effective-date section read). Read with S.C. Code Ann. § 27-40-210(19)-(20). Batteries SC-B2-001 to -003 found no lock-change, confidentiality or general eviction-protection rule. Cautious courses: honor a protection order granting exclusive possession (S.C. Code Ann. § 20-4-60(C)(3)) and rekey on request, but never lock out a co-tenant without an order (S.C. Code Ann. § 27-40-660); keep abuse documents confidential (VAWA requires it in covered housing, 34 U.S.C. § 12491(c)(4)).
+- **`dv-qualifying-documents`: late orders.** The 60 days run from "the date of a documented qualifying incident" (S.C. Code Ann. § 27-40-350(A)(1)), and the statute is silent where the order comes more than 60 days after the incident. Cautious course: accept a notice given within 60 days after the documenting order or conviction, relying on the good-faith protection in S.C. Code Ann. § 27-40-350(F). Row is CONDITIONAL and stays VERIFIED (Part 5).
+- **`dv-deposit-timing`: periodic tenancies.** The deposit waits "until the end of the lease"; for a periodic tenancy, treat that as the date the tenancy ends for all tenants, then apply the 30-day return. This is the same gap the existing `edu-dv-lease-termination-sc` notes.
+- **Session-law effective dates (SC item 11, so far).** 2026 Act No. 184: "This act takes effect upon approval by the Governor." (approved May 18, 2026). 2026 Act No. 155: "This act takes effect on January 1, 2027." (magistrate fees, S.C. Code Ann. § 8-21-1010). 2026 Act No. 252 rewrote S.C. Code Ann. § 27-40-800 effective June 30, 2026 (Code history line; the act's own section is read in batch 5).
+- **Tag-first screen, deposits and fees (rule 26, two-way basis check).** Tagged SC: `nonrefundable-fees-wv` (no SC bar; keeps security money inside the deposit), `carpet-cleaning-ar` (no SC carpet rule; deducts actual cost as lease-breach damages, which S.C. Code Ann. § 27-40-410(a) allows through § 27-40-510(8)), `fees-and-charges-vi` (no SC fee-listing rule; cautious course), `interest-on-unpaid-amounts-ca` (no cap on a lease rate; legal rate 8.75% otherwise, S.C. Code Ann. § 34-31-20(A)), `government-fee-reimbursement-ky` (no SC bar; drafting judgment that an agreed share of a registration fee is not indemnity under S.C. Code Ann. § 27-40-330(a)(3)), `tenant-caused-fines-as` (tenant-caused amounts only = actual damages, S.C. Code Ann. § 27-40-710(C)). Not tagged: `detector-care-la`, because `smoke-detectors-sc` already states South Carolina's statutory version (S.C. Code Ann. § 5-25-1330); new `edu-alarm-tampering-fee-sc` answers the topic.
+- **`deposit-escheat`: individual landlords.** The Unclaimed Property Act's presumption reaches property held "in the ordinary course of a holder's business" (S.C. Code Ann. § 27-18-30(A)), which isn't defined. Cautious course stated: treat an uncashed refund as reportable after five years.
+- **Local limits (SC item 4).** S.C. Code Ann. § 27-39-60 read whole: it bars cities and counties only from regulating "the amount of rent" on private rentals, and saves local regulation of their own property and rent agreements with private persons. Rows on ADUs, owner-occupancy zoning, registration, inspections and just cause state that the state settles only rent amounts and leave the rest to local ordinance, pointing to `edu-local-preemption-sc`; no city or county research.
+- **`tpa-notice`.** South Carolina's only tenant purchase right is the condominium-conversion offer (S.C. Code Ann. § 27-31-420); answered as Present for that case.
+- **Battery SC-B4-015 rerun.** Its case-insensitive "section 8" matched "SECTION 8" in history lines; SC-B4-015b used a case-sensitive pattern.
+- **Correction to a batch 1 row (own row, not yet in the master).** `edu-no-waiver-by-acceptance-rule-sc` (delivered in batches 1-4) said no statute addressed waiver by accepting rent. Reading Chapter 37 for batch 5 found S.C. Code Ann. § 27-37-150: once the rule to vacate or show cause issues, accepting rent doesn't waive ejectment. Battery SC-B1-001 had allowed only three words between "accept" and "rent"; rerun as SC-B1-001b. The row is replaced by `edu-waiver-by-acceptance-sc` (Present after filing / Confirmed absent before filing). The old id no longer appears in the delta.
+- **Unlawful occupants and ejectment (SC item 5).** Read S.C. Code Ann. §§ 27-37-200 to 27-37-350 and § 16-11-790 (2026 Act No. 252; effective-date section: "This act takes effect upon approval by the Governor.", approved June 30, 2026), § 27-40-800 (rewritten by the same act), and § 30-2-60 (2026 Act No. 214; "This act takes effect on January 1, 2027."). Used for `trespass-notice`, `expedited-criminal-eviction`, `possession-bond`, `eviction-hardship-stay`, `post-eviction-property`, `tenant-records`, pointing to `edu-unauthorized-occupant-removal-sc`, `edu-eviction-record-removal-sc` and `edu-eviction-process-sc` unchanged. The headings of §§ 27-37-200 to 27-37-350 and § 16-11-790 print without bold on the chapter pages; the splitter keyed on "SECTION n." and found all of them.
+- **`possession-bond`: two appeal rules.** S.C. Code Ann. § 27-37-130 (appeal bond for costs and damages, five days) and § 27-40-800 (rent affidavit stays execution) both speak to residential appeals, and neither says how they fit together. Row states both and treats the later, specific § 27-40-800 as the cautious guide.
+- **`trespass-notice`: common areas vs the unit.** Drafting judgment from "the person in possession" in S.C. Code Ann. § 16-11-620: the landlord can warn non-tenants off common areas, but not off a tenant's unit; a tenant's guest likely has "good excuse". Guest defenses are case law.
+- **SC item 6: `keys` and `hoa-compliance` (no conflict found).** `keys` charges the cost of rekeying when keys aren't returned and bars duplicating keys without consent. That fits "A tenant shall not change locks on the dwelling unit without the permission of the landlord." (S.C. Code Ann. § 27-40-530(e)), and the rekey cost is damages for breaching the lease, which a deposit may cover because the tenant must "(8) comply with the lease and rules and regulations which are enforceable pursuant to SECTION 27-40-520." (S.C. Code Ann. § 27-40-510(8); S.C. Code Ann. § 27-40-410(a)). Neither clause waives a Chapter 40 right (S.C. Code Ann. § 27-40-330(a)). `hoa-compliance` makes the tenant follow the association's rules and pay fines the tenant causes; Chapters 30 and 31 bind owners ("Each co-owner shall comply strictly with the bylaws and with the administrative rules and regulations adopted pursuant thereto", S.C. Code Ann. § 27-31-170) and say nothing about tenants. S.C. Code Ann. § 27-40-520 governs rules the *landlord* adopts (later rules that "substantially modify the tenant's bargain" fail if the tenant objects in writing within 30 days, § 27-40-520(b)). An association rule adopted mid-lease isn't a landlord rule on the text, so there's no conflict; noted as a residual risk, not a finding.
+- **SC item 7: central edits read correctly in SC.** `smoking-policy`: a lease term agreed at signing; no South Carolina statute limits a smoking ban or protects cannabis use in housing (battery and reading by agent b6 under `cannabis`, see below). `no-alterations`: its savings sentence keeps the fair-housing right to reasonable modifications at the tenant's expense (S.C. Code Ann. § 31-21-70(G)(1), per the SC retro). `addendum-precedence`: the carve-out lets a legally required notice control, which covers the statutory "IF YOU DO NOT PAY YOUR RENT ON TIME" paragraph (S.C. Code Ann. § 27-40-710(B)).
+- **SC item 8(a): holdover rows confirmed.** `holdover-ca` matches S.C. Code Ann. § 27-40-770(c) (possession action, fees if not in good faith, the greater of three months' rent or twice actual damages if wilful). One wrinkle: the clause says a consented holdover continues month to month, while "the tenancy is week to week in case of a roomer who pays weekly rent and in all other cases month to month." (S.C. Code Ann. § 27-40-310(d)). The clause's month-to-month term is an agreed term, which (d) allows ("Unless the rental agreement fixes a definite term"), so it isn't a conflict. `holdover-rate-sc` is an opt-in liquidated charge that keeps the statutory remedies. S.C. Code Ann. § 27-40-330(c) protects liquidated damages only "for loss of rent resulting from a premature termination of a lease", so a holdover charge rests on the general penalty doctrine (case law, not searched); its "reasonable estimate" wording is the cautious drafting. The older general statutes (double value after a three-month written demand, S.C. Code Ann. § 27-35-170; double rent after a tenant's own notice to quit, S.C. Code Ann. § 27-35-180) are already described in `edu-holdover-remedies-sc`. No change.
+- **SC item 8(c): CARES.** No SC eviction row contradicts `edu-cares-act-notice`. However, the statutory lease paragraph in `nonpayment-notice-sc` tells the tenant "You will get no other notice as long as you live in this rental unit." For a property covered by 15 U.S.C. § 9058(c), the landlord still owes a 30-day notice to vacate. The paragraph's words are fixed by S.C. Code Ann. § 27-40-710(B), so it can't be edited; see the §6 finding, which proposes a pointer in the edu row instead.
+- **Batches 6 and 7 (154 topics) were drafted by two parallel agents** working from this pass's saved corpus, tools and style brief (`rows/AGENT-BRIEF.md`). Every row went through the same machine checks as batches 1-5: quotes, citations, ids, topic coverage and references. The lead reviewed all 36 tags and the flagged items. Their full tag-first screens and drafting calls follow as §4.1 and §4.2.
+- **FETCH requests (rule 36), all resolved in this pass.** (1) Regs. 61-86.1 (asbestos): fetched from the official "Chapter 61-80 through 61-92" PDF (SHA-256 042ace23…7e80) and read. Projects at private residential buildings of four or fewer units may be exempt, with exceptions; `edu-asbestos-sc` updated. (2) Lead regulations under S.C. Code Ann. § 44-53-1450: every chapter 61 file not already held was screened in the page; there is no lead-poisoning regulation; `edu-lead-state-notices-sc` and `edu-no-lead-safe-certification-sc` updated. (3) Regs. chapter 27 (pesticides): fetched as the official Word file (SHA-256 df135597…9119) and searched; it has no tenant notice rule, only licensing of structural pest control in rented housing (Regs. 27-1085(L)(1)); `edu-no-pest-control-notice-rule-sc` updated. (4) Regs. 61-44 (wells): it was already in the held 61-18 to 61-58 PDF, but the splitter had missed its header; read, and `edu-no-well-testing-rule-sc` updated. The quote checker holds no text for items 1, 3 and 4, so those rows quote them in double quotes with the citation.
+- **`binding-arbitration`.** `arbitration-agreement` NOT TAGGED. South Carolina's arbitration act requires underlined capital-letter notice on the contract's first page (S.C. Code Ann. § 15-48-10(a)). The clause's notes record your rule of offering it only where it works without relying on federal preemption and carries no penalty for using a prohibited term, and SC fails that as drafted. The edu row `edu-binding-arbitration-sc` explains this. Recommendation: leave SC off the clause unless you want a builder rule that adds the first-page notice.
+
+#### §4.1 Batch b6 decisions (topics actual-notice-method to parking-rules-notice)
+
+
+##### Tag-first screens, cautious-course calls and drafting judgments
+
+###### actual-notice-method
+- NOT TAGGED actual-notice-method-or — names Oregon law ("Where Oregon law requires actual notice"); not state-neutral.
+- NOT TAGGED actual-notice-method-nd — cites N.D.C.C. sections throughout; not state-neutral.
+- Edu row `edu-no-agreed-notice-method-rule-sc`: SC has no actual-notice standard; answered from the § 27-40-240 notice definitions. Battery SC-B6-001.
+
+###### adverse-proceeding-notice
+- NOT TAGGED tenant-notice-of-adverse-proceeding-nd, adverse-proceeding-notice-co, adverse-proceeding-notice-wy, tenant-notice-of-adverse-proceeding-ks, adverse-proceeding-notice-mn — the subject (tenant forwards notices of proceedings) is already covered for SC by `tenant-forward-proceedings-ca` (condition 3); CO's names a "public trustee" (CO office) and MN's a contract-for-deed cancellation, so neither is state-neutral in any case.
+- Edu row `edu-no-adverse-proceeding-notice-sc`. Battery SC-B6-002. Found § 27-35-80 (attornment to a stranger void) — useful context; no existing SC row states it (not a landlord duty, so not proposed as a row).
+
+###### alt-housing
+- NOT TAGGED substitute-premises-after-damage-nd — its last sentence preserves rights "under North Dakota law"; not state-neutral.
+- Edu row `edu-no-alt-housing-duty-sc`. Battery SC-B6-004. Drafting judgment: SC's § 27-40-630 omits the model act's substitute-housing remedy (only essential services may be procured), stated in the body.
+
+###### animal-care-access
+- NOT TAGGED animal-care-access-me, -la, -ms, -pr, -wy, -ks, -mn, -oh, -fl — each names its own state's terms or law (Louisiana succession terms, Florida/Ohio statutes, etc.) or adds terms drafted to that state's entry statute.
+- NOT TAGGED animal-care-access-vi (carries VI;AS;MP;CO;TX;NJ;GA) — its basis notes rest on the absence of an entry statute; SC has one that limits access to listed cases (§ 27-40-530(d)) and requires 24 hours' notice except in (b) cases (§ 27-40-530(c)). A lease clause letting the landlord admit a third party without notice outside an emergency risks waiving § 27-40-530 rights (§ 27-40-330(a)(1)). Same reasoning as the FL pass (FL drafted its own). Cautious course: edu row only; no SC clause drafted (the emergency limb may cover a real animal emergency, but that is case law).
+- Battery SC-B6-003.
+
+###### asbestos-hazards
+- NOT TAGGED asbestos-disposal-site-disclosure-nh — REQUIRED_DISCLOSURE basis is a New Hampshire statute; no SC counterpart (battery SC-B6-005).
+- Edu row `edu-asbestos-sc` (licensing present; no tenant disclosure).
+- FETCH: Regs. chapter 61 (61-86.1, DES asbestos standards and licensing) — topic asbestos-hazards — the corpus holds 61-1 to 61-58 and 61-71 only; whether residential rental renovations are asbestos projects needing a license (and any homeowner/residential exemption) is set there.
+
+###### association-obligations-disclosure
+- NOT TAGGED montgomery-association-docs-md, condo-repair-contact-ma, cic-notice-ct, association-obligations-disclosure-dc, condominium-lease-statement-pr, access-control-lease-statement-pr, condominium-apartment-particulars-gu — each rests on a REQUIRED_DISCLOSURE basis from another state's statute (or names that state's act); no SC counterpart (battery SC-B6-006).
+- NOT TAGGED association-documents-provided-co — state-neutral in wording but bundles a promise that the landlord pays all assessments and never charges the tenant for common-area maintenance and a no-markup, cure-first fine rule; those are CO policy choices, not SC law, and conflict in part with the SC-tagged `hoa-compliance` (fines are the tenant's responsibility). Not tagged to avoid two inconsistent fine rules.
+- NOT TAGGED association-documents-delivery-ks — state-neutral and lawful in SC, but the subject (tenant bound by association documents) is already covered for SC by `hoa-compliance`; edu row tells the landlord to give copies (§ 27-40-520(a)(6) notice). Judgment call recorded.
+- Edu row `edu-no-association-disclosure-sc`.
+
+###### hoa
+- TAGGED association-approval-la — state-neutral; SERVES_LANDLORD holds (no SC approval statute; master deed may restrict leasing, § 27-31-100(h)); two-way check against §§ 27-40-430, 27-40-620 and 27-40-330 passes (clause matches rent abatement and return of amounts; doesn't limit wilful-nondelivery damages).
+- NOT TAGGED association-approval-fl (Florida fee-cap statute basis), columbia-association-md (Maryland/Columbia Association), association-approval-co (CO duplicate of the -la clause with a landlord-pays-all-fees rule; SC tagged -la instead), condo-documents-wi (Wisconsin delivery statute basis).
+- Edu row `edu-hoa-sc`. Title 27 Ch. 30 read whole; Ch. 31 read for every tenant/lease/rent term. Found § 27-1-60 (flag display, binds leases and association documents).
+
+##### Findings on existing rows
+- `hoa-compliance` (SC item 6 check, Chapters 30 and 31 and §§ 27-40-330, 27-40-410, 27-40-520): no conflict found. "Any fines incurred due to Tenant's violation of association rules will be Tenant's responsibility." recovers damages caused by the tenant's breach (§ 27-40-710(C)), not indemnity of the landlord's own liability "arising under law" (§ 27-40-330(a)(3)); Chapters 30 and 31 contain no rule on passing fines to tenants. One gap, not an error: association rules adopted after signing that substantially modify the bargain may be invalid against a tenant who objects in writing within 30 days (§ 27-40-520(b)) if they are treated as landlord rules. Suggested SC notes line (not a text change): "SC: association rules bind the tenant as lease rules only with notice at signing or on adoption (S.C. Code Ann. § 27-40-520(a)(6)); fines recover the tenant's breach (S.C. Code Ann. § 27-40-710(C))."
+
+###### automatic-renewal
+- TAGGED automatic-renewal-ks — state-neutral text; SERVES_LANDLORD holds under § 27-40-310(a); no SC auto-renewal statute (battery SC-B6-007); two-way check against §§ 27-40-310(d), 27-40-330(a)(1), 27-40-910 passes.
+- NOT TAGGED auto-renewal-formatting-ca (California boldface statute basis), automatic-renewal-nd (ND first-class-mail reminder rule), lease-end-continuation-mt (Montana default-extension statute), auto-renewal-ny and auto-renewal-wi (NY/WI reminder windows; WI names its statute), lease-end-continuation-wa and fixed-term-end-without-cause-wa (Washington good-cause regime, RCW cited), automatic-renewal-md, -ri, -vt, -hi, -la, -mn (each built to its own state's renewal statute or names that state's law), automatic-renewal-co (adds CO nonrenewal-penalty rules and says "Colorado law"), lease-renewal-and-holdover-wy (cites Wyo. Stat.).
+- Edu row `edu-no-automatic-renewal-rule-sc` added as well, to state the service-contract and management-agreement rules. Drafting judgment: a lease is not a "service contract" under § 37-1-301(32).
+
+###### balcony-inspection
+- No shared clause listed. Edu row `edu-no-balcony-inspection-rule-sc`; battery SC-B6-009 (regs searched too: only pool barriers and R. 8-1211 guards). Property maintenance and existing-building codes are local options (§ 6-9-60), noted with the LOCAL sentence.
+
+###### bed-bug-cooperation
+- TAGGED pest-cooperation-pr (carries PR;GU;AS;MP;NE;SD;TX;AZ) — state-neutral; entry defers to the lease's entry section (so § 27-40-530 governs); fault-based cost split matches §§ 27-40-510(2), (6) and 27-40-440(a)(2). Battery SC-B6-008.
+- NOT TAGGED pest-cooperation-la — same subject; its "at reasonable times, after reasonable notice" entry could be read as less than § 27-40-530(c)'s 24 hours; -pr defers to the entry section instead.
+- NOT TAGGED bed-bug-cooperation-ca, -ct, -ri, -nh, -me, -dc, -co, -mn; pest-cooperation-vt, -wy, -ks, -oh, -nv, -nj, -fl; pest-bed-bug-cooperation-nd — each cites or is built to its own state's bed-bug or entry statute (notice periods of 48 hours/two days, reporting procedures, rooming-house rules) or says the state has no pest duty; one SC tag is enough (rule 26).
+- No edu row: the tag answers the topic; `edu-no-bed-bug-disclosure-sc` already states the absence of a bed-bug statute.
+
+###### binding-arbitration
+- NOT TAGGED arbitration-agreement — its notes record Taylor's choice to offer it only where state law allows arbitration "without depending on federal preemption and with no penalty for using a prohibited term". SC fails both legs as drafted: (1) the SC Uniform Arbitration Act applies only if notice is typed in underlined capitals or rubber-stamped on the FIRST PAGE of the contract (§ 15-48-10(a)) — a layout requirement the clause text doesn't supply, so in SC it would rest on the FAA; (2) SC penalises deliberate use of a known prohibited term (§ 27-40-330(b)), and whether a lease arbitration clause "waive[s] or forego[es] rights or remedies under this chapter" (§ 27-40-330(a)(1)) is unsettled (case law not searched). Recommendation to the lead: leave SC off unless Taylor wants it with a builder rule adding the first-page notice.
+- NOT TAGGED arbitration-agreement-ak, arbitration-agreement-wy — name Alaska/Wyoming statutes.
+- Edu row `edu-binding-arbitration-sc`; battery SC-B6-010.
+
+###### cannabis (SC assigned item)
+- Title 44 Chapter 53 searched for every cannabis/marijuana/hemp term (and Title 46 Chapter 55 hemp): SC has no medical-cannabis or adult-use program and no housing protection. Only carve-outs: low-THC cannabidiol for physician-certified severe epilepsy is excluded from "marijuana" (§ 44-53-110), and the Article 18 clinical-trial immunity (§ 44-53-1840(A)), which creates no tenancy right. Hemp growing needs a license (§ 46-55-20(A)(1)). 2024-2026 acts screened (only 2026 Acts No. 146 and 157 mention the terms, neither relevant). Result: no statute changes the conclusion that a landlord may bar smoking or growing cannabis; this also confirms SC item 7 for `smoking-policy` as to statutes.
+- TAGGED cannabis-restrictions-ak (carries AK;MS;DC;PR;GU;AS;MP;CO;TX;FL;GA) — state-neutral; SERVES_LANDLORD holds; consistent with § 27-40-540.
+- NOT TAGGED cannabis-cultivation-il, -mo, -ok, -mi, -oh, -nm, -mt, -or, -ma, -me; cannabis-restrictions-de, -vi, -nv, -ca — built to those states' legalisation statutes (home-grow, smoking-only limits, "marihuana" spelling, grow-site registration) or name them; -ak covers SC.
+- Edu row `edu-cannabis-sc`; battery SC-B6-011.
+
+###### certificate-of-occupancy-disclosure
+- NOT TAGGED certificate-of-occupancy-notice-ny — REQUIRED_DISCLOSURE under N.Y. Real Prop. Law § 235-bb; no SC counterpart (battery SC-B6-012).
+- Edu row `edu-no-certificate-of-occupancy-disclosure-sc`.
+
+###### children-occupancy
+- NOT TAGGED children-occupancy-nv (NRS 118A.200 required disclosure), children-occupancy-mn (MN basis; its landlord-adopted "rules to protect the safety of minors" risk familial-status discrimination in terms under § 31-21-40(2) and need § 27-40-520 handling), children-occupancy-limit-nd (ND-specific text).
+- Edu row `edu-children-occupancy-sc` (Fair Housing Law §§ 31-21-30(6), 31-21-40, 31-21-70(L); lead rental bar § 44-53-1440). Battery SC-B6-013.
+
+###### cold-weather-vacate-notice
+- TAGGED cold-weather-vacate-notice-wy — state-neutral; SERVES_LANDLORD holds; entry ties to the SC weather-emergency entry right (§ 27-40-530(b)(1)); liability limited to tenant-caused freeze damage (§ 27-40-510(5)-(6)); no shift of the § 27-40-440(a)(4) heat duty.
+- NOT TAGGED cold-weather-vacate-notice-mn — says "Minnesota law makes failure to give this notice a criminal offense".
+- Edu row `edu-no-cold-weather-vacate-notice-sc`; battery SC-B6-014.
+
+###### common-area-lighting
+- TAGGED common-area-lighting-ks — state-neutral; CONSTRAINED_TERM holds under § 27-40-440(a)(3) (landlord keeps common-area duty; only the electricity cost moves, § 27-40-310(a)). Battery SC-B6-015.
+- NOT TAGGED common-area-lighting-ma (Mass. regulation basis), common-area-lighting-tenant-meter-wy (cites Wyo. Stat.), common-area-lighting-tenant-metered-nd (state-neutral and lawful, but duplicates -ks; one tag is enough), common-area-lighting-ca (California Civ. Code § 1940.9 disclosure basis).
+- No edu row: the tag carries the absence battery.
+
+###### communal-land-lease-approval
+- NOT TAGGED communal-land-lease-approval-as (American Samoa Governor approval) and -wy (Wyoming state trust land).
+- Edu row `edu-communal-land-lease-sc` (Catawba lands, §§ 27-15-10, 27-15-20; settlement, §§ 27-16-30(10), 27-16-100(2)). Battery SC-B6-016. Drafting judgment: the 1808 Catawba lease rules are stated with a caution because the 1993 settlement put the Reservation in federal trust.
+
+###### construction-liens
+- TAGGED no-liens-ar (carries AR;MS;GU;VI;AS;MP;WY;MN;NE;SD;TX;GA) — state-neutral; SERVES_LANDLORD holds (§ 29-5-10(a) "by consent of" test; no lessor-protection statute); two-way check against § 27-40-330(a)(3) passes (tenant pays only for its own ordered work, § 27-40-710(C)).
+- NOT TAGGED no-liens-fl and no-liens-ky (each rests on its state's lessor-exclusion statute: "will not be subject to liens" has no SC basis and would mislead), no-liens-ri, -la, -pr, -co, -ks, -nv, -nj, -az, construction-liens-dc, no-construction-liens-nd (state terms/statutes or duplicates of -ar).
+- Edu row `edu-construction-liens-sc`; battery SC-B6-017. Found § 27-40-630(c) (lien from unauthorized essential-services repairs unenforceable).
+
+###### consumer-protection-act
+- No shared clause listed. Edu row `edu-consumer-protection-act-sc` (§§ 39-5-10(b), 39-5-20(a), 39-5-40(a), 39-5-140, 39-5-145). Battery SC-B6-018. Whether the UTPA reaches residential landlords is case law (not searched); stated as such.
+
+###### defective-drywall-disclosure
+- NOT TAGGED defective-drywall-disclosure-va — "as defined in Virginia law".
+- Edu row `edu-no-drywall-disclosure-sc`; battery SC-B6-020 (regs searched: R. 105-14 disclosure form lists "corrosion-causing sheetrock").
+
+###### disaster-duties
+- NOT TAGGED fire-relocation-benefit-notice-ma (Massachusetts insurance statute), disaster-duties-mn ("under Minnesota law").
+- Edu row `edu-disaster-duties-sc` (price gouging § 39-5-145; casualty § 27-40-650; vacation-rental evacuation § 27-50-260). Battery SC-B6-019.
+
+###### disaster-displaced-guests
+- No shared clause. Edu row `edu-no-disaster-guest-rule-sc`; battery SC-B6-019.
+
+###### asbestos-hazards (amended)
+- Row amended after finding § 27-50-20(3): the Residential Property Condition Disclosure Act applies to a "lease with an option to purchase contract" for 1-4 units, and the statement covers asbestos (§ 27-50-40(A)(6)), due before signing (§ 27-50-50(A)).
+
+##### Findings on existing rows (continued)
+- `edu-required-disclosures-sc` (lead's b4 row, not yet in the CSV): its body says "A lease with an option to purchase isn't treated by statute as triggering the seller's property-condition disclosure at signing; whether it is due when the option is exercised depends on that sale." Wrong. 'This article applies to the following transfers of residential real property consisting of at least one but not more than four dwelling units:' (S.C. Code Ann. § 27-50-20), including '(3) lease with an option to purchase contract.' (S.C. Code Ann. § 27-50-20(3)); "Purchaser" includes a "tenant" in a real estate contract (§ 27-50-10(5)); the owner 'shall deliver to the purchaser the disclosure form required by this article before a real estate contract is signed by the purchaser and owner, or as otherwise agreed in the real estate contract.' (§ 27-50-50(A)). Battery SC-B4-011 missed it (the statute's phrase is "lease with an option to purchase contract"). Proposed replacement sentence: "A lease with an option to purchase a home of one to four units is covered by the Residential Property Condition Disclosure Act: before it is signed (or as the contract provides), the owner must give the tenant-buyer the Real Estate Commission's disclosure statement (S.C. Code Ann. Regs. 105-14), unless both parties agree in writing not to; a knowing false or incomplete statement makes the owner liable for actual damages."
+- `edu-no-radon-disclosure-sc`, `edu-no-mold-disclosure-sc`, `edu-no-drug-lab-disclosure-sc`, `edu-no-flood-disclosure-sc` (existing SC rows): each says SC has no disclosure duty. True for ordinary leases, incomplete for a lease with an option to purchase (§ 27-50-20(3)): the statement covers 'presence of lead-based paint, asbestos, radon gas, methane gas, underground storage tank, hazardous material or toxic material, buried or covered, and other environmental contamination;' (§ 27-50-40(A)(6)), and the R. 105-14 form asks about toxic mold, methamphetamine production and flooding. Proposed fix: add to each body "(Leases with an option to purchase a one-to-four-unit home are different: the state property-condition disclosure statement, which asks about [radon / mold / methamphetamine production / flooding], must be given before signing; see `edu-lease-option-disclosure-sc`.)"
+- Proposed new row (SC already answers `required-disclosures`; this states an unstated landlord duty): id `edu-lease-option-disclosure-sc`; topic_key `required-disclosures`; group Disclosures; rule_type REQUIRED; content_type LANDLORD_EDUCATION; lease_clause_basis empty; bodyText: "If you lease a home of one to four units with an option to purchase, South Carolina's Residential Property Condition Disclosure Act applies. Before the lease-option is signed (or as the contract provides), give the tenant the Real Estate Commission's disclosure statement covering, among other things, the water and sewer systems, structure and roof, mechanical systems, wood-destroying insects, zoning and covenants, lead-based paint, asbestos, radon and other environmental contamination, existing leases, any meter conservation charge, and any homeowners association. For each item you may state actual knowledge or make no representation. Skipping the form doesn't void the contract, but a knowing false, incomplete or misleading statement makes you liable for actual damages and court costs, and possibly attorney's fees. The parties may agree in writing not to complete the statement."; notes: "SC: Present. 'This article applies to the following transfers of residential real property consisting of at least one but not more than four dwelling units:' (S.C. Code Ann. § 27-50-20), including '(3) lease with an option to purchase contract.' (S.C. Code Ann. § 27-50-20(3)); contents (S.C. Code Ann. § 27-50-40(A)(1)-(9)); options (S.C. Code Ann. § 27-50-40(B)); delivery (S.C. Code Ann. § 27-50-50(A)); no voiding (S.C. Code Ann. § 27-50-50(B)); liability (S.C. Code Ann. § 27-50-65); written opt-out (S.C. Code Ann. § 27-50-30(13)); form (S.C. Code Ann. Regs. 105-14). " + BASIS.
+
+###### designated-repairer
+- NOT TAGGED designated-repairer-nv, -gu, -vi, -wy, -ks, -mn, -oh, -fl (name their states' law); -pr (built on P.R. Civ. Code urgent-repair right); -as ("will not ... deduct any repair cost from Rent, unless Landlord first consents" would bar the SC essential-services procure-and-deduct remedy, § 27-40-630(a)(1), a waiver under § 27-40-330(a)(1)); -mp (lawful wording "or applicable law allows it", but its emergency example is "typhoon damage" and its self-help reimbursement is an MP choice; edu row chosen instead).
+- Edu row `edu-no-designated-repairer-rule-sc`; battery SC-B6-021.
+
+###### disability-accommodation (SC assigned item)
+- § 43-33-70 quoted exactly in the row: (a) "Blind persons, visually handicapped persons, and other physically disabled persons shall be entitled to full and equal access ... to all housing accommodations offered for rent, lease, or compensation in this State ..."; (d) "Every handicapped person who has an assistance dog ... is entitled to full and equal access to all housing accommodations ... not required to pay extra compensation for the dog but is liable for any damage done to the premises by the dog." The statute says "assistance dog" (not "guide or assistance dog"); Article 1 (§§ 43-33-10 to 43-33-70) has no definition of it — SC log open item 10 closed as "undefined in the Code". Fair Housing Law §§ 31-21-30(7), 31-21-40(6)-(7), 31-21-70(G)(1)-(2), (K), (N) read whole.
+- TAGGED disability-modification-restoration-mn — state-neutral; tracks § 31-21-70(G)(1).
+- NOT TAGGED disability-modification-restoration-id (Idaho Code basis), -hi, -wy (name their states), disability-modification-oh (escrow/interest and permit-assurance terms come from Ohio's statute; not SC law), disability-modification-restoration-nv (interest-bearing deposit rule is Nevada's), disability-accommodation-request-co (its "not obvious" limit on documentation diverges from SC's animal documentation rule, § 31-21-70(N)(2), and it is a CO-drafted process clause).
+- Edu row `edu-disability-accommodation-sc`.
+
+###### double-letting
+- No shared clause. Edu row `edu-no-double-letting-rule-sc` (§ 27-40-620; § 16-11-790(B)); battery SC-B6-022.
+
+###### drug-free-housing-addendum
+- TAGGED drug-free-housing-ca — body is state-neutral (no California law named); SERVES_LANDLORD holds (§ 27-40-540; § 44-53-370(c)); victim/police-call and accommodation sentences are lawful landlord choices in SC. Battery SC-B6-023.
+- NOT TAGGED drug-free-housing-addendum-il, -wy, drug-activity-prohibition-oh (name their states or statutes).
+
+###### electric-submetering-disclosure
+- NOT TAGGED electric-submeter-disclosure-tx (Tex. code), utility-submetering-energy-md (COMAR basis), electric-submeter-billing-co (CO figures: 2% / $10 admin cap and not-rent rule are CO statute), electric-submetering-disclosure-mn (Minn. Stat. basis).
+- Edu row `edu-no-submetering-disclosure-sc` (R. 103-327 individual metering; § 58-27-10(7) "not resold" exclusion). Battery SC-B6-024 (regs searched). Cautious course: avoid submeter resale; open question flagged as case law/PSC practice.
+
+###### emergency-contact
+- TAGGED emergency-contact-co (carries CO;AZ) — state-neutral; no SC statute; no entry right for the contact (§ 27-40-530(d)). Battery SC-B6-025.
+- NOT TAGGED emergency-phone-tx (Tex. code), emergency-contact-consent-ny (NY statute), emergency-contact-mn (duplicate subject; -co chosen), emergency-contact-ne, -nd (name their states), emergency-contact-oh (neutral but bundles an emergency-phone/written-notice section that overlaps `notices`; one tag enough), social-services-hotline-lease-notice-nj (NJ statute).
+
+###### eminent-domain
+- TAGGED eminent-domain-vi (carries 12 states) — state-neutral; SERVES_LANDLORD holds; tenant in possession is a "condemnee" (§ 28-2-30(6)); relocation payments carved out (§ 28-11-10). Battery SC-B6-026.
+- NOT TAGGED condemnation-ar, -ms, -gu, eminent-domain-co, -wy (name their states/statutes).
+
+###### employee-screening
+- No shared clause. Edu row `edu-no-employee-screening-rule-sc` (§ 40-57-510(F)); battery SC-B6-027.
+
+###### energy-data-release
+- TAGGED energy-data-release-wy (carries WY;SD;NV;TX;FL;GA) — state-neutral; SERVES_LANDLORD holds; fits the PSC customer-data consent rule, R. 103-823.2(C)(1), (C)(4). Battery SC-B6-028 (regs searched).
+- NOT TAGGED energy-data-release-vt (Vermont statute), -dc (DC benchmarking), -co (Colorado), -mn (Minn. Stat. required disclosure), energy-data-consent-ca (duplicate subject; -wy chosen).
+
+###### entity-landlord-court-representation
+- No shared clause. Edu row `edu-entity-landlord-court-representation-sc` (§ 33-1-103 as rewritten by 2026 Act No. 233, effective on approval May 19, 2026 — act's SECTION 3 read; § 31-3-70 added by the same act). Present, so no battery. Court rules (SCRMC/SCACR) not in the corpus; circuit-court representation left to them (stated in notes, not an absence claim).
+
+###### environmental-event-termination
+- NOT TAGGED environmental-event-termination-co (Colorado), -wy (cites Wyo. Stat.).
+- Edu row `edu-no-environmental-event-termination-sc`; points to `casualty-landlord-termination-sc`. Battery SC-B6-029.
+
+###### ev-charging-requirements / ev-charging-shared-area / ev-charging-end-of-tenancy
+- One battery SC-B6-030 covers all three (no EV tenancy rule; § 58-27-1060 charging-station utility exemption found).
+- TAGGED ev-charger-installation-conditions-nd (requirements) — state-neutral; SERVES_LANDLORD holds; § 58-27-1060(A) fits its electricity-cost term.
+- TAGGED ev-charging-shared-area-co (shared-area; carries CO;IL;KS;MN;NE;TX) — state-neutral; fee and damage terms lawful; § 27-40-440(a)(3) duty stays with landlord.
+- NOT TAGGED ev-charging-requirements-co, -il, ev-charger-installation-hi (built to those states' EV-right statutes), -wy, -mn (name their states).
+- NOT TAGGED ev-charging-end-of-tenancy-co (CO statute-based REQUIRED term) and ev-charger-removal-restoration-nd — the ND clause lets the landlord "treat the equipment as Landlord's property" if not removed; for a plug-in (non-fixture) unit that would bypass SC's abandoned-property rule (§ 27-40-730(d)-(f)) and could be a waiver (§ 27-40-330(a)(1)); fixture status is case law. Cautious course: edu row `edu-ev-charging-end-of-tenancy-sc` recommends a signed removal-or-surrender choice at approval. Listed in UNTAGGED because the edu row names it.
+- Edu rows `edu-ev-charging-requirements-sc`, `edu-ev-charging-shared-area-sc`, `edu-ev-charging-end-of-tenancy-sc`.
+
+###### extended-absence-notice
+- TAGGED extended-absence-notice-ks (carries 32 states) — state-neutral; SC dropped the model act's absence section (battery SC-B6-032, 0 hits); consistent with §§ 27-40-540, 27-40-530, 27-40-730(a).
+- NOT TAGGED extended-absence-notice-ne, -al, -ri, -de, -hi, -ca (duplicates of -ks; one tag enough), -ak (AS 34.03.150 disclosure), -gu, -wy, -mn, -fl (name their states).
+- No edu row (tag carries the battery).
+
+###### family-child-care
+- NOT TAGGED family-child-care-or (Oregon's parent-waiver/insurance election comes from ORS), -wy, -consent-nd, -fl (name their states).
+- Edu row `edu-family-child-care-sc` (§ 63-13-210(A)); battery SC-B6-033.
+
+###### farmland-hunting-rights
+- TAGGED hunting-rights-ms — state-neutral; SERVES_LANDLORD; § 50-1-90 (consent of owner or manager) and § 27-3-20(c) (tenant is an "owner" for recreational permission) show why the reservation matters. Battery SC-B6-031.
+- NOT TAGGED no-hunting-pr (Puerto Rico), farmland-sporting-rights-co, farmland-hunting-rights-wy, farmland-hunting-rights-reserved-nd (duplicates; -ms is the shortest neutral version).
+
+###### home-business
+- NOT TAGGED home-business-permission-co, home-business-wy, home-business-use-restriction-nd — SC's subject is already covered by the SC-tagged `residential-use-only` (condition 3); ND's cites N.D.C.C.
+- Edu row `edu-home-business-sc`; battery SC-B6-034.
+
+###### fire-code-standard / fire-sprinkler-duty (SC assigned item)
+- Read § 23-9-155 (apartment smoke detectors where no fire protection system; tenant-caused malfunction; Fire Marshal to promulgate regulations) and §§ 5-25-1310 to 5-25-1340 (one- and two-family rentals) — these are answered by the existing `smoke-detectors-sc`; not duplicated, pointed to. Regs ch. 71 (held) read: R. 71-8300.1 and 71-8300.2 make the IFC the non-waivable statewide minimum for all buildings; no Fire Marshal regulation addressed to rentals or implementing § 23-9-155 was found (search of ch. 71 for apartment/rental/landlord/tenant/dwelling unit). Regs ch. 8 (held): R. 8-1213 (no residential sprinklers in one- and two-family dwellings or townhouses).
+- NOT TAGGED fire-code-compliance-mn (REQUIRED in MN; "State Fire Code" is a MN term of art; SC already has `fire-safety-grilling` for tenant fire conduct).
+- Edu rows `edu-fire-code-standard-sc` (Present, no battery) and `edu-no-fire-sprinkler-duty-sc` (battery SC-B6-035, regs searched).
+
+###### firearms
+- TAGGED firearm-rules-ks — state-neutral; SERVES_LANDLORD; § 23-31-220(A)(2) preserves owner/possessor carry rules. Battery SC-B6-036.
+- NOT TAGGED firearm-carry-rules-tn (built to Tennessee's tenant-carry statute), firearm-discharge-mt, firearm-rules-la (its locked-vehicle sentence mirrors parking-lot statutes in LA/MS/AZ/GA; SC has none, so -ks is the cleaner fit), firearms-restriction-hi, firearm-rules-pr, -gu, -vi, -as, firearms-mp, firearms-co, firearm-rules-wy, -mn, -fl (name their jurisdictions).
+- Edu row `edu-firearms-sc`.
+
+###### foreclosure / foreclosure-disclosure
+- Battery SC-B6-037 covers both (no SC tenant-in-foreclosure or disclosure rule).
+- foreclosure: no shared clause; edu row `edu-foreclosure-sc` (federal PTFA cited for context only).
+- foreclosure-disclosure: TAGGED foreclosure-disclosure-nv — state-neutral voluntary disclosure; SERVES_LANDLORD in SC (UTPA § 39-5-20(a) risk). NOT TAGGED foreclosure-disclosure-mn (contract-for-deed and redemption-period terms are MN law), foreclosure-notice-az, foreclosure-disclosure-or, -la (REQUIRED_DISCLOSURE bases in their states).
+
+###### foreign-ownership
+- NOT TAGGED nonresident-alien-statement-ak (AS 09.25.010(b) required statement; no SC counterpart).
+- Edu row `edu-foreign-ownership-sc` (§§ 27-13-10 to 27-13-40); battery SC-B6-038.
+
+###### frozen-standard-incorporation
+- No shared clause. Edu row `edu-code-editions-sc` (§§ 6-9-40, 6-9-50, 1-34-30; Regs. ch. 8 adopts the 2021 IBC/IFC/IRC with modifications; R. 71-8300.2(B)). Present; no battery.
+
+###### furnishings-included
+- TAGGED furnishings-included-la (carries 20 states) — state-neutral; consistent with §§ 27-40-410(a), 27-40-510(6), 27-40-440(a)(5). Battery SC-B6-041 (hits are bond and timeshare sections).
+- NOT TAGGED furnishings-included-ks, -nd (name their states), furnishings-included-ri (Rhode Island furniture-deposit statute: $5,000 threshold, 20 days), furnishings-de, furnishings-included-ca (duplicates of -la).
+
+###### guarantor-renewal
+- TAGGED guaranty-as (carries 11 states) — state-neutral; statute of frauds § 32-3-10(2) satisfied by the signed guaranty; renewal choice explicit. Battery SC-B6-039.
+- NOT TAGGED guaranty-pr (its five-year cap and withdrawal terms come from P.R. Civil Code), guaranty-gu, -vi, -wy, guaranty-renewals-nd, guaranty-of-lease-ca (name their states/statutes).
+
+###### guest-rights
+- NOT TAGGED guest-policy-wy, guest-rights-nd (cite their statutes); SC already has `guest-policy` and `guest-policy-day-limit`.
+- Edu row `edu-no-guest-rights-statute-sc`; battery SC-B6-040 (0 hits: the Code doesn't use "guest" near tenancy words).
+
+###### hazardous-contamination-disclosure
+- NOT TAGGED contamination-disclosure-mo, superfund-disclosure-ia, activity-use-limitation-ma, activity-use-limitation-notice-ct, activity-use-restriction-nh, brownfield-notice-ms, environmental-covenant-incorporation-co, environmental-covenant-notice-and-compliance-nd, environmental-use-restriction-az — each rests on its state's environmental-covenant or disclosure statute; SC has no uniform environmental covenants act (battery SC-B6-042: no tenancy hit beyond § 27-50-40(A)(6)).
+- Edu row `edu-no-contamination-disclosure-sc` (lease-option disclosure; brownfield restrictive covenant § 44-56-750).
+
+###### heating
+- NOT TAGGED tenant-supplied-heat-nj, heat-agreement-me, heat-freeze-protection-co (bodies neutral, but each is built to its state's heat statute; SC's freeze-protection subject is already carried by the SC tag on `cold-weather-vacate-notice-wy`, and SC's tenant-controlled-heat exception in § 27-40-440(a)(4) is self-executing), tenant-supplied-heat-wy, heating-mn (name their states).
+- Edu row `edu-heating-sc` (Present; §§ 27-40-440(a)(4)-(5), 27-40-210(17), 27-40-630). Regs ch. 103 (held) read for heat/winter disconnection terms: none on landlord heat; R. 103-535 landlord-agreement text noted below.
+
+###### homestead-waiver
+- NOT TAGGED homestead-waiver-va, exemption-waiver-al, -ga, -ks (each relies on its state's statute authorizing a waiver; SC has none).
+- Edu row `edu-no-homestead-waiver-sc` (S.C. Const. art. III, § 28; § 15-41-30). Battery SC-B6-043. Cautious course: leave any waiver out.
+
+###### infirmity-termination
+- NOT TAGGED early-termination-senior-infirmity-mi (Michigan required disclosure).
+- Edu row `edu-no-infirmity-termination-sc`; battery SC-B6-044 (0 hits).
+
+###### informal-dispute-resolution
+- TAGGED informal-dispute-resolution-or (carries 20 states) — state-neutral; preserves all statutory notices, deadlines and remedies. Battery SC-B6-045 (no mediation rule in the Code; court ADR rules not in the corpus — not claimed absent in the tag beyond the Code).
+- NOT TAGGED mediation-agreement-ak, informal-dispute-resolution-nd, -ca (name their states).
+
+###### key-control-policy
+- TAGGED lock-change-ak — state-neutral; applies § 27-40-530(e) with landlord's advance emergency permission. Battery SC-B6-046.
+- NOT TAGGED key-control-exempt-setting-mn (Minn. Stat. § 325F required disclosure).
+- Edu row `edu-no-key-control-policy-sc`.
+
+##### Findings on existing rows / other items (continued)
+- Possible regulation-statute conflict (for whoever owns utility topics): R. 103-535 (PSC wastewater-utility rule, Regs. ch. 103 held) says 'In the case of a landlord/tenant relationship where the tenant is the customer, the utility may require the landlord to execute an agreement wherein such landlord agrees to be responsible for all charges billed to that premises', while S.C. Code Ann. § 27-33-50(B)(1) says an entity or utility providing 'gas, electric, water, sewerage, or garbage services must not: (1) require a landlord to execute an agreement to be responsible for all charges billed to premises leased by a tenant' (2002 Act No. 336; except buildings of four or more units on a master meter, § 27-33-50(C)). The statute controls; any SC utility row citing R. 103-535 should say so. Not researched further (not my topic).
+
+###### lead-state-notices / lead-safe-certification (SC assigned item)
+- Read §§ 44-53-1310 to 44-53-1495 whole. § 44-53-1430: the department posts notice in a conspicuous place (not removed until remediation), gives written notice to the householder, and orders the owner to remediate; owner may appeal as a contested case. § 44-53-1440: no renting a posted/ordered unit to children until remediated; no eviction of a family with children for that reason. Penalties §§ 44-53-1480, 44-53-1485; no private action § 44-53-1490.
+- 2026 Act No. 146: SECTION 167 amended § 44-53-1320(4) and (13) to read "Department of Public Health" (formerly "Department of Health and Environmental Control"); SECTION 298 "This act takes effect upon approval by the Governor."; approved May 15, 2026. So the Department of Public Health acts under the lead article from May 15, 2026 (the act's SECTIONS 294-295 refer to the DHEC split under 2023 Act No. 60 as of July 1, 2024). SC log open item 10 (Act 146 and § 44-53-1430) closed.
+- NOT TAGGED lead-safe-certification-nj, lead-certification-de, lead-risk-reduction-md, lead-law-certification-ma, lead-hazard-order-disclosure-nh, lead-rrpm-disclosure-vt, lead-state-notices-dc, lead-in-drinking-water-disclosure-nj, lead-service-line-notice-nj — all REQUIRED_DISCLOSURE under other states' statutes.
+- Edu rows `edu-lead-state-notices-sc` (Present) and `edu-no-lead-safe-certification-sc` (battery SC-B6-047, regs searched).
+- FETCH: Regs. chapter 61 (any Department of Public Health regulation under § 44-53-1450 implementing the lead article, if one exists outside 61-1 to 61-58 and 61-71) — topics lead-state-notices / lead-safe-certification — the statute authorizes regulations and none is in the held chapters; the rows say so rather than claiming absence.
+- Finding (existing row): `edu-lead-hazards-sc` doesn't state the § 44-53-1440 rental bar and no-eviction rule, and its notes say the Act 146 effect "was not traced". Both now answered by `edu-lead-state-notices-sc`; suggest adding to its notes: "Agency is the Department of Public Health from May 15, 2026 (2026 Act No. 146, SECTIONS 167, 298); see `edu-lead-state-notices-sc` for S.C. Code Ann. § 44-53-1440."
+
+###### lease-content-requirements / lease-copy / lease-notice-initial-requirement / lease-type-size
+- One battery SC-B6-048 (required content, first page, copy delivery, initials, type size). Found § 40-57-135(F)(1)(c): a licensee in a personal rental must reveal licence status in bold, underlined capitals on the first page of the lease — stated in the content and type-size rows.
+- lease-content-requirements: NOT TAGGED utility-repair-obligations-md (Md. required disclosure), subsidy-lease-conditions-pr (Ley 173-1996). Edu row `edu-lease-content-requirements-sc`.
+- lease-copy: TAGGED lease-copy-receipt-hi (carries HI;GU;VI;AS;MP;KS;NE;AZ;FL;GA) — state-neutral; supports § 27-40-520(a)(6) notice. NOT TAGGED lease-copy-receipt-mn, -wi, -oh, -nv, -nj (built to their states' copy-delivery statutes; -hi is the neutral one). Edu row `edu-no-lease-copy-duty-sc`.
+- lease-notice-initial-requirement: NOT TAGGED lease-notice-initial-requirement-nd (N.D.C.C. § 47-16-15(4) required disclosure). Edu row `edu-no-lease-initials-requirement-sc`.
+- lease-type-size: no shared clause. Edu row `edu-no-lease-type-size-sc`.
+
+###### lease-registration
+- No shared clause. Edu row `edu-lease-recording-sc` (Present: § 30-7-10 reaches written leases longer than twelve months). No battery (Present).
+
+###### lease-term-limitation
+- NOT TAGGED lease-term-and-recording-wy (Wyo. Stat.), lease-term-limitation-mn (Minn. Stat. required disclosure).
+- Edu row `edu-lease-term-limits-sc` (§ 27-23-60 parol leases; § 32-3-10). Battery SC-B6-050 (first run failed its own positive on the "ninety-nine years" window before anything was recorded; rerun under the same id with a 7-word window — only one SC-B6-050 record exists in batteries.jsonl).
+
+###### lease-type-parity
+- No shared clause. Edu row `edu-no-lease-type-parity-sc`; battery SC-B6-049.
+
+###### inspection-notice-penalty
+- No shared clause. Edu row `edu-no-inspection-notice-penalty-sc`; battery SC-B6-051.
+
+###### law-enforcement-cooperation
+- No shared clause. Edu row `edu-no-law-enforcement-cooperation-rule-sc`; battery SC-B6-052 (0 hits).
+
+###### limitation-of-actions
+- No shared clause. Edu row `edu-limitation-of-actions-sc` (Present: §§ 15-3-530, 15-3-520(b), 15-3-120, 15-3-30). Whether a lease is a "sealed instrument" left as case law.
+
+###### military-air-zone-disclosure
+- NOT TAGGED military-air-zone-disclosure-va (body says "as defined in Virginia law"-type terms / VA basis), military-installation-disclosure-in (Indiana required disclosure).
+- Edu row `edu-no-military-zone-disclosure-sc` (§ 6-1-320); battery SC-B6-053.
+
+###### municipal-utility-lien
+- NOT TAGGED municipal-water-lien-mi (Michigan affidavit procedure; no SC counterpart).
+- Edu row `edu-municipal-utility-lien-sc` (§ 27-33-50; sewer liens §§ 5-31-2040, 6-11-1240, 6-15-100). Battery SC-B6-054 (first attempt failed its own tenant-exemption positive before recording; rerun under the same id; one record).
+
+###### notice-to-vacate-additional-terms
+- No shared clause. Edu row `edu-no-notice-to-vacate-terms-rule-sc`; battery SC-B6-055.
+
+###### optional-lease-terms
+- No shared clause. Edu row `edu-optional-lease-terms-sc` (Present: §§ 27-40-310(c)-(d), 27-40-540, 27-40-530(b)(2), 27-40-710(B), 27-40-440(c), 27-40-330(c), 27-50-20(3)).
+
+###### ordnance-demolition-meter-disclosures
+- NOT TAGGED ordnance-demolition-meter-disclosures-ca (California Civ. Code disclosures).
+- Edu row `edu-no-ordnance-demolition-meter-disclosure-sc`; battery SC-B6-056.
+
+###### other-landlord-facilities
+- NOT TAGGED shared-facilities-closure-co (ends "under Colorado law"), garage-door-opener-duty-mn (Minn. Stat. ch. 325F), other-landlord-facilities-nd (N.D.C.C. throughout).
+- Edu row `edu-other-landlord-facilities-sc`; battery SC-B6-057.
+
+###### owner-move-in-reservation
+- TAGGED owner-occupancy-termination-ar (carries 15 states) — state-neutral; SERVES_LANDLORD; 30-day floor matches § 27-40-770(b); court-only recovery matches § 27-40-760. Battery SC-B6-058 (first attempt failed its own positive before recording; rerun under the same id).
+- NOT TAGGED owner-move-in-reservation-ca, -me, owner-recovery-ak, owner-occupancy-termination-hi, owner-move-in-reservation-la ("eviction procedure Louisiana law provides"), owner-occupancy-termination-nd (name their states), owner-move-in-reservation-mn, owner-occupancy-termination-nv (neutral bodies but duplicates of -ar).
+- No edu row: the tag carries the battery; `edu-no-for-cause-eviction-sc` covers periodic tenancies.
+
+###### parking-rules-notice
+- TAGGED parking-rules-notice-co — state-neutral; SERVES_LANDLORD in SC (supports § 27-40-520(a)(6) and (b)). Battery SC-B6-059 (0 hits).
+- NOT TAGGED parking-rules-tx (Tex. Prop. Code required disclosure), parking-rules-notice-mn ("as Minnesota law allows"), parking-rules-notice-nd (N.D.C.C.).
+
+###### confirmed-absences-misc
+- No shared clause. Summary edu row `edu-confirmed-absences-misc-sc` pointing to this batch's absence rows (pattern of `edu-confirmed-absences-outside-title-sc`).
+
+##### Findings for other states
+- None noticed beyond the tag screens (several shared clauses carry states whose notes rest on that state's own statute; not reviewed).
+
+##### Proposed SOP changes
+- Battery positives: bat.run asserts positives before recording, so a failed positive leaves no record; the brief's "-b suffix" rule could say that a battery that failed only its own positive before being written may be rerun under the same id (done here for SC-B6-050, -054, -058; one record each).
+- When a topic's absence turns on sale-disclosure statutes, check whether the statute's scope list includes a "lease with an option to purchase" (SC § 27-50-20(3) was missed by SC-B4-011).
+
+##### Proposed topic questions
+- Does the state's residential property condition disclosure act cover a lease with an option to purchase, so that the landlord must deliver the disclosure statement before the lease-option is signed? (South Carolina: S.C. Code Ann. §§ 27-50-20(3), 27-50-50(A).)
+- Must a real estate licensee leasing their own property state their licence status on the first page of the lease in a set format? (South Carolina: S.C. Code Ann. § 40-57-135(F)(1)(c), bold, underlined capital letters.)
+- Do municipal or district sewer charges become a lien on the landlord's property for a tenant's unpaid account despite a statute making the tenant solely responsible for utilities? (South Carolina: S.C. Code Ann. §§ 5-31-2040, 27-33-50(A).)
+
+#### §4.2 Batch b7 decisions (topics pest-control-notice to window-guards)
+
+
+##### pest-control-notice
+- NOT TAGGED pest-control-notice-ca — basis is California's Civ. Code §§ 1940.8, 1940.8.5; SC has no such notice statute (SC-B7-001).
+- NOT TAGGED pest-control-cooperation-nd — title names North Dakota ("no North Dakota notice statute"); its notice sentence sets no minimum, while SC requires 24 hours' notice except for conspicuous-clause periodic services (S.C. Code Ann. § 27-40-530(b)(2), (c)); SC entry for pest treatment is already answered by `periodic-services-entry-sc`.
+- FETCH: Regs. chapter 27 (Clemson University, Department of Pesticide Regulation; structural pest control and applicator notice rules) — topic pest-control-notice — S.C. Code Ann. § 46-13-30(C) authorizes notice rules by regulation; whether any reaches tenants of a treated building is in that chapter. Row written as Confirmed absent (Code) / Not located (Regs. ch. 27).
+
+##### pet-eviction-fact-sheet
+- NOT TAGGED pet-eviction-fact-sheet-md — basis is Maryland Real Prop. § 14-804 and the text links Maryland's fact sheet.
+- Cautious course: tell the tenant animals must leave with them; call animal control for an animal left behind (S.C. Code Ann. § 47-1-70(A) applies to the owner).
+
+##### plain-language / plain-language-consumer-statement
+- One battery (SC-B7-003) for both; two rows. Consumer Protection Code "consumer lease" is leases of goods (S.C. Code Ann. § 37-2-106(1)).
+- NOT TAGGED consumer-restrictions-statement-pa — basis is 73 P.S. § 2205(d); text says "Pennsylvania law".
+
+##### political-access
+- No shared clause. Drafting judgment: an access rule for common areas is tested under S.C. Code Ann. § 27-40-520(a). Noted for tenant-display-rights: S.C. Code Ann. § 7-25-210 (removing a lawfully placed political campaign sign).
+
+##### pool-safety
+- NOT TAGGED pool-safety-notice-az — Arizona Department of Health Services notice.
+- NOT TAGGED pool-safety-ms — title names Mississippi; notes rest on Miss. Code Ann. § 45-43-5 scope.
+- NOT TAGGED pool-and-spa-use-wy — body cites Wyo. Stat. §§ 35-28-109, 35-28-110, 1-21-1203(a)(ii).
+- NOT TAGGED spa-pool-notice-mn — Minnesota statutory notice text.
+- Present row from S.C. Code Ann. §§ 44-55-2320, 44-55-2340 and R. 61-51 (paraphrased).
+- TOOL NOTE for lead: `sc.reg('61-51')` returns None — R. 61-51 (Public Swimming Pools) is in sc-regs-ch61-18to58 text but the regs() header splitter doesn't key it; quotes from it can't be checked, so the row paraphrases it.
+
+##### portable-cooling-device
+- NOT TAGGED portable-cooling-device-wa / -or / -restriction-co — each rests on its state's cooling statute (RCW 59.18.740, ORS 90.355, Colorado's four grounds).
+- NOT TAGGED portable-cooling-device-wy — body cites Wyo. Stat. § 40-26-107; would be taggable in substance. Possible future: a state-neutral copy citing the federal Fair Housing Act only.
+
+##### portable-solar
+- NOT TAGGED portable-solar-va-small (Virginia unit-count condition), plug-in-solar-vt (Vermont law, 1,200-watt limit), portable-solar-device-rules-co (Colorado law feature), portable-solar-consent-wy (Wyo. Stat. citations in (a), (f)-(h)), portable-solar-devices-nj (New Jersey law).
+
+##### private-well-testing
+- NOT TAGGED private-well-test-results-nj (NJ Private Well Testing Act), well-water-testing-notice-or (ORS 90.321(8)), private-well-disclosure-md (Md. Envir. § 9-4A-04), private-well-notice-ct (Conn. Gen. Stat. § 19a-37(d)), well-water-disclosure-wy (Wyo. Stat. citations in body).
+- FETCH: Regs. 61-44 (Individual Residential Well and Irrigation Well Permitting; within the held 61-18 to 61-58 range by number but absent from the corpus file) — topic private-well-testing — the Department's fee regulation (in the held file) mentions bacteriological analysis for new individual residential wells; 61-44 would say whether a new-well sample result goes to the owner. Row states the absence of a tenant testing/disclosure duty from the Code and R. 61-71 and names 61-44 as not held in the notes.
+- Cautious course: test before a new tenancy and give the result.
+
+##### prohibited-acts-renter
+- TAGGED prohibited-acts-renter-wy — state-neutral; every limb tracks S.C. Code Ann. §§ 27-40-510(6)-(7), 27-40-530(a); sets no notice, so § 27-40-530(c) still governs; nothing engaged under § 27-40-330(a). Overlaps but doesn't contradict `no-disturbance`, `tenant-maintenance`, `landlords-access` (no SC row keyed to this topic).
+- NOT TAGGED prohibited-acts-renter-pr — near-duplicate of the -wy clause; one tag suffices.
+- NOT TAGGED prohibited-acts-renter-mn — names Minnesota law (statutory unlawful-activities covenant).
+- NOT TAGGED prohibited-acts-renter-nd — crimes "under the laws of North Dakota"; ND rescission purpose statement.
+- NOT TAGGED prohibited-acts-renter-ca — victim and emergency-call carve-out rests on California law; SC has no such statute (`edu-no-police-call-protection-sc`).
+
+##### promises-to-repair
+- NOT TAGGED promised-repairs-wi — body neutral, but basis is REQUIRED_DISCLOSURE: Wis. Admin. Code ATCP § 134.07; rule 26 bars tagging a clause whose basis rests on another state's law. A SC-neutral version would be SERVES_LANDLORD (records promises so the integration clause doesn't swallow them); proposed for the lead only if wanted.
+- NOT TAGGED promised-repairs-wy — cites Wyo. Stat. § 1-21-1203.
+- Drafting judgment: an oral repair promise is part of the "rental agreement" (S.C. Code Ann. § 27-40-210(12)); the integration clause interaction is case law (not searched); cautious course stated.
+
+##### prop65-rental-warning
+- NOT TAGGED formaldehyde-health-notice-mn — Minnesota statutory notice.
+
+##### property-tax-rent-disclosure / protected-class-inquiry-ban
+- No shared clauses. protected-class-inquiry-ban: rule_type CONSTRAINED (statement ban with express permitted questions, S.C. Code Ann. §§ 31-21-40(3), 31-21-70(L), (N)).
+
+##### purpose-limitation
+- NOT TAGGED purpose-limitation-wy — cites Wyo. Stat. §§ 1-21-1204, 6-6-201, 6-6-204, 1-21-1002, 1-21-1003.
+
+##### recycling-notice
+- NOT TAGGED recycling-notice-or (Oregon statewide collection list, ORS 90.318), recycling-source-separation-ca (California organic-waste law). Local recycling rules left to local ordinance.
+
+##### religious-cultural-display
+- NOT TAGGED religious-display-nv — NRS 118A.200(3)(o). Cautious course: neutral decoration rule (S.C. Code Ann. § 31-21-40(2)).
+
+##### tenant-display-rights (done out of order, with religious-cultural-display)
+- NOT TAGGED us-flag-display-la — closest fit, but SC's right applies "Regardless of any ... rule ... concerning flags" (S.C. Code Ann. § 27-1-60(A)) and gives no landlord placement power; the clause's placement rules could be used to keep the flag off the premises. The SC row states the right and the cautious course instead.
+- NOT TAGGED flag-display-nv (NRS), us-flag-display-ar (Arkansas, 12+ units), tenant-display-rules-co (item-count cap could bar the one U.S. flag S.C. Code Ann. § 27-1-60 protects; CO organizing carve-out), display-and-signage-rules-wy (Wyo. Stat. § 8-3-110), tenant-display-rights-nd (ND title and covenant rule).
+- Drafting judgment: don't remove a tenant's campaign sign yourself (S.C. Code Ann. § 7-25-210(A)).
+
+##### rent-concession
+- TAGGED rent-concession-wi — state-neutral, SERVES_LANDLORD; no SC concession statute (SC-B7-017); no clawback, so no penalty issue; any clawback should be framed under S.C. Code Ann. § 27-40-330(c).
+- NOT TAGGED rent-concessions-il (Illinois "expressly stated" requirement as basis; duplicate), rent-concession-az (clawback of the whole concession on any default — a penalty risk under SC liquidated-damages law, case law not searched), rent-concession-ma (duplicate), rent-concession-wy (Wyo. Stat. §§ 1-21-1301 to 1-21-1304), rent-concession-nd (title names North Dakota).
+
+##### rent-escalation (20 clauses screened)
+- TAGGED rent-escalation-la — state-neutral scheduled/index option; SERVES_LANDLORD; no SC limit (SC-B7-018); retaliation bar (S.C. Code Ann. § 27-40-910(a), (e)) reaches only increases above fair-market value after protected conduct.
+- NOT TAGGED rent-increase-midterm-ky / -wv / -nh (unilateral mid-term increase on 30 days' notice with tenant exit): neutral text, but a unilateral rent change in a fixed term is a contract-formation question (case law not searched); cautious course is the agreed schedule in rent-escalation-la. Also one tag answers the topic.
+- NOT TAGGED rent-escalation-ga (pass-through of utilities/taxes/insurance belongs to tax-escalation; GA/TX basis), midterm-rent-increase-in (Indiana market-rate basis), rent-cost-adjustment-mi (Michigan cost-pass-through statute), rent-increase-terms-ma (940 CMR 3.17), rent-increase-midterm-ct (fair rent commission), rent-increase-midterm-ri (60-day RI notice), midterm-rent-increase-me (Maine 45/75-day rule, habitability bar), midterm-rent-increase-vt (Vermont actual notice), rent-increase-midterm-hi (45-day floor, emergency rules), rent-increase-midterm-gu / -mp, rent-escalation-mp (territory law, title), rent-increase-midterm-mn (Minnesota notice-parity), rent-escalation-nd (title names North Dakota), rent-escalation-oh (near-duplicate of the -la clause; Midwest index example), rent-escalation-nv (Nevada all-fee single figure rule).
+
+##### rent-installments
+- TAGGED rent-installments-or — neutral; S.C. Code Ann. § 27-40-310(c) lets the parties fix time of payment; no partial-payment rule (SC-B7-019).
+- NOT TAGGED prorated-rent-mn (Minn. Stat. § 504B.146; SC default is day-to-day apportionment, S.C. Code Ann. § 27-40-310(c), a different subject), rent-installments-mn (8% Minnesota late-fee cap, cash receipt rule), rent-installments-nd (ND title, mobile-home drafting note), rent-installments-oh (duplicate; one tag suffices), rent-installments-nv (fixed-term-only drafting from Nevada).
+
+##### rent-reporting
+- NOT TAGGED rent-reporting-offer-md — Md. Real Prop. § 8-208.4(c).
+
+##### rent-tax
+- NOT TAGGED excise-tax-number-disclosure-hi, principal-residence-tax-pr, hotel-room-tax-vi, hotel-occupancy-tax-as — each rests on its territory's tax law.
+- S.C. Code Ann. § 12-36-920 read whole (SC item 10 closed for this topic): it reaches only accommodations "furnished to transients"; the same-person "ninety continuous days" exclusion is printed in (A) and repeated in R. 117-307.3(B). No residential-rent exemption section is needed because ordinary rent isn't within the tax base (S.C. Code Ann. § 12-36-60).
+
+##### renters-insurance-rules
+- NOT TAGGED renters-insurance-nc — three-business-day proof deadline and $50 administrative fee come from North Carolina's statute (rule 19: copy structure, not thresholds); SC sets none.
+- NOT TAGGED renters-insurance-advisory-tn (Tenn. Code Ann. § 66-28-201(a) prescribed advisory), renters-insurance-notice-va (Va. Code § 55.1-1206(D), Virginia flood website), renters-insurance-requirement-wy ("insurer authorised to do business in Wyoming").
+- SC already answers the requirement itself with `tenants-property-insurance-ks-oh-ca` (rule 26(3)); the new row covers the rules question only.
+
+##### tenant-insurance-claims (done with renters-insurance-rules)
+- NOT TAGGED insurance-claims-and-losses-nd — title and body name North Dakota law. Its proceeds and deductible logic is consistent with S.C. Code Ann. § 38-75-60, but it says nothing of the subrogation bar, the SC-specific point.
+- Present row from S.C. Code Ann. § 38-75-60 (quoted exactly, as assigned). Open reading: whether § 38-75-60 limits the landlord's own claim for a loss already paid by its insurer — not stated; cautious course (recover only uncompensated loss, e.g. the deductible).
+
+##### repair-notice
+- NOT TAGGED habitability-notice-co (C.R.S. § 38-12-505), repair-notice-method-ar (Arkansas habitability list, title), repair-request-procedure-ne (neutral text but basis rests on Neb. Rev. Stat. § 76-1419 "written or actual notice"; rule 26). A SC-neutral repair-request clause would be SERVES_LANDLORD; not proposed (the existing `notices` row and `landlord-disclosure-sc` cover the address).
+
+##### repair-cost-termination / repair-escrow-exemption-notice
+- No shared clause for the first; NOT TAGGED repair-escrow-exemption-notice-oh (R.C. 5321.07(C)).
+
+##### rights-responsibilities-guide / tenant-rights-statement / sanitary-code-variance
+- NOT TAGGED rights-guide-receipt-de (25 Del. C. § 5124(c)); tenant-rights-statement-va (Virginia DHCD form), summary-of-rights-il (765 ILCS 752/20), habitability-rights-statement-co (C.R.S. § 38-12-505(3)(c)), tenants-bill-of-rights-md (Md. Real Prop. § 8-208(c)(4)), ag-summary-receipt-de (25 Del. C. § 5118); sanitary-code-variance-ma (105 CMR 410.700), safety-exception-notice-nj (N.J.S.A. 55:13A-11(d)).
+- SC item 4 applied: rows state the state rule (none) and leave local handouts/variances to local ordinance, pointing to `edu-local-preemption-sc`.
+- Battery SC-B7-026 shared by the guide and statement rows.
+
+##### seasonal-tenancy
+- NOT TAGGED seasonal-tenancy-ri (Rhode Island seasonal eviction without cure), seasonal-nonrenewable-lease-de (Delaware hundreds, 120 days), seasonal-tenancy-wy (Wyoming recreational-rental exclusion; SC has no principal-residence exclusion).
+- Vacation Rental Act (S.C. Code Ann. §§ 27-50-210 to 27-50-270) read whole; § 27-40-120 read (SC item 10 closed for this topic). Open point stated in notes: the "weekly or monthly basis pursuant to Chapter 40" carve-out in §§ 27-50-220(B)(3), 27-50-230(3) is circular; cautious course stated.
+
+##### security-devices / smart-access
+- NOT TAGGED security-devices-ca — neutral one-sentence reporting duty, but its notes rest on Civ. Code § 1941.3(b) (notice-shifting of a statutory lock duty SC doesn't have); rule 26.
+- NOT TAGGED security-devices-tx (Texas Property Code text), tenant-rekey-right-il (Cook County), security-devices-wy (body neutral and consistent with S.C. Code Ann. § 27-40-530(e), but notes rest on Wyo. Stat. §§ 1-21-1208(a), 1-21-1203(a)(iv); also its "Landlord may change or rekey the locks ... at any other time" needs SC entry notice). SC `keys` row (already SC) covers keys and rekey cost.
+- NOT TAGGED smart-access-system-wy, smart-access-system-mn — landlord-burdening promises drafted from those states' rows; SC has no smart-access statute (SC-B7-029).
+- Finding check (SC item 6, keys): not re-audited here; the security-devices row reads `keys` as consistent with S.C. Code Ann. §§ 27-40-410(a), 27-40-510(8).
+
+##### senior-housing-work-card / service-animal-denial-penalty / service-animal-misrepresentation
+- No shared clauses for these three.
+- S.C. Code Ann. § 43-33-70 quoted exactly ((d), (b)); the misdemeanor in § 43-33-40 reaches only the § 43-33-20 places (which include "hotels, lodging places"), not housing. Cautious course: treat a vacation rental as a covered lodging place.
+- SC item 10 ("assistance dog" undefined) closed: no definition anywhere in the Code (8 uses, 3 sections, all in Chapter 33 of Title 43).
+- Misrepresentation: S.C. Code Ann. § 47-3-980 quoted; housing reach left open as in `edu-service-animal-law-sc` (consistent; no finding).
+
+##### sex-offender-disclosure / sex-offender-occupancy / stigmatized-property / tenant-screening
+- NOT TAGGED sex-offender-registry-notice-ca (Penal Code § 290.46 text), -wi (Wisconsin DOC), -la (La. R.S. 15:540). An SC notice would name the county sheriff (S.C. Code Ann. § 23-3-525); not drafted as a clause because the statute's vehicle is a brokerage's listing/representation/sales agreement, not the lease (rule 55: no statute requires it in the lease). Cautious course in the edu row.
+- NOT TAGGED sex-offender-occupancy-oh (Ohio registry and distance statute), sex-offender-statement-al (Birmingham), sex-offender-cohabitation-ok (Oklahoma Act), sex-offender-occupancy-wy (Wyo. Stat. § 6-2-320). SC's residency limit (S.C. Code Ann. § 23-3-535) binds the offender, with local zones preempted ((E)); edu row only.
+- stigmatized-property: S.C. Code Ann. § 40-57-740 ("transaction"; owner or licensee) and § 27-50-90 (covered transfers: sale, installment, lease-option). Open: whether § 40-57-740 reaches a plain lease without a licensee; cautious course stated.
+- tenant-screening: NOT TAGGED lihtc-felony-screening-ok (Okla. Stat. tit. 68). SC item 4 applied.
+- Done out of order: tenant-screening (needed by the sex-offender-occupancy row).
+
+##### sfr-occupancy-disclosure / shoreline-access-disclosure / special-district-representation / steam-radiator-covers / shutdown-rent-protection
+- NOT TAGGED sfr-occupancy-disclosure-nv (NRS 118A.200(4)), shoreline-access-disclosure-ri (R.I. Gen. Laws § 34-18-20(e)), shoreline-right-of-way-gu (title names Guam; Guam right-of-way law), special-district-representation-pr (Ley 351-2000, 214-2004), steam-radiator-cover-notice-nj (N.J.S.A. 52:27D-198.20). No shared clause for shutdown-rent-protection.
+- Cautious course (shoreline): S.C. Code Ann. § 48-39-330 reaches a "contract of sale or transfer"; whether a long lease is a transfer is undefined; include the statement in long oceanfront leases.
+
+##### FINDING on existing row (lead's b4 row `edu-required-disclosures-sc`, not yet in the master)
+- The row lists five lease disclosures and says there is "no state form that must be the first page", but omits a real first-page lease rule for licensees: 'A licensee clearly shall reveal his license status in a personal transaction involving the purchase, sale, exchange, rental, lease, or auction of real estate:' (S.C. Code Ann. § 40-57-135(F)(1)), '(c) in bold, underlined, capital letters on the first page of a contract for the purchase, sale, exchange, rental, or lease of real property.' (S.C. Code Ann. § 40-57-135(F)(1)(c)). Proposed fix: add item "(6) if you are a licensed real estate agent or broker renting property you own (a personal transaction), state your license status in bold, underlined capital letters on the first page of the lease," and change "no state form that must be the first page" to "no state form that must be the first page (apart from a licensee's own status statement)". Proposed companion clause (for the lead to decide; topic required-disclosures): id `licensee-status-disclosure-sc`, group Disclosures, rule_type CONDITIONAL, lease_clause_basis "REQUIRED_DISCLOSURE: S.C. Code Ann. § 40-57-135(F)(1)(c)", bodyText "[Use only if Landlord, or an owner of the property, is a South Carolina real estate licensee renting in a personal transaction. Print on the first page in bold, underlined capital letters.] LANDLORD IS A LICENSED REAL ESTATE {{licensee_type}} IN SOUTH CAROLINA.", notes quoting § 40-57-135(F)(1) and (F)(1)(c) and noting trust-fund rule (F)(2) (personal rental trust funds go in the licensee's own account, not read whole here).
+
+##### sprinkler-disclosure / statute-of-frauds-lease-term / tenancy-at-will / statutory-early-termination / stove-refrigerator / student-housing
+- NOT TAGGED sprinkler-disclosure-ny (RPL § 231-a), high-rise-sprinkler-notice-md (Md. Pub. Safety § 9-403(d)), sprinkler-notice-ct (Conn. Gen. Stat. § 47a-3f). Topic question answered: SC has a sprinkler retrofit incentive, a property-tax and income-tax credit (S.C. Code Ann. § 12-6-3622), transferable to the tenant.
+- statute-of-frauds: no shared clause. S.C. Code Ann. §§ 27-23-50, 27-23-60, 32-3-10, 27-40-320(c), 27-33-30 read. Interaction of the Act's oral-agreement definition with § 27-23-60 left as case law.
+- tenancy-at-will (done with statute-of-frauds): NOT TAGGED holdover-tenancy-by-sufferance-wy (Wyo. Stat. §§ 34-2-128, 34-2-129). Cautious course: Act notices for dwelling tenants; 20-day notice (S.C. Code Ann. § 27-35-130) only for no-agreement occupants.
+- NOT TAGGED early-termination-rights-statement-tx (Tex. Prop. Code § 92.016(f)).
+- NOT TAGGED stove-refrigerator-ca (Civ. Code § 1941.1(a)(11)(B)), stove-refrigerator-mn (Minnesota habitability carve-outs); SC answered by `appliances-excluded-sc` mechanics.
+- NOT TAGGED student-housing-certification-pr (Ley 48-1990), student-housing-oh (R.C. 5321.031).
+
+##### subsidy-habitability-proration / tax-escalation / telecom-access
+- subsidy: battery SC-B7-043 flawed (case-insensitive "Section 8" matched SECTION 8 headings); rerun as SC-B7-043b; row cites both.
+- TAGGED tax-insurance-escalation-la — multi-state, neutral, SERVES_LANDLORD; no SC limit (SC-B7-044). Open: whether the share is rent under S.C. Code Ann. § 27-40-210(11); cautious course stated in tag.
+- NOT TAGGED tax-escalation-ma (ch. 186 § 15C), -ri (RI 60/120-day notice), -nh (NH deposit-statute basis), -de (title names Delaware), tax-insurance-escalation-mp (typhoon; title), -nd (title), tax-escalation-oh (near-duplicate).
+- TAGGED telecom-access-mn — neutral, saving sentence preserves state and federal rights; its MN notes rest on absence (no MN statute), not on a MN statute, so rule 26's "rests on the other state's statute" bar doesn't apply.
+- NOT TAGGED telecom-access-wy — notes rest on Wyo. Stat. § 1-21-1203(a)(iv) maintenance-by-contract drafting; would also work, one tag suffices.
+
+##### tenant-confidential-information / tenant-employee-housing / tenant-portal / tenant-right-to-organize / term-change-notice
+- No shared clauses for confidential-information or right-to-organize.
+- tenant-employee-housing (11 clauses): NOT TAGGED any. tenant-employee-de (25 Del. C. § 5123(b)); employee-housing-ar ("as Arkansas law requires"); employee-housing-occupancy-hi (body neutral but its condition is "employment by Landlord as [job title]" without SC's "in and about the premises" limb (S.C. Code Ann. § 27-40-120(5)), so it would overstate the exclusion; notes rest on HRS § 521-7(6)); employee-housing-la, employer-housing-pr, tenant-employee-housing-wy, employee-housing-occupancy-ks ("Kansas Residential Landlord and Tenant Act" in body), tenant-employee-housing-mn, employee-occupancy-conditional-ne, employee-housing-nj (NJ good-cause notice), employee-housing-fl — each rests on its state's exclusion or eviction statute. A SC clause could be drafted SERVES_LANDLORD with the "in and about the premises" wording; not drafted (edu row gives the cautious course; rule 54 satisfied by the edu row).
+- TAGGED tenant-portal-mn — neutral; voluntary portal notices and backup payment method are consistent with S.C. Code Ann. § 26-6-50(C) (non-waivable refusal right) and § 26-6-30(B)(2)(c)(ii) (eviction/default notices outside UETA).
+- NOT TAGGED electronic-communications-and-portal-wy (Wyo. Stat. § 40-21-105), portal-rent-payment-ne (portal as exclusive place of payment, processing charge on tenant; risky under S.C. Code Ann. § 26-6-50(C)), tenant-portal-nd (ND fee-free paper rule), tenant-portal-oh (Ohio electronic notice designations; SC default/eviction notices excluded from UETA), tenant-portal-nv (Nevada bank-information rule), tenant-portal-fl (option B requires portal payment).
+- NOT TAGGED term-change-notice-gu (Guam 7-day rule, title), term-change-notice-wy (Wyo. Stat. §§ 1-21-1202(d), 34-2-128, 34-2-129), term-change-notice-ca (California 7-day agreed-notice rule). SC item 4 applied.
+
+##### translation-duty / truth-in-renting / unbundled-parking / usufructuary-lessor / veterans-incentive
+- No shared clause for translation-duty.
+- NOT TAGGED truth-in-renting-statement-nj (DCA statement), truth-in-renting-notice-mi (Mich. Comp. Laws § 554.634(2)).
+- NOT TAGGED unbundled-parking-ca (Civ. Code § 1947.1), -co (title names Colorado), -wy (Wyo. Stat. §§ 31-5-111, 1-21-1203, 40-26-107 in body), -mn (MN total-payment rule), -nd (body names North Dakota), -oh (body names Ohio). SC parking already answered by `parking-ks-oh-ca`, `assigned-parking-space`, `parking-vehicle-rules`.
+- NOT TAGGED usufructuary-lessor-la (La. Civ. Code), -pr (Puerto Rico Civil Code), life-tenant-lessor-status-wy (Wyo. Stat. § 34-1-111). Present row from S.C. Code Ann. §§ 27-41-10 to 27-41-30; the end-at-death rule itself is common law (assumed by the statutes), case law not searched.
+- NOT TAGGED veteran-servicemember-concession-ne (title names Nebraska).
+
+##### Utility topics (9): Regs. chapter 103 read (electric 103-300s: 103-327, 103-342, 103-343, 103-352; gas 103-452; sewer 103-535, 103-535.1; water 103-735, 103-735.1); Code §§ 27-33-50, 58-27-2510 to 58-27-2540, 58-37-50(H). No FETCH needed (chapter 103 held whole).
+- utility-allowance-cap: TAGGED utility-allowance-cap-co (multi-state, neutral, actual-cost reimbursement, not rent). NOT TAGGED -pr, -vi (titles/territory), utility-cost-allocation-wy (Wyo. Stat.), -ks, -mn, -oh (duplicates or state-specific notes), utility-allowance-overage-ne (title names Nebraska).
+- utility-apportionment: edu row. NOT TAGGED utility-apportionment-mn, utility-formula-il (765 ILCS 740/5), shared-utility-disclosure-or (ORS 90.315), utility-billing-wv, ratio-utility-billing-md, common-area-utility-agreement-me, utility-nonconsumption-charges-de, utility-apportionment-wy, -nd, utility-allocation-fl — each built on its state's allocation statute or notes; SC has none, and R. 103-327 individual metering makes an allocation clause a narrow case. Drafting judgment: don't mark up; whether a reselling landlord is a regulated "electrical utility" is unaddressed.
+- utility-disclosure-attachment: Present via S.C. Code Ann. § 58-37-50(H)(3) (existing `meter-conservation-charge-notice-sc`). NOT TAGGED energy-tariff-disclosure-nh, water-power-availability-gu, electric-allocation-disclosure-tx.
+- utility-disconnection-notice-authorization: TAGGED utility-shutoff-notice-authorization-co — SC regs require utilities to copy termination notices to a customer-named third party (R. 103-352(f), 103-452(f), 103-535.1(C), 103-735.1(D)); § 58-27-2530. NOT TAGGED the other 12 (each cites or is titled for its state's program; -nj names N.J.S.A. 48:2-29.42 acceptance mechanics).
+- utility-interruption-submeter: edu row. NOT TAGGED electric-submeter-interruption-tx, utility-meter-request-waiver-vi, utility-interruption-submeter-mn (names Minnesota statutes).
+- utility-landlord-account: edu row. NOT TAGGED landlord-billed-utilities-md, utility-landlord-account-wy.
+- utility-shutoff-statute: Present edu row from R. 103-352, 103-452, 103-535.1, 103-735.1 and § 58-27-2520, 2540. Municipal and cooperative special-needs articles (Title 5, Title 33) not read; noted in row.
+- utility-submetering-disclosure: edu row; 18 clauses NOT TAGGED (each a REQUIRED_DISCLOSURE under its own statute or drafted from it; the -nc, -de, -ia SERVES_LANDLORD ones restate their state's billing statutes).
+- utility-transfer: TAGGED utility-transfer-nj (neutral; actual-cost reimbursement; landlord won't shut off). NOT TAGGED utility-transfer-tn (Tennessee URLTA counties, 3-day cutoff right SC doesn't give), -pr, -gu, -vi (territory titles), -reimbursement-co, -wy (deposit timetable "under Wyoming's"), -mn, -ne (title), -nd (duplicates).
+- OBSERVATION (not a row finding): R. 103-535(O) (sewer) still authorizes a utility to require a landlord's agreement to be responsible for a tenant's charges; S.C. Code Ann. § 27-33-50(B) (2002 Act No. 336, 2003 Act No. 63) bars that except master-metered buildings of four or more units. `edu-utilities-sc` states the statute correctly; the new `edu-utility-landlord-account-sc` notes the conflict. Reported for the lead/Taylor, no fix needed.
+
+##### water-heater-temperature / waterbed / window-guards
+- No shared clause for water-heater-temperature. Regulation temperature limits (100-120°F at fixtures) are care-facility rules in chapter 60; not applied to rentals. Cautious course stated.
+- TAGGED waterbed-mn (MN;AZ) — neutral, absence-based, no charge created; SC check: any money taken against waterbed damage is a security deposit (S.C. Code Ann. § 27-40-210(18)).
+- NOT TAGGED waterbed-ca (Civ. Code § 1940.5), flotation-bedding-fl (Fla. Stat. § 83.535 insurance rule), waterbed-co (notes rest on Colorado fee/deposit caps), waterbed-and-liquid-filled-furniture-wy (local-code drafting; one tag suffices), waterbed-permission-nd (title and body name North Dakota), waterbed-nj (duplicate).
+- NOT TAGGED window-guard-notice-nj (N.J.A.C. 5:10-27.1). SC item 4 applied (local codes).
+
+##### Proposed SOP changes
+- Helper scratch folders: b6 and b7 were given the same scratchpad directory and b6 overwrote b7's helper scripts (`wc.py`, `h.py`) mid-run; b7 moved to a private subfolder. Rule 27 [VT 7] already says this; the brief should name a per-agent scratch path.
+- `sc.reg()` keying: R. 61-51 (Public Swimming Pools) is present in the held text but not keyed by the regs() splitter, so quotes from it can't be checked. A splitter fix (or a note in the brief listing unkeyed regulations) would let rows quote it.
+
+##### Proposed topic questions
+- utility-landlord-account: "Does a utility regulation still authorize a landlord-guarantee agreement that a later statute bars, so the regulation should be read as superseded?" (South Carolina: R. 103-535(O) vs S.C. Code Ann. § 27-33-50(B).)
+- sprinkler-disclosure: "Does the state offer a property or income tax credit for voluntary sprinkler retrofits that the owner may transfer to the tenant?" (South Carolina: S.C. Code Ann. § 12-6-3622(C).)
+- required-disclosures (not b7's topic): "Must a real estate licensee renting their own property state their license status on the lease's first page?" (South Carolina: S.C. Code Ann. § 40-57-135(F)(1)(c).)
+
+##### Findings for other states
+- None noticed beyond what the NOT TAGGED notes record.
+
+##### Full-id screen list (every shared clause in remaining.json for b7 topics; reasons in the topic sections above)
+- NOT TAGGED pest-control-notice-ca — topic pest-control-notice
+- NOT TAGGED pest-control-cooperation-nd — topic pest-control-notice
+- NOT TAGGED pet-eviction-fact-sheet-md — topic pet-eviction-fact-sheet
+- NOT TAGGED consumer-restrictions-statement-pa — topic plain-language-consumer-statement
+- NOT TAGGED pool-safety-notice-az — topic pool-safety
+- NOT TAGGED pool-safety-ms — topic pool-safety
+- NOT TAGGED pool-and-spa-use-wy — topic pool-safety
+- NOT TAGGED spa-pool-notice-mn — topic pool-safety
+- NOT TAGGED portable-cooling-device-wa — topic portable-cooling-device
+- NOT TAGGED portable-cooling-device-or — topic portable-cooling-device
+- NOT TAGGED portable-cooling-restriction-co — topic portable-cooling-device
+- NOT TAGGED portable-cooling-device-wy — topic portable-cooling-device
+- NOT TAGGED portable-solar-va-small — topic portable-solar
+- NOT TAGGED plug-in-solar-vt — topic portable-solar
+- NOT TAGGED portable-solar-device-rules-co — topic portable-solar
+- NOT TAGGED portable-solar-consent-wy — topic portable-solar
+- NOT TAGGED portable-solar-devices-nj — topic portable-solar
+- NOT TAGGED private-well-test-results-nj — topic private-well-testing
+- NOT TAGGED well-water-testing-notice-or — topic private-well-testing
+- NOT TAGGED private-well-disclosure-md — topic private-well-testing
+- NOT TAGGED private-well-notice-ct — topic private-well-testing
+- NOT TAGGED well-water-disclosure-wy — topic private-well-testing
+- TAGGED prohibited-acts-renter-wy — topic prohibited-acts-renter
+- NOT TAGGED prohibited-acts-renter-pr — topic prohibited-acts-renter
+- NOT TAGGED prohibited-acts-renter-mn — topic prohibited-acts-renter
+- NOT TAGGED prohibited-acts-renter-nd — topic prohibited-acts-renter
+- NOT TAGGED prohibited-acts-renter-ca — topic prohibited-acts-renter
+- NOT TAGGED promised-repairs-wi — topic promises-to-repair
+- NOT TAGGED promised-repairs-wy — topic promises-to-repair
+- NOT TAGGED formaldehyde-health-notice-mn — topic prop65-rental-warning
+- NOT TAGGED purpose-limitation-wy — topic purpose-limitation
+- NOT TAGGED recycling-notice-or — topic recycling-notice
+- NOT TAGGED recycling-source-separation-ca — topic recycling-notice
+- NOT TAGGED religious-display-nv — topic religious-cultural-display
+- NOT TAGGED rent-concessions-il — topic rent-concession
+- NOT TAGGED rent-concession-az — topic rent-concession
+- TAGGED rent-concession-wi — topic rent-concession
+- NOT TAGGED rent-concession-ma — topic rent-concession
+- NOT TAGGED rent-concession-wy — topic rent-concession
+- NOT TAGGED rent-concession-nd — topic rent-concession
+- NOT TAGGED rent-escalation-ga — topic rent-escalation
+- NOT TAGGED midterm-rent-increase-in — topic rent-escalation
+- NOT TAGGED rent-cost-adjustment-mi — topic rent-escalation
+- NOT TAGGED rent-increase-midterm-ky — topic rent-escalation
+- NOT TAGGED rent-increase-midterm-wv — topic rent-escalation
+- NOT TAGGED rent-increase-terms-ma — topic rent-escalation
+- NOT TAGGED rent-increase-midterm-ct — topic rent-escalation
+- NOT TAGGED rent-increase-midterm-ri — topic rent-escalation
+- NOT TAGGED rent-increase-midterm-nh — topic rent-escalation
+- NOT TAGGED midterm-rent-increase-me — topic rent-escalation
+- NOT TAGGED midterm-rent-increase-vt — topic rent-escalation
+- NOT TAGGED rent-increase-midterm-hi — topic rent-escalation
+- TAGGED rent-escalation-la — topic rent-escalation
+- NOT TAGGED rent-increase-midterm-gu — topic rent-escalation
+- NOT TAGGED rent-increase-midterm-mp — topic rent-escalation
+- NOT TAGGED rent-escalation-mp — topic rent-escalation
+- NOT TAGGED rent-increase-midterm-mn — topic rent-escalation
+- NOT TAGGED rent-escalation-nd — topic rent-escalation
+- NOT TAGGED rent-escalation-oh — topic rent-escalation
+- NOT TAGGED rent-escalation-nv — topic rent-escalation
+- TAGGED rent-installments-or — topic rent-installments
+- NOT TAGGED prorated-rent-mn — topic rent-installments
+- NOT TAGGED rent-installments-mn — topic rent-installments
+- NOT TAGGED rent-installments-nd — topic rent-installments
+- NOT TAGGED rent-installments-oh — topic rent-installments
+- NOT TAGGED rent-installments-nv — topic rent-installments
+- NOT TAGGED rent-reporting-offer-md — topic rent-reporting
+- NOT TAGGED excise-tax-number-disclosure-hi — topic rent-tax
+- NOT TAGGED principal-residence-tax-pr — topic rent-tax
+- NOT TAGGED hotel-room-tax-vi — topic rent-tax
+- NOT TAGGED hotel-occupancy-tax-as — topic rent-tax
+- NOT TAGGED renters-insurance-nc — topic renters-insurance-rules
+- NOT TAGGED renters-insurance-advisory-tn — topic renters-insurance-rules
+- NOT TAGGED renters-insurance-notice-va — topic renters-insurance-rules
+- NOT TAGGED renters-insurance-requirement-wy — topic renters-insurance-rules
+- NOT TAGGED repair-escrow-exemption-notice-oh — topic repair-escrow-exemption-notice
+- NOT TAGGED habitability-notice-co — topic repair-notice
+- NOT TAGGED repair-notice-method-ar — topic repair-notice
+- NOT TAGGED repair-request-procedure-ne — topic repair-notice
+- NOT TAGGED rights-guide-receipt-de — topic rights-responsibilities-guide
+- NOT TAGGED sanitary-code-variance-ma — topic sanitary-code-variance
+- NOT TAGGED safety-exception-notice-nj — topic sanitary-code-variance
+- NOT TAGGED seasonal-tenancy-ri — topic seasonal-tenancy
+- NOT TAGGED seasonal-nonrenewable-lease-de — topic seasonal-tenancy
+- NOT TAGGED seasonal-tenancy-wy — topic seasonal-tenancy
+- NOT TAGGED security-devices-ca — topic security-devices
+- NOT TAGGED security-devices-tx — topic security-devices
+- NOT TAGGED tenant-rekey-right-il — topic security-devices
+- NOT TAGGED security-devices-wy — topic security-devices
+- NOT TAGGED sex-offender-registry-notice-ca — topic sex-offender-disclosure
+- NOT TAGGED sex-offender-registry-notice-wi — topic sex-offender-disclosure
+- NOT TAGGED sex-offender-registry-notice-la — topic sex-offender-disclosure
+- NOT TAGGED sex-offender-occupancy-oh — topic sex-offender-occupancy
+- NOT TAGGED sex-offender-statement-al — topic sex-offender-occupancy
+- NOT TAGGED sex-offender-cohabitation-ok — topic sex-offender-occupancy
+- NOT TAGGED sex-offender-occupancy-wy — topic sex-offender-occupancy
+- NOT TAGGED sfr-occupancy-disclosure-nv — topic sfr-occupancy-disclosure
+- NOT TAGGED shoreline-access-disclosure-ri — topic shoreline-access-disclosure
+- NOT TAGGED shoreline-right-of-way-gu — topic shoreline-access-disclosure
+- NOT TAGGED smart-access-system-wy — topic smart-access
+- NOT TAGGED smart-access-system-mn — topic smart-access
+- NOT TAGGED special-district-representation-pr — topic special-district-representation
+- NOT TAGGED sprinkler-disclosure-ny — topic sprinkler-disclosure
+- NOT TAGGED high-rise-sprinkler-notice-md — topic sprinkler-disclosure
+- NOT TAGGED sprinkler-notice-ct — topic sprinkler-disclosure
+- NOT TAGGED early-termination-rights-statement-tx — topic statutory-early-termination
+- NOT TAGGED steam-radiator-cover-notice-nj — topic steam-radiator-covers
+- NOT TAGGED stove-refrigerator-ca — topic stove-refrigerator
+- NOT TAGGED stove-refrigerator-mn — topic stove-refrigerator
+- NOT TAGGED student-housing-certification-pr — topic student-housing
+- NOT TAGGED student-housing-oh — topic student-housing
+- NOT TAGGED tax-escalation-ma — topic tax-escalation
+- NOT TAGGED tax-escalation-ri — topic tax-escalation
+- NOT TAGGED tax-escalation-nh — topic tax-escalation
+- NOT TAGGED tax-escalation-de — topic tax-escalation
+- TAGGED tax-insurance-escalation-la — topic tax-escalation
+- NOT TAGGED tax-insurance-escalation-mp — topic tax-escalation
+- NOT TAGGED tax-insurance-escalation-nd — topic tax-escalation
+- NOT TAGGED tax-escalation-oh — topic tax-escalation
+- NOT TAGGED telecom-access-wy — topic telecom-access
+- TAGGED telecom-access-mn — topic telecom-access
+- NOT TAGGED holdover-tenancy-by-sufferance-wy — topic tenancy-at-will
+- NOT TAGGED flag-display-nv — topic tenant-display-rights
+- NOT TAGGED us-flag-display-la — topic tenant-display-rights
+- NOT TAGGED us-flag-display-ar — topic tenant-display-rights
+- NOT TAGGED tenant-display-rules-co — topic tenant-display-rights
+- NOT TAGGED display-and-signage-rules-wy — topic tenant-display-rights
+- NOT TAGGED tenant-display-rights-nd — topic tenant-display-rights
+- NOT TAGGED tenant-employee-de — topic tenant-employee-housing
+- NOT TAGGED employee-housing-occupancy-hi — topic tenant-employee-housing
+- NOT TAGGED employee-housing-la — topic tenant-employee-housing
+- NOT TAGGED employee-housing-ar — topic tenant-employee-housing
+- NOT TAGGED employer-housing-pr — topic tenant-employee-housing
+- NOT TAGGED tenant-employee-housing-wy — topic tenant-employee-housing
+- NOT TAGGED employee-housing-occupancy-ks — topic tenant-employee-housing
+- NOT TAGGED tenant-employee-housing-mn — topic tenant-employee-housing
+- NOT TAGGED employee-occupancy-conditional-ne — topic tenant-employee-housing
+- NOT TAGGED employee-housing-nj — topic tenant-employee-housing
+- NOT TAGGED employee-housing-fl — topic tenant-employee-housing
+- NOT TAGGED insurance-claims-and-losses-nd — topic tenant-insurance-claims
+- NOT TAGGED electronic-communications-and-portal-wy — topic tenant-portal
+- TAGGED tenant-portal-mn — topic tenant-portal
+- NOT TAGGED portal-rent-payment-ne — topic tenant-portal
+- NOT TAGGED tenant-portal-nd — topic tenant-portal
+- NOT TAGGED tenant-portal-oh — topic tenant-portal
+- NOT TAGGED tenant-portal-nv — topic tenant-portal
+- NOT TAGGED tenant-portal-fl — topic tenant-portal
+- NOT TAGGED tenant-rights-statement-va — topic tenant-rights-statement
+- NOT TAGGED summary-of-rights-il — topic tenant-rights-statement
+- NOT TAGGED habitability-rights-statement-co — topic tenant-rights-statement
+- NOT TAGGED tenants-bill-of-rights-md — topic tenant-rights-statement
+- NOT TAGGED ag-summary-receipt-de — topic tenant-rights-statement
+- NOT TAGGED lihtc-felony-screening-ok — topic tenant-screening
+- NOT TAGGED term-change-notice-gu — topic term-change-notice
+- NOT TAGGED term-change-notice-wy — topic term-change-notice
+- NOT TAGGED term-change-notice-ca — topic term-change-notice
+- NOT TAGGED truth-in-renting-statement-nj — topic truth-in-renting
+- NOT TAGGED truth-in-renting-notice-mi — topic truth-in-renting
+- NOT TAGGED unbundled-parking-ca — topic unbundled-parking
+- NOT TAGGED unbundled-parking-co — topic unbundled-parking
+- NOT TAGGED unbundled-parking-wy — topic unbundled-parking
+- NOT TAGGED unbundled-parking-mn — topic unbundled-parking
+- NOT TAGGED unbundled-parking-nd — topic unbundled-parking
+- NOT TAGGED unbundled-parking-oh — topic unbundled-parking
+- NOT TAGGED usufructuary-lessor-la — topic usufructuary-lessor
+- NOT TAGGED usufructuary-lessor-pr — topic usufructuary-lessor
+- NOT TAGGED life-tenant-lessor-status-wy — topic usufructuary-lessor
+- TAGGED utility-allowance-cap-co — topic utility-allowance-cap
+- NOT TAGGED utility-allowance-cap-pr — topic utility-allowance-cap
+- NOT TAGGED utility-allowance-cap-vi — topic utility-allowance-cap
+- NOT TAGGED utility-cost-allocation-wy — topic utility-allowance-cap
+- NOT TAGGED utility-allowance-cap-ks — topic utility-allowance-cap
+- NOT TAGGED utility-allowance-cap-mn — topic utility-allowance-cap
+- NOT TAGGED utility-allowance-overage-ne — topic utility-allowance-cap
+- NOT TAGGED utility-allowance-cap-oh — topic utility-allowance-cap
+- NOT TAGGED utility-apportionment-mn — topic utility-apportionment
+- NOT TAGGED utility-formula-il — topic utility-apportionment
+- NOT TAGGED shared-utility-disclosure-or — topic utility-apportionment
+- NOT TAGGED utility-billing-wv — topic utility-apportionment
+- NOT TAGGED ratio-utility-billing-md — topic utility-apportionment
+- NOT TAGGED common-area-utility-agreement-me — topic utility-apportionment
+- NOT TAGGED utility-nonconsumption-charges-de — topic utility-apportionment
+- NOT TAGGED utility-apportionment-wy — topic utility-apportionment
+- NOT TAGGED utility-apportionment-nd — topic utility-apportionment
+- NOT TAGGED utility-allocation-fl — topic utility-apportionment
+- NOT TAGGED energy-tariff-disclosure-nh — topic utility-disclosure-attachment
+- NOT TAGGED water-power-availability-gu — topic utility-disclosure-attachment
+- NOT TAGGED electric-allocation-disclosure-tx — topic utility-disclosure-attachment
+- NOT TAGGED utility-notice-authorization-wi — topic utility-disconnection-notice-authorization
+- NOT TAGGED utility-shutoff-notice-authorization-md — topic utility-disconnection-notice-authorization
+- NOT TAGGED utility-shutoff-notice-copy-ak — topic utility-disconnection-notice-authorization
+- NOT TAGGED utility-shutoff-notice-copy-gu — topic utility-disconnection-notice-authorization
+- NOT TAGGED utility-shutoff-notice-designee-vi — topic utility-disconnection-notice-authorization
+- TAGGED utility-shutoff-notice-authorization-co — topic utility-disconnection-notice-authorization
+- NOT TAGGED utility-disconnection-notice-authorization-mn — topic utility-disconnection-notice-authorization
+- NOT TAGGED utility-disconnection-notice-authorization-ne — topic utility-disconnection-notice-authorization
+- NOT TAGGED utility-disconnection-notice-authorization-nd — topic utility-disconnection-notice-authorization
+- NOT TAGGED utility-shutoff-notice-designee-oh — topic utility-disconnection-notice-authorization
+- NOT TAGGED utility-shutoff-notice-designee-nv — topic utility-disconnection-notice-authorization
+- NOT TAGGED utility-disconnection-notice-authorization-nj — topic utility-disconnection-notice-authorization
+- NOT TAGGED utility-shutoff-notice-designee-fl — topic utility-disconnection-notice-authorization
+- NOT TAGGED electric-submeter-interruption-tx — topic utility-interruption-submeter
+- NOT TAGGED utility-meter-request-waiver-vi — topic utility-interruption-submeter
+- NOT TAGGED utility-interruption-submeter-mn — topic utility-interruption-submeter
+- NOT TAGGED landlord-billed-utilities-md — topic utility-landlord-account
+- NOT TAGGED utility-landlord-account-wy — topic utility-landlord-account
+- NOT TAGGED utility-submetering-disclosure-co — topic utility-submetering-disclosure
+- NOT TAGGED utility-submetering-disclosure-tx — topic utility-submetering-disclosure
+- NOT TAGGED utility-billing-disclosure-az — topic utility-submetering-disclosure
+- NOT TAGGED water-submeter-disclosure-ca — topic utility-submetering-disclosure
+- NOT TAGGED utility-billing-schedule-mn — topic utility-submetering-disclosure
+- NOT TAGGED utility-billing-nc — topic utility-submetering-disclosure
+- NOT TAGGED utility-billing-va — topic utility-submetering-disclosure
+- NOT TAGGED water-sewer-billing-disclosure-in — topic utility-submetering-disclosure
+- NOT TAGGED utility-charges-disclosure-ia — topic utility-submetering-disclosure
+- NOT TAGGED utility-bill-copies-nm — topic utility-submetering-disclosure
+- NOT TAGGED utility-allocation-wi — topic utility-submetering-disclosure
+- NOT TAGGED utility-billing-or — topic utility-submetering-disclosure
+- NOT TAGGED submetered-water-md — topic utility-submetering-disclosure
+- NOT TAGGED water-submetering-ma — topic utility-submetering-disclosure
+- NOT TAGGED utility-submetering-de — topic utility-submetering-disclosure
+- NOT TAGGED onsite-renewable-power-disclosure-hi — topic utility-submetering-disclosure
+- NOT TAGGED water-submetering-ms — topic utility-submetering-disclosure
+- NOT TAGGED utility-responsibility-and-allocation-wy — topic utility-submetering-disclosure
+- NOT TAGGED utility-transfer-tn — topic utility-transfer
+- NOT TAGGED utility-transfer-pr — topic utility-transfer
+- NOT TAGGED utility-transfer-gu — topic utility-transfer
+- NOT TAGGED utility-transfer-vi — topic utility-transfer
+- NOT TAGGED utility-transfer-reimbursement-co — topic utility-transfer
+- NOT TAGGED utility-transfer-wy — topic utility-transfer
+- NOT TAGGED utility-transfer-mn — topic utility-transfer
+- NOT TAGGED utility-transfer-ne — topic utility-transfer
+- NOT TAGGED utility-transfer-nd — topic utility-transfer
+- TAGGED utility-transfer-nj — topic utility-transfer
+- NOT TAGGED veteran-servicemember-concession-ne — topic veterans-incentive
+- NOT TAGGED waterbed-ca — topic waterbed
+- NOT TAGGED flotation-bedding-fl — topic waterbed
+- NOT TAGGED waterbed-co — topic waterbed
+- NOT TAGGED waterbed-and-liquid-filled-furniture-wy — topic waterbed
+- TAGGED waterbed-mn — topic waterbed
+- NOT TAGGED waterbed-permission-nd — topic waterbed
+- NOT TAGGED waterbed-nj — topic waterbed
+- NOT TAGGED window-guard-notice-nj — topic window-guards
+- Count: 243 clauses screened; 11 tagged.
+
+### §5 Independent check
+
+Rule 80, two rounds, one agent at a time. Each checker had not written the rows, worked from the saved official text, and wrote findings only. Checker reports are in the workspace as `check-round1.md` and `check-round2.md`.
+
+**Round 1 (all 266 records: 224 new rows, 42 tags).** 24 issues: 4 ERROR, 4 GAP, 16 MINOR. All were fixed in 25 rows. The ERRORs and GAPs:
+- `edu-confirmed-absences-habitability-sc` missed the 15-day smoke-detector repair deadline (S.C. Code Ann. § 5-25-1330(C)).
+- `edu-portfolio-thresholds-sc` said "never" a portfolio rule (S.C. Code Ann. § 31-21-70(B)(1)) and missed the master-meter exception (S.C. Code Ann. § 27-33-50(C)).
+- `edu-statute-of-frauds-lease-sc` had the oral-lease and recording rules wrong (S.C. Code Ann. §§ 27-35-10, 27-35-20, 30-7-10).
+- `edu-confirmed-absences-outside-title-sc` dropped the "knowing" and "intentional" elements (S.C. Code Ann. § 16-11-790).
+- `edu-required-disclosures-sc` missed the meter-conservation-charge notice and the smoke-detector instructions (S.C. Code Ann. §§ 58-37-50(H)(3), 5-25-1330(A)).
+- `edu-entity-landlord-court-representation-sc` missed the broker or property-manager writ role (S.C. Code Ann. § 27-40-710(C)).
+- `licensee-status-disclosure-sc` missed first-contact and advertising disclosure and the trust account rule (S.C. Code Ann. § 40-57-135(F)).
+
+The MINORs (titles naming another state on two tags, REQUIRED and CONSTRAINED rule_types reflecting the source state, the illegal-activity cure question, penalty and fee wording, the appeal-bond interplay with S.C. Code Ann. § 27-40-920, and the sprinkler-bar date) were fixed by text in the new rows or by sentences in the SC note segment of the tags. A tag can't change a shared row's title or rule_type under the scope fence. The checker reviewed 33 rows only lightly; they are listed at the end of `check-round1.md`.
+
+**Round 2 (the 25 edited rows only).** No ERROR; 1 GAP; 10 MINOR. Every round-1 issue on those rows was confirmed fixed. Round 2's items were all fixed after the round:
+- the GAP: the owner-occupied four-family exemption and the beneficial-interest limb (S.C. Code Ann. § 31-21-70(A), (B)(3));
+- a bare section number in a body;
+- the brokerage trust-account exception;
+- "associate" terminology;
+- rent paid to the landlord, not into court (S.C. Code Ann. § 27-40-790(a));
+- hedged certainty on S.C. Code Ann. § 27-23-60 vs § 27-35-10;
+- notes-only fixes for S.C. Code Ann. §§ 27-40-910(b) and 6-9-55(A);
+- the parking-rules notice condition (S.C. Code Ann. § 27-40-520(a));
+- the two remaining rows that stated the no-cure reading as settled, which now point to `edu-cure-and-eviction-grounds-sc`.
+
+The checker accepted the illegal-activity reading of S.C. Code Ann. § 27-40-710(A)-(B) as defensible and adequately hedged.
+
+**Rows edited after the last round (not re-checked; rule 80 allows two rounds):** `edu-portfolio-thresholds-sc`, `edu-cure-and-eviction-grounds-sc`, `licensee-status-disclosure-sc`, `edu-required-disclosures-sc`, `edu-confirmed-absences-habitability-sc`, `edu-statute-of-frauds-lease-sc`, `edu-attorney-fees-sc` (notes), `edu-no-sprinkler-disclosure-sc` (notes), `parking-rules-notice-co` (SC segment), `edu-no-expedited-criminal-eviction-sc`, `edu-criminal-activity-sc`. Each edit applies the checker's proposed wording, and all quotes in them passed the machine check.
+
+
+### §6 Findings on existing rows
+
+1. **`early-termination-ks` (SC tagged): the "30% of the remaining Rent" limb fails the cautious reading (SC item 8(b)).** The clause charges "an early termination fee equal to one month's Rent ({{monthly_rent}}) or 30% of the remaining Rent due under the Term, whichever is greater". South Carolina protects such terms only as "bona fide liquidated damage provisions which shall establish the amount of damages for loss of rent resulting from a premature termination of a lease." (S.C. Code Ann. § 27-40-330(c)). Separately, "If the tenant abandons the dwelling unit, the landlord shall make reasonable efforts to rent it at a fair rental." (S.C. Code Ann. § 27-40-730(c)), and "The aggrieved party has a duty to mitigate damages." (S.C. Code Ann. § 27-40-50(a)). A fee that grows with the remaining term (on a 24-month lease with 20 months left, six months' rent) is hard to call a bona fide estimate of lost rent when the landlord must re-rent at a fair rental; whether it is a penalty is case law (not searched). This is the same result as in NV, TX, NJ, AZ and GA, each of which now has its own override. **Proposed:** a South Carolina override `early-termination-sc` (group Default & Termination, rule_type REQUIRED, lease_clause_basis SERVES_LANDLORD, topic_key early-termination, supersedes `early-termination-ks`), with the text of `early-termination-ga`/`-az` (flat one-month fee; no Rent after the termination date if the tenant gives notice, pays and leaves). The sentence about leaving without the option would read "If Tenant leaves before the end of the Term without using this option, Tenant's liability is governed by South Carolina law, including Landlord's duty to make reasonable efforts to re-rent the property at a fair rental." The savings sentence would read "…including a Tenant's right to terminate without penalty due to active military service under the Servicemembers Civil Relief Act; as a protected tenant under South Carolina's domestic violence law; due to the property becoming uninhabitable through no fault of Tenant, including fire or casualty under South Carolina law; or any other termination right or limitation provided by applicable law." SC would come off `early-termination-ks`. Not done here (scope fence: no edits to existing rows); **needs your approval**, as GA's override did.
+2. **`nonpayment-notice-sc` and the CARES Act (no edit possible; pointer proposed).** The required statutory paragraph says "You will get no other notice as long as you live in this rental unit." (text fixed by S.C. Code Ann. § 27-40-710(B)). For a property with a federally backed mortgage or in a covered federal program, FEDERAL: 15 U.S.C. § 9058(c) still requires 30 days' notice to vacate (per `edu-cares-act-notice`). **Proposed:** add one sentence to `edu-eviction-process-sc`: "If the property has a federally backed mortgage or is in a covered federal housing program, give the 30-day notice to vacate described in `edu-cares-act-notice` before filing, even though the lease's statutory nonpayment paragraph says no other notice will be given." Not done (scope fence).
+3. **`edu-lead-hazards-sc` (existing SC row): misses the rental bar and the no-eviction rule.** "A person must not rent or offer for occupancy a dwelling or dwelling unit to be occupied by children which has been posted and ordered remediated of lead-based hazards until the identified hazards have been remediated. If the presence of the lead-based hazard becomes known when the dwelling or dwelling unit is already rented to a family with children, the family of the children must not be evicted for that reason." (S.C. Code Ann. § 44-53-1440). The row also says the effect of 2026 Act No. 146 "was not traced". That act moved the lead article to the Department of Public Health, effective on approval: "This act takes effect upon approval by the Governor." (2026 Act No. 146, SECTION 298; approved May 15, 2026). The new row `edu-lead-state-notices-sc` states both points. **Proposed:** add to its notes "Agency is the Department of Public Health from May 15, 2026 (2026 Act No. 146); see `edu-lead-state-notices-sc` for S.C. Code Ann. § 44-53-1440." Found by agent b6.
+4. **`edu-no-radon-disclosure-sc`, `edu-no-mold-disclosure-sc`, `edu-no-drug-lab-disclosure-sc`, `edu-no-flood-disclosure-sc` (existing SC rows): incomplete for lease-options.** Each says South Carolina has no disclosure duty. That's true for an ordinary lease, but the Residential Property Condition Disclosure Act reaches a "(3) lease with an option to purchase contract." (S.C. Code Ann. § 27-50-20(3)). Its statement covers "presence of lead-based paint, asbestos, radon gas, methane gas, underground storage tank, hazardous material or toxic material, buried or covered, and other environmental contamination" (S.C. Code Ann. § 27-50-40(A)(6)), and the Real Estate Commission form (S.C. Code Ann. Regs. 105-14) asks about mold, methamphetamine production and flooding. **Proposed:** add to each body "(Leases with an option to purchase a one-to-four-unit home are different: the state property-condition disclosure statement, which asks about [radon / mold / methamphetamine production / flooding], must be given before signing; see `edu-lease-option-disclosure-sc`.)" The new row `edu-lease-option-disclosure-sc` is in the delta. Found by agent b6.
+5. **`hoa-compliance` (SC tagged): no conflict; an optional notes line.** See §4, SC item 6. Agent b6 suggests adding to the SC segment: "association rules bind the tenant as lease rules only with notice at signing or on adoption (S.C. Code Ann. § 27-40-520(a)(6)); fines recover the tenant's breach (S.C. Code Ann. § 27-40-710(C))." Optional.
+6. **Regulation vs. statute (no row is wrong).** Agents b6 and b7 both noted that S.C. Code Ann. Regs. 103-535(O) (sewer utilities) still lets a utility require the landlord to guarantee a tenant's account. S.C. Code Ann. § 27-33-50(B) now bars that outside master-metered buildings of four or more units. The statute controls, and the existing `edu-utilities-sc` already states the statute correctly. Recorded for awareness only.
+7. **Own rows corrected during this pass (not existing-row findings, listed for transparency):** `edu-no-waiver-by-acceptance-rule-sc` was replaced by `edu-waiver-by-acceptance-sc` (S.C. Code Ann. § 27-37-150; see §4). `edu-required-disclosures-sc` was corrected to cover lease-options (S.C. Code Ann. § 27-50-20(3), found by b6) and licensee status on the first page (S.C. Code Ann. § 40-57-135(F)(1)(c), found by b7). Added with it: `edu-lease-option-disclosure-sc` and the optional disclosure clause `licensee-status-disclosure-sc` (REQUIRED_DISCLOSURE: S.C. Code Ann. § 40-57-135(F)(1)(c); its layout needs first page, bold, underlined, capitals; no new variable, since the license type is a bracketed choice).
+
+### §7 Findings for other states
+
+None. The tag-first screens recorded why each other state's clause was not tagged for South Carolina; none of those reasons suggested an error in the other state's row (agents b6 and b7 reported the same).
+
+
+### Proposed SOP changes
+
+- **Batteries: put word boundaries on short stems.** Battery SC-B1-005 used "eject" with no leading word boundary and matched "rejected"; it was rerun as SC-B1-005b. Rule 19 could say that a stem shorter than about six letters needs `\b` on both sides unless a known positive shows otherwise.
+
+- **Batteries: allow enough words between linked terms.** SC-B1-001 allowed three words between "accept" and "rent" and missed "acceptance by the landlord of any rent" (S.C. Code Ann. § 27-37-150), which surfaced only when Chapter 37 was read for another topic. Rule 19 could set a minimum window (about eight words) for proximity patterns and require that the known positive be the longest phrasing likely in the state's style.
+- **Sale-disclosure statutes and lease-options.** When an absence turns on whether a seller-disclosure statute reaches leases, check its scope list for "lease with an option to purchase" (S.C. Code Ann. § 27-50-20(3) was missed by SC-B4-011 and found by agent b6).
+- **Batch agents need their own scratch folders.** Two parallel agents shared one scratchpad and one overwrote the other's helper scripts; the brief should give each agent its own path.
+- **Regulation splitter coverage.** The saved text of Regs. 61-44 and 61-51 is present but wasn't keyed by the section splitter, so it looked "not held" (61-44 was briefly logged as a fetch request). Before logging a FETCH, grep the held text for the section number.
+- **A battery that fails only its own known positive** stops before anything is recorded; rerunning it under the same id (as b6 did three times) leaves one clean record. Rule 19 could say so, keeping the "b" suffix for batteries that were recorded and then found flawed.
+
+### Proposed topic questions
+
+- `required-disclosures`: "Does the state's residential property condition disclosure act cover a lease with an option to purchase, so that the landlord must deliver the disclosure statement before the lease-option is signed?" (South Carolina: S.C. Code Ann. §§ 27-50-20(3), 27-50-50(A).)
+- `required-disclosures`: "Must a real estate licensee leasing their own property state their license status on the first page of the lease in a set format?" (South Carolina: S.C. Code Ann. § 40-57-135(F)(1)(c), bold, underlined capital letters.)
+- `utility-landlord-account`: "Does a utility regulation still authorize a landlord-guarantee agreement that a later statute bars, so the regulation should be read as superseded?" (South Carolina: S.C. Code Ann. Regs. 103-535(O) vs S.C. Code Ann. § 27-33-50(B).)
+- `municipal-utility-lien`: "Do municipal or district sewer charges become a lien on the landlord's property for a tenant's unpaid account despite a statute making the tenant solely responsible for utilities?" (South Carolina: S.C. Code Ann. §§ 5-31-2040, 27-33-50(A).)
+- `sprinkler-disclosure`: "Does the state offer a property or income tax credit for voluntary sprinkler retrofits that the owner may transfer to the tenant?" (South Carolina: S.C. Code Ann. § 12-6-3622(C).)
+- `waiver-by-acceptance`: "Does the eviction chapter say that accepting rent after the court issues its rule or summons doesn't waive the eviction?" (South Carolina: S.C. Code Ann. § 27-37-150.)
+
+# Topic gaps sync (Claude Code, 2026-11-07)
+
+Merged on base 8fa1f6f: 224 new rows, 42 tags (266 records, matching the log). Spot-check on scstatehouse.gov: S.C. Code Ann. §§ 27-40-330, 27-40-410, 27-40-530, 27-39-60, 15-48-10(a), 44-53-1440, 27-50-20 match. The 11 rows edited after round 2 were re-checked by a Claude Code checker against the corpus (the live chapter URLs began redirecting during the check; quotes relied on were confirmed in hash-matched corpus pages or the live pages fetched earlier the same day): 5 hold; fixes applied to `edu-portfolio-thresholds-sc` (2), `edu-cure-and-eviction-grounds-sc` (2), `edu-confirmed-absences-habitability-sc`, `edu-statute-of-frauds-lease-sc`, `edu-criminal-activity-sc`, and the optional owner-name bracket in `licensee-status-disclosure-sc`. §6: item 1 `early-termination-sc` added (Taylor approved; SC untagged from `early-termination-ks`); item 2 CARES pointer added to `edu-eviction-process-sc` (Taylor approved); item 3 `edu-lead-hazards-sc` gained § 44-53-1440 and the agency note; item 4 the lease-option sentence added to the radon, mold, drug-lab and flood rows; item 5 the `hoa-compliance` SC notes line added. Arbitration: SC stays off `arbitration-agreement` and joins the held group (S.C. Code Ann. § 27-40-330(b) adds damages for deliberately using a known prohibited term). SOP 1.99. Six topic questions added.
