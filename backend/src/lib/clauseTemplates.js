@@ -251,9 +251,18 @@ const CLAUSE_TEMPLATES = [
     id: "due-at-signing",
     title: "Amounts Due Upfront",
     group: "Rent & Payment",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "WI", "KY", "WV", "VT", "DE", "AK", "LA", "AR", "MS", "PR", "VI", "AS", "MP"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "NV", "TX", "NJ", "FL", "AZ", "GA", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "WI", "KY", "WV", "VT", "DE", "AK", "LA", "AR", "MS", "PR", "VI", "AS", "MP"],
     bodyText:
       "Tenant will pay Landlord the following amounts, at the time specified for each: [specify what is due and when here, e.g. first month's Monthly Rent ({{monthly_rent}}) due at signing; Security Deposit ({{security_deposit}}) due at signing; Pet Deposit ({{pet_deposit}}) due at signing; last month's Monthly Rent due on the Start Date]. These amounts are due in addition to, and are not credited against, Rent due for any other month of the Term.",
+  },
+  {
+    id: "due-at-signing-nc",
+    title: "Amounts Due Upfront",
+    group: "Rent & Payment",
+    states: ["NC"],
+    supersedes: "due-at-signing",
+    bodyText:
+      "Tenant will pay Landlord the following amounts, at the time specified for each: [specify what is due and when here, e.g. first month's Monthly Rent ({{monthly_rent}}) due at signing; Security Deposit ({{security_deposit}}) due at signing; Rent for [name the calendar month] due on the Start Date. Do not list a separate refundable pet deposit or a \"last month's rent\" that is not Rent for a named calendar month: in North Carolina each is part of the Security Deposit, and the Security Deposit in total may not exceed two weeks' Rent for a week-to-week tenancy, one and one-half months' Rent for month to month, or two months' Rent for a longer Term]. These amounts are due in addition to, and are not credited against, Rent due for any other month of the Term.",
   },
   {
     id: "application-of-payments",
@@ -1026,7 +1035,7 @@ const CLAUSE_TEMPLATES = [
     id: "ev-charging-end-of-tenancy-co",
     title: "Electric Vehicle Charging System - End of Tenancy",
     group: "Parking & Storage",
-    states: ["CO", "IL", "KS", "MN", "NE"],
+    states: ["CO", "IL", "KS", "MN", "NE", "NC"],
     bodyText:
       "A charging system installed at Tenant's expense remains Tenant's property. Upon termination of this Lease, if the charging system is removable, Tenant may remove it, or sell it to Landlord or another tenant at an agreed price - Landlord is under no obligation to purchase it. Tenant is responsible for any damage to the property or the charging system resulting from its removal, consistent with this Lease's Surrender at End of Term Section.",
   },
@@ -1180,7 +1189,7 @@ const CLAUSE_TEMPLATES = [
     id: "extended-absence-notice-ks",
     title: "Notice of Extended Absence",
     group: "Tenant Responsibilities",
-    states: ["KS", "TN", "VA", "IA", "NM", "MT", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "NH", "ME", "VT", "LA", "AR", "MS", "DC", "PR", "VI", "AS", "MP", "CO", "OH", "NV", "TX", "NJ", "AZ", "GA", "SC"],
+    states: ["KS", "TN", "VA", "IA", "NM", "MT", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "NH", "ME", "VT", "LA", "AR", "MS", "DC", "PR", "VI", "AS", "MP", "CO", "OH", "NV", "TX", "NJ", "AZ", "GA", "SC", "NC"],
     bodyText:
       "Tenant will occupy the property only as a dwelling unit unless otherwise agreed. If Tenant anticipates being away from the property for more than 7 consecutive days, Tenant will notify Landlord no later than the first day of the absence. If Tenant willfully fails to give this notice, Landlord may recover actual damages resulting from the failure.",
   },
@@ -1217,7 +1226,7 @@ const CLAUSE_TEMPLATES = [
     id: "early-termination-ks",
     title: "Early Termination",
     group: "Default & Termination",
-    states: ["KS", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NC", "NY", "KY", "WV", "MD", "MA", "NH", "VI", "AS", "MP"],
+    states: ["KS", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NY", "KY", "WV", "MD", "MA", "NH", "VI", "AS", "MP"],
     supersedes: "early-termination",
     bodyText:
       "Tenant may terminate this Lease before the end of the Term by providing Landlord at least 30 days' written notice. Tenant will pay an early termination fee equal to one month's Rent ({{monthly_rent}}) or 30% of the remaining Rent due under the Term, whichever is greater, and remains responsible for Rent and other obligations up to the termination date. This early-termination option and fee apply only if this Lease has a fixed Term; a month-to-month or other periodic tenancy ends on the notice that applicable law and this Lease provide, without an early termination fee. Landlord may terminate this Lease early in accordance with this Lease's Tenant Default and notice provisions, or if Tenant vacates or abandons the property without notifying Landlord. Nothing in this Section limits any right either party has under applicable law, including a Tenant's right to terminate without penalty due to active military service under the Servicemembers Civil Relief Act, due to the property becoming uninhabitable through no fault of Tenant, or, except as prohibited by law in the case of a Tenant's death, any other termination right or limitation provided by applicable law.",
@@ -3328,7 +3337,7 @@ const CLAUSE_TEMPLATES = [
     group: "Landlord Responsibilities",
     states: ["NC"],
     bodyText:
-      "[Use only if Landlord bills Tenant for water or sewer, electric, or natural gas service, or for a central system.] Landlord will bill Tenant for the following utility services that Landlord provides: {{separately_charged_utilities}}, using the following billing method: {{utility_billing_method}}, as authorized by the North Carolina Utilities Commission, plus any administrative fee the Commission allows ({{utility_admin_fee}}). Landlord will not disconnect or terminate any of these services because Tenant has not paid for them, will not charge a late fee under this Lease's late fee terms for unpaid water or sewer charges, and will not end this Lease because of unpaid water, sewer or electric charges. Unless Tenant designates otherwise, each payment Tenant makes will be applied first to Rent and then to these charges. If Landlord learns from the water system or another reliable source that water supplied to the property exceeds a maximum contaminant level, Landlord will notify Tenant.",
+      "[Use only if Landlord bills Tenant for water or sewer, electric, or natural gas service, or for a central system.] Landlord will bill Tenant for the following utility services that Landlord provides: {{separately_charged_utilities}}, using the following billing method: {{utility_billing_method}}, as authorized by the North Carolina Utilities Commission, plus any administrative fee the Commission allows ({{utility_admin_fee}}). Landlord will not disconnect or terminate any of these services because Tenant has not paid for them, will not charge a late fee under this Lease's late fee terms for unpaid water or sewer charges, and will not end this Lease because of unpaid water, sewer, electric or natural gas charges. Unless Tenant designates otherwise, each payment Tenant makes will be applied first to Rent and then to these charges. If Landlord learns from the water system or another reliable source that water supplied to the property exceeds a maximum contaminant level, Landlord will notify Tenant.",
   },
   // Default & Termination
   {
@@ -6958,7 +6967,7 @@ const CLAUSE_TEMPLATES = [
     id: "rules-wi",
     title: "Rules and Regulations",
     group: "Rules & Regulations",
-    states: ["WI", "VT", "LA", "DC", "PR", "CO", "MN", "NJ", "GA"],
+    states: ["WI", "VT", "LA", "DC", "PR", "CO", "MN", "NJ", "GA", "NC"],
     bodyText:
       "Tenant will comply with Landlord's written rules for the property in effect when this Lease is signed: [attach the rules, or state that there are none]. A new or changed rule adopted after this Lease is signed binds Tenant during the Term only if Tenant agrees to it in writing, or if it is made part of a renewal of this Lease at the start of the renewal term.",
   },
@@ -6976,7 +6985,7 @@ const CLAUSE_TEMPLATES = [
     id: "rent-concession-wi",
     title: "Rent Concessions",
     group: "Rent & Payment",
-    states: ["WI", "CT", "RI", "NH", "ME", "VT", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "KS", "MN", "NE", "OH", "NV", "TX", "NJ", "FL", "GA", "SC"],
+    states: ["WI", "CT", "RI", "NH", "ME", "VT", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "KS", "MN", "NE", "OH", "NV", "TX", "NJ", "FL", "GA", "SC", "NC"],
     bodyText:
       "[Use only if Landlord gives Tenant any rent concession.] In connection with this Lease, Landlord gives Tenant the following rent concession, which is part of this Lease: [describe each period of free or reduced Rent, credit, rebate or other concession, with its amount or value and the rental periods to which it applies].",
   },
@@ -7727,7 +7736,7 @@ const CLAUSE_TEMPLATES = [
     id: "informal-dispute-resolution-or",
     title: "Informal Dispute Resolution",
     group: "Notices & General",
-    states: ["OR", "AR", "MS", "DC", "GU", "VI", "AS", "MP", "CO", "WY", "KS", "MN", "NE", "OH", "NV", "TX", "NJ", "AZ", "FL", "GA", "SC"],
+    states: ["OR", "AR", "MS", "DC", "GU", "VI", "AS", "MP", "CO", "WY", "KS", "MN", "NE", "OH", "NV", "TX", "NJ", "AZ", "FL", "GA", "SC", "NC"],
     bodyText:
       "Before either party starts a court action about a dispute under this Lease, other than an action for possession, the party will give the other written notice describing the dispute and offer to meet, in person or by phone, within 10 days to try to resolve it informally. This Section does not delay or limit any notice, deadline or remedy that applicable law provides, including any action for possession or for emergency relief, and does not require either party to accept any proposal.",
   },
@@ -7932,7 +7941,7 @@ const CLAUSE_TEMPLATES = [
     id: "government-fee-reimbursement-ky",
     title: "Local Government Fees",
     group: "Rent & Payment",
-    states: ["KY", "AR", "MS", "KS", "NE", "TX", "NJ", "GA", "SC"],
+    states: ["KY", "AR", "MS", "KS", "NE", "TX", "NJ", "GA", "SC", "NC"],
     bodyText:
       "[Optional.] If a city, county or other local government assesses Landlord a fee pertaining to the property, such as a rental registration or licensing fee, Landlord may notify Tenant of the fee in writing, and Tenant will reimburse Landlord for [all / the following share of] the fee within [number] days after Landlord's written notice. Tenant will not be required to reimburse a fee relating to construction of the property, such as a building permit fee, any emergency response fee, or any fine or penalty assessed against Landlord.",
   },
@@ -10347,7 +10356,7 @@ const CLAUSE_TEMPLATES = [
     id: "cannabis-restrictions-ak",
     title: "Marijuana Restrictions (Optional)",
     group: "Rules & Regulations",
-    states: ["AK", "MS", "DC", "PR", "GU", "AS", "MP", "CO", "TX", "FL", "GA", "SC"],
+    states: ["AK", "MS", "DC", "PR", "GU", "AS", "MP", "CO", "TX", "FL", "GA", "SC", "NC"],
     bodyText:
       "[Optional.] Marijuana. Tenant will not, and will not permit any occupant or guest to, [choose one or more: smoke, vape or otherwise inhale marijuana; grow marijuana plants; possess or use marijuana in any form] anywhere on the property, including inside the dwelling unit, in common areas and on the grounds. This restriction applies whether the marijuana is used for medical or other purposes.",
   },
@@ -10488,7 +10497,7 @@ const CLAUSE_TEMPLATES = [
     id: "arbitration-agreement",
     title: "Binding Arbitration of Money Claims",
     group: "Notices & General",
-    states: ["SD", "ND", "MN", "NJ", "OH", "LA", "AR", "MP", "MS", "TX", "HI", "GU", "PR", "AS", "CT", "NH", "GA"],
+    states: ["SD", "ND", "MN", "NJ", "OH", "LA", "AR", "MP", "MS", "TX", "HI", "GU", "PR", "AS", "CT", "NH", "GA", "NC"],
     bodyText:
       "[Optional. Use only if Landlord wants money disputes decided by an arbitrator instead of a court. This section takes effect only if Landlord and Tenant each initial it below.] BINDING ARBITRATION OF MONEY CLAIMS. PLEASE READ CAREFULLY. BY INITIALING THIS SECTION, LANDLORD AND TENANT EACH GIVE UP THE RIGHT TO HAVE A JUDGE OR JURY DECIDE THE DISPUTES THIS SECTION COVERS. (a) Covered disputes. Except as stated in (b), any claim for money between Landlord and Tenant arising out of this Lease or Tenant's occupancy of the Premises will be decided by binding arbitration before a neutral arbitrator, and not in court. (b) Not covered. This section does not apply to the following, which either party may bring in court or before the agency concerned: (1) any action for possession of the Premises, including any claim for rent or damages joined with it; (2) any claim within the jurisdiction of a small claims court, for as long as it stays there; (3) any claim about the security deposit; (4) any claim for bodily injury or wrongful death; (5) any claim the law does not allow to be arbitrated under an agreement made before the dispute arose, including, at the election of the person bringing it, a sexual harassment or sexual assault dispute; (6) any request to a court for emergency or provisional relief; and (7) any complaint either party files with a government agency. (c) Rights kept. The arbitrator may award any remedy, damages, penalty, attorney fees or costs that a court could award on the same claim under the law that would apply in court. This section does not shorten any time limit or waive any right or remedy Landlord or Tenant has under the law. Each party may be represented by a lawyer. (d) Cost and place. The arbitration will be held in the county where the Premises are located [or by video, if both parties agree], before [name an arbitrator or arbitration organization and its rules for consumer or residential disputes, or state how one is chosen]. Landlord will pay all arbitration filing, administration and arbitrator fees above the amount Tenant would have paid to file the claim in court. (e) Opting out. Tenant may reject this section by giving Landlord written notice within 30 days after signing this Lease. Rejecting it has no effect on the rest of this Lease. (f) Law and severability. This section is governed by the Federal Arbitration Act, 9 U.S.C. §§ 1-16, and, where that Act does not apply, by the arbitration law of the state where the Premises are located. If a court finds any part of this section unenforceable as to a claim, that claim will be decided in court, and the rest of this section stays in effect. Landlord's initials: ______   Tenant's initials: ______",
   },
@@ -10887,7 +10896,7 @@ const CLAUSE_TEMPLATES = [
     id: "lease-copy-receipt-hi",
     title: "Receipt of Lease Copy and Rules",
     group: "Notices & General",
-    states: ["HI", "GU", "VI", "AS", "MP", "KS", "NE", "AZ", "FL", "GA", "SC"],
+    states: ["HI", "GU", "VI", "AS", "MP", "KS", "NE", "AZ", "FL", "GA", "SC", "NC"],
     bodyText:
       "[Optional.] By signing this Lease, Tenant acknowledges that Landlord has given Tenant a copy of this Lease and of the following written rules, which were brought to Tenant's attention before Tenant signed: [list the rules or attachments, or write \"none\"]. Landlord will also give each Tenant a copy of this Lease signed by all parties promptly after all parties sign.",
   },
@@ -11039,7 +11048,7 @@ const CLAUSE_TEMPLATES = [
     id: "rent-escalation-la",
     title: "Scheduled Rent Changes",
     group: "Rent & Payment",
-    states: ["LA", "MS", "PR", "GU", "VI", "AS", "WY", "KS", "MN", "NE", "TX", "NJ", "AZ", "FL", "SC"],
+    states: ["LA", "MS", "PR", "GU", "VI", "AS", "WY", "KS", "MN", "NE", "TX", "NJ", "AZ", "FL", "SC", "NC"],
     bodyText:
       "[Optional. Choose one.] [A: Monthly Rent will change during the Term as follows: [state each new amount and the date it takes effect].] [B: On [state each adjustment date, e.g. each anniversary of the Start Date], Monthly Rent will be adjusted, up or down, by the percentage change in [name a published index, e.g. the Consumer Price Index for All Urban Consumers (CPI-U) for the region that includes the property, published by the U.S. Bureau of Labor Statistics] between [base month and year] and the most recent month published before the adjustment date[, but by no more than [percent] percent for any one adjustment]. Landlord will give Tenant written notice of each adjusted Monthly Rent, showing the calculation, at least [number] days before it takes effect. If the index is no longer published, Monthly Rent will stay at the last adjusted amount.] Monthly Rent will not change during the Term in any other way, except as any tax and insurance escalation Section of this Lease, if used, provides.",
   },
@@ -11047,7 +11056,7 @@ const CLAUSE_TEMPLATES = [
     id: "tax-insurance-escalation-la",
     title: "Tax and Insurance Increases",
     group: "Rent & Payment",
-    states: ["LA", "AR", "MS", "PR", "GU", "VI", "WY", "KS", "NE", "TX", "NJ", "AZ", "FL", "SC"],
+    states: ["LA", "AR", "MS", "PR", "GU", "VI", "WY", "KS", "NE", "TX", "NJ", "AZ", "FL", "SC", "NC"],
     bodyText:
       "[Optional.] Tax and Insurance Increases: If the ad valorem property taxes assessed on [the Property / the building or parcel of which the Property is a part] for any calendar year during the Term are higher than the taxes for [base year][, or if Landlord's premium for property insurance on [the Property / that building] for any policy year during the Term is higher than the premium for [base policy year]], Tenant will pay Landlord [percent] percent of the increase, which is the Property's share of [the building or parcel]. Landlord will give Tenant written notice of each amount due, with a copy of the tax bill [and premium notice] and the calculation, at least [number] days before it is due, and Tenant may pay it [in one payment / in equal monthly installments with Rent over [number] months]. Tenant will not pay any part of a penalty or interest charged for Landlord's late payment of taxes or premiums. If taxes [or premiums] for a period for which Tenant paid a share are later reduced, abated or refunded, Landlord will credit or refund Tenant the same percentage of the reduction.",
   },
@@ -11072,7 +11081,7 @@ const CLAUSE_TEMPLATES = [
     id: "furnishings-included-la",
     title: "Furnishings",
     group: "Security Deposit",
-    states: ["LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "WY", "MN", "NE", "OH", "NV", "TX", "NJ", "AZ", "FL", "GA", "SC"],
+    states: ["LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "WY", "MN", "NE", "OH", "NV", "TX", "NJ", "AZ", "FL", "GA", "SC", "NC"],
     bodyText:
       "[Optional. Use only if the property is rented furnished.] Furnishings: The property is rented furnished. The furniture and furnishings Landlord provides, and their condition at the start of this Lease, are: [list each item and its condition, or attach a signed inventory]. Tenant will keep them at the property, will not remove or dispose of any item without Landlord's written consent, will tell Landlord promptly of any damage to them, and will return them at the end of this Lease in the same condition, except for normal wear and tear.",
   },
@@ -11140,7 +11149,7 @@ const CLAUSE_TEMPLATES = [
     id: "scheduled-services-entry-la",
     title: "Entry for Regularly Scheduled Services",
     group: "Access & Entry",
-    states: ["LA", "AR", "MS", "VI", "AS", "MP", "CO", "KS", "TX", "NJ", "GA"],
+    states: ["LA", "AR", "MS", "VI", "AS", "MP", "CO", "KS", "TX", "NJ", "GA", "NC"],
     bodyText:
       "[Optional.] In addition to Landlord's rights under the Landlord's Right of Entry section, Landlord or Landlord's agent may enter the property between [state hours, for example 9:00 a.m. and 6:00 p.m.] on the following schedule to provide these regularly scheduled services: [list each service and its schedule, for example changing air-conditioning filters every [number] months, or pest treatment every [number] months]. Landlord will give Tenant notice of each scheduled visit at least [state notice, for example 24 hours] in advance by [state method, for example text message, e-mail or a notice posted on the door], and will knock and announce before entering.",
   },
@@ -11148,7 +11157,7 @@ const CLAUSE_TEMPLATES = [
     id: "showing-notice-la",
     title: "Showings Near the End of the Lease",
     group: "Access & Entry",
-    states: ["LA", "AR", "MS", "VI", "AS", "MP", "CO", "WY", "KS", "NJ", "GA"],
+    states: ["LA", "AR", "MS", "VI", "AS", "MP", "CO", "WY", "KS", "NJ", "GA", "NC"],
     bodyText:
       "[Optional.] During the last [number] days of the Term, and at any time after either party gives notice of termination, Landlord, its agents and contractors may enter the property to show it to prospective tenants or purchasers on [state the shorter notice, for example same-day notice by telephone or text message] instead of the notice required by the Landlord's Right of Entry section, but only between [state hours, for example 9:00 a.m. and 7:00 p.m.]. Every other entry remains subject to the Landlord's Right of Entry section.",
   },
@@ -11301,7 +11310,7 @@ const CLAUSE_TEMPLATES = [
     id: "association-approval-la",
     title: "Association Approval of Lease",
     group: "Disclosures",
-    states: ["LA", "AR", "MS", "PR", "GU", "VI", "AS", "MP", "KS", "MN", "NE", "SD", "GA", "SC"],
+    states: ["LA", "AR", "MS", "PR", "GU", "VI", "AS", "MP", "KS", "MN", "NE", "SD", "GA", "SC", "NC"],
     bodyText:
       "[Use only if the property is in a condominium or planned community whose governing documents require the association to approve a lease or a tenant.] This Lease depends on the association's approval. Tenant will apply promptly, give the association the information it reasonably requires, sign any lease addendum or occupancy agreement the association's documents require, and cooperate in the approval process. The association's application or approval fee will be paid by [Landlord or Tenant]. If approval has not been given by [date], either party may end this Lease by written notice to the other before approval is given, and Landlord will then return all amounts Tenant has paid under this Lease. Tenant will not owe Rent for any period before approval during which Tenant is not permitted to take possession. Any deposit or fee the association requires of Tenant is separate from the Security Deposit under this Lease.",
   },
@@ -11382,7 +11391,7 @@ const CLAUSE_TEMPLATES = [
     id: "no-liens-ar",
     title: "No Liens for Tenant Work",
     group: "Tenant Responsibilities",
-    states: ["AR", "MS", "GU", "VI", "AS", "MP", "WY", "MN", "NE", "SD", "TX", "GA", "SC"],
+    states: ["AR", "MS", "GU", "VI", "AS", "MP", "WY", "MN", "NE", "SD", "TX", "GA", "SC", "NC"],
     bodyText:
       "[Optional.] Tenant will pay in full everyone Tenant hires, or whose work or materials Tenant orders, for any construction, alteration or repair at the property, and will not allow a lien to be filed against the property for that work. If a lien is filed because of work Tenant ordered, Tenant will have it released within [number] days after Tenant learns of it and will pay Landlord's reasonable costs caused by it. Tenant is not Landlord's agent for any work Tenant orders, and before work begins Tenant will tell each contractor and supplier that Tenant, not Landlord, is responsible for paying for it. Any consent Landlord gives to an alteration under this Lease is consent only as between Landlord and Tenant and is not an agreement by Landlord to pay for the work.",
   },
@@ -11419,7 +11428,7 @@ const CLAUSE_TEMPLATES = [
     id: "owner-occupancy-termination-ar",
     title: "Owner Occupancy (Optional)",
     group: "Default & Termination",
-    states: ["AR", "MS", "PR", "GU", "VI", "AS", "MP", "WY", "KS", "NE", "OH", "TX", "AZ", "FL", "GA", "SC"],
+    states: ["AR", "MS", "PR", "GU", "VI", "AS", "MP", "WY", "KS", "NE", "OH", "TX", "AZ", "FL", "GA", "SC", "NC"],
     bodyText:
       "[Optional. Use only for a fixed Term.] Owner Occupancy: Landlord may end this Lease before the end of the Term if Landlord, or the following member of Landlord's family, will occupy the property as a residence: [name or relationship]. To do so, Landlord will give Tenant written notice at least [number, not less than 30] days before the termination date, and the termination date will be the last day of a monthly rental period. Tenant owes Rent only through the termination date, and Landlord will refund any Rent paid for a later period. If Tenant does not leave by the termination date, Landlord may regain possession only through a court eviction.",
   },
@@ -12162,7 +12171,7 @@ const CLAUSE_TEMPLATES = [
     id: "pest-cooperation-pr",
     title: "Pest Reporting and Treatment",
     group: "Tenant Responsibilities",
-    states: ["PR", "GU", "AS", "MP", "NE", "SD", "TX", "AZ", "SC"],
+    states: ["PR", "GU", "AS", "MP", "NE", "SD", "TX", "AZ", "SC", "NC"],
     supersedes: "pest-cooperation-la",
     bodyText:
       "[Optional.] Tenant will promptly tell Landlord if Tenant knows or reasonably suspects that the property has bed bugs or another infestation of insects, rodents or other pests. Tenant will allow Landlord, Landlord's agents and pest control operators to enter the property to inspect for and treat the infestation as this Lease's entry section allows, and will follow the reasonable written preparation instructions Landlord or the pest control operator gives. If the infestation was caused by the fault of Tenant, a member of Tenant's household or a person on the property with Tenant's consent, Tenant will pay the reasonable cost of treatment and of repairing the resulting damage. Otherwise, Landlord will pay for treatment as part of Landlord's repair obligations.",
@@ -12846,7 +12855,7 @@ const CLAUSE_TEMPLATES = [
     id: "animal-care-access-vi",
     title: "Animal Care in Tenant's Absence (Virgin Islands)",
     group: "Pets",
-    states: ["VI", "AS", "MP", "CO", "TX", "NJ", "GA"],
+    states: ["VI", "AS", "MP", "CO", "TX", "NJ", "GA", "NC"],
     bodyText:
       "[Optional.] Animal Care: Tenant will tell Landlord in writing about every animal kept at the property. Tenant names the following person to care for or remove Tenant's animals if Tenant cannot because Tenant is hospitalized, incapacitated, detained or otherwise absent and an animal is left without care: [name and telephone number]. In that case, after trying to reach Tenant, Landlord may let that person into the property for that purpose only, and if that person cannot be reached Landlord may ask an animal warden, a peace officer, or the Humane Society or an animal shelter to take charge of the animal. Tenant will tell Landlord in writing if this information changes. This permission ends at Tenant's death; after that, Landlord will deal with Tenant's animals only through Tenant's personal representative or heirs or as the law otherwise allows.",
   },
@@ -12962,7 +12971,7 @@ const CLAUSE_TEMPLATES = [
     id: "eminent-domain-vi",
     title: "Condemnation (Optional)",
     group: "Default & Termination",
-    states: ["VI", "MP", "KS", "MN", "NE", "SD", "NV", "TX", "NJ", "AZ", "FL", "GA", "SC"],
+    states: ["VI", "MP", "KS", "MN", "NE", "SD", "NV", "TX", "NJ", "AZ", "FL", "GA", "SC", "NC"],
     bodyText:
       "[Optional.] If all of the property is taken by eminent domain, or so much of it is taken that the rest cannot reasonably be lived in, this Lease ends on the date Tenant must give up possession, Rent is apportioned to that date, and Landlord will refund any Rent paid for later days. If a smaller part is taken and the rest can reasonably be lived in, this Lease continues and Rent is reduced in proportion to Tenant's loss of use. Any award for the taking of the property, including any value of this Lease, belongs to Landlord, except any relocation payment or other separate payment made to Tenant for Tenant's own moving costs or personal property. If this Lease ends under this Section, Landlord will return the Security Deposit, less lawful deductions, as this Lease provides.",
   },
@@ -13046,7 +13055,7 @@ const CLAUSE_TEMPLATES = [
     id: "tenant-caused-fines-as",
     title: "Fines Caused by Tenant (Optional)",
     group: "Rent & Payment",
-    states: ["AS", "MP", "WY", "MN", "NE", "SD", "NV", "NJ", "GA", "SC"],
+    states: ["AS", "MP", "WY", "MN", "NE", "SD", "NV", "NJ", "GA", "SC", "NC"],
     bodyText:
       "[Optional.] If a government agency fines or penalizes Landlord, or charges Landlord the cost of abating a nuisance, because of a condition or violation that Tenant, a member of Tenant's household, or a person on the Premises with Tenant's consent caused or permitted, Tenant will reimburse Landlord the amount Landlord paid within [number of days] days after Landlord gives Tenant written notice with a copy of the citation, order or bill. This Section does not apply to a fine or charge for a condition Landlord is responsible for under this Lease or the law, and Landlord will not deduct the amount from a Rent payment.",
   },
@@ -13131,7 +13140,7 @@ const CLAUSE_TEMPLATES = [
     id: "guaranty-as",
     title: "Guaranty (Optional)",
     group: "Default & Termination",
-    states: ["AS", "MP", "CO", "KS", "MN", "NE", "NV", "NJ", "AZ", "FL", "GA", "SC"],
+    states: ["AS", "MP", "CO", "KS", "MN", "NE", "NV", "NJ", "AZ", "FL", "GA", "SC", "NC"],
     bodyText:
       "[Optional. Use only if a guarantor signs this Lease.] GUARANTY. [guarantor's full name] (\"Guarantor\") signs this Lease to guarantee to Landlord that Tenant will pay the Rent and perform Tenant's other obligations under this Lease, up to a total maximum of $[maximum amount]. This guaranty covers the Term and [choose one: also covers any renewal, extension or month-to-month continuation of this Lease, including any change in Rent made under this Lease / ends when the Term ends, except for amounts that became due during the Term]. Guarantor's obligations are never larger than Tenant's. Landlord may ask Guarantor to pay without first suing Tenant. Guarantor has read this Lease and received a copy.",
   },
@@ -13568,7 +13577,7 @@ const CLAUSE_TEMPLATES = [
     id: "farmland-sporting-rights-co",
     title: "Hunting, Fishing and Trapping Reserved (Optional)",
     group: "Rules & Regulations",
-    states: ["CO", "SD", "NV", "TX", "NJ", "GA"],
+    states: ["CO", "SD", "NV", "TX", "NJ", "GA", "NC"],
     bodyText:
       "[Optional. For rural or agricultural property.] Landlord reserves to Landlord all rights to hunt, fish and trap on the Property and all rights to grant those privileges to others. Tenant will not hunt, fish or trap on the Property, and will not give any other person permission to enter the Property to hunt, fish or trap, unless Landlord has agreed in writing. If Landlord gives that written agreement, Tenant will comply with every condition in it and with all state and local wildlife and firearms law, and nothing in it makes Landlord responsible for the acts of anyone Tenant allows on to the Property. Landlord and anyone Landlord authorizes may enter the unoccupied land of the Property to hunt, fish or trap, and will do so without unreasonably interfering with Tenant's use of the Property or with any crop or livestock, and will not enter any dwelling on the Property except as this Lease otherwise allows.",
   },
@@ -13967,7 +13976,7 @@ const CLAUSE_TEMPLATES = [
     id: "energy-data-release-wy",
     title: "Energy Usage Data Authorization",
     group: "Notices & General",
-    states: ["WY", "SD", "NV", "TX", "FL", "GA", "SC"],
+    states: ["WY", "SD", "NV", "TX", "FL", "GA", "SC", "NC"],
     bodyText:
       "[Optional. Use where the electric, gas or water account for the property is in Tenant's name and Landlord wants usage data for building benchmarking, an energy audit, a rebate application or utility allocation.] Tenant authorizes each electric, gas and water utility serving the property to release to Landlord or Landlord's designated agent the monthly usage and billing history for the property for the period of Tenant's tenancy, for the purpose of benchmarking, auditing or improving the energy or water performance of the building, or applying for a utility or government efficiency program. Tenant will, within ten (10) days of Landlord's written request, sign and deliver whatever release, authorization or online consent the utility requires to give effect to this paragraph. Landlord will use the data only for the purposes stated above, will not disclose Tenant's individual data to any other person except a contractor or consultant performing the benchmarking or audit, or as required by law, and will report the building's data to any third party only in aggregated form. Tenant may withdraw this authorization at any time by written notice to Landlord, and withdrawal is not a breach of this Agreement.",
   },
@@ -14498,7 +14507,7 @@ const CLAUSE_TEMPLATES = [
     id: "association-documents-delivery-ks",
     title: "Association Documents Given to Tenant",
     group: "Disclosures",
-    states: ["KS"],
+    states: ["KS", "NC"],
     bodyText:
       "[Optional. Use only if the Property is in a condominium, townhouse or homeowners' association.] The Property is located in a condominium, townhouse or homeowners' association. Before signing this Lease, Landlord gave Tenant a copy of the association's rules and of the declaration and recorded covenants and restrictions that limit or affect the use and occupancy of the Property, and Tenant acknowledges receiving them. Landlord's obligations under those documents apply to Tenant's use of the Property, and Tenant shall not do anything at the Property that those documents prohibit. Landlord shall give Tenant a copy of any change to those documents that affects Tenant's use of the Property, in writing, within a reasonable time after Landlord receives it. Landlord is not responsible for any act or decision of the association, and nothing in this Section makes Landlord the association's agent.",
   },
@@ -14989,7 +14998,7 @@ const CLAUSE_TEMPLATES = [
     id: "rental-inspection-cooperation-mn",
     title: "Government Inspections",
     group: "Tenant Responsibilities",
-    states: ["MN", "TX", "GA"],
+    states: ["MN", "TX", "GA", "NC"],
     bodyText:
       "Landlord may have to let a state, county or city official inspect the property to enforce a health, housing, building, fire prevention or housing maintenance code. Tenant will cooperate with such an inspection. Landlord will give Tenant notice of the inspection and will enter only as this Lease's entry section allows. Nothing in this Section waives Tenant's right to advance notice of Landlord's entry, and nothing in it is Tenant's consent for an inspector to enter without Tenant's permission at the time. If an inspector asks to enter and Tenant is not willing, Tenant will tell Landlord promptly. Tenant will not create or allow a condition on the property that breaches any such code. Landlord will promptly correct any condition an inspection finds that is Landlord's responsibility. Nothing in this Section limits Tenant's right to report a condition to, or ask for an inspection by, any government body.",
   },
@@ -15060,7 +15069,7 @@ const CLAUSE_TEMPLATES = [
     id: "tenant-portal-mn",
     title: "Online Tenant Portal",
     group: "Notices & General",
-    states: ["MN", "SD", "TX", "GA", "SC"],
+    states: ["MN", "SD", "TX", "GA", "SC", "NC"],
     bodyText:
       "[Optional.] Landlord may make an online tenant portal available for rent payments, maintenance requests and notices. Tenant's use of the portal for notices is voluntary. Tenant may give any notice this Lease or applicable law requires by the methods this Lease sets out, whether or not Tenant uses the portal. If Landlord requires or permits payment through the portal, Landlord will provide an alternative way to pay whenever the portal is not working. Landlord will not charge Tenant any fee for using that alternative. Tenant's email address and other electronic contact details for the portal are [enter or leave blank]. Tenant will tell Landlord promptly if those details change.",
   },
@@ -15140,7 +15149,7 @@ const CLAUSE_TEMPLATES = [
     id: "waterbed-mn",
     title: "Waterbeds and Liquid-Filled Furniture (Optional)",
     group: "Rules & Regulations",
-    states: ["MN", "AZ", "SC"],
+    states: ["MN", "AZ", "SC", "NC"],
     bodyText:
       "[Optional.] Waterbeds and liquid-filled furniture. Tenant will not keep a waterbed, a water-filled mattress, an aquarium over [insert size, for example 20 gallons], or other liquid-filled furniture at the property without Landlord's prior written consent.\n\nIf Landlord consents, Tenant will keep the item in a frame and liner made for it, and in a place Landlord approves.\n\nTenant will also keep renter's or liability insurance covering water damage, of at least {{flotation_insurance_amount}}, for as long as the item is at the property. Tenant will give Landlord proof of that insurance on request.\n\nTenant is responsible for damage the item causes. Tenant is not responsible for normal wear and tear, or for damage that was there before this tenancy began.",
   },
@@ -15275,7 +15284,7 @@ const CLAUSE_TEMPLATES = [
     id: "barred-person-covenant-ne",
     title: "No Admitting a Barred Person",
     group: "Tenant Responsibilities",
-    states: ["NE", "AZ"],
+    states: ["NE", "AZ", "NC"],
     bodyText:
       "BARRED PERSONS. Landlord may give Tenant written notice that a named person has been barred from the property because of conduct on or about the property that threatened the health or safety of residents, Landlord, or Landlord's employees or agents, or that damaged the property. From the date Tenant receives that notice, Tenant shall not invite, admit, license, or permit that person onto the Premises or any part of the property, and shall not give that person a key, fob, access code, or parking permit. Tenant is responsible for compliance by every person Tenant admits. This paragraph does not apply to a person present to provide emergency, medical, or law-enforcement assistance, and it does not apply to a person Tenant is required by law or court order to admit. Nothing in this paragraph requires Tenant to refuse entry to a person where Tenant or a member of Tenant's household has sought a protective or restraining order against that person, has reported that person's conduct to a law enforcement agency, or has obtained certification of an act of domestic violence from a qualified third party.",
   },
@@ -16426,6 +16435,15 @@ const CLAUSE_TEMPLATES = [
     bodyText:
       "Tenant may terminate this Lease before the end of the Term by providing Landlord at least 30 days' written notice. Tenant will pay Landlord, by the termination date, an early termination fee equal to one month's Rent ({{monthly_rent}}), and remains responsible for Rent and other obligations up to the termination date. If Tenant gives that notice, pays the fee and delivers possession of the property by the termination date, Tenant owes no Rent for any period after the termination date. If Tenant leaves before the end of the Term without using this option, Tenant's liability is governed by South Carolina law, including Landlord's duty to make reasonable efforts to re-rent the property at a fair rental. This early-termination option and fee apply only if this Lease has a fixed Term; a month-to-month or other periodic tenancy ends on the notice that applicable law and this Lease provide, without an early termination fee. Landlord may terminate this Lease early in accordance with this Lease's Tenant Default and notice provisions, or if Tenant vacates or abandons the property without notifying Landlord. Nothing in this Section limits any right either party has under applicable law, including a Tenant's right to terminate without penalty due to active military service under the Servicemembers Civil Relief Act; as a protected tenant under South Carolina's domestic violence law; due to the property becoming uninhabitable through no fault of Tenant, including fire or casualty under South Carolina law; or any other termination right or limitation provided by applicable law.",
   },
+  {
+    id: "early-termination-nc",
+    title: "Early Termination",
+    group: "Default & Termination",
+    states: ["NC"],
+    supersedes: "early-termination-ks",
+    bodyText:
+      "Tenant may terminate this Lease before the end of the Term by providing Landlord at least 30 days' written notice. Tenant will pay Landlord, by the termination date, an early termination fee equal to one month's Rent ({{monthly_rent}}), and remains responsible for Rent and other obligations up to the termination date. If Tenant gives that notice, pays the fee and delivers possession of the property by the termination date, Tenant owes no Rent for any period after the termination date. Landlord may apply the Security Deposit to an unpaid early termination fee only to the extent of Landlord's actual damages from the early termination. If Tenant leaves before the end of the Term without using this option, Tenant's liability is governed by North Carolina law. This early-termination option and fee apply only if this Lease has a fixed Term; a month-to-month or other periodic tenancy ends on the notice that applicable law and this Lease provide, without an early termination fee. The fee does not apply when Tenant ends this Lease under a termination right North Carolina law gives, including a termination by a protected tenant who is a victim of domestic violence, sexual assault or stalking, a termination by a military technician (where only the limited amount the statute allows may be charged), or a termination after notice of a foreclosure sale of the property; in those cases Tenant owes Rent only as that law provides. Landlord may terminate this Lease early in accordance with this Lease's Tenant Default and notice provisions, or if Tenant vacates or abandons the property without notifying Landlord. Nothing in this Section limits any right either party has under applicable law, including a Tenant's right to terminate without penalty due to active military service under the Servicemembers Civil Relief Act or due to the property becoming uninhabitable through no fault of Tenant.",
+  },
   // Rules & Regulations
   {
     id: "criminal-activity-nj",
@@ -16795,6 +16813,86 @@ const CLAUSE_TEMPLATES = [
     states: ["SC"],
     bodyText:
       "[Use only if Landlord, or an owner of the property, is a South Carolina real estate licensee renting the property in a personal transaction. Print on the first page of this Lease in bold, underlined capital letters. The licensee must also disclose license status at first substantive contact and in any advertising, and must deposit trust funds from this rental in the licensee's personal trust account (not the brokerage firm's trust account, unless the firm manages, lists or owns the property).] [LANDLORD / [OWNER'S NAME], AN OWNER OF THE PROPERTY,] IS A LICENSED REAL ESTATE [BROKER / ASSOCIATE / PROPERTY MANAGER] IN SOUTH CAROLINA.",
+  },
+  // Rules & Regulations
+  {
+    id: "firearms-nc",
+    title: "Firearm Discharge and Storage",
+    group: "Rules & Regulations",
+    states: ["NC"],
+    bodyText:
+      "[Optional.] Tenant, occupants and guests will not discharge any firearm at the property except as the law permits in defense of a person, and will store any firearm kept at the property safely and as the law requires, including keeping it where an unsupervised minor cannot gain access to it.",
+  },
+  // Security Deposit
+  {
+    id: "nonrefundable-deposit-notice-nc",
+    title: "Nonrefundable Fees",
+    group: "Security Deposit",
+    states: ["NC"],
+    bodyText:
+      "[Optional. List only fees for a service or item, not money held as security. A pet fee must be reasonable. Do not list a late fee, any fee for filing or pursuing an eviction or a claim for money owed, or any charge North Carolina's fee statute makes void. A renters-insurance administrative fee may be charged only as that statute allows (no more than $50 a year, and only if Tenant fails to show the required coverage within three business days of Landlord's request).] Landlord and Tenant agree that the following fees are nonrefundable: [list each nonrefundable fee, its amount and what it pays for, or state \"None\"]. Each listed fee is not part of the Security Deposit. Any other money Tenant pays Landlord to secure Tenant's payment of Rent or performance of this Lease, or as security for damage to the property, however it is described, is part of the Security Deposit and will be held, applied and accounted for as the Security Deposit.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "tenant-repair-agreement-nc",
+    title: "Agreement for Tenant Work",
+    group: "Tenant Responsibilities",
+    states: ["NC"],
+    bodyText:
+      "[Optional. Use only as a separate written agreement that Landlord and Tenant sign after the Lease has been signed, never as a section of the Lease itself. Use it only for specified work, and only if Landlord gives Tenant adequate value for the work other than the right to rent the property, such as a fair stated payment for each task; the North Carolina law read for this library does not say whether a rent reduction counts.] AGREEMENT FOR TENANT WORK. This agreement is made after, and separately from, the Lease for {{property_address}}. Tenant agrees to perform the following specified work on the property: {{tenant_maintained_items}}. In return for this work, and not for the right to rent or occupy the property, Landlord will give Tenant: {{maintenance_agreement_consideration}}. This agreement is not made to avoid any of Landlord's duties under North Carolina law and does not relieve Landlord of them: Landlord remains responsible for all of those duties, including complying with building and housing codes, keeping the property fit and habitable, keeping common areas safe, maintaining and repairing the facilities and appliances Landlord supplies, providing smoke and carbon monoxide alarms, and repairing imminently dangerous conditions. Any part or material installed in the work belongs to Landlord and may not be removed. Landlord: ____________ Date: ________ Tenant: ____________ Date: ________",
+  },
+  // Disclosures
+  {
+    id: "hazardous-contamination-disclosure-nc",
+    title: "Recorded Environmental Notice Statement",
+    group: "Disclosures",
+    states: ["NC"],
+    bodyText:
+      "[Use only if one of these is recorded for the property and not cancelled: a Notice of Contaminated Site with land-use restrictions, a notice for an inactive hazardous substance or waste disposal site, a Notice of Brownfields Property, a notice for an oil or hazardous substance discharge site with land-use restrictions, a Notice of Dry-Cleaning Solvent Remediation, a sanitary landfill or hazardous waste disposal permit, a demolition debris disposal notice, a coal combustion products structural fill record (more than 1,000 cubic yards), or a radioactive waste disposal license. Place this paragraph in the Lease's description of the Premises, in type no smaller than the rest of the Lease.] Environmental Notice: The property at {{property_address}} [insert the statement for each notice that applies: is a contaminated site / contains hazardous substances in environmental media and, if applicable, has been remediated with the approval of the Department by use of land use controls / has been classified and, if appropriate, cleaned up as a brownfields property / has been used as an oil or hazardous substance discharge site / has been contaminated with dry-cleaning solvent and, if appropriate, cleaned up / has been used as a sanitary landfill or a disposal site for hazardous waste / has been used for the disposal of demolition debris / has had coal combustion products used as structural fill material / has been used as a disposal site for radioactive waste materials]. The notice is recorded in Book [book], Page [page], {{county}} County Registry. Tenant, all occupants and guests will abide by every land-use restriction in the recorded notice.",
+  },
+  // Parking & Storage
+  {
+    id: "ev-charging-requirements-nc",
+    title: "Tenant-Installed EV Charger",
+    group: "Parking & Storage",
+    states: ["NC"],
+    bodyText:
+      "[Optional. Use only if Landlord is willing to let Tenant install an electric vehicle charging system.] Tenant may install an electric vehicle charging system at [identify the parking space], at Tenant's own expense, only with Landlord's prior written consent to the specific system and location. Tenant will have the system installed by a contractor licensed for the work, following Landlord's written specifications, applicable codes and any required permits, and, if the property is in an owners' association, will follow the association's rules for charging systems. [Choose one: The system will be connected only to electric service in Tenant's own name, and Tenant will pay the electric supplier directly for all electricity it uses. / The electricity for the system is included in the Rent, and Landlord will make no separate charge for it.] Tenant will not resell electricity from the system to anyone. Tenant is responsible for any damage that installing, using or removing the system causes.",
+  },
+  // Disclosures
+  {
+    id: "utility-disclosure-attachment-nc",
+    title: "Utility Billing Documents",
+    group: "Disclosures",
+    states: ["NC"],
+    bodyText:
+      "[Use only if Landlord bills Tenant for water or sewer, electric or natural gas service under authority from the North Carolina Utilities Commission.] With this Lease, Landlord gives Tenant: (1) a copy of Landlord's rates, rules and regulations for each utility service Landlord bills to Tenant at the property; (2) a copy of the Utilities Commission's rules for that billing (Chapter 18 for water or sewer service, Chapter 22 for electric service and Chapter 24 for natural gas service); and (3) the following statement. If you have any questions about a utility bill from Landlord or a complaint about the service, please contact Landlord's office first, at [office address and telephone number]. In case of a dispute, you may contact the North Carolina Utilities Commission by calling the Public Staff - North Carolina Utilities Commission, Consumer Services Division, at (866) 380-9816 (toll-free) or (919) 733-9277, or by appearing in person or writing to the Public Staff - North Carolina Utilities Commission, Consumer Services Division, 4326 Mail Service Center, Raleigh, North Carolina 27699-4300. [If Landlord bills for electric or natural gas service, also attach: how Landlord divides the bills among tenants; Landlord's administrative fee, returned check charge and late fee, if any; and a copy of the supplier's current schedule of charges.] Tenant acknowledges receiving these documents when signing this Lease.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "utility-disconnection-notice-authorization-nc",
+    title: "Copies of Utility Shutoff Notices",
+    group: "Tenant Responsibilities",
+    states: ["NC"],
+    bodyText:
+      "[Optional. Use only if Tenant will hold an electric or natural gas account for the property in Tenant's own name with a utility regulated by the North Carolina Utilities Commission. Accounts with a city, county, water or sewer utility or an electric membership corporation are not covered by the Commission's designation rule, so do not apply this to them.] For each electric or natural gas account for the property in Tenant's name, Tenant will designate Landlord, at Landlord's address in this Lease, as the third party to receive a copy of any proposed termination notice the utility mails to Tenant, will make that designation when the account is opened, and will keep it in place during the Term. Tenant will give Landlord written confirmation of the designation within [number] days after the account is opened, and on request afterwards. Receiving these copies does not make Landlord a guarantor of Tenant's account or responsible for any amount Tenant owes the utility. Tenant remains responsible for paying the account and keeping service on as this Lease requires. Landlord will use these notices only to protect the property and Tenant's continued service.",
+  },
+  // Rent & Payment
+  {
+    id: "rent-tax-nc",
+    title: "Sales and Occupancy Tax",
+    group: "Rent & Payment",
+    states: ["NC"],
+    bodyText:
+      "[Use only if this Lease supplies the property to Tenant for fewer than 90 continuous days, so that North Carolina sales tax on accommodation rentals applies. Do not use for a term of 90 days or more.] Rent does not include North Carolina sales tax on accommodation rentals or any room occupancy tax levied by the county or city where the property is located. Tenant will pay these taxes in addition to Rent, with each payment of Rent, as follows: [state each tax, its rate and the amount due with each payment of Rent].",
+  },
+  {
+    id: "rent-installments-nc",
+    title: "Rent Paid in Installments",
+    group: "Rent & Payment",
+    states: ["NC"],
+    bodyText:
+      "[Optional. Use only if Monthly Rent will be paid in more than one installment each month.] Tenant will pay each month's Monthly Rent in the following installments: [state each installment amount and the day of the month it is due]. Installments paid on this schedule are not partial payments of Rent. A late fee may be charged only as this Lease's late fee provision allows, and Tenant will owe no more than one late fee for any month's Monthly Rent, however many of that month's installments are late.",
   },
 ];
 
