@@ -10493,3 +10493,7 @@ Minnesota is also untagged from `snow-removal` and `landscaping-irrigation`: § 
 - SOP 1.87 takes up the pass's proposals as 16 grouped additions, all [Fwd]; main proposal 58's second half was not adopted (rule 80, DE 6, kept).
 - Fourteen topic questions were added, including the four proposed keys, recast as questions.
 - The citations file gained 338 rows; five ids were marked untagged.
+
+# Topic gap closed (Claude Code, 2026-11-07): snow-removal and landscaping-irrigation
+
+The MN gaps sync (2026-10-29) untagged MN from the shared `snow-removal` and `landscaping-irrigation` clauses (Minn. Stat. § 504B.161, subd. 2 requires adequate consideration and a conspicuous writing; the work goes through `tenant-repair-agreement-mn`), which left both topics with no MN row. Closed at Taylor's request with two education rows, `edu-snow-removal-mn` and `edu-landscaping-irrigation-mn` (CONSTRAINED, VERIFIED): the subd. 2 route, the unwaivable subd. 1 covenants and the common-area duty, and city sidewalk and weed rules under Minn. Stat. § 429.101, subd. 1 (local ordinances not researched). §§ 504B.161 and 429.101 read whole on revisor.mn.gov 2026-11-07 (2026 Minnesota Statutes); every quote matched. Every synced state now answers every topic.
