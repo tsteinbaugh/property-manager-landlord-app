@@ -593,7 +593,7 @@ Not a re-audit; nothing else in this state was reviewed.
 
 ### Batch 5 — 2026-11-08, all 251 topics, check done
 
-- **Delta:** 258 new rows (9 clauses, 249 education) + 32 tags, all VERIFIED; `effective_from` = 2026-11-08 throughout (SOP rule 70; the helper brief had put law dates there). Battery re-run (§3) pending at this delivery.
+- **Delta:** 258 new rows (9 clauses, 249 education) + 32 tags, all VERIFIED; `effective_from` = 2026-11-08 throughout (SOP rule 70; the helper brief had put law dates there). Battery re-run (§3) pending at this delivery (done in the final delivery; see the note at the end of the sync section).
 - **Independent check (rule 80, 2 rounds):** R1 15 ERROR / 45 FIX, 70 errata; R2 2 ERROR / 15 FIX, 23 errata; all applied once-only. 22 rows edited after R2 listed in §5 for sync.
 - **Key R1 fixes:** § 35-9A-405(a) pay-into-court route (judgment for tenant if no rent remains due) added to `edu-redemption-al` / `edu-forfeiture-redemption-al`. AL taken off `appliances-excluded-la` and `government-fee-reimbursement-ky` (§ 35-9A-163(a)(4)); new `appliances-excluded-al`. Five absence claims re-searched (AL-M-027–031), health-district (AL-M-032.r2); all held.
 - **S5:** separate-document clauses `showing-access-notice-al` (give no earlier than four months before expiry) and `scheduled-services-notice-al`; flag-display voids (§ 35-1-5); common-area smoking ban (§ 22-15A-6(a)(9)).
@@ -2934,3 +2934,5 @@ None.
 - No new `{{variables}}`.
 
 **Result.** Alabama has 338 AL-only active rows and 417 visible rows, all VERIFIED; no NEEDS_REVIEW. The state filter shows 106 AL clauses (65 before), with no same-topic pairs, and every other state's visible set is unchanged.
+
+**Final delivery (later the same day).** Desktop re-delivered the log and running record with the delta CSV byte-identical to the one merged. The only addition is the §3 battery re-run that was pending: all 237 logged batteries (1,332 terms) re-run on the page over the same 51,500 units (set `eee08d72e3dfbd5f`) with the same matching rules; every term's hit and unit counts equal the logged counts, no mismatches. The first two attempts stalled (a long page loop cut off, then background-tab timer throttling); the reported run (`RERUN3`) uses the same matching code in chunks. No row changes.
