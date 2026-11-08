@@ -867,9 +867,18 @@ const CLAUSE_TEMPLATES = [
     id: "hoa-compliance",
     title: "Homeowner / Condominium Association Compliance",
     group: "Disclosures",
-    states: ["WY", "NE", "MN", "ND", "SD", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "IA", "NM", "MT", "NY", "WI", "WA", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP"],
+    states: ["WY", "NE", "MN", "ND", "SD", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "IA", "NM", "MT", "NY", "WI", "WA", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP"],
     bodyText:
       "If the property is located within a homeowner or condominium association, Tenant will comply with the association's rules and regulations applicable to the property. Any fines incurred due to Tenant's violation of association rules will be Tenant's responsibility.",
+  },
+  {
+    id: "hoa-compliance-va",
+    title: "Homeowner / Condominium Association Compliance",
+    group: "Disclosures",
+    states: ["VA"],
+    supersedes: "hoa-compliance",
+    bodyText:
+      "If the property is located within a homeowner or condominium association, Tenant will comply with the association's rules and regulations applicable to the property, a copy of which Landlord has given Tenant before Tenant signed this Lease. A rule the association adopts or changes later binds Tenant once Landlord gives Tenant reasonable notice of it, unless it substantially modifies Tenant's bargain, in which case it binds Tenant only if Tenant agrees in writing. Any fines the association charges because of a violation by Tenant, an occupant or a guest will be Tenant's responsibility.",
   },
   {
     id: "bed-bug-disclosure-co",
@@ -1226,7 +1235,7 @@ const CLAUSE_TEMPLATES = [
     id: "early-termination-ks",
     title: "Early Termination",
     group: "Default & Termination",
-    states: ["KS", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NY", "KY", "WV", "MD", "MA", "NH", "VI", "AS", "MP"],
+    states: ["KS", "TN", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NY", "KY", "WV", "MD", "MA", "NH", "VI", "AS", "MP"],
     supersedes: "early-termination",
     bodyText:
       "Tenant may terminate this Lease before the end of the Term by providing Landlord at least 30 days' written notice. Tenant will pay an early termination fee equal to one month's Rent ({{monthly_rent}}) or 30% of the remaining Rent due under the Term, whichever is greater, and remains responsible for Rent and other obligations up to the termination date. This early-termination option and fee apply only if this Lease has a fixed Term; a month-to-month or other periodic tenancy ends on the notice that applicable law and this Lease provide, without an early termination fee. Landlord may terminate this Lease early in accordance with this Lease's Tenant Default and notice provisions, or if Tenant vacates or abandons the property without notifying Landlord. Nothing in this Section limits any right either party has under applicable law, including a Tenant's right to terminate without penalty due to active military service under the Servicemembers Civil Relief Act, due to the property becoming uninhabitable through no fault of Tenant, or, except as prohibited by law in the case of a Tenant's death, any other termination right or limitation provided by applicable law.",
@@ -6985,7 +6994,7 @@ const CLAUSE_TEMPLATES = [
     id: "rent-concession-wi",
     title: "Rent Concessions",
     group: "Rent & Payment",
-    states: ["WI", "CT", "RI", "NH", "ME", "VT", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "KS", "MN", "NE", "OH", "NV", "TX", "NJ", "FL", "GA", "SC", "NC"],
+    states: ["WI", "CT", "RI", "NH", "ME", "VT", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "KS", "MN", "NE", "OH", "NV", "TX", "NJ", "FL", "GA", "SC", "NC", "VA"],
     bodyText:
       "[Use only if Landlord gives Tenant any rent concession.] In connection with this Lease, Landlord gives Tenant the following rent concession, which is part of this Lease: [describe each period of free or reduced Rent, credit, rebate or other concession, with its amount or value and the rental periods to which it applies].",
   },
@@ -7345,7 +7354,7 @@ const CLAUSE_TEMPLATES = [
     id: "rent-installments-or",
     title: "Rent Paid in Installments",
     group: "Rent & Payment",
-    states: ["OR", "CT", "RI", "NH", "ME", "VT", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "WY", "KS", "NE", "TX", "NJ", "AZ", "FL", "GA", "SC"],
+    states: ["OR", "CT", "RI", "NH", "ME", "VT", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "WY", "KS", "NE", "TX", "NJ", "AZ", "FL", "GA", "SC", "VA"],
     bodyText:
       "Landlord and Tenant agree that Monthly Rent will be paid in installments as follows: [state each installment amount and the day of the month it is due]. Installments paid on this schedule are not partial payments of Rent. A late charge applies only as this Lease's late charge provision allows for the rental period.",
   },
@@ -7736,7 +7745,7 @@ const CLAUSE_TEMPLATES = [
     id: "informal-dispute-resolution-or",
     title: "Informal Dispute Resolution",
     group: "Notices & General",
-    states: ["OR", "AR", "MS", "DC", "GU", "VI", "AS", "MP", "CO", "WY", "KS", "MN", "NE", "OH", "NV", "TX", "NJ", "AZ", "FL", "GA", "SC", "NC"],
+    states: ["OR", "AR", "MS", "DC", "GU", "VI", "AS", "MP", "CO", "WY", "KS", "MN", "NE", "OH", "NV", "TX", "NJ", "AZ", "FL", "GA", "SC", "NC", "VA"],
     bodyText:
       "Before either party starts a court action about a dispute under this Lease, other than an action for possession, the party will give the other written notice describing the dispute and offer to meet, in person or by phone, within 10 days to try to resolve it informally. This Section does not delay or limit any notice, deadline or remedy that applicable law provides, including any action for possession or for emergency relief, and does not require either party to accept any proposal.",
   },
@@ -8066,7 +8075,7 @@ const CLAUSE_TEMPLATES = [
     id: "nonrefundable-fees-wv",
     title: "Nonrefundable Fees",
     group: "Security Deposit",
-    states: ["WV", "MS", "PR", "VI", "AS", "MP", "TX", "GA", "SC", "TN"],
+    states: ["WV", "MS", "PR", "VI", "AS", "MP", "TX", "GA", "SC", "TN", "VA"],
     bodyText:
       "[Optional.] Landlord and Tenant expressly agree that the following fees are nonrefundable: [list each nonrefundable fee and its amount, for example a nonrefundable pet fee of $___, or state 'None']. Any other money Tenant gives Landlord to secure Tenant's performance of this Lease, or as security for damage to the property, is part of the Security Deposit.",
   },
@@ -10356,7 +10365,7 @@ const CLAUSE_TEMPLATES = [
     id: "cannabis-restrictions-ak",
     title: "Marijuana Restrictions (Optional)",
     group: "Rules & Regulations",
-    states: ["AK", "MS", "DC", "PR", "GU", "AS", "MP", "CO", "TX", "FL", "GA", "SC", "NC"],
+    states: ["AK", "MS", "DC", "PR", "GU", "AS", "MP", "CO", "TX", "FL", "GA", "SC", "NC", "VA"],
     bodyText:
       "[Optional.] Marijuana. Tenant will not, and will not permit any occupant or guest to, [choose one or more: smoke, vape or otherwise inhale marijuana; grow marijuana plants; possess or use marijuana in any form] anywhere on the property, including inside the dwelling unit, in common areas and on the grounds. This restriction applies whether the marijuana is used for medical or other purposes.",
   },
@@ -10817,7 +10826,7 @@ const CLAUSE_TEMPLATES = [
     id: "ev-charger-installation-hi",
     title: "Tenant EV Charger Installation",
     group: "Parking & Storage",
-    states: ["HI", "GU", "VI", "AS", "MP", "KS", "NE", "TX", "AZ", "FL"],
+    states: ["HI", "GU", "VI", "AS", "MP", "KS", "NE", "TX", "AZ", "FL", "VA"],
     bodyText:
       "[Optional. Use only if Landlord is willing to let Tenant install an electric vehicle charging system.] Tenant may install an electric vehicle charging system at [identify the parking space], at Tenant's own expense, only with Landlord's prior written consent to the specific system and location. Tenant will: (a) have the system installed by a duly licensed contractor, in compliance with Landlord's written specifications, applicable codes and any required permits; (b) if the property is in a condominium, townhouse or other association, comply with the association's rules for charging systems and give Landlord, promptly after installation, the information Landlord needs to register the system with the association and to obtain any consent the association requires; (c) [carry liability insurance covering the system and name Landlord as an additional insured]; and (d) reimburse Landlord for the electricity the system uses, measured by [a separate meter / Landlord's reasonable calculation, described here], within [number] days after Landlord bills Tenant. Any money Landlord holds to secure Tenant's obligations for the system is part of the Security Deposit and counts toward its legal limit. When this Lease ends, Tenant will [remove the system and repair any damage its installation or removal caused / leave the system in place, and it will belong to Landlord], unless Landlord and Tenant agree otherwise in writing.",
   },
@@ -11081,7 +11090,7 @@ const CLAUSE_TEMPLATES = [
     id: "furnishings-included-la",
     title: "Furnishings",
     group: "Security Deposit",
-    states: ["LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "WY", "MN", "NE", "OH", "NV", "TX", "NJ", "AZ", "FL", "GA", "SC", "NC"],
+    states: ["LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "WY", "MN", "NE", "OH", "NV", "TX", "NJ", "AZ", "FL", "GA", "SC", "NC", "VA"],
     bodyText:
       "[Optional. Use only if the property is rented furnished.] Furnishings: The property is rented furnished. The furniture and furnishings Landlord provides, and their condition at the start of this Lease, are: [list each item and its condition, or attach a signed inventory]. Tenant will keep them at the property, will not remove or dispose of any item without Landlord's written consent, will tell Landlord promptly of any damage to them, and will return them at the end of this Lease in the same condition, except for normal wear and tear.",
   },
@@ -11391,7 +11400,7 @@ const CLAUSE_TEMPLATES = [
     id: "no-liens-ar",
     title: "No Liens for Tenant Work",
     group: "Tenant Responsibilities",
-    states: ["AR", "MS", "GU", "VI", "AS", "MP", "WY", "MN", "NE", "SD", "TX", "GA", "SC", "NC"],
+    states: ["AR", "MS", "GU", "VI", "AS", "MP", "WY", "MN", "NE", "SD", "TX", "GA", "SC", "NC", "VA"],
     bodyText:
       "[Optional.] Tenant will pay in full everyone Tenant hires, or whose work or materials Tenant orders, for any construction, alteration or repair at the property, and will not allow a lien to be filed against the property for that work. If a lien is filed because of work Tenant ordered, Tenant will have it released within [number] days after Tenant learns of it and will pay Landlord's reasonable costs caused by it. Tenant is not Landlord's agent for any work Tenant orders, and before work begins Tenant will tell each contractor and supplier that Tenant, not Landlord, is responsible for paying for it. Any consent Landlord gives to an alteration under this Lease is consent only as between Landlord and Tenant and is not an agreement by Landlord to pay for the work.",
   },
@@ -11428,7 +11437,7 @@ const CLAUSE_TEMPLATES = [
     id: "owner-occupancy-termination-ar",
     title: "Owner Occupancy (Optional)",
     group: "Default & Termination",
-    states: ["AR", "MS", "PR", "GU", "VI", "AS", "MP", "WY", "KS", "NE", "OH", "TX", "AZ", "FL", "GA", "SC", "NC"],
+    states: ["AR", "MS", "PR", "GU", "VI", "AS", "MP", "WY", "KS", "NE", "OH", "TX", "AZ", "FL", "GA", "SC", "NC", "VA"],
     bodyText:
       "[Optional. Use only for a fixed Term.] Owner Occupancy: Landlord may end this Lease before the end of the Term if Landlord, or the following member of Landlord's family, will occupy the property as a residence: [name or relationship]. To do so, Landlord will give Tenant written notice at least [number, not less than 30] days before the termination date, and the termination date will be the last day of a monthly rental period. Tenant owes Rent only through the termination date, and Landlord will refund any Rent paid for a later period. If Tenant does not leave by the termination date, Landlord may regain possession only through a court eviction.",
   },
@@ -12971,7 +12980,7 @@ const CLAUSE_TEMPLATES = [
     id: "eminent-domain-vi",
     title: "Condemnation (Optional)",
     group: "Default & Termination",
-    states: ["VI", "MP", "KS", "MN", "NE", "SD", "NV", "TX", "NJ", "AZ", "FL", "GA", "SC", "NC"],
+    states: ["VI", "MP", "KS", "MN", "NE", "SD", "NV", "TX", "NJ", "AZ", "FL", "GA", "SC", "NC", "VA"],
     bodyText:
       "[Optional.] If all of the property is taken by eminent domain, or so much of it is taken that the rest cannot reasonably be lived in, this Lease ends on the date Tenant must give up possession, Rent is apportioned to that date, and Landlord will refund any Rent paid for later days. If a smaller part is taken and the rest can reasonably be lived in, this Lease continues and Rent is reduced in proportion to Tenant's loss of use. Any award for the taking of the property, including any value of this Lease, belongs to Landlord, except any relocation payment or other separate payment made to Tenant for Tenant's own moving costs or personal property. If this Lease ends under this Section, Landlord will return the Security Deposit, less lawful deductions, as this Lease provides.",
   },
@@ -14767,7 +14776,7 @@ const CLAUSE_TEMPLATES = [
     id: "disability-modification-restoration-mn",
     title: "Disability Modifications and Restoring the Premises",
     group: "Tenant Responsibilities",
-    states: ["MN", "SC"],
+    states: ["MN", "SC", "VA"],
     bodyText:
       "[Optional.] This Section applies only if Tenant asks to modify the Premises because of a disability. Landlord will not refuse a reasonable modification that is needed so Tenant can fully enjoy the Premises. Tenant pays the whole cost of the modification. Tenant will describe the proposed work to Landlord in writing and get Landlord approval before work starts. Where it is reasonable to require it, Landlord may make approval conditional on Tenant agreeing to restore the inside of the Premises to its earlier condition. Reasonable wear and tear is excluded from that restoration. If Landlord imposed that condition, Tenant will restore the inside of the Premises before the tenancy ends.",
   },
@@ -16444,6 +16453,15 @@ const CLAUSE_TEMPLATES = [
     bodyText:
       "Tenant may terminate this Lease before the end of the Term by providing Landlord at least 30 days' written notice. Tenant will pay Landlord, by the termination date, an early termination fee equal to one month's Rent ({{monthly_rent}}), and remains responsible for Rent and other obligations up to the termination date. If Tenant gives that notice, pays the fee and delivers possession of the property by the termination date, Tenant owes no Rent for any period after the termination date. Landlord may apply the Security Deposit to an unpaid early termination fee only to the extent of Landlord's actual damages from the early termination. If Tenant leaves before the end of the Term without using this option, Tenant's liability is governed by North Carolina law. This early-termination option and fee apply only if this Lease has a fixed Term; a month-to-month or other periodic tenancy ends on the notice that applicable law and this Lease provide, without an early termination fee. The fee does not apply when Tenant ends this Lease under a termination right North Carolina law gives, including a termination by a protected tenant who is a victim of domestic violence, sexual assault or stalking, a termination by a military technician (where only the limited amount the statute allows may be charged), or a termination after notice of a foreclosure sale of the property; in those cases Tenant owes Rent only as that law provides. Landlord may terminate this Lease early in accordance with this Lease's Tenant Default and notice provisions, or if Tenant vacates or abandons the property without notifying Landlord. Nothing in this Section limits any right either party has under applicable law, including a Tenant's right to terminate without penalty due to active military service under the Servicemembers Civil Relief Act or due to the property becoming uninhabitable through no fault of Tenant.",
   },
+  {
+    id: "early-termination-va",
+    title: "Early Termination",
+    group: "Default & Termination",
+    states: ["VA"],
+    supersedes: "early-termination-ks",
+    bodyText:
+      "Tenant may terminate this Lease before the end of the Term by providing Landlord at least 30 days' written notice. Tenant will pay Landlord, by the termination date, an early termination fee equal to one month's Rent ({{monthly_rent}}), and remains responsible for Rent and other obligations up to the termination date. If Tenant gives that notice, pays the fee and delivers possession of the property by the termination date, Tenant owes no Rent for any period after the termination date. If Tenant leaves before the end of the Term without using this option, Tenant's liability is governed by Virginia law, including Landlord's duty to mitigate damages. This early-termination option and fee apply only if this Lease has a fixed Term; a month-to-month or other periodic tenancy ends on the notice that applicable law and this Lease provide, without an early termination fee. Landlord may terminate this Lease early in accordance with this Lease's Tenant Default and notice provisions, or if Tenant vacates or abandons the property without notifying Landlord. Nothing in this Section limits any right either party has under applicable law, and no early termination fee applies when Tenant terminates under such a right, including a Tenant's right to terminate due to military orders under Virginia law or the Servicemembers Civil Relief Act; as a victim of family abuse, sexual abuse, stalking or trafficking under Virginia law; due to fire or casualty damage under Virginia law; or any other termination right or limitation provided by applicable law.",
+  },
   // Rules & Regulations
   {
     id: "criminal-activity-nj",
@@ -16893,6 +16911,137 @@ const CLAUSE_TEMPLATES = [
     states: ["NC"],
     bodyText:
       "[Optional. Use only if Monthly Rent will be paid in more than one installment each month.] Tenant will pay each month's Monthly Rent in the following installments: [state each installment amount and the day of the month it is due]. Installments paid on this schedule are not partial payments of Rent. A late fee may be charged only as this Lease's late fee provision allows, and Tenant will owe no more than one late fee for any month's Monthly Rent, however many of that month's installments are late.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "appliances-excluded-va",
+    title: "Items Not Supplied by Landlord (Optional)",
+    group: "Landlord Responsibilities",
+    states: ["VA"],
+    bodyText:
+      "[Optional. Use only for items at the property that Landlord does not supply, such as an appliance Tenant owns or one a prior occupant left that Tenant has chosen to keep rather than have removed. Never list an item Landlord supplies or that Virginia law requires Landlord to supply, or any heating, cooling, plumbing, electrical, hot water or other facility Landlord must maintain.] The following items are at the property but are not supplied by Landlord under this Lease, and Landlord does not agree to repair, maintain or replace them: {{excluded_appliance_list}}. Tenant may use them as they are or ask Landlord in writing to remove them, and Landlord will remove them within a reasonable time after that request. Landlord will not charge Tenant any rent or fee for a listed item. This Section does not apply to any item listed in this Lease as included or to anything Landlord supplies or Virginia law requires Landlord to supply; if Virginia law treats a listed item as supplied by Landlord, Landlord's duty to maintain it applies despite this Section. This Section does not reduce Landlord's duties under Virginia law, including the duties to comply with applicable building and housing codes and to keep the property fit and habitable, and it does not limit any liability Landlord has under law.",
+  },
+  // Default & Termination
+  {
+    id: "automatic-renewal-va",
+    title: "Automatic Renewal (Optional)",
+    group: "Default & Termination",
+    states: ["VA"],
+    bodyText:
+      "AUTOMATIC RENEWAL. At the end of the Term, this Lease will renew automatically [choose one: for one further term of (state the renewal term, 12 months or less) / for further terms of (state the renewal term, 12 months or less) each / on a month-to-month basis] on the same terms, unless Tenant gives Landlord written notice of non-renewal at least [state the number of days] days before the end of the then-current term, or Landlord gives Tenant written notice of non-renewal at least {{renewal_notice_days}} days before the end of the then-current term. Rent during a renewal term will be the Rent then in effect unless Landlord gives Tenant written notice of a rent increase at least {{renewal_notice_days}} days before the end of the then-current term. A notice of rent increase will state a deadline, at least 30 days after the notice is delivered to Tenant, by which Tenant may tell Landlord in writing that Tenant will not renew; if Tenant does so, this Lease ends at the end of the then-current term. At least 30 days before Tenant's deadline to give notice of non-renewal, Landlord will remind Tenant in writing that this Lease will renew unless Tenant gives that notice. A renewal does not add or change any other term of this Lease; any other change needs both parties' written consent.",
+  },
+  {
+    id: "criminal-activity-va",
+    title: "Criminal and Drug Activity",
+    group: "Default & Termination",
+    states: ["VA"],
+    bodyText:
+      "CRIMINAL AND DRUG ACTIVITY. Tenant, any Authorized Occupant, and any guest or invitee of Tenant will not engage, on the premises, in (a) any illegal drug activity involving a controlled substance, as used or defined by the Virginia Drug Control Act, or (b) any criminal or willful act that poses a threat to the health or safety of any person. Any such activity is a breach of this Lease that cannot be remedied. If it occurs, Landlord may terminate this Lease immediately and seek possession through the court, without waiting for a criminal conviction, as Virginia law allows. If the activity is by an Authorized Occupant or a guest or invitee, Tenant is presumed to know of it unless Tenant shows otherwise by a preponderance of the evidence. Landlord may also bar from the property, by written notice served personally on that person that describes the conduct, with a copy served on Tenant, any guest or invitee whose conduct on the property violates this Lease, a local ordinance, or state or federal law. This Section does not allow Landlord to end this Lease solely because of an act of family abuse against Tenant where the abuser has been barred from the dwelling unit by Landlord or by a court, and it does not limit any right Tenant has as a victim of domestic violence, dating violence, sexual assault or stalking under the federal Violence Against Women Act where that Act applies to this housing.",
+  },
+  // Security Deposit
+  {
+    id: "move-out-forwarding-address-va",
+    title: "Move-Out Notice and Forwarding Address",
+    group: "Security Deposit",
+    states: ["VA"],
+    bodyText:
+      "Move-Out Notice and Forwarding Address. When Tenant vacates, Tenant will tell Landlord in writing the date Tenant delivered possession of the property and will give Landlord in writing a forwarding address for the written disposition of the Security Deposit and any refund. Tenant will tell Landlord in writing of any change in that address until the disposition has been made. If more than one Tenant signs this Lease, a forwarding address given by any one Tenant is the address for all Tenants, and any refund will be made by one check payable to all Tenants unless each Tenant agrees otherwise in writing. Landlord's duty to make the disposition of the Security Deposit within the time Virginia law allows does not depend on this Section: if no forwarding address is given, Landlord will still give the written disposition within that time at Tenant's last known place of residence, and may continue to hold any refund for Tenant as Virginia law allows.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "submetering-lease-statement-va",
+    title: "Submetered Electricity or Gas Statement",
+    group: "Landlord Responsibilities",
+    states: ["VA"],
+    bodyText:
+      "[Use if the property's electricity or natural gas is measured by submetering equipment or energy allocation equipment that Landlord reads to bill Tenant.] Submetered electricity or gas. The property uses [submetering equipment] [energy allocation equipment] to measure Tenant's use of [electricity] [natural gas]. Landlord's bills to Tenant for [electricity] [natural gas] will be based on the readings of that equipment. Any dispute about the amount of Tenant's bill or the accuracy of the equipment will be between Tenant and Landlord.",
+  },
+  // Rules & Regulations
+  {
+    id: "family-child-care-va",
+    title: "Child Care in the Property (Optional)",
+    group: "Rules & Regulations",
+    states: ["VA"],
+    bodyText:
+      "[Optional. Use only if Landlord agrees to allow child care in the property.] Child Care: Tenant may provide child care services in the property only if Tenant (1) holds any license or registration, or qualifies for any exemption, that Virginia law requires for the care provided; (2) complies with all state and local laws, including zoning, and with any association rules that apply to the property; (3) gives Landlord written notice before starting, with a copy of any required license, registration or permit, and promptly tells Landlord of any change; and (4) cares for no more than [number] children at a time, not counting Tenant's own children, and never more than the law allows. This permission does not change Tenant's other duties under this Lease, including Tenant's responsibility for the conduct of persons on the property with Tenant's consent. Landlord may withdraw this permission by written notice if Tenant stops meeting these conditions.",
+  },
+  {
+    id: "farmland-hunting-rights-va",
+    title: "Hunting, Fishing and Trapping (Optional)",
+    group: "Rules & Regulations",
+    states: ["VA"],
+    bodyText:
+      "[Optional. Use only if the property includes land or water where hunting, fishing or trapping is possible.] HUNTING, FISHING AND TRAPPING. This Lease does not give Tenant any right to hunt, fish or trap on the property. Tenant, occupants and guests will not hunt, fish or trap on the property, and Tenant will not give anyone else permission to, unless Landlord consents in a separate writing signed by Landlord [or: except as follows: describe any right granted, for example fishing in the pond by Tenant's household]. Any consent Landlord gives may be limited or withdrawn in writing. When Landlord consents, Tenant will follow every condition in the consent and all hunting, fishing, wildlife and firearms laws, will carry the signed consent while hunting, fishing or trapping on the property, and will not charge anyone for permission. [Optional: The following land is not part of the premises leased to Tenant, and Landlord keeps all use of it, including hunting, fishing and trapping: describe the land, for example by field, acreage or a map attached to this Lease.]",
+  },
+  // Rent & Payment
+  {
+    id: "guaranty-va",
+    title: "Guaranty (Optional)",
+    group: "Rent & Payment",
+    states: ["VA"],
+    bodyText:
+      "[Optional. Use only if a guarantor signs this Lease.] GUARANTY. [guarantor's full name] (\"Guarantor\") signs this Lease to guarantee to Landlord that Tenant will pay the Rent and perform Tenant's other financial obligations under this Lease[, up to a total maximum of $(maximum amount)]. This guaranty covers the Term and [choose one: also covers any renewal or extension of this Lease and any holdover or month-to-month tenancy that continues on its terms, including any change in Rent made in accordance with this Lease / ends when the Term ends, except for amounts that became due during the Term]. Guarantor's obligations are never larger than Tenant's. Guarantor is not a tenant and has no right to occupy the property. Guarantor has read this Lease and received a copy. Guarantor's signature: ______________ Date: ________",
+  },
+  // Disclosures
+  {
+    id: "environmental-covenant-va",
+    title: "Environmental Covenant (Optional)",
+    group: "Disclosures",
+    states: ["VA"],
+    bodyText:
+      "[Use only if the property is subject to an environmental covenant recorded under the Virginia Uniform Environmental Covenants Act. If the covenant itself requires notice to the agency or holder of a lease or of a change in use, give that notice too.] ENVIRONMENTAL COVENANT. The property is subject to an environmental covenant recorded in the land records of [city or county] at [instrument number or book and page]. The covenant restricts how the property may be used, including: [describe the activity and use limitations, for example no use of groundwater, no digging below a stated depth, or keeping a cap or barrier in place]. Landlord has given Tenant a copy of the covenant before Tenant signed this Lease. Tenant, occupants and guests will not carry out or allow any activity or use of the property that the covenant prohibits, will not disturb, alter or remove any cap, barrier, monitoring well or other feature the covenant protects, and will tell Landlord promptly in writing of any damage to such a feature and of any notice Tenant receives from a government agency about the covenant.",
+  },
+  {
+    id: "meter-conservation-charge-va",
+    title: "Energy Savings Charge on the Electric Bill (Optional)",
+    group: "Disclosures",
+    states: ["VA"],
+    bodyText:
+      "[Use only if an on-bill tariff agreement with an electric cooperative applies an energy savings charge to the electric meter or bill for the property.] Energy savings charge. Energy efficiency measures were installed at the property under an on-bill tariff agreement with [name of cooperative]. The cooperative recovers their cost through an energy savings charge of [amount] per billing period, shown as a separate line on the electric bill for the property, expected to continue until [date or number of remaining payments]. If Tenant is the cooperative's customer for the property, the cooperative may bill this charge to Tenant. The charge is treated as part of the charges for electric service, and if it is not paid, service may be disconnected under the cooperative's policies. [Choose one. Use the first option only if the measures are improvements and not the repair or replacement of equipment Landlord must maintain; otherwise use the second.] [Tenant will pay the energy savings charge as part of Tenant's electric bill.] [Landlord will reimburse Tenant for each energy savings charge Tenant pays, within [number] days after Tenant gives Landlord a copy of the paid bill.]",
+  },
+  // Tenant Responsibilities
+  {
+    id: "municipal-utility-lien-va",
+    title: "Tenant Utility Accounts and Water-Sewer Authorization (Optional)",
+    group: "Tenant Responsibilities",
+    states: ["VA"],
+    bodyText:
+      "[Use if Tenant will hold water and sewer service, or gas service from a municipally owned gas utility, in Tenant's own name. Do not list water and sewer if one meter serves more than one unit.] Tenant utility accounts. Tenant will contract for the following utility services in Tenant's own name, effective no later than the date Tenant takes possession, and will pay them when due: [water and sewer] [gas from a municipally owned gas utility]. Landlord authorizes Tenant to obtain water and sewer services at the property in Tenant's name, and Tenant or Landlord may give a copy of this Lease to the water or sewer provider as that authorization. When Tenant moves out, Tenant will close these accounts as of the move-out date and may give Landlord written confirmation that the final bills are paid. If a provider places a lien on the property for charges Tenant owes and Landlord pays them, Tenant will repay Landlord the amount Landlord paid.",
+  },
+  // Access & Entry
+  {
+    id: "scheduled-services-entry-va",
+    title: "Entry for Regularly Scheduled Services (Optional)",
+    group: "Access & Entry",
+    states: ["VA"],
+    bodyText:
+      "[Optional.] Tenant agrees that Landlord and Landlord's agents and contractors may enter the property at reasonable times to provide these regularly scheduled services: [list each service and its schedule, for example replacing heating and air-conditioning filters every three months or pest treatment every two months]. Tenant will not unreasonably withhold consent to these entries. For each visit Landlord will give Tenant at least 72 hours' notice unless that is impractical; the notice will state the last date on which the service may be performed, and the service will be performed within 14 days after the notice is delivered. Notice of any insecticide or pesticide application inside the property will be in writing and given at least 48 hours ahead, unless Tenant requested the application or agrees to a shorter period. No notice is needed for a visit Tenant requests. This Section does not limit Landlord's other rights of access under this Lease or the law.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "prohibited-acts-renter-va",
+    title: "No Damage to the Property",
+    group: "Tenant Responsibilities",
+    states: ["VA"],
+    bodyText:
+      "Tenant will not deliberately or negligently destroy, deface, damage, impair, or remove any part of the property or the premises, and will not permit any person, whether known to Tenant or not, to do so. Tenant's other duties about conduct, access and disturbance are stated elsewhere in this Lease, and Tenant's duties under Virginia law apply in addition to this Lease.",
+  },
+  // Rent & Payment
+  {
+    id: "rent-escalation-va",
+    title: "Scheduled Rent Changes (Optional)",
+    group: "Rent & Payment",
+    states: ["VA"],
+    bodyText:
+      "[Optional. Use only for increases fixed at signing. Repeat every amount and period below in item (ii) of the fee disclosure statement on the first page of this Lease.] SCHEDULED RENT CHANGES. Monthly Rent during the Term will be as follows: [state each period of the Term and the Monthly Rent for that period, for example: from the Start Date through (date), $(amount); from (date) through the end of the Term, $(amount)]. These amounts are listed in the fee disclosure statement on the first page of this Lease. Monthly Rent will not change during the Term in any other way unless Landlord and Tenant agree in a written addendum signed by both of them.",
+  },
+  {
+    id: "utility-allowance-cap-va",
+    title: "Utility Allowance With Tenant-Paid Overage (Optional)",
+    group: "Rent & Payment",
+    states: ["VA"],
+    bodyText:
+      "[Optional. Use only for a utility measured by a utility-owned meter that serves only the property and whose account is in Landlord's name. For a meter shared with other units, use the Utilities Billed by Landlord (Submetering, Allocation or Ratio Billing) section instead.] Utility allowance. Landlord will pay for [specify utility] up to [monthly allowance amount] for each billing period of the utility provider. If the provider's actual charge for the property for a billing period is more than that amount, Tenant will pay Landlord the difference and nothing more. Landlord will bill Tenant for the same billing period as the provider, with a copy of the provider's bill, and Tenant will pay within [number, at least 15] days after Landlord mails or delivers it. Landlord will not charge a late fee on these payments. Tenant may inspect and copy Landlord's records of these bills during reasonable business hours. These payments are rent under Virginia law.",
   },
 ];
 
