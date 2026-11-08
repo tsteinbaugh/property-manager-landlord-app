@@ -965,3 +965,736 @@ Circle-back run 2026-10-03/04 in PA's chat. Only the two [Retro] rules and four 
 - `smoking-policy`: Tenant pays for smoking damage caused by "Tenant, an occupant, or a guest or invitee of Tenant", no longer by anyone's smoking.
 - `no-alterations`: the last sentence adds that the clause "does not change who owns an installation that applicable law makes Tenant's property".
 - `addendum-precedence`: a disclosure, notice or addendum "that applicable law says controls over this Lease" now controls, as one the law requires already did.
+
+# Topic gaps pass (end-of-run consistency pass, 2026-11-08): Desktop's running record
+
+## PA topic gaps: running record
+
+Pass: "Topic gaps: Pennsylvania (end-of-run consistency pass)", staged 2026-11-07, run 2026-11-08 in PA's chat. Step A passed (58,281,188 bytes, SHA-256 8733782a…0e12; 15,446 rows, 15,334 active, 119 PA active; 256 missing topics).
+
+### Status: COMPLETE (final delivery 2026-11-08)
+- 256 of 256 topics answered: 247 new rows and 26 tags (273 delta rows). The quote checker passed 306 of 306 statute quotes.
+- Rule 80 independent check, two rounds:
+  - Round 1: 20 findings, all fixed.
+  - Round 2: 10 findings on the corrected rows, all fixed.
+  - Rows edited after round 2 are listed in log §5.
+- One row is NEEDS_REVIEW: `edu-no-property-tax-rent-statement-pa`. The Taxpayer Relief Act is a special-session act the site would not serve.
+- No questions were asked of Taylor; every decision is in log §4.
+- Files: `lease-clauses-PA-gaps-delta.csv`, `gaps-log-PA.md` (final versions).
+
+### Tags (26)
+- B1: `showing-notice-la`
+- B3: `cold-weather-vacate-notice-wy`, `automatic-renewal-ks`, `owner-occupancy-termination-ar`
+- B4: `rental-inspection-cooperation-mn`, `rent-increase-midterm-ky`, `tax-insurance-escalation-la`
+- B5: `pest-cooperation-pr`, `tenant-repair-agreement-hi`
+- B7: `animal-care-access-vi`, `waterbed-mn`, `cannabis-restrictions-ak`
+- B8: `appliances-excluded-la`, `furnishings-included-la`, `emergency-contact-co`, `extended-absence-notice-ks`, `guaranty-as`, `lease-copy-receipt-hi`, `informal-dispute-resolution-or`, `scheduled-services-entry-la`, `rent-installments-or`, `rules-wi`, `tenant-portal-mn`, `no-liens-ar`, `association-approval-la`, `prohibited-acts-renter-wy`
+- Declined:
+  - `barred-person-covenant-ne` and `eminent-domain-vi` (they conflict with PA law)
+  - `utility-allowance-cap-co`, the CO and HI EV clauses, `firearm-rules-la` and `farmland-sporting-rights-co` (each rests on another state's statute)
+  - `rules-ia` (`rules-wi` chosen instead)
+
+### New clauses
+- `collection-costs-pa`, `rent-acceptance-nonwaiver-pa`, `rent-concession-pa`
+- `parking-disclosure-pa`: REQUIRED, effective 2026-12-21 (1951 Act § 207, Act 64 of 2026)
+- Proposed under Findings, not in the delta:
+  - `early-termination-pa` with a flat one-month fee (finding 5)
+  - aligned fault-person wording for `casualty-termination-pa` (finding 9)
+
+### Key new law and finds
+- Acts 64 and 67 of 2026 (HB 344, HB 558) add 1951 Act §§ 207 (parking) and 208 (application fees), effective 2026-12-21. The prompt listed both bills as pending.
+- 51 Pa.C.S. § 7312: six-month eviction stay for Guard and reserve members.
+- 53 Pa.C.S. § 2962(f) and First Class City Home Rule Act § 18: limits on local power. Case law decides how far they reach.
+- 15 Pa.C.S. § 411 and 54 Pa.C.S. § 331: suit bars for unregistered foreign entities and fictitious names.
+- Tax Reform Code § 324.4: nonresident-lessor withholding by business lessees.
+- 53 Pa.C.S. § 5607(d)(10)-(11) and 11 Pa.C.S. § 13588(b): owner liability for a tenant's water or sewer bill.
+- 66 Pa.C.S. § 1313: resale cap at the residential rate. 66 Pa.C.S. § 102(2)(v): building owner/operators that supply electric power to occupants are excluded from the "public utility" definition.
+- 66 Pa.C.S. Chapter 14 expired 2024-12-31.
+- Act § 205: no termination or nonrenewal for taking part in a tenants' association.
+- 18 Pa.C.S. § 9122.5(a.1): no use of expunged or limited-access records for housing.
+- Breach of Personal Information Notification Act.
+- 68 Pa.C.S. § 7103(a): the seller disclosure law covers a lease with an option to purchase.
+- Mechanics' Lien Law § 303(d).
+- Act 101 of 1988 § 1501: recycling.
+- Article V-B: cable TV access.
+- Act § 505-A drug grounds cover single-family homes and apartments, not only buildings with three or more households.
+- Act § 511.2(c): the escrow section applies "only after the second anniversary". The rows recommend escrowing from the start.
+
+### Findings (log §6, §7)
+- `edu-no-application-fee-cap-pa` will be wrong from 2026-12-21.
+- PA segments of the parking clauses are stale after Act § 207 (finding 8).
+- The kickoff misdescribes Act § 511.3 and 66 Pa.C.S. § 1529.
+- `early-termination-pa` is proposed (5).
+- `edu-drug-activity-eviction-pa` needs the CARES caveat (6).
+- `edu-servicemember-rights-pa` misprints the rule abbreviation (7).
+- Casualty fault-person wording should be aligned (9).
+- `edu-habitability-pa` states non-waivability without noting it rests on case law (10).
+- KS rows cite P.S. outside a PA segment (§7).
+
+### Proposed SOP changes and topic questions
+- SOP rule 19: the dump channel; fallback for special-session acts.
+- SOP rule 16: check the kickoff's "pending bills" against the act list at Step A.
+- Topic questions:
+  - parking statement and no mid-lease parking fee changes (PA § 207)
+  - clean-slate and limited-access records in tenant screening (18 Pa.C.S. § 9122.5)
+
+### Working notes
+- Working folder: /home/claude/gaps. Batteries are in src/batteries/BLOG.json (G1-G8).
+- Build: `rows/B<n>.py` → `tools/assemble.py` → `tools/quotecheck.py` → `tools/mklog.py`.
+
+# Topic gaps pass (end-of-run consistency pass, 2026-11-08): Desktop's log
+
+## Topic gaps: Pennsylvania (end-of-run consistency pass), 2026-11-08
+
+Status: complete. 256 of 256 topics answered (batches B1-B8); 247 new rows and 26 tags; independent check run in two rounds, all findings fixed (§5).
+
+### §1 Sources, channel and currency
+
+- **Step A.** `lease-clauses.csv` decompressed to 58,281,188 bytes, SHA-256 `8733782afed8d5d93b45248871b230fca876479c8a899c0e369f4d41c9540e12`; 15,446 rows, 15,334 active, 119 active rows carry PA; `missing-topics-PA.md` lists 256 topics. All match the prompt.
+- **Start clean.** Deleted from the outputs folder: `lease-clause-decision-log-PA-retro.md` and `lease-clauses-PA-retro-delta.csv` (the 2026-10-04 retro deliverables). The attached files are the only source of truth; where this chat's earlier work differs from them, they govern.
+- **Channel.** The workspace cannot reach palegis.us, pacodeandbulletin.gov, uscode.house.gov or ecfr.gov (proxy CONNECT 403 for each, tested 2026-11-08), and no corpus archive was attached. Every official text was read in the built-in browser, as the 2026-09-29 pass did (PA log §1.1-1.2), and saved to the working folder through the browser's result channel.
+  - **Consolidated Statutes and Constitution:** all 75 official files from the index page (the Constitution and 74 titles) loaded whole from `/statutes/consolidated/view-statute?txtType=HTM&ttl=NN&iFrame=true`; 29,461,341 characters, 14,753 section markers, 0 load errors. Each file's `revised` meta stamp was recorded (oldest: the Constitution, 2022-03-07; newest: Title 68, 2026-11-06). Titles revised since the 2026-09-29 pass: 2 (2026-11-04), 15 (11-06), 16 (10-14), 18 (11-04), 30 (11-04), 40 (11-02), 42 (11-04), 68 (11-06), 74 (10-14), 76 (10-14), 77 (10-30).
+  - **Acts:** the 1951 Act and every other unconsolidated act from `view-statute?txtType=HTM&SessYr=...&ActNum=...&iFrame=true`, loaded whole and indexed by the act's own section markers.
+  - **Second engine:** the General Assembly's unconsolidated-statute keyword search, with a control term in every battery.
+  - **Court rules and regulations:** pacodeandbulletin.gov (current through 56 Pa.B. 6006, 2026-09-05, per the site banner).
+  - **Bot blocks:** none met.
+  - **One text not reopened.** The Expedited Eviction of Drug Traffickers Act (Act 23 of the 1995 First Special Session) is served only through a page wrapper that drops the special-session flag (the HTML link returns regular-session Act 23 of 1995, a fire-hydrant act; tested 2026-11-08). `edu-expedited-criminal-eviction-pa` relies on `edu-drug-activity-eviction-pa` (read section-open 2026-09-29) for it, and says so; 53 Pa.C.S. § 304(d) confirms the act by name. The same wrapper blocks the Taxpayer Relief Act (Act 1 of the 2006 First Special Session; property tax and rent rebates), so `edu-no-property-tax-rent-statement-pa` is NEEDS_REVIEW.
+- **Currency.** The 2026 act list (Acts on General Legislation) was read through Act 117 (2026-10-26). Acts passed since 2026-09-29 that touch landlord-tenant law:
+  - **Act 64 of 2026 (2026 P.L. 579, HB 344), enacted 2026-10-22, effective in 60 days (2026-12-21):** adds Act § 207, parking provisions in a lease.
+  - **Act 67 of 2026 (2026 P.L. 595, HB 558), enacted 2026-10-22, effective in 60 days:** adds Act § 208, rental application fees.
+  - The compiled 1951 Act on palegis.us already prints both sections with their history lines ("207 added Oct. 22, 2026, P.L.579, No.64"; "208 added Oct. 22, 2026, P.L.595, No.67", history lines). **The prompt lists HB 344 and HB 558 among bills pending against the 1951 Act and not law; both are now law.** HB 72, HB 343 and HB 573 do not appear in the act list and remain not law.
+  - Also read for relevance: Act 74 of 2026 (68 Pa.C.S. seller disclosure, flood disclosure; sales only), Act 65 (68 Pa.C.S. land-bank definitions), Act 87 (23 Pa.C.S. child-abuse reporting; its session-law text was not yet posted, "Error VS-8"), Act 113 (Human Services Code carbon monoxide alarms in child care).
+  - The Magisterial District Judge rules Chapter 1000 were amended 2026-04-21 effective 2026-11-01 (56 Pa.B. 2569); Rule 1007's comment now carries the arbitration-window note.
+- **Section-open.** Every row in the delta was written with its sections open; texts relied on are saved under `src/` in the working folder (acts whole; Consolidated Statutes sections one file each; court rules one file each). Purdon's numbers (P.S.) are a publisher's convention the official site does not print; each row relying on one says so.
+
+### §2 Topics answered
+
+- `habitability-waiver`: `edu-habitability-waiver-pa`, Absent, battery PA-G1-01, PA-G1-02 (related: 35 P.S. § 1700-1)
+- `habitability-modifiable`: `edu-habitability-modifiable-pa`, Absent, battery PA-G1-01 (related: 68 P.S. § 250.502-A)
+- `part5-nonwaivable`: `edu-nonwaivable-rights-pa`, Present, 68 P.S. § 250.511a(f)
+- `showing-notice-waiver`: `showing-notice-la`, tagged, battery PA-G1-03
+- `security-deposit-nonwaiver`: `edu-security-deposit-nonwaiver-pa`, Present, 68 P.S. § 250.511a(f)
+- `smoke-drift-waiver`: `edu-smoke-drift-pa`, Present, Clean Indoor Air Act § 3(a)
+- `jury-waiver`: `edu-jury-waiver-pa`, Present, Pa. Const. art. I, § 6
+- `exculpatory-clauses`: `edu-exculpatory-clauses-pa`, Absent, battery PA-G1-06 (related: Assistance and Service Animal Integrity Act § 4)
+- `unconscionability`: `edu-unconscionability-pa`, Absent, battery PA-G1-07 (related: 13 Pa.C.S. § 2A108(a))
+- `attorney-fees`: `edu-attorney-fees-pa`, Absent, battery PA-G1-08 (related: 42 Pa.C.S. § 2503)
+- `collection-fee`: `collection-costs-pa` (clause), Present, Fair Credit Extension Uniformity Act § 4(b)(6)(i)
+- `collection-fee`: `edu-collection-fee-pa`, Present, Fair Credit Extension Uniformity Act § 4(b)(6)(i)
+- `notice-service-fee`: `edu-notice-service-fee-pa`, Absent, battery PA-G1-10 (related: 68 P.S. § 250.503(b))
+- `eviction-penalty-clause-ban`: `edu-no-eviction-penalty-rule-pa`, Absent, battery PA-G1-10, PA-G1-11 (related: 68 P.S. § 250.503(b))
+- `liquidated-damages`: `edu-liquidated-damages-pa`, Absent, battery PA-G1-11 (related: 13 Pa.C.S. §§ 2718)
+- `waiver-by-acceptance`: `rent-acceptance-nonwaiver-pa` (clause), Present, 68 P.S. § 250.505-A(b)
+- `waiver-by-acceptance`: `edu-waiver-by-acceptance-pa`, Absent, battery PA-G1-12 (related: 68 P.S. § 250.505-A(b))
+- `prohibited-lease-terms`: `edu-prohibited-lease-terms-pa`, Present, 68 P.S. § 250.511a(f)
+- `homestead-waiver`: `edu-homestead-waiver-pa`, Absent, battery PA-G1-14 (related: Pa. Const. art. VIII, § 2)
+- `casualty-and-mitigation-waivable`: `edu-casualty-mitigation-waiver-pa`, Absent, battery PA-G1-15
+- `binding-arbitration`: `edu-binding-arbitration-pa`, Present, 42 Pa.C.S. § 7303
+- `consumer-protection-act`: `edu-consumer-protection-act-pa`, Present, 73 P.S. § 201-2(3)
+- `knowing-use-penalty`: `edu-no-knowing-use-penalty-pa`, Absent, battery PA-G1-18 (related: 68 P.S. § 250.512(c))
+- `deposit-cost-schedule`: `edu-deposit-cost-schedule-pa`, Absent, battery PA-G2-01 (related: 68 P.S. § 250.512(a))
+- `deposit-escheat`: `edu-deposit-escheat-pa`, Present, 72 P.S. § 1301.10
+- `deposit-installments`: `edu-no-deposit-installment-rule-pa`, Absent, battery PA-G2-03 (related: 68 P.S. § 250.511a(a))
+- `deposit-last-month-rent`: `edu-deposit-last-month-rent-pa`, Absent, battery PA-G2-04 (related: 68 P.S. § 250.511a(a))
+- `deposit-surrender-notice`: `edu-deposit-surrender-notice-pa`, Present, 68 P.S. § 250.512(a)
+- `security-deposit-interest`: `edu-security-deposit-interest-pa`, Present, 68 P.S. § 250.511b(a)
+- `security-deposit-on-sale`: `edu-security-deposit-on-sale-pa`, Present, 68 P.S. § 250.104
+- `security-deposit-penalty`: `edu-security-deposit-penalty-pa`, Present, 68 P.S. § 250.512(b)
+- `security-deposit-standards`: `edu-no-security-deposit-standards-pa`, Absent, battery PA-G2-06
+- `nonrefundable-deposit-notice`: `edu-nonrefundable-deposit-notice-pa`, Absent, battery PA-G2-07 (related: 68 P.S. § 250.511a(a))
+- `nonrefundable-deposit-separate-notice`: `edu-no-nonrefundable-separate-notice-pa`, Absent, battery PA-G2-07
+- `holding-deposit`: `edu-holding-deposit-pa`, Absent, battery PA-G2-08 (related: 68 P.S. § 250.511b(a))
+- `fee-in-lieu-of-deposit`: `edu-fee-in-lieu-of-deposit-pa`, Absent, battery PA-G2-07 (related: 68 P.S. § 250.511c)
+- `expedited-deposit-disposition`: `edu-no-expedited-deposit-disposition-pa`, Absent, battery PA-G2-09
+- `required-fees`: `edu-required-fees-pa`, Present, 1951 Act § 207(a)(1)
+- `fee-transparency`: `edu-fee-transparency-pa`, Absent, battery PA-G2-10
+- `fee-unprovided-service`: `edu-no-fee-unprovided-service-rule-pa`, Absent, battery PA-G2-11
+- `late-fee-limit`: `edu-no-late-fee-limit-pa`, Absent, battery PA-G2-12
+- `pet-fees`: `edu-pet-fees-pa`, Absent, battery PA-G2-13
+- `rent-receipt-anti-waiver`: `edu-no-rent-receipt-anti-waiver-pa`, Absent, battery PA-G2-14
+- `lockout-for-rent-delinquency`: `edu-no-lockout-for-rent-pa`, Absent, battery PA-G2-15
+- `utility-deposit-return`: `edu-utility-deposit-return-pa`, Absent, battery PA-G2-16
+- `government-fee-reimbursement`: `edu-no-government-fee-reimbursement-rule-pa`, Absent, battery PA-G2-17
+- `governmental-fines`: `edu-governmental-fines-pa`, Absent, battery PA-G2-18
+- `alarm-tampering-fee`: `edu-alarm-tampering-fee-pa`, Absent, battery PA-G2-19 (related: Carbon Monoxide Alarm Standards Act § 5(c)(4))
+- `carpet-cleaning`: `edu-carpet-cleaning-pa`, Absent, battery PA-G2-01 (related: 68 P.S. § 250.512(a))
+- `statutory-caps`: `edu-statutory-caps-pa`, Present, 68 P.S. § 250.511a(a)
+- `subsidy-late-fee`: `edu-no-subsidy-late-fee-rule-pa`, Absent, battery PA-G2-20
+- `unpaid-damages-interest`: `edu-unpaid-damages-interest-pa`, Present, 68 P.S. § 250.301
+- `rent-concession`: `rent-concession-pa` (clause), Present, battery PA-G2-21
+- `rent-concession`: `edu-rent-concession-pa`, Absent, battery PA-G2-21
+- `dv-confidentiality`: `edu-dv-confidentiality-pa`, Present, Pa.R.Civ.P.M.D.J. 514.1
+- `dv-deposit-timing`: `edu-no-dv-deposit-timing-rule-pa`, Absent, battery PA-G3-04, PA-G3-02
+- `dv-eviction-protection`: `edu-dv-eviction-protection-pa`, Present, 68 P.S. § 250.513(e)
+- `dv-lockchange`: `edu-no-dv-lock-change-rule-pa`, Absent, battery PA-G3-01
+- `dv-protection-order-chapter-moved`: `edu-dv-protection-order-chapter-moved-pa`, Present, 23 Pa.C.S. §§ 6101
+- `dv-qualifying-documents`: `edu-dv-qualifying-documents-pa`, Present, 68 P.S. § 250.513(e)
+- `statutory-early-termination`: `edu-statutory-early-termination-pa`, Present, 51 Pa.C.S. § 7315.1(b)
+- `infirmity-termination`: `edu-no-infirmity-termination-pa`, Absent, battery PA-G3-07
+- `environmental-event-termination`: `edu-no-environmental-event-termination-pa`, Absent, battery PA-G3-08, PA-G1-15
+- `repair-cost-termination`: `edu-no-repair-cost-termination-pa`, Absent, battery PA-G3-08, PA-G1-01
+- `landlord-remedies-termination`: `edu-landlord-remedies-termination-pa`, Present, 68 P.S. § 250.501(a)
+- `landlord-breach-remedy`: `edu-landlord-breach-remedy-pa`, Absent, battery PA-G1-01 (related: 35 P.S. § 1700-1)
+- `abandonment-and-mitigation`: `edu-abandonment-and-mitigation-pa`, Absent, battery PA-G3-09 (related: 68 P.S. § 250.505a(b)(5))
+- `cure-and-eviction-grounds`: `edu-cure-and-eviction-grounds-pa`, Present, 68 P.S. § 250.501(a)
+- `nonpayment-notice`: `edu-nonpayment-notice-pa`, Present, 68 P.S. § 250.501(b)
+- `rent-demand-bar`: `edu-rent-demand-bar-pa`, Present, 35 P.S. § 1700-1
+- `notice-to-vacate-additional-terms`: `edu-notice-to-vacate-additional-terms-pa`, Absent, battery PA-G2-15 (related: 68 P.S. § 250.505a(f))
+- `cold-weather-vacate-notice`: `cold-weather-vacate-notice-wy`, tagged, battery PA-G3-18
+- `cold-weather-vacate-notice`: `edu-no-cold-weather-vacate-notice-pa`, Absent, battery PA-G3-18
+- `eviction-hardship-stay`: `edu-eviction-hardship-stay-pa`, Present, 51 Pa.C.S. § 7312(a)
+- `eviction-service-party`: `edu-eviction-service-party-pa`, Absent, battery PA-G3-20 (related: Pa.R.Civ.P.M.D.J. 506)
+- `expedited-criminal-eviction`: `edu-expedited-criminal-eviction-pa`, Present, 68 P.S. § 250.501(d)
+- `possession-bond`: `edu-no-possession-bond-pa`, Absent, battery PA-G3-21 (related: Pa.R.Civ.P.M.D.J. 1008)
+- `post-eviction-property`: `edu-post-eviction-property-pa`, Present, 68 P.S. § 250.505a(b)(3)
+- `rent-into-court-counterclaim`: `edu-rent-into-court-pa`, Present, 68 P.S. § 250.513(a)
+- `unauthorized-occupant-removal`: `edu-unauthorized-occupant-removal-pa`, Present, 68 P.S. § 250.102
+- `trespass-notice`: `edu-trespass-notice-pa`, Present, 18 Pa.C.S. § 3503(b)(1)(i)
+- `tenancy-at-will`: `edu-tenancy-at-will-pa`, Present, 68 P.S. § 250.202
+- `seasonal-tenancy`: `edu-no-seasonal-tenancy-rule-pa`, Absent, battery PA-G3-10
+- `automatic-renewal`: `automatic-renewal-ks`, tagged, 68 P.S. § 250.501(b)
+- `automatic-renewal`: `edu-no-automatic-renewal-rule-pa`, Absent, battery PA-G3-11
+- `owner-move-in-reservation`: `owner-occupancy-termination-ar`, tagged, 68 P.S. § 250.501(b)
+- `owner-move-in-reservation`: `edu-no-owner-move-in-rule-pa`, Absent, battery PA-G3-24
+- `double-letting`: `edu-no-double-letting-rule-pa`, Absent, battery PA-G3-17
+- `forfeiture-redemption`: `edu-forfeiture-redemption-pa`, Present, 68 P.S. § 250.503(c)
+- `redemption`: `edu-redemption-pa`, Present, 68 P.S. § 250.503(c)
+- `foreclosure`: `edu-foreclosure-tenants-pa`, Present, 68 P.S. § 250.304
+- `foreclosure-disclosure`: `edu-no-foreclosure-disclosure-pa`, Absent, battery PA-G3-13
+- `eminent-domain`: `edu-eminent-domain-pa`, Present, 26 Pa.C.S. § 507(a)
+- `tenant-bankruptcy`: `edu-tenant-bankruptcy-pa`, Absent, battery PA-G3-14
+- `social-security-defense`: `edu-no-benefit-delay-defense-pa`, Absent, battery PA-G3-15
+- `minor-tenant-filing`: `edu-minor-tenants-pa`, Present, 23 Pa.C.S. § 5101(a)
+- `entity-landlord-court-representation`: `edu-entity-landlord-representation-pa`, Present, Pa.R.Civ.P.M.D.J. 207
+- `limitation-of-actions`: `edu-limitation-of-actions-pa`, Present, 42 Pa.C.S. § 5525(a)(3)
+- `rent-control`: `edu-rent-control-pa`, Absent, battery PA-G4-01
+- `landlord-registration`: `edu-landlord-registration-pa`, Present, 53 Pa.C.S. § 304(c)(5)
+- `rental-inspection`: `rental-inspection-cooperation-mn`, tagged, 53 Pa.C.S. § 2962(c)(4)
+- `rental-inspection`: `edu-rental-inspection-pa`, Absent, battery PA-G4-03
+- `lead-safe-certification`: `edu-no-lead-safe-certification-pa`, Absent, battery PA-G4-04
+- `health-district-rental-rules`: `edu-no-health-district-rental-rules-pa`, Absent, battery PA-G4-05
+- `single-family-zone-lease-limit`: `edu-no-single-family-zone-lease-limit-pa`, Absent, battery PA-G4-06
+- `good-cause-notice`: `edu-no-good-cause-notice-pa`, Absent, battery PA-G4-08
+- `tenant-rights-statement`: `edu-no-tenant-rights-statement-pa`, Absent, battery PA-G4-08
+- `rights-responsibilities-guide`: `edu-no-rights-guide-pa`, Absent, battery PA-G4-08
+- `term-change-notice`: `edu-term-change-notice-pa`, Present, 1951 Act § 207(a)(2)
+- `substandard-property-receivership`: `edu-substandard-property-receivership-pa`, Present, Abandoned and Blighted Property Conservatorship Act § 5(d)(1)
+- `nonresident-owner-agent`: `edu-nonresident-owner-agent-pa`, Present, 42 Pa.C.S. § 5322(a)(5)
+- `law-enforcement-cooperation`: `edu-law-enforcement-cooperation-pa`, Present, 53 Pa.C.S. § 304
+- `confirmed-absences-outside-title`: `edu-confirmed-absences-outside-title-pa`, Absent, battery PA-G3-23, PA-G2-14, PA-G4-02
+- `accessory-dwelling-unit`: `edu-no-adu-statute-pa`, Absent, battery PA-G4-07
+- `lease-registration`: `edu-lease-registration-pa`, Present, 68 P.S. § 250.204
+- `portfolio-thresholds`: `edu-portfolio-thresholds-pa`, Present, 68 P.S. § 250.501-A
+- `tpa-notice`: `edu-tpa-notice-pa`, Present, 68 Pa.C.S. § 3410(b)
+- `tpa-exemption-notice`: `edu-no-tpa-exemption-notice-pa`, Absent, battery PA-G4-14 (related: 68 Pa.C.S. § 3410(b))
+- `tpa-sunset`: `edu-no-tpa-sunset-pa`, Absent, battery PA-G4-14
+- `rent-escalation`: `rent-increase-midterm-ky`, tagged, 66 Pa.C.S. § 1531(c)
+- `rent-escalation`: `edu-rent-escalation-pa`, Absent, battery PA-G4-01
+- `tax-escalation`: `tax-insurance-escalation-la`, tagged, Fair Credit Extension Uniformity Act § 4(b)(6)(i)
+- `tax-escalation`: `edu-tax-escalation-pa`, Absent, battery PA-G4-15
+- `rent-tax`: `edu-rent-tax-pa`, Present, Tax Reform Code of 1971 § 209(a)(5)
+- `property-tax-rent-disclosure`: `edu-no-property-tax-rent-statement-pa`, Absent (NEEDS_REVIEW), battery PA-G4-17
+- `inspection-condemnation-disclosure`: `edu-no-inspection-condemnation-disclosure-pa`, Absent, battery PA-G4-18
+- `condemned-premises-rent-bar`: `edu-condemned-premises-rent-bar-pa`, Present, 35 P.S. § 1700-1
+- `certificate-of-occupancy-disclosure`: `edu-no-certificate-of-occupancy-disclosure-pa`, Absent, battery PA-G4-18
+- `sanitary-code-variance`: `edu-no-code-variance-notice-pa`, Absent, battery PA-G4-19
+- `frozen-standard-incorporation`: `edu-code-editions-pa`, Present, Pennsylvania Construction Code Act § 104(a)
+- `municipal-utility-lien`: `edu-municipal-utility-lien-pa`, Present, 53 Pa.C.S. § 5607(d)(10)
+- `special-district-representation`: `edu-no-special-district-statement-pa`, Absent, battery PA-G4-21
+- `confirmed-absences-habitability`: `edu-confirmed-absences-habitability-pa`, Absent, battery PA-G5-01
+- `habitability-materiality`: `edu-no-habitability-materiality-rule-pa`, Absent, battery PA-G5-01
+- `habitability-presumption`: `edu-no-habitability-presumption-pa`, Absent, battery PA-G5-32
+- `habitability-statement`: `edu-no-habitability-statement-pa`, Absent, battery PA-G5-01
+- `heating`: `edu-no-heating-statute-pa`, Absent, battery PA-G5-02
+- `fire-code-standard`: `edu-fire-code-standard-pa`, Present, Pennsylvania Construction Code Act § 503(b)
+- `fire-sprinkler-duty`: `edu-no-fire-sprinkler-duty-pa`, Absent, battery PA-G5-03 (related: Pennsylvania Construction Code Act § 901(g)(1))
+- `sprinkler-disclosure`: `edu-no-sprinkler-disclosure-pa`, Absent, battery PA-G5-03
+- `security-devices`: `edu-no-security-devices-statute-pa`, Absent, battery PA-G5-04
+- `smart-access`: `edu-no-smart-access-statute-pa`, Absent, battery PA-G5-05
+- `key-control-policy`: `edu-no-key-control-rule-pa`, Absent, battery PA-G5-06
+- `window-guards`: `edu-no-window-guard-rule-pa`, Absent, battery PA-G5-07
+- `water-heater-temperature`: `edu-no-water-heater-rule-pa`, Absent, battery PA-G5-08
+- `steam-radiator-covers`: `edu-no-radiator-cover-rule-pa`, Absent, battery PA-G5-08
+- `stove-refrigerator`: `edu-no-appliance-duty-pa`, Absent, battery PA-G5-08
+- `pool-safety`: `edu-no-pool-safety-rule-pa`, Absent, battery PA-G5-09
+- `balcony-inspection`: `edu-no-balcony-inspection-pa`, Absent, battery PA-G5-10
+- `common-area-lighting`: `edu-common-area-lighting-pa`, Present, 68 P.S. § 250.502-A
+- `asbestos-hazards`: `edu-no-asbestos-tenant-notice-pa`, Absent, battery PA-G5-12
+- `defective-drywall-disclosure`: `edu-no-drywall-disclosure-pa`, Absent, battery PA-G5-13
+- `hazardous-contamination-disclosure`: `edu-no-contamination-lease-disclosure-pa`, Absent, battery PA-G5-14 (related: 27 Pa.C.S. § 6505(a))
+- `lead-state-notices`: `edu-no-state-lead-notices-pa`, Absent, battery PA-G5-15
+- `private-well-testing`: `edu-no-private-well-testing-pa`, Absent, battery PA-G5-16
+- `bed-bug-cooperation`: `pest-cooperation-pr`, tagged, battery PA-G5-17
+- `bed-bug-cooperation`: `edu-bed-bug-cooperation-pa`, Absent, battery PA-G5-17
+- `pest-control-notice`: `edu-no-pest-control-notice-pa`, Absent, battery PA-G5-17
+- `portable-cooling-device`: `edu-no-cooling-device-right-pa`, Absent, battery PA-G5-18
+- `maintenance-duty-shift`: `edu-maintenance-duty-shift-pa`, Absent, battery PA-G5-19
+- `promises-to-repair`: `edu-promises-to-repair-pa`, Absent, battery PA-G5-19 (related: 73 P.S. § 201-2(4)(xiv))
+- `repair-notice`: `edu-repair-notice-pa`, Absent, battery PA-G5-20
+- `designated-repairer`: `edu-no-designated-repairer-rule-pa`, Absent, battery PA-G5-20
+- `tenant-repair-agreement`: `tenant-repair-agreement-hi`, tagged, Fair Credit Extension Uniformity Act § 4(b)(6)(i)
+- `tenant-repair-agreement`: `edu-tenant-repair-agreement-pa`, Absent, battery PA-G5-19
+- `repair-escrow-exemption-notice`: `edu-no-repair-escrow-exemption-pa`, Absent, battery PA-G5-20
+- `alt-housing`: `edu-no-alternate-housing-duty-pa`, Absent, battery PA-G5-21
+- `disaster-duties`: `edu-no-disaster-tenancy-rule-pa`, Absent, battery PA-G5-22
+- `disaster-displaced-guests`: `edu-no-disaster-guest-rule-pa`, Absent, battery PA-G5-22
+- `shutdown-rent-protection`: `edu-no-shutdown-rent-rule-pa`, Absent, battery PA-G5-22
+- `subsidy-habitability-proration`: `edu-subsidy-habitability-pa`, Absent, battery PA-G5-23
+- `subsidized-inspection-refusal`: `edu-subsidized-inspection-pa`, Absent, battery PA-G5-23
+- `nuisance`: `edu-nuisance-pa`, Present, 42 Pa.C.S. § 8383
+- `prop65-rental-warning`: `edu-no-chemical-warning-rule-pa`, Absent, battery PA-G5-26
+- `ordnance-demolition-meter-disclosures`: `edu-no-ordnance-demolition-meter-disclosure-pa`, Absent, battery PA-G5-27
+- `military-air-zone-disclosure`: `edu-no-military-zone-disclosure-pa`, Absent, battery PA-G5-28
+- `shoreline-access-disclosure`: `edu-no-shoreline-disclosure-pa`, Absent, battery PA-G5-29
+- `stigmatized-property`: `edu-no-stigmatized-property-rule-pa`, Absent, battery PA-G5-30
+- `sex-offender-disclosure`: `edu-no-sex-offender-disclosure-pa`, Absent, battery PA-G5-31 (related: 42 Pa.C.S. § 9799.28(a))
+- `sex-offender-occupancy`: `edu-sex-offender-occupancy-pa`, Present, 42 Pa.C.S. § 9799.25(f)(1)
+- `sfr-occupancy-disclosure`: `edu-no-sfr-occupancy-disclosure-pa`, Absent, battery PA-G5-32
+- `electric-submetering-disclosure`: `edu-utility-resale-pa`, Present, 66 Pa.C.S. § 1313
+- `energy-data-release`: `edu-no-energy-data-rule-pa`, Absent, battery PA-G6-02
+- `meter-conservation-charge`: `edu-meter-charges-pa`, Absent, battery PA-G6-02, PA-G6-01 (related: 66 Pa.C.S. § 1313)
+- `utility-allowance-cap`: `edu-utility-rebilling-cap-pa`, Present, 66 Pa.C.S. § 1313
+- `utility-apportionment`: `edu-utility-apportionment-pa`, Absent, battery PA-G6-01
+- `utility-disclosure-attachment`: `edu-no-utility-disclosure-attachment-pa`, Absent, battery PA-G6-01
+- `utility-disconnection-notice-authorization`: `edu-utility-disconnection-notice-pa`, Absent, battery PA-G6-03
+- `utility-interruption-submeter`: `edu-no-submeter-interruption-rule-pa`, Absent, battery PA-G6-01
+- `utility-shutoff-statute`: `edu-utility-shutoff-statute-pa`, Present, 66 Pa.C.S. §§ 1523
+- `utility-submetering-disclosure`: `edu-no-submetering-disclosure-pa`, Absent, battery PA-G6-01 (related: 66 Pa.C.S. § 1313)
+- `utility-transfer`: `edu-no-utility-transfer-rule-pa`, Absent, battery PA-G6-04
+- `ev-charging-end-of-tenancy`: `edu-no-ev-charging-end-rule-pa`, Absent, battery PA-G6-05
+- `ev-charging-requirements`: `edu-no-ev-charging-requirements-pa`, Absent, battery PA-G6-05
+- `ev-charging-shared-area`: `edu-no-shared-ev-charging-rule-pa`, Absent, battery PA-G6-05
+- `portable-solar`: `edu-no-portable-solar-right-pa`, Absent, battery PA-G6-06
+- `telecom-access`: `edu-telecom-access-pa`, Present, 68 P.S. § 250.502-B
+- `recycling-notice`: `edu-recycling-pa`, Present, Recycling and Waste Reduction Act § 1501
+- `unbundled-parking`: `parking-disclosure-pa` (clause), Present, 1951 Act § 207(a)(1)
+- `unbundled-parking`: `edu-parking-disclosure-pa`, Present, 1951 Act § 207(a)(1)
+- `parking-rules-notice`: `edu-parking-rules-notice-pa`, Present, 1951 Act § 207(a)(2)
+- `disability-accommodation`: `edu-disability-accommodation-pa`, Present, 43 P.S. § 955(h)(3.2)
+- `service-animal-denial-penalty`: `edu-service-animal-denial-pa`, Present, 43 P.S. § 955(h)(1)
+- `service-animal-misrepresentation`: `edu-service-animal-misrepresentation-pa`, Present, Assistance and Service Animal Integrity Act § 5(a)(1)
+- `pet-eviction-fact-sheet`: `edu-no-pet-fact-sheet-pa`, Absent, battery PA-G7-03
+- `animal-care-access`: `animal-care-access-vi`, tagged, battery PA-G7-03
+- `animal-care-access`: `edu-animal-care-access-pa`, Absent, battery PA-G7-03
+- `protected-class-inquiry-ban`: `edu-protected-class-inquiry-ban-pa`, Present, 43 P.S. § 955(h)(6)
+- `immigration-status`: `edu-immigration-status-pa`, Absent, battery PA-G7-04
+- `children-occupancy`: `edu-children-occupancy-pa`, Present, 43 P.S. § 955(h)(1)
+- `tenant-screening`: `edu-tenant-screening-pa`, Present, 18 Pa.C.S. § 9122.5(a.1)
+- `employee-screening`: `edu-no-employee-screening-rule-pa`, Absent, battery PA-G5-06
+- `tenant-confidential-information`: `edu-tenant-confidential-information-pa`, Present, Breach of Personal Information Notification Act § 3(a)
+- `tenant-records`: `edu-tenant-records-pa`, Present, battery PA-G7-06
+- `rent-reporting`: `edu-no-rent-reporting-rule-pa`, Absent, battery PA-G7-06
+- `tenant-right-to-organize`: `edu-tenant-right-to-organize-pa`, Present, 68 P.S. § 250.205
+- `political-access`: `edu-no-political-access-rule-pa`, Absent, battery PA-G7-07
+- `religious-cultural-display`: `edu-no-religious-display-rule-pa`, Absent, battery PA-G7-08
+- `tenant-display-rights`: `edu-no-tenant-display-rights-pa`, Absent, battery PA-G7-08
+- `firearms`: `edu-firearms-pa`, Absent, battery PA-G7-09
+- `cannabis`: `cannabis-restrictions-ak`, tagged, Medical Marijuana Act § 304(b)(1)
+- `cannabis`: `edu-cannabis-pa`, Present, Medical Marijuana Act § 304(b)(1)
+- `home-business`: `edu-home-business-pa`, Present, Pennsylvania Municipalities Planning Code § 603(l)
+- `family-child-care`: `edu-no-family-child-care-right-pa`, Absent, battery PA-G7-11
+- `waterbed`: `waterbed-mn`, tagged, 68 P.S. § 250.512(a)
+- `waterbed`: `edu-waterbed-pa`, Absent, battery PA-G7-12
+- `tenant-insurance-claims`: `edu-no-tenant-insurance-claim-rule-pa`, Absent, battery PA-G7-12
+- `renters-insurance-rules`: `edu-renters-insurance-rules-pa`, Absent, battery PA-G7-12
+- `landlord-liability-insurance`: `edu-no-landlord-insurance-mandate-pa`, Absent, battery PA-G7-12
+- `student-housing`: `edu-no-student-housing-rule-pa`, Absent, battery PA-G7-13
+- `senior-housing-work-card`: `edu-no-senior-housing-staff-rule-pa`, Absent, battery PA-G7-13
+- `tenant-employee-housing`: `edu-employee-housing-pa`, Absent, battery PA-G7-14
+- `veterans-incentive`: `edu-no-veterans-incentive-pa`, Absent, battery PA-G7-15
+- `translation-duty`: `edu-no-translation-duty-pa`, Absent, battery PA-G7-15
+- `foreign-ownership`: `edu-foreign-ownership-pa`, Present, battery PA-G7-16
+- `drug-free-housing-addendum`: `edu-drug-free-addendum-pa`, Absent, battery PA-G7-18
+- `farmland-hunting-rights`: `edu-farmland-hunting-pa`, Absent, battery PA-G7-17
+- `usufructuary-lessor`: `edu-no-usufruct-pa`, Absent, battery PA-G7-17
+- `communal-land-lease-approval`: `edu-no-communal-land-approval-pa`, Absent, battery PA-G7-17
+- `actual-notice-method`: `edu-actual-notice-method-pa`, Present, 68 P.S. § 250.501(f)
+- `adverse-proceeding-notice`: `edu-no-adverse-proceeding-notice-pa`, Absent, battery PA-G8-02
+- `appliances-excluded`: `appliances-excluded-la`, tagged, battery PA-G5-08
+- `furnishings-included`: `furnishings-included-la`, tagged, 68 P.S. § 250.512(a)
+- `emergency-contact`: `emergency-contact-co`, tagged, battery PA-G8-10
+- `extended-absence-notice`: `extended-absence-notice-ks`, tagged, 68 P.S. § 250.505a(b)(5)
+- `guarantor-renewal`: `guaranty-as`, tagged, 73 P.S. § 2205
+- `lease-copy`: `lease-copy-receipt-hi`, tagged, battery PA-G8-03
+- `lease-notice-initial-requirement`: `edu-no-initialing-requirement-pa`, Absent, battery PA-G8-08
+- `lease-term-limitation`: `edu-lease-term-formalities-pa`, Present, 68 P.S. § 250.202
+- `lease-type-parity`: `edu-no-lease-type-parity-pa`, Absent, battery PA-G8-05
+- `lease-type-size`: `edu-no-lease-type-size-pa`, Absent, battery PA-G8-05
+- `statute-of-frauds-lease-term`: `edu-statute-of-frauds-lease-pa`, Present, 68 P.S. § 250.202
+- `written-notice-required`: `edu-written-notice-required-pa`, Present, 68 P.S. § 250.501(a)
+- `informal-dispute-resolution`: `informal-dispute-resolution-or`, tagged, 68 P.S. § 250.513
+- `other-landlord-facilities`: `edu-no-facility-list-pa`, Absent, battery PA-G8-10
+- `periodic-services-entry`: `scheduled-services-entry-la`, tagged, battery PA-G8-10
+- `purpose-limitation`: `edu-purpose-limitation-pa`, Absent, battery PA-G8-11
+- `rent-installments`: `rent-installments-or`, tagged, 68 P.S. § 250.503(c)
+- `rules-regulations`: `rules-wi`, tagged, 66 Pa.C.S. § 1531(c)
+- `tenant-portal`: `tenant-portal-mn`, tagged, Fair Credit Extension Uniformity Act § 4(b)(6)(i)
+- `tenant-statutory-duties`: `edu-tenant-statutory-duties-pa`, Present, 68 P.S. § 250.503-A
+- `truth-in-renting`: `edu-no-truth-in-renting-pa`, Absent, battery PA-G8-08
+- `inspection-notice-penalty`: `edu-inspection-notice-penalty-pa`, Present, 68 P.S. § 250.512(b)
+- `construction-liens`: `edu-construction-liens-pa`, Present, Mechanics' Lien Law of 1963 § 303(d)
+- `construction-liens`: `no-liens-ar`, tagged, Mechanics' Lien Law of 1963 § 303(d)
+- `hoa`: `edu-hoa-pa`, Present, 68 Pa.C.S. § 3302(a)(11)(i)
+- `hoa`: `association-approval-la`, tagged, 68 P.S. § 250.511a
+- `association-obligations-disclosure`: `edu-no-association-lease-disclosure-pa`, Absent, battery PA-G8-09
+- `lease-content-requirements`: `edu-lease-content-requirements-pa`, Present, 73 P.S. § 2205(d)
+- `required-disclosures`: `edu-required-disclosures-pa`, Present, 68 Pa.C.S. § 7103(a)
+- `optional-lease-terms`: `edu-lease-option-disclosure-pa`, Present, 68 Pa.C.S. § 7103(a)
+- `prohibited-acts-renter`: `prohibited-acts-renter-wy`, tagged, 68 P.S. § 250.503-A
+- `confirmed-absences-misc`: `edu-confirmed-absences-misc-pa`, Absent, battery PA-G8-03 (related: 68 P.S. § 250.205)
+
+### §3 Batteries
+
+Every absence battery ran a nonsense control ("zqxvbnmwt") and a must-hit control ("landlord") in the same call over the same corpus, and at least one known positive (a real saved unit where one exists, otherwise a synthetic sentence in the statute's style) against each pattern. A battery whose positive failed was fixed and rerun under the same id before any row cited it (PA-G1-05 and PA-G1-13 in batch 1). Batteries that also ran the General Assembly keyword search ran its control and a positive query ("security deposit" AND residential) in the same call; batteries without a keyword search are regex-only, and their entries below show no keyword line.
+
+- **PA-G1-01** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 336; positives 26 205 passed, synthetic passed, synthetic passed. Patterns: "habitab\w*" 3; "unfit for (human )?habitation" 6; "(waive\w*|waiver)[^.]{0,150}(habitab\w*|repair\w*|maintenance)" 2. Keyword search (control 0): [habitability AND tenant] 8; ["warranty of habitability"] 0; ["fit for human habitation" AND lease] 4.
+- **PA-G1-02** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 336; positives lta 504-A passed, lta 511.1 passed, synthetic passed. Patterns: "(may|shall|can) not be waived" 7; "(attempted )?waiver[^.]{0,120}(void|unenforceable)" 4; "(void|unenforceable)[^.]{0,120}waiver" 1. Keyword search (control 0): [waiver AND tenant AND void] 63; ["may not be waived" AND tenant] 18.
+- **PA-G1-03** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 336; positives synthetic passed, synthetic passed. Patterns: "(show|exhibit)\w*[^.]{0,120}(prospective|purchaser|buyer)[^.]{0,120}(tenant|lessee|dwelling|premises)" 0; "(enter|entry)[^.]{0,100}(dwelling unit|leased premises|rental unit|demised premises)" 0. Keyword search (control 0): ["right of entry" AND tenant AND notice] 12; [landlord AND enter AND "dwelling unit" AND notice] 9.
+- **PA-G1-04** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 336; positives synthetic passed, synthetic passed. Patterns: "smok\w*[^.]{0,200}(apartment|multi-?unit|multifamily|dwelling unit|residential|tenant|lessee|landlord)" 1; "(apartment|multi-?unit|multifamily|dwelling unit|residential|tenant|lessee|landlord)[^.]{0,200}smok\w*" 0. Keyword search (control 0): [smoking AND apartment] 8; [smoking AND tenant AND lease] 29.
+- **PA-G1-05** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 336; positives synthetic passed, synthetic passed. Patterns: "\bjury\b[^.]{0,200}(waive\w*|waiver)" 7; "(waive\w*|waiver)[^.]{0,200}\bjury\b" 5. Keyword search (control 0): ["jury trial" AND lease] 15; [jury AND waive AND tenant] 37.
+- **PA-G1-06** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 336; positives synthetic passed, synthetic passed, asaia 4 passed. Patterns: "(exculpat\w*|hold harmless|indemnif\w*)[^.]{0,200}(\blease\b|\btenant|\blessee|\blandlord|\blessor)" 1; "(\blease\b|\btenant|\blessee|\blandlord|\blessor)[^.]{0,200}(exculpat\w*|hold harmless|indemnif\w*)" 1; "(landlord|lessor)[^.]{0,80}(shall|will) not be liable" 2. Keyword search (control 0): [exculpatory AND lease] 6; ["hold harmless" AND tenant AND landlord] 0; [indemnify AND tenant AND landlord AND lease] 0.
+- **PA-G1-07** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 336; positives 13 2302 passed. Patterns: "unconscionab\w*" 68. Keyword search (control 0): [unconscionable AND lease AND tenant] 6.
+- **PA-G1-08** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 336; positives lta 505.1 passed, synthetic passed. Patterns: "(attorney'?s?'? fees?|counsel fees?)[^.]{0,200}(\blease\b|\btenant|\blessee|\blandlord|\blessor|\brent\b)" 1; "(\blease\b|\btenant|\blessee|\blandlord|\blessor|\brent\b)[^.]{0,200}(attorney'?s?'? fees?|counsel fees?)" 5. Keyword search (control 0): ["attorney fees" AND lease AND tenant] 39; ["attorney's fees" AND landlord AND tenant] 6.
+- **PA-G1-09** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 336; positives synthetic passed, fceua 4 passed. Patterns: "(collection (fee|cost|charge|expense)s?|costs? of collection)" 42; "(fee|charge|expense)[^.]{0,60}incidental to the principal obligation" 2. Keyword search (control 0): ["costs of collection" AND tenant] 5; ["collection fee" AND lease] 3.
+- **PA-G1-10** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 336; positives synthetic passed, synthetic passed. Patterns: "(fee|charge)s?[^.]{0,120}(notice to quit|eviction|evict\w*|serv(ice|ing) of (a |the )?notice|landlord and tenant (complaint|action))" 0; "(notice to quit|eviction|evict\w*)[^.]{0,120}(fee|charge)s?" 0. Keyword search (control 0): [eviction AND fee AND lease AND tenant] 18; ["notice to quit" AND fee] 9.
+- **PA-G1-11** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 336; positives 66 1532 passed, synthetic passed. Patterns: "liquidated damages" 26; "\bpenalt(y|ies)\b[^.]{0,80}(contract|lease|agreement)" 17. Keyword search (control 0): ["liquidated damages" AND lease AND tenant] 9; ["liquidated damages" AND landlord] 7.
+- **PA-G1-12** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 336; positives synthetic passed, synthetic passed, lta 505-A passed. Patterns: "(accept\w*|receipt|receiv\w*)[^.]{0,120}\brent\b[^.]{0,150}(waive\w*|waiver)" 0; "(waive\w*|waiver)[^.]{0,150}(accept\w*|receipt|receiv\w*)[^.]{0,120}\brent\b" 0; "shall not (act as|operate as|constitute|be deemed) a waiver" 7. Keyword search (control 0): ["acceptance of rent" AND waiver] 0; ["accept rent" AND tenant AND waive] 0; ["partial payment" AND tenant AND eviction] 0.
+- **PA-G1-13** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 336; positives synthetic passed, synthetic passed, lta 504-A passed. Patterns: "(\blease\b|rental agreement)[^.]{0,200}(\bvoid\b|unenforceable|may not be waived|shall not (contain|include))" 1; "(\bvoid\b|unenforceable)[^.]{0,200}(\blease\b|rental agreement)" 2; "(may not be waived|shall be void|is void|unenforceable)[^.]{0,200}(\blease\b|rental agreement)" 2. Keyword search (control 0): [lease AND "shall be void" AND tenant] 41; ["rental agreement" AND void AND tenant] 6.
+- **PA-G1-14** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 336; positives synthetic passed. Patterns: "homestead" 85. Keyword search (control 0): [homestead AND exemption AND waive] 11; [homestead AND tenant] 39.
+- **PA-G1-15** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 336; positives synthetic passed, synthetic passed. Patterns: "(fire|casualty|destroy\w*|untenantable)[^.]{0,200}(\blease\b|\btenant|\blessee)[^.]{0,200}(terminat\w*|surrender\w*|abate\w*|rent\b)" 1; "(\blease\b|\btenant|\blessee)[^.]{0,200}(fire|casualty|destroy\w*|untenantable)" 6. Keyword search (control 0): ["destroyed by fire" AND tenant] 0; [casualty AND lease AND tenant AND surrender] 3; [untenantable AND lease] 3.
+- **PA-G1-16** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 336; positives synthetic passed, synthetic passed. Patterns: "arbitrat\w*[^.]{0,200}(\blease\b|\btenant|\blessee|\blandlord|residential)" 1; "(\blease\b|\btenant|\blessee|\blandlord|residential)[^.]{0,200}arbitrat\w*" 5. Keyword search (control 0): [arbitration AND lease AND tenant] 38; [arbitration AND landlord AND tenant] 15.
+- **PA-G1-17** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 336; positives synthetic passed, synthetic passed. Patterns: "Unfair Trade Practices and Consumer Protection Law[^.]{0,300}(\blease\b|\btenant|\blessee|\blandlord|rent\b)" 1; "(\blease\b|\btenant|\blessee|\blandlord|rent\b)[^.]{0,300}Unfair Trade Practices and Consumer Protection Law" 1. Keyword search (control 0): ["Unfair Trade Practices" AND tenant AND landlord] 0; ["consumer protection" AND lease AND tenant] 10.
+- **PA-G1-18** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 336; positives synthetic passed, synthetic passed. Patterns: "(knowingly|willfully|wilfully)[^.]{0,150}(\blease\b|rental agreement)[^.]{0,150}(provision|term|clause)" 1; "(\blease\b|rental agreement)[^.]{0,150}(provision|term|clause)[^.]{0,150}(knowingly|willfully|wilfully)" 0. Keyword search (control 0): [knowingly AND lease AND provision AND tenant] 57; ["prohibited provision" AND lease] 3.
+- **PA-G2-01** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 357; positives synthetic passed, synthetic passed. Patterns: "(carpet\w*|clean\w*)[^.]{0,150}(security deposit|escrow|\btenant|\blessee)" 0; "(security deposit|escrow|\btenant|\blessee)[^.]{0,150}(carpet\w*|professional(ly)? clean\w*)" 0. Keyword search (control 0): [carpet AND "security deposit"] 0; [cleaning AND "security deposit" AND tenant] 0.
+- **PA-G2-02** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 357; positives synthetic passed, synthetic passed. Patterns: "(security deposit|rental deposit|rent deposit)[^.]{0,200}(unclaimed|abandoned|escheat\w*)" 0; "(unclaimed|abandoned|escheat\w*)[^.]{0,200}(security deposit|rental deposit|rent deposit|\btenant|\blessee|\blandlord)" 8. Keyword search (control 0): ["security deposit" AND unclaimed] 0; [unclaimed AND landlord AND tenant AND deposit] 0.
+- **PA-G2-03** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 357; positives synthetic passed, synthetic passed. Patterns: "(security deposit|escrow|deposit)[^.]{0,150}install\w*" 3; "install\w*[^.]{0,150}(security deposit|escrow funds|deposited in escrow)" 0. Keyword search (control 0): ["security deposit" AND installment] 3.
+- **PA-G2-04** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 357; positives synthetic passed, synthetic passed. Patterns: "(last|final) month\W{0,3}s? rent" 0; "(prepaid|advance(d)?) rent|rent (paid )?in advance" 2. Keyword search (control 0): ["last month" AND rent AND tenant] 0; ["rent in advance" AND tenant] 0.
+- **PA-G2-05** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 357; positives lta 512 passed, lta 512 passed. Patterns: "(forwarding|new) address" 24; "surrender and acceptance" 5. Keyword search (control 0): ["forwarding address" AND tenant] 9.
+- **PA-G2-06** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 357; positives synthetic passed, synthetic passed. Patterns: "standards?[^.]{0,120}(security deposit|escrow|deposit amount)" 0; "(security deposit|escrow funds)[^.]{0,120}(calculat\w*|standards?|criteria)" 0. Keyword search (control 0): ["security deposit" AND standards] 0.
+- **PA-G2-07** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 357; positives synthetic passed, synthetic passed, lta 511.3 passed. Patterns: "non-?refundable" 39; "(fee|charge)s?[^.]{0,120}(in lieu of|instead of)[^.]{0,80}(security deposit|escrow|deposit)" 1; "(in lieu of|instead of)[^.]{0,80}(security deposit|escrow|depositing)" 4. Keyword search (control 0): [nonrefundable AND tenant AND lease] 6; ["in lieu of" AND "security deposit"] 3.
+- **PA-G2-08** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 357; positives synthetic passed, lta 208 passed. Patterns: "(holding|earnest|good faith) (deposit|money)" 0; "application fee|rental application" 69. Keyword search (control 0): ["holding deposit"] 0; ["application fee" AND tenant] 3.
+- **PA-G2-09** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 357; positives synthetic passed. Patterns: "(deposit|escrow)[^.]{0,200}(within|not later than|no later than) (\d+|ten|fifteen|twenty|thirty|five) (\(\d+\) )?days[^.]{0,120}(abandon\w*|surrender\w*|evict\w*|death)" 1. Keyword search (control 0): ["security deposit" AND abandoned AND tenant] 0.
+- **PA-G2-10** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 357; positives synthetic passed, lta 207 passed. Patterns: "(fee|fees|charge|charges)[^.]{0,150}(stated|disclosed|set forth|listed|specified)[^.]{0,100}(\blease\b|rental agreement)" 0; "(state|disclose|list|set forth)\w*[^.]{0,40}in (a|the) (\blease\b|rental agreement)[^.]{0,200}(fee|charge)" 2. Keyword search (control 0): [fee AND lease AND disclose AND tenant] 64; ["total monthly" AND rent] 0.
+- **PA-G2-11** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 357; positives synthetic passed. Patterns: "(fee|charge)s?[^.]{0,150}(not (provided|rendered|furnished|supplied)|services? (that|which) (is|are) not)" 1. Keyword search (control 0): [fee AND service AND "not provided" AND tenant] 126.
+- **PA-G2-12** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 357; positives synthetic passed, synthetic passed. Patterns: "\blate (fee|charge|payment charge|penalty)s?\b" 64; "(charge|fee|penalty)[^.]{0,80}(late|delinquent) (rent|payment)" 5. Keyword search (control 0): ["late fee" AND rent] 10; ["late charge" AND tenant] 0.
+- **PA-G2-13** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 357; positives synthetic passed, synthetic passed. Patterns: "\bpets?\b[^.]{0,150}(deposit|fee|rent)\b" 0; "(deposit|fee)s?[^.]{0,150}\b(pets?|animals?)\b[^.]{0,80}(\btenant|\blessee|dwelling|rental)" 0. Keyword search (control 0): [pet AND deposit AND tenant] 9; ["assistance animal" AND fee] 0.
+- **PA-G2-14** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 357; positives synthetic passed, synthetic passed. Patterns: "(receive|collect)\w*[^.]{0,40}\brent\b[^.]{0,200}(repair|maintain|maintenance|habitab\w*)" 0; "(repair|maintain|maintenance)[^.]{0,200}(receive|collect)\w*[^.]{0,40}\brent\b" 0. Keyword search (control 0): [rent AND "duty to maintain" AND landlord] 0.
+- **PA-G2-15** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 357; positives synthetic passed, synthetic passed. Patterns: "lock\w*[^.]{0,40}\bout\b|lockout|chang\w* (the )?locks?" 1; "(exclude|remove|evict)\w*[^.]{0,60}(\btenant|\blessee|occupant)[^.]{0,120}(without|other than)[^.]{0,60}(court|judicial|process|order)" 0. Keyword search (control 0): [lockout AND tenant] 2; ["change the locks" AND tenant] 0.
+- **PA-G2-16** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 357; positives synthetic passed, synthetic passed. Patterns: "(utility|utilities|water|sewer|gas|electric\w*)[^.]{0,100}deposits?\b[^.]{0,150}(\btenant|\blessee|residential|customer|landlord)" 0; "deposits?\b[^.]{0,100}(utility|utilities)[^.]{0,150}(\btenant|\blessee|residential|customer)" 0. Keyword search (control 0): [utility AND deposit AND tenant] 73; ["utility deposit"] 0.
+- **PA-G2-17** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 357; positives synthetic passed, synthetic passed. Patterns: "rental (license|licensing|permit|registration|inspection)[^.]{0,60}(fee|charge)" 0; "(fee|charge)[^.]{0,60}rental (license|licensing|permit|registration|inspection)" 0. Keyword search (control 0): ["rental license" AND fee] 0; ["rental inspection" AND fee] 0.
+- **PA-G2-18** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 357; positives synthetic passed, synthetic passed. Patterns: "(fine|fines|penalt\w*|costs? of abatement)[^.]{0,150}(\btenant|\blessee|occupant)[^.]{0,150}(owner|landlord)" 0; "(owner|landlord)[^.]{0,150}(fine|fines|penalt\w*)[^.]{0,100}(\btenant|\blessee|occupant)" 0. Keyword search (control 0): [fine AND tenant AND owner AND ordinance AND violation] 44.
+- **PA-G2-19** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 357; positives synthetic passed, synthetic passed. Patterns: "(tamper\w*|remov\w*|disabl\w*|disconnect\w*)[^.]{0,120}(alarm|detector)s?" 1; "(alarm|detector)s?[^.]{0,120}(tamper\w*|remov\w*|disabl\w*)" 1. Keyword search (control 0): ["smoke detector" AND tenant] 0; ["carbon monoxide" AND tenant AND alarm] 1.
+- **PA-G2-20** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 357; positives synthetic passed, synthetic passed. Patterns: "(subsid\w*|housing assistance|section 8|voucher|housing choice)[^.]{0,200}\blate\b" 0; "\blate\b[^.]{0,120}(subsid\w*|housing assistance|voucher)" 0. Keyword search (control 0): [subsidy AND "late fee"] 0; ["housing assistance" AND tenant AND late] 0.
+- **PA-G2-21** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 357; positives synthetic passed, synthetic passed. Patterns: "\bconcessions?\b[^.]{0,120}(\brent\b|\btenant|\blessee|\blease\b)" 5; "free rent|rent[- ]free|reduced rent" 0. Keyword search (control 0): [concession AND rent AND tenant] 11; ["free rent"] 0.
+- **PA-G2-22** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 357; positives synthetic passed, synthetic passed, lipl 202 passed. Patterns: "\binterest\b[^.]{0,150}(unpaid rent|rent (due|owed|in arrears)|arrears of rent)" 1; "(unpaid rent|rent (due|owed|in arrears)|arrears of rent)[^.]{0,150}\binterest\b" 1; "legal rate of interest|lawful rate" 27. Keyword search (control 0): [interest AND "unpaid rent"] 0; ["legal rate of interest"] 40.
+- **PA-G3-01** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 357; positives synthetic passed, synthetic passed. Patterns: "(chang\w*|rekey\w*|re-key\w*|replac\w*)[^.]{0,60}locks?[^.]{0,200}(domestic violence|victim of abuse|abuse|protection from abuse|sexual violence|stalking)" 0; "(domestic violence|victim of abuse|abuse|protection from abuse|sexual violence|stalking)[^.]{0,200}(chang\w*|rekey\w*|replac\w*)[^.]{0,60}locks?" 0. Keyword search (control 0): ["domestic violence" AND locks AND tenant] 0; [abuse AND tenant AND "change the locks"] 0.
+- **PA-G3-02** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 357; positives synthetic passed, synthetic passed. Patterns: "(domestic violence|victim of abuse|abuse|protection from abuse|sexual violence|stalking)[^.]{0,200}(terminat\w*|end)[^.]{0,80}(\blease\b|tenancy|rental agreement)" 0; "(\blease\b|tenancy|rental agreement)[^.]{0,120}(terminat\w*)[^.]{0,200}(domestic violence|victim of abuse|abuse|protection from abuse|sexual violence|stalking)" 0. Keyword search (control 0): ["domestic violence" AND lease AND terminate] 3; ["victim of abuse" AND tenant] 10.
+- **PA-G3-03** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 357; positives lta 513 passed, lta 505.1 passed. Patterns: "(domestic violence|victim of abuse|abuse|protection from abuse|sexual violence|stalking)[^.]{0,250}(\btenant|\blessee|\blandlord|evict\w*|rental|lease\b)" 19; "(\btenant|\blessee|\blandlord|evict\w*|lease\b)[^.]{0,250}(domestic violence|victim of abuse|abuse|protection from abuse|sexual violence|stalking)" 14. Keyword search (control 0): ["victim of domestic violence" AND landlord] 7.
+- **PA-G3-04** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 357; positives synthetic passed, synthetic passed. Patterns: "(domestic violence|victim of abuse|abuse|protection from abuse|sexual violence|stalking)[^.]{0,200}(security deposit|escrow)" 1; "(security deposit|escrow funds)[^.]{0,200}(domestic violence|victim of abuse|abuse|protection from abuse|sexual violence|stalking)" 0. Keyword search (control 0): ["security deposit" AND "domestic violence"] 0.
+- **PA-G3-05** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 357; positives synthetic passed, synthetic passed. Patterns: "(confidential\w*|disclos\w*)[^.]{0,200}(victim|abuse|domestic violence)[^.]{0,200}(landlord|\btenant|\blessee|rental|housing)" 1; "(landlord|\btenant|rental|housing)[^.]{0,200}(confidential\w*)[^.]{0,200}(victim|abuse|domestic violence)" 0. Keyword search (control 0): [confidential AND "domestic violence" AND landlord] 0; ["address confidentiality" AND tenant] 3.
+- **PA-G3-06** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 357; positives synthetic passed. Patterns: "35 P\.S\. § 10181|act of October 7, 1976 \(P\.L\.1090, No\.218\)|Protection From Abuse Act" 3. Keyword search (control 0): ["Protection From Abuse Act"] 39.
+- **PA-G3-07** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 357; positives synthetic passed, synthetic passed. Patterns: "(terminat\w*|cancel\w*)[^.]{0,120}(\blease\b|rental agreement|tenancy)[^.]{0,200}(nursing (home|facility)|assisted living|personal care|disab\w*|infirm\w*|medical|incapacit\w*)" 0; "(nursing (home|facility)|assisted living|personal care home|infirm\w*)[^.]{0,200}(terminat\w*|cancel\w*)[^.]{0,80}(\blease\b|rental agreement|tenancy)" 0. Keyword search (control 0): ["nursing home" AND lease AND terminate AND tenant] 5; ["assisted living" AND lease AND tenant] 4.
+- **PA-G3-08** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 357; positives synthetic passed, synthetic passed. Patterns: "(terminat\w*|cancel\w*)[^.]{0,120}(\blease\b|rental agreement|tenancy)[^.]{0,200}(flood|disaster|emergency|environmental|contamina\w*|hazard\w*)" 0; "(flood|disaster|environmental|contamina\w*)[^.]{0,200}(terminat\w*|cancel\w*)[^.]{0,80}(\blease\b|rental agreement|tenancy)" 0. Keyword search (control 0): [disaster AND lease AND terminate AND tenant] 17.
+- **PA-G3-09** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 357; positives synthetic passed, synthetic passed, lta 505.1 passed. Patterns: "(mitigat\w*)[^.]{0,200}(\blease\b|\btenant|\blessee|\brent\b|landlord|lessor)" 0; "\brelet(s|ting|ted)?\b|\bre-let\w*|\brerent\w*|\bre-rent\w*" 0; "(abandon\w*)[^.]{0,120}(premises|dwelling unit|leased|rental unit|tenancy)" 4. Keyword search (control 0): [mitigate AND landlord AND tenant] 3; [relet AND lease] 0.
+- **PA-G3-10** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 357; positives synthetic passed, synthetic passed. Patterns: "\bseasonal\w*[^.]{0,150}(\blease\b|rental|\btenant|dwelling)" 0; "(vacation|summer|recreational|short-term)\s(rental|home|property|lodging)" 1. Keyword search (control 0): [seasonal AND lease AND tenant] 20; ["short-term rental"] 8.
+- **PA-G3-11** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 357; positives synthetic passed, synthetic passed. Patterns: "automatic\w* renew\w*|auto-renew\w*|renew\w* automatic\w*" 4; "(renew\w*|extend\w*)[^.]{0,120}(\blease\b|rental agreement)[^.]{0,150}(unless|without)[^.]{0,80}notice" 0. Keyword search (control 0): ["automatic renewal"] 9; ["automatically renew" AND lease] 0.
+- **PA-G3-12** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 357; positives synthetic passed, synthetic passed. Patterns: "(\blease\b|leasehold|\btenant|\blessee)[^.]{0,200}(condemn\w*|taking|eminent domain)" 25; "(condemn\w*|eminent domain)[^.]{0,200}(\blease\b|leasehold|\btenant|\blessee)" 10. Keyword search (control 0): ["eminent domain" AND lease AND tenant] 56.
+- **PA-G3-13** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 357; positives synthetic passed, synthetic passed. Patterns: "foreclos\w*[^.]{0,200}(\btenant|\blessee|rental|\blease\b)" 3; "(\btenant|\blessee|\blease\b)[^.]{0,200}foreclos\w*" 2. Keyword search (control 0): [foreclosure AND tenant AND notice] 39; [foreclosure AND lease AND disclose] 30.
+- **PA-G3-14** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 357; positives synthetic passed, synthetic passed. Patterns: "bankrupt\w*[^.]{0,200}(\btenant|\blessee|evict\w*|possession)" 3; "(\btenant|\blessee|evict\w*)[^.]{0,200}bankrupt\w*" 0. Keyword search (control 0): [bankruptcy AND tenant AND eviction] 3.
+- **PA-G3-15** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 357; positives synthetic passed, synthetic passed. Patterns: "(social security|benefit|public assistance|voucher)[^.]{0,200}(evict\w*|possession|nonpayment|continuance)" 7; "(evict\w*|possession|nonpayment)[^.]{0,200}(social security|public assistance|voucher)" 2. Keyword search (control 0): ["social security" AND eviction] 0; ["public assistance" AND eviction AND tenant] 0.
+- **PA-G3-16** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 357; positives synthetic passed, synthetic passed. Patterns: "(minor|under 18|under the age of 18|under 21)[^.]{0,200}(\blease\b|rental agreement|\btenant|contract)" 25; "(\blease\b|rental agreement)[^.]{0,200}(minor\b|minors\b)" 3. Keyword search (control 0): [minor AND lease AND contract AND tenant] 39.
+- **PA-G3-17** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 357; positives synthetic passed. Patterns: "(doubl\w*[^.]{0,40}(let\w*|rent\w*|leas\w*))|(same (premises|unit|room|dwelling)[^.]{0,120}(two|more than one|another) (persons|tenants|lessees))" 0. Keyword search (control 0): ["same premises" AND tenant AND lease] 16.
+- **PA-G3-18** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 357; positives synthetic passed, synthetic passed, synthetic passed, synthetic passed. Patterns: "cold[- ]weather" 0; "freez(e|es|ing) (of |the )?(water )?pipes" 0; "(tenant|lessee).{0,120}(heat|temperature).{0,60}(maintain|minimum)" 0; "(extended|prolonged) absence" 0. Keyword search (control 0): ["cold weather" AND tenant] 0; ["extended absence" AND tenant] 0.
+- **PA-G3-19** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 357; positives synthetic passed, synthetic passed, synthetic passed. Patterns: "stay(ed|ing)? (of )?(the )?(execution|eviction|removal|order for possession|writ of possession)" 11; "postpone.{0,60}(eviction|removal|possession)" 1; "hardship.{0,120}(tenant|eviction|possession)" 2. Keyword search (control 0): [eviction AND hardship] 5; ["stay of execution" AND tenant] 11.
+- **PA-G3-20** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 357; positives 23 6705 passed, synthetic passed, synthetic passed. Patterns: "agent (for|to receive) (the )?(purpose of receiving )?service of process" 26; "lease.{0,120}(designat|appoint|nam)\w*.{0,80}(service|receive notices?)" 0; "tenant.{0,80}designat\w*.{0,60}(agent|person).{0,60}(service|notice)" 0. Keyword search (control 0): [tenant AND "service of process" AND designate] 13.
+- **PA-G3-21** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 357; positives synthetic passed, synthetic passed, synthetic passed, lta 511.3 passed. Patterns: "bond.{0,80}(possession|tenant|lessee|lease)" 94; "possession bond" 0; "confess\w*.{0,60}(possession|ejectment)" 0; "bond.{0,80}(landlord|lessor)|(landlord|lessor).{0,80}bond" 2. Keyword search (control 0): ["possession bond"] 0; [tenant AND bond AND possession] 88.
+- **PA-G3-22** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 357; positives synthetic passed, synthetic passed, synthetic passed. Patterns: "(tenant|lessee|evict)\w*.{0,160}(pet|animal|dog|cat)s?.{0,80}(abandon|left|remain)" 2; "(tenant|lessee|evict)\w*.{0,160}(motor )?vehicles?.{0,60}(abandon|left behind|remain)" 0; "(writ|order) (of|for) possession.{0,200}(immun|not (be )?liable)" 0. Keyword search (control 0): [tenant AND abandoned AND animal] 42; [tenant AND abandoned AND vehicle] 53.
+- **PA-G3-23** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 357; positives synthetic passed, synthetic passed, lta 501 passed. Patterns: "squatt\w*" 0; "(unauthorized|unlawful) occupan(t|cy)" 0; "(person|occupant)\W+who is not,? nor ever has been,? a tenant" 2. Keyword search (control 0): [squatter] 0; ["unauthorized occupant"] 0.
+- **PA-G3-24** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 357; positives synthetic passed, synthetic passed, synthetic passed. Patterns: "owner.{0,40}(occupancy|occupy|reside|move in).{0,80}(tenant|lease|terminat|evict)" 13; "(tenant|lease|terminat|evict)\w*.{0,80}owner.{0,40}(occupancy|occupy|move in)" 0; "(immediate )?family member.{0,80}(occupy|occupancy|reside).{0,80}(tenant|lease|unit|dwelling)" 0. Keyword search (control 0): ["owner occupancy" AND tenant] 0; ["just cause" AND eviction] 11.
+- **PA-G3-25** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 357; positives 53 304 passed, synthetic passed, synthetic passed. Patterns: "expedit\w* (eviction|removal|possession)" 1; "(evict|remov|terminat)\w*.{0,80}(tenant|lease).{0,120}(violent|criminal activity|firearm|weapon|felony)" 0; "(tenant|lease).{0,80}(criminal activity|violent crime).{0,80}(evict|terminat|remov)" 0. Keyword search (control 0): ["criminal activity" AND eviction] 18; ["expedited eviction"] 75.
+- **PA-G4-01** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives synthetic passed, synthetic passed, synthetic passed, synthetic passed. Patterns: "rent control" 0; "rent[- ]stabiliz" 0; "(regulat|limit|control|cap)\w*.{0,40}(the )?(amount of )?(residential )?rents?\b.{0,40}(charged|increase|landlord|tenant|dwelling)" 0; "rent increases?" 0. Keyword search (control 0): ["rent control"] 0.
+- **PA-G4-02** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives synthetic passed, synthetic passed, synthetic passed. Patterns: "rental (license|licens\w*|registration|permit)" 3; "regist\w*.{0,60}(landlords?|rental propert\w*|residential rental|rental units?)" 0; "(landlord|owner) licens" 0. Keyword search (control 0): ["rental registration"] 0; ["rental license"] 3.
+- **PA-G4-03** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives synthetic passed, synthetic passed, synthetic passed. Patterns: "inspect\w*.{0,80}rental (units?|propert\w*|dwellings?|housing)" 0; "rental (units?|propert\w*|dwellings?|housing).{0,80}inspect" 0; "administrative (search )?warrant" 5. Keyword search (control 0): ["rental inspection"] 0.
+- **PA-G4-04** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives synthetic passed, synthetic passed, synthetic passed. Patterns: "lead[- ](safe|free)" 0; "lead[- ]based paint" 0; "lead poison" 0. Keyword search (control 0): ["lead-safe" AND rental] 0; ["lead-based paint" AND tenant] 0.
+- **PA-G4-05** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives synthetic passed, synthetic passed. Patterns: "health (district|department|officer|authority).{0,100}(rental|landlords?|tenants?|lessee)" 0; "(landlords?|tenants?).{0,100}health (district|department)" 0.
+- **PA-G4-06** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives synthetic passed, synthetic passed. Patterns: "single[- ]family.{0,120}(rent|leas|tenant|owner[- ]occup)" 1; "owner[- ]occup\w*.{0,100}(zon|accessory|dwelling unit|lot)" 0.
+- **PA-G4-07** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives synthetic passed, synthetic passed, synthetic passed. Patterns: "accessory dwelling" 0; "accessory apartment" 0; "granny flat|in-law (suite|apartment|unit)" 0. Keyword search (control 0): ["accessory dwelling unit"] 0.
+- **PA-G4-08** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives synthetic passed, synthetic passed, synthetic passed, synthetic passed, synthetic passed. Patterns: "good cause" 179; "just cause" 15; "(tenant|renter)s?\W{0,2} (bill of )?rights? (handbook|guide|statement|pamphlet|brochure|summary)" 0; "rights and responsibilities.{0,60}(tenant|landlord|renter)" 4; "statement of (tenant|renter)" 0. Keyword search (control 0): ["tenant rights" AND statement] 0.
+- **PA-G4-09** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives synthetic passed, lta 207 passed. Patterns: "(chang|modif|amend)\w*.{0,60}(terms?|conditions?) of (the|a|any) (residential )?(lease|tenancy|rental agreement)" 0; "parking fee" 1.
+- **PA-G4-10** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives synthetic passed, abpca 2 passed. Patterns: "receiver\w*.{0,80}(residential|rental|dwelling|apartment|building)" 0; "conservator(ship)?.{0,80}(building|property|dwelling)" 24. Keyword search (control 0): [receivership AND tenant] 14.
+- **PA-G4-11** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives synthetic passed, synthetic passed. Patterns: "(nonresident|non-resident|out[- ]of[- ]state|absentee) (owner|landlord|property owner|lessor)" 12; "(owner|landlord|lessor).{0,100}(agent|manager|representative).{0,100}resid\w* (within|in) (the|this|such)" 0. Keyword search (control 0): [nonresident AND landlord AND agent] 0.
+- **PA-G4-12** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives synthetic passed, synthetic passed, synthetic passed. Patterns: "crime[- ]free" 2; "(landlord|owner|lessor).{0,140}(police|law enforcement).{0,100}(cooperat|report|notif)" 7; "(police|law enforcement).{0,100}(access|enter).{0,60}(rental|dwelling unit|apartment)" 0. Keyword search (control 0): ["crime-free"] 3.
+- **PA-G4-13** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives synthetic passed, synthetic passed, synthetic passed. Patterns: "(record|recording)\w*.{0,60}\bleases?\b" 15; "memorand\w* of lease" 0; "\bleases?\b.{0,60}(recorded|recordation)" 6. Keyword search (control 0): [lease AND "recorder of deeds"] 123.
+- **PA-G4-14** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives 68 3410 passed, synthetic passed, synthetic passed. Patterns: "right of first (refusal|purchase|offer)" 6; "(tenants?|lessees?).{0,80}(opportunity|option|right) to (purchase|buy)" 6; "(sunset|expire|expiration|repeal)\w*.{0,60}(this (act|chapter|section)).{0,60}(tenant|landlord|lease)" 0. Keyword search (control 0): ["right of first refusal" AND tenant] 9.
+- **PA-G4-15** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives synthetic passed, synthetic passed, synthetic passed. Patterns: "(tax|taxes).{0,80}(pass(ed)?[- ](on|through)|passthrough|pass-through).{0,60}(tenant|lessee|renter)" 0; "(increase|escalat)\w*.{0,60}(real estate|real property|property) tax\w*.{0,80}(tenant|lessee|rent)" 0; "(tenant|lessee|renter).{0,80}(share|portion|pro rata).{0,60}(real estate|property) tax" 0.
+- **PA-G4-16** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives synthetic passed, synthetic passed, synthetic passed. Patterns: "permanent resident" 24; ""?occupancy"?.{0,40}(hotel|room|lodging).{0,120}(thirty|30) (consecutive )?days" 7; "rental of real (estate|property)" 1. Keyword search (control 0): ["permanent resident" AND hotel] 87.
+- **PA-G4-17** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives synthetic passed, synthetic passed, synthetic passed, synthetic passed. Patterns: "\brent certificate" 0; "\brent rebate" 9; "(portion|percent|share) of (the )?(gross )?rent.{0,80}(tax|taxes)" 0; "(claimant|renter).{0,80}(landlord|owner).{0,80}(statement|certif|verif)" 0. Keyword search (control 0): ["rent rebate"] 94; ["rent certificate"] 0.
+- **PA-G4-18** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives synthetic passed, synthetic passed, synthetic passed, synthetic passed. Patterns: "certificate of (use and )?occupancy.{0,120}(rent|tenan|lease|dwelling|residential)" 2; "(condemn|placard)\w*.{0,100}(dwelling|unfit|occupan|residential|rental)" 4; "(unfit|uninhabitable).{0,100}(collect|rent|lease)" 1; "(order to vacate|vacate order)" 7. Keyword search (control 0): ["certificate of occupancy" AND tenant] 3.
+- **PA-G4-19** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives synthetic passed, synthetic passed, synthetic passed, synthetic passed. Patterns: "variance.{0,100}(tenants?|lease|rental|landlord)" 0; "(exception|waiver).{0,60}(housing|sanitary|health) code" 0; "\b(19|20)\d\d edition" 13; "(code|standard).{0,40}as (amended|in effect|existing) (on|as of)" 3.
+- **PA-G4-20** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives synthetic passed, synthetic passed, synthetic passed. Patterns: "(tenant|lessee|occupant).{0,160}(water|sewer|sewage|garbage|refuse|trash).{0,80}(lien|liens)" 0; "(lien|liens).{0,160}(tenant|lessee|occupant).{0,80}(water|sewer|sewage|garbage)" 0; "(owner|landlord).{0,120}not (be )?(liable|responsible).{0,80}(tenant|lessee).{0,60}(water|sewer|rental|bill)" 2. Keyword search (control 0): [tenant AND lien AND water] 69.
+- **PA-G4-21** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives synthetic passed, synthetic passed, synthetic passed. Patterns: "special (taxing|assessment|improvement|benefit) district" 0; "(neighborhood|business) improvement district" 15; "(disclos|notif)\w*.{0,80}(special|improvement|assessment) district" 0.
+- **PA-G4-22** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives synthetic passed, synthetic passed, synthetic passed. Patterns: "tax.{0,60}(on|upon) (the )?(rent|rental|leasing) of (real|residential|a dwelling|dwelling|an apartment)" 0; "(rent|rental) of (a )?(dwelling|residential|apartment|real property).{0,80}(taxable|subject to (the )?tax|exempt)" 0; "sales tax.{0,80}(rent|rental).{0,40}(dwelling|residential|apartment|real property)" 0.
+- **PA-G5-01** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives synthetic passed, synthetic passed, synthetic passed, synthetic passed. Patterns: "habitab" 10; "fit (and|for) (human )?habitation.{0,80}(landlord|lessor|tenant|lease)" 2; "(landlord|lessor).{0,80}(maintain|keep).{0,60}(premises|dwelling).{0,40}(fit|habitable|good repair)" 0; "warranty of habitability" 0. Keyword search (control 0): ["warranty of habitability"] 0.
+- **PA-G5-02** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives synthetic passed, synthetic passed, synthetic passed. Patterns: "(landlord|lessor|owner).{0,120}(heat|heating).{0,80}(tenant|dwelling|unit|apartment)" 0; "minimum (indoor )?temperature" 0; "degrees fahrenheit.{0,80}(dwelling|apartment|tenant|rental)" 0.
+- **PA-G5-03** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives synthetic passed, synthetic passed. Patterns: "(fire )?sprinkler.{0,120}(residential|dwelling|apartment|rental|tenant|multifamily|multi-family)" 4; "(residential|dwelling|apartment|rental|tenant|multifamily).{0,120}sprinkler" 1. Keyword search (control 0): [sprinkler AND residential] 33.
+- **PA-G5-04** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives synthetic passed, synthetic passed, synthetic passed. Patterns: "(deadbolt|dead bolt|door viewer|peephole|keyed lock|rekey|re-key)" 1; "(lock|locks).{0,60}(change|changed|rekey).{0,80}(tenant|occupan|vacat)" 0; "(window|door).{0,40}(latch|lock).{0,80}(dwelling unit|rental|tenant)" 0.
+- **PA-G5-05** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives synthetic passed, synthetic passed, synthetic passed. Patterns: "smart (lock|access|home)" 0; "(keyless|electronic|app[- ]based) (entry|access|lock)" 8; "connected device" 0.
+- **PA-G5-06** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives synthetic passed, synthetic passed, synthetic passed. Patterns: "key control" 1; "(master )?keys?.{0,80}(employee|staff).{0,80}(background check|criminal)" 0; "background check.{0,120}(apartment|landlord|property manag)" 0.
+- **PA-G5-07** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives synthetic passed, synthetic passed, synthetic passed. Patterns: "window guard" 0; "(security|burglar) bars" 0; "window (stop|fall prevention)" 0.
+- **PA-G5-08** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives synthetic passed, synthetic passed, synthetic passed, synthetic passed. Patterns: "water heater.{0,120}(temperature|degrees|setting)" 0; "(hot water|water heater).{0,80}(120|125|130) degrees" 0; "radiator cover" 0; "(stove|range|refrigerator).{0,80}(landlord|lessor|furnish|supply|provide).{0,40}(tenant|dwelling)" 1.
+- **PA-G5-09** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives synthetic passed, synthetic passed, synthetic passed. Patterns: "(swimming )?pool.{0,120}(barrier|fence|enclos|lifeguard|safety)" 2; "public bathing place" 0; "(spa|pool).{0,80}(apartment|condominium|residential|multifamily)" 7. Keyword search (control 0): ["swimming pool" AND fence] 14.
+- **PA-G5-10** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives synthetic passed, synthetic passed, synthetic passed. Patterns: "balcon(y|ies).{0,120}(inspect|structural)" 0; "(exterior elevated|elevated) element" 0; "deck.{0,60}(inspect|structural).{0,60}(dwelling|apartment|multifamily)" 0.
+- **PA-G5-11** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives synthetic passed, synthetic passed. Patterns: "common (area|hall|stair|passage)\w*.{0,100}(light|illuminat)" 0; "(light|illuminat)\w*.{0,100}(common area|stairway|hallway|passage)" 3.
+- **PA-G5-12** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives synthetic passed, synthetic passed. Patterns: "asbestos.{0,160}(tenant|resident|occupant|dwelling|apartment|notif|notice)" 0; "asbestos" 65. Keyword search (control 0): [asbestos AND tenant] 13.
+- **PA-G5-13** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives synthetic passed, synthetic passed. Patterns: "(chinese|defective|corrosive|problem) drywall" 0; "drywall" 0.
+- **PA-G5-14** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives synthetic passed, synthetic passed, synthetic passed. Patterns: "environmental covenant.{0,200}(lease|tenant|lessee|convey)" 1; "activity and use limitation" 6; "(brownfield|remediat|contaminat)\w*.{0,160}(lease|tenant|lessee).{0,80}(notice|disclos|state)" 0. Keyword search (control 0): ["environmental covenant" AND lease] 0.
+- **PA-G5-15** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives synthetic passed, synthetic passed. Patterns: "lead.{0,120}(tenant|lessee|rental|dwelling).{0,80}(notice|pamphlet|certif|disclos)" 0; "(childhood )?lead (hazard|poisoning|abatement|inspection)" 0. Keyword search (control 0): [lead AND tenant AND notice] 26.
+- **PA-G5-16** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives synthetic passed, synthetic passed. Patterns: "(private|individual|domestic) (water )?well.{0,160}(test|sampl).{0,120}(tenant|lessee|rent|lease)" 0; "(tenant|lessee|rent|lease).{0,160}(private|individual) (water )?well" 0. Keyword search (control 0): ["private well" AND tenant] 192.
+- **PA-G5-17** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives synthetic passed, synthetic passed, synthetic passed. Patterns: "bed ?bugs?" 0; "(pest|insect|rodent|vermin|exterminat)\w*.{0,120}(tenant|landlord|lessee|rental|dwelling unit)" 0; "pesticide.{0,160}(notif|notice).{0,120}(tenant|occupant|resident)" 0. Keyword search (control 0): ["bed bugs"] 0; [pesticide AND tenant AND notice] 0.
+- **PA-G5-18** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives synthetic passed, synthetic passed, synthetic passed. Patterns: "(air condition\w*|cooling) (units?|devices?|systems?).{0,120}(tenant|lease|rental|resident)" 0; "(portable|window).{0,40}(air condition|cooling)" 0; "(tenant|resident).{0,120}(air condition|cooling)" 1.
+- **PA-G5-19** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives synthetic passed, synthetic passed, synthetic passed. Patterns: "(tenant|lessee).{0,120}(repair|maintenance).{0,120}(agree|writing|consideration)" 0; "(shift|transfer|delegat|assume)\w*.{0,80}(repair|maintenance).{0,80}(tenant|lessee)" 0; "(promise|agree)\w*.{0,60}(to )?(repair|improve|clean).{0,80}(writing|before)" 0.
+- **PA-G5-20** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives synthetic passed, synthetic passed, synthetic passed. Patterns: "(repair|maintenance) (request|notice).{0,120}(tenant|landlord|writing)" 0; "(notice|notif)\w*.{0,80}(landlord|lessor).{0,80}(defect|repair|condition).{0,60}(writing|written)" 0; "repair[- ]and[- ]deduct|deduct.{0,60}cost of (the )?repair" 3. Keyword search (control 0): ["repair and deduct"] 0.
+- **PA-G5-21** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives synthetic passed, synthetic passed. Patterns: "(relocat|alternat|temporary|substitute)\w* (housing|lodging|accommodation).{0,120}(tenant|landlord|lessee|occupant)" 1; "(tenant|occupant).{0,120}(relocation|temporary housing)" 0.
+- **PA-G5-22** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives synthetic passed, synthetic passed, synthetic passed. Patterns: "(disaster|emergency) declaration.{0,200}(tenant|rent|lease|evict)" 2; "(displaced|evacuee).{0,160}(tenant|lease|dwelling|guest)" 12; "(shutdown|furlough).{0,160}(rent|evict|tenant|lease|late fee)" 4. Keyword search (control 0): [shutdown AND rent] 0; [disaster AND tenant AND rent] 20.
+- **PA-G5-23** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives synthetic passed, synthetic passed, synthetic passed. Patterns: "housing (choice )?voucher|section 8" 2492; "housing quality standards" 0; "(abat|withh)\w*.{0,80}(housing assistance|subsidy) payment" 0. Keyword search (control 0): ["housing choice voucher"] 14.
+- **PA-G5-24** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives synthetic passed, synthetic passed, synthetic passed. Patterns: "fire (prevention )?code" 8; "international fire code" 3; "fire (safety|prevention) (standards?|regulations?).{0,120}(dwelling|apartment|residential|rental)" 0. Keyword search (control 0): ["fire code" AND residential] 18.
+- **PA-G5-25** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives synthetic passed, 42 8382 passed, synthetic passed. Patterns: "public nuisance.{0,160}(tenant|lease|landlord|owner|dwelling|rental)" 18; "(drug|drug-related) nuisance" 32; "(abate|abatement).{0,120}(nuisance).{0,120}(lease|tenant|rent)" 2. Keyword search (control 0): [nuisance AND tenant AND lease] 21.
+- **PA-G5-26** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives synthetic passed, synthetic passed. Patterns: "known to (the state|the commonwealth) to cause cancer" 0; "(cancer|reproductive (harm|toxicity)).{0,120}(warning|notice).{0,120}(tenant|dwelling|rental|apartment)" 0.
+- **PA-G5-27** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives synthetic passed, synthetic passed, synthetic passed. Patterns: "(unexploded )?ordnance" 0; "demolition (permit|order).{0,160}(tenant|lease|rental|occupant|disclos)" 0; "(shared|common|master|single) meter.{0,160}(tenant|lease|disclos|rental)" 0.
+- **PA-G5-28** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives synthetic passed, synthetic passed, synthetic passed. Patterns: "military (installation|base|airfield|air station|airport|impact)" 42; "(accident potential|noise) zone" 0; "air installation compatible" 0. Keyword search (control 0): ["military installation" AND disclosure] 6.
+- **PA-G5-29** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives synthetic passed, synthetic passed, synthetic passed. Patterns: "shoreline" 0; "(beach|coastal) access" 0; "coastal zone.{0,120}(lease|tenant|disclos)" 0.
+- **PA-G5-30** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives synthetic passed, synthetic passed, synthetic passed, synthetic passed. Patterns: "psychologically (impacted|affected)" 0; "stigmatiz" 0; "(homicide|suicide|death|felony).{0,120}(occurred|committed).{0,120}(property|dwelling|premises).{0,120}(disclos|material)" 0; "(hiv|aids|human immunodeficiency).{0,160}(rent|lease|housing|tenant)" 7. Keyword search (control 0): ["psychologically impacted"] 0.
+- **PA-G5-31** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives synthetic passed, synthetic passed, synthetic passed. Patterns: "(sexual offender|sex offender|sexually violent|registrant)\w*.{0,200}(tenant|lessee|lease|landlord|rent|rental|apartment)" 53; "(tenant|lessee|lease|landlord|rental).{0,200}(sexual offender|sex offender|registrant)" 15; "(resid|live)\w*.{0,60}within \d[\d,]* feet.{0,120}(school|day care|child)" 3. Keyword search (control 0): ["sexual offender" AND landlord] 0; [Megan AND lease] 0.
+- **PA-G5-32** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 358; positives synthetic passed, synthetic passed, synthetic passed. Patterns: "single[- ]family.{0,160}(disclos|notice|statement).{0,80}(lease|tenant|rent)" 0; "(permitted|lawful|maximum) occupan\w*.{0,120}(disclos|lease|tenant)" 6; "presum\w*.{0,80}(habitab|unfit|uninhabit)" 0.
+- **PA-G6-01** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 362; positives synthetic passed, synthetic passed, synthetic passed, 66 1313 passed. Patterns: "sub-?meter" 0; "ratio (utility )?billing" 0; "(allocat|apportion)\w*.{0,60}(utility|utilities|water|electric|gas).{0,80}(tenant|unit|dwelling)" 0; "resells? (it )?to (consumers|tenants)" 1. Keyword search (control 0): [submeter AND tenant] 0.
+- **PA-G6-02** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 362; positives synthetic passed, synthetic passed, synthetic passed. Patterns: "energy (usage|consumption|use) data" 0; "benchmark\w*.{0,80}(energy|building)" 0; "conservation charge" 1.
+- **PA-G6-03** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 362; positives synthetic passed, synthetic passed, synthetic passed. Patterns: "third[- ]party (notification|notice)" 0; "(landlord|owner).{0,120}(notif|copy).{0,80}(termination|shutoff|disconnect).{0,80}tenant" 0; "(tenant|occupant).{0,80}designat\w*.{0,80}(landlord|third party).{0,80}(notice|termination)" 0.
+- **PA-G6-04** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 362; positives synthetic passed, synthetic passed. Patterns: "(transfer|place|put)\w*.{0,60}(utilit\w*|service).{0,60}(tenant\W?s? name|name of the tenant)" 0; "(landlord|owner).{0,80}(terminat|discontinu|shut)\w*.{0,60}(utilit|service).{0,80}(not|fail\w*) (been )?transfer" 0.
+- **PA-G6-05** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 362; positives synthetic passed, synthetic passed. Patterns: "electric vehicle (charging|supply)" 5; "(ev|electric vehicle) charg" 5. Keyword search (control 0): ["electric vehicle" AND tenant] 0.
+- **PA-G6-06** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 362; positives synthetic passed, synthetic passed. Patterns: "solar" 65; "photovoltaic" 2. Keyword search (control 0): [solar AND tenant AND lease] 4.
+- **PA-G6-07** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 362; positives act101 1501 passed. Patterns: "recycl\w*.{0,320}(tenants?|occupants?|landlords?|multifamily|apartments?)" 1.
+- **PA-G6-08** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 362; positives lta 207 passed, synthetic passed. Patterns: "parking" 549; "tow(ed|ing)? (away )?(rules|policy|notice)" 0.
+- **PA-G7-01** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 362; positives synthetic passed, synthetic passed. Patterns: "restoration (deposit|escrow)" 0; "(modification|alteration)s?.{0,120}(escrow|interest[- ]bearing)" 0.
+- **PA-G7-02** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 362; positives synthetic passed, synthetic passed. Patterns: "(misrepresent|fraudulent\w*|falsely)\w*.{0,120}(service|assistance|support) (dog|animal)" 8; "(service|guide|support) (dog|animal).{0,200}(housing|dwelling|landlord|lease|tenant|rental)" 17. Keyword search (control 0): ["service animal" AND housing] 13.
+- **PA-G7-03** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 362; positives synthetic passed, synthetic passed. Patterns: "(pet|dog|cat).{0,120}(fact sheet|information sheet)" 0; "(pet|animal).{0,160}(evict|abandon).{0,120}(notice|tenant)" 0.
+- **PA-G7-04** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 362; positives synthetic passed, synthetic passed, synthetic passed. Patterns: "immigration status" 3; "(unlawfully|illegally) present" 1; "citizenship.{0,120}(tenant|lease|rent|housing|landlord)" 1. Keyword search (control 0): ["immigration status" AND housing] 12.
+- **PA-G7-05** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 362; positives synthetic passed, synthetic passed, synthetic passed. Patterns: "(limited access|sealed|expunged).{0,200}(landlord|housing|lease|tenant|rent)" 6; "(landlord|housing|lease|tenant).{0,200}(limited access|sealed|expunge)" 7; "(criminal (history|record)).{0,160}(tenant|applicant for housing|landlord|rental)" 0. Keyword search (control 0): ["criminal history" AND landlord] 3; ["limited access" AND housing] 13.
+- **PA-G7-06** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 362; positives synthetic passed, synthetic passed, synthetic passed. Patterns: "(credit|rent) report\w*.{0,160}(tenant|rent payment|landlord)" 0; "positive rent" 0; "consumer reporting agenc\w*.{0,160}(landlord|tenant|rent)" 0.
+- **PA-G7-07** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 362; positives synthetic passed, synthetic passed, synthetic passed. Patterns: "tenant(s)?\W? (union|association|organization)s?" 4; "(organiz|assembl|meet)\w*.{0,120}tenants" 4; "(canvass|candidate|political).{0,160}(apartment|multiple dwelling|tenant|landlord)" 3. Keyword search (control 0): ["tenant association"] 0; ["tenants association"] 6.
+- **PA-G7-08** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 362; positives synthetic passed, synthetic passed, synthetic passed. Patterns: "(display|fly)\w*.{0,60}(flag|sign|religious|symbol).{0,160}(tenant|lessee|unit owner|resident|occupant)" 0; "(flag|religious|political sign).{0,160}(lease|tenant|landlord|association|declaration)" 21; "mezuzah" 0. Keyword search (control 0): [flag AND tenant] 16.
+- **PA-G7-09** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 362; positives synthetic passed, synthetic passed. Patterns: "(firearm|gun|weapon)s?.{0,200}(lease|tenant|landlord|rental|lessee)" 24; "(lease|tenant|landlord|rental|lessee).{0,200}(firearm|gun)s?" 9. Keyword search (control 0): [firearm AND lease] 168.
+- **PA-G7-10** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 362; positives synthetic passed, synthetic passed, synthetic passed. Patterns: "marijuana.{0,200}(lease|tenant|landlord|rental|housing|dwelling)" 1; "cannabis.{0,200}(lease|tenant|landlord|rental|housing)" 0; "(adult[- ]use|recreational) (marijuana|cannabis)" 0. Keyword search (control 0): [marijuana AND lease] 19; [marijuana AND landlord] 1.
+- **PA-G7-11** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 362; positives mpc 603 passed, synthetic passed. Patterns: "(home[- ]based|home) (business|occupation)" 2; "(child day care|family child care|child care home)\w*.{0,160}(lease|tenant|landlord|rental)" 0.
+- **PA-G7-12** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 362; positives synthetic passed, synthetic passed, synthetic passed, synthetic passed. Patterns: "water ?bed" 0; "(renter|tenant)\W?s? insurance" 0; "(require|mandat)\w*.{0,80}(tenant|lessee).{0,80}(insurance|liability coverage)" 2; "landlord.{0,80}(liability insurance)" 0. Keyword search (control 0): ["renters insurance"] 0.
+- **PA-G7-13** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 362; positives synthetic passed, synthetic passed, synthetic passed. Patterns: "student housing" 0; "(college|university).{0,120}(housing|residence hall|dormitor).{0,120}(tenant|lease|landlord)" 0; "(55|62) (years of age )?(or older|and older).{0,160}(housing|community)" 0.
+- **PA-G7-14** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 362; positives synthetic passed, synthetic passed. Patterns: "(employ\w*).{0,120}(housing|dwelling|residence).{0,120}(terminat|vacat|condition of employment)" 1; "(caretaker|janitor|superintendent).{0,160}(dwelling|occup|evict)" 0.
+- **PA-G7-15** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 362; positives synthetic passed, synthetic passed. Patterns: "veteran\w*.{0,160}(rent|lease|landlord|housing|tenant)" 42; "(translat|language other than english).{0,160}(lease|contract|tenant|rental)" 0. Keyword search (control 0): [veteran AND landlord] 14.
+- **PA-G7-16** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 362; positives synthetic passed, synthetic passed. Patterns: "(alien|foreign (adversary|government|person|principal|national)).{0,200}(real (estate|property)|land|lease)" 14; "(acquire|hold|own)\w*.{0,80}(real estate|land).{0,120}alien" 0. Keyword search (control 0): [alien AND "real estate"] 42.
+- **PA-G7-17** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 362; positives synthetic passed, synthetic passed, synthetic passed. Patterns: "(hunt|fish|trap)\w*.{0,160}(owner or lessee|lessee or owner|permission of the (owner|lessee))" 8; "usufruct" 0; "(communal|tribal|native) land" 0.
+- **PA-G7-18** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 362; positives synthetic passed, synthetic passed. Patterns: "drug[- ]free (housing|lease|addendum)" 0; "(crime|drug)[- ]free lease" 0.
+- **PA-G8-01** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 362; positives synthetic passed, synthetic passed. Patterns: "(text message|electronic mail|e-mail|email).{0,160}(notice|notif).{0,120}(tenant|landlord|lease)" 1; "(notice|notif)\w*.{0,120}(tenant|landlord|lessee).{0,120}(text message|electronic mail|e-mail|email)" 0.
+- **PA-G8-02** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 362; positives synthetic passed, synthetic passed. Patterns: "(notif|notice)\w*.{0,120}(tenants?|lessees?|occupants?).{0,160}(foreclos|lawsuit|condemnation|proceeding|sheriff)" 2; "(foreclos|sheriff\W?s? sale).{0,200}(notice|notif)\w*.{0,120}(tenants?|lessees?|occupants?)" 1.
+- **PA-G8-03** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 362; positives synthetic passed, synthetic passed. Patterns: "copy of (the|a|any|such) (written )?(lease|rental agreement)" 0; "(furnish|give|deliver|provide)\w*.{0,80}(tenant|lessee).{0,60}copy" 0.
+- **PA-G8-04** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 362; positives synthetic passed, synthetic passed, synthetic passed. Patterns: "spouse.{0,160}(lease|leasing).{0,80}(real|property|join|consent|sign)" 1; "tenants by the entiret\w*.{0,200}lease" 0; "(lease|leases).{0,120}(seal|acknowledg|notar)" 15.
+- **PA-G8-05** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 362; positives synthetic passed, synthetic passed, synthetic passed. Patterns: "(month[- ]to[- ]month|periodic|fixed[- ]term).{0,160}(more burdensome|different (rent|terms)|premium)" 0; "(\d+|ten|twelve)[- ]point (type|font|print)" 8; "type size" 1. Keyword search (control 0): ["point type" AND lease] 21.
+- **PA-G8-06** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 362; positives synthetic passed, synthetic passed. Patterns: "(absen|vacat)\w*.{0,80}(more than )?(seven|7|fourteen|14) (consecutive )?days.{0,120}(notif|notice).{0,60}(landlord|lessor)" 0; "(guarant|surety)\w*.{0,160}(lease|tenant|rent|lessee)" 52. Keyword search (control 0): [guarantor AND lease AND rent] 25.
+- **PA-G8-07** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 362; positives synthetic passed, synthetic passed, synthetic passed. Patterns: "(installments?).{0,80}(rent|rental)" 3; "(rules|regulations).{0,120}(landlord|lessor).{0,120}(adopt|amend|change|enforce)" 0; "(portal|online|electronic).{0,80}(rent payment|pay rent|payment of rent)" 0.
+- **PA-G8-08** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 362; positives synthetic passed, synthetic passed, synthetic passed, synthetic passed. Patterns: "truth in renting" 0; "(misstate|misrepresent)\w*.{0,120}(law|rights).{0,80}(lease|tenant)" 0; "(initial|initialed|initials).{0,120}(lease|tenant|provision)" 29; "(bold|capital|conspicuous)\w*.{0,80}(type|print|letters).{0,120}(lease|tenant)" 4.
+- **PA-G8-09** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 362; positives synthetic passed, synthetic passed, synthetic passed. Patterns: "(association|executive board).{0,200}(tenant|lessee|occupant).{0,160}(fine|rent|approv|deposit|fee)" 11; "(lease|leasing|rental) (of|by) (a )?units?.{0,200}(restrict|approv|prohibit)" 0; "(rental|lease) restriction" 0. Keyword search (control 0): [association AND lessee AND fine] 822.
+- **PA-G8-10** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 362; positives synthetic passed, synthetic passed. Patterns: "(garage door|elevator|laundry|mailbox).{0,160}(landlord|lessor|tenant|rental|dwelling unit)" 0; "(conspicuous|separately signed).{0,120}(entry|access|services)" 8.
+- **PA-G8-11** (2026-11-08): controls "zqxvbnmwt" 0, "landlord" 362; positives synthetic passed, synthetic passed. Patterns: "(lease|tenancy|leasehold).{0,160}(void|forfeit\w*|terminat\w*|annul\w*).{0,160}(prostitution|gambling|illegal|unlawful (use|purpose)|bawdy|disorderly)" 0; "(prostitution|gambling|bawdy|disorderly house).{0,200}(lease|lessee|tenant|landlord|lessor)" 4. Keyword search (control 0): [prostitution AND lease] 20.
+
+### §4 Decisions and questions asked of Taylor
+
+Optional clauses found under rule 54, with verdicts:
+
+1. **Collection costs:** offered as `collection-costs-pa` (CONDITIONAL, SERVES_LANDLORD). The Fair Credit Extension Uniformity Act § 4(b)(6)(i) bars collecting any fee not "expressly authorized by the agreement creating the debt"; the clause is that authorization, limited to the agency's actual charge under a landlord-set cap.
+2. **No waiver by accepting rent:** offered as `rent-acceptance-nonwaiver-pa` (CONDITIONAL). No statute decides the point; the clause preserves the Act § 503(c) right to supersede the writ by paying arrears and costs.
+3. **Shortened notice for showings:** `showing-notice-la` tagged PA. There is no statutory entry notice, so the clause shortens only the contractual 24 hours.
+4. **Binding arbitration:** not offered (`edu-binding-arbitration-pa`). 42 Pa.C.S. § 7303 allows it, and the shared clause's carve-outs fit 42 Pa.C.S. §§ 1515 and 1123. But whether the UTPCPL reaches a void lease term turns only on case law, which under Taylor's 2026-11-07 rule means the clause is not offered. The same reading answers `consumer-protection-act`.
+5. **Pre-dispute jury waiver:** not offered (`edu-jury-waiver-pa`). 42 Pa.C.S. § 5104(a) ties waiver to "the manner prescribed by general rules" (Pa.R.C.P. 1007.1: waiver by not demanding); a contractual waiver's enforceability rests on unread case law.
+6. **Liability waiver, habitability waiver, notice-service fee, eviction fee, exemption waiver:** not offered. Each row says why: unread case law for the first four; 42 Pa.C.S. § 8122 bars the last.
+
+7. **Rent concession:** offered as `rent-concession-pa` (CONDITIONAL). The clause prompts the landlord to state any repayment term, since Fair Credit Extension Uniformity Act § 4(b)(6)(i) requires express authorization.
+8. **Not offered in batch 2, each with an education row saying why:** a pre-set deposit-deduction schedule (Act § 512 measures deductions by actual damage); a deposit-alternative fee (it is unsettled whether the fee is inside the cap); a lockout for unpaid rent (no authority; Act § 505.1(f), (i)); reimbursement of government fees (local ordinances decide, rule 3); an alarm-tampering fee (actual cost as damages only).
+
+9. **Batch 3 tags (rule 26, checked both ways):** `cold-weather-vacate-notice-wy`, `automatic-renewal-ks` and `owner-occupancy-termination-ar` tagged PA. Pennsylvania has no statute on any of the three; each clause is a landlord-serving contract term that waives no statutory right, and the owner-occupancy notice floor ("not less than 30" days) meets the longest notice to quit (Act § 501(b)).
+10. **Batch 3 tags declined:**
+    - `barred-person-covenant-ne`: its tenant covenant to keep a named person away could restrict the unwaivable guest right in buildings of three or more households (Act § 504-A). Answered by `edu-trespass-notice-pa` (defiant trespass, 18 Pa.C.S. § 3503(b), for areas the landlord controls).
+    - `eminent-domain-vi`: its award-assignment sentence gives up the tenant's share of a condemnation award, which 26 Pa.C.S. § 507 apportions among owner and tenants; whether a lease can do that is unread case law. Answered by `edu-eminent-domain-pa`.
+11. **Not offered in batch 3:** a possession bond (no statute; confessed judgment for possession not available on an individual's residential lease, `edu-confession-of-judgment-pa`); an eviction-service designee (no statute or rule lets a lease name one); a rent-acceleration clause (no statute; case law).
+12. **PA item 8 (early termination, holdover, CARES):**
+    - (a) `early-termination-ks`: its fee (the greater of one month's Rent or 30% of the remaining Rent) has no Pennsylvania statute behind it, and whether it is a penalty is unread case law (`edu-liquidated-damages-pa`, battery PA-G1-11). Per the prompt, a flat one-month `early-termination-pa` is proposed in §6 finding 5; nothing asked. The statutory early exits are in `edu-statutory-early-termination-pa` (51 Pa.C.S. §§ 7315, 7315.1; Act § 514), and the shared clause's savings sentence preserves them.
+    - (b) `holdover-ca` and `holdover-rate-pa` confirmed: Act § 503(a) enters judgment 'for damages, if any, for the unjust detention of the demised premises; and (3) for the amount of rent, if any, which remains due and unpaid' (68 P.S. § 250.503(a) (Act § 503(a))), with no multiplier, and Act § 501(b) gives 15 days for a term of one year or less or an indeterminate term. Both rows' PA segments state this correctly.
+    - (c) CARES: no PA eviction row contradicts `edu-cares-act-notice`. `notice-to-quit-waiver-pa` keeps "any notice a federal law requires", `periodic-tenancy-notice-pa` routes through it, and `edu-notice-to-quit-pa`, `edu-eviction-process-pa`, `edu-statutory-forms-pa` and `abandoned-property-pa` mention the federal notice. One row states a 10-day notice without the caveat: `edu-drug-activity-eviction-pa` (§6 finding 6; not a contradiction, since courts disagree whether § 9058(c) reaches non-rent evictions, but worth one sentence). Every new batch 3 row that states a notice period carries the federal caveat, and `edu-nonwaivable-rights-pa` (batch 1) now does too.
+13. **New find, already covered:** 51 Pa.C.S. § 7312 (stay of eviction for six months for Guard and reserve members on active duty) surfaced in battery PA-G3-19; `edu-servicemember-rights-pa` already states it, and `edu-eviction-hardship-stay-pa` now cites it.
+
+14. **Batch 4 tags (rule 26):** `rental-inspection-cooperation-mn`, `rent-increase-midterm-ky` and `tax-insurance-escalation-la` tagged PA. No statute governs any of the three; each waives no statutory right. The rent-increase clause's retaliation sentence matches 66 Pa.C.S. § 1531(c), and the tax clause is the express authorization the Fair Credit Extension Uniformity Act § 4(b)(6)(i) requires.
+15. **PA item 5 (local limits and preemption):** answered in `edu-rent-control-pa` and the other batch 4 local-power rows. Pennsylvania has no rent-control statute and no express preemption. The leads were 53 Pa.C.S. § 2962(f), which bars home-rule municipalities from setting duties on businesses except as statute allows, while § 2962(c)(4) keeps building, safety, sanitation and health ordinances, and First Class City Home Rule Act § 18. Whether § 2962(f) bars landlord ordinances is unread case law, so each row says to check local ordinances. Philadelphia's rental license, lead-safe certification and good-cause rules are named, not researched (rule 3).
+16. **PA item 11:** the foreign-entity suit bar (15 Pa.C.S. § 411(b), with § 403(a)(12)), the fictitious-name suit bar (54 Pa.C.S. § 331(a)), service on a nonresident owner (42 Pa.C.S. § 5322(a)(5); Pa.R.Civ.P.M.D.J. 307(3); Pa.R.C.P. 404) and reporting duties (23 Pa.C.S. §§ 6311-6312) are in `edu-landlord-registration-pa`, `edu-nonresident-owner-agent-pa`, `edu-law-enforcement-cooperation-pa` and `edu-confirmed-absences-outside-title-pa`. Also found: nonresident-lessor income-tax withholding by business lessees (Tax Reform Code of 1971 § 324.4) and extradition of out-of-state owners charged over code violations (53 Pa.C.S. § 6113).
+17. **NEEDS_REVIEW:** `edu-no-property-tax-rent-statement-pa`. The Property Tax/Rent Rebate Program sits in the Taxpayer Relief Act (Act 1 of the 2006 First Special Session), which the site serves only through a wrapper that drops the special-session flag. Status per rule 12 (cautious course): the row tells landlords to confirm rent accurately on request.
+
+18. **Batch 5 tags (rule 26):** `pest-cooperation-pr` (bed bugs and pests) and `tenant-repair-agreement-hi` tagged PA. No Pennsylvania statute governs either subject. The pest clause's entry routes through the lease's entry section. The repair-agreement clause keeps health-and-safety code work with the landlord, consistent with the non-waivable implied warranty (case law, not read).
+19. **Batch 5 answers:** 47 habitability and safety topics, mostly confirmed absences. The present law is:
+    - the City Rent Withholding Act;
+    - Act § 502-A common-area care;
+    - the Utility Service Tenants Rights Act;
+    - the Construction Code Act (§ 503 municipal minimums; § 901(g) builder sprinkler offer);
+    - the Drug Nuisance Law (42 Pa.C.S. §§ 8383, 8389);
+    - 18 Pa.C.S. § 6504;
+    - 27 Pa.C.S. § 6505 (environmental covenants run with the land);
+    - Megan's Law website and group-based home limits (42 Pa.C.S. §§ 9799.25(f), 9799.28).
+
+20. **Parking clause (Act 64 of 2026):** new REQUIRED clause `parking-disclosure-pa` (topic `unbundled-parking`, `effective_from` 2026-12-21, basis "REQUIRED_DISCLOSURE: 1951 Act § 207(a) (Act 64 of 2026) | CONSTRAINED_TERM"). It reuses {{parking_space_number}} and {{parking_fee_amount}}; there are no new variables. It folds permit and decal charges into the stated fee, because § 207(a)(2) reaches 'a fee associated with the provision of parking' (1951 Act § 207(a)(2)).
+21. **Batch 6, not tagged:** `utility-allowance-cap-co`, `ev-charging-end-of-tenancy-co`, `ev-charger-installation-hi` and `ev-charging-shared-area-co`. Each implements a right or cap from its own state's law that Pennsylvania lacks.
+22. **Expired chapter:** 66 Pa.C.S. Chapter 14 (Responsible Utility Customer Protection, including its winter rules) expired 2024-12-31 per the official note. Utility shutoff rows point to the Public Utility Commission regulations (52 Pa. Code Chapter 56, not read) and to the Utility Service Tenants Rights Act, which remains in force.
+
+23. **Batch 7 tags (rule 26):** `animal-care-access-vi`, `waterbed-mn` and `cannabis-restrictions-ak` tagged PA. `firearm-rules-la` and `farmland-sporting-rights-co` were not tagged, because each rests on its own state's statute.
+24. **PA item 7, confirmed:**
+    - `smoking-policy`: consistent. The Medical Marijuana Act gives patients no housing protection and itself makes it 'unlawful to: (1) Smoke medical marijuana' (Medical Marijuana Act § 304(b)(1) (Act 16 of 2016)). No adult-use law is in force (battery PA-G7-10).
+    - `no-alterations`: consistent. Its last sentence preserves PHRA modifications (43 P.S. § 955(h)(3.1)). Article V-B cable rights run through the operator, and the landlord may not prevent an operator installation once agreed or arbitrated (68 P.S. § 250.503-B (Act § 503-B)); the clause restricts only the tenant's own alterations (`edu-telecom-access-pa`).
+    - `addendum-precedence`: consistent. Its carve-out makes required disclosures control, including the Statement of Consumer Restrictions and, from 2026-12-21, `parking-disclosure-pa`.
+25. **New finds in batch 7:** Act § 205 (no termination or nonrenewal for tenants'-association participation), 18 Pa.C.S. § 9122.5(a.1) (expunged and limited-access records may not be used for housing), and the Breach of Personal Information Notification Act's reach to landlords holding personal information.
+
+26. **PA item 6 (`keys`, `hoa-compliance`), confirmed:**
+    - `keys`: its re-key-and-charge sentence is the express authorization the Fair Credit Extension Uniformity Act § 4(b)(6)(i) requires. The charge is the actual cost. The deposit statute lets the landlord keep the deposit for 'the breach of any other condition in the lease by the tenant' (68 P.S. § 250.512(a) (Act § 512(a))), so an unreturned key may be charged against it on the written list.
+    - `hoa-compliance`: association fines run against the unit owner, 'after notice and an opportunity to be heard' (68 Pa.C.S. § 3302(a)(11); 68 Pa.C.S. § 5302(a)(11)). The clause's pass-through of fines caused by the tenant is the lease authorization the debt-collection law requires.
+    - Both rows stand; their PA segments ("No lock or rekey statute located", "No statute") are accurate. `edu-hoa-pa` and `association-approval-la` (tagged) answer the `hoa` topic, and `edu-no-association-lease-disclosure-pa` answers `association-obligations-disclosure`.
+27. **Batch 8 tags (rule 26):** `appliances-excluded-la`, `furnishings-included-la`, `emergency-contact-co`, `extended-absence-notice-ks`, `guaranty-as`, `lease-copy-receipt-hi`, `informal-dispute-resolution-or`, `scheduled-services-entry-la`, `rent-installments-or`, `rules-wi` (chosen over `rules-ia`), `tenant-portal-mn`, `no-liens-ar`, `association-approval-la` and `prohibited-acts-renter-wy`. None conflicts with a Pennsylvania statute, and each waives no statutory right.
+28. **New finds in batch 8:**
+    - 68 Pa.C.S. § 7103(a): the Real Estate Seller Disclosure Law covers a lease with an option to purchase.
+    - Mechanics' Lien Law of 1963 § 303(d): a landlord's consent to tenant work does not expose its fee to liens without a signed writing that the work is for its benefit.
+    - Electronic Transactions Act § 301(c): the right to refuse further electronic dealings cannot be waived.
+
+No question was asked of Taylor in batches 1-8; each call above was a legal or drafting judgment under rule 76.
+
+### §5 Independent check
+
+**Round 1 (2026-11-08).** One general-purpose agent that had not written the rows checked:
+- all 273 rows mechanically: format, ids, federal prefix, battery presence;
+- all 26 tags for substance, against `lease-clauses.csv`;
+- about 95 new rows, across all eight batches, against the saved sources in `src/`.
+
+Mechanical results: none. Every tag changes only `states` (+`;PA`) and appends one ` | PA: ` segment; every new row's notes begin `PA: `; all federal cites carry `FEDERAL:`.
+
+It reported 20 substantive findings, all fixed before final delivery:
+1. Drug-activity grounds (Act § 505-A) cover single-family homes, apartments and multiple dwellings, not only buildings of three or more households. Corrected in `edu-expedited-criminal-eviction-pa`, `edu-portfolio-thresholds-pa`, `edu-drug-free-addendum-pa` and `edu-purpose-limitation-pa`.
+2. The PFA hold on belongings runs "for thirty days from the date of the notice" (Act § 505.1(h)). Corrected in `edu-dv-eviction-protection-pa` and `edu-post-eviction-property-pa`.
+3. `edu-deposit-escheat-pa`: added the condition "admitted in writing by the holder" (Fiscal Code § 1301.10).
+4. `edu-utility-resale-pa`: added the 66 Pa.C.S. § 102 exclusion for building owners who supply electric power to occupants. The row had wrongly said no exclusion was located.
+5. Habitability waivability: `edu-maintenance-duty-shift-pa`, `tenant-repair-agreement-hi` (tag) and `appliances-excluded-la` (tag) now say it is case law not read, matching `edu-habitability-waiver-pa`. The existing row is §6 finding 10.
+6. Batteries PA-G8-06 and PA-G8-07 were missing from §3, because the log tool did not match lowercase "battery". Fixed. The §3 keyword-search statement was clarified.
+7. The Chapter 14 expiration note is now saved (`src/pacs/66-ch14-note.txt`).
+8. Fair Credit Extension Uniformity Act § 4(b)(6)(i) reaches collection of a past-due "Debt". The fee rows (`edu-required-fees-pa`, `edu-fee-transparency-pa`, `edu-governmental-fines-pa`, `edu-tax-escalation-pa`, the utility-billing rows and `edu-renters-insurance-rules-pa`) now say so.
+9. `rent-increase-midterm-ky` (tag): the retaliation sentence now also cites 43 P.S. § 955(d) and Act § 205, not only 66 Pa.C.S. § 1531(c).
+10. `emergency-contact-co` (tag): removed the misapplied 43 P.S. § 955(h)(6) cite.
+11. `edu-tenant-bankruptcy-pa`: Act § 103(4) only preserves other laws on rent preference. Corrected.
+12. `owner-occupancy-termination-ar` (tag): mobile home park notices run up to three months (Act § 501(c)). Corrected, and the clause is marked not for them.
+13. `edu-statutory-early-termination-pa`: added the Act § 514(a) "later of" effective date.
+14. `edu-security-deposit-interest-pa` and `edu-holding-deposit-pa`: § 511.2(c) says the section applies only after the second anniversary. Each row now states the literal reading and recommends escrow from the start as the cautious course.
+15. `waterbed-mn` and `furnishings-included-la` (tags): changed "matches" to "is consistent with"; § 512(a) does not mention wear and tear.
+16. `edu-municipal-utility-lien-pa`: authority (d)(10) runs from when the bill "first becomes due", and city § 13588(b) from when it becomes "overdue". Corrected.
+17. `edu-term-change-notice-pa`: added the § 3410(k) written-consent exception and the § 3410(f) senior and disabled rules.
+18. Blank §2 citations: the log tool now reads apostrophe names (Mechanics' Lien Law) and labels tags with no statute.
+19. `edu-exculpatory-clauses-pa`: fixed a row-id fragment.
+20. `edu-expedited-criminal-eviction-pa`: the Drug Nuisance Law was read this pass; only the Expedited Eviction act was not reopened.
+
+**Round 2 (2026-11-08, final).** A fresh agent checked the 31 rows corrected in round 1 against the same sources. It found no problems in seven of 13 row groups. It flagged ten points, all fixed:
+1. `edu-dv-eviction-protection-pa`: reworded so that "for 30 days from the date of the notice" plainly modifies the hold.
+2. `edu-deposit-escheat-pa`: now gives the full Fiscal Code § 1301.10 test ("admitted in writing by the holder and adjudicated to be due", unclaimed with no owner interest). It says coverage of an uncashed refund is not settled, and treats reporting as the cautious course.
+3. `edu-utility-resale-pa`: the exclusion is now limited to owner/operators that both own and manage the internal distribution system.
+4. `tenant-repair-agreement-hi` (tag): the FCEUA sentence is narrowed to collecting incidental amounts on a past-due debt.
+5. The FCEUA rows (`edu-fee-transparency-pa`, `edu-governmental-fines-pa`, `edu-tax-escalation-pa`, `edu-utility-rebilling-cap-pa`, `edu-no-submetering-disclosure-pa`, `edu-renters-insurance-rules-pa`, `edu-rent-concession-pa`, `tax-insurance-escalation-la` tag) now include the statute's alternative "or permitted by law" and its past-due-debt scope.
+6. `edu-rent-concession-pa`: now says "past-due lease debt".
+7. Retaliation wording: `rent-increase-midterm-ky` (tag), `edu-term-change-notice-pa`, `edu-rent-escalation-pa` and `edu-no-habitability-presumption-pa` now say "rebuttable presumption", and the term-change row says "substantial".
+8. `emergency-contact-co` (tag): removed a stray Purdon's sentence.
+9. `waterbed-mn` and `furnishings-included-la` (tags): § 512(a) is now described as limiting deductions for damage to the premises to actual damage. It does not limit retention for rent or other breaches.
+10. `edu-utility-shutoff-statute-pa` and `edu-no-cold-weather-vacate-notice-pa`: dropped the unsupported "winter rules" and "now come from" claims. PUC regulations "may apply", not read.
+
+**Rows edited after the last round (rule 80):** the round-2 fixes above. These are `edu-dv-eviction-protection-pa`, `edu-deposit-escheat-pa`, `edu-utility-resale-pa`, `tenant-repair-agreement-hi`, `edu-fee-transparency-pa`, `edu-governmental-fines-pa`, `edu-tax-escalation-pa`, `tax-insurance-escalation-la`, `edu-utility-rebilling-cap-pa`, `edu-no-submetering-disclosure-pa`, `edu-renters-insurance-rules-pa`, `edu-rent-concession-pa`, `rent-increase-midterm-ky`, `edu-term-change-notice-pa`, `edu-rent-escalation-pa`, `edu-no-habitability-presumption-pa`, `emergency-contact-co`, `waterbed-mn`, `furnishings-included-la`, `edu-utility-shutoff-statute-pa` and `edu-no-cold-weather-vacate-notice-pa`. After these edits the quote checker passed 306 of 306 quotes. No third round was run (the rule's limit is two).
+
+### §6 Findings on existing rows
+
+1. **`edu-no-application-fee-cap-pa` will be wrong from 2026-12-21.** Act 67 of 2026 adds Act § 208: 'A landlord or the landlord's agent may only charge a fee that is reasonably related to the actual administrative expenses incurred and may not use fees as a general revenue source.' (1951 Act § 208(a)), and '(b) Nothing in this section shall be construed to prohibit a person from charging or require a person to charge a rental application fee' (1951 Act § 208(b)). The row says Pennsylvania sets no application-fee limit. Proposed bodyText: "Pennsylvania sets no dollar cap on rental application fees. From December 21, 2026, a landlord or its agent may charge only a fee reasonably related to the actual administrative expenses incurred, and may not use application fees as a general source of revenue. The law neither requires nor bans an application fee." Notes: cite 1951 Act § 208 (Act 67 of 2026 (2026 P.L. 595), effective 60 days after 2026-10-22); no Purdon's number yet; status VERIFIED; `last_checked` at sync.
+2. **Parking disclosure from 2026-12-21 (Act 64 of 2026, Act § 207).** 'A landlord shall state in a lease whether parking is provided for a tenant. If the landlord provides parking to the tenant, the landlord shall state in the lease whether the tenant is required to pay a fee for the provision of parking and, if so, the amount of the fee.' (1951 Act § 207(a)(1)). PA's tagged parking clauses (`assigned-parking-space`, `parking-vehicle-rules`, `parking-ks-oh-ca`) are optional and do not state whether parking is provided. Answered in the delta by the new REQUIRED clause `parking-disclosure-pa` (batch 6, topic `unbundled-parking`, effective 2026-12-21); see §4 decision 20 and finding 8.
+
+3. **Kickoff description of Act § 511.3.** The prompt (item 4) calls Act § 511.3 "transfer on sale". Section 511.3 (68 P.S. § 250.511c) is "Bond in Lieu of Escrowing" (its heading). Transfer of the landlord's duties on a sale is Act § 104 (68 P.S. § 250.104). No existing row is wrong on this; recorded so the kickoff template can be corrected.
+4. **Kickoff description of 66 Pa.C.S. § 1529.** The prompt (item 2) says the utility-payment deduction applies "notwithstanding … any agreement". Section 1529 has no such words; the non-waiver rule is 66 Pa.C.S. § 1530: 'Any waiver of a tenant's rights under this subchapter shall be void and unenforceable.' (66 Pa.C.S. § 1530). No row is affected.
+
+5. **Proposed row `early-termination-pa` (PA item 8(a)).** Replaces PA's tag on `early-termination-ks`: at merge, remove PA from that row's `states` and drop its ` | PA: …` notes segment (the shared text is unchanged).
+    - `id` early-termination-pa; `group` Default & Termination; `title` Early Termination; `states` PA; `is_active` TRUE; `supersedes` early-termination; `rule_type` REQUIRED; `content_type` LEASE_CLAUSE; `verification_status` VERIFIED; `effective_from` and `last_checked` at merge; `choice_group` and `is_default` blank; `topic_key` early-termination; `lease_clause_basis` SERVES_LANDLORD.
+    - `bodyText`: "Tenant may terminate this Lease before the end of the Term by providing Landlord at least 30 days' written notice. Tenant will pay an early termination fee equal to one month's Rent ({{monthly_rent}}), and remains responsible for Rent and other obligations up to the termination date. This early-termination option and fee apply only if this Lease has a fixed Term; a month-to-month or other periodic tenancy ends on the notice that applicable law and this Lease provide, without an early termination fee. Landlord may terminate this Lease early in accordance with this Lease's Tenant Default and notice provisions, or if Tenant vacates or abandons the property without notifying Landlord. Nothing in this Section limits any right either party has under applicable law, including a Tenant's right to terminate without penalty due to active military service under the Servicemembers Civil Relief Act or Pennsylvania law, due to the property becoming uninhabitable through no fault of Tenant, or, except as prohibited by law in the case of a Tenant's death, any other termination right or limitation provided by applicable law." (Changes from `early-termination-ks`: the fee is a flat one month's Rent, dropping "or 30% of the remaining Rent due under the Term, whichever is greater"; "or Pennsylvania law" added after the SCRA. No new variables.)
+    - `notes`: "PA: Present. Optional exit for a fixed Term, at a flat fee of one month's Rent. No Pennsylvania statute sets or limits an early-termination fee in a residential lease, and the Commercial Code's liquidated-damages rules cover goods only (`edu-liquidated-damages-pa`, battery PA-G1-11); whether a fixed fee is a penalty is case law, not read, so the library uses one month's Rent, the smallest common figure, rather than a percentage of the remaining Rent that grows with the Term. Statutory exits kept by the savings sentence: 51 Pa.C.S. § 7315 (Guard and reserves, 'without cost, payment or penalty'), 51 Pa.C.S. § 7315.1 (servicemembers, 30 days' notice), 68 P.S. § 250.514 (Act § 514) (executor or administrator, 14 days, no penalty); see `edu-statutory-early-termination-pa`. P.S. numbers are Purdon's, which the official site does not print. Read section-open: 1951 Act whole and 51 Pa.C.S. §§ 7315, 7315.1 (palegis.us, 2026-11-08). The fee is a waiver-like loss for the tenant only if the lease is read as a penalty; no listing in `consumer-restrictions-statement-pa` is owed."
+6. **`edu-drug-activity-eviction-pa` states the 10-day notice without the federal caveat (PA item 8(c)).** Proposed: append to its `bodyText` "For a property with a federally backed mortgage or in a covered federal housing program, federal law may also require 30 days' notice to vacate; see the CARES Act notice explainer." and to its PA notes "Federal notice: `edu-cares-act-notice`."
+7. **`edu-servicemember-rights-pa` notes cite "Pa.R.C.P.M.D.J. 503D".** The court-rule abbreviation is Pa.R.Civ.P.M.D.J. (as the other PA rows write it). Proposed: correct the abbreviation at the next sync; no other change.
+
+8. **Tagged parking clauses after Act 64 of 2026.** `assigned-parking-space` (PA segment: "No statute") and `parking-vehicle-rules` (PA segment cites only towing) predate 1951 Act § 207. From 2026-12-21, a PA lease must state whether parking is provided and any fee (§ 207(a)(1)), and a parking fee may not be changed or added during the lease (§ 207(a)(2)). `parking-vehicle-rules` lets the landlord charge for "tags, decals, or access cards"; in PA that charge must be stated as a parking fee in the lease and cannot be added mid-lease. Proposed: replace each row's PA segment with "PA: Tagged. Optional; pairs with REQUIRED `parking-disclosure-pa` (1951 Act § 207, Act 64 of 2026, effective 2026-12-21). Any permit, tag, decal or access-card charge is a parking fee that must be stated in `parking-disclosure-pa` and may not be added or changed during the Term (1951 Act § 207(a)(2))." with `last_checked` at sync. No change to either row's text.
+
+9. **PA item 10: aligned casualty wording (`casualty-termination-pa`).** The row excludes casualty "not caused by Tenant, members of Tenant's household, or Tenant's guests". `tenant-caused-damage-pa` uses "the deliberate or negligent act or omission of Tenant, an Occupant, or a guest or invitee of Tenant". Proposed first sentence for `casualty-termination-pa`: "If the property is damaged or destroyed by fire or other casualty not caused by the deliberate or negligent act or omission of Tenant, an Occupant, or a guest or invitee of Tenant, and the damage makes the property unfit to live in or substantially impairs Tenant's use of it, either Landlord or Tenant may end this Lease by written notice to the other, effective on the date Tenant moves out." The rest of the text is unchanged. "Occupant" is the defined term `tenant-caused-damage-pa` uses. "Deliberate or negligent" keeps the two rows' fault tests the same, so a casualty that is not the tenant side's fault gives both the casualty exit and rent abatement. Notes to add: "PA: aligned with `tenant-caused-damage-pa` fault persons (PA gaps log §6 finding 9); no Pennsylvania statute governs casualty termination (`edu-no-environmental-event-termination-pa`)." Neither row was edited.
+
+10. **`edu-habitability-pa` states the implied warranty is one "which a lease cannot waive"** without saying that rests on case law. This pass did not read those decisions; `edu-habitability-waiver-pa` says so, and batch 5 and 8 rows were aligned to it after the independent check (§5). Proposed: add to `edu-habitability-pa`'s PA notes "Non-waivability: case law, not read in the 2026-11-08 gaps pass" at sync. The body text is unchanged.
+
+### §7 Findings for other states
+
+1. Two KS rows carry Pennsylvania citations outside a PA segment (PA log §8 rule): `edu-no-plain-language-consumer-statement-ks` cites "73 P.S. 2205(d)" and `edu-deposit-holding-ks` cites "68 P.S. 250.511b(a)". Not edited.
+
+### Proposed SOP changes
+
+1. **Rule 19 (dump channel):** where the corpus lives only in a browser tab, save texts and battery logs by returning one JSON object larger than the tool's inline limit (about 100,000 characters, padded if needed), which the harness persists to a file the workspace can parse. A smaller result prints inline and costs context.
+2. **Rule 16 (kickoff currency):** a kickoff that lists bills as "pending, not law" is checked against the act list at Step A. HB 344 and HB 558 were enacted on 2026-10-22, after the prompt's source was written.
+
+3. **Rule 19 (special-session acts):** palegis.us serves special-session acts only through a page wrapper that drops the session flag. When a needed act is special-session, the SOP should name a fallback: the PDF link on the law-information page, or relying on an earlier section-open read, disclosed in the row, with NEEDS_REVIEW if no earlier read exists. This affected the Expedited Eviction of Drug Traffickers Act and the Taxpayer Relief Act.
+
+### Proposed topic questions
+
+1. `parking-rules-notice` / `unbundled-parking`: add "Does a statute require the lease to state whether parking is provided and its fee, and bar adding or changing parking fees during the lease? (Pennsylvania, 68 P.S. § 250.207, Act 64 of 2026.)"
+2. `tenant-screening`: add "Does the state bar landlords from using expunged or limited-access (clean slate) criminal records in housing decisions? (Pennsylvania, 18 Pa.C.S. § 9122.5(a.1).)"
+3. `optional-lease-terms` / `required-disclosures`: Pennsylvania's Real Estate Seller Disclosure Law expressly covers a lease with an option to purchase (68 Pa.C.S. § 7103(a)). The existing question already fits; no change.
+
+# Topic gaps sync (Claude Code, 2026-11-08)
+
+**Merge.** Base 31e6155: 247 new rows and 26 shared rows tagged, matching the log; no other row changed. 122 of 122 delta quotations that cite the 1951 Act or 51 Pa.C.S. match the live palegis.us text, which answered scripted requests this time; so do the §6 quotations from Acts 64 and 67 of 2026 (§§ 207, 208).
+
+**§6 findings applied:**
+- `edu-no-application-fee-cap-pa` (1): the § 208 rule from 2026-12-21.
+- `early-termination-pa` (5): flat one-month fee, following the GA, SC, AZ, NC and VA overrides. PA is untagged from `early-termination-ks`, and six PA rows now point to the override.
+- `edu-drug-activity-eviction-pa` (6): the CARES caveat.
+- `edu-servicemember-rights-pa` (7): the rule abbreviation.
+- Parking (8): segments for `assigned-parking-space` (replaced), `parking-vehicle-rules` and `parking-ks-oh-ca` (appended).
+- `casualty-termination-pa` (9): the fault persons now match `tenant-caused-damage-pa`.
+- `edu-habitability-pa` (10): the case-law note.
+
+Findings 2, 3 and 4 needed no row change.
+
+**Re-check of the 21 rows edited after round 2 (rule 80).** A fresh checker read them against official palegis.us texts: Titles 53, 66 and 68, the Fair Credit Extension Uniformity Act, the Fiscal Code, the Human Relations Act, the UTPCPL and the Plain Language Consumer Contract Act. It found 1 ERROR and 16 FIXes in 10 rows, and Claude Code confirmed each source quotation before applying them.
+- The ERROR: `edu-rent-escalation-pa` said no statute limits mid-term rent increases. 68 Pa.C.S. §§ 3410(a), (f)(3), 4412 and 5410 freeze the terms for a year after a conversion notice and cap later increases for eligible tenants.
+- The FIXes:
+  - the § 513 appeal escrow and deposit;
+  - "immediate family";
+  - the 53 Pa.C.S. § 304(b) ordinance and reasonable-belief qualifiers;
+  - § 512(e);
+  - the FCEUA scope;
+  - the PLCCA $50,000 exclusion;
+  - the § 1531(c) trigger and its nonpayment exception;
+  - the § 501(e) lease waiver;
+  - the § 1522(a) scope: no sewer, residential buildings only, plus the emergency exception;
+  - the name of Chapter 14.
+- One erratum was narrowed: "express written consent" was dropped, since § 3410(a) doesn't say it.
+- A sweep for the same wording fixed three sibling rows: `edu-no-rent-increase-notice-pa`, `edu-statutory-caps-pa` and `edu-retaliation-pa`.
+- Pa.R.Civ.P.M.D.J. 514.1, which the checker couldn't reach, matched on pacodeandbulletin.gov.
+- The other 11 rows were clean.
+- The checker observed that "Utility Service Tenants Rights Act" is a popular name. Title 66 heads it "Subchapter B. Discontinuance of Service to Leased Premises". No change.
+
+**NEEDS_REVIEW kept:** `edu-no-property-tax-rent-statement-pa`. The Taxpayer Relief Act (Act 1 of the 2006 First Special Session) can't be reached: palegis.us returns the regular-session Liquor Code act in its HTML, iframe and PDF forms, and the legacy URL redirects to the same page. Only that unreachable source keeps the row open. This follows Part 5.
+
+**Arbitration.** Not offered, as the pass concluded: whether the UTPCPL reaches a void term rests only on case law, under Taylor's 2026-11-07 rule.
+
+**§7.** The two KS rows cite PA sections inside "no analogue to" contrasts in KS's own absence notes. They were not edited.
+
+**Records.**
+- Citations: 274 rows (log §2 plus `early-termination-pa`).
+- Topic questions: 2, under `parking-rules-notice` and `tenant-screening`.
+- SOP 2.03: rules 11, 14 and 18.
+- Builder note: `parking-disclosure-pa` (backlog).
+
+**Result.** Pennsylvania has 392 active rows: 391 VERIFIED, 1 NEEDS_REVIEW. No unexplained same-topic pairs.
