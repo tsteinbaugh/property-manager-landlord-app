@@ -3547,7 +3547,7 @@ const CLAUSE_TEMPLATES = [
     group: "Default & Termination",
     states: ["TN"],
     bodyText:
-      "Waiver of notice for nonpayment of Rent. Tenant waives the written notice of nonpayment of Rent that Tenn. Code Ann. § 66-28-505 would otherwise require. If Rent is not paid by the end of the five-day grace period in this Lease, Landlord may file a detainer warrant to recover possession immediately, without first giving Tenant written notice of the nonpayment. This waiver does not shorten the grace period. It applies notwithstanding any other provision of this Lease that refers to written notice of nonpayment, including the Default by Tenant Section.",
+      "Waiver of notice for nonpayment of Rent. Tenant waives the written notice of nonpayment of Rent that Tenn. Code Ann. § 66-28-505 would otherwise require. If Rent is not paid by the end of the five-day grace period in this Lease, Landlord may file a detainer warrant to recover possession immediately, without first giving Tenant written notice of the nonpayment. This waiver does not shorten the grace period. It applies notwithstanding any other provision of this Lease that refers to written notice of nonpayment, including the Default by Tenant Section. This waiver does not affect any notice federal law requires.",
   },
   // Disclosures
   {
@@ -8066,7 +8066,7 @@ const CLAUSE_TEMPLATES = [
     id: "nonrefundable-fees-wv",
     title: "Nonrefundable Fees",
     group: "Security Deposit",
-    states: ["WV", "MS", "PR", "VI", "AS", "MP", "TX", "GA", "SC"],
+    states: ["WV", "MS", "PR", "VI", "AS", "MP", "TX", "GA", "SC", "TN"],
     bodyText:
       "[Optional.] Landlord and Tenant expressly agree that the following fees are nonrefundable: [list each nonrefundable fee and its amount, for example a nonrefundable pet fee of $___, or state 'None']. Any other money Tenant gives Landlord to secure Tenant's performance of this Lease, or as security for damage to the property, is part of the Security Deposit.",
   },
@@ -11383,7 +11383,7 @@ const CLAUSE_TEMPLATES = [
     id: "carpet-cleaning-ar",
     title: "Professional Carpet Cleaning at Move-Out",
     group: "Tenant Responsibilities",
-    states: ["AR", "MS", "PR", "VI", "AS", "MP", "KS", "NE", "SD", "NJ", "AZ", "FL", "GA", "SC"],
+    states: ["AR", "MS", "PR", "VI", "AS", "MP", "KS", "NE", "SD", "NJ", "AZ", "FL", "GA", "SC", "TN"],
     bodyText:
       "[Optional. Use only if the carpets were professionally cleaned immediately before the tenancy began.] The carpets at the property were professionally cleaned immediately before this tenancy began. When the tenancy ends, Tenant will have the carpets professionally cleaned and give Landlord the receipt. If Tenant does not, Landlord may have the carpets professionally cleaned and apply the reasonable cost Landlord actually pays to the Security Deposit as damages caused by Tenant's noncompliance with this Lease, listed in Landlord's itemized deposit notice.",
   },

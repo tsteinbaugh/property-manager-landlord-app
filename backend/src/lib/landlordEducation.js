@@ -10546,8 +10546,8 @@ const LANDLORD_EDUCATION = [
     verificationStatus: "VERIFIED",
     topicKey: "prohibited-lease-terms",
     bodyText:
-      "In the 17 Act counties a lease may not have the tenant confess judgment, exculpate or limit the landlord's liability arising under law, or indemnify the landlord for it; such terms are unenforceable, and a landlord who willfully uses a lease containing terms known to be prohibited is liable to the tenant for actual damages. A lease also cannot make the tenant waive rights or remedies under the Act, and a court may refuse to enforce an unconscionable term. A contractual lien on a tenant's household goods is unenforceable unless perfected by a UCC filing with the Secretary of State, and every other landlord lien is prohibited. Outside the Act counties these rules do not apply, and an old statute still allows a lease bond in which the tenant authorizes a confessed judgment for possession at the end of the term; the library offers it only as an optional clause for those counties (possession-bond-tn), and offers an optional perfected household-goods security interest for the Act counties (household-goods-lien-tn). The library's parking, storage, insurance and pet clauses avoid exculpatory and indemnity language in every county.",
-    notes: "TN: TN-SCOPE: BOTH REGIMES. Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1). Tenn. Code Ann. §§ 66-28-201(a), 66-28-203 subsections (a)-(b) (penalty: actual damages; instruction 49), 66-28-204 (unconscionability; subsection (c): a Tenn. Code Ann. § 66-28-505(f) clause is enforceable), 66-28-509 (liens). Tenn. Code Ann. § 29-18-123 (bond to confess judgment for possession; statewide text, but void as a lease term in Act counties under § 66-28-203(a)(1)); OFFERED as an opt-in clause for non-Act counties only: possession-bond-tn; the § 66-28-509 lien as an opt-in for Act counties: household-goods-lien-tn (TN log §6 decision 4, Taylor 2026-09-28). CONFIRMED ABSENT (statutes), code-wide: LexisNexis Tennessee Code Unannotated free public access, terms-and-connectors search of the whole code (phrases in quotes, ! root expander, plurals matched automatically, control term 'zqxvbnmwt' 0 at start and end; TN log §17). '(jury w/5 waive!) or \"confession of judgment\" or \"confess judgment\" or \"confess a judgment\"' 47 hits; residential only §§ 29-18-123, 66-28-203; no jury-waiver rule for leases. Instruction 49: shared parking, storage-space, tenants-property-insurance and pet-policy not tagged; the variants parking-ks-oh-ca, storage-space-ks-oh-ca and tenants-property-insurance-ks-oh-ca and pet-policy-tn used instead. COUNTY-LAYER PILOT (Taylor, 2026-09-28): Tennessee is the test case for the future county/local layer. The URLTA (Tenn. Code Ann. Title 66, Chapter 28) applies only in the 17 counties over 75,000 people in the 2010 census, a list frozen by 2021 Pub. Ch. 182 § 2 (Tenn. Code Ann. § 66-28-102(a)): Anderson, Blount, Bradley, Davidson, Hamilton, Knox, Madison, Maury, Montgomery, Rutherford, Sevier, Shelby, Sullivan, Sumner, Washington, Williamson and Wilson.",
+      "In the 17 Act counties a lease may not have the tenant confess judgment, exculpate or limit the landlord's liability arising under law, or indemnify the landlord for it; such terms are unenforceable, and a landlord who willfully uses a lease containing terms known to be prohibited is liable to the tenant for actual damages. A lease also cannot make the tenant waive rights or remedies under the Act, and a court may refuse to enforce an unconscionable term. A contractual lien on a tenant's household goods is unenforceable unless perfected by a UCC filing with the Secretary of State, and every other landlord lien is prohibited. Outside the Act counties these rules do not apply, and an old statute still allows a lease bond in which the tenant authorizes a confessed judgment for possession at the end of the term, though a general statute voids pre-suit confessions of judgment and how the two fit is unresolved; the library offers it only as an optional clause for those counties (possession-bond-tn), and offers an optional perfected household-goods security interest for the Act counties (household-goods-lien-tn). The library's parking, storage, insurance and pet clauses avoid exculpatory and indemnity language in every county.",
+    notes: "TN: TN-SCOPE: BOTH REGIMES. Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1). Tenn. Code Ann. §§ 66-28-201(a), 66-28-203 subsections (a)-(b) (penalty: actual damages; instruction 49), 66-28-204 (unconscionability; subsection (c): a Tenn. Code Ann. § 66-28-505(f) clause is enforceable), 66-28-509 (liens). Tenn. Code Ann. § 29-18-123 (bond to confess judgment for possession; statewide text, but void as a lease term in Act counties under § 66-28-203(a)(1)); OFFERED as an opt-in clause for non-Act counties only: possession-bond-tn; the § 66-28-509 lien as an opt-in for Act counties: household-goods-lien-tn (TN log §6 decision 4, Taylor 2026-09-28). CONFIRMED ABSENT (statutes), code-wide: LexisNexis Tennessee Code Unannotated free public access, terms-and-connectors search of the whole code (phrases in quotes, ! root expander, plurals matched automatically, control term 'zqxvbnmwt' 0 at start and end; TN log §17). '(jury w/5 waive!) or \"confession of judgment\" or \"confess judgment\" or \"confess a judgment\"' 47 hits; residential only §§ 29-18-123, 66-28-203; no jury-waiver rule for leases. Instruction 49: shared parking, storage-space, tenants-property-insurance and pet-policy not tagged; the variants parking-ks-oh-ca, storage-space-ks-oh-ca and tenants-property-insurance-ks-oh-ca and pet-policy-tn used instead. COUNTY-LAYER PILOT (Taylor, 2026-09-28): Tennessee is the test case for the future county/local layer. The URLTA (Tenn. Code Ann. Title 66, Chapter 28) applies only in the 17 counties over 75,000 people in the 2010 census, a list frozen by 2021 Pub. Ch. 182 § 2 (Tenn. Code Ann. § 66-28-102(a)): Anderson, Blount, Bradley, Davidson, Hamilton, Knox, Madison, Maury, Montgomery, Rutherford, Sevier, Shelby, Sullivan, Sumner, Washington, Williamson and Wilson. | TN 2026-11-07 (Claude Code, TN topic gaps sync, gaps log §6 F1): 'Any power of attorney or authority to confess judgment which is given before an action is instituted and before the service of process in such action, is declared void; and any judgment based on such power of attorney or authority is likewise declared void.' (Tenn. Code Ann. § 25-2-101(a)); see `edu-confession-of-judgment-tn`.",
   },
   // Rules & Regulations
   {
@@ -15539,7 +15539,7 @@ const LANDLORD_EDUCATION = [
     topicKey: "for-cause-eviction",
     bodyText:
       "Tennessee has no just-cause or good-cause eviction rule in either the 17 Act counties or the other 78: a landlord may decline to renew a fixed-term lease, or end a periodic tenancy with the required notice, without giving a reason. Limits that apply only in particular situations: in the Act counties a landlord may not retaliate against a tenant for a complaint about a violation of the deposit section or for using the Act's remedies; in every county a tenant may not be evicted solely because they are a victim of domestic abuse, sexual assault or stalking, and a federally assisted 55-and-over elderly facility must give a paid-up tenant 60 days' notice before evicting for redevelopment; in Class 1 and Class 2 counties an owner converting an occupied unit to a condominium must give two months' notice at the same rent; and fair housing law applies everywhere. Tennessee has no rent-escrow bar on eviction and no statute protecting tenants' associations.",
-    notes: "TN: TN-SCOPE: STATEWIDE. Retro check 2026-09-30 (SOP 1.4), rule 41b: records the verdict under for-cause-eviction; the situational limits live in their own rows and are only pointed to here. CONFIRMED ABSENT (statutes), code-wide: LexisNexis Tennessee Code Unannotated free public access, terms-and-connectors search of the whole code 2026-09-30, control term 'zqxvbnmwt' 0 hits at start and end (TN retro battery): '(\"good cause\" or \"just cause\") w/25 (evict! or terminat! or tenant or lessee)' 21 hits, none residential landlord-tenant (dealer, franchise, liquor, lottery, trusts, TANF, parental rights, § 53-11-452 drug forfeiture); '(organiz! or association or union) w/15 (tenant or tenants)' 10 hits, no tenant-organizing protection; pay-into-court and escrow search 2026-09-28, none (TN log §17). Situational limits: Tenn. Code Ann. § 66-28-514 (retaliation, Act counties; edu-retaliation-tn); Tenn. Code Ann. §§ 66-28-205, 66-7-112, 66-28-517(g), 66-7-109(e) (DV; edu-dv-lease-termination-tn, edu-dv-tenancy-protections-tn); Tenn. Code Ann. §§ 66-28-523, 66-7-109 (elderly facility redevelopment, 60 days; edu-termination-notices-tn); Tenn. Code Ann. § 66-27-123 (condominium conversion; edu-condo-conversion-notice-tn); Tenn. Code Ann. § 4-21-601 (edu-fair-housing-tn). All read section-open 2026-09-28 (Justia host copy with history line; TN log §1). Rule 41 end-of-term wording: surrender-end-of-term and holdover-ca treat expiration as ending possession, which is right for Tennessee. COUNTY-LAYER PILOT (Taylor, 2026-09-28): Tennessee is the test case for the future county/local layer. The URLTA (Tenn. Code Ann. Title 66, Chapter 28) applies only in the 17 counties over 75,000 people in the 2010 census, a list frozen by 2021 Pub. Ch. 182 § 2 (Tenn. Code Ann. § 66-28-102(a)): Anderson, Blount, Bradley, Davidson, Hamilton, Knox, Madison, Maury, Montgomery, Rutherford, Sevier, Shelby, Sullivan, Sumner, Washington, Williamson and Wilson.",
+    notes: "TN: TN-SCOPE: STATEWIDE. Retro check 2026-09-30 (SOP 1.4), rule 41b: records the verdict under for-cause-eviction; the situational limits live in their own rows and are only pointed to here. CONFIRMED ABSENT (statutes), code-wide: LexisNexis Tennessee Code Unannotated free public access, terms-and-connectors search of the whole code 2026-09-30, control term 'zqxvbnmwt' 0 hits at start and end (TN retro battery): '(\"good cause\" or \"just cause\") w/25 (evict! or terminat! or tenant or lessee)' 21 hits, none residential landlord-tenant (dealer, franchise, liquor, lottery, trusts, TANF, parental rights, § 53-11-452 drug forfeiture); '(organiz! or association or union) w/15 (tenant or tenants)' 10 hits, no tenant-organizing protection; pay-into-court and escrow search 2026-09-28, none (TN log §17). Situational limits: Tenn. Code Ann. § 66-28-514 (retaliation, Act counties; edu-retaliation-tn); Tenn. Code Ann. §§ 66-28-205, 66-7-112, 66-28-517(g), 66-7-109(e) (DV; edu-dv-lease-termination-tn, edu-dv-tenancy-protections-tn); Tenn. Code Ann. §§ 66-28-523, 66-7-109 (elderly facility redevelopment, 60 days; edu-termination-notices-tn); Tenn. Code Ann. § 66-27-123 (condominium conversion; edu-condo-conversion-notice-tn); Tenn. Code Ann. § 4-21-601 (edu-fair-housing-tn). All read section-open 2026-09-28 (Justia host copy with history line; TN log §1). Rule 41 end-of-term wording: surrender-end-of-term and holdover-ca treat expiration as ending possession, which is right for Tennessee. COUNTY-LAYER PILOT (Taylor, 2026-09-28): Tennessee is the test case for the future county/local layer. The URLTA (Tenn. Code Ann. Title 66, Chapter 28) applies only in the 17 counties over 75,000 people in the 2010 census, a list frozen by 2021 Pub. Ch. 182 § 2 (Tenn. Code Ann. § 66-28-102(a)): Anderson, Blount, Bradley, Davidson, Hamilton, Knox, Madison, Maury, Montgomery, Rutherford, Sevier, Shelby, Sullivan, Sumner, Washington, Williamson and Wilson. | TN 2026-11-07 (Claude Code, TN topic gaps sync, gaps log §6 F2): Tenn. Code Ann. § 29-18-102(b) ('No action for forcible entry and detainer shall lie against any tenant who has paid all rent due for current occupancy of the premises and who is not in violation of any law nor otherwise in breach of the tenant's written lease'; farm property excepted) limits only the forcible-entry action defined in Tenn. Code Ann. § 29-18-102(a); the holdover action is unlawful detainer under Tenn. Code Ann. § 29-18-104, which (b) does not mention. Case law on (b) was not searched.",
   },
   {
     id: "edu-post-eviction-property-tn",
@@ -165450,6 +165450,2961 @@ const LANDLORD_EDUCATION = [
     bodyText:
       "North Carolina does not require a drug-free or crime-free lease addendum, prescribe its wording, or bar one. The expedited criminal-activity eviction law applies to every residential rental agreement whether or not the lease mentions drugs: the court must order eviction where criminal activity (any controlled-substance offense other than simple possession, or other crime threatening other residents' or the landlord's employees' health, safety or peaceful enjoyment) occurred in the unit, the unit was used to further it, or the tenant, a household member or a guest engaged in it on or near the premises, unless the tenant proves noninvolvement and lack of knowledge or reasonable efforts to prevent it (a defense harder to use in a later action), or the court is clearly convinced that immediate eviction would be a serious injustice whose prevention outweighs the need to protect the other tenants and residents; even when it denies complete eviction the court may remove the culpable household members (see edu-expedited-criminal-eviction-nc). A lease term still adds value: it makes the activity a lease breach supporting an ordinary eviction without a cure period, and in a nuisance case seeking forfeiture of the property, lease terms prohibiting illegal drugs together with evicting violators are among the factors showing the owner's good faith (see edu-nuisance-nc). The library's clause for this is criminal-activity-nc; collecting rent while knowing of the illegal acts does not waive the default. Federally assisted housing may have its own lease requirements, which this row does not cover.",
     notes: "NC: Confirmed absent (required or regulated drug-free addendum); Article 7 and nuisance-law effects Present. Article 7 applies to all leases: 'the provisions of this Article are deemed to apply to all residential rental agreements in this State' (N.C. Gen. Stat. § 42-59.1); '\"Criminal activity\" means (i) activity that would constitute a violation of G.S. 90-95 other than a violation of G.S. 90-95(a)(3), or a conspiracy to violate any provision of G.S. 90-95 other than G.S. 90-95(a)(3); or (ii) other criminal activity that threatens the health, safety, or right of peaceful enjoyment of the entire premises by other residents or employees of the landlord.' (N.C. Gen. Stat. § 42-59(2)); grounds: 'The tenant, any member of the tenant's household, or any guest has engaged in criminal activity on or in the immediate vicinity of any portion of the entire premises' (N.C. Gen. Stat. § 42-63(a)(3)); defense: 'the tenant has established that the tenant was not involved in the criminal activity' (N.C. Gen. Stat. § 42-64(a)), plus lack of knowledge under (a)(1) or reasonable prevention efforts under (a)(2); rent: 'A landlord shall be entitled to collect rent due and owing with knowledge of any illegal acts that violate the provisions of this act without such collection constituting a waiver of the alleged defaults.' (N.C. Gen. Stat. § 42-73); cumulative with 'causes of action and remedies based on express provisions of the lease not contrary to this Article' (N.C. Gen. Stat. § 42-75). Lease-breach eviction: a tenant may be removed 'When the tenant or lessee, or other person under him, has done or omitted any act by which, according to the stipulations of the lease, his estate has ceased.' (N.C. Gen. Stat. § 42-26(a)(2)). Nuisance good faith: '(ii) lease restrictions prohibiting the illegal possession or sale of narcotic drugs and an action to evict a tenant for any violations of the lease provision' (N.C. Gen. Stat. § 19-6.1). Rule 79 parse: the N.C. Gen. Stat. § 42-63(a) eviction order is 'Subject to the provisions of G.S. 42-64' (N.C. Gen. Stat. § 42-63(a)); the noninvolvement element of N.C. Gen. Stat. § 42-64(a) is required in addition to either (a)(1) or (a)(2). Battery NC-S10-26 (gs,sl,const,ncac, 44303 units when run; control \"zqxvbnmwt\" 0): \"\\b(drug-free|drug\\s+free|crime-free|crime\\s+free|addend\\w*)\\b[\\s\\S]{0,1200}\\b(leases?|rental\\s+agreements?|tenants?|landlords?|lessees?|lessors?)\\b\" 2; \"\\b(leases?|rental\\s+agreements?|tenants?|landlords?|lessees?|lessors?)\\b[\\s\\S]{0,1200}\\b(drug-free|drug\\s+free|crime-free|crime\\s+free|addend\\w*)\\b\" 2; \"\\blease\\s+(restrictions?|provisions?|terms?|clauses?)\\b[\\s\\S]{0,300}\\b(drugs?|narcotic\\w*|controlled\\s+substances?|criminal\\s+activity)\\b\" 1; positives: GS 19-6.1 passed, synthetic passed. Hits read: N.C. Gen. Stat. § 19-6.1, a real estate contract addendum (N.C. Gen. Stat. § 47E-5) and a vehicle finance addendum (N.C. Gen. Stat. § 66-440); no drug-free addendum rule. FEDERAL: assisted-housing lease requirements are not stated in any library row read here. Currency: N.C. Gen. Stat. §§ 42-59, 42-59.1, 42-63, 42-64, 42-73 and 42-75 history \"(1995, c. 419, s. 1.)\"; N.C. Gen. Stat. § 42-59 is cited by S.L. 2025-88 and S.L. 2026-59 only in other sections' cross-references; none is in the list of sections changed after S.L. 2026-30 (gaps log §1.2). Pointers: `criminal-activity-nc`, `edu-expedited-criminal-eviction-nc`, `edu-nuisance-nc`, `partial-payment-nonwaiver-nc`, `default-by-tenant-nc`. Basis: section-open. Each cited section read whole 2026-11-07 from the Claude Code corpus corpus-NC-20261106 (official ncleg.gov text, General Statutes with changes through S.L. 2026-30, session laws 2024-2026, NCAC chapters as served by OAH; hashes verified and six sections matched to the live site, gaps log §1).",
+  },
+  // Rent & Payment
+  {
+    id: "edu-attorney-fees-tn",
+    title: "Attorney's Fees in Tennessee Leases",
+    group: "Rent & Payment",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "attorney-fees",
+    bodyText:
+      "In the 17 Act counties a landlord may recover reasonable attorney's fees for the tenant's breach of contract and nonpayment of rent only as the lease provides, and the Act separately awards fees to a landlord who terminates the lease, a holdover without consent, a refusal of lawful access, or a tenant's misrepresented need for a service or support animal. The Act gives the tenant fees for the landlord's noncompliance, failure to supply essential services, unlawful ouster, abusive entry and a bad-faith violence termination. The Act's fee awards are for reasonable fees, and no Tennessee statute requires a lease fee clause to be reciprocal. Outside the Act counties no statute awards fees in an ordinary eviction or rent case, so the landlord's fee claim rests on the lease's own fee clause. The library's Default by Tenant clause carries the fee term.",
+    notes: "TN-SCOPE: BOTH REGIMES. Act counties: Tenn. Code Ann. § 66-28-505(d), 'The landlord may recover reasonable attorney's fees for breach of contract and nonpayment of rent as provided in the rental agreement.' Fee awards also in Tenn. Code Ann. §§ 66-28-510, 66-28-512(c), 66-28-513, 66-28-406(f)(2) (landlord) and §§ 66-28-501(a), 66-28-502(a)(2), 66-28-504, 66-28-513(b), 66-28-517(e) (tenant). Basis: Tenn. Code Ann. §§ 66-28-505, 66-28-510, 66-28-512, 66-28-513, 66-28-406, 66-28-501, 66-28-502, 66-28-504, 66-28-517 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-505: \"2019, ch. 236, § 4.\"; § 66-28-510: \"T.C.A., § 64-2850.\"; § 66-28-512: \"Acts 2011, ch. 272, § 12.\"; § 66-28-513: \"T.C.A., § 64-2853.\"; § 66-28-406: \"2024, ch. 754, § 1.\"; § 66-28-501: \"T.C.A., § 64-2841.\"; § 66-28-502: \"T.C.A., § 64-2842.\"; § 66-28-504: \"T.C.A., § 64-2844.\"; § 66-28-517: \"2020, ch. 528, § 1.\"). Non-Act counties: no fee statute for an ordinary detainer; Tenn. Code Ann. § 29-18-125 lets the general sessions judge give judgment for 'the arrearage of rent, interest, and damages', with no fee term. Basis: Tenn. Code Ann. § 29-18-125 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 29-18-125: \"T.C.A. (orig. ed.), § 23-1627.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"attorney's fees\" w/30 (\"rental agreement\" OR lease) AND (landlord OR tenant)\" 6 hits (§§ 66-28-512, 66-28-513, 66-28-505, 66-28-501, 66-28-517, 66-28-510); \"reciproc! w/20 \"attorney\"\" 19 hits (§§ 56-16-109, 56-16-110, 56-16-204, 56-16-116, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The reciprocity search hit insurance, family-law and criminal-sentencing sections. The general American-rule case law (fees only by statute or contract) was not searched; the row states no case law. Points to: default-by-tenant (fee sentence).",
+  },
+  {
+    id: "edu-collection-fee-tn",
+    title: "Collection Agency Fees",
+    group: "Rent & Payment",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "collection-fee",
+    bodyText:
+      "No Tennessee landlord-tenant statute lets a lease add a collection agency's fee to what the tenant owes, or bars one. Collection agencies are licensed and regulated separately, and federal law limits what a third-party collector may add to a debt. In the 17 Act counties every payment the lease requires is rent, so a collection fee the lease imposes counts as rent for the Act's rules that turn on rent. A landlord who wants to pass on collection costs should state the fee, how it is calculated and when it applies in the lease, keep it to the agency's actual reasonable charge, and take advice first.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 66-28-104(13), '\"Rents\" means all payments to be made to the landlord under the rental agreement'. Basis: Tenn. Code Ann. §§ 66-28-104, 62-20-115 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-104: \"2021, ch. 100, § 2.\"; § 62-20-115: \"2026, ch. 1039, § 53.\"). Tenn. Code Ann. § 62-20-115 (Collection Service Act) regulates collection services; it was read for scope only and the row states no rule from it. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"collection agency\" w/30 fee!\" 2 hits (§§ 40-24-101, 67-1-1445); \"\"collection\" w/10 (cost! OR fee!) AND (debtor OR consumer)\" 12 hits (§§ 68-211-835, 62-20-124, 62-20-102, 57-4-302, 8-13-108, 68-14-704, 47-9-626, 47-9-607, and others); \"(collection OR collect!) w/20 (rent OR tenant OR landlord)\" 69 hits (§§ 68-11-608, 7-55-112, 13-30-109, 68-211-911, 64-1-1103, 9-21-407, 7-67-113, 12-10-112, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The Title 66 hits are Act sections on rent, registration and tenant duties (Tenn. Code Ann. §§ 66-28-107, 66-28-401, 66-28-505) and a crop lien and a redemption section (§§ 66-12-107, 66-30-105); none sets a rule on collection fees. Federal: the Fair Debt Collection Practices Act's limit on amounts a third-party collector adds is referred to generally and not quoted; 15 U.S.C. § 1692f was not read this pass (flagged in log §1).",
+  },
+  {
+    id: "edu-no-notice-service-fee-rule-tn",
+    title: "Fees for Serving Notices",
+    group: "Rent & Payment",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "notice-service-fee",
+    bodyText:
+      "No Tennessee statute authorizes or bars a lease charge for preparing or serving a notice, or for filing an eviction. In the 17 Act counties any charge or fee, however it is labeled, that a landlord charges because rent was paid late counts toward the 10% late-fee cap, so a notice fee triggered by late rent must fit inside that cap together with the late fee. Court costs in an eviction are awarded by the court, not by a lease charge. A fixed fee that is not tied to the landlord's actual cost may be challenged as a penalty under case law this library has not reviewed.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 66-28-201(d), 'Any charge or fee, however described, which is charged by the landlord for the late payment of rent, shall not exceed ten percent (10%) of the amount of rent past due.' Basis: Tenn. Code Ann. § 66-28-201 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-201: \"2013, ch. 206, § 1.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(notice OR eviction OR detainer) w/10 fee! AND (tenant OR lease)\" 12 hits (§§ 62-13-503, 66-31-104, 54-3-114, 29-18-132, 66-28-205, 55-8-198, 66-7-112, 29-18-135, and others); \"penalt! w/20 (lease OR \"rental agreement\") AND (eviction OR detainer)\" 2 hits (§§ 66-7-112, 66-28-205). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The hits are the commercial-occupant and unauthorized-person removal sections (Tenn. Code Ann. §§ 29-18-132, 29-18-135), the domestic-abuse termination sections (§§ 66-7-112, 66-28-205), the self-storage lien (§ 66-31-104) and unrelated sections; none governs a landlord's notice fee. Penalty case law was not searched. Points to: late-fee-limit-tn, edu-late-fee-rules-tn.",
+  },
+  // Default & Termination
+  {
+    id: "edu-no-eviction-penalty-rule-tn",
+    title: "Eviction Fee Clauses",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "eviction-penalty-clause-ban",
+    bodyText:
+      "Tennessee has no statute banning a lease clause that charges the tenant a fee for being evicted. In the 17 Act counties the landlord who terminates may claim possession, rent, actual damages for the breach and reasonable attorney's fees, and any charge triggered by late rent counts toward the 10% late-fee cap. Outside the Act counties the court awards rent, interest and damages in the eviction. A flat eviction fee that is not tied to the landlord's actual loss risks being treated as a penalty under case law this library has not reviewed, so the library recovers actual costs and fees instead.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 66-28-510, 'If the rental agreement is terminated, the landlord may have a claim for possession and for rent and a separate claim for actual damages for breach of the rental agreement and reasonable attorney's fees.' Tenn. Code Ann. § 29-18-125, the judge must 'ascertain the arrearage of rent, interest, and damages'. Basis: Tenn. Code Ann. §§ 66-28-510, 29-18-125, 66-28-201 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-510: \"T.C.A., § 64-2850.\"; § 29-18-125: \"T.C.A. (orig. ed.), § 23-1627.\"; § 66-28-201: \"2013, ch. 206, § 1.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"penalt! w/20 (lease OR \"rental agreement\") AND (eviction OR detainer)\" 2 hits (§§ 66-7-112, 66-28-205); \"penalt! w/10 (void OR unenforceable)\" 5 hits (§§ 40-11-311, 50-6-412, 47-14-108, 47-2-718, 49-7-2802); \"\"liquidated damages\"\" 22 hits (§§ 43-16-134, 47-11-107, 12-3-701, 47-2A-103, 47-18-2603, 59-13-132, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The penalty hits (Tenn. Code Ann. §§ 66-7-112, 66-28-205) are the domestic-abuse termination's 'early termination penalties or fees'; the void/unenforceable hits are bail, workers' compensation, loan prepayment (§ 47-14-108), UCC sales (§ 47-2-718) and education. No general statute on contract penalties exists; penalty case law was not searched.",
+  },
+  {
+    id: "edu-liquidated-damages-tn",
+    title: "Liquidated Damages in Leases",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "liquidated-damages",
+    bodyText:
+      "Tennessee has no general statute on liquidated damages in a residential lease; the UCC's liquidated-damages rules cover sales and leases of goods, not of homes. Whether a fixed sum for a breach (such as an early-termination fee) is enforceable is a question for case law, which this library has not reviewed; a fixed sum that is not tied to a genuine estimate of the landlord's loss risks being treated as an unenforceable penalty. In the 17 Act counties the landlord must also mitigate, and any charge for late rent counts toward the 10% late-fee cap. Take advice before relying on a fixed damages figure.",
+    notes: "TN-SCOPE: BOTH REGIMES. No liquidated-damages statute for real-property leases: Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"liquidated damages\"\" 22 hits (§§ 43-16-134, 47-11-107, 12-3-701, 47-2A-103, 47-18-2603, 59-13-132, 49-9-706, 46-1-209, 12-3-515, 47-2-718, and others); \"damages w/10 \"determined in anticipation\" OR \"agreed damages\"\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The hits are UCC Articles 2 and 2A (Tenn. Code Ann. §§ 47-2-718, 47-2A-103: goods), marketing, procurement, cemetery, employment and other particular contracts, and a real-property development section (§ 66-24-120); none governs a residential lease. Mitigation: Tenn. Code Ann. § 66-28-515(a), 'The aggrieved party has an obligation and duty to mitigate damages.' Basis: Tenn. Code Ann. §§ 66-28-515, 66-28-201 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-515: \"T.C.A., § 64-2855.\"; § 66-28-201: \"2013, ch. 206, § 1.\"). Case law on penalties was not searched; the row states the cautious course only. See log §6 on early-termination-ks (item 9).",
+  },
+  // Rent & Payment
+  {
+    id: "edu-unpaid-amount-interest-tn",
+    title: "Interest on Unpaid Rent and Charges",
+    group: "Rent & Payment",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "unpaid-damages-interest",
+    bodyText:
+      "A lease may set an interest rate on unpaid rent and charges, but Tennessee caps contract interest: for a written contract signed by the tenant the maximum is the state's applicable formula rate, and for other transactions 10% a year. When the landlord gets a judgment, the judgment bears the rate the lease fixes within those limits; otherwise it bears the court rate, two points below the published formula rate. In an eviction the general sessions judge decides the rent arrearage, interest and damages. In the 17 Act counties interest charged because rent is late may count toward the 10% late-fee cap, so the cautious course there is to keep interest and late fees together within that cap.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 47-14-103(2)-(3): for 'all written contracts ... signed by the party to be charged', 'the applicable formula rate', and '(3) For all other transactions, ten percent (10%) per annum.' Tenn. Code Ann. § 47-14-121(c): a judgment 'based on a statute, note, contract, or other writing that fixes a rate of interest within the limits provided in § 47-14-103' bears that rate. Tenn. Code Ann. § 29-18-125: 'arrearage of rent, interest, and damages'. Late-fee cap: Tenn. Code Ann. § 66-28-201(d). Basis: Tenn. Code Ann. §§ 47-14-103, 47-14-121, 29-18-125, 66-28-201 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 47-14-103: \"1983, ch. 464, § 2.\"; § 47-14-121: \"2012, ch. 1043, § 1.\"; § 29-18-125: \"T.C.A. (orig. ed.), § 23-1627.\"; § 66-28-201: \"2013, ch. 206, § 1.\"). Whether interest on late rent is a 'charge or fee ... for the late payment of rent' under § 66-28-201(d) is not settled by the text; the row takes the cautious reading. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"legal rate\" OR \"rate of interest\" w/20 (judgment OR contract)\" 27 hits (§§ 47-15-104, 56-1-911, 47-14-106, 56-36-104, 56-9-325, 47-14-121, and others); \"interest w/10 (unpaid OR past-due OR delinquent) AND rent\" 16 hits (§§ 67-4-1415, 11-25-115, 7-90-112, 68-212-401, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work.",
+  },
+  // Default & Termination
+  {
+    id: "edu-limitation-of-actions-tn",
+    title: "Time Limits for Suing",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "limitation-of-actions",
+    bodyText:
+      "In Tennessee an action for rent, or for the use and occupation of land, must be brought within six years after the claim arose, and the same six years applies to actions on contracts not covered by a more specific limit. In the 17 Act counties a tenant who disputes the landlord's final deposit damage list may sue in circuit or general sessions court, limited to the items the tenant disputed.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 28-3-109(a): 'The following actions shall be commenced within six (6) years after the cause of action accrued: (1) Actions for the use and occupation of land and for rent; ... (3) Actions on contracts not otherwise expressly provided for.' Deposit disputes: Tenn. Code Ann. § 66-28-301(d). Basis: Tenn. Code Ann. §§ 28-3-109, 66-28-301 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 28-3-109: \"T.C.A. (orig. ed.), § 28-309.\"; § 66-28-301: \"2012, ch. 887, § 1.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(contract! OR lease!) w/20 \"six (6) years\" OR \"within six (6) years\"\" 4 hits (§§ 49-6-2101, 52-3-101, 28-3-109, 41-8-111). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Whether a partial payment restarts the period is case law, not searched.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-statutory-caps-tn",
+    title: "Statutory Dollar and Percentage Limits",
+    group: "Rent & Payment",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "statutory-caps",
+    bodyText:
+      "Tennessee sets few figures for residential leases. In the 17 Act counties a late fee may not exceed 10% of the rent past due and cannot be charged until a five-day grace period has run. Returned-payment charges are covered in the returned-payment rows. Contract interest is capped by the general interest statute. There is no cap on security deposits, application fees or pet fees, no statewide cap on rent increases, and no local government may control rent. A tenant who appeals a general sessions eviction judgment must post a bond, cash deposit, letter of credit or two sureties in the amount of one year's rent.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 66-28-201(d) (10% and five-day grace, Act counties); Tenn. Code Ann. § 47-14-103 (interest maximums); Tenn. Code Ann. § 66-35-102(a) (no local rent control); Tenn. Code Ann. § 29-18-130(b)(2)(A), appeal bond 'in the amount of one (1) year's rent of the premises'. Basis: Tenn. Code Ann. §§ 66-28-201, 47-14-103, 66-35-102, 29-18-130 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-201: \"2013, ch. 206, § 1.\"; § 47-14-103: \"1983, ch. 464, § 2.\"; § 66-35-102: \"2024, ch. 1051, § 3.\"; § 29-18-130: \"2024, ch. 755, § 4.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"not to exceed\" w/20 (rent OR tenant OR lessee)\" 3 hits (§§ 13-11-107, 12-10-109, 71-5-1409); \"\"security deposit\" OR \"security deposits\"\" 20 hits (§§ 66-28-301, 50-6-1010, 55-12-105, 7-35-201, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The \"not to exceed\" hits are relocation housing (Tenn. Code Ann. § 13-11-107), housing authority powers (§ 12-10-109) and a nursing-facility program (§ 71-5-1409). Points to: edu-no-deposit-cap-tn, edu-no-application-fee-cap-tn, edu-no-pet-fee-limit-tn, returned-payments-tn, edu-local-preemption-tn.",
+  },
+  {
+    id: "edu-late-fee-limit-tn",
+    title: "Late Fee Limits in Tennessee",
+    group: "Rent & Payment",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "late-fee-limit",
+    bodyText:
+      "Tennessee limits late fees only in the 17 Act counties: no late charge until a five-day grace period has run (counting the due date, and carrying over to the next business day when the last day is a Sunday or legal holiday), and no charge, however labeled, above 10% of the rent past due. Outside the Act counties no statute sets a grace period or cap, though a court may refuse to enforce a fee it sees as a penalty. Tennessee has no separate late-fee cap for mobile home parks or subsidized housing.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 66-28-201(d). Basis: Tenn. Code Ann. § 66-28-201 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-201: \"2013, ch. 206, § 1.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"late fee\" OR \"late charge\" OR \"late payment\"\" 38 hits (§§ 43-20-213, 50-3-107, 71-5-1006, 7-84-528, 7-84-628, 7-84-418, and others); \"(\"mobile home\" OR \"manufactured home\") w/30 (late OR fee!)\" 21 hits (§§ 68-126-207, 55-4-402, 55-4-405, 55-4-406, 68-126-404, 68-126-102, 67-6-216, 55-4-407, and others); \"(voucher OR \"section 8\" OR subsid!) w/30 (late OR fee!)\" 22 hits (§§ 8-26-105, 45-3-1504, 62-9-104, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The \"late fee\" hits outside § 66-28-201 are self-storage (Tenn. Code Ann. § 66-31-104), condominium associations (§ 66-27-402), tax, fine, licensing and debt-management sections. Points to: late-fee-limit-tn, late-fee-tn-other, edu-late-fee-rules-tn.",
+  },
+  {
+    id: "edu-no-required-fee-list-tn",
+    title: "Listing Fees in the Lease",
+    group: "Rent & Payment",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "required-fees",
+    bodyText:
+      "No Tennessee statute requires a lease to list every fee, to show rent and mandatory fees as one total, or to give notice before adding a fee. In the 17 Act counties every payment the lease requires is rent, and a rule adopted after the tenant signs binds the tenant only if reasonable notice is given and it does not substantially modify the lease, so a new fee should come by agreement or at renewal. Listing each fee in the lease is still good practice.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 66-28-104(13) (rents); Tenn. Code Ann. § 66-28-402(b), a later rule binds 'if reasonable notice of its adoption is given to the tenant and it does not work a substantial modification of the rental agreement'. Basis: Tenn. Code Ann. §§ 66-28-104, 66-28-402 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-104: \"2021, ch. 100, § 2.\"; § 66-28-402: \"T.C.A., § 64-2832.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"fee! w/20 (tenant OR lessee) AND (lease OR \"rental agreement\")\" 34 hits (§§ 68-221-620, 66-11-102, 66-28-205, 47-2A-108, 66-7-112, 66-28-512, and others); \"\"rental agreement\" w/20 fee!\" 9 hits (§§ 66-31-104, 66-28-504, 66-28-501, 66-28-505, 66-28-513, 36-3-606, 66-28-510, 66-28-512, and others); \"(fee OR fees OR charge!) w/20 (\"rental agreement\" OR lease) AND (disclos! OR list!)\" 23 hits (§§ 67-5-2003, 7-53-305, 47-18-702, 55-10-419, 47-9-613, 4-21-102, 67-6-102, 7-53-302, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. None of the hits requires fees to be listed. Points to: edu-fees-as-rent-tn.",
+  },
+  {
+    id: "edu-no-fee-transparency-rule-tn",
+    title: "All-In Pricing and Fee Disclosure",
+    group: "Rent & Payment",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "fee-transparency",
+    bodyText:
+      "Tennessee has no all-in rent pricing law and no rule that mandatory fees appear on the lease's first page. Its fee-disclosure statute for hotel booking sites does not reach residential leases. The general Consumer Protection Act still bars unfair or deceptive acts, so advertised rent should not hide mandatory fees.",
+    notes: "TN-SCOPE: STATEWIDE. Basis: Tenn. Code Ann. § 47-18-104 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 47-18-104: \"2026, ch. 1117, § 2.\"). Tenn. Code Ann. § 47-18-140 (ancillary hotel services on booking sites) is known from its official heading only, \"Disclosure Requirements for Ancillary Hotel Services on Booking Sites\" (official table of contents), heading only, not read; the row states only that it concerns hotels. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"total price\" OR \"all-in\" OR \"mandatory fee!\"\" 35 hits (§§ 49-7-1603, 49-4-944, 49-7-1602, 49-4-923, and others); \"(fee! OR charge!) w/10 disclos! AND (tenant OR rental)\" 2 hits (§§ 47-18-140, 50-6-215). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The \"total price\" hits are tuition and mandatory-fee, bond-sale, tax, insurance and other sections; none concerns rent. Points to: edu-consumer-protection-act-tn.",
+  },
+  {
+    id: "edu-no-fee-unprovided-service-rule-tn",
+    title: "Fees for Services Not Provided",
+    group: "Rent & Payment",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "fee-unprovided-service",
+    bodyText:
+      "No Tennessee statute specifically bars charging a tenant a fee for a service the landlord does not provide. In the 17 Act counties fees the lease requires are rent and the landlord must perform the lease in good faith; charging for a service that is never delivered also risks a deceptive-practice claim under the Consumer Protection Act.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 66-28-516, 'Every duty under this chapter ... imposes an obligation of good faith in its performance or enforcement.' Basis: Tenn. Code Ann. §§ 66-28-516, 47-18-104 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-516: \"T.C.A., § 64-2856.\"; § 47-18-104: \"2026, ch. 1117, § 2.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"fee! w/20 service! AND (tenant OR landlord) AND (not provided OR \"not provide\")\" 3 hits (§§ 57-4-102, 50-7-207). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The hits are liquor and unemployment-insurance definitions.",
+  },
+  // Security Deposit
+  {
+    id: "edu-no-deposit-cost-schedule-tn",
+    title: "Pre-Set Deposit Charges",
+    group: "Security Deposit",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "deposit-cost-schedule",
+    bodyText:
+      "No Tennessee statute allows or forbids a lease schedule of pre-set cleaning or repair charges against the deposit. In the 17 Act counties a deposit secures the landlord against damage beyond ordinary wear and tear and money damage from the tenant's breach, and damage found at the move-out inspection goes on the damage list with its estimated repair cost (damage found later is recoverable only within the statute's 30-day and 7-day limits), so a schedule is at most a guide to those estimates. Outside the Act counties the lease governs.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 66-28-104(14)(A) (security deposit secures 'damage to the premises occasioned by the tenant's occupancy other than ordinary wear and tear and any monetary damage due to the tenant's breach of the rental agreement'); Tenn. Code Ann. § 66-28-301(b)(1)(B) (listing of 'presently ascertainable damage' and 'the estimated dollar cost of repairing the damage'). Basis: Tenn. Code Ann. §§ 66-28-301, 66-28-104 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-301: \"2012, ch. 887, § 1.\"; § 66-28-104: \"2021, ch. 100, § 2.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"deposit! w/30 (cleaning OR repair!) AND (schedule OR \"estimated cost\" OR listing)\" 2 hits (§§ 66-28-301, 59-8-110); \"deposit! w/20 (cleaning OR carpet!)\" 2 hits (§§ 68-221-1004, 43-24-103). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Points to: edu-security-deposit-rules-tn.",
+  },
+  {
+    id: "edu-deposit-escheat-tn",
+    title: "Unclaimed Deposit Refunds",
+    group: "Security Deposit",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "deposit-escheat",
+    bodyText:
+      "In the 17 Act counties, if the tenant leaves owing nothing and a refund is due, the landlord sends notice of the refund amount to the tenant's last known address; if the tenant does not respond within 60 days, the landlord may keep the deposit free of the tenant's claim. Outside the Act counties no deposit statute applies, and an unclaimed refund the landlord owes may fall under Tennessee's Uniform Unclaimed Property Act, which presumes most property abandoned three years after the owner could first demand it and whose reporting rules (not reviewed here) apply to the holder. A lease clause forfeiting an unclaimed refund outside the Act counties should be avoided.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 66-28-301(f): if no response 'within sixty (60) days from the sending of such notification, the landlord may remove the deposit from the account and retain it free from any claim of the tenant or any person claiming in the tenant's behalf.' Tenn. Code Ann. § 66-29-105(a)(14): 'All other property not specified in this section ... the earlier of three (3) years after the owner first has a right to demand the property or the obligation to pay or distribute the property arises.' Tenn. Code Ann. § 66-29-102(10), '\"Holder\" means a person obligated to hold for the account of, or to deliver or pay to, the owner of property that is subject to this part'. Basis: Tenn. Code Ann. §§ 66-28-301, 66-29-105, 66-29-102 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-301: \"2012, ch. 887, § 1.\"; § 66-29-105: \"Acts 2017, ch. 457, § 1.\"; § 66-29-102: \"2019, ch. 11, §§ 1-3.\"). The unclaimed-property act names no landlord deposit category; whether a non-Act refund falls under (a)(14) is the row's reading, stated as a risk. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"unclaimed w/20 deposit!\" 11 hits (§§ 45-2-1501, 56-9-333, 66-29-115, 66-29-148, 44-17-503, 4-51-123, and others); \"\"security deposit\" w/50 (abandon! OR unclaimed OR presum!)\" 1 hit (§ 66-28-301). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work.",
+  },
+  {
+    id: "edu-no-deposit-installments-tn",
+    title: "Paying a Deposit in Installments",
+    group: "Security Deposit",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "deposit-installments",
+    bodyText:
+      "Tennessee gives tenants no right to pay a security deposit in installments; the landlord and tenant may agree to installments if they wish.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"installment! w/10 deposit!\" 4 hits (§§ 50-6-232, 45-3-701, 45-3-104, 47-31-103); \"deposit! w/20 installment!\" 6 hits (§§ 50-6-232, 45-3-701, 45-3-104, 47-31-103, 45-3-707, 9-4-103); \"\"security deposit\" w/30 account\" 1 hit (§ 66-28-301). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The installment hits are workers' compensation, real-estate loan, tobacco escrow and collateral sections; the positive \"security deposit\" w/30 account found Tenn. Code Ann. § 66-28-301, proving the deposit vocabulary reaches the landlord-tenant act.",
+  },
+  {
+    id: "edu-no-deposit-last-month-rule-tn",
+    title: "Last Month's Rent Deposits",
+    group: "Security Deposit",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "deposit-last-month-rent",
+    bodyText:
+      "No Tennessee statute governs a deposit labeled as last month's rent or limits how a landlord applies one. In the 17 Act counties a security deposit secures damage and breach, and the landlord must return prepaid rent when the lease ends early under the Act's tenant remedies or a casualty; so money taken as last month's rent should be treated as prepaid rent, not as the security deposit.",
+    notes: "TN-SCOPE: BOTH REGIMES. Prepaid rent returned: Tenn. Code Ann. §§ 66-28-501(b), 66-28-503(c), 66-28-504. Basis: Tenn. Code Ann. §§ 66-28-501, 66-28-503, 66-28-504, 66-28-104 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-501: \"T.C.A., § 64-2841.\"; § 66-28-503: \"Acts 2013, ch. 107, §§ 1, 2.\"; § 66-28-504: \"T.C.A., § 64-2844.\"; § 66-28-104: \"2021, ch. 100, § 2.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"last month\" w/10 rent\" 0 hits; \"\"last month's rent\"\" 0 hits; \"prepaid w/5 rent!\" 5 hits (§§ 66-28-501, 66-28-503, 66-30-103, 66-28-504, 66-28-405). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work.",
+  },
+  {
+    id: "edu-deposit-move-out-notice-tn",
+    title: "Move-Out Notice and the Deposit",
+    group: "Security Deposit",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "deposit-surrender-notice",
+    bodyText:
+      "Tennessee does not make the tenant's move-out notice a condition of getting the deposit back. In the 17 Act counties the notice matters to the inspection: when the landlord asks the tenant to vacate, or within five days after receiving the tenant's written notice of intent to vacate, the landlord may notify the tenant of the right to be present at the move-out inspection, and a tenant who leaves without giving written notice loses that inspection right.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 66-28-301(b)(1)(A) and (b)(2)(B)(i), the tenant has no inspection right if the tenant has '(i) Vacated the rental premises without giving written notice'. Basis: Tenn. Code Ann. §§ 66-28-301, 66-28-104 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-301: \"2012, ch. 887, § 1.\"; § 66-28-104: \"2021, ch. 100, § 2.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"intent to vacate\"\" 1 hit (§ 66-28-301); \"deposit! w/30 \"intent to vacate\"\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Outside the Act counties no deposit statute applies (edu-security-deposit-rules-tn).",
+  },
+  {
+    id: "edu-no-expedited-deposit-disposition-tn",
+    title: "Deposits After Abandonment",
+    group: "Security Deposit",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "expedited-deposit-disposition",
+    bodyText:
+      "Tennessee has no special fast procedure for the deposit of a tenant who abandons. In the 17 Act counties a tenant who abandoned or left without written notice has no right to the joint inspection, the landlord may apply the deposit to unpaid rent and other amounts, and an unanswered refund notice lets the landlord keep the deposit after 60 days. Outside the Act counties the lease governs.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 66-28-301(b)(2)(B)(i)-(ii), (e), (f). Basis: Tenn. Code Ann. §§ 66-28-301, 66-28-104 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-301: \"2012, ch. 887, § 1.\"; § 66-28-104: \"2021, ch. 100, § 2.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"deposit! w/30 (abandon! OR \"without giving written notice\")\" 10 hits (§§ 66-29-109, 56-9-333, 29-17-106, 66-29-115, 66-29-148, 66-29-110, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The hits are unclaimed-property sections (Tenn. Code Ann. §§ 66-29-109 to 66-29-202) and insurance, court-cost, bond-forfeiture and treasurer sections; none concerns a tenant's deposit.",
+  },
+  {
+    id: "edu-no-fee-in-lieu-of-deposit-rule-tn",
+    title: "Deposit Alternatives",
+    group: "Security Deposit",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "fee-in-lieu-of-deposit",
+    bodyText:
+      "No Tennessee statute regulates a fee charged instead of a security deposit, such as a deposit-waiver or surety product. In the 17 Act counties a security deposit is money held to cover damage and breach, while a nonrefundable fee the lease requires is rent; a landlord offering an alternative should say plainly that the fee is not a deposit, is not refundable and does not limit the tenant's liability for damage, unless the product does.",
+    notes: "TN-SCOPE: BOTH REGIMES. Basis: Tenn. Code Ann. §§ 66-28-301, 66-28-104 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-301: \"2012, ch. 887, § 1.\"; § 66-28-104: \"2021, ch. 100, § 2.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"in lieu of\" w/10 \"security deposit\"\" 1 hit (§ 50-6-1016); \"\"deposit alternative\" OR \"surety bond\" w/20 tenant\" 0 hits; \"(deposit! OR fee!) w/10 \"in lieu of\"\" 56 hits (§§ 47-25-1218, 43-16-145, 40-25-103, 8-24-103, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The one \"in lieu of\" deposit hit is the workers' compensation risk-based security program (Tenn. Code Ann. § 50-6-1016).",
+  },
+  {
+    id: "edu-no-holding-deposit-rule-tn",
+    title: "Holding Deposits Before a Lease",
+    group: "Security Deposit",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "holding-deposit",
+    bodyText:
+      "Tennessee has no statute on holding deposits or other money taken before a lease is signed. Whether it is refundable depends on what the landlord and applicant agreed, so put the terms in writing: the amount, what it holds, how long, and whether it is credited to the deposit or rent or refunded if the landlord declines the applicant.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"holding deposit\" OR \"earnest money\" OR \"application deposit\"\" 2 hits (§§ 7-8-105, 47-32-102); \"\"earnest money\"\" 2 hits (§§ 47-32-102, 7-8-105); \"(prospective w/3 tenant!) AND deposit!\" 1 hit (§ 68-221-620). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The hits are a county loan-fund escrow account (Tenn. Code Ann. § 7-8-105), the Residential Closing Funds Distribution Act definitions (§ 47-32-102, real-estate closings) and a water authority deposit (§ 68-221-620).",
+  },
+  {
+    id: "edu-no-nonrefundable-separate-notice-tn",
+    title: "Notice of Nonrefundable Fees",
+    group: "Security Deposit",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "nonrefundable-deposit-separate-notice",
+    bodyText:
+      "Tennessee has no statute requiring a separate written notice before a landlord may charge a nonrefundable fee. State plainly in the lease which payments are nonrefundable fees and which are the security deposit.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(nonrefundable OR non-refundable) w/20 (tenant OR lease OR landlord OR rental)\" 0 hits; \"(nonrefundable OR non-refundable) w/30 deposit!\" 0 hits; \"nonrefundable OR non-refundable\" 142 hits (§§ Appendix7-8-3954, 4-28-110, 48-1-125, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. None of the 142 bare hits is in Title 66 or in Title 29, Chapter 18. Points to: nonrefundable-fees-wv.",
+  },
+  {
+    id: "edu-security-deposit-holding-tn",
+    title: "Where the Deposit Must Be Held",
+    group: "Security Deposit",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-holding",
+    bodyText:
+      "In the 17 Act counties a landlord who requires a deposit before occupancy must keep all tenants' deposits in an account used only for that purpose at a state- or federally-regulated bank or lending institution, and must tell the tenant at signing where the account is (not the account number). A landlord who neither used such an account nor gave the damage list may not keep any of the deposit. The Act requires no interest. Outside the Act counties no statute governs where a deposit is held.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 66-28-301(a), (c), (h). Basis: Tenn. Code Ann. §§ 66-28-301, 66-28-104 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-301: \"2012, ch. 887, § 1.\"; § 66-28-104: \"2021, ch. 100, § 2.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"security deposit\" w/30 account\" 1 hit (§ 66-28-301). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Points to: security-deposit-return-tn-act, edu-security-deposit-rules-tn, edu-no-deposit-interest-tn.",
+  },
+  {
+    id: "edu-security-deposit-nonwaiver-tn",
+    title: "Deposit Rights Cannot Be Waived",
+    group: "Security Deposit",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-nonwaiver",
+    bodyText:
+      "In the 17 Act counties the tenant cannot agree in the lease to give up the Act's deposit protections, because the Act bars any waiver of the tenant's rights or remedies under it. Outside the Act counties there are no statutory deposit rights to waive; the lease's own terms govern.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 66-28-201(a), 'A rental agreement cannot provide that the tenant agrees to waive or forego rights or remedies under this chapter.' Tenn. Code Ann. § 66-28-203(b), 'The tenant cannot agree to waive or forego rights or remedies under this chapter.' Basis: Tenn. Code Ann. §§ 66-28-201, 66-28-203, 66-28-301 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-201: \"2013, ch. 206, § 1.\"; § 66-28-203: \"T.C.A., § 64-2813.\"; § 66-28-301: \"2012, ch. 887, § 1.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"waive! w/30 \"security deposit\"\" 0 hits; \"(waive OR forego) w/20 (rights OR remedies) AND tenant\" 5 hits (§§ 66-28-201, 66-28-203, 66-28-204, 67-5-2701, 13-20-202). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work.",
+  },
+  {
+    id: "edu-security-deposit-on-sale-tn",
+    title: "Deposits When the Property Is Sold",
+    group: "Security Deposit",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-on-sale",
+    bodyText:
+      "In the 17 Act counties, unless otherwise agreed, a landlord who sells in a good-faith sale is released from liability under the lease and the Act for events after the tenant gets written notice of the sale and the deposit is transferred to the buyer. Outside the Act counties no statute addresses deposits on a sale; the lease and the sale contract govern who returns the deposit.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 66-28-305, 'Unless otherwise agreed, a landlord who conveys premises that include a dwelling unit subject to a rental agreement in a good faith sale to a bona fide purchaser, landlord or agent, or both, is relieved of liability under the rental agreement and this chapter as to events occurring subsequent to written notice to the tenant of the conveyance and transfer of the security deposit to the bona fide purchaser.' Basis: Tenn. Code Ann. § 66-28-305 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-305: \"Acts 2005, ch. 156, § 3.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"security deposit\" w/40 (purchaser OR conveyance OR transfer!)\" 1 hit (§ 66-28-305); \"deposit! w/20 (sale OR sold OR purchaser) AND tenant\" 9 hits (§§ 66-28-305, 50-7-207, 67-6-103, 67-4-2004, 67-6-102, 67-4-409). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The non-Act sentence states the absence of a statute only; case law on a seller's continuing liability was not searched. Points to: edu-sale-of-rented-property-tn.",
+  },
+  {
+    id: "edu-security-deposit-penalty-tn",
+    title: "Consequences of Mishandling a Deposit",
+    group: "Security Deposit",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-penalty",
+    bodyText:
+      "In the 17 Act counties a landlord may not keep any part of a deposit if the deposit was not kept in the required separate account and no damage list was provided as the Act requires. A tenant who disputes the final damage list may sue, but only over the items the tenant disputed. Tennessee sets no double or treble damages for deposit violations. Outside the Act counties no deposit statute applies.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 66-28-301(c), 'No landlord shall be entitled to retain any portion of a security deposit if the security deposit was not deposited in an account as required by subsection (a) and a listing of damages is not provided as required by subsection (b).' The two conditions are joined by 'and'; the row states them together as the statute does. (d), the tenant's claim 'shall be limited to those items from which the tenant specifically dissented'. Basis: Tenn. Code Ann. §§ 66-28-301, 66-28-104 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-301: \"2012, ch. 887, § 1.\"; § 66-28-104: \"2021, ch. 100, § 2.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"security deposit\" w/40 (retain OR forfeit! OR damages)\" 3 hits (§§ 66-28-301, 66-28-104, 56-22-106). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work.",
+  },
+  {
+    id: "edu-no-deposit-standards-rule-tn",
+    title: "Deposit Screening Standards",
+    group: "Security Deposit",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-standards",
+    bodyText:
+      "Tennessee has no rule requiring a landlord to post or disclose the standards used to decide how much deposit an applicant pays. Applying different deposit amounts must still respect fair housing law.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"deposit! w/30 standard! AND (tenant OR landlord)\" 0 hits; \"\"security deposit\" w/30 account\" 1 hit (§ 66-28-301). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Points to: edu-fair-housing-tn.",
+  },
+  {
+    id: "edu-no-utility-deposit-rule-tn",
+    title: "Utility Deposits",
+    group: "Security Deposit",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "utility-deposit-return",
+    bodyText:
+      "No Tennessee landlord-tenant statute governs a utility deposit a landlord collects, or the return of a utility's own deposit to a tenant. A utility's own deposit is governed by the utility and its regulator, which this row does not cover. Unclaimed utility deposits and refunds are presumed abandoned one year after they become payable. In the county within the water-authority statute's population band (Hamilton County at the 2010 census), the water and wastewater authority may require a deposit of up to three months' average charges on the tenant's first bill.",
+    notes: "TN-SCOPE: STATEWIDE. Tenn. Code Ann. § 66-29-105(a)(12), 'A deposit or refund owed to a subscriber by a utility, one (1) year after the deposit or refund becomes payable'. Tenn. Code Ann. § 68-221-620(d)(1) (applies only in the county of 336,400 to 336,500 under (e)). Basis: Tenn. Code Ann. §§ 66-29-105, 68-221-620 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-29-105: \"Acts 2017, ch. 457, § 1.\"; § 68-221-620: \"Acts 2016, ch. 1082, § 1.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"utility deposit\" OR \"customer deposit\"\" 0 hits; \"deposit! w/20 utilit! AND (refund! OR return!)\" 3 hits (§§ 39-13-314, 66-29-102, 66-29-105). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Tennessee Public Utility Commission rules (Tenn. Comp. R. & Regs.) were not read; the row states no rule from them. Points to: edu-water-authority-tenant-form-hamilton-tn.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-no-rent-receipt-anti-waiver-tn",
+    title: "Receiving Rent and the Duty to Maintain",
+    group: "Landlord Responsibilities",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-receipt-anti-waiver",
+    bodyText:
+      "Tennessee did not adopt the uniform act's rule that forbids separating the right to receive rent from the duty to maintain the property. In the 17 Act counties the maintenance duties fall on the landlord by statute; a tenant may take on specified repairs only by a separate written agreement made in good faith, and the landlord may not make that agreement a condition of the lease.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 66-28-304(c), 'The landlord and tenant may agree in writing that the tenant perform specified repairs, maintenance tasks, alterations, and remodeling, but only if the transaction is entered into in good faith and not for the purpose of evading the obligations of the landlord.' (d), 'The landlord may not treat performance of the separate agreement described in subsection (c) as a condition to any obligation or performance of any rental agreement.' Basis: Tenn. Code Ann. §§ 66-28-104, 66-28-201, 66-28-304 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-104: \"2021, ch. 100, § 2.\"; § 66-28-201: \"2013, ch. 206, § 1.\"; § 66-28-304: \"T.C.A., § 64-2824.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"rent! w/20 (obligation! AND maintain)\" 2 hits (§§ 49-3-1206, 66-28-103); \"\"obligations to maintain\"\" 1 hit (§ 68-221-607); \"\"receipt of rent\" OR \"receive rent\" OR \"receives rent\"\" 2 hits (§§ 56-6-1201, 66-31-102). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The hits are Tenn. Code Ann. § 66-28-103 (purposes), the self-storage definitions (§ 66-31-102) and unrelated sections; no section of Chapter 28 contains the uniform act's separation-of-rents rule. Positive: \"\"specified repairs\"\" 1 hit (§ 66-28-304).",
+  },
+  // Default & Termination
+  {
+    id: "edu-no-lockout-for-rent-tn",
+    title: "No Lockouts for Unpaid Rent",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "lockout-for-rent-delinquency",
+    bodyText:
+      "Tennessee does not allow a landlord to lock out a tenant for unpaid rent. In the 17 Act counties the landlord may take possession only by court action, after abandonment or surrender, or as the Act permits, and not by cutting utilities or other essential services. In every county, entering and holding a home by force, threats or putting the occupant's goods out of doors is a forcible entry and detainer.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 66-28-511, 'A landlord may not recover or take possession of the dwelling unit by action or otherwise, including willful diminution of services ... except in case of abandonment, surrender, or as permitted in this chapter.' Tenn. Code Ann. § 29-18-102(a). Basis: Tenn. Code Ann. §§ 66-28-511, 66-28-504, 29-18-101, 29-18-102 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-511: \"T.C.A., § 64-2851.\"; § 66-28-504: \"T.C.A., § 64-2844.\"; § 29-18-101: \"T.C.A. (orig. ed.), § 23-1601.\"; § 29-18-102: \"T.C.A. (orig. ed.), § 23-1602.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"lockout OR \"lock out\" OR \"change the locks\" OR \"changing the locks\"\" 5 hits (§§ 50-1-207, 50-1-102, 70-9-108, 55-18-102, 50-7-303); \"(lock! OR exclu!) w/20 tenant AND rent\" 2 hits (§§ 66-28-504, 66-28-104). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The lockout hits are employment, unemployment, off-highway-vehicle and motor-vehicle sections. Points to: edu-self-help-eviction-tn.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-habitability-waiver-tn",
+    title: "Can the Lease Waive Habitability?",
+    group: "Landlord Responsibilities",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "habitability-waiver",
+    bodyText:
+      "In the 17 Act counties the landlord must comply with building and housing codes that materially affect health and safety, keep the premises fit and habitable, keep common areas clean and safe, and (in complexes of four or more units) provide garbage receptacles. A lease cannot remove those duties, because a tenant cannot waive the Act's rights. The landlord and tenant may agree in writing that the tenant will do specified repairs, maintenance, alterations or remodeling, but only in good faith and not to evade the landlord's duties, and the landlord may not make that separate agreement a condition of the lease. Tennessee has no rule letting a tenant accept named defects for a rent reduction. Outside the Act counties no landlord-tenant statute sets a habitability duty, so the lease and local codes govern.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 66-28-304(a)(2), the landlord shall 'Make all repairs and do whatever is necessary to put and keep the premises in a fit and habitable condition'; (c), 'The landlord and tenant may agree in writing that the tenant perform specified repairs, maintenance tasks, alterations, and remodeling, but only if the transaction is entered into in good faith and not for the purpose of evading the obligations of the landlord.' Tenn. Code Ann. § 66-28-201(a), 'A rental agreement cannot provide that the tenant agrees to waive or forego rights or remedies under this chapter.' Basis: Tenn. Code Ann. §§ 66-28-304, 66-28-201, 13-6-102 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-304: \"T.C.A., § 64-2824.\"; § 66-28-201: \"2013, ch. 206, § 1.\"; § 13-6-102: \"2024, ch. 796, §§ 1, 2, 19.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"fit and habitable\"\" 2 hits (§§ 66-28-304, 13-6-102); \"(habitab! OR \"fit and habitable\") w/30 (waive! OR agree!)\" 0 hits; \"\"fit for human habitation\"\" 0 hits; \"(rent w/10 reduc!) AND (condition! OR habitab!) AND tenant\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The second \"fit and habitable\" hit is the unfit-dwellings definitions (Tenn. Code Ann. § 13-6-102), a local code-enforcement chapter, not a landlord duty. Topic questions: the qualifier sits in § 66-28-304(c)-(d); nothing in § 66-28-304(a) is waivable; no rent-for-conditions rule. Points to: tenant-repair-agreement-tn, edu-landlord-repair-duties-tn. Points to: edu-prohibited-lease-terms-tn, nonpayment-notice-waiver-tn (item 2).",
+  },
+  {
+    id: "edu-habitability-modifiable-tn",
+    title: "Changing Maintenance Duties by Agreement",
+    group: "Landlord Responsibilities",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "habitability-modifiable",
+    bodyText:
+      "In the 17 Act counties the only way to change who does maintenance is a separate written good-faith agreement for the tenant to do specified repairs or tasks, which the landlord may not make a condition of the lease. Nothing in the Act lets the lease drop a habitability duty, including for a home without a utility water supply. Essential services (utility services such as gas, heat and electricity, and other landlord obligations that materially affect health and safety) carry the Act's special remedies when the landlord deliberately or negligently fails to supply them, after the tenant's written notice. Outside the Act counties the lease governs.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 66-28-304(c)-(d); Tenn. Code Ann. § 66-28-502(a)(3), '\"Essential services\" means utility services, including gas, heat, electricity, and any other obligations imposed upon the landlord which materially affect the health and safety of the tenant.' Tenn. Code Ann. § 66-28-201(a), 'A rental agreement cannot provide that the tenant agrees to waive or forego rights or remedies under this chapter.' Basis: Tenn. Code Ann. §§ 66-28-304, 66-28-502, 66-28-201 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-304: \"T.C.A., § 64-2824.\"; § 66-28-502: \"T.C.A., § 64-2842.\"; § 66-28-201: \"2013, ch. 206, § 1.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(habitab! OR \"fit and habitable\") w/30 (waive! OR agree!)\" 0 hits; \"habitab! w/20 (lease OR \"rental agreement\")\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Topic question: Tennessee has no water-supply exception like AS 34.03.100(a)(5)(B). See edu-habitability-waiver-tn.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-part5-nonwaivable-tn",
+    title: "Rights the Lease Cannot Waive",
+    group: "Compliance & Prohibited Terms",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "part5-nonwaivable",
+    bodyText:
+      "In the 17 Act counties a lease cannot make the tenant waive or give up any right or remedy under the Act, including the remedies for the landlord's noncompliance, failure to supply essential services, casualty, unlawful ouster and retaliation. A waiver term is unenforceable, and a landlord who willfully uses a lease containing terms known to be prohibited owes the tenant actual damages. The Act itself lets the lease change a few rules: the tenant may waive the notice of nonpayment (in 12-point bold type, without shortening the grace period); the landlord may show the unit in the last 30 days if the lease allows it and 24 hours' notice is given; the lease may set out the tenant's loss of the right to contest damages after missing a scheduled move-out inspection; the parties may agree separately that the tenant does specified repairs; and a few rules apply unless the parties agree otherwise. Outside the Act counties no general nonwaiver statute applies.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 66-28-201(a), 'A rental agreement cannot provide that the tenant agrees to waive or forego rights or remedies under this chapter.' Tenn. Code Ann. § 66-28-203(b), 'The tenant cannot agree to waive or forego rights or remedies under this chapter.' Exceptions the Act itself makes: Tenn. Code Ann. §§ 66-28-505(b), 66-28-201(c), 66-28-403(e)(5), 66-28-301(b)(1)(A), 66-28-304(c), and the 'Unless otherwise agreed' clauses of §§ 66-28-201(c), 66-28-305 and 66-28-404. Tenn. Code Ann. § 66-28-515(b), 'Any right or obligation declared by this chapter is enforceable by legal action unless the provision declaring it specifies a different and limited effect.' Basis: Tenn. Code Ann. §§ 66-28-201, 66-28-203, 66-28-505, 66-28-403, 66-28-301, 66-28-304, 66-28-305, 66-28-404, 66-28-515 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-201: \"2013, ch. 206, § 1.\"; § 66-28-203: \"T.C.A., § 64-2813.\"; § 66-28-505: \"2019, ch. 236, § 4.\"; § 66-28-403: \"Acts 2011, ch. 272, § 10.\"; § 66-28-301: \"2012, ch. 887, § 1.\"; § 66-28-304: \"T.C.A., § 64-2824.\"; § 66-28-305: \"Acts 2005, ch. 156, § 3.\"; § 66-28-404: \"T.C.A., § 64-2834.\"; § 66-28-515: \"T.C.A., § 64-2855.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"cannot provide that the tenant agrees to waive\"\" 1 hit (§ 66-28-201); \"(waive OR forego) w/20 (rights OR remedies) AND tenant\" 5 hits (§§ 66-28-201, 66-28-203, 66-28-204, 67-5-2701, 13-20-202); \"\"unless otherwise agreed\" AND (\"rental agreement\" OR tenant)\" 3 hits (§§ 66-28-201, 66-28-305, 66-28-404). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The non-Ch. 28 hits of the second search are a property-tax and a housing-authority section (Tenn. Code Ann. §§ 67-5-2701, 13-20-202). Points to: edu-prohibited-lease-terms-tn, nonpayment-notice-waiver-tn (item 2).",
+  },
+  // Default & Termination
+  {
+    id: "edu-notice-to-quit-waiver-tn",
+    title: "Waiving Eviction Notices",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "notice-to-quit-waiver",
+    bodyText:
+      "In the 17 Act counties the tenant may waive the notice of nonpayment of rent, so the landlord can file a detainer warrant as soon as the grace period ends; the waiver must be in the written lease in 12-point bold type or larger and cannot shorten the five-day grace period (the library's optional clause does this). No other Act notice (the 14-day notices for breach, the 7-day notice for a repeat breach, or the notice to end a periodic tenancy) can be waived. Outside the Act counties a general statute says no notice to quit is needed beyond service of the detainer warrant, but a later statute requires 14 days' notice for unpaid rent, damage, or violence or a real and present danger, 30 days for other defaults, and 3 days for violence, drug-related criminal activity or a threat to safety by a tenant who is not mentally or physically disabled or for an unauthorized occupant who refuses to leave (rental periods under 14 days excepted); whether a lease can waive those notices is unresolved, so do not rely on a waiver there.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 66-28-505(b), 'The tenant's waiver pursuant to this subsection (b) shall be set out in twelve (12) point bold font or larger in the rental agreement.' Tenn. Code Ann. § 66-28-201(c), 'Notice is specifically waived upon the nonpayment of rent by the tenant only if such a waiver is provided for in a written rental agreement.' Tenn. Code Ann. § 66-28-201(a), 'A rental agreement cannot provide that the tenant agrees to waive or forego rights or remedies under this chapter.' Non-Act: Tenn. Code Ann. § 29-18-113, 'No notice to quit need be given by the plaintiff to the defendant, other than the service of this warrant.' Tenn. Code Ann. § 66-7-109(a)(1), (b), (c), (d), (f) (14, 30 and 3 days; under-14-day periods excepted). Basis: Tenn. Code Ann. §§ 66-28-505, 66-28-201, 66-28-512, 29-18-113, 66-7-109 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-505: \"2019, ch. 236, § 4.\"; § 66-28-201: \"2013, ch. 206, § 1.\"; § 66-28-512: \"Acts 2011, ch. 272, § 12.\"; § 29-18-113: \"T.C.A. (orig. ed.), § 23-1613.\"; § 66-7-109: \"2023, ch. 400, § 2.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"notice to quit\"\" 1 hit (§ 29-18-113); \"(waive! OR waiver) w/20 notice AND (rent OR tenant)\" 4 hits (§§ 4-1-412, 66-28-505, 66-28-201, 66-28-301); \"tenant w/20 waive!\" 8 hits (§§ 66-28-301, 66-28-505, 66-28-201, 66-28-203, 66-28-508, 66-7-112, 66-28-205, 62-19-118). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Points to: nonpayment-notice-waiver-tn (whose notes record the same non-Act reading), edu-prohibited-lease-terms-tn (item 2).",
+  },
+  // Access & Entry
+  {
+    id: "edu-showing-notice-waiver-tn",
+    title: "Notice for Showings",
+    group: "Access & Entry",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "showing-notice-waiver",
+    bodyText:
+      "In the 17 Act counties the landlord may enter to show the unit to prospective tenants during the final 30 days of the lease only if the lease grants that right and the tenant gets at least 24 hours' notice; a lease cannot shorten that notice. For other entries the Act sets no notice period: the tenant may not unreasonably refuse entry to show the unit to buyers, lenders or contractors, and the landlord may not abuse access or use it to harass. No separate signed document is required. Outside the Act counties no statute governs entry, so the lease governs; the library's 24-hour showing notice is the safe course in both tiers.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 66-28-403(e)(5), access 'Within the final thirty (30) days of the termination of the rental agreement for the purpose of showing the premises to prospective tenants; provided, that such right of access is set forth in the rental agreement and notice is given to the tenant at least twenty-four (24) hours prior to entry.' (a) consent not unreasonably withheld, including to 'exhibit the premises to prospective or actual purchasers, mortgagees, workers or contractors'; (d) 'The landlord shall not abuse the right of access or use it to harass the tenant.' Tenn. Code Ann. § 66-28-201(a), 'A rental agreement cannot provide that the tenant agrees to waive or forego rights or remedies under this chapter.' Basis: Tenn. Code Ann. §§ 66-28-403, 66-28-201 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-403: \"Acts 2011, ch. 272, § 10.\"; § 66-28-201: \"2013, ch. 206, § 1.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(\"prospective\" w/5 tenant!) w/30 (notice OR \"twenty-four (24) hours\")\" 1 hit (§ 66-28-403); \"\"prospective tenants\" OR \"prospective purchasers\" w/20 (enter OR access OR showing)\" 1 hit (§ 66-28-403). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Topic questions: Tennessee sets an entry-notice period only for final-month showings; no separate-document rule. showing-notice-la was considered for a TN tag and declined: its shorter-notice option conflicts with § 66-28-403(e)(5) in the Act counties (log §4 D5).",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-smoke-drift-tn",
+    title: "Smoke in Shared Areas",
+    group: "Rules & Regulations",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "smoke-drift-waiver",
+    bodyText:
+      "Tennessee's Non-Smoker Protection Act bans smoking (including lighted hemp and vapor products) in lobbies, hallways and other common areas of apartment buildings, condominiums, trailer parks, retirement facilities and other multi-unit residential buildings, whether or not staff work there. Private residences are exempt, so state law does not ban smoking inside a unit, and no statute addresses smoke drifting between units or bars a lease from banning smoking in the unit. A lease cannot permit smoking in a common area. In the 17 Act counties a lease clause that makes the tenant give up complaints about smoke drift cannot waive the tenant's Act remedies.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 39-17-1803(a)(9), smoking prohibited in 'Lobbies, hallways, and other common areas in apartment buildings, condominiums, trailer parks, retirement facilities, nursing homes, and other multiple-unit residential facilities'. Tenn. Code Ann. § 39-17-1804(8), exempt: 'Private homes, private residences and private motor vehicles, unless those homes, residences and motor vehicles are being used for child care or day care'. Tenn. Code Ann. § 39-17-1810, 'This part shall not be construed to permit smoking where it is otherwise restricted by other applicable laws.' Smoking definition: Tenn. Code Ann. § 39-17-1802. Tenn. Code Ann. § 66-28-201(a), 'A rental agreement cannot provide that the tenant agrees to waive or forego rights or remedies under this chapter.' Basis: Tenn. Code Ann. §§ 39-17-1802, 39-17-1803, 39-17-1804, 39-17-1810, 66-28-201 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 39-17-1802: \"2025, ch. 526, § 9.\"; § 39-17-1803: \"2025, ch. 87, § 3.\"; § 39-17-1804: \"2022, ch. 1110, § 5.\"; § 39-17-1810: \"Acts 2007, ch. 410, § 1.\"; § 66-28-201: \"2013, ch. 206, § 1.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(smoke OR smoking) w/20 (drift OR migrat! OR \"secondhand\")\" 0 hits; \"smok! w/20 (lease OR tenant OR landlord OR apartment)\" 5 hits (§§ 68-120-112, 4-4-121, 68-102-151, 39-17-1551, 39-17-1603); \"\"Non-Smoker Protection Act\" OR (smoking w/20 (\"enclosed public place\" OR \"multi-unit\"))\" 13 hits (§§ 39-17-1806, 39-17-1805, 39-17-1807, 39-17-1803, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The lease-or-tenant smoking hits are smoke alarms (Tenn. Code Ann. §§ 68-120-112, 68-102-151), state-building smoking policies (§ 4-4-121), tobacco preemption of local law (§ 39-17-1551) and a definitions section (§ 39-17-1603); none limits a lease smoking ban (item 8). Topic question: yes, the hallway ban is express and not tied to employees.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-jury-waiver-tn",
+    title: "Jury Waivers in Leases",
+    group: "Compliance & Prohibited Terms",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "jury-waiver",
+    bodyText:
+      "In Tennessee an eviction filed in general sessions court is tried by the judge without a jury in every county. A jury can decide a detainer case filed in circuit court. No Tennessee statute authorizes or bars a lease clause waiving a jury trial, and the statute of frauds does not require a separate signed writing for one. In the 17 Act counties a tenant cannot waive rights or remedies under the Act, but the jury right does not come from the Act. Because a pre-dispute jury waiver is a matter of case law and the state constitution, the library does not include one; take advice before adding one.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 29-18-119(a), 'The cause shall be tried at the time and place designated, by a single general sessions judge, without the intervention of a jury'; Tenn. Code Ann. § 29-18-120(b), 'The jury, if it finds for the plaintiff, will ascertain the damages'. Statute of frauds: Tenn. Code Ann. § 29-2-101(a) (no constitutional-right category; topic question). Basis: Tenn. Code Ann. §§ 29-18-119, 29-18-120, 29-2-101, 66-28-201 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 29-18-119: \"Acts 1991, ch. 273, § 40.\"; § 29-18-120: \"T.C.A. (orig. ed.), § 23-1621.\"; § 29-2-101: \"2006, ch. 810, § 1.\"; § 66-28-201: \"2013, ch. 206, § 1.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(jury) w/20 (\"general sessions\" OR detainer)\" 9 hits (§§ 39-15-401, 29-18-119, 54-10-206, 40-10-106, and others); \"jury w/20 (waive! OR waiver)\" 21 hits (§§ 40-20-105, 39-13-205, 40-1-109, 40-35-301, and others); \"(waive! OR waiver) w/20 jury AND (contract OR agreement)\" 2 hits (§§ 40-35-301, 47-16-105); \"\"trial by jury\" w/10 inviolate\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The jury-waiver hits are criminal, juvenile and probate sections; the contract hit is the litigation-financing act's list of prohibited activities (Tenn. Code Ann. § 47-16-105), not a lease rule. The zero for \"trial by jury\" w/10 inviolate shows the Constitution is outside this search scope; the Tennessee Constitution was not read this pass and the row states nothing from it. Case law on contractual jury waivers was not searched.",
+  },
+  {
+    id: "edu-confession-of-judgment-tn",
+    title: "Confession of Judgment",
+    group: "Compliance & Prohibited Terms",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "confession-of-judgment",
+    bodyText:
+      "In the 17 Act counties a lease may not have the tenant authorize anyone to confess judgment on a claim arising out of the lease; such a term is unenforceable. In every county a general statute declares void any power of attorney or authority to confess judgment given before a lawsuit is filed and served, and any judgment based on it. An older statute still allows a lease bond in which the tenant authorizes a confessed judgment for possession at the end of the term; the library offers it only as an optional clause outside the Act counties, and how it fits with the general voidness statute is unresolved, so take advice before relying on it.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 66-28-203(a)(1), no rental agreement may provide that the tenant 'Authorizes any person to confess judgment on a claim arising out of the rental agreement'. Tenn. Code Ann. § 25-2-101(a), 'Any power of attorney or authority to confess judgment which is given before an action is instituted and before the service of process in such action, is declared void; and any judgment based on such power of attorney or authority is likewise declared void.' Tenn. Code Ann. § 29-18-123(a) (lease bond to confess judgment for possession). Basis: Tenn. Code Ann. §§ 66-28-203, 25-2-101, 29-18-123 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-203: \"T.C.A., § 64-2813.\"; § 25-2-101: \"T.C.A. (orig. ed.), § 25-201.\"; § 29-18-123: \"T.C.A. (orig. ed.), §§ 23-1624, 23-1625.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"confess judgment\" OR \"confession of judgment\" OR \"confessing judgment\" OR \"warrant of attorney\"\" 36 hits (§§ 29-18-123, 40-24-103, 25-2-102, 25-2-101, 47-18-5528, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The other hits are criminal fines, surety, assignment, consumer-credit and environmental-penalty sections. Topic questions: no court rule was read (court rules not searched); no supersedeas rule beyond Tenn. Code Ann. § 29-18-130. See log §6 F1 on possession-bond-tn and edu-prohibited-lease-terms-tn. Points to: edu-prohibited-lease-terms-tn, nonpayment-notice-waiver-tn (item 2).",
+  },
+  {
+    id: "edu-exculpatory-clauses-tn",
+    title: "Exculpatory and Indemnity Clauses",
+    group: "Compliance & Prohibited Terms",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "exculpatory-clauses",
+    bodyText:
+      "In the 17 Act counties a lease may not have the tenant agree to excuse or limit the landlord's liability to the tenant arising under law, or to indemnify the landlord for that liability or its costs; such a term is unenforceable, and a landlord who willfully uses one knowing it is prohibited owes the tenant actual damages. The Act itself requires the landlord to tell the tenant in writing that the landlord does not provide fire or casualty insurance for the tenant's belongings; that notice is not an exculpatory clause. Outside the Act counties no statute governs these clauses and their effect is a matter of case law; the library's clauses avoid exculpatory and indemnity language in every county.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 66-28-203(a)(2), the tenant 'Agrees to the exculpation or limitation of any liability of the landlord to the tenant arising under law or to indemnify the landlord for that liability or the costs connected with such liability'; (b) unenforceable and actual damages. Tenn. Code Ann. § 66-28-201(a), 'The landlord or the landlord's agent shall advise in writing that the landlord is not responsible for, and will not provide, fire or casualty insurance for the tenant's personal property.' Basis: Tenn. Code Ann. §§ 66-28-203, 66-28-201 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-203: \"T.C.A., § 64-2813.\"; § 66-28-201: \"2013, ch. 206, § 1.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(exculpat! OR indemnif! OR \"hold harmless\") w/30 (lease OR tenant OR landlord OR lessee)\" 5 hits (§§ 66-28-203, 7-54-105, 56-32-105, 69-5-808, 7-57-502); \"(exculpat! OR \"limit the landlord\" OR \"liability of the landlord\")\" 8 hits (§§ 40-30-404, 70-7-205, 40-30-123, 35-15-1008, 40-30-304, 35-15-105, 66-28-203, 40-35-322); \"\"indemnify the landlord\" OR \"exculpate\"\" 2 hits (§§ 66-28-203, 40-35-322). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The non-Ch. 28 hits are local-government leases and loans (Tenn. Code Ann. §§ 7-54-105, 7-57-502), insurance, trusts, recreational waivers (§ 70-7-205) and criminal-evidence sections. Case law was not searched. Points to: edu-prohibited-lease-terms-tn, nonpayment-notice-waiver-tn (item 2).",
+  },
+  {
+    id: "edu-unconscionability-tn",
+    title: "Unconscionable Lease Terms",
+    group: "Compliance & Prohibited Terms",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "unconscionability",
+    bodyText:
+      "In the 17 Act counties, if a court finds a lease term was unconscionable when made, it enforces the rest of the lease without that term or limits the term to avoid an unconscionable result; the same applies to an unconscionable settlement of Act claims. Each side gets a chance to present evidence of the lease's setting, purpose and effect. By statute, a clause making it a default for the tenant to misrepresent a need for a service or support animal, or to give false animal documentation, is not unconscionable and is fully enforceable. Outside the Act counties no statute addresses unconscionable leases (the UCC rules cover goods), so case law governs. Tennessee has no rule letting a court rewrite a lease that later becomes excessively burdensome.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 66-28-204(a)-(b); (c), 'A provision in a rental agreement that authorizes a landlord to hold a tenant in breach of the rental agreement in accordance with § 66-28-505(f) is not unconscionable and is fully enforceable.' Tenn. Code Ann. § 66-28-505(f)(1) (animal misrepresentation as material noncompliance). Basis: Tenn. Code Ann. §§ 66-28-204, 66-28-505 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-204: \"Acts 2018, ch. 960, § 3.\"; § 66-28-505: \"2019, ch. 236, § 4.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"unconscionab!\" 12 hits (§§ 47-14-117, 45-5-403, 47-18-5528, 47-2-302, 47-2-309, 47-2-719, 47-2A-108, 47-2A-503, 66-28-204, 66-29-133, 47-18-708, 66-27-405). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The non-Act hits are interest, consumer-credit, UCC Articles 2 and 2A (goods), unclaimed-property and condominium-declarant sections. Points to: animal-misrepresentation-default clauses already in the TN library (the item-2 rows).",
+  },
+  // Default & Termination
+  {
+    id: "edu-waiver-by-acceptance-tn",
+    title: "Accepting Rent After a Default",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "waiver-by-acceptance",
+    bodyText:
+      "In the 17 Act counties, if the landlord accepts rent without reservation and knowing of a tenant's default, the landlord forgives that default and loses the right to terminate the lease for that breach. A landlord who wants to keep the right must refuse the payment or accept it with an express reservation at the time (in writing is safest). If the landlord does not sign a written lease, accepting rent without reservation binds the parties to a month-to-month tenancy. Outside the Act counties no statute decides whether accepting rent waives a default or a notice; case law was not searched, so the cautious course is the same: refuse or return rent for any period after a termination notice, or accept it only with a written reservation.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 66-28-508, 'If the landlord accepts rent without reservation and with knowledge of a tenant default, the landlord by such acceptance condones the default and thereby waives such landlord's right and is estopped from terminating the rental agreement as to that breach.' Tenn. Code Ann. § 66-28-202(a). Basis: Tenn. Code Ann. §§ 66-28-508, 66-28-202 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-508: \"T.C.A., § 64-2848.\"; § 66-28-202: \"Acts 2011, ch. 272, § 5.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"acceptance of rent\"\" 1 hit (§ 66-28-202); \"(accept! w/5 rent) AND (waive! OR waiver)\" 1 hit (§ 66-28-508); \"\"without reservation\"\" 4 hits (§§ 66-28-202, 66-28-508, 47-2-605, 8-50-116); \"reservation w/10 rent\" 8 hits (§§ 66-28-202, 66-28-508, 66-12-111, 47-2A-514, 56-3-402, 13-20-603, 56-3-303, 7-56-208). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The non-Ch. 28 hits are UCC goods (Tenn. Code Ann. §§ 47-2-605, 47-2A-514), crop-rent, insurance and other sections. A standing lease sentence saying acceptance never waives a default is not a reservation made at acceptance (the reading recorded on late-fee-limit-tn).",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-knowing-use-penalty-tn",
+    title: "Penalty for Using Prohibited Terms",
+    group: "Compliance & Prohibited Terms",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "knowing-use-penalty",
+    bodyText:
+      "In the 17 Act counties a prohibited lease term is unenforceable, and a landlord who willfully provides a lease containing terms the landlord knows the Act prohibits is liable to the tenant for actual damages. The Act sets no fixed or multiple damages for this. From January 1, 2027, a separate rule protecting tenants' lawful firearm possession gives an adversely affected tenant its own remedies (declaratory and injunctive relief, actual and punitive damages and attorney fees). Outside the Act counties there is no such penalty.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 66-28-203(b), 'Should a landlord willfully provide a rental agreement containing provisions known by the landlord to be prohibited by this chapter, the tenant may recover actual damages sustained.' Tenn. Code Ann. § 66-28-206(d) (Acts 2026, ch. 606, § 2, effective January 1, 2027), 'A tenant who is adversely affected by a violation of subsection (a) may bring a suit against the landlord for declaratory and injunctive relief, actual damages, punitive damages, and recovery of attorney fees.' Basis: Tenn. Code Ann. §§ 66-28-203, 66-28-206 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-203: \"T.C.A., § 64-2813.\"; § 66-28-206: \"Acts 2026, ch. 606, § 2.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"known by the landlord\" OR \"known to be prohibited\"\" 1 hit (§ 66-28-203); \"(void OR unenforceable) w/20 (\"rental agreement\" OR lease) AND tenant\" 2 hits (§§ 11-3-111, 66-28-203). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The other void/unenforceable hit is a public-property lease section (Tenn. Code Ann. § 11-3-111). Topic question: § 66-28-206 has no voidness clause of its own; its remedy is added to, and does not displace, § 66-28-203(b).",
+  },
+  // Default & Termination
+  {
+    id: "edu-casualty-mitigation-waiver-tn",
+    title: "Waiving Casualty and Mitigation Rules",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "casualty-and-mitigation-waivable",
+    bodyText:
+      "In the 17 Act counties the tenant's right to leave and end the lease after a fire or other casualty that substantially impairs the unit (which the Act defines as the unit being deemed unfit for human habitation by a governmental authority), the return of prepaid rent and deposit, and the landlord's duty to mitigate cannot be waived by the tenant in the lease, because a tenant cannot waive the Act's rights or remedies. The landlord's own right to end the lease when restoration requires the tenant to leave is the landlord's to give up. Outside the Act counties an older statute lets a tenant who was not at fault surrender an untenantable building without owing later rent, and a covenant to keep the premises in repair does not make the tenant rebuild after a casualty that was not the tenant's fault; both rules give way to an express written agreement to the contrary. No non-Act statute sets a duty to mitigate.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 66-28-104(15); § 66-7-102(a) 'if the destruction or injury occurred without fault or neglect by the lessee'. Basis: Tenn. Code Ann. § 66-28-104 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-104: \"2021, ch. 100, § 2.\"). Row corrected after independent check round 1 (log §5). Tenn. Code Ann. § 66-28-503(a)-(c); Tenn. Code Ann. § 66-28-515(a), 'The aggrieved party has an obligation and duty to mitigate damages.' Tenn. Code Ann. § 66-28-201(a), 'A rental agreement cannot provide that the tenant agrees to waive or forego rights or remedies under this chapter.' Non-Act: Tenn. Code Ann. § 66-7-102(a), surrender allowed where 'no express agreement to the contrary has been made in writing'; (b), repair covenant does not bind the lessee to rebuild 'unless the lessee has expressly stipulated in writing to be so bound.' Basis: Tenn. Code Ann. §§ 66-28-503, 66-28-515, 66-28-201, 66-7-102 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-503: \"Acts 2013, ch. 107, §§ 1, 2.\"; § 66-28-515: \"T.C.A., § 64-2855.\"; § 66-28-201: \"2013, ch. 206, § 1.\"; § 66-7-102: \"T.C.A. (orig. ed.), §§ 64-702, 64-703.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"fire or casualty\"\" 3 hits (§§ 32-3-111, 66-28-503, 66-28-201); \"\"agreement to the contrary\" w/30 (lessee OR tenant OR lease)\" 3 hits (§§ 66-7-102, 66-7-109, 66-28-522); \"mitigat! w/20 (landlord OR lessor OR rent!)\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The \"fire or casualty\" hits are § 66-28-503, § 66-28-201 (insurance notice) and a will-construction section (Tenn. Code Ann. § 32-3-111). Whether § 66-7-102 also applies in Act counties alongside § 66-28-503 is not decided by either text; the row applies § 66-28-503 there.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-homestead-waiver-tn",
+    title: "Homestead and Exemption Waivers",
+    group: "Compliance & Prohibited Terms",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "homestead-waiver",
+    bodyText:
+      "Tennessee's homestead exemption protects real property an individual owns and uses as a principal residence. It may be given up only in an instrument that conveys the property, never in a note or other instrument that does not convey property, and a married person's homestead only with both spouses' consent; so a lease should not contain a homestead waiver. A Tennessee resident also has a $10,000 personal property exemption from execution, claimed by filing a sworn list with the court (a list filed after the judgment becomes final does not reach an execution already issued), plus absolute exemptions for necessary clothing, family portraits and pictures, and the family Bible and school books. No statute lets a lease waive these exemptions, and the library's lease contains no exemption waiver.",
+    notes: "TN-SCOPE: STATEWIDE. Tenn. Code Ann. § 26-2-301(a)(1), exemption 'upon real property which is owned by the individual and used by the individual or the individual's spouse or dependent, as a principal place of residence'; (b), 'If a marital relationship exists, a homestead exemption shall not be alienated or waived without the joint consent of the spouses.'; (d), 'the homestead exemption may not be waived in a note, other instrument evidencing debt, or any other instrument not conveying property in which homestead exemption may be claimed.' Tenn. Code Ann. §§ 26-2-103(a) ($10,000), 26-2-104 (absolute), 26-2-114(a)-(b) (sworn list; late filing). Basis: Tenn. Code Ann. §§ 26-2-301, 26-2-103, 26-2-104, 26-2-114 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 26-2-301: \"2026, ch. 709, §§ 1, 2.\"; § 26-2-103: \"2014, ch. 803, § 1.\"; § 26-2-104: \"T.C.A., § 26-204, T.C.A., § 26-2-103.\"; § 26-2-114: \"Acts 2011, ch. 60, § 1.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"homestead w/20 waive!\" 1 hit (§ 26-2-301); \"(exemption! OR exempt) w/20 waive! AND (personal property OR wages OR homestead)\" 3 hits (§§ 26-2-301, 26-2-114, 50-7-708); \"(personal w/3 property) w/10 exempt! AND waive!\" 1 hit (§ 26-2-114); \"lease w/20 (spouse OR \"both spouses\" OR homestead)\" 13 hits (§§ 7-66-102, 55-4-257, 55-4-251, 13-20-511, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The lease-and-spouse hits are license-plate, local-housing and liquor sections. Whether a leasehold can ever be a homestead is not decided by § 26-2-301's text; the row takes the cautious course. Topic question (ND): the exemption is tied to owned property.",
+  },
+  {
+    id: "edu-binding-arbitration-tn",
+    title: "Arbitration Clauses in Leases",
+    group: "Compliance & Prohibited Terms",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "binding-arbitration",
+    bodyText:
+      "Tennessee's Uniform Arbitration Act (in force since July 1, 2023, for agreements whenever made) makes a written agreement to arbitrate existing or future disputes valid and enforceable, except on grounds that would revoke any contract. Before a dispute arises a party cannot waive certain protections, including the right to be represented by a lawyer. No section found in a whole-Code search adds a special rule for leases or homes, excludes claims by type, or keeps possession cases in court. In the 17 Act counties the Act's rights are enforceable by legal action and cannot be waived, so whether an arbitration clause can reach Act remedies or an eviction is unsettled. The library does not include an arbitration clause.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 29-5-307(a), 'An agreement contained in a record to submit to arbitration an existing or subsequent controversy arising between the parties to the agreement is valid, enforceable, and irrevocable, except upon a ground that exists at law or in equity for the revocation of a contract.' Tenn. Code Ann. § 29-5-304(c), 'On or after July 1, 2023, this part governs an agreement to arbitrate whenever made.' Tenn. Code Ann. § 29-5-305(b)(4) (right to a lawyer not waivable before a controversy). Tenn. Code Ann. § 66-28-515(b). Basis: Tenn. Code Ann. §§ 29-5-301, 29-5-302, 29-5-304, 29-5-305, 29-5-307, 66-28-515, 66-28-201 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 29-5-301: \"Acts 2023, ch. 319, § 1.\"; § 29-5-302: \"Acts 2023, ch. 319, § 1.\"; § 29-5-304: \"Acts 2023, ch. 319, § 1.\"; § 29-5-305: \"Acts 2023, ch. 319, § 1.\"; § 29-5-307: \"Acts 2023, ch. 319, § 1.\"; § 66-28-515: \"T.C.A., § 64-2855.\"; § 66-28-201: \"2013, ch. 206, § 1.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"Uniform Arbitration Act\"\" 33 hits (§§ 29-5-315, 29-5-313, 29-5-306, 29-5-308, and others); \"arbitrat! w/20 (residence OR \"real property\" OR lease OR tenant)\" 3 hits (§§ 29-4-101, 47-2A-501, 13-6-102); \"arbitrat! w/20 (agreement OR contract) AND (consumer OR residential)\" 6 hits (§§ 65-5-202, 36-6-404, 56-2-208, 65-5-109, 47-18-5706, 47-18-5809); \"initial! w/10 (provision OR clause OR waiver) AND (lease OR \"rental agreement\" OR contract)\" 4 hits (§§ 4-1-412, 66-32-113, 47-18-305, 56-42-105). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The residence/lease hits are the older arbitration chapter (Tenn. Code Ann. § 29-4-101), UCC leases of goods (§ 47-2A-501) and the unfit-dwellings definitions; the consumer hits are telecommunications, parenting plans, reinsurance and debt-management; the initialing hits are unrelated. Topic questions: no possession carve-out, no tort exclusion, no title/type-size notice. Tenn. Code Ann. §§ 29-5-303, 29-5-306 and 29-5-308 to 29-5-333 were not read; the Federal Arbitration Act was not read.",
+  },
+  // Default & Termination
+  {
+    id: "edu-abandonment-mitigation-tn",
+    title: "Abandonment, Remaining Rent and Mitigation",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "abandonment-and-mitigation",
+    bodyText:
+      "In the 17 Act counties the lease stays enforceable for rent for the rest of the term even after the landlord gives notice of a breach or files a detainer warrant, but the injured party must mitigate damages. If the tenant abandons, the landlord must make reasonable efforts to rerent at a fair rental; a new tenancy that starts before the old term ends terminates the old lease from that date (for a month-to-month or week-to-week tenancy the term counts as one month or one week). Abandonment is shown prima facie by 30 days' unexplained absence without paying rent, or by 15 days' nonpayment plus signs of moving out (then only after a posted and mailed 10-day notice). Outside the Act counties no statute sets a duty to rerent or mitigate; see the case-law caution in the notes.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 66-28-505(c), 'Notwithstanding notice of a breach or the filing of a detainer warrant pursuant to this section, the rental agreement is enforceable by the landlord for the collection of rent for the remaining term of the rental agreement.' Tenn. Code Ann. § 66-28-507(c), 'If the tenant abandons the dwelling unit, the landlord shall use reasonable efforts to rerent the dwelling unit at a fair rental.' Tenn. Code Ann. § 66-28-515(a), 'The aggrieved party has an obligation and duty to mitigate damages.' Tenn. Code Ann. § 66-28-405(a)-(b) (abandonment evidence and notice). Basis: Tenn. Code Ann. §§ 66-28-505, 66-28-507, 66-28-515, 66-28-405 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-505: \"2019, ch. 236, § 4.\"; § 66-28-507: \"T.C.A., § 64-2847.\"; § 66-28-515: \"T.C.A., § 64-2855.\"; § 66-28-405: \"Acts 2005, ch. 156, § 5.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"abandon! w/20 (tenant OR \"dwelling unit\")\" 6 hits (§§ 66-28-507, 66-28-405, 66-28-403, 66-28-301, 66-28-511, 66-28-517); \"mitigat! w/20 (landlord OR lessor OR rent!)\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Case law was not searched; the row states no case law. Points to: abandoned-property-tn, edu-post-eviction-property-tn, early-termination-ks.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-tenant-remedies-landlord-breach-tn",
+    title: "Tenant Remedies for the Landlord's Breach",
+    group: "Landlord Responsibilities",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-breach-remedy",
+    bodyText:
+      "In the 17 Act counties, after giving the landlord 14 days' written notice, a tenant may recover damages, get an injunction and recover reasonable attorney's fees for the landlord's noncompliance with the lease or the Act. If the lease ends for noncompliance after sufficient notice, the landlord must return prepaid rent and the recoverable deposit. Separate remedies cover failure to supply essential services, fire or casualty, unlawful ouster or cutting off services, abusive entry and retaliation. The Act does not spell out a tenant's own right to terminate for ordinary noncompliance. Outside the Act counties no statute sets tenant remedies; the lease and general contract law govern.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 66-28-501(a), 'the tenant may recover damages, obtain injunctive relief and recover reasonable attorney's fees for any noncompliance by the landlord with the rental agreement or any section of this chapter upon giving fourteen (14) days' written notice'; (b), 'If the rental agreement is terminated for noncompliance after sufficient notice, the landlord shall return all prepaid rent and security deposits recoverable by the tenant under § 66-28-301.' Also Tenn. Code Ann. §§ 66-28-502, 66-28-503, 66-28-504, 66-28-513(b), 66-28-514. Tenn. Code Ann. § 66-28-201(a), 'A rental agreement cannot provide that the tenant agrees to waive or forego rights or remedies under this chapter.' Basis: Tenn. Code Ann. §§ 66-28-501, 66-28-502, 66-28-503, 66-28-504, 66-28-513, 66-28-514, 66-28-201 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-501: \"T.C.A., § 64-2841.\"; § 66-28-502: \"T.C.A., § 64-2842.\"; § 66-28-503: \"Acts 2013, ch. 107, §§ 1, 2.\"; § 66-28-504: \"T.C.A., § 64-2844.\"; § 66-28-513: \"T.C.A., § 64-2853.\"; § 66-28-514: \"T.C.A., § 64-2854.\"; § 66-28-201: \"2013, ch. 206, § 1.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"noncompliance w/20 tenant\" 6 hits (§§ 66-28-505, 66-28-506, 66-28-502, 66-28-501, 66-28-406, 66-7-111); \"\"written notice\" w/20 (repair! OR noncompliance) AND landlord\" 2 hits (§§ 66-28-501, 66-28-505); \"tenant w/10 terminat! AND \"rental agreement\"\" 8 hits (§§ 66-7-109, 66-28-512, 66-28-504, 66-28-517, 66-28-503, 66-28-505, 66-28-513, 66-28-521). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Case law was not searched; the row states no case law. Points to: edu-landlord-repair-duties-tn, edu-retaliation-tn, edu-self-help-eviction-tn.",
+  },
+  // Default & Termination
+  {
+    id: "edu-landlord-remedies-termination-tn",
+    title: "Landlord's Remedies After Termination",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-remedies-termination",
+    bodyText:
+      "In the 17 Act counties, when the lease is terminated the landlord may claim possession and rent, and separately actual damages for the breach and reasonable attorney's fees; the lease also stays enforceable for rent for the rest of the term, subject to the duty to mitigate. The landlord may also recover damages and an injunction for the tenant's noncompliance, punitive damages for willful destruction, and the cost of curing the tenant's maintenance breach as rent. The landlord may not take possession except by court action, abandonment or surrender. In every county a detainer case is tried in general sessions court by the judge, who decides possession and the rent arrearage, interest and damages, or in circuit court with a jury.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 66-28-510, 'If the rental agreement is terminated, the landlord may have a claim for possession and for rent and a separate claim for actual damages for breach of the rental agreement and reasonable attorney's fees.' Tenn. Code Ann. §§ 66-28-505(c)-(e), 66-28-506, 66-28-511, 66-28-515(a). Every county: Tenn. Code Ann. §§ 29-18-119(a), 29-18-120, 29-18-125. Basis: Tenn. Code Ann. §§ 66-28-510, 66-28-505, 66-28-506, 66-28-511, 66-28-515, 29-18-119, 29-18-120, 29-18-125 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-510: \"T.C.A., § 64-2850.\"; § 66-28-505: \"2019, ch. 236, § 4.\"; § 66-28-506: \"T.C.A., § 64-2846.\"; § 66-28-511: \"T.C.A., § 64-2851.\"; § 66-28-515: \"T.C.A., § 64-2855.\"; § 29-18-119: \"Acts 1991, ch. 273, § 40.\"; § 29-18-120: \"T.C.A. (orig. ed.), § 23-1621.\"; § 29-18-125: \"T.C.A. (orig. ed.), § 23-1627.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"landlord w/20 remed!\" 27 hits (§§ 66-28-510, 66-28-512, 66-28-505, 66-28-506, 66-28-509, 66-28-511, 66-28-501, 66-28-201, 66-28-517, 66-28-513, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Topic question (court for rent alone): the Code sections read name general sessions and circuit court for detainer cases; general sessions civil jurisdiction limits were not read. Points to: edu-eviction-process-tn, edu-holdover-remedies-tn, edu-attorney-fees-tn.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-tenant-repair-remedies-tn",
+    title: "Tenant Remedies for Failure to Repair",
+    group: "Landlord Responsibilities",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-repair-remedies",
+    bodyText:
+      "In the 17 Act counties a tenant whose landlord fails to repair may, after 14 days' written notice, sue for damages, an injunction and attorney's fees. If the landlord deliberately or negligently fails to supply essential services (such as gas, heat or electricity), the tenant who gives written notice may buy the services and deduct the actual, reasonable cost from rent, recover the lost rental value, or move to substitute housing and pay no rent meanwhile. Tennessee has no general repair-and-deduct remedy for other repairs and no rent escrow or rent deposit with a court clerk. Outside the Act counties no statute gives a repair remedy.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 66-28-501(a); Tenn. Code Ann. § 66-28-502(a)(1)(A), 'Procure essential services during the period of the landlord's noncompliance and deduct their actual and reasonable costs from the rent'; (c) written notice and tenant-not-at-fault conditions. Basis: Tenn. Code Ann. §§ 66-28-501, 66-28-502 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-501: \"T.C.A., § 64-2841.\"; § 66-28-502: \"T.C.A., § 64-2842.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(\"repair and deduct\" OR \"deduct\" w/10 rent)\" 1 hit (§ 66-28-502); \"escrow w/20 (rent OR repair!)\" 2 hits (§§ 66-32-106, 66-28-104); \"(rent OR \"rental payment!\") w/20 (\"clerk of the court\" OR \"into court\" OR escrow)\" 1 hit (§ 66-28-104). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The escrow hits are the deposit definition (Tenn. Code Ann. § 66-28-104) and a time-share escrow (§ 66-32-106). Topic questions: no certified-unfit escrow and no clerk-deposit procedure. Points to: edu-landlord-repair-duties-tn.",
+  },
+  {
+    id: "edu-repair-notice-tn",
+    title: "Repair Requests in Writing",
+    group: "Landlord Responsibilities",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "repair-notice",
+    bodyText:
+      "In the 17 Act counties the tenant's statutory repair remedies already turn on written notice: 14 days' written notice for damages and an injunction, and written notice before the essential-services remedies. A lease may ask for repair requests in writing or through a portal, but it cannot take away the Act's remedies, and a lease that lets the tenant give notice another way simply gives the tenant more. When the tenant must make repairs to cure the tenant's own breach, the tenant must ask in writing and the landlord must authorize them in writing first. Outside the Act counties no statute governs repair notices.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. §§ 66-28-501(a), 66-28-502(a)(1), (c); Tenn. Code Ann. § 66-28-505(a)(2)(A), 'All repairs to be made by the tenant to remedy the tenant's breach must be requested in writing by the tenant and authorized in writing by the landlord prior to such repairs being made'. Tenn. Code Ann. § 66-28-201(a), 'A rental agreement cannot provide that the tenant agrees to waive or forego rights or remedies under this chapter.' Basis: Tenn. Code Ann. §§ 66-28-501, 66-28-502, 66-28-505, 66-28-201 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-501: \"T.C.A., § 64-2841.\"; § 66-28-502: \"T.C.A., § 64-2842.\"; § 66-28-505: \"2019, ch. 236, § 4.\"; § 66-28-201: \"2013, ch. 206, § 1.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"written notice\" w/20 (repair! OR noncompliance) AND landlord\" 2 hits (§§ 66-28-501, 66-28-505). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Topic questions: no statutory defense turns on the landlord's knowledge rather than written notice; no verbal-notice rule.",
+  },
+  // Default & Termination
+  {
+    id: "edu-repair-cost-termination-tn",
+    title: "Ending a Lease When Repairs Are Too Costly",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "repair-cost-termination",
+    bodyText:
+      "Tennessee has no rule letting a landlord end a lease because repairs would cost too much. In the 17 Act counties the landlord may end the lease on 14 days' written notice only if fire or casualty damage means restoring the unit requires the tenant to move out, and a landlord whose code compliance requires alteration or demolition that would deprive the tenant of the unit may bring a possession action despite the retaliation rule. Outside the Act counties the lease governs.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 66-28-503(b), 'If the dwelling unit or premises are damaged or destroyed by fire or casualty to an extent that restoring the dwelling unit or premises to its undamaged condition requires the tenant to vacate the premises, the landlord is authorized to terminate the rental agreement within fourteen (14) days of providing written notice to the tenant.' Tenn. Code Ann. § 66-28-514(b)(1)(C). Basis: Tenn. Code Ann. §§ 66-28-503, 66-28-514 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-503: \"Acts 2013, ch. 107, §§ 1, 2.\"; § 66-28-514: \"T.C.A., § 64-2854.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"repair! w/20 (cost! OR expens!) AND terminat!\" 16 hits (§§ 47-25-1906, 48-101-301, 47-25-1305, 67-4-1907, 67-5-2209, 66-28-505, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The hits are dealer-repurchase, tax, receivership and condominium sections and § 66-28-505; none lets a residential landlord end a lease for repair cost.",
+  },
+  {
+    id: "edu-no-rent-into-court-tn",
+    title: "Rent Into Court and Counterclaims",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-into-court-counterclaim",
+    bodyText:
+      "Tennessee does not require a tenant to pay rent into court to raise a defense in a general sessions eviction, and no statute makes a tenant's counterclaim mandatory. To appeal a general sessions possession judgment, the tenant must post a bond, cash deposit, letter of credit or two sureties in the amount of one year's rent; if the tenant does not, the landlord needs no bond to get possession.",
+    notes: "TN-SCOPE: STATEWIDE. Tenn. Code Ann. § 29-18-130(b)(2)(A)-(B); (b)(2)(B), 'The plaintiff is not required to post a bond to obtain possession if the defendant appeals without complying with this subdivision (b)(2).' Basis: Tenn. Code Ann. §§ 29-18-130, 29-18-119 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 29-18-130: \"2024, ch. 755, § 4.\"; § 29-18-119: \"Acts 1991, ch. 273, § 40.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"counterclaim w/20 (tenant OR detainer)\" 0 hits; \"(rent OR \"rental payment!\") w/20 (\"clerk of the court\" OR \"into court\" OR escrow)\" 1 hit (§ 66-28-104). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Topic question (MD adjournment rule): none. Court rules (Tenn. R. Civ. P.) were not read.",
+  },
+  {
+    id: "edu-statutory-early-termination-tn",
+    title: "When a Tenant May End a Lease Early by Law",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "statutory-early-termination",
+    bodyText:
+      "Tennessee lets a tenant end a residential lease early in a few situations: a victim of domestic abuse, sexual assault or stalking who meets the statute's conditions; in the Act counties, after fire or casualty that substantially impairs the unit (deemed unfit for human habitation by a governmental authority); outside the Act counties, when the building becomes untenantable without the tenant's fault, unless a written agreement says otherwise; a person with a physical disability accepted into a public housing facility (unless the landlord made significant accessibility changes), on written evidence of the acceptance; and servicemembers under federal law. No Tennessee statute gives a general right to end a residential lease for the landlord's misrepresentation (the statutory remedy covers only small commercial and industrial leases), though general fraud and misrepresentation law still applies and was not reviewed here. No statute provides that leaving a prescribed statement out of the lease releases unpaid rent.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 66-28-104(15) ('deemed unfit for human habitation by a governmental authority'); Tenn. Code Ann. § 66-7-102(a); Tenn. Code Ann. § 66-28-103(c) (principles of law and equity, including fraud and misrepresentation, supplement the Act). Basis: Tenn. Code Ann. §§ 66-28-104, 66-7-102, 66-28-103 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-104: \"2021, ch. 100, § 2.\"; § 66-7-102: \"T.C.A. (orig. ed.), §§ 64-702, 64-703.\"; § 66-28-103: \"T.C.A., §§ 64-2861 — 64-2863.\"). Row corrected after independent check round 1 (log §5). Tenn. Code Ann. §§ 66-28-205, 66-7-112 (domestic abuse); Tenn. Code Ann. § 66-28-503(a) (casualty, Act counties); Tenn. Code Ann. § 66-7-110, the person may terminate 'without incurring penalties or being obligated to pay rent after ceasing to occupy the property if such person is accepted as a resident of a public housing facility'; Tenn. Code Ann. § 66-7-108 (commercial and industrial misrepresentation). Basis: Tenn. Code Ann. §§ 66-28-205, 66-7-112, 66-28-503, 66-7-110, 66-7-108 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-205: \"Acts 2021, ch. 293, § 2.\"; § 66-7-112: \"Acts 2021, ch. 293, § 1.\"; § 66-28-503: \"Acts 2013, ch. 107, §§ 1, 2.\"; § 66-7-110: \"2011, ch. 47, § 70.\"; § 66-7-108: \"Acts 1999, ch. 122, §§ 1-3.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"tenant w/10 terminat! AND \"rental agreement\"\" 8 hits (§§ 66-7-109, 66-28-512, 66-28-504, 66-28-517, 66-28-503, 66-28-505, 66-28-513, 66-28-521); \"(\"service animal\" OR \"support animal\") w/30 (misrepresent! OR fraudulent! OR falsely)\" 4 hits (§§ 39-16-304, 66-28-505, 66-28-406, 66-7-111). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The federal Servicemembers Civil Relief Act was not read; the row refers to it generally. Points to: edu-dv-lease-termination-tn, edu-casualty-termination-tn, edu-disability-lease-termination-tn, edu-servicemember-rights-tn, early-termination-ks.",
+  },
+  {
+    id: "edu-cure-and-eviction-grounds-tn",
+    title: "Cure Periods and Eviction Grounds",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "cure-and-eviction-grounds",
+    bodyText:
+      "In the 17 Act counties, for a material breach or a tenant-duty breach that materially affects health and safety, the landlord's written notice may give 14 days to cure a breach curable by paying rent, repairs, damages or another amount owed, or end the lease in at least 14 days if the breach cannot be cured; a substantially similar breach within six months allows termination on 7 days' notice. Violence, a real and present danger, a hazardous or unsanitary condition, or an unauthorized occupant refusing to leave allows termination 3 days after the tenant receives notice. Outside the Act counties the notice is 14 days for unpaid rent, damage beyond normal wear (both with a right to cure) or violence or a real and present danger; 30 days for other defaults; and 3 days for violence, drug-related criminal activity or danger by a tenant who is not mentally or physically disabled, or for an unauthorized occupant who refuses to leave. Those notice rules do not apply to rental periods of less than 14 days. In the Act counties the lease may give more time but not less, except the nonpayment-notice waiver the Act allows; outside them, whether a lease can shorten these notices is unresolved. Whether a breach is material is for the court, except that the Act makes a misrepresented need for a service or support animal a material noncompliance.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 66-28-505(a)(1)-(3), (f); Tenn. Code Ann. § 66-28-517(a); Tenn. Code Ann. § 66-7-109(a)-(d), (f). Tenn. Code Ann. § 66-28-201(a), 'A rental agreement cannot provide that the tenant agrees to waive or forego rights or remedies under this chapter.' Basis: Tenn. Code Ann. §§ 66-28-505, 66-28-517, 66-7-109, 66-28-201 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-505: \"2019, ch. 236, § 4.\"; § 66-28-517: \"2020, ch. 528, § 1.\"; § 66-7-109: \"2023, ch. 400, § 2.\"; § 66-28-201: \"2013, ch. 206, § 1.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"noncompliance w/20 tenant\" 6 hits (§§ 66-28-505, 66-28-506, 66-28-502, 66-28-501, 66-28-406, 66-7-111); \"\"detainer warrant\" w/20 (breach OR noncompliance)\" 1 hit (§ 66-28-505); \"\"materially affecting health and safety\"\" 4 hits (§§ 66-28-505, 66-28-304, 66-28-401, 66-28-506). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Topic questions: no lease-set cure period (NMI) in either tier; the Act uses \"material noncompliance\" and does not let the lease define it (ND), apart from § 66-28-505(f). Whether a non-Act lease may shorten § 66-7-109 is unresolved (edu-notice-to-quit-waiver-tn). Points to: default-by-tenant, edu-eviction-process-tn.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-no-condemned-rent-bar-tn",
+    title: "Rent After Condemnation",
+    group: "Landlord Responsibilities",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "condemned-premises-rent-bar",
+    bodyText:
+      "Tennessee has no statute barring a landlord from collecting rent after a unit is condemned or ordered vacated. In the 17 Act counties a tenant may stop paying rent while living in substitute housing when the landlord fails to supply essential services, may terminate after a casualty that substantially impairs the unit (deemed unfit for human habitation by a governmental authority), and may recover damages for the landlord's failure to keep the unit fit and habitable. A court may also declare an unfit building a public nuisance and appoint a receiver (see the receivership row), and local ordinances may add their own rules.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. §§ 66-28-502(a)(1)(C), 66-28-503(a), 66-28-304(a), 66-28-501(a); public-nuisance petition and receivership for a building 'no longer fit and habitable': Tenn. Code Ann. §§ 13-6-102(12)(C), 13-6-106. Edited after round 2. Basis: Tenn. Code Ann. §§ 66-28-502, 66-28-503, 66-28-304, 66-28-501, 13-6-102, 13-6-106 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-502: \"T.C.A., § 64-2842.\"; § 66-28-503: \"Acts 2013, ch. 107, §§ 1, 2.\"; § 66-28-304: \"T.C.A., § 64-2824.\"; § 66-28-501: \"T.C.A., § 64-2841.\"; § 13-6-102: \"2024, ch. 796, §§ 1, 2, 19.\"; § 13-6-106: \"2024, ch. 796, §§ 3-18.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(condemn! OR \"unfit for human habitation\") w/20 rent!\" 1 hit (§ 66-28-104); \"\"unfit for human habitation\" w/30 (repair! OR demol!)\" 0 hits; \"(condemn! OR \"unfit for human habitation\") w/30 (disclos! OR notif!) AND (tenant OR lessee)\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Local ordinances were not read.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-rent-demand-tn",
+    title: "Demand for Rent Before Eviction",
+    group: "Rent & Payment",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-demand-bar",
+    bodyText:
+      "In the 17 Act counties rent is payable without demand at the agreed time and place, so the landlord need not demand rent before giving the notice of nonpayment. Outside the Act counties the 14-day termination notice for unpaid rent applies to rent that is due and in arrears upon demand, so a landlord there should demand the rent (in writing is safest) before or with the notice.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 66-28-201(c), 'Rent shall be payable without demand at the time and place agreed upon by the parties.' Tenn. Code Ann. § 66-7-109(a)(1)(A), 'Tenant neglect or refusal to pay rent that is due and is in arrears, upon demand'. Basis: Tenn. Code Ann. §§ 66-28-201, 66-7-109 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-201: \"2013, ch. 206, § 1.\"; § 66-7-109: \"2023, ch. 400, § 2.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"demand w/10 rent AND (before OR prior)\" 2 hits (§§ 67-5-2503, 66-7-109). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The other hit is a tax-sale section (Tenn. Code Ann. § 67-5-2503). What form of demand satisfies § 66-7-109 is not stated; case law not searched.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-no-promises-to-repair-rule-tn",
+    title: "Landlord's Promises to Repair",
+    group: "Landlord Responsibilities",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "promises-to-repair",
+    bodyText:
+      "Tennessee has no rule that a landlord's promise to clean, repair or improve a unit must be in writing, carry a completion date or be made before the lease is signed. A promise made to induce a tenant to rent can still support a deceptive-practice claim under the Consumer Protection Act if it is false, so put any promised work and its date in the lease.",
+    notes: "TN-SCOPE: STATEWIDE. Basis: Tenn. Code Ann. §§ 47-18-104, 66-28-304 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 47-18-104: \"2026, ch. 1117, § 2.\"; § 66-28-304: \"T.C.A., § 64-2824.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(promise! OR agree!) w/20 repair! AND (writing OR written)\" 18 hits (§§ 40-38-120, 7-56-208, 66-36-103, 66-28-505, 54-1-119, 47-2A-310, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The Title 66 hits are construction-defect notice (Tenn. Code Ann. § 66-36-103), garagekeeper liens (§ 66-19-103), § 66-7-102 and §§ 66-28-304, 66-28-505; none governs a landlord's promise. Topic question (WI ATCP § 134.07): no equivalent.",
+  },
+  {
+    id: "edu-no-designated-repairer-rule-tn",
+    title: "Who Does the Repairs",
+    group: "Landlord Responsibilities",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "designated-repairer",
+    bodyText:
+      "Tennessee has no statute letting a landlord name the repairer a tenant must use, or requiring licensed contractors for tenant repairs. Because the Act has no general repair-and-deduct remedy, the question mostly does not arise. When a tenant makes repairs to cure the tenant's own breach in an Act county, the tenant must request them in writing and the landlord must authorize them in writing first.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 66-28-505(a)(2)(A). Basis: Tenn. Code Ann. §§ 66-28-505, 66-28-502 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-505: \"2019, ch. 236, § 4.\"; § 66-28-502: \"T.C.A., § 64-2842.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"repair! w/20 (licensed OR contractor) AND (tenant OR landlord)\" 0 hits; \"(\"repair and deduct\" OR \"deduct\" w/10 rent)\" 1 hit (§ 66-28-502). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work.",
+  },
+  {
+    id: "edu-maintenance-duty-shift-tn",
+    title: "Shifting Maintenance to the Tenant",
+    group: "Landlord Responsibilities",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "maintenance-duty-shift",
+    bodyText:
+      "In the 17 Act counties the landlord and tenant may agree in writing that the tenant will do specified repairs, maintenance, alterations or remodeling, but only in good faith and not to evade the landlord's duties, and the landlord may not make that separate agreement a condition of the lease. The statute requires no particular consideration, but the work must be specified; a general clause putting all maintenance on the tenant does not meet it. Outside the Act counties the lease governs; the library's tenant-repair agreement is written to work in both tiers.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 66-28-304(c)-(d). Tenn. Code Ann. § 66-28-201(a), 'A rental agreement cannot provide that the tenant agrees to waive or forego rights or remedies under this chapter.' Basis: Tenn. Code Ann. §§ 66-28-304, 66-28-201 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-304: \"T.C.A., § 64-2824.\"; § 66-28-201: \"2013, ch. 206, § 1.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"specified repairs\"\" 1 hit (§ 66-28-304); \"(habitab! OR \"fit and habitable\") w/30 (waive! OR agree!)\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Topic questions: no single-condition shift with a landlord precondition (NH); a separate agreement is needed, not just a conspicuous lease term (MN); consideration is not addressed, specification is required (SD). Points to: tenant-repair-agreement-tn.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "edu-tenant-statutory-duties-tn",
+    title: "Tenant's Duties Under Tennessee Law",
+    group: "Tenant Responsibilities",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-statutory-duties",
+    bodyText:
+      "In the 17 Act counties the tenant must comply with building and housing code duties that fall on tenants and materially affect health and safety; keep the part of the premises the tenant uses as clean and safe as when the tenant moved in; put garbage and waste in the designated receptacles; not damage the premises or allow others to, and not engage in illegal conduct there; and make sure the tenant and guests do not disturb the neighbors' peaceful enjoyment. The tenant must also follow reasonable rules the tenant had notice of, not unreasonably refuse entry, use the unit only as a dwelling unless otherwise agreed, and give notice of an absence over seven days if the lease requires it. Outside the Act counties these duties come from the lease.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 66-28-401(1)-(5); Tenn. Code Ann. §§ 66-28-402, 66-28-403(a), 66-28-404. Basis: Tenn. Code Ann. §§ 66-28-401, 66-28-402, 66-28-403, 66-28-404 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-401: \"Acts 2005, ch. 156, § 4.\"; § 66-28-402: \"T.C.A., § 64-2832.\"; § 66-28-403: \"Acts 2011, ch. 272, § 10.\"; § 66-28-404: \"T.C.A., § 64-2834.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"materially affecting health and safety\"\" 4 hits (§§ 66-28-505, 66-28-304, 66-28-401, 66-28-506). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Points to: tenant-maintenance, no-disturbance, edu-rules-and-regulations-tn, extended-absence-notice-ks.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-no-double-letting-rule-tn",
+    title: "Renting the Same Unit Twice",
+    group: "Landlord Responsibilities",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "double-letting",
+    bodyText:
+      "Tennessee has no statute on renting the same unit or room to two tenants at once. A tenant who is kept out because the landlord rented to someone else has the Act's remedies for the landlord's noncompliance and unlawful exclusion in the 17 Act counties, and contract remedies elsewhere.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. §§ 66-28-501(a), 66-28-504. Basis: Tenn. Code Ann. §§ 66-28-501, 66-28-504 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-501: \"T.C.A., § 64-2841.\"; § 66-28-504: \"T.C.A., § 64-2844.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"double letting\" OR (let w/10 \"more than one\")\" 1 hit (§ 12-3-305). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The hit is a public-contracts section (Tenn. Code Ann. § 12-3-305).",
+  },
+  // Default & Termination
+  {
+    id: "edu-dv-confidentiality-tn",
+    title: "Keeping a Victim-Tenant's Information Private",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "dv-confidentiality",
+    bodyText:
+      "In every Tennessee county, when a tenant ends a lease early as a victim of domestic abuse, sexual assault or stalking, the landlord may not reveal any information that could reasonably be used to locate the former tenant or household member (such as a home or work address, telephone number or social security number) without the tenant's written consent, unless law or a court requires it. Separately, the Secretary of State's address confidentiality program gives certified victims a substitute address; government entities must accept it, and a participant may ask a landlord or other private business to use it, though the statute does not require a private business to agree.",
+    notes: "TN-SCOPE: STATEWIDE. Tenn. Code Ann. §§ 66-7-112(b)(3), 66-28-205(b)(3): 'Unless otherwise required by law or a court of competent jurisdiction, a landlord shall not reveal any identifying information concerning a tenant who has terminated a rental or lease agreement pursuant to this subsection (b) without the written consent of the tenant.' Tenn. Code Ann. § 40-38-606(a), (c), 'The program participant may also request that private businesses and other non-governmental entities use the substitute address designated by the secretary of state as the program participant's address.' Basis: Tenn. Code Ann. §§ 66-7-112, 66-28-205, 40-38-601, 40-38-602, 40-38-606 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-7-112: \"Acts 2021, ch. 293, § 1.\"; § 66-28-205: \"Acts 2021, ch. 293, § 2.\"; § 40-38-601: \"2026, ch. 582, § 1.\"; § 40-38-602: \"2021, ch. 140, §§ 4-6.\"; § 40-38-606: \"Acts 2018, ch. 1004, § 1.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"address confidentiality\"\" 15 hits (§§ 2-6-206, 40-38-602, 40-38-603, 40-38-606, and others); \"victim w/20 (address OR location) AND confidential!\" 23 hits (§§ 40-38-602, 40-38-603, 40-38-606, 40-38-610, and others); \"\"substitute address\" w/30 (landlord OR lease OR tenant OR \"private\")\" 1 hit (§ 40-38-606). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Ch. 7 and Ch. 28 carry the same text, so the rule reaches every county. Points to: edu-dv-lease-termination-tn, edu-dv-tenancy-protections-tn (item 3).",
+  },
+  // Security Deposit
+  {
+    id: "edu-no-dv-deposit-timing-rule-tn",
+    title: "Deposits After a Victim's Early Termination",
+    group: "Security Deposit",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "dv-deposit-timing",
+    bodyText:
+      "Tennessee has no special deposit timetable when a victim of domestic abuse, sexual assault or stalking ends a lease early. The terminating tenant still owes rent for the full month in which the tenancy ends and earlier obligations, and other parties to the lease are not released. In the 17 Act counties the ordinary deposit rules apply (inspection, damage list and refund notice); the Act's deposit steps run as usual and set no special timing for a household where some occupants stay. Outside the Act counties the lease governs the deposit.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. §§ 66-28-205(c)-(d), 66-7-112(c)-(d); Tenn. Code Ann. § 66-28-301. Basis: Tenn. Code Ann. §§ 66-28-205, 66-7-112, 66-28-301 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-205: \"Acts 2021, ch. 293, § 2.\"; § 66-7-112: \"Acts 2021, ch. 293, § 1.\"; § 66-28-301: \"2012, ch. 887, § 1.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"deposit! w/30 (\"domestic abuse\" OR victim)\" 10 hits (§§ 39-15-505, 39-15-504, 67-4-602, 29-13-403, 9-4-205, 40-38-506, 24-2-109, 9-4-214, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The hits are criminal-procedure, tax and victim-fund sections. Topic question (MA ch. 186, § 24(c)): no equivalent; § 66-28-301 sets no refund deadline tied to possession by all occupants. Points to: edu-dv-lease-termination-tn, edu-dv-tenancy-protections-tn (item 3).",
+  },
+  // Default & Termination
+  {
+    id: "edu-dv-eviction-protection-tn",
+    title: "Eviction Protection for Victims",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "dv-eviction-protection",
+    bodyText:
+      "In every Tennessee county, if domestic abuse is the reason a tenancy is being ended, only the perpetrator may be evicted; the victims, children under 18 and innocent occupants may not be evicted solely because of the abuse. The protection applies only after the victim obtains an order of protection for that incident (ordering the perpetrator out or away from the home, or finding a danger) and gives the landlord a copy, and it ends if the order is dismissed or the victim and adult tenants break their written agreement to keep the perpetrator away. Separately, the early-termination statutes say they do not authorize evicting a tenant solely because the tenant or a household member is a victim of domestic abuse, sexual assault or stalking. A victim can still be evicted for nonpayment or another lease violation.",
+    notes: "TN-SCOPE: STATEWIDE. Tenn. Code Ann. § 66-28-517(g)(1), 'If domestic abuse, as defined in § 36-3-601, is the underlying offense for which a tenancy is terminated, only the perpetrator may be evicted.' Same text: Tenn. Code Ann. § 66-7-109(e). (g)(4)/(e)(4) order-of-protection condition; (g)(7)/(e)(7) nonpayment and violations. Tenn. Code Ann. §§ 66-28-205(d)(2), 66-7-112(d)(2). Basis: Tenn. Code Ann. §§ 66-28-517, 66-7-109, 66-28-205, 66-7-112, 36-3-601 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-517: \"2020, ch. 528, § 1.\"; § 66-7-109: \"2023, ch. 400, § 2.\"; § 66-28-205: \"Acts 2021, ch. 293, § 2.\"; § 66-7-112: \"Acts 2021, ch. 293, § 1.\"; § 36-3-601: \"2025, ch. 462, § 3.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"domestic abuse\" w/30 (landlord OR lease OR tenant)\" 4 hits (§§ 66-7-112, 66-28-205, 66-28-517, 66-7-109); \"\"order of protection\" w/20 (landlord OR lessor)\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Points to: edu-dv-lease-termination-tn, edu-dv-tenancy-protections-tn (item 3).",
+  },
+  // Access & Entry
+  {
+    id: "edu-no-dv-lockchange-rule-tn",
+    title: "Lock Changes for Victims",
+    group: "Access & Entry",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "dv-lockchange",
+    bodyText:
+      "Tennessee has no statute giving a domestic-violence victim a right to have the locks changed or to change them, and none voids a lease term on the subject. An order of protection may give the victim possession of the home and evict the abuser, and in every county a landlord who receives such an order can remove the perpetrator from the lease. Changing locks promptly when a victim-tenant asks, with the cost handled as the lease provides, is the cautious course.",
+    notes: "TN-SCOPE: STATEWIDE. Tenn. Code Ann. § 36-3-606(a)(4), an order may include 'Granting to the petitioner possession of the residence or household to the exclusion of the respondent by evicting the respondent, by restoring possession to the petitioner, or by both'. Tenn. Code Ann. §§ 66-28-517(g)(2), 66-7-109(e)(2). Basis: Tenn. Code Ann. §§ 36-3-606, 66-28-517, 66-7-109 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 36-3-606: \"2025, ch. 62, § 8.\"; § 66-28-517: \"2020, ch. 528, § 1.\"; § 66-7-109: \"2023, ch. 400, § 2.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(lock OR locks) w/30 (victim OR \"domestic abuse\" OR \"order of protection\")\" 0 hits; \"(deadbolt OR \"dead bolt\" OR \"door viewer\" OR peephole OR rekey!)\" 0 hits; \"\"order of protection\" w/30 (possession OR residence OR dwelling)\" 15 hits (§§ 36-3-625, 39-14-401, 36-3-604, 39-11-611, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The order-of-protection hits are firearm, burglary, forms and criminal sections. Topic question (CO § 38-12-402): no equivalent. Points to: edu-dv-lease-termination-tn, edu-dv-tenancy-protections-tn (item 3).",
+  },
+  // Default & Termination
+  {
+    id: "edu-dv-protection-order-citations-tn",
+    title: "Where Tennessee's Protection-Order Law Is",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "dv-protection-order-chapter-moved",
+    bodyText:
+      "Tennessee's orders of protection are in Title 36, Chapter 3, Part 6 of the Code. The definitions of domestic abuse, sexual assault and stalking victims that the landlord-tenant statutes borrow are in § 36-3-601; the petition is § 36-3-602; ex parte orders, the hearing within 15 days and extensions for up to one year at a time (up to five years after a violation, ten after a second) are § 36-3-605; and what an order may include (such as giving the victim the home) is § 36-3-606. The tenant protections themselves are in § 66-7-109(e) and § 66-7-112 for every county and § 66-28-205 and § 66-28-517(g) in the Act counties. 2025 Pub. Ch. 62 amended Part 6; the sections relied on here were read in their current form.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. §§ 36-3-601, 36-3-602, 36-3-605, 36-3-606; Tenn. Code Ann. §§ 66-7-109(e), 66-7-112, 66-28-205, 66-28-517(g). Basis: Tenn. Code Ann. §§ 36-3-601, 36-3-602, 36-3-605, 36-3-606, 66-7-109, 66-7-112, 66-28-205, 66-28-517 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 36-3-601: \"2025, ch. 462, § 3.\"; § 36-3-602: \"2025, ch. 62, §§ 5, 6.\"; § 36-3-605: \"2025, ch. 62, § 7.\"; § 36-3-606: \"2025, ch. 62, § 8.\"; § 66-7-109: \"2023, ch. 400, § 2.\"; § 66-7-112: \"Acts 2021, ch. 293, § 1.\"; § 66-28-205: \"Acts 2021, ch. 293, § 2.\"; § 66-28-517: \"2020, ch. 528, § 1.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"36-3-601\"\" 35 hits (§§ 36-3-601, 66-7-109, 39-13-113, 40-11-150, 66-7-112, 66-28-205, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Points to: edu-dv-lease-termination-tn, edu-dv-tenancy-protections-tn (item 3).",
+  },
+  {
+    id: "edu-dv-qualifying-documents-tn",
+    title: "Documents a Victim-Tenant Must Give",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "dv-qualifying-documents",
+    bodyText:
+      "Tennessee's two victim protections use different documents. To end a lease early, the tenant gives written notice requesting release, a mutually agreed release date within 30 days, and either a valid order of protection issued or extended after a hearing that found the tenant or household member a victim, or documentation of a criminal charge of domestic abuse, sexual assault or stalking based on a police report; the document must be dated no more than 60 days before the tenant's notice. For the rule that only the perpetrator may be evicted, the victim must have an order of protection for the specific incident, with one of the listed terms (perpetrator out, away from the home, or a danger finding), and give the landlord a copy; no time limit applies, but the protection ends if the order is dismissed. There is no lock-change document list because there is no lock-change statute.",
+    notes: "TN-SCOPE: STATEWIDE. Tenn. Code Ann. §§ 66-7-112(b)(1)(C), (b)(2), 66-28-205(b)(1)(C), (b)(2), 'The documentation the tenant offers in support of the termination request must be dated no more than sixty (60) days prior to the tenant's notice to the landlord.' Tenn. Code Ann. §§ 66-28-517(g)(4)-(5), 66-7-109(e)(4)-(5). Basis: Tenn. Code Ann. §§ 66-7-112, 66-28-205, 66-28-517, 66-7-109, 36-3-605 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-7-112: \"Acts 2021, ch. 293, § 1.\"; § 66-28-205: \"Acts 2021, ch. 293, § 2.\"; § 66-28-517: \"2020, ch. 528, § 1.\"; § 66-7-109: \"2023, ch. 400, § 2.\"; § 36-3-605: \"2025, ch. 62, § 7.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"domestic abuse\" w/30 (landlord OR lease OR tenant)\" 4 hits (§§ 66-7-112, 66-28-205, 66-28-517, 66-7-109). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Topic question: the lists differ; the 60-day limit runs from the document's date to the tenant's notice. Points to: edu-dv-lease-termination-tn, edu-dv-tenancy-protections-tn (item 3).",
+  },
+  // Tenant Responsibilities
+  {
+    id: "edu-landscaping-tn",
+    title: "Lawn Care and Irrigation",
+    group: "Tenant Responsibilities",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landscaping-irrigation",
+    bodyText:
+      "In Tennessee the lease itself should not make the tenant responsible for lawn care or irrigation. In the 17 Act counties a tenant may take on specified maintenance tasks such as mowing, leaf raking or following an irrigation schedule only by a separate written agreement made in good faith, which the landlord may not make a condition of the lease; the library's tenant-repair agreement is that document and is used in every county. No Tennessee statute makes tenants keep trees or plants clear of power lines.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 66-28-304(c)-(d). Basis: Tenn. Code Ann. § 66-28-304 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-304: \"T.C.A., § 64-2824.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(lawn OR yard OR landscap! OR mowing) w/20 (tenant OR lessee OR landlord)\" 0 hits; \"(vegetation OR tree! OR plant!) w/20 (\"power line!\" OR \"electric line!\" OR \"utility line!\") AND (tenant OR lessee OR occupant)\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Non-Act counties: no statute; the separate agreement is contractual there (the library uses one text in both tiers). Points to: tenant-repair-agreement-tn (item 6: shared row not tagged).",
+  },
+  {
+    id: "edu-snow-removal-tn",
+    title: "Snow and Ice Removal",
+    group: "Tenant Responsibilities",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "snow-removal",
+    bodyText:
+      "No Tennessee statute assigns snow and ice removal between landlord and tenant. In the 17 Act counties the landlord must keep common areas clean and safe, and a tenant may take on snow removal for the areas the tenant uses only by the separate written good-faith agreement the Act allows; the library's tenant-repair agreement covers it. Some city charters let the city remove snow and ice from sidewalks and charge the cost to the abutting property, which falls on the owner.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 66-28-304(a)(3), (c)-(d); Tenn. Code Ann. § 6-2-201(17), power to assess against abutting property 'the cost of planting shade trees, removing from sidewalks all accumulations of snow, ice and earth'. Basis: Tenn. Code Ann. §§ 66-28-304, 6-2-201 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-304: \"T.C.A., § 64-2824.\"; § 6-2-201: \"2016, ch. 645, § 2.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(snow OR ice) w/20 (remov! OR clear!) AND (tenant OR landlord OR owner OR sidewalk)\" 2 hits (§§ 6-2-201, 6-19-101). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. § 6-2-201 is the mayor-aldermanic charter's powers list; § 6-19-101 (city manager-commission charter) was not read. Local ordinances not read. Points to: tenant-repair-agreement-tn (item 6: shared row not tagged).",
+  },
+  // Access & Entry
+  {
+    id: "edu-no-key-control-rule-tn",
+    title: "Key Control",
+    group: "Access & Entry",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "key-control-policy",
+    bodyText:
+      "Tennessee has no statute requiring a key-control policy, background checks for employees with key access, or rekeying between tenants. The library's Keys clause covers issuing and returning keys and the cost of rekeying when the tenant loses them.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"key! w/20 (apartment OR tenant OR \"dwelling unit\") AND (control OR policy)\" 3 hits (§§ 67-4-2109, 67-4-2004); \"(deadbolt OR \"dead bolt\" OR \"door viewer\" OR peephole OR rekey!)\" 0 hits; \"(lock! OR \"security device!\") w/20 (tenant OR landlord OR \"dwelling unit\")\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The key hits are insurance-tax credit sections. Points to: keys (item 7, log §4).",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-hoa-leasing-tn",
+    title: "Homeowners' Associations and Renting",
+    group: "Rules & Regulations",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "hoa",
+    bodyText:
+      "If a homeowners' association amends its declaration to ban or effectively ban long-term rentals (180 days or more) of single-family houses, an owner who owned the house before the amendment keeps a vested right to rent it as a long-term rental until the owner transfers it. Tennessee has no statute capping an association's lease-approval fees, letting an association collect rent directly from a tenant when the owner is delinquent, or limiting what tenant information an association may require. A tenant must follow the association rules the lease makes binding, and fines the owner passes on are lease charges.",
+    notes: "TN-SCOPE: STATEWIDE. Tenn. Code Ann. § 66-27-703, the owner 'has a vested right to use the property as long-term rental property until the owner transfers the property.' Tenn. Code Ann. § 66-27-701(6), long-term rental property is 'a single family residential real property that is leased by the owner to a lessee for a period of one hundred eighty (180), or more, consecutive days'. Basis: Tenn. Code Ann. §§ 66-27-703, 66-27-701 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-27-703: \"Acts 2021, ch. 151, § 1.\"; § 66-27-701: \"2024, ch. 691, § 1.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(association) w/20 (rent w/10 (tenant OR lessee)) AND (delinquen! OR unpaid)\" 0 hits; \"(association OR declarant) w/20 (approv! w/10 (lease OR lessee OR tenant))\" 0 hits; \"(condominium OR \"homeowners association\" OR \"property owners association\") w/30 (lease OR lessee OR tenant)\" 15 hits (§§ 66-27-405, 66-27-306, 66-27-120, 66-27-203, 66-27-202, 66-27-507, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Condominium leasing (Tenn. Code Ann. Title 66, Chapter 27, Parts 1-5) beyond the hits listed was not read; § 66-27-703 is limited to single-family houses (§ 66-27-701(11) excludes condominium units). Topic questions: no approval-fee cap, no rent-diversion, no owner-consent rule beyond § 66-27-703, no tenant-information limit; home child care not addressed. Points to: hoa-compliance (item 7).",
+  },
+  // Disclosures
+  {
+    id: "edu-no-association-disclosure-rule-tn",
+    title: "Telling Tenants About Association Rules",
+    group: "Disclosures",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "association-obligations-disclosure",
+    bodyText:
+      "Tennessee has no statute requiring a lease of a condominium or homeowners'-association home to disclose the association's obligations or documents to the tenant, or requiring a statement about the condominium law in the lease. Because a tenant can follow only rules the tenant knows about, give the tenant a copy of the association rules with the lease.",
+    notes: "TN-SCOPE: STATEWIDE. Basis: Tenn. Code Ann. § 66-28-402 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-402: \"T.C.A., § 64-2832.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(condominium OR \"homeowners association\" OR \"property owners association\") w/30 (lease OR lessee OR tenant)\" 15 hits (§§ 66-27-405, 66-27-306, 66-27-120, 66-27-203, 66-27-202, 66-27-507, and others); \"(association) w/30 (lessee OR tenant) AND (rent OR leas!)\" 17 hits (§§ 12-10-109, 7-4-101, 62-13-102, 55-50-102, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. In the Act counties a landlord rule binds a tenant only if the tenant had notice of it at signing or reasonable notice later (Tenn. Code Ann. § 66-28-402(a)(6), (b)); association rules incorporated by the lease are best handled the same way. Points to: hoa-compliance.",
+  },
+  // Building & Safety
+  {
+    id: "edu-alarm-tampering-tn",
+    title: "Tampering With Smoke Alarms",
+    group: "Building & Safety",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "alarm-tampering-fee",
+    bodyText:
+      "Tennessee makes it unlawful for anyone to tamper with or remove a required smoke alarm, or a component of one, in a one- or two-family rental unit, and owners of apartment buildings and one- or two-family rentals must install approved smoke alarms. No statute sets or caps a lease fee for tampering. The lease may make the tenant pay the actual cost of repairing or replacing an alarm the tenant damaged.",
+    notes: "TN-SCOPE: STATEWIDE. Tenn. Code Ann. § 68-102-151(b)(2), it is unlawful to 'Tamper with or remove any smoke alarm required by this section, or a component of any smoke alarm.' Tenn. Code Ann. § 68-120-112(b)(2) (apartment buildings of 3+ units). Basis: Tenn. Code Ann. §§ 68-102-151, 68-120-112 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 68-102-151: \"2015, ch. 120, § 1.\"; § 68-120-112: \"2015, ch. 318, §§ 1-4.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(smoke w/3 (detector! OR alarm!)) AND (tamper! OR remov! OR disabl!)\" 7 hits (§§ 68-102-151, 68-120-112, 37-2-412, and others); \"\"carbon monoxide\" w/20 (detector! OR alarm!)\" 6 hits (§§ 68-120-112, 55-9-218, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The other hits are foster care, manufactured-home, health-facility, vehicle and child-care sections. Topic question (OR fee cap): none. Points to: smoke-alarms-tn, edu-no-co-alarm-duty-tn.",
+  },
+  {
+    id: "edu-no-pool-safety-rule-tn",
+    title: "Pool Safety at Rentals",
+    group: "Building & Safety",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "pool-safety",
+    bodyText:
+      "Tennessee has no statute requiring a residential landlord to fence a pool or give a pool-safety notice. The state's public swimming pool permit law covers public swimming pools as it defines them and does not apply to privately owned swimming facilities built on private property by a group of not more than 20 households; local codes may add rules. In the 17 Act counties the general duties still apply: comply with building and housing codes materially affecting health and safety and keep the premises fit and habitable (Tenn. Code Ann. § 66-28-304(a)).",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 68-14-322, the part 'shall not apply to privately owned swimming facilities that are constructed upon private property by a group of not more than twenty (20) households.' Basis: Tenn. Code Ann. §§ 68-14-302, 68-14-322, 66-28-304 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 68-14-302: \"2018, ch. 972, § 2.\"; § 68-14-322: \"T.C.A. § 68-14-325.\"; § 66-28-304: \"T.C.A., § 64-2824.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(pool OR \"swimming\") w/20 (fence OR barrier OR enclosure) AND (residential OR apartment)\" 0 hits; \"\"public swimming pool\"\" 23 hits (§§ 68-14-317, 68-14-302, 68-14-311, 68-14-309, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The public-pool hits are the permit part (Tenn. Code Ann. §§ 68-14-301 to 68-14-323); whether a large apartment complex pool is a \"public swimming pool\" under § 68-14-302 was not decided.",
+  },
+  {
+    id: "edu-no-window-guard-rule-tn",
+    title: "Window Guards",
+    group: "Building & Safety",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "window-guards",
+    bodyText:
+      "Tennessee has no window-guard statute and no required window-guard lease notice. In the 17 Act counties the general duties still apply: comply with building and housing codes materially affecting health and safety and keep the premises fit and habitable (Tenn. Code Ann. § 66-28-304(a)).",
+    notes: "TN-SCOPE: BOTH REGIMES. Basis: Tenn. Code Ann. § 66-28-304 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-304: \"T.C.A., § 64-2824.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"window guard!\" OR (window w/10 (bar OR bars OR guard!)) AND (child OR escape)\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work.",
+  },
+  {
+    id: "edu-no-water-heater-temperature-rule-tn",
+    title: "Water Heater Temperature",
+    group: "Building & Safety",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "water-heater-temperature",
+    bodyText:
+      "Tennessee has no statute setting a maximum water-heater temperature for a rental before a new tenant moves in. In the 17 Act counties the general duties still apply: comply with building and housing codes materially affecting health and safety and keep the premises fit and habitable (Tenn. Code Ann. § 66-28-304(a)).",
+    notes: "TN-SCOPE: BOTH REGIMES. Basis: Tenn. Code Ann. § 66-28-304 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-304: \"T.C.A., § 64-2824.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"water heater\" w/20 (temperature OR degrees)\" 0 hits; \"\"heating\" w/20 (degrees OR temperature)\" 3 hits (§§ 68-131-304, 62-10-103, 67-3-103). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The heating hits are a toy-labeling, a plumbing-licensing and a tax definitions section.",
+  },
+  {
+    id: "edu-no-radiator-cover-rule-tn",
+    title: "Radiator Covers",
+    group: "Building & Safety",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "steam-radiator-covers",
+    bodyText:
+      "Tennessee has no statute on steam radiator covers or a related lease rider. In the 17 Act counties the general duties still apply: comply with building and housing codes materially affecting health and safety and keep the premises fit and habitable (Tenn. Code Ann. § 66-28-304(a)).",
+    notes: "TN-SCOPE: BOTH REGIMES. Basis: Tenn. Code Ann. § 66-28-304 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-304: \"T.C.A., § 64-2824.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"radiator!\" 3 hits (§§ 67-6-529, 56-2-201, 67-6-340). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The hits are railroad-tax and insurance-definition sections.",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-no-waterbed-rule-tn",
+    title: "Waterbeds",
+    group: "Rules & Regulations",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "waterbed",
+    bodyText:
+      "Tennessee has no statute on waterbeds in rentals. A lease may restrict them or require insurance.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"waterbed! OR \"water bed\" OR \"liquid-filled furniture\"\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-no-appliance-rule-tn",
+    title: "Stoves and Refrigerators",
+    group: "Landlord Responsibilities",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "stove-refrigerator",
+    bodyText:
+      "Tennessee does not require a landlord to supply a stove or refrigerator. If the lease includes appliances, the library's appliance clauses say who maintains them. In the 17 Act counties the general duties still apply: comply with building and housing codes materially affecting health and safety and keep the premises fit and habitable (Tenn. Code Ann. § 66-28-304(a)).",
+    notes: "TN-SCOPE: BOTH REGIMES. Basis: Tenn. Code Ann. § 66-28-304 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-304: \"T.C.A., § 64-2824.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(stove OR refrigerator OR range) w/20 (landlord OR tenant OR \"dwelling unit\")\" 0 hits; \"appliance! w/20 (landlord OR tenant OR \"dwelling unit\" OR \"rental\")\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Points to: appliances-included.",
+  },
+  {
+    id: "edu-no-appliance-presumption-tn",
+    title: "Appliances Not Included",
+    group: "Landlord Responsibilities",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "appliances-excluded",
+    bodyText:
+      "Tennessee has no rule presuming that appliances in a unit are supplied by the landlord unless the lease excludes them. List the appliances the landlord supplies and any the lease excludes. In the 17 Act counties essential services the landlord supplies (such as heat) are governed by the Act regardless of the list.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 66-28-502(a)(3). Basis: Tenn. Code Ann. § 66-28-502 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-502: \"T.C.A., § 64-2842.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"appliance! w/20 (landlord OR tenant OR \"dwelling unit\" OR \"rental\")\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Points to: appliances-included.",
+  },
+  // Building & Safety
+  {
+    id: "edu-no-balcony-inspection-rule-tn",
+    title: "Balcony Inspections",
+    group: "Building & Safety",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "balcony-inspection",
+    bodyText:
+      "Tennessee has no statute requiring periodic inspection of balconies, decks or other exterior elevated elements of rental buildings. In the 17 Act counties the general duties still apply: comply with building and housing codes materially affecting health and safety and keep the premises fit and habitable (Tenn. Code Ann. § 66-28-304(a)).",
+    notes: "TN-SCOPE: BOTH REGIMES. Basis: Tenn. Code Ann. § 66-28-304 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-304: \"T.C.A., § 64-2824.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(balcon! OR deck! OR \"exterior elevated element!\") w/20 inspect!\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work.",
+  },
+  {
+    id: "edu-no-sprinkler-retrofit-rule-tn",
+    title: "Fire Sprinklers",
+    group: "Building & Safety",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "fire-sprinkler-duty",
+    bodyText:
+      "Tennessee has no statute requiring a residential landlord to retrofit fire sprinklers. The state fire marshal's building construction safety standards, adopted by rule, set requirements for new and existing buildings by occupancy; local codes may add more.",
+    notes: "TN-SCOPE: STATEWIDE. Tenn. Code Ann. § 68-120-101(a)(4), the standards 'Shall contain appropriate requirements and specifications for both new and existing buildings'. Basis: Tenn. Code Ann. § 68-120-101 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 68-120-101: \"2026, ch. 958, § 1.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"sprinkler! w/20 (residential OR apartment OR \"multi-family\" OR dwelling)\" 2 hits (§§ 68-11-257, 68-120-101). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The other hit is a health-facility disclosure section (Tenn. Code Ann. § 68-11-257). The fire marshal's rules (Tenn. Comp. R. & Regs.) were not read.",
+  },
+  // Disclosures
+  {
+    id: "edu-no-sprinkler-disclosure-tn",
+    title: "Sprinkler Disclosure",
+    group: "Disclosures",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "sprinkler-disclosure",
+    bodyText:
+      "Tennessee has no statute requiring a residential lease to disclose whether the building has fire sprinklers, and no grant or loan program for private sprinkler retrofits was found in the Code.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"sprinkler! w/30 (disclos! OR lease OR tenant)\" 2 hits (§§ 68-11-910, 68-11-257); \"sprinkler! w/20 (residential OR apartment OR \"multi-family\" OR dwelling)\" 2 hits (§§ 68-11-257, 68-120-101). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The disclosure hits are nursing-home and assisted-living preadmission disclosures (Tenn. Code Ann. §§ 68-11-257, 68-11-910). Uncodified session laws were not searched.",
+  },
+  {
+    id: "edu-no-asbestos-notice-tn",
+    title: "Asbestos",
+    group: "Disclosures",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "asbestos-hazards",
+    bodyText:
+      "Tennessee has no statute requiring a residential landlord to notify tenants about asbestos. Its asbestos statutes concern asbestos lawsuits and trusts, school buildings and contractor licensing; federal work-practice rules may apply to renovation.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"asbestos\" 35 hits (§§ 29-34-702, 29-34-602, 29-34-606, 29-34-707, 29-34-704, 29-34-706, 8-6-109, 29-34-708, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The hits are the asbestos-litigation parts of Tenn. Code Ann. Title 29, Chapter 34, school-building, workers' compensation, local-finance and contractor sections. Topic question: no state asbestos notification statute was found to define covered buildings. Federal rules not read.",
+  },
+  {
+    id: "edu-no-well-testing-rule-tn",
+    title: "Private Well Testing",
+    group: "Disclosures",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "private-well-testing",
+    bodyText:
+      "Tennessee has no statute requiring a landlord to test a private well or give test results to tenants. In the 17 Act counties the general duties still apply: comply with building and housing codes materially affecting health and safety and keep the premises fit and habitable (Tenn. Code Ann. § 66-28-304(a)).",
+    notes: "TN-SCOPE: BOTH REGIMES. Basis: Tenn. Code Ann. § 66-28-304 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-304: \"T.C.A., § 64-2824.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(well OR wells) w/20 (water AND test!) AND (tenant OR lease OR rental)\" 2 hits (§ 60-1-202). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The hits are an oil-and-gas board section (Tenn. Code Ann. § 60-1-202).",
+  },
+  {
+    id: "edu-no-lead-safe-certificate-tn",
+    title: "Lead-Safe Certificates",
+    group: "Disclosures",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "lead-safe-certification",
+    bodyText:
+      "Tennessee has no lead-safe certificate that must be attached to a lease. Its lead statute certifies lead-abatement professionals and makes it unlawful to perform abatement without certification; the federal lead disclosure still applies to pre-1978 housing.",
+    notes: "TN-SCOPE: STATEWIDE. Basis: Tenn. Code Ann. §§ 68-131-402, 68-131-404 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 68-131-402: \"2001, ch. 127, § 1.\"; § 68-131-404: \"2001, ch. 127, § 2.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"lead-safe\" OR \"lead free\" OR \"lead-free\" w/20 (certif! OR housing)\" 0 hits; \"lead w/5 (paint OR hazard! OR poison!) AND (tenant OR rental OR lease OR \"target housing\")\" 2 hits (§§ 68-131-404, 68-131-402). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Points to: lead-based-paint, edu-lead-abatement-certification-tn.",
+  },
+  {
+    id: "edu-no-state-lead-notice-tn",
+    title: "State Lead Notices",
+    group: "Disclosures",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "lead-state-notices",
+    bodyText:
+      "Beyond the federal lead disclosure for pre-1978 housing, Tennessee requires no state lead notice, certificate or packet for tenants. State law regulates who may perform lead abatement.",
+    notes: "TN-SCOPE: STATEWIDE. Basis: Tenn. Code Ann. §§ 68-131-402, 68-131-404 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 68-131-402: \"2001, ch. 127, § 1.\"; § 68-131-404: \"2001, ch. 127, § 2.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"lead w/5 (paint OR hazard! OR poison!) AND (tenant OR rental OR lease OR \"target housing\")\" 2 hits (§§ 68-131-404, 68-131-402). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Federal 42 U.S.C. § 4852d and 40 C.F.R. Part 745 not read this pass (log §4 Q1). Points to: lead-based-paint, edu-lead-abatement-certification-tn.",
+  },
+  {
+    id: "edu-no-drywall-disclosure-tn",
+    title: "Defective Drywall",
+    group: "Disclosures",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "defective-drywall-disclosure",
+    bodyText:
+      "Tennessee has no statute requiring disclosure of defective (for example, imported corrosive) drywall to tenants.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"drywall OR \"gypsum board\"\" 1 hit (§ 67-6-396). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The hit is a disaster sales-tax exemption (Tenn. Code Ann. § 67-6-396).",
+  },
+  {
+    id: "edu-no-prop65-equivalent-tn",
+    title: "Toxic Chemical Warnings",
+    group: "Disclosures",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "prop65-rental-warning",
+    bodyText:
+      "Tennessee has no counterpart to California's Proposition 65 warning requirement for rental housing.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(contaminat! OR brownfield OR \"hazardous substance\") w/30 (lease OR tenant OR lessee) AND disclos!\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work.",
+  },
+  {
+    id: "edu-no-contamination-disclosure-tn",
+    title: "Environmental Contamination",
+    group: "Disclosures",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "hazardous-contamination-disclosure",
+    bodyText:
+      "No Tennessee statute requires a residential lease to disclose environmental contamination or to incorporate recorded environmental use limitations. The residential property disclosure law applies to sales, not leases; methamphetamine quarantine rules are covered separately.",
+    notes: "TN-SCOPE: STATEWIDE. Basis: Tenn. Code Ann. §§ 66-5-201, 66-5-202 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-5-201: \"2000, ch. 771, § 1.\"; § 66-5-202: \"Acts 1994, ch. 828, § 2.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(contaminat! OR brownfield OR \"hazardous substance\") w/30 (lease OR tenant OR lessee) AND disclos!\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Department of Environment and Conservation rules were not read. Points to: edu-meth-lab-quarantine-tn.",
+  },
+  {
+    id: "edu-no-military-zone-disclosure-tn",
+    title: "Military and Airport Zones",
+    group: "Disclosures",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "military-air-zone-disclosure",
+    bodyText:
+      "Tennessee has no statute requiring a lease to disclose military air installation noise or accident zones, and no related termination right.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(military OR airport OR \"air installation\") w/30 (disclos! OR notice) AND (lease OR lessee OR tenant)\" 1 hit (§ 66-29-302). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The hit is an abandoned-aircraft section (Tenn. Code Ann. § 66-29-302).",
+  },
+  {
+    id: "edu-no-shoreline-disclosure-tn",
+    title: "Shoreline Access",
+    group: "Disclosures",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "shoreline-access-disclosure",
+    bodyText:
+      "Tennessee has no statute requiring a lease to disclose shoreline or public-access rights.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(shoreline OR \"public access\" OR beach) w/20 (disclos! OR lease)\" 3 hits (§§ 64-1-603, 64-1-804, 64-1-102). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The hits are port and riverfront authority powers (Tenn. Code Ann. Title 64).",
+  },
+  {
+    id: "edu-no-ordnance-disclosure-tn",
+    title: "Ordnance and Demolition Notices",
+    group: "Disclosures",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "ordnance-demolition-meter-disclosures",
+    bodyText:
+      "Tennessee has no statute requiring a lease to disclose former ordnance locations or planned demolition.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"ordnance OR munition! OR \"demolition\" w/20 (disclos! OR notice) AND (lease OR tenant)\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "edu-no-bed-bug-cooperation-rule-tn",
+    title: "Bed Bug Cooperation",
+    group: "Tenant Responsibilities",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "bed-bug-cooperation",
+    bodyText:
+      "Tennessee has no bed bug statute requiring tenant cooperation or landlord treatment. In the 17 Act counties the tenant must keep the premises clean and safe and not unreasonably refuse entry for necessary services, and the landlord must keep the premises fit and habitable.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. §§ 66-28-401(2), 66-28-403(a), 66-28-304(a). Basis: Tenn. Code Ann. §§ 66-28-401, 66-28-403, 66-28-304 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-401: \"Acts 2005, ch. 156, § 4.\"; § 66-28-403: \"Acts 2011, ch. 272, § 10.\"; § 66-28-304: \"T.C.A., § 64-2824.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"bed bug!\" OR bedbug!\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Points to: edu-no-bed-bug-disclosure-tn.",
+  },
+  // Access & Entry
+  {
+    id: "edu-no-pest-control-notice-tn",
+    title: "Pest Control Notices",
+    group: "Access & Entry",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "pest-control-notice",
+    bodyText:
+      "Tennessee has no statute requiring a landlord to give tenants advance notice of pesticide application or pest-control service. In the 17 Act counties the tenant may not unreasonably refuse entry to supply necessary or agreed services.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 66-28-403(a). Basis: Tenn. Code Ann. § 66-28-403 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-403: \"Acts 2011, ch. 272, § 10.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(pesticide! OR \"pest control\") w/20 (notice OR notif!) AND (tenant OR occupant OR resident)\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work.",
+  },
+  // Building & Safety
+  {
+    id: "edu-no-security-device-rule-tn",
+    title: "Locks and Security Devices",
+    group: "Building & Safety",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-devices",
+    bodyText:
+      "Tennessee has no statute requiring deadbolts, door viewers or other security devices in rentals, or rekeying between tenants.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(deadbolt OR \"dead bolt\" OR \"door viewer\" OR peephole OR rekey!)\" 0 hits; \"(lock! OR \"security device!\") w/20 (tenant OR landlord OR \"dwelling unit\")\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Points to: keys, edu-no-key-control-rule-tn.",
+  },
+  // Access & Entry
+  {
+    id: "edu-no-smart-access-rule-tn",
+    title: "Smart Locks and App Entry",
+    group: "Access & Entry",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "smart-access",
+    bodyText:
+      "Tennessee has no statute regulating smart locks or app-based entry systems in rentals. Entry limits still apply: in the 17 Act counties a landlord may not abuse access or use it to harass the tenant.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 66-28-403(d). Basis: Tenn. Code Ann. § 66-28-403 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-403: \"Acts 2011, ch. 272, § 10.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(\"smart lock\" OR \"electronic lock\" OR keyless OR \"access control\") w/20 (tenant OR rental OR landlord)\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work.",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-no-cooling-device-right-tn",
+    title: "Window and Portable Air Conditioners",
+    group: "Rules & Regulations",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "portable-cooling-device",
+    bodyText:
+      "Tennessee gives tenants no right to install a portable or window air conditioner, and no statute limits a lease that restricts them. A lease may require approval and safe installation.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(\"air condition!\" OR cooling) w/20 (tenant OR lease OR landlord)\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work.",
+  },
+  {
+    id: "edu-no-portable-solar-right-tn",
+    title: "Plug-In Solar Devices",
+    group: "Rules & Regulations",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "portable-solar",
+    bodyText:
+      "Tennessee gives tenants no right to install a plug-in or balcony solar device. Its solar statutes concern solar-facility land agreements and utility-scale projects.",
+    notes: "TN-SCOPE: STATEWIDE. Basis: Tenn. Code Ann. § 66-9-207 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-9-207: \"2024, ch. 705, §§ 1, 3, 4.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"solar w/20 (tenant OR lease OR landlord OR lessee OR \"restrictive covenant\")\" 3 hits (§§ 66-9-207, 4-10-116, 66-9-403). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The hits are solar power facility agreements (Tenn. Code Ann. §§ 66-9-207, 66-9-403) and a utility-scale study (§ 4-10-116).",
+  },
+  {
+    id: "edu-no-recycling-notice-tn",
+    title: "Recycling Notices",
+    group: "Rules & Regulations",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "recycling-notice",
+    bodyText:
+      "Tennessee has no statute requiring a landlord to tell tenants how to recycle. In the 17 Act counties complexes of four or more units must provide receptacles for garbage and waste, and tenants must use them.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. §§ 66-28-304(a)(4), 66-28-401(3). Basis: Tenn. Code Ann. §§ 66-28-304, 66-28-401 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-304: \"T.C.A., § 64-2824.\"; § 66-28-401: \"Acts 2005, ch. 156, § 4.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"recycl! w/20 (tenant OR apartment OR multi-family OR residential)\" 3 hits (§§ 7-51-2002, 64-10-102, 55-8-101). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The hits are a container-preemption, a definitions and a vehicle section.",
+  },
+  // Building & Safety
+  {
+    id: "edu-building-code-source-tn",
+    title: "Where Tennessee's Building and Fire Codes Are",
+    group: "Building & Safety",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "fire-code-standard",
+    bodyText:
+      "Tennessee's minimum statewide building construction safety standards are adopted by the state fire marshal by rule under Tenn. Code Ann. § 68-120-101 and may be drawn from national codes such as those of the International Code Council and the National Fire Protection Association; local governments may adopt codes by reference. The section was amended by 2025 Pub. Ch. 149 and 2026 Pub. Ch. 958, but the construction code has not moved to a new title.",
+    notes: "TN-SCOPE: STATEWIDE. Tenn. Code Ann. § 68-120-101(a)(2), standards 'May be selected wholly or partially from publications or amended versions of publications of nationally recognized agencies or organizations, such as the International Code Council, Inc., the National Fire Protection Association, Inc., and Underwriters Laboratories, Inc.' Basis: Tenn. Code Ann. § 68-120-101 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 68-120-101: \"2026, ch. 958, § 1.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"building code\" w/20 (edition OR adopt!)\" 4 hits (§§ 6-54-502, 68-120-101, 62-2-102, 68-102-152); \"\"International Property Maintenance Code\" OR \"International Fire Code\" OR \"International Residential Code\"\" 3 hits (§§ 68-120-101, 68-120-122, 68-102-123); \"\"fire prevention code\" OR \"fire code\" w/20 adopt!\" 5 hits (§§ 68-102-123, 68-11-202, 68-120-101). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The current edition adopted by rule was not read.",
+  },
+  {
+    id: "edu-no-frozen-standard-rule-tn",
+    title: "Codes Adopted by Edition",
+    group: "Building & Safety",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "frozen-standard-incorporation",
+    bodyText:
+      "No Tennessee landlord-tenant statute incorporates a building or housing code frozen at a particular edition. In the 17 Act counties the landlord must comply with the applicable building and housing codes as they stand; the statewide standards are set by fire-marshal rule and local codes by local adoption.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. §§ 66-28-304(a)(1), 68-120-101(a). Basis: Tenn. Code Ann. §§ 66-28-304, 68-120-101 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-304: \"T.C.A., § 64-2824.\"; § 68-120-101: \"2026, ch. 958, § 1.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"building code\" w/20 (edition OR adopt!)\" 4 hits (§§ 6-54-502, 68-120-101, 62-2-102, 68-102-152). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The other hits are local code adoption by reference (Tenn. Code Ann. § 6-54-502), an architects' exemption and a cotton-storage section.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-heating-tn",
+    title: "Heat",
+    group: "Landlord Responsibilities",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "heating",
+    bodyText:
+      "Tennessee sets no minimum indoor temperature for rentals. In the 17 Act counties heat is an essential service: if the landlord deliberately or negligently fails to supply it, the tenant may, after written notice, buy heat and deduct the cost, recover the lost rental value, or move to substitute housing and pay no rent meanwhile. Who pays for heat follows the lease; the Act has no rule limiting a shift to the tenant beyond the essential-services remedy.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 66-28-502(a)(3), '\"Essential services\" means utility services, including gas, heat, electricity, and any other obligations imposed upon the landlord which materially affect the health and safety of the tenant.' Basis: Tenn. Code Ann. § 66-28-502 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-502: \"T.C.A., § 64-2842.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"heat w/20 (tenant OR landlord OR \"dwelling unit\")\" 3 hits (§§ 66-28-502, 67-4-2903, 68-120-114); \"\"heating\" w/20 (degrees OR temperature)\" 3 hits (§§ 68-131-304, 62-10-103, 67-3-103). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The other heat hits are a tax definition and an attic-equipment building rule (Tenn. Code Ann. § 68-120-114). Local codes not read.",
+  },
+  // Disclosures
+  {
+    id: "edu-certificate-of-occupancy-tn",
+    title: "Certificates of Occupancy",
+    group: "Disclosures",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "certificate-of-occupancy-disclosure",
+    bodyText:
+      "Tennessee does not require a lease to disclose a certificate of occupancy. In a city that creates a rental inspection district, residential rental units in the district are subject to inspection, and a property that passes and stays in compliance can be exempted.",
+    notes: "TN-SCOPE: STATEWIDE. Basis: Tenn. Code Ann. §§ 13-21-301, 13-21-308 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 13-21-301: \"Acts 2006, ch. 949, § 1.\"; § 13-21-308: \"Acts 2006, ch. 949, § 1.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"certificate of occupancy\" w/30 (tenant OR lease OR rent!)\" 1 hit (§ 13-21-308). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Points to: edu-rental-inspection-districts-tn.",
+  },
+  // Building & Safety
+  {
+    id: "edu-no-facility-duty-rule-tn",
+    title: "Elevators and Other Building Equipment",
+    group: "Building & Safety",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "other-landlord-facilities",
+    bodyText:
+      "Tennessee has a separate elevator-safety chapter (Title 68, Chapter 121, not reviewed here) that covers elevators, dumbwaiters and escalators; no consumer-protection or product-safety statute puts a separate duty on a landlord for other building facilities such as garage doors.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(elevator! OR \"garage door\") w/20 (landlord OR owner OR apartment)\" 11 hits (§§ 68-121-106, 68-121-107, 66-27-102, 68-121-105, 68-121-102, 68-121-118, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The elevator sections (Tenn. Code Ann. §§ 68-121-102 to 68-121-109) were not read; the row describes them only by their headings in the search results.",
+  },
+  // Disclosures
+  {
+    id: "edu-sex-offender-residence-tn",
+    title: "Sex Offender Residence Limits",
+    group: "Disclosures",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "sex-offender-occupancy",
+    bodyText:
+      "Tennessee's residence limits fall on the offender, not the landlord: a registered sexual offender or violent sexual offender may not knowingly establish a residence within 1,000 feet of a school, licensed day care center, other child care facility, public park, playground, recreation center or public athletic field, or within 1,000 feet of a former victim. No statute makes a landlord check distances, disclose offenders or refuse an applicant; fair housing and screening rules still apply.",
+    notes: "TN-SCOPE: STATEWIDE. Tenn. Code Ann. § 40-39-211(a)(1), (b)(1) (2026 Pub. Ch. 972 on the history line; current text read). Basis: Tenn. Code Ann. §§ 40-39-211, 40-39-215 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 40-39-211: \"2026, ch. 972, § 1.\"; § 40-39-215: \"2022, ch. 1058, §§ 1, 2.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"sex offender\" OR \"sexual offender\" w/20 (landlord OR lease OR tenant OR rental)\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Points to: edu-no-sex-offender-disclosure-tn.",
+  },
+  {
+    id: "edu-no-submetering-rule-tn",
+    title: "Submetering and Separate Utility Billing",
+    group: "Disclosures",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "utility-submetering-disclosure",
+    bodyText:
+      "Tennessee has no landlord-tenant statute governing submetering or a landlord's separate billing of utilities, and no required disclosure for it. State the method, the rate and any fee in the lease. In the county within the water-authority statute's population band (Hamilton County at the 2010 census), that statute applies only where the unit is not submetered or billed by allocation.",
+    notes: "TN-SCOPE: STATEWIDE. Basis: Tenn. Code Ann. § 68-221-620 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 68-221-620: \"Acts 2016, ch. 1082, § 1.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"submeter! OR \"sub-meter!\" OR \"submetering\"\" 2 hits (§§ 68-221-620, 12-4-118); \"(rebill! OR \"ratio utility\" OR allocat!) w/20 (utilit! OR water) AND (tenant OR resident)\" 1 hit (§ 55-4-310); \"(utilit! OR electric! OR water) w/20 (resell! OR resale OR \"actual cost\") AND (tenant OR landlord OR apartment)\" 3 hits (§ 67-6-102). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. None of the hits above governs a landlord's utility billing (where they appear: § 68-221-620 is the water-authority tenant-form section; § 12-4-118 an energy-savings contract section; § 67-6-102 sales-tax definitions; § 67-4-3101 an in-lieu-of-tax section on wholesale electricity; §§ 7-51-910 and 7-52-303 municipal gas and electric sections; § 55-4-310 a license-plate section). Tennessee Public Utility Commission rules were not read.",
+  },
+  {
+    id: "edu-no-electric-resale-rule-tn",
+    title: "Reselling Electricity to Tenants",
+    group: "Disclosures",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "electric-submetering-disclosure",
+    bodyText:
+      "No Tennessee statute found says whether a landlord who resells electricity or gas to tenants by meter becomes a regulated utility, or requires a disclosure for it. Before reselling energy, check with the Tennessee Public Utility Commission and the local utility.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"electric! w/20 (submeter! OR resell! OR resale)\" 3 hits (§§ 67-4-3101, 7-51-910, 7-52-303); \"(utilit! OR electric! OR water) w/20 (resell! OR resale OR \"actual cost\") AND (tenant OR landlord OR apartment)\" 3 hits (§ 67-6-102); \"submeter! OR \"sub-meter!\" OR \"submetering\"\" 2 hits (§§ 68-221-620, 12-4-118). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. None of the hits above governs a landlord's utility billing (where they appear: § 68-221-620 is the water-authority tenant-form section; § 12-4-118 an energy-savings contract section; § 67-6-102 sales-tax definitions; § 67-4-3101 an in-lieu-of-tax section on wholesale electricity; §§ 7-51-910 and 7-52-303 municipal gas and electric sections; § 55-4-310 a license-plate section). Tennessee Public Utility Commission rules were not read.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-no-utility-apportionment-rule-tn",
+    title: "Splitting Unmetered Utilities",
+    group: "Rent & Payment",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "utility-apportionment",
+    bodyText:
+      "Tennessee has no statute making a lease term unenforceable because it makes the tenant pay for utilities not separately metered to the unit, and none sets an allocation formula. In the 17 Act counties utility charges the lease requires are rent; state the formula in the lease.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 66-28-104(13). Basis: Tenn. Code Ann. § 66-28-104 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-104: \"2021, ch. 100, § 2.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(utilit! OR water OR electric!) w/20 (apportion! OR allocat!) AND (tenant OR \"dwelling unit\")\" 0 hits; \"(rebill! OR \"ratio utility\" OR allocat!) w/20 (utilit! OR water) AND (tenant OR resident)\" 1 hit (§ 55-4-310). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. None of the hits above governs a landlord's utility billing (where they appear: § 68-221-620 is the water-authority tenant-form section; § 12-4-118 an energy-savings contract section; § 67-6-102 sales-tax definitions; § 67-4-3101 an in-lieu-of-tax section on wholesale electricity; §§ 7-51-910 and 7-52-303 municipal gas and electric sections; § 55-4-310 a license-plate section). Tennessee Public Utility Commission rules were not read.",
+  },
+  {
+    id: "edu-no-utility-allowance-rule-tn",
+    title: "Master-Metered Electricity",
+    group: "Rent & Payment",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "utility-allowance-cap",
+    bodyText:
+      "No Tennessee statute found bars passing master-metered electricity to tenants or requires a fixed allowance. Federally subsidized housing has its own utility-allowance rules.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"electric! w/20 (submeter! OR resell! OR resale)\" 3 hits (§§ 67-4-3101, 7-51-910, 7-52-303); \"(utilit! OR water OR electric!) w/20 (apportion! OR allocat!) AND (tenant OR \"dwelling unit\")\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. None of the hits above governs a landlord's utility billing (where they appear: § 68-221-620 is the water-authority tenant-form section; § 12-4-118 an energy-savings contract section; § 67-6-102 sales-tax definitions; § 67-4-3101 an in-lieu-of-tax section on wholesale electricity; §§ 7-51-910 and 7-52-303 municipal gas and electric sections; § 55-4-310 a license-plate section). Tennessee Public Utility Commission rules were not read.",
+  },
+  // Disclosures
+  {
+    id: "edu-no-utility-disclosure-attachment-tn",
+    title: "Utility Disclosures",
+    group: "Disclosures",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "utility-disclosure-attachment",
+    bodyText:
+      "Tennessee requires no utility-cost disclosure attached to the lease. The library's utilities clause says which utilities the landlord provides and which the tenant must put in the tenant's name.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(utilit!) w/20 (disclos!) AND (lease OR tenant OR \"rental agreement\")\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Points to: services-utilities-provided-ks-oh.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-utility-landlord-account-tn",
+    title: "Utilities Left in the Landlord's Name",
+    group: "Landlord Responsibilities",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "utility-landlord-account",
+    bodyText:
+      "In the 17 Act counties, if a written lease requires the tenant to put utility service in the tenant's name and the tenant does not do so within three days after occupancy, the landlord may have the service terminated if it is in the landlord's name. Otherwise the landlord may not interrupt essential services, and doing so willfully is unlawful ouster with damages and fees. Outside the Act counties no statute governs; do not cut services as a way to remove a tenant.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 66-28-521, 'If a written rental agreement requires the tenant to have utility services placed in the tenant's name and the tenant fails to do so within three (3) days of occupancy of the rented premises, the landlord may have such utility services terminated if the existing utility service is in the name of the landlord.' Tenn. Code Ann. §§ 66-28-504, 66-28-511. Basis: Tenn. Code Ann. §§ 66-28-521, 66-28-504, 66-28-511 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-521: \"2011, ch. 272, §§ 14, 15.\"; § 66-28-504: \"T.C.A., § 64-2844.\"; § 66-28-511: \"T.C.A., § 64-2851.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(utilit! OR \"essential services\") w/20 (interrupt! OR discontinu!) AND (landlord OR tenant)\" 1 hit (§ 66-28-504). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work.",
+  },
+  {
+    id: "edu-utility-shutoff-tn",
+    title: "Utility Shutoffs",
+    group: "Landlord Responsibilities",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "utility-shutoff-statute",
+    bodyText:
+      "Tennessee has no general statute adding winter time to a utility's disconnection notice for tenants. The state fire marshal or its inspectors may disconnect a residential customer's electricity only after finding an immediate danger, trying to reach the customer or owner, and checking for electric medical devices. Utility disconnection rules otherwise come from the utility and its regulator.",
+    notes: "TN-SCOPE: STATEWIDE. Basis: Tenn. Code Ann. § 68-102-153 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 68-102-153: \"Acts 1994, ch. 983, §§ 1, 2.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(disconnect! OR \"termination of service\") w/20 (utility OR electric! OR gas OR water) AND (notice OR weather OR medical)\" 3 hits (§§ 68-102-153, 67-5-2701, 68-135-108); \"(cold OR winter OR freez!) w/20 (vacate OR evict! OR tenant)\" 2 hits (§§ 39-15-502, 47-18-2111). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The other disconnection hits are a tax-redemption and a propane-container section; the cold-weather hits are criminal and consumer sections (Tenn. Code Ann. §§ 39-15-502, 47-18-2111). Public Utility Commission rules not read.",
+  },
+  {
+    id: "edu-no-utility-disconnection-notice-rule-tn",
+    title: "Notice of a Tenant's Pending Shutoff",
+    group: "Landlord Responsibilities",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "utility-disconnection-notice-authorization",
+    bodyText:
+      "No Tennessee statute lets or requires a utility to notify the owner of a tenant's pending disconnection. Ask the utility whether it offers landlord notification by agreement.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(utility OR electric! OR water) w/30 (notif! OR notice) AND (landlord OR owner) AND tenant!\" 5 hits (§§ 67-5-2701, 7-35-201, 65-35-104, 68-221-209, 66-28-405). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The hits are sewer-connection, tax-redemption, damages-lien and abandonment sections.",
+  },
+  {
+    id: "edu-no-submeter-interruption-rule-tn",
+    title: "Interruptions of Landlord-Supplied Utilities",
+    group: "Landlord Responsibilities",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "utility-interruption-submeter",
+    bodyText:
+      "Tennessee has no separate rule for interruptions of electricity a landlord supplies through a submeter. In the 17 Act counties a landlord who willfully interrupts essential services is liable for unlawful ouster, and a tenant has the essential-services remedies.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. §§ 66-28-502, 66-28-504. Basis: Tenn. Code Ann. §§ 66-28-502, 66-28-504 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-502: \"T.C.A., § 64-2842.\"; § 66-28-504: \"T.C.A., § 64-2844.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"submeter! OR \"sub-meter!\" OR \"submetering\"\" 2 hits (§§ 68-221-620, 12-4-118); \"electric! w/20 (submeter! OR resell! OR resale)\" 3 hits (§§ 67-4-3101, 7-51-910, 7-52-303). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work.",
+  },
+  {
+    id: "edu-no-municipal-utility-lien-rule-tn",
+    title: "Tenants' Unpaid Water and Sewer Bills",
+    group: "Landlord Responsibilities",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "municipal-utility-lien",
+    bodyText:
+      "Tennessee has no general statute letting a lease clause and an affidavit keep a tenant's unpaid water or sewer bill from becoming a lien on the property. In the county within the water-authority statute's population band (Hamilton County at the 2010 census), the water-authority acknowledgment form, sent within one business day, stops the authority from collecting the tenant's delinquent charges from the owner. Elsewhere, local utility rules govern.",
+    notes: "TN-SCOPE: STATEWIDE. Basis: Tenn. Code Ann. § 68-221-620 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 68-221-620: \"Acts 2016, ch. 1082, § 1.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"lien w/20 (water OR sewer OR utility OR garbage) AND (tenant OR occupant OR lessee)\" 5 hits (§§ 65-35-104, 65-10-111, 65-10-113, 56-3-402, 56-3-303). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The hits are damages-lien, railroad and insurance-investment sections. Points to: edu-water-authority-tenant-form-hamilton-tn.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-no-meter-conservation-charge-tn",
+    title: "Energy-Efficiency Meter Charges",
+    group: "Rent & Payment",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "meter-conservation-charge",
+    bodyText:
+      "Tennessee has no meter conservation charge requiring landlord notice to new tenants or a rent deduction.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(conservation OR efficiency) w/20 (charge OR meter) AND (tenant OR landlord)\" 1 hit (§ 11-10-101). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The hit is a land-conservation definitions section.",
+  },
+  // Other / Miscellaneous
+  {
+    id: "edu-no-energy-data-rule-tn",
+    title: "Tenants' Energy Usage Data",
+    group: "Other / Miscellaneous",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "energy-data-release",
+    bodyText:
+      "Tennessee has no statute on releasing a tenant's energy usage data to the owner for benchmarking, and none requiring a lease authorization for it. Utilities set their own data-release rules; a lease clause authorizing release is a matter of consent.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(energy w/5 (usage OR consumption OR data)) AND (tenant OR owner OR benchmark!)\" 7 hits (§§ 68-205-102, 67-5-1002, 68-102-147, 68-205-107, 7-70-101, 10-7-504). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The hits are C-PACER financing, public-records and building-standard sections.",
+  },
+  // Parking & Storage
+  {
+    id: "edu-ev-charging-hoa-tn",
+    title: "EV Chargers in Shared Areas",
+    group: "Parking & Storage",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "ev-charging-shared-area",
+    bodyText:
+      "Tennessee gives tenants no right to install an EV charger. From 2026, a homeowners' association (as that part of the Code defines it) may not prohibit a property owner from installing a charger for personal use on the owner's property or designated parking space; that protects owners, not tenants. No statute governs chargers in a landlord's shared parking areas.",
+    notes: "TN-SCOPE: STATEWIDE. Basis: Tenn. Code Ann. § 66-27-1002 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-27-1002: \"Acts 2026, ch. 914, § 2.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"electric vehicle\" w/30 (association OR condominium OR \"common area\")\" 2 hits (§§ 66-27-1002, 66-27-419); \"\"electric vehicle\" w/30 (tenant OR lessee OR landlord OR lease)\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. § 66-27-1002 history: 2026 Pub. Ch. 914 (current text read). Points to: edu-no-ev-charging-right-tn.",
+  },
+  {
+    id: "edu-no-ev-end-of-tenancy-rule-tn",
+    title: "EV Chargers When the Tenancy Ends",
+    group: "Parking & Storage",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "ev-charging-end-of-tenancy",
+    bodyText:
+      "Tennessee has no statute on removing, leaving or paying for a tenant-installed EV charger at the end of a tenancy. Put any agreed installation, ownership and removal terms in writing.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"electric vehicle\" w/30 (tenant OR lessee OR landlord OR lease)\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Points to: edu-no-ev-charging-right-tn, no-alterations.",
+  },
+  {
+    id: "edu-no-ev-resale-rule-tn",
+    title: "Charging Tenants for EV Power",
+    group: "Parking & Storage",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "ev-charging-requirements",
+    bodyText:
+      "No Tennessee statute found puts a landlord who charges tenants for EV charging under weights-and-measures or utility regulation. Check with the Public Utility Commission and the local utility before reselling power.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"electric vehicle\" w/30 (tenant OR lessee OR landlord OR lease)\" 0 hits; \"electric! w/20 (submeter! OR resell! OR resale)\" 3 hits (§§ 67-4-3101, 7-51-910, 7-52-303). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. None of the hits above governs a landlord's utility billing (where they appear: § 68-221-620 is the water-authority tenant-form section; § 12-4-118 an energy-savings contract section; § 67-6-102 sales-tax definitions; § 67-4-3101 an in-lieu-of-tax section on wholesale electricity; §§ 7-51-910 and 7-52-303 municipal gas and electric sections; § 55-4-310 a license-plate section). Tennessee Public Utility Commission rules were not read.",
+  },
+  // Other / Miscellaneous
+  {
+    id: "edu-no-telecom-access-rule-tn",
+    title: "Cable and Internet Access",
+    group: "Other / Miscellaneous",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "telecom-access",
+    bodyText:
+      "Tennessee has no statute giving cable or satellite providers access to multifamily buildings or limiting exclusive arrangements. Federal rules on over-the-air antennas may apply.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(cable OR \"video service\" OR satellite OR broadband OR telecommunication!) w/30 (tenant OR landlord OR apartment OR \"multiple dwelling\")\" 1 hit (§ 7-59-303). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The hit is a municipal broadband definitions section (Tenn. Code Ann. § 7-59-303). Federal rules not read.",
+  },
+  // Notices & General
+  {
+    id: "edu-lease-registration-tn",
+    title: "Recording Long Leases",
+    group: "Notices & General",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "lease-registration",
+    bodyText:
+      "A Tennessee lease for more than three years must be in writing, and to be valid against anyone other than the landlord, the landlord's heirs and devisees, and persons with actual notice, it must be proved and registered with the county register. Shorter leases need not be recorded.",
+    notes: "TN-SCOPE: STATEWIDE. Tenn. Code Ann. § 66-7-101, 'Leases for more than three (3) years shall be in writing, and, to be valid against any person other than the lessor, the lessor's heirs and devisees, and persons having actual notice thereof, shall be proved and registered as provided in chapters 22-24 of this title.' Basis: Tenn. Code Ann. §§ 66-7-101, 66-24-101 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-7-101: \"T.C.A. (orig. ed.), § 64-701.\"; § 66-24-101: \"2026, ch. 892, § 24.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"copy w/10 (lease OR \"rental agreement\") AND (tenant OR deliver!)\" 3 hits (§§ 65-25-114, 67-3-401, 66-24-101). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. § 66-24-101 history: 2026 Pub. Ch. 892 (current text read).",
+  },
+  {
+    id: "edu-statute-of-frauds-lease-tn",
+    title: "Leases That Must Be in Writing",
+    group: "Notices & General",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "statute-of-frauds-lease-term",
+    bodyText:
+      "In Tennessee no action may be brought on a lease of land for longer than one year unless the lease, or a note or memorandum of it, is in writing and signed by the party to be charged. A lease for more than three years must also be written and registered to bind third parties.",
+    notes: "TN-SCOPE: STATEWIDE. Tenn. Code Ann. § 29-2-101(a)(4), no action 'Upon any contract for the sale of lands, tenements, or hereditaments, or the making of any lease thereof for a longer term than one (1) year'. Tenn. Code Ann. § 66-7-101. Basis: Tenn. Code Ann. §§ 29-2-101, 66-7-101 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 29-2-101: \"2006, ch. 810, § 1.\"; § 66-7-101: \"T.C.A. (orig. ed.), § 64-701.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"statute of frauds\"\" 8 hits (§§ 47-2A-201, 47-2-201, 47-3-419, 39-13-301, 47-8-113, 47-2-209, 47-2-326, 29-2-101). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Topic question: no five-year exclusion.",
+  },
+  {
+    id: "edu-lease-formalities-tn",
+    title: "Formalities for Longer Leases",
+    group: "Notices & General",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "lease-term-limitation",
+    bodyText:
+      "Tennessee requires no seal or special execution formality for a residential lease. A lease longer than one year must be in a signed writing to be enforced, and one longer than three years must be in writing and registered to bind third parties.",
+    notes: "TN-SCOPE: STATEWIDE. Tenn. Code Ann. §§ 29-2-101(a)(4), 66-7-101. Basis: Tenn. Code Ann. §§ 29-2-101, 66-7-101 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 29-2-101: \"2006, ch. 810, § 1.\"; § 66-7-101: \"T.C.A. (orig. ed.), § 64-701.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"statute of frauds\"\" 8 hits (§§ 47-2A-201, 47-2-201, 47-3-419, 39-13-301, 47-8-113, 47-2-209, 47-2-326, 29-2-101). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work.",
+  },
+  {
+    id: "edu-no-lease-copy-rule-tn",
+    title: "Giving the Tenant a Copy",
+    group: "Notices & General",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "lease-copy",
+    bodyText:
+      "Tennessee has no statute requiring a landlord to give the tenant a signed copy of the lease, and failure to do so is not a defense. In the 17 Act counties the landlord must disclose in writing, at or before the start of the tenancy, who manages the premises and who receives notices, and must tell the tenant at signing where the deposit account is. Giving a signed copy is the safe practice.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. §§ 66-28-302, 66-28-301(h). Basis: Tenn. Code Ann. §§ 66-28-302, 66-28-301 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-302: \"Acts 2024, ch. 907, § 1.\"; § 66-28-301: \"2012, ch. 887, § 1.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"rental agreement\" w/20 (copy OR copies)\" 0 hits; \"copy w/10 (lease OR \"rental agreement\") AND (tenant OR deliver!)\" 3 hits (§§ 65-25-114, 67-3-401, 66-24-101); \"\"signed copy\"\" 9 hits (§§ 48-1-103, 46-1-207, 61-2-103, 61-2-206, 37-2-403, 46-2-106, 57-9-115, 48-1-106). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The copy hits are utility-asset, tax and registration sections. Points to: landlord-disclosure-tn.",
+  },
+  {
+    id: "edu-no-lease-content-rule-tn",
+    title: "Required Lease Contents",
+    group: "Notices & General",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "lease-content-requirements",
+    bodyText:
+      "Tennessee has no list of required lease contents and no rule that the start and end dates appear on the first page. In the 17 Act counties the landlord must give a written statement that the landlord does not provide insurance for the tenant's belongings and the deposit-account location; the nonpayment-notice waiver, if used, must be in 12-point bold; and the move-out inspection waiver must be set out in the lease.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. §§ 66-28-201(a), 66-28-301(b)(1)(A), (h), 66-28-505(b). Basis: Tenn. Code Ann. §§ 66-28-201, 66-28-301, 66-28-505 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-201: \"2013, ch. 206, § 1.\"; § 66-28-301: \"2012, ch. 887, § 1.\"; § 66-28-505: \"2019, ch. 236, § 4.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"first page\" w/20 (lease OR contract OR agreement)\" 3 hits (§§ 56-3-506, 66-27-506, 66-30-103). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The first-page hits are annuity, condominium-deposit and ground-rent sections. Points to: edu-no-lease-completeness-rule-tn.",
+  },
+  {
+    id: "edu-lease-type-size-tn",
+    title: "Type Size in Leases",
+    group: "Notices & General",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "lease-type-size",
+    bodyText:
+      "Tennessee sets no minimum type size for a whole residential lease. The one size rule is in the Act counties: a tenant's waiver of the nonpayment notice must be in 12-point bold type or larger.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 66-28-505(b). Basis: Tenn. Code Ann. § 66-28-505 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-505: \"2019, ch. 236, § 4.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(\"type size\" OR \"point type\" OR \"point bold\" OR \"font\") w/20 (lease OR \"rental agreement\" OR contract)\" 10 hits (§§ 47-16-106, 47-22-404, 66-28-505, 47-18-1006, 47-14-108, 47-50-110, 56-31-127, 66-4-403, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The other hits are litigation-financing, health-club, loan, insurance and funeral contract sections.",
+  },
+  {
+    id: "edu-no-initialing-rule-tn",
+    title: "Initialing Lease Provisions",
+    group: "Notices & General",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "lease-notice-initial-requirement",
+    bodyText:
+      "No Tennessee statute requires a tenant to initial particular lease provisions. Initialing important optional clauses is still good evidence that the tenant saw them.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"initial! w/10 (provision OR clause OR waiver) AND (lease OR \"rental agreement\" OR contract)\" 4 hits (§§ 4-1-412, 66-32-113, 47-18-305, 56-42-105). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The hits are heritage, time-share, health-club and insurance sections.",
+  },
+  {
+    id: "edu-no-lease-parity-rule-tn",
+    title: "Month-to-Month Versus Fixed-Term Terms",
+    group: "Notices & General",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "lease-type-parity",
+    bodyText:
+      "Tennessee has no statute barring lease terms that are more burdensome for month-to-month tenants than for fixed-term tenants, or the reverse.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(month-to-month OR periodic) w/20 (fixed OR term) AND tenant AND (burdensom! OR same)\" 1 hit (§ 66-32-102). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The hit is a time-share definitions section.",
+  },
+  {
+    id: "edu-no-plain-language-statute-tn",
+    title: "Plain Language and Consumer Statements",
+    group: "Notices & General",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "plain-language-consumer-statement",
+    bodyText:
+      "Tennessee has no plain-language statute for residential leases and no required statement of consumer rights in the lease.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"plain language\" w/20 (contract OR lease OR consumer)\" 0 hits; \"(tenant OR renter) w/20 (rights AND (statement OR summary OR guide OR handbook OR brochure))\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Points to: edu-no-plain-language-rule-tn.",
+  },
+  {
+    id: "edu-no-translation-duty-tn",
+    title: "Translated Leases",
+    group: "Notices & General",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "translation-duty",
+    bodyText:
+      "Tennessee prescribes no verbatim lease text and no duty to translate a lease into the language in which it was negotiated.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(translat! OR \"language other than English\" OR Spanish) w/20 (lease OR \"rental agreement\" OR tenant)\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work.",
+  },
+  {
+    id: "edu-no-truth-in-renting-tn",
+    title: "Truth in Renting",
+    group: "Notices & General",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "truth-in-renting",
+    bodyText:
+      "Tennessee has no truth-in-renting act requiring a state statement of tenant rights or barring lease terms that violate clearly established rights. In the 17 Act counties prohibited terms are unenforceable, and a landlord who willfully uses known prohibited terms owes actual damages.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 66-28-203. Basis: Tenn. Code Ann. § 66-28-203 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-203: \"T.C.A., § 64-2813.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"truth in renting\" OR (tenant w/20 \"clearly established\")\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Points to: edu-prohibited-lease-terms-tn.",
+  },
+  // Disclosures
+  {
+    id: "edu-no-rights-guide-tn",
+    title: "State Rights Guides",
+    group: "Disclosures",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rights-responsibilities-guide",
+    bodyText:
+      "Tennessee has no state-published landlord-tenant rights guide that a landlord must give before signing or at renewal.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(landlord OR tenant) w/20 (handbook OR brochure OR guide OR pamphlet)\" 1 hit (§ 66-7-106); \"(tenant OR renter) w/20 (rights AND (statement OR summary OR guide OR handbook OR brochure))\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The hit is the guide-dog leasing section (Tenn. Code Ann. § 66-7-106).",
+  },
+  {
+    id: "edu-no-tenant-rights-statement-tn",
+    title: "Tenant Rights Statements",
+    group: "Disclosures",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-rights-statement",
+    bodyText:
+      "Tennessee has no state-agency statement of tenant rights that a landlord must provide with a signed acknowledgment, and no rule barring suit until one is given.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(tenant OR renter) w/20 (rights AND (statement OR summary OR guide OR handbook OR brochure))\" 0 hits; \"\"truth in renting\" OR (tenant w/20 \"clearly established\")\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work.",
+  },
+  {
+    id: "edu-no-required-coverage-notice-tn",
+    title: "Notice of Tenant-Protection Coverage",
+    group: "Disclosures",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "required-disclosures",
+    bodyText:
+      "Tennessee has no just-cause or rent-increase law, so no lease must say whether a unit is covered by one. Required disclosures in Tennessee are few: in the Act counties, the manager and notice addresses, the deposit account location and the landlord's insurance statement; statewide, the federal lead disclosure for older housing.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. §§ 66-28-302, 66-28-301(h), 66-28-201(a). Basis: Tenn. Code Ann. §§ 66-28-302, 66-28-301, 66-28-201 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-302: \"Acts 2024, ch. 907, § 1.\"; § 66-28-301: \"2012, ch. 887, § 1.\"; § 66-28-201: \"2013, ch. 206, § 1.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"tenant protection\" OR \"renter protection\"\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Points to: edu-no-for-cause-eviction-tn, edu-local-preemption-tn.",
+  },
+  // Default & Termination
+  {
+    id: "edu-automatic-renewal-tn",
+    title: "Automatic Lease Renewal",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "automatic-renewal",
+    bodyText:
+      "Tennessee's automatic-renewal statute governs subscription and continuous-service offers charged to a consumer's card or account (clear terms, affirmative consent, an acknowledgment and an easy cancellation method); it does not mention leases of real property, and whether it reaches a lease that renews automatically is untested. No landlord-tenant statute limits automatic renewal; a renewing lease should state the renewal term and how either party can stop it.",
+    notes: "TN-SCOPE: STATEWIDE. Tenn. Code Ann. § 47-18-133(a), 'A business that makes an automatic renewal offer or continuous service offer to a consumer in this state shall'; (f)(2), '\"Consumer\" means an individual who acquires goods or services for personal, family, or household purposes.' Basis: Tenn. Code Ann. § 47-18-133 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 47-18-133: \"2024, ch. 835, §§ 1-3.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(\"automatic renewal\" OR \"automatically renew!\" OR \"auto-renew!\")\" 12 hits (§§ 62-3-120, 47-18-603, 66-29-105, 47-18-103, 66-29-134, 62-32-325, 47-18-133, 47-18-505, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The other hits are military-license, unclaimed-property, health-club and insurance sections.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-no-guarantor-renewal-rule-tn",
+    title: "Guarantors and Renewals",
+    group: "Rent & Payment",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "guarantor-renewal",
+    bodyText:
+      "Tennessee has no statute limiting a lease guarantor's liability to the original term. Whether a guaranty covers renewals depends on its words, so the guaranty should say expressly whether it covers renewals and extensions.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(guarant! OR surety OR cosign! OR \"co-sign!\") w/20 (lease OR rent OR tenant)\" 18 hits (§§ 67-5-608, 65-6-130, 68-215-201, 45-8-210, and others); \"guarant! w/20 renew!\" 11 hits (§§ 56-7-1102, 56-7-2810, 56-7-2806, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The hits are tax-valuation, banking, insurance and utility sections; none governs a residential lease guaranty.",
+  },
+  // Notices & General
+  {
+    id: "edu-term-change-notice-tn",
+    title: "Changing Terms of a Month-to-Month Lease",
+    group: "Notices & General",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "term-change-notice",
+    bodyText:
+      "Tennessee has no specific notice period for changing the terms of a month-to-month tenancy. In the 17 Act counties a month-to-month tenancy can be ended on 30 days' written notice before a rental date, and a landlord rule adopted mid-tenancy binds only with reasonable notice and if it does not substantially modify the lease; the safe course is to give at least 30 days' written notice before a change takes effect at the start of a rental period.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. §§ 66-28-512(b), 66-28-402(b). Basis: Tenn. Code Ann. §§ 66-28-512, 66-28-402 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-512: \"Acts 2011, ch. 272, § 12.\"; § 66-28-402: \"T.C.A., § 64-2832.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(change OR modif!) w/20 (terms OR \"rental agreement\") AND notice AND tenant\" 3 hits (§§ 48-101-513, 66-28-402). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Points to: edu-no-rent-increase-notice-tn.",
+  },
+  {
+    id: "edu-written-notice-tn",
+    title: "Notices Must Be in Writing",
+    group: "Notices & General",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "written-notice-required",
+    bodyText:
+      "In the 17 Act counties a party has notice of a fact if the party actually knows it or has been given written notice, and all parties must give written notice to the last known or designated address in the lease; the Act's termination, cure, repair and deposit notices are written. If the tenant gives an email address in the lease, the landlord may send notices by email unless a section requires another form, but the landlord may not require an email address. Outside the Act counties the § 66-7-109 notices and the lease govern.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 66-28-106(b), 'All parties must give written notice to the last known or designated address contained in the lease agreement.' Tenn. Code Ann. § 66-28-108. Basis: Tenn. Code Ann. §§ 66-28-106, 66-28-108, 66-7-109 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-106: \"T.C.A., § 64-2806.\"; § 66-28-108: \"Acts 2011, ch. 272, § 3.\"; § 66-7-109: \"2023, ch. 400, § 2.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"written notice\" w/20 (tenant OR landlord)\" 18 hits (§§ 66-28-301, 66-28-502, 66-7-112, 66-28-205, 66-28-517, 62-25-105, 66-28-505, 66-28-512, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Points to: notices, electronic-notice-tn.",
+  },
+  {
+    id: "edu-actual-notice-method-tn",
+    title: "Extra Ways to Give Notice",
+    group: "Notices & General",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "actual-notice-method",
+    bodyText:
+      "In the 17 Act counties a party has notice of a fact if the party actually knows it or was given written notice to the address in the lease, and email may be used if the tenant gave an email address in the lease. The Act does not bar the parties from agreeing on an additional delivery method such as text message, but where a section requires written notice, a text should be in addition to, not instead of, written delivery.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 66-28-106(a), 'Either party has notice of a fact if such person: (1) Has actual knowledge of it; or (2) Has been given written notice.' Tenn. Code Ann. § 66-28-108. Basis: Tenn. Code Ann. §§ 66-28-106, 66-28-108 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-106: \"T.C.A., § 64-2806.\"; § 66-28-108: \"Acts 2011, ch. 272, § 3.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"notice w/10 (\"electronic mail\" OR \"text message\")\" 17 hits (§§ 66-29-130, 62-6-116, 66-32-114, 62-6-411, 62-2-307, 68-221-608, and others); \"\"actual notice\" OR \"actual knowledge\"\" 141 hits (§§ 21-1-205, 29-34-205, 50-6-201, 34-6-105, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Points to: electronic-notice-tn, edu-electronic-notices-tn.",
+  },
+  // Default & Termination
+  {
+    id: "edu-no-tenancy-at-will-statute-tn",
+    title: "Tenancy at Will",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenancy-at-will",
+    bodyText:
+      "Tennessee has no statute defining a tenancy at will or setting its notice. In the 17 Act counties, if the landlord does not sign a written lease, accepting rent without reservation creates a month-to-month tenancy, ended on 30 days' written notice; people who take possession without paying rent or signing are trespassers unless the landlord accepts rent from them.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. §§ 66-28-202, 66-28-512(b). Basis: Tenn. Code Ann. §§ 66-28-202, 66-28-512 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-202: \"Acts 2011, ch. 272, § 5.\"; § 66-28-512: \"Acts 2011, ch. 272, § 12.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"tenancy at will\" OR \"tenant at will\"\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work.",
+  },
+  // Notices & General
+  {
+    id: "edu-seasonal-tenancy-tn",
+    title: "Seasonal and Short-Term Rentals",
+    group: "Notices & General",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "seasonal-tenancy",
+    bodyText:
+      "Tennessee's landlord-tenant act excludes transient occupancy in a hotel or motel, and Tennessee treats short-term rentals mainly through tax and local land-use law; a separate part of Title 13 addresses local rules that prohibit short-term rental units. There is no separate seasonal-tenancy statute; a seasonal lease of a dwelling is otherwise an ordinary tenancy.",
+    notes: "TN-SCOPE: STATEWIDE. Basis: Tenn. Code Ann. §§ 66-28-102, 13-7-602 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-102: \"2021, ch. 182, §§ 1, 2.\"; § 13-7-602: \"2020, ch. 787, § 5.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(seasonal OR vacation OR \"short-term rental\") w/20 (rental OR tenant OR occup!)\" 38 hits (§§ 13-7-604, 67-4-1502, 67-4-1413, 13-7-603, 7-4-202, 7-4-103, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Tenn. Code Ann. § 66-28-102(c)(3) excludes 'Transient occupancy in a hotel, or motel or lodgings subject to city, state, transient lodgings or room occupancy under the Excise Tax Act'. Tenn. Code Ann. §§ 13-7-603 to 13-7-605 were not read; the row states no rule from them. Points to: edu-urlta-county-scope-tn.",
+  },
+  {
+    id: "edu-option-to-purchase-tn",
+    title: "Leases With an Option to Purchase",
+    group: "Notices & General",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "optional-lease-terms",
+    bodyText:
+      "Tennessee's residential property disclosure law applies to a lease with an option to buy residential property of one to four units, so a landlord who grants a purchase option must give the owner's disclosure (or the permitted disclaimer) as for a sale. No landlord-tenant statute otherwise regulates option clauses.",
+    notes: "TN-SCOPE: STATEWIDE. Basis: Tenn. Code Ann. §§ 66-5-201, 66-5-202, 66-5-208 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-5-201: \"2000, ch. 771, § 1.\"; § 66-5-202: \"Acts 1994, ch. 828, § 2.\"; § 66-5-208: \"2003, ch. 263, § 1.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"option w/5 purchas! w/20 (lease OR lessee OR tenant)\" 23 hits (§§ 48-101-301, 7-5-103, 64-9-104, 67-5-605, 7-53-101, 7-57-301, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work.Tenn. Code Ann. § 66-5-201, 'This part applies only with respect to transfers by sale, exchange, installment land sales contract or lease with option to buy residential real property consisting of not less than one (1) nor more than four (4) dwelling units'. The option hits are tax, local-finance and other sections.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-disability-accommodation-tn",
+    title: "Reasonable Accommodations and Modifications",
+    group: "Compliance & Prohibited Terms",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "disability-accommodation",
+    bodyText:
+      "Under the Tennessee Human Rights Act a landlord may not refuse reasonable accommodations in rules, policies, practices or services when needed to give a person with a disability equal opportunity to use and enjoy a dwelling, or refuse reasonable modifications at the disabled person's expense (for a rental, the landlord may condition a modification on the tenant agreeing to restore the interior, reasonable wear and tear excepted). Physically disabled and blind persons are also entitled to full and equal access to rental housing, and in buildings of three or more stories they get priority for units on the first two floors. Federal fair housing law applies too.",
+    notes: "TN-SCOPE: STATEWIDE. Tenn. Code Ann. § 4-21-601(b)(2)(A)-(B), refusing 'to make reasonable accommodations in rules, policies, practices, or services, when such accommodations may be necessary to afford such person equal opportunity to use and enjoy a dwelling'. Tenn. Code Ann. § 66-7-104(a), (c)(2). Basis: Tenn. Code Ann. §§ 4-21-601, 4-21-602, 66-7-104 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 4-21-601: \"2025, ch. 471, § 6.\"; § 4-21-602: \"2025, ch. 471, § 6.\"; § 66-7-104: \"Acts 2005, ch. 215, § 1.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"Tennessee Human Rights Act\" OR (discriminat! w/20 (housing OR \"real property\" OR dwelling))\" 15 hits (§§ 4-21-302, 4-21-601, 4-21-304, 4-21-306, 4-21-603, 4-21-311, and others); \"handicap! w/20 (housing OR dwelling)\" 8 hits (§§ 13-23-202, 13-23-203, 13-23-204, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Points to: edu-fair-housing-tn, assistance-animal-accommodation-tn.",
+  },
+  {
+    id: "edu-protected-class-inquiry-tn",
+    title: "Questions About Protected Characteristics",
+    group: "Compliance & Prohibited Terms",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "protected-class-inquiry-ban",
+    bodyText:
+      "Tennessee law makes it a discriminatory practice to use a rental application form, or make a record of inquiry in connection with a prospective rental, that indicates a limitation, specification or discrimination based on race, color, creed, religion, sex, disability, familial status or national origin. Keep application questions to what is needed to screen, and do not record protected characteristics.",
+    notes: "TN-SCOPE: STATEWIDE. Tenn. Code Ann. § 4-21-601(a)(5) ('use a form of application for the purchase, rental, or lease of real property or a housing accommodation, or make a record of inquiry in connection with the prospective purchase, rental, or lease of real property or a housing accommodation, that indicates, directly or indirectly, a limitation, specification, or discrimination'). Basis: Tenn. Code Ann. §§ 4-21-601, 4-21-602 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 4-21-601: \"2025, ch. 471, § 6.\"; § 4-21-602: \"2025, ch. 471, § 6.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(inquir! OR inquiry) w/20 (race OR religion OR \"national origin\" OR handicap OR \"familial status\")\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The zero reflects the statute's wording (\"record of inquiry\" with \"limitation, specification, or discrimination\"), not an absence. Points to: edu-fair-housing-tn.",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-children-occupancy-tn",
+    title: "Children and Occupancy",
+    group: "Rules & Regulations",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "children-occupancy",
+    bodyText:
+      "Tennessee does not require a lease to address occupancy by children. Familial status is protected under the Tennessee Human Rights Act, so a landlord may not refuse to rent or set different terms because of children, except in qualifying housing for older persons; reasonable occupancy limits set by law still apply.",
+    notes: "TN-SCOPE: STATEWIDE. Basis: Tenn. Code Ann. §§ 4-21-601, 4-21-602 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 4-21-601: \"2025, ch. 471, § 6.\"; § 4-21-602: \"2025, ch. 471, § 6.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"child! w/20 (lease OR rental OR tenant) AND (refuse OR occupan!)\" 6 hits (§§ 49-2-142, 66-7-109, 66-28-517, 49-1-201, 39-13-606, 49-2-203). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The hits are school, DV and criminal sections. Points to: permitted-occupants, edu-fair-housing-tn.",
+  },
+  // Pets
+  {
+    id: "edu-service-animal-denial-penalty-tn",
+    title: "Penalty for Refusing a Guide Dog",
+    group: "Pets",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "service-animal-denial-penalty",
+    bodyText:
+      "In Tennessee a legally blind person with a guide dog from a recognized training school may not be denied the right to lease a dwelling because of the dog, may not be charged a deposit for it, and may not be restricted as to where the dog goes while with its owner. A landlord who refuses to lease for that reason, or otherwise violates the rule, commits a Class C misdemeanor. Other disability-related denials are civil fair housing violations.",
+    notes: "TN-SCOPE: STATEWIDE. Tenn. Code Ann. § 66-7-106(d), 'Any owner, manager, landlord or agent who refuses to lease living space to any legally blind person because of a guide dog, or violates this section, commits a Class C misdemeanor.' Basis: Tenn. Code Ann. §§ 66-7-106, 62-7-112 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-7-106: \"1989, ch. 591, § 113.\"; § 62-7-112: \"2023, ch. 194, § 1.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(\"service animal\" OR \"dog guide\" OR \"guide dog\") w/30 (refus! OR deny OR denies OR discriminat!)\" 3 hits (§§ 66-7-106, 62-7-112, 8-50-103). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Tenn. Code Ann. § 62-7-112 (dog guides) covers places of public accommodation, not leased housing. Points to: assistance-animal-accommodation-tn.",
+  },
+  {
+    id: "edu-service-animal-misrepresentation-tn",
+    title: "Misrepresenting a Service or Support Animal",
+    group: "Pets",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "service-animal-misrepresentation",
+    bodyText:
+      "Yes, Tennessee's penalty reaches housing: knowingly misrepresenting a disability or disability-related need as part of a request to keep a service or support animal in residential rental property, or giving a landlord documentation that falsely says an animal is a service or support animal, is a Class B misdemeanor (with 100 hours of community service for misrepresenting a service animal). The landlord may also treat it as a material default under the lease.",
+    notes: "TN-SCOPE: STATEWIDE. Tenn. Code Ann. § 39-16-304(b)(1), knowingly 'Fraudulently represents, as a part of a request to maintain a service animal or support animal in residential rental property under § 66-7-111 or § 66-28-406, that the person has a disability or disability-related need for the use of a service animal or support animal'. Tenn. Code Ann. §§ 66-28-505(f), 66-28-406(f). Basis: Tenn. Code Ann. §§ 39-16-304, 66-28-505, 66-28-406 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 39-16-304: \"2023, ch. 194, §§ 2, 3.\"; § 66-28-505: \"2019, ch. 236, § 4.\"; § 66-28-406: \"2024, ch. 754, § 1.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(\"service animal\" OR \"support animal\") w/30 (misrepresent! OR fraudulent! OR falsely)\" 4 hits (§§ 39-16-304, 66-28-505, 66-28-406, 66-7-111). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Points to: edu-service-animal-law-tn.",
+  },
+  {
+    id: "edu-no-animal-care-access-rule-tn",
+    title: "Caring for Animals Left Behind",
+    group: "Pets",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "animal-care-access",
+    bodyText:
+      "Tennessee has no statute giving a landlord a right to enter to care for a tenant's animal or setting what to do with animals left behind. In the 17 Act counties the landlord may enter at reasonable times during a tenant's absence of more than seven days and after abandonment; in an emergency the landlord may enter without consent.",
+    notes: "TN-SCOPE: BOTH REGIMES. Basis: Tenn. Code Ann. §§ 66-28-403, 66-28-507 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-403: \"Acts 2011, ch. 272, § 10.\"; § 66-28-507: \"T.C.A., § 64-2847.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(animal OR pet) w/20 (abandon!) AND (premises OR tenant OR landlord OR enter!)\" 4 hits (§§ 39-14-202, 39-14-217, 39-14-212, 39-14-215); \"(pet OR dog OR cat OR animal) w/20 (evict! OR abandon!) AND (tenant OR landlord)\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The abandonment hits are animal-cruelty sections (Tenn. Code Ann. Title 39, Chapter 14), not read. Tenn. Code Ann. §§ 66-28-403(b), 66-28-507(b).",
+  },
+  {
+    id: "edu-no-pet-eviction-fact-sheet-tn",
+    title: "Pet and Eviction Fact Sheets",
+    group: "Pets",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "pet-eviction-fact-sheet",
+    bodyText:
+      "Tennessee has no state fact sheet on pets and eviction that a landlord must give with the lease.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(pet OR animal) w/20 (eviction OR evict!) AND (\"fact sheet\" OR notice)\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work.",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-no-cannabis-protection-tn",
+    title: "Cannabis",
+    group: "Rules & Regulations",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "cannabis",
+    bodyText:
+      "Tennessee has no medical or adult-use cannabis program that protects tenants, and no statute limits a lease ban on cannabis. Smoking lighted hemp or vaping hemp-derived cannabinoids counts as smoking under the Non-Smoker Protection Act, and the library's smoking clause bans smoking on the property.",
+    notes: "TN-SCOPE: STATEWIDE. Basis: Tenn. Code Ann. § 39-17-1802 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 39-17-1802: \"2025, ch. 526, § 9.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(marijuana OR cannabis) w/30 (lease OR tenant OR landlord OR rental OR residen!)\" 0 hits; \"marijuana OR cannabis\" 54 hits (§§ 68-7-102, 24-7-103, 39-17-455, 68-7-109, 39-17-417, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The bare-term hits are criminal, controlled-substance and agricultural sections; none concerns housing. Points to: smoking-policy, edu-smoke-drift-tn.",
+  },
+  {
+    id: "edu-no-drug-free-addendum-rule-tn",
+    title: "Drug-Free Housing Addenda",
+    group: "Rules & Regulations",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "drug-free-housing-addendum",
+    bodyText:
+      "Tennessee prescribes no drug-free housing addendum. A tenancy may be terminated where the premises or the area immediately around them is knowingly used for listed drug or prostitution offenses, and in the 17 Act counties violence or a real danger allows a 3-day termination.",
+    notes: "TN-SCOPE: BOTH REGIMES. Basis: Tenn. Code Ann. §§ 66-7-107, 66-28-517 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-7-107: \"2003, ch. 133, § 1.\"; § 66-28-517: \"2020, ch. 528, § 1.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"drug-free\" OR \"drug free\" w/20 (housing OR lease)\" 0 hits; \"(eviction OR evict! OR detainer) w/20 (drug OR criminal OR violent)\" 8 hits (§§ 40-31-104, 40-31-101, 40-31-107, 40-31-105, 40-31-102, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The eviction/drug hits are the Interstate Compact on Detainers (Tenn. Code Ann. Title 40, Chapter 31), which concerns prisoners, not evictions. Points to: edu-drug-nuisance-eviction-tn.",
+  },
+  // Default & Termination
+  {
+    id: "edu-expedited-criminal-eviction-tn",
+    title: "Fast Termination for Criminal Activity",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "expedited-criminal-eviction",
+    bodyText:
+      "Tennessee has no separate expedited court track for criminal-activity evictions. In the 17 Act counties a landlord may terminate on 3 days' written notice for violence, a real and present danger, a hazardous condition or an unauthorized occupant who refuses to leave; outside them 3 days' notice suffices for violence, drug-related criminal activity or danger by a tenant who is not mentally or physically disabled. A tenancy may also be terminated for knowing drug or prostitution use of the premises. The detainer case then follows the ordinary procedure.",
+    notes: "TN-SCOPE: BOTH REGIMES. Basis: Tenn. Code Ann. §§ 66-28-517, 66-7-109, 66-7-107 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-517: \"2020, ch. 528, § 1.\"; § 66-7-109: \"2023, ch. 400, § 2.\"; § 66-7-107: \"2003, ch. 133, § 1.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(eviction OR evict! OR detainer) w/20 (drug OR criminal OR violent)\" 8 hits (§§ 40-31-104, 40-31-101, 40-31-107, 40-31-105, 40-31-102, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. (Interstate Compact on Detainers hits only.) Points to: edu-drug-nuisance-eviction-tn, edu-eviction-process-tn.",
+  },
+  {
+    id: "edu-no-hardship-stay-tn",
+    title: "Hardship Stays of Eviction",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "eviction-hardship-stay",
+    bodyText:
+      "Tennessee has no statute letting a court delay an eviction for hardship. A writ of possession from general sessions court generally may not issue until 10 days after judgment, and a tenant who appeals must post the bond of one year's rent.",
+    notes: "TN-SCOPE: STATEWIDE. Basis: Tenn. Code Ann. §§ 29-18-126, 29-18-130 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 29-18-126: \"T.C.A. (orig. ed.), § 23-1628.\"; § 29-18-130: \"2024, ch. 755, § 4.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(detainer OR eviction) w/20 (stay OR continuance) AND hardship\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Points to: edu-eviction-process-tn.",
+  },
+  {
+    id: "edu-no-minor-defendant-rule-tn",
+    title: "Minors in Eviction Cases",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "minor-tenant-filing",
+    bodyText:
+      "Tennessee has no statute on naming minors as eviction defendants. Detainer summons may be served on any adult found in possession.",
+    notes: "TN-SCOPE: STATEWIDE. Basis: Tenn. Code Ann. § 29-18-115 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 29-18-115: \"2019, ch. 160, § 1.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(minor OR \"under eighteen\") w/20 (lease OR rental OR tenant)\" 16 hits (§§ 45-2-904, 39-17-914, 45-3-509, 16-10-212, 70-9-105, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. None of the hits listed is a residential landlord-tenant rule.",
+  },
+  {
+    id: "edu-no-entity-representation-statute-tn",
+    title: "Who May Appear for an Entity Landlord",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "entity-landlord-court-representation",
+    bodyText:
+      "No Tennessee statute found decides whether a non-attorney may appear in court for a corporate or LLC landlord. That question is governed by court rules and the law on unauthorized practice; take advice or use a lawyer.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(corporation OR entity OR \"limited liability\") w/30 (represent! OR appear!) AND (\"general sessions\" OR \"detainer\")\" 7 hits (§§ 16-3-905, 40-35-302, 40-11-302, 68-221-604, 68-221-1304, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. None of the hits listed is a residential landlord-tenant rule. Court rules (Tenn. Sup. Ct. R.) were not read.",
+  },
+  {
+    id: "edu-no-tenant-bankruptcy-rule-tn",
+    title: "Tenant Bankruptcy",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-bankruptcy",
+    bodyText:
+      "Tennessee law does not address eviction after a tenant files bankruptcy; the federal automatic stay and its exceptions govern.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"bankrupt! w/20 (tenant OR lessee OR lease)\" 1 hit (§ 45-2-901). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The hit is a safe-deposit section. Federal Bankruptcy Code not read.",
+  },
+  {
+    id: "edu-no-benefit-delay-defense-tn",
+    title: "Delayed Benefit or Voucher Payments",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "social-security-defense",
+    bodyText:
+      "Tennessee has no rule requiring a continuance or reinstatement when a tenant's government benefit or voucher payment is late.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(\"social security\" OR benefit!) w/30 (rent OR evict! OR detainer)\" 6 hits (§§ 61-1-202, 33-2-1404, 66-12-101, 7-57-301, 64-1-1103, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. None of the hits listed is a residential landlord-tenant rule.",
+  },
+  {
+    id: "edu-no-redemption-right-tn",
+    title: "Paying to Stop an Eviction",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "redemption",
+    bodyText:
+      "Tennessee gives tenants no statutory right to stop an eviction by paying the rent owed after the case is filed. In the 17 Act counties a tenant may cure a rent default within the 14-day notice period (unless the notice was waived), and a landlord who accepts rent without reservation knowing of the default waives termination for that breach; partial payments should be accepted only with a written reservation.",
+    notes: "TN-SCOPE: BOTH REGIMES. Basis: Tenn. Code Ann. §§ 66-28-505, 66-28-508 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-505: \"2019, ch. 236, § 4.\"; § 66-28-508: \"T.C.A., § 64-2848.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(redeem! OR redemption OR reinstat!) w/20 (lease OR tenan!)\" 5 hits (§§ 47-2A-510, 47-2A-403, 7-56-208, 47-18-607, 13-22-113). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The hits are UCC leases of goods, local finance and housing-authority sections. Points to: edu-waiver-by-acceptance-tn.",
+  },
+  {
+    id: "edu-no-forfeiture-redemption-tn",
+    title: "Relief From Lease Forfeiture",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "forfeiture-redemption",
+    bodyText:
+      "No Tennessee statute gives a tenant relief from forfeiture of a residential lease after default.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"forfeit! w/20 lease!\" 4 hits (§§ 39-11-710, 56-3-402, 39-17-505, 56-3-303). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. None of the hits listed is a residential landlord-tenant rule.",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-trespass-notice-tn",
+    title: "Barring Trespassers",
+    group: "Rules & Regulations",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "trespass-notice",
+    bodyText:
+      "In the 17 Act counties a person who takes possession without paying rent and without signing the landlord's lease, or who enters without an oral agreement, is a trespasser who may be evicted at once and held liable for damages and rent; if the landlord accepts rent from them, they become tenants. In every county an owner may use the limited sheriff procedure to remove unauthorized persons who were never tenants. Barring a non-tenant from common areas relies on the general criminal trespass law (Tenn. Code Ann. § 39-14-405, not reviewed here).",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 66-28-202(b); Tenn. Code Ann. § 29-18-135. Basis: Tenn. Code Ann. §§ 66-28-202, 29-18-135 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-202: \"Acts 2011, ch. 272, § 5.\"; § 29-18-135: \"Acts 2024, ch. 1009, § 1.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"trespass w/20 (landlord OR tenant OR \"common area\")\" 2 hits (§§ 44-8-301, 66-28-202); \"\"criminal trespass\"\" 12 hits (§§ 39-12-203, 37-1-702, 70-4-127, 40-39-216, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The criminal trespass sections (Tenn. Code Ann. §§ 39-14-405, 39-14-406) were not read; the row states no element or defense from them. Points to: edu-unauthorized-occupant-removal-tn.",
+  },
+  {
+    id: "edu-no-guest-rights-statute-tn",
+    title: "Guests and Visitors",
+    group: "Rules & Regulations",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "guest-rights",
+    bodyText:
+      "Tennessee has no statute giving tenants' guests or service providers a right of access in multi-unit buildings or barring guest fees. The lease's guest rules govern, subject to fair housing law.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"guest! w/20 (tenant OR lessee OR resident)\" 7 hits (§§ 66-28-518, 66-28-104, 47-2A-216, 66-7-109, 68-120-112, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The hits include towing and definitions sections; none grants guest rights. Points to: guest-policy.",
+  },
+  // Default & Termination
+  {
+    id: "edu-no-good-cause-notice-tn",
+    title: "Good-Cause Notices",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "good-cause-notice",
+    bodyText:
+      "Tennessee has no good-cause eviction rule, so no notice must state good cause for ending a tenancy.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(\"good cause\" OR \"just cause\") w/20 (evict! OR terminat!) AND tenan!\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Points to: edu-no-for-cause-eviction-tn.",
+  },
+  {
+    id: "edu-no-owner-move-in-rule-tn",
+    title: "Owner Move-In",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "owner-move-in-reservation",
+    bodyText:
+      "Tennessee has no owner-move-in rule; with no good-cause requirement, a landlord may end a periodic tenancy with the required notice or decline to renew a fixed term without stating a reason. An early-termination right for owner occupancy exists only if the lease grants it.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(owner OR landlord) w/20 (occup! OR \"move in\" OR \"personal use\") AND terminat! AND tenan!\" 10 hits (§§ 66-7-107, 66-27-318, 66-28-102, 66-28-517, 66-28-512, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. None of the hits listed is a residential landlord-tenant rule. Points to: edu-no-for-cause-eviction-tn.",
+  },
+  {
+    id: "edu-no-cold-weather-rule-tn",
+    title: "Cold-Weather Eviction Limits",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "cold-weather-vacate-notice",
+    bodyText:
+      "Tennessee has no cold-weather limit or extra notice before a tenant must vacate.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(cold OR winter OR freez!) w/20 (vacate OR evict! OR tenant)\" 2 hits (§§ 39-15-502, 47-18-2111). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The hits are a criminal and a consumer section.",
+  },
+  {
+    id: "edu-no-vacate-period-alteration-rule-tn",
+    title: "Alterations During a Notice to Vacate",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "notice-to-vacate-additional-terms",
+    bodyText:
+      "Tennessee has no rule forbidding alterations that make a unit uninhabitable while a notice to vacate is pending. In the 17 Act counties the landlord's habitability and essential-services duties continue until the tenancy ends, and willfully interrupting services is unlawful ouster.",
+    notes: "TN-SCOPE: BOTH REGIMES. Basis: Tenn. Code Ann. §§ 66-28-304, 66-28-504 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-304: \"T.C.A., § 64-2824.\"; § 66-28-504: \"T.C.A., § 64-2844.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"notice to vacate\" OR (vacat! w/10 notice) AND (alter! OR uninhabitable) AND tenant\" 2 hits (§§ 29-18-135, 66-27-507). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The hits are the unauthorized-person removal and a condominium-conversion section.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-alt-housing-tn",
+    title: "Alternate Housing",
+    group: "Landlord Responsibilities",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "alt-housing",
+    bodyText:
+      "Tennessee imposes no general duty on a landlord to relocate a tenant. In the 17 Act counties, if the landlord fails to supply essential services, the tenant may choose to procure reasonable substitute housing and is excused from rent meanwhile, and may recover its reasonable value and attorney's fees; the remedy is the tenant's choice after written notice.",
+    notes: "TN-SCOPE: BOTH REGIMES. Basis: Tenn. Code Ann. § 66-28-502 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-502: \"T.C.A., § 64-2842.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(relocat! OR \"alternate housing\" OR \"alternative housing\") w/20 (tenant OR landlord)\" 3 hits (§§ 13-11-107, 67-4-2109). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The hits are a public-acquisition relocation section (Tenn. Code Ann. § 13-11-107) and tax-credit sections.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-rent-installments-tn",
+    title: "Rent Paid in Installments",
+    group: "Rent & Payment",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-installments",
+    bodyText:
+      "In the 17 Act counties, unless otherwise agreed, periodic rent for a term of one month or less is payable at the start of the term and otherwise in equal monthly installments at the start of each month, and rent may be apportioned day by day if the parties agree. A lease may set its own schedule. Outside the Act counties the lease governs.",
+    notes: "TN-SCOPE: BOTH REGIMES. Basis: Tenn. Code Ann. § 66-28-201 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-201: \"2013, ch. 206, § 1.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"rent! w/10 installment!\" 3 hits (§§ 47-2A-522, 66-28-201, 12-10-112). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The other hits are UCC leases of goods and a housing-authority section.",
+  },
+  {
+    id: "edu-no-rent-escalation-rule-tn",
+    title: "Rent Escalation Clauses",
+    group: "Rent & Payment",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-escalation",
+    bodyText:
+      "Tennessee has no statute on rent escalation clauses and no retaliation safe harbor that depends on one. A fixed-term lease may include an escalation clause if its terms are stated; in the 17 Act counties a rent increase to retaliate for a deposit complaint or use of Act remedies is barred.",
+    notes: "TN-SCOPE: BOTH REGIMES. Basis: Tenn. Code Ann. § 66-28-514 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-514: \"T.C.A., § 64-2854.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"rent! w/10 (increase! OR escalat!) AND (lease OR \"rental agreement\")\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Points to: edu-retaliation-tn, edu-no-rent-increase-notice-tn.",
+  },
+  {
+    id: "edu-no-tax-escalation-rule-tn",
+    title: "Passing On Property Tax Increases",
+    group: "Rent & Payment",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tax-escalation",
+    bodyText:
+      "No Tennessee statute governs a residential lease clause passing real estate tax increases to the tenant. A lease may include one if it states the method and the tenant's share; in the Act counties the charge is rent.",
+    notes: "TN-SCOPE: BOTH REGIMES. Basis: Tenn. Code Ann. § 66-28-104 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-104: \"2021, ch. 100, § 2.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"tax! w/20 (increase! OR escalat!) AND (tenant! OR lessee!)\" 9 hits (§§ 67-5-601, 67-6-103, 67-4-2109, 67-5-1412, 67-6-702, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The hits are tax-administration sections.",
+  },
+  {
+    id: "edu-no-rent-concession-rule-tn",
+    title: "Rent Concessions",
+    group: "Rent & Payment",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-concession",
+    bodyText:
+      "Tennessee has no statute on rent concessions (free months or move-in discounts). State the concession and any condition for keeping it in the lease.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"concession! w/20 rent!\" 5 hits (§§ 42-3-111, 42-5-115, 7-87-109, 42-4-109, 66-27-402). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The hits are airport, local-authority and condominium-association sections.",
+  },
+  {
+    id: "edu-no-rent-reporting-rule-tn",
+    title: "Rent Reporting to Credit Bureaus",
+    group: "Rent & Payment",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-reporting",
+    bodyText:
+      "Tennessee has no rent-reporting program and no rule about requiring tenants to enroll in rent reporting.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"positive rent\" OR \"rent reporting\"\" 0 hits; \"rent! w/20 (\"credit report!\" OR \"consumer reporting agenc!\" OR \"credit bureau\")\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work.",
+  },
+  {
+    id: "edu-rent-tax-tn",
+    title: "Sales Tax on Rent",
+    group: "Rent & Payment",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-tax",
+    bodyText:
+      "Tennessee's landlord-tenant statutes impose no tax on residential rent. Tennessee taxes some lodging and short-term rentals under Title 67 (not reviewed here); whether a particular residential rent is taxable is a question for the Department of Revenue.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(sales w/3 tax) AND (rent! OR lease!) AND (residential OR dwelling OR apartment)\" 9 hits (§§ 67-6-102, 67-6-205, 67-4-3202, 67-5-1008, 67-6-233, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The hits are sales-tax sections (Tenn. Code Ann. Title 67, Chapter 6), which were not read; the row states no tax rule from them.",
+  },
+  // Disclosures
+  {
+    id: "edu-no-property-tax-statement-tn",
+    title: "Property Tax Statements for Renters",
+    group: "Disclosures",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "property-tax-rent-disclosure",
+    bodyText:
+      "Tennessee requires no annual statement of the property-tax portion of rent.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(\"property tax\" OR \"property taxes\") w/20 (rent OR renter! OR tenant!) AND (relief OR credit OR statement)\" 2 hits (§§ 67-4-713, 7-53-305). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. None of the hits listed is a residential landlord-tenant rule.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-no-subsidy-late-fee-rule-tn",
+    title: "Late Fees in Subsidized Housing",
+    group: "Rent & Payment",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "subsidy-late-fee",
+    bodyText:
+      "Tennessee has no separate late-fee rule for subsidized tenants. In the 17 Act counties the 10% cap and five-day grace period apply to all tenants; federal program rules may limit late fees further.",
+    notes: "TN-SCOPE: BOTH REGIMES. Basis: Tenn. Code Ann. § 66-28-201 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-201: \"2013, ch. 206, § 1.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(voucher OR \"section 8\" OR subsid!) w/30 (late OR fee!)\" 22 hits (§§ 8-26-105, 45-3-1504, 62-9-104, 49-7-104, 56-1-209, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. None of the hits listed is a residential landlord-tenant rule. Points to: edu-late-fee-limit-tn.",
+  },
+  // Access & Entry
+  {
+    id: "edu-no-subsidized-inspection-rule-tn",
+    title: "Voucher Inspections",
+    group: "Access & Entry",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "subsidized-inspection-refusal",
+    bodyText:
+      "Tennessee has no statute on a landlord's or tenant's refusal of a housing-voucher inspection; federal program rules govern.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(\"housing choice voucher\" OR \"section 8\" OR \"housing assistance\") w/30 (inspect! OR landlord OR owner)\" 2 hits (§§ 7-60-103, 13-23-103). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. None of the hits listed is a residential landlord-tenant rule.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-no-subsidy-proration-rule-tn",
+    title: "Subsidy and Rent Abatement",
+    group: "Rent & Payment",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "subsidy-habitability-proration",
+    bodyText:
+      "Tennessee has no rule on prorating a subsidized tenant's share when rent is abated for habitability problems.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(voucher OR \"section 8\" OR subsid!) w/30 (late OR fee!)\" 22 hits (§§ 8-26-105, 45-3-1504, 62-9-104, 49-7-104, 56-1-209, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. None of the hits listed is a residential landlord-tenant rule.",
+  },
+  {
+    id: "edu-no-shutdown-protection-tn",
+    title: "Government Shutdowns",
+    group: "Rent & Payment",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "shutdown-rent-protection",
+    bodyText:
+      "Tennessee has no rent protection for government workers during a shutdown.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(\"government shutdown\" OR furlough!) w/20 (rent OR evict! OR tenant)\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work.",
+  },
+  {
+    id: "edu-governmental-fines-tn",
+    title: "Passing Government Fines to Tenants",
+    group: "Rent & Payment",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "governmental-fines",
+    bodyText:
+      "Tennessee has no statute barring a landlord from passing government fines to a tenant, or limiting it to fines the tenant caused. A pass-through the lease requires is rent in the Act counties; limit it to fines caused by the tenant's conduct.",
+    notes: "TN-SCOPE: BOTH REGIMES. Basis: Tenn. Code Ann. § 66-28-104 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-104: \"2021, ch. 100, § 2.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(fee! OR tax!) w/20 (pass! AND through) AND tenant!\" 4 hits (§§ 67-4-2109, 67-4-2004, 57-4-102); \"nuisance w/30 (owner) AND (tenant OR occupant) AND (cost! OR fine!)\" 2 hits (§§ 13-6-106, 54-21-105). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. None of the hits listed is a residential landlord-tenant rule. Points to: hoa-compliance (log §4 D14).",
+  },
+  {
+    id: "edu-no-government-fee-rule-tn",
+    title: "Reimbursing Government Fees",
+    group: "Rent & Payment",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "government-fee-reimbursement",
+    bodyText:
+      "No Tennessee statute governs a tenant's reimbursement of government fees (such as registration or inspection fees) the landlord pays. A lease may require it if stated; in the Act counties it is rent.",
+    notes: "TN-SCOPE: BOTH REGIMES. Basis: Tenn. Code Ann. § 66-28-104 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-104: \"2021, ch. 100, § 2.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(fee! OR tax!) w/20 (pass! AND through) AND tenant!\" 4 hits (§§ 67-4-2109, 67-4-2004, 57-4-102). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. None of the hits listed is a residential landlord-tenant rule.",
+  },
+  // Parking & Storage
+  {
+    id: "edu-no-unbundled-parking-rule-tn",
+    title: "Separately Priced Parking",
+    group: "Parking & Storage",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "unbundled-parking",
+    bodyText:
+      "Tennessee has no rule requiring parking to be priced separately from rent.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"parking w/20 (separate! OR unbundl!) AND (rent OR lease)\" 3 hits (§§ 67-6-712, 67-6-103, 57-4-102). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. None of the hits listed is a residential landlord-tenant rule.",
+  },
+  {
+    id: "edu-parking-towing-tn",
+    title: "Parking and Towing Rules",
+    group: "Parking & Storage",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "parking-rules-notice",
+    bodyText:
+      "Tennessee has no rule requiring parking rules to be delivered before signing or limiting mid-lease changes. In the 17 Act counties the Act has its own towing sections for unauthorized and nuisance vehicles; a parking rule adopted after signing binds an Act-county tenant only with reasonable notice and if it does not substantially modify the lease.",
+    notes: "TN-SCOPE: BOTH REGIMES. Basis: Tenn. Code Ann. §§ 66-28-518, 66-28-519, 66-28-520, 66-28-402 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-518: \"2011, ch. 47, § 72.\"; § 66-28-519: \"2012, ch. 834, § 1.\"; § 66-28-520: \"Acts 1999, ch. 284, § 1.\"; § 66-28-402: \"T.C.A., § 64-2832.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(parking OR tow!) w/30 (tenant OR apartment OR \"residential complex\") AND (notice OR sign!)\" 13 hits (§§ 55-10-205, 66-28-518, 55-10-106, 55-10-102, 39-14-405, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Tenn. Code Ann. §§ 66-28-518 to 66-28-520 were read; the Title 55 towing sections were not. Points to: parking-vehicle-rules.",
+  },
+  // Access & Entry
+  {
+    id: "edu-periodic-services-entry-tn",
+    title: "Entry for Scheduled Services",
+    group: "Access & Entry",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "periodic-services-entry",
+    bodyText:
+      "Tennessee has no rule allowing no-notice entry for regularly scheduled services only if the lease says so conspicuously. In the 17 Act counties the tenant may not unreasonably withhold consent to entry to supply necessary or agreed services, and the landlord may not abuse access; the lease's entry clause sets the notice.",
+    notes: "TN-SCOPE: BOTH REGIMES. Basis: Tenn. Code Ann. § 66-28-403 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-403: \"Acts 2011, ch. 272, § 10.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(enter OR entry OR access) w/20 (\"pest control\" OR \"scheduled\" OR \"periodic\") AND tenant\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Points to: landlords-access-tn-act.",
+  },
+  // Notices & General
+  {
+    id: "edu-informal-dispute-resolution-tn",
+    title: "Informal Dispute Resolution",
+    group: "Notices & General",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "informal-dispute-resolution",
+    bodyText:
+      "Tennessee has no statute on lease clauses requiring the parties to try informal resolution before suing. A lease may encourage it, but in the 17 Act counties it cannot delay or condition the Act's remedies or notices.",
+    notes: "TN-SCOPE: BOTH REGIMES. Basis: Tenn. Code Ann. § 66-28-201 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-201: \"2013, ch. 206, § 1.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(mediat! OR \"dispute resolution\") w/20 (landlord OR tenant)\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Points to: edu-binding-arbitration-tn.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "edu-prohibited-acts-renter-tn",
+    title: "Conduct a Tenant Must Avoid",
+    group: "Tenant Responsibilities",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "prohibited-acts-renter",
+    bodyText:
+      "In the 17 Act counties a tenant must not deliberately or negligently destroy, deface, damage, impair or remove any part of the premises or let anyone else do so, must not engage in illegal conduct on the premises, and must make sure the tenant and guests do not disturb the neighbors' peaceful enjoyment. Outside the Act counties the lease sets these rules.",
+    notes: "TN-SCOPE: BOTH REGIMES. Basis: Tenn. Code Ann. § 66-28-401 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-401: \"Acts 2005, ch. 156, § 4.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(tenant OR occupant) w/20 (deliberately OR negligently) AND (destroy! OR damage!)\" 1 hit (§ 66-28-502). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Points to: edu-tenant-statutory-duties-tn, no-disturbance.",
+  },
+  // Other / Miscellaneous
+  {
+    id: "edu-no-furnishings-rule-tn",
+    title: "Furnished Rentals",
+    group: "Other / Miscellaneous",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "furnishings-included",
+    bodyText:
+      "Tennessee has no statute on furnished rentals or furniture inventories. List furnishings and their condition in the lease.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(furnish! OR furniture) w/20 (lease OR tenant OR \"dwelling unit\")\" 52 hits (§§ 62-25-104, 67-5-1301, 66-7-104, 67-5-501, 7-67-109, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. None of the hits listed is a residential landlord-tenant rule.",
+  },
+  {
+    id: "edu-tenant-confidential-info-tn",
+    title: "Tenants' Personal Information",
+    group: "Other / Miscellaneous",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-confidential-information",
+    bodyText:
+      "Tennessee has no landlord-specific rule on disclosing tenant information, except that a landlord may not reveal information that could locate a tenant who ended a lease as a victim of domestic abuse, sexual assault or stalking. A landlord that holds tenants' computerized personal information must give notice of a security breach under the general identity-theft law.",
+    notes: "TN-SCOPE: STATEWIDE. Non-Act counties: Tenn. Code Ann. § 66-7-112(b)(3), 'a landlord shall not reveal any identifying information'. Basis: Tenn. Code Ann. § 66-7-112 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-7-112: \"Acts 2021, ch. 293, § 1.\"). Basis: Tenn. Code Ann. §§ 66-28-205, 47-18-2107 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-205: \"Acts 2021, ch. 293, § 2.\"; § 47-18-2107: \"2017, ch. 91, § 1.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(tenant OR applicant) w/20 (confidential! OR \"personal information\")\" 29 hits (§§ 2-2-142, 8-30-301, 50-9-105, 38-6-106, 68-115-207, and others); \"\"breach of the security of the system\" OR \"information holder\"\" 1 hit (§ 47-18-2107). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The confidentiality hits are agency and program sections; Tenn. Code Ann. § 47-18-2107 (breach notice) was read section-open, including the notice duty in (b); the row states the duty generally. Points to: edu-dv-confidentiality-tn.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-no-tenant-records-rule-tn",
+    title: "Rent Ledgers and Records",
+    group: "Rent & Payment",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-records",
+    bodyText:
+      "Tennessee has no rule requiring a landlord to give a tenant a rent ledger on request or with a notice. Keep a ledger; it is the landlord's proof of the arrearage in a detainer case.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(rent OR tenant) w/20 (ledger OR records) AND (landlord OR request)\" 7 hits (§§ 66-28-406, 66-7-111, 39-17-505, 29-40-117, 47-18-2108, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. None of the hits listed is a residential landlord-tenant rule. Points to: edu-no-cash-receipt-duty-tn.",
+  },
+  // Notices & General
+  {
+    id: "edu-tenant-portal-tn",
+    title: "Online Portals",
+    group: "Notices & General",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-portal",
+    bodyText:
+      "In the 17 Act counties a landlord may meet the duty to give a maintenance contact by providing an online portal for landlord-tenant communication, and may send notices by email only if the tenant gave an email address in the lease; the landlord may not require an email address. No statute addresses requiring rent payment or signatures through a portal; offer another method.",
+    notes: "TN-SCOPE: BOTH REGIMES. Basis: Tenn. Code Ann. §§ 66-28-302, 66-28-108 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-302: \"Acts 2024, ch. 907, § 1.\"; § 66-28-108: \"Acts 2011, ch. 272, § 3.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(portal OR \"online\") w/20 (tenant OR rent OR landlord)\" 1 hit (§ 66-28-302). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Points to: acceptable-payment-methods, electronic-signatures.",
+  },
+  // Disclosures
+  {
+    id: "edu-emergency-contact-tn",
+    title: "Emergency and Maintenance Contacts",
+    group: "Disclosures",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "emergency-contact",
+    bodyText:
+      "In the 17 Act counties the landlord must give the tenant in writing, at or before the start of the tenancy, a telephone number or email address for maintenance services or an online portal, together with the manager's and the owner's or agent's names and addresses, and keep them current. No statute requires a management website or a social-services statement in the lease.",
+    notes: "TN-SCOPE: BOTH REGIMES. Basis: Tenn. Code Ann. § 66-28-302 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-302: \"Acts 2024, ch. 907, § 1.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(portal OR \"online\") w/20 (tenant OR rent OR landlord)\" 1 hit (§ 66-28-302). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Points to: landlord-disclosure-tn.",
+  },
+  {
+    id: "edu-nonresident-owner-agent-tn",
+    title: "Owner Agents for Service",
+    group: "Disclosures",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "nonresident-owner-agent",
+    bodyText:
+      "In the 17 Act counties the landlord must disclose the name and address of an owner or of a person authorized to accept service of process and notices for the owner. In those counties, a landlord who is not a Tennessee resident, or a corporation not authorized to do business here, may file with the Secretary of State a designation of an in-state agent for service of process; if none is filed, or the agent cannot be served, process may be served on the Secretary of State.",
+    notes: "TN-SCOPE: ACT COUNTIES ONLY. Tenn. Code Ann. § 66-28-105(b), 'A landlord who is not a resident of this state or is a corporation not authorized to do business in this state and engages in a transaction subject to this chapter may designate an agent upon whom service of process may be made in this state.' Basis: Tenn. Code Ann. § 66-28-105 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-105: \"Acts 1991, ch. 297, § 1.\"). Row corrected after independent check rounds 1 and 2 (log §5; the unsupported withholding sentence was removed); the battery's nonresident search missed § 66-28-105 because it says 'not a resident'. Basis: Tenn. Code Ann. § 66-28-302 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-302: \"Acts 2024, ch. 907, § 1.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"nonresident w/20 (owner OR landlord OR lessor) AND (agent OR rent!)\" 8 hits (§§ 55-4-115, 20-2-203, 69-4-105, 54-10-203, 29-16-105, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. None of the hits listed is a residential landlord-tenant rule. Points to: landlord-disclosure-tn.",
+  },
+  // Other / Miscellaneous
+  {
+    id: "edu-no-tenant-organizing-rule-tn",
+    title: "Tenant Associations",
+    group: "Other / Miscellaneous",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-right-to-organize",
+    bodyText:
+      "Tennessee has no statute protecting tenants' right to organize or form an association. In the 17 Act counties retaliation is barred only for deposit complaints and use of the Act's remedies.",
+    notes: "TN-SCOPE: BOTH REGIMES. Basis: Tenn. Code Ann. § 66-28-514 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-514: \"T.C.A., § 64-2854.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(tenant! OR resident!) w/20 (organiz! OR association OR assembl!)\" 163 hits (§§ 40-35-123, 7-62-103, 7-62-104, 7-62-105, 68-14-403, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. None of the hits listed is a residential landlord-tenant rule. Points to: edu-retaliation-tn, edu-no-for-cause-eviction-tn.",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-no-political-access-rule-tn",
+    title: "Political Canvassing and Signs",
+    group: "Rules & Regulations",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "political-access",
+    bodyText:
+      "Tennessee has no statute giving candidates or canvassers access to apartment buildings or protecting tenants' political signs.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(candidate! OR canvass! OR political) w/20 (apartment OR \"multi-unit\" OR tenant! OR resident!)\" 35 hits (§§ 68-11-1405, 2-7-143, 2-5-104, 49-4-702, 2-5-102, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The hits listed are election, health-facility and local-government sections; Tenn. Code Ann. § 2-7-143 concerns polling places. None of the hits listed is a residential landlord-tenant rule.",
+  },
+  {
+    id: "edu-no-religious-display-rule-tn",
+    title: "Religious Displays",
+    group: "Rules & Regulations",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "religious-cultural-display",
+    bodyText:
+      "Tennessee has no statute giving tenants a right to religious or cultural displays. Rules must be applied without religious discrimination under fair housing law.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(religious OR religion) w/20 (display OR symbol!) AND (tenant OR resident OR owner)\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Points to: edu-no-flag-display-rule-tn.",
+  },
+  {
+    id: "edu-no-home-business-rule-tn",
+    title: "Home-Based Businesses",
+    group: "Rules & Regulations",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "home-business",
+    bodyText:
+      "Tennessee has no statute making a home-based business a permitted use of a rental or limiting a lease's restrictions. In the 17 Act counties, unless otherwise agreed, the tenant must occupy the unit only as a dwelling.",
+    notes: "TN-SCOPE: BOTH REGIMES. Basis: Tenn. Code Ann. § 66-28-404 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-404: \"T.C.A., § 64-2834.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(\"home-based business\" OR \"home business\" OR \"home occupation\")\" 1 hit (§ 29-34-203). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The hit is a first-responder immunity section (Tenn. Code Ann. § 29-34-203). Points to: residential-use-only.",
+  },
+  {
+    id: "edu-no-family-child-care-right-tn",
+    title: "Family Child Care Homes",
+    group: "Rules & Regulations",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "family-child-care",
+    bodyText:
+      "Tennessee does not require a landlord to allow a tenant to run a family child care home. Child care licensing is separate; a lease may restrict business use.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"family child care\" OR \"child care\" w/20 (home OR residence) AND (tenant OR lease OR landlord)\" 7 hits (§§ 71-3-502, 68-11-1602, 37-5-502, 37-5-520). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The hits are child-care licensing and health-facility sections. None of the hits listed is a residential landlord-tenant rule.",
+  },
+  // Other / Miscellaneous
+  {
+    id: "edu-no-employee-screening-rule-tn",
+    title: "Screening Apartment Employees",
+    group: "Other / Miscellaneous",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "employee-screening",
+    bodyText:
+      "Tennessee does not require background checks for apartment employees.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(employee! OR staff) w/20 (\"background check\" OR \"criminal history\") AND (apartment OR landlord OR tenant)\" 1 hit (§ 49-7-149). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. None of the hits listed is a residential landlord-tenant rule.",
+  },
+  {
+    id: "edu-no-senior-work-card-rule-tn",
+    title: "Staff in Senior Housing",
+    group: "Other / Miscellaneous",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "senior-housing-work-card",
+    bodyText:
+      "Tennessee has no work-card or registration rule for staff of 55-and-over housing.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(\"housing for older persons\" OR \"fifty-five (55)\") w/20 (employee! OR staff)\" 2 hits (§§ 50-6-242, 8-36-201). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. None of the hits listed is a residential landlord-tenant rule.",
+  },
+  // Default & Termination
+  {
+    id: "edu-no-employee-housing-rule-tn",
+    title: "Housing Provided to Employees",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-employee-housing",
+    bodyText:
+      "Tennessee has no statute requiring a signed disclosure when a landlord houses an employee, or setting how employee housing ends.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(employee OR employer) w/20 (housing OR dwelling) AND (terminat! OR vacate)\" 12 hits (§§ 4-29-248, 50-6-121, 37-2-603, 67-6-224, 38-6-102, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. None of the hits listed is a residential landlord-tenant rule.",
+  },
+  // Other / Miscellaneous
+  {
+    id: "edu-student-housing-tn",
+    title: "Student Housing",
+    group: "Other / Miscellaneous",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "student-housing",
+    bodyText:
+      "Tennessee has no general exemption for private student housing from landlord-tenant law. The Act does exclude residence at an institution incidental to educational services, and the Human Rights Act allows single-sex dormitory rentals.",
+    notes: "TN-SCOPE: BOTH REGIMES. Basis: Tenn. Code Ann. §§ 66-28-102, 4-21-602 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-102: \"2021, ch. 182, §§ 1, 2.\"; § 4-21-602: \"2025, ch. 471, § 6.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(student! OR dormitor!) w/20 (housing OR lease OR rental)\" 107 hits (§§ 49-7-149, 49-7-171, 49-7-136, 49-50-1702, 49-1-704, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Tenn. Code Ann. §§ 66-28-102(c)(1), 4-21-602. None of the hits listed is a residential landlord-tenant rule.",
+  },
+  {
+    id: "edu-no-veterans-incentive-tn",
+    title: "Veteran Tenant Incentives",
+    group: "Other / Miscellaneous",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "veterans-incentive",
+    bodyText:
+      "Tennessee has no landlord incentive or protection program for veteran tenants.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"veteran! w/20 (rent! OR housing OR landlord OR tenant)\" 11 hits (§§ 67-5-207, 13-23-102, 35-3-120, 58-7-108, 45-20-102, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. None of the hits listed is a residential landlord-tenant rule. Points to: edu-servicemember-rights-tn.",
+  },
+  {
+    id: "edu-no-landlord-insurance-mandate-tn",
+    title: "Landlord Liability Insurance",
+    group: "Other / Miscellaneous",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-liability-insurance",
+    bodyText:
+      "Tennessee does not require landlords to carry liability insurance or tie it to registration. In the 17 Act counties the landlord must tell the tenant in writing that the landlord does not provide insurance for the tenant's belongings.",
+    notes: "TN-SCOPE: BOTH REGIMES. Basis: Tenn. Code Ann. § 66-28-201 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-201: \"2013, ch. 206, § 1.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(landlord OR owner OR lessor) w/20 (\"liability insurance\") AND (rental OR residential)\" 1 hit (§ 56-7-1120). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The hit is an insurance section not read.",
+  },
+  {
+    id: "edu-no-tenant-claim-rule-tn",
+    title: "Tenant Insurance Claims",
+    group: "Other / Miscellaneous",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-insurance-claims",
+    bodyText:
+      "Tennessee has no statute on tenant insurance claims or insurer subrogation against tenants.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(tenant OR lessee) w/20 (insurance) AND (claim! OR subrogat!)\" 2 hits (§§ 35-15-510, 45-2-905). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. None of the hits listed is a residential landlord-tenant rule. Points to: renters-insurance-advisory-tn.",
+  },
+  {
+    id: "edu-foreign-ownership-tn",
+    title: "Prohibited Foreign Parties",
+    group: "Other / Miscellaneous",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "foreign-ownership",
+    bodyText:
+      "Tennessee bars a prohibited foreign party, or a business in which it holds a controlling interest, a significant interest (generally 10% or more) or substantial control, from acquiring an interest in agricultural land, and counts a lease of one year or longer (including renewals by option) as an interest; a violator must divest within two years of the finding, and holding such an interest on or after January 1, 2025 is a Class A misdemeanor. A prohibited foreign party includes citizens or residents of listed countries, with exceptions. The statute also defines interests in non-agricultural land, including leases of one year or longer, which later sections (not reviewed here) address. A landlord leasing agricultural land for a year or more to a person or business connected with a listed country should check the statute first.",
+    notes: "TN-SCOPE: STATEWIDE. Tenn. Code Ann. § 66-2-302(5)(B), an interest in agricultural land 'Includes a lease of agricultural land: (i) For a term of one (1) year or longer'; Tenn. Code Ann. § 66-2-303(b)(1)(A); significant interest and substantial control: § 66-2-302(10), (14); prohibited foreign party: § 66-2-302(9); misdemeanor: § 66-2-303(d). Edited after round 2. History: § 66-2-301 2026 Pub. Ch. 733; § 66-2-302 2026 Pub. Ch. 806 (current text read). Basis: Tenn. Code Ann. §§ 66-2-301, 66-2-302, 66-2-303 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-2-301: \"2026, ch. 733, § 1.\"; § 66-2-302: \"2026, ch. 806, §§ 1-7.\"; § 66-2-303: \"Acts 2024, ch. 995, §  1.\"). The non-agricultural-land operative sections (Tenn. Code Ann. § 66-2-304 and following) were not read; the row states no rule from them.",
+  },
+  {
+    id: "edu-farmland-hunting-tn",
+    title: "Hunting and Fishing on Rented Land",
+    group: "Other / Miscellaneous",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "farmland-hunting-rights",
+    bodyText:
+      "Tennessee makes it a Class B misdemeanor to hunt, trap or fish on another's land without permission of the owner or of the person in charge of the land with the owner's authority. No statute says whether a farm tenant has hunting rights by default; put them in the lease.",
+    notes: "TN-SCOPE: STATEWIDE. Tenn. Code Ann. § 70-4-106(a)(1), unlawful to hunt or fish 'upon the land of another without having first obtained the permission or approval of the owners of the land, or of the person or persons in charge of the land and having authority from the owner to give such permission.' Basis: Tenn. Code Ann. § 70-4-106 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 70-4-106: \"2025, ch. 407, §§ 1, 2.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(hunt! OR fish!) w/20 (lessee OR tenant) AND (owner OR permission)\" 2 hits (§§ 70-2-204, 55-4-303). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. § 70-4-106 history: 2025 Pub. Ch. 407.",
+  },
+  {
+    id: "edu-no-communal-land-rule-tn",
+    title: "Tribal or Communal Land",
+    group: "Other / Miscellaneous",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "communal-land-lease-approval",
+    bodyText:
+      "Tennessee has no statute requiring government approval of leases of communal or tribal land.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(tribal OR \"Indian land\" OR communal) w/20 lease\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work.",
+  },
+  {
+    id: "edu-no-usufruct-rule-tn",
+    title: "Leases by Life Tenants",
+    group: "Other / Miscellaneous",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "usufructuary-lessor",
+    bodyText:
+      "Tennessee has no statute on leases granted by a life tenant or usufructuary.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"usufruct! OR \"life estate\" w/20 lease\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work.",
+  },
+  {
+    id: "edu-construction-liens-tn",
+    title: "Liens for Tenant Improvements",
+    group: "Other / Miscellaneous",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "construction-liens",
+    bodyText:
+      "Tennessee's mechanics' lien statutes give liens for work and materials; no lease clause found in the Code keeps a tenant's contractors' liens off the landlord's interest. Require the tenant to get consent before improvements and to keep the property free of liens.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(lien w/20 (improvement! OR material! OR labor)) AND (lessee OR tenant)\" 7 hits (§§ 66-19-302, 66-11-102, 66-11-147, 67-4-409, 47-2A-306, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Tenn. Code Ann. §§ 66-11-101, 66-11-102 and 66-11-147 were not read; the row states no lien rule from them. Points to: no-alterations.",
+  },
+  {
+    id: "edu-no-eminent-domain-rent-rule-tn",
+    title: "Eminent Domain and Rent",
+    group: "Other / Miscellaneous",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "eminent-domain",
+    bodyText:
+      "No Tennessee statute found says whether a residential tenant's rent ends or shrinks when the property is taken by eminent domain. Say in the lease that the lease ends on a taking and how any award is shared.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(\"eminent domain\" OR condemnation) w/30 (lessee OR tenant OR leasehold)\" 7 hits (§§ 64-1-804, 64-1-102, 9-21-107, 5-19-107, 13-20-703, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The hits are authority-powers and relocation sections. None of the hits listed is a residential landlord-tenant rule.",
+  },
+  // Disclosures
+  {
+    id: "edu-no-foreclosure-disclosure-tn",
+    title: "Foreclosure Disclosure",
+    group: "Disclosures",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "foreclosure-disclosure",
+    bodyText:
+      "Tennessee has no statute requiring a landlord to disclose a pending foreclosure to tenants; federal law protects some tenants after foreclosure.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"foreclos! w/30 (tenant OR lessee) AND (disclos! OR notice)\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Points to: edu-no-foreclosure-tenant-statute-tn.",
+  },
+  // Notices & General
+  {
+    id: "edu-no-adverse-proceeding-notice-tn",
+    title: "Notice of Proceedings Against the Property",
+    group: "Notices & General",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "adverse-proceeding-notice",
+    bodyText:
+      "Tennessee has no statute requiring a landlord to notify tenants of foreclosure, condemnation or other adverse proceedings, or requiring tenants to forward notices; the library's clause asks the tenant to forward them.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(tenant OR lessee) w/20 (notif! OR notice) AND (foreclos! OR condemn! OR \"adverse claim\")\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Points to: tenant-forward-proceedings-ca.",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-purpose-limitation-tn",
+    title: "Leases Void for Illegal Use",
+    group: "Rules & Regulations",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "purpose-limitation",
+    bodyText:
+      "Tennessee declares unenforceable any lease of premises used to sell, display or exhibit obscene material or performances, and a tenancy may be terminated where the premises or the area immediately around them is knowingly used for listed drug or prostitution offenses. Other illegal use is a lease breach (and in the Act counties a breach of the tenant's duty not to engage in illegal conduct).",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 66-7-105, declared 'against public policy and unenforceable are all leases or rental contracts, whether or not in writing, on real estate or buildings which are used for the purpose of sale, display, distribution or exhibition of obscene live performances or obscene material'. Tenn. Code Ann. §§ 66-7-107(a)(1), 66-28-401(4). Basis: Tenn. Code Ann. §§ 66-7-105, 66-7-107, 66-28-401 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-7-105: \"Acts 1996, ch. 1071, § 1.\"; § 66-7-107: \"2003, ch. 133, § 1.\"; § 66-28-401: \"Acts 2005, ch. 156, § 4.\"). Points to: edu-drug-nuisance-eviction-tn.",
+  },
+  {
+    id: "edu-nuisance-tn",
+    title: "Nuisance Abatement",
+    group: "Rules & Regulations",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "nuisance",
+    bodyText:
+      "A nonprofit, the city or county, the owner or legal occupant of a parcel adversely affected by the building's condition, or an interested person such as a lienholder may petition a court to declare a building a public nuisance (including one no longer fit and habitable); if neither the owner nor an interested person abates it, the court may appoint a receiver whose lien comes ahead of prior mortgages (see the receivership row). A general nuisance-abatement statute also exists. In the 17 Act counties the Act lets a landlord tow nuisance vehicles. A lease cannot prevent these proceedings.",
+    notes: "TN-SCOPE: BOTH REGIMES. Tenn. Code Ann. § 13-6-106(c)(1), (g). Points to: edu-substandard-receivership-tn. Row corrected after independent check round 1 (log §5). Edited again after round 2. Petitioners: Tenn. Code Ann. § 13-6-102(2), (8). Basis: Tenn. Code Ann. § 13-6-102 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 13-6-102: \"2024, ch. 796, §§ 1, 2, 19.\"). Basis: Tenn. Code Ann. §§ 13-6-106, 66-28-520 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 13-6-106: \"2024, ch. 796, §§ 3-18.\"; § 66-28-520: \"Acts 1999, ch. 284, § 1.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"nuisance w/30 (tenant! OR lessee! OR lease!)\" 3 hits (§§ 29-3-101, 66-28-520, 44-18-101); \"\"drug-related nuisance\" OR \"public nuisance\" w/20 (lease! OR tenant!)\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Tenn. Code Ann. § 29-3-101 (nuisance abatement) was not read; the row states no rule from it.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-substandard-receivership-tn",
+    title: "Code Enforcement and Receivership",
+    group: "Landlord Responsibilities",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "substandard-property-receivership",
+    bodyText:
+      "Tennessee lets a nonprofit, the city or county, the owner or legal occupant of a parcel adversely affected by the building's condition, or an interested person such as a lienholder petition a court in rem to have a building declared a public nuisance (including one no longer fit and habitable). Filing creates a receiver's lien that is a first lien ahead of earlier and later liens, including mortgages. If a certificate of public nuisance is attached to the petition, the filing also bars transfers, including by foreclosure, until the petition is dismissed or the court authorizes a transfer. If neither the owner nor an interested person allowed to do the work abates the nuisance, the court may appoint a receiver to take possession and control. The chapter does not itself mention rents, but it gives the receiver the powers of a tax-enforcement receiver under § 67-5-2103 (not reviewed here).",
+    notes: "TN-SCOPE: STATEWIDE. Tenn. Code Ann. § 13-6-106(c)(1), the filing creates 'a receiver's lien' that 'shall be a first lien on the subject parcel, which is superior to all prior and subsequent liens'; (g), the court 'may appoint a receiver to take possession and control of the subject parcel'; (i)(1)(C), the receiver may be empowered to 'Pay prereceivership mortgages'. Petitioners and municipal corporation (city or county): Tenn. Code Ann. § 13-6-102(2), (8); receiver powers: § 13-6-102(14); transfer bar conditional on an attached certificate: § 13-6-106(c)(2). Edited again after round 2. Row corrected after independent check round 1 (log §5). Basis: Tenn. Code Ann. §§ 13-6-102, 13-6-106 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 13-6-102: \"2024, ch. 796, §§ 1, 2, 19.\"; § 13-6-106: \"2024, ch. 796, §§ 3-18.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"receiver! w/20 (property OR premises OR building) AND (nuisance OR \"unfit\" OR substandard OR blight!)\" 2 hits (§§ 13-6-106, 13-6-102). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work.",
+  },
+  // Other / Miscellaneous
+  {
+    id: "edu-no-adu-rental-rule-tn",
+    title: "Accessory Dwelling Units",
+    group: "Other / Miscellaneous",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "accessory-dwelling-unit",
+    bodyText:
+      "Tennessee has no statute stopping cities from restricting accessory dwelling units or addressing their rental. A separate statute lets a temporary family healthcare structure be a permitted accessory use subject to local accessory-dwelling requirements.",
+    notes: "TN-SCOPE: STATEWIDE. Basis: Tenn. Code Ann. §§ 13-7-502, 68-221-402 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 13-7-502: \"Acts 2016, ch. 992, § 1.\"; § 68-221-402: \"Acts 2025, ch. 208, § 1.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"accessory dwelling unit!\" OR \"accessory dwelling\"\" 2 hits (§§ 68-221-402, 13-7-502). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The other hit is a sewer definitions section (Tenn. Code Ann. § 68-221-402).",
+  },
+  {
+    id: "edu-no-single-family-zone-limit-tn",
+    title: "Renting in Single-Family Zones",
+    group: "Other / Miscellaneous",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "single-family-zone-lease-limit",
+    bodyText:
+      "Tennessee has no statute limiting rentals in single-family zones to owner-occupied lots. Local zoning may apply; associations may not retroactively ban long-term rentals of single-family homes against existing owners.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(zone OR zoning) w/20 (\"single-family\" OR \"single family\") AND (rent! OR lease! OR owner-occup!)\" 1 hit (§ 62-13-501). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. None of the hits listed is a residential landlord-tenant rule. Points to: edu-hoa-leasing-tn.",
+  },
+  // Disclosures
+  {
+    id: "edu-no-health-district-rules-tn",
+    title: "Health Department Rental Rules",
+    group: "Disclosures",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "health-district-rental-rules",
+    bodyText:
+      "Tennessee has no statute requiring a landlord to provide health-district rental regulations or refer tenants to the health department.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(\"board of health\" OR \"health department\") w/30 (rental OR tenant OR \"dwelling\" OR housing)\" 1 hit (§ 14-1-101). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. None of the hits listed is a residential landlord-tenant rule.",
+  },
+  {
+    id: "edu-no-sanitary-variance-rule-tn",
+    title: "Health Code Variances",
+    group: "Disclosures",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "sanitary-code-variance",
+    bodyText:
+      "Tennessee has no rule requiring a health-code variance for a rental to be given to tenants or attached to the lease.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(variance OR exception OR waiver OR exemption) w/20 (\"housing code\" OR \"building code\")\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work.",
+  },
+  {
+    id: "edu-no-inspection-condemnation-disclosure-tn",
+    title: "Outstanding Code Orders",
+    group: "Disclosures",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "inspection-condemnation-disclosure",
+    bodyText:
+      "Tennessee does not require a landlord to disclose outstanding inspection or condemnation orders to tenants.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(condemn! OR \"unfit for human habitation\") w/30 (disclos! OR notif!) AND (tenant OR lessee)\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work.",
+  },
+  // Access & Entry
+  {
+    id: "edu-no-inspection-notice-penalty-tn",
+    title: "Penalties for Inspection Entry",
+    group: "Access & Entry",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "inspection-notice-penalty",
+    bodyText:
+      "Tennessee sets no penalty for a landlord's inspection entry beyond the Act's remedies for abusive entry in the 17 Act counties (injunction, actual damages and fees).",
+    notes: "TN-SCOPE: BOTH REGIMES. Basis: Tenn. Code Ann. § 66-28-513 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-513: \"T.C.A., § 64-2853.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(inspection OR inspect!) w/20 (penalt! OR forfeit!) AND tenant\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Points to: landlords-access-tn-act.",
+  },
+  // Disclosures
+  {
+    id: "edu-no-repair-escrow-notice-tn",
+    title: "Repair Escrow Exemption Notices",
+    group: "Disclosures",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "repair-escrow-exemption-notice",
+    bodyText:
+      "Tennessee has no rent-escrow remedy, so no exemption notice applies.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"escrow w/20 (rent OR repair!)\" 2 hits (§§ 66-32-106, 66-28-104). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Points to: edu-tenant-repair-remedies-tn.",
+  },
+  {
+    id: "edu-no-sfr-occupancy-disclosure-tn",
+    title: "Single-Family Occupancy Disclosures",
+    group: "Disclosures",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "sfr-occupancy-disclosure",
+    bodyText:
+      "Tennessee has no single-family rental occupancy disclosure with font-size or first-page placement rules.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"first page\" w/20 (lease OR contract OR agreement)\" 3 hits (§§ 56-3-506, 66-27-506, 66-30-103); \"(\"type size\" OR \"point type\" OR \"point bold\" OR \"font\") w/20 (lease OR \"rental agreement\" OR contract)\" 10 hits (§§ 47-16-106, 47-22-404, 66-28-505, 47-18-1006, 47-14-108, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Points to: edu-lease-type-size-tn.",
+  },
+  // Other / Miscellaneous
+  {
+    id: "edu-no-portfolio-threshold-tn",
+    title: "Small-Landlord Exemptions",
+    group: "Other / Miscellaneous",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "portfolio-thresholds",
+    bodyText:
+      "Tennessee's landlord-tenant act has no small-portfolio exemption; it applies by county population, with listed exclusions (institutions, contract-of-sale occupancy, transient lodging, condominium and cooperative owners, agricultural premises). The Human Rights Act exempts an owner-occupied building of no more than two families.",
+    notes: "TN-SCOPE: STATEWIDE. Basis: Tenn. Code Ann. §§ 66-28-102, 4-21-602 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-102: \"2021, ch. 182, §§ 1, 2.\"; § 4-21-602: \"2025, ch. 471, § 6.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(\"four (4) or fewer\" OR \"four (4) units\" OR \"units or fewer\") w/20 (landlord OR rental OR \"dwelling units\")\" 3 hits (§§ 68-205-114, 62-13-405, 57-4-102). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. None of the hits listed is a residential landlord-tenant rule.",
+  },
+  {
+    id: "edu-no-special-district-rule-tn",
+    title: "Tenants and Special Districts",
+    group: "Other / Miscellaneous",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "special-district-representation",
+    bodyText:
+      "Tennessee gives tenants no representation or voting rule in utility or improvement districts.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(\"special district\" OR \"utility district\" OR \"improvement district\") w/20 (tenant OR lessee OR lease)\" 6 hits (§§ 64-10-106, 7-35-201, 7-84-301, 68-221-209, 68-221-1303, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. None of the hits listed is a residential landlord-tenant rule.",
+  },
+  // Disclosures
+  {
+    id: "edu-no-tpa-exemption-notice-tn",
+    title: "Tenant Protection Act Exemption Notices",
+    group: "Disclosures",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tpa-exemption-notice",
+    bodyText:
+      "Tennessee has no tenant protection act with rent or just-cause limits, so there is no exemption notice. Local rent control is barred.",
+    notes: "TN-SCOPE: STATEWIDE. Basis: Tenn. Code Ann. § 66-35-102 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-35-102: \"2024, ch. 1051, § 3.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"tenant protection\" OR \"renter protection\"\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Points to: edu-local-preemption-tn.",
+  },
+  {
+    id: "edu-no-tpa-notice-tn",
+    title: "Tenant Protection Act Notices",
+    group: "Disclosures",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tpa-notice",
+    bodyText:
+      "Tennessee has no tenant protection act notice.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"tenant protection\" OR \"renter protection\"\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Points to: edu-local-preemption-tn.",
+  },
+  // Other / Miscellaneous
+  {
+    id: "edu-no-tpa-sunset-tn",
+    title: "Sunset of Tenant Protections",
+    group: "Other / Miscellaneous",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tpa-sunset",
+    bodyText:
+      "Tennessee's core landlord-tenant statutes have no repeal date; the Act's county list is fixed by the 2010 census.",
+    notes: "TN-SCOPE: STATEWIDE. Basis: Tenn. Code Ann. § 66-28-102 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-102: \"2021, ch. 182, §§ 1, 2.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"tenant protection\" OR \"renter protection\"\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Points to: edu-urlta-county-scope-tn.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-no-common-area-lighting-rule-tn",
+    title: "Common-Area Electricity",
+    group: "Rent & Payment",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "common-area-lighting",
+    bodyText:
+      "Tennessee has no rule on making a tenant pay for common-area lights wired to the tenant's meter. In the 17 Act counties the landlord must keep common areas clean and safe; disclose any such wiring and price it in the lease.",
+    notes: "TN-SCOPE: BOTH REGIMES. Basis: Tenn. Code Ann. § 66-28-304 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-304: \"T.C.A., § 64-2824.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"common area\" w/20 (electric! OR light!) AND tenant\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work.",
+  },
+  // Default & Termination
+  {
+    id: "edu-disaster-duties-tn",
+    title: "After a Disaster",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "disaster-duties",
+    bodyText:
+      "Tennessee has no separate disaster rule for tenancies. In the 17 Act counties a fire or other casualty that substantially impairs the unit (deemed unfit for human habitation by a governmental authority) lets the tenant vacate and end the lease, with rent accounted to the vacating date and prepaid rent and deposit returned; if restoration requires the tenant to leave, the landlord may end the lease on 14 days' notice. Outside the Act counties a tenant who was not at fault may surrender an untenantable building and owe no later rent unless a written agreement says otherwise.",
+    notes: "TN-SCOPE: BOTH REGIMES. Basis: Tenn. Code Ann. §§ 66-28-503, 66-7-102 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-503: \"Acts 2013, ch. 107, §§ 1, 2.\"; § 66-7-102: \"T.C.A. (orig. ed.), §§ 64-702, 64-703.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(disaster OR \"state of emergency\") w/20 (rent OR tenant OR lease)\" 2 hits (§§ 67-6-235, 58-2-117). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. The hits are a sales-tax and an emergency-management section. Points to: edu-casualty-termination-tn, casualty-termination-tn.",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-no-disaster-guest-rule-tn",
+    title: "Hosting Displaced Guests",
+    group: "Rules & Regulations",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "disaster-displaced-guests",
+    bodyText:
+      "Tennessee has no rule letting tenants host people displaced by a disaster despite lease guest limits.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(disaster OR emergency) w/20 (guest! OR displaced OR evacuee!)\" 7 hits (§§ 63-10-207, 58-2-110, 58-2-402, 58-2-403, 50-7-803, and others). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. None of the hits listed is a residential landlord-tenant rule.",
+  },
+  // Default & Termination
+  {
+    id: "edu-no-environmental-termination-tn",
+    title: "Environmental Events",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "environmental-event-termination",
+    bodyText:
+      "Tennessee gives no landlord or tenant termination right for environmental events beyond the casualty rules. A landlord's opt-in right would have to be in the lease, and in the 17 Act counties it cannot cut the tenant's casualty rights.",
+    notes: "TN-SCOPE: BOTH REGIMES. Basis: Tenn. Code Ann. § 66-28-503 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-503: \"Acts 2013, ch. 107, §§ 1, 2.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"(flood! OR \"natural disaster\" OR tornado OR environmental) w/20 (lease OR tenan!) AND terminat!\" 3 hits (§§ 11-3-111, 7-67-109, 7-89-109). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. None of the hits listed is a residential landlord-tenant rule.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-habitability-materiality-tn",
+    title: "When a Defect Is Serious Enough",
+    group: "Landlord Responsibilities",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "habitability-materiality",
+    bodyText:
+      "Tennessee's Act ties the landlord's code duty to requirements 'materially affecting health and safety', defines essential services as utility services such as gas, heat and electricity plus other landlord obligations that materially affect health and safety, and lets the tenant end the lease after a casualty that substantially impairs the unit, which it defines as the unit being deemed unfit for human habitation by a governmental authority. It has no other materiality test for habitability defects.",
+    notes: "TN-SCOPE: ACT COUNTIES ONLY. Basis: Tenn. Code Ann. §§ 66-28-304, 66-28-502, 66-28-104 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-304: \"T.C.A., § 64-2824.\"; § 66-28-502: \"T.C.A., § 64-2842.\"; § 66-28-104: \"2021, ch. 100, § 2.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"materially affecting health and safety\"\" 4 hits (§§ 66-28-505, 66-28-304, 66-28-401, 66-28-506). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work.",
+  },
+  {
+    id: "edu-no-habitability-presumption-tn",
+    title: "Presumptions About Habitability",
+    group: "Landlord Responsibilities",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "habitability-presumption",
+    bodyText:
+      "Tennessee has no statutory presumption that a unit is or is not habitable.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"presum! w/20 (habitab! OR \"fit for human habitation\")\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Points to: edu-landlord-repair-duties-tn.",
+  },
+  // Disclosures
+  {
+    id: "edu-no-habitability-statement-tn",
+    title: "Habitability Statement in the Lease",
+    group: "Disclosures",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "habitability-statement",
+    bodyText:
+      "Tennessee does not require the lease to state that the landlord will deliver the unit fit for habitation. In the 17 Act counties the duty applies by statute anyway.",
+    notes: "TN-SCOPE: BOTH REGIMES. Basis: Tenn. Code Ann. § 66-28-304 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-304: \"T.C.A., § 64-2824.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"habitab! w/20 (lease OR \"rental agreement\")\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-confirmed-absences-habitability-tn",
+    title: "Habitability Rules Tennessee Does Not Have",
+    group: "Landlord Responsibilities",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "confirmed-absences-habitability",
+    bodyText:
+      "Tennessee has no statutory habitability duty outside the 17 Act counties, no rent escrow or clerk deposit, no general repair-and-deduct, no rent-reduction-for-conditions rule, no habitability presumption, no minimum heat, water-heater, window-guard, pool-barrier, balcony or bed-bug statute, and no statement of habitability in the lease. Each absence has its own row with its search battery.",
+    notes: "TN-SCOPE: BOTH REGIMES. Basis: Tenn. Code Ann. § 66-28-304 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 66-28-304: \"T.C.A., § 64-2824.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"fit for human habitation\"\" 0 hits; \"(habitab! OR \"fit and habitable\") w/30 (waive! OR agree!)\" 0 hits; \"\"fit and habitable\"\" 2 hits (§§ 66-28-304, 13-6-102). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Rows: edu-habitability-waiver-tn, edu-tenant-repair-remedies-tn, edu-no-habitability-presumption-tn, edu-no-habitability-statement-tn, edu-heating-tn, edu-no-water-heater-temperature-rule-tn, edu-no-window-guard-rule-tn, edu-no-pool-safety-rule-tn, edu-no-balcony-inspection-rule-tn, edu-no-bed-bug-cooperation-rule-tn.",
+  },
+  // Other / Miscellaneous
+  {
+    id: "edu-confirmed-absences-misc-tn",
+    title: "Other Rules Tennessee Does Not Have",
+    group: "Other / Miscellaneous",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "confirmed-absences-misc",
+    bodyText:
+      "Tennessee has no just-cause eviction, rent control (local control is barred), rent-increase notice, deposit cap, application-fee cap, lease-copy duty, plain-language or translation rule, tenant-rights guide, tenant-organizing protection, rent-reporting, smart-lock or security-device statute. Each absence has its own row with its search battery.",
+    notes: "TN-SCOPE: STATEWIDE. Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"\"tenant protection\" OR \"renter protection\"\" 0 hits; \"\"plain language\" w/20 (contract OR lease OR consumer)\" 0 hits; \"(deadbolt OR \"dead bolt\" OR \"door viewer\" OR peephole OR rekey!)\" 0 hits. Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Rows: edu-no-for-cause-eviction-tn, edu-local-preemption-tn, edu-no-rent-increase-notice-tn, edu-no-deposit-cap-tn, edu-no-application-fee-cap-tn, edu-no-lease-copy-rule-tn, edu-no-plain-language-statute-tn, edu-no-translation-duty-tn, edu-no-rights-guide-tn, edu-no-tenant-organizing-rule-tn, edu-no-rent-reporting-rule-tn, edu-no-smart-access-rule-tn, edu-no-security-device-rule-tn.",
+  },
+  {
+    id: "edu-confirmed-absences-outside-title-tn",
+    title: "Related Rules Outside the Landlord-Tenant Title",
+    group: "Other / Miscellaneous",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "confirmed-absences-outside-title",
+    bodyText:
+      "Some Tennessee rules that affect landlords sit outside Title 66: the unauthorized-occupant (squatter) removal procedure in the detainer chapter, smoke-alarm duties in the fire-safety titles, the Non-Smoker Protection Act, the service-animal misrepresentation offense, the sex-offender residence limits, the Human Rights Act's housing rules, and the homestead and personal-property exemptions.",
+    notes: "TN-SCOPE: STATEWIDE. Basis: Tenn. Code Ann. §§ 29-18-135, 68-102-151, 39-16-304, 4-21-601, 26-2-301 read section-open 2026-11-07 on the LexisNexis Tennessee Code Unannotated free public-access site (advance.lexis.com document pages, currency line \"Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session.\"; each section's history line checked, latest acts § 29-18-135: \"Acts 2024, ch. 1009, § 1.\"; § 68-102-151: \"2015, ch. 120, § 1.\"; § 39-16-304: \"2023, ch. 194, §§ 2, 3.\"; § 4-21-601: \"2025, ch. 471, § 6.\"; § 26-2-301: \"2026, ch. 709, §§ 1, 2.\"). Lexis whole-Code search (Tennessee Code Unannotated, TOC scope \"Statutes and Legislation\", 2026-11-07): \"squatter! OR (unauthorized w/5 occupant!)\" 4 hits (§§ 66-28-517, 66-7-109, 29-18-132, 29-18-135). Controls in the same session: nonsense term \"zqxvbnmwt\" 0 hits each of the 10 times it was run; must-hit \"Legislature\" 275 hits. Engine checks: quoted phrases do not stem plurals (\"security deposit\" 12, \"security deposits\" 10), the ! expander, OR, AND and w/n work. Tenn. Code Ann. §§ 29-18-135, 68-102-151, 68-120-112, 39-17-1803, 39-16-304, 40-39-211, 4-21-601, 26-2-301, 26-2-103. Points to: edu-unauthorized-occupant-removal-tn.",
   },
 ];
 

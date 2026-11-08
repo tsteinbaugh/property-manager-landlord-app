@@ -785,3 +785,655 @@ Not a re-audit; nothing else in this state was reviewed.
 - `smoking-policy`: Tenant pays for smoking damage caused by "Tenant, an occupant, or a guest or invitee of Tenant", no longer by anyone's smoking.
 - `no-alterations`: the last sentence adds that the clause "does not change who owns an installation that applicable law makes Tenant's property".
 - `addendum-precedence`: a disclosure, notice or addendum "that applicable law says controls over this Lease" now controls, as one the law requires already did.
+
+# Topic gaps pass (end-of-run consistency pass, 2026-11-07): Desktop's running record
+
+## TN topic gaps: running record
+
+Pass: Tennessee topic gaps (GAPS-PROMPT.md staged 2026-11-06 23:36, SOP 1.98), 2026-11-07.
+
+### Status: COMPLETE (final delivery 2026-11-07, late evening MT)
+
+- **Delta:** 239 rows answering all 239 missing topics.
+  - 237 new LANDLORD_EDUCATION rows.
+  - 2 tags: carpet-cleaning-ar and nonrefundable-fees-wv.
+  - Final SHA-256 c890bc8d…0bb1bb.
+- **Log:** gaps-log-TN.md, SHA-256 961aa7eb…0abe1. Sections §1–§7, then SOP proposals and topic questions.
+
+### Channel
+- **Source:** Lexis Tennessee Code Unannotated, free public access. Currency line: "Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session."
+- **CAPTCHA:** one; Taylor cleared it.
+- **Coverage:** 174 sections read section-open; 588 searches saved.
+- **Not read:** the Constitution and federal sources.
+
+### Independent check (rule 80)
+- **Round 1:** all rows; 18 findings, fixed in 48 rows.
+- **Round 2:** the 48 edited rows; 13 findings, fixed.
+- **Edits:** recorded as exact replacements in fixes/r1.py and fixes/r2.py. Rows edited after the last round are listed in log §5.
+- **Key corrections:**
+  - § 13-6-106 public-nuisance receivership: the receiver's lien is first, ahead of mortgages.
+  - § 66-28-105(b): nonresident landlord's agent for service.
+  - § 66-28-104(15): "substantially impaired" means deemed unfit by a governmental authority.
+  - § 66-7-109(a)(1)(C), (c), (f): notice periods.
+
+### Decisions
+- **9a:** early-termination-ks passes; no TN variant.
+- **9b:** holdover-rate-tn confirmed.
+- **9c:** see F3.
+- **8:** confirmed.
+- **7:** no conflict; optional notes line.
+- **6:** shared row not tagged.
+- **D17:** rows whose only hits are unread sections say so: rent tax, construction liens, criminal trespass, nuisance statute, elevators, non-agricultural foreign ownership.
+
+### Findings on existing rows (log §6)
+- **F1:** possession-bond-tn and edu-prohibited-lease-terms-tn vs § 25-2-101(a).
+- **F2:** edu-no-for-cause-eviction-tn vs § 29-18-102(b).
+- **F3:** nonpayment-notice-waiver-tn needs a CARES Act § 9058(c) pointer.
+
+### Open question to Taylor
+- **Q1 (rule 12):** may the federal sections be saved? Recommended: yes.
+
+# Topic gaps pass (end-of-run consistency pass, 2026-11-07): Desktop's log
+
+## Topic gaps: Tennessee (end-of-run consistency pass) — gaps log
+
+Cumulative log, SOP 1.98. 239 delta rows (237 new, 2 tagged) answering 239 of 239 missing topics; 0 topics still open. Built 2026-11-08T03:02Z.
+
+### §1 Sources, channel and currency
+
+**Step A (2026-11-07): passed.** `lease-clauses.csv` 55,756,124 bytes, SHA-256 887af16e…f9743b; 14,729 rows, 14,617 active; 143 active rows carry TN (125 topics); `missing-topics-TN.md` lists 239 topics. The corpus tar's SHA-256 matches and `verify_tn.py` checked 25 files with 0 problems. Old output copies in `/mnt/user-data/outputs` (the 2026-10-04 retro delta, log and sources file) were deleted before work began.
+
+**Channel.** Every Tennessee Code section relied on was read on the LexisNexis Tennessee Code Unannotated free public-access site (reached from http://www.lexisnexis.com/hottopics/tncode; pages on advance.lexis.com), in the built-in browser, whole, on its own document page. The page text was saved with the site's currency line and the section's history line (`src/<section>.txt` in the workspace: CITE, SOURCE with the Lexis document id, READ time, CURRENCY, HISTORY, a hash of the normalised body, then the body). 174 sections have been read this way (2026-11-07, evening, Mountain time). Whole-Code searches ran on the same site's terms-and-connectors search, scoped to "Statutes and Legislation"; all 588 searches are saved with their counts and result lists (`battery/lexis_log_20261107.json`), and every battery line in the delta and in §3 is generated from that file.
+
+**Currency.** Every document page printed: "Current through the 2026 Regular Session and the 2026 2nd Extraordinary Session." Each row's notes give the latest act on the history line of each section it relies on. Sections relied on so far whose history lines show a 2025 or 2026 act: Tenn. Code Ann. § 47-18-104 (2026 Pub. Ch. 614, 647, 866, 1029, 1117, among others; read only for the general bar on unfair or deceptive acts), § 62-20-115 (2026 Pub. Ch. 1039; read for scope only), § 26-2-301 (2026 Pub. Ch. 709, homestead for a disabled adult child; the current text was read), § 39-17-1803 (2025 Pub. Ch. 87) and § 66-28-206 (2026 Pub. Ch. 606 § 2, effective January 1, 2027). § 66-28-402 is printed in two versions; both were read (the version in force until January 1, 2027, and the version effective that day, which adds (a)(7) under Pub. Ch. 606 § 3). Its subsection (b), relied on, is the same in both. Cross-check against the 2026 abstracts held in the corpus ("Compilation of Abstracts ... 2026", Office of Legal Services, August 27, 2026): the 2026 acts listed as amending Titles 25, 26, 28, 29, 39 Chapter 17 or 66, Title 47 Chapters 14 and 18, Title 62 Chapter 20 or Title 68 Chapter 221 were screened by their abstracts. The two Landlord and Tenant acts are Pub. Ch. 606 (firearms: new §§ 66-7-113 and 66-28-206, and § 66-28-402(a)(7), all effective January 1, 2027) and Pub. Ch. 657 (eviction-service videos: new § 29-18-136). All four sections were read section-open. The other acts in those titles (for example Pub. Ch. 684, statute of repose; 727, 731 and 914, real property and associations; 866, hotel booking sites; 952 and 1113, utilities; 1039, professions; 1089, infrastructure districts) concern other subjects, and none appears on the history line of a section relied on. The 2025 and 2026 Public Chapter PDFs on publications.tnsosfiles.com were not reached by script (README: 403 "Request blocked"). No row in this batch relies on an act's text that Lexis does not already print. Before the final delivery, the acts on the history lines of relied-on sections (2026 Pub. Ch. 606, 866 and 1039, and the others on § 47-18-104) will be opened in the built-in browser and checked against the Lexis text (item 11).
+
+**CAPTCHA.** The first document view raised a "Captcha Validation" page. Work stopped and Taylor was asked in the chat to clear it in the browser pane; he did ("done", 18:52 MT) and no further CAPTCHA appeared. It was never worked around. Justia showed a Cloudflare check; it was not attempted, the tab was closed, and Justia is not used.
+
+**Not read this pass.** Case law (penalty doctrine, American rule on fees, partial-payment tolling) was not searched; rows that touch it say so and state no case law. Federal sources (15 U.S.C. § 1692f) are referred to generally and not quoted; see §4 Q1. Tennessee Public Utility Commission rules (Tenn. Comp. R. & Regs.) were not read. The Tennessee Constitution is outside the Code search scope ("trial by jury" w/10 inviolate: 0 hits) and has not been read; no row relies on it.
+
+**Batches.** Batch 1 (money, fees, deposits): 29 new education rows and 2 tags of shared clauses. Batch 2 (waivers, prohibited terms): 15 new education rows. Batch 3 (remedies and termination, items 8 and 9): 16 new education rows. Batch 4 (domestic violence, landscaping and snow, keys, associations; items 3, 6 and 7): 11 new education rows. Batch 5 (building, safety and environmental disclosures): 34 new education rows, mostly confirmed absences. Batch 6 (utilities, EV charging, lease formation and notices): 38 new education rows. Batch 7 (fair housing and animals, eviction procedure, rent, privacy, land and local topics, and the three confirmed-absence summary topics): 94 new education rows. All 239 topics now have a row. Every single-quoted span of statute text in the delta was checked by script against the saved section texts (`scripts/qcheck.py`: all found).
+
+**Result lists.** From search 571 on, the saved log keeps the first 60 results of each search (the count is always the site's full count). Battery lines that show hits list only results from the saved portion and say "and others" where more exist.
+
+### §2 Topics answered
+
+| Topic | Row id | Status | Citation |
+|---|---|---|---|
+| `abandonment-and-mitigation` | `edu-abandonment-mitigation-tn` | Present | Tenn. Code Ann. §§ 66-28-505(c), 66-28-507(c), 66-28-515(a), 66-28-405(a) |
+| `accessory-dwelling-unit` | `edu-no-adu-rental-rule-tn` | Absent | Tenn. Code Ann. §§ 13-7-502, 68-221-402 |
+| `actual-notice-method` | `edu-actual-notice-method-tn` | Present | Tenn. Code Ann. §§ 66-28-106(a), 66-28-108 |
+| `adverse-proceeding-notice` | `edu-no-adverse-proceeding-notice-tn` | Absent | None (absence; battery in §3) |
+| `alarm-tampering-fee` | `edu-alarm-tampering-tn` | Present | Tenn. Code Ann. §§ 68-102-151(b)(2), 68-120-112(b)(2) |
+| `alt-housing` | `edu-alt-housing-tn` | Present | Tenn. Code Ann. § 66-28-502 |
+| `animal-care-access` | `edu-no-animal-care-access-rule-tn` | Absent | Tenn. Code Ann. §§ 66-28-403, 66-28-507 |
+| `appliances-excluded` | `edu-no-appliance-presumption-tn` | Absent | Tenn. Code Ann. § 66-28-502(a)(3) |
+| `asbestos-hazards` | `edu-no-asbestos-notice-tn` | Absent | None (absence; battery in §3) |
+| `association-obligations-disclosure` | `edu-no-association-disclosure-rule-tn` | Absent | Tenn. Code Ann. § 66-28-402 |
+| `attorney-fees` | `edu-attorney-fees-tn` | Present | Tenn. Code Ann. §§ 66-28-505(d), 66-28-510, 66-28-501(a) |
+| `automatic-renewal` | `edu-automatic-renewal-tn` | Present | Tenn. Code Ann. § 47-18-133(a) |
+| `balcony-inspection` | `edu-no-balcony-inspection-rule-tn` | Absent | Tenn. Code Ann. § 66-28-304 |
+| `bed-bug-cooperation` | `edu-no-bed-bug-cooperation-rule-tn` | Absent | Tenn. Code Ann. § 66-28-401(2) |
+| `binding-arbitration` | `edu-binding-arbitration-tn` | Present | Tenn. Code Ann. §§ 29-5-307(a), 29-5-304(c), 29-5-305(b)(4), 66-28-515(b) |
+| `cannabis` | `edu-no-cannabis-protection-tn` | Absent | Tenn. Code Ann. § 39-17-1802 |
+| `carpet-cleaning` | `carpet-cleaning-ar` | Tagged | Tenn. Code Ann. §§ 66-28-104, 66-28-301(b), 66-28-301(e), 66-28-301(g) |
+| `casualty-and-mitigation-waivable` | `edu-casualty-mitigation-waiver-tn` | Present | Tenn. Code Ann. §§ 66-28-104(15), 66-7-102(a) |
+| `certificate-of-occupancy-disclosure` | `edu-certificate-of-occupancy-tn` | Absent | Tenn. Code Ann. §§ 13-21-301, 13-21-308 |
+| `children-occupancy` | `edu-children-occupancy-tn` | Absent | Tenn. Code Ann. §§ 4-21-601, 4-21-602 |
+| `cold-weather-vacate-notice` | `edu-no-cold-weather-rule-tn` | Absent | None (absence; battery in §3) |
+| `collection-fee` | `edu-collection-fee-tn` | Absent | Tenn. Code Ann. § 66-28-104(13) |
+| `common-area-lighting` | `edu-no-common-area-lighting-rule-tn` | Absent | Tenn. Code Ann. § 66-28-304 |
+| `communal-land-lease-approval` | `edu-no-communal-land-rule-tn` | Absent | None (absence; battery in §3) |
+| `condemned-premises-rent-bar` | `edu-no-condemned-rent-bar-tn` | Absent | Tenn. Code Ann. §§ 66-28-502(a)(1), 13-6-102(12) |
+| `confession-of-judgment` | `edu-confession-of-judgment-tn` | Present | Tenn. Code Ann. §§ 66-28-203(a)(1), 25-2-101(a), 29-18-123(a) |
+| `confirmed-absences-habitability` | `edu-confirmed-absences-habitability-tn` | Absent | Tenn. Code Ann. § 66-28-304 |
+| `confirmed-absences-misc` | `edu-confirmed-absences-misc-tn` | Absent | None (absence; battery in §3) |
+| `confirmed-absences-outside-title` | `edu-confirmed-absences-outside-title-tn` | Present | Tenn. Code Ann. §§ 29-18-135, 68-102-151, 39-16-304, 4-21-601, 26-2-301 |
+| `construction-liens` | `edu-construction-liens-tn` | Absent | None (absence; battery in §3) |
+| `cure-and-eviction-grounds` | `edu-cure-and-eviction-grounds-tn` | Present | Tenn. Code Ann. §§ 66-28-505(a)(1), 66-28-517(a), 66-7-109(a), 66-28-201(a) |
+| `defective-drywall-disclosure` | `edu-no-drywall-disclosure-tn` | Absent | None (absence; battery in §3) |
+| `deposit-cost-schedule` | `edu-no-deposit-cost-schedule-tn` | Absent | Tenn. Code Ann. §§ 66-28-104(14), 66-28-301(b)(1) |
+| `deposit-escheat` | `edu-deposit-escheat-tn` | Present | Tenn. Code Ann. §§ 66-28-301(f), 66-29-105(a)(14), 66-29-102(10) |
+| `deposit-installments` | `edu-no-deposit-installments-tn` | Absent | None (absence; battery in §3) |
+| `deposit-last-month-rent` | `edu-no-deposit-last-month-rule-tn` | Absent | Tenn. Code Ann. § 66-28-501(b) |
+| `deposit-surrender-notice` | `edu-deposit-move-out-notice-tn` | Present | Tenn. Code Ann. § 66-28-301(b)(1) |
+| `designated-repairer` | `edu-no-designated-repairer-rule-tn` | Absent | Tenn. Code Ann. § 66-28-505(a)(2) |
+| `disability-accommodation` | `edu-disability-accommodation-tn` | Present | Tenn. Code Ann. §§ 4-21-601(b)(2), 66-7-104(a) |
+| `disaster-displaced-guests` | `edu-no-disaster-guest-rule-tn` | Absent | None (absence; battery in §3) |
+| `disaster-duties` | `edu-disaster-duties-tn` | Present | Tenn. Code Ann. §§ 66-28-503, 66-7-102 |
+| `double-letting` | `edu-no-double-letting-rule-tn` | Absent | Tenn. Code Ann. § 66-28-501(a) |
+| `drug-free-housing-addendum` | `edu-no-drug-free-addendum-rule-tn` | Absent | Tenn. Code Ann. §§ 66-7-107, 66-28-517 |
+| `dv-confidentiality` | `edu-dv-confidentiality-tn` | Present | Tenn. Code Ann. §§ 66-7-112(b)(3), 40-38-606(a) |
+| `dv-deposit-timing` | `edu-no-dv-deposit-timing-rule-tn` | Absent | Tenn. Code Ann. §§ 66-28-205(c), 66-28-301 |
+| `dv-eviction-protection` | `edu-dv-eviction-protection-tn` | Present | Tenn. Code Ann. §§ 66-28-517(g)(1), 36-3-601, 66-7-109(e), 66-28-205(d)(2) |
+| `dv-lockchange` | `edu-no-dv-lockchange-rule-tn` | Absent | Tenn. Code Ann. §§ 36-3-606(a)(4), 66-28-517(g)(2) |
+| `dv-protection-order-chapter-moved` | `edu-dv-protection-order-citations-tn` | Present | Tenn. Code Ann. §§ 36-3-601, 66-7-109(e) |
+| `dv-qualifying-documents` | `edu-dv-qualifying-documents-tn` | Present | Tenn. Code Ann. §§ 66-7-112(b)(1), 66-28-517(g)(4) |
+| `electric-submetering-disclosure` | `edu-no-electric-resale-rule-tn` | Absent | None (absence; battery in §3) |
+| `emergency-contact` | `edu-emergency-contact-tn` | Present | Tenn. Code Ann. § 66-28-302 |
+| `eminent-domain` | `edu-no-eminent-domain-rent-rule-tn` | Absent | None (absence; battery in §3) |
+| `employee-screening` | `edu-no-employee-screening-rule-tn` | Absent | None (absence; battery in §3) |
+| `energy-data-release` | `edu-no-energy-data-rule-tn` | Absent | None (absence; battery in §3) |
+| `entity-landlord-court-representation` | `edu-no-entity-representation-statute-tn` | Absent | None (absence; battery in §3) |
+| `environmental-event-termination` | `edu-no-environmental-termination-tn` | Absent | Tenn. Code Ann. § 66-28-503 |
+| `ev-charging-end-of-tenancy` | `edu-no-ev-end-of-tenancy-rule-tn` | Absent | None (absence; battery in §3) |
+| `ev-charging-requirements` | `edu-no-ev-resale-rule-tn` | Absent | None (absence; battery in §3) |
+| `ev-charging-shared-area` | `edu-ev-charging-hoa-tn` | Present | Tenn. Code Ann. § 66-27-1002 |
+| `eviction-hardship-stay` | `edu-no-hardship-stay-tn` | Absent | Tenn. Code Ann. §§ 29-18-126, 29-18-130 |
+| `eviction-penalty-clause-ban` | `edu-no-eviction-penalty-rule-tn` | Absent | Tenn. Code Ann. §§ 66-28-510, 29-18-125 |
+| `exculpatory-clauses` | `edu-exculpatory-clauses-tn` | Present | Tenn. Code Ann. §§ 66-28-203(a)(2), 66-28-201(a) |
+| `expedited-criminal-eviction` | `edu-expedited-criminal-eviction-tn` | Present | Tenn. Code Ann. §§ 66-28-517, 66-7-109, 66-7-107 |
+| `expedited-deposit-disposition` | `edu-no-expedited-deposit-disposition-tn` | Absent | Tenn. Code Ann. § 66-28-301(b)(2) |
+| `family-child-care` | `edu-no-family-child-care-right-tn` | Absent | None (absence; battery in §3) |
+| `farmland-hunting-rights` | `edu-farmland-hunting-tn` | Present | Tenn. Code Ann. § 70-4-106(a)(1) |
+| `fee-in-lieu-of-deposit` | `edu-no-fee-in-lieu-of-deposit-rule-tn` | Absent | Tenn. Code Ann. §§ 66-28-301, 66-28-104 |
+| `fee-transparency` | `edu-no-fee-transparency-rule-tn` | Absent | Tenn. Code Ann. § 47-18-104 |
+| `fee-unprovided-service` | `edu-no-fee-unprovided-service-rule-tn` | Absent | Tenn. Code Ann. § 66-28-516 |
+| `fire-code-standard` | `edu-building-code-source-tn` | Present | Tenn. Code Ann. § 68-120-101(a)(2) |
+| `fire-sprinkler-duty` | `edu-no-sprinkler-retrofit-rule-tn` | Absent | Tenn. Code Ann. § 68-120-101(a)(4) |
+| `foreclosure-disclosure` | `edu-no-foreclosure-disclosure-tn` | Absent | None (absence; battery in §3) |
+| `foreign-ownership` | `edu-foreign-ownership-tn` | Present | Tenn. Code Ann. §§ 66-2-302(5), 66-2-303(b)(1), 66-2-302(10), 66-2-302(9), 66-2-303(d), 66-2-301 |
+| `forfeiture-redemption` | `edu-no-forfeiture-redemption-tn` | Absent | None (absence; battery in §3) |
+| `frozen-standard-incorporation` | `edu-no-frozen-standard-rule-tn` | Absent | Tenn. Code Ann. § 66-28-304(a)(1) |
+| `furnishings-included` | `edu-no-furnishings-rule-tn` | Absent | None (absence; battery in §3) |
+| `good-cause-notice` | `edu-no-good-cause-notice-tn` | Absent | None (absence; battery in §3) |
+| `government-fee-reimbursement` | `edu-no-government-fee-rule-tn` | Absent | Tenn. Code Ann. § 66-28-104 |
+| `governmental-fines` | `edu-governmental-fines-tn` | Absent | Tenn. Code Ann. § 66-28-104 |
+| `guarantor-renewal` | `edu-no-guarantor-renewal-rule-tn` | Absent | None (absence; battery in §3) |
+| `guest-rights` | `edu-no-guest-rights-statute-tn` | Absent | None (absence; battery in §3) |
+| `habitability-materiality` | `edu-habitability-materiality-tn` | Present | Tenn. Code Ann. §§ 66-28-304, 66-28-502, 66-28-104 |
+| `habitability-modifiable` | `edu-habitability-modifiable-tn` | Present | Tenn. Code Ann. §§ 66-28-304(c), 66-28-502(a)(3), 66-28-201(a) |
+| `habitability-presumption` | `edu-no-habitability-presumption-tn` | Absent | None (absence; battery in §3) |
+| `habitability-statement` | `edu-no-habitability-statement-tn` | Absent | Tenn. Code Ann. § 66-28-304 |
+| `habitability-waiver` | `edu-habitability-waiver-tn` | Present | Tenn. Code Ann. §§ 66-28-304(a)(2), 66-28-201(a) |
+| `hazardous-contamination-disclosure` | `edu-no-contamination-disclosure-tn` | Absent | Tenn. Code Ann. §§ 66-5-201, 66-5-202 |
+| `health-district-rental-rules` | `edu-no-health-district-rules-tn` | Absent | None (absence; battery in §3) |
+| `heating` | `edu-heating-tn` | Present | Tenn. Code Ann. § 66-28-502(a)(3) |
+| `hoa` | `edu-hoa-leasing-tn` | Present | Tenn. Code Ann. §§ 66-27-703, 66-27-701(6) |
+| `holding-deposit` | `edu-no-holding-deposit-rule-tn` | Absent | None (absence; battery in §3) |
+| `home-business` | `edu-no-home-business-rule-tn` | Absent | Tenn. Code Ann. § 66-28-404 |
+| `homestead-waiver` | `edu-homestead-waiver-tn` | Present | Tenn. Code Ann. §§ 26-2-301(a)(1), 26-2-103(a) |
+| `informal-dispute-resolution` | `edu-informal-dispute-resolution-tn` | Absent | Tenn. Code Ann. § 66-28-201 |
+| `inspection-condemnation-disclosure` | `edu-no-inspection-condemnation-disclosure-tn` | Absent | None (absence; battery in §3) |
+| `inspection-notice-penalty` | `edu-no-inspection-notice-penalty-tn` | Absent | Tenn. Code Ann. § 66-28-513 |
+| `jury-waiver` | `edu-jury-waiver-tn` | Present | Tenn. Code Ann. §§ 29-18-119(a), 29-18-120(b), 29-2-101(a) |
+| `key-control-policy` | `edu-no-key-control-rule-tn` | Absent | None (absence; battery in §3) |
+| `knowing-use-penalty` | `edu-knowing-use-penalty-tn` | Present | Tenn. Code Ann. §§ 66-28-203(b), 66-28-206(d) |
+| `landlord-breach-remedy` | `edu-tenant-remedies-landlord-breach-tn` | Present | Tenn. Code Ann. §§ 66-28-501(a), 66-28-301, 66-28-502, 66-28-201(a) |
+| `landlord-liability-insurance` | `edu-no-landlord-insurance-mandate-tn` | Absent | Tenn. Code Ann. § 66-28-201 |
+| `landlord-remedies-termination` | `edu-landlord-remedies-termination-tn` | Present | Tenn. Code Ann. §§ 66-28-510, 66-28-505(c), 29-18-119(a) |
+| `landscaping-irrigation` | `edu-landscaping-tn` | Present | Tenn. Code Ann. § 66-28-304(c) |
+| `late-fee-limit` | `edu-late-fee-limit-tn` | Present | Tenn. Code Ann. § 66-28-201(d) |
+| `lead-safe-certification` | `edu-no-lead-safe-certificate-tn` | Absent | Tenn. Code Ann. §§ 68-131-402, 68-131-404 |
+| `lead-state-notices` | `edu-no-state-lead-notice-tn` | Absent | Tenn. Code Ann. §§ 68-131-402, 68-131-404 |
+| `lease-content-requirements` | `edu-no-lease-content-rule-tn` | Absent | Tenn. Code Ann. § 66-28-201(a) |
+| `lease-copy` | `edu-no-lease-copy-rule-tn` | Absent | Tenn. Code Ann. § 66-28-302 |
+| `lease-notice-initial-requirement` | `edu-no-initialing-rule-tn` | Absent | None (absence; battery in §3) |
+| `lease-registration` | `edu-lease-registration-tn` | Present | Tenn. Code Ann. § 66-7-101 |
+| `lease-term-limitation` | `edu-lease-formalities-tn` | Present | Tenn. Code Ann. § 29-2-101(a)(4) |
+| `lease-type-parity` | `edu-no-lease-parity-rule-tn` | Absent | None (absence; battery in §3) |
+| `lease-type-size` | `edu-lease-type-size-tn` | Present | Tenn. Code Ann. § 66-28-505(b) |
+| `limitation-of-actions` | `edu-limitation-of-actions-tn` | Present | Tenn. Code Ann. §§ 28-3-109(a), 66-28-301(d) |
+| `liquidated-damages` | `edu-liquidated-damages-tn` | Absent | Tenn. Code Ann. §§ 66-28-515, 66-28-201 |
+| `lockout-for-rent-delinquency` | `edu-no-lockout-for-rent-tn` | Present | Tenn. Code Ann. §§ 66-28-511, 29-18-102(a) |
+| `maintenance-duty-shift` | `edu-maintenance-duty-shift-tn` | Present | Tenn. Code Ann. §§ 66-28-304(c), 66-28-201(a) |
+| `meter-conservation-charge` | `edu-no-meter-conservation-charge-tn` | Absent | None (absence; battery in §3) |
+| `military-air-zone-disclosure` | `edu-no-military-zone-disclosure-tn` | Absent | None (absence; battery in §3) |
+| `minor-tenant-filing` | `edu-no-minor-defendant-rule-tn` | Absent | Tenn. Code Ann. § 29-18-115 |
+| `municipal-utility-lien` | `edu-no-municipal-utility-lien-rule-tn` | Absent | Tenn. Code Ann. § 68-221-620 |
+| `nonrefundable-deposit-notice` | `nonrefundable-fees-wv` | Tagged | Tenn. Code Ann. § 66-28-104 |
+| `nonrefundable-deposit-separate-notice` | `edu-no-nonrefundable-separate-notice-tn` | Absent | None (absence; battery in §3) |
+| `nonresident-owner-agent` | `edu-nonresident-owner-agent-tn` | Present | Tenn. Code Ann. § 66-28-105(b) |
+| `notice-service-fee` | `edu-no-notice-service-fee-rule-tn` | Absent | Tenn. Code Ann. § 66-28-201(d) |
+| `notice-to-quit-waiver` | `edu-notice-to-quit-waiver-tn` | Present | Tenn. Code Ann. §§ 66-28-505(b), 66-28-201(c), 66-28-201(a), 29-18-113, 66-7-109(a)(1) |
+| `notice-to-vacate-additional-terms` | `edu-no-vacate-period-alteration-rule-tn` | Absent | Tenn. Code Ann. §§ 66-28-304, 66-28-504 |
+| `nuisance` | `edu-nuisance-tn` | Present | Tenn. Code Ann. §§ 13-6-106(c)(1), 13-6-102(2) |
+| `optional-lease-terms` | `edu-option-to-purchase-tn` | Present | Tenn. Code Ann. §§ 66-5-201, 66-5-202, 66-5-208 |
+| `ordnance-demolition-meter-disclosures` | `edu-no-ordnance-disclosure-tn` | Absent | None (absence; battery in §3) |
+| `other-landlord-facilities` | `edu-no-facility-duty-rule-tn` | Present | None (absence; battery in §3) |
+| `owner-move-in-reservation` | `edu-no-owner-move-in-rule-tn` | Absent | None (absence; battery in §3) |
+| `parking-rules-notice` | `edu-parking-towing-tn` | Present | Tenn. Code Ann. §§ 66-28-518, 66-28-519, 66-28-520, 66-28-402 |
+| `part5-nonwaivable` | `edu-part5-nonwaivable-tn` | Present | Tenn. Code Ann. §§ 66-28-201(a), 66-28-203(b), 66-28-505(b), 66-28-201(c), 66-28-515(b) |
+| `periodic-services-entry` | `edu-periodic-services-entry-tn` | Absent | Tenn. Code Ann. § 66-28-403 |
+| `pest-control-notice` | `edu-no-pest-control-notice-tn` | Absent | Tenn. Code Ann. § 66-28-403(a) |
+| `pet-eviction-fact-sheet` | `edu-no-pet-eviction-fact-sheet-tn` | Absent | None (absence; battery in §3) |
+| `plain-language-consumer-statement` | `edu-no-plain-language-statute-tn` | Absent | None (absence; battery in §3) |
+| `political-access` | `edu-no-political-access-rule-tn` | Absent | None (absence; battery in §3) |
+| `pool-safety` | `edu-no-pool-safety-rule-tn` | Absent | Tenn. Code Ann. § 68-14-322 |
+| `portable-cooling-device` | `edu-no-cooling-device-right-tn` | Absent | None (absence; battery in §3) |
+| `portable-solar` | `edu-no-portable-solar-right-tn` | Absent | Tenn. Code Ann. § 66-9-207 |
+| `portfolio-thresholds` | `edu-no-portfolio-threshold-tn` | Present | Tenn. Code Ann. §§ 66-28-102, 4-21-602 |
+| `private-well-testing` | `edu-no-well-testing-rule-tn` | Absent | Tenn. Code Ann. § 66-28-304 |
+| `prohibited-acts-renter` | `edu-prohibited-acts-renter-tn` | Present | Tenn. Code Ann. § 66-28-401 |
+| `promises-to-repair` | `edu-no-promises-to-repair-rule-tn` | Absent | Tenn. Code Ann. §§ 47-18-104, 66-28-304 |
+| `prop65-rental-warning` | `edu-no-prop65-equivalent-tn` | Absent | None (absence; battery in §3) |
+| `property-tax-rent-disclosure` | `edu-no-property-tax-statement-tn` | Absent | None (absence; battery in §3) |
+| `protected-class-inquiry-ban` | `edu-protected-class-inquiry-tn` | Present | Tenn. Code Ann. § 4-21-601(a)(5) |
+| `purpose-limitation` | `edu-purpose-limitation-tn` | Present | Tenn. Code Ann. §§ 66-7-105, 66-7-107(a)(1) |
+| `recycling-notice` | `edu-no-recycling-notice-tn` | Absent | Tenn. Code Ann. § 66-28-304(a)(4) |
+| `redemption` | `edu-no-redemption-right-tn` | Absent | Tenn. Code Ann. §§ 66-28-505, 66-28-508 |
+| `religious-cultural-display` | `edu-no-religious-display-rule-tn` | Absent | None (absence; battery in §3) |
+| `rent-concession` | `edu-no-rent-concession-rule-tn` | Absent | None (absence; battery in §3) |
+| `rent-demand-bar` | `edu-rent-demand-tn` | Present | Tenn. Code Ann. §§ 66-28-201(c), 66-7-109(a)(1) |
+| `rent-escalation` | `edu-no-rent-escalation-rule-tn` | Absent | Tenn. Code Ann. § 66-28-514 |
+| `rent-installments` | `edu-rent-installments-tn` | Present | Tenn. Code Ann. § 66-28-201 |
+| `rent-into-court-counterclaim` | `edu-no-rent-into-court-tn` | Absent | Tenn. Code Ann. § 29-18-130(b)(2) |
+| `rent-receipt-anti-waiver` | `edu-no-rent-receipt-anti-waiver-tn` | Absent | Tenn. Code Ann. § 66-28-304(c) |
+| `rent-reporting` | `edu-no-rent-reporting-rule-tn` | Absent | None (absence; battery in §3) |
+| `rent-tax` | `edu-rent-tax-tn` | Absent | None (absence; battery in §3) |
+| `repair-cost-termination` | `edu-repair-cost-termination-tn` | Present | Tenn. Code Ann. §§ 66-28-503(b), 66-28-514(b)(1) |
+| `repair-escrow-exemption-notice` | `edu-no-repair-escrow-notice-tn` | Absent | None (absence; battery in §3) |
+| `repair-notice` | `edu-repair-notice-tn` | Present | Tenn. Code Ann. §§ 66-28-501(a), 66-28-505(a)(2), 66-28-201(a) |
+| `required-disclosures` | `edu-no-required-coverage-notice-tn` | Absent | Tenn. Code Ann. § 66-28-302 |
+| `required-fees` | `edu-no-required-fee-list-tn` | Absent | Tenn. Code Ann. §§ 66-28-104(13), 66-28-402(b) |
+| `rights-responsibilities-guide` | `edu-no-rights-guide-tn` | Absent | None (absence; battery in §3) |
+| `sanitary-code-variance` | `edu-no-sanitary-variance-rule-tn` | Absent | None (absence; battery in §3) |
+| `seasonal-tenancy` | `edu-seasonal-tenancy-tn` | Present | Tenn. Code Ann. §§ 66-28-102, 13-7-602 |
+| `security-deposit-holding` | `edu-security-deposit-holding-tn` | Present | Tenn. Code Ann. § 66-28-301(a) |
+| `security-deposit-nonwaiver` | `edu-security-deposit-nonwaiver-tn` | Present | Tenn. Code Ann. §§ 66-28-201(a), 66-28-203(b) |
+| `security-deposit-on-sale` | `edu-security-deposit-on-sale-tn` | Present | Tenn. Code Ann. § 66-28-305 |
+| `security-deposit-penalty` | `edu-security-deposit-penalty-tn` | Present | Tenn. Code Ann. § 66-28-301(c) |
+| `security-deposit-standards` | `edu-no-deposit-standards-rule-tn` | Absent | None (absence; battery in §3) |
+| `security-devices` | `edu-no-security-device-rule-tn` | Absent | None (absence; battery in §3) |
+| `senior-housing-work-card` | `edu-no-senior-work-card-rule-tn` | Absent | None (absence; battery in §3) |
+| `service-animal-denial-penalty` | `edu-service-animal-denial-penalty-tn` | Present | Tenn. Code Ann. § 66-7-106(d) |
+| `service-animal-misrepresentation` | `edu-service-animal-misrepresentation-tn` | Present | Tenn. Code Ann. §§ 39-16-304(b)(1), 66-7-111, 66-28-406, 66-28-505(f) |
+| `sex-offender-occupancy` | `edu-sex-offender-residence-tn` | Present | Tenn. Code Ann. § 40-39-211(a)(1) |
+| `sfr-occupancy-disclosure` | `edu-no-sfr-occupancy-disclosure-tn` | Absent | None (absence; battery in §3) |
+| `shoreline-access-disclosure` | `edu-no-shoreline-disclosure-tn` | Absent | None (absence; battery in §3) |
+| `showing-notice-waiver` | `edu-showing-notice-waiver-tn` | Present | Tenn. Code Ann. §§ 66-28-403(e)(5), 66-28-201(a) |
+| `shutdown-rent-protection` | `edu-no-shutdown-protection-tn` | Absent | None (absence; battery in §3) |
+| `single-family-zone-lease-limit` | `edu-no-single-family-zone-limit-tn` | Absent | None (absence; battery in §3) |
+| `smart-access` | `edu-no-smart-access-rule-tn` | Absent | Tenn. Code Ann. § 66-28-403(d) |
+| `smoke-drift-waiver` | `edu-smoke-drift-tn` | Present | Tenn. Code Ann. §§ 39-17-1803(a)(9), 39-17-1804(8), 39-17-1810, 39-17-1802, 66-28-201(a) |
+| `snow-removal` | `edu-snow-removal-tn` | Present | Tenn. Code Ann. §§ 66-28-304(a)(3), 6-2-201(17) |
+| `social-security-defense` | `edu-no-benefit-delay-defense-tn` | Absent | None (absence; battery in §3) |
+| `special-district-representation` | `edu-no-special-district-rule-tn` | Absent | None (absence; battery in §3) |
+| `sprinkler-disclosure` | `edu-no-sprinkler-disclosure-tn` | Absent | None (absence; battery in §3) |
+| `statute-of-frauds-lease-term` | `edu-statute-of-frauds-lease-tn` | Present | Tenn. Code Ann. §§ 29-2-101(a)(4), 66-7-101 |
+| `statutory-caps` | `edu-statutory-caps-tn` | Present | Tenn. Code Ann. §§ 66-28-201(d), 47-14-103, 66-35-102(a), 29-18-130(b)(2) |
+| `statutory-early-termination` | `edu-statutory-early-termination-tn` | Present | Tenn. Code Ann. §§ 66-28-104(15), 66-7-102(a), 66-28-103(c) |
+| `steam-radiator-covers` | `edu-no-radiator-cover-rule-tn` | Absent | Tenn. Code Ann. § 66-28-304 |
+| `stove-refrigerator` | `edu-no-appliance-rule-tn` | Absent | Tenn. Code Ann. § 66-28-304 |
+| `student-housing` | `edu-student-housing-tn` | Present | Tenn. Code Ann. §§ 66-28-102, 4-21-602 |
+| `subsidized-inspection-refusal` | `edu-no-subsidized-inspection-rule-tn` | Absent | None (absence; battery in §3) |
+| `subsidy-habitability-proration` | `edu-no-subsidy-proration-rule-tn` | Absent | None (absence; battery in §3) |
+| `subsidy-late-fee` | `edu-no-subsidy-late-fee-rule-tn` | Absent | Tenn. Code Ann. § 66-28-201 |
+| `substandard-property-receivership` | `edu-substandard-receivership-tn` | Present | Tenn. Code Ann. §§ 13-6-106(c)(1), 13-6-102(2), 13-6-102(14), 13-6-106(c)(2) |
+| `tax-escalation` | `edu-no-tax-escalation-rule-tn` | Absent | Tenn. Code Ann. § 66-28-104 |
+| `telecom-access` | `edu-no-telecom-access-rule-tn` | Absent | None (absence; battery in §3) |
+| `tenancy-at-will` | `edu-no-tenancy-at-will-statute-tn` | Absent | Tenn. Code Ann. § 66-28-202 |
+| `tenant-bankruptcy` | `edu-no-tenant-bankruptcy-rule-tn` | Absent | None (absence; battery in §3) |
+| `tenant-confidential-information` | `edu-tenant-confidential-info-tn` | Present | Tenn. Code Ann. § 66-7-112(b)(3) |
+| `tenant-employee-housing` | `edu-no-employee-housing-rule-tn` | Absent | None (absence; battery in §3) |
+| `tenant-insurance-claims` | `edu-no-tenant-claim-rule-tn` | Absent | None (absence; battery in §3) |
+| `tenant-portal` | `edu-tenant-portal-tn` | Present | Tenn. Code Ann. §§ 66-28-302, 66-28-108 |
+| `tenant-records` | `edu-no-tenant-records-rule-tn` | Absent | None (absence; battery in §3) |
+| `tenant-repair-remedies` | `edu-tenant-repair-remedies-tn` | Present | Tenn. Code Ann. §§ 66-28-501(a), 66-28-502(a)(1) |
+| `tenant-right-to-organize` | `edu-no-tenant-organizing-rule-tn` | Absent | Tenn. Code Ann. § 66-28-514 |
+| `tenant-rights-statement` | `edu-no-tenant-rights-statement-tn` | Absent | None (absence; battery in §3) |
+| `tenant-statutory-duties` | `edu-tenant-statutory-duties-tn` | Present | Tenn. Code Ann. §§ 66-28-401(1), 66-28-402 |
+| `term-change-notice` | `edu-term-change-notice-tn` | Absent | Tenn. Code Ann. § 66-28-512(b) |
+| `tpa-exemption-notice` | `edu-no-tpa-exemption-notice-tn` | Absent | Tenn. Code Ann. § 66-35-102 |
+| `tpa-notice` | `edu-no-tpa-notice-tn` | Absent | None (absence; battery in §3) |
+| `tpa-sunset` | `edu-no-tpa-sunset-tn` | Absent | Tenn. Code Ann. § 66-28-102 |
+| `translation-duty` | `edu-no-translation-duty-tn` | Absent | None (absence; battery in §3) |
+| `trespass-notice` | `edu-trespass-notice-tn` | Present | Tenn. Code Ann. §§ 66-28-202(b), 29-18-135 |
+| `truth-in-renting` | `edu-no-truth-in-renting-tn` | Absent | Tenn. Code Ann. § 66-28-203 |
+| `unbundled-parking` | `edu-no-unbundled-parking-rule-tn` | Absent | None (absence; battery in §3) |
+| `unconscionability` | `edu-unconscionability-tn` | Present | Tenn. Code Ann. §§ 66-28-204(a), 66-28-505(f)(1) |
+| `unpaid-damages-interest` | `edu-unpaid-amount-interest-tn` | Present | Tenn. Code Ann. §§ 47-14-103(2), 47-14-121(c), 29-18-125, 66-28-201(d) |
+| `usufructuary-lessor` | `edu-no-usufruct-rule-tn` | Absent | None (absence; battery in §3) |
+| `utility-allowance-cap` | `edu-no-utility-allowance-rule-tn` | Absent | None (absence; battery in §3) |
+| `utility-apportionment` | `edu-no-utility-apportionment-rule-tn` | Absent | Tenn. Code Ann. § 66-28-104(13) |
+| `utility-deposit-return` | `edu-no-utility-deposit-rule-tn` | Absent | Tenn. Code Ann. §§ 66-29-105(a)(12), 68-221-620(d)(1) |
+| `utility-disclosure-attachment` | `edu-no-utility-disclosure-attachment-tn` | Absent | None (absence; battery in §3) |
+| `utility-disconnection-notice-authorization` | `edu-no-utility-disconnection-notice-rule-tn` | Absent | None (absence; battery in §3) |
+| `utility-interruption-submeter` | `edu-no-submeter-interruption-rule-tn` | Absent | Tenn. Code Ann. § 66-28-502 |
+| `utility-landlord-account` | `edu-utility-landlord-account-tn` | Present | Tenn. Code Ann. §§ 66-28-521, 66-28-504 |
+| `utility-shutoff-statute` | `edu-utility-shutoff-tn` | Absent | Tenn. Code Ann. § 68-102-153 |
+| `utility-submetering-disclosure` | `edu-no-submetering-rule-tn` | Absent | Tenn. Code Ann. § 68-221-620 |
+| `veterans-incentive` | `edu-no-veterans-incentive-tn` | Absent | None (absence; battery in §3) |
+| `waiver-by-acceptance` | `edu-waiver-by-acceptance-tn` | Present | Tenn. Code Ann. §§ 66-28-508, 66-28-202(a) |
+| `water-heater-temperature` | `edu-no-water-heater-temperature-rule-tn` | Absent | Tenn. Code Ann. § 66-28-304 |
+| `waterbed` | `edu-no-waterbed-rule-tn` | Absent | None (absence; battery in §3) |
+| `window-guards` | `edu-no-window-guard-rule-tn` | Absent | Tenn. Code Ann. § 66-28-304 |
+| `written-notice-required` | `edu-written-notice-tn` | Present | Tenn. Code Ann. §§ 66-28-106(b), 66-28-108 |
+
+Open topics: 
+
+### §3 Batteries for every absence
+
+Each line is generated from the saved search log (`battery/lexis_log_20261107.json`), never typed. All searches: Lexis Tennessee Code Unannotated, whole-Code terms-and-connectors search, TOC scope "Statutes and Legislation", run in the built-in browser 2026-11-07 (evening, Mountain time). Controls in the same session: nonsense term "zqxvbnmwt" 0 hits each of the 10 times it was run; must-hit "Legislature" 275 hits. Engine checks: quoted phrases do not stem plurals ("security deposit" 12, "security deposits" 10), the ! expander, OR, AND and w/n work.
+
+- `edu-abandonment-mitigation-tn` (Present): "abandon! w/20 (tenant OR "dwelling unit")" 6 hits (§§ 66-28-507, 66-28-405, 66-28-403, 66-28-301, 66-28-511, 66-28-517); "mitigat! w/20 (landlord OR lessor OR rent!)" 0 hits.
+- `edu-no-adu-rental-rule-tn` (Absent): ""accessory dwelling unit!" OR "accessory dwelling"" 2 hits (§§ 68-221-402, 13-7-502).
+- `edu-actual-notice-method-tn` (Present): "notice w/10 ("electronic mail" OR "text message")" 17 hits (§§ 66-29-130, 62-6-116, 66-32-114, 62-6-411, 62-2-307, 68-221-608, and others); ""actual notice" OR "actual knowledge"" 141 hits (§§ 21-1-205, 29-34-205, 50-6-201, 34-6-105, and others).
+- `edu-no-adverse-proceeding-notice-tn` (Absent): "(tenant OR lessee) w/20 (notif! OR notice) AND (foreclos! OR condemn! OR "adverse claim")" 0 hits.
+- `edu-alarm-tampering-tn` (Present): "(smoke w/3 (detector! OR alarm!)) AND (tamper! OR remov! OR disabl!)" 7 hits (§§ 68-102-151, 68-120-112, 37-2-412, and others); ""carbon monoxide" w/20 (detector! OR alarm!)" 6 hits (§§ 68-120-112, 55-9-218, and others).
+- `edu-alt-housing-tn` (Present): "(relocat! OR "alternate housing" OR "alternative housing") w/20 (tenant OR landlord)" 3 hits (§§ 13-11-107, 67-4-2109).
+- `edu-no-animal-care-access-rule-tn` (Absent): "(animal OR pet) w/20 (abandon!) AND (premises OR tenant OR landlord OR enter!)" 4 hits (§§ 39-14-202, 39-14-217, 39-14-212, 39-14-215); "(pet OR dog OR cat OR animal) w/20 (evict! OR abandon!) AND (tenant OR landlord)" 0 hits.
+- `edu-no-appliance-presumption-tn` (Absent): "appliance! w/20 (landlord OR tenant OR "dwelling unit" OR "rental")" 0 hits.
+- `edu-no-asbestos-notice-tn` (Absent): "asbestos" 35 hits (§§ 29-34-702, 29-34-602, 29-34-606, 29-34-707, 29-34-704, 29-34-706, 8-6-109, 29-34-708, and others).
+- `edu-no-association-disclosure-rule-tn` (Absent): "(condominium OR "homeowners association" OR "property owners association") w/30 (lease OR lessee OR tenant)" 15 hits (§§ 66-27-405, 66-27-306, 66-27-120, 66-27-203, 66-27-202, 66-27-507, and others); "(association) w/30 (lessee OR tenant) AND (rent OR leas!)" 17 hits (§§ 12-10-109, 7-4-101, 62-13-102, 55-50-102, and others).
+- `edu-attorney-fees-tn` (Present): ""attorney's fees" w/30 ("rental agreement" OR lease) AND (landlord OR tenant)" 6 hits (§§ 66-28-512, 66-28-513, 66-28-505, 66-28-501, 66-28-517, 66-28-510); "reciproc! w/20 "attorney"" 19 hits (§§ 56-16-109, 56-16-110, 56-16-204, 56-16-116, and others).
+- `edu-automatic-renewal-tn` (Present): "("automatic renewal" OR "automatically renew!" OR "auto-renew!")" 12 hits (§§ 62-3-120, 47-18-603, 66-29-105, 47-18-103, 66-29-134, 62-32-325, 47-18-133, 47-18-505, and others).
+- `edu-no-balcony-inspection-rule-tn` (Absent): "(balcon! OR deck! OR "exterior elevated element!") w/20 inspect!" 0 hits.
+- `edu-no-bed-bug-cooperation-rule-tn` (Absent): ""bed bug!" OR bedbug!" 0 hits.
+- `edu-binding-arbitration-tn` (Present): ""Uniform Arbitration Act"" 33 hits (§§ 29-5-315, 29-5-313, 29-5-306, 29-5-308, and others); "arbitrat! w/20 (residence OR "real property" OR lease OR tenant)" 3 hits (§§ 29-4-101, 47-2A-501, 13-6-102); "arbitrat! w/20 (agreement OR contract) AND (consumer OR residential)" 6 hits (§§ 65-5-202, 36-6-404, 56-2-208, 65-5-109, 47-18-5706, 47-18-5809); "initial! w/10 (provision OR clause OR waiver) AND (lease OR "rental agreement" OR contract)" 4 hits (§§ 4-1-412, 66-32-113, 47-18-305, 56-42-105).
+- `edu-no-cannabis-protection-tn` (Absent): "(marijuana OR cannabis) w/30 (lease OR tenant OR landlord OR rental OR residen!)" 0 hits; "marijuana OR cannabis" 54 hits (§§ 68-7-102, 24-7-103, 39-17-455, 68-7-109, 39-17-417, and others).
+- `carpet-cleaning-ar` (Tagged): "carpet! w/30 (tenant OR landlord OR lease OR "rental agreement")" 0 hits; "deposit! w/20 (cleaning OR carpet!)" 2 hits (§§ 68-221-1004, 43-24-103); ""wear and tear"" 10 hits (§§ 55-24-103, 66-28-104, 66-32-114, 56-6-1101, 66-7-109, 56-2-126, 4-21-601, 55-10-425, and others).
+- `edu-casualty-mitigation-waiver-tn` (Present): ""fire or casualty"" 3 hits (§§ 32-3-111, 66-28-503, 66-28-201); ""agreement to the contrary" w/30 (lessee OR tenant OR lease)" 3 hits (§§ 66-7-102, 66-7-109, 66-28-522); "mitigat! w/20 (landlord OR lessor OR rent!)" 0 hits.
+- `edu-certificate-of-occupancy-tn` (Absent): ""certificate of occupancy" w/30 (tenant OR lease OR rent!)" 1 hit (§ 13-21-308).
+- `edu-children-occupancy-tn` (Absent): "child! w/20 (lease OR rental OR tenant) AND (refuse OR occupan!)" 6 hits (§§ 49-2-142, 66-7-109, 66-28-517, 49-1-201, 39-13-606, 49-2-203).
+- `edu-no-cold-weather-rule-tn` (Absent): "(cold OR winter OR freez!) w/20 (vacate OR evict! OR tenant)" 2 hits (§§ 39-15-502, 47-18-2111).
+- `edu-collection-fee-tn` (Absent): ""collection agency" w/30 fee!" 2 hits (§§ 40-24-101, 67-1-1445); ""collection" w/10 (cost! OR fee!) AND (debtor OR consumer)" 12 hits (§§ 68-211-835, 62-20-124, 62-20-102, 57-4-302, 8-13-108, 68-14-704, 47-9-626, 47-9-607, and others); "(collection OR collect!) w/20 (rent OR tenant OR landlord)" 69 hits (§§ 68-11-608, 7-55-112, 13-30-109, 68-211-911, 64-1-1103, 9-21-407, 7-67-113, 12-10-112, and others).
+- `edu-no-common-area-lighting-rule-tn` (Absent): ""common area" w/20 (electric! OR light!) AND tenant" 0 hits.
+- `edu-no-communal-land-rule-tn` (Absent): "(tribal OR "Indian land" OR communal) w/20 lease" 0 hits.
+- `edu-no-condemned-rent-bar-tn` (Absent): "(condemn! OR "unfit for human habitation") w/20 rent!" 1 hit (§ 66-28-104); ""unfit for human habitation" w/30 (repair! OR demol!)" 0 hits; "(condemn! OR "unfit for human habitation") w/30 (disclos! OR notif!) AND (tenant OR lessee)" 0 hits.
+- `edu-confession-of-judgment-tn` (Present): ""confess judgment" OR "confession of judgment" OR "confessing judgment" OR "warrant of attorney"" 36 hits (§§ 29-18-123, 40-24-103, 25-2-102, 25-2-101, 47-18-5528, and others).
+- `edu-confirmed-absences-habitability-tn` (Absent): ""fit for human habitation"" 0 hits; "(habitab! OR "fit and habitable") w/30 (waive! OR agree!)" 0 hits; ""fit and habitable"" 2 hits (§§ 66-28-304, 13-6-102).
+- `edu-confirmed-absences-misc-tn` (Absent): ""tenant protection" OR "renter protection"" 0 hits; ""plain language" w/20 (contract OR lease OR consumer)" 0 hits; "(deadbolt OR "dead bolt" OR "door viewer" OR peephole OR rekey!)" 0 hits.
+- `edu-confirmed-absences-outside-title-tn` (Present): "squatter! OR (unauthorized w/5 occupant!)" 4 hits (§§ 66-28-517, 66-7-109, 29-18-132, 29-18-135).
+- `edu-construction-liens-tn` (Absent): "(lien w/20 (improvement! OR material! OR labor)) AND (lessee OR tenant)" 7 hits (§§ 66-19-302, 66-11-102, 66-11-147, 67-4-409, 47-2A-306, and others).
+- `edu-cure-and-eviction-grounds-tn` (Present): "noncompliance w/20 tenant" 6 hits (§§ 66-28-505, 66-28-506, 66-28-502, 66-28-501, 66-28-406, 66-7-111); ""detainer warrant" w/20 (breach OR noncompliance)" 1 hit (§ 66-28-505); ""materially affecting health and safety"" 4 hits (§§ 66-28-505, 66-28-304, 66-28-401, 66-28-506).
+- `edu-no-drywall-disclosure-tn` (Absent): "drywall OR "gypsum board"" 1 hit (§ 67-6-396).
+- `edu-no-deposit-cost-schedule-tn` (Absent): "deposit! w/30 (cleaning OR repair!) AND (schedule OR "estimated cost" OR listing)" 2 hits (§§ 66-28-301, 59-8-110); "deposit! w/20 (cleaning OR carpet!)" 2 hits (§§ 68-221-1004, 43-24-103).
+- `edu-deposit-escheat-tn` (Present): "unclaimed w/20 deposit!" 11 hits (§§ 45-2-1501, 56-9-333, 66-29-115, 66-29-148, 44-17-503, 4-51-123, and others); ""security deposit" w/50 (abandon! OR unclaimed OR presum!)" 1 hit (§ 66-28-301).
+- `edu-no-deposit-installments-tn` (Absent): "installment! w/10 deposit!" 4 hits (§§ 50-6-232, 45-3-701, 45-3-104, 47-31-103); "deposit! w/20 installment!" 6 hits (§§ 50-6-232, 45-3-701, 45-3-104, 47-31-103, 45-3-707, 9-4-103); ""security deposit" w/30 account" 1 hit (§ 66-28-301).
+- `edu-no-deposit-last-month-rule-tn` (Absent): ""last month" w/10 rent" 0 hits; ""last month's rent"" 0 hits; "prepaid w/5 rent!" 5 hits (§§ 66-28-501, 66-28-503, 66-30-103, 66-28-504, 66-28-405).
+- `edu-deposit-move-out-notice-tn` (Present): ""intent to vacate"" 1 hit (§ 66-28-301); "deposit! w/30 "intent to vacate"" 0 hits.
+- `edu-no-designated-repairer-rule-tn` (Absent): "repair! w/20 (licensed OR contractor) AND (tenant OR landlord)" 0 hits; "("repair and deduct" OR "deduct" w/10 rent)" 1 hit (§ 66-28-502).
+- `edu-disability-accommodation-tn` (Present): ""Tennessee Human Rights Act" OR (discriminat! w/20 (housing OR "real property" OR dwelling))" 15 hits (§§ 4-21-302, 4-21-601, 4-21-304, 4-21-306, 4-21-603, 4-21-311, and others); "handicap! w/20 (housing OR dwelling)" 8 hits (§§ 13-23-202, 13-23-203, 13-23-204, and others).
+- `edu-no-disaster-guest-rule-tn` (Absent): "(disaster OR emergency) w/20 (guest! OR displaced OR evacuee!)" 7 hits (§§ 63-10-207, 58-2-110, 58-2-402, 58-2-403, 50-7-803, and others).
+- `edu-disaster-duties-tn` (Present): "(disaster OR "state of emergency") w/20 (rent OR tenant OR lease)" 2 hits (§§ 67-6-235, 58-2-117).
+- `edu-no-double-letting-rule-tn` (Absent): ""double letting" OR (let w/10 "more than one")" 1 hit (§ 12-3-305).
+- `edu-no-drug-free-addendum-rule-tn` (Absent): ""drug-free" OR "drug free" w/20 (housing OR lease)" 0 hits; "(eviction OR evict! OR detainer) w/20 (drug OR criminal OR violent)" 8 hits (§§ 40-31-104, 40-31-101, 40-31-107, 40-31-105, 40-31-102, and others).
+- `edu-dv-confidentiality-tn` (Present): ""address confidentiality"" 15 hits (§§ 2-6-206, 40-38-602, 40-38-603, 40-38-606, and others); "victim w/20 (address OR location) AND confidential!" 23 hits (§§ 40-38-602, 40-38-603, 40-38-606, 40-38-610, and others); ""substitute address" w/30 (landlord OR lease OR tenant OR "private")" 1 hit (§ 40-38-606).
+- `edu-no-dv-deposit-timing-rule-tn` (Absent): "deposit! w/30 ("domestic abuse" OR victim)" 10 hits (§§ 39-15-505, 39-15-504, 67-4-602, 29-13-403, 9-4-205, 40-38-506, 24-2-109, 9-4-214, and others).
+- `edu-dv-eviction-protection-tn` (Present): ""domestic abuse" w/30 (landlord OR lease OR tenant)" 4 hits (§§ 66-7-112, 66-28-205, 66-28-517, 66-7-109); ""order of protection" w/20 (landlord OR lessor)" 0 hits.
+- `edu-no-dv-lockchange-rule-tn` (Absent): "(lock OR locks) w/30 (victim OR "domestic abuse" OR "order of protection")" 0 hits; "(deadbolt OR "dead bolt" OR "door viewer" OR peephole OR rekey!)" 0 hits; ""order of protection" w/30 (possession OR residence OR dwelling)" 15 hits (§§ 36-3-625, 39-14-401, 36-3-604, 39-11-611, and others).
+- `edu-dv-protection-order-citations-tn` (Present): ""36-3-601"" 35 hits (§§ 36-3-601, 66-7-109, 39-13-113, 40-11-150, 66-7-112, 66-28-205, and others).
+- `edu-dv-qualifying-documents-tn` (Present): ""domestic abuse" w/30 (landlord OR lease OR tenant)" 4 hits (§§ 66-7-112, 66-28-205, 66-28-517, 66-7-109).
+- `edu-no-electric-resale-rule-tn` (Absent): "electric! w/20 (submeter! OR resell! OR resale)" 3 hits (§§ 67-4-3101, 7-51-910, 7-52-303); "(utilit! OR electric! OR water) w/20 (resell! OR resale OR "actual cost") AND (tenant OR landlord OR apartment)" 3 hits (§ 67-6-102); "submeter! OR "sub-meter!" OR "submetering"" 2 hits (§§ 68-221-620, 12-4-118).
+- `edu-emergency-contact-tn` (Present): "(portal OR "online") w/20 (tenant OR rent OR landlord)" 1 hit (§ 66-28-302).
+- `edu-no-eminent-domain-rent-rule-tn` (Absent): "("eminent domain" OR condemnation) w/30 (lessee OR tenant OR leasehold)" 7 hits (§§ 64-1-804, 64-1-102, 9-21-107, 5-19-107, 13-20-703, and others).
+- `edu-no-employee-screening-rule-tn` (Absent): "(employee! OR staff) w/20 ("background check" OR "criminal history") AND (apartment OR landlord OR tenant)" 1 hit (§ 49-7-149).
+- `edu-no-energy-data-rule-tn` (Absent): "(energy w/5 (usage OR consumption OR data)) AND (tenant OR owner OR benchmark!)" 7 hits (§§ 68-205-102, 67-5-1002, 68-102-147, 68-205-107, 7-70-101, 10-7-504).
+- `edu-no-entity-representation-statute-tn` (Absent): "(corporation OR entity OR "limited liability") w/30 (represent! OR appear!) AND ("general sessions" OR "detainer")" 7 hits (§§ 16-3-905, 40-35-302, 40-11-302, 68-221-604, 68-221-1304, and others).
+- `edu-no-environmental-termination-tn` (Absent): "(flood! OR "natural disaster" OR tornado OR environmental) w/20 (lease OR tenan!) AND terminat!" 3 hits (§§ 11-3-111, 7-67-109, 7-89-109).
+- `edu-no-ev-end-of-tenancy-rule-tn` (Absent): ""electric vehicle" w/30 (tenant OR lessee OR landlord OR lease)" 0 hits.
+- `edu-no-ev-resale-rule-tn` (Absent): ""electric vehicle" w/30 (tenant OR lessee OR landlord OR lease)" 0 hits; "electric! w/20 (submeter! OR resell! OR resale)" 3 hits (§§ 67-4-3101, 7-51-910, 7-52-303).
+- `edu-ev-charging-hoa-tn` (Present): ""electric vehicle" w/30 (association OR condominium OR "common area")" 2 hits (§§ 66-27-1002, 66-27-419); ""electric vehicle" w/30 (tenant OR lessee OR landlord OR lease)" 0 hits.
+- `edu-no-hardship-stay-tn` (Absent): "(detainer OR eviction) w/20 (stay OR continuance) AND hardship" 0 hits.
+- `edu-no-eviction-penalty-rule-tn` (Absent): "penalt! w/20 (lease OR "rental agreement") AND (eviction OR detainer)" 2 hits (§§ 66-7-112, 66-28-205); "penalt! w/10 (void OR unenforceable)" 5 hits (§§ 40-11-311, 50-6-412, 47-14-108, 47-2-718, 49-7-2802); ""liquidated damages"" 22 hits (§§ 43-16-134, 47-11-107, 12-3-701, 47-2A-103, 47-18-2603, 59-13-132, and others).
+- `edu-exculpatory-clauses-tn` (Present): "(exculpat! OR indemnif! OR "hold harmless") w/30 (lease OR tenant OR landlord OR lessee)" 5 hits (§§ 66-28-203, 7-54-105, 56-32-105, 69-5-808, 7-57-502); "(exculpat! OR "limit the landlord" OR "liability of the landlord")" 8 hits (§§ 40-30-404, 70-7-205, 40-30-123, 35-15-1008, 40-30-304, 35-15-105, 66-28-203, 40-35-322); ""indemnify the landlord" OR "exculpate"" 2 hits (§§ 66-28-203, 40-35-322).
+- `edu-expedited-criminal-eviction-tn` (Present): "(eviction OR evict! OR detainer) w/20 (drug OR criminal OR violent)" 8 hits (§§ 40-31-104, 40-31-101, 40-31-107, 40-31-105, 40-31-102, and others).
+- `edu-no-expedited-deposit-disposition-tn` (Absent): "deposit! w/30 (abandon! OR "without giving written notice")" 10 hits (§§ 66-29-109, 56-9-333, 29-17-106, 66-29-115, 66-29-148, 66-29-110, and others).
+- `edu-no-family-child-care-right-tn` (Absent): ""family child care" OR "child care" w/20 (home OR residence) AND (tenant OR lease OR landlord)" 7 hits (§§ 71-3-502, 68-11-1602, 37-5-502, 37-5-520).
+- `edu-farmland-hunting-tn` (Present): "(hunt! OR fish!) w/20 (lessee OR tenant) AND (owner OR permission)" 2 hits (§§ 70-2-204, 55-4-303).
+- `edu-no-fee-in-lieu-of-deposit-rule-tn` (Absent): ""in lieu of" w/10 "security deposit"" 1 hit (§ 50-6-1016); ""deposit alternative" OR "surety bond" w/20 tenant" 0 hits; "(deposit! OR fee!) w/10 "in lieu of"" 56 hits (§§ 47-25-1218, 43-16-145, 40-25-103, 8-24-103, and others).
+- `edu-no-fee-transparency-rule-tn` (Absent): ""total price" OR "all-in" OR "mandatory fee!"" 35 hits (§§ 49-7-1603, 49-4-944, 49-7-1602, 49-4-923, and others); "(fee! OR charge!) w/10 disclos! AND (tenant OR rental)" 2 hits (§§ 47-18-140, 50-6-215).
+- `edu-no-fee-unprovided-service-rule-tn` (Absent): "fee! w/20 service! AND (tenant OR landlord) AND (not provided OR "not provide")" 3 hits (§§ 57-4-102, 50-7-207).
+- `edu-building-code-source-tn` (Present): ""building code" w/20 (edition OR adopt!)" 4 hits (§§ 6-54-502, 68-120-101, 62-2-102, 68-102-152); ""International Property Maintenance Code" OR "International Fire Code" OR "International Residential Code"" 3 hits (§§ 68-120-101, 68-120-122, 68-102-123); ""fire prevention code" OR "fire code" w/20 adopt!" 5 hits (§§ 68-102-123, 68-11-202, 68-120-101).
+- `edu-no-sprinkler-retrofit-rule-tn` (Absent): "sprinkler! w/20 (residential OR apartment OR "multi-family" OR dwelling)" 2 hits (§§ 68-11-257, 68-120-101).
+- `edu-no-foreclosure-disclosure-tn` (Absent): "foreclos! w/30 (tenant OR lessee) AND (disclos! OR notice)" 0 hits.
+- `edu-no-forfeiture-redemption-tn` (Absent): "forfeit! w/20 lease!" 4 hits (§§ 39-11-710, 56-3-402, 39-17-505, 56-3-303).
+- `edu-no-frozen-standard-rule-tn` (Absent): ""building code" w/20 (edition OR adopt!)" 4 hits (§§ 6-54-502, 68-120-101, 62-2-102, 68-102-152).
+- `edu-no-furnishings-rule-tn` (Absent): "(furnish! OR furniture) w/20 (lease OR tenant OR "dwelling unit")" 52 hits (§§ 62-25-104, 67-5-1301, 66-7-104, 67-5-501, 7-67-109, and others).
+- `edu-no-good-cause-notice-tn` (Absent): "("good cause" OR "just cause") w/20 (evict! OR terminat!) AND tenan!" 0 hits.
+- `edu-no-government-fee-rule-tn` (Absent): "(fee! OR tax!) w/20 (pass! AND through) AND tenant!" 4 hits (§§ 67-4-2109, 67-4-2004, 57-4-102).
+- `edu-governmental-fines-tn` (Absent): "(fee! OR tax!) w/20 (pass! AND through) AND tenant!" 4 hits (§§ 67-4-2109, 67-4-2004, 57-4-102); "nuisance w/30 (owner) AND (tenant OR occupant) AND (cost! OR fine!)" 2 hits (§§ 13-6-106, 54-21-105).
+- `edu-no-guarantor-renewal-rule-tn` (Absent): "(guarant! OR surety OR cosign! OR "co-sign!") w/20 (lease OR rent OR tenant)" 18 hits (§§ 67-5-608, 65-6-130, 68-215-201, 45-8-210, and others); "guarant! w/20 renew!" 11 hits (§§ 56-7-1102, 56-7-2810, 56-7-2806, and others).
+- `edu-no-guest-rights-statute-tn` (Absent): "guest! w/20 (tenant OR lessee OR resident)" 7 hits (§§ 66-28-518, 66-28-104, 47-2A-216, 66-7-109, 68-120-112, and others).
+- `edu-habitability-materiality-tn` (Present): ""materially affecting health and safety"" 4 hits (§§ 66-28-505, 66-28-304, 66-28-401, 66-28-506).
+- `edu-habitability-modifiable-tn` (Present): "(habitab! OR "fit and habitable") w/30 (waive! OR agree!)" 0 hits; "habitab! w/20 (lease OR "rental agreement")" 0 hits.
+- `edu-no-habitability-presumption-tn` (Absent): "presum! w/20 (habitab! OR "fit for human habitation")" 0 hits.
+- `edu-no-habitability-statement-tn` (Absent): "habitab! w/20 (lease OR "rental agreement")" 0 hits.
+- `edu-habitability-waiver-tn` (Present): ""fit and habitable"" 2 hits (§§ 66-28-304, 13-6-102); "(habitab! OR "fit and habitable") w/30 (waive! OR agree!)" 0 hits; ""fit for human habitation"" 0 hits; "(rent w/10 reduc!) AND (condition! OR habitab!) AND tenant" 0 hits.
+- `edu-no-contamination-disclosure-tn` (Absent): "(contaminat! OR brownfield OR "hazardous substance") w/30 (lease OR tenant OR lessee) AND disclos!" 0 hits.
+- `edu-no-health-district-rules-tn` (Absent): "("board of health" OR "health department") w/30 (rental OR tenant OR "dwelling" OR housing)" 1 hit (§ 14-1-101).
+- `edu-heating-tn` (Present): "heat w/20 (tenant OR landlord OR "dwelling unit")" 3 hits (§§ 66-28-502, 67-4-2903, 68-120-114); ""heating" w/20 (degrees OR temperature)" 3 hits (§§ 68-131-304, 62-10-103, 67-3-103).
+- `edu-hoa-leasing-tn` (Present): "(association) w/20 (rent w/10 (tenant OR lessee)) AND (delinquen! OR unpaid)" 0 hits; "(association OR declarant) w/20 (approv! w/10 (lease OR lessee OR tenant))" 0 hits; "(condominium OR "homeowners association" OR "property owners association") w/30 (lease OR lessee OR tenant)" 15 hits (§§ 66-27-405, 66-27-306, 66-27-120, 66-27-203, 66-27-202, 66-27-507, and others).
+- `edu-no-holding-deposit-rule-tn` (Absent): ""holding deposit" OR "earnest money" OR "application deposit"" 2 hits (§§ 7-8-105, 47-32-102); ""earnest money"" 2 hits (§§ 47-32-102, 7-8-105); "(prospective w/3 tenant!) AND deposit!" 1 hit (§ 68-221-620).
+- `edu-no-home-business-rule-tn` (Absent): "("home-based business" OR "home business" OR "home occupation")" 1 hit (§ 29-34-203).
+- `edu-homestead-waiver-tn` (Present): "homestead w/20 waive!" 1 hit (§ 26-2-301); "(exemption! OR exempt) w/20 waive! AND (personal property OR wages OR homestead)" 3 hits (§§ 26-2-301, 26-2-114, 50-7-708); "(personal w/3 property) w/10 exempt! AND waive!" 1 hit (§ 26-2-114); "lease w/20 (spouse OR "both spouses" OR homestead)" 13 hits (§§ 7-66-102, 55-4-257, 55-4-251, 13-20-511, and others).
+- `edu-informal-dispute-resolution-tn` (Absent): "(mediat! OR "dispute resolution") w/20 (landlord OR tenant)" 0 hits.
+- `edu-no-inspection-condemnation-disclosure-tn` (Absent): "(condemn! OR "unfit for human habitation") w/30 (disclos! OR notif!) AND (tenant OR lessee)" 0 hits.
+- `edu-no-inspection-notice-penalty-tn` (Absent): "(inspection OR inspect!) w/20 (penalt! OR forfeit!) AND tenant" 0 hits.
+- `edu-jury-waiver-tn` (Present): "(jury) w/20 ("general sessions" OR detainer)" 9 hits (§§ 39-15-401, 29-18-119, 54-10-206, 40-10-106, and others); "jury w/20 (waive! OR waiver)" 21 hits (§§ 40-20-105, 39-13-205, 40-1-109, 40-35-301, and others); "(waive! OR waiver) w/20 jury AND (contract OR agreement)" 2 hits (§§ 40-35-301, 47-16-105); ""trial by jury" w/10 inviolate" 0 hits.
+- `edu-no-key-control-rule-tn` (Absent): "key! w/20 (apartment OR tenant OR "dwelling unit") AND (control OR policy)" 3 hits (§§ 67-4-2109, 67-4-2004); "(deadbolt OR "dead bolt" OR "door viewer" OR peephole OR rekey!)" 0 hits; "(lock! OR "security device!") w/20 (tenant OR landlord OR "dwelling unit")" 0 hits.
+- `edu-knowing-use-penalty-tn` (Present): ""known by the landlord" OR "known to be prohibited"" 1 hit (§ 66-28-203); "(void OR unenforceable) w/20 ("rental agreement" OR lease) AND tenant" 2 hits (§§ 11-3-111, 66-28-203).
+- `edu-tenant-remedies-landlord-breach-tn` (Present): "noncompliance w/20 tenant" 6 hits (§§ 66-28-505, 66-28-506, 66-28-502, 66-28-501, 66-28-406, 66-7-111); ""written notice" w/20 (repair! OR noncompliance) AND landlord" 2 hits (§§ 66-28-501, 66-28-505); "tenant w/10 terminat! AND "rental agreement"" 8 hits (§§ 66-7-109, 66-28-512, 66-28-504, 66-28-517, 66-28-503, 66-28-505, 66-28-513, 66-28-521).
+- `edu-no-landlord-insurance-mandate-tn` (Absent): "(landlord OR owner OR lessor) w/20 ("liability insurance") AND (rental OR residential)" 1 hit (§ 56-7-1120).
+- `edu-landlord-remedies-termination-tn` (Present): "landlord w/20 remed!" 27 hits (§§ 66-28-510, 66-28-512, 66-28-505, 66-28-506, 66-28-509, 66-28-511, 66-28-501, 66-28-201, 66-28-517, 66-28-513, and others).
+- `edu-landscaping-tn` (Present): "(lawn OR yard OR landscap! OR mowing) w/20 (tenant OR lessee OR landlord)" 0 hits; "(vegetation OR tree! OR plant!) w/20 ("power line!" OR "electric line!" OR "utility line!") AND (tenant OR lessee OR occupant)" 0 hits.
+- `edu-late-fee-limit-tn` (Present): ""late fee" OR "late charge" OR "late payment"" 38 hits (§§ 43-20-213, 50-3-107, 71-5-1006, 7-84-528, 7-84-628, 7-84-418, and others); "("mobile home" OR "manufactured home") w/30 (late OR fee!)" 21 hits (§§ 68-126-207, 55-4-402, 55-4-405, 55-4-406, 68-126-404, 68-126-102, 67-6-216, 55-4-407, and others); "(voucher OR "section 8" OR subsid!) w/30 (late OR fee!)" 22 hits (§§ 8-26-105, 45-3-1504, 62-9-104, and others).
+- `edu-no-lead-safe-certificate-tn` (Absent): ""lead-safe" OR "lead free" OR "lead-free" w/20 (certif! OR housing)" 0 hits; "lead w/5 (paint OR hazard! OR poison!) AND (tenant OR rental OR lease OR "target housing")" 2 hits (§§ 68-131-404, 68-131-402).
+- `edu-no-state-lead-notice-tn` (Absent): "lead w/5 (paint OR hazard! OR poison!) AND (tenant OR rental OR lease OR "target housing")" 2 hits (§§ 68-131-404, 68-131-402).
+- `edu-no-lease-content-rule-tn` (Absent): ""first page" w/20 (lease OR contract OR agreement)" 3 hits (§§ 56-3-506, 66-27-506, 66-30-103).
+- `edu-no-lease-copy-rule-tn` (Absent): ""rental agreement" w/20 (copy OR copies)" 0 hits; "copy w/10 (lease OR "rental agreement") AND (tenant OR deliver!)" 3 hits (§§ 65-25-114, 67-3-401, 66-24-101); ""signed copy"" 9 hits (§§ 48-1-103, 46-1-207, 61-2-103, 61-2-206, 37-2-403, 46-2-106, 57-9-115, 48-1-106).
+- `edu-no-initialing-rule-tn` (Absent): "initial! w/10 (provision OR clause OR waiver) AND (lease OR "rental agreement" OR contract)" 4 hits (§§ 4-1-412, 66-32-113, 47-18-305, 56-42-105).
+- `edu-lease-registration-tn` (Present): "copy w/10 (lease OR "rental agreement") AND (tenant OR deliver!)" 3 hits (§§ 65-25-114, 67-3-401, 66-24-101).
+- `edu-lease-formalities-tn` (Present): ""statute of frauds"" 8 hits (§§ 47-2A-201, 47-2-201, 47-3-419, 39-13-301, 47-8-113, 47-2-209, 47-2-326, 29-2-101).
+- `edu-no-lease-parity-rule-tn` (Absent): "(month-to-month OR periodic) w/20 (fixed OR term) AND tenant AND (burdensom! OR same)" 1 hit (§ 66-32-102).
+- `edu-lease-type-size-tn` (Present): "("type size" OR "point type" OR "point bold" OR "font") w/20 (lease OR "rental agreement" OR contract)" 10 hits (§§ 47-16-106, 47-22-404, 66-28-505, 47-18-1006, 47-14-108, 47-50-110, 56-31-127, 66-4-403, and others).
+- `edu-limitation-of-actions-tn` (Present): "(contract! OR lease!) w/20 "six (6) years" OR "within six (6) years"" 4 hits (§§ 49-6-2101, 52-3-101, 28-3-109, 41-8-111).
+- `edu-liquidated-damages-tn` (Absent): ""liquidated damages"" 22 hits (§§ 43-16-134, 47-11-107, 12-3-701, 47-2A-103, 47-18-2603, 59-13-132, 49-9-706, 46-1-209, 12-3-515, 47-2-718, and others); "damages w/10 "determined in anticipation" OR "agreed damages"" 0 hits.
+- `edu-no-lockout-for-rent-tn` (Present): "lockout OR "lock out" OR "change the locks" OR "changing the locks"" 5 hits (§§ 50-1-207, 50-1-102, 70-9-108, 55-18-102, 50-7-303); "(lock! OR exclu!) w/20 tenant AND rent" 2 hits (§§ 66-28-504, 66-28-104).
+- `edu-maintenance-duty-shift-tn` (Present): ""specified repairs"" 1 hit (§ 66-28-304); "(habitab! OR "fit and habitable") w/30 (waive! OR agree!)" 0 hits.
+- `edu-no-meter-conservation-charge-tn` (Absent): "(conservation OR efficiency) w/20 (charge OR meter) AND (tenant OR landlord)" 1 hit (§ 11-10-101).
+- `edu-no-military-zone-disclosure-tn` (Absent): "(military OR airport OR "air installation") w/30 (disclos! OR notice) AND (lease OR lessee OR tenant)" 1 hit (§ 66-29-302).
+- `edu-no-minor-defendant-rule-tn` (Absent): "(minor OR "under eighteen") w/20 (lease OR rental OR tenant)" 16 hits (§§ 45-2-904, 39-17-914, 45-3-509, 16-10-212, 70-9-105, and others).
+- `edu-no-municipal-utility-lien-rule-tn` (Absent): "lien w/20 (water OR sewer OR utility OR garbage) AND (tenant OR occupant OR lessee)" 5 hits (§§ 65-35-104, 65-10-111, 65-10-113, 56-3-402, 56-3-303).
+- `nonrefundable-fees-wv` (Tagged): ""however denominated"" 20 hits (§§ 47-1-201, 33-9-201, 48-249-106, 61-3-112, 48-54-101, 47-11-102, and others); "(nonrefundable OR non-refundable) w/30 deposit!" 0 hits; "escrow w/10 "rental agreement"" 1 hit (§ 66-28-104).
+- `edu-no-nonrefundable-separate-notice-tn` (Absent): "(nonrefundable OR non-refundable) w/20 (tenant OR lease OR landlord OR rental)" 0 hits; "(nonrefundable OR non-refundable) w/30 deposit!" 0 hits; "nonrefundable OR non-refundable" 142 hits (§§ Appendix7-8-3954, 4-28-110, 48-1-125, and others).
+- `edu-nonresident-owner-agent-tn` (Present): "nonresident w/20 (owner OR landlord OR lessor) AND (agent OR rent!)" 8 hits (§§ 55-4-115, 20-2-203, 69-4-105, 54-10-203, 29-16-105, and others).
+- `edu-no-notice-service-fee-rule-tn` (Absent): "(notice OR eviction OR detainer) w/10 fee! AND (tenant OR lease)" 12 hits (§§ 62-13-503, 66-31-104, 54-3-114, 29-18-132, 66-28-205, 55-8-198, 66-7-112, 29-18-135, and others); "penalt! w/20 (lease OR "rental agreement") AND (eviction OR detainer)" 2 hits (§§ 66-7-112, 66-28-205).
+- `edu-notice-to-quit-waiver-tn` (Present): ""notice to quit"" 1 hit (§ 29-18-113); "(waive! OR waiver) w/20 notice AND (rent OR tenant)" 4 hits (§§ 4-1-412, 66-28-505, 66-28-201, 66-28-301); "tenant w/20 waive!" 8 hits (§§ 66-28-301, 66-28-505, 66-28-201, 66-28-203, 66-28-508, 66-7-112, 66-28-205, 62-19-118).
+- `edu-no-vacate-period-alteration-rule-tn` (Absent): ""notice to vacate" OR (vacat! w/10 notice) AND (alter! OR uninhabitable) AND tenant" 2 hits (§§ 29-18-135, 66-27-507).
+- `edu-nuisance-tn` (Present): "nuisance w/30 (tenant! OR lessee! OR lease!)" 3 hits (§§ 29-3-101, 66-28-520, 44-18-101); ""drug-related nuisance" OR "public nuisance" w/20 (lease! OR tenant!)" 0 hits.
+- `edu-option-to-purchase-tn` (Present): "option w/5 purchas! w/20 (lease OR lessee OR tenant)" 23 hits (§§ 48-101-301, 7-5-103, 64-9-104, 67-5-605, 7-53-101, 7-57-301, and others).
+- `edu-no-ordnance-disclosure-tn` (Absent): "ordnance OR munition! OR "demolition" w/20 (disclos! OR notice) AND (lease OR tenant)" 0 hits.
+- `edu-no-facility-duty-rule-tn` (Present): "(elevator! OR "garage door") w/20 (landlord OR owner OR apartment)" 11 hits (§§ 68-121-106, 68-121-107, 66-27-102, 68-121-105, 68-121-102, 68-121-118, and others).
+- `edu-no-owner-move-in-rule-tn` (Absent): "(owner OR landlord) w/20 (occup! OR "move in" OR "personal use") AND terminat! AND tenan!" 10 hits (§§ 66-7-107, 66-27-318, 66-28-102, 66-28-517, 66-28-512, and others).
+- `edu-parking-towing-tn` (Present): "(parking OR tow!) w/30 (tenant OR apartment OR "residential complex") AND (notice OR sign!)" 13 hits (§§ 55-10-205, 66-28-518, 55-10-106, 55-10-102, 39-14-405, and others).
+- `edu-part5-nonwaivable-tn` (Present): ""cannot provide that the tenant agrees to waive"" 1 hit (§ 66-28-201); "(waive OR forego) w/20 (rights OR remedies) AND tenant" 5 hits (§§ 66-28-201, 66-28-203, 66-28-204, 67-5-2701, 13-20-202); ""unless otherwise agreed" AND ("rental agreement" OR tenant)" 3 hits (§§ 66-28-201, 66-28-305, 66-28-404).
+- `edu-periodic-services-entry-tn` (Absent): "(enter OR entry OR access) w/20 ("pest control" OR "scheduled" OR "periodic") AND tenant" 0 hits.
+- `edu-no-pest-control-notice-tn` (Absent): "(pesticide! OR "pest control") w/20 (notice OR notif!) AND (tenant OR occupant OR resident)" 0 hits.
+- `edu-no-pet-eviction-fact-sheet-tn` (Absent): "(pet OR animal) w/20 (eviction OR evict!) AND ("fact sheet" OR notice)" 0 hits.
+- `edu-no-plain-language-statute-tn` (Absent): ""plain language" w/20 (contract OR lease OR consumer)" 0 hits; "(tenant OR renter) w/20 (rights AND (statement OR summary OR guide OR handbook OR brochure))" 0 hits.
+- `edu-no-political-access-rule-tn` (Absent): "(candidate! OR canvass! OR political) w/20 (apartment OR "multi-unit" OR tenant! OR resident!)" 35 hits (§§ 68-11-1405, 2-7-143, 2-5-104, 49-4-702, 2-5-102, and others).
+- `edu-no-pool-safety-rule-tn` (Absent): "(pool OR "swimming") w/20 (fence OR barrier OR enclosure) AND (residential OR apartment)" 0 hits; ""public swimming pool"" 23 hits (§§ 68-14-317, 68-14-302, 68-14-311, 68-14-309, and others).
+- `edu-no-cooling-device-right-tn` (Absent): "("air condition!" OR cooling) w/20 (tenant OR lease OR landlord)" 0 hits.
+- `edu-no-portable-solar-right-tn` (Absent): "solar w/20 (tenant OR lease OR landlord OR lessee OR "restrictive covenant")" 3 hits (§§ 66-9-207, 4-10-116, 66-9-403).
+- `edu-no-portfolio-threshold-tn` (Present): "("four (4) or fewer" OR "four (4) units" OR "units or fewer") w/20 (landlord OR rental OR "dwelling units")" 3 hits (§§ 68-205-114, 62-13-405, 57-4-102).
+- `edu-no-well-testing-rule-tn` (Absent): "(well OR wells) w/20 (water AND test!) AND (tenant OR lease OR rental)" 2 hits (§ 60-1-202).
+- `edu-prohibited-acts-renter-tn` (Present): "(tenant OR occupant) w/20 (deliberately OR negligently) AND (destroy! OR damage!)" 1 hit (§ 66-28-502).
+- `edu-no-promises-to-repair-rule-tn` (Absent): "(promise! OR agree!) w/20 repair! AND (writing OR written)" 18 hits (§§ 40-38-120, 7-56-208, 66-36-103, 66-28-505, 54-1-119, 47-2A-310, and others).
+- `edu-no-prop65-equivalent-tn` (Absent): "(contaminat! OR brownfield OR "hazardous substance") w/30 (lease OR tenant OR lessee) AND disclos!" 0 hits.
+- `edu-no-property-tax-statement-tn` (Absent): "("property tax" OR "property taxes") w/20 (rent OR renter! OR tenant!) AND (relief OR credit OR statement)" 2 hits (§§ 67-4-713, 7-53-305).
+- `edu-protected-class-inquiry-tn` (Present): "(inquir! OR inquiry) w/20 (race OR religion OR "national origin" OR handicap OR "familial status")" 0 hits.
+- `edu-no-recycling-notice-tn` (Absent): "recycl! w/20 (tenant OR apartment OR multi-family OR residential)" 3 hits (§§ 7-51-2002, 64-10-102, 55-8-101).
+- `edu-no-redemption-right-tn` (Absent): "(redeem! OR redemption OR reinstat!) w/20 (lease OR tenan!)" 5 hits (§§ 47-2A-510, 47-2A-403, 7-56-208, 47-18-607, 13-22-113).
+- `edu-no-religious-display-rule-tn` (Absent): "(religious OR religion) w/20 (display OR symbol!) AND (tenant OR resident OR owner)" 0 hits.
+- `edu-no-rent-concession-rule-tn` (Absent): "concession! w/20 rent!" 5 hits (§§ 42-3-111, 42-5-115, 7-87-109, 42-4-109, 66-27-402).
+- `edu-rent-demand-tn` (Present): "demand w/10 rent AND (before OR prior)" 2 hits (§§ 67-5-2503, 66-7-109).
+- `edu-no-rent-escalation-rule-tn` (Absent): "rent! w/10 (increase! OR escalat!) AND (lease OR "rental agreement")" 0 hits.
+- `edu-rent-installments-tn` (Present): "rent! w/10 installment!" 3 hits (§§ 47-2A-522, 66-28-201, 12-10-112).
+- `edu-no-rent-into-court-tn` (Absent): "counterclaim w/20 (tenant OR detainer)" 0 hits; "(rent OR "rental payment!") w/20 ("clerk of the court" OR "into court" OR escrow)" 1 hit (§ 66-28-104).
+- `edu-no-rent-receipt-anti-waiver-tn` (Absent): "rent! w/20 (obligation! AND maintain)" 2 hits (§§ 49-3-1206, 66-28-103); ""obligations to maintain"" 1 hit (§ 68-221-607); ""receipt of rent" OR "receive rent" OR "receives rent"" 2 hits (§§ 56-6-1201, 66-31-102).
+- `edu-no-rent-reporting-rule-tn` (Absent): ""positive rent" OR "rent reporting"" 0 hits; "rent! w/20 ("credit report!" OR "consumer reporting agenc!" OR "credit bureau")" 0 hits.
+- `edu-rent-tax-tn` (Absent): "(sales w/3 tax) AND (rent! OR lease!) AND (residential OR dwelling OR apartment)" 9 hits (§§ 67-6-102, 67-6-205, 67-4-3202, 67-5-1008, 67-6-233, and others).
+- `edu-repair-cost-termination-tn` (Present): "repair! w/20 (cost! OR expens!) AND terminat!" 16 hits (§§ 47-25-1906, 48-101-301, 47-25-1305, 67-4-1907, 67-5-2209, 66-28-505, and others).
+- `edu-no-repair-escrow-notice-tn` (Absent): "escrow w/20 (rent OR repair!)" 2 hits (§§ 66-32-106, 66-28-104).
+- `edu-repair-notice-tn` (Present): ""written notice" w/20 (repair! OR noncompliance) AND landlord" 2 hits (§§ 66-28-501, 66-28-505).
+- `edu-no-required-coverage-notice-tn` (Absent): ""tenant protection" OR "renter protection"" 0 hits.
+- `edu-no-required-fee-list-tn` (Absent): "fee! w/20 (tenant OR lessee) AND (lease OR "rental agreement")" 34 hits (§§ 68-221-620, 66-11-102, 66-28-205, 47-2A-108, 66-7-112, 66-28-512, and others); ""rental agreement" w/20 fee!" 9 hits (§§ 66-31-104, 66-28-504, 66-28-501, 66-28-505, 66-28-513, 36-3-606, 66-28-510, 66-28-512, and others); "(fee OR fees OR charge!) w/20 ("rental agreement" OR lease) AND (disclos! OR list!)" 23 hits (§§ 67-5-2003, 7-53-305, 47-18-702, 55-10-419, 47-9-613, 4-21-102, 67-6-102, 7-53-302, and others).
+- `edu-no-rights-guide-tn` (Absent): "(landlord OR tenant) w/20 (handbook OR brochure OR guide OR pamphlet)" 1 hit (§ 66-7-106); "(tenant OR renter) w/20 (rights AND (statement OR summary OR guide OR handbook OR brochure))" 0 hits.
+- `edu-no-sanitary-variance-rule-tn` (Absent): "(variance OR exception OR waiver OR exemption) w/20 ("housing code" OR "building code")" 0 hits.
+- `edu-seasonal-tenancy-tn` (Present): "(seasonal OR vacation OR "short-term rental") w/20 (rental OR tenant OR occup!)" 38 hits (§§ 13-7-604, 67-4-1502, 67-4-1413, 13-7-603, 7-4-202, 7-4-103, and others).
+- `edu-security-deposit-holding-tn` (Present): ""security deposit" w/30 account" 1 hit (§ 66-28-301).
+- `edu-security-deposit-nonwaiver-tn` (Present): "waive! w/30 "security deposit"" 0 hits; "(waive OR forego) w/20 (rights OR remedies) AND tenant" 5 hits (§§ 66-28-201, 66-28-203, 66-28-204, 67-5-2701, 13-20-202).
+- `edu-security-deposit-on-sale-tn` (Present): ""security deposit" w/40 (purchaser OR conveyance OR transfer!)" 1 hit (§ 66-28-305); "deposit! w/20 (sale OR sold OR purchaser) AND tenant" 9 hits (§§ 66-28-305, 50-7-207, 67-6-103, 67-4-2004, 67-6-102, 67-4-409).
+- `edu-security-deposit-penalty-tn` (Present): ""security deposit" w/40 (retain OR forfeit! OR damages)" 3 hits (§§ 66-28-301, 66-28-104, 56-22-106).
+- `edu-no-deposit-standards-rule-tn` (Absent): "deposit! w/30 standard! AND (tenant OR landlord)" 0 hits; ""security deposit" w/30 account" 1 hit (§ 66-28-301).
+- `edu-no-security-device-rule-tn` (Absent): "(deadbolt OR "dead bolt" OR "door viewer" OR peephole OR rekey!)" 0 hits; "(lock! OR "security device!") w/20 (tenant OR landlord OR "dwelling unit")" 0 hits.
+- `edu-no-senior-work-card-rule-tn` (Absent): "("housing for older persons" OR "fifty-five (55)") w/20 (employee! OR staff)" 2 hits (§§ 50-6-242, 8-36-201).
+- `edu-service-animal-denial-penalty-tn` (Present): "("service animal" OR "dog guide" OR "guide dog") w/30 (refus! OR deny OR denies OR discriminat!)" 3 hits (§§ 66-7-106, 62-7-112, 8-50-103).
+- `edu-service-animal-misrepresentation-tn` (Present): "("service animal" OR "support animal") w/30 (misrepresent! OR fraudulent! OR falsely)" 4 hits (§§ 39-16-304, 66-28-505, 66-28-406, 66-7-111).
+- `edu-sex-offender-residence-tn` (Present): ""sex offender" OR "sexual offender" w/20 (landlord OR lease OR tenant OR rental)" 0 hits.
+- `edu-no-sfr-occupancy-disclosure-tn` (Absent): ""first page" w/20 (lease OR contract OR agreement)" 3 hits (§§ 56-3-506, 66-27-506, 66-30-103); "("type size" OR "point type" OR "point bold" OR "font") w/20 (lease OR "rental agreement" OR contract)" 10 hits (§§ 47-16-106, 47-22-404, 66-28-505, 47-18-1006, 47-14-108, and others).
+- `edu-no-shoreline-disclosure-tn` (Absent): "(shoreline OR "public access" OR beach) w/20 (disclos! OR lease)" 3 hits (§§ 64-1-603, 64-1-804, 64-1-102).
+- `edu-showing-notice-waiver-tn` (Present): "("prospective" w/5 tenant!) w/30 (notice OR "twenty-four (24) hours")" 1 hit (§ 66-28-403); ""prospective tenants" OR "prospective purchasers" w/20 (enter OR access OR showing)" 1 hit (§ 66-28-403).
+- `edu-no-shutdown-protection-tn` (Absent): "("government shutdown" OR furlough!) w/20 (rent OR evict! OR tenant)" 0 hits.
+- `edu-no-single-family-zone-limit-tn` (Absent): "(zone OR zoning) w/20 ("single-family" OR "single family") AND (rent! OR lease! OR owner-occup!)" 1 hit (§ 62-13-501).
+- `edu-no-smart-access-rule-tn` (Absent): "("smart lock" OR "electronic lock" OR keyless OR "access control") w/20 (tenant OR rental OR landlord)" 0 hits.
+- `edu-smoke-drift-tn` (Present): "(smoke OR smoking) w/20 (drift OR migrat! OR "secondhand")" 0 hits; "smok! w/20 (lease OR tenant OR landlord OR apartment)" 5 hits (§§ 68-120-112, 4-4-121, 68-102-151, 39-17-1551, 39-17-1603); ""Non-Smoker Protection Act" OR (smoking w/20 ("enclosed public place" OR "multi-unit"))" 13 hits (§§ 39-17-1806, 39-17-1805, 39-17-1807, 39-17-1803, and others).
+- `edu-snow-removal-tn` (Present): "(snow OR ice) w/20 (remov! OR clear!) AND (tenant OR landlord OR owner OR sidewalk)" 2 hits (§§ 6-2-201, 6-19-101).
+- `edu-no-benefit-delay-defense-tn` (Absent): "("social security" OR benefit!) w/30 (rent OR evict! OR detainer)" 6 hits (§§ 61-1-202, 33-2-1404, 66-12-101, 7-57-301, 64-1-1103, and others).
+- `edu-no-special-district-rule-tn` (Absent): "("special district" OR "utility district" OR "improvement district") w/20 (tenant OR lessee OR lease)" 6 hits (§§ 64-10-106, 7-35-201, 7-84-301, 68-221-209, 68-221-1303, and others).
+- `edu-no-sprinkler-disclosure-tn` (Absent): "sprinkler! w/30 (disclos! OR lease OR tenant)" 2 hits (§§ 68-11-910, 68-11-257); "sprinkler! w/20 (residential OR apartment OR "multi-family" OR dwelling)" 2 hits (§§ 68-11-257, 68-120-101).
+- `edu-statute-of-frauds-lease-tn` (Present): ""statute of frauds"" 8 hits (§§ 47-2A-201, 47-2-201, 47-3-419, 39-13-301, 47-8-113, 47-2-209, 47-2-326, 29-2-101).
+- `edu-statutory-caps-tn` (Present): ""not to exceed" w/20 (rent OR tenant OR lessee)" 3 hits (§§ 13-11-107, 12-10-109, 71-5-1409); ""security deposit" OR "security deposits"" 20 hits (§§ 66-28-301, 50-6-1010, 55-12-105, 7-35-201, and others).
+- `edu-statutory-early-termination-tn` (Present): "tenant w/10 terminat! AND "rental agreement"" 8 hits (§§ 66-7-109, 66-28-512, 66-28-504, 66-28-517, 66-28-503, 66-28-505, 66-28-513, 66-28-521); "("service animal" OR "support animal") w/30 (misrepresent! OR fraudulent! OR falsely)" 4 hits (§§ 39-16-304, 66-28-505, 66-28-406, 66-7-111).
+- `edu-no-radiator-cover-rule-tn` (Absent): "radiator!" 3 hits (§§ 67-6-529, 56-2-201, 67-6-340).
+- `edu-no-appliance-rule-tn` (Absent): "(stove OR refrigerator OR range) w/20 (landlord OR tenant OR "dwelling unit")" 0 hits; "appliance! w/20 (landlord OR tenant OR "dwelling unit" OR "rental")" 0 hits.
+- `edu-student-housing-tn` (Present): "(student! OR dormitor!) w/20 (housing OR lease OR rental)" 107 hits (§§ 49-7-149, 49-7-171, 49-7-136, 49-50-1702, 49-1-704, and others).
+- `edu-no-subsidized-inspection-rule-tn` (Absent): "("housing choice voucher" OR "section 8" OR "housing assistance") w/30 (inspect! OR landlord OR owner)" 2 hits (§§ 7-60-103, 13-23-103).
+- `edu-no-subsidy-proration-rule-tn` (Absent): "(voucher OR "section 8" OR subsid!) w/30 (late OR fee!)" 22 hits (§§ 8-26-105, 45-3-1504, 62-9-104, 49-7-104, 56-1-209, and others).
+- `edu-no-subsidy-late-fee-rule-tn` (Absent): "(voucher OR "section 8" OR subsid!) w/30 (late OR fee!)" 22 hits (§§ 8-26-105, 45-3-1504, 62-9-104, 49-7-104, 56-1-209, and others).
+- `edu-substandard-receivership-tn` (Present): "receiver! w/20 (property OR premises OR building) AND (nuisance OR "unfit" OR substandard OR blight!)" 2 hits (§§ 13-6-106, 13-6-102).
+- `edu-no-tax-escalation-rule-tn` (Absent): "tax! w/20 (increase! OR escalat!) AND (tenant! OR lessee!)" 9 hits (§§ 67-5-601, 67-6-103, 67-4-2109, 67-5-1412, 67-6-702, and others).
+- `edu-no-telecom-access-rule-tn` (Absent): "(cable OR "video service" OR satellite OR broadband OR telecommunication!) w/30 (tenant OR landlord OR apartment OR "multiple dwelling")" 1 hit (§ 7-59-303).
+- `edu-no-tenancy-at-will-statute-tn` (Absent): ""tenancy at will" OR "tenant at will"" 0 hits.
+- `edu-no-tenant-bankruptcy-rule-tn` (Absent): "bankrupt! w/20 (tenant OR lessee OR lease)" 1 hit (§ 45-2-901).
+- `edu-tenant-confidential-info-tn` (Present): "(tenant OR applicant) w/20 (confidential! OR "personal information")" 29 hits (§§ 2-2-142, 8-30-301, 50-9-105, 38-6-106, 68-115-207, and others); ""breach of the security of the system" OR "information holder"" 1 hit (§ 47-18-2107).
+- `edu-no-employee-housing-rule-tn` (Absent): "(employee OR employer) w/20 (housing OR dwelling) AND (terminat! OR vacate)" 12 hits (§§ 4-29-248, 50-6-121, 37-2-603, 67-6-224, 38-6-102, and others).
+- `edu-no-tenant-claim-rule-tn` (Absent): "(tenant OR lessee) w/20 (insurance) AND (claim! OR subrogat!)" 2 hits (§§ 35-15-510, 45-2-905).
+- `edu-tenant-portal-tn` (Present): "(portal OR "online") w/20 (tenant OR rent OR landlord)" 1 hit (§ 66-28-302).
+- `edu-no-tenant-records-rule-tn` (Absent): "(rent OR tenant) w/20 (ledger OR records) AND (landlord OR request)" 7 hits (§§ 66-28-406, 66-7-111, 39-17-505, 29-40-117, 47-18-2108, and others).
+- `edu-tenant-repair-remedies-tn` (Present): "("repair and deduct" OR "deduct" w/10 rent)" 1 hit (§ 66-28-502); "escrow w/20 (rent OR repair!)" 2 hits (§§ 66-32-106, 66-28-104); "(rent OR "rental payment!") w/20 ("clerk of the court" OR "into court" OR escrow)" 1 hit (§ 66-28-104).
+- `edu-no-tenant-organizing-rule-tn` (Absent): "(tenant! OR resident!) w/20 (organiz! OR association OR assembl!)" 163 hits (§§ 40-35-123, 7-62-103, 7-62-104, 7-62-105, 68-14-403, and others).
+- `edu-no-tenant-rights-statement-tn` (Absent): "(tenant OR renter) w/20 (rights AND (statement OR summary OR guide OR handbook OR brochure))" 0 hits; ""truth in renting" OR (tenant w/20 "clearly established")" 0 hits.
+- `edu-tenant-statutory-duties-tn` (Present): ""materially affecting health and safety"" 4 hits (§§ 66-28-505, 66-28-304, 66-28-401, 66-28-506).
+- `edu-term-change-notice-tn` (Absent): "(change OR modif!) w/20 (terms OR "rental agreement") AND notice AND tenant" 3 hits (§§ 48-101-513, 66-28-402).
+- `edu-no-tpa-exemption-notice-tn` (Absent): ""tenant protection" OR "renter protection"" 0 hits.
+- `edu-no-tpa-notice-tn` (Absent): ""tenant protection" OR "renter protection"" 0 hits.
+- `edu-no-tpa-sunset-tn` (Absent): ""tenant protection" OR "renter protection"" 0 hits.
+- `edu-no-translation-duty-tn` (Absent): "(translat! OR "language other than English" OR Spanish) w/20 (lease OR "rental agreement" OR tenant)" 0 hits.
+- `edu-trespass-notice-tn` (Present): "trespass w/20 (landlord OR tenant OR "common area")" 2 hits (§§ 44-8-301, 66-28-202); ""criminal trespass"" 12 hits (§§ 39-12-203, 37-1-702, 70-4-127, 40-39-216, and others).
+- `edu-no-truth-in-renting-tn` (Absent): ""truth in renting" OR (tenant w/20 "clearly established")" 0 hits.
+- `edu-no-unbundled-parking-rule-tn` (Absent): "parking w/20 (separate! OR unbundl!) AND (rent OR lease)" 3 hits (§§ 67-6-712, 67-6-103, 57-4-102).
+- `edu-unconscionability-tn` (Present): "unconscionab!" 12 hits (§§ 47-14-117, 45-5-403, 47-18-5528, 47-2-302, 47-2-309, 47-2-719, 47-2A-108, 47-2A-503, 66-28-204, 66-29-133, 47-18-708, 66-27-405).
+- `edu-unpaid-amount-interest-tn` (Present): ""legal rate" OR "rate of interest" w/20 (judgment OR contract)" 27 hits (§§ 47-15-104, 56-1-911, 47-14-106, 56-36-104, 56-9-325, 47-14-121, and others); "interest w/10 (unpaid OR past-due OR delinquent) AND rent" 16 hits (§§ 67-4-1415, 11-25-115, 7-90-112, 68-212-401, and others).
+- `edu-no-usufruct-rule-tn` (Absent): "usufruct! OR "life estate" w/20 lease" 0 hits.
+- `edu-no-utility-allowance-rule-tn` (Absent): "electric! w/20 (submeter! OR resell! OR resale)" 3 hits (§§ 67-4-3101, 7-51-910, 7-52-303); "(utilit! OR water OR electric!) w/20 (apportion! OR allocat!) AND (tenant OR "dwelling unit")" 0 hits.
+- `edu-no-utility-apportionment-rule-tn` (Absent): "(utilit! OR water OR electric!) w/20 (apportion! OR allocat!) AND (tenant OR "dwelling unit")" 0 hits; "(rebill! OR "ratio utility" OR allocat!) w/20 (utilit! OR water) AND (tenant OR resident)" 1 hit (§ 55-4-310).
+- `edu-no-utility-deposit-rule-tn` (Absent): ""utility deposit" OR "customer deposit"" 0 hits; "deposit! w/20 utilit! AND (refund! OR return!)" 3 hits (§§ 39-13-314, 66-29-102, 66-29-105).
+- `edu-no-utility-disclosure-attachment-tn` (Absent): "(utilit!) w/20 (disclos!) AND (lease OR tenant OR "rental agreement")" 0 hits.
+- `edu-no-utility-disconnection-notice-rule-tn` (Absent): "(utility OR electric! OR water) w/30 (notif! OR notice) AND (landlord OR owner) AND tenant!" 5 hits (§§ 67-5-2701, 7-35-201, 65-35-104, 68-221-209, 66-28-405).
+- `edu-no-submeter-interruption-rule-tn` (Absent): "submeter! OR "sub-meter!" OR "submetering"" 2 hits (§§ 68-221-620, 12-4-118); "electric! w/20 (submeter! OR resell! OR resale)" 3 hits (§§ 67-4-3101, 7-51-910, 7-52-303).
+- `edu-utility-landlord-account-tn` (Present): "(utilit! OR "essential services") w/20 (interrupt! OR discontinu!) AND (landlord OR tenant)" 1 hit (§ 66-28-504).
+- `edu-utility-shutoff-tn` (Absent): "(disconnect! OR "termination of service") w/20 (utility OR electric! OR gas OR water) AND (notice OR weather OR medical)" 3 hits (§§ 68-102-153, 67-5-2701, 68-135-108); "(cold OR winter OR freez!) w/20 (vacate OR evict! OR tenant)" 2 hits (§§ 39-15-502, 47-18-2111).
+- `edu-no-submetering-rule-tn` (Absent): "submeter! OR "sub-meter!" OR "submetering"" 2 hits (§§ 68-221-620, 12-4-118); "(rebill! OR "ratio utility" OR allocat!) w/20 (utilit! OR water) AND (tenant OR resident)" 1 hit (§ 55-4-310); "(utilit! OR electric! OR water) w/20 (resell! OR resale OR "actual cost") AND (tenant OR landlord OR apartment)" 3 hits (§ 67-6-102).
+- `edu-no-veterans-incentive-tn` (Absent): "veteran! w/20 (rent! OR housing OR landlord OR tenant)" 11 hits (§§ 67-5-207, 13-23-102, 35-3-120, 58-7-108, 45-20-102, and others).
+- `edu-waiver-by-acceptance-tn` (Present): ""acceptance of rent"" 1 hit (§ 66-28-202); "(accept! w/5 rent) AND (waive! OR waiver)" 1 hit (§ 66-28-508); ""without reservation"" 4 hits (§§ 66-28-202, 66-28-508, 47-2-605, 8-50-116); "reservation w/10 rent" 8 hits (§§ 66-28-202, 66-28-508, 66-12-111, 47-2A-514, 56-3-402, 13-20-603, 56-3-303, 7-56-208).
+- `edu-no-water-heater-temperature-rule-tn` (Absent): ""water heater" w/20 (temperature OR degrees)" 0 hits; ""heating" w/20 (degrees OR temperature)" 3 hits (§§ 68-131-304, 62-10-103, 67-3-103).
+- `edu-no-waterbed-rule-tn` (Absent): "waterbed! OR "water bed" OR "liquid-filled furniture"" 0 hits.
+- `edu-no-window-guard-rule-tn` (Absent): ""window guard!" OR (window w/10 (bar OR bars OR guard!)) AND (child OR escape)" 0 hits.
+- `edu-written-notice-tn` (Present): ""written notice" w/20 (tenant OR landlord)" 18 hits (§§ 66-28-301, 66-28-502, 66-7-112, 66-28-205, 66-28-517, 62-25-105, 66-28-505, 66-28-512, and others).
+
+### §4 Decisions and questions to Taylor
+
+**Decisions (batch 1).**
+
+- D1. Interest on late rent (`edu-unpaid-amount-interest-tn`). Whether interest charged because rent is late is a "charge or fee ... for the late payment of rent" under Tenn. Code Ann. § 66-28-201(d) is not settled by the text. The row takes the cautious reading for the Act counties (keep interest and late fees together inside the 10% cap) and says the question is open.
+- D2. Unclaimed deposit refunds outside the Act counties (`edu-deposit-escheat-tn`). The Unclaimed Property Act names no landlord-deposit category. The row presents its catch-all three-year presumption (§ 66-29-105(a)(14)) as a risk, not a rule, and advises against a non-Act forfeiture clause.
+- D3. Forfeiture for mishandled deposits (`edu-security-deposit-penalty-tn`). § 66-28-301(c) joins its two failures with "and". The row states the two together, as the statute does, and does not tell landlords that either failure alone forfeits the deposit.
+- D4. Item 4 pointers. The deposit rows point to the existing `edu-security-deposit-rules-tn`, `security-deposit-return-tn-act`, `edu-no-deposit-interest-tn` and `edu-fees-as-rent-tn` rather than repeating them. Fee rows point to `late-fee-limit-tn`, `late-fee-tn-other` and `edu-late-fee-rules-tn`.
+- D5. Tags. `carpet-cleaning-ar` and `nonrefundable-fees-wv` were tagged TN (both tiers; reasons in each TN segment). `showing-notice-la` was declined: its notice period conflicts with the Act's 24-hour rule for final-month showings (§ 66-28-403(e)(5)). The showing topic is answered in batch 2.
+
+- D6. Batch 2 scope labels. The waiver rows are BOTH REGIMES: they state the Act-county rule and then what applies elsewhere. The homestead row is STATEWIDE because Title 26 Chapter 2 applies in every county. After the independent check, every row that states an Act-county rule beside a statewide one is labelled BOTH REGIMES; this includes the smoke-drift and jury rows (log §5).
+- D7. Non-Act casualty rule (`edu-casualty-mitigation-waiver-tn`). § 66-7-102 lets an "express agreement to the contrary ... in writing" vary the casualty-surrender rule. Neither § 66-7-102 nor § 66-28-503 says whether § 66-7-102 also applies in Act counties. The row applies § 66-28-503 there and § 66-7-102 elsewhere.
+- D8. Jury waiver (`edu-jury-waiver-tn`). The library adds no jury-waiver clause. The Constitution has not been read, and case law on pre-dispute jury waivers was not searched.
+- D9. Arbitration (`edu-binding-arbitration-tn`). The library adds no arbitration clause. In the Act counties it is unsettled whether such a clause can reach the Act's remedies or a possession case.
+
+- D10 (item 9a). `early-termination-ks` checked; **no `early-termination-tn` proposed.** The clause is a tenant-elected option. The tenant gives 30 days' notice and pays the greater of one month's rent or 30% of the remaining rent, and the lease ends. It is not an abandonment, so the § 66-28-507(c) duty to rerent and the § 66-28-405 abandonment procedure are not triggered by its use. Its sentence "Landlord may terminate this Lease early ... if Tenant vacates or abandons the property without notifying Landlord" ends the lease but authorizes no retaking of possession: § 66-28-511 still limits possession to court action, abandonment or surrender, and in the Act counties abandonment is shown under § 66-28-405. The clause's "Nothing in this Section limits any right either party has under applicable law" keeps both rules. The § 66-28-515(a) duty to mitigate concerns damages for breach, not the price of an option the tenant chooses. Whether a 30%-of-remaining-rent fee on a long lease is an unenforceable penalty is case law, which was not searched (rule 16). The risk is recorded in `edu-liquidated-damages-tn`. **Recommendation:** keep the tag; if Taylor wants a lower ceiling for long Tennessee leases, a TN variant capping the fee at two months' rent is the conservative alternative. Not proposed unless asked.
+- D11 (item 9b). `holdover-rate-tn` confirmed against § 66-28-512(c): 'the landlord may bring an action for possession, back rent and reasonable attorney's fees as well as any other damages provided for in the lease'. The clause is a damages term "provided for in the lease". It excludes holdovers the landlord consented to, which § 66-28-512(c) sends to § 66-28-201(c). Replacing the willful-holdover actual damages with the stated rate gives up only the landlord's own right. Outside the Act counties the rate is a contract term. No change.
+- D12 (item 9c). No Tennessee eviction row contradicts `edu-cares-act-notice`. One row reads close to it: see §6 F3 (`nonpayment-notice-waiver-tn`). `edu-eviction-process-tn` begins "After the required termination notice", which leaves room for the federal notice.
+- D13 (item 8). One line each, both tiers:
+  - `smoking-policy`: confirmed. No statute limits a lease smoking ban (battery in `edu-smoke-drift-tn`; "smok! w/20 (lease OR tenant OR landlord OR apartment)": 5 hits, none a limit). The state ban already covers common areas (§ 39-17-1803(a)(9)), and the private-residence exemption (§ 39-17-1804(8)) exempts units from the state ban without limiting a lease ban.
+  - `no-alterations`: confirmed. No Tennessee statute gives tenants a right to alter. § 66-28-401(4) bars damaging or defacing the premises. The clause's carve-out keeps reasonable modifications under fair housing law and any § 66-28-304(c) agreement.
+  - `addendum-precedence`: confirmed. No statute sets precedence. The clause's exception keeps the Act's required statements (§ 66-28-201(a) insurance notice, § 66-28-301(h) account location, § 66-28-505(b) bold waiver) controlling.
+
+- D14 (item 7). Checked `keys` and `hoa-compliance` against §§ 66-28-201(a), 66-28-203 and 66-28-104(13). **No conflict.** Neither clause waives an Act right, confesses judgment, exculpates the landlord or makes the tenant indemnify the landlord's own liability to the tenant. A pass-through of an association fine, or a rekeying cost, is not "liability of the landlord to the tenant arising under law" (§ 66-28-203(a)(2)). One consequence for the Act counties: both charges are "payments to be made to the landlord under the rental agreement", so they are "Rents" under § 66-28-104(13). An unpaid rekey charge or passed-on fine can therefore be treated like unpaid rent and applied against the deposit as "other amounts due and owing" (§ 66-28-301(e)). Neither charge is a late fee, so § 66-28-201(d) does not cap it. Risk for `hoa-compliance` only: an association rule adopted after signing binds the tenant through the lease. In the Act counties a landlord's own later rule binds only on reasonable notice and if it does not substantially modify the lease (§ 66-28-402(b)), and a court may read incorporated association rules the same way. **Recommendation:** add one line to each TN segment recording the § 66-28-104(13) consequence. For `hoa-compliance`, also add: "In the Act counties give the tenant reasonable notice of any association rule adopted after signing (§ 66-28-402(b))." No text change. These are recommendations, not findings of error, so they are not repeated in §6.
+- D15 (item 6). `landscaping-irrigation` was not tagged; its TN tag was removed 2026-10-04. No snow clause was tagged. The new `edu-landscaping-tn` and `edu-snow-removal-tn` point to `tenant-repair-agreement-tn`, whose own text already says the lease does not make the tenant responsible for lawn care or snow removal. No opt-in clause was written, because the existing separate agreement already serves both tiers.
+- D16 (item 3). The six DV topics are answered from §§ 66-28-205, 66-7-112, 66-28-517(g), 66-7-109(e), 36-3-601, 36-3-602, 36-3-605 and 36-3-606, and the address confidentiality program (§§ 40-38-601, 40-38-602, 40-38-606), all read. Searches for lock-change, confidentiality and deposit-timing rules: lock-change 0 hits; confidentiality found only the program and the termination statutes' nondisclosure rule; deposit-timing found none. All rows point to `edu-dv-lease-termination-tn` and `edu-dv-tenancy-protections-tn` and do not repeat them.
+
+- D17 (batch 7). Where a topic's only Code hits are in sections not read this pass (sales tax for `rent-tax`; the mechanics' lien chapter for `construction-liens`; criminal trespass for `trespass-notice`; the general nuisance statute for `nuisance`; the elevator chapter for `other-landlord-facilities`; the non-agricultural foreign-ownership sections for `foreign-ownership`), the row says so and states no rule from those sections. These are the first candidates for a follow-up read if Taylor wants fuller answers.
+- D18. The three confirmed-absence summary topics (`confirmed-absences-habitability`, `confirmed-absences-misc`, `confirmed-absences-outside-title`) are short rows that list the absence rows they summarize and repeat a few batteries. They add no new rule.
+
+**Questions to Taylor.**
+
+- Q1 (rule 12). Some topics in later batches need federal text: FDCPA 15 U.S.C. § 1692f, the Fair Housing Act, CARES Act § 4024 notice (15 U.S.C. § 9058), PTFA and the lead-disclosure rule. **Recommendation:** approve saving these from uscode.house.gov and ecfr.gov into the corpus folder, read whole, the same way as the state sections. Until then, the rows refer to federal law only in general terms and quote nothing.
+
+### §5 Independent check
+
+Two rounds were run (rule 80), one agent at a time. Each agent was a fresh general-purpose agent with no access to my reasoning. It was given the delta, the saved section texts (`src/`) and the search log, and told to treat `src/` as the only source of statute text. All edits are recorded as exact old-to-new replacements in `fixes/r1.py` and `fixes/r2.py`. `scripts/build.py` applies them and fails if any old text is not found exactly once. After each round the quote check and the integrity check were re-run; both passed (135 quoted spans, all found).
+
+**Round 1 (all 239 rows).** The quotes and every battery line matched the log. There were 18 findings. The substantive ones:
+- The § 13-6-106 public-nuisance receivership, whose receiver's lien is a first lien ahead of mortgages, had been reported as absent in two rows.
+- § 66-28-105(b) (nonresident landlord's agent for service) was missed by the "nonresident" search because the statute says "not a resident".
+- Incomplete non-Act notice periods under § 66-7-109(a)(1)(C), (c) and (f).
+- The Act's definition of "substantially impaired" (§ 66-28-104(15): deemed unfit for human habitation by a governmental authority) was missing from five casualty rows.
+- Penalty-doctrine and tax statements had been made without reading the case law or the sections.
+- An elevator-chapter description had been taken from search headings only.
+- Smaller wording errors, and five utility rows' search-hit descriptions that did not match their own searches.
+
+All were fixed in 48 rows. **Rows edited after round 1:** `edu-attorney-fees-tn`, `edu-casualty-mitigation-waiver-tn`, `edu-cure-and-eviction-grounds-tn`, `edu-deposit-escheat-tn`, `edu-deposit-move-out-notice-tn`, `edu-disability-accommodation-tn`, `edu-disaster-duties-tn`, `edu-dv-protection-order-citations-tn`, `edu-ev-charging-hoa-tn`, `edu-foreign-ownership-tn`, `edu-habitability-materiality-tn`, `edu-habitability-modifiable-tn`, `edu-jury-waiver-tn`, `edu-limitation-of-actions-tn`, `edu-liquidated-damages-tn`, `edu-no-appliance-rule-tn`, `edu-no-balcony-inspection-rule-tn`, `edu-no-condemned-rent-bar-tn`, `edu-no-deposit-cost-schedule-tn`, `edu-no-drug-free-addendum-rule-tn`, `edu-no-dv-deposit-timing-rule-tn`, `edu-no-electric-resale-rule-tn`, `edu-no-ev-resale-rule-tn`, `edu-no-eviction-penalty-rule-tn`, `edu-no-facility-duty-rule-tn`, `edu-no-municipal-utility-lien-rule-tn`, `edu-no-notice-service-fee-rule-tn`, `edu-no-pool-safety-rule-tn`, `edu-no-radiator-cover-rule-tn`, `edu-no-submetering-rule-tn`, `edu-no-utility-allowance-rule-tn`, `edu-no-utility-apportionment-rule-tn`, `edu-no-utility-deposit-rule-tn`, `edu-no-water-heater-temperature-rule-tn`, `edu-no-well-testing-rule-tn`, `edu-no-window-guard-rule-tn`, `edu-nonresident-owner-agent-tn`, `edu-notice-to-quit-waiver-tn`, `edu-nuisance-tn`, `edu-purpose-limitation-tn`, `edu-rent-tax-tn`, `edu-smoke-drift-tn`, `edu-statutory-early-termination-tn`, `edu-student-housing-tn`, `edu-substandard-receivership-tn`, `edu-tenant-confidential-info-tn`, `edu-trespass-notice-tn`, `edu-waiver-by-acceptance-tn`.
+
+**Round 2 (the 48 edited rows; final round).** Most round-1 edits were confirmed. There were 13 further findings:
+- The § 13-6-106 transfer bar applies only when a certificate of public nuisance is attached.
+- "Municipal corporation" includes counties (§ 13-6-102(8)).
+- Receiver appointment follows only after failed abatement by the owner or an interested person.
+- The receiver has tax-enforcement receiver powers (§ 67-5-2103, not read).
+- The landlord's own casualty termination right is not a tenant right the Act bars waiving.
+- The § 66-28-301(g) later-discovered-damage rule.
+- Fuller § 66-2-302 definitions.
+- The exact § 66-28-502 trigger.
+- Notes citations, and three scope labels.
+
+All were fixed. **Rows edited after the last round (round 2), not re-checked by an independent agent:** `edu-casualty-mitigation-waiver-tn`, `edu-cure-and-eviction-grounds-tn`, `edu-dv-protection-order-citations-tn`, `edu-foreign-ownership-tn`, `edu-habitability-materiality-tn`, `edu-habitability-modifiable-tn`, `edu-no-condemned-rent-bar-tn`, `edu-no-deposit-cost-schedule-tn`, `edu-no-electric-resale-rule-tn`, `edu-no-ev-resale-rule-tn`, `edu-no-submetering-rule-tn`, `edu-no-utility-allowance-rule-tn`, `edu-no-utility-apportionment-rule-tn`, `edu-nonresident-owner-agent-tn`, `edu-notice-to-quit-waiver-tn`, `edu-nuisance-tn`, `edu-statutory-early-termination-tn`, `edu-student-housing-tn`, `edu-substandard-receivership-tn`, `edu-tenant-confidential-info-tn`. Each edit adopts the round-2 agent's suggested wording or a close variant checked against `src/`.
+
+**Source-file correction found in round 1.** The importer re-imported every saved export on each run. That overwrote `src/66-28-402.txt` with the 2027 version. It now maps each Lexis version to its own file: `66-28-402.txt` is the version in force until 2027-01-01, and `66-28-402~2027.txt` is the version effective that day. No row was affected, because subsections (a)(6) and (b), which the rows rely on, are the same in both.
+
+### §6 Findings on existing rows
+
+**F1. `possession-bond-tn` and `edu-prohibited-lease-terms-tn`: the general voidness statute for pre-suit confessions of judgment is not addressed.** Tenn. Code Ann. § 25-2-101(a) (history: Code 1932, § 8848) reads: 'Any power of attorney or authority to confess judgment which is given before an action is instituted and before the service of process in such action, is declared void; and any judgment based on such power of attorney or authority is likewise declared void.' Subsection (b) saves only an authority 'given after an action is instituted and after the service of process'. The § 29-18-123 lease bond is, by its own terms, an authority given in the lease, before any action, to 'confess a judgment for possession'. `possession-bond-tn` (NON-ACT COUNTIES ONLY) offers that bond, and its notes list three unresolved risks (the court term, federal cognovit case law, and the § 66-7-109 notices) but not § 25-2-101. `edu-prohibited-lease-terms-tn` says: "Outside the Act counties these rules do not apply, and an old statute still allows a lease bond in which the tenant authorizes a confessed judgment for possession at the end of the term". Both statutes were carried into the 1932 Code (§ 29-18-123's history: "mod. Code 1932, §§ 9279-9281"), and neither text says which controls. The specific bond statute may survive as an exception, but that is a reading, not something either text states. **Recommendation:** add a fourth risk to `possession-bond-tn`'s notes: "(4) Tenn. Code Ann. § 25-2-101(a) declares void any authority to confess judgment given before an action is instituted and served; whether the older, specific § 29-18-123 bond survives it is unresolved — take advice." Add one clause to the edu row's sentence: "… at the end of the term, though a general statute voids pre-suit confessions of judgment and how the two fit is unresolved". The new `edu-confession-of-judgment-tn` already says this. No existing row was changed.
+
+**F2. `edu-no-for-cause-eviction-tn`: § 29-18-102(b) is not mentioned.** Tenn. Code Ann. § 29-18-102(b) reads: 'No action for forcible entry and detainer shall lie against any tenant who has paid all rent due for current occupancy of the premises and who is not in violation of any law nor otherwise in breach of the tenant's written lease, but this subsection (b) shall not apply in any manner to farm property, nor shall this subsection (b) be construed to alter or amend any valid lease agreement in effect on May 31, 1979.' The row says: "Tennessee has no just-cause or good-cause eviction rule in either the 17 Act counties or the other 78: a landlord may decline to renew a fixed-term lease, or end a periodic tenancy with the required notice, without giving a reason." On its text, § 29-18-102(b) bars only the forcible entry and detainer action as defined in § 29-18-102(a) (entry by force, threats, putting goods out of doors). Unlawful detainer is defined separately in § 29-18-104: a tenant who 'willfully and without force, holds over the possession from the landlord'. So the row's conclusion probably stands. But a reader of § 29-18-102(b) could take it as a general paid-up-tenant protection, and the row's search battery did not surface it. **Recommendation:** add to the row's notes: "Tenn. Code Ann. § 29-18-102(b) (no forcible entry and detainer action against a paid-up tenant not in breach of a written lease; farm property excepted) limits only the forcible-entry action defined in § 29-18-102(a); the holdover action is unlawful detainer under § 29-18-104, which (b) does not mention. Case law on (b) was not searched." The row's text needs no change.
+
+**F3. `nonpayment-notice-waiver-tn`: no pointer to the federal 30-day notice.** The clause says: "If Rent is not paid by the end of the five-day grace period in this Lease, Landlord may file a detainer warrant to recover possession immediately, without first giving Tenant written notice of the nonpayment." The shared `edu-cares-act-notice` (tagged TN) says that on a property with a federally backed mortgage or in a covered program "you may not require the tenant to vacate until 30 days after you give a notice to vacate (15 U.S.C. § 9058(c))" and "the safe course is to give at least 30 days' written notice to vacate before filing". The clause waives only the state notice, so the two rows do not strictly conflict. But a landlord on a covered property who reads the clause alone could file without the federal notice. The clause's notes do not mention the CARES Act. **Recommendation:** add to the notes: "On a property covered by 15 U.S.C. § 9058 (see `edu-cares-act-notice`), the waiver does not excuse the federal 30-day notice to vacate; the safe course there is to give it before filing." Optionally add one body sentence: "This waiver does not affect any notice federal law requires." No existing row was changed.
+
+### §7 Findings for other states
+
+None.
+
+### Proposed SOP changes
+
+- S1. Add a mechanical quote check before delivery: every single-quoted span of statute text in a delta row's notes or basis is matched, after normalising whitespace, curly quotes and dashes, against the saved section texts read this pass, and any miss blocks delivery. In this pass it caught a clause phrase written in single quotes (now in double quotes, as rule 19's quoting convention requires).
+- S2. Generate battery lines from the saved search log instead of typing counts by hand. Every count and hit list in a row then matches the log, and the log is the evidence. Prose about which sections the hits are should be written only after reading the full hit list; this pass corrected six such descriptions before delivery.
+- S3. Record post-check edits as exact old-to-new replacements in a fixes file that the build applies and verifies (each old text must occur once). Then "rows edited after the last round" in §5 is generated from that file, and the original row text stays reviewable.
+- S4. Keep each Lexis document version (e.g. "[Effective until …]" and "[Effective on …]") in its own source file. Make the importer idempotent so a re-run cannot overwrite one version with another.
+- S5. For absence searches, also search the statute's own phrasing variants ("not a resident" as well as "nonresident"). The independent check found § 66-28-105(b) only that way.
+
+### Proposed topic questions
+
+- `security-deposit-penalty`: Does the deposit statute make forfeiture of the whole deposit depend on two failures together (no separate account **and** no damage listing), so that either failure alone does not forfeit it? (Tennessee: Tenn. Code Ann. § 66-28-301(c).)
+- `rent-receipt-anti-waiver`: Did the state leave out the uniform act's rule that the right to receive rent cannot be separated from the duty to maintain (URLTA § 1.404 analogue)? Check the purposes section for a stray "obligations" phrase before concluding. (Tennessee: absent; § 66-28-103.)
+- `confession-of-judgment`: Does a general statute void every pre-suit authority to confess judgment, and does an older landlord-tenant statute still authorize a lease bond to confess judgment for possession? If both exist, say which controls or that it is unresolved. (Tennessee: Tenn. Code Ann. §§ 25-2-101(a), 29-18-123.)
+- `casualty-and-mitigation-waivable`: Outside the URLTA, does a general casualty statute let an express written agreement override the tenant's right to surrender an untenantable building? (Tennessee: Tenn. Code Ann. § 66-7-102.)
+
+# Topic gaps sync (Claude Code, 2026-11-07)
+
+Merged on base 8fa1f6f: 237 new rows, 2 tags (`carpet-cleaning-ar`, `nonrefundable-fees-wv`), matching the log. The Tennessee Code is on Lexis only (browser, CAPTCHA), so no script spot-check was possible; Desktop's mechanical quote check matched all 135 quoted spans against the pages it saved. The 20 rows edited after round 2 each adopt the round-2 checker's wording or a close variant checked against the saved pages; not re-checked at sync (no corpus). §6: F1 applied (`possession-bond-tn` risk (4) and `edu-prohibited-lease-terms-tn` body clause, Tenn. Code Ann. § 25-2-101(a)); F2 applied (`edu-no-for-cause-eviction-tn` notes, § 29-18-102(b)); F3 applied (`nonpayment-notice-waiver-tn` CARES notes line and the body sentence "This waiver does not affect any notice federal law requires."). §4 D14 notes lines added to the TN segments of `keys` and `hoa-compliance`. D10 accepted: TN keeps `early-termination-ks` (no TN variant). Arbitration: not offered, consistent with D9 and with the final held group (Tenn. Code Ann. § 66-28-203(b) actual damages for willfully using a known prohibited provision). Q1 (federal sources): already answered yes by Taylor (SOP rule 12). 239 citation rows (76 confirmed absent), 4 topic questions, SOP 2.01 (rules 16, 19).
