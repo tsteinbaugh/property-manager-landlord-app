@@ -2936,3 +2936,13 @@ None.
 **Result.** Alabama has 338 AL-only active rows and 417 visible rows, all VERIFIED; no NEEDS_REVIEW. The state filter shows 106 AL clauses (65 before), with no same-topic pairs, and every other state's visible set is unchanged.
 
 **Final delivery (later the same day).** Desktop re-delivered the log and running record with the delta CSV byte-identical to the one merged. The only addition is the §3 battery re-run that was pending: all 237 logged batteries (1,332 terms) re-run on the page over the same 51,500 units (set `eee08d72e3dfbd5f`) with the same matching rules; every term's hit and unit counts equal the logged counts, no mismatches. The first two attempts stalled (a long page loop cut off, then background-tab timer throttling); the reported run (`RERUN3`) uses the same matching code in chunks. No row changes.
+
+**Re-check of the rows edited after round 2 (rule 80; Claude Code, 2026-11-09).** The 2026-11-08 sync matched every quotation in these rows to ALISON but had not re-read them against the statute. A fresh checker read the 21 listed rows (shared rows for their AL segment only) against sections fetched from ALISON's code service. It found no errors and 7 fixes in 6 rows, and Claude Code matched each supporting quotation to the ALISON text before applying them:
+- `edu-forfeiture-redemption-al`: a tenant who appeals pays rent since the filing, not all lease rent (§ 35-9A-461(d), § 6-6-351(a)). Added: accepting rent while knowing of the default waives termination for that breach (§ 35-9A-424).
+- `edu-no-stove-refrigerator-rule-al`: the tenant-fault exception now follows § 35-9A-204(f) (willful or negligent act of the tenant, family, a licensee or a person there with consent).
+- `edu-birmingham-sex-offender-residence-al`: "living with" dropped from the spouse-or-child exception (§ 13A-11-204(d)).
+- `edu-sex-offender-disclosure-al`: the Morgan County rule names adult or unrelated juvenile offenders (§ 45-52-230(a)).
+- `edu-rental-inspection-al`: vacant-property inspection only as the ordinance allows, interior and exterior, once registration is made or required (§ 11-67C-6(b)).
+- `sex-offender-statement-al`: citation corrected to § 45-37-231.01(b)(5).
+
+A sweep of the other AL rows found none with the same wording. The other 15 rows were clean.

@@ -461,7 +461,7 @@ const CLAUSE_TEMPLATES = [
     id: "smoking-policy",
     title: "Smoking Policy",
     group: "Tenant Responsibilities",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "IN", "OK", "IA", "NM", "WA", "KY", "WV", "MD", "CT", "RI", "DE", "AK", "LA", "MS", "DC", "PR", "GU", "VI", "AS", "MP"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "IL", "ID", "IN", "OK", "IA", "NM", "WA", "KY", "WV", "MD", "CT", "RI", "DE", "AK", "LA", "MS", "DC", "PR", "GU", "VI", "AS", "MP"],
     bodyText:
       "Smoking of any kind, including tobacco, marijuana, and vaping, is not permitted anywhere on the property, including inside the dwelling, on porches, balconies, or in any common area. Tenant will be responsible for any cost Landlord incurs to remediate odor, staining, or damage caused by smoking by Tenant, an occupant, or a guest or invitee of Tenant in violation of this Section, and a violation may be treated as a default under this Lease.",
   },
@@ -777,7 +777,7 @@ const CLAUSE_TEMPLATES = [
     id: "parking-vehicle-rules",
     title: "Parking & Vehicle Requirements",
     group: "Parking & Storage",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "NV", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "MO", "IN", "OK", "MT", "WI", "WA", "KY", "WV", "MD", "NH", "AK", "LA", "AR", "MS", "PR", "VI", "MP"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "NV", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "IL", "MO", "IN", "OK", "MT", "WI", "WA", "KY", "WV", "MD", "NH", "AK", "LA", "AR", "MS", "PR", "VI", "MP"],
     bodyText:
       "Only operable, currently registered passenger vehicles may be parked at the property; commercial vehicles, recreational vehicles, trailers, and oversized vehicles are not permitted without Landlord's prior written consent. Landlord may require Tenant to provide vehicle registration information and may issue parking tags, decals, or access cards, the cost of which may be charged to Tenant. Landlord may, in accordance with applicable law, have a vehicle towed at the vehicle owner's expense if it is illegally parked, abandoned, inoperable, or has expired registration. Vehicle repairs are not permitted at the property except minor emergency repairs necessary to move the vehicle, and vehicles may be washed only in areas Landlord designates, if any.",
   },
@@ -794,7 +794,7 @@ const CLAUSE_TEMPLATES = [
     id: "keys",
     title: "Keys",
     group: "Rules & Regulations",
-    states: ["WY", "KS", "MN", "ND", "SD", "OH", "CA", "NV", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "WI", "WA", "KY", "WV", "MA", "NH", "VT", "AK", "HI", "LA", "AR", "MS", "PR", "VI", "AS", "MP"],
+    states: ["WY", "KS", "MN", "ND", "SD", "OH", "CA", "NV", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "WI", "WA", "KY", "WV", "MA", "NH", "VT", "AK", "HI", "LA", "AR", "MS", "PR", "VI", "AS", "MP"],
     bodyText:
       "At the start of the Term, Tenant will receive the keys specified by Landlord and will sign a receipt acknowledging the number and type of keys provided. Tenant will return all keys to Landlord at the end of the Term. If Tenant fails to return all keys or requires a replacement, Landlord may re-key the applicable locks and charge the cost to Tenant. Tenant may not duplicate keys without Landlord's consent.",
   },
@@ -867,7 +867,7 @@ const CLAUSE_TEMPLATES = [
     id: "hoa-compliance",
     title: "Homeowner / Condominium Association Compliance",
     group: "Disclosures",
-    states: ["WY", "NE", "MN", "ND", "SD", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "IA", "NM", "MT", "NY", "WI", "WA", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP"],
+    states: ["WY", "NE", "MN", "ND", "SD", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "PA", "IL", "ID", "MO", "IN", "OK", "IA", "NM", "MT", "NY", "WI", "WA", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP"],
     bodyText:
       "If the property is located within a homeowner or condominium association, Tenant will comply with the association's rules and regulations applicable to the property. Any fines incurred due to Tenant's violation of association rules will be Tenant's responsibility.",
   },
@@ -1198,7 +1198,7 @@ const CLAUSE_TEMPLATES = [
     id: "extended-absence-notice-ks",
     title: "Notice of Extended Absence",
     group: "Tenant Responsibilities",
-    states: ["KS", "TN", "VA", "IA", "NM", "MT", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "NH", "ME", "VT", "LA", "AR", "MS", "DC", "PR", "VI", "AS", "MP", "CO", "OH", "NV", "TX", "NJ", "AZ", "GA", "SC", "NC", "PA"],
+    states: ["KS", "TN", "VA", "IA", "NM", "MT", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "NH", "ME", "VT", "LA", "AR", "MS", "DC", "PR", "VI", "AS", "MP", "CO", "OH", "NV", "TX", "NJ", "AZ", "GA", "SC", "NC", "PA", "UT"],
     bodyText:
       "Tenant will occupy the property only as a dwelling unit unless otherwise agreed. If Tenant anticipates being away from the property for more than 7 consecutive days, Tenant will notify Landlord no later than the first day of the absence. If Tenant willfully fails to give this notice, Landlord may recover actual damages resulting from the failure.",
   },
@@ -1235,7 +1235,7 @@ const CLAUSE_TEMPLATES = [
     id: "early-termination-ks",
     title: "Early Termination",
     group: "Default & Termination",
-    states: ["KS", "TN", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NY", "KY", "WV", "MD", "MA", "NH", "VI", "AS", "MP"],
+    states: ["KS", "TN", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NY", "KY", "WV", "MD", "MA", "NH", "VI", "AS", "MP"],
     supersedes: "early-termination",
     bodyText:
       "Tenant may terminate this Lease before the end of the Term by providing Landlord at least 30 days' written notice. Tenant will pay an early termination fee equal to one month's Rent ({{monthly_rent}}) or 30% of the remaining Rent due under the Term, whichever is greater, and remains responsible for Rent and other obligations up to the termination date. This early-termination option and fee apply only if this Lease has a fixed Term; a month-to-month or other periodic tenancy ends on the notice that applicable law and this Lease provide, without an early termination fee. Landlord may terminate this Lease early in accordance with this Lease's Tenant Default and notice provisions, or if Tenant vacates or abandons the property without notifying Landlord. Nothing in this Section limits any right either party has under applicable law, including a Tenant's right to terminate without penalty due to active military service under the Servicemembers Civil Relief Act, due to the property becoming uninhabitable through no fault of Tenant, or, except as prohibited by law in the case of a Tenant's death, any other termination right or limitation provided by applicable law.",
@@ -4256,7 +4256,7 @@ const CLAUSE_TEMPLATES = [
     group: "Default & Termination",
     states: ["UT"],
     bodyText:
-      "If this Lease continues as a month-to-month or other periodic tenancy, Tenant may end it by giving Landlord written notice at least {{m2m_notice_days}} days before the last day of a rental period, and the tenancy will end on that last day. Landlord may end it by serving Tenant written notice at least 15 calendar days before the end of a rental period, and the tenancy will end at the end of that period. Rent remains payable through the date the tenancy ends. This Section does not limit either party's right to end this Lease earlier where this Lease or Utah law allows it.",
+      "If this Lease continues as a month-to-month or other periodic tenancy, Tenant may end it by giving Landlord written notice at least {{m2m_notice_days}} days before the last day of a rental period, and the tenancy will end on that last day. Landlord may end it by serving Tenant written notice at least 15 calendar days before the end of a rental period, and the tenancy will end at the end of that period. If federal law requires Landlord to give Tenant a longer notice before Tenant may be required to vacate, Landlord will give that notice. Rent remains payable through the date the tenancy ends. This Section does not limit either party's right to end this Lease earlier where this Lease or Utah law allows it.",
   },
   {
     id: "abandoned-property-ut",
@@ -6994,7 +6994,7 @@ const CLAUSE_TEMPLATES = [
     id: "rent-concession-wi",
     title: "Rent Concessions",
     group: "Rent & Payment",
-    states: ["WI", "CT", "RI", "NH", "ME", "VT", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "KS", "MN", "NE", "OH", "NV", "TX", "NJ", "FL", "GA", "SC", "NC", "VA", "AL"],
+    states: ["WI", "CT", "RI", "NH", "ME", "VT", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "KS", "MN", "NE", "OH", "NV", "TX", "NJ", "FL", "GA", "SC", "NC", "VA", "AL", "UT"],
     bodyText:
       "[Use only if Landlord gives Tenant any rent concession.] In connection with this Lease, Landlord gives Tenant the following rent concession, which is part of this Lease: [describe each period of free or reduced Rent, credit, rebate or other concession, with its amount or value and the rental periods to which it applies].",
   },
@@ -7363,7 +7363,7 @@ const CLAUSE_TEMPLATES = [
     id: "rent-installments-or",
     title: "Rent Paid in Installments",
     group: "Rent & Payment",
-    states: ["OR", "CT", "RI", "NH", "ME", "VT", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "WY", "KS", "NE", "TX", "NJ", "AZ", "FL", "GA", "SC", "VA", "PA", "AL"],
+    states: ["OR", "CT", "RI", "NH", "ME", "VT", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "WY", "KS", "NE", "TX", "NJ", "AZ", "FL", "GA", "SC", "VA", "PA", "AL", "UT"],
     bodyText:
       "Landlord and Tenant agree that Monthly Rent will be paid in installments as follows: [state each installment amount and the day of the month it is due]. Installments paid on this schedule are not partial payments of Rent. A late charge applies only as this Lease's late charge provision allows for the rental period.",
   },
@@ -7754,7 +7754,7 @@ const CLAUSE_TEMPLATES = [
     id: "informal-dispute-resolution-or",
     title: "Informal Dispute Resolution",
     group: "Notices & General",
-    states: ["OR", "AR", "MS", "DC", "GU", "VI", "AS", "MP", "CO", "WY", "KS", "MN", "NE", "OH", "NV", "TX", "NJ", "AZ", "FL", "GA", "SC", "NC", "VA", "PA", "AL"],
+    states: ["OR", "AR", "MS", "DC", "GU", "VI", "AS", "MP", "CO", "WY", "KS", "MN", "NE", "OH", "NV", "TX", "NJ", "AZ", "FL", "GA", "SC", "NC", "VA", "PA", "AL", "UT"],
     bodyText:
       "Before either party starts a court action about a dispute under this Lease, other than an action for possession, the party will give the other written notice describing the dispute and offer to meet, in person or by phone, within 10 days to try to resolve it informally. This Section does not delay or limit any notice, deadline or remedy that applicable law provides, including any action for possession or for emergency relief, and does not require either party to accept any proposal.",
   },
@@ -7905,7 +7905,7 @@ const CLAUSE_TEMPLATES = [
     id: "criminal-activity-ky",
     title: "Criminal Activity",
     group: "Default & Termination",
-    states: ["KY", "AR", "MS", "PR", "GU", "VI", "AS", "MP", "SD", "NV", "TX", "AL"],
+    states: ["KY", "AR", "MS", "PR", "GU", "VI", "AS", "MP", "SD", "NV", "TX", "AL", "UT"],
     bodyText:
       "Tenant, occupants and guests will not engage in criminal activity on or near the property that threatens the health, safety or right to peaceful enjoyment of the premises by others, or that involves the unlawful manufacture, sale, distribution or possession of a controlled substance on the property. A violation is a material noncompliance with this Lease, and Landlord may terminate this Lease for it with the notice that this Lease's Default by Tenant terms and applicable law require. This Section does not apply to criminal activity in which Tenant or a member of Tenant's household is the victim, including conduct that is the subject of a protective order protecting them, or to any request for help from the police or other emergency assistance.",
   },
@@ -10541,7 +10541,7 @@ const CLAUSE_TEMPLATES = [
     id: "lock-change-ak",
     title: "Lock Changes (Alaska)",
     group: "Access & Entry",
-    states: ["AK", "SC"],
+    states: ["AK", "SC", "UT"],
     bodyText:
       "Tenant will not change the locks on any door of the property without first getting Landlord's written agreement, and immediately after changing any lock Tenant will give Landlord a set of keys to every changed lock. In an emergency, when Landlord cannot be contacted after reasonable effort, Tenant may change the locks without Landlord's agreement, and within five days will give Landlord a set of keys to every changed lock and written notice of the change.",
   },
@@ -11066,7 +11066,7 @@ const CLAUSE_TEMPLATES = [
     id: "rent-escalation-la",
     title: "Scheduled Rent Changes",
     group: "Rent & Payment",
-    states: ["LA", "MS", "PR", "GU", "VI", "AS", "WY", "KS", "MN", "NE", "TX", "NJ", "AZ", "FL", "SC", "NC", "AL"],
+    states: ["LA", "MS", "PR", "GU", "VI", "AS", "WY", "KS", "MN", "NE", "TX", "NJ", "AZ", "FL", "SC", "NC", "AL", "UT"],
     bodyText:
       "[Optional. Choose one.] [A: Monthly Rent will change during the Term as follows: [state each new amount and the date it takes effect].] [B: On [state each adjustment date, e.g. each anniversary of the Start Date], Monthly Rent will be adjusted, up or down, by the percentage change in [name a published index, e.g. the Consumer Price Index for All Urban Consumers (CPI-U) for the region that includes the property, published by the U.S. Bureau of Labor Statistics] between [base month and year] and the most recent month published before the adjustment date[, but by no more than [percent] percent for any one adjustment]. Landlord will give Tenant written notice of each adjusted Monthly Rent, showing the calculation, at least [number] days before it takes effect. If the index is no longer published, Monthly Rent will stay at the last adjusted amount.] Monthly Rent will not change during the Term in any other way, except as any tax and insurance escalation Section of this Lease, if used, provides.",
   },
@@ -11074,7 +11074,7 @@ const CLAUSE_TEMPLATES = [
     id: "tax-insurance-escalation-la",
     title: "Tax and Insurance Increases",
     group: "Rent & Payment",
-    states: ["LA", "AR", "MS", "PR", "GU", "VI", "WY", "KS", "NE", "TX", "NJ", "AZ", "FL", "SC", "NC", "PA", "AL"],
+    states: ["LA", "AR", "MS", "PR", "GU", "VI", "WY", "KS", "NE", "TX", "NJ", "AZ", "FL", "SC", "NC", "PA", "AL", "UT"],
     bodyText:
       "[Optional.] Tax and Insurance Increases: If the ad valorem property taxes assessed on [the Property / the building or parcel of which the Property is a part] for any calendar year during the Term are higher than the taxes for [base year][, or if Landlord's premium for property insurance on [the Property / that building] for any policy year during the Term is higher than the premium for [base policy year]], Tenant will pay Landlord [percent] percent of the increase, which is the Property's share of [the building or parcel]. Landlord will give Tenant written notice of each amount due, with a copy of the tax bill [and premium notice] and the calculation, at least [number] days before it is due, and Tenant may pay it [in one payment / in equal monthly installments with Rent over [number] months]. Tenant will not pay any part of a penalty or interest charged for Landlord's late payment of taxes or premiums. If taxes [or premiums] for a period for which Tenant paid a share are later reduced, abated or refunded, Landlord will credit or refund Tenant the same percentage of the reduction.",
   },
@@ -11099,7 +11099,7 @@ const CLAUSE_TEMPLATES = [
     id: "furnishings-included-la",
     title: "Furnishings",
     group: "Security Deposit",
-    states: ["LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "WY", "MN", "NE", "OH", "NV", "TX", "NJ", "AZ", "FL", "GA", "SC", "NC", "VA", "PA", "AL"],
+    states: ["LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "WY", "MN", "NE", "OH", "NV", "TX", "NJ", "AZ", "FL", "GA", "SC", "NC", "VA", "PA", "AL", "UT"],
     bodyText:
       "[Optional. Use only if the property is rented furnished.] Furnishings: The property is rented furnished. The furniture and furnishings Landlord provides, and their condition at the start of this Lease, are: [list each item and its condition, or attach a signed inventory]. Tenant will keep them at the property, will not remove or dispose of any item without Landlord's written consent, will tell Landlord promptly of any damage to them, and will return them at the end of this Lease in the same condition, except for normal wear and tear.",
   },
@@ -11167,7 +11167,7 @@ const CLAUSE_TEMPLATES = [
     id: "scheduled-services-entry-la",
     title: "Entry for Regularly Scheduled Services",
     group: "Access & Entry",
-    states: ["LA", "AR", "MS", "VI", "AS", "MP", "CO", "KS", "TX", "NJ", "GA", "NC", "PA"],
+    states: ["LA", "AR", "MS", "VI", "AS", "MP", "CO", "KS", "TX", "NJ", "GA", "NC", "PA", "UT"],
     bodyText:
       "[Optional.] In addition to Landlord's rights under the Landlord's Right of Entry section, Landlord or Landlord's agent may enter the property between [state hours, for example 9:00 a.m. and 6:00 p.m.] on the following schedule to provide these regularly scheduled services: [list each service and its schedule, for example changing air-conditioning filters every [number] months, or pest treatment every [number] months]. Landlord will give Tenant notice of each scheduled visit at least [state notice, for example 24 hours] in advance by [state method, for example text message, e-mail or a notice posted on the door], and will knock and announce before entering.",
   },
@@ -11175,7 +11175,7 @@ const CLAUSE_TEMPLATES = [
     id: "showing-notice-la",
     title: "Showings Near the End of the Lease",
     group: "Access & Entry",
-    states: ["LA", "AR", "MS", "VI", "AS", "MP", "CO", "WY", "KS", "NJ", "GA", "NC", "PA"],
+    states: ["LA", "AR", "MS", "VI", "AS", "MP", "CO", "WY", "KS", "NJ", "GA", "NC", "PA", "UT"],
     bodyText:
       "[Optional.] During the last [number] days of the Term, and at any time after either party gives notice of termination, Landlord, its agents and contractors may enter the property to show it to prospective tenants or purchasers on [state the shorter notice, for example same-day notice by telephone or text message] instead of the notice required by the Landlord's Right of Entry section, but only between [state hours, for example 9:00 a.m. and 7:00 p.m.]. Every other entry remains subject to the Landlord's Right of Entry section.",
   },
@@ -11432,6 +11432,16 @@ const CLAUSE_TEMPLATES = [
     bodyText:
       "Smoking of any kind, including smoking tobacco or marijuana, and vaping tobacco or nicotine products with an electronic cigarette or similar device, is not permitted anywhere on the property, including inside the dwelling, on porches or balconies, or in any common area. Tenant will be responsible for any cost Landlord incurs to remediate odor, staining or damage caused by smoking or vaping in violation of this Section, and a violation may be treated as a default under this Lease. As the Arkansas Constitution requires, this Section does not prohibit a qualifying patient under Arkansas's medical marijuana amendment from the medical use of marijuana at the property by means other than smoking, and for that purpose using a vaporizer is not treated as smoking.",
   },
+  // Tenant Responsibilities
+  {
+    id: "smoking-policy-ut",
+    title: "Smoking Policy",
+    group: "Tenant Responsibilities",
+    states: ["UT"],
+    supersedes: "smoking-policy",
+    bodyText:
+      "Smoking of any kind, including tobacco, marijuana, and vaping, is not permitted anywhere on the property, including inside the dwelling, on porches, balconies, or in any common area. If smoking by Tenant, an occupant, or a guest or invitee of Tenant in violation of this Section causes odor, staining or damage, Tenant will pay Landlord, as damages, the amount a cleaning, painting, repair or other contractor bills Landlord to remediate it or, if Landlord does the work itself, the price Landlord paid for the materials used, with no markup, labor charge or added fee, and Landlord will give Tenant a copy of the bill or receipt when Landlord charges Tenant. A violation may be treated as a default under this Lease. This Section restricts smoking at the property; it is not a promise that the property will be free of smoke drifting from elsewhere.",
+  },
   // Landlord Responsibilities
   {
     id: "repair-notice-method-ar",
@@ -11446,7 +11456,7 @@ const CLAUSE_TEMPLATES = [
     id: "owner-occupancy-termination-ar",
     title: "Owner Occupancy (Optional)",
     group: "Default & Termination",
-    states: ["AR", "MS", "PR", "GU", "VI", "AS", "MP", "WY", "KS", "NE", "OH", "TX", "AZ", "FL", "GA", "SC", "NC", "VA", "PA", "AL"],
+    states: ["AR", "MS", "PR", "GU", "VI", "AS", "MP", "WY", "KS", "NE", "OH", "TX", "AZ", "FL", "GA", "SC", "NC", "VA", "PA", "AL", "UT"],
     bodyText:
       "[Optional. Use only for a fixed Term.] Owner Occupancy: Landlord may end this Lease before the end of the Term if Landlord, or the following member of Landlord's family, will occupy the property as a residence: [name or relationship]. To do so, Landlord will give Tenant written notice at least [number, not less than 30] days before the termination date, and the termination date will be the last day of a monthly rental period. Tenant owes Rent only through the termination date, and Landlord will refund any Rent paid for a later period. If Tenant does not leave by the termination date, Landlord may regain possession only through a court eviction.",
   },
@@ -12873,7 +12883,7 @@ const CLAUSE_TEMPLATES = [
     id: "animal-care-access-vi",
     title: "Animal Care in Tenant's Absence (Virgin Islands)",
     group: "Pets",
-    states: ["VI", "AS", "MP", "CO", "TX", "NJ", "GA", "NC", "PA"],
+    states: ["VI", "AS", "MP", "CO", "TX", "NJ", "GA", "NC", "PA", "UT"],
     bodyText:
       "[Optional.] Animal Care: Tenant will tell Landlord in writing about every animal kept at the property. Tenant names the following person to care for or remove Tenant's animals if Tenant cannot because Tenant is hospitalized, incapacitated, detained or otherwise absent and an animal is left without care: [name and telephone number]. In that case, after trying to reach Tenant, Landlord may let that person into the property for that purpose only, and if that person cannot be reached Landlord may ask an animal warden, a peace officer, or the Humane Society or an animal shelter to take charge of the animal. Tenant will tell Landlord in writing if this information changes. This permission ends at Tenant's death; after that, Landlord will deal with Tenant's animals only through Tenant's personal representative or heirs or as the law otherwise allows.",
   },
@@ -13073,7 +13083,7 @@ const CLAUSE_TEMPLATES = [
     id: "tenant-caused-fines-as",
     title: "Fines Caused by Tenant (Optional)",
     group: "Rent & Payment",
-    states: ["AS", "MP", "WY", "MN", "NE", "SD", "NV", "NJ", "GA", "SC", "NC"],
+    states: ["AS", "MP", "WY", "MN", "NE", "SD", "NV", "NJ", "GA", "SC", "NC", "UT"],
     bodyText:
       "[Optional.] If a government agency fines or penalizes Landlord, or charges Landlord the cost of abating a nuisance, because of a condition or violation that Tenant, a member of Tenant's household, or a person on the Premises with Tenant's consent caused or permitted, Tenant will reimburse Landlord the amount Landlord paid within [number of days] days after Landlord gives Tenant written notice with a copy of the citation, order or bill. This Section does not apply to a fine or charge for a condition Landlord is responsible for under this Lease or the law, and Landlord will not deduct the amount from a Rent payment.",
   },
@@ -13158,7 +13168,7 @@ const CLAUSE_TEMPLATES = [
     id: "guaranty-as",
     title: "Guaranty (Optional)",
     group: "Default & Termination",
-    states: ["AS", "MP", "CO", "KS", "MN", "NE", "NV", "NJ", "AZ", "FL", "GA", "SC", "NC", "PA"],
+    states: ["AS", "MP", "CO", "KS", "MN", "NE", "NV", "NJ", "AZ", "FL", "GA", "SC", "NC", "PA", "UT"],
     bodyText:
       "[Optional. Use only if a guarantor signs this Lease.] GUARANTY. [guarantor's full name] (\"Guarantor\") signs this Lease to guarantee to Landlord that Tenant will pay the Rent and perform Tenant's other obligations under this Lease, up to a total maximum of $[maximum amount]. This guaranty covers the Term and [choose one: also covers any renewal, extension or month-to-month continuation of this Lease, including any change in Rent made under this Lease / ends when the Term ends, except for amounts that became due during the Term]. Guarantor's obligations are never larger than Tenant's. Landlord may ask Guarantor to pay without first suing Tenant. Guarantor has read this Lease and received a copy.",
   },
@@ -13223,6 +13233,15 @@ const CLAUSE_TEMPLATES = [
     supersedes: "parking-vehicle-rules",
     bodyText:
       "Only operable passenger vehicles that are currently licensed and registered for use on the roads may be parked at the property; commercial vehicles, recreational vehicles, trailers, and oversized vehicles are not permitted without Landlord's prior written consent. Landlord may require Tenant to provide vehicle registration information and may issue parking tags, decals, or access cards, the cost of which may be charged to Tenant. Tenant will not keep at the property, or allow an occupant or guest to keep there, any vehicle that cannot be licensed for operation on the roads. If a vehicle of Tenant, an occupant or a guest is parked or kept in breach of this Section, Landlord may give Tenant written notice to remove it within [number, at least 10] days, and failure to remove it is a breach of this Lease. Landlord will not tow, boot or otherwise remove a vehicle of Tenant, an occupant or a guest except as a court orders or applicable law expressly allows. Vehicle repairs are not permitted at the property except minor emergency repairs necessary to move the vehicle, and vehicles may be washed only in areas Landlord designates, if any.",
+  },
+  {
+    id: "parking-vehicle-rules-ut",
+    title: "Parking & Vehicle Requirements",
+    group: "Parking & Storage",
+    states: ["UT"],
+    supersedes: "parking-vehicle-rules",
+    bodyText:
+      "Only operable, currently registered passenger vehicles may be parked at the property; commercial vehicles, recreational vehicles, trailers, and oversized vehicles are not permitted without Landlord's prior written consent. Landlord may require Tenant to provide vehicle registration information and may issue parking tags, decals, or access cards without charge; Landlord may charge Tenant for replacing a lost or damaged tag, decal or card only the amount its supplier charges Landlord for the replacement, with no markup or added fee, and will give Tenant a copy of the supplier's bill or receipt when Landlord charges Tenant. Landlord may, in accordance with applicable law, have a vehicle towed at the vehicle owner's expense if it is illegally parked, abandoned, inoperable, or has expired registration. Vehicle repairs are not permitted at the property except minor emergency repairs necessary to move the vehicle, and vehicles may be washed only in areas Landlord designates, if any.",
   },
   // Rules & Regulations
   {
@@ -13412,7 +13431,7 @@ const CLAUSE_TEMPLATES = [
     id: "accessory-dwelling-unit-term-co",
     title: "The Premises Is an Accessory Dwelling Unit",
     group: "Notices & General",
-    states: ["CO"],
+    states: ["CO", "UT"],
     bodyText:
       "The Premises is an accessory dwelling unit: a separate dwelling with its own living, sleeping, cooking and bathroom facilities, located on the same lot as the primary residence at {{property_address}}. You acknowledge that [describe who occupies the primary residence on the lot, for example \"the Landlord occupies the primary residence on the lot\"], and that the following areas are shared rather than part of the Premises: [list shared areas - driveway, parking space, yard, walkways, trash enclosure, laundry, storage]. You may use those shared areas for their ordinary purpose, and you will not store property in them, block the driveway or the primary residence's access, or use them in a way that interferes with the occupants of the primary residence. The following utilities serve the Premises and the primary residence through the same meter or connection and are handled as set out in the utilities section of this Lease: [list shared utilities, or write \"none\"]. Because the Premises and the primary residence sit on one lot and share these areas, both households will keep noise, guests, pets, vehicles and outdoor activity to a level that does not unreasonably disturb the other, and we will each give the other reasonable notice before work or deliveries that will block shared access. Nothing in this section reduces your right to exclusive possession of the inside of the Premises or any right you have under law.",
   },
@@ -13559,7 +13578,7 @@ const CLAUSE_TEMPLATES = [
     id: "emergency-contact-co",
     title: "Tenant's Emergency Contact (Optional)",
     group: "Notices & General",
-    states: ["CO", "AZ", "SC", "PA"],
+    states: ["CO", "AZ", "SC", "PA", "UT"],
     bodyText:
       "[Optional.] Tenant will give Landlord the name, relationship and telephone number of at least one person Landlord may try to reach in an emergency affecting Tenant or the Property, and will tell Landlord in writing if that information changes. Landlord may contact that person only in an emergency, or when Landlord cannot reach Tenant about an urgent condition at the Property, and will not use the information for any other purpose or give it to anyone else except as the law requires. Naming a contact does not make that person liable for Rent or for any other obligation under this Lease, does not make that person Tenant's agent, and does not give that person any right to enter the Property. Emergency contact name: [name]. Relationship to Tenant: [relationship]. Telephone: [telephone number].",
   },
@@ -13595,7 +13614,7 @@ const CLAUSE_TEMPLATES = [
     id: "farmland-sporting-rights-co",
     title: "Hunting, Fishing and Trapping Reserved (Optional)",
     group: "Rules & Regulations",
-    states: ["CO", "SD", "NV", "TX", "NJ", "GA", "NC", "AL"],
+    states: ["CO", "SD", "NV", "TX", "NJ", "GA", "NC", "AL", "UT"],
     bodyText:
       "[Optional. For rural or agricultural property.] Landlord reserves to Landlord all rights to hunt, fish and trap on the Property and all rights to grant those privileges to others. Tenant will not hunt, fish or trap on the Property, and will not give any other person permission to enter the Property to hunt, fish or trap, unless Landlord has agreed in writing. If Landlord gives that written agreement, Tenant will comply with every condition in it and with all state and local wildlife and firearms law, and nothing in it makes Landlord responsible for the acts of anyone Tenant allows on to the Property. Landlord and anyone Landlord authorizes may enter the unoccupied land of the Property to hunt, fish or trap, and will do so without unreasonably interfering with Tenant's use of the Property or with any crop or livestock, and will not enter any dwelling on the Property except as this Lease otherwise allows.",
   },
@@ -13657,7 +13676,7 @@ const CLAUSE_TEMPLATES = [
     id: "home-business-permission-co",
     title: "Home-Based Business (Landlord's Permission)",
     group: "Tenant Responsibilities",
-    states: ["CO"],
+    states: ["CO", "UT"],
     bodyText:
       "[Optional. Use instead of a flat ban where Landlord is willing to allow a home business. Delete if business use is not permitted.] Landlord gives Tenant permission to operate the following home-based business at the Property: [describe the business, including whether customers, clients or children will come to the Property]. This permission is personal to Tenant, applies only to that business, and may be withdrawn only for a reason stated in this Section. Tenant will: keep the Property in use primarily as a residence; obtain and keep current every licence, registration and permit the business requires, including any local zoning or home occupation permit, and give Landlord a copy on request; comply with any rules of a homeowners or condominium association that apply to the business, and with local noise and nuisance rules; carry liability insurance covering the business, naming Landlord and any association as additional insureds, at a level of at least {{tenant_insurance_minimum}}, and give Landlord a certificate on request; not allow the business to create noise, odours, traffic, parking demand or signage that disturbs other residents or neighbours; not make any alteration to the Property for the business without Landlord's written consent; and be responsible for the cost of repairing damage to the Property caused by the business that goes beyond normal wear and tear and did not exist before the tenancy began. Landlord may withdraw this permission by [number] days written notice if Tenant loses a required licence or permit, if the business is operated in breach of this Section, or if an association or a government authority requires the business to stop. Withdrawing this permission does not end the Lease, and Tenant may continue to occupy the Property as a residence.",
   },
@@ -13772,7 +13791,7 @@ const CLAUSE_TEMPLATES = [
     id: "utility-shutoff-notice-authorization-co",
     title: "Authorization for Utility Notices to Landlord (Optional)",
     group: "Notices & General",
-    states: ["CO", "SC", "AL"],
+    states: ["CO", "SC", "AL", "UT"],
     bodyText:
       "[Optional.] Tenant authorizes Landlord to be listed with each utility provider serving the Premises as an additional contact for notices about Tenant's account for the Premises, including any notice of pending disconnection, and will sign any form a provider requires to do that. Tenant also authorizes each provider to confirm to Landlord whether service to the Premises is connected and in Tenant's name. Landlord's receipt of a notice under this Section does not make Landlord responsible for Tenant's utility charges, and nothing in this Section requires any provider to give Landlord notice.",
   },
@@ -13994,7 +14013,7 @@ const CLAUSE_TEMPLATES = [
     id: "energy-data-release-wy",
     title: "Energy Usage Data Authorization",
     group: "Notices & General",
-    states: ["WY", "SD", "NV", "TX", "FL", "GA", "SC", "NC", "AL"],
+    states: ["WY", "SD", "NV", "TX", "FL", "GA", "SC", "NC", "AL", "UT"],
     bodyText:
       "[Optional. Use where the electric, gas or water account for the property is in Tenant's name and Landlord wants usage data for building benchmarking, an energy audit, a rebate application or utility allocation.] Tenant authorizes each electric, gas and water utility serving the property to release to Landlord or Landlord's designated agent the monthly usage and billing history for the property for the period of Tenant's tenancy, for the purpose of benchmarking, auditing or improving the energy or water performance of the building, or applying for a utility or government efficiency program. Tenant will, within ten (10) days of Landlord's written request, sign and deliver whatever release, authorization or online consent the utility requires to give effect to this paragraph. Landlord will use the data only for the purposes stated above, will not disclose Tenant's individual data to any other person except a contractor or consultant performing the benchmarking or audit, or as required by law, and will report the building's data to any third party only in aggregated form. Tenant may withdraw this authorization at any time by written notice to Landlord, and withdrawal is not a breach of this Agreement.",
   },
@@ -14561,7 +14580,7 @@ const CLAUSE_TEMPLATES = [
     id: "common-area-lighting-ks",
     title: "Common-Area Lighting on Tenant's Meter (Optional)",
     group: "Tenant Responsibilities",
-    states: ["KS", "SC"],
+    states: ["KS", "SC", "UT"],
     bodyText:
       "[Optional. Use only if lights or outlets serving a shared area are wired to the electric service that Tenant pays for.] The electric service Tenant pays for also supplies the lighting and electrical outlets in the following shared areas: {{tenant_metered_common_areas}}. Tenant shall pay for the electricity those lights and outlets use as part of Tenant's utility obligation under this Lease. Tenant is not responsible for maintaining, repairing or replacing any light fixture, bulb, wiring or other equipment in a shared area; Landlord shall maintain those and shall exercise reasonable care in the maintenance of the shared areas. Tenant shall not disconnect, remove, switch off or otherwise interrupt power to a shared-area light. If Tenant's electric service is disconnected for any reason, Tenant shall notify Landlord promptly so that Landlord can keep the shared areas lit.",
   },
@@ -14665,6 +14684,15 @@ const CLAUSE_TEMPLATES = [
     supersedes: "keys",
     bodyText:
       "At the start of the Term, Tenant will receive the keys specified by Landlord and will sign a receipt acknowledging the number and type of keys provided. Tenant will return all keys to Landlord at the end of the Term. If Tenant fails to return all keys or requires a replacement, Landlord may re-key the applicable locks and charge the cost to Tenant. Tenant may not duplicate keys without Landlord's consent. This Section does not apply to a lock change Nebraska law requires Landlord to make for a tenant or household member who is a victim of domestic violence. For that lock change, Landlord may charge Tenant only the actual and reasonable cost Landlord incurs in changing the locks, and Nebraska law governs the rest, including Tenant's right to change the locks if Landlord does not. Landlord may keep a copy of the key or entry code for any new lock installed for that lock change, and if Tenant changes a lock under that law, Tenant will give Landlord a new key or the entry code as that law requires.",
+  },
+  {
+    id: "keys-ut",
+    title: "Keys",
+    group: "Rules & Regulations",
+    states: ["UT"],
+    supersedes: "keys",
+    bodyText:
+      "At the start of the Term, Tenant will receive the keys specified by Landlord and will sign a receipt acknowledging the number and type of keys provided. Tenant will return all keys to Landlord at the end of the Term. If Tenant fails to return all keys or asks for a replacement key, Landlord may re-key the applicable locks or replace the key and charge Tenant only the amount a locksmith or other third party bills Landlord for that work or, if Landlord does the work itself, the price Landlord paid for the keys, lock cylinders or other parts used, with no markup, labor charge or added fee; Landlord will give Tenant a copy of the bill or receipt when Landlord charges Tenant. Tenant may not duplicate keys without Landlord's consent. This Section does not apply to a new lock that Tenant requires as a crime victim under Utah Code Ann. § 57-22-5.1; for that lock, Tenant pays the cost of installing it as that section provides, Landlord may keep a copy of the new key, and Landlord will refuse to give a copy of it to the perpetrator.",
   },
   // Notices & General
   {
@@ -14785,7 +14813,7 @@ const CLAUSE_TEMPLATES = [
     id: "disability-modification-restoration-mn",
     title: "Disability Modifications and Restoring the Premises",
     group: "Tenant Responsibilities",
-    states: ["MN", "SC", "VA", "AL"],
+    states: ["MN", "SC", "VA", "AL", "UT"],
     bodyText:
       "[Optional.] This Section applies only if Tenant asks to modify the Premises because of a disability. Landlord will not refuse a reasonable modification that is needed so Tenant can fully enjoy the Premises. Tenant pays the whole cost of the modification. Tenant will describe the proposed work to Landlord in writing and get Landlord approval before work starts. Where it is reasonable to require it, Landlord may make approval conditional on Tenant agreeing to restore the inside of the Premises to its earlier condition. Reasonable wear and tear is excluded from that restoration. If Landlord imposed that condition, Tenant will restore the inside of the Premises before the tenancy ends.",
   },
@@ -15069,7 +15097,7 @@ const CLAUSE_TEMPLATES = [
     id: "telecom-access-mn",
     title: "Television, Satellite and Internet Service",
     group: "Rules & Regulations",
-    states: ["MN", "SC", "AL"],
+    states: ["MN", "SC", "AL", "UT"],
     bodyText:
       "Television, satellite and internet service. Tenant may arrange Tenant's own television, satellite or internet service at Tenant's cost, unless this Lease says the service is included.\n\nTenant will get Landlord's written consent before installing an antenna, a satellite dish, a cable, or any wiring, and before drilling or cutting into any wall, roof, window or other surface. Tenant will tell Landlord what the installer plans to do.\n\nAn installer or service technician coming to the property is Tenant's guest, and Tenant will be present or will arrange access. Landlord does not have to give an installer a key or let an installer in.\n\nTenant will keep any installation in good condition, and at the end of the Term will remove it and repair any damage it caused, unless Landlord agrees in writing that it may stay.\n\nNothing in this Section limits any right Tenant has under state or federal law to install or receive a communications service or an over-the-air reception device. Where such a right applies, this Section applies only so far as that law allows.",
   },
@@ -15167,7 +15195,7 @@ const CLAUSE_TEMPLATES = [
     id: "waterbed-mn",
     title: "Waterbeds and Liquid-Filled Furniture (Optional)",
     group: "Rules & Regulations",
-    states: ["MN", "AZ", "SC", "NC", "PA", "AL"],
+    states: ["MN", "AZ", "SC", "NC", "PA", "AL", "UT"],
     bodyText:
       "[Optional.] Waterbeds and liquid-filled furniture. Tenant will not keep a waterbed, a water-filled mattress, an aquarium over [insert size, for example 20 gallons], or other liquid-filled furniture at the property without Landlord's prior written consent.\n\nIf Landlord consents, Tenant will keep the item in a frame and liner made for it, and in a place Landlord approves.\n\nTenant will also keep renter's or liability insurance covering water damage, of at least {{flotation_insurance_amount}}, for as long as the item is at the property. Tenant will give Landlord proof of that insurance on request.\n\nTenant is responsible for damage the item causes. Tenant is not responsible for normal wear and tear, or for damage that was there before this tenancy began.",
   },
@@ -15302,7 +15330,7 @@ const CLAUSE_TEMPLATES = [
     id: "barred-person-covenant-ne",
     title: "No Admitting a Barred Person",
     group: "Tenant Responsibilities",
-    states: ["NE", "AZ", "NC", "AL"],
+    states: ["NE", "AZ", "NC", "AL", "UT"],
     bodyText:
       "BARRED PERSONS. Landlord may give Tenant written notice that a named person has been barred from the property because of conduct on or about the property that threatened the health or safety of residents, Landlord, or Landlord's employees or agents, or that damaged the property. From the date Tenant receives that notice, Tenant shall not invite, admit, license, or permit that person onto the Premises or any part of the property, and shall not give that person a key, fob, access code, or parking permit. Tenant is responsible for compliance by every person Tenant admits. This paragraph does not apply to a person present to provide emergency, medical, or law-enforcement assistance, and it does not apply to a person Tenant is required by law or court order to admit. Nothing in this paragraph requires Tenant to refuse entry to a person where Tenant or a member of Tenant's household has sought a protective or restraining order against that person, has reported that person's conduct to a law enforcement agency, or has obtained certification of an act of domestic violence from a qualified third party.",
   },
@@ -16030,6 +16058,16 @@ const CLAUSE_TEMPLATES = [
     bodyText:
       "If the property is in a homeowners' or condominium association, Tenant will comply with the association's declaration, bylaws and rules that apply to occupants of the property. Landlord has given Tenant a copy of the association rules in effect when this Lease is signed. As between Landlord and Tenant, a rule the association adopts later binds Tenant once Tenant has notice of it; if a later rule substantially changes Tenant's use of the property, it binds Tenant only if Tenant agrees to it in writing. If the association fines Landlord because Tenant, an occupant or a guest violated an association rule, Tenant will reimburse Landlord the amount of the fine as damages for Tenant's breach of this Section. If the association assesses a penalty for a violation directly against Tenant, Tenant will pay it to the association, and Landlord will not charge Tenant again for the same violation. This Section does not make Tenant responsible for any fine or charge that is not caused by a violation by Tenant, an occupant or a guest.",
   },
+  // Disclosures
+  {
+    id: "hoa-compliance-ut",
+    title: "Homeowner / Condominium Association Compliance",
+    group: "Disclosures",
+    states: ["UT"],
+    supersedes: "hoa-compliance",
+    bodyText:
+      "If the property is in a condominium or homeowners association, Tenant will comply with the association's declaration, bylaws, rules and regulations that apply to the property, a copy of whose rules and regulations Landlord has given Tenant, and will sign any addendum to this Lease that Utah law allows the association to require. A violation of those rules by Tenant, an occupant or a guest is a breach of this Lease, and Tenant will pay Landlord, as Landlord's damages for that breach, the amount of any fine the association imposes on Landlord because of it, with no markup or added fee; Landlord will give Tenant a copy of the association's notice of the fine when Landlord charges Tenant. This Section does not make Tenant pay any association dues or assessment. If the association lawfully directs Tenant to pay Rent to it because Landlord has not paid an assessment, Tenant will do so, and each payment Tenant makes to the association counts as Rent paid to Landlord and is not a default under this Lease.",
+  },
   // Rent & Payment
   {
     id: "tenant-caused-fines-oh",
@@ -16279,7 +16317,7 @@ const CLAUSE_TEMPLATES = [
     id: "drug-free-housing-ca",
     title: "Controlled Substances and Cannabis",
     group: "Rules & Regulations",
-    states: ["CA", "SC"],
+    states: ["CA", "SC", "UT"],
     bodyText:
       "Tenant, members of Tenant's household, and persons on the premises with Tenant's permission will not manufacture, cultivate, import, transport, sell, distribute, furnish, give away, possess for sale, or use any controlled substance on or about the premises, except a drug lawfully prescribed to and used by the person for whom it was prescribed. Tenant will not permit the premises, any common area, parking area or storage area to be used for any unlawful purpose or for any activity amounting to a nuisance.\n\nSmoking, vaporizing, combusting, ingesting and cultivating cannabis are prohibited in the dwelling unit, on the premises and in all common areas, whether or not any person holds a physician's recommendation and whether or not the conduct is otherwise lawful. Tenant may ask Landlord in writing to consider a reasonable accommodation where cannabis is used for a disability-related purpose, and Landlord will respond in writing.\n\nA breach of this section by Tenant, a member of Tenant's household, or a person on the premises with Tenant's permission is a material breach of this Lease.\n\nThis section will not be enforced against any person because that person is or has been the victim of abuse, violence or a crime, or because that person, or anyone else, summoned law enforcement assistance or emergency assistance as or on behalf of a victim of abuse, a victim of crime, or an individual in an emergency.",
   },
@@ -16499,6 +16537,15 @@ const CLAUSE_TEMPLATES = [
     bodyText:
       "Tenant may terminate this Lease before the end of the Term by providing Landlord at least 30 days' written notice. Tenant will pay an early termination fee equal to one month's Rent ({{monthly_rent}}) and remains responsible for Rent and other obligations up to the termination date. This early-termination option and fee apply only if this Lease has a fixed Term; a month-to-month or other periodic tenancy ends on the notice that applicable law and this Lease provide, without an early termination fee. Landlord may terminate this Lease early in accordance with this Lease's Tenant Default and notice provisions, or if Tenant abandons the property. Nothing in this Section limits any right either party has under applicable law, including a Tenant's right to terminate without penalty due to active military service under the Servicemembers Civil Relief Act, due to the property becoming uninhabitable through no fault of Tenant, or any other termination right or limitation provided by applicable law.",
   },
+  {
+    id: "early-termination-ut",
+    title: "Early Termination",
+    group: "Default & Termination",
+    states: ["UT"],
+    supersedes: "early-termination-ks",
+    bodyText:
+      "Tenant may terminate this Lease before the end of the Term by providing Landlord at least 30 days' written notice. Tenant will pay Landlord, by the termination date, an early termination fee equal to one month's Rent ({{monthly_rent}}), and remains responsible for Rent and other obligations up to the termination date. If Tenant gives that notice, pays the fee and delivers possession of the property by the termination date, Tenant owes no Rent for any period after the termination date. If Tenant leaves before the end of the Term without using this option, Tenant's liability is governed by Utah law. This early-termination option and fee apply only if this Lease has a fixed Term; a month-to-month or other periodic tenancy ends on the notice that applicable law and this Lease provide, without an early termination fee. Landlord may terminate this Lease early in accordance with this Lease's Tenant Default and notice provisions, or if Tenant abandons the property as Utah law defines abandonment; Landlord will regain possession only through a court proceeding or the abandonment procedure Utah law provides. Nothing in this Section limits any right either party has under applicable law, including a Tenant's right to terminate without penalty due to active military service under the Servicemembers Civil Relief Act, a Tenant's right to terminate as a victim of domestic violence under Utah Code Ann. § 57-22-5.1 on the terms that section sets, or a Tenant's rights if the property becomes unfit through no fault of Tenant.",
+  },
   // Rules & Regulations
   {
     id: "criminal-activity-nj",
@@ -16608,7 +16655,7 @@ const CLAUSE_TEMPLATES = [
     id: "utility-transfer-nj",
     title: "Transfer of Utility Accounts",
     group: "Tenant Responsibilities",
-    states: ["NJ", "SC", "AL"],
+    states: ["NJ", "SC", "AL", "UT"],
     bodyText:
       "For each utility this Lease makes Tenant's responsibility, Tenant will open or transfer the account into Tenant's own name with the provider, effective on or before [insert date, e.g. the first day of the Term], and keep it in Tenant's name until the Term ends and Tenant has vacated. If any such account remains in Landlord's name for any part of the Term, Tenant will reimburse Landlord the amount the provider actually charged for service to the Premises for that period, within [number] days after Landlord gives Tenant a copy of the provider's bill. This reimbursement is not Rent, and no late fee applies to it. Landlord will not shut off, interrupt or ask a provider to discontinue any utility service to the Premises because Tenant has not transferred an account or has not paid a reimbursement.",
   },
@@ -17193,6 +17240,369 @@ const CLAUSE_TEMPLATES = [
     states: ["AL"],
     bodyText:
       "[Optional. Print this as its own document, separate from the Lease, and have Tenant sign it. Do not attach it to the Lease or make it a section or addendum of the Lease, and do not make signing it a condition of the Lease. Give it to Tenant no earlier than four months before the rental agreement expires (or, for a periodic tenancy, after a written notice of termination and no earlier than four months before the termination date it states).] GENERAL NOTICE OF ACCESS FOR SHOWINGS. This notice is given separately from the rental agreement for {{property_address}}. Within the last four months before the rental agreement expires [for a month-to-month or week-to-week tenancy: within the four months before the termination date stated in a written notice of termination], Landlord may enter the property to show it to a prospective tenant or purchaser without asking for Tenant's further consent, on these conditions: Landlord will give Tenant at least two days' notice of the intended time and purpose of each showing, which Landlord may give by posting a note on the primary entry door; Landlord will enter only at reasonable times; and Landlord will enter only in the company of the prospective tenant or purchaser. Landlord will not abuse this right of access or use it to harass Tenant. For any particular showing, Tenant may agree at the time to shorter notice, but does not have to. Tenant's signature below acknowledges receipt of this notice and permits access for showings on these terms. Tenant: [signature and date]",
+  },
+  // Security Deposit
+  {
+    id: "deposit-cost-schedule-ut",
+    title: "Preset Move-Out Charges",
+    group: "Security Deposit",
+    states: ["UT"],
+    bodyText:
+      "Preset move-out charges. If, when Tenant vacates, an item listed below needs the cleaning, repair or replacement shown, Landlord may deduct the charge listed for it from the Security Deposit, notwithstanding any limit on cleaning deductions in the Use of Security Deposit section of this Lease: [list each item, the work and its charge, for example carpet cleaning $___ per room, oven cleaning $___, replacement of a lost garage remote $___; or write \"None\"]. A repair or replacement charge applies only to damage beyond reasonable wear and tear. Each charge is Landlord's and Tenant's agreed, reasonable estimate of the cost of that work. Landlord will list each charge it deducts, and the reason for it, in the itemized notice of deductions this Lease and Utah law require.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "carpet-cleaning-ut",
+    title: "Carpet Cleaning at Move-Out",
+    group: "Tenant Responsibilities",
+    states: ["UT"],
+    bodyText:
+      "[Optional. Use only if the carpets were professionally cleaned immediately before the tenancy began.] The carpets at the property were professionally cleaned immediately before this tenancy began. When the tenancy ends, Tenant will have the carpets professionally cleaned and give Landlord the receipt. If Tenant does not, Landlord may have a third-party carpet cleaner clean them and deduct from the Security Deposit, notwithstanding any limit on cleaning deductions in the Use of Security Deposit section of this Lease, the amount the cleaner bills Landlord, with no markup, labor charge or added fee. Landlord will list the deduction in the itemized notice of deductions and include a copy of the cleaner's bill.",
+  },
+  // Security Deposit
+  {
+    id: "deposit-trust-account-exemption-ut",
+    title: "Property Manager Trust Account Exemption",
+    group: "Security Deposit",
+    states: ["UT"],
+    bodyText:
+      "[Use only if Landlord's property manager is a licensed property manager who is not affiliated with a principal broker, and the property management agreement states that the property manager is not required to hold property management client funds in a trust account.] Trust account. The property manager is not required to hold property management client funds in a trust account. This does not change Landlord's duty to return the Security Deposit and any prepaid Rent as this Lease and Utah law require.",
+  },
+  // Rent & Payment
+  {
+    id: "fees-and-charges-ut",
+    title: "Fees and Charges",
+    group: "Rent & Payment",
+    states: ["UT"],
+    bodyText:
+      "Fees and charges. In addition to Monthly Rent of {{monthly_rent}} and any deposit stated in this Lease, the following are the fees and charges Tenant may be required to pay under this Lease, with the amount of each, or the method for calculating it, and when or why it is due: [list each fee or charge, one-time or recurring, for example pet rent, parking fee, utility charges Landlord bills and how they are calculated, returned-payment fee (for a dishonored check, Utah law sets a service charge of $20), late fee (not more than the greater of 10% of Monthly Rent or $75), notice-service fee; for a charge that passes on a cost Landlord incurs, state that it is the amount a third party bills Landlord, with no markup, labor charge or added fee, and that Landlord will give Tenant a copy of the bill; or write \"None\"]. A fee or charge stated with its amount or method in another section of this Lease is also included. Landlord will not charge Tenant a fee, fine, assessment, interest or other cost that this Lease does not include, or more than the amount this Lease states, except that if this Lease is month-to-month, Landlord may add a charge by giving Tenant at least 15 days' written notice before it applies.",
+  },
+  {
+    id: "government-fee-reimbursement-ut",
+    title: "Government Fee Reimbursement",
+    group: "Rent & Payment",
+    states: ["UT"],
+    bodyText:
+      "[Optional. Use only for a fee a city or county charges Landlord because the property is rented, such as a rental business license fee or a disproportionate rental fee.] Government fee. Tenant will pay Landlord [all / ___%] of the [name the fee, for example City of ___ rental business license fee] that the government bills Landlord for the property, with no markup or added fee, within [number] days after Landlord gives Tenant a copy of the government's bill or notice. [Optional: The fee is currently $___ per ___.] Tenant will not reimburse any fine or penalty assessed against Landlord, or any fee for inspecting the property.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "detector-care-ut",
+    title: "Smoke and Carbon Monoxide Alarms",
+    group: "Tenant Responsibilities",
+    states: ["UT"],
+    bodyText:
+      "[Optional.] SMOKE AND CARBON MONOXIDE ALARMS. Tenant will not remove, disconnect, disable or cover any smoke or carbon monoxide alarm in the Premises, or remove a working battery from one. Tenant will tell Landlord promptly if an alarm is missing, damaged, sounds a low-battery or end-of-life signal, or does not work when tested. If Tenant, or a person on the Premises with Tenant's consent, removes, disables or damages an alarm, Tenant will pay Landlord the amount a third party bills Landlord to repair or replace it or, if Landlord does the work itself, the price Landlord paid for the alarm or parts used, with no markup, labor charge or added fee. Landlord will give Tenant a copy of the bill or receipt when Landlord charges Tenant.",
+  },
+  // Disclosures
+  {
+    id: "sex-offender-registry-notice-ut",
+    title: "Registered Offender Information",
+    group: "Disclosures",
+    states: ["UT"],
+    bodyText:
+      "[Optional.] Registered Offender Information. Information about registered sex, kidnap and child abuse offenders in Utah, including the addresses where they live, is available to the public on the State of Utah's Sex, Kidnap, and Child Abuse Offender Notification and Registration website. Tenant may check that website. Landlord makes no statement about whether any registered offender lives in or near the property.",
+  },
+  // Rent & Payment
+  {
+    id: "rent-reporting-negative-notice-ut",
+    title: "Credit Reporting of Unpaid Amounts",
+    group: "Rent & Payment",
+    states: ["UT"],
+    bodyText:
+      "[Optional. Use only if Landlord or a collection agency acting for Landlord may report unpaid amounts to a credit reporting agency.] Credit Reporting. If Tenant does not pay Rent or another amount due under this Lease, Landlord, or a collection agency acting for Landlord, may report the unpaid amount to a credit reporting agency. As required by Utah law, you are hereby notified that a negative credit report reflecting on your credit record may be submitted to a credit reporting agency if you fail to fulfill the terms of your credit obligations. Landlord will also give Tenant this notice in writing, in person, by first-class mail to Tenant's last-known address or, if Tenant has agreed to receive notices by email, by email, no more than 30 days after the first negative report about Tenant is submitted.",
+  },
+  // Access & Entry
+  {
+    id: "rental-inspection-cooperation-ut",
+    title: "Government Inspections",
+    group: "Access & Entry",
+    states: ["UT"],
+    bodyText:
+      "Government Inspections. A city, county, health, fire or other government official may ask to inspect the Premises to enforce a building, fire, health or rental licensing code or ordinance, and Landlord may have to allow an inspection as a condition of a rental license. Tenant will cooperate with Landlord in scheduling any such inspection. Landlord will give Tenant notice of the inspection, and Landlord will enter only as this Lease's Access & Entry terms allow. Nothing in this Section is Tenant's consent for a government official to enter the Premises; if an official asks to enter and Tenant is not willing, Tenant will tell Landlord promptly. Tenant will promptly give Landlord a copy of any notice, order or citation Tenant receives from a government body about the condition of the Premises. Nothing in this Section limits Tenant's right to report a condition to, or ask for an inspection by, any government body.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "fire-code-compliance-ut",
+    title: "Fire Safety Compliance",
+    group: "Tenant Responsibilities",
+    states: ["UT"],
+    bodyText:
+      "Fire Safety. Tenant will not do anything on the property that violates the State Fire Code or any local fire ordinance. Tenant will not store or allow to accumulate on the property any combustible or explosive material, rubbish, rags, waste or other flammable matter that endangers the building, the property or any occupant, including in shared hallways, stairways, landings, entries and exits. Tenant will keep all exits, stairways and fire escapes clear and will not disable, remove or obstruct any smoke or carbon monoxide alarm, fire extinguisher, sprinkler head, fire door or emergency lighting. If a fire official orders Tenant to remove material or correct a condition Tenant caused, Tenant will comply within the time the order allows and will tell Landlord at once. Landlord may enter to inspect for and correct a fire hazard as this Lease's Access & Entry terms allow, and without notice in an emergency. If Tenant does not correct a condition Tenant caused, Landlord may correct it and charge Tenant only the amount a contractor or other third party bills Landlord for that work or, if Landlord does the work itself, the price Landlord paid for the parts and materials used, with no markup, labor charge or added fee; Landlord will give Tenant a copy of the bill or receipt when Landlord charges Tenant.",
+  },
+  // Rules & Regulations
+  {
+    id: "family-child-care-consent-ut",
+    title: "Child Care in the Property",
+    group: "Rules & Regulations",
+    states: ["UT"],
+    bodyText:
+      "[Optional. Use only if Landlord agrees to allow child care in the property.] Child Care: Despite the residential-use terms of this Lease, Tenant may provide child care in the property only while Tenant: (1) holds any Residential Child Care Certificate, license or other approval that Utah law requires for the care provided, or qualifies for an exemption, and gives Landlord a copy before starting and after each renewal; (2) complies with all state and local laws, including zoning, business licensing and building, health and fire codes, and with any association rules that apply to the property; (3) gives Landlord written notice before starting and promptly tells Landlord of any change; (4) cares for no more than [number] children at a time, not counting Tenant's own children, and never more than the law or Tenant's certificate or license allows; (5) keeps in force, at Tenant's expense, liability insurance covering the child care with limits of at least [amount], naming Landlord as an additional insured, and gives Landlord proof of it before starting and at each renewal; and (6) makes no alteration to the property for the child care without Landlord's prior written consent. This permission does not change Tenant's other duties under this Lease, including responsibility for the conduct of persons on the property with Tenant's consent. If any condition is not met, Tenant will stop providing child care at the property until it is met, and Landlord may withdraw this permission by written notice.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "heat-freeze-protection-ut",
+    title: "Heat and Freeze Protection",
+    group: "Tenant Responsibilities",
+    states: ["UT"],
+    bodyText:
+      "[Optional. Use where Tenant controls the thermostat and a freeze could damage the property.] Tenant will use the heating system in a reasonable manner. During the heating season Tenant will keep the heat on and the thermostat set to at least [minimum indoor temperature Landlord chooses, for example 55 degrees Fahrenheit] at all times, including while Tenant is away, so that water pipes and fixtures do not freeze. Tenant will not turn the heat off, block or cover a heating vent, register or return, or set the thermostat below that temperature. Tenant will tell Landlord promptly if the heating system stops working. If Tenant smells gas, Tenant will first leave the property and call the gas utility or emergency services, and then tell Landlord. If Tenant will be away for more than [number] consecutive days during the heating season, Tenant will tell Landlord beforehand. Nothing in this Section makes Tenant responsible for repairing or maintaining the heating system. If Tenant's failure to comply with this Section damages the property, Tenant will pay Landlord the amount a plumber, contractor or other third party bills Landlord to repair that damage or, if Landlord does the repair itself, the price Landlord paid for the parts and materials used, with no markup, labor charge or added fee, and Landlord will give Tenant a copy of the bill or receipt when Landlord asks for payment. This Section does not limit any right Tenant has under the Utah Fit Premises Act.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "appliances-excluded-ut",
+    title: "Appliances Not Supplied by Landlord",
+    group: "Landlord Responsibilities",
+    states: ["UT"],
+    bodyText:
+      "[Optional. Use only for items at the property that Landlord does not supply under this Lease, such as an appliance a prior occupant left or one Tenant owns. Never list a water heater, a furnace or other heating equipment, any air conditioner or cooling system, any plumbing fixture, or any part of the electrical system: Utah law makes those Landlord's to maintain unless a duty is shifted to Tenant in this Lease's Tenant-Performed Duties section.] Despite the Maintenance & Repairs section of this Lease, the following items at the property are not supplied by Landlord under this Lease, and Landlord will not repair, maintain or replace them: {{excluded_appliance_list}}. Tenant may use them as they are or ask Landlord in writing to remove them. This Section does not exclude any item this Lease lists as included, and it does not reduce Landlord's duty to maintain the electrical systems, plumbing, heating, hot and cold water and any air conditioning system.",
+  },
+  {
+    id: "promised-repairs-ut",
+    title: "Promised Cleaning, Repairs or Improvements",
+    group: "Landlord Responsibilities",
+    states: ["UT"],
+    bodyText:
+      "[Optional. Use whenever Landlord has agreed to clean, repair or improve anything at the property.] Landlord will complete the following cleaning, repairs or other work at the property, each on or before the date stated: [list each item and its completion date, or write \"None\"]. If a cause beyond Landlord's reasonable control, such as a labor stoppage, materials that cannot be obtained, or a fire or other casualty, delays an item, Landlord will tell Tenant in writing the reason and the new completion date. These items are one-time work. They are not a promise of continuing maintenance, and completing one does not make the item an appliance or facility that Landlord contracts to maintain under this Lease. This Section lists every promise Landlord has made to clean, repair or improve the property. If Tenant believes Landlord promised anything else, Tenant will say so in writing before signing this Lease so that it can be added. A later promise to clean, repair or improve the property binds Landlord only if it is in a writing Landlord signs. This Section does not limit any right Tenant has under the Utah Fit Premises Act.",
+  },
+  // Default & Termination
+  {
+    id: "landlord-self-cure-ut",
+    title: "Landlord's Right to Remedy Tenant's Breach",
+    group: "Default & Termination",
+    states: ["UT"],
+    bodyText:
+      "[Optional.] Landlord's Right to Remedy Tenant's Breach. If Tenant fails to perform a duty this Lease places on Tenant, other than paying Rent, and the failure can be remedied by cleaning, repair, replacement or removal, Landlord may give Tenant written notice describing the failure and asking Tenant to remedy it within [number of days Landlord chooses] days, or sooner if the failure threatens health, safety or the property. If Tenant does not remedy it in that time, Landlord may have the work done, entering the property only as this Lease's Access & Entry terms allow. Tenant will then pay Landlord the amount a contractor or other third party bills Landlord for the work or, if Landlord does the work itself, the price Landlord paid for the parts and materials used, with no markup, labor charge or added fee, within [number] days after Landlord gives Tenant a copy of the bill or receipt. That amount is due under this Lease. This Section does not let Landlord change the locks, remove Tenant's belongings or shut off any utility, and it does not limit Landlord's other remedies under this Lease or Utah law.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "designated-repairer-ut",
+    title: "Repair Contact and Approved Repairers",
+    group: "Landlord Responsibilities",
+    states: ["UT"],
+    bodyText:
+      "[Optional.] Repair Contact and Approved Repairers. Tenant will report repair and maintenance needs to {{landlord_repair_contact}}. Except as the Utah Fit Premises Act allows, Tenant will not make, or hire anyone to make, any repair at Landlord's expense, and will not deduct any repair cost from Rent, unless Landlord first consents in writing; Landlord's written consent will name the person or company Landlord approves to do the work and any cost limit. If Tenant uses the repair-and-deduct remedy of the Utah Fit Premises Act after a written notice of deficient condition and the corrective period, the deduction may not exceed two months' Rent, and Tenant will keep all receipts for the work and give Landlord copies within five calendar days after the beginning of the next rental period. Any part or material installed in a repair paid for by Landlord, directly or by a deduction from Rent, becomes part of the property and belongs to Landlord. This Section does not limit Tenant's right to report a dangerous condition by any reasonable means, or any other right Tenant has under the Utah Fit Premises Act.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "renter-duties-ut",
+    title: "Additional Tenant Duties Under Utah Law",
+    group: "Tenant Responsibilities",
+    states: ["UT"],
+    bodyText:
+      "In addition to Tenant's other obligations under this Lease, Tenant will: comply with the rules of the local board of health that materially affect physical health and safety; not unreasonably burden any common area; keep all plumbing fixtures as sanitary as their condition permits; occupy the property only in the manner for which it was designed; not increase the number of occupants above the number this Lease specifies without Landlord's written permission; and cooperate with Landlord in maintaining the property as the Utah Fit Premises Act requires.",
+  },
+  {
+    id: "prohibited-acts-renter-ut",
+    title: "Prohibited Acts",
+    group: "Tenant Responsibilities",
+    states: ["UT"],
+    bodyText:
+      "Tenant will not intentionally or negligently destroy, deface, damage, impair or remove any part of the property, and will not knowingly permit any other person to do so. Tenant will not interfere with the peaceful enjoyment of any other tenant's home or of neighbors. Tenant will not unreasonably deny access to, refuse entry to, or withhold consent to enter the property to Landlord or Landlord's agent or manager for the purpose of making repairs, or for any other entry this Lease's Access & Entry terms allow, when Landlord gives the notice those terms require.",
+  },
+  // Rules & Regulations
+  {
+    id: "pool-and-spa-use-ut",
+    title: "Pool and Spa Use",
+    group: "Rules & Regulations",
+    states: ["UT"],
+    bodyText:
+      "[Use where the property includes a pool, hot tub or spa available to Tenant.] Tenant and Tenant's household and guests may use the pool and spa only in accordance with the posted rules and the posted hours, and only while the facility is open. There is no lifeguard on duty at any time. Tenant will not allow any person under {{pool_minimum_age}} years of age to use the pool or spa unless accompanied by an adult (18 or older) who is responsible for that person, and will not allow more than {{pool_guest_limit}} guests at the facility at one time. Tenant will not prop open, block, climb over, disable or leave unlatched any gate, door, fence, cover or other barrier to the pool or spa, will not admit any person who is not a resident or Tenant's accompanied guest, and will not give any key, fob or code for the facility to any other person. Tenant will not bring glass containers, will not use the facility while under the influence of alcohol or a controlled substance, and will not interfere with Landlord's equipment, chemicals, pumps, covers or signage. Tenant will tell Landlord in writing, as soon as Tenant knows of it, of any damaged gate, latch, fence, cover, light, drain cover, sign or other condition at the pool or spa that could be unsafe. Landlord may close the pool or spa for maintenance, repair, water quality, weather or seasonal closure, or because a health department or other public authority orders it closed, and a closure for one of these reasons is not a breach of this Lease. Landlord may suspend Tenant's use of the facility for a stated period on written notice if Tenant breaches this Section. Nothing in this Section limits Landlord's duty under Utah law to keep common areas in a sanitary and safe condition.",
+  },
+  // Access & Entry
+  {
+    id: "smart-access-system-ut",
+    title: "Electronic Entry System",
+    group: "Access & Entry",
+    states: ["UT"],
+    bodyText:
+      "[Use where entry to the property or to a common entrance is by keypad code, key fob, card, mobile application or biometric credential.] Entry to {{smart_access_locations}} is by {{smart_access_method}}. Landlord will issue Tenant {{smart_access_credential_count}} credentials at the start of the term and will, on Tenant's written request and at no charge, also provide Tenant with a credential that requires neither a biometric identifier nor a mobile application, such as a physical key, card, fob or keypad code. Tenant is not required to enroll a fingerprint, face or other biometric identifier as a condition of this tenancy. Landlord will tell Tenant in writing, before Tenant uses the system, what information the system records, how long Landlord keeps it, and who else can see it, and will give Tenant a copy of the system's privacy policy if the vendor has one. Landlord will use entry records only to operate and secure the property, to investigate a specific incident, or as required by law. Tenant will keep each credential and code confidential, will not give, sell, copy or share a credential or code with any person who is not an occupant named in this Lease, and will tell Landlord in writing within {{lost_credential_notice_days}} days if a credential is lost, stolen or shared. Tenant will not remove, disable, obstruct, reprogram, tamper with or replace any lock, reader, keypad or other part of the system without Landlord's prior written consent. Tenant will tell Landlord promptly if the system fails to admit Tenant, and Landlord will restore access without unnecessary delay. Landlord will keep a physical override available to Tenant at all times so that a power, network, battery or server failure does not leave Tenant unable to enter or to leave. If Tenant becomes entitled under Utah law to have a new lock installed as a crime victim, Landlord will also issue new credentials and deactivate any credential held by the perpetrator. At the end of the term Tenant will return every credential and will not retain any code; Landlord will deactivate Tenant's credentials and, within {{credential_data_deletion_days}} days after Tenant returns possession, delete or direct the vendor to delete any biometric identifier Landlord holds for Tenant. Nothing in this Section gives Landlord any right to enter the unit beyond the rights Landlord has under this Lease and Utah law, and Landlord will not use the system to enter the unit remotely except in an emergency or as this Lease's Access & Entry terms allow.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "pest-cooperation-ut",
+    title: "Pest Reporting and Treatment",
+    group: "Tenant Responsibilities",
+    states: ["UT"],
+    bodyText:
+      "[Optional.] Tenant will promptly tell Landlord if Tenant knows or reasonably suspects that the property has bed bugs or another infestation of insects, rodents or other pests. Tenant will allow Landlord, Landlord's agents and pest control operators to enter the property to inspect for and treat the infestation as this Lease's Access & Entry terms allow, and will follow the reasonable written preparation instructions Landlord or the pest control operator gives. If the infestation was caused by the fault of Tenant, a member of Tenant's household or a person on the property with Tenant's consent, Tenant will pay only the amount a pest control operator or other third party bills Landlord for the treatment and for repairing the resulting damage or, if Landlord does the work itself, the price Landlord paid for the parts, materials and treatment products used, with no markup, labor charge or added fee; Landlord will give Tenant a copy of the bill or receipt when Landlord charges Tenant. Otherwise, Landlord will pay for treatment as part of Landlord's repair obligations.",
+  },
+  // Rules & Regulations
+  {
+    id: "portable-cooling-device-ut",
+    title: "Cooling Equipment and Portable Units",
+    group: "Rules & Regulations",
+    states: ["UT"],
+    bodyText:
+      "Cooling equipment. Landlord supplies, and will keep in operable condition, the following air conditioning or cooling equipment at the property: [list, or write \"none\"]. [Choose one.] [Option A: permitted with conditions.] Tenant may install a portable or window air conditioner or a portable evaporative cooler at Tenant's own expense. Tenant will give Landlord written notice at least [3] days before installing a window-mounted unit, identifying the window and the unit. Tenant will mount the unit securely using the manufacturer's brackets or equivalent support, will not remove, damage or permanently alter any window, screen, frame, sill or sash, and will not block a window needed for emergency escape. Tenant will plug the unit directly into a grounded wall outlet and will not run it from an extension cord, a power strip or an adapter. Tenant is responsible for damage the unit or its installation causes, including water and condensation damage and damage caused if the unit falls. Landlord may inspect the installation as this Lease's Access & Entry terms allow and may require removal or correction if it is unsafe or blocks an escape window. Tenant will remove the unit and restore the window and surrounding surfaces at the end of the tenancy. [Option B: consent required.] Tenant will not install a window-mounted or through-the-wall air conditioner or cooler without Landlord's prior written consent; a free-standing portable unit that vents through a window kit and needs no alteration to the property is allowed. Nothing in this Section limits Tenant's right to request a reasonable accommodation or modification for a disability.",
+  },
+  // Disclosures
+  {
+    id: "environmental-covenant-notice-ut",
+    title: "Environmental Covenant Notice",
+    group: "Disclosures",
+    states: ["UT"],
+    bodyText:
+      "[Use only if the property, or any part of it, is subject to a recorded environmental covenant or environmental institutional control.] Environmental Covenant. The property is subject to [an environmental covenant / an environmental institutional control] recorded on [date] as [entry number] in the [county] County Recorder's office, which restricts the following uses or activities: [describe the activity and use limitations, for example no use of groundwater, no digging below a stated depth, no removal of a cap or cover]. A copy is attached to this Lease. Tenant will comply with every limitation that applies to Tenant's use of the property, will not let any member of Tenant's household or any guest violate it, and will tell Landlord promptly in writing of any damage to, or disturbance of, a cap, cover, barrier, monitoring well or other control named in it. Tenant will allow the agency or holder named in it to enter the property as that covenant or control and the law allow, and Landlord will give Tenant any notice of that entry Landlord receives.",
+  },
+  // Default & Termination
+  {
+    id: "environmental-event-termination-ut",
+    title: "Environmental Event",
+    group: "Default & Termination",
+    states: ["UT"],
+    bodyText:
+      "[Optional.] Environmental Event. If the property becomes unfit to live in, or a government authority orders it vacated or declares it unfit or contaminated, because of a flood, wildfire, earthquake, windstorm, failure of water or sewer service, release of hazardous or contaminating material (including methamphetamine contamination), public health emergency or similar event not caused by Tenant, an Occupant, or a guest or invitee of Tenant, either Landlord or Tenant may end this Lease by written notice to the other. A termination by Landlord takes effect no sooner than 10 calendar days after Landlord gives the notice, unless Tenant has already moved out or a government order requires Tenant to leave sooner. Rent will be prorated to the date this Lease ends or, if earlier, the date Tenant moves out, and Tenant owes no Rent for any day on which a government order barred occupancy of the property. Landlord will refund any prepaid Rent for a later period and return the Security Deposit as this Lease and Utah law provide, and will give Tenant a reasonable opportunity to remove Tenant's belongings as soon as it is safe to do so. If Tenant does not move out by the date this Lease ends, Landlord may regain possession only through a court eviction. This Section does not limit any right Tenant has under the Utah Fit Premises Act or other Utah law, or any right either party has under the Fire or Other Casualty section of this Lease.",
+  },
+  // Notices & General
+  {
+    id: "automatic-renewal-ut",
+    title: "Automatic Renewal",
+    group: "Notices & General",
+    states: ["UT"],
+    bodyText:
+      "[Optional. Use only in a Lease with a fixed Term.] Automatic renewal. At the end of the Term, this Lease will renew automatically [choose one: for one further term of (state the renewal term) / for further terms of (state the renewal term) each / on a month-to-month basis] on the same terms, unless Landlord or Tenant gives the other written notice of non-renewal at least {{renewal_notice_days}} days before the end of the then-current term. Rent during a renewal term will be [choose one: the Rent in effect at the end of the then-current term / the Rent in effect at the end of the then-current term increased by (state a dollar amount or a percentage)]. Any other change to the Rent or to another term of this Lease for a renewal term binds Tenant only if Tenant agrees to it in a writing signed by Tenant. This does not limit Landlord's right, while this Lease is month to month, to add a charge that this Lease does not include by giving Tenant at least 15 days' written notice of the charge before it applies, as Utah law allows. Landlord will not charge a fee for a renewal unless this Lease states the fee and its amount. If this Lease renews for a further fixed term, neither party may end it during that term except as this Lease or Utah law allows. If it renews on a month-to-month basis, either party may end it as this Lease's periodic-tenancy terms and Utah law provide.",
+  },
+  // Default & Termination
+  {
+    id: "eminent-domain-ut",
+    title: "Eminent Domain",
+    group: "Default & Termination",
+    states: ["UT"],
+    bodyText:
+      "[Optional.] Eminent domain. If all of the property is taken by eminent domain, or so much of it is taken that the rest cannot reasonably be lived in, this Lease ends on the date Tenant must give up possession, Rent is apportioned to that date, and Landlord will refund any Rent paid for later days. If a smaller part is taken and the rest can reasonably be lived in, this Lease continues and Rent is reduced in proportion to Tenant's loss of use. Any award for the taking of the property, including any value of this Lease, belongs to Landlord, except any relocation payment, any payment for improvements Tenant owns and may remove, and any other separate payment made to Tenant for Tenant's own moving costs or personal property. If this Lease ends under this Section, Landlord will return the Security Deposit, less lawful deductions, as this Lease and Utah law provide.",
+  },
+  // Notices & General
+  {
+    id: "agreed-notice-methods-ut",
+    title: "Added Notice Methods",
+    group: "Notices & General",
+    states: ["UT"],
+    bodyText:
+      "[Optional.] Added notice methods. In addition to any method this Lease or Utah law allows: (a) Landlord may give Tenant notice of an entry under this Lease by text message to the mobile number Tenant gives Landlord in writing [enter number or leave blank], or by email to {{tenant_email}}; (b) Tenant may give Landlord a notice of a deficient condition under the Utah Fit Premises Act, and any other notice to Landlord under this Lease, by email to {{landlord_email}}; and (c) Landlord may send the deposit refund and the itemized statement of any deductions electronically to an email or payment account Tenant gives Landlord for that purpose. Each party will tell the other promptly in writing if these contact details change. Tenant may stop receiving notices by text message or email at any time by telling Landlord in writing, and Landlord will then use another method this Lease allows. These added methods never apply to a notice to pay rent or leave, a notice to comply or leave, a notice to quit or any other notice ending the tenancy, which Landlord will serve only as Utah law provides. This Section controls over the Notices Section to the extent they differ.",
+  },
+  {
+    id: "tenant-portal-ut",
+    title: "Online Portal",
+    group: "Notices & General",
+    states: ["UT"],
+    bodyText:
+      "[Optional.] Online portal. Landlord may make an online portal available for paying Rent, making maintenance requests, signing documents and giving and receiving notices. Tenant may pay Rent by any method this Lease lists, including [state at least one method that does not need the portal, for example check or money order mailed or delivered to {{payment_address}} during business hours], and may give any notice by the methods this Lease and Utah law allow, whether or not Tenant uses the portal. If Tenant has agreed to use the portal and later tells Landlord in writing that Tenant no longer wishes to deal electronically, Landlord will use paper or another method this Lease allows for later payments, signatures and notices. Landlord will provide documents in the portal in a form Tenant can print and save. [Choose one: Landlord charges no fee for using the portal. / A portal fee of {{portal_fee}} applies only to a payment Tenant chooses to make through the portal by (state the payment type, for example credit card), and no fee applies to any other way of paying.] Landlord will not use the portal to serve a notice to pay rent or leave, a notice to comply or leave, a notice to quit or any other notice ending the tenancy, which Landlord will serve only as Utah law provides. Tenant's email address for the portal is {{tenant_email}}, and Tenant will tell Landlord promptly in writing if it changes.",
+  },
+  // Rules & Regulations
+  {
+    id: "rules-ut",
+    title: "Rules and Regulations",
+    group: "Rules & Regulations",
+    states: ["UT"],
+    bodyText:
+      "Rules. Tenant will comply with Landlord's written rules for the property in effect when this Lease is signed: [attach the rules, or state that there are none]. Landlord has given Tenant a copy of those rules with this Lease. A new or changed rule adopted after this Lease is signed binds Tenant only if Tenant agrees to it in a writing signed by Tenant, or if it is made part of a renewal of this Lease at the start of the renewal term. A rule may impose a fine or other charge only if the rule states the amount of that charge, and Landlord will not charge Tenant any fine or charge under a rule that does not state its amount.",
+  },
+  // Rent & Payment
+  {
+    id: "utility-allowance-cap-ut",
+    title: "Utility Allowance with Tenant-Paid Overage",
+    group: "Rent & Payment",
+    states: ["UT"],
+    bodyText:
+      "[Optional. Use only for a utility this Lease lists as paid by Landlord whose account is in Landlord's name. For electricity or natural gas, use only where a meter owned by the utility serves only the property; do not use it for electricity or gas measured by a Landlord submeter or shared with other units. For any utility, use only where the provider bills the property alone; for a water, sewer, storm water or trash bill shared with other units use the Shared Water, Sewer and Trash Charges section instead; for a shared electricity or gas bill, use neither.] Utility allowance. Landlord will pay for [specify utility] up to {{utility_allowance_amount}} for each of the provider's billing periods. If the provider's charge for the property for a billing period is more than that amount, Tenant will pay Landlord the difference and nothing more, with no markup, administrative fee or other added charge. Landlord will give Tenant a copy of the provider's bill for that period with each request for payment, and Tenant will pay within [number] days after receiving it. Landlord will not shut off, interrupt or ask a provider to discontinue any utility service to the property because Tenant has not made a payment under this Section.",
+  },
+  {
+    id: "utility-apportionment-ut",
+    title: "Shared Water, Sewer and Trash Charges",
+    group: "Rent & Payment",
+    states: ["UT"],
+    bodyText:
+      "[Optional. Use only if Landlord holds an account for water, sewer, storm water or trash service that serves the property together with other units or common areas, and Tenant will pay Landlord a share. Do not use it for electricity or natural gas.] Shared utility charges. The following services to the property are billed to Landlord on accounts that also serve [other units, common areas, or both]: [list each service]. For each billing period Tenant will pay Landlord Tenant's share of each bill, figured as follows: [describe the method, for example the reading of a submeter serving only the property multiplied by the rate on the provider's bill, or the bill multiplied by the property's floor area and divided by the total floor area of all units served]. Tenant's share will include only amounts the provider charges Landlord, with no markup, administrative fee or other added charge, and will include a charge for a common area only if it is listed here: [list, or write \"none\"]. With each request for payment Landlord will give Tenant a copy of the provider's bill and the calculation of Tenant's share. Tenant will pay within [number] days after receiving them. Landlord will not shut off, interrupt or ask a provider to discontinue any utility service to the property because Tenant has not paid a share.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "utility-interruption-repairs-ut",
+    title: "Planned Utility Interruptions",
+    group: "Landlord Responsibilities",
+    states: ["UT"],
+    bodyText:
+      "[Optional.] Planned utility interruptions. Landlord may interrupt water, electricity, gas or heat to the property for as short a time as is practical to inspect, repair, replace or maintain equipment, or to protect people or property in an emergency. Except in an emergency, Landlord will give Tenant at least [number, for example 24] hours' notice of a planned interruption, stating its expected start and length, by [state method, for example text message, e-mail or a notice posted on the door]. Landlord will restore service as soon as the work allows. Landlord will not interrupt any utility service to collect money from Tenant or to make Tenant leave the property. Entry into the property for the work is governed by this Lease's Landlord's Right of Entry section.",
+  },
+  // Parking & Storage
+  {
+    id: "ev-charging-shared-area-ut",
+    title: "EV Charger in a Shared Parking Area",
+    group: "Parking & Storage",
+    states: ["UT"],
+    bodyText:
+      "[Optional. Use with the Tenant-Installed EV Charging System section, only if Landlord consents in writing to a charging system in a parking space in a parking area that other tenants use.] Charging system in a shared parking area. The parking space identified as [identify the space] is assigned to Tenant for Tenant's exclusive use while Tenant's charging system is installed there, for [state the monthly amount, or write \"no additional charge\"] per month, payable with the Rent. Tenant will keep the charging system, its cord and any cable out of walkways, drive aisles and other spaces. Tenant is responsible for damage to the parking area, other property or the charging system caused by its installation, use, maintenance, repair, removal or replacement. If the property is in a condominium or homeowners association, Tenant will also follow the association's rules for the space and the system. The assignment ends when the charging system is removed or this Lease ends, whichever is first.",
+  },
+  // Rules & Regulations
+  {
+    id: "portable-solar-device-ut",
+    title: "Portable Solar Devices",
+    group: "Rules & Regulations",
+    states: ["UT"],
+    bodyText:
+      "[Optional.] Portable solar devices. Tenant will not install or use any solar panel or other electricity-generating equipment at the property without Landlord's prior written consent, except as this Section allows. [Choose one: Landlord consents to Tenant's use of one portable solar generation device under this Section / Tenant may ask Landlord's written consent to use a portable solar generation device under this Section.] A portable solar generation device is a movable photovoltaic device with a maximum output of not more than 1,200 watts that plugs into a standard 120-volt outlet, meets the current National Electrical Code, is certified by Underwriters Laboratories or an equivalent nationally recognized testing laboratory, and has a feature that prevents it from energizing the building's electrical system during a power outage. Tenant will place the device only [describe the permitted location, for example on the property's balcony or patio], secured against wind, and will not drill into, penetrate or fasten anything to the roof, an exterior wall, a railing or a window without Landlord's written consent. Tenant will plug the device only into an outlet on the property's own electrical service, never into an outlet in a common area or one serving another unit, and will not run a cord where it creates a tripping or fire hazard. Tenant is responsible for any damage the device causes. Landlord may require Tenant to disconnect the device if it is damaged or overheating or is not used as this Section requires. At the end of the Term Tenant will remove the device and repair any damage its use or removal caused.",
+  },
+  // Parking & Storage
+  {
+    id: "parking-rules-notice-ut",
+    title: "Parking Rules",
+    group: "Parking & Storage",
+    states: ["UT"],
+    bodyText:
+      "[Optional. Use if Landlord has written parking rules for the property.] Parking rules. Landlord's parking rules for the property are attached to this Lease and are part of it, and Tenant acknowledges receiving a copy at or before the start of the Term. The rules cover where Tenant, occupants and guests may park, any permit, tag or decal, the vehicle information Landlord needs, and when a vehicle may be towed or immobilized at the vehicle owner's expense. A new or changed parking rule binds Tenant during a fixed Term only if Tenant agrees to it in a writing signed by Tenant, or if it is made part of a renewal of this Lease; while this Lease is month to month, Landlord may propose a change by written notice at least {{rule_change_notice_days}} days before it takes effect, and it binds Tenant only if Tenant agrees to it in a writing signed by Tenant. A change will not take away a parking space this Lease assigns to Tenant. A new parking charge applies only if this Lease already includes it, or, while this Lease is month to month, after Landlord gives Tenant at least 15 days' written notice of the charge. Any towing or immobilization will be done only as Utah law allows, including its signage and notice requirements.",
+  },
+  {
+    id: "unbundled-parking-ut",
+    title: "Optional Parking Not Included in Rent",
+    group: "Parking & Storage",
+    states: ["UT"],
+    bodyText:
+      "[Optional. Use only if Tenant can rent the property without parking and is choosing to add it. If parking comes with the property, use the Assigned Parking Space(s) section instead and include it in the Rent.] Optional parking. Parking is not included in the Rent. Tenant has chosen to use one parking space at the property, identified as [identify the space number or location], for {{parking_fee_amount}} per month, payable with the Rent on the day the Rent is due. Landlord will not increase this charge during the Term. Tenant may end this parking arrangement by giving Landlord [number, for example 14] days' written notice, after which the charge stops and Tenant will stop using the space; Landlord may end it the same way and will refund any part of the charge covering a period after the space is given up. The parking rules that apply to the property apply to the space.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "tenant-work-liens-ut",
+    title: "Tenant-Ordered Work and Liens",
+    group: "Tenant Responsibilities",
+    states: ["UT"],
+    bodyText:
+      "[Optional. Use where Tenant may order any construction, alteration or repair at the property.] Tenant will pay in full everyone Tenant hires, or whose work or materials Tenant orders, for any construction, alteration or repair at the property, and will not allow a lien to be filed against the property for that work. If a lien is filed because of work Tenant ordered, Tenant will have it released within {{lien_release_days}} days after Tenant learns of it. If Landlord pays a third party to release or discharge that lien, such as a recording fee, a bond premium or an attorney's bill, Tenant will pay Landlord the amount the third party billed Landlord, with no markup, labor charge or added fee, and Landlord will give Tenant a copy of the bill when Landlord charges Tenant. Tenant is not Landlord's agent for any work Tenant orders, and before work begins Tenant will tell each contractor and supplier in writing that Tenant, not Landlord, is responsible for paying for it. Any consent Landlord gives to an alteration under this Lease is consent only as between Landlord and Tenant and is not an agreement by Landlord to pay for the work. This Section does not limit any right a contractor or supplier has under Utah lien law.",
+  },
+  // Notices & General
+  {
+    id: "term-change-notice-ut",
+    title: "Changing Terms of a Periodic Tenancy",
+    group: "Notices & General",
+    states: ["UT"],
+    bodyText:
+      "[Use only if this Lease is or may become month to month or another periodic tenancy.] Changing terms of a periodic tenancy. While this Lease is month to month or another periodic tenancy, Landlord may propose a change to the Rent or to another term of this Lease by written notice to Tenant given at least 15 calendar days before the end of a rental period. The notice will state each change and that it would begin on the first day of the next rental period. A proposed change binds Tenant only if Tenant agrees to it in a writing signed by Tenant. If Tenant does not agree, this Lease continues on its existing terms unless either party ends the tenancy by a separate notice under this Lease's periodic-tenancy terms and Utah law. This Section does not limit Landlord's right, while this Lease is month to month, to add a charge that this Lease does not include by giving Tenant at least 15 days' written notice of the charge before it applies, as Utah law allows.",
+  },
+  // Parking & Storage
+  {
+    id: "ev-charger-installation-ut",
+    title: "Tenant-Installed EV Charging System",
+    group: "Parking & Storage",
+    states: ["UT"],
+    bodyText:
+      "[Optional. Use only if Landlord is willing to let Tenant install an electric vehicle charging system.] Tenant may install an electric vehicle charging system at [identify the parking space], at Tenant's own expense, only with Landlord's prior written consent to the specific system and location. Tenant will: (a) have the system installed by a duly licensed contractor, in compliance with Landlord's written specifications, applicable codes and any required permits; (b) if the property is in a condominium, townhouse or other association, comply with the association's rules for charging systems and give Landlord, promptly after installation, the information Landlord needs to register the system with the association and to obtain any consent the association requires; (c) [carry liability insurance covering the system and name Landlord as an additional insured]; and (d) reimburse Landlord for the electricity the system uses, measured by a separate meter that serves only the system and charged at the per-kilowatt-hour rates on Landlord's utility bill for the property for the same period, with no markup or added fee, within [number] days after Landlord gives Tenant a bill showing the meter readings and a copy of the utility bill. Any money Landlord holds to secure Tenant's obligations for the system is part of the Security Deposit and will be held and returned with it. When this Lease ends, Tenant will [remove the system and repair any damage its installation or removal caused / leave the system in place, and it will belong to Landlord], unless Landlord and Tenant agree otherwise in writing.",
+  },
+  // Default & Termination
+  {
+    id: "sale-termination-ut",
+    title: "Sale of the Property",
+    group: "Default & Termination",
+    states: ["UT"],
+    bodyText:
+      "[Optional. Use only for a fixed Term.] Sale of the Property. If, during the Term, Landlord signs a contract to sell the property to a buyer in good faith, Landlord may end this Lease before the end of the Term by written notice to Tenant, stating that Landlord has signed a contract to sell the property, given at least [number, at least 30] calendar days before the termination date stated in the notice, which must be the last day of a monthly rental period. Tenant owes Rent only through the termination date; Landlord will refund any Rent paid for a later period and will account for and return the Security Deposit as this Lease and Utah law provide. If Tenant does not leave by the termination date, Landlord may regain possession only through a court proceeding. This Section does not apply during the initial term of a tenancy assisted under the federal Housing Choice Voucher program. Unless Landlord ends this Lease under this Section, a sale of the property does not end or shorten this Lease.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "security-devices-ut",
+    title: "Locks and Keys",
+    group: "Tenant Responsibilities",
+    states: ["UT"],
+    bodyText:
+      "Locks and Keys. Tenant will notify Landlord promptly, and in writing, when Tenant becomes aware that any lock, latch, door, window or other security or locking device at the Premises is broken, missing or does not work. This does not limit Tenant's right to report a condition that threatens health or safety to Landlord by any reasonable means.\n\nTenant will not change, add, replace, rekey or remove any lock, deadbolt, latch, door chain, keypad, smart lock or other locking device at the Premises, and will not install any alarm, camera or access-control device that is attached to the Premises, without Landlord's prior written consent. If Landlord consents, Tenant will give Landlord a working key, code or other means of access within three days after the change, and Landlord may require that the work be done by a locksmith or contractor Landlord approves, at Tenant's expense.\n\nTenant will not duplicate any key or access code Landlord provides, or give a key, code or access device to anyone who is not an occupant named in this Lease, without Landlord's prior written consent. Tenant will return every key, access card, remote and other access device Landlord provided when the tenancy ends. If Tenant does not, or if Tenant changed a lock without giving Landlord a working key or code, Tenant will pay Landlord only the amount a locksmith or other third party bills Landlord for rekeying or replacing the affected locks and access devices or, if Landlord does the work itself, the price Landlord paid for the lock cylinders, keys, cards or other parts used, with no markup, labor charge or added fee; Landlord will give Tenant a copy of the bill or receipt, and may deduct the amount from the deposit as a cost provided by this Lease.\n\nLandlord may change or rekey the locks at the end of the tenancy, and at any other time Landlord reasonably considers necessary for the security of the Premises, giving Tenant a new key or code at the same time if the tenancy is continuing. Nothing in this Section permits Landlord to change a lock in order to exclude Tenant from the Premises while the tenancy continues.\n\nThis Section does not apply to a new lock that Tenant requires as a crime victim under Utah Code Ann. § 57-22-5.1; for that lock, Tenant pays the cost of installing it as that section provides, Landlord may keep a copy of the new key, and Landlord will refuse to give a copy of it to the perpetrator.",
   },
 ];
 
