@@ -2468,3 +2468,5 @@ Slice G review (low severity, notes only). The row's notes say "No criminal-acti
 - No new `{{variables}}`.
 
 **Result.** Utah has 359 UT-only active rows and 437 visible, all VERIFIED. The state filter shows 137 UT clauses (68 before), with no same-topic pairs, and every other state's visible set is unchanged.
+
+- **2026-11-12 (Claude Code, MO topic gaps sync):** shared `lock-change-ak` retitled from "Lock Changes (Alaska)" to "Lock Changes" (MO gaps log §7). Title only, uniform; the body and this state's tag are unchanged.
