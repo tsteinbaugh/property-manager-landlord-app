@@ -1042,3 +1042,7 @@ The reference (2,291 active rows, 308 topics) carries no such list; every topic 
 ## Shared edit from ID: parking tag charge (Claude Code, 2026-11-12)
 
 Taylor's decision 2026-11-12, merged centrally (rule 62: it only narrows what Landlord may charge). `parking-vehicle-rules-id` no longer lets Landlord charge "the cost" of tags, decals and access cards; the Lease now states the prices (one "$[amount; enter $0 if there is no charge]" for each tag, decal or access device issued, including cards, fobs and garage or gate remotes, and a separate one for each lost, damaged or unreturned) and Landlord charges nothing else for them. The reason is Idaho Code § 55-305(2)(a) (no amount above the one agreed in the lease). Iowa has no statute on such fees (`edu-no-fee-transparency-rule-ia`), and this row's Iowa note rests on Iowa Code § 321.89, which the edit doesn't touch. It still applies as written in Iowa.
+
+## Rule type: early termination (Claude Code, 2026-11-12)
+
+Taylor's decision 2026-11-12: `early-termination-ks` is now `rule_type` RECOMMENDED, not REQUIRED, with the shared `early-termination-ks` and every state version that copied its label (OH, NV, TX, NJ, AZ, GA, SC, NC, VA, PA, IL). Under SOP rule 56, REQUIRED means a statute requires the clause in the lease, and no state's does. The label is research metadata only; no clause text changed. Taylor's lesson 2 (flag a lease without an early-termination clause) stays as a builder warning in the backlog.

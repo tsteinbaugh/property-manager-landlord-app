@@ -1700,3 +1700,7 @@ Findings 2, 3 and 4 needed no row change.
 **NEEDS_REVIEW closed (later the same day).** Taylor pasted Chapter 13 of the Taxpayer Relief Act (§§ 1301-1313; amendment notes through Act 7 of 2023). 'Landlord' appears only in the rent-rebate definition (20% of rent paid), and proof of rent is the tenant's receipt or other proof (§ 1306(a)(3)), so the absence of a landlord duty holds. The row now also states the claimant classes, the $45,000 indexed income limit and $1,000 maximum, the tax-exempt-owner bar (§ 1304(b)(3)), the subsidy exclusion (§ 1304(d)) and the fraud misdemeanor for anyone who helps prepare a false claim (§ 1310(b)). It is VERIFIED.
 
 **Result.** Pennsylvania has 392 active rows, all VERIFIED. No unexplained same-topic pairs.
+
+## Rule type: early termination (Claude Code, 2026-11-12)
+
+Taylor's decision 2026-11-12: `early-termination-pa` is now `rule_type` RECOMMENDED, not REQUIRED, with the shared `early-termination-ks` and every state version that copied its label (OH, NV, TX, NJ, AZ, GA, SC, NC, VA, PA, IL). Under SOP rule 56, REQUIRED means a statute requires the clause in the lease, and no state's does. The label is research metadata only; no clause text changed. Taylor's lesson 2 (flag a lease without an early-termination clause) stays as a builder warning in the backlog.

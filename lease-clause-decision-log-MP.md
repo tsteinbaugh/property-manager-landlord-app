@@ -502,3 +502,7 @@ MP (2026-10-23), drawn from this log's §§ 4, 6.1, 11, 12 and 14-18. Proposed c
 - **SOP 1.84:** all twelve proposals adopted (rules 12, 16, 19, 22, 24, 26, 30, 33, 35, 59; the kickoff-template one as rule 24's citation-form note); MP conformance column added from §19 and §6.1. Eight topic questions added. No new `{{variables}}` or topic keys.
 - **Builder facts:** Article XII's 55-year limit for tenants not of Northern Marianas descent, spouse's consent to leases over a year, Carolinian family land and homestead permits are added to backlog M.16 with American Samoa's land status.
 - **Legal watch:** none; LegiScan doesn't cover the Northern Mariana Islands (backlog item 34).
+
+## Rule type: early termination (Claude Code, 2026-11-12)
+
+Taylor's decision 2026-11-12: `early-termination-ks` is now `rule_type` RECOMMENDED, not REQUIRED, with the shared `early-termination-ks` and every state version that copied its label (OH, NV, TX, NJ, AZ, GA, SC, NC, VA, PA, IL). Under SOP rule 56, REQUIRED means a statute requires the clause in the lease, and no state's does. The label is research metadata only; no clause text changed. Taylor's lesson 2 (flag a lease without an early-termination clause) stays as a builder warning in the backlog.

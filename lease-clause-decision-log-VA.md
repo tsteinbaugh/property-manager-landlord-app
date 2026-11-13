@@ -3686,3 +3686,7 @@ Merged on base c5b5497 (CSV SHA bf1550aa808d, matching the pass's Step A): 243 n
 **Records.** Citations: 256 rows (log §2 plus the two overrides). Topic questions: all 10. SOP 2.02: rules 12, 19, 59 and 80; the change log lists what was adopted and what was not. The pass's open items are source limits each row already states; they are not open work.
 
 **Result.** Virginia has 404 active rows, all VERIFIED.
+
+## Rule type: early termination (Claude Code, 2026-11-12)
+
+Taylor's decision 2026-11-12: `early-termination-va` is now `rule_type` RECOMMENDED, not REQUIRED, with the shared `early-termination-ks` and every state version that copied its label (OH, NV, TX, NJ, AZ, GA, SC, NC, VA, PA, IL). Under SOP rule 56, REQUIRED means a statute requires the clause in the lease, and no state's does. The label is research metadata only; no clause text changed. Taylor's lesson 2 (flag a lease without an early-termination clause) stays as a builder warning in the backlog.

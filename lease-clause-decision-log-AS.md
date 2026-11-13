@@ -1216,3 +1216,7 @@ AS (2026-10-22), drawn from this log's §§ 4, 6.1, 11, 12 and 14-18; every row 
 - **SOP 1.83:** all eleven proposals adopted (rules 12, 16, 19, 24, 26, 27, 35, 80); AS conformance column added from §19. Five topic questions added. No new `{{variables}}`.
 - **Builder facts (§10):** land status and a corporate tenant are backlog M.16.
 - **Legal watch:** none; LegiScan doesn't cover American Samoa (backlog item 34).
+
+## Rule type: early termination (Claude Code, 2026-11-12)
+
+Taylor's decision 2026-11-12: `early-termination-ks` is now `rule_type` RECOMMENDED, not REQUIRED, with the shared `early-termination-ks` and every state version that copied its label (OH, NV, TX, NJ, AZ, GA, SC, NC, VA, PA, IL). Under SOP rule 56, REQUIRED means a statute requires the clause in the lease, and no state's does. The label is research metadata only; no clause text changed. Taylor's lesson 2 (flag a lease without an early-termination clause) stays as a builder warning in the backlog.

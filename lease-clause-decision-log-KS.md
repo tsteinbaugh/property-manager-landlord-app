@@ -4110,3 +4110,7 @@ Merged with `merge-delta.py --base 9f38860` after Colorado and Wyoming: 244 new 
 **Edited-after rows:** consistent on the fire-code editions; L. 2026, ch. 74 was found to streamline, not require, a 2024 IFC update, and two rows that said it required one (one of them Claude Code's own edit this sync) were corrected.
 
 **Spot check:** K.S.A. 58-2547, 58-2553(b), 58-25,127, 44-1016, 58-2543(j), 58-2548 and both 2026 acts read; `waste-removal-duty-shift-ks`, `water-meter-charge-notice-ks` and `eviction-notice-cost-ks` match. **Cross-state items** (shared `hoa-compliance`, `utility-allowance-cap-co`, `nonrefundable-fees-wv`) are on Claude Code's list in the backlog. SOP 1.86 takes up the pass's 16 proposals; its three proposed topics became topic questions; seven new `{{variables}}` added to M.14.
+
+## Rule type: early termination (Claude Code, 2026-11-12)
+
+Taylor's decision 2026-11-12: `early-termination-ks` is now `rule_type` RECOMMENDED, not REQUIRED, with the shared `early-termination-ks` and every state version that copied its label (OH, NV, TX, NJ, AZ, GA, SC, NC, VA, PA, IL). Under SOP rule 56, REQUIRED means a statute requires the clause in the lease, and no state's does. The label is research metadata only; no clause text changed. Taylor's lesson 2 (flag a lease without an early-termination clause) stays as a builder warning in the backlog.

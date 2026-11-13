@@ -1159,3 +1159,7 @@ Six agents canvassed the 334 topics in `lease-clause-topics.md` in slices A to F
 - **Topic questions:** the three proposed above plus one for each new key (`accessory-dwelling-unit`, `eminent-domain`, `home-business`), with the citations their rows use.
 - **Guards:** all pass. **Statute spot-check, 4 of 4, against the official section pages fetched from code.wvlegislature.gov on 2026-10-05:** W. Va. Code § 37-6A-2(c) (15 more days for a third-party contractor's itemization), § 37-6A-5(a) (deposit plus one and a half times the amount wrongfully withheld), § 55-3A-1(b) (hearing 5 to 10 judicial days after filing), § 37-6-5 (the special-agreement sentence behind `termination-notice-wv`).
 - **SOP 1.62:** all eight proposals adopted (rules 16, 19, 53, 80); WV column added. The §10 flags are in the backlog.
+
+## Rule type: early termination (Claude Code, 2026-11-12)
+
+Taylor's decision 2026-11-12: `early-termination-ks` is now `rule_type` RECOMMENDED, not REQUIRED, with the shared `early-termination-ks` and every state version that copied its label (OH, NV, TX, NJ, AZ, GA, SC, NC, VA, PA, IL). Under SOP rule 56, REQUIRED means a statute requires the clause in the lease, and no state's does. The label is research metadata only; no clause text changed. Taylor's lesson 2 (flag a lease without an early-termination clause) stays as a builder warning in the backlog.

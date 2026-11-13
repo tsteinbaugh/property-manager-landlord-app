@@ -2254,3 +2254,7 @@ Merged with `merge-delta.py --base 1704572`: 227 new rows and 26 shared rows tag
 - The topic question became the new electricity clause.
 - The citations file gained 255 rows. Two farm-hunting rows cite the Parks and Wildlife Code, which the extractor doesn't read, and are GENERIC there.
 - Minor omissions the screen noted but did not edit are in the backlog.
+
+## Rule type: early termination (Claude Code, 2026-11-12)
+
+Taylor's decision 2026-11-12: `early-termination-tx` is now `rule_type` RECOMMENDED, not REQUIRED, with the shared `early-termination-ks` and every state version that copied its label (OH, NV, TX, NJ, AZ, GA, SC, NC, VA, PA, IL). Under SOP rule 56, REQUIRED means a statute requires the clause in the lease, and no state's does. The label is research metadata only; no clause text changed. Taylor's lesson 2 (flag a lease without an early-termination clause) stays as a builder warning in the backlog.

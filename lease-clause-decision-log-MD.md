@@ -1065,3 +1065,7 @@ Six agents canvassed the 337 topics in `lease-clause-topics.md` in slices A to F
 - **Guards:** all pass. **Statute spot-check, 13 sections, against mgaleg.maryland.gov on 2026-10-08:** Real Prop. §§ 8-112, 8-203(b), (e)(1), 8-208(d)(3), (e)(1), 8-209(b)(3), 8-221(c), 8-402(c)(2), (c)(5), 8-402.1(a)(1), 8-403; Envir. §§ 6-803(b), 9-1115(d); State Gov't § 20-704(a). All matched their rows; the one fix is the federal sentence above.
 - **SOP 1.64:** all seven proposals adopted (rules 16, 19, 27, 71, 80); MD column added. The §10 flags are in the backlog.
 
+
+## Rule type: early termination (Claude Code, 2026-11-12)
+
+Taylor's decision 2026-11-12: `early-termination-ks` is now `rule_type` RECOMMENDED, not REQUIRED, with the shared `early-termination-ks` and every state version that copied its label (OH, NV, TX, NJ, AZ, GA, SC, NC, VA, PA, IL). Under SOP rule 56, REQUIRED means a statute requires the clause in the lease, and no state's does. The label is research metadata only; no clause text changed. Taylor's lesson 2 (flag a lease without an early-termination clause) stays as a builder warning in the backlog.

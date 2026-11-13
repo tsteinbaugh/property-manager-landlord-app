@@ -2100,3 +2100,7 @@ Merged with `merge-delta.py --base e258994`: 252 new rows and 20 shared rows tag
 **§7 findings for other states** are queued in `docs/backlog.md`: the guest-responsibility qualifier on `barred-person-covenant-ne` and `pest-cooperation-pr`, the indemnity look at `no-liens-ar`, and the code-violation inspection fee exclusion on `government-fee-reimbursement-ky`.
 
 **Topic questions and SOP.** Two of the log's three proposed topic questions were added to `topic-questions.csv` (`lease-term-limitation`, `property-tax-rent-disclosure`); the data-breach question is already there from Massachusetts. `lease-clause-topics.md` was regenerated. The 5 proposed SOP changes were adopted as SOP 1.96 (rules 12, 19, 27, 80). Citations: 273 rows were added to `lease-clause-citations-AZ.csv`, 270 CITED from the log's §2 table or the row's AZ notes, 2 CONFIRMED_ABSENT, and `early-termination-az`.
+
+## Rule type: early termination (Claude Code, 2026-11-12)
+
+Taylor's decision 2026-11-12: `early-termination-az` is now `rule_type` RECOMMENDED, not REQUIRED, with the shared `early-termination-ks` and every state version that copied its label (OH, NV, TX, NJ, AZ, GA, SC, NC, VA, PA, IL). Under SOP rule 56, REQUIRED means a statute requires the clause in the lease, and no state's does. The label is research metadata only; no clause text changed. Taylor's lesson 2 (flag a lease without an early-termination clause) stays as a builder warning in the backlog.

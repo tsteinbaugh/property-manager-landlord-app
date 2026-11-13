@@ -3682,3 +3682,7 @@ Merged with `merge-delta.py --base c05dc07`: 260 new rows (37 lease clauses) and
 - Three topic questions added under existing keys.
 - The citations file gained 275 rows (the extractor gained an Ohio pattern).
 - The two-round cap Ohio hit is the gaps template's (Taylor's usage budget), not the SOP's; unchanged.
+
+## Rule type: early termination (Claude Code, 2026-11-12)
+
+Taylor's decision 2026-11-12: `early-termination-oh` is now `rule_type` RECOMMENDED, not REQUIRED, with the shared `early-termination-ks` and every state version that copied its label (OH, NV, TX, NJ, AZ, GA, SC, NC, VA, PA, IL). Under SOP rule 56, REQUIRED means a statute requires the clause in the lease, and no state's does. The label is research metadata only; no clause text changed. Taylor's lesson 2 (flag a lease without an early-termination clause) stays as a builder warning in the backlog.

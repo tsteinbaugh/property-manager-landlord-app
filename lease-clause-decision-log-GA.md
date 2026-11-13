@@ -1915,3 +1915,7 @@ Quotes:
 Rows checked: 33; holds: 22; FIX: 10; ERROR: 1. Plus one FIX outside the 33 (`edu-no-initials-rule-ga`).
 
 Applied by Claude Code 2026-11-06: all 14 edits (12 rows) matched exactly once and went in as written; the sprinkler row's citation line now cites §§ 25-11-2 and 25-11-8(a). The "could not check" list joins the unread-sections item in docs/backlog.md.
+
+## Rule type: early termination (Claude Code, 2026-11-12)
+
+Taylor's decision 2026-11-12: `early-termination-ga` is now `rule_type` RECOMMENDED, not REQUIRED, with the shared `early-termination-ks` and every state version that copied its label (OH, NV, TX, NJ, AZ, GA, SC, NC, VA, PA, IL). Under SOP rule 56, REQUIRED means a statute requires the clause in the lease, and no state's does. The label is research metadata only; no clause text changed. Taylor's lesson 2 (flag a lease without an early-termination clause) stays as a builder warning in the backlog.

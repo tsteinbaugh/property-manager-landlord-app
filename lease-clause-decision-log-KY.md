@@ -1006,3 +1006,7 @@ The reference carries no such list; every topic has rows in at least one state a
 - **Topic questions:** the nine proposed above plus one for the new key `single-family-zone-lease-limit`.
 - **Guards:** all pass. **Statute spot-check, 5 of 5, against the official KRS section PDFs from apps.legislature.ky.gov (fetched 2026-10-04):** KRS 383.615(3) (at least two days' notice of entry, at reasonable times), 383.580(3)-(5) (signed final damage listing and written dissent), 383.660(2) (7 days after written notice of nonpayment), 383.570(1)(c) (no agreement to pay the landlord's attorney's fees where the act applies), 383.300(4)(a) (lock change at the tenant's expense).
 - **SOP 1.61:** all six proposals adopted (rules 14, 16, 19, 26, 32, 59); KY column added. The §10 flags are in the backlog.
+
+## Rule type: early termination (Claude Code, 2026-11-12)
+
+Taylor's decision 2026-11-12: `early-termination-ks` is now `rule_type` RECOMMENDED, not REQUIRED, with the shared `early-termination-ks` and every state version that copied its label (OH, NV, TX, NJ, AZ, GA, SC, NC, VA, PA, IL). Under SOP rule 56, REQUIRED means a statute requires the clause in the lease, and no state's does. The label is research metadata only; no clause text changed. Taylor's lesson 2 (flag a lease without an early-termination clause) stays as a builder warning in the backlog.

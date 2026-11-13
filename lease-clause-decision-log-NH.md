@@ -776,3 +776,7 @@ NH (2026-10-10), from this log's §6.1 and §19; it ran on SOP 1.68 under the us
 - **Topic questions:** all five added, with full citations.
 - **SOP 1.69:** NH 1 and 4 (rule 27), NH 2 (rule 54), NH 3 (rule 59) adopted. NH conformance column added (statutory waivers n).
 - **Guards:** check-gap-discovery `--all`, checklist reconciliation, clause basis, section pointers and checkConfigIds all pass; generated files and `lease-clause-topics.md` (349 topics, 689 questions) regenerated.
+
+## Rule type: early termination (Claude Code, 2026-11-12)
+
+Taylor's decision 2026-11-12: `early-termination-ks` is now `rule_type` RECOMMENDED, not REQUIRED, with the shared `early-termination-ks` and every state version that copied its label (OH, NV, TX, NJ, AZ, GA, SC, NC, VA, PA, IL). Under SOP rule 56, REQUIRED means a statute requires the clause in the lease, and no state's does. The label is research metadata only; no clause text changed. Taylor's lesson 2 (flag a lease without an early-termination clause) stays as a builder warning in the backlog.

@@ -2127,3 +2127,7 @@ Checked and needing no override: `hoa-compliance` and `tenant-caused-fines-as`. 
 - Two topic questions added.
 - The citations file gained 264 rows.
 - The federal lead-paint agent statement (40 C.F.R. 745.113(b)(5)-(6)) is a uniform shared-row edit for every state, now in the backlog.
+
+## Rule type: early termination (Claude Code, 2026-11-12)
+
+Taylor's decision 2026-11-12: `early-termination-nv` is now `rule_type` RECOMMENDED, not REQUIRED, with the shared `early-termination-ks` and every state version that copied its label (OH, NV, TX, NJ, AZ, GA, SC, NC, VA, PA, IL). Under SOP rule 56, REQUIRED means a statute requires the clause in the lease, and no state's does. The label is research metadata only; no clause text changed. Taylor's lesson 2 (flag a lease without an early-termination clause) stays as a builder warning in the backlog.
