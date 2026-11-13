@@ -857,3 +857,7 @@ Two agents at a time canvassed the 344 topics in `lease-clause-topics.md` in eig
 - **Builder flags (§10):** added to the backlog's Rhode Island known-issues line; no new `{{variable}}`s.
 - **SOP 1.67:** RI 1 (rule 19), RI 2 (rule 59), RI 3 (rule 40), RI 4 and 6 (rule 79), RI 5 (rule 80) adopted, plus the drafting-judgment label from this sync (rule 79). RI conformance column added (statutory waivers n).
 - **Guards:** check-gap-discovery `--all`, checklist reconciliation, clause basis, section pointers (after the fix above) and checkConfigIds all pass; generated files and `lease-clause-topics.md` (348 topics, 684 questions) regenerated.
+
+## Federal row: HUD assistance-animal enforcement change (Claude Code, 2026-11-12)
+
+Taylor's decision 2026-11-12: the assistance-animal clause stays as written (an animal a tenant needs for a disability, trained or not, is an accommodation, not a pet), and a new federal education row, `edu-assistance-animals-federal-enforcement`, is tagged here and in every jurisdiction but CO. It explains HUD's September 17, 2025 withdrawal of its assistance-animal guidance (91 Fed. Reg. 17291) and FHEO's May 22, 2026 memorandum limiting Fair Housing Act charges to trained animals, and what neither changes: the Act, 24 C.F.R. § 100.204, private suits, Section 504 and ADA complaints, and state law. No clause text changed.

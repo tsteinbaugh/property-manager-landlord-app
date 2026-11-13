@@ -990,3 +990,7 @@ ME (2026-10-15), from this log's §§ 4, 6.1, 11, 12 and 14-18. It ran on SOP 1.
   9. 2023 Me. Laws ch. 594, § 13 read (Revisor's Laws of Maine, LD 1490, SHA-256 aea26960e25713f25950502b84d4fa78070f7fa1d6255c561218dd9f53839127): 'This Act takes effect January 1, 2025.' No applicability limit to newer leases.
 - **Standing boundaries, as for every state:** case law and municipal ordinances (rules 3, 4).
 
+
+## Federal row: HUD assistance-animal enforcement change (Claude Code, 2026-11-12)
+
+Taylor's decision 2026-11-12: the assistance-animal clause stays as written (an animal a tenant needs for a disability, trained or not, is an accommodation, not a pet), and a new federal education row, `edu-assistance-animals-federal-enforcement`, is tagged here and in every jurisdiction but CO. It explains HUD's September 17, 2025 withdrawal of its assistance-animal guidance (91 Fed. Reg. 17291) and FHEO's May 22, 2026 memorandum limiting Fair Housing Act charges to trained animals, and what neither changes: the Act, 24 C.F.R. § 100.204, private suits, Section 504 and ADA complaints, and state law. No clause text changed.

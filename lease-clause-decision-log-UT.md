@@ -2470,3 +2470,7 @@ Slice G review (low severity, notes only). The row's notes say "No criminal-acti
 **Result.** Utah has 359 UT-only active rows and 437 visible, all VERIFIED. The state filter shows 137 UT clauses (68 before), with no same-topic pairs, and every other state's visible set is unchanged.
 
 - **2026-11-12 (Claude Code, MO topic gaps sync):** shared `lock-change-ak` retitled from "Lock Changes (Alaska)" to "Lock Changes" (MO gaps log §7). Title only, uniform; the body and this state's tag are unchanged.
+
+## Federal row: HUD assistance-animal enforcement change (Claude Code, 2026-11-12)
+
+Taylor's decision 2026-11-12: the assistance-animal clause stays as written (an animal a tenant needs for a disability, trained or not, is an accommodation, not a pet), and a new federal education row, `edu-assistance-animals-federal-enforcement`, is tagged here and in every jurisdiction but CO. It explains HUD's September 17, 2025 withdrawal of its assistance-animal guidance (91 Fed. Reg. 17291) and FHEO's May 22, 2026 memorandum limiting Fair Housing Act charges to trained animals, and what neither changes: the Act, 24 C.F.R. § 100.204, private suits, Section 504 and ADA complaints, and state law. No clause text changed.

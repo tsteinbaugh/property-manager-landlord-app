@@ -358,3 +358,7 @@ VT (2026-10-16), from this log's §§ 4, 6.1, 11, 12 and 14-18. It ran on SOP 1.
 - **Citations file:** `lease-clause-citations-VT.csv`, 416 rows; every statute citation resolves to a section in the corpus or a new 2026 section.
 - **Legal watch:** `legal-watch-vt.yml`, held until after May 16, 2028 (first run June 16, 2028, day 16 at 14:00 UTC); 354 sections keyed `9 V.S.A. § 4467`; manual items for uncompiled 2026 sections, 2026 Act 145 (January 1, 2028) and the rules and flood form.
 - **SOP 1.72:** all seven proposals adopted (rule 27 holds the per-helper scratch rule). Seven topic questions added; `energy-data-release` is a new topic (351). `{{holdover_daily_rate}}` gains VT in M.14.
+
+## Federal row: HUD assistance-animal enforcement change (Claude Code, 2026-11-12)
+
+Taylor's decision 2026-11-12: the assistance-animal clause stays as written (an animal a tenant needs for a disability, trained or not, is an accommodation, not a pet), and a new federal education row, `edu-assistance-animals-federal-enforcement`, is tagged here and in every jurisdiction but CO. It explains HUD's September 17, 2025 withdrawal of its assistance-animal guidance (91 Fed. Reg. 17291) and FHEO's May 22, 2026 memorandum limiting Fair Housing Act charges to trained animals, and what neither changes: the Act, 24 C.F.R. § 100.204, private suits, Section 504 and ADA complaints, and state law. No clause text changed.

@@ -3320,3 +3320,7 @@ Merged with `merge-delta.py --base 9f38860` after Colorado's sync: 325 new rows,
 **Statute spot-check:** § 1-21-1208(a) (deposit: 30 days or 15 after the address, whichever is later, plus 30 for damage) against `edu-security-deposit-return-wy`; § 34-2-128 (no implied renewal by holding over or accepting rent) against `edu-holdover-rate-wy`; §§ 1-21-1401 to 1-21-1403, § 40-12-109 and -110, § 35-13-201 and -203 read whole for the fixes above. No errors.
 
 **Sync housekeeping:** `pool-and-spa-use-wy` remapped from "Building & Safety" to "Rules & Regulations"; 33 new `{{variables}}` added to backlog M.14 (`{{landlord_utilities}}`, listed in the log, appears in no active clause). The pass's SOP proposals and topic questions are taken up with Colorado's in SOP 1.85.
+
+## Federal row: HUD assistance-animal enforcement change (Claude Code, 2026-11-12)
+
+Taylor's decision 2026-11-12: the assistance-animal clause stays as written (an animal a tenant needs for a disability, trained or not, is an accommodation, not a pet), and a new federal education row, `edu-assistance-animals-federal-enforcement`, is tagged here and in every jurisdiction but CO. It explains HUD's September 17, 2025 withdrawal of its assistance-animal guidance (91 Fed. Reg. 17291) and FHEO's May 22, 2026 memorandum limiting Fair Housing Act charges to trained animals, and what neither changes: the Act, 24 C.F.R. § 100.204, private suits, Section 504 and ADA complaints, and state law. No clause text changed.

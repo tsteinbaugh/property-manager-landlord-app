@@ -1705,3 +1705,7 @@ Taylor's decision (2026-11-12) on the gaps log §6 proposal, merged centrally un
 - **Why:** Idaho Code § 55-305(2)(a) bars charging an amount "greater than that agreed upon in the rental agreement"; an unstated cost isn't an agreed amount. Taylor chose a stated price over the gaps log's free-tags wording so each landlord decides whether to charge, and the tenant sees the price before signing. Any charge must still be reasonable (§ 55-305(1)).
 - **Closes** item 4 of the s10 open list above for this row (`keys` and `smoking-policy` were already replaced for Idaho by `keys-id` and `smoking-policy-id` at the gaps sync).
 - **Checked against IA and NM** (their logs carry the same note): neither state's note on this row is affected, since both rest on towing statutes.
+
+## Federal row: HUD assistance-animal enforcement change (Claude Code, 2026-11-12)
+
+Taylor's decision 2026-11-12: the assistance-animal clause stays as written (an animal a tenant needs for a disability, trained or not, is an accommodation, not a pet), and a new federal education row, `edu-assistance-animals-federal-enforcement`, is tagged here and in every jurisdiction but CO. It explains HUD's September 17, 2025 withdrawal of its assistance-animal guidance (91 Fed. Reg. 17291) and FHEO's May 22, 2026 memorandum limiting Fair Housing Act charges to trained animals, and what neither changes: the Act, 24 C.F.R. § 100.204, private suits, Section 504 and ADA complaints, and state law. No clause text changed.

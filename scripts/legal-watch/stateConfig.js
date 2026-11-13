@@ -112,6 +112,7 @@ const STATE_CONFIG = {
     cfrChecks: [
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
       { title: "24", section: "30.65", clauseIds: ["lead-based-paint"] },
+      { title: "24", section: "100.204", clauseIds: ["edu-esa-federal-state-divergence-co"] }, // federal accommodation rule (added 2026-11-12)
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
@@ -143,7 +144,11 @@ const STATE_CONFIG = {
     // Wyo. Stat. citations are 3-part (title-chapter-section), same shape as
     // Colorado's -- confirmed against all 33 monitorable WY rows before shipping.
     sectionPattern: /\b(\d{1,2}-\d{1,3}-\d{2,4}(?:\.\d+)?)\b/g,
-    cfrChecks: [],
+    cfrChecks: [
+      // Federal reasonable-accommodation rule behind the assistance-animal rows
+      // (added 2026-11-12): a final HUD rule amending it alerts here.
+      { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] },
+    ],
     federalStatuteChecks: [],
     manualRecheckItems: [
       {
@@ -173,7 +178,7 @@ const STATE_CONFIG = {
       // than building a generic slash-list parser for a single row.
       "assistance-animal-accommodation": ["39-1107", "39-1108"],
     },
-    cfrChecks: [{ title: "24", section: "100.204", clauseIds: ["assistance-animal-accommodation"] }],
+    cfrChecks: [{ title: "24", section: "100.204", clauseIds: ["assistance-animal-accommodation", "edu-assistance-animals-federal-enforcement"] }],
     federalStatuteChecks: [],
     manualRecheckItems: [
       {
@@ -197,7 +202,11 @@ const STATE_CONFIG = {
     // doesn't win a partial match. Confirmed against all 66 monitorable NE
     // rows before shipping.
     sectionPattern: /\b(\d{1,3}-\d{1,4},\d{2,4}|\d{1,3}-\d{1,4}\.\d{1,3}|\d{1,3}-\d{1,4})\b/g,
-    cfrChecks: [],
+    cfrChecks: [
+      // Federal reasonable-accommodation rule behind the assistance-animal rows
+      // (added 2026-11-12): a final HUD rule amending it alerts here.
+      { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] },
+    ],
     // NOT monitored, deliberately: edu-esa-federal-only-ne cites 28 C.F.R.
     // §36.104 "as it existed 2008-01-01" -- Nebraska's statute freezes to that
     // specific past version. Watching the CURRENT/evolving CFR text for
@@ -229,7 +238,11 @@ const STATE_CONFIG = {
     // requiring one. Confirmed against all 75 monitorable MN rows before
     // shipping.
     sectionPattern: /\b(\d{2,4}[A-Z]?\.\d{1,4}[a-z]?)\b/g,
-    cfrChecks: [],
+    cfrChecks: [
+      // Federal reasonable-accommodation rule behind the assistance-animal rows
+      // (added 2026-11-12): a final HUD rule amending it alerts here.
+      { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] },
+    ],
     federalStatuteChecks: [],
     manualRecheckItems: [
       {
@@ -271,7 +284,11 @@ const STATE_CONFIG = {
     // carry a decimal in ANY of the three positions ("14-02.5-06"). Confirmed
     // against all 64 monitorable ND rows before shipping.
     sectionPattern: /\b(\d{1,2}(?:\.\d+)?-\d{1,3}(?:\.\d+)?-\d{1,3}(?:\.\d+)?)\b/g,
-    cfrChecks: [],
+    cfrChecks: [
+      // Federal reasonable-accommodation rule behind the assistance-animal rows
+      // (added 2026-11-12): a final HUD rule amending it alerts here.
+      { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] },
+    ],
     federalStatuteChecks: [],
     manualRecheckItems: [],
   },
@@ -292,7 +309,11 @@ const STATE_CONFIG = {
     // before shipping.
     // Letter allowed in the chapter too ("34-20G-19", added 2026-09-28).
     sectionPattern: /\b(\d{1,2}[A-Z]?-\d{1,2}[A-Z]?-\d{1,3}(?:\.\d+)?)\b/g,
-    cfrChecks: [],
+    cfrChecks: [
+      // Federal reasonable-accommodation rule behind the assistance-animal rows
+      // (added 2026-11-12): a final HUD rule amending it alerts here.
+      { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] },
+    ],
     federalStatuteChecks: [],
     manualRecheckItems: [
       {
@@ -337,7 +358,11 @@ const STATE_CONFIG = {
       // so both need to be monitored, not just the first.
       "surrender-end-of-term": ["1923.13", "1923.14"],
     },
-    cfrChecks: [],
+    cfrChecks: [
+      // Federal reasonable-accommodation rule behind the assistance-animal rows
+      // (added 2026-11-12): a final HUD rule amending it alerts here.
+      { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] },
+    ],
     federalStatuteChecks: [],
     manualRecheckItems: [
       {
@@ -431,7 +456,7 @@ const STATE_CONFIG = {
     cfrChecks: [
       // Same regulation KS already watches; pet-insurance-requirement's
       // assistance-animal carve-out rests on it (federal, all states).
-      { title: "24", section: "100.204", clauseIds: ["pet-insurance-requirement"] },
+      { title: "24", section: "100.204", clauseIds: ["pet-insurance-requirement", "edu-assistance-animals-federal-enforcement"] },
     ],
     federalStatuteChecks: [
       // Servicemembers Civil Relief Act sections the CA military rows compare
@@ -548,7 +573,7 @@ const STATE_CONFIG = {
       // The assistance-animal family rests on Texas's generic accommodation
       // duty, which must mirror federal regulations (Prop. Code §301.062) --
       // same regulation KS, CA and NV watch.
-      { title: "24", section: "100.204", clauseIds: ["assistance-animal-accommodation", "pet-insurance-requirement"] },
+      { title: "24", section: "100.204", clauseIds: ["assistance-animal-accommodation", "pet-insurance-requirement", "edu-assistance-animals-federal-enforcement"] },
     ],
     federalStatuteChecks: [],
     manualRecheckItems: [
@@ -601,7 +626,7 @@ const STATE_CONFIG = {
       // The no-fee assistance-animal promise now rests on the federal
       // reasonable-accommodation rule alone (HUD guidance withdrawn
       // 2025-09-17) -- same regulation KS and CA watch.
-      { title: "24", section: "100.204", clauseIds: ["assistance-animal-accommodation", "edu-assistance-animal-nv"] },
+      { title: "24", section: "100.204", clauseIds: ["assistance-animal-accommodation", "edu-assistance-animal-nv", "edu-assistance-animals-federal-enforcement"] },
     ],
     federalStatuteChecks: [],
     manualRecheckItems: [
@@ -609,7 +634,7 @@ const STATE_CONFIG = {
         id: "nv-hud-assistance-animal-guidance",
         label:
           "HUD assistance-animal guidance: FHEO-2020-01 and FHEO Notice 2013-01 withdrawn 2025-09-17 (FR Doc. 2026-06624) -- check whether replacement guidance has issued",
-        clauseIds: ["assistance-animal-accommodation", "edu-assistance-animal-nv"],
+        clauseIds: ["assistance-animal-accommodation", "edu-assistance-animal-nv", "edu-assistance-animals-federal-enforcement"],
       },
       {
         id: "nv-open-interpretive-questions",
@@ -635,7 +660,7 @@ const STATE_CONFIG = {
     cfrChecks: [
       // NJ's assistance-animal row rests partly on the reasonable-accommodation
       // duty, which tracks the federal regulation KS, CA, NV and TX watch.
-      { title: "24", section: "100.204", clauseIds: ["assistance-animal-accommodation-nj"] },
+      { title: "24", section: "100.204", clauseIds: ["assistance-animal-accommodation-nj", "edu-assistance-animals-federal-enforcement"] },
     ],
     federalStatuteChecks: [],
     manualRecheckItems: [
@@ -713,7 +738,11 @@ const STATE_CONFIG = {
       "edu-abandoned-property-fl": ["715.101", "715.103", "715.104", "715.105", "715.106", "715.107", "715.108", "715.109", "715.11"],
       "edu-deceased-tenant-fl": ["715.104"],
     },
-    cfrChecks: [],
+    cfrChecks: [
+      // Federal reasonable-accommodation rule behind the assistance-animal rows
+      // (added 2026-11-12): a final HUD rule amending it alerts here.
+      { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] },
+    ],
     federalStatuteChecks: [],
     manualRecheckItems: [
       {
@@ -738,7 +767,7 @@ const STATE_CONFIG = {
       return [...body.matchAll(/\b(\d{1,2}-\d{3,4}(?:\.\d{1,2})?)\b/g)].map((m) => m[1]);
     },
     cfrChecks: [
-      { title: "24", section: "100.204", clauseIds: ["assistance-animal-accommodation"] },
+      { title: "24", section: "100.204", clauseIds: ["assistance-animal-accommodation", "edu-assistance-animals-federal-enforcement"] },
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
     ],
     federalStatuteChecks: [],
@@ -792,7 +821,7 @@ const STATE_CONFIG = {
       "edu-dv-lease-termination-ga": ["16-5-91", "16-5-92", "16-5-93"],
     },
     cfrChecks: [
-      { title: "24", section: "100.204", clauseIds: ["assistance-animal-accommodation-ga"] },
+      { title: "24", section: "100.204", clauseIds: ["assistance-animal-accommodation-ga", "edu-assistance-animals-federal-enforcement"] },
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
     ],
     federalStatuteChecks: [],
@@ -852,7 +881,7 @@ const STATE_CONFIG = {
       "lead-based-paint": ["130A-131.8"],
     },
     cfrChecks: [
-      { title: "24", section: "100.204", clauseIds: ["assistance-animal-accommodation-nc"] },
+      { title: "24", section: "100.204", clauseIds: ["assistance-animal-accommodation-nc", "edu-assistance-animals-federal-enforcement"] },
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
     ],
     federalStatuteChecks: [],
@@ -889,7 +918,7 @@ const STATE_CONFIG = {
       return out;
     },
     cfrChecks: [
-      { title: "24", section: "100.204", clauseIds: ["assistance-animal-accommodation-sc"] },
+      { title: "24", section: "100.204", clauseIds: ["assistance-animal-accommodation-sc", "edu-assistance-animals-federal-enforcement"] },
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
     ],
     federalStatuteChecks: [],
@@ -932,7 +961,7 @@ const STATE_CONFIG = {
       return out;
     },
     cfrChecks: [
-      { title: "24", section: "100.204", clauseIds: ["assistance-animal-accommodation-tn"] },
+      { title: "24", section: "100.204", clauseIds: ["assistance-animal-accommodation-tn", "edu-assistance-animals-federal-enforcement"] },
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
     ],
     federalStatuteChecks: [{ section: "3955", clauseIds: ["edu-servicemember-rights-tn"] }],
@@ -972,7 +1001,7 @@ const STATE_CONFIG = {
     },
     buildQuery: (section) => `"${section}" AND "Code of Virginia"`,
     cfrChecks: [
-      { title: "24", section: "100.204", clauseIds: ["assistance-animal-accommodation-va"] },
+      { title: "24", section: "100.204", clauseIds: ["assistance-animal-accommodation-va", "edu-assistance-animals-federal-enforcement"] },
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
     ],
     federalStatuteChecks: [{ section: "3955", clauseIds: ["edu-servicemember-rights-va"] }],
@@ -1010,7 +1039,7 @@ const STATE_CONFIG = {
       return out;
     },
     cfrChecks: [
-      { title: "24", section: "100.204", clauseIds: ["assistance-animal-accommodation-al"] },
+      { title: "24", section: "100.204", clauseIds: ["assistance-animal-accommodation-al", "edu-assistance-animals-federal-enforcement"] },
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
     ],
     federalStatuteChecks: [{ section: "3955", clauseIds: ["edu-servicemember-rights-al"] }],
@@ -1078,7 +1107,7 @@ const STATE_CONFIG = {
       return `"${key}"`;
     },
     cfrChecks: [
-      { title: "24", section: "100.204", clauseIds: ["assistance-animal-accommodation-pa"] },
+      { title: "24", section: "100.204", clauseIds: ["assistance-animal-accommodation-pa", "edu-assistance-animals-federal-enforcement"] },
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
     ],
     federalStatuteChecks: [
@@ -1124,7 +1153,10 @@ const STATE_CONFIG = {
       }
       return out;
     },
-    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    cfrChecks: [
+      { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
+      { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+    ],
     federalStatuteChecks: [
       { section: "4852d", clauseIds: ["lead-based-paint"] },
       { section: "3955", clauseIds: ["edu-servicemember-rights-ut"] },
@@ -1168,7 +1200,10 @@ const STATE_CONFIG = {
     buildQuery(key) {
       return `"${key}"`;
     },
-    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    cfrChecks: [
+      { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
+      { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+    ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
       {
@@ -1218,7 +1253,10 @@ const STATE_CONFIG = {
     buildQuery(key) {
       return `"${key}, Idaho Code"`;
     },
-    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    cfrChecks: [
+      { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
+      { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+    ],
     federalStatuteChecks: [
       { section: "4852d", clauseIds: ["lead-based-paint"] },
       { section: "3955", clauseIds: ["edu-no-servicemember-statute-id"] },
@@ -1257,7 +1295,10 @@ const STATE_CONFIG = {
     buildQuery(key) {
       return `"${key}, RSMo"`;
     },
-    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    cfrChecks: [
+      { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
+      { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+    ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
       {
@@ -1293,7 +1334,10 @@ const STATE_CONFIG = {
     buildQuery(key) {
       return `"IC ${key}"`;
     },
-    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    cfrChecks: [
+      { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
+      { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+    ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
       {
@@ -1336,7 +1380,10 @@ const STATE_CONFIG = {
       const [title, sec] = key.split(":");
       return `"${title} O.S." AND "Section ${sec}"`;
     },
-    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    cfrChecks: [
+      { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
+      { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+    ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
       {
@@ -1383,7 +1430,7 @@ const STATE_CONFIG = {
     },
     cfrChecks: [
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
-      { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-mi", "edu-fair-housing-mi"] },
+      { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-mi", "edu-fair-housing-mi", "edu-assistance-animals-federal-enforcement"] },
       { title: "24", section: "5.2005", clauseIds: ["criminal-activity-mi"] },
     ],
     federalStatuteChecks: [
@@ -1413,7 +1460,7 @@ const STATE_CONFIG = {
         id: "mi-hud-assistance-animals",
         label:
           "HUD's assistance-animal position: the 2013 and 2020 notices were withdrawn (2025) and FHEO's 2026-05-22 memorandum limits Fair Housing Act charges to trained animals; Michigan's disability law is unchanged. Recheck before relying on either (MI log §1.4, §10)",
-        clauseIds: ["assistance-animal-accommodation", "edu-assistance-animals-mi"],
+        clauseIds: ["assistance-animal-accommodation", "edu-assistance-animals-mi", "edu-assistance-animals-federal-enforcement"],
       },
     ],
   },
@@ -1434,7 +1481,10 @@ const STATE_CONFIG = {
       }
       return out;
     },
-    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    cfrChecks: [
+      { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
+      { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+    ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
       {
@@ -1480,7 +1530,10 @@ const STATE_CONFIG = {
       }
       return out;
     },
-    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    cfrChecks: [
+      { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
+      { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+    ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
       {
@@ -1525,7 +1578,10 @@ const STATE_CONFIG = {
       }
       return out;
     },
-    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    cfrChecks: [
+      { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
+      { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+    ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
       {
@@ -1570,7 +1626,10 @@ const STATE_CONFIG = {
       const [law, sec] = key.split("|");
       return `"${sec}" AND "${NY_LAW_NAMES[law]}"`;
     },
-    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    cfrChecks: [
+      { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
+      { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+    ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
       {
@@ -1613,7 +1672,10 @@ const STATE_CONFIG = {
       return out;
     },
     buildQuery: (section) => `"${section}" AND "statutes"`,
-    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    cfrChecks: [
+      { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
+      { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+    ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
       {
@@ -1660,7 +1722,10 @@ const STATE_CONFIG = {
       return out;
     },
     buildQuery: (section) => `"${section}" AND "RCW"`,
-    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    cfrChecks: [
+      { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
+      { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+    ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
       {
@@ -1707,7 +1772,10 @@ const STATE_CONFIG = {
       return out;
     },
     buildQuery: (section) => `"${section}" AND "ORS"`,
-    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    cfrChecks: [
+      { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
+      { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+    ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
       {
@@ -1760,7 +1828,10 @@ const STATE_CONFIG = {
       return out;
     },
     buildQuery: (section) => `"${section}" AND "KRS"`,
-    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    cfrChecks: [
+      { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
+      { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+    ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
       {
@@ -1795,7 +1866,10 @@ const STATE_CONFIG = {
       return out;
     },
     buildQuery: (section) => `"${section}" AND "Code of West Virginia"`,
-    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    cfrChecks: [
+      { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
+      { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+    ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
       {
@@ -1836,7 +1910,10 @@ const STATE_CONFIG = {
       const [article, sec] = key.split("|");
       return `"${sec}" AND "${MD_ARTICLE_NAMES[article]}"`;
     },
-    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    cfrChecks: [
+      { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
+      { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+    ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
       {
@@ -1884,7 +1961,10 @@ const STATE_CONFIG = {
       const [chapter, sec] = key.split("|");
       return `"section ${sec} of chapter ${chapter}"`;
     },
-    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    cfrChecks: [
+      { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
+      { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+    ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
       {
@@ -1918,7 +1998,10 @@ const STATE_CONFIG = {
       return [...new Set(out)];
     },
     buildQuery: (section) => `"section ${section} of the general statutes"`,
-    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    cfrChecks: [
+      { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
+      { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+    ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
       {
@@ -1958,7 +2041,10 @@ const STATE_CONFIG = {
       return [...new Set(out)];
     },
     buildQuery: (section) => `"${section}"`,
-    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-disclosure-ri"] }],
+    cfrChecks: [
+      { title: "40", section: "745.113", clauseIds: ["lead-disclosure-ri"] },
+      { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+    ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-disclosure-ri"] }],
     manualRecheckItems: [
       {
@@ -1997,7 +2083,10 @@ const STATE_CONFIG = {
       return [...new Set(out)];
     },
     buildQuery: (section) => `"RSA ${section}"`,
-    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    cfrChecks: [
+      { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
+      { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+    ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
       {
@@ -2031,7 +2120,10 @@ const STATE_CONFIG = {
       return [...new Set(out)];
     },
     buildQuery: (section) => `"${section}"`,
-    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    cfrChecks: [
+      { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
+      { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+    ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
       {
@@ -2072,7 +2164,10 @@ const STATE_CONFIG = {
       return [...new Set(out)];
     },
     buildQuery: (section) => `"${section}"`,
-    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    cfrChecks: [
+      { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
+      { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+    ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
       {
@@ -2116,7 +2211,10 @@ const STATE_CONFIG = {
       const [title, sec] = key.split("|");
       return `"${sec}" AND "Title ${title}"`;
     },
-    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    cfrChecks: [
+      { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
+      { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+    ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
       {
@@ -2155,7 +2253,10 @@ const STATE_CONFIG = {
       return [...new Set(out)];
     },
     buildQuery: (section) => `"AS ${section}"`,
-    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    cfrChecks: [
+      { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
+      { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+    ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
       {
@@ -2188,7 +2289,10 @@ const STATE_CONFIG = {
       return [...new Set(out)];
     },
     buildQuery: (section) => `"${section}" AND "Hawaii Revised Statutes"`,
-    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    cfrChecks: [
+      { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
+      { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+    ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
       {
@@ -2243,7 +2347,10 @@ const STATE_CONFIG = {
       }[label];
       return `${form} AND "Louisiana"`;
     },
-    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    cfrChecks: [
+      { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
+      { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+    ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
       {
@@ -2276,7 +2383,10 @@ const STATE_CONFIG = {
       return [...new Set(out)];
     },
     buildQuery: (section) => `"${section}" AND "Arkansas Code"`,
-    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    cfrChecks: [
+      { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
+      { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+    ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
       {
@@ -2309,7 +2419,10 @@ const STATE_CONFIG = {
       return [...new Set(out)];
     },
     buildQuery: (section) => `"${section}" AND "Mississippi Code of 1972"`,
-    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    cfrChecks: [
+      { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
+      { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+    ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
       {
@@ -2349,7 +2462,10 @@ const STATE_CONFIG = {
       return [...new Set(out)];
     },
     buildQuery: (section) => `"${section}" AND "D.C. Official Code"`,
-    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    cfrChecks: [
+      { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
+      { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+    ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
       {

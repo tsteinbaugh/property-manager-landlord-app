@@ -3461,3 +3461,7 @@ No new clause has guidance outside brackets.
 - SOP 1.93 takes up the pass's 17 proposals as 6 grouped additions, all [Fwd]. Rule 24's global refusal on an unexplained skip [MN-gaps 6] was kept, not narrowed.
 - 23 topic questions added; the ten resting on sections outside the corpus were re-read from the bulk database and corrected first.
 - The citations file gained 240 rows.
+
+## Federal row: HUD assistance-animal enforcement change (Claude Code, 2026-11-12)
+
+Taylor's decision 2026-11-12: the assistance-animal clause stays as written (an animal a tenant needs for a disability, trained or not, is an accommodation, not a pet), and a new federal education row, `edu-assistance-animals-federal-enforcement`, is tagged here and in every jurisdiction but CO. It explains HUD's September 17, 2025 withdrawal of its assistance-animal guidance (91 Fed. Reg. 17291) and FHEO's May 22, 2026 memorandum limiting Fair Housing Act charges to trained animals, and what neither changes: the Act, 24 C.F.R. § 100.204, private suits, Section 504 and ADA complaints, and state law. No clause text changed.

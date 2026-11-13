@@ -2463,3 +2463,7 @@ Optional notes left in the backlog: `term-change-notice-mo` could name the § 70
 - Topic questions: 26, under existing keys (`elevator-safety` as `fire-code-standard`; the two slashed keys as `required-disclosures` and `notice-delivery-methods`).
 - SOP 2.07: all 7 general proposals adopted; batch-level tool notes rejected.
 - No new `{{variables}}`.
+
+## Federal row: HUD assistance-animal enforcement change (Claude Code, 2026-11-12)
+
+Taylor's decision 2026-11-12: the assistance-animal clause stays as written (an animal a tenant needs for a disability, trained or not, is an accommodation, not a pet), and a new federal education row, `edu-assistance-animals-federal-enforcement`, is tagged here and in every jurisdiction but CO. It explains HUD's September 17, 2025 withdrawal of its assistance-animal guidance (91 Fed. Reg. 17291) and FHEO's May 22, 2026 memorandum limiting Fair Housing Act charges to trained animals, and what neither changes: the Act, 24 C.F.R. § 100.204, private suits, Section 504 and ADA complaints, and state law. No clause text changed.

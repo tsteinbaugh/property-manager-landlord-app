@@ -4017,3 +4017,7 @@ Merged with `merge-delta.py --base 68f8c51`: 241 new rows (44 lease clauses), no
 - SOP 1.90 takes up the pass's proposals as 6 grouped additions, all [Fwd], including one from its running record: test every fetch channel at Step A and ask for the needed chapters before the canvass.
 - 10 topic questions added, all under existing keys.
 - The citations file gained 243 rows (the extractor now reads ND's "s", "SS" and "Sec." forms).
+
+## Federal row: HUD assistance-animal enforcement change (Claude Code, 2026-11-12)
+
+Taylor's decision 2026-11-12: the assistance-animal clause stays as written (an animal a tenant needs for a disability, trained or not, is an accommodation, not a pet), and a new federal education row, `edu-assistance-animals-federal-enforcement`, is tagged here and in every jurisdiction but CO. It explains HUD's September 17, 2025 withdrawal of its assistance-animal guidance (91 Fed. Reg. 17291) and FHEO's May 22, 2026 memorandum limiting Fair Housing Act charges to trained animals, and what neither changes: the Act, 24 C.F.R. § 100.204, private suits, Section 504 and ADA complaints, and state law. No clause text changed.

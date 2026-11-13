@@ -1235,3 +1235,7 @@ MS (2026-10-20), drawn from this log's §§ 4, 6.1, 11, 12 and 14-18. Proposed c
 - **Citations file:** `lease-clause-citations-MS.csv`, 466 rows (210 CITED, 234 CONFIRMED_ABSENT, 22 GENERIC: shared contract terms whose MS note says only "Tagged as written").
 - **Legal watch:** `legal-watch-ms.yml`, held until after November 22, 2028 (first run December 22, 2028, day 22 at 14:00 UTC); 279 sections keyed by bare number, queried as `"89-8-21" AND "Mississippi Code of 1972"` (the bills' own wording); manual items for §10's statutory slips, the 2028 septic-statute repeal, and the court rules, AOC forms and Public Service Commission rules.
 - **SOP 1.78:** all seven proposals adopted. Five topic questions added (360 topics). No new `{{variables}}`. §10's product and other-state findings are in the backlog.
+
+## Federal row: HUD assistance-animal enforcement change (Claude Code, 2026-11-12)
+
+Taylor's decision 2026-11-12: the assistance-animal clause stays as written (an animal a tenant needs for a disability, trained or not, is an accommodation, not a pet), and a new federal education row, `edu-assistance-animals-federal-enforcement`, is tagged here and in every jurisdiction but CO. It explains HUD's September 17, 2025 withdrawal of its assistance-animal guidance (91 Fed. Reg. 17291) and FHEO's May 22, 2026 memorandum limiting Fair Housing Act charges to trained animals, and what neither changes: the Act, 24 C.F.R. § 100.204, private suits, Section 504 and ADA complaints, and state law. No clause text changed.

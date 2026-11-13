@@ -904,3 +904,7 @@ Merged with `merge-delta.py --base 3492cfd` (401 new rows, 59 shared rows tagged
 - **Consistency check:** no topic that 35 or more jurisdictions have is missing for Puerto Rico. 459 active PR rows (460 delivered, less the `early-termination-ks` tag plus `early-termination-pr`, less the switched-off `deposit-cost-schedule-pr`).
 - **Legal watch:** LegiScan does not cover Puerto Rico; no workflow (backlog item 34).
 - **SOP 1.80:** thirteen proposals adopted, one rejected; conformance column added. 32 topic questions added.
+
+## Federal row: HUD assistance-animal enforcement change (Claude Code, 2026-11-12)
+
+Taylor's decision 2026-11-12: the assistance-animal clause stays as written (an animal a tenant needs for a disability, trained or not, is an accommodation, not a pet), and a new federal education row, `edu-assistance-animals-federal-enforcement`, is tagged here and in every jurisdiction but CO. It explains HUD's September 17, 2025 withdrawal of its assistance-animal guidance (91 Fed. Reg. 17291) and FHEO's May 22, 2026 memorandum limiting Fair Housing Act charges to trained animals, and what neither changes: the Act, 24 C.F.R. § 100.204, private suits, Section 504 and ADA complaints, and state law. No clause text changed.

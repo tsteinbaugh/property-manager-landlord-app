@@ -488,3 +488,7 @@ Note for the table: GU ran on SOP 1.80 under the usage budget and read every row
 - **Citations file:** `lease-clause-citations-GU.csv`, 462 rows (246 CITED, 204 CONFIRMED_ABSENT, 12 GENERIC shared clauses tagged with no Guam-specific law).
 - **SOP 1.81:** all five proposals adopted (rules 19, 24, 33, 77); GU conformance column added from §19. Four topic questions added. `{{landlord_notice_address}}` already existed (FL, MI); Guam added to M.14.
 - **Legal watch:** none; LegiScan doesn't cover Guam (backlog item 34).
+
+## Federal row: HUD assistance-animal enforcement change (Claude Code, 2026-11-12)
+
+Taylor's decision 2026-11-12: the assistance-animal clause stays as written (an animal a tenant needs for a disability, trained or not, is an accommodation, not a pet), and a new federal education row, `edu-assistance-animals-federal-enforcement`, is tagged here and in every jurisdiction but CO. It explains HUD's September 17, 2025 withdrawal of its assistance-animal guidance (91 Fed. Reg. 17291) and FHEO's May 22, 2026 memorandum limiting Fair Housing Act charges to trained animals, and what neither changes: the Act, 24 C.F.R. § 100.204, private suits, Section 504 and ADA complaints, and state law. No clause text changed.

@@ -841,3 +841,7 @@ Two agents canvassed the 344 topics in `lease-clause-topics.md` in slices A and 
 - **Builder flags (§10):** added to the backlog's Connecticut known-issues line; no new `{{variable}}`s.
 - **SOP 1.66:** CT 2 (rule 40), CT 3 (rule 62), CT 4, 7 and 8 (rule 59), CT 5 (rule 19) and CT 6 (rule 16) adopted; CT 1 rejected as already in rule 19. CT conformance column added.
 - **Guards:** check-gap-discovery `--all`, checklist reconciliation, clause basis, section pointers and checkConfigIds all pass; generated files and `lease-clause-topics.md` (344 topics, 678 questions) regenerated.
+
+## Federal row: HUD assistance-animal enforcement change (Claude Code, 2026-11-12)
+
+Taylor's decision 2026-11-12: the assistance-animal clause stays as written (an animal a tenant needs for a disability, trained or not, is an accommodation, not a pet), and a new federal education row, `edu-assistance-animals-federal-enforcement`, is tagged here and in every jurisdiction but CO. It explains HUD's September 17, 2025 withdrawal of its assistance-animal guidance (91 Fed. Reg. 17291) and FHEO's May 22, 2026 memorandum limiting Fair Housing Act charges to trained animals, and what neither changes: the Act, 24 C.F.R. § 100.204, private suits, Section 504 and ADA complaints, and state law. No clause text changed.
