@@ -1412,6 +1412,12 @@ const STATE_CONFIG = {
           "Indiana case law the rows flag but don't rely on: penalty doctrine (late fees, holdover rate), waiver by accepting rent, exculpatory clauses, 'reasonable' entry notice, whether Ind. Code § 32-31-5-4 permits unilateral changes, and enforceability of unilateral rent and no-cure terms (IN log §7)",
         clauseIds: ["late-fee", "holdover-rate-in", "midterm-rent-increase-in", "criminal-activity-in"],
       },
+      {
+        id: "in-agency-rules",
+        label:
+          "Indiana Administrative Code rules LegiScan can't see, read at the IN gaps pass (2026-11-12) from iar.iga.in.gov: IURC water and sewer sub-billing (170 IAC 15) and electric submetering (170 IAC 4-5), and the Fire Prevention and Building Safety Commission codes (675 IAC 12, 13, 14, 16, 20, 22, 30) (IN gaps log §1)",
+        clauseIds: ["water-sewer-billing-disclosure-in", "edu-water-sewer-sub-billing-in"],
+      },
     ],
   },
   OK: {
