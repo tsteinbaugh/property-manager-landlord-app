@@ -1697,3 +1697,11 @@ None.
 - **Citations:** 278 new lines (163 confirmed-absent, 115 cited) and 13 updated. The legal watch now monitors 214 Idaho sections (75 before; CITED rows only, so absence rows' related sections aren't watched); its first, self-seeding run is November 24, 2026.
 - **Topic question and SOP:** the lease-option question added under `required-disclosures`; SOP 2.08 adopts all five proposals. No new `{{variables}}`.
 - **Builder notes (backlog M):** a yes/no question for a property inside a city business improvement district (`special-district-representation-id`); and whether the landlord is married and the property is community property or a homestead (`edu-lease-term-limits-id`).
+
+## Shared edit: parking tag charge (Claude Code, 2026-11-12)
+
+Taylor's decision (2026-11-12) on the gaps log §6 proposal, merged centrally under rule 62 because it only narrows what Landlord may charge. In `parking-vehicle-rules-id` (ID, IA, NM), the sentence that let Landlord charge "the cost" of tags, decals and access cards now reads: "Landlord ... may issue parking tags, decals, or access devices (such as cards, fobs, or garage or gate remotes). Tenant will pay $[amount; enter $0 if there is no charge] for each one Landlord issues, and $[amount; enter $0 if there is no charge] for each one that is lost, damaged other than by ordinary wear, or not returned when the tenancy ends; Landlord will not charge any other amount for them." (Revised the same day at Taylor's request: separate amounts for an issued device and a replacement, so a first one can be free; "access devices" so a garage remote is covered.)
+
+- **Why:** Idaho Code § 55-305(2)(a) bars charging an amount "greater than that agreed upon in the rental agreement"; an unstated cost isn't an agreed amount. Taylor chose a stated price over the gaps log's free-tags wording so each landlord decides whether to charge, and the tenant sees the price before signing. Any charge must still be reasonable (§ 55-305(1)).
+- **Closes** item 4 of the s10 open list above for this row (`keys` and `smoking-policy` were already replaced for Idaho by `keys-id` and `smoking-policy-id` at the gaps sync).
+- **Checked against IA and NM** (their logs carry the same note): neither state's note on this row is affected, since both rest on towing statutes.

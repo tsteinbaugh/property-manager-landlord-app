@@ -1038,3 +1038,7 @@ The reference (2,291 active rows, 308 topics) carries no such list; every topic 
 - `smoking-policy`: Tenant pays for smoking damage caused by "Tenant, an occupant, or a guest or invitee of Tenant", no longer by anyone's smoking.
 - `no-alterations`: the last sentence adds that the clause "does not change who owns an installation that applicable law makes Tenant's property".
 - `addendum-precedence`: a disclosure, notice or addendum "that applicable law says controls over this Lease" now controls, as one the law requires already did.
+
+## Shared edit from ID: parking tag charge (Claude Code, 2026-11-12)
+
+Taylor's decision 2026-11-12, merged centrally (rule 62: it only narrows what Landlord may charge). `parking-vehicle-rules-id` no longer lets Landlord charge "the cost" of tags, decals and access cards; the Lease now states the prices (one "$[amount; enter $0 if there is no charge]" for each tag, decal or access device issued, including cards, fobs and garage or gate remotes, and a separate one for each lost, damaged or unreturned) and Landlord charges nothing else for them. The reason is Idaho Code § 55-305(2)(a) (no amount above the one agreed in the lease). Iowa has no statute on such fees (`edu-no-fee-transparency-rule-ia`), and this row's Iowa note rests on Iowa Code § 321.89, which the edit doesn't touch. It still applies as written in Iowa.

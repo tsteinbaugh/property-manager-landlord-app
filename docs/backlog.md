@@ -46,11 +46,10 @@ To confirm in October:
 
 ## Pending shared edits: vetting tally (rule 62)
 
-Merge each edit once every state tagged on the row has answered. Update this table at each sync. (WY's `early-termination` edit merged 2026-10-03. CO's deletion of "and reasonable costs and expenses" from `default-by-tenant` was resolved 2026-10-03 as the CO override `default-by-tenant-co`, after ID declined to vouch. NE's no-cure sentence for `default-by-tenant-ks-ne` merged 2026-10-03 after OK, the last tagged state, vetted it. AZ's `returned-payments` wording merged 2026-10-04 after PA vetted it. CA's `surrender-end-of-term` qualifier merged 2026-10-04 after WY vetted it. MN's no-cure sentence merged 2026-10-04 on `default-by-tenant` and `default-by-tenant-co` after NY vetted it, with IN's, NM's, PA's, SC's and TN's held changes. **No shared edit was pending before the ID sync; one is pending now.**)
+Merge each edit once every state tagged on the row has answered. Update this table at each sync. (WY's `early-termination` edit merged 2026-10-03. CO's deletion of "and reasonable costs and expenses" from `default-by-tenant` was resolved 2026-10-03 as the CO override `default-by-tenant-co`, after ID declined to vouch. NE's no-cure sentence for `default-by-tenant-ks-ne` merged 2026-10-03 after OK, the last tagged state, vetted it. AZ's `returned-payments` wording merged 2026-10-04 after PA vetted it. CA's `surrender-end-of-term` qualifier merged 2026-10-04 after WY vetted it. MN's no-cure sentence merged 2026-10-04 on `default-by-tenant` and `default-by-tenant-co` after NY vetted it, with IN's, NM's, PA's, SC's and TN's held changes. ID's tag-charge edit to `parking-vehicle-rules-id` merged 2026-11-12 centrally on Taylor's decision, as a stated price instead of the proposed free tags. **No shared edit is pending.**)
 
 | Edit | Row (tagged states) | Vetted, supports | Still to answer |
 |---|---|---|---|
-| ID gaps log §6: tags, decals and access cards free; only a lost or damaged one replaced at the supplier's price, no markup, with the bill (Idaho Code § 55-305(2)(a)) | `parking-vehicle-rules-id` (ID, IA, NM) | Narrows only what Landlord may charge, so it is a central check (rule 62); IA and NM notes rest on towing statutes the edit doesn't touch | Taylor's approval to merge centrally (asked 2026-11-12; Taylor deferred it: wants more context first, to be explained later) |
 
 ## End-of-run consistency pass (decided 2026-10-04, Taylor: after the remaining states are done)
 
