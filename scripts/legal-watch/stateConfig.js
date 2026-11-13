@@ -113,8 +113,16 @@ const STATE_CONFIG = {
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
       { title: "24", section: "30.65", clauseIds: ["lead-based-paint"] },
       { title: "24", section: "100.204", clauseIds: ["edu-esa-federal-state-divergence-co"] }, // federal accommodation rule (added 2026-11-12)
+      { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
+      { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
     ],
-    federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
+    federalStatuteChecks: [
+      { section: "4852d", clauseIds: ["lead-based-paint"] },
+      // Federal rows tagged in every state are searched once, here (added 2026-11-12):
+      // the FCRA adverse-action notice and the PTFA (a note under 12 U.S.C. 5220).
+      { section: "1681m", clauseIds: ["edu-fcra-adverse-action-notice"] },
+      { section: "5220 note", clauseIds: ["edu-ptfa-foreclosure-tenants"] }, // bills cite the PTFA as "12 U.S.C. 5220 note"; a bare "5220" also hits bill numbers
+    ],
     manualRecheckItems: [
       {
         id: "case-anderson-shorter-arms",
@@ -148,6 +156,8 @@ const STATE_CONFIG = {
       // Federal reasonable-accommodation rule behind the assistance-animal rows
       // (added 2026-11-12): a final HUD rule amending it alerts here.
       { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] },
+      { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
+      { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
     ],
     federalStatuteChecks: [],
     manualRecheckItems: [
@@ -178,7 +188,11 @@ const STATE_CONFIG = {
       // than building a generic slash-list parser for a single row.
       "assistance-animal-accommodation": ["39-1107", "39-1108"],
     },
-    cfrChecks: [{ title: "24", section: "100.204", clauseIds: ["assistance-animal-accommodation", "edu-assistance-animals-federal-enforcement"] }],
+    cfrChecks: [
+      { title: "24", section: "100.204", clauseIds: ["assistance-animal-accommodation", "edu-assistance-animals-federal-enforcement"] },
+      { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
+      { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
+    ],
     federalStatuteChecks: [],
     manualRecheckItems: [
       {
@@ -206,6 +220,8 @@ const STATE_CONFIG = {
       // Federal reasonable-accommodation rule behind the assistance-animal rows
       // (added 2026-11-12): a final HUD rule amending it alerts here.
       { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] },
+      { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
+      { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
     ],
     // NOT monitored, deliberately: edu-esa-federal-only-ne cites 28 C.F.R.
     // §36.104 "as it existed 2008-01-01" -- Nebraska's statute freezes to that
@@ -242,6 +258,8 @@ const STATE_CONFIG = {
       // Federal reasonable-accommodation rule behind the assistance-animal rows
       // (added 2026-11-12): a final HUD rule amending it alerts here.
       { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] },
+      { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
+      { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
     ],
     federalStatuteChecks: [],
     manualRecheckItems: [
@@ -288,6 +306,8 @@ const STATE_CONFIG = {
       // Federal reasonable-accommodation rule behind the assistance-animal rows
       // (added 2026-11-12): a final HUD rule amending it alerts here.
       { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] },
+      { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
+      { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
     ],
     federalStatuteChecks: [],
     manualRecheckItems: [],
@@ -313,6 +333,8 @@ const STATE_CONFIG = {
       // Federal reasonable-accommodation rule behind the assistance-animal rows
       // (added 2026-11-12): a final HUD rule amending it alerts here.
       { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] },
+      { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
+      { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
     ],
     federalStatuteChecks: [],
     manualRecheckItems: [
@@ -362,6 +384,8 @@ const STATE_CONFIG = {
       // Federal reasonable-accommodation rule behind the assistance-animal rows
       // (added 2026-11-12): a final HUD rule amending it alerts here.
       { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] },
+      { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
+      { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
     ],
     federalStatuteChecks: [],
     manualRecheckItems: [
@@ -457,6 +481,8 @@ const STATE_CONFIG = {
       // Same regulation KS already watches; pet-insurance-requirement's
       // assistance-animal carve-out rests on it (federal, all states).
       { title: "24", section: "100.204", clauseIds: ["pet-insurance-requirement", "edu-assistance-animals-federal-enforcement"] },
+      { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
+      { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
     ],
     federalStatuteChecks: [
       // Servicemembers Civil Relief Act sections the CA military rows compare
@@ -574,6 +600,8 @@ const STATE_CONFIG = {
       // duty, which must mirror federal regulations (Prop. Code §301.062) --
       // same regulation KS, CA and NV watch.
       { title: "24", section: "100.204", clauseIds: ["assistance-animal-accommodation", "pet-insurance-requirement", "edu-assistance-animals-federal-enforcement"] },
+      { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
+      { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
     ],
     federalStatuteChecks: [],
     manualRecheckItems: [
@@ -627,6 +655,8 @@ const STATE_CONFIG = {
       // reasonable-accommodation rule alone (HUD guidance withdrawn
       // 2025-09-17) -- same regulation KS and CA watch.
       { title: "24", section: "100.204", clauseIds: ["assistance-animal-accommodation", "edu-assistance-animal-nv", "edu-assistance-animals-federal-enforcement"] },
+      { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
+      { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
     ],
     federalStatuteChecks: [],
     manualRecheckItems: [
@@ -661,6 +691,8 @@ const STATE_CONFIG = {
       // NJ's assistance-animal row rests partly on the reasonable-accommodation
       // duty, which tracks the federal regulation KS, CA, NV and TX watch.
       { title: "24", section: "100.204", clauseIds: ["assistance-animal-accommodation-nj", "edu-assistance-animals-federal-enforcement"] },
+      { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
+      { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
     ],
     federalStatuteChecks: [],
     manualRecheckItems: [
@@ -742,6 +774,8 @@ const STATE_CONFIG = {
       // Federal reasonable-accommodation rule behind the assistance-animal rows
       // (added 2026-11-12): a final HUD rule amending it alerts here.
       { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] },
+      { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
+      { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
     ],
     federalStatuteChecks: [],
     manualRecheckItems: [
@@ -769,6 +803,8 @@ const STATE_CONFIG = {
     cfrChecks: [
       { title: "24", section: "100.204", clauseIds: ["assistance-animal-accommodation", "edu-assistance-animals-federal-enforcement"] },
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
+      { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
+      { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
     ],
     federalStatuteChecks: [],
     manualRecheckItems: [
@@ -823,6 +859,8 @@ const STATE_CONFIG = {
     cfrChecks: [
       { title: "24", section: "100.204", clauseIds: ["assistance-animal-accommodation-ga", "edu-assistance-animals-federal-enforcement"] },
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
+      { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
+      { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
     ],
     federalStatuteChecks: [],
     manualRecheckItems: [
@@ -883,6 +921,8 @@ const STATE_CONFIG = {
     cfrChecks: [
       { title: "24", section: "100.204", clauseIds: ["assistance-animal-accommodation-nc", "edu-assistance-animals-federal-enforcement"] },
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
+      { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
+      { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
     ],
     federalStatuteChecks: [],
     manualRecheckItems: [
@@ -920,6 +960,8 @@ const STATE_CONFIG = {
     cfrChecks: [
       { title: "24", section: "100.204", clauseIds: ["assistance-animal-accommodation-sc", "edu-assistance-animals-federal-enforcement"] },
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
+      { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
+      { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
     ],
     federalStatuteChecks: [],
     manualRecheckItems: [
@@ -963,6 +1005,8 @@ const STATE_CONFIG = {
     cfrChecks: [
       { title: "24", section: "100.204", clauseIds: ["assistance-animal-accommodation-tn", "edu-assistance-animals-federal-enforcement"] },
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
+      { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
+      { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
     ],
     federalStatuteChecks: [{ section: "3955", clauseIds: ["edu-servicemember-rights-tn"] }],
     manualRecheckItems: [
@@ -1003,6 +1047,8 @@ const STATE_CONFIG = {
     cfrChecks: [
       { title: "24", section: "100.204", clauseIds: ["assistance-animal-accommodation-va", "edu-assistance-animals-federal-enforcement"] },
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
+      { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
+      { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
     ],
     federalStatuteChecks: [{ section: "3955", clauseIds: ["edu-servicemember-rights-va"] }],
     manualRecheckItems: [
@@ -1041,6 +1087,8 @@ const STATE_CONFIG = {
     cfrChecks: [
       { title: "24", section: "100.204", clauseIds: ["assistance-animal-accommodation-al", "edu-assistance-animals-federal-enforcement"] },
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
+      { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
+      { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
     ],
     federalStatuteChecks: [{ section: "3955", clauseIds: ["edu-servicemember-rights-al"] }],
     manualRecheckItems: [
@@ -1109,6 +1157,8 @@ const STATE_CONFIG = {
     cfrChecks: [
       { title: "24", section: "100.204", clauseIds: ["assistance-animal-accommodation-pa", "edu-assistance-animals-federal-enforcement"] },
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
+      { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
+      { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
     ],
     federalStatuteChecks: [
       { section: "4852d", clauseIds: ["lead-based-paint"] },
@@ -1156,6 +1206,8 @@ const STATE_CONFIG = {
     cfrChecks: [
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
       { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+      { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
+      { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
     ],
     federalStatuteChecks: [
       { section: "4852d", clauseIds: ["lead-based-paint"] },
@@ -1203,6 +1255,8 @@ const STATE_CONFIG = {
     cfrChecks: [
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
       { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+      { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
+      { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
@@ -1256,6 +1310,8 @@ const STATE_CONFIG = {
     cfrChecks: [
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
       { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+      { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
+      { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
     ],
     federalStatuteChecks: [
       { section: "4852d", clauseIds: ["lead-based-paint"] },
@@ -1298,6 +1354,8 @@ const STATE_CONFIG = {
     cfrChecks: [
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
       { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+      { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
+      { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
@@ -1337,6 +1395,8 @@ const STATE_CONFIG = {
     cfrChecks: [
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
       { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+      { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
+      { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
@@ -1383,6 +1443,8 @@ const STATE_CONFIG = {
     cfrChecks: [
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
       { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+      { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
+      { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
@@ -1432,6 +1494,8 @@ const STATE_CONFIG = {
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
       { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-mi", "edu-fair-housing-mi", "edu-assistance-animals-federal-enforcement"] },
       { title: "24", section: "5.2005", clauseIds: ["criminal-activity-mi"] },
+      { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
+      { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
     ],
     federalStatuteChecks: [
       { section: "4852d", clauseIds: ["lead-based-paint", "edu-lead-hazard-mi"] },
@@ -1484,6 +1548,8 @@ const STATE_CONFIG = {
     cfrChecks: [
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
       { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+      { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
+      { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
@@ -1533,6 +1599,8 @@ const STATE_CONFIG = {
     cfrChecks: [
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
       { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+      { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
+      { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
@@ -1581,6 +1649,8 @@ const STATE_CONFIG = {
     cfrChecks: [
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
       { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+      { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
+      { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
@@ -1629,6 +1699,8 @@ const STATE_CONFIG = {
     cfrChecks: [
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
       { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+      { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
+      { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
@@ -1675,6 +1747,8 @@ const STATE_CONFIG = {
     cfrChecks: [
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
       { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+      { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
+      { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
@@ -1725,6 +1799,8 @@ const STATE_CONFIG = {
     cfrChecks: [
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
       { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+      { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
+      { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
@@ -1775,6 +1851,8 @@ const STATE_CONFIG = {
     cfrChecks: [
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
       { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+      { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
+      { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
@@ -1831,6 +1909,8 @@ const STATE_CONFIG = {
     cfrChecks: [
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
       { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+      { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
+      { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
@@ -1869,6 +1949,8 @@ const STATE_CONFIG = {
     cfrChecks: [
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
       { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+      { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
+      { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
@@ -1913,6 +1995,8 @@ const STATE_CONFIG = {
     cfrChecks: [
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
       { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+      { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
+      { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
@@ -1964,6 +2048,8 @@ const STATE_CONFIG = {
     cfrChecks: [
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
       { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+      { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
+      { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
@@ -2001,6 +2087,8 @@ const STATE_CONFIG = {
     cfrChecks: [
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
       { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+      { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
+      { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
@@ -2044,6 +2132,8 @@ const STATE_CONFIG = {
     cfrChecks: [
       { title: "40", section: "745.113", clauseIds: ["lead-disclosure-ri"] },
       { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+      { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
+      { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-disclosure-ri"] }],
     manualRecheckItems: [
@@ -2086,6 +2176,8 @@ const STATE_CONFIG = {
     cfrChecks: [
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
       { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+      { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
+      { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
@@ -2123,6 +2215,8 @@ const STATE_CONFIG = {
     cfrChecks: [
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
       { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+      { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
+      { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
@@ -2167,6 +2261,8 @@ const STATE_CONFIG = {
     cfrChecks: [
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
       { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+      { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
+      { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
@@ -2214,6 +2310,8 @@ const STATE_CONFIG = {
     cfrChecks: [
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
       { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+      { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
+      { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
@@ -2256,6 +2354,8 @@ const STATE_CONFIG = {
     cfrChecks: [
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
       { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+      { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
+      { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
@@ -2292,6 +2392,8 @@ const STATE_CONFIG = {
     cfrChecks: [
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
       { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+      { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
+      { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
@@ -2350,6 +2452,8 @@ const STATE_CONFIG = {
     cfrChecks: [
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
       { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+      { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
+      { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
@@ -2386,6 +2490,8 @@ const STATE_CONFIG = {
     cfrChecks: [
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
       { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+      { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
+      { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
@@ -2422,6 +2528,8 @@ const STATE_CONFIG = {
     cfrChecks: [
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
       { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+      { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
+      { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
@@ -2465,6 +2573,8 @@ const STATE_CONFIG = {
     cfrChecks: [
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
       { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
+      { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
+      { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [

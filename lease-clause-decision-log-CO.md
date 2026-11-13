@@ -4243,3 +4243,7 @@ Merged with `merge-delta.py --base 9f38860`: 305 new rows, 12 shared rows tagged
 
 
 **Decided (Taylor, 2026-10-24):** item 7, the mechanic's-lien notice duty: `no-liens-co` stays optional (Claude Code's recommendation); no Colorado override of `no-alterations` and no shared edit.
+
+## Federal rows: foreclosure tenants, screening-report notice, voucher leases (Claude Code, 2026-11-12)
+
+Taylor's decision 2026-11-12 (Ohio gaps product item P1): three federal education rows are tagged here and in every jurisdiction, each read from the official federal text: `edu-ptfa-foreclosure-tenants` (Protecting Tenants at Foreclosure Act, 12 U.S.C. § 5220 note), `edu-fcra-adverse-action-notice` (Fair Credit Reporting Act adverse-action notice, 15 U.S.C. § 1681m) and `edu-voucher-tenancy-addendum` (Housing Choice Voucher lease and termination rules, 24 C.F.R. §§ 982.308, 982.310). This state's existing rows on these laws stay; no clause text changed.
