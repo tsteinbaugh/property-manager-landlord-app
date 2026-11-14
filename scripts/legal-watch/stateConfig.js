@@ -1457,20 +1457,32 @@ const STATE_CONFIG = {
       {
         id: "ok-future-dated-acts",
         label:
-          "Oklahoma acts enacted but not yet compiled: HB 3127 (2026) and HB 3431 (2026) take effect 2026-11-01, SB 893 (2026) on 2027-07-01; re-read the rows once the compilation prints them (OK log §1.2, §7)",
-        clauseIds: ["edu-foreign-ownership-ok", "edu-medical-marijuana-ok"],
+          "Oklahoma texts with a future effective date, compiled ahead of it (statutes updated through November 12, 2026): SB 893 (2026), Okla. Stat. tit. 60, § 128.3, eff. 2027-07-01; the roofing exemption in Okla. Stat. tit. 59, § 1151.9, eff. 2027-01-01; SB 546 (2026) consumer data privacy, eff. 2027-01-01; re-read the rows on those dates (OK log §1.2, §7; OK gaps log §1, §5)",
+        clauseIds: ["edu-foreign-ownership-ok", "edu-military-air-zone-disclosure-ok", "edu-tenant-data-breach-ok"],
       },
       {
         id: "ok-court-rules-constitution",
         label:
-          "Oklahoma sources LegiScan can't see: the Rules for District Courts and Rules for the Administration of Courts (eviction rows), and the Constitution (art. II, § 26; art. XXII, § 1), which changes by ballot measure (OK log §1.1, §7)",
-        clauseIds: ["edu-firearms-ok", "edu-foreign-ownership-ok"],
+          "Oklahoma sources LegiScan can't see: the Rules for District Courts and Rules for the Administration of Courts (eviction rows; OSCN served a Turnstile check on 2026-11-13, so `edu-entity-landlord-court-representation-ok` stays NEEDS_REVIEW until they are read), and the Constitution (art. II, §§ 19, 26; art. XIV, §§ 2-3; art. XXII, § 1), which changes by ballot measure (OK log §1.1, §7; OK gaps log §4)",
+        clauseIds: ["edu-firearms-ok", "edu-foreign-ownership-ok", "edu-entity-landlord-court-representation-ok", "edu-jury-waiver-ok", "edu-legal-interest-ok"],
       },
       {
         id: "ok-case-law",
         label:
           "Oklahoma case law the rows flag but don't rely on: penalty doctrine (late, returned-payment and early-termination fees), waiver by accepting rent, the reach of Okla. Stat. tit. 41, § 113(A)(3)-(4), how 'immediate termination' under § 132(D) works, whether a residential lease is a lease of 'land' under tit. 60, § 121, and whether the Consumer Protection Act reaches leases (OK log §1.4, §7)",
-        clauseIds: ["late-fee", "early-termination-ks", "default-by-tenant-ks-ne", "edu-consumer-protection-ok"],
+        clauseIds: ["late-fee", "early-termination-ok", "default-by-tenant-ok", "edu-consumer-protection-ok"],
+      },
+      {
+        id: "ok-agency-rules",
+        label:
+          "Oklahoma Administrative Code rules LegiScan can't see, read at the OK gaps pass (2026-11-13) on rules.ok.gov: Corporation Commission utility rules (165:14, 165:35, 165:45, 165:65), Fire Marshal (265:10, 265:25), Uniform Building Code Commission adopted codes (748:20), Health (310:285, 310:320), DEQ (252:110, 252:624, 252:631), Agriculture pesticide (35:30), Real Estate Commission (605:10), Labor alarm and locksmith (380:75), Attorney General ACP (75:20) and Tax Commission (710:50, 710:90) (OK gaps log §1)",
+        clauseIds: ["edu-utility-apportionment-ok", "utility-allowance-cap-ok", "edu-pool-safety-ok", "edu-private-well-testing-ok", "licensee-status-disclosure-ok", "edu-smart-access-ok"],
+      },
+      {
+        id: "ok-indian-land-leasing",
+        label:
+          "Federal Indian land leasing: 25 C.F.R. part 162 (eCFR) and the special acts of Congress on restricted land of Five Civilized Tribes members (Act of May 27, 1908, 35 Stat. 312; Act of Aug. 4, 1947, 61 Stat. 731, as amended 2018), which no text route read on 2026-11-13; `edu-communal-land-lease-approval-ok` stays NEEDS_REVIEW for that land until they are read (OK gaps log §4)",
+        clauseIds: ["edu-communal-land-lease-approval-ok"],
       },
     ],
   },

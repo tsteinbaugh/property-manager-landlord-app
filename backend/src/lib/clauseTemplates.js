@@ -510,7 +510,7 @@ const CLAUSE_TEMPLATES = [
     id: "tenant-maintenance",
     title: "Tenant Maintenance & Cleanliness",
     group: "Tenant Responsibilities",
-    states: ["CO", "WY", "MN", "SD", "OH", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP"],
+    states: ["CO", "WY", "MN", "SD", "OH", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP"],
     bodyText:
       "Tenant will keep and maintain the property in a clean, safe, and sanitary condition, and will regularly dispose of garbage and waste in a clean and safe manner. Tenant will use all appliances, fixtures, and equipment in a safe and reasonable manner consistent with their intended purpose, will not obstruct access to doors and windows, and will maintain the property in the same condition as it was delivered to Tenant, except for ordinary wear and tear and any condition that applicable law requires Landlord to repair or remedy.",
   },
@@ -567,7 +567,7 @@ const CLAUSE_TEMPLATES = [
     id: "landlord-maintenance",
     title: "Maintenance & Repairs",
     group: "Landlord Responsibilities",
-    states: ["CO", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "WA", "KY", "WV", "MD", "MA", "RI", "NH", "ME", "LA", "MS", "DC", "PR", "GU", "VI", "AS", "MP"],
+    states: ["CO", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "MI", "IA", "WA", "KY", "WV", "MD", "MA", "RI", "NH", "ME", "LA", "MS", "DC", "PR", "GU", "VI", "AS", "MP"],
     bodyText:
       "Subject to Tenant's own maintenance obligations under this Lease, Landlord will maintain the property, including its structural elements, roof, and systems, in good order and repair, and will be responsible for repairing the appliances, fixtures, and equipment located at the property, except where repair is necessary due to improper use by Tenant or a guest of Tenant. Tenant will notify Landlord promptly in writing of any condition requiring repair or maintenance, and Landlord will undertake required repairs within a reasonable time, consistent with applicable law.",
   },
@@ -1016,7 +1016,7 @@ const CLAUSE_TEMPLATES = [
     id: "foreclosure-disclosure-nv",
     title: "Foreclosure Disclosure",
     group: "Disclosures",
-    states: ["NV", "SC", "IL"],
+    states: ["NV", "SC", "IL", "OK"],
     bodyText:
       "Foreclosure Disclosure. Before Tenant entered into this Lease, Landlord disclosed to Tenant in writing whether the property is the subject of any foreclosure proceedings. Landlord's disclosure: [state that the property is the subject of foreclosure proceedings and describe them, or state that the property is not the subject of any foreclosure proceedings].",
   },
@@ -1224,7 +1224,7 @@ const CLAUSE_TEMPLATES = [
     id: "default-by-tenant-ks-ne",
     title: "Tenant Default",
     group: "Default & Termination",
-    states: ["KS", "NE", "OH", "OK"],
+    states: ["KS", "NE", "OH"],
     supersedes: "default-by-tenant",
     bodyText:
       "Tenant will be in default under this Lease if Tenant fails to pay Rent when due and does not cure the failure within the time period specified by applicable law after receiving written notice from Landlord, or fails to comply with any other obligation under this Lease and does not cure the failure after receiving written notice, except where applicable law permits Landlord to proceed without giving Tenant an opportunity to cure. Landlord need not give Tenant an opportunity to cure any breach, including a failure to pay Rent, where applicable law permits Landlord to proceed without one. Except as required by applicable law, Tenant's failure to pay an assessed late fee, apart from the underlying Rent itself, will not by itself entitle Landlord to terminate this Lease or pursue eviction. If Tenant is in default, Landlord may exercise all rights and remedies available under applicable law, including terminating this Lease, regaining possession of the property, and recovering unpaid Rent, late fees, and reasonable costs and expenses, less amounts obtained from the Security Deposit. Landlord will use reasonable efforts to mitigate damages resulting from Tenant's default to the extent required by applicable law.",
@@ -1234,7 +1234,7 @@ const CLAUSE_TEMPLATES = [
     id: "extended-absence-notice-ks",
     title: "Notice of Extended Absence",
     group: "Tenant Responsibilities",
-    states: ["KS", "TN", "VA", "IA", "NM", "MT", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "NH", "ME", "VT", "LA", "AR", "MS", "DC", "PR", "VI", "AS", "MP", "CO", "OH", "NV", "TX", "NJ", "AZ", "GA", "SC", "NC", "PA", "UT", "MO", "IN"],
+    states: ["KS", "TN", "VA", "IA", "NM", "MT", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "NH", "ME", "VT", "LA", "AR", "MS", "DC", "PR", "VI", "AS", "MP", "CO", "OH", "NV", "TX", "NJ", "AZ", "GA", "SC", "NC", "PA", "UT", "MO", "IN", "OK"],
     bodyText:
       "Tenant will occupy the property only as a dwelling unit unless otherwise agreed. If Tenant anticipates being away from the property for more than 7 consecutive days, Tenant will notify Landlord no later than the first day of the absence. If Tenant willfully fails to give this notice, Landlord may recover actual damages resulting from the failure.",
   },
@@ -1271,7 +1271,7 @@ const CLAUSE_TEMPLATES = [
     id: "early-termination-ks",
     title: "Early Termination",
     group: "Default & Termination",
-    states: ["KS", "TN", "OK", "MI", "IA", "NY", "KY", "WV", "MD", "MA", "NH", "VI", "AS", "MP"],
+    states: ["KS", "TN", "MI", "IA", "NY", "KY", "WV", "MD", "MA", "NH", "VI", "AS", "MP"],
     supersedes: "early-termination",
     bodyText:
       "Tenant may terminate this Lease before the end of the Term by providing Landlord at least 30 days' written notice. Tenant will pay an early termination fee equal to one month's Rent ({{monthly_rent}}) or 30% of the remaining Rent due under the Term, whichever is greater, and remains responsible for Rent and other obligations up to the termination date. This early-termination option and fee apply only if this Lease has a fixed Term; a month-to-month or other periodic tenancy ends on the notice that applicable law and this Lease provide, without an early termination fee. Landlord may terminate this Lease early in accordance with this Lease's Tenant Default and notice provisions, or if Tenant vacates or abandons the property without notifying Landlord. Nothing in this Section limits any right either party has under applicable law, including a Tenant's right to terminate without penalty due to active military service under the Servicemembers Civil Relief Act, due to the property becoming uninhabitable through no fault of Tenant, or, except as prohibited by law in the case of a Tenant's death, any other termination right or limitation provided by applicable law.",
@@ -5212,7 +5212,7 @@ const CLAUSE_TEMPLATES = [
     states: ["OK"],
     supersedes: "pet-policy",
     bodyText:
-      "Tenant may keep only pets identified in writing to and approved by Landlord: [list approved pets, or state that no pets are permitted]. Tenant will pay a pet deposit of {{pet_deposit}}, if applicable. Under Oklahoma law a refundable pet deposit is a deposit like the Security Deposit, so Landlord will hold, apply and return it under this Lease's Security Deposit terms. Tenant will pay pet rent of {{pet_rent_amount}} per month, if applicable. Tenant is responsible for all damage, waste removal, odor and disturbance caused by a pet. Landlord may revoke approval of a pet that becomes a nuisance or safety concern, and Tenant will then remove the pet within [number] days after Landlord's written notice; failure to do so is a default under this Lease. Landlord may enter the property in connection with a pet only as this Lease's Access & Entry terms permit, or without notice in an emergency. This Section does not limit animal control or law enforcement acting under their own authority. This Section does not apply to a service animal or assistance animal.",
+      "Tenant may keep only pets identified in writing to and approved by Landlord: [list approved pets, or state that no pets are permitted]. Tenant will pay a pet deposit of {{pet_deposit}}, if applicable. Under Oklahoma law a refundable pet deposit is a deposit like the Security Deposit, so Landlord will hold, apply and return it under this Lease's Security Deposit terms. Tenant will pay pet rent of {{pet_rent_amount}} per month, if applicable. Tenant will remove all pet waste and will not allow a pet to disturb other tenants. Tenant is responsible for damage and odor caused by a pet to the extent caused by the deliberate or negligent act or omission of Tenant, a member of Tenant's family, Tenant's animal or pet, or another person or animal on the premises with Tenant's consent. Landlord may revoke approval of a pet that becomes a nuisance or safety concern, and Tenant will then remove the pet within [number] days after Landlord's written notice; failure to do so is a default under this Lease. Landlord may enter the property in connection with a pet only as this Lease's Access & Entry terms permit, or without notice in an emergency. This Section does not limit animal control or law enforcement acting under their own authority. This Section does not apply to a service animal or assistance animal.",
   },
   // Landlord Responsibilities
   {
@@ -5238,7 +5238,7 @@ const CLAUSE_TEMPLATES = [
     group: "Default & Termination",
     states: ["OK"],
     bodyText:
-      "If the property is damaged by fire, water or any other cause, and the damage results from the deliberate or negligent act or omission of Tenant, a member of Tenant's family or household, Tenant's animal or pet, or another person or animal on the premises with Tenant's consent, then: (1) Rent will not abate or be reduced while the property is repaired, for as long as this Lease continues; and (2) if this Lease ends because of the damage, Tenant will be liable for Landlord's actual damages, including the Rent Landlord loses while the property is repaired, up to the end of the Term, less any Rent Landlord receives from re-renting the property. Landlord will use reasonable efforts to repair and re-rent the property. This Section is in addition to Tenant's liability for the cost of repairing the damage.",
+      "If the property is damaged by fire, water or any other cause, and the damage results from the deliberate or negligent act or omission of Tenant, a member of Tenant's family, Tenant's animal or pet, or another person or animal on the premises with Tenant's consent, then: (1) Rent will not abate or be reduced while the property is repaired, for as long as this Lease continues; and (2) if this Lease ends because of the damage, Tenant will be liable for Landlord's actual damages, including the Rent Landlord loses while the property is repaired, up to the end of the Term, less any Rent Landlord receives from re-renting the property. Landlord will use reasonable efforts to repair and re-rent the property. This Section is in addition to Tenant's liability for the cost of repairing the damage.",
   },
   {
     id: "criminal-activity-ok",
@@ -5264,7 +5264,7 @@ const CLAUSE_TEMPLATES = [
     group: "Tenant Responsibilities",
     states: ["OK"],
     bodyText:
-      "[Optional. Oklahoma requires this agreement to be a conspicuous writing independent of the rental agreement: print it as its own document, signed separately by Landlord and Tenant, not as a section or addendum of the Lease (Okla. Stat. tit. 41, § 118(B)).] TENANT MAINTENANCE AGREEMENT. Landlord and Tenant agree that Tenant will perform the following specified repairs, maintenance tasks, alterations or remodeling at the property: [list each task specifically, for example: mow the lawn and rake leaves as needed during the growing season; remove snow and ice from the walkways, driveway and entrances Tenant uses]. This agreement is separate from the Lease. Landlord remains responsible for every duty Oklahoma law places on Landlord that is not listed here, including keeping the property fit and habitable, and this agreement does not reduce those duties.",
+      "[Optional. Oklahoma requires this agreement to be a conspicuous writing independent of the rental agreement: print it as its own document, signed separately by Landlord and Tenant, not as a section or addendum of the Lease.] TENANT MAINTENANCE AGREEMENT. Landlord and Tenant agree that Tenant will perform the following specified repairs, maintenance tasks, alterations or remodeling at the property: [list each task specifically, for example: mow the lawn and rake leaves as needed during the growing season; remove snow and ice from the walkways, driveway and entrances Tenant uses]. This agreement is separate from the Lease. Landlord remains responsible for every duty Oklahoma law places on Landlord that is not listed here, including keeping the property fit and habitable, and this agreement does not reduce those duties.",
   },
   // Rules & Regulations
   {
@@ -7048,7 +7048,7 @@ const CLAUSE_TEMPLATES = [
     id: "rent-concession-wi",
     title: "Rent Concessions",
     group: "Rent & Payment",
-    states: ["WI", "CT", "RI", "NH", "ME", "VT", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "KS", "MN", "NE", "OH", "NV", "TX", "NJ", "FL", "GA", "SC", "NC", "VA", "AL", "UT", "MO", "ID", "IN"],
+    states: ["WI", "CT", "RI", "NH", "ME", "VT", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "KS", "MN", "NE", "OH", "NV", "TX", "NJ", "FL", "GA", "SC", "NC", "VA", "AL", "UT", "MO", "ID", "IN", "OK"],
     bodyText:
       "[Use only if Landlord gives Tenant any rent concession.] In connection with this Lease, Landlord gives Tenant the following rent concession, which is part of this Lease: [describe each period of free or reduced Rent, credit, rebate or other concession, with its amount or value and the rental periods to which it applies].",
   },
@@ -7417,7 +7417,7 @@ const CLAUSE_TEMPLATES = [
     id: "rent-installments-or",
     title: "Rent Paid in Installments",
     group: "Rent & Payment",
-    states: ["OR", "CT", "RI", "NH", "ME", "VT", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "WY", "KS", "NE", "TX", "NJ", "AZ", "FL", "GA", "SC", "VA", "PA", "AL", "UT", "IL", "MO", "ID", "IN"],
+    states: ["OR", "CT", "RI", "NH", "ME", "VT", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "WY", "KS", "NE", "TX", "NJ", "AZ", "FL", "GA", "SC", "VA", "PA", "AL", "UT", "IL", "MO", "ID", "IN", "OK"],
     bodyText:
       "Landlord and Tenant agree that Monthly Rent will be paid in installments as follows: [state each installment amount and the day of the month it is due]. Installments paid on this schedule are not partial payments of Rent. A late charge applies only as this Lease's late charge provision allows for the rental period.",
   },
@@ -8005,7 +8005,7 @@ const CLAUSE_TEMPLATES = [
     id: "rent-increase-midterm-ky",
     title: "Mid-Term Rent Increase",
     group: "Rent & Payment",
-    states: ["KY", "AK", "AR", "MS", "VI", "AS", "KS", "TX", "AZ", "FL", "PA", "IL"],
+    states: ["KY", "AK", "AR", "MS", "VI", "AS", "KS", "TX", "AZ", "FL", "PA", "IL", "OK"],
     bodyText:
       "[Optional.] During the Term, Landlord may increase Monthly Rent by giving Tenant written notice at least 30 days before the increase takes effect, stating the new Monthly Rent and its effective date. Tenant may instead end this Lease, without an early termination fee, by giving Landlord written notice before the increase takes effect, effective on the last day before the increase. Landlord will not increase Rent to retaliate against Tenant for any complaint, request or other conduct the law protects.",
   },
@@ -8138,7 +8138,7 @@ const CLAUSE_TEMPLATES = [
     id: "nonrefundable-fees-wv",
     title: "Nonrefundable Fees",
     group: "Security Deposit",
-    states: ["WV", "MS", "PR", "VI", "AS", "MP", "TX", "GA", "SC", "TN", "VA", "AL", "IN"],
+    states: ["WV", "MS", "PR", "VI", "AS", "MP", "TX", "GA", "SC", "TN", "VA", "AL", "IN", "OK"],
     bodyText:
       "[Optional.] Landlord and Tenant expressly agree that the following fees are nonrefundable: [list each nonrefundable fee and its amount, for example a nonrefundable pet fee of $___, or state 'None']. Any other money Tenant gives Landlord to secure Tenant's performance of this Lease, or as security for damage to the property, is part of the Security Deposit.",
   },
@@ -11120,7 +11120,7 @@ const CLAUSE_TEMPLATES = [
     id: "rent-escalation-la",
     title: "Scheduled Rent Changes",
     group: "Rent & Payment",
-    states: ["LA", "MS", "PR", "GU", "VI", "AS", "WY", "KS", "MN", "NE", "TX", "NJ", "AZ", "FL", "SC", "NC", "AL", "UT", "IL", "MO"],
+    states: ["LA", "MS", "PR", "GU", "VI", "AS", "WY", "KS", "MN", "NE", "TX", "NJ", "AZ", "FL", "SC", "NC", "AL", "UT", "IL", "MO", "OK"],
     bodyText:
       "[Optional. Choose one.] [A: Monthly Rent will change during the Term as follows: [state each new amount and the date it takes effect].] [B: On [state each adjustment date, e.g. each anniversary of the Start Date], Monthly Rent will be adjusted, up or down, by the percentage change in [name a published index, e.g. the Consumer Price Index for All Urban Consumers (CPI-U) for the region that includes the property, published by the U.S. Bureau of Labor Statistics] between [base month and year] and the most recent month published before the adjustment date[, but by no more than [percent] percent for any one adjustment]. Landlord will give Tenant written notice of each adjusted Monthly Rent, showing the calculation, at least [number] days before it takes effect. If the index is no longer published, Monthly Rent will stay at the last adjusted amount.] Monthly Rent will not change during the Term in any other way, except as any tax and insurance escalation Section of this Lease, if used, provides.",
   },
@@ -11128,7 +11128,7 @@ const CLAUSE_TEMPLATES = [
     id: "tax-insurance-escalation-la",
     title: "Tax and Insurance Increases",
     group: "Rent & Payment",
-    states: ["LA", "AR", "MS", "PR", "GU", "VI", "WY", "KS", "NE", "TX", "NJ", "AZ", "FL", "SC", "NC", "PA", "AL", "UT", "MO", "IN"],
+    states: ["LA", "AR", "MS", "PR", "GU", "VI", "WY", "KS", "NE", "TX", "NJ", "AZ", "FL", "SC", "NC", "PA", "AL", "UT", "MO", "IN", "OK"],
     bodyText:
       "[Optional.] Tax and Insurance Increases: If the ad valorem property taxes assessed on [the Property / the building or parcel of which the Property is a part] for any calendar year during the Term are higher than the taxes for [base year][, or if Landlord's premium for property insurance on [the Property / that building] for any policy year during the Term is higher than the premium for [base policy year]], Tenant will pay Landlord [percent] percent of the increase, which is the Property's share of [the building or parcel]. Landlord will give Tenant written notice of each amount due, with a copy of the tax bill [and premium notice] and the calculation, at least [number] days before it is due, and Tenant may pay it [in one payment / in equal monthly installments with Rent over [number] months]. Tenant will not pay any part of a penalty or interest charged for Landlord's late payment of taxes or premiums. If taxes [or premiums] for a period for which Tenant paid a share are later reduced, abated or refunded, Landlord will credit or refund Tenant the same percentage of the reduction.",
   },
@@ -11510,7 +11510,7 @@ const CLAUSE_TEMPLATES = [
     id: "owner-occupancy-termination-ar",
     title: "Owner Occupancy (Optional)",
     group: "Default & Termination",
-    states: ["AR", "MS", "PR", "GU", "VI", "AS", "MP", "WY", "KS", "NE", "OH", "TX", "AZ", "FL", "GA", "SC", "NC", "VA", "PA", "AL", "UT", "ID", "IN"],
+    states: ["AR", "MS", "PR", "GU", "VI", "AS", "MP", "WY", "KS", "NE", "OH", "TX", "AZ", "FL", "GA", "SC", "NC", "VA", "PA", "AL", "UT", "ID", "IN", "OK"],
     bodyText:
       "[Optional. Use only for a fixed Term.] Owner Occupancy: Landlord may end this Lease before the end of the Term if Landlord, or the following member of Landlord's family, will occupy the property as a residence: [name or relationship]. To do so, Landlord will give Tenant written notice at least [number, not less than 30] days before the termination date, and the termination date will be the last day of a monthly rental period. Tenant owes Rent only through the termination date, and Landlord will refund any Rent paid for a later period. If Tenant does not leave by the termination date, Landlord may regain possession only through a court eviction.",
   },
@@ -12937,7 +12937,7 @@ const CLAUSE_TEMPLATES = [
     id: "animal-care-access-vi",
     title: "Animal Care in Tenant's Absence (Virgin Islands)",
     group: "Pets",
-    states: ["VI", "AS", "MP", "CO", "TX", "NJ", "GA", "NC", "PA", "UT", "IL", "MO", "ID"],
+    states: ["VI", "AS", "MP", "CO", "TX", "NJ", "GA", "NC", "PA", "UT", "IL", "MO", "ID", "OK"],
     bodyText:
       "[Optional.] Animal Care: Tenant will tell Landlord in writing about every animal kept at the property. Tenant names the following person to care for or remove Tenant's animals if Tenant cannot because Tenant is hospitalized, incapacitated, detained or otherwise absent and an animal is left without care: [name and telephone number]. In that case, after trying to reach Tenant, Landlord may let that person into the property for that purpose only, and if that person cannot be reached Landlord may ask an animal warden, a peace officer, or the Humane Society or an animal shelter to take charge of the animal. Tenant will tell Landlord in writing if this information changes. This permission ends at Tenant's death; after that, Landlord will deal with Tenant's animals only through Tenant's personal representative or heirs or as the law otherwise allows.",
   },
@@ -12970,7 +12970,7 @@ const CLAUSE_TEMPLATES = [
     id: "fees-and-charges-vi",
     title: "Fees and Charges",
     group: "Rent & Payment",
-    states: ["VI", "MP", "KS", "NE", "OH", "NJ", "FL", "SC", "AL"],
+    states: ["VI", "MP", "KS", "NE", "OH", "NJ", "FL", "SC", "AL", "OK"],
     bodyText:
       "In addition to the Monthly Rent of {{monthly_rent}} and the Security Deposit of {{security_deposit}}, the following are all of the fees and charges Tenant may be required to pay under this Lease: [list each fee or charge, with its amount or how it is calculated and when it is due, and mark any optional fee as optional; or write \"None\"]. Landlord will not charge Tenant any other fee or charge except an amount stated in another Section of this Lease, an amount a court awards, or a tax the law requires Tenant to pay. Landlord will not add a fee or charge during the Term unless Tenant agrees in writing.",
   },
@@ -13222,7 +13222,7 @@ const CLAUSE_TEMPLATES = [
     id: "guaranty-as",
     title: "Guaranty (Optional)",
     group: "Default & Termination",
-    states: ["AS", "MP", "CO", "KS", "MN", "NE", "NV", "NJ", "AZ", "FL", "GA", "SC", "NC", "PA", "UT", "MO", "ID", "IN"],
+    states: ["AS", "MP", "CO", "KS", "MN", "NE", "NV", "NJ", "AZ", "FL", "GA", "SC", "NC", "PA", "UT", "MO", "ID", "IN", "OK"],
     bodyText:
       "[Optional. Use only if a guarantor signs this Lease.] GUARANTY. [guarantor's full name] (\"Guarantor\") signs this Lease to guarantee to Landlord that Tenant will pay the Rent and perform Tenant's other obligations under this Lease, up to a total maximum of $[maximum amount]. This guaranty covers the Term and [choose one: also covers any renewal, extension or month-to-month continuation of this Lease, including any change in Rent made under this Lease / ends when the Term ends, except for amounts that became due during the Term]. Guarantor's obligations are never larger than Tenant's. Landlord may ask Guarantor to pay without first suing Tenant. Guarantor has read this Lease and received a copy.",
   },
@@ -13485,7 +13485,7 @@ const CLAUSE_TEMPLATES = [
     id: "accessory-dwelling-unit-term-co",
     title: "The Premises Is an Accessory Dwelling Unit",
     group: "Notices & General",
-    states: ["CO", "UT", "MO", "IN"],
+    states: ["CO", "UT", "MO", "IN", "OK"],
     bodyText:
       "The Premises is an accessory dwelling unit: a separate dwelling with its own living, sleeping, cooking and bathroom facilities, located on the same lot as the primary residence at {{property_address}}. You acknowledge that [describe who occupies the primary residence on the lot, for example \"the Landlord occupies the primary residence on the lot\"], and that the following areas are shared rather than part of the Premises: [list shared areas - driveway, parking space, yard, walkways, trash enclosure, laundry, storage]. You may use those shared areas for their ordinary purpose, and you will not store property in them, block the driveway or the primary residence's access, or use them in a way that interferes with the occupants of the primary residence. The following utilities serve the Premises and the primary residence through the same meter or connection and are handled as set out in the utilities section of this Lease: [list shared utilities, or write \"none\"]. Because the Premises and the primary residence sit on one lot and share these areas, both households will keep noise, guests, pets, vehicles and outdoor activity to a level that does not unreasonably disturb the other, and we will each give the other reasonable notice before work or deliveries that will block shared access. Nothing in this section reduces your right to exclusive possession of the inside of the Premises or any right you have under law.",
   },
@@ -13632,7 +13632,7 @@ const CLAUSE_TEMPLATES = [
     id: "emergency-contact-co",
     title: "Tenant's Emergency Contact (Optional)",
     group: "Notices & General",
-    states: ["CO", "AZ", "SC", "PA", "UT", "IL", "MO", "ID"],
+    states: ["CO", "AZ", "SC", "PA", "UT", "IL", "MO", "ID", "OK"],
     bodyText:
       "[Optional.] Tenant will give Landlord the name, relationship and telephone number of at least one person Landlord may try to reach in an emergency affecting Tenant or the Property, and will tell Landlord in writing if that information changes. Landlord may contact that person only in an emergency, or when Landlord cannot reach Tenant about an urgent condition at the Property, and will not use the information for any other purpose or give it to anyone else except as the law requires. Naming a contact does not make that person liable for Rent or for any other obligation under this Lease, does not make that person Tenant's agent, and does not give that person any right to enter the Property. Emergency contact name: [name]. Relationship to Tenant: [relationship]. Telephone: [telephone number].",
   },
@@ -13730,7 +13730,7 @@ const CLAUSE_TEMPLATES = [
     id: "home-business-permission-co",
     title: "Home-Based Business (Landlord's Permission)",
     group: "Tenant Responsibilities",
-    states: ["CO", "UT", "MO", "IN"],
+    states: ["CO", "UT", "MO", "IN", "OK"],
     bodyText:
       "[Optional. Use instead of a flat ban where Landlord is willing to allow a home business. Delete if business use is not permitted.] Landlord gives Tenant permission to operate the following home-based business at the Property: [describe the business, including whether customers, clients or children will come to the Property]. This permission is personal to Tenant, applies only to that business, and may be withdrawn only for a reason stated in this Section. Tenant will: keep the Property in use primarily as a residence; obtain and keep current every licence, registration and permit the business requires, including any local zoning or home occupation permit, and give Landlord a copy on request; comply with any rules of a homeowners or condominium association that apply to the business, and with local noise and nuisance rules; carry liability insurance covering the business, naming Landlord and any association as additional insureds, at a level of at least {{tenant_insurance_minimum}}, and give Landlord a certificate on request; not allow the business to create noise, odours, traffic, parking demand or signage that disturbs other residents or neighbours; not make any alteration to the Property for the business without Landlord's written consent; and be responsible for the cost of repairing damage to the Property caused by the business that goes beyond normal wear and tear and did not exist before the tenancy began. Landlord may withdraw this permission by [number] days written notice if Tenant loses a required licence or permit, if the business is operated in breach of this Section, or if an association or a government authority requires the business to stop. Withdrawing this permission does not end the Lease, and Tenant may continue to occupy the Property as a residence.",
   },
@@ -13845,7 +13845,7 @@ const CLAUSE_TEMPLATES = [
     id: "utility-shutoff-notice-authorization-co",
     title: "Authorization for Utility Notices to Landlord (Optional)",
     group: "Notices & General",
-    states: ["CO", "SC", "AL", "UT", "ID"],
+    states: ["CO", "SC", "AL", "UT", "ID", "OK"],
     bodyText:
       "[Optional.] Tenant authorizes Landlord to be listed with each utility provider serving the Premises as an additional contact for notices about Tenant's account for the Premises, including any notice of pending disconnection, and will sign any form a provider requires to do that. Tenant also authorizes each provider to confirm to Landlord whether service to the Premises is connected and in Tenant's name. Landlord's receipt of a notice under this Section does not make Landlord responsible for Tenant's utility charges, and nothing in this Section requires any provider to give Landlord notice.",
   },
@@ -14067,7 +14067,7 @@ const CLAUSE_TEMPLATES = [
     id: "energy-data-release-wy",
     title: "Energy Usage Data Authorization",
     group: "Notices & General",
-    states: ["WY", "SD", "NV", "TX", "FL", "GA", "SC", "NC", "AL", "UT", "IL", "MO", "ID", "IN"],
+    states: ["WY", "SD", "NV", "TX", "FL", "GA", "SC", "NC", "AL", "UT", "IL", "MO", "ID", "IN", "OK"],
     bodyText:
       "[Optional. Use where the electric, gas or water account for the property is in Tenant's name and Landlord wants usage data for building benchmarking, an energy audit, a rebate application or utility allocation.] Tenant authorizes each electric, gas and water utility serving the property to release to Landlord or Landlord's designated agent the monthly usage and billing history for the property for the period of Tenant's tenancy, for the purpose of benchmarking, auditing or improving the energy or water performance of the building, or applying for a utility or government efficiency program. Tenant will, within ten (10) days of Landlord's written request, sign and deliver whatever release, authorization or online consent the utility requires to give effect to this paragraph. Landlord will use the data only for the purposes stated above, will not disclose Tenant's individual data to any other person except a contractor or consultant performing the benchmarking or audit, or as required by law, and will report the building's data to any third party only in aggregated form. Tenant may withdraw this authorization at any time by written notice to Landlord, and withdrawal is not a breach of this Agreement.",
   },
@@ -14607,7 +14607,7 @@ const CLAUSE_TEMPLATES = [
     id: "automatic-renewal-ks",
     title: "Automatic Renewal",
     group: "Notices & General",
-    states: ["KS", "SC", "PA", "AL"],
+    states: ["KS", "SC", "PA", "AL", "OK"],
     bodyText:
       "[Optional.] At the end of the Term, this Lease will renew automatically [choose one: for a further term of (state the renewal term), and then for further terms of the same length / on a month-to-month basis] on the same terms, unless either Landlord or Tenant gives the other written notice of non-renewal at least {{renewal_notice_days}} days before the end of the then-current term. Rent during any renewal term will be the Rent then in effect unless Landlord has given Tenant written notice of a change at least {{renewal_notice_days}} days before the renewal begins. If this Lease renews for a further fixed term, neither party may end it during that term by a 30-day notice. Landlord will not use any renewal, renewal-election or move-out form to add terms that are not in this Lease.",
   },
@@ -15098,7 +15098,7 @@ const CLAUSE_TEMPLATES = [
     id: "rental-inspection-cooperation-mn",
     title: "Government Inspections",
     group: "Tenant Responsibilities",
-    states: ["MN", "TX", "GA", "NC", "PA", "AL", "IL", "ID"],
+    states: ["MN", "TX", "GA", "NC", "PA", "AL", "IL", "ID", "OK"],
     bodyText:
       "Landlord may have to let a state, county or city official inspect the property to enforce a health, housing, building, fire prevention or housing maintenance code. Tenant will cooperate with such an inspection. Landlord will give Tenant notice of the inspection and will enter only as this Lease's entry section allows. Nothing in this Section waives Tenant's right to advance notice of Landlord's entry, and nothing in it is Tenant's consent for an inspector to enter without Tenant's permission at the time. If an inspector asks to enter and Tenant is not willing, Tenant will tell Landlord promptly. Tenant will not create or allow a condition on the property that breaches any such code. Landlord will promptly correct any condition an inspection finds that is Landlord's responsibility. Nothing in this Section limits Tenant's right to report a condition to, or ask for an inspection by, any government body.",
   },
@@ -15169,7 +15169,7 @@ const CLAUSE_TEMPLATES = [
     id: "tenant-portal-mn",
     title: "Online Tenant Portal",
     group: "Notices & General",
-    states: ["MN", "SD", "TX", "GA", "SC", "NC", "PA", "MO"],
+    states: ["MN", "SD", "TX", "GA", "SC", "NC", "PA", "MO", "OK"],
     bodyText:
       "[Optional.] Landlord may make an online tenant portal available for rent payments, maintenance requests and notices. Tenant's use of the portal for notices is voluntary. Tenant may give any notice this Lease or applicable law requires by the methods this Lease sets out, whether or not Tenant uses the portal. If Landlord requires or permits payment through the portal, Landlord will provide an alternative way to pay whenever the portal is not working. Landlord will not charge Tenant any fee for using that alternative. Tenant's email address and other electronic contact details for the portal are [enter or leave blank]. Tenant will tell Landlord promptly if those details change.",
   },
@@ -16127,7 +16127,7 @@ const CLAUSE_TEMPLATES = [
     id: "tenant-caused-fines-oh",
     title: "Fines Caused by Tenant (Optional)",
     group: "Rent & Payment",
-    states: ["OH", "AL"],
+    states: ["OH", "AL", "OK"],
     supersedes: "tenant-caused-fines-as",
     bodyText:
       "[Optional.] If a government agency fines or penalizes Landlord, or charges Landlord the cost of abating a nuisance, because of a condition or violation that Tenant, a member of Tenant's household, or a person on the Premises with Tenant's consent caused or permitted, that condition or violation is a breach of this Lease, and Tenant will pay Landlord the amount Landlord paid, as Landlord's actual damages for that breach, within [number of days] days after Landlord gives Tenant written notice with a copy of the citation, order or bill. This Section does not apply to a fine or charge for a condition Landlord is responsible for under this Lease or the law, and Landlord will not deduct the amount from a Rent payment.",
@@ -18418,6 +18418,240 @@ const CLAUSE_TEMPLATES = [
     states: ["IN"],
     bodyText:
       "[Optional. Use only if Tenant will hold one or more utility accounts for the Premises in Tenant's own name.] For each utility account for the Premises in Tenant's name, Tenant will give Landlord a copy of any notice of a past-due bill or of proposed disconnection of service within [number] days after Tenant receives it. If the utility allows a customer to name another person to receive copies of such notices, Tenant will name Landlord, at Landlord's notice address in this Lease, and keep that designation in place during the Term. Landlord will use information it receives under this Section only to protect the Premises and Tenant's continued service.",
+  },
+  // Rent & Payment
+  {
+    id: "government-fee-reimbursement-ok",
+    title: "Local Government Fees",
+    group: "Rent & Payment",
+    states: ["OK"],
+    bodyText:
+      "[Optional.] If a city, county or other local government lawfully assesses Landlord a fee pertaining to the property during the Term, Landlord may notify Tenant of the fee in writing, with a copy of the bill, and Tenant will reimburse Landlord for [all / the following share of] the fee within [number] days after Landlord's written notice. Tenant will not be required to reimburse a property tax, a fee relating to construction of the property, such as a building permit fee, any emergency response fee, or any fine or penalty assessed against Landlord.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "disability-modification-restoration-ok",
+    title: "Disability Modifications and Restoring the Premises",
+    group: "Tenant Responsibilities",
+    states: ["OK"],
+    bodyText:
+      "[Optional.] DISABILITY MODIFICATIONS. If Tenant or a person living with Tenant has a disability and asks to modify the Premises so that person can fully enjoy them, Landlord will not refuse a reasonable modification made at Tenant's expense. Before work starts, Tenant will give Landlord a reasonable written description of the proposed modification and reasonable assurances that the work will be done in a workmanlike manner and that any required building permits will be obtained. Where it is reasonable to do so, Landlord may condition permission on Tenant agreeing to restore the inside of the Premises, before the tenancy ends, to the condition that existed before the modification, reasonable wear and tear excepted. Where that restoration will be needed to make the Premises suitable for tenants without disabilities and it is necessary to make sure money will be available for it, Landlord may also require, at Tenant's choice, either a surety bond guaranteeing the restoration or payments into an interest-bearing escrow account at a federally insured financial institution in Oklahoma, over a reasonable period, of a reasonable amount not more than the cost of the restoration, with the interest belonging to Tenant. Landlord will not increase Tenant's security deposit because of the disability or the modification.",
+  },
+  {
+    id: "barred-person-covenant-ok",
+    title: "No Admitting a Barred Person",
+    group: "Tenant Responsibilities",
+    states: ["OK"],
+    bodyText:
+      "[Optional.] BARRED PERSONS. Landlord may give Tenant written notice that a named person has been barred from the property because of conduct on or about the property that threatened the health or safety of residents, Landlord, or Landlord's employees or agents, or that damaged the property. From the date Tenant receives that notice, Tenant shall not invite, admit, or permit that person onto the Premises or any part of the property, and shall not give that person a key, fob, access code, or parking permit. Tenant is responsible for compliance by every person Tenant admits. This paragraph does not apply to a person present to provide emergency, medical, or law-enforcement assistance, or to a person Tenant is required by law or court order to admit. Landlord will not use this paragraph to end, or refuse to renew, the tenancy of Tenant or a member of Tenant's household because that person is a victim or alleged victim of domestic violence, sexual violence or stalking.",
+  },
+  {
+    id: "utility-transfer-ok",
+    title: "Transfer of Utility Accounts",
+    group: "Tenant Responsibilities",
+    states: ["OK"],
+    bodyText:
+      "[Optional. If natural gas for the Premises comes from a utility regulated by the Oklahoma Corporation Commission, make the gas account Tenant's responsibility from the start of the Term and do not rely on the reimbursement sentence for gas.] For each utility this Lease makes Tenant's responsibility, Tenant will open or transfer the account into Tenant's own name with the provider, effective on or before [date, e.g. the first day of the Term], and keep it in Tenant's name until the Term ends and Tenant has vacated. If any such account remains in Landlord's name for any part of the Term, Tenant will pay Landlord the amount the provider actually charged for service to the Premises for that period, within [number] days after Landlord gives Tenant a bill that shows the per-unit cost the provider charged and each fee or charge in dollars and cents, together with a copy of the provider's bill. Landlord will not add any markup, administrative fee or service fee to that amount. Landlord will not shut off, interrupt or ask a provider to discontinue any utility service to the Premises because Tenant has not transferred an account or has not paid an amount under this Section.",
+  },
+  // Rent & Payment
+  {
+    id: "utility-allowance-cap-ok",
+    title: "Utility Allowance with Tenant-Paid Excess",
+    group: "Rent & Payment",
+    states: ["OK"],
+    bodyText:
+      "[Optional. Use only for a utility Landlord provides under the Utilities Paid by Landlord Section through a utility meter that serves only the Premises. Do not use for natural gas bought from a utility regulated by the Oklahoma Corporation Commission.] Landlord's obligation to pay for [specify utility, e.g. water and sewer] is limited to [monthly allowance amount] per month. If the provider's actual charge for service to the Premises for a month exceeds that amount, Tenant will pay Landlord the excess within [number] days after Landlord gives Tenant a bill that shows the per-unit cost the provider charged, each fee or charge in dollars and cents, and how the excess was calculated, together with a copy of the provider's bill. Landlord will not add any markup, administrative fee or service fee to the excess.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "common-area-lighting-ok",
+    title: "Common-Area Lighting on Tenant's Meter (Optional)",
+    group: "Tenant Responsibilities",
+    states: ["OK"],
+    bodyText:
+      "[Optional. Use only if lights or outlets serving a shared area are wired to the electric service that Tenant pays for.] The electric service Tenant pays for also supplies the lighting and electrical outlets in the following shared areas: {{tenant_metered_common_areas}}. Tenant shall pay for the electricity those lights and outlets use as part of Tenant's utility obligation under this Lease. Tenant is not responsible for maintaining, repairing or replacing any light fixture, bulb, wiring or other equipment in a shared area; Landlord remains responsible for maintaining that equipment in good and safe working order and for the shared areas themselves as Oklahoma law requires. Tenant shall not disconnect, remove or otherwise interrupt power to a shared-area light. If Tenant's electric service is disconnected for any reason, Tenant shall notify Landlord promptly so that Landlord can keep the shared areas lit.",
+  },
+  // Rules & Regulations
+  {
+    id: "waterbed-ok",
+    title: "Waterbeds and Liquid-Filled Furniture (Optional)",
+    group: "Rules & Regulations",
+    states: ["OK"],
+    bodyText:
+      "[Optional.] Waterbeds and liquid-filled furniture. Tenant will not keep a waterbed, a water-filled mattress, an aquarium over [insert size, for example 20 gallons], or other liquid-filled furniture at the property without Landlord's prior written consent.\n\nIf Landlord consents, Tenant will keep the item in a frame and liner made for it, and in a place Landlord approves.\n\nTenant will also keep renter's or liability insurance covering water damage, of at least {{flotation_insurance_amount}}, for as long as the item is at the property. Tenant will give Landlord proof of that insurance on request.\n\nTenant is responsible for damage the item causes through the deliberate or negligent act or omission of Tenant, a member of Tenant's family, Tenant's animal or pet, or another person or animal on the property with Tenant's consent. Tenant is not responsible for normal wear and tear, or for damage that was there before this tenancy began.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "pest-cooperation-ok",
+    title: "Pest Reporting and Treatment",
+    group: "Tenant Responsibilities",
+    states: ["OK"],
+    bodyText:
+      "[Optional.] Tenant will promptly tell Landlord if Tenant knows or reasonably suspects that the property has bed bugs or another infestation of insects, rodents or other pests. Tenant will allow Landlord, Landlord's agents and pest control operators to enter the property to inspect for and treat the infestation as this Lease's entry section allows, and will follow the reasonable written preparation instructions Landlord or the pest control operator gives. If the infestation was caused by the deliberate or negligent act or omission of Tenant, a member of Tenant's family, Tenant's animal or pet, or another person or animal on the property with Tenant's consent, Tenant will pay the reasonable cost of treatment and of repairing the resulting damage. Otherwise, Landlord will pay for treatment as part of Landlord's repair obligations.",
+  },
+  // Security Deposit
+  {
+    id: "furnishings-included-ok",
+    title: "Furnishings",
+    group: "Security Deposit",
+    states: ["OK"],
+    bodyText:
+      "[Optional. Use only if the property is rented furnished.] Furnishings: The property is rented furnished. The furniture and furnishings Landlord provides, and their condition at the start of this Lease, are: [list each item and its condition, or attach a signed inventory]. Tenant will keep them at the property, will not remove or dispose of any item without Landlord's written consent, will tell Landlord promptly of any damage to them, and will return them at the end of this Lease in the same condition, except for normal wear and tear and except for loss or damage not caused by the deliberate or negligent act or omission of Tenant, a member of Tenant's family, Tenant's animal or pet, or another person or animal on the Premises with Tenant's consent.",
+  },
+  // Default & Termination
+  {
+    id: "environmental-event-termination-ok",
+    title: "Environmental Event (Optional)",
+    group: "Default & Termination",
+    states: ["OK"],
+    bodyText:
+      "[Optional.] Environmental Event: If a government authority orders the property vacated, or declares it unfit or unsafe for occupancy, because of contamination, a release of a hazardous substance, or another environmental or public-health condition, and the condition was not caused by Landlord's failure to meet Landlord's obligations under this Lease or Oklahoma law, Landlord may end this Lease by written notice to Tenant, effective on the date stated in the notice or, if earlier, the date Tenant vacates. Tenant owes Rent only through the date this Lease ends under this Section, and Landlord will return all prepaid and unearned Rent and the Security Deposit as this Lease and Oklahoma law provide. This Section does not apply to damage by fire or other casualty, which the Fire or Casualty Section covers, and does not limit any right Tenant has under Oklahoma law, including any right to end this Lease, to reduce or stop paying Rent, or to recover damages.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "cold-weather-vacate-notice-ok",
+    title: "Cold Weather and Extended Absence",
+    group: "Tenant Responsibilities",
+    states: ["OK"],
+    bodyText:
+      "[Optional.] Cold Weather: Tenant understands that the Premises contain water supply lines, drains and other plumbing that can be damaged by freezing. From October 1 through May 1, Tenant will keep any heating that Tenant controls turned on and set no lower than fifty-five (55) degrees Fahrenheit at all times, including while Tenant is away. If during that period Tenant will be away from the Premises for more than three (3) consecutive days, Tenant will give Landlord written notice before leaving, stating the dates Tenant expects to be away and a telephone number at which Tenant can be reached. Tenant will notify Landlord promptly, at any time of year, if the heating system fails, if the Premises lose utility service, or if Tenant discovers a leak or a frozen or burst line. Landlord may enter the Premises during Tenant's absence as this Lease and Oklahoma law permit, including without consent in an emergency, to protect the Premises from freezing. If Tenant fails to give the notice this paragraph requires or fails to keep the heat on as required, Tenant is responsible to Landlord for freeze damage to the Premises that the notice or the heat would have prevented, but not for any damage to the extent it is caused by or results from Landlord's failure to supply heat or to repair or maintain the heating system or plumbing as this Lease or Oklahoma law requires. This paragraph does not apply at the end of the Term when Tenant is vacating for good.",
+  },
+  // Disclosures
+  {
+    id: "environmental-covenant-ok",
+    title: "Recorded Environmental Covenant or Cleanup Restriction",
+    group: "Disclosures",
+    states: ["OK"],
+    bodyText:
+      "[Optional. Use only if the Property is subject to a recorded environmental covenant, a recorded notice of remediation, or a recorded brownfield land use disclosure.] Landlord discloses that the Property is subject to the following recorded instrument: [describe the instrument, where it is recorded, and the activity and use limitations it imposes]. A copy is attached to this Lease, and Tenant acknowledges receiving it before signing. Tenant will use the Property only in ways that instrument permits, will not disturb, damage or interfere with any cleanup, cover, monitoring well or other control it protects, and will not do or allow anything on the Property that would violate it. Tenant will promptly tell Landlord in writing of any damage to such a control and of any notice Tenant receives from a government agency about the Property.",
+  },
+  {
+    id: "licensee-status-disclosure-ok",
+    title: "Real Estate Licensee Status",
+    group: "Disclosures",
+    states: ["OK"],
+    bodyText:
+      "[Use only if (a) the Property is owned by a person who holds an Oklahoma real estate license, active or inactive (as a cautious course, also where the licensee owns the Property through an entity), and the rental is handled by the licensee or marketed through a real estate firm, or (b) this Lease is signed for the owner by a licensee acting under a power of attorney.] Licensee disclosure: [name of licensee], who [owns the Property / signs this Lease for the owner under a power of attorney], holds an Oklahoma real estate license, license number [license number].",
+  },
+  {
+    id: "broker-duties-confirmation-ok",
+    title: "Broker Duties Confirmation",
+    group: "Disclosures",
+    states: ["OK"],
+    bodyText:
+      "[Use only if a real estate broker provides brokerage services to Landlord, Tenant or both in this transaction.] Broker duties confirmation: Before signing this Lease, Landlord and Tenant each received from [broker firm name] a written description of the broker's duties and responsibilities under the Oklahoma Real Estate License Code[, and both parties received written notice that the firm provides brokerage services to both parties]. Landlord's initials: ________ Tenant's initials: ________",
+  },
+  // Notices & General
+  {
+    id: "agreed-notice-methods-ok",
+    title: "Email and Text Delivery of Routine Notices",
+    group: "Notices & General",
+    states: ["OK"],
+    bodyText:
+      "[Optional.] Email and text delivery of routine notices. Landlord and Tenant agree to give each other the notices this Section covers by electronic means. Landlord may give Tenant notice of Landlord's intent to enter the Premises, and either party may give the other any notice that this Lease requires and no law requires, by email to Tenant at {{tenant_email}} or to Landlord at {{landlord_email}}, or by text message to Tenant at [Tenant's mobile number], in a form the recipient can print or store. Either party may change its email address or number by written notice to the other, and may withdraw its agreement to receive notices electronically for future notices at any time by telling the other in any way, including by email or text; after a withdrawal, notices will be given by another method this Lease allows. This Section does not apply to, and email or text does not replace the method the law requires for: a notice ending the tenancy; a notice or demand for unpaid rent; a notice of a lease violation or of work Landlord will do at Tenant's expense; any notice or paper in a court case; and any other notice for which the law requires a writing, posting, mailing or a particular method of service. Either party may also send an email or text copy of such a notice, but only in addition to the required method. Nothing in this Section limits how Tenant may tell Landlord, or Landlord's agent for collecting rent, about a problem with heat, water or another essential service, or makes a written notice from Tenant ineffective because it was sent by email or text where the law would otherwise accept it. This Section controls over the Notices Section to the extent they differ.",
+  },
+  // Access & Entry
+  {
+    id: "scheduled-services-entry-ok",
+    title: "Entry for Regularly Scheduled Services",
+    group: "Access & Entry",
+    states: ["OK"],
+    bodyText:
+      "[Optional.] Entry for regularly scheduled services. Tenant agrees that Landlord will supply the following regularly scheduled services, and that Landlord or Landlord's agents or contractors may enter the property to supply them on this schedule: [list each service and its schedule, for example pest treatment every [number] months or air-conditioning filter changes every [number] months]. Landlord will give Tenant notice of each scheduled visit at least one day before the visit by [state method, for example text message, e-mail or a notice posted on the door], will enter only at reasonable times and between [state hours, for example 9:00 a.m. and 6:00 p.m.], and will knock and announce before entering. If Tenant reasonably objects to a particular visit, Landlord will reschedule it to another reasonable time, except in an emergency. This Section adds to, and does not limit, Landlord's other rights of entry under this Lease and Oklahoma law.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "no-liens-ok",
+    title: "No Liens for Tenant Work",
+    group: "Tenant Responsibilities",
+    states: ["OK"],
+    bodyText:
+      "[Optional.] If Landlord allows Tenant to make any alteration, improvement or repair at the Property, Tenant will pay in full everyone Tenant hires, and everyone who supplies labor, material or rental equipment for work Tenant orders, and will not allow a lien to be filed against the Property for that work. Before work begins, Tenant will tell each contractor and supplier in writing that Tenant, not Landlord, ordered the work and is responsible for paying for it. If a lien is filed for work Tenant ordered, Tenant will have it released of record, by payment or by a cash deposit or bond as the law allows, within [number] days after Tenant learns of it. Tenant is not Landlord's agent for any work Tenant orders. Any consent Landlord gives to work under this Lease is consent only as between Landlord and Tenant and is not an agreement by Landlord to pay for the work.",
+  },
+  // Rules & Regulations
+  {
+    id: "hunting-fishing-consent-ok",
+    title: "Hunting, Trapping and Fishing",
+    group: "Rules & Regulations",
+    states: ["OK"],
+    bodyText:
+      "[Optional.] Tenant will not hunt, trap or fish on the Property, and will not give anyone else permission to hunt, trap or fish on the Property, without Landlord's prior written consent. Any consent Landlord gives covers only the persons, areas and period stated in it.",
+  },
+  // Parking & Storage
+  {
+    id: "ev-charger-installation-ok",
+    title: "Tenant EV Charger Installation",
+    group: "Parking & Storage",
+    states: ["OK"],
+    bodyText:
+      "[Optional. Use only if Landlord is willing to let Tenant install an electric vehicle charger.] Tenant may install an electric vehicle charger at [identify the parking space], at Tenant's own expense, only with Landlord's prior written consent to the specific equipment and location. Tenant will have the charger installed by a licensed electrical contractor with any required permit and will follow any association rules for chargers. Tenant will pay for the electricity the charger uses [through Tenant's own electric account] [by reimbursing Landlord, within [number] days after Landlord's bill, for the electricity measured by a separate meter at Landlord's actual per-unit cost, and Landlord's bill will show the meter readings and that per-unit cost]. When this Lease ends, Tenant will [remove the charger, cap the wiring as the electrical code requires and repair any damage at the installation point caused by installing or removing the charger, whether done by Tenant or by anyone Tenant hires] [leave the charger in place, and it will belong to Landlord].",
+  },
+  // Disclosures
+  {
+    id: "association-approval-ok",
+    title: "Association Approval of Lease",
+    group: "Disclosures",
+    states: ["OK"],
+    bodyText:
+      "[Optional.] [Use only if the property is in a condominium or planned community whose recorded declaration, bylaws, covenants or rules require the association to approve a lease or a tenant.] The association's governing documents require its approval of this Lease or of Tenant's occupancy. Tenant will apply to the association for approval promptly after signing this Lease, give the association the information about Tenant and the other occupants that it reasonably requires, sign the association's application and any lease addendum or occupancy form its documents require, and otherwise cooperate in the approval process. The association's application or approval fee, if any, will be paid by [Landlord or Tenant]; if Tenant pays it, Tenant pays it directly to the association. Any deposit the association itself requires of Tenant is not held by Landlord and is not part of the Security Deposit under this Lease. If the association refuses approval, or has not given it by the date Tenant's possession is to begin, so that Landlord cannot deliver possession, Tenant keeps every right and remedy Oklahoma law gives a tenant when the landlord fails to deliver possession: Rent abates until possession is delivered, and Tenant may either end this Lease by written notice to Landlord, in which case Landlord will return all prepaid Rent and any deposit, or demand that Landlord perform this Lease, bring an action for possession against any person wrongfully in possession, and recover Tenant's actual damages. This Section does not give Landlord any right to end this Lease because approval is refused or delayed, and does not limit any other right Tenant has under Oklahoma law.",
+  },
+  // Notices & General
+  {
+    id: "informal-dispute-resolution-ok",
+    title: "Trying to Resolve Disputes",
+    group: "Notices & General",
+    states: ["OK"],
+    bodyText:
+      "[Optional.] TRYING TO RESOLVE DISPUTES. Either party may give the other written notice describing a disagreement about this Lease and what that party asks for, and may offer to discuss it in person, by phone or in writing. The party receiving the notice will respond within 10 days. Any settlement the parties reach will be put in writing and signed by both. This Section is not a condition of any claim, defense, notice, action or remedy. It does not restrict either party from enforcing rights under this Lease or the law by the usual legal proceedings in the courts, does not limit the time for doing so, and does not apply to, delay or affect any action for possession, any notice the law requires, any emergency, or any remedy the law gives either party.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "prohibited-acts-renter-ok",
+    title: "Prohibited Acts by Tenant",
+    group: "Tenant Responsibilities",
+    states: ["OK"],
+    bodyText:
+      "[Optional.] PROHIBITED ACTS. Tenant will not deliberately or negligently destroy, deface, damage, impair or remove any part of the premises, or permit any person, animal or pet to do so. Tenant will not engage in conduct, or allow any person or animal or pet on the premises with Tenant's express or implied permission or consent to engage in conduct, that will disturb the quiet and peaceful enjoyment of the premises by other tenants. Tenant will not unreasonably withhold consent to Landlord, Landlord's agents and employees to enter the dwelling unit in order to inspect the premises, make necessary or agreed repairs, decorations, alterations or improvements, supply necessary or agreed services, or exhibit the dwelling unit to prospective or actual purchasers, mortgagees, tenants, workmen or contractors; Landlord will give the notice of entry that this Lease and the law require. A violation of this Section is a breach of this Lease.",
+  },
+  // Default & Termination
+  {
+    id: "default-by-tenant-ok",
+    title: "Tenant Default",
+    group: "Default & Termination",
+    states: ["OK"],
+    supersedes: "default-by-tenant",
+    bodyText:
+      "Tenant will be in default under this Lease if Tenant fails to pay Rent when due and does not cure the failure within the time period specified by applicable law after receiving written notice from Landlord, or fails to comply with any other obligation under this Lease and does not cure the failure after receiving written notice, except where applicable law permits Landlord to proceed without giving Tenant an opportunity to cure. Landlord need not give Tenant an opportunity to cure any breach, including a failure to pay Rent, where applicable law permits Landlord to proceed without one. Except as required by applicable law, Tenant's failure to pay an assessed late fee, apart from the underlying Rent itself, will not by itself entitle Landlord to terminate this Lease or pursue eviction. If Tenant is in default, Landlord may exercise all rights and remedies available under applicable law, including terminating this Lease, regaining possession of the property, and recovering unpaid Rent and late fees, less amounts obtained from the Security Deposit. Landlord will use reasonable efforts to mitigate damages resulting from Tenant's default to the extent required by applicable law.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "tenant-maintenance-ok",
+    title: "Tenant Maintenance & Cleanliness",
+    group: "Tenant Responsibilities",
+    states: ["OK"],
+    supersedes: "tenant-maintenance",
+    bodyText:
+      "Tenant will keep the part of the property that Tenant occupies and uses as safe, clean and sanitary as the condition of the property permits; will dispose of all ashes, garbage, rubbish and other waste from the dwelling in a safe, clean and sanitary manner; will keep all plumbing fixtures in the dwelling or used by Tenant as clean and sanitary as their condition permits; and will use all electrical, plumbing, sanitary, heating, ventilating, air-conditioning and other facilities and appliances, including any elevators, in a safe and nondestructive manner consistent with their intended purpose. Tenant will not obstruct access to doors and windows, and will not deliberately or negligently destroy, deface, damage, impair or remove any part of the property, or permit any person, animal or pet to do so. This Section does not assign Tenant any specific repair or maintenance task; any such task must be agreed in a separate written agreement, and Landlord remains responsible for the repairs Oklahoma law requires Landlord to make.",
+  },
+  // Default & Termination
+  {
+    id: "early-termination-ok",
+    title: "Early Termination by Tenant",
+    group: "Default & Termination",
+    states: ["OK"],
+    supersedes: "early-termination-ks",
+    bodyText:
+      "Tenant may terminate this Lease before the end of the Term by providing Landlord at least 30 days' written notice. Tenant will pay Landlord, by the termination date, an early termination fee equal to one month's Rent ({{monthly_rent}}), and remains responsible for Rent and other obligations up to the termination date. If Tenant gives that notice, pays the fee and delivers possession of the property by the termination date, Tenant owes no Rent for any period after the termination date. If Tenant leaves before the end of the Term without using this option, Tenant's liability is governed by Oklahoma law. This early-termination option and fee apply only if this Lease has a fixed Term; a month-to-month or other periodic tenancy ends on the notice that applicable law and this Lease provide, without an early termination fee. Landlord may terminate this Lease early in accordance with this Lease's Tenant Default and notice provisions, or if Tenant vacates or abandons the property without notifying Landlord. Nothing in this Section limits any right either party has under applicable law, including a Tenant's right to terminate without penalty because of military service under the Servicemembers Civil Relief Act, a Tenant's right as a victim of domestic violence, sexual violence or stalking to terminate without penalty, and a Tenant's right to vacate and terminate after a fire or other casualty that was not caused by the deliberate or negligent act or omission of Tenant, a member of Tenant's family, Tenant's animal or pet, or another person or animal on the premises with Tenant's consent.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "landlord-maintenance-ok",
+    title: "Maintenance & Repairs",
+    group: "Landlord Responsibilities",
+    states: ["OK"],
+    supersedes: "landlord-maintenance",
+    bodyText:
+      "Subject to Tenant's duties under Oklahoma law and under any separate written agreement in which Tenant agrees to perform specified repairs or maintenance tasks, Landlord will maintain the property, including its structural elements, roof, and systems, in good order and repair, and will be responsible for repairing the appliances, fixtures, and equipment located at the property. Where a condition was caused by the deliberate or negligent act or omission of Tenant, a member of Tenant's family, Tenant's animal or pet, or another person or animal on the property with Tenant's consent, Tenant will pay Landlord's reasonable cost of the repair. Tenant will notify Landlord promptly in writing of any condition requiring repair or maintenance, and Landlord will undertake required repairs within a reasonable time, consistent with applicable law. This does not limit any right applicable law gives Tenant on notice of a condition Landlord ought to repair, however that notice is given.",
   },
 ];
 
