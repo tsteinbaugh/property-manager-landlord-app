@@ -11,7 +11,7 @@ This chat may hold {STATE_NAME}'s earlier research. That history is background, 
 If this chat is too long to continue (it says it's full, or it slows down or loses track), Taylor starts a new chat named "{ST} – topic gaps" and pastes this same prompt with the same files. Everything you need is here.
 
 ## What this pass is
-{STATE_NAME} was researched early (its decision log is `lease-clause-decision-log-{ST}.md`, not attached). Since then the library has grown to {TOPIC_COUNT} topics, and every state researched since Maryland answers all of them. {STATE_NAME} has rows for {HAVE_COUNT} topics. **This pass answers the {MISSING_COUNT} topics it has no row for**, listed in `missing-topics-{ST}.md`, plus the few named items under "{STATE_NAME} items" below. Nothing else.
+{STATE_NAME} was researched early (its decision log, `lease-clause-decision-log-{ST}.md`, is attached; the items below cite it as "{ST} log §N"). Since then the library has grown to {TOPIC_COUNT} topics, and every state researched since Maryland answers all of them. {STATE_NAME} has rows for {HAVE_COUNT} topics. **This pass answers the {MISSING_COUNT} topics it has no row for**, listed in `missing-topics-{ST}.md`, plus the few named items under "{STATE_NAME} items" below. Nothing else.
 
 **One visit (Taylor, 2026-10-24).** This is the state's only visit for this pass. Finish every listed topic and item. Leave nothing "to check later": a point you can't settle gets the cautious course stated in the row (SOP Part 5's NEEDS_REVIEW policy), or a question to Taylor in the chat right then, with a recommendation.
 
@@ -47,6 +47,7 @@ Your working directory is temporary. A usage-limit pause of a few days can recla
 ## Attached files
 - `missing-topics-{ST}.md`: the {MISSING_COUNT} topics, each with the questions earlier states found worth checking and a few example rows from other states (examples of shape, never of {STATE_NAME}'s law).
 - `lease-clause-sop.md`, `lease-clause-topics.md`.
+- `lease-clause-decision-log-{ST}.md`: {STATE_NAME}'s earlier research record. At Step A, check that it is attached; if an item cites a log or file that isn't attached, ask Taylor for it once before starting.
 - `lease-clauses.csv.xz`: the library, compressed because it is over the 30 MB attachment limit. Decompress it (`xz -dk lease-clauses.csv.xz`, or Python's `lzma`); the result, `lease-clauses.csv`, is the only source of truth for rows.
 - {CORPUS_LINE}
 

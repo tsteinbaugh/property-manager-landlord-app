@@ -894,7 +894,7 @@ const CLAUSE_TEMPLATES = [
     id: "hoa-compliance",
     title: "Homeowner / Condominium Association Compliance",
     group: "Disclosures",
-    states: ["WY", "NE", "MN", "ND", "SD", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "PA", "IL", "MO", "IN", "OK", "IA", "NM", "MT", "NY", "WI", "WA", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP"],
+    states: ["WY", "NE", "MN", "ND", "SD", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "PA", "IL", "MO", "IN", "OK", "NM", "MT", "NY", "WI", "WA", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP"],
     bodyText:
       "If the property is located within a homeowner or condominium association, Tenant will comply with the association's rules and regulations applicable to the property. Any fines incurred due to Tenant's violation of association rules will be Tenant's responsibility.",
   },
@@ -1141,7 +1141,7 @@ const CLAUSE_TEMPLATES = [
     id: "prohibited-acts-renter-wy",
     title: "Prohibited Acts by Tenant",
     group: "Tenant Responsibilities",
-    states: ["WY", "AK", "HI", "AR", "MS", "DC", "GU", "AS", "MP", "CO", "NE", "OH", "NV", "TX", "NJ", "AZ", "GA", "SC", "PA", "AL", "IL", "ID"],
+    states: ["WY", "AK", "HI", "AR", "MS", "DC", "GU", "AS", "MP", "CO", "NE", "OH", "NV", "TX", "NJ", "AZ", "GA", "SC", "PA", "AL", "IL", "ID", "IA"],
     bodyText:
       "Tenant will not intentionally or negligently destroy, deface, damage, or impair any part of the property, or knowingly permit any other person to do so; interfere with another person's peaceful enjoyment of the property; or unreasonably deny access to, refuse entry to, or withhold consent to enter the property to Landlord or Landlord's agent for the purpose of making repairs, inspecting the property, or showing it for rent or sale.",
   },
@@ -1271,7 +1271,7 @@ const CLAUSE_TEMPLATES = [
     id: "early-termination-ks",
     title: "Early Termination",
     group: "Default & Termination",
-    states: ["KS", "TN", "IA", "NY", "KY", "WV", "MD", "MA", "NH", "VI", "AS", "MP"],
+    states: ["KS", "TN", "NY", "KY", "WV", "MD", "MA", "NH", "VI", "AS", "MP"],
     supersedes: "early-termination",
     bodyText:
       "Tenant may terminate this Lease before the end of the Term by providing Landlord at least 30 days' written notice. Tenant will pay an early termination fee equal to one month's Rent ({{monthly_rent}}) or 30% of the remaining Rent due under the Term, whichever is greater, and remains responsible for Rent and other obligations up to the termination date. This early-termination option and fee apply only if this Lease has a fixed Term; a month-to-month or other periodic tenancy ends on the notice that applicable law and this Lease provide, without an early termination fee. Landlord may terminate this Lease early in accordance with this Lease's Tenant Default and notice provisions, or if Tenant vacates or abandons the property without notifying Landlord. Nothing in this Section limits any right either party has under applicable law, including a Tenant's right to terminate without penalty due to active military service under the Servicemembers Civil Relief Act, due to the property becoming uninhabitable through no fault of Tenant, or, except as prohibited by law in the case of a Tenant's death, any other termination right or limitation provided by applicable law.",
@@ -5714,7 +5714,7 @@ const CLAUSE_TEMPLATES = [
     group: "Disclosures",
     states: ["IA"],
     bodyText:
-      "[Use only if Tenant will pay Landlord, rather than the utility company directly, for any utility or service.] Before this Lease was signed, Landlord fully explained to Tenant the rates, charges and services for each utility or service Tenant will pay to Landlord, as follows: {{separately_charged_utilities}} [for each, state the service, how the charge is calculated, the rate and any administrative fee, and when and how Tenant will be billed]. Tenant acknowledges receiving this explanation before signing this Lease.",
+      "[Use only if Tenant will pay Landlord, rather than the utility company directly, for any utility or service.] Before this Lease was signed, Landlord fully explained to Tenant the rates, charges and services for each utility or service Tenant will pay to Landlord, as follows: {{separately_charged_utilities}} [for each, state the service, how the charge is calculated, the rate and any administrative fee, and when and how Tenant will be billed; for gas or electricity from a master meter serving more than one unit, the total charged to all tenants may not exceed the utility's bill for the same period]. Tenant acknowledges receiving this explanation before signing this Lease.",
   },
   // Rent & Payment
   {
@@ -5808,7 +5808,7 @@ const CLAUSE_TEMPLATES = [
     group: "Default & Termination",
     states: ["IA"],
     bodyText:
-      "[Optional.] If the property is damaged or destroyed by fire or casualty to an extent that Tenant's enjoyment of it is substantially impaired, and continued lawful occupancy of any part of the property is not possible while it is repaired, Landlord may terminate this Lease by written notice to Tenant given within 30 days after the casualty, effective on the date stated in the notice, which will be at least [number, at least 14] days after the notice is given. Rent will be accounted for as of the date of the casualty, and Landlord will return all prepaid rent and the Security Deposit as Iowa law requires. This Section does not limit Tenant's own right under Iowa law to vacate and terminate this Lease after a fire or casualty, or, where continued occupancy of part of the property is lawful, to occupy the usable part at reduced Rent, and it does not relieve Tenant of liability for damage caused by the deliberate or negligent act or omission of Tenant or anyone on the property with Tenant's consent.",
+      "[Optional.] If the property is damaged or destroyed by fire or casualty to an extent that Tenant's enjoyment of it is substantially impaired, and continued lawful occupancy of any part of the property is not possible while it is repaired, Landlord may terminate this Lease by written notice to Tenant given within 30 days after the casualty, effective on the date stated in the notice, which will be at least [number, at least 14] days after the notice is given. Rent will be accounted for as of the date of the casualty, and Landlord will return all prepaid rent and the Security Deposit as Iowa law requires. This Section does not limit Tenant's own right under Iowa law to vacate and terminate this Lease after a fire or casualty, or, where continued occupancy of part of the property is lawful, to occupy the usable part at reduced Rent, and it does not relieve Tenant of liability for damage caused by the deliberate or negligent act or omission of Tenant, a member of Tenant's family or household, an Occupant, or a guest, invitee or other person on the property with Tenant's consent.",
   },
   {
     id: "tenant-caused-damage-ia",
@@ -5816,7 +5816,7 @@ const CLAUSE_TEMPLATES = [
     group: "Default & Termination",
     states: ["IA"],
     bodyText:
-      "If the property is damaged by fire, water, a vehicle or any other cause, and the damage results from the deliberate or negligent act or omission of Tenant, an Occupant, or a guest or invitee of Tenant, Tenant will be liable to Landlord for the reasonable cost of repairing the damage and for Landlord's other actual damages caused by it, including the Rent Landlord loses while the property is repaired, for no longer than the remaining Term, less any Rent Landlord receives from Tenant or from re-renting the property. Landlord will use reasonable efforts to repair and re-rent the property. This Section does not take away any right Iowa law gives Tenant after a fire or casualty, including the right to vacate and terminate this Lease or to a reduction in Rent, but Tenant's use of that right does not release Tenant from liability under this Section.",
+      "If the property is damaged by fire, water, a vehicle or any other cause, and the damage results from the deliberate or negligent act or omission of Tenant, a member of Tenant's family or household, an Occupant, or a guest, invitee or other person on the property with Tenant's consent, Tenant will be liable to Landlord for the reasonable cost of repairing the damage and for Landlord's other actual damages caused by it, including the Rent Landlord loses while the property is repaired, for no longer than the remaining Term, less any Rent Landlord receives from Tenant or from re-renting the property. Landlord will use reasonable efforts to repair and re-rent the property. This Section does not take away any right Iowa law gives Tenant after a fire or casualty, including the right to vacate and terminate this Lease or to a reduction in Rent, but Tenant's use of that right does not release Tenant from liability under this Section.",
   },
   // Landlord Responsibilities
   {
@@ -5825,7 +5825,7 @@ const CLAUSE_TEMPLATES = [
     group: "Landlord Responsibilities",
     states: ["IA"],
     bodyText:
-      "Tenant will not tamper with or otherwise make inoperable any smoke detector or carbon monoxide alarm at the property, and will notify Landlord in writing if any detector or alarm is not working. [Optional: After Tenant has lived at the property for longer than 30 days, Tenant will provide the batteries for any battery-operated smoke detector or carbon monoxide alarm.] Landlord will correct an inoperable detector or alarm within 30 days after receiving Tenant's written notice.",
+      "Tenant will not tamper with or otherwise make inoperable any smoke detector or carbon monoxide alarm at the property, and will notify Landlord in writing if any detector or alarm is not working. [Optional: After Tenant has lived at the property for longer than 30 days, Tenant will replace the batteries in any smoke detector or carbon monoxide alarm that has replaceable batteries and will test the carbon monoxide alarms as the written information Landlord provides describes, and will give Landlord access to correct any problem Tenant cannot correct.] [If carbon monoxide alarms are required at the property: Landlord has given Tenant written information on testing and maintaining the carbon monoxide alarms.] Landlord will correct an inoperable detector or alarm within 30 days after receiving Tenant's written notice.",
   },
   // Rules & Regulations
   {
@@ -5860,7 +5860,7 @@ const CLAUSE_TEMPLATES = [
     group: "Default & Termination",
     states: ["IA"],
     bodyText:
-      "If this Lease continues as a month-to-month tenancy, either Landlord or Tenant may end it by written notice given to the other at least [state the notice period: at least 30] days before the periodic rental date specified in the notice as the termination date. If it continues as a week-to-week tenancy, either party may end it by written notice given at least [state the notice period: at least 10] days before the termination date specified in the notice. Landlord's notice will be served as Iowa law requires for a notice of termination. Rent remains payable through the termination date. This Section does not limit either party's right to end this Lease earlier where this Lease or Iowa law allows it.",
+      "If this Lease continues as a month-to-month tenancy, Landlord may end it by written notice given to Tenant at least [state the notice period: at least 30] days before the periodic rental date specified in the notice as the termination date, and Tenant may end it by written notice given to Landlord at least 30 days before the periodic rental date specified in the notice as the termination date. If it continues as a week-to-week tenancy, Landlord may end it by written notice given to Tenant at least [state the notice period: at least 10] days before the termination date specified in the notice, and Tenant may end it by written notice given to Landlord at least 10 days before the termination date specified in the notice. Landlord's notice will be served as Iowa law requires for a notice of termination. Rent remains payable through the termination date. This Section does not limit either party's right to end this Lease earlier where this Lease or Iowa law allows it.",
   },
   // Tenant Responsibilities
   {
@@ -7417,7 +7417,7 @@ const CLAUSE_TEMPLATES = [
     id: "rent-installments-or",
     title: "Rent Paid in Installments",
     group: "Rent & Payment",
-    states: ["OR", "CT", "RI", "NH", "ME", "VT", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "WY", "KS", "NE", "TX", "NJ", "AZ", "FL", "GA", "SC", "VA", "PA", "AL", "UT", "IL", "MO", "ID", "IN", "OK"],
+    states: ["OR", "CT", "RI", "NH", "ME", "VT", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "WY", "KS", "NE", "TX", "NJ", "AZ", "FL", "GA", "SC", "VA", "PA", "AL", "UT", "IL", "MO", "ID", "IN", "OK", "IA"],
     bodyText:
       "Landlord and Tenant agree that Monthly Rent will be paid in installments as follows: [state each installment amount and the day of the month it is due]. Installments paid on this schedule are not partial payments of Rent. A late charge applies only as this Lease's late charge provision allows for the rental period.",
   },
@@ -7808,7 +7808,7 @@ const CLAUSE_TEMPLATES = [
     id: "informal-dispute-resolution-or",
     title: "Informal Dispute Resolution",
     group: "Notices & General",
-    states: ["OR", "AR", "MS", "DC", "GU", "VI", "AS", "MP", "CO", "WY", "KS", "MN", "NE", "OH", "NV", "TX", "NJ", "AZ", "FL", "GA", "SC", "NC", "VA", "PA", "AL", "UT", "IL", "MO", "IN"],
+    states: ["OR", "AR", "MS", "DC", "GU", "VI", "AS", "MP", "CO", "WY", "KS", "MN", "NE", "OH", "NV", "TX", "NJ", "AZ", "FL", "GA", "SC", "NC", "VA", "PA", "AL", "UT", "IL", "MO", "IN", "IA"],
     bodyText:
       "Before either party starts a court action about a dispute under this Lease, other than an action for possession, the party will give the other written notice describing the dispute and offer to meet, in person or by phone, within 10 days to try to resolve it informally. This Section does not delay or limit any notice, deadline or remedy that applicable law provides, including any action for possession or for emergency relief, and does not require either party to accept any proposal.",
   },
@@ -11153,7 +11153,7 @@ const CLAUSE_TEMPLATES = [
     id: "furnishings-included-la",
     title: "Furnishings",
     group: "Security Deposit",
-    states: ["LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "WY", "MN", "NE", "OH", "NV", "TX", "NJ", "AZ", "FL", "GA", "SC", "NC", "VA", "PA", "AL", "UT", "IL", "MO", "ID", "IN"],
+    states: ["LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "WY", "MN", "NE", "OH", "NV", "TX", "NJ", "AZ", "FL", "GA", "SC", "NC", "VA", "PA", "AL", "UT", "IL", "MO", "ID", "IN", "IA"],
     bodyText:
       "[Optional. Use only if the property is rented furnished.] Furnishings: The property is rented furnished. The furniture and furnishings Landlord provides, and their condition at the start of this Lease, are: [list each item and its condition, or attach a signed inventory]. Tenant will keep them at the property, will not remove or dispose of any item without Landlord's written consent, will tell Landlord promptly of any damage to them, and will return them at the end of this Lease in the same condition, except for normal wear and tear.",
   },
@@ -11510,7 +11510,7 @@ const CLAUSE_TEMPLATES = [
     id: "owner-occupancy-termination-ar",
     title: "Owner Occupancy (Optional)",
     group: "Default & Termination",
-    states: ["AR", "MS", "PR", "GU", "VI", "AS", "MP", "WY", "KS", "NE", "OH", "TX", "AZ", "FL", "GA", "SC", "NC", "VA", "PA", "AL", "UT", "ID", "IN", "OK", "MI"],
+    states: ["AR", "MS", "PR", "GU", "VI", "AS", "MP", "WY", "KS", "NE", "OH", "TX", "AZ", "FL", "GA", "SC", "NC", "VA", "PA", "AL", "UT", "ID", "IN", "OK", "MI", "IA"],
     bodyText:
       "[Optional. Use only for a fixed Term.] Owner Occupancy: Landlord may end this Lease before the end of the Term if Landlord, or the following member of Landlord's family, will occupy the property as a residence: [name or relationship]. To do so, Landlord will give Tenant written notice at least [number, not less than 30] days before the termination date, and the termination date will be the last day of a monthly rental period. Tenant owes Rent only through the termination date, and Landlord will refund any Rent paid for a later period. If Tenant does not leave by the termination date, Landlord may regain possession only through a court eviction.",
   },
@@ -12253,7 +12253,7 @@ const CLAUSE_TEMPLATES = [
     id: "pest-cooperation-pr",
     title: "Pest Reporting and Treatment",
     group: "Tenant Responsibilities",
-    states: ["PR", "GU", "AS", "MP", "NE", "SD", "TX", "AZ", "SC", "NC", "PA", "AL", "IL", "MO"],
+    states: ["PR", "GU", "AS", "MP", "NE", "SD", "TX", "AZ", "SC", "NC", "PA", "AL", "IL", "MO", "IA"],
     supersedes: "pest-cooperation-la",
     bodyText:
       "[Optional.] Tenant will promptly tell Landlord if Tenant knows or reasonably suspects that the property has bed bugs or another infestation of insects, rodents or other pests. Tenant will allow Landlord, Landlord's agents and pest control operators to enter the property to inspect for and treat the infestation as this Lease's entry section allows, and will follow the reasonable written preparation instructions Landlord or the pest control operator gives. If the infestation was caused by the fault of Tenant, a member of Tenant's household or a person on the property with Tenant's consent, Tenant will pay the reasonable cost of treatment and of repairing the resulting damage. Otherwise, Landlord will pay for treatment as part of Landlord's repair obligations.",
@@ -12937,7 +12937,7 @@ const CLAUSE_TEMPLATES = [
     id: "animal-care-access-vi",
     title: "Animal Care in Tenant's Absence (Virgin Islands)",
     group: "Pets",
-    states: ["VI", "AS", "MP", "CO", "TX", "NJ", "GA", "NC", "PA", "UT", "IL", "MO", "ID", "OK", "MI"],
+    states: ["VI", "AS", "MP", "CO", "TX", "NJ", "GA", "NC", "PA", "UT", "IL", "MO", "ID", "OK", "MI", "IA"],
     bodyText:
       "[Optional.] Animal Care: Tenant will tell Landlord in writing about every animal kept at the property. Tenant names the following person to care for or remove Tenant's animals if Tenant cannot because Tenant is hospitalized, incapacitated, detained or otherwise absent and an animal is left without care: [name and telephone number]. In that case, after trying to reach Tenant, Landlord may let that person into the property for that purpose only, and if that person cannot be reached Landlord may ask an animal warden, a peace officer, or the Humane Society or an animal shelter to take charge of the animal. Tenant will tell Landlord in writing if this information changes. This permission ends at Tenant's death; after that, Landlord will deal with Tenant's animals only through Tenant's personal representative or heirs or as the law otherwise allows.",
   },
@@ -12970,7 +12970,7 @@ const CLAUSE_TEMPLATES = [
     id: "fees-and-charges-vi",
     title: "Fees and Charges",
     group: "Rent & Payment",
-    states: ["VI", "MP", "KS", "NE", "OH", "NJ", "FL", "SC", "AL", "OK"],
+    states: ["VI", "MP", "KS", "NE", "OH", "NJ", "FL", "SC", "AL", "OK", "IA"],
     bodyText:
       "In addition to the Monthly Rent of {{monthly_rent}} and the Security Deposit of {{security_deposit}}, the following are all of the fees and charges Tenant may be required to pay under this Lease: [list each fee or charge, with its amount or how it is calculated and when it is due, and mark any optional fee as optional; or write \"None\"]. Landlord will not charge Tenant any other fee or charge except an amount stated in another Section of this Lease, an amount a court awards, or a tax the law requires Tenant to pay. Landlord will not add a fee or charge during the Term unless Tenant agrees in writing.",
   },
@@ -13053,7 +13053,7 @@ const CLAUSE_TEMPLATES = [
     id: "eminent-domain-vi",
     title: "Condemnation (Optional)",
     group: "Default & Termination",
-    states: ["VI", "MP", "KS", "MN", "NE", "SD", "NV", "TX", "NJ", "AZ", "FL", "GA", "SC", "NC", "VA", "AL", "IL", "MO", "ID", "IN"],
+    states: ["VI", "MP", "KS", "MN", "NE", "SD", "NV", "TX", "NJ", "AZ", "FL", "GA", "SC", "NC", "VA", "AL", "IL", "MO", "ID", "IN", "IA"],
     bodyText:
       "[Optional.] If all of the property is taken by eminent domain, or so much of it is taken that the rest cannot reasonably be lived in, this Lease ends on the date Tenant must give up possession, Rent is apportioned to that date, and Landlord will refund any Rent paid for later days. If a smaller part is taken and the rest can reasonably be lived in, this Lease continues and Rent is reduced in proportion to Tenant's loss of use. Any award for the taking of the property, including any value of this Lease, belongs to Landlord, except any relocation payment or other separate payment made to Tenant for Tenant's own moving costs or personal property. If this Lease ends under this Section, Landlord will return the Security Deposit, less lawful deductions, as this Lease provides.",
   },
@@ -13222,7 +13222,7 @@ const CLAUSE_TEMPLATES = [
     id: "guaranty-as",
     title: "Guaranty (Optional)",
     group: "Default & Termination",
-    states: ["AS", "MP", "CO", "KS", "MN", "NE", "NV", "NJ", "AZ", "FL", "GA", "SC", "NC", "PA", "UT", "MO", "ID", "IN", "OK"],
+    states: ["AS", "MP", "CO", "KS", "MN", "NE", "NV", "NJ", "AZ", "FL", "GA", "SC", "NC", "PA", "UT", "MO", "ID", "IN", "OK", "IA"],
     bodyText:
       "[Optional. Use only if a guarantor signs this Lease.] GUARANTY. [guarantor's full name] (\"Guarantor\") signs this Lease to guarantee to Landlord that Tenant will pay the Rent and perform Tenant's other obligations under this Lease, up to a total maximum of $[maximum amount]. This guaranty covers the Term and [choose one: also covers any renewal, extension or month-to-month continuation of this Lease, including any change in Rent made under this Lease / ends when the Term ends, except for amounts that became due during the Term]. Guarantor's obligations are never larger than Tenant's. Landlord may ask Guarantor to pay without first suing Tenant. Guarantor has read this Lease and received a copy.",
   },
@@ -13632,7 +13632,7 @@ const CLAUSE_TEMPLATES = [
     id: "emergency-contact-co",
     title: "Tenant's Emergency Contact (Optional)",
     group: "Notices & General",
-    states: ["CO", "AZ", "SC", "PA", "UT", "IL", "MO", "ID", "OK", "MI"],
+    states: ["CO", "AZ", "SC", "PA", "UT", "IL", "MO", "ID", "OK", "MI", "IA"],
     bodyText:
       "[Optional.] Tenant will give Landlord the name, relationship and telephone number of at least one person Landlord may try to reach in an emergency affecting Tenant or the Property, and will tell Landlord in writing if that information changes. Landlord may contact that person only in an emergency, or when Landlord cannot reach Tenant about an urgent condition at the Property, and will not use the information for any other purpose or give it to anyone else except as the law requires. Naming a contact does not make that person liable for Rent or for any other obligation under this Lease, does not make that person Tenant's agent, and does not give that person any right to enter the Property. Emergency contact name: [name]. Relationship to Tenant: [relationship]. Telephone: [telephone number].",
   },
@@ -13845,7 +13845,7 @@ const CLAUSE_TEMPLATES = [
     id: "utility-shutoff-notice-authorization-co",
     title: "Authorization for Utility Notices to Landlord (Optional)",
     group: "Notices & General",
-    states: ["CO", "SC", "AL", "UT", "ID", "OK", "MI"],
+    states: ["CO", "SC", "AL", "UT", "ID", "OK", "MI", "IA"],
     bodyText:
       "[Optional.] Tenant authorizes Landlord to be listed with each utility provider serving the Premises as an additional contact for notices about Tenant's account for the Premises, including any notice of pending disconnection, and will sign any form a provider requires to do that. Tenant also authorizes each provider to confirm to Landlord whether service to the Premises is connected and in Tenant's name. Landlord's receipt of a notice under this Section does not make Landlord responsible for Tenant's utility charges, and nothing in this Section requires any provider to give Landlord notice.",
   },
@@ -14067,7 +14067,7 @@ const CLAUSE_TEMPLATES = [
     id: "energy-data-release-wy",
     title: "Energy Usage Data Authorization",
     group: "Notices & General",
-    states: ["WY", "SD", "NV", "TX", "FL", "GA", "SC", "NC", "AL", "UT", "IL", "MO", "ID", "IN", "OK", "MI"],
+    states: ["WY", "SD", "NV", "TX", "FL", "GA", "SC", "NC", "AL", "UT", "IL", "MO", "ID", "IN", "OK", "MI", "IA"],
     bodyText:
       "[Optional. Use where the electric, gas or water account for the property is in Tenant's name and Landlord wants usage data for building benchmarking, an energy audit, a rebate application or utility allocation.] Tenant authorizes each electric, gas and water utility serving the property to release to Landlord or Landlord's designated agent the monthly usage and billing history for the property for the period of Tenant's tenancy, for the purpose of benchmarking, auditing or improving the energy or water performance of the building, or applying for a utility or government efficiency program. Tenant will, within ten (10) days of Landlord's written request, sign and deliver whatever release, authorization or online consent the utility requires to give effect to this paragraph. Landlord will use the data only for the purposes stated above, will not disclose Tenant's individual data to any other person except a contractor or consultant performing the benchmarking or audit, or as required by law, and will report the building's data to any third party only in aggregated form. Tenant may withdraw this authorization at any time by written notice to Landlord, and withdrawal is not a breach of this Agreement.",
   },
@@ -15151,7 +15151,7 @@ const CLAUSE_TEMPLATES = [
     id: "telecom-access-mn",
     title: "Television, Satellite and Internet Service",
     group: "Rules & Regulations",
-    states: ["MN", "SC", "AL", "UT", "MO", "ID", "MI"],
+    states: ["MN", "SC", "AL", "UT", "MO", "ID", "MI", "IA"],
     bodyText:
       "Television, satellite and internet service. Tenant may arrange Tenant's own television, satellite or internet service at Tenant's cost, unless this Lease says the service is included.\n\nTenant will get Landlord's written consent before installing an antenna, a satellite dish, a cable, or any wiring, and before drilling or cutting into any wall, roof, window or other surface. Tenant will tell Landlord what the installer plans to do.\n\nAn installer or service technician coming to the property is Tenant's guest, and Tenant will be present or will arrange access. Landlord does not have to give an installer a key or let an installer in.\n\nTenant will keep any installation in good condition, and at the end of the Term will remove it and repair any damage it caused, unless Landlord agrees in writing that it may stay.\n\nNothing in this Section limits any right Tenant has under state or federal law to install or receive a communications service or an over-the-air reception device. Where such a right applies, this Section applies only so far as that law allows.",
   },
@@ -15249,7 +15249,7 @@ const CLAUSE_TEMPLATES = [
     id: "waterbed-mn",
     title: "Waterbeds and Liquid-Filled Furniture (Optional)",
     group: "Rules & Regulations",
-    states: ["MN", "AZ", "SC", "NC", "PA", "AL", "UT", "IL", "MO", "ID"],
+    states: ["MN", "AZ", "SC", "NC", "PA", "AL", "UT", "IL", "MO", "ID", "IA"],
     bodyText:
       "[Optional.] Waterbeds and liquid-filled furniture. Tenant will not keep a waterbed, a water-filled mattress, an aquarium over [insert size, for example 20 gallons], or other liquid-filled furniture at the property without Landlord's prior written consent.\n\nIf Landlord consents, Tenant will keep the item in a frame and liner made for it, and in a place Landlord approves.\n\nTenant will also keep renter's or liability insurance covering water damage, of at least {{flotation_insurance_amount}}, for as long as the item is at the property. Tenant will give Landlord proof of that insurance on request.\n\nTenant is responsible for damage the item causes. Tenant is not responsible for normal wear and tear, or for damage that was there before this tenancy began.",
   },
@@ -16727,7 +16727,7 @@ const CLAUSE_TEMPLATES = [
     id: "utility-transfer-nj",
     title: "Transfer of Utility Accounts",
     group: "Tenant Responsibilities",
-    states: ["NJ", "SC", "AL", "UT", "MO", "IN", "MI"],
+    states: ["NJ", "SC", "AL", "UT", "MO", "IN", "MI", "IA"],
     bodyText:
       "For each utility this Lease makes Tenant's responsibility, Tenant will open or transfer the account into Tenant's own name with the provider, effective on or before [insert date, e.g. the first day of the Term], and keep it in Tenant's name until the Term ends and Tenant has vacated. If any such account remains in Landlord's name for any part of the Term, Tenant will reimburse Landlord the amount the provider actually charged for service to the Premises for that period, within [number] days after Landlord gives Tenant a copy of the provider's bill. This reimbursement is not Rent, and no late fee applies to it. Landlord will not shut off, interrupt or ask a provider to discontinue any utility service to the Premises because Tenant has not transferred an account or has not paid a reimbursement.",
   },
@@ -18101,7 +18101,7 @@ const CLAUSE_TEMPLATES = [
     id: "portable-solar-mo",
     title: "Solar and Generating Devices",
     group: "Rules & Regulations",
-    states: ["MO"],
+    states: ["MO", "IA"],
     bodyText:
       "[Optional.] Solar and generating devices. Tenant will not install, attach, mount or use any solar panel, plug-in or balcony solar device, solar collector, battery storage system or other electricity-generating equipment on or at the Premises, the building, any balcony, patio, roof, exterior wall, window or common area, without Landlord's prior written consent, and will not connect any such equipment to the electrical wiring of the Premises or operate it in connection with the electric utility unless Landlord consents in writing and the electric utility has given any written approval it requires. If Landlord consents: Tenant pays all costs of the equipment and its installation; the equipment and its installation will meet applicable codes and the manufacturer's instructions; nothing may penetrate the roof, an exterior wall or a window frame unless Landlord's consent says so; Tenant is responsible for any damage the equipment, its installation or its removal causes; and at the end of the tenancy Tenant will remove the equipment and restore the Premises to its condition before installation, ordinary wear and tear excepted, unless Landlord agrees in writing that it may stay, in which case it becomes Landlord's property. Nothing in this Section limits a reasonable modification Tenant is entitled to make because of a disability, or any other right Tenant has under law.",
   },
@@ -19013,6 +19013,124 @@ const CLAUSE_TEMPLATES = [
     supersedes: "early-termination-ks",
     bodyText:
       "Tenant may terminate this Lease before the end of the Term by providing Landlord at least 30 days' written notice. Tenant will pay Landlord, by the termination date, an early termination fee equal to one month's Rent ({{monthly_rent}}), and remains responsible for Rent and other obligations up to the termination date. If Tenant gives that notice, pays the fee and delivers possession of the property by the termination date, Tenant owes no Rent for any period after the termination date. If Tenant leaves before the end of the Term without using this option, Tenant's liability is governed by Michigan law, including Landlord's duty to mitigate its damages. This early-termination option and fee apply only if this Lease has a fixed Term; a month-to-month or other periodic tenancy ends on the notice that applicable law and this Lease provide, without an early termination fee. Landlord may terminate this Lease early in accordance with this Lease's Tenant Default and notice provisions, or if Tenant has abandoned the property, meaning that current Rent is unpaid and Landlord, after diligent inquiry, believes in good faith that Tenant does not intend to return. Landlord will recover possession only through the courts or as Michigan law otherwise allows. No early termination fee applies when Tenant ends this Lease or is released from Rent under a right that law gives Tenant, including the senior-housing and infirmity termination right stated in this Lease, a release because of domestic violence, sexual assault or stalking, and a servicemember's right under the Servicemembers Civil Relief Act. Nothing in this Section limits any right either party has under applicable law, including Tenant's right to quit and owe no further Rent if the property becomes untenantable without Tenant's fault or neglect.",
+  },
+  // Rules & Regulations
+  {
+    id: "portable-cooling-device-ia",
+    title: "Cooling Equipment and Window Units",
+    group: "Rules & Regulations",
+    states: ["IA"],
+    bodyText:
+      "[Optional.] Cooling equipment. Landlord supplies the following air-conditioning or cooling equipment at the property and will maintain it as the law requires: [list each item, or write \"none\"]. Tenant may use a floor-standing portable air conditioner or fan that plugs into an ordinary outlet. Tenant will not install a window-mounted or through-the-wall air conditioner without Landlord's prior written consent. If Landlord consents, Tenant will install the unit securely so that it cannot fall, will not place it in a window needed for emergency escape, will not overload an electrical circuit, and at the end of the Term will remove it and repair any damage its installation or removal causes. Tenant is responsible for damage caused by a cooling unit Tenant installs or uses. Nothing in this Section limits Tenant's right to a reasonable accommodation or reasonable modification for a disability, or Landlord's duty to maintain equipment Landlord supplies.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "tenant-statutory-duties-ia",
+    title: "Tenant's Duties Under Iowa Law",
+    group: "Tenant Responsibilities",
+    states: ["IA"],
+    bodyText:
+      "In addition to Tenant's other obligations under this Lease, Tenant will, throughout the tenancy: (a) comply with all obligations that applicable building and housing codes materially affecting health and safety place primarily on tenants; (b) keep the part of the premises that Tenant occupies and uses as clean and safe as the condition of the premises permits; (c) remove all ashes, rubbish, garbage and other waste from the dwelling unit in a clean and safe manner; (d) keep all plumbing fixtures in the dwelling unit or used by Tenant as clean as their condition permits; (e) use all electrical, plumbing, sanitary, heating, ventilating, air-conditioning and other facilities and appliances in the premises, including any elevators, in a reasonable manner; (f) not deliberately or negligently destroy, deface, damage, impair or remove any part of the premises, and not knowingly permit any person to do so; and (g) act in a manner that will not disturb a neighbor's peaceful enjoyment of the premises. Each of these duties is a term of this Lease.",
+  },
+  // Rent & Payment
+  {
+    id: "rent-concession-ia",
+    title: "Rent Concession",
+    group: "Rent & Payment",
+    states: ["IA"],
+    bodyText:
+      "[Optional. Use only if Landlord gives Tenant a rent concession. Delete if none.] Monthly Rent under this Lease is {{monthly_rent}}. In connection with this Lease, Landlord gives Tenant the following rent concession, which is part of this Lease: {{concession_description}}, with a total value of {{concession_total_value}}, applied as follows: {{concession_application}}. The concession is a credit against the Monthly Rent for the rental periods named. It does not change the Monthly Rent, which applies in full to every rental period not named. No part of the concession depends on Tenant referring, finding or suggesting other renters or customers to Landlord.",
+  },
+  // Default & Termination
+  {
+    id: "automatic-renewal-ia",
+    title: "Automatic Renewal (Optional)",
+    group: "Default & Termination",
+    states: ["IA"],
+    bodyText:
+      "[Optional.] AUTOMATIC RENEWAL. At the end of the Term, this Lease will renew automatically [choose one: for a further term of (state the renewal term), and then for further terms of the same length / on a month-to-month basis] on the same terms, unless it is ended as this Section provides. Landlord may end this Lease at the end of the Term or of any renewal term by written notice of non-renewal given to Tenant at least [number, at least 30] days before that date. Tenant may end this Lease at the end of the Term or of any renewal term by written notice of non-renewal given to Landlord at least 30 days before that date. If this Lease continues on a month-to-month basis, either party may end it by written notice given at least 30 days before the periodic rental date specified in the notice. Rent for a renewal will be the Rent then in effect unless Landlord gives each Tenant written notice of an increase at least 30 days before it takes effect; no increase will take effect before the end of the then-current term. Landlord's notice of non-renewal will be served as Iowa law requires for a notice of termination. If this Lease renews for a further fixed term, neither party may end it during that term by a month-to-month notice. Landlord will not use any renewal or move-out form to add terms that are not in this Lease.",
+  },
+  // Notices & General
+  {
+    id: "term-change-notice-ia",
+    title: "Changing Terms of a Month-to-Month Tenancy (Optional)",
+    group: "Notices & General",
+    states: ["IA"],
+    bodyText:
+      "[Optional. Use only if this Lease is, or becomes, a month-to-month tenancy.] While this tenancy is month to month, Landlord may change its terms, including the Rent and any fee, by a written notice to each Tenant that states the changed terms and the periodic rental date on which they take effect, which must be at least 30 days after the notice is served. The notice also serves as Landlord's written notice ending the current month-to-month tenancy on that date and as Landlord's offer of a new month-to-month tenancy on the changed terms, and Landlord will serve it as Iowa law requires for a notice of termination. If Tenant stays in possession after that date, Tenant accepts the new tenancy on the changed terms, and the other terms of this Lease continue to apply. If Tenant does not accept the changed terms, Tenant will move out by that date. While a fixed Term is in effect, the terms of this Lease change only by a written agreement signed by Landlord and Tenant, except for rules adopted as this Lease's rules Section allows. No change under this Section may reduce any right Tenant has under Iowa law.",
+  },
+  // Rent & Payment
+  {
+    id: "utility-allowance-ia",
+    title: "Utility Allowance with Tenant-Paid Overage",
+    group: "Rent & Payment",
+    states: ["IA"],
+    bodyText:
+      "[Optional. Use only for a utility measured by a meter that serves the property alone, with the account in Landlord's name. Do not use this Section for a meter that also serves another unit or a common area.] Landlord will pay for the following utilities, measured by the meter serving only the property, up to a monthly allowance of {{utility_allowance_amount}}: [list each utility the allowance covers]. If the utility company's charge for the property for a billing month is more than the allowance, Tenant will pay Landlord the difference within [number] days after Landlord gives Tenant a copy of that month's bill from the utility company. Landlord will not add any charge of its own to the difference, and no late fee applies to it. Before this Lease was signed, Landlord explained to Tenant the allowance, the utility company's rates and charges, and how the difference is figured.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "heat-freeze-protection-ia",
+    title: "Heat and Freeze Protection",
+    group: "Tenant Responsibilities",
+    states: ["IA"],
+    bodyText:
+      "[Optional. Use where Tenant controls the thermostat and a freeze could damage the property.] Tenant will use the heating system in a reasonable manner. From [first month of the heating season] through [last month of the heating season], Tenant will keep the heat on and the thermostat set to at least [minimum indoor temperature Landlord chooses, for example 55 degrees Fahrenheit] at all times, including while Tenant is away, so that water pipes and fixtures do not freeze. Tenant will not turn the heat off, block or cover a heating vent, register or return, or set the thermostat below that temperature. Tenant will tell Landlord promptly if the heating system stops working or a room is not heating. If Tenant smells gas, Tenant will first leave the property and call the gas utility or emergency services, and then tell Landlord. Nothing in this Section makes Tenant responsible for supplying heat that Landlord must supply or for repairing or maintaining the heating system Landlord supplies. Tenant will pay the reasonable cost of repairing damage to the property caused by Tenant's failure to comply with this Section.",
+  },
+  // Rules & Regulations
+  {
+    id: "pool-use-ia",
+    title: "Pool and Spa Use",
+    group: "Rules & Regulations",
+    states: ["IA"],
+    bodyText:
+      "[Use where the property includes a swimming pool, spa, hot tub or spray pad available to Tenant.] Tenant and Tenant's household and guests may use the pool and spa only during posted hours and in keeping with the posted rules. No lifeguard is on duty unless Landlord posts that one is. Tenant will not allow any person under {{pool_minimum_age}} years of age to use the pool or spa unless an adult member of Tenant's household is present, and will not bring more than {{pool_guest_limit}} guests to the facility at one time. Tenant will not prop open, block, climb, disable or leave unlatched any gate, door, fence, cover or other barrier to the pool or spa, and will not give any key, fob or code for the facility to another person. Tenant will not bring glass containers into the pool area and will not tamper with Landlord's equipment, chemicals, covers or signs. Tenant will tell Landlord promptly of any broken gate, latch, fence, cover, drain cover or other unsafe condition at the facility. This paragraph does not limit Landlord's duty to keep the pool area and other common areas clean and safe.",
+  },
+  {
+    id: "association-rules-receipt-ia",
+    title: "Association Rules Received",
+    group: "Rules & Regulations",
+    states: ["IA"],
+    bodyText:
+      "[Use where the property is in a condominium, cooperative, homeowners' association or other common interest community.] The property is part of [name of the association or community]. Before signing this Lease, Tenant received a copy of the following association documents that apply to residents: [list the rules, regulations and other documents given, with their dates]. Tenant will follow them as provided in this Lease. If the association adopts or changes a rule that applies to residents during the Term, Landlord will give Tenant a copy, and the new or changed rule binds Tenant only after Tenant receives reasonable notice of it and only if it does not work a substantial modification of this Lease.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "no-liens-ia",
+    title: "No Liens for Tenant Work",
+    group: "Tenant Responsibilities",
+    states: ["IA"],
+    bodyText:
+      "[Optional; use with any lease that lets Tenant make, order or pay for alterations, repairs or improvements.] Tenant will pay in full everyone Tenant hires, and everyone whose labor or materials Tenant orders, for any work at the property, and will not allow a mechanic's lien to be posted against the property for that work. If a lien is posted because of work Tenant ordered, Tenant will have it released within [number] days after Tenant learns of it and will pay Landlord the actual damages Landlord suffers because of it, not including attorney fees. Tenant is not Landlord's agent for any work Tenant orders. Before any work begins, Tenant will tell each contractor and supplier in writing that Tenant, not Landlord, is responsible for paying for it. Any consent Landlord gives to an alteration under this Lease is consent only as between Landlord and Tenant and is not an agreement by Landlord to pay for the work.",
+  },
+  // Parking & Storage
+  {
+    id: "ev-charger-installation-ia",
+    title: "Tenant EV Charger Installation",
+    group: "Parking & Storage",
+    states: ["IA"],
+    bodyText:
+      "[Optional. Use only if Landlord is willing to let Tenant install an electric vehicle charging system.] Tenant may install an electric vehicle charging system at [identify the parking space], at Tenant's own expense, only with Landlord's prior written consent to the specific system and location. Tenant will: (a) have the system installed by a duly licensed contractor, in compliance with Landlord's written specifications, applicable codes and any required permits; (b) if the property is in a condominium, townhouse or other association, comply with the association's rules for charging systems and give Landlord, promptly after installation, the information Landlord needs to register the system with the association and to obtain any consent the association requires; (c) [carry liability insurance covering Tenant's liability for the system and give Landlord proof of coverage on request]; and (d) pay for the electricity the system uses [choose one: through a separate electric meter and utility account in Tenant's name / by reimbursing Landlord, at no more than Landlord's actual cost for that electricity, measured by a separate meter or by Landlord's reasonable calculation described here: [describe], within [number] days after Landlord bills Tenant]. [Landlord's note, delete before signing: for a charger in a parking area shared with other tenants, use the reimbursement option only after confirming with the Iowa Department of Revenue whether an electric fuel license is required.] Any money Landlord holds to secure Tenant's obligations for the system is part of the Security Deposit and counts toward its legal limit. When this Lease ends, Tenant will [remove the system and repair any damage its installation or removal caused / leave the system in place, and it will belong to Landlord], unless Landlord and Tenant agree otherwise in writing.",
+  },
+  // Default & Termination
+  {
+    id: "early-termination-ia",
+    title: "Early Termination",
+    group: "Default & Termination",
+    states: ["IA"],
+    supersedes: "early-termination-ks",
+    bodyText:
+      "[Optional.] Tenant may terminate this Lease before the end of the Term by giving Landlord at least 30 days' written notice. Tenant will pay Landlord, by the termination date, an early termination fee equal to one month's Rent ({{monthly_rent}}), and remains responsible for Rent and other obligations up to the termination date. If Tenant gives that notice, pays the fee and delivers possession of the property by the termination date, Tenant owes no Rent for any period after the termination date. If Tenant leaves before the end of the Term without using this option, Tenant's liability is governed by Iowa law, including Landlord's duty to make reasonable efforts to rent the property to someone else at a fair rental. This early-termination option and fee apply only if this Lease has a fixed Term; a month-to-month or week-to-week tenancy ends on the notice that Iowa law and this Lease provide, without an early termination fee. Landlord may terminate this Lease early only as this Lease's Tenant Default and notice provisions and Iowa law allow, and will regain possession only through a court proceeding. Nothing in this Section limits any right either party has under applicable law, and no early termination fee is owed when Tenant ends this Lease under such a right, including Tenant's right to terminate because of military service under the Servicemembers Civil Relief Act or Iowa law, Tenant's right to terminate after a fire or casualty, and Tenant's right to terminate because Landlord has not complied with this Lease or Iowa law.",
+  },
+  // Disclosures
+  {
+    id: "hoa-compliance-ia",
+    title: "Homeowner / Condominium Association Compliance",
+    group: "Disclosures",
+    states: ["IA"],
+    supersedes: "hoa-compliance",
+    bodyText:
+      "If the property is in a homeowners or condominium association, Tenant will comply with the association's declaration, bylaws, rules and regulations that apply to the property and are in writing, a copy of whose rules and regulations Landlord has given Tenant before Tenant signs this Lease. A rule the association adopts or changes after Tenant signs this Lease binds Tenant only after Landlord gives Tenant reasonable notice of it, and only if it does not work a substantial modification of this Lease. A violation of a rule that binds Tenant under this Section by Tenant, an Occupant, or a guest or invitee of Tenant is a breach of this Lease. If the association notifies Landlord of a violation, Landlord will promptly give Tenant a copy of the notice. If the association lawfully imposes a fine on Landlord because of the violation, Tenant will pay Landlord, as Landlord's damages for the breach, the amount of the fine, with no markup or added fee, and Landlord will give Tenant a copy of the association's notice of the fine when Landlord charges Tenant. This Section does not make Tenant pay any association dues or assessment.",
   },
 ];
 

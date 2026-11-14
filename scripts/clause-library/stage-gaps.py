@@ -71,7 +71,7 @@ if left:
     sys.exit(f"unfilled placeholders: {left}")
 
 os.makedirs(out)
-for f in ["lease-clause-sop.md", "lease-clause-topics.md"]:
+for f in ["lease-clause-sop.md", "lease-clause-topics.md", f"lease-clause-decision-log-{st}.md"]:
     shutil.copy(f, out)
 # The CSV passed the 30 MB attachment limit in October 2026, so it ships compressed.
 import lzma
