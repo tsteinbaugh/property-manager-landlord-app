@@ -1514,6 +1514,17 @@ const STATE_CONFIG = {
       { title: "24", section: "5.2005", clauseIds: ["criminal-activity-mi"] },
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
+      // Federal rules the 2026-11-13 topic-gaps rows rely on (eCFR, no LegiScan cost)
+      { title: "24", section: "982.404", clauseIds: ["edu-no-subsidized-inspection-refusal-rule-mi", "edu-subsidy-habitability-proration-mi", "edu-maintenance-duty-shift-mi", "edu-no-alt-housing-duty-mi", "appliances-excluded-mi"] },
+      { title: "24", section: "982.405", clauseIds: ["edu-no-subsidized-inspection-refusal-rule-mi"] },
+      { title: "24", section: "982.451", clauseIds: ["edu-subsidy-late-fee-mi"] },
+      { title: "24", section: "982.551", clauseIds: ["edu-no-subsidized-inspection-refusal-rule-mi"] },
+      { title: "24", section: "100.203", clauseIds: ["edu-disability-accommodation-mi", "disability-modification-restoration-mn"] },
+      { title: "24", section: "5.2007", clauseIds: ["edu-dv-qualifying-documents-mi", "edu-tenant-confidential-information-mi"] },
+      { title: "28", section: "36.104", clauseIds: ["edu-service-animal-denial-penalty-mi"] },
+      { title: "40", section: "61.145", clauseIds: ["edu-asbestos-hazards-mi"] },
+      { title: "40", section: "745.107", clauseIds: ["edu-lead-safe-housing-registry-mi", "edu-no-lead-state-notices-mi", "edu-no-chemical-warning-rule-mi"] },
+      { title: "47", section: "1.4000", clauseIds: ["edu-telecom-access-mi", "telecom-access-mn"] },
     ],
     federalStatuteChecks: [
       { section: "4852d", clauseIds: ["lead-based-paint", "edu-lead-hazard-mi"] },
@@ -1523,20 +1534,20 @@ const STATE_CONFIG = {
       {
         id: "mi-court-rules",
         label:
-          "Michigan court rules LegiScan can't see: MCR 4.201 (summary proceedings: demand, answer, escrow orders, adjournment, judgment and writ timing), MCR 3.106 and MCR 8.119, and the SCAO forms DC 100a, 100c, 102a and 102c (MI log §1.1, §7)",
-        clauseIds: ["default-by-tenant-mi", "edu-eviction-process-mi", "edu-nonpayment-notice-mi", "edu-attorney-fees-mi", "edu-post-eviction-property-mi", "edu-statutory-forms-mi"],
+          "Michigan court rules LegiScan can't see: MCR 4.201 (summary proceedings: demand, answer, escrow orders, adjournment, judgment and writ timing), MCR 3.106 and MCR 8.119, and the SCAO forms DC 100a, 100c, 102a and 102c (MI log §1.1, §7); since the 2026-11-13 topic-gaps sync also MCR 4.201(D) service and the other court rules the gaps rows cite (MI gaps log §1)",
+        clauseIds: ["default-by-tenant-mi", "edu-eviction-process-mi", "edu-nonpayment-notice-mi", "edu-attorney-fees-mi", "edu-post-eviction-property-mi", "edu-statutory-forms-mi", "edu-actual-notice-method-mi", "edu-binding-arbitration-mi", "edu-confession-of-judgment-mi", "edu-confirmed-absences-outside-title-mi", "edu-entity-landlord-court-representation-mi", "edu-eviction-charges-mi", "edu-eviction-hardship-stay-mi", "edu-eviction-service-party-mi", "edu-forfeiture-redemption-mi", "edu-jury-waiver-mi", "edu-landlord-remedies-termination-mi", "edu-limitation-of-actions-mi", "edu-minor-tenant-filing-mi", "edu-no-benefit-delay-defense-mi", "edu-no-habitability-presumption-mi", "edu-no-notice-service-fee-mi", "edu-no-repair-escrow-exemption-notice-mi", "edu-no-shutdown-rent-protection-mi", "edu-nonresident-owner-agent-mi", "edu-possession-bond-mi", "edu-redemption-mi", "edu-rent-into-court-counterclaim-mi", "edu-tenancy-at-will-mi", "edu-tenant-bankruptcy-mi", "edu-tenant-records-mi", "edu-written-notices-mi"],
       },
       {
         id: "mi-constitution-admin-rules",
         label:
-          "Michigan sources LegiScan can't see: the 1963 Constitution (art. I, § 6; art. X, §§ 3, 6), which changes by ballot measure, and the administrative rules the rows cite (Public Service Commission shutoff rules, R 460.101-460.169; smoke and carbon monoxide alarm rules, R 408.30546 and R 408.30520) (MI log §1.1, §7)",
-        clauseIds: ["edu-firearms-mi", "edu-landlord-lien-mi", "edu-foreign-ownership-mi", "edu-utility-landlord-account-mi"],
+          "Michigan sources LegiScan can't see: the 1963 Constitution (art. I, § 6; art. X, §§ 3, 6), which changes by ballot measure, and the administrative rules the rows cite (Public Service Commission shutoff rules, R 460.101-460.169; smoke and carbon monoxide alarm rules, R 408.30546 and R 408.30520) (MI log §1.1, §7); since the 2026-11-13 topic-gaps sync also every Mich. Admin. Code rule the gaps rows cite (Public Service Commission R 460.101-460.169, construction code R 408.30500-408.30547g) (MI gaps log §1)",
+        clauseIds: ["edu-firearms-mi", "edu-landlord-lien-mi", "edu-foreign-ownership-mi", "edu-utility-landlord-account-mi", "appliances-excluded-mi", "detector-care-mi", "edu-certificate-of-occupancy-mi", "edu-children-occupancy-mi", "edu-code-editions-mi", "edu-collection-fee-mi", "edu-common-area-lighting-mi", "edu-deposit-cost-schedule-mi", "edu-deposit-surrender-notice-mi", "edu-electric-submetering-mi", "edu-energy-data-release-mi", "edu-ev-charging-requirements-mi", "edu-fire-code-standard-mi", "edu-fire-sprinkler-duty-mi", "edu-government-fee-reimbursement-mi", "edu-governmental-fines-mi", "edu-heating-mi", "edu-lockout-for-rent-delinquency-mi", "edu-meter-conservation-charge-mi", "edu-no-adu-statute-mi", "edu-no-alarm-tampering-fee-mi", "edu-no-balcony-inspection-rule-mi", "edu-no-carpet-cleaning-rule-mi", "edu-no-deposit-installments-mi", "edu-no-drywall-disclosure-mi", "edu-no-expedited-deposit-disposition-mi", "edu-no-fee-in-lieu-of-deposit-mi", "edu-no-fee-unprovided-service-mi", "edu-no-holding-deposit-rule-mi", "edu-no-late-fee-limit-mi", "edu-no-nonrefundable-separate-notice-mi", "edu-no-notice-service-fee-mi", "edu-no-ordnance-demolition-meter-disclosure-mi", "edu-no-portable-cooling-rule-mi", "edu-no-rent-receipt-anti-waiver-mi", "edu-no-rent-reporting-rule-mi", "edu-no-rights-guide-mi", "edu-no-security-deposit-standards-mi", "edu-no-utility-apportionment-rule-mi", "edu-no-utility-disclosure-attachment-mi", "edu-no-water-heater-temperature-rule-mi", "edu-no-window-guard-rule-mi", "edu-nonrefundable-deposit-notice-mi", "edu-other-landlord-facilities-mi", "edu-pool-safety-mi", "edu-portfolio-thresholds-mi", "edu-private-well-testing-mi", "edu-rent-concession-mi", "edu-rent-tax-mi", "edu-required-fees-mi", "edu-smoke-drift-mi", "edu-statutory-caps-mi", "edu-subsidy-late-fee-mi", "edu-tax-escalation-mi", "edu-tenant-records-mi", "edu-utility-deposit-return-mi", "edu-utility-interruption-mi", "edu-utility-shutoff-notice-designee-mi", "edu-utility-shutoff-statute-mi", "edu-utility-transfer-mi", "energy-data-release-wy", "rent-concession-mi", "utility-shutoff-notice-authorization-co", "utility-transfer-nj"],
       },
       {
         id: "mi-case-law",
         label:
-          "Michigan case law the rows rely on or flag: penalty doctrine (Curran v Williams; UAW-GM v KSL), common-area snow and ice under Mich. Comp. Laws § 554.139 (Allison, Benton, Hadden, Bowerman (2026)), Attorney General v Eli Lilly & Co (2026) on the consumer protection act, and Laurel Woods on guest damage; the 2026 Supreme Court cases need their Michigan Reports page once it issues (MI log §1.4, §10)",
-        clauseIds: ["late-fee", "snow-removal", "edu-habitability-mi", "edu-consumer-protection-mi", "tenant-caused-damage-mi", "casualty-termination-mi"],
+          "Michigan case law the rows rely on or flag: penalty doctrine (Curran v Williams; UAW-GM v KSL), common-area snow and ice under Mich. Comp. Laws § 554.139 (Allison, Benton, Hadden, Bowerman (2026)), Attorney General v Eli Lilly & Co (2026) on the consumer protection act, and Laurel Woods on guest damage; the 2026 Supreme Court cases need their Michigan Reports page once it issues (MI log §1.4, §10); since the 2026-11-13 topic-gaps sync also the cases the gaps rows cite, among them the penalty test behind `early-termination-mi` (MI gaps log §4)",
+        clauseIds: ["late-fee", "snow-removal", "edu-habitability-mi", "edu-consumer-protection-mi", "tenant-caused-damage-mi", "casualty-termination-mi", "early-termination-mi", "edu-collection-fee-mi", "edu-confirmed-absences-misc-mi", "edu-eviction-charges-mi", "edu-forfeiture-redemption-mi", "edu-habitability-waiver-mi", "edu-liquidated-damages-mi", "edu-no-alarm-tampering-fee-mi", "edu-no-late-fee-limit-mi", "edu-no-notice-service-fee-mi", "edu-tenant-insurance-claims-mi"],
       },
       {
         id: "mi-hud-assistance-animals",
