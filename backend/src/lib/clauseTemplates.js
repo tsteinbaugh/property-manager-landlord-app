@@ -1016,7 +1016,7 @@ const CLAUSE_TEMPLATES = [
     id: "foreclosure-disclosure-nv",
     title: "Foreclosure Disclosure",
     group: "Disclosures",
-    states: ["NV", "SC", "IL", "OK", "MI", "MT"],
+    states: ["NV", "SC", "IL", "OK", "MI", "MT", "WI", "NY"],
     bodyText:
       "Foreclosure Disclosure. Before Tenant entered into this Lease, Landlord disclosed to Tenant in writing whether the property is the subject of any foreclosure proceedings. Landlord's disclosure: [state that the property is the subject of foreclosure proceedings and describe them, or state that the property is not the subject of any foreclosure proceedings].",
   },
@@ -1271,7 +1271,7 @@ const CLAUSE_TEMPLATES = [
     id: "early-termination-ks",
     title: "Early Termination",
     group: "Default & Termination",
-    states: ["KS", "TN", "NY", "KY", "WV", "MD", "MA", "NH", "VI", "AS", "MP"],
+    states: ["KS", "TN", "KY", "WV", "MD", "MA", "NH", "VI", "AS", "MP"],
     supersedes: "early-termination",
     bodyText:
       "Tenant may terminate this Lease before the end of the Term by providing Landlord at least 30 days' written notice. Tenant will pay an early termination fee equal to one month's Rent ({{monthly_rent}}) or 30% of the remaining Rent due under the Term, whichever is greater, and remains responsible for Rent and other obligations up to the termination date. This early-termination option and fee apply only if this Lease has a fixed Term; a month-to-month or other periodic tenancy ends on the notice that applicable law and this Lease provide, without an early termination fee. Landlord may terminate this Lease early in accordance with this Lease's Tenant Default and notice provisions, or if Tenant vacates or abandons the property without notifying Landlord. Nothing in this Section limits any right either party has under applicable law, including a Tenant's right to terminate without penalty due to active military service under the Servicemembers Civil Relief Act, due to the property becoming uninhabitable through no fault of Tenant, or, except as prohibited by law in the case of a Tenant's death, any other termination right or limitation provided by applicable law.",
@@ -6605,7 +6605,7 @@ const CLAUSE_TEMPLATES = [
     states: ["NY"],
     supersedes: "smoking-policy",
     bodyText:
-      "Smoking is not permitted anywhere on the property, including inside the dwelling, on porches or balconies and in common areas. For this Section, smoking means burning a lighted cigar, cigarette, pipe or any other matter or substance that contains tobacco, cannabis or cannabinoid hemp. Vaping tobacco or nicotine products is also not permitted on the property. This Section does not limit any certified medical use of cannabis, and Landlord will not otherwise penalize Tenant for conduct New York's Cannabis Law permits. Tenant will be responsible for any cost Landlord incurs to remediate odor, staining or damage caused by smoking in violation of this Section, and a violation may be treated as a default under this Lease.",
+      "Smoking is not permitted anywhere on the property, including inside the dwelling, on porches or balconies and in common areas. For this Section, smoking means burning a lighted cigar, cigarette, pipe or any other matter or substance that contains tobacco, cannabis or cannabinoid hemp. Vaping tobacco or nicotine products is also not permitted on the property. This Section does not limit any certified medical use of cannabis, and Landlord will not otherwise penalize Tenant for conduct New York's Cannabis Law permits. Tenant will be responsible for any cost Landlord incurs to remediate odor, staining or damage caused by smoking by Tenant, an occupant, or a guest or invitee of Tenant in violation of this Section, and a violation may be treated as a default under this Lease.",
   },
   // Rules & Regulations
   {
@@ -6907,7 +6907,7 @@ const CLAUSE_TEMPLATES = [
     states: ["WI"],
     supersedes: "early-termination-ks",
     bodyText:
-      "If this Lease has a fixed Term, Tenant may end this Lease before the end of the Term by giving Landlord at least [number] days' written notice and paying Landlord, on or before the termination date stated in the notice, an early termination fee of [fixed dollar amount]. Tenant remains responsible for Rent and other obligations up to that termination date. If Tenant gives the notice and pays the fee as this Section requires, Landlord accepts Tenant's surrender of the property as of the termination date, and Tenant will owe no Rent for any later period. This option does not apply to a month-to-month or other periodic tenancy, which ends on the notice Wisconsin law and this Lease provide. Nothing in this Section limits any right either party has under applicable law, including Tenant's rights under Wis. Stat. § 704.16 (domestic abuse, sexual assault, stalking, and threats of serious physical harm), Wis. Stat. § 704.165 (death of a tenant), Wis. Stat. § 321.62 and the Servicemembers Civil Relief Act (military service), and Wis. Stat. § 704.07(4) (untenantable premises).",
+      "If this Lease has a fixed Term, Tenant may end this Lease before the end of the Term by giving Landlord at least [number] days' written notice and paying Landlord, on or before the termination date stated in the notice, an early termination fee equal to one month's Rent ({{monthly_rent}}). Tenant remains responsible for Rent and other obligations up to that termination date. If Tenant gives the notice and pays the fee as this Section requires, Landlord accepts Tenant's surrender of the property as of the termination date, and Tenant will owe no Rent for any later period. This option does not apply to a month-to-month or other periodic tenancy, which ends on the notice Wisconsin law and this Lease provide. Nothing in this Section limits any right either party has under applicable law, including Tenant's rights under Wis. Stat. § 704.16 (domestic abuse, sexual assault, stalking, and threats of serious physical harm), Wis. Stat. § 704.165 (death of a tenant), Wis. Stat. § 321.62 and the Servicemembers Civil Relief Act (military service), and Wis. Stat. § 704.07(4) (untenantable premises). The early termination fee does not apply when Tenant's tenancy or liability for Rent ends under any of those rights, and Tenant owes no fee under this Section in that case.",
   },
   // Landlord Responsibilities
   {
@@ -6944,7 +6944,7 @@ const CLAUSE_TEMPLATES = [
     group: "Default & Termination",
     states: ["WI"],
     bodyText:
-      "If the property is damaged by fire, water, or other casualty that is not the result of the negligence or intentional act of Landlord, and the damage makes the property untenantable or Landlord reasonably determines that the repairs cannot be completed within [number] days, Landlord may end this Lease by written notice to Tenant, given by a method Wis. Stat. § 704.21 allows, within [number] days after the casualty. The Lease ends on the date stated in the notice, which will be at least [number] days after the notice is given, or on the date the notice is given if the property is untenantable. Rent is apportioned to the date the property became untenantable or the date the Lease ends, whichever is earlier, and Landlord will return any Rent paid in advance for a later period and the Security Deposit as this Lease provides. This Section does not limit Tenant's rights under Wis. Stat. § 704.07(4).",
+      "If the property is damaged by fire, water, or other casualty that is not the result of the negligence or intentional act of Landlord, and the damage makes the property untenantable or Landlord reasonably determines that the repairs cannot be completed within [number] days, Landlord may end this Lease by written notice to Tenant, given by a method Wis. Stat. § 704.21 allows, within [number] days after the casualty. The Lease ends on the date stated in the notice, which will be at least [number] days after the notice is given, or on the date the notice is given if the property is untenantable. Rent is apportioned to the date the property became untenantable or the date the Lease ends, whichever is earlier, except that if the damage was caused by the negligence or improper use of the property by Tenant, Rent does not abate before the date the Lease ends. Landlord will return any Rent paid in advance for a period after the date to which Rent is apportioned, and the Security Deposit as this Lease provides. Ending the Lease under this Section does not release Tenant from reimbursing Landlord's reasonable cost of repairing damage caused by the acts or inaction of Tenant, or by the negligence or improper use of the property by Tenant's guests or invitees, as the Section of this Lease on tenant-caused damage provides. This Section does not limit Tenant's rights under Wis. Stat. § 704.07(4).",
   },
   // Tenant Responsibilities
   {
@@ -7048,7 +7048,7 @@ const CLAUSE_TEMPLATES = [
     id: "rent-concession-wi",
     title: "Rent Concessions",
     group: "Rent & Payment",
-    states: ["WI", "CT", "RI", "NH", "ME", "VT", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "KS", "MN", "NE", "OH", "NV", "TX", "NJ", "FL", "GA", "SC", "NC", "VA", "AL", "UT", "MO", "ID", "IN", "OK", "MT"],
+    states: ["WI", "CT", "RI", "NH", "ME", "VT", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "KS", "MN", "NE", "OH", "NV", "TX", "NJ", "FL", "GA", "SC", "NC", "VA", "AL", "UT", "MO", "ID", "IN", "OK", "MT", "NY"],
     bodyText:
       "[Use only if Landlord gives Tenant any rent concession.] In connection with this Lease, Landlord gives Tenant the following rent concession, which is part of this Lease: [describe each period of free or reduced Rent, credit, rebate or other concession, with its amount or value and the rental periods to which it applies].",
   },
@@ -7417,7 +7417,7 @@ const CLAUSE_TEMPLATES = [
     id: "rent-installments-or",
     title: "Rent Paid in Installments",
     group: "Rent & Payment",
-    states: ["OR", "CT", "RI", "NH", "ME", "VT", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "WY", "KS", "NE", "TX", "NJ", "AZ", "FL", "GA", "SC", "VA", "PA", "AL", "UT", "IL", "MO", "ID", "IN", "OK", "IA", "NM", "MT"],
+    states: ["OR", "CT", "RI", "NH", "ME", "VT", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "WY", "KS", "NE", "TX", "NJ", "AZ", "FL", "GA", "SC", "VA", "PA", "AL", "UT", "IL", "MO", "ID", "IN", "OK", "IA", "NM", "MT", "WI", "NY"],
     bodyText:
       "Landlord and Tenant agree that Monthly Rent will be paid in installments as follows: [state each installment amount and the day of the month it is due]. Installments paid on this schedule are not partial payments of Rent. A late charge applies only as this Lease's late charge provision allows for the rental period.",
   },
@@ -7808,7 +7808,7 @@ const CLAUSE_TEMPLATES = [
     id: "informal-dispute-resolution-or",
     title: "Informal Dispute Resolution",
     group: "Notices & General",
-    states: ["OR", "AR", "MS", "DC", "GU", "VI", "AS", "MP", "CO", "WY", "KS", "MN", "NE", "OH", "NV", "TX", "NJ", "AZ", "FL", "GA", "SC", "NC", "VA", "PA", "AL", "UT", "IL", "MO", "IN", "IA", "NM"],
+    states: ["OR", "AR", "MS", "DC", "GU", "VI", "AS", "MP", "CO", "WY", "KS", "MN", "NE", "OH", "NV", "TX", "NJ", "AZ", "FL", "GA", "SC", "NC", "VA", "PA", "AL", "UT", "IL", "MO", "IN", "IA", "NM", "WI", "NY"],
     bodyText:
       "Before either party starts a court action about a dispute under this Lease, other than an action for possession, the party will give the other written notice describing the dispute and offer to meet, in person or by phone, within 10 days to try to resolve it informally. This Section does not delay or limit any notice, deadline or remedy that applicable law provides, including any action for possession or for emergency relief, and does not require either party to accept any proposal.",
   },
@@ -8005,7 +8005,7 @@ const CLAUSE_TEMPLATES = [
     id: "rent-increase-midterm-ky",
     title: "Mid-Term Rent Increase",
     group: "Rent & Payment",
-    states: ["KY", "AK", "AR", "MS", "VI", "AS", "KS", "TX", "AZ", "FL", "PA", "IL", "OK"],
+    states: ["KY", "AK", "AR", "MS", "VI", "AS", "KS", "TX", "AZ", "FL", "PA", "IL", "OK", "WI"],
     bodyText:
       "[Optional.] During the Term, Landlord may increase Monthly Rent by giving Tenant written notice at least 30 days before the increase takes effect, stating the new Monthly Rent and its effective date. Tenant may instead end this Lease, without an early termination fee, by giving Landlord written notice before the increase takes effect, effective on the last day before the increase. Landlord will not increase Rent to retaliate against Tenant for any complaint, request or other conduct the law protects.",
   },
@@ -11120,7 +11120,7 @@ const CLAUSE_TEMPLATES = [
     id: "rent-escalation-la",
     title: "Scheduled Rent Changes",
     group: "Rent & Payment",
-    states: ["LA", "MS", "PR", "GU", "VI", "AS", "WY", "KS", "MN", "NE", "TX", "NJ", "AZ", "FL", "SC", "NC", "AL", "UT", "IL", "MO", "OK"],
+    states: ["LA", "MS", "PR", "GU", "VI", "AS", "WY", "KS", "MN", "NE", "TX", "NJ", "AZ", "FL", "SC", "NC", "AL", "UT", "IL", "MO", "OK", "WI"],
     bodyText:
       "[Optional. Choose one.] [A: Monthly Rent will change during the Term as follows: [state each new amount and the date it takes effect].] [B: On [state each adjustment date, e.g. each anniversary of the Start Date], Monthly Rent will be adjusted, up or down, by the percentage change in [name a published index, e.g. the Consumer Price Index for All Urban Consumers (CPI-U) for the region that includes the property, published by the U.S. Bureau of Labor Statistics] between [base month and year] and the most recent month published before the adjustment date[, but by no more than [percent] percent for any one adjustment]. Landlord will give Tenant written notice of each adjusted Monthly Rent, showing the calculation, at least [number] days before it takes effect. If the index is no longer published, Monthly Rent will stay at the last adjusted amount.] Monthly Rent will not change during the Term in any other way, except as any tax and insurance escalation Section of this Lease, if used, provides.",
   },
@@ -11128,7 +11128,7 @@ const CLAUSE_TEMPLATES = [
     id: "tax-insurance-escalation-la",
     title: "Tax and Insurance Increases",
     group: "Rent & Payment",
-    states: ["LA", "AR", "MS", "PR", "GU", "VI", "WY", "KS", "NE", "TX", "NJ", "AZ", "FL", "SC", "NC", "PA", "AL", "UT", "MO", "IN", "OK"],
+    states: ["LA", "AR", "MS", "PR", "GU", "VI", "WY", "KS", "NE", "TX", "NJ", "AZ", "FL", "SC", "NC", "PA", "AL", "UT", "MO", "IN", "OK", "WI"],
     bodyText:
       "[Optional.] Tax and Insurance Increases: If the ad valorem property taxes assessed on [the Property / the building or parcel of which the Property is a part] for any calendar year during the Term are higher than the taxes for [base year][, or if Landlord's premium for property insurance on [the Property / that building] for any policy year during the Term is higher than the premium for [base policy year]], Tenant will pay Landlord [percent] percent of the increase, which is the Property's share of [the building or parcel]. Landlord will give Tenant written notice of each amount due, with a copy of the tax bill [and premium notice] and the calculation, at least [number] days before it is due, and Tenant may pay it [in one payment / in equal monthly installments with Rent over [number] months]. Tenant will not pay any part of a penalty or interest charged for Landlord's late payment of taxes or premiums. If taxes [or premiums] for a period for which Tenant paid a share are later reduced, abated or refunded, Landlord will credit or refund Tenant the same percentage of the reduction.",
   },
@@ -11153,7 +11153,7 @@ const CLAUSE_TEMPLATES = [
     id: "furnishings-included-la",
     title: "Furnishings",
     group: "Security Deposit",
-    states: ["LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "WY", "MN", "NE", "OH", "NV", "TX", "NJ", "AZ", "FL", "GA", "SC", "NC", "VA", "PA", "AL", "UT", "IL", "MO", "ID", "IN", "IA", "NM"],
+    states: ["LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "WY", "MN", "NE", "OH", "NV", "TX", "NJ", "AZ", "FL", "GA", "SC", "NC", "VA", "PA", "AL", "UT", "IL", "MO", "ID", "IN", "IA", "NM", "NY"],
     bodyText:
       "[Optional. Use only if the property is rented furnished.] Furnishings: The property is rented furnished. The furniture and furnishings Landlord provides, and their condition at the start of this Lease, are: [list each item and its condition, or attach a signed inventory]. Tenant will keep them at the property, will not remove or dispose of any item without Landlord's written consent, will tell Landlord promptly of any damage to them, and will return them at the end of this Lease in the same condition, except for normal wear and tear.",
   },
@@ -11221,7 +11221,7 @@ const CLAUSE_TEMPLATES = [
     id: "scheduled-services-entry-la",
     title: "Entry for Regularly Scheduled Services",
     group: "Access & Entry",
-    states: ["LA", "AR", "MS", "VI", "AS", "MP", "CO", "KS", "TX", "NJ", "GA", "NC", "PA", "UT", "IL", "MO", "ID"],
+    states: ["LA", "AR", "MS", "VI", "AS", "MP", "CO", "KS", "TX", "NJ", "GA", "NC", "PA", "UT", "IL", "MO", "ID", "NY"],
     bodyText:
       "[Optional.] In addition to Landlord's rights under the Landlord's Right of Entry section, Landlord or Landlord's agent may enter the property between [state hours, for example 9:00 a.m. and 6:00 p.m.] on the following schedule to provide these regularly scheduled services: [list each service and its schedule, for example changing air-conditioning filters every [number] months, or pest treatment every [number] months]. Landlord will give Tenant notice of each scheduled visit at least [state notice, for example 24 hours] in advance by [state method, for example text message, e-mail or a notice posted on the door], and will knock and announce before entering.",
   },
@@ -11229,7 +11229,7 @@ const CLAUSE_TEMPLATES = [
     id: "showing-notice-la",
     title: "Showings Near the End of the Lease",
     group: "Access & Entry",
-    states: ["LA", "AR", "MS", "VI", "AS", "MP", "CO", "WY", "KS", "NJ", "GA", "NC", "PA", "UT", "MO", "ID"],
+    states: ["LA", "AR", "MS", "VI", "AS", "MP", "CO", "WY", "KS", "NJ", "GA", "NC", "PA", "UT", "MO", "ID", "NY"],
     bodyText:
       "[Optional.] During the last [number] days of the Term, and at any time after either party gives notice of termination, Landlord, its agents and contractors may enter the property to show it to prospective tenants or purchasers on [state the shorter notice, for example same-day notice by telephone or text message] instead of the notice required by the Landlord's Right of Entry section, but only between [state hours, for example 9:00 a.m. and 7:00 p.m.]. Every other entry remains subject to the Landlord's Right of Entry section.",
   },
@@ -11510,7 +11510,7 @@ const CLAUSE_TEMPLATES = [
     id: "owner-occupancy-termination-ar",
     title: "Owner Occupancy (Optional)",
     group: "Default & Termination",
-    states: ["AR", "MS", "PR", "GU", "VI", "AS", "MP", "WY", "KS", "NE", "OH", "TX", "AZ", "FL", "GA", "SC", "NC", "VA", "PA", "AL", "UT", "ID", "IN", "OK", "MI", "IA", "NM"],
+    states: ["AR", "MS", "PR", "GU", "VI", "AS", "MP", "WY", "KS", "NE", "OH", "TX", "AZ", "FL", "GA", "SC", "NC", "VA", "PA", "AL", "UT", "ID", "IN", "OK", "MI", "IA", "NM", "WI"],
     bodyText:
       "[Optional. Use only for a fixed Term.] Owner Occupancy: Landlord may end this Lease before the end of the Term if Landlord, or the following member of Landlord's family, will occupy the property as a residence: [name or relationship]. To do so, Landlord will give Tenant written notice at least [number, not less than 30] days before the termination date, and the termination date will be the last day of a monthly rental period. Tenant owes Rent only through the termination date, and Landlord will refund any Rent paid for a later period. If Tenant does not leave by the termination date, Landlord may regain possession only through a court eviction.",
   },
@@ -12253,7 +12253,7 @@ const CLAUSE_TEMPLATES = [
     id: "pest-cooperation-pr",
     title: "Pest Reporting and Treatment",
     group: "Tenant Responsibilities",
-    states: ["PR", "GU", "AS", "MP", "NE", "SD", "TX", "AZ", "SC", "NC", "PA", "AL", "IL", "MO", "IA", "MT"],
+    states: ["PR", "GU", "AS", "MP", "NE", "SD", "TX", "AZ", "SC", "NC", "PA", "AL", "IL", "MO", "IA", "MT", "NY"],
     supersedes: "pest-cooperation-la",
     bodyText:
       "[Optional.] Tenant will promptly tell Landlord if Tenant knows or reasonably suspects that the property has bed bugs or another infestation of insects, rodents or other pests. Tenant will allow Landlord, Landlord's agents and pest control operators to enter the property to inspect for and treat the infestation as this Lease's entry section allows, and will follow the reasonable written preparation instructions Landlord or the pest control operator gives. If the infestation was caused by the fault of Tenant, a member of Tenant's household or a person on the property with Tenant's consent, Tenant will pay the reasonable cost of treatment and of repairing the resulting damage. Otherwise, Landlord will pay for treatment as part of Landlord's repair obligations.",
@@ -12288,7 +12288,7 @@ const CLAUSE_TEMPLATES = [
     id: "prohibited-acts-renter-pr",
     title: "Prohibited Acts by Tenant",
     group: "Tenant Responsibilities",
-    states: ["PR"],
+    states: ["PR", "NY"],
     supersedes: "prohibited-acts-renter-wy",
     bodyText:
       "Tenant will not intentionally or negligently destroy, deface, damage or impair any part of the property, or knowingly permit any other person to do so; will not interfere with another person's peaceful enjoyment of the property; and will not refuse or obstruct any entry the Landlord's Right of Entry section allows.",
@@ -12306,7 +12306,7 @@ const CLAUSE_TEMPLATES = [
     id: "tenant-repair-agreement-pr",
     title: "Tenant Maintenance and Minor Repair Agreement",
     group: "Tenant Responsibilities",
-    states: ["PR", "MP"],
+    states: ["PR", "MP", "NY"],
     supersedes: "tenant-repair-agreement-hi",
     bodyText:
       "[Optional.] Landlord and Tenant agree that Tenant will perform the following specific maintenance tasks and minor repairs: [list each task specifically, for example lawn and yard care, replacing air-conditioning filters, light bulbs or faucet washers]. In return, Landlord will [state what Landlord gives, for example a stated monthly rent reduction]. This agreement does not make Tenant responsible for any repair or improvement needed to keep the property fit for its use as a home, which remains Landlord's responsibility, or for any urgent repair, which Tenant will report and which is at Landlord's cost. Any part or material Tenant installs under this agreement becomes Landlord's property and may not be removed.",
@@ -12937,7 +12937,7 @@ const CLAUSE_TEMPLATES = [
     id: "animal-care-access-vi",
     title: "Animal Care in Tenant's Absence (Virgin Islands)",
     group: "Pets",
-    states: ["VI", "AS", "MP", "CO", "TX", "NJ", "GA", "NC", "PA", "UT", "IL", "MO", "ID", "OK", "MI", "IA", "NM"],
+    states: ["VI", "AS", "MP", "CO", "TX", "NJ", "GA", "NC", "PA", "UT", "IL", "MO", "ID", "OK", "MI", "IA", "NM", "NY"],
     bodyText:
       "[Optional.] Animal Care: Tenant will tell Landlord in writing about every animal kept at the property. Tenant names the following person to care for or remove Tenant's animals if Tenant cannot because Tenant is hospitalized, incapacitated, detained or otherwise absent and an animal is left without care: [name and telephone number]. In that case, after trying to reach Tenant, Landlord may let that person into the property for that purpose only, and if that person cannot be reached Landlord may ask an animal warden, a peace officer, or the Humane Society or an animal shelter to take charge of the animal. Tenant will tell Landlord in writing if this information changes. This permission ends at Tenant's death; after that, Landlord will deal with Tenant's animals only through Tenant's personal representative or heirs or as the law otherwise allows.",
   },
@@ -12970,7 +12970,7 @@ const CLAUSE_TEMPLATES = [
     id: "fees-and-charges-vi",
     title: "Fees and Charges",
     group: "Rent & Payment",
-    states: ["VI", "MP", "KS", "NE", "OH", "NJ", "FL", "SC", "AL", "OK", "IA"],
+    states: ["VI", "MP", "KS", "NE", "OH", "NJ", "FL", "SC", "AL", "OK", "IA", "WI"],
     bodyText:
       "In addition to the Monthly Rent of {{monthly_rent}} and the Security Deposit of {{security_deposit}}, the following are all of the fees and charges Tenant may be required to pay under this Lease: [list each fee or charge, with its amount or how it is calculated and when it is due, and mark any optional fee as optional; or write \"None\"]. Landlord will not charge Tenant any other fee or charge except an amount stated in another Section of this Lease, an amount a court awards, or a tax the law requires Tenant to pay. Landlord will not add a fee or charge during the Term unless Tenant agrees in writing.",
   },
@@ -13053,7 +13053,7 @@ const CLAUSE_TEMPLATES = [
     id: "eminent-domain-vi",
     title: "Condemnation (Optional)",
     group: "Default & Termination",
-    states: ["VI", "MP", "KS", "MN", "NE", "SD", "NV", "TX", "NJ", "AZ", "FL", "GA", "SC", "NC", "VA", "AL", "IL", "MO", "ID", "IN", "IA", "MT"],
+    states: ["VI", "MP", "KS", "MN", "NE", "SD", "NV", "TX", "NJ", "AZ", "FL", "GA", "SC", "NC", "VA", "AL", "IL", "MO", "ID", "IN", "IA", "MT", "WI", "NY"],
     bodyText:
       "[Optional.] If all of the property is taken by eminent domain, or so much of it is taken that the rest cannot reasonably be lived in, this Lease ends on the date Tenant must give up possession, Rent is apportioned to that date, and Landlord will refund any Rent paid for later days. If a smaller part is taken and the rest can reasonably be lived in, this Lease continues and Rent is reduced in proportion to Tenant's loss of use. Any award for the taking of the property, including any value of this Lease, belongs to Landlord, except any relocation payment or other separate payment made to Tenant for Tenant's own moving costs or personal property. If this Lease ends under this Section, Landlord will return the Security Deposit, less lawful deductions, as this Lease provides.",
   },
@@ -13222,7 +13222,7 @@ const CLAUSE_TEMPLATES = [
     id: "guaranty-as",
     title: "Guaranty (Optional)",
     group: "Default & Termination",
-    states: ["AS", "MP", "CO", "KS", "MN", "NE", "NV", "NJ", "AZ", "FL", "GA", "SC", "NC", "PA", "UT", "MO", "ID", "IN", "OK", "IA", "NM"],
+    states: ["AS", "MP", "CO", "KS", "MN", "NE", "NV", "NJ", "AZ", "FL", "GA", "SC", "NC", "PA", "UT", "MO", "ID", "IN", "OK", "IA", "NM", "NY"],
     bodyText:
       "[Optional. Use only if a guarantor signs this Lease.] GUARANTY. [guarantor's full name] (\"Guarantor\") signs this Lease to guarantee to Landlord that Tenant will pay the Rent and perform Tenant's other obligations under this Lease, up to a total maximum of $[maximum amount]. This guaranty covers the Term and [choose one: also covers any renewal, extension or month-to-month continuation of this Lease, including any change in Rent made under this Lease / ends when the Term ends, except for amounts that became due during the Term]. Guarantor's obligations are never larger than Tenant's. Landlord may ask Guarantor to pay without first suing Tenant. Guarantor has read this Lease and received a copy.",
   },
@@ -13485,7 +13485,7 @@ const CLAUSE_TEMPLATES = [
     id: "accessory-dwelling-unit-term-co",
     title: "The Premises Is an Accessory Dwelling Unit",
     group: "Notices & General",
-    states: ["CO", "UT", "MO", "IN", "OK", "MI", "MT"],
+    states: ["CO", "UT", "MO", "IN", "OK", "MI", "MT", "WI", "NY"],
     bodyText:
       "The Premises is an accessory dwelling unit: a separate dwelling with its own living, sleeping, cooking and bathroom facilities, located on the same lot as the primary residence at {{property_address}}. You acknowledge that [describe who occupies the primary residence on the lot, for example \"the Landlord occupies the primary residence on the lot\"], and that the following areas are shared rather than part of the Premises: [list shared areas - driveway, parking space, yard, walkways, trash enclosure, laundry, storage]. You may use those shared areas for their ordinary purpose, and you will not store property in them, block the driveway or the primary residence's access, or use them in a way that interferes with the occupants of the primary residence. The following utilities serve the Premises and the primary residence through the same meter or connection and are handled as set out in the utilities section of this Lease: [list shared utilities, or write \"none\"]. Because the Premises and the primary residence sit on one lot and share these areas, both households will keep noise, guests, pets, vehicles and outdoor activity to a level that does not unreasonably disturb the other, and we will each give the other reasonable notice before work or deliveries that will block shared access. Nothing in this section reduces your right to exclusive possession of the inside of the Premises or any right you have under law.",
   },
@@ -13632,7 +13632,7 @@ const CLAUSE_TEMPLATES = [
     id: "emergency-contact-co",
     title: "Tenant's Emergency Contact (Optional)",
     group: "Notices & General",
-    states: ["CO", "AZ", "SC", "PA", "UT", "IL", "MO", "ID", "OK", "MI", "IA", "NM"],
+    states: ["CO", "AZ", "SC", "PA", "UT", "IL", "MO", "ID", "OK", "MI", "IA", "NM", "WI"],
     bodyText:
       "[Optional.] Tenant will give Landlord the name, relationship and telephone number of at least one person Landlord may try to reach in an emergency affecting Tenant or the Property, and will tell Landlord in writing if that information changes. Landlord may contact that person only in an emergency, or when Landlord cannot reach Tenant about an urgent condition at the Property, and will not use the information for any other purpose or give it to anyone else except as the law requires. Naming a contact does not make that person liable for Rent or for any other obligation under this Lease, does not make that person Tenant's agent, and does not give that person any right to enter the Property. Emergency contact name: [name]. Relationship to Tenant: [relationship]. Telephone: [telephone number].",
   },
@@ -13668,7 +13668,7 @@ const CLAUSE_TEMPLATES = [
     id: "farmland-sporting-rights-co",
     title: "Hunting, Fishing and Trapping Reserved (Optional)",
     group: "Rules & Regulations",
-    states: ["CO", "SD", "NV", "TX", "NJ", "GA", "NC", "AL", "UT", "IN"],
+    states: ["CO", "SD", "NV", "TX", "NJ", "GA", "NC", "AL", "UT", "IN", "WI"],
     bodyText:
       "[Optional. For rural or agricultural property.] Landlord reserves to Landlord all rights to hunt, fish and trap on the Property and all rights to grant those privileges to others. Tenant will not hunt, fish or trap on the Property, and will not give any other person permission to enter the Property to hunt, fish or trap, unless Landlord has agreed in writing. If Landlord gives that written agreement, Tenant will comply with every condition in it and with all state and local wildlife and firearms law, and nothing in it makes Landlord responsible for the acts of anyone Tenant allows on to the Property. Landlord and anyone Landlord authorizes may enter the unoccupied land of the Property to hunt, fish or trap, and will do so without unreasonably interfering with Tenant's use of the Property or with any crop or livestock, and will not enter any dwelling on the Property except as this Lease otherwise allows.",
   },
@@ -13730,7 +13730,7 @@ const CLAUSE_TEMPLATES = [
     id: "home-business-permission-co",
     title: "Home-Based Business (Landlord's Permission)",
     group: "Tenant Responsibilities",
-    states: ["CO", "UT", "MO", "IN", "OK"],
+    states: ["CO", "UT", "MO", "IN", "OK", "NY"],
     bodyText:
       "[Optional. Use instead of a flat ban where Landlord is willing to allow a home business. Delete if business use is not permitted.] Landlord gives Tenant permission to operate the following home-based business at the Property: [describe the business, including whether customers, clients or children will come to the Property]. This permission is personal to Tenant, applies only to that business, and may be withdrawn only for a reason stated in this Section. Tenant will: keep the Property in use primarily as a residence; obtain and keep current every licence, registration and permit the business requires, including any local zoning or home occupation permit, and give Landlord a copy on request; comply with any rules of a homeowners or condominium association that apply to the business, and with local noise and nuisance rules; carry liability insurance covering the business, naming Landlord and any association as additional insureds, at a level of at least {{tenant_insurance_minimum}}, and give Landlord a certificate on request; not allow the business to create noise, odours, traffic, parking demand or signage that disturbs other residents or neighbours; not make any alteration to the Property for the business without Landlord's written consent; and be responsible for the cost of repairing damage to the Property caused by the business that goes beyond normal wear and tear and did not exist before the tenancy began. Landlord may withdraw this permission by [number] days written notice if Tenant loses a required licence or permit, if the business is operated in breach of this Section, or if an association or a government authority requires the business to stop. Withdrawing this permission does not end the Lease, and Tenant may continue to occupy the Property as a residence.",
   },
@@ -13845,7 +13845,7 @@ const CLAUSE_TEMPLATES = [
     id: "utility-shutoff-notice-authorization-co",
     title: "Authorization for Utility Notices to Landlord (Optional)",
     group: "Notices & General",
-    states: ["CO", "SC", "AL", "UT", "ID", "OK", "MI", "IA", "NM", "MT"],
+    states: ["CO", "SC", "AL", "UT", "ID", "OK", "MI", "IA", "NM", "MT", "NY"],
     bodyText:
       "[Optional.] Tenant authorizes Landlord to be listed with each utility provider serving the Premises as an additional contact for notices about Tenant's account for the Premises, including any notice of pending disconnection, and will sign any form a provider requires to do that. Tenant also authorizes each provider to confirm to Landlord whether service to the Premises is connected and in Tenant's name. Landlord's receipt of a notice under this Section does not make Landlord responsible for Tenant's utility charges, and nothing in this Section requires any provider to give Landlord notice.",
   },
@@ -13962,7 +13962,7 @@ const CLAUSE_TEMPLATES = [
     id: "cold-weather-vacate-notice-wy",
     title: "Cold Weather Notice Before Vacating",
     group: "Tenant Responsibilities",
-    states: ["WY", "SC", "PA", "IL", "ID"],
+    states: ["WY", "SC", "PA", "IL", "ID", "WI"],
     bodyText:
       "Tenant understands that the Premises contain water supply lines, drains and other plumbing that can be damaged by freezing. From October 1 through May 1, Tenant will keep the heat in the Premises on and set no lower than fifty-five (55) degrees Fahrenheit at all times, including while Tenant is away. If during that period Tenant will be away from the Premises for more than three (3) consecutive days, Tenant will give Landlord written notice before leaving, stating the dates Tenant expects to be away and a telephone number at which Tenant can be reached. Tenant will notify Landlord immediately, at any time of year, if the heating system fails, if the Premises lose utility service, or if Tenant discovers a leak or a frozen or burst line. Landlord may enter the Premises during Tenant's absence as permitted by this Lease to protect the Premises from freezing. If Tenant fails to give the notice this paragraph requires or fails to keep the heat on as required, Tenant is responsible to Landlord for freeze damage to the Premises that the notice or the heat would have prevented. This paragraph does not apply where Landlord has agreed to supply or maintain the heating system and the failure is Landlord's to repair, and does not apply at the end of the Term when Tenant is vacating for good.",
   },
@@ -14067,7 +14067,7 @@ const CLAUSE_TEMPLATES = [
     id: "energy-data-release-wy",
     title: "Energy Usage Data Authorization",
     group: "Notices & General",
-    states: ["WY", "SD", "NV", "TX", "FL", "GA", "SC", "NC", "AL", "UT", "IL", "MO", "ID", "IN", "OK", "MI", "IA", "NM", "MT"],
+    states: ["WY", "SD", "NV", "TX", "FL", "GA", "SC", "NC", "AL", "UT", "IL", "MO", "ID", "IN", "OK", "MI", "IA", "NM", "MT", "WI", "NY"],
     bodyText:
       "[Optional. Use where the electric, gas or water account for the property is in Tenant's name and Landlord wants usage data for building benchmarking, an energy audit, a rebate application or utility allocation.] Tenant authorizes each electric, gas and water utility serving the property to release to Landlord or Landlord's designated agent the monthly usage and billing history for the property for the period of Tenant's tenancy, for the purpose of benchmarking, auditing or improving the energy or water performance of the building, or applying for a utility or government efficiency program. Tenant will, within ten (10) days of Landlord's written request, sign and deliver whatever release, authorization or online consent the utility requires to give effect to this paragraph. Landlord will use the data only for the purposes stated above, will not disclose Tenant's individual data to any other person except a contractor or consultant performing the benchmarking or audit, or as required by law, and will report the building's data to any third party only in aggregated form. Tenant may withdraw this authorization at any time by written notice to Landlord, and withdrawal is not a breach of this Agreement.",
   },
@@ -15098,7 +15098,7 @@ const CLAUSE_TEMPLATES = [
     id: "rental-inspection-cooperation-mn",
     title: "Government Inspections",
     group: "Tenant Responsibilities",
-    states: ["MN", "TX", "GA", "NC", "PA", "AL", "IL", "ID", "OK"],
+    states: ["MN", "TX", "GA", "NC", "PA", "AL", "IL", "ID", "OK", "NY"],
     bodyText:
       "Landlord may have to let a state, county or city official inspect the property to enforce a health, housing, building, fire prevention or housing maintenance code. Tenant will cooperate with such an inspection. Landlord will give Tenant notice of the inspection and will enter only as this Lease's entry section allows. Nothing in this Section waives Tenant's right to advance notice of Landlord's entry, and nothing in it is Tenant's consent for an inspector to enter without Tenant's permission at the time. If an inspector asks to enter and Tenant is not willing, Tenant will tell Landlord promptly. Tenant will not create or allow a condition on the property that breaches any such code. Landlord will promptly correct any condition an inspection finds that is Landlord's responsibility. Nothing in this Section limits Tenant's right to report a condition to, or ask for an inspection by, any government body.",
   },
@@ -15249,7 +15249,7 @@ const CLAUSE_TEMPLATES = [
     id: "waterbed-mn",
     title: "Waterbeds and Liquid-Filled Furniture (Optional)",
     group: "Rules & Regulations",
-    states: ["MN", "AZ", "SC", "NC", "PA", "AL", "UT", "IL", "MO", "ID", "IA", "NM"],
+    states: ["MN", "AZ", "SC", "NC", "PA", "AL", "UT", "IL", "MO", "ID", "IA", "NM", "NY"],
     bodyText:
       "[Optional.] Waterbeds and liquid-filled furniture. Tenant will not keep a waterbed, a water-filled mattress, an aquarium over [insert size, for example 20 gallons], or other liquid-filled furniture at the property without Landlord's prior written consent.\n\nIf Landlord consents, Tenant will keep the item in a frame and liner made for it, and in a place Landlord approves.\n\nTenant will also keep renter's or liability insurance covering water damage, of at least {{flotation_insurance_amount}}, for as long as the item is at the property. Tenant will give Landlord proof of that insurance on request.\n\nTenant is responsible for damage the item causes. Tenant is not responsible for normal wear and tear, or for damage that was there before this tenancy began.",
   },
@@ -16727,7 +16727,7 @@ const CLAUSE_TEMPLATES = [
     id: "utility-transfer-nj",
     title: "Transfer of Utility Accounts",
     group: "Tenant Responsibilities",
-    states: ["NJ", "SC", "AL", "UT", "MO", "IN", "MI", "IA", "NM"],
+    states: ["NJ", "SC", "AL", "UT", "MO", "IN", "MI", "IA", "NM", "NY"],
     bodyText:
       "For each utility this Lease makes Tenant's responsibility, Tenant will open or transfer the account into Tenant's own name with the provider, effective on or before [insert date, e.g. the first day of the Term], and keep it in Tenant's name until the Term ends and Tenant has vacated. If any such account remains in Landlord's name for any part of the Term, Tenant will reimburse Landlord the amount the provider actually charged for service to the Premises for that period, within [number] days after Landlord gives Tenant a copy of the provider's bill. This reimbursement is not Rent, and no late fee applies to it. Landlord will not shut off, interrupt or ask a provider to discontinue any utility service to the Premises because Tenant has not transferred an account or has not paid a reimbursement.",
   },
@@ -17726,7 +17726,7 @@ const CLAUSE_TEMPLATES = [
     id: "appliances-excluded-il",
     title: "Items Not Supplied by Landlord",
     group: "Landlord Responsibilities",
-    states: ["IL"],
+    states: ["IL", "NY"],
     bodyText:
       "[Optional. Use only for items Landlord leaves at the property but will not maintain, such as an appliance left by a prior occupant. Never list a heating, cooling, plumbing, electrical, water-heating or gas appliance or system, a smoke detector or carbon monoxide alarm, or anything whose failure could affect health or safety; if you don't want to maintain such an item, repair, replace or remove it before the tenancy starts.] ITEMS NOT SUPPLIED BY LANDLORD. The following items are at the property but are not supplied by Landlord under this Lease, and Landlord does not agree to repair, maintain or replace them: {{excluded_appliance_list}}. Tenant may use them as they are or ask Landlord in writing to remove them, and Landlord will remove them within a reasonable time after that request. Landlord will not charge Tenant any fee for a listed item or for removing it. Any appliance Tenant brings to the property remains Tenant's property, Tenant is responsible for maintaining it, and Tenant will remove it when this Lease ends. This Section does not apply to any item this Lease lists as included, to any repair that a law, administrative rule or local ordinance requires Landlord to make, or to any defect Landlord knew of and did not disclose to Tenant in writing before this Lease was signed. Nothing in this Section exempts Landlord from liability for damages for injuries to any person or property caused by the negligence of Landlord or Landlord's agents, servants or employees in the operation or maintenance of the property.",
   },
@@ -17963,7 +17963,7 @@ const CLAUSE_TEMPLATES = [
     id: "tenant-portal-il",
     title: "Tenant Portal",
     group: "Rent & Payment",
-    states: ["IL"],
+    states: ["IL", "NY"],
     bodyText:
       "[Optional.] TENANT PORTAL. Landlord may make an online tenant portal available for rent payments, maintenance requests and notices. Using the portal is Tenant's choice. Landlord will not require Tenant to pay Rent or any other amount through the portal or by any other electronic funds transfer, and Tenant may always pay by [state at least one method that is not an electronic funds transfer, such as check or money order delivered to an address]. If the portal charges a transaction fee or any other charge on a payment, Tenant may instead pay without that charge by [choose one: delivering a paper check or cash to Landlord or Landlord's business office at (address) / (describe another payment method that carries no fee)]. Tenant may sign documents through the portal only if Tenant chooses to, and Tenant may at any time refuse to sign, send or receive later documents electronically by telling Landlord in writing. Tenant may give any notice this Lease or the law requires by the methods this Lease sets out, whether or not Tenant uses the portal. Any notice the law requires to be served by a particular method, including a demand for rent or a notice ending the tenancy, will be served by that method, whether or not a copy is also posted to the portal. Tenant's email address for the portal is {{tenant_email}}. Tenant will tell Landlord promptly if it changes.",
   },
@@ -18101,7 +18101,7 @@ const CLAUSE_TEMPLATES = [
     id: "portable-solar-mo",
     title: "Solar and Generating Devices",
     group: "Rules & Regulations",
-    states: ["MO", "IA"],
+    states: ["MO", "IA", "NY"],
     bodyText:
       "[Optional.] Solar and generating devices. Tenant will not install, attach, mount or use any solar panel, plug-in or balcony solar device, solar collector, battery storage system or other electricity-generating equipment on or at the Premises, the building, any balcony, patio, roof, exterior wall, window or common area, without Landlord's prior written consent, and will not connect any such equipment to the electrical wiring of the Premises or operate it in connection with the electric utility unless Landlord consents in writing and the electric utility has given any written approval it requires. If Landlord consents: Tenant pays all costs of the equipment and its installation; the equipment and its installation will meet applicable codes and the manufacturer's instructions; nothing may penetrate the roof, an exterior wall or a window frame unless Landlord's consent says so; Tenant is responsible for any damage the equipment, its installation or its removal causes; and at the end of the tenancy Tenant will remove the equipment and restore the Premises to its condition before installation, ordinary wear and tear excepted, unless Landlord agrees in writing that it may stay, in which case it becomes Landlord's property. Nothing in this Section limits a reasonable modification Tenant is entitled to make because of a disability, or any other right Tenant has under law.",
   },
@@ -18573,7 +18573,7 @@ const CLAUSE_TEMPLATES = [
     id: "hunting-fishing-consent-ok",
     title: "Hunting, Trapping and Fishing",
     group: "Rules & Regulations",
-    states: ["OK"],
+    states: ["OK", "NY"],
     bodyText:
       "[Optional.] Tenant will not hunt, trap or fish on the Property, and will not give anyone else permission to hunt, trap or fish on the Property, without Landlord's prior written consent. Any consent Landlord gives covers only the persons, areas and period stated in it.",
   },
@@ -18747,7 +18747,7 @@ const CLAUSE_TEMPLATES = [
     id: "association-documents-delivery-mi",
     title: "Association Documents Given to Tenant",
     group: "Disclosures",
-    states: ["MI"],
+    states: ["MI", "NY"],
     bodyText:
       "[Optional.] ASSOCIATION DOCUMENTS. [Use only if the Property is in a condominium or a homeowners' association.] Before signing this Lease, Landlord gave Tenant a copy of the association's rules and of the master deed, bylaws, declaration or recorded restrictions that limit or affect the use and occupancy of the Property, and Tenant acknowledges receiving them. Landlord will give Tenant a copy of any later change to those documents that affects Tenant's use of the Property within a reasonable time after Landlord receives it. This Section adds to, and does not replace, this Lease's statement that Tenant will comply with the condominium documents and association rules.",
   },
@@ -18817,7 +18817,7 @@ const CLAUSE_TEMPLATES = [
     id: "fire-code-compliance-mi",
     title: "Fire Safety",
     group: "Tenant Responsibilities",
-    states: ["MI"],
+    states: ["MI", "NY"],
     bodyText:
       "[Optional.] FIRE SAFETY. Tenant will not do anything on the property that violates the state fire safety rules, the state construction code or any local fire ordinance. Tenant will not store or allow to accumulate on the property any combustible or explosive material, rubbish, rags, waste or other flammable matter beyond ordinary household quantities, including in shared hallways, stairways, landings, entries and exits. Tenant will keep all exits, stairways and fire escapes clear and will not place anything on a fire escape or in the way to one. Tenant will not disable, remove or obstruct any smoke or carbon monoxide alarm, fire extinguisher, sprinkler head, fire door or exit light. If a fire official orders Tenant to remove material or correct a condition that was caused by the wilful or irresponsible conduct or lack of conduct of Tenant, an Occupant or a guest of Tenant, Tenant will comply within the time the order allows and will tell Landlord at once. Landlord may enter to inspect for and correct a fire hazard as this Lease's entry section allows. If Tenant does not correct such a condition, Landlord may correct it and charge Tenant only the amount a contractor or other third party bills Landlord for that work or, if Landlord does the work itself, the price Landlord paid for the parts and materials used, with no markup, labor charge or added fee; Landlord will give Tenant a copy of the bill or receipt when Landlord charges Tenant.",
   },
@@ -18887,7 +18887,7 @@ const CLAUSE_TEMPLATES = [
     id: "utility-allowance-cap-mi",
     title: "Utility Allowance with Tenant-Paid Overage",
     group: "Rent & Payment",
-    states: ["MI"],
+    states: ["MI", "NY"],
     bodyText:
       "[Optional.] UTILITY ALLOWANCE. [Use only for a utility this Lease lists as paid by Landlord whose account is in Landlord's name and whose provider bills the property alone. For electricity or natural gas, use only where a meter owned by the utility serves only the property. Do not use it for a bill shared with other units or measured by a Landlord submeter, or in a mobile home park.] Landlord will pay for [specify utility] up to {{utility_allowance_amount}} for each of the provider's billing periods. If the provider's charge for the property for a billing period is more than that amount, Tenant will pay Landlord the difference and nothing more, with no markup, administrative fee or other added charge. Landlord will give Tenant a copy of the provider's bill for that period with each request for payment, and Tenant will pay within [number] days after receiving it. Landlord will not shut off, interrupt or ask a provider to discontinue any utility service to the property because Tenant has not made a payment under this Section.",
   },
@@ -19019,7 +19019,7 @@ const CLAUSE_TEMPLATES = [
     id: "portable-cooling-device-ia",
     title: "Cooling Equipment and Window Units",
     group: "Rules & Regulations",
-    states: ["IA"],
+    states: ["IA", "NY"],
     bodyText:
       "[Optional.] Cooling equipment. Landlord supplies the following air-conditioning or cooling equipment at the property and will maintain it as the law requires: [list each item, or write \"none\"]. Tenant may use a floor-standing portable air conditioner or fan that plugs into an ordinary outlet. Tenant will not install a window-mounted or through-the-wall air conditioner without Landlord's prior written consent. If Landlord consents, Tenant will install the unit securely so that it cannot fall, will not place it in a window needed for emergency escape, will not overload an electrical circuit, and at the end of the Term will remove it and repair any damage its installation or removal causes. Tenant is responsible for damage caused by a cooling unit Tenant installs or uses. Nothing in this Section limits Tenant's right to a reasonable accommodation or reasonable modification for a disability, or Landlord's duty to maintain equipment Landlord supplies.",
   },
@@ -19455,6 +19455,246 @@ const CLAUSE_TEMPLATES = [
     states: ["MT"],
     bodyText:
       "[Optional.] Waterbeds and liquid-filled furniture. Tenant will not keep a waterbed, a water-filled mattress, an aquarium over [insert size, for example 20 gallons], or other liquid-filled furniture at the property without Landlord's prior written consent.\n\nIf Landlord consents, Tenant will keep the item in a frame and liner made for it, and in a place Landlord approves.\n\nTenant will also keep renter's or liability insurance covering water damage, of at least {{flotation_insurance_amount}}, for as long as the item is at the property. Tenant will give Landlord proof of that insurance on request.\n\nTenant is responsible for damage the item causes, except damage caused by the negligence or purposeful misconduct of Landlord or Landlord's agents. Tenant is not responsible for normal wear and tear, or for damage that was there before this tenancy began.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "tenant-caused-fines-wi",
+    title: "Fines Caused by Tenant (Optional)",
+    group: "Tenant Responsibilities",
+    states: ["WI"],
+    bodyText:
+      "[Optional.] If a government agency fines or penalizes Landlord, or charges Landlord the cost of abating a nuisance, because of a violation of law that Tenant or Tenant's guests or invitees committed at the property, Tenant will pay Landlord the amount Landlord paid within [number of days] days after Landlord gives Tenant written notice with a copy of the citation, order or bill. This Section does not apply to a fine or charge for a condition Landlord is responsible for under this Lease or the law, including Landlord's repair duties. Landlord will not deduct the amount from a Rent payment, and will not withhold it from the Security Deposit unless a signed NONSTANDARD RENTAL PROVISIONS document allows that withholding.",
+  },
+  {
+    id: "construction-liens-wi",
+    title: "No Liens From Tenant's Work",
+    group: "Tenant Responsibilities",
+    states: ["WI"],
+    bodyText:
+      "[Optional.] Tenant will pay in full everyone Tenant hires, or whose work or materials Tenant orders, for any construction, alteration or repair at the property, and will not allow a construction lien to be filed against the property for that work. If a lien is filed because of work Tenant ordered, Tenant will have it released within [number] days after Tenant learns of it. Tenant is not Landlord's agent for any work Tenant orders, and before work begins Tenant will tell each contractor and supplier in writing that Tenant, not Landlord, is responsible for paying for it. Any consent Landlord gives to an alteration under this Lease is consent only as between Landlord and Tenant and is not an agreement by Landlord to pay for the work. This Section does not make Tenant pay Landlord's attorney fees or court costs; those are recoverable only as a court awards them.",
+  },
+  // Rent & Payment
+  {
+    id: "guarantor-renewal-wi",
+    title: "Guaranty",
+    group: "Rent & Payment",
+    states: ["WI"],
+    bodyText:
+      "[Optional. Use only if a guarantor signs this Lease.] GUARANTY. In consideration of Landlord's entering into this Lease with Tenant, [guarantor's full name] (\"Guarantor\") signs this Lease to guarantee to Landlord that Tenant will pay the Rent and perform Tenant's other obligations under this Lease, up to a total maximum of $[maximum amount]. This guaranty covers the Term and [choose one: also covers any renewal, extension or month-to-month continuation of this Lease, including any change in Rent made under this Lease / ends when the Term ends, except for amounts that became due during the Term]. Guarantor's obligations are never larger than Tenant's, and this guaranty does not make Guarantor pay Landlord's attorney fees or costs except as a court awards them. Landlord may ask Guarantor to pay without first suing Tenant. Guarantor has read this Lease and received a copy.",
+  },
+  // Disclosures
+  {
+    id: "electric-account-charge-notice-wi",
+    title: "Electric Cooperative Account Charge",
+    group: "Disclosures",
+    states: ["WI"],
+    bodyText:
+      "[Use only if the electric account for the Premises is with an electric cooperative, the account is subject to a project electric account charge under a written agreement, and Tenant will pay the electric bills. Give Tenant the notice and the copy described below before Tenant signs this Lease.] Electric Account Charge. The electric account for the Premises is subject to a project electric account charge under a written agreement with [name of electric cooperative] for [describe the project, for example energy efficiency improvements or a backup generator]. The charge will appear as a line item on the electric bills for the Premises. [State the amount per billing period and when the charge is expected to end, if known.] Before signing this Lease, Tenant received from Landlord notice of that written agreement and a copy of the notice of electric account charge.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "pest-cooperation-wi",
+    title: "Bed Bugs and Pest Treatment",
+    group: "Tenant Responsibilities",
+    states: ["WI"],
+    bodyText:
+      "[Optional.] Tenant will promptly tell Landlord if Tenant knows or reasonably suspects that the property has bed bugs or another infestation of insects, rodents or other pests. Tenant will allow Landlord, Landlord's agents and pest control operators to enter the property to inspect for and treat the infestation as this Lease's entry section allows, and will follow the reasonable written preparation instructions Landlord or the pest control operator gives. If the infestation was caused by the acts or inaction of Tenant, or by the negligence or improper use of the property by Tenant's guests or invitees, the cost of treatment and of repairing the resulting damage is handled under this Lease's section on damage caused by Tenant. Otherwise, Landlord will pay for treatment as part of Landlord's repair obligations.",
+  },
+  // Disclosures
+  {
+    id: "continuing-obligation-wi",
+    title: "Environmental Continuing Obligation",
+    group: "Disclosures",
+    states: ["WI"],
+    bodyText:
+      "[Use only if an agency has imposed a continuing obligation on the property after an environmental cleanup under Wis. Stat. ch. 292 (for example in the Department of Natural Resources' closure of a contaminated site), and the obligation makes the occupants responsible for maintaining it. Describe the obligation from the agency's closure letter or database entry.] Continuing Obligation. The property is subject to a continuing obligation imposed by [name of agency] in connection with [describe the site or case, for example the closure of a contaminated site; give the case or database number if known]. Tenant is responsible for the following part of that obligation: [describe exactly what Tenant must do or avoid, for example \"do not dig in or disturb the paved cap over the rear lot\" or \"do not switch off or remove the vapor mitigation fan\"]. Tenant will comply with that requirement and will allow the agency reasonable access to the property to inspect the continuing obligation.",
+  },
+  // Rules & Regulations
+  {
+    id: "portable-cooling-device-wi",
+    title: "Air Conditioners and Cooling Units",
+    group: "Rules & Regulations",
+    states: ["WI"],
+    bodyText:
+      "[Optional.] Cooling equipment. Landlord supplies the following air-conditioning or cooling equipment at the property and will maintain it as the law requires: [list each item, or write \"none\"]. Tenant may use a floor-standing portable air conditioner or fan that plugs into an ordinary outlet. Tenant will not install a window-mounted or through-the-wall air conditioner without Landlord's prior written consent. If Landlord consents, Tenant will install the unit securely so that it cannot fall, will not place it in a window needed for emergency escape, will not overload an electrical circuit, and at the end of the Term will remove it and repair any damage its installation or removal causes. Damage to the property caused by the acts or inaction of Tenant, or by the negligence or improper use of Tenant's guests or invitees, in installing or using a cooling unit is handled under this Lease's section on damage caused by Tenant. Any repair to the property that Tenant makes or pays for under this Section belongs to Landlord and may not be removed. Nothing in this Section limits Tenant's right to a reasonable accommodation or reasonable modification for a disability, or Landlord's duty to maintain equipment Landlord supplies.",
+  },
+  // Other / Miscellaneous
+  {
+    id: "furnishings-included-wi",
+    title: "Furnishings",
+    group: "Other / Miscellaneous",
+    states: ["WI"],
+    bodyText:
+      "[Optional. Use only if the property is rented furnished.] Furnishings: The property is rented furnished. The furniture and furnishings Landlord provides, and their condition at the start of this Lease, are: [list each item and its condition, or attach an inventory signed by Landlord and Tenant]. They are part of the premises leased to Tenant. Tenant will keep them at the property, will not remove or dispose of any item without Landlord's written consent, and will tell Landlord promptly of any damage to them. If any item is damaged, beyond normal wear and tear, due to the acts or inaction of Tenant or Tenant's guests or invitees, Tenant will pay Landlord's reasonable cost to repair it or, if it cannot reasonably be repaired, to replace it with a comparable item. Any repair or replacement Tenant pays for belongs to Landlord and may not be removed from the property.",
+  },
+  // Disclosures
+  {
+    id: "condo-unit-particulars-ny",
+    title: "Condominium Unit Particulars",
+    group: "Disclosures",
+    states: ["NY"],
+    bodyText:
+      "[Use only if the Premises is a unit in a condominium under New York's Condominium Act.] Condominium Unit. The Premises is the unit designated [unit designation in the declaration] in [name of the condominium], located in the [city, village or town] of [name], [county] County, New York, under the declaration recorded in the office of the [county clerk or register] on [date of recording] in Liber [liber] at Page [page]. [Add any other information needed to identify the unit.] The declaration states that the unit is intended for use as [use stated in the declaration]. The common interest that goes with the unit is [percentage] percent.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "no-liens-ny",
+    title: "No Liens for Tenant's Work",
+    group: "Tenant Responsibilities",
+    states: ["NY"],
+    bodyText:
+      "[Optional. Use where Tenant may order any construction, alteration or repair at the property.] Tenant will pay in full everyone Tenant hires, or whose work or materials Tenant orders, for any construction, alteration or repair at the property, and will not allow a mechanic's lien to be filed against the property for that work. If a lien is filed because of work Tenant ordered, Tenant will have it discharged within {{lien_release_days}} days after Tenant learns of it. Tenant is not Landlord's agent for any work Tenant orders. Before work begins, Tenant will tell each contractor and supplier in writing that Tenant, not Landlord, is responsible for paying for it. Any consent Landlord gives to an alteration under this Lease is consent only as between Landlord and Tenant. It is not a request by Landlord for the work and not an agreement by Landlord to pay for it.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "designated-repairer-ny",
+    title: "Repair Requests and Approved Repairers",
+    group: "Landlord Responsibilities",
+    states: ["NY"],
+    bodyText:
+      "[Optional.] Repair Requests and Approved Repairers: Tenant will report repair needs to Landlord at {{landlord_repair_contact}}. Tenant will not make, or hire anyone to make, any repair or other work on the property at Landlord's expense, and will not deduct any repair cost from Rent, unless Landlord first agrees in writing. Landlord's written agreement will name the person or company Landlord approves to do the work and any cost limit. Tenant will not hire any contractor or other person to work on the property, even at Tenant's own expense, without Landlord's written consent, except for upkeep this Lease or a separate signed maintenance agreement assigns to Tenant. If a condition threatens health, safety or serious damage to the property (for example, a water leak, a gas smell, loss of heat in freezing weather or a power failure) and Landlord cannot be reached, Tenant may take reasonable steps to prevent further harm, such as shutting off water or power at the source or calling the utility or emergency services, and will tell Landlord as soon as possible. Any part or material installed in a repair Landlord approves becomes part of the property. This Section does not reduce any duty Landlord has under New York law, does not limit how Tenant may tell Landlord about needed repairs, and does not limit any right New York law gives Tenant to pay a utility or heating-fuel bill Landlord failed to pay and deduct it from Rent, to have work done or paid for under a court order, to abate Rent or recover damages for Landlord's failure to repair, or to install a lock or make a modification the law allows.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "extended-absence-notice-ny",
+    title: "Notice of Extended Absence (Optional)",
+    group: "Tenant Responsibilities",
+    states: ["NY"],
+    bodyText:
+      "[Optional.] Notice of Extended Absence: If Tenant expects to be away from the property for more than [number of consecutive days Landlord chooses, for example 7] consecutive days, Tenant will give Landlord written notice no later than the first day of the absence, stating the date Tenant expects to return and a telephone number or email address where Tenant can be reached during the absence. An absence, with or without this notice, does not end this Lease, is not a surrender of the property, and does not change any of Tenant's obligations, including paying Rent when due. Landlord may enter the property during the absence only as this Lease and New York law permit. If Tenant fails to give this notice, Tenant is responsible for the actual cost of repairing damage to the property that the notice would have allowed Landlord to prevent.",
+  },
+  // Rules & Regulations
+  {
+    id: "family-child-care-consent-ny",
+    title: "Child Care at the Property (Optional)",
+    group: "Rules & Regulations",
+    states: ["NY"],
+    bodyText:
+      "[Optional. Use only if Landlord agrees to allow child care in the property.] Child Care: Despite the residential-use terms of this Lease, Tenant may care for children who do not live in the property only while Tenant: (1) holds and keeps current any registration or license, or qualifies for any exemption, that New York law requires for the care provided; (2) complies with all state and local laws, including zoning and building codes, and with any association rules that apply to the property; (3) gives Landlord written notice before starting, with a copy of any required registration or license, and promptly tells Landlord of any change; (4) cares for no more than {{max_children_in_care}} children at a time who do not live in the property, and never more than the registration or license allows; and (5) keeps liability insurance covering the child care with limits of at least {{child_care_liability_amount}}, and gives Landlord a certificate of that insurance on request. Tenant is responsible for damage to the property caused by the child care beyond normal wear and tear. This permission does not change any other term of this Lease. Landlord may withdraw this permission by written notice if Tenant stops meeting these conditions, and Tenant will then stop providing the care within [number] days.",
+  },
+  // Rent & Payment
+  {
+    id: "government-fee-reimbursement-ny",
+    title: "Government Rental Fees",
+    group: "Rent & Payment",
+    states: ["NY"],
+    bodyText:
+      "[Optional. Use only for a fee a government charges Landlord because the property is rented, and only where no local law bars passing it on to the tenant; the library does not research local law. Where the Good Cause Eviction Law applies, the reimbursement may count as rent under that law.] If a city, town, village, county or other government charges Landlord a fee during the Term because the property is rented, such as a rental registration, rental permit or rental inspection fee, Tenant will reimburse Landlord [all / the following percentage:] of the part of that fee that covers the property and the Term, within [number] days after Landlord gives Tenant written notice with a copy of the bill. Landlord will not ask for any part of the fee before or at the beginning of the tenancy, will not take it from the Security Deposit, and will not apply any Rent payment to it. This Section does not cover a fine or penalty, a building-permit or construction fee, or a fee charged because of Landlord's own violation.",
+  },
+  {
+    id: "governmental-fines-ny",
+    title: "Government Fines Caused by Tenant",
+    group: "Rent & Payment",
+    states: ["NY"],
+    bodyText:
+      "[Optional.] If a government agency fines or penalizes Landlord, or charges Landlord the cost of correcting or abating a condition, because of a violation that Tenant, a member of Tenant's household, Tenant's guest or another person on the property with Tenant's consent caused by a willful act, assistance or negligence, Tenant will reimburse Landlord the amount Landlord paid within [number] days after Landlord gives Tenant written notice with a copy of the citation, order or bill. This applies even where the law also holds Landlord responsible for the condition. It does not apply to a fine or charge for a condition that Landlord, or a person acting for Landlord, caused. Landlord will not take this amount from the Security Deposit and will not apply any Rent payment to it.",
+  },
+  // Disclosures
+  {
+    id: "environmental-easement-ny",
+    title: "Environmental Easement",
+    group: "Disclosures",
+    states: ["NY"],
+    bodyText:
+      "[Required if the property, or any part of it Tenant may use, is subject to an environmental easement held by the New York State Department of Environmental Conservation. Attach a copy of the recorded easement, and give its recording data as book (liber) and page. BUILDER: print the sentence beginning \"This property is subject\" in bold face, at least fifteen-point type.] Environmental easement. This property is subject to an environmental easement held by the New York state department of environmental conservation pursuant to title 36 of article 71 of the environmental conservation law. The easement is recorded at {{environmental_covenant_recording_data}}. The easement is incorporated into this Lease by this reference, and a copy is attached. It limits use of the property as follows: {{environmental_covenant_use_limitations}}. The easement binds Tenant as a lessee. Tenant will use the property only as the easement permits, will not disturb, damage or interfere with any engineering control it protects (for example a cover, cap, barrier, venting system or monitoring well), and will promptly tell Landlord in writing of any damage to such a control and of any notice about the property Tenant receives from a government agency.",
+  },
+  {
+    id: "indoor-air-test-notice-ny",
+    title: "Indoor Air Test Results Notice",
+    group: "Disclosures",
+    states: ["NY"],
+    bodyText:
+      "[Required if an engineering control is in place at the property to mitigate indoor air contamination, or the property is under ongoing monitoring in a state remedial program, and Landlord has received indoor air contamination test results from a party conducting the cleanup or from the Department of Environmental Conservation. Before Tenant signs, give Tenant the Department of Health fact sheet, and on request the test results and any closure letter. BUILDER: print this Section on the first page of the Lease in bold face, at least twelve-point type.] **NOTIFICATION OF TEST RESULTS The property has been tested for contamination of indoor air: test results and additional information are available upon request.**",
+  },
+  {
+    id: "gjgny-charge-notice-ny",
+    title: "Green Jobs-Green New York On-Bill Charge",
+    group: "Disclosures",
+    states: ["NY"],
+    bodyText:
+      "[Optional. Use only if a Green Jobs-Green New York on-bill recovery charge applies to an electric or gas meter for the property and Tenant will hold the account for that meter.] Energy efficiency charge. Energy efficiency work at the property ([describe the work, for example insulation and a new boiler]) was financed under the Green Jobs-Green New York program. The loan is repaid through an on-bill recovery charge of [amount] per billing period on the [electric / gas] bill for the property, expected to continue until [month and year]. The charge stays with the meter when the account holder changes, so the utility may bill it to Tenant while the account is in Tenant's name. [Choose one: Landlord will reimburse Tenant for each on-bill recovery charge Tenant pays within [number] days after Tenant gives Landlord a copy of the paid bill. / Tenant will pay the on-bill recovery charge as part of Tenant's [electric / gas] bill.]",
+  },
+  // Landlord Responsibilities
+  {
+    id: "promised-repairs-ny",
+    title: "Promised Repairs and Improvements",
+    group: "Landlord Responsibilities",
+    states: ["NY"],
+    bodyText:
+      "[Optional. Use whenever Landlord has agreed to clean, repair or improve anything at the property.] Landlord will complete the following cleaning, repairs or other work at the property, each on or before the date stated: [list each item and its completion date, or write \"None\"]. If a cause beyond Landlord's reasonable control, such as a labor stoppage, materials that cannot be obtained, or a fire or other casualty, delays an item, Landlord will tell Tenant in writing the reason and the new completion date. These items are one-time work, not a promise of continuing maintenance. This Section lists every promise Landlord has made to clean, repair or improve the property. If Tenant believes Landlord promised anything else, Tenant will say so in writing before signing this Lease so that it can be added. A later promise to clean, repair or improve the property binds Landlord only if it is in a writing Landlord signs. This Section does not limit Landlord's duty to keep the property fit to live in and in good repair, or any other right Tenant has under New York law.",
+  },
+  // Rent & Payment
+  {
+    id: "fees-and-charges-ny",
+    title: "Fees and Charges",
+    group: "Rent & Payment",
+    states: ["NY"],
+    bodyText:
+      "In addition to the Monthly Rent of {{monthly_rent}} and the Security Deposit of {{security_deposit}}, the following are all of the fees and charges Tenant may be required to pay under this Lease: [list each fee or charge, with its amount or how it is calculated and when it is due, and mark any optional fee as optional; or write \"None\". Do not list: any fee due before or at the beginning of the tenancy, other than the background and credit check fee allowed in the Amounts Due Upfront section; any legal, attorney, court, notary or administrative fee; any fee for paying Rent other than through an electronic system; any fee for copying keys of more than 110 percent of the actual cost of copying them, unless Tenant has asked for copies more than three times in the calendar year; any charge for Tenant's installing or keeping a lock the law lets Tenant install; or a late fee or returned-payment fee other than as those Sections allow]. Landlord will not charge Tenant any other fee or charge except an amount stated in another Section of this Lease, an amount a court awards, or a tax the law requires Tenant to pay. Landlord will not add a fee or charge during the Term unless Tenant agrees in writing.",
+  },
+  // Access & Entry
+  {
+    id: "smart-access-ny",
+    title: "Electronic Entry System",
+    group: "Access & Entry",
+    states: ["NY"],
+    bodyText:
+      "[Optional. Use where entry to the Premises or to a common entrance is by keypad code, key fob, card or mobile application.] Entry to {{smart_access_locations}} is by {{smart_access_method}}. Landlord will issue Tenant {{smart_access_credential_count}} credentials (such as codes, cards, fobs or app logins) at the start of the Term at no charge. Tenant will keep each credential and code confidential, will not copy or share one with anyone other than an occupant this Lease permits, and will tell Landlord in writing within {{lost_credential_notice_days}} days if a credential is lost, stolen or shared. Tenant will not remove, disable, reprogram or tamper with any part of the system. If the system does not let Tenant in, Tenant will tell Landlord promptly, and Landlord will restore Tenant's access promptly. Landlord will keep a backup means of entry available so that a power, battery or network failure does not keep Tenant out. Landlord may replace a credential to fix a security problem or a malfunction if Tenant receives a working replacement at the same time, but Landlord will never cancel, change or disable a credential to keep Tenant or any lawful occupant out of the Premises. An extra or replacement card or fob that Tenant asks for is charged like a key copy under the Keys section of this Lease. Landlord will use the system to enter the Premises only as the entry section of this Lease allows. At the end of the Term Tenant will return every card and fob. Landlord may deactivate Tenant's credentials only after Tenant and every lawful occupant have moved out and surrendered possession, or after Landlord has lawfully recovered possession through a court proceeding. This Section does not limit any lock the law entitles Tenant to add to the entrance door of the Premises.",
+  },
+  // Rent & Payment
+  {
+    id: "tax-escalation-ny",
+    title: "Tax and Insurance Increases",
+    group: "Rent & Payment",
+    states: ["NY"],
+    bodyText:
+      "[Optional. Where the Good Cause Eviction Law applies, Tenant's share is likely to count as rent under that law, and if it does, a total rent increase in a calendar year above the local rent standard is presumed unreasonable; check the figures before using this Section.] If the real property taxes assessed on [the property / the building or parcel of which the property is a part] for any tax year during the Term are higher than the taxes for [base tax year][, or if Landlord's premium for property insurance on [the property / that building] for any policy year during the Term is higher than the premium for [base policy year]], Tenant will pay Landlord [percent] percent of the increase, which is the property's share of [the building or parcel]. Landlord will give Tenant written notice of each amount due, with a copy of the tax bill [and premium notice] and the calculation, at least [number] days before it is due, and Tenant may pay it [in one payment / in equal monthly installments, due on the Rent due dates, over [number] months]. Tenant's share is a separate charge: Landlord will not apply any payment of Monthly Rent to it and will not take it from the Security Deposit. Tenant will not pay any part of a penalty or interest charged for Landlord's late payment of taxes or premiums. If taxes [or premiums] for a period for which Tenant paid a share are later reduced, abated or refunded, Landlord will credit or refund Tenant the same percentage of the reduction.",
+  },
+  // Other / Miscellaneous
+  {
+    id: "employee-housing-ny",
+    title: "Employee Housing (Optional)",
+    group: "Other / Miscellaneous",
+    states: ["NY"],
+    bodyText:
+      "[Optional. Use only if Tenant is Landlord's employee (for example, a superintendent or resident manager) and Tenant occupies the property only because of that job; otherwise delete.] Employee Housing: Tenant occupies the property as an incident to Tenant's employment by Landlord as {{employment_position}}, and Tenant's right to occupy the property depends on that employment. Tenant's right to occupy the property ends [number] days after Tenant's employment by Landlord ends for any reason, and Tenant will vacate by that date and return all keys, access devices and other property of Landlord. Any rent for the final period is prorated to the date Tenant vacates, and any deposit is returned as this Lease and New York law provide. Landlord will recover possession only through a court proceeding and will not change the locks or remove Tenant's belongings without a court order. This Section is not a contract of employment and does not make Tenant's employment last for any period.",
+  },
+  // Parking & Storage
+  {
+    id: "unbundled-parking-ny",
+    title: "Optional Parking Not Included in Rent",
+    group: "Parking & Storage",
+    states: ["NY"],
+    bodyText:
+      "[Optional. Use only if Tenant can rent the property without parking and is choosing to add it. If parking comes with the property or is required, use the Assigned Parking Space(s) section instead and include it in the Rent.] Optional parking. Parking is not included in the Rent. Tenant has chosen to use one parking space at the property, identified as [identify the space number or location], for {{parking_fee_amount}} per month, beginning with the second month of the Term and payable on the day the Rent is due. The parking charge is not Rent: Landlord will not apply any Rent payment to it, will not charge a late fee on it, and will not take it from the Security Deposit. Landlord will not increase this charge during the Term. Tenant may end this parking arrangement by giving Landlord [number, for example 14] days' written notice, after which the charge stops and Tenant will stop using the space; Landlord may end it the same way and will refund any part of the charge covering a period after the space is given up. No deposit is taken for the space. The parking and vehicle rules in this Lease apply to the space.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "shared-meter-agreement-ny",
+    title: "Shared Meter Apportionment Agreement",
+    group: "Landlord Responsibilities",
+    states: ["NY"],
+    bodyText:
+      "[Optional. Use only if Tenant will be the utility's customer of record for gas, electric or steam service through a meter that also measures service outside the apartment, and only if (1) a legal restriction such as zoning or historic status prevents separate metering, (2) a qualified professional has determined that eliminating the shared meter would cost more than four months' rent, or (3) the service outside the apartment is minimal under Public Service Commission rules. Otherwise eliminate the shared meter or put that service in Landlord's own name before the Term begins.] Shared meter. Tenant's [gas / electric / steam] meter also measures service to [describe each area outside the apartment, for example the hallway lights or the basement boiler]. Landlord and Tenant agree that Tenant pays only for the estimated service used in the apartment, which is [percentage] percent of each bill for that meter, based on [state the basis, for example the utility's written determination]. For the rest of each bill, Landlord will [credit Tenant's next Monthly Rent payment / reimburse Tenant] within [number] days after Tenant gives Landlord a copy of the bill. Landlord will give a copy of this agreement to the utility. Tenant's rights under the state's shared-meter law are not waived by this Section.",
+  },
+  // Default & Termination
+  {
+    id: "early-termination-ny",
+    title: "Early Termination",
+    group: "Default & Termination",
+    states: ["NY"],
+    supersedes: "early-termination-ks",
+    bodyText:
+      "Tenant may terminate this Lease before the end of the Term by providing Landlord at least 30 days' written notice. Tenant will pay Landlord, by the termination date, an early termination fee equal to one month's Rent ({{monthly_rent}}), and remains responsible for Rent and other obligations up to the termination date. If Tenant gives that notice, pays the fee and delivers possession of the property by the termination date, Tenant owes no Rent for any period after the termination date. If Tenant leaves before the end of the Term without using this option, Tenant's liability is governed by New York law, including Landlord's duty to try to re-rent the property. This early-termination option and fee apply only if this Lease has a fixed Term; a month-to-month or other periodic tenancy ends on the notice that applicable law and this Lease provide, without an early termination fee. Landlord may terminate this Lease early only as this Lease's Tenant Default and notice provisions and New York law allow, and will regain possession only if Tenant surrenders it or through a court proceeding. Nothing in this Section limits any right either party has under applicable law, including a Tenant's right to terminate because of military service under the Servicemembers Civil Relief Act, as a victim of domestic violence, or as a senior citizen or person with a disability moving to care or to a family member's home, the rights of a deceased Tenant's estate, or a Tenant's right to surrender a residence made untenantable by a casualty Tenant did not cause.",
+  },
+  // Disclosures
+  {
+    id: "accommodation-notice-ny",
+    title: "Notice of Tenants' Rights to Reasonable Accommodations",
+    group: "Disclosures",
+    states: ["NY"],
+    bodyText:
+      "[Print this Section in 12-point type or larger. Fill in at least one telephone number and the e-mail address of the property manager or other person who receives reasonable accommodation requests; if there is only one telephone number, delete the second blank and the word before it. The notice is not complete without this contact information. This Section gives a new Tenant the written notice that the New York State Division of Human Rights requires within 30 days after the tenancy begins; Landlord must also post the notice at the property and link to it from the homepage of any website Landlord maintains, which this Section does not do (`edu-accommodation-notice-ny`). If this Lease is signed more than 30 days before the tenancy begins, give this notice again within 30 days after the tenancy begins. Keep the text below as the Division prints it.]\nNOTICE DISCLOSING TENANTS' RIGHTS TO REASONABLE ACCOMMODATIONS FOR PERSONS WITH DISABILITIES\nReasonable Accommodations\nThe New York State Human Rights Law requires housing providers to make reasonable accommodations or modifications to a building or living space to meet the needs of people with disabilities. For example, if you have a physical, mental, or medical impairment, you can ask your housing provider to make the common areas of your building accessible, or to change certain policies to meet your needs.\nTo request a reasonable accommodation, you should contact your property manager by calling [telephone number] or [second telephone number], or by e-mailing [e-mail address]. You will need to inform your housing provider that you have a disability or health problem that interferes with your use of housing, and that your request for accommodation may be necessary to provide you equal access and opportunity to use and enjoy your housing or the amenities and services normally offered by your housing provider. A housing provider may request medical information, when necessary to support that there is a covered disability and that the need for the accommodation is disability related.\nIf you believe that you have been denied a reasonable accommodation for your disability, or that you were denied housing or retaliated against because you requested a reasonable accommodation, you can file a complaint with the New York State Division of Human Rights as described at the end of this notice.\nSpecifically, if you have a physical, mental, or medical impairment, you can request:+\nPermission to change the interior of your housing unit to make it accessible (however, you are required to pay for these modifications, and in the case of a rental your housing provider may require that you restore the unit to its original condition when you move out);\nChanges to your housing provider's rules, policies, practices, or services;\nChanges to common areas of the building so you have an equal opportunity to use the building. The New York State Human Rights Law requires housing providers to pay for reasonable modifications to common use areas.\nExamples of reasonable modifications and accommodations that may be requested under the New York State Human Rights Law include:\nIf you have a mobility impairment, your housing provider may be required to provide you with a ramp or other reasonable means to permit you to enter and exit the building.\nIf your healthcare provider provides documentation that having an animal will assist with your disability, you should be permitted to have the animal in your home despite a \"no pet\" rule.\nIf you need grab bars in your bathroom, you can request permission to install them at your own expense. If your housing was built for first occupancy after March 13, 1991 and the walls need to be reinforced for grab bars, your housing provider must pay for that to be done.\nIf you have an impairment that requires a parking space close to your unit, you can request your housing provider to provide you with that parking space, or place you at the top of a waiting list if no adjacent spot is available.\nIf you have a visual impairment and require printed notices in an alternative format such as large print font, or need notices to be made available to you electronically, you can request that accommodation from your landlord.\nRequired Accessibility Standards\nAll buildings constructed for use after March 13, 1991, are required to meet the following standards:\nPublic and common areas must be readily accessible to and usable by persons with disabilities;\nAll doors must be sufficiently wide to allow passage by persons in wheelchairs; and\nAll multi-family buildings must contain accessible passageways, fixtures, outlets, thermostats, bathrooms, and kitchens.\nIf you believe that your building does not meet the required accessibility standards, you can file a complaint with the New York State Division of Human Rights.\nHow to File a Complaint\nA complaint must be filed with the Division within one year of the alleged discriminatory act or in court within three years of the alleged discriminatory act. You can find more information on your rights, and on the procedures for filing a complaint, by going to www.dhr.ny.gov, or by calling 1-888-392-3644. You can obtain a complaint form on the website, or one can be e-mailed or mailed to you. You can also call or e-mail a Division regional office. The regional offices are listed on the website.\n+ This Notice provides information about your rights under the New York State Human Rights Law, which applies to persons residing anywhere in New York State. Local laws may provide protections in addition to those described in this Notice, but local laws cannot decrease your protections.",
   },
 ];
 
