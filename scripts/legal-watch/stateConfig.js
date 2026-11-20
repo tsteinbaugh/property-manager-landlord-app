@@ -1998,6 +1998,10 @@ const STATE_CONFIG = {
       { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
+      // added 2026-11-19 (WA gaps sync): the FCRA disposal rule and the voucher family and HQS rules the new rows quote
+      { title: "16", section: "682.3", clauseIds: ["edu-tenant-confidential-information-wa"] },
+      { title: "24", section: "982.404", clauseIds: ["edu-no-subsidized-inspection-refusal-rule-wa"] },
+      { title: "24", section: "982.551", clauseIds: ["edu-no-subsidized-inspection-refusal-rule-wa"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
@@ -2025,6 +2029,18 @@ const STATE_CONFIG = {
           "Sources LegiScan can't see: the Department of Health's mold information and chapter 246-260 WAC (pool rules), the building code council's carbon monoxide rules (WAC 51), SPR 98.24W and the county superior court local rules behind the eviction rows (WA log §1.1, §7, §10)",
         clauseIds: ["mold-disclosure-wa", "edu-eviction-process-wa"],
       },
+      {
+        id: "wa-wac-gaps-rows",
+        label:
+          "WAC chapters first relied on in the 2026-11-19 gaps sync change by agency rule, not by bill: the energy codes (WAC 51-11C, 51-11R), building, mechanical and plumbing codes (51-50, 51-52, 51-56), the Commerce rules (365-196, 365-230 and others), drinking water (246-290, 246-291), the fire marshal (212-17, 212-80) and the utilities commission (480-70, 480-93, 480-108 to 480-120). Check the Washington State Register for changes since issue 26-23. Not yet read at all (next corpus): chapter 194-50 WAC (Clean Buildings), the model codes WAC Title 51 adopts by reference, chapter 16-228 WAC (pesticides), the Title 16 EV-fuel electricity rules and chapter 110-300 WAC (family child care) (WA gaps log §1, §4.4)",
+        clauseIds: ["edu-energy-data-release-wa", "edu-fire-code-standard-wa", "edu-pest-control-notice-wa", "edu-ev-charging-requirements-wa", "edu-family-child-care-wa", "edu-common-area-lighting-wa"],
+      },
+      {
+        id: "wa-2028-income-tax",
+        label:
+          "January 1, 2028: Laws of 2026, ch. 238 (9.9 percent tax on Washington taxable income above a $1,000,000 standard deduction; a nonresident's Washington-source income includes rents from Washington real property) takes effect. Check for amendments, a referendum or a court challenge before then, and re-read the nonresident-owner row (WA gaps log §2)",
+        clauseIds: ["edu-nonresident-owner-agent-wa"],
+      },
     ],
   },
   OR: {
@@ -2050,14 +2066,29 @@ const STATE_CONFIG = {
       { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
+      // added 2026-11-20 (OR gaps sync): the HQS abatement rule and the disability-modification restoration rule the rows now quote
+      { title: "24", section: "982.404", clauseIds: ["edu-no-subsidy-habitability-proration-or"] },
+      { title: "24", section: "100.203", clauseIds: ["no-alterations-or"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
       {
+        id: "or-gaps-uncompiled-2026",
+        label:
+          "2026 acts the gaps rows cite by session-law section, which bill search can't find by ORS number until the 2027 ORS edition compiles them: Or. Laws 2026, ch. 61, § 2 (tenant confidential information), ch. 108, §§ 20-21 (natural disaster; effective June 5, 2026) and ch. 64 (HB 4128, institutional investors' purchases of single-family homes; effective January 1, 2027). Update the citations when they get ORS numbers, and check ch. 64 on January 1, 2027. Also: Or. Laws 2025, ch. 476, § 8 conflicts with the compiled ORS 93.277(2)(a); check how the 2027 edition resolves it (OR gaps log §4.2, §5.2)",
+        clauseIds: ["edu-tenant-confidential-information-or", "edu-emergency-contact-or", "edu-natural-disaster-or", "early-termination-or", "edu-portfolio-thresholds-or", "edu-no-single-family-zone-lease-limit-or"],
+      },
+      {
+        id: "or-gaps-rules-and-federal",
+        label:
+          "Sources LegiScan can't see that the 2026-11-20 gaps sync first relied on: the Public Utility Commission's shutoff-notice designation rules (OAR 860-021-0017, 860-036-1120, 860-037-0020), the Real Estate Agency's cash-receipt rule (OAR 863-025-0060), the lead-investigation entry rule (OAR 333-095-0020), the EV-capacity rules (OAR 918-460-0200, 660-012-0410) and the eviction court rules (UTCR 18.020 to 18.040, UTCR 7.050; amended by Chief Justice Order). Check the Oregon Bulletin and the UTCR page. Federal reads still queued (no row rests on them): 49 C.F.R. § 191.3, 40 C.F.R. §§ 745.82-745.84, 29 C.F.R. § 1926.1101(k), 25 U.S.C. § 415, 15 U.S.C. § 1681b (OR gaps log §5.4)",
+        clauseIds: ["edu-utility-disconnection-notice-authorization-or", "edu-rent-receipts-or", "edu-no-health-district-rental-rules-or", "edu-ev-charging-requirements-or", "edu-eviction-process-or", "edu-tenant-bankruptcy-or", "edu-no-lead-safe-certification-or", "edu-electric-submetering-disclosure-or", "edu-asbestos-hazards-or"],
+      },
+      {
         id: "or-2026-12-18-oar-333-062",
         label:
           "December 18, 2026: the temporary amendment to OAR 333-062-1000 ends. Check what replaces it and re-read the rows that cite it (OR log §10)",
-        clauseIds: ["edu-private-well-testing-or"],
+        clauseIds: ["edu-pool-rules-or"],
       },
       {
         id: "or-2027-01-01",

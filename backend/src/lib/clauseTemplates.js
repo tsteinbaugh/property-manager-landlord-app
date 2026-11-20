@@ -1016,7 +1016,7 @@ const CLAUSE_TEMPLATES = [
     id: "foreclosure-disclosure-nv",
     title: "Foreclosure Disclosure",
     group: "Disclosures",
-    states: ["NV", "SC", "IL", "OK", "MI", "MT", "WI", "NY"],
+    states: ["NV", "SC", "IL", "OK", "MI", "MT", "WI", "NY", "WA"],
     bodyText:
       "Foreclosure Disclosure. Before Tenant entered into this Lease, Landlord disclosed to Tenant in writing whether the property is the subject of any foreclosure proceedings. Landlord's disclosure: [state that the property is the subject of foreclosure proceedings and describe them, or state that the property is not the subject of any foreclosure proceedings].",
   },
@@ -1141,7 +1141,7 @@ const CLAUSE_TEMPLATES = [
     id: "prohibited-acts-renter-wy",
     title: "Prohibited Acts by Tenant",
     group: "Tenant Responsibilities",
-    states: ["WY", "AK", "HI", "AR", "MS", "DC", "GU", "AS", "MP", "CO", "NE", "OH", "NV", "TX", "NJ", "AZ", "GA", "SC", "PA", "AL", "IL", "ID", "IA", "NM"],
+    states: ["WY", "AK", "HI", "AR", "MS", "DC", "GU", "AS", "MP", "CO", "NE", "OH", "NV", "TX", "NJ", "AZ", "GA", "SC", "PA", "AL", "IL", "ID", "IA", "NM", "WA", "OR"],
     bodyText:
       "Tenant will not intentionally or negligently destroy, deface, damage, or impair any part of the property, or knowingly permit any other person to do so; interfere with another person's peaceful enjoyment of the property; or unreasonably deny access to, refuse entry to, or withhold consent to enter the property to Landlord or Landlord's agent for the purpose of making repairs, inspecting the property, or showing it for rent or sale.",
   },
@@ -7417,7 +7417,7 @@ const CLAUSE_TEMPLATES = [
     id: "rent-installments-or",
     title: "Rent Paid in Installments",
     group: "Rent & Payment",
-    states: ["OR", "CT", "RI", "NH", "ME", "VT", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "WY", "KS", "NE", "TX", "NJ", "AZ", "FL", "GA", "SC", "VA", "PA", "AL", "UT", "IL", "MO", "ID", "IN", "OK", "IA", "NM", "MT", "WI", "NY"],
+    states: ["OR", "CT", "RI", "NH", "ME", "VT", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "WY", "KS", "NE", "TX", "NJ", "AZ", "FL", "GA", "SC", "VA", "PA", "AL", "UT", "IL", "MO", "ID", "IN", "OK", "IA", "NM", "MT", "WI", "NY", "WA"],
     bodyText:
       "Landlord and Tenant agree that Monthly Rent will be paid in installments as follows: [state each installment amount and the day of the month it is due]. Installments paid on this schedule are not partial payments of Rent. A late charge applies only as this Lease's late charge provision allows for the rental period.",
   },
@@ -7492,7 +7492,7 @@ const CLAUSE_TEMPLATES = [
     states: ["OR"],
     supersedes: "early-termination",
     bodyText:
-      "If this Lease has a fixed Term, Tenant may end the tenancy before the end of the Term by giving Landlord at least 30 days' written notice and paying an early termination fee equal to one month's Rent ({{monthly_rent}}). If Landlord charges this fee, Landlord will not recover Rent for any period after the date Landlord knew or reasonably should have known that Tenant abandoned or relinquished the property, or any cost of renting it to a new tenant. Landlord will not charge the fee if Tenant ends the tenancy under Oregon's protections for victims of domestic violence, sexual assault, bias crime or stalking or for servicemembers, or after Landlord has given notice ending the tenancy at the end of the Term for a landlord's qualifying reason. A month-to-month or week-to-week tenancy ends on the notice applicable law requires, without a fee. Landlord may end the tenancy early only as applicable law allows. Nothing in this Section limits any right either party has under applicable law.",
+      "If this Lease has a fixed Term, Tenant may end the tenancy before the end of the Term by giving Landlord at least 30 days' written notice and paying an early termination fee equal to one month's Rent ({{monthly_rent}}). If Landlord charges this fee, Landlord will not recover Rent for any period after the date Landlord knew or reasonably should have known that Tenant abandoned or relinquished the property, or any cost of renting it to a new tenant. Landlord will not charge the fee if Tenant ends the tenancy under the protections Oregon or federal law gives victims of domestic violence, sexual assault, bias crime or stalking, or servicemembers and their spouses or dependents; after Landlord has given notice ending the tenancy at the end of the Term for a landlord's qualifying reason; or under any other right applicable law gives Tenant to end the tenancy. A month-to-month or week-to-week tenancy ends on the notice applicable law requires, without a fee. Landlord may end the tenancy early only as applicable law allows. Nothing in this Section limits any right either party has under applicable law.",
   },
   {
     id: "holdover-or",
@@ -7649,7 +7649,7 @@ const CLAUSE_TEMPLATES = [
     states: ["OR"],
     supersedes: "no-alterations",
     bodyText:
-      "Tenant will not perform any alterations or improvements to the property, including adding, changing, or removing appliances, fixtures, shelving, wallpaper, or paint, without the prior written consent of Landlord. If Landlord approves an alteration, Tenant understands it will remain part of the property at the end of the tenancy unless Landlord requires its removal or applicable law provides that it remains Tenant's property (for example, an electric vehicle charging station installed under Oregon law). This Section does not limit any repair, installation, rekeying, or reasonable modification that applicable law entitles Tenant to perform.",
+      "Tenant will not perform any alterations or improvements to the property, including adding, changing, or removing appliances, fixtures, shelving, wallpaper, or paint, without the prior written consent of Landlord. If Landlord approves an alteration, Tenant understands it will remain part of the property at the end of the tenancy unless Landlord requires its removal (for a reasonable modification made for a disability, only where applicable law allows Landlord to require restoration) or applicable law provides that it remains Tenant's property (for example, an electric vehicle charging station installed under Oregon law). This Section does not limit any repair, installation, rekeying, or reasonable modification that applicable law entitles Tenant to perform.",
   },
   // Rules & Regulations
   {
@@ -7808,7 +7808,7 @@ const CLAUSE_TEMPLATES = [
     id: "informal-dispute-resolution-or",
     title: "Informal Dispute Resolution",
     group: "Notices & General",
-    states: ["OR", "AR", "MS", "DC", "GU", "VI", "AS", "MP", "CO", "WY", "KS", "MN", "NE", "OH", "NV", "TX", "NJ", "AZ", "FL", "GA", "SC", "NC", "VA", "PA", "AL", "UT", "IL", "MO", "IN", "IA", "NM", "WI", "NY"],
+    states: ["OR", "AR", "MS", "DC", "GU", "VI", "AS", "MP", "CO", "WY", "KS", "MN", "NE", "OH", "NV", "TX", "NJ", "AZ", "FL", "GA", "SC", "NC", "VA", "PA", "AL", "UT", "IL", "MO", "IN", "IA", "NM", "WI", "NY", "WA"],
     bodyText:
       "Before either party starts a court action about a dispute under this Lease, other than an action for possession, the party will give the other written notice describing the dispute and offer to meet, in person or by phone, within 10 days to try to resolve it informally. This Section does not delay or limit any notice, deadline or remedy that applicable law provides, including any action for possession or for emergency relief, and does not require either party to accept any proposal.",
   },
@@ -13053,7 +13053,7 @@ const CLAUSE_TEMPLATES = [
     id: "eminent-domain-vi",
     title: "Condemnation (Optional)",
     group: "Default & Termination",
-    states: ["VI", "MP", "KS", "MN", "NE", "SD", "NV", "TX", "NJ", "AZ", "FL", "GA", "SC", "NC", "VA", "AL", "IL", "MO", "ID", "IN", "IA", "MT", "WI", "NY"],
+    states: ["VI", "MP", "KS", "MN", "NE", "SD", "NV", "TX", "NJ", "AZ", "FL", "GA", "SC", "NC", "VA", "AL", "IL", "MO", "ID", "IN", "IA", "MT", "WI", "NY", "WA", "OR"],
     bodyText:
       "[Optional.] If all of the property is taken by eminent domain, or so much of it is taken that the rest cannot reasonably be lived in, this Lease ends on the date Tenant must give up possession, Rent is apportioned to that date, and Landlord will refund any Rent paid for later days. If a smaller part is taken and the rest can reasonably be lived in, this Lease continues and Rent is reduced in proportion to Tenant's loss of use. Any award for the taking of the property, including any value of this Lease, belongs to Landlord, except any relocation payment or other separate payment made to Tenant for Tenant's own moving costs or personal property. If this Lease ends under this Section, Landlord will return the Security Deposit, less lawful deductions, as this Lease provides.",
   },
@@ -13222,7 +13222,7 @@ const CLAUSE_TEMPLATES = [
     id: "guaranty-as",
     title: "Guaranty (Optional)",
     group: "Default & Termination",
-    states: ["AS", "MP", "CO", "KS", "MN", "NE", "NV", "NJ", "AZ", "FL", "GA", "SC", "NC", "PA", "UT", "MO", "ID", "IN", "OK", "IA", "NM", "NY"],
+    states: ["AS", "MP", "CO", "KS", "MN", "NE", "NV", "NJ", "AZ", "FL", "GA", "SC", "NC", "PA", "UT", "MO", "ID", "IN", "OK", "IA", "NM", "NY", "WA"],
     bodyText:
       "[Optional. Use only if a guarantor signs this Lease.] GUARANTY. [guarantor's full name] (\"Guarantor\") signs this Lease to guarantee to Landlord that Tenant will pay the Rent and perform Tenant's other obligations under this Lease, up to a total maximum of $[maximum amount]. This guaranty covers the Term and [choose one: also covers any renewal, extension or month-to-month continuation of this Lease, including any change in Rent made under this Lease / ends when the Term ends, except for amounts that became due during the Term]. Guarantor's obligations are never larger than Tenant's. Landlord may ask Guarantor to pay without first suing Tenant. Guarantor has read this Lease and received a copy.",
   },
@@ -13485,7 +13485,7 @@ const CLAUSE_TEMPLATES = [
     id: "accessory-dwelling-unit-term-co",
     title: "The Premises Is an Accessory Dwelling Unit",
     group: "Notices & General",
-    states: ["CO", "UT", "MO", "IN", "OK", "MI", "MT", "WI", "NY"],
+    states: ["CO", "UT", "MO", "IN", "OK", "MI", "MT", "WI", "NY", "WA"],
     bodyText:
       "The Premises is an accessory dwelling unit: a separate dwelling with its own living, sleeping, cooking and bathroom facilities, located on the same lot as the primary residence at {{property_address}}. You acknowledge that [describe who occupies the primary residence on the lot, for example \"the Landlord occupies the primary residence on the lot\"], and that the following areas are shared rather than part of the Premises: [list shared areas - driveway, parking space, yard, walkways, trash enclosure, laundry, storage]. You may use those shared areas for their ordinary purpose, and you will not store property in them, block the driveway or the primary residence's access, or use them in a way that interferes with the occupants of the primary residence. The following utilities serve the Premises and the primary residence through the same meter or connection and are handled as set out in the utilities section of this Lease: [list shared utilities, or write \"none\"]. Because the Premises and the primary residence sit on one lot and share these areas, both households will keep noise, guests, pets, vehicles and outdoor activity to a level that does not unreasonably disturb the other, and we will each give the other reasonable notice before work or deliveries that will block shared access. Nothing in this section reduces your right to exclusive possession of the inside of the Premises or any right you have under law.",
   },
@@ -13845,7 +13845,7 @@ const CLAUSE_TEMPLATES = [
     id: "utility-shutoff-notice-authorization-co",
     title: "Authorization for Utility Notices to Landlord (Optional)",
     group: "Notices & General",
-    states: ["CO", "SC", "AL", "UT", "ID", "OK", "MI", "IA", "NM", "MT", "NY"],
+    states: ["CO", "SC", "AL", "UT", "ID", "OK", "MI", "IA", "NM", "MT", "NY", "WA"],
     bodyText:
       "[Optional.] Tenant authorizes Landlord to be listed with each utility provider serving the Premises as an additional contact for notices about Tenant's account for the Premises, including any notice of pending disconnection, and will sign any form a provider requires to do that. Tenant also authorizes each provider to confirm to Landlord whether service to the Premises is connected and in Tenant's name. Landlord's receipt of a notice under this Section does not make Landlord responsible for Tenant's utility charges, and nothing in this Section requires any provider to give Landlord notice.",
   },
@@ -14067,7 +14067,7 @@ const CLAUSE_TEMPLATES = [
     id: "energy-data-release-wy",
     title: "Energy Usage Data Authorization",
     group: "Notices & General",
-    states: ["WY", "SD", "NV", "TX", "FL", "GA", "SC", "NC", "AL", "UT", "IL", "MO", "ID", "IN", "OK", "MI", "IA", "NM", "MT", "WI", "NY"],
+    states: ["WY", "SD", "NV", "TX", "FL", "GA", "SC", "NC", "AL", "UT", "IL", "MO", "ID", "IN", "OK", "MI", "IA", "NM", "MT", "WI", "NY", "WA"],
     bodyText:
       "[Optional. Use where the electric, gas or water account for the property is in Tenant's name and Landlord wants usage data for building benchmarking, an energy audit, a rebate application or utility allocation.] Tenant authorizes each electric, gas and water utility serving the property to release to Landlord or Landlord's designated agent the monthly usage and billing history for the property for the period of Tenant's tenancy, for the purpose of benchmarking, auditing or improving the energy or water performance of the building, or applying for a utility or government efficiency program. Tenant will, within ten (10) days of Landlord's written request, sign and deliver whatever release, authorization or online consent the utility requires to give effect to this paragraph. Landlord will use the data only for the purposes stated above, will not disclose Tenant's individual data to any other person except a contractor or consultant performing the benchmarking or audit, or as required by law, and will report the building's data to any third party only in aggregated form. Tenant may withdraw this authorization at any time by written notice to Landlord, and withdrawal is not a breach of this Agreement.",
   },
@@ -19695,6 +19695,58 @@ const CLAUSE_TEMPLATES = [
     states: ["NY"],
     bodyText:
       "[Print this Section in 12-point type or larger. Fill in at least one telephone number and the e-mail address of the property manager or other person who receives reasonable accommodation requests; if there is only one telephone number, delete the second blank and the word before it. The notice is not complete without this contact information. This Section gives a new Tenant the written notice that the New York State Division of Human Rights requires within 30 days after the tenancy begins; Landlord must also post the notice at the property and link to it from the homepage of any website Landlord maintains, which this Section does not do (`edu-accommodation-notice-ny`). If this Lease is signed more than 30 days before the tenancy begins, give this notice again within 30 days after the tenancy begins. Keep the text below as the Division prints it.]\nNOTICE DISCLOSING TENANTS' RIGHTS TO REASONABLE ACCOMMODATIONS FOR PERSONS WITH DISABILITIES\nReasonable Accommodations\nThe New York State Human Rights Law requires housing providers to make reasonable accommodations or modifications to a building or living space to meet the needs of people with disabilities. For example, if you have a physical, mental, or medical impairment, you can ask your housing provider to make the common areas of your building accessible, or to change certain policies to meet your needs.\nTo request a reasonable accommodation, you should contact your property manager by calling [telephone number] or [second telephone number], or by e-mailing [e-mail address]. You will need to inform your housing provider that you have a disability or health problem that interferes with your use of housing, and that your request for accommodation may be necessary to provide you equal access and opportunity to use and enjoy your housing or the amenities and services normally offered by your housing provider. A housing provider may request medical information, when necessary to support that there is a covered disability and that the need for the accommodation is disability related.\nIf you believe that you have been denied a reasonable accommodation for your disability, or that you were denied housing or retaliated against because you requested a reasonable accommodation, you can file a complaint with the New York State Division of Human Rights as described at the end of this notice.\nSpecifically, if you have a physical, mental, or medical impairment, you can request:+\nPermission to change the interior of your housing unit to make it accessible (however, you are required to pay for these modifications, and in the case of a rental your housing provider may require that you restore the unit to its original condition when you move out);\nChanges to your housing provider's rules, policies, practices, or services;\nChanges to common areas of the building so you have an equal opportunity to use the building. The New York State Human Rights Law requires housing providers to pay for reasonable modifications to common use areas.\nExamples of reasonable modifications and accommodations that may be requested under the New York State Human Rights Law include:\nIf you have a mobility impairment, your housing provider may be required to provide you with a ramp or other reasonable means to permit you to enter and exit the building.\nIf your healthcare provider provides documentation that having an animal will assist with your disability, you should be permitted to have the animal in your home despite a \"no pet\" rule.\nIf you need grab bars in your bathroom, you can request permission to install them at your own expense. If your housing was built for first occupancy after March 13, 1991 and the walls need to be reinforced for grab bars, your housing provider must pay for that to be done.\nIf you have an impairment that requires a parking space close to your unit, you can request your housing provider to provide you with that parking space, or place you at the top of a waiting list if no adjacent spot is available.\nIf you have a visual impairment and require printed notices in an alternative format such as large print font, or need notices to be made available to you electronically, you can request that accommodation from your landlord.\nRequired Accessibility Standards\nAll buildings constructed for use after March 13, 1991, are required to meet the following standards:\nPublic and common areas must be readily accessible to and usable by persons with disabilities;\nAll doors must be sufficiently wide to allow passage by persons in wheelchairs; and\nAll multi-family buildings must contain accessible passageways, fixtures, outlets, thermostats, bathrooms, and kitchens.\nIf you believe that your building does not meet the required accessibility standards, you can file a complaint with the New York State Division of Human Rights.\nHow to File a Complaint\nA complaint must be filed with the Division within one year of the alleged discriminatory act or in court within three years of the alleged discriminatory act. You can find more information on your rights, and on the procedures for filing a complaint, by going to www.dhr.ny.gov, or by calling 1-888-392-3644. You can obtain a complaint form on the website, or one can be e-mailed or mailed to you. You can also call or e-mail a Division regional office. The regional offices are listed on the website.\n+ This Notice provides information about your rights under the New York State Human Rights Law, which applies to persons residing anywhere in New York State. Local laws may provide protections in addition to those described in this Notice, but local laws cannot decrease your protections.",
+  },
+  {
+    id: "meter-conservation-charge-wa",
+    title: "Energy Savings Charge on the Utility Bill (Optional)",
+    group: "Disclosures",
+    states: ["WA"],
+    bodyText:
+      "[Optional. Use only if an electric or natural gas utility has installed, or will install, energy conservation measures at the property under an investment program for rental housing and recovers its investment through an \"energy savings charge\" on the regular bill for the property.] Energy savings charge. Energy conservation measures ([describe the measures, for example insulation, windows or a heat pump]) [were installed / will be installed] at the property under a program of [name of utility]. The utility recovers its investment through a line item labeled \"energy savings charge\" on the regular [electric / gas] bill for the property, currently [amount] per billing period and expected to continue until [date, or until the utility's investment is recovered]. The utility bills and collects this charge like any other energy charge, from whoever pays the [electric / gas] bill for the property, until its investment is recovered. [Choose one of the next two sentences and delete the other. If Tenant pays the charge, also list the [electric / gas] service as a utility Tenant pays.] Tenant will pay the energy savings charge as part of Tenant's [electric / gas] bill. Landlord will reimburse Tenant for each energy savings charge Tenant pays within [number] days after Tenant gives Landlord a copy of the paid bill.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "pest-cooperation-wa",
+    title: "Pest and Bed Bug Reporting and Treatment",
+    group: "Tenant Responsibilities",
+    states: ["WA"],
+    bodyText:
+      "[Optional.] Tenant will promptly tell Landlord if Tenant knows or reasonably suspects that the property has bed bugs or another infestation of insects, rodents or other pests. Tenant will allow Landlord, Landlord's agents and pest control operators to enter the property to inspect for and treat the infestation as this Lease's entry section allows, and will follow the reasonable written preparation instructions Landlord or the pest control operator gives. If an infestation is caused by the conduct of Tenant, a member of Tenant's family, an invitee or another person acting under Tenant's control, Tenant will pay the reasonable cost of extermination and fumigation of that infestation. Landlord will provide the pest control Washington law requires of Landlord, and nothing in this Section reduces Landlord's duties or Tenant's rights under the Residential Landlord-Tenant Act.",
+  },
+  {
+    id: "furnishings-included-wa",
+    title: "Furnishings (Washington)",
+    group: "Tenant Responsibilities",
+    states: ["WA"],
+    bodyText:
+      "[Optional. Use only if the property is rented furnished.] Furnishings: The property is rented furnished. The furniture and furnishings Landlord provides are: [list each item, or attach a signed inventory]. Their condition at the start of this Lease is recorded on the signed move-in checklist. Tenant will keep them at the property, will not remove or dispose of any item without Landlord's written consent, and will tell Landlord promptly of any damage to them. When this Lease ends, Tenant will return them in the condition recorded on the checklist, except for wear resulting from ordinary use of the premises and conditions caused by Landlord's failure to comply with Landlord's obligations under chapter 59.18 RCW.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "designated-repairer-or",
+    title: "Repair Contact and Approved Repairers",
+    group: "Landlord Responsibilities",
+    states: ["OR"],
+    bodyText:
+      "[Optional. Use only if Landlord wants to name who makes minor repairs that Tenant arranges under Oregon's minor-defect repair law.] Tenant will report repair and maintenance needs to {{landlord_repair_contact}}. If Landlord does not repair a minor habitability defect by the date in Tenant's written notice and Tenant arranges the repair and deducts its cost from Rent as Oregon law allows, the repair will be made by one of the following repairers, if one of them is available to make the repair within a reasonable time for no more than the amount Oregon law allows Tenant to deduct: [list each repairer's name, trade and telephone number]. If none of them is available on those terms, Tenant may use another qualified repairer. Tenant will not perform the repair work personally. This Section applies only to that minor-defect remedy and does not limit any other right or remedy Tenant has under Oregon law, including Tenant's remedies when an essential service is not supplied.",
+  },
+  // Default & Termination
+  {
+    id: "guaranty-or",
+    title: "Guaranty",
+    group: "Default & Termination",
+    states: ["OR"],
+    bodyText:
+      "[Optional. Use only if a guarantor signs this Lease.] GUARANTY. In consideration of Landlord's agreement to rent the property to Tenant under this Lease, {{guarantor_name}} (Guarantor) signs this Lease to guarantee to Landlord that Tenant will pay the Rent and perform Tenant's other obligations under this Lease, up to a total maximum of {{guaranty_max_liability}}. This guaranty covers the Term and any renewal, extension or month-to-month continuation of this Lease, including any change in Rent made as this Lease and Oregon law allow. Guarantor's obligations are never larger than Tenant's. Landlord may ask Guarantor to pay without first suing Tenant. Guarantor has read this Lease and received a copy.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "furnishings-included-or",
+    title: "Furnishings (Furnished Rentals)",
+    group: "Tenant Responsibilities",
+    states: ["OR"],
+    bodyText:
+      "[Optional. Use only if the property is rented furnished.] Furnishings: The property is rented furnished. The furniture and furnishings Landlord provides, and their condition at the start of this Lease, are: [list each item and its condition, or attach an inventory signed by Landlord and Tenant]. Tenant will keep them at the property, will not remove or dispose of any item without Landlord's written consent, and will tell Landlord promptly of any damage to them. At the end of this Lease, Tenant will leave them at the property. Tenant is responsible for damage to them, other than ordinary wear and tear, only if it is damage that Tenant, or a person Tenant knowingly permits, deliberately or negligently causes, other than damage that results from an act of God or from conduct by a perpetrator relating to domestic violence, sexual assault, bias crime or stalking.",
   },
 ];
 
