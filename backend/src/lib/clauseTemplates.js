@@ -888,7 +888,7 @@ const CLAUSE_TEMPLATES = [
     group: "Disclosures",
     states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "NH", "ME", "VT", "DE", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP"],
     bodyText:
-      "LEAD WARNING STATEMENT. Housing built before 1978 may contain lead-based paint. Lead from paint, paint chips, and dust can pose health hazards if not managed properly. Lead exposure is especially harmful to young children and pregnant women. Before renting pre-1978 housing, lessors must disclose the presence of known lead-based paint and/or lead-based paint hazards in the dwelling. Lessees must also receive a federally approved pamphlet on lead poisoning prevention. Landlord's disclosure: [state either that Landlord has no knowledge of lead-based paint or lead-based paint hazards in the dwelling, or describe all known lead-based paint and lead-based paint hazards]. Records and reports: [state either that Landlord has no reports or records pertaining to lead-based paint or lead-based paint hazards in the dwelling, or list all available records and reports and confirm they have been provided to Tenant]. Tenant acknowledges receipt of the information above and of the federally approved pamphlet Protect Your Family from Lead in Your Home. Landlord and Tenant each certify, to the best of their knowledge, that the information they have provided is true and accurate.",
+      "LEAD WARNING STATEMENT. Housing built before 1978 may contain lead-based paint. Lead from paint, paint chips, and dust can pose health hazards if not managed properly. Lead exposure is especially harmful to young children and pregnant women. Before renting pre-1978 housing, lessors must disclose the presence of known lead-based paint and/or lead-based paint hazards in the dwelling. Lessees must also receive a federally approved pamphlet on lead poisoning prevention. Landlord's disclosure: [state either that Landlord has no knowledge of lead-based paint or lead-based paint hazards in the dwelling, or describe all known lead-based paint and lead-based paint hazards]. Records and reports: [state either that Landlord has no reports or records pertaining to lead-based paint or lead-based paint hazards in the dwelling, or list all available records and reports and confirm they have been provided to Tenant]. Tenant acknowledges receipt of the information above and of the federally approved pamphlet Protect Your Family from Lead in Your Home. Landlord and Tenant each certify, to the best of their knowledge, that the information they have provided is true and accurate. [Include if one or more agents act for Landlord in leasing the dwelling:] Agent's statement: [agent's name] has informed Landlord of Landlord's obligations under 42 U.S.C. 4852d and is aware of Agent's duty to ensure compliance with the federal lead-based paint disclosure rules. Agent certifies, to the best of Agent's knowledge, that the information Agent has provided is true and accurate. Each person making a statement in this disclosure will sign and date it; dated signatures to this Lease satisfy this for Landlord and Tenant.",
   },
   {
     id: "hoa-compliance",
@@ -1141,7 +1141,7 @@ const CLAUSE_TEMPLATES = [
     id: "prohibited-acts-renter-wy",
     title: "Prohibited Acts by Tenant",
     group: "Tenant Responsibilities",
-    states: ["WY", "AK", "HI", "AR", "MS", "DC", "GU", "AS", "MP", "CO", "NE", "OH", "NV", "TX", "NJ", "AZ", "GA", "SC", "PA", "AL", "IL", "ID", "IA", "NM", "WA", "OR"],
+    states: ["WY", "AK", "HI", "AR", "MS", "DC", "GU", "AS", "MP", "CO", "NE", "OH", "NV", "TX", "NJ", "AZ", "GA", "SC", "PA", "AL", "IL", "ID", "IA", "NM", "WA", "OR", "WV"],
     bodyText:
       "Tenant will not intentionally or negligently destroy, deface, damage, or impair any part of the property, or knowingly permit any other person to do so; interfere with another person's peaceful enjoyment of the property; or unreasonably deny access to, refuse entry to, or withhold consent to enter the property to Landlord or Landlord's agent for the purpose of making repairs, inspecting the property, or showing it for rent or sale.",
   },
@@ -1271,7 +1271,7 @@ const CLAUSE_TEMPLATES = [
     id: "early-termination-ks",
     title: "Early Termination",
     group: "Default & Termination",
-    states: ["KS", "TN", "WV", "MD", "MA", "NH", "VI", "AS", "MP"],
+    states: ["KS", "TN", "MD", "MA", "NH", "VI", "AS", "MP"],
     supersedes: "early-termination",
     bodyText:
       "Tenant may terminate this Lease before the end of the Term by providing Landlord at least 30 days' written notice. Tenant will pay an early termination fee equal to one month's Rent ({{monthly_rent}}) or 30% of the remaining Rent due under the Term, whichever is greater, and remains responsible for Rent and other obligations up to the termination date. This early-termination option and fee apply only if this Lease has a fixed Term; a month-to-month or other periodic tenancy ends on the notice that applicable law and this Lease provide, without an early termination fee. Landlord may terminate this Lease early in accordance with this Lease's Tenant Default and notice provisions, or if Tenant vacates or abandons the property without notifying Landlord. Nothing in this Section limits any right either party has under applicable law, including a Tenant's right to terminate without penalty due to active military service under the Servicemembers Civil Relief Act, due to the property becoming uninhabitable through no fault of Tenant, or, except as prohibited by law in the case of a Tenant's death, any other termination right or limitation provided by applicable law.",
@@ -7417,7 +7417,7 @@ const CLAUSE_TEMPLATES = [
     id: "rent-installments-or",
     title: "Rent Paid in Installments",
     group: "Rent & Payment",
-    states: ["OR", "CT", "RI", "NH", "ME", "VT", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "WY", "KS", "NE", "TX", "NJ", "AZ", "FL", "GA", "SC", "VA", "PA", "AL", "UT", "IL", "MO", "ID", "IN", "OK", "IA", "NM", "MT", "WI", "NY", "WA", "KY"],
+    states: ["OR", "CT", "RI", "NH", "ME", "VT", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "WY", "KS", "NE", "TX", "NJ", "AZ", "FL", "GA", "SC", "VA", "PA", "AL", "UT", "IL", "MO", "ID", "IN", "OK", "IA", "NM", "MT", "WI", "NY", "WA", "KY", "WV"],
     bodyText:
       "Landlord and Tenant agree that Monthly Rent will be paid in installments as follows: [state each installment amount and the day of the month it is due]. Installments paid on this schedule are not partial payments of Rent. A late charge applies only as this Lease's late charge provision allows for the rental period.",
   },
@@ -8034,7 +8034,7 @@ const CLAUSE_TEMPLATES = [
     states: ["WV"],
     supersedes: "default-by-tenant",
     bodyText:
-      "Tenant will be in default under this Lease if Tenant fails to pay Rent in full when it is due, or fails to comply with any other obligation under this Lease. If a failure other than nonpayment of Rent can be cured, Landlord will first give Tenant written notice describing it, and Tenant will not be in default if Tenant cures it within [number] days after receiving the notice. Except for the posted notice applicable law requires when Tenant abandons the property while owing Rent, no notice or opportunity to cure is required before Landlord acts on a failure to pay Rent, on deliberate or negligent damage to the property, or on a failure that cannot be cured. Except as applicable law requires otherwise, Tenant's failure to pay a late fee, apart from the underlying Rent, will not by itself entitle Landlord to terminate this Lease. If Tenant is in default, Landlord may exercise the rights and remedies applicable law provides, including terminating this Lease, recovering possession of the property through the courts, and recovering unpaid Rent, the late fees this Lease provides for, Landlord's actual damages, interest as the law allows and court costs the court awards, less amounts lawfully applied from the Security Deposit. Nothing in this Lease limits any right West Virginia law gives Tenant to stop or be relieved from a proceeding for possession by paying all Rent due with interest and costs. Landlord will use reasonable efforts to mitigate its damages to the extent applicable law requires. This Lease does not require Tenant to pay Landlord's attorney fees or collection costs.",
+      "Tenant will be in default under this Lease if Tenant fails to pay Rent in full when it is due, or fails to comply with any other obligation under this Lease. If a failure other than nonpayment of Rent can be cured, Landlord will first give Tenant written notice describing it, and Tenant will not be in default if Tenant cures it within [number] days after receiving the notice. Except for the posted notice applicable law requires when Tenant abandons the property while owing Rent, and any notice to vacate that federal law requires for the property, no notice or opportunity to cure is required before Landlord acts on a failure to pay Rent, on deliberate or negligent damage to the property, or on a failure that cannot be cured. Except as applicable law requires otherwise, Tenant's failure to pay a late fee, apart from the underlying Rent, will not by itself entitle Landlord to terminate this Lease. If Tenant is in default, Landlord may exercise the rights and remedies applicable law provides, including terminating this Lease, recovering possession of the property through the courts, and recovering unpaid Rent, the late fees this Lease provides for, Landlord's actual damages, interest as the law allows and court costs the court awards, less amounts lawfully applied from the Security Deposit. Nothing in this Lease limits any right West Virginia law gives Tenant to stop or be relieved from a proceeding for possession by paying all Rent due with interest and costs. Landlord will use reasonable efforts to mitigate its damages to the extent applicable law requires. This Lease does not require Tenant to pay Landlord's attorney fees or collection costs.",
   },
   // Tenant Responsibilities
   {
@@ -8061,7 +8061,7 @@ const CLAUSE_TEMPLATES = [
     group: "Default & Termination",
     states: ["WV"],
     bodyText:
-      "If the property is damaged by fire, water or any other cause, and the damage results from the deliberate or negligent act or omission, or the lack of reasonable care, of Tenant, a member of Tenant's family, or any other person on the premises with Tenant's consent, then: (1) Rent will not abate or be reduced while the property is repaired, for as long as this Lease continues; and (2) if this Lease ends because of the damage, Tenant will be liable for Landlord's actual damages, including the Rent Landlord loses while the property is repaired, up to the end of the Term, less any Rent Landlord receives from re-renting the property. If Landlord claims lost Rent under (2), Landlord will use reasonable efforts to re-rent the property and, if Landlord decides to restore it, to complete repairs within a reasonable time. This Section is in addition to Tenant's liability for the cost of repairing the damage, and it does not limit any right of Tenant to end this Lease under applicable law.",
+      "If the property is damaged by fire, water or any other cause, and the damage results from the deliberate or negligent act or omission, or the lack of reasonable care, of Tenant, a member of Tenant's family, or any other person on the premises with Tenant's consent, then: (1) Rent will not abate or be reduced while the property is repaired, for as long as this Lease continues; and (2) if this Lease ends because of the damage, Tenant will be liable for Landlord's actual damages, including the Rent Landlord loses while the property is repaired, up to the end of the Term, less any Rent Landlord receives from re-renting the property. If Landlord claims lost Rent under (2), Landlord will use reasonable efforts to re-rent the property and, if Landlord decides to restore it, to complete repairs within a reasonable time. This Section is in addition to Tenant's liability for the cost of repairing the damage, and it does not limit any right of Tenant to end this Lease under applicable law. Part (2) does not apply after Tenant surrenders possession under West Virginia law because Landlord did not restore the property as soon as Landlord reasonably could.",
   },
   {
     id: "termination-notice-wv",
@@ -8095,7 +8095,7 @@ const CLAUSE_TEMPLATES = [
     group: "Landlord Responsibilities",
     states: ["WV", "AL"],
     bodyText:
-      "[Optional. Use only if Landlord bills Tenant for a utility.] Landlord will bill Tenant for the following utility services to the property: [list each utility, for example water and sewer]. Tenant's share will be measured or calculated by [state one for each utility: submetering equipment / energy allocation equipment / this ratio utility billing formula: describe the formula, for example the building's bill divided by square footage or by number of occupants]. Landlord will give Tenant a written bill for each billing period showing the amount and how it was calculated, and Tenant will pay it within [number] days after receiving it. Landlord will not add any administrative or service fee to these charges. Unpaid utility charges under this Section are Tenant's obligation under this Lease, and those for utility service Landlord has paid for may be applied against the Security Deposit when the tenancy ends.",
+      "[Optional. Use only if Landlord bills Tenant for a utility. Do not use it for a utility that the state's utility rules bar Landlord from reselling or rebilling; in West Virginia, do not use it for water or electricity unless the Public Service Commission or a lawyer has confirmed that billing tenants separately is not a prohibited resale.] Landlord will bill Tenant for the following utility services to the property: [list each utility, for example sewer or trash]. Tenant's share will be measured or calculated by [state one for each utility: submetering equipment / energy allocation equipment / this ratio utility billing formula: describe the formula, for example the building's bill divided by square footage or by number of occupants]. Landlord will give Tenant a written bill for each billing period showing the amount and how it was calculated, and Tenant will pay it within [number] days after receiving it. Landlord will not add any administrative or service fee to these charges. Unpaid utility charges under this Section are Tenant's obligation under this Lease, and those for utility service Landlord has paid for may be applied against the Security Deposit when the tenancy ends.",
   },
   // Rent & Payment
   {
@@ -9199,7 +9199,7 @@ const CLAUSE_TEMPLATES = [
     states: ["RI"],
     supersedes: "lead-based-paint",
     bodyText:
-      "[Use for housing built before 1978, except a zero-bedroom unit in which no child resides, or housing for the elderly or persons with disabilities in which no child resides and no child under 6 is expected to reside. Print this disclosure and acknowledgment on its own separate page of this Lease, or as a stand-alone document that includes the property address.] LEAD WARNING STATEMENT. Housing built before 1978 may contain lead-based paint. Lead from paint, paint chips, and dust can pose health hazards if not managed properly. Lead exposure is especially harmful to young children and pregnant women. Before renting pre-1978 housing, lessors must disclose the presence of known lead-based paint and/or lead-based paint hazards in the dwelling. Lessees must also receive a federally approved pamphlet on lead poisoning prevention. Property: {{property_address}}, unit [unit number, if any]. Landlord's disclosure: [state either that Landlord has no knowledge of lead-based paint or lead hazards at the property, or describe all known lead-based paint and lead hazards]. Lead certificates: [attach a copy of each current lead certificate for the dwelling unit and the common areas, or state that there is none]. Records and reports: [list in date order all available records and reports pertaining to lead-based paint or lead-based paint hazards at the property, including every lead inspection report and lead certificate, and confirm they have been provided to Tenant, or state that Landlord has none]. Tenant may obtain a further copy of any report or certificate listed by asking [name and contact information]; Landlord will deliver it within 7 days of the request at no charge. Rhode Island lead law: [state basic information about Rhode Island's lead poisoning prevention rules and how they apply to this property, for example whether it has a lead certificate of conformance or is exempt]. Person responsible for maintaining the property: [name and contact information of the owner, registered agent or designated person]. Tenant acknowledges receipt of the information above and of the pamphlet Protect Your Family from Lead in Your Home with the insert What You Should Know about the Rhode Island Lead Law. Landlord and Tenant each certify, to the best of their knowledge, that the information they have provided is true and accurate.",
+      "[Use for housing built before 1978, except a zero-bedroom unit in which no child resides, or housing for the elderly or persons with disabilities in which no child resides and no child under 6 is expected to reside. Print this disclosure and acknowledgment on its own separate page of this Lease, or as a stand-alone document that includes the property address.] LEAD WARNING STATEMENT. Housing built before 1978 may contain lead-based paint. Lead from paint, paint chips, and dust can pose health hazards if not managed properly. Lead exposure is especially harmful to young children and pregnant women. Before renting pre-1978 housing, lessors must disclose the presence of known lead-based paint and/or lead-based paint hazards in the dwelling. Lessees must also receive a federally approved pamphlet on lead poisoning prevention. Property: {{property_address}}, unit [unit number, if any]. Landlord's disclosure: [state either that Landlord has no knowledge of lead-based paint or lead hazards at the property, or describe all known lead-based paint and lead hazards]. Lead certificates: [attach a copy of each current lead certificate for the dwelling unit and the common areas, or state that there is none]. Records and reports: [list in date order all available records and reports pertaining to lead-based paint or lead-based paint hazards at the property, including every lead inspection report and lead certificate, and confirm they have been provided to Tenant, or state that Landlord has none]. Tenant may obtain a further copy of any report or certificate listed by asking [name and contact information]; Landlord will deliver it within 7 days of the request at no charge. Rhode Island lead law: [state basic information about Rhode Island's lead poisoning prevention rules and how they apply to this property, for example whether it has a lead certificate of conformance or is exempt]. Person responsible for maintaining the property: [name and contact information of the owner, registered agent or designated person]. Tenant acknowledges receipt of the information above and of the pamphlet Protect Your Family from Lead in Your Home with the insert What You Should Know about the Rhode Island Lead Law. Landlord and Tenant each certify, to the best of their knowledge, that the information they have provided is true and accurate. [Include if one or more agents act for Landlord in leasing the dwelling:] Agent's statement: [agent's name] has informed Landlord of Landlord's obligations under 42 U.S.C. 4852d and is aware of Agent's duty to ensure compliance with the federal lead-based paint disclosure rules. Agent certifies, to the best of Agent's knowledge, that the information Agent has provided is true and accurate. Each person making a statement in this disclosure will sign and date it; dated signatures to this Lease satisfy this for Landlord and Tenant.",
   },
   // Default & Termination
   {
@@ -10569,7 +10569,7 @@ const CLAUSE_TEMPLATES = [
     id: "arbitration-agreement",
     title: "Binding Arbitration of Money Claims",
     group: "Notices & General",
-    states: ["SD", "ND", "MN", "NJ", "OH", "LA", "AR", "MP", "MS", "TX", "HI", "GU", "PR", "AS", "CT", "NH", "GA", "NC", "ID"],
+    states: ["SD", "ND", "MN", "NJ", "OH", "LA", "AR", "MP", "MS", "TX", "HI", "GU", "PR", "AS", "CT", "NH", "GA", "NC", "ID", "WV"],
     bodyText:
       "[Optional. Use only if Landlord wants money disputes decided by an arbitrator instead of a court. This section takes effect only if Landlord and Tenant each initial it below.] BINDING ARBITRATION OF MONEY CLAIMS. PLEASE READ CAREFULLY. BY INITIALING THIS SECTION, LANDLORD AND TENANT EACH GIVE UP THE RIGHT TO HAVE A JUDGE OR JURY DECIDE THE DISPUTES THIS SECTION COVERS. (a) Covered disputes. Except as stated in (b), any claim for money between Landlord and Tenant arising out of this Lease or Tenant's occupancy of the Premises will be decided by binding arbitration before a neutral arbitrator, and not in court. (b) Not covered. This section does not apply to the following, which either party may bring in court or before the agency concerned: (1) any action for possession of the Premises, including any claim for rent or damages joined with it; (2) any claim within the jurisdiction of a small claims court, for as long as it stays there; (3) any claim about the security deposit; (4) any claim for bodily injury or wrongful death; (5) any claim the law does not allow to be arbitrated under an agreement made before the dispute arose, including, at the election of the person bringing it, a sexual harassment or sexual assault dispute; (6) any request to a court for emergency or provisional relief; and (7) any complaint either party files with a government agency. (c) Rights kept. The arbitrator may award any remedy, damages, penalty, attorney fees or costs that a court could award on the same claim under the law that would apply in court. This section does not shorten any time limit or waive any right or remedy Landlord or Tenant has under the law. Each party may be represented by a lawyer. (d) Cost and place. The arbitration will be held in the county where the Premises are located [or by video, if both parties agree], before [name an arbitrator or arbitration organization and its rules for consumer or residential disputes, or state how one is chosen]. Landlord will pay all arbitration filing, administration and arbitrator fees above the amount Tenant would have paid to file the claim in court. (e) Opting out. Tenant may reject this section by giving Landlord written notice within 30 days after signing this Lease. Rejecting it has no effect on the rest of this Lease. (f) Law and severability. This section is governed by the Federal Arbitration Act, 9 U.S.C. §§ 1-16, and, where that Act does not apply, by the arbitration law of the state where the Premises are located. If a court finds any part of this section unenforceable as to a claim, that claim will be decided in court, and the rest of this section stays in effect. Landlord's initials: ______   Tenant's initials: ______",
   },
@@ -11128,7 +11128,7 @@ const CLAUSE_TEMPLATES = [
     id: "tax-insurance-escalation-la",
     title: "Tax and Insurance Increases",
     group: "Rent & Payment",
-    states: ["LA", "AR", "MS", "PR", "GU", "VI", "WY", "KS", "NE", "TX", "NJ", "AZ", "FL", "SC", "NC", "PA", "AL", "UT", "MO", "IN", "OK", "WI", "KY"],
+    states: ["LA", "AR", "MS", "PR", "GU", "VI", "WY", "KS", "NE", "TX", "NJ", "AZ", "FL", "SC", "NC", "PA", "AL", "UT", "MO", "IN", "OK", "WI", "KY", "WV"],
     bodyText:
       "[Optional.] Tax and Insurance Increases: If the ad valorem property taxes assessed on [the Property / the building or parcel of which the Property is a part] for any calendar year during the Term are higher than the taxes for [base year][, or if Landlord's premium for property insurance on [the Property / that building] for any policy year during the Term is higher than the premium for [base policy year]], Tenant will pay Landlord [percent] percent of the increase, which is the Property's share of [the building or parcel]. Landlord will give Tenant written notice of each amount due, with a copy of the tax bill [and premium notice] and the calculation, at least [number] days before it is due, and Tenant may pay it [in one payment / in equal monthly installments with Rent over [number] months]. Tenant will not pay any part of a penalty or interest charged for Landlord's late payment of taxes or premiums. If taxes [or premiums] for a period for which Tenant paid a share are later reduced, abated or refunded, Landlord will credit or refund Tenant the same percentage of the reduction.",
   },
@@ -11221,7 +11221,7 @@ const CLAUSE_TEMPLATES = [
     id: "scheduled-services-entry-la",
     title: "Entry for Regularly Scheduled Services",
     group: "Access & Entry",
-    states: ["LA", "AR", "MS", "VI", "AS", "MP", "CO", "KS", "TX", "NJ", "GA", "NC", "PA", "UT", "IL", "MO", "ID", "NY"],
+    states: ["LA", "AR", "MS", "VI", "AS", "MP", "CO", "KS", "TX", "NJ", "GA", "NC", "PA", "UT", "IL", "MO", "ID", "NY", "WV"],
     bodyText:
       "[Optional.] In addition to Landlord's rights under the Landlord's Right of Entry section, Landlord or Landlord's agent may enter the property between [state hours, for example 9:00 a.m. and 6:00 p.m.] on the following schedule to provide these regularly scheduled services: [list each service and its schedule, for example changing air-conditioning filters every [number] months, or pest treatment every [number] months]. Landlord will give Tenant notice of each scheduled visit at least [state notice, for example 24 hours] in advance by [state method, for example text message, e-mail or a notice posted on the door], and will knock and announce before entering.",
   },
@@ -11229,7 +11229,7 @@ const CLAUSE_TEMPLATES = [
     id: "showing-notice-la",
     title: "Showings Near the End of the Lease",
     group: "Access & Entry",
-    states: ["LA", "AR", "MS", "VI", "AS", "MP", "CO", "WY", "KS", "NJ", "GA", "NC", "PA", "UT", "MO", "ID", "NY"],
+    states: ["LA", "AR", "MS", "VI", "AS", "MP", "CO", "WY", "KS", "NJ", "GA", "NC", "PA", "UT", "MO", "ID", "NY", "WV"],
     bodyText:
       "[Optional.] During the last [number] days of the Term, and at any time after either party gives notice of termination, Landlord, its agents and contractors may enter the property to show it to prospective tenants or purchasers on [state the shorter notice, for example same-day notice by telephone or text message] instead of the notice required by the Landlord's Right of Entry section, but only between [state hours, for example 9:00 a.m. and 7:00 p.m.]. Every other entry remains subject to the Landlord's Right of Entry section.",
   },
@@ -12937,7 +12937,7 @@ const CLAUSE_TEMPLATES = [
     id: "animal-care-access-vi",
     title: "Animal Care in Tenant's Absence (Virgin Islands)",
     group: "Pets",
-    states: ["VI", "AS", "MP", "CO", "TX", "NJ", "GA", "NC", "PA", "UT", "IL", "MO", "ID", "OK", "MI", "IA", "NM", "NY", "KY"],
+    states: ["VI", "AS", "MP", "CO", "TX", "NJ", "GA", "NC", "PA", "UT", "IL", "MO", "ID", "OK", "MI", "IA", "NM", "NY", "KY", "WV"],
     bodyText:
       "[Optional.] Animal Care: Tenant will tell Landlord in writing about every animal kept at the property. Tenant names the following person to care for or remove Tenant's animals if Tenant cannot because Tenant is hospitalized, incapacitated, detained or otherwise absent and an animal is left without care: [name and telephone number]. In that case, after trying to reach Tenant, Landlord may let that person into the property for that purpose only, and if that person cannot be reached Landlord may ask an animal warden, a peace officer, or the Humane Society or an animal shelter to take charge of the animal. Tenant will tell Landlord in writing if this information changes. This permission ends at Tenant's death; after that, Landlord will deal with Tenant's animals only through Tenant's personal representative or heirs or as the law otherwise allows.",
   },
@@ -13632,7 +13632,7 @@ const CLAUSE_TEMPLATES = [
     id: "emergency-contact-co",
     title: "Tenant's Emergency Contact (Optional)",
     group: "Notices & General",
-    states: ["CO", "AZ", "SC", "PA", "UT", "IL", "MO", "ID", "OK", "MI", "IA", "NM", "WI", "KY"],
+    states: ["CO", "AZ", "SC", "PA", "UT", "IL", "MO", "ID", "OK", "MI", "IA", "NM", "WI", "KY", "WV"],
     bodyText:
       "[Optional.] Tenant will give Landlord the name, relationship and telephone number of at least one person Landlord may try to reach in an emergency affecting Tenant or the Property, and will tell Landlord in writing if that information changes. Landlord may contact that person only in an emergency, or when Landlord cannot reach Tenant about an urgent condition at the Property, and will not use the information for any other purpose or give it to anyone else except as the law requires. Naming a contact does not make that person liable for Rent or for any other obligation under this Lease, does not make that person Tenant's agent, and does not give that person any right to enter the Property. Emergency contact name: [name]. Relationship to Tenant: [relationship]. Telephone: [telephone number].",
   },
@@ -18573,7 +18573,7 @@ const CLAUSE_TEMPLATES = [
     id: "hunting-fishing-consent-ok",
     title: "Hunting, Trapping and Fishing",
     group: "Rules & Regulations",
-    states: ["OK", "NY", "KY"],
+    states: ["OK", "NY", "KY", "WV"],
     bodyText:
       "[Optional.] Tenant will not hunt, trap or fish on the Property, and will not give anyone else permission to hunt, trap or fish on the Property, without Landlord's prior written consent. Any consent Landlord gives covers only the persons, areas and period stated in it.",
   },
@@ -18747,7 +18747,7 @@ const CLAUSE_TEMPLATES = [
     id: "association-documents-delivery-mi",
     title: "Association Documents Given to Tenant",
     group: "Disclosures",
-    states: ["MI", "NY"],
+    states: ["MI", "NY", "WV"],
     bodyText:
       "[Optional.] ASSOCIATION DOCUMENTS. [Use only if the Property is in a condominium or a homeowners' association.] Before signing this Lease, Landlord gave Tenant a copy of the association's rules and of the master deed, bylaws, declaration or recorded restrictions that limit or affect the use and occupancy of the Property, and Tenant acknowledges receiving them. Landlord will give Tenant a copy of any later change to those documents that affects Tenant's use of the Property within a reasonable time after Landlord receives it. This Section adds to, and does not replace, this Lease's statement that Tenant will comply with the condominium documents and association rules.",
   },
@@ -19817,6 +19817,225 @@ const CLAUSE_TEMPLATES = [
     states: ["KY"],
     bodyText:
       "[Optional.] Tenant may terminate this Lease before the end of the Term by giving Landlord at least 30 days' written notice. Tenant will pay Landlord, by the termination date, an early termination fee equal to one month's Rent ({{monthly_rent}}), and remains responsible for Rent and other obligations up to the termination date. If Tenant gives that notice, pays the fee and delivers possession of the property by the termination date, Tenant owes no Rent for any period after the termination date. If Tenant leaves before the end of the Term without using this option, Tenant's liability is governed by this Lease's Default by Tenant terms and Kentucky law, and Landlord will use reasonable efforts to re-rent the property at a fair rental. This early-termination option and fee apply only if this Lease has a fixed Term; a month-to-month or other periodic tenancy ends on the notice that Kentucky law and this Lease provide, without an early termination fee. Landlord may terminate this Lease early only as this Lease's Default by Tenant terms and Kentucky law allow, and will regain possession only through a court proceeding. Nothing in this Section limits any right either party has under applicable law. No early termination fee is owed when Tenant ends this Lease, or is released from it, under such a right. These rights include a protected tenant's right to terminate under Kentucky's protective-order law; release from this Lease because of a lead hazard to a young child; Tenant's right to terminate because of military service under the Servicemembers Civil Relief Act; and Tenant's right to terminate after a fire or casualty, or because Landlord has not complied with this Lease or applicable law.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "designated-repairer-wv",
+    title: "Repair Requests and Approved Repairers",
+    group: "Landlord Responsibilities",
+    states: ["WV"],
+    bodyText:
+      "[Optional.] Tenant will report repair needs to Landlord at {{landlord_repair_contact}}. Tenant will not make, or hire anyone to make, any repair at Landlord's expense, and will not deduct any repair cost from Rent, unless Landlord first consents in writing or a court orders it. Landlord's written consent will name the person or company Landlord approves to do the work and any cost limit. If a condition threatens immediate injury or serious damage to the property and Tenant cannot reach Landlord or Landlord's repair contact, Tenant may take reasonable steps to prevent further harm and will tell Landlord as soon as possible. Any part or material installed in an approved repair becomes part of the property, belongs to Landlord and may not be removed by Tenant. This Section does not reduce any duty Landlord has under this Lease or West Virginia law to keep the property fit and habitable and in repair, and does not limit any defense or claim West Virginia law gives Tenant if Landlord does not.",
+  },
+  {
+    id: "promised-repairs-wv",
+    title: "Promised Repairs and Improvements",
+    group: "Landlord Responsibilities",
+    states: ["WV"],
+    bodyText:
+      "[Optional. Use whenever Landlord has agreed to clean, repair or improve anything at the property.] Landlord will complete the following cleaning, repairs or other work at the property, each on or before the date stated: [list each item and its completion date, or write \"None\"]. If a cause beyond Landlord's reasonable control, such as a labor stoppage, materials that cannot be obtained, or a fire or other casualty, delays an item, Landlord will tell Tenant in writing the reason and the new completion date. This Section lists every promise Landlord made before this Lease was signed to clean, repair or improve the property. If Tenant believes Landlord promised anything else, Tenant will say so in writing before signing this Lease so that it can be added. Completing a listed item does not by itself add any continuing maintenance promise beyond what this Lease and West Virginia law require. This Section does not limit Landlord's duties under West Virginia law, including the duty to keep the property fit and habitable and to maintain the facilities and appliances Landlord supplies or agrees to supply.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "carpet-cleaning-wv",
+    title: "Carpet Cleaning at Move-Out",
+    group: "Tenant Responsibilities",
+    states: ["WV"],
+    bodyText:
+      "[Optional.] When the tenancy ends, Tenant will leave the carpets as clean as they were at the start of the tenancy, apart from reasonable wear and tear. If the carpets are soiled or stained beyond reasonable wear and tear by Tenant, a member of Tenant's family, or any other person on the premises with Tenant's consent, Landlord may have them professionally cleaned and may apply the reasonable cost Landlord actually pays to the Security Deposit, as a charge this Lease provides for, listed in Landlord's written itemization of deductions.",
+  },
+  // Rent & Payment
+  {
+    id: "tenant-caused-fines-wv",
+    title: "Fines Caused by Tenant",
+    group: "Rent & Payment",
+    states: ["WV"],
+    bodyText:
+      "[Optional.] If a government agency fines or penalizes Landlord, or charges Landlord the cost of abating a nuisance, because of a condition or violation that was the fault of Tenant, a member of Tenant's family, or any other person on the premises with Tenant's consent, that condition or violation is a breach of this Lease, and Tenant will pay Landlord the amount Landlord paid, as Landlord's actual damages for that breach, within [number of days] days after Landlord gives Tenant written notice with a copy of the citation, order or bill. This Section does not apply to a fine or charge for a condition Landlord is responsible for under this Lease or the law, and Landlord will not deduct the amount from a Rent payment.",
+  },
+  // Access & Entry
+  {
+    id: "subsidy-inspection-access-wv",
+    title: "Access for a Housing Program Inspection",
+    group: "Access & Entry",
+    states: ["WV"],
+    bodyText:
+      "[Optional.] If all or part of the Rent is paid under a housing assistance program, such as a Housing Choice Voucher, Tenant will allow the administering agency's inspector, and Landlord or Landlord's agent accompanying the inspector, to enter the Property for any inspection the program requires, at a reasonable time and after Landlord gives Tenant written notice of at least {{inspection_notice_hours}} hours, unless Tenant agrees to a shorter time or the agency sets the appointment directly with Tenant. Refusing or preventing such an inspection, by Tenant, a member of Tenant's family, or any other person on the premises with Tenant's consent, is a breach of this Lease. Landlord will not charge Tenant any fee for a program inspection or reinspection, and nothing in this section makes Tenant responsible for a repair that is Landlord's responsibility under this Lease or the law.",
+  },
+  // Parking & Storage
+  {
+    id: "optional-parking-wv",
+    title: "Optional Parking Charged Separately",
+    group: "Parking & Storage",
+    states: ["WV"],
+    bodyText:
+      "[Optional.] [Use only if Tenant can rent the property without parking and is choosing to add it; if parking comes with the property, use the Assigned Parking Space(s) section and include it in the Monthly Rent.] Parking is not included in the Monthly Rent. Tenant has chosen to rent the following parking space(s) at the property: [identify the space number or location]. Tenant will pay {{parking_fee_amount}} per month for the space(s), with the Monthly Rent on the day it is due, and this charge is rent under this Lease. Landlord will not increase this charge during the Term. Tenant may end this parking arrangement by giving Landlord at least [number] days' written notice, after which the charge stops and Tenant will stop using the space(s); Landlord may end it the same way and will refund any part of the charge covering a period after the space(s) are given up. The parking rules in this Lease, and any parking addendum, apply to the space(s).",
+  },
+  // Tenant Responsibilities
+  {
+    id: "cold-weather-absence-wv",
+    title: "Cold-Weather Absences",
+    group: "Tenant Responsibilities",
+    states: ["WV"],
+    bodyText:
+      "[Optional.] Between October 1 and the last day of April, if Tenant expects to leave the property unoccupied for more than [number] consecutive days, or to move out before the end of the Term, Tenant will give Landlord written notice at least [number, no more than 30] days before leaving, so that Landlord can take steps to protect the plumbing from freezing. If the heat for the property is generated by an installation under Tenant's control, Tenant will keep it running at a temperature of at least [temperature] degrees Fahrenheit while the property is unoccupied during that period and will not shut off the heating system or the water supply. This Section does not reduce any duty Landlord has under applicable law to supply heat, running water or hot water, and it does not end this Lease or excuse Rent. Responsibility for any freeze damage is governed by the other provisions of this Lease and applicable law.",
+  },
+  // Default & Termination
+  {
+    id: "owner-occupancy-termination-wv",
+    title: "Owner Occupancy (Optional)",
+    group: "Default & Termination",
+    states: ["WV"],
+    supersedes: "owner-occupancy-termination-ar",
+    bodyText:
+      "[Optional. Use only for a fixed Term.] Owner Occupancy: Landlord may end this Lease before the end of the Term if Landlord, or the following member of Landlord's family, will occupy the property as a residence: [name or relationship]. To do so, Landlord will give Tenant written notice at least [number, not less than 30] days before the termination date, and the termination date will be the last day of a monthly rental period. Tenant owes Rent only through the termination date, and Landlord will refund any Rent paid for a later period. If Tenant does not leave by the termination date, Landlord may regain possession only through a court eviction.",
+  },
+  {
+    id: "environmental-event-termination-wv",
+    title: "Termination After an Environmental Event",
+    group: "Default & Termination",
+    states: ["WV"],
+    bodyText:
+      "[Optional.] If a governmental authority orders the property vacated or closed, or declares it unfit for human habitation, or the law requires the property to be kept unoccupied, because of contamination by a hazardous substance or material, a former clandestine drug laboratory, a failure of the water, sewer or other utility system serving the property, or another environmental or public-health condition, and the condition was not caused by Landlord's failure to meet Landlord's obligations under this Lease or West Virginia law, then either Landlord or Tenant may end this Lease by written notice to the other, effective on the date stated in the notice or, if earlier, the date Tenant vacates. Tenant owes Rent only through the date this Lease ends under this Section, Landlord will refund any Rent paid for any later period, and Landlord will return the Security Deposit as this Lease and West Virginia law provide. If the condition was caused by the fault or negligence of Tenant, a member of Tenant's family, or any other person on the premises with Tenant's consent, ending this Lease under this Section does not release Tenant from liability for the damage or loss that conduct caused, as this Lease's Damage Caused by Tenant terms provide. This Section does not apply to destruction or damage by fire or other casualty, which this Lease's Fire or Casualty Damage terms cover. It does not limit any right Tenant has under West Virginia law, and Landlord will recover possession only as applicable law allows, including any federal notice to vacate required for the property.",
+  },
+  // Notices & General
+  {
+    id: "electronic-notice-agreement-wv",
+    title: "Email and Text Delivery of Routine Notices",
+    group: "Notices & General",
+    states: ["WV"],
+    bodyText:
+      "[Optional.] Email and text delivery of routine notices. Landlord and Tenant agree to give each other the notices this Section covers by electronic means. Either party may give the other any notice that this Lease requires and no law requires, such as notice of Landlord's intent to enter the Premises or of scheduled maintenance, by email to Tenant at {{tenant_email}} or to Landlord at {{landlord_email}}, or by text message to Tenant at the mobile number Tenant gives Landlord in writing, in a form the recipient can print or store. Either party may change its email address or number by written notice to the other, and either party may at any time stop receiving notices electronically, for future notices, by telling the other, including by email or text; after that, notices will be given by another method this Lease allows. This Section does not apply to, and email or text does not replace the method the law or this Lease otherwise requires for: a notice ending the tenancy; a notice of default, of unpaid rent or another lease violation, of eviction, or of a right to cure; a notice about abandoned property or belongings; the return of the Security Deposit and its itemization; any notice or paper in a court case; and any other notice for which the law requires a writing, posting, mailing or a particular method of delivery. Either party may also send an email or text copy of any of those notices, but only in addition to the required method. This Section controls over the Notices Section to the extent they differ.",
+  },
+  {
+    id: "spouse-notice-acknowledgment-wv",
+    title: "Landlord's Spouse Acknowledgment",
+    group: "Notices & General",
+    states: ["WV"],
+    bodyText:
+      "[Optional.] [Use only if Landlord is an individual who is married and owns the Property in Landlord's own name.] Landlord's Spouse Acknowledgment: [full name of Landlord's spouse], the spouse of Landlord, signs this Lease only to acknowledge receiving notice of it, as West Virginia law may require a married person to notify the other spouse of a conveyance of an interest in real estate. By signing, Landlord's spouse does not become a Landlord or a party to this Lease and takes on no duty under it, and Tenant's rights under this Lease do not depend on this signature.",
+  },
+  // Rent & Payment
+  {
+    id: "district-assessment-share-wv",
+    title: "Special District Fees and Assessments",
+    group: "Rent & Payment",
+    states: ["WV"],
+    bodyText:
+      "[Optional.] Special District Fees and Assessments: The Property is within [name each district that levies a fee or assessment on the Property, such as a business improvement district or community enhancement district]. Tenant will pay Landlord [percent] percent of each fee or assessment that [the district / each district named above] levies on [the Property / the building or parcel of which the Property is a part] for any period during the Term, including any assessment for a permanent local improvement, which is the Property's share of [the building or parcel]. Landlord will give Tenant written notice of each amount due, with a copy of the bill and the calculation, at least [number] days before it is due, and Tenant may pay it [in one payment / in equal monthly installments with Rent over [number] months]. Tenant will not pay any part of a penalty or interest charged for Landlord's late payment of a fee or assessment. If a fee or assessment for a period for which Tenant paid a share is later reduced, abated or refunded, Landlord will credit or refund Tenant the same percentage of the reduction.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "furnishings-wv",
+    title: "Furnishings",
+    group: "Tenant Responsibilities",
+    states: ["WV"],
+    bodyText:
+      "[Optional. Use only if the property is rented furnished.] The property is rented furnished. The furniture and furnishings Landlord provides, and their condition at the start of this Lease, are: [list each item and its condition, or attach an inventory signed by Landlord and Tenant]. The furnishings remain Landlord's property. Tenant will keep them at the property, will not remove or dispose of any of them without Landlord's written consent, and will tell Landlord promptly of any loss of or damage to any of them. Tenant is responsible for loss of or damage to the furnishings, beyond reasonable wear and tear, that results from the deliberate or negligent act or omission, or the lack of reasonable care, of Tenant, a member of Tenant's family, or any other person on the premises with Tenant's consent.",
+  },
+  {
+    id: "utility-shutoff-notice-designee-wv",
+    title: "Copy of Utility Shutoff Notices to Landlord",
+    group: "Tenant Responsibilities",
+    states: ["WV"],
+    bodyText:
+      "[Optional. Use only if Tenant will hold the electric or natural gas account for the property.] If Tenant has electric or natural gas service to the property in Tenant's own name, Tenant will ask the utility, when the account is opened or within [number] days after this Lease begins, to designate Landlord as the responsible third party to be contacted before any termination of service or other material action on the account, using Landlord's notice address in this Lease, and will keep that designation in place during the tenancy. On request, Tenant will give Landlord the utility's confirmation of the designation, or tell Landlord in writing if the utility will not accept Landlord as the designee. This Section does not make Landlord responsible for Tenant's utility bills.",
+  },
+  {
+    id: "utility-transfer-deadline-wv",
+    title: "Deadline to Transfer Utilities",
+    group: "Tenant Responsibilities",
+    states: ["WV"],
+    bodyText:
+      "[Optional. Use only with a clause that makes Tenant responsible for utilities in Tenant's own name.] Tenant will have each utility that this Lease makes Tenant's responsibility placed in Tenant's own name with the provider, effective no later than [date, for example the first day of the Term], and will give Landlord the provider's account confirmation on request. If Tenant has not done so, Landlord may give Tenant written notice, and Tenant's failure to complete the transfer within [number] days after the notice is a breach of this Lease. Tenant is responsible for any loss Landlord suffers because Tenant did not transfer the service when required, including charges billed to Landlord for that service to the property during the Term.",
+  },
+  {
+    id: "detector-tampering-cost-wv",
+    title: "Detector Tampering Costs",
+    group: "Tenant Responsibilities",
+    states: ["WV"],
+    bodyText:
+      "[Optional.] If a smoke detector, carbon monoxide detector or other fire protection or fire warning equipment at the property must be repaired or replaced because Tenant, a member of Tenant's family, or any other person on the premises with Tenant's consent removed, disconnected or disabled it without Landlord's consent, or damaged it through a lack of reasonable care, Tenant will reimburse Landlord for the reasonable actual cost of the repair or replacement, as shown by Landlord's receipt or invoice. Landlord will charge no fee or penalty beyond that cost. Any repaired or replacement detector or equipment belongs to Landlord and may not be removed from the property. This Section does not cover replacing a worn battery or a detector that fails from age or ordinary wear.",
+  },
+  {
+    id: "pest-cooperation-wv",
+    title: "Pest Reporting and Treatment",
+    group: "Tenant Responsibilities",
+    states: ["WV"],
+    bodyText:
+      "[Optional.] Tenant will promptly tell Landlord if Tenant knows or reasonably suspects that the property has bed bugs or another infestation of insects, rodents or other pests. Tenant will allow Landlord, Landlord's agents and pest control operators to enter the property to inspect for and treat the infestation as this Lease's entry section allows, and will follow the reasonable written preparation instructions Landlord or the pest control operator gives. If the infestation was caused primarily by a lack of reasonable care by Tenant, a member of Tenant's family, or any other person on the premises with Tenant's consent, Tenant will reimburse Landlord for the reasonable actual cost of treatment and of repairing the resulting damage, and any repairs and replacement parts belong to Landlord and may not be removed by Tenant. Otherwise, treatment is governed by Landlord's repair obligations under this Lease and West Virginia law.",
+  },
+  // Disclosures
+  {
+    id: "hazardous-waste-disclosure-wv",
+    title: "Hazardous Waste Disclosure",
+    group: "Disclosures",
+    states: ["WV"],
+    bodyText:
+      "[Use only if the property, or the ground beneath it, was used for the storage, treatment or disposal of hazardous waste, and Landlord owned or had an interest in the property at that time or knows of that use. West Virginia law requires this disclosure to appear in the Lease itself.] HAZARDOUS WASTE DISCLOSURE. Landlord discloses that the property, or the subsurface of the property, was used for the storage, treatment or disposal of hazardous waste. What Landlord knows about that use: [describe the location on the property, the kind of waste, when it was stored, treated or disposed of, and any cleanup, recorded deed notation or land use covenant, or state that Landlord knows only the fact of that use].",
+  },
+  {
+    id: "condominium-unit-identification-wv",
+    title: "Condominium or Community Unit",
+    group: "Disclosures",
+    states: ["WV"],
+    bodyText:
+      "[Use only if the Property is a unit in a condominium or other common interest community, filling it in from the recorded declaration. Required if the unit is in a condominium under the Unit Property Act, W. Va. Code chapter 36A.] CONDOMINIUM OR COMMUNITY UNIT. The Property is the unit designated [unit designation or identifying number in the declaration] in [name by which the condominium or community is identified in the declaration], located in {{county}} County, West Virginia, under the declaration recorded in that county at [book and page, or instrument number, of the recorded declaration].",
+  },
+  // Rules & Regulations
+  {
+    id: "child-care-consent-wv",
+    title: "Child Care at the Property",
+    group: "Rules & Regulations",
+    states: ["WV"],
+    bodyText:
+      "[Optional. Use only if Landlord agrees to allow child care in the Property.] CHILD CARE. Despite the residential-use terms of this Lease, Tenant may provide child care at the Property for children who do not live there only while Tenant: (1) holds and keeps current any registration or license, or qualifies for any exemption, that West Virginia law requires for the care provided; (2) complies with all state and local laws, including zoning, fire and building codes, and with any association rules that apply to the Property; (3) gives Landlord written notice before starting, with a copy of any required registration or license, and promptly tells Landlord of any change; (4) cares for no more than {{max_children_in_care}} children at a time who do not live in the Property, and never more than the registration or license allows; and (5) keeps liability insurance covering the child care with limits of at least {{child_care_liability_amount}}, and gives Landlord a certificate of that insurance on request. This permission does not change any other term of this Lease, including Tenant's responsibility for damage. Landlord may withdraw this permission by written notice if Tenant stops meeting these conditions, and Tenant will then stop providing the care within [number of days] days.",
+  },
+  // Parking & Storage
+  {
+    id: "vehicle-removal-wv",
+    title: "Vehicles Parked Without Permission",
+    group: "Parking & Storage",
+    states: ["WV"],
+    bodyText:
+      "[Optional.] Vehicles Parked Without Permission. Tenant and Tenant's guests may park at the property only in [describe the spaces or areas where Tenant and guests may park], and only vehicles that meet the parking rules in this Lease. Landlord does not give permission to park in any other area of the property that Landlord controls, such as a fire lane, a driveway or entrance, another tenant's assigned space, a lawn or an area marked \"No Parking\", and a vehicle parked there is parked without Landlord's permission. Landlord may have a vehicle parked without permission moved as West Virginia law allows, using a wrecker company authorized by the Public Service Commission; the vehicle's owner is responsible for the removal costs, and Landlord will report the removal to the police as the law requires. Before having a vehicle owned or regularly used by Tenant moved, Landlord will give Tenant written notice and at least [number] hours to move it, unless the vehicle blocks a fire lane, driveway, entrance or another tenant's assigned space or creates a safety hazard. This Section does not apply to any part of the property leased to Tenant alone, such as a driveway or garage that comes only with Tenant's home, and it does not limit Landlord's other rights under this Lease or the law.",
+  },
+  // Disclosures
+  {
+    id: "smoke-drift-disclosure-wv",
+    title: "Smoke From Other Units or Areas",
+    group: "Disclosures",
+    states: ["WV"],
+    bodyText:
+      "[Optional. Use only if smoking is allowed in another unit or area near the Premises, and not with a Smoking Policy that bans smoking everywhere on the property.] Smoke From Other Units or Areas. Smoking is allowed in [identify the other units, buildings or outdoor areas where smoking is allowed]. Tobacco or other smoke from those places may drift into the Premises or the common areas. Landlord has told Tenant this before Tenant signed this Lease. This Section is a disclosure only; it does not change Landlord's duties or Tenant's rights under this Lease or the law.",
+  },
+  // Notices & General
+  {
+    id: "tenant-portal-wv",
+    title: "Online Tenant Portal",
+    group: "Notices & General",
+    states: ["WV"],
+    bodyText:
+      "[Optional.] Online Tenant Portal. Landlord offers an online portal at {{payment_portal_url}} that Tenant may use to pay Rent, submit maintenance requests, and receive and sign documents about this tenancy. Landlord and Tenant agree that renewals, amendments, addenda and other documents and routine notices that no law requires to be given on paper or by a particular method may be delivered and signed electronically through the portal, in a form Tenant can print or store. Tenant may at any time stop doing business through the portal for future documents, signatures and payments by telling Landlord, including through the portal or by email, and Landlord will then use another method this Lease allows; this does not affect anything already done through the portal. Tenant may always pay Rent by {{alternate_payment_method}} delivered to {{landlord_notice_address}}, at no charge. Landlord charges no fee for using the portal; if a payment option in the portal carries a processing fee, the fee will be shown before Tenant pays, and Tenant may avoid it by using a no-fee method. Notices ending the tenancy; notices of default, unpaid rent or another lease violation, of eviction or of a right to cure; notices about abandoned property; the return and itemization of the Security Deposit; and any court paper will be given by the method the law or this Lease otherwise requires, even if a copy is also posted in the portal.",
+  },
+  // Default & Termination
+  {
+    id: "early-termination-wv",
+    title: "Early Termination",
+    group: "Default & Termination",
+    states: ["WV"],
+    supersedes: "early-termination-ks",
+    bodyText:
+      "If this Lease has a fixed Term, Tenant may end this Lease before the end of the Term by giving Landlord at least [number of days, no more than 30] days' written notice and paying Landlord, on or before the termination date stated in the notice, an early termination fee equal to one month's Rent ({{monthly_rent}}). Tenant remains responsible for Rent and other obligations up to that termination date. If Tenant gives the notice and pays the fee as this Section requires, Landlord accepts Tenant's surrender of the property as of the termination date, and Tenant will owe no Rent for any later period. This option does not apply to a month-to-month or other periodic tenancy, which ends on the notice West Virginia law and this Lease provide. Landlord may end this Lease early only as this Lease's other terms, including its Tenant Default terms, and West Virginia law allow. Nothing in this Section limits any right either party has under applicable law, including the right of a deceased Tenant's heir, personal representative, devisee or assignee to end this Lease (W. Va. Code § 37-6-11(b)), Tenant's right to surrender the property and be relieved of further Rent after a fire or other casualty (W. Va. Code § 37-6-28), the end of Rent when the whole property is taken by eminent domain (W. Va. Code § 37-6-29), and the rights of servicemembers under the Servicemembers Civil Relief Act, which West Virginia extends to West Virginia National Guard members on state active duty (W. Va. Code § 15-1F-11). The early termination fee does not apply when Tenant's tenancy or liability for Rent ends under any of those rights, and Tenant owes no fee under this Section in that case.",
+  },
+  // Disclosures
+  {
+    id: "meth-lab-disclosure-wv",
+    title: "Former Drug Laboratory Disclosure",
+    group: "Disclosures",
+    states: ["WV"],
+    bodyText:
+      "[Use only if a clandestine drug laboratory has been identified on the property, whether or not it has been remediated. Give a copy of this disclosure in writing to Tenant and to every other adult who will live at the property before Tenant signs. Do not let anyone occupy the property after a law-enforcement notice of the laboratory until the Department of Health certifies the remediation or the property has been demolished.] FORMER CLANDESTINE DRUG LABORATORY. Landlord discloses that a clandestine drug laboratory, meaning an area where controlled substances or their immediate precursors were manufactured, processed, cooked, disposed of or stored, or where someone attempted to do so, has been identified on the property. Location of the laboratory: [describe the unit, rooms, structures or other areas involved]. Remediation plans: [describe the remediation plan and its status, or that the affected structure was demolished]. Related enforcement actions: [describe any compliance order, cease and desist order or other enforcement action, or state that Landlord knows of none]. Certificate of remediation completion: [state that the Department of Health issued a certificate of remediation completion and its date, or that none has been issued]. Tenant acknowledges receiving this disclosure before signing this Lease.",
   },
 ];
 

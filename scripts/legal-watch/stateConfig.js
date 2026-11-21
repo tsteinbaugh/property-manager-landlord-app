@@ -2206,13 +2206,14 @@ const STATE_CONFIG = {
     // "16B-18-5", "61-3-39e"). Bills amend "§37-6A-2 of the Code of West
     // Virginia, 1931, as amended", so the query pairs the number with "Code
     // of West Virginia". Citations are split on ";" and only the "W. Va.
-    // Code" parts are read; legislative rules, court rules and federal parts
-    // are manual items below. Subsection parentheses become spaces, so
-    // "37-6A-2(b)(1)" stays 37-6A-2.
+    // Code" parts are read ("W. Va. Code R." agency-rule parts are skipped:
+    // their numbers look like Code sections); legislative rules, court rules
+    // and federal parts are manual items and eCFR checks below. Subsection
+    // parentheses become spaces, so "37-6A-2(b)(1)" stays 37-6A-2.
     extractSections(text) {
       const out = [];
       for (const part of text.split(";").map((p) => p.trim()).filter(Boolean)) {
-        if (!/^W\. Va\. Code/.test(part)) continue;
+        if (!/^W\. Va\. Code/.test(part) || /^W\. Va\. Code R\./.test(part)) continue;
         const body = part.replace(/\([^)]*\)/g, " ");
         for (const m of body.matchAll(/\b(\d{1,2}[A-Z]?-\d{1,2}[A-Z]?-\d{1,3}[a-z]?)\b/g)) out.push(m[1]);
       }
@@ -2220,19 +2221,39 @@ const STATE_CONFIG = {
     },
     buildQuery: (section) => `"${section}" AND "Code of West Virginia"`,
     cfrChecks: [
-      { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
+      { title: "40", section: "745.113", clauseIds: ["lead-based-paint", "edu-lead-abatement-wv", "edu-no-lead-state-notices-wv"] },
+      { title: "40", section: "745.107", clauseIds: ["edu-lead-abatement-wv", "edu-no-lead-safe-certificate-wv", "edu-no-lead-state-notices-wv"] }, // added 2026-11-20 (WV gaps sync)
+      { title: "40", section: "141.201", clauseIds: ["edu-no-well-testing-rule-wv"] },
+      { title: "49", section: "191.3", clauseIds: ["edu-electric-resale-wv"] },
+      { title: "24", section: "5.2005", clauseIds: ["edu-no-dv-deposit-timing-wv"] },
+      { title: "24", section: "966.4", clauseIds: ["edu-no-dv-deposit-timing-wv", "edu-no-subsidy-late-fee-rule-wv"] },
+      { title: "24", section: "982.404", clauseIds: ["edu-voucher-inspections-wv", "edu-no-subsidy-proration-rule-wv"] },
+      { title: "24", section: "982.405", clauseIds: ["edu-voucher-inspections-wv", "subsidy-inspection-access-wv", "edu-no-subsidy-proration-rule-wv"] },
+      { title: "24", section: "982.451", clauseIds: ["edu-no-subsidy-proration-rule-wv", "edu-no-subsidy-late-fee-rule-wv"] },
+      { title: "24", section: "982.453", clauseIds: ["edu-no-subsidy-proration-rule-wv"] },
+      { title: "24", section: "982.551", clauseIds: ["edu-voucher-inspections-wv", "subsidy-inspection-access-wv"] },
       { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
       { title: "16", section: "682.3", clauseIds: ["edu-fcra-disposal-rule"] }, // federal disposal rule (added 2026-11-20)
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
-      { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
+      { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum", "subsidy-inspection-access-wv", "edu-no-good-cause-notice-wv", "owner-occupancy-termination-wv", "edu-no-benefit-delay-defense-wv"] },
     ],
-    federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
+    federalStatuteChecks: [
+      { section: "4852d", clauseIds: ["lead-based-paint"] },
+      { section: "3955", clauseIds: ["early-termination-wv", "edu-servicemember-rights-wv"] }, // SCRA (added 2026-11-20, WV gaps sync)
+      { section: "9058", clauseIds: ["default-by-tenant-wv", "edu-eviction-grounds-wv", "edu-termination-notice-wv"] }, // CARES Act notice to vacate
+    ],
     manualRecheckItems: [
       {
         id: "wv-legislative-rules",
         label:
-          "Legislative rules LegiScan can't see and the WV pass didn't read: the former drug-laboratory disclosure rule under W. Va. Code § 60A-11-3(a)(6), the State Fire Code and Building Code (smoke and carbon monoxide detectors), health and sanitation rules, Public Service Commission utility rules and Real Estate Commission trust-account rules (WV log §7)",
-        clauseIds: ["edu-meth-lab-wv", "smoke-detectors-wv"],
+          "Legislative rules LegiScan can't see that the rows rely on since the 2026-11-20 gaps sync, read in the filing in force on 2026-11-19: the drug-laboratory remediation and disclosure rule (W. Va. Code R. § 64-92), the State Fire Code and Building Code (§§ 87-1, 87-4), the lead abatement, recreational water, health-department and sanitation rules (§§ 64-45, 64-16, 64-73, 64-18), the Public Service Commission's electric, gas, water, sewer and towing rules (§§ 150-3, 150-4, 150-5, 150-7, 150-9) and the Human Rights Commission's rules (§§ 71-1, 71-9). Check the Secretary of State's Code of State Rules (apps.sos.wv.gov/adlaw/csr) for new filings, and re-read the rows that cite an amended rule (WV gaps log §1, §6). Still not read: Real Estate Commission trust-account rules and the NFPA and ICC model codes",
+        clauseIds: ["edu-meth-lab-wv", "meth-lab-disclosure-wv", "smoke-detectors-wv", "edu-applicable-codes-wv", "edu-lead-abatement-wv", "edu-pool-safety-wv", "edu-utility-shutoff-wv", "utility-billing-wv", "edu-towing-wv"],
+      },
+      {
+        id: "wv-2027-08-01",
+        label:
+          "August 1, 2027: the drug-laboratory rule (W. Va. Code R. § 64-92-1.5) and the State Building Code (§ 87-4-1.5) terminate unless renewed. If § 64-92 lapses, `meth-lab-disclosure-wv` loses its basis (W. Va. Code § 60A-11-5 still keeps the property unoccupied); re-read both rules' successors and the rows that cite them. Later dates: the Human Rights Commission rules end August 1, 2030; the Fire Code and lead abatement rules August 1, 2031 (WV gaps log §6)",
+        clauseIds: ["meth-lab-disclosure-wv", "edu-meth-lab-wv", "environmental-event-termination-wv", "edu-applicable-codes-wv"],
       },
       {
         id: "wv-court-rules-conflicts",

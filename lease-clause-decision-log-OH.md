@@ -3698,3 +3698,7 @@ Taylor's decision 2026-11-12 (Ohio gaps product item P1): three federal educatio
 ## Federal row: disposing of screening reports (Claude Code, 2026-11-20)
 
 Taylor's decision 2026-11-20 (Washington gaps log §7, backlog item 9): one federal education row, `edu-fcra-disposal-rule`, is tagged here and in every jurisdiction, read from the official text (16 C.F.R. part 682 on eCFR; 15 U.S.C. § 1681w on govinfo.gov). It says that anyone who keeps a screening, credit or background report, or a record taken from one, for a business purpose must dispose of it with reasonable measures against unauthorized access (16 C.F.R. § 682.3), with the rule's examples, and that the rule sets no retention period (§ 682.4). This state's existing rows stay; no clause text changed.
+
+## Shared edit: lead-based paint agent's statement (Claude Code, 2026-11-20)
+
+From the West Virginia gaps sync (WV gaps log §6 item 21 and §7; backlog items from the Nevada and Puerto Rico syncs): the shared `lead-based-paint` clause gained a bracketed agent's statement and a sentence requiring each person who makes a statement to sign and date it, the two elements the federal rule requires in every lease of pre-1978 housing (40 C.F.R. § 745.113(b)(5)-(6); HUD's twin rule, 24 C.F.R. § 35.92(b)(5)-(6); both read on eCFR 2026-11-20). Uniform federal edit under rule 62: the same in every jurisdiction, no state term changed; it applies only where an agent acts for the landlord.
