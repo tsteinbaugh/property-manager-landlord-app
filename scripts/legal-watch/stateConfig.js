@@ -169,6 +169,18 @@ const STATE_CONFIG = {
       { title: "16", section: "682.3", clauseIds: ["edu-fcra-disposal-rule"] }, // federal disposal rule (added 2026-11-20)
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
+      { title: "24", section: "100.600", clauseIds: ["edu-fair-housing-harassment-federal"] }, // federal pass rows (added 2026-11-20)
+      { title: "12", section: "1022.42", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "12", section: "1022.43", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "24", section: "100.7", clauseIds: ["edu-fair-housing-harassment-federal"] },
+      { title: "40", section: "61.141", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "40", section: "61.145", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "47", section: "1.4000", clauseIds: ["edu-antenna-rights-federal"] },
+      { title: "24", section: "982.404", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.451", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.453", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.507", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.510", clauseIds: ["edu-voucher-repairs-and-rent"] },
     ],
     federalStatuteChecks: [
       { section: "4852d", clauseIds: ["lead-based-paint"] },
@@ -177,6 +189,15 @@ const STATE_CONFIG = {
       { section: "1681m", clauseIds: ["edu-fcra-adverse-action-notice"] },
       { section: "1681w", clauseIds: ["edu-fcra-disposal-rule"] }, // FCRA disposal rule, every state (added 2026-11-20)
       { section: "5220 note", clauseIds: ["edu-ptfa-foreclosure-tenants"] }, // bills cite the PTFA as "12 U.S.C. 5220 note"; a bare "5220" also hits bill numbers
+      // Federal pass rows, every jurisdiction (added 2026-11-20). Short section numbers
+      // (362, 1982, 3604) also hit bill numbers and years, so these search by the law's name.
+      { section: '"Servicemembers Civil Relief Act" AND (3951 OR 3931 OR 3958 OR eviction)', clauseIds: ["edu-scra-eviction-protections"] },
+      { section: 'bankruptcy AND 362 AND (eviction OR lessor)', clauseIds: ["edu-bankruptcy-eviction-federal"] },
+      { section: '"Fair Housing Act" AND (3602 OR 3603 OR 3604 OR 3607 OR exemption)', clauseIds: ["edu-fair-housing-coverage-federal", "edu-accessible-design-federal"] },
+      { section: '"Fair Housing Act" AND (3617 OR harassment OR retaliation)', clauseIds: ["edu-fair-housing-harassment-federal"] },
+      { section: '"42 U.S.C. 1982"', clauseIds: ["edu-fair-housing-coverage-federal"] },
+      { section: "1692a", clauseIds: ["edu-debt-collectors-federal"] },
+      { section: "1681s-2", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
     ],
     manualRecheckItems: [
       {
@@ -214,6 +235,18 @@ const STATE_CONFIG = {
       { title: "16", section: "682.3", clauseIds: ["edu-fcra-disposal-rule"] }, // federal disposal rule (added 2026-11-20)
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
+      { title: "24", section: "100.600", clauseIds: ["edu-fair-housing-harassment-federal"] }, // federal pass rows (added 2026-11-20)
+      { title: "12", section: "1022.42", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "12", section: "1022.43", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "24", section: "100.7", clauseIds: ["edu-fair-housing-harassment-federal"] },
+      { title: "40", section: "61.141", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "40", section: "61.145", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "47", section: "1.4000", clauseIds: ["edu-antenna-rights-federal"] },
+      { title: "24", section: "982.404", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.451", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.453", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.507", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.510", clauseIds: ["edu-voucher-repairs-and-rent"] },
     ],
     federalStatuteChecks: [],
     manualRecheckItems: [
@@ -249,6 +282,18 @@ const STATE_CONFIG = {
       { title: "16", section: "682.3", clauseIds: ["edu-fcra-disposal-rule"] }, // federal disposal rule (added 2026-11-20)
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
+      { title: "24", section: "100.600", clauseIds: ["edu-fair-housing-harassment-federal"] }, // federal pass rows (added 2026-11-20)
+      { title: "12", section: "1022.42", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "12", section: "1022.43", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "24", section: "100.7", clauseIds: ["edu-fair-housing-harassment-federal"] },
+      { title: "40", section: "61.141", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "40", section: "61.145", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "47", section: "1.4000", clauseIds: ["edu-antenna-rights-federal"] },
+      { title: "24", section: "982.404", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.451", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.453", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.507", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.510", clauseIds: ["edu-voucher-repairs-and-rent"] },
     ],
     federalStatuteChecks: [],
     manualRecheckItems: [
@@ -280,6 +325,18 @@ const STATE_CONFIG = {
       { title: "16", section: "682.3", clauseIds: ["edu-fcra-disposal-rule"] }, // federal disposal rule (added 2026-11-20)
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
+      { title: "24", section: "100.600", clauseIds: ["edu-fair-housing-harassment-federal"] }, // federal pass rows (added 2026-11-20)
+      { title: "12", section: "1022.42", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "12", section: "1022.43", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "24", section: "100.7", clauseIds: ["edu-fair-housing-harassment-federal"] },
+      { title: "40", section: "61.141", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "40", section: "61.145", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "47", section: "1.4000", clauseIds: ["edu-antenna-rights-federal"] },
+      { title: "24", section: "982.404", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.451", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.453", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.507", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.510", clauseIds: ["edu-voucher-repairs-and-rent"] },
     ],
     // NOT monitored, deliberately: edu-esa-federal-only-ne cites 28 C.F.R.
     // §36.104 "as it existed 2008-01-01" -- Nebraska's statute freezes to that
@@ -319,6 +376,18 @@ const STATE_CONFIG = {
       { title: "16", section: "682.3", clauseIds: ["edu-fcra-disposal-rule"] }, // federal disposal rule (added 2026-11-20)
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
+      { title: "24", section: "100.600", clauseIds: ["edu-fair-housing-harassment-federal"] }, // federal pass rows (added 2026-11-20)
+      { title: "12", section: "1022.42", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "12", section: "1022.43", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "24", section: "100.7", clauseIds: ["edu-fair-housing-harassment-federal"] },
+      { title: "40", section: "61.141", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "40", section: "61.145", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "47", section: "1.4000", clauseIds: ["edu-antenna-rights-federal"] },
+      { title: "24", section: "982.404", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.451", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.453", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.507", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.510", clauseIds: ["edu-voucher-repairs-and-rent"] },
     ],
     federalStatuteChecks: [],
     manualRecheckItems: [
@@ -368,6 +437,18 @@ const STATE_CONFIG = {
       { title: "16", section: "682.3", clauseIds: ["edu-fcra-disposal-rule"] }, // federal disposal rule (added 2026-11-20)
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
+      { title: "24", section: "100.600", clauseIds: ["edu-fair-housing-harassment-federal"] }, // federal pass rows (added 2026-11-20)
+      { title: "12", section: "1022.42", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "12", section: "1022.43", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "24", section: "100.7", clauseIds: ["edu-fair-housing-harassment-federal"] },
+      { title: "40", section: "61.141", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "40", section: "61.145", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "47", section: "1.4000", clauseIds: ["edu-antenna-rights-federal"] },
+      { title: "24", section: "982.404", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.451", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.453", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.507", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.510", clauseIds: ["edu-voucher-repairs-and-rent"] },
     ],
     federalStatuteChecks: [],
     manualRecheckItems: [],
@@ -396,6 +477,18 @@ const STATE_CONFIG = {
       { title: "16", section: "682.3", clauseIds: ["edu-fcra-disposal-rule"] }, // federal disposal rule (added 2026-11-20)
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
+      { title: "24", section: "100.600", clauseIds: ["edu-fair-housing-harassment-federal"] }, // federal pass rows (added 2026-11-20)
+      { title: "12", section: "1022.42", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "12", section: "1022.43", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "24", section: "100.7", clauseIds: ["edu-fair-housing-harassment-federal"] },
+      { title: "40", section: "61.141", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "40", section: "61.145", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "47", section: "1.4000", clauseIds: ["edu-antenna-rights-federal"] },
+      { title: "24", section: "982.404", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.451", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.453", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.507", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.510", clauseIds: ["edu-voucher-repairs-and-rent"] },
     ],
     federalStatuteChecks: [],
     manualRecheckItems: [
@@ -448,6 +541,18 @@ const STATE_CONFIG = {
       { title: "16", section: "682.3", clauseIds: ["edu-fcra-disposal-rule"] }, // federal disposal rule (added 2026-11-20)
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
+      { title: "24", section: "100.600", clauseIds: ["edu-fair-housing-harassment-federal"] }, // federal pass rows (added 2026-11-20)
+      { title: "12", section: "1022.42", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "12", section: "1022.43", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "24", section: "100.7", clauseIds: ["edu-fair-housing-harassment-federal"] },
+      { title: "40", section: "61.141", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "40", section: "61.145", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "47", section: "1.4000", clauseIds: ["edu-antenna-rights-federal"] },
+      { title: "24", section: "982.404", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.451", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.453", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.507", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.510", clauseIds: ["edu-voucher-repairs-and-rent"] },
     ],
     federalStatuteChecks: [],
     manualRecheckItems: [
@@ -546,6 +651,18 @@ const STATE_CONFIG = {
       { title: "16", section: "682.3", clauseIds: ["edu-fcra-disposal-rule"] }, // federal disposal rule (added 2026-11-20)
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
+      { title: "24", section: "100.600", clauseIds: ["edu-fair-housing-harassment-federal"] }, // federal pass rows (added 2026-11-20)
+      { title: "12", section: "1022.42", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "12", section: "1022.43", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "24", section: "100.7", clauseIds: ["edu-fair-housing-harassment-federal"] },
+      { title: "40", section: "61.141", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "40", section: "61.145", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "47", section: "1.4000", clauseIds: ["edu-antenna-rights-federal"] },
+      { title: "24", section: "982.404", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.451", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.453", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.507", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.510", clauseIds: ["edu-voucher-repairs-and-rent"] },
     ],
     federalStatuteChecks: [
       // Servicemembers Civil Relief Act sections the CA military rows compare
@@ -666,6 +783,18 @@ const STATE_CONFIG = {
       { title: "16", section: "682.3", clauseIds: ["edu-fcra-disposal-rule"] }, // federal disposal rule (added 2026-11-20)
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
+      { title: "24", section: "100.600", clauseIds: ["edu-fair-housing-harassment-federal"] }, // federal pass rows (added 2026-11-20)
+      { title: "12", section: "1022.42", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "12", section: "1022.43", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "24", section: "100.7", clauseIds: ["edu-fair-housing-harassment-federal"] },
+      { title: "40", section: "61.141", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "40", section: "61.145", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "47", section: "1.4000", clauseIds: ["edu-antenna-rights-federal"] },
+      { title: "24", section: "982.404", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.451", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.453", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.507", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.510", clauseIds: ["edu-voucher-repairs-and-rent"] },
     ],
     federalStatuteChecks: [],
     manualRecheckItems: [
@@ -722,6 +851,18 @@ const STATE_CONFIG = {
       { title: "16", section: "682.3", clauseIds: ["edu-fcra-disposal-rule"] }, // federal disposal rule (added 2026-11-20)
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
+      { title: "24", section: "100.600", clauseIds: ["edu-fair-housing-harassment-federal"] }, // federal pass rows (added 2026-11-20)
+      { title: "12", section: "1022.42", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "12", section: "1022.43", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "24", section: "100.7", clauseIds: ["edu-fair-housing-harassment-federal"] },
+      { title: "40", section: "61.141", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "40", section: "61.145", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "47", section: "1.4000", clauseIds: ["edu-antenna-rights-federal"] },
+      { title: "24", section: "982.404", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.451", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.453", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.507", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.510", clauseIds: ["edu-voucher-repairs-and-rent"] },
     ],
     federalStatuteChecks: [],
     manualRecheckItems: [
@@ -759,6 +900,18 @@ const STATE_CONFIG = {
       { title: "16", section: "682.3", clauseIds: ["edu-fcra-disposal-rule"] }, // federal disposal rule (added 2026-11-20)
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
+      { title: "24", section: "100.600", clauseIds: ["edu-fair-housing-harassment-federal"] }, // federal pass rows (added 2026-11-20)
+      { title: "12", section: "1022.42", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "12", section: "1022.43", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "24", section: "100.7", clauseIds: ["edu-fair-housing-harassment-federal"] },
+      { title: "40", section: "61.141", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "40", section: "61.145", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "47", section: "1.4000", clauseIds: ["edu-antenna-rights-federal"] },
+      { title: "24", section: "982.404", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.451", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.453", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.507", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.510", clauseIds: ["edu-voucher-repairs-and-rent"] },
     ],
     federalStatuteChecks: [],
     manualRecheckItems: [
@@ -843,6 +996,18 @@ const STATE_CONFIG = {
       { title: "16", section: "682.3", clauseIds: ["edu-fcra-disposal-rule"] }, // federal disposal rule (added 2026-11-20)
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
+      { title: "24", section: "100.600", clauseIds: ["edu-fair-housing-harassment-federal"] }, // federal pass rows (added 2026-11-20)
+      { title: "12", section: "1022.42", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "12", section: "1022.43", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "24", section: "100.7", clauseIds: ["edu-fair-housing-harassment-federal"] },
+      { title: "40", section: "61.141", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "40", section: "61.145", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "47", section: "1.4000", clauseIds: ["edu-antenna-rights-federal"] },
+      { title: "24", section: "982.404", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.451", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.453", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.507", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.510", clauseIds: ["edu-voucher-repairs-and-rent"] },
     ],
     federalStatuteChecks: [],
     manualRecheckItems: [
@@ -873,6 +1038,18 @@ const STATE_CONFIG = {
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
+      { title: "24", section: "100.600", clauseIds: ["edu-fair-housing-harassment-federal"] }, // federal pass rows (added 2026-11-20)
+      { title: "12", section: "1022.42", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "12", section: "1022.43", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "24", section: "100.7", clauseIds: ["edu-fair-housing-harassment-federal"] },
+      { title: "40", section: "61.141", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "40", section: "61.145", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "47", section: "1.4000", clauseIds: ["edu-antenna-rights-federal"] },
+      { title: "24", section: "982.404", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.451", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.453", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.507", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.510", clauseIds: ["edu-voucher-repairs-and-rent"] },
     ],
     federalStatuteChecks: [],
     manualRecheckItems: [
@@ -930,6 +1107,18 @@ const STATE_CONFIG = {
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
+      { title: "24", section: "100.600", clauseIds: ["edu-fair-housing-harassment-federal"] }, // federal pass rows (added 2026-11-20)
+      { title: "12", section: "1022.42", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "12", section: "1022.43", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "24", section: "100.7", clauseIds: ["edu-fair-housing-harassment-federal"] },
+      { title: "40", section: "61.141", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "40", section: "61.145", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "47", section: "1.4000", clauseIds: ["edu-antenna-rights-federal"] },
+      { title: "24", section: "982.404", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.451", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.453", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.507", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.510", clauseIds: ["edu-voucher-repairs-and-rent"] },
     ],
     federalStatuteChecks: [],
     manualRecheckItems: [
@@ -993,6 +1182,18 @@ const STATE_CONFIG = {
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
+      { title: "24", section: "100.600", clauseIds: ["edu-fair-housing-harassment-federal"] }, // federal pass rows (added 2026-11-20)
+      { title: "12", section: "1022.42", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "12", section: "1022.43", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "24", section: "100.7", clauseIds: ["edu-fair-housing-harassment-federal"] },
+      { title: "40", section: "61.141", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "40", section: "61.145", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "47", section: "1.4000", clauseIds: ["edu-antenna-rights-federal"] },
+      { title: "24", section: "982.404", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.451", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.453", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.507", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.510", clauseIds: ["edu-voucher-repairs-and-rent"] },
     ],
     federalStatuteChecks: [],
     manualRecheckItems: [
@@ -1033,6 +1234,18 @@ const STATE_CONFIG = {
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
+      { title: "24", section: "100.600", clauseIds: ["edu-fair-housing-harassment-federal"] }, // federal pass rows (added 2026-11-20)
+      { title: "12", section: "1022.42", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "12", section: "1022.43", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "24", section: "100.7", clauseIds: ["edu-fair-housing-harassment-federal"] },
+      { title: "40", section: "61.141", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "40", section: "61.145", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "47", section: "1.4000", clauseIds: ["edu-antenna-rights-federal"] },
+      { title: "24", section: "982.404", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.451", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.453", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.507", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.510", clauseIds: ["edu-voucher-repairs-and-rent"] },
     ],
     federalStatuteChecks: [],
     manualRecheckItems: [
@@ -1079,6 +1292,18 @@ const STATE_CONFIG = {
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
+      { title: "24", section: "100.600", clauseIds: ["edu-fair-housing-harassment-federal"] }, // federal pass rows (added 2026-11-20)
+      { title: "12", section: "1022.42", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "12", section: "1022.43", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "24", section: "100.7", clauseIds: ["edu-fair-housing-harassment-federal"] },
+      { title: "40", section: "61.141", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "40", section: "61.145", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "47", section: "1.4000", clauseIds: ["edu-antenna-rights-federal"] },
+      { title: "24", section: "982.404", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.451", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.453", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.507", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.510", clauseIds: ["edu-voucher-repairs-and-rent"] },
     ],
     federalStatuteChecks: [{ section: "3955", clauseIds: ["edu-servicemember-rights-tn"] }],
     manualRecheckItems: [
@@ -1122,6 +1347,18 @@ const STATE_CONFIG = {
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
+      { title: "24", section: "100.600", clauseIds: ["edu-fair-housing-harassment-federal"] }, // federal pass rows (added 2026-11-20)
+      { title: "12", section: "1022.42", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "12", section: "1022.43", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "24", section: "100.7", clauseIds: ["edu-fair-housing-harassment-federal"] },
+      { title: "40", section: "61.141", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "40", section: "61.145", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "47", section: "1.4000", clauseIds: ["edu-antenna-rights-federal"] },
+      { title: "24", section: "982.404", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.451", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.453", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.507", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.510", clauseIds: ["edu-voucher-repairs-and-rent"] },
     ],
     federalStatuteChecks: [{ section: "3955", clauseIds: ["edu-servicemember-rights-va"] }],
     manualRecheckItems: [
@@ -1163,6 +1400,18 @@ const STATE_CONFIG = {
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
+      { title: "24", section: "100.600", clauseIds: ["edu-fair-housing-harassment-federal"] }, // federal pass rows (added 2026-11-20)
+      { title: "12", section: "1022.42", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "12", section: "1022.43", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "24", section: "100.7", clauseIds: ["edu-fair-housing-harassment-federal"] },
+      { title: "40", section: "61.141", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "40", section: "61.145", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "47", section: "1.4000", clauseIds: ["edu-antenna-rights-federal"] },
+      { title: "24", section: "982.404", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.451", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.453", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.507", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.510", clauseIds: ["edu-voucher-repairs-and-rent"] },
     ],
     federalStatuteChecks: [{ section: "3955", clauseIds: ["edu-servicemember-rights-al"] }],
     manualRecheckItems: [
@@ -1234,6 +1483,18 @@ const STATE_CONFIG = {
       { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
+      { title: "24", section: "100.600", clauseIds: ["edu-fair-housing-harassment-federal"] }, // federal pass rows (added 2026-11-20)
+      { title: "12", section: "1022.42", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "12", section: "1022.43", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "24", section: "100.7", clauseIds: ["edu-fair-housing-harassment-federal"] },
+      { title: "40", section: "61.141", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "40", section: "61.145", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "47", section: "1.4000", clauseIds: ["edu-antenna-rights-federal"] },
+      { title: "24", section: "982.404", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.451", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.453", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.507", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.510", clauseIds: ["edu-voucher-repairs-and-rent"] },
     ],
     federalStatuteChecks: [
       { section: "4852d", clauseIds: ["lead-based-paint"] },
@@ -1284,6 +1545,18 @@ const STATE_CONFIG = {
       { title: "16", section: "682.3", clauseIds: ["edu-fcra-disposal-rule"] }, // federal disposal rule (added 2026-11-20)
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
+      { title: "24", section: "100.600", clauseIds: ["edu-fair-housing-harassment-federal"] }, // federal pass rows (added 2026-11-20)
+      { title: "12", section: "1022.42", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "12", section: "1022.43", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "24", section: "100.7", clauseIds: ["edu-fair-housing-harassment-federal"] },
+      { title: "40", section: "61.141", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "40", section: "61.145", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "47", section: "1.4000", clauseIds: ["edu-antenna-rights-federal"] },
+      { title: "24", section: "982.404", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.451", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.453", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.507", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.510", clauseIds: ["edu-voucher-repairs-and-rent"] },
     ],
     federalStatuteChecks: [
       { section: "4852d", clauseIds: ["lead-based-paint"] },
@@ -1334,6 +1607,18 @@ const STATE_CONFIG = {
       { title: "16", section: "682.3", clauseIds: ["edu-fcra-disposal-rule"] }, // federal disposal rule (added 2026-11-20)
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
+      { title: "24", section: "100.600", clauseIds: ["edu-fair-housing-harassment-federal"] }, // federal pass rows (added 2026-11-20)
+      { title: "12", section: "1022.42", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "12", section: "1022.43", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "24", section: "100.7", clauseIds: ["edu-fair-housing-harassment-federal"] },
+      { title: "40", section: "61.141", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "40", section: "61.145", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "47", section: "1.4000", clauseIds: ["edu-antenna-rights-federal"] },
+      { title: "24", section: "982.404", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.451", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.453", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.507", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.510", clauseIds: ["edu-voucher-repairs-and-rent"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
@@ -1390,6 +1675,18 @@ const STATE_CONFIG = {
       { title: "16", section: "682.3", clauseIds: ["edu-fcra-disposal-rule"] }, // federal disposal rule (added 2026-11-20)
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
+      { title: "24", section: "100.600", clauseIds: ["edu-fair-housing-harassment-federal"] }, // federal pass rows (added 2026-11-20)
+      { title: "12", section: "1022.42", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "12", section: "1022.43", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "24", section: "100.7", clauseIds: ["edu-fair-housing-harassment-federal"] },
+      { title: "40", section: "61.141", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "40", section: "61.145", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "47", section: "1.4000", clauseIds: ["edu-antenna-rights-federal"] },
+      { title: "24", section: "982.404", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.451", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.453", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.507", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.510", clauseIds: ["edu-voucher-repairs-and-rent"] },
     ],
     federalStatuteChecks: [
       { section: "4852d", clauseIds: ["lead-based-paint"] },
@@ -1435,6 +1732,18 @@ const STATE_CONFIG = {
       { title: "16", section: "682.3", clauseIds: ["edu-fcra-disposal-rule"] }, // federal disposal rule (added 2026-11-20)
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
+      { title: "24", section: "100.600", clauseIds: ["edu-fair-housing-harassment-federal"] }, // federal pass rows (added 2026-11-20)
+      { title: "12", section: "1022.42", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "12", section: "1022.43", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "24", section: "100.7", clauseIds: ["edu-fair-housing-harassment-federal"] },
+      { title: "40", section: "61.141", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "40", section: "61.145", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "47", section: "1.4000", clauseIds: ["edu-antenna-rights-federal"] },
+      { title: "24", section: "982.404", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.451", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.453", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.507", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.510", clauseIds: ["edu-voucher-repairs-and-rent"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
@@ -1477,6 +1786,18 @@ const STATE_CONFIG = {
       { title: "16", section: "682.3", clauseIds: ["edu-fcra-disposal-rule"] }, // federal disposal rule (added 2026-11-20)
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
+      { title: "24", section: "100.600", clauseIds: ["edu-fair-housing-harassment-federal"] }, // federal pass rows (added 2026-11-20)
+      { title: "12", section: "1022.42", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "12", section: "1022.43", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "24", section: "100.7", clauseIds: ["edu-fair-housing-harassment-federal"] },
+      { title: "40", section: "61.141", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "40", section: "61.145", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "47", section: "1.4000", clauseIds: ["edu-antenna-rights-federal"] },
+      { title: "24", section: "982.404", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.451", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.453", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.507", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.510", clauseIds: ["edu-voucher-repairs-and-rent"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
@@ -1532,6 +1853,18 @@ const STATE_CONFIG = {
       { title: "16", section: "682.3", clauseIds: ["edu-fcra-disposal-rule"] }, // federal disposal rule (added 2026-11-20)
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
+      { title: "24", section: "100.600", clauseIds: ["edu-fair-housing-harassment-federal"] }, // federal pass rows (added 2026-11-20)
+      { title: "12", section: "1022.42", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "12", section: "1022.43", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "24", section: "100.7", clauseIds: ["edu-fair-housing-harassment-federal"] },
+      { title: "40", section: "61.141", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "40", section: "61.145", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "47", section: "1.4000", clauseIds: ["edu-antenna-rights-federal"] },
+      { title: "24", section: "982.404", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.451", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.453", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.507", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.510", clauseIds: ["edu-voucher-repairs-and-rent"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
@@ -1597,16 +1930,24 @@ const STATE_CONFIG = {
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
       // Federal rules the 2026-11-13 topic-gaps rows rely on (eCFR, no LegiScan cost)
-      { title: "24", section: "982.404", clauseIds: ["edu-no-subsidized-inspection-refusal-rule-mi", "edu-subsidy-habitability-proration-mi", "edu-maintenance-duty-shift-mi", "edu-no-alt-housing-duty-mi", "appliances-excluded-mi"] },
+      { title: "24", section: "982.404", clauseIds: ["edu-no-subsidized-inspection-refusal-rule-mi", "edu-subsidy-habitability-proration-mi", "edu-maintenance-duty-shift-mi", "edu-no-alt-housing-duty-mi", "appliances-excluded-mi", "edu-voucher-repairs-and-rent"] },
       { title: "24", section: "982.405", clauseIds: ["edu-no-subsidized-inspection-refusal-rule-mi"] },
-      { title: "24", section: "982.451", clauseIds: ["edu-subsidy-late-fee-mi"] },
+      { title: "24", section: "982.451", clauseIds: ["edu-subsidy-late-fee-mi", "edu-voucher-repairs-and-rent"] },
       { title: "24", section: "982.551", clauseIds: ["edu-no-subsidized-inspection-refusal-rule-mi"] },
       { title: "24", section: "100.203", clauseIds: ["edu-disability-accommodation-mi", "disability-modification-restoration-mn"] },
       { title: "24", section: "5.2007", clauseIds: ["edu-dv-qualifying-documents-mi", "edu-tenant-confidential-information-mi"] },
       { title: "28", section: "36.104", clauseIds: ["edu-service-animal-denial-penalty-mi"] },
-      { title: "40", section: "61.145", clauseIds: ["edu-asbestos-hazards-mi"] },
+      { title: "40", section: "61.145", clauseIds: ["edu-asbestos-hazards-mi", "edu-asbestos-demolition-renovation-federal"] },
       { title: "40", section: "745.107", clauseIds: ["edu-lead-safe-housing-registry-mi", "edu-no-lead-state-notices-mi", "edu-no-chemical-warning-rule-mi"] },
-      { title: "47", section: "1.4000", clauseIds: ["edu-telecom-access-mi", "telecom-access-mn"] },
+      { title: "47", section: "1.4000", clauseIds: ["edu-telecom-access-mi", "telecom-access-mn", "edu-antenna-rights-federal"] },
+      { title: "24", section: "100.600", clauseIds: ["edu-fair-housing-harassment-federal"] }, // federal pass rows (added 2026-11-20)
+      { title: "12", section: "1022.42", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "12", section: "1022.43", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "24", section: "100.7", clauseIds: ["edu-fair-housing-harassment-federal"] },
+      { title: "40", section: "61.141", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "24", section: "982.453", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.507", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.510", clauseIds: ["edu-voucher-repairs-and-rent"] },
     ],
     federalStatuteChecks: [
       { section: "4852d", clauseIds: ["lead-based-paint", "edu-lead-hazard-mi"] },
@@ -1662,6 +2003,18 @@ const STATE_CONFIG = {
       { title: "16", section: "682.3", clauseIds: ["edu-fcra-disposal-rule"] }, // federal disposal rule (added 2026-11-20)
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
+      { title: "24", section: "100.600", clauseIds: ["edu-fair-housing-harassment-federal"] }, // federal pass rows (added 2026-11-20)
+      { title: "12", section: "1022.42", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "12", section: "1022.43", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "24", section: "100.7", clauseIds: ["edu-fair-housing-harassment-federal"] },
+      { title: "40", section: "61.141", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "40", section: "61.145", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "47", section: "1.4000", clauseIds: ["edu-antenna-rights-federal"] },
+      { title: "24", section: "982.404", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.451", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.453", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.507", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.510", clauseIds: ["edu-voucher-repairs-and-rent"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
@@ -1714,6 +2067,18 @@ const STATE_CONFIG = {
       { title: "16", section: "682.3", clauseIds: ["edu-fcra-disposal-rule"] }, // federal disposal rule (added 2026-11-20)
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
+      { title: "24", section: "100.600", clauseIds: ["edu-fair-housing-harassment-federal"] }, // federal pass rows (added 2026-11-20)
+      { title: "12", section: "1022.42", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "12", section: "1022.43", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "24", section: "100.7", clauseIds: ["edu-fair-housing-harassment-federal"] },
+      { title: "40", section: "61.141", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "40", section: "61.145", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "47", section: "1.4000", clauseIds: ["edu-antenna-rights-federal"] },
+      { title: "24", section: "982.404", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.451", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.453", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.507", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.510", clauseIds: ["edu-voucher-repairs-and-rent"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
@@ -1821,6 +2186,18 @@ const STATE_CONFIG = {
       { title: "16", section: "682.3", clauseIds: ["edu-fcra-disposal-rule"] }, // federal disposal rule (added 2026-11-20)
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
+      { title: "24", section: "100.600", clauseIds: ["edu-fair-housing-harassment-federal"] }, // federal pass rows (added 2026-11-20)
+      { title: "12", section: "1022.42", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "12", section: "1022.43", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "24", section: "100.7", clauseIds: ["edu-fair-housing-harassment-federal"] },
+      { title: "40", section: "61.141", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "40", section: "61.145", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "47", section: "1.4000", clauseIds: ["edu-antenna-rights-federal"] },
+      { title: "24", section: "982.404", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.451", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.453", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.507", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.510", clauseIds: ["edu-voucher-repairs-and-rent"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
@@ -1913,6 +2290,18 @@ const STATE_CONFIG = {
       { title: "16", section: "682.3", clauseIds: ["edu-fcra-disposal-rule"] }, // federal disposal rule (added 2026-11-20)
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
+      { title: "24", section: "100.600", clauseIds: ["edu-fair-housing-harassment-federal"] }, // federal pass rows (added 2026-11-20)
+      { title: "12", section: "1022.42", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "12", section: "1022.43", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "24", section: "100.7", clauseIds: ["edu-fair-housing-harassment-federal"] },
+      { title: "40", section: "61.141", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "40", section: "61.145", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "47", section: "1.4000", clauseIds: ["edu-antenna-rights-federal"] },
+      { title: "24", section: "982.404", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.451", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.453", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.507", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.510", clauseIds: ["edu-voucher-repairs-and-rent"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
@@ -1974,6 +2363,18 @@ const STATE_CONFIG = {
       { title: "16", section: "682.3", clauseIds: ["edu-fcra-disposal-rule"] }, // federal disposal rule (added 2026-11-20)
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
+      { title: "24", section: "100.600", clauseIds: ["edu-fair-housing-harassment-federal"] }, // federal pass rows (added 2026-11-20)
+      { title: "12", section: "1022.42", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "12", section: "1022.43", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "24", section: "100.7", clauseIds: ["edu-fair-housing-harassment-federal"] },
+      { title: "40", section: "61.141", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "40", section: "61.145", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "47", section: "1.4000", clauseIds: ["edu-antenna-rights-federal"] },
+      { title: "24", section: "982.404", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.451", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.453", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.507", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.510", clauseIds: ["edu-voucher-repairs-and-rent"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
@@ -2034,8 +2435,19 @@ const STATE_CONFIG = {
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
       // added 2026-11-19 (WA gaps sync): the FCRA disposal rule and the voucher family and HQS rules the new rows quote
       { title: "16", section: "682.3", clauseIds: ["edu-tenant-confidential-information-wa", "edu-fcra-disposal-rule"] }, // federal disposal row added 2026-11-20
-      { title: "24", section: "982.404", clauseIds: ["edu-no-subsidized-inspection-refusal-rule-wa"] },
+      { title: "24", section: "982.404", clauseIds: ["edu-no-subsidized-inspection-refusal-rule-wa", "edu-voucher-repairs-and-rent"] },
       { title: "24", section: "982.551", clauseIds: ["edu-no-subsidized-inspection-refusal-rule-wa"] },
+      { title: "24", section: "100.600", clauseIds: ["edu-fair-housing-harassment-federal"] }, // federal pass rows (added 2026-11-20)
+      { title: "12", section: "1022.42", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "12", section: "1022.43", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "24", section: "100.7", clauseIds: ["edu-fair-housing-harassment-federal"] },
+      { title: "40", section: "61.141", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "40", section: "61.145", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "47", section: "1.4000", clauseIds: ["edu-antenna-rights-federal"] },
+      { title: "24", section: "982.451", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.453", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.507", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.510", clauseIds: ["edu-voucher-repairs-and-rent"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
@@ -2102,8 +2514,19 @@ const STATE_CONFIG = {
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
       // added 2026-11-20 (OR gaps sync): the HQS abatement rule and the disability-modification restoration rule the rows now quote
-      { title: "24", section: "982.404", clauseIds: ["edu-no-subsidy-habitability-proration-or"] },
+      { title: "24", section: "982.404", clauseIds: ["edu-no-subsidy-habitability-proration-or", "edu-voucher-repairs-and-rent"] },
       { title: "24", section: "100.203", clauseIds: ["no-alterations-or"] },
+      { title: "24", section: "100.600", clauseIds: ["edu-fair-housing-harassment-federal"] }, // federal pass rows (added 2026-11-20)
+      { title: "12", section: "1022.42", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "12", section: "1022.43", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "24", section: "100.7", clauseIds: ["edu-fair-housing-harassment-federal"] },
+      { title: "40", section: "61.141", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "40", section: "61.145", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "47", section: "1.4000", clauseIds: ["edu-antenna-rights-federal"] },
+      { title: "24", section: "982.451", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.453", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.507", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.510", clauseIds: ["edu-voucher-repairs-and-rent"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
@@ -2175,6 +2598,18 @@ const STATE_CONFIG = {
       { title: "16", section: "682.3", clauseIds: ["edu-fcra-disposal-rule"] }, // federal disposal rule (added 2026-11-20)
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
+      { title: "24", section: "100.600", clauseIds: ["edu-fair-housing-harassment-federal"] }, // federal pass rows (added 2026-11-20)
+      { title: "12", section: "1022.42", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "12", section: "1022.43", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "24", section: "100.7", clauseIds: ["edu-fair-housing-harassment-federal"] },
+      { title: "40", section: "61.141", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "40", section: "61.145", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "47", section: "1.4000", clauseIds: ["edu-antenna-rights-federal"] },
+      { title: "24", section: "982.404", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.451", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.453", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.507", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.510", clauseIds: ["edu-voucher-repairs-and-rent"] },
     ],
     federalStatuteChecks: [
       { section: "4852d", clauseIds: ["lead-based-paint"] },
@@ -2227,15 +2662,24 @@ const STATE_CONFIG = {
       { title: "49", section: "191.3", clauseIds: ["edu-electric-resale-wv"] },
       { title: "24", section: "5.2005", clauseIds: ["edu-no-dv-deposit-timing-wv"] },
       { title: "24", section: "966.4", clauseIds: ["edu-no-dv-deposit-timing-wv", "edu-no-subsidy-late-fee-rule-wv"] },
-      { title: "24", section: "982.404", clauseIds: ["edu-voucher-inspections-wv", "edu-no-subsidy-proration-rule-wv"] },
+      { title: "24", section: "982.404", clauseIds: ["edu-voucher-inspections-wv", "edu-no-subsidy-proration-rule-wv", "edu-voucher-repairs-and-rent"] },
       { title: "24", section: "982.405", clauseIds: ["edu-voucher-inspections-wv", "subsidy-inspection-access-wv", "edu-no-subsidy-proration-rule-wv"] },
-      { title: "24", section: "982.451", clauseIds: ["edu-no-subsidy-proration-rule-wv", "edu-no-subsidy-late-fee-rule-wv"] },
-      { title: "24", section: "982.453", clauseIds: ["edu-no-subsidy-proration-rule-wv"] },
+      { title: "24", section: "982.451", clauseIds: ["edu-no-subsidy-proration-rule-wv", "edu-no-subsidy-late-fee-rule-wv", "edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.453", clauseIds: ["edu-no-subsidy-proration-rule-wv", "edu-voucher-repairs-and-rent"] },
       { title: "24", section: "982.551", clauseIds: ["edu-voucher-inspections-wv", "subsidy-inspection-access-wv"] },
       { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] }, // federal accommodation rule (added 2026-11-12)
       { title: "16", section: "682.3", clauseIds: ["edu-fcra-disposal-rule"] }, // federal disposal rule (added 2026-11-20)
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum", "subsidy-inspection-access-wv", "edu-no-good-cause-notice-wv", "owner-occupancy-termination-wv", "edu-no-benefit-delay-defense-wv"] },
+      { title: "24", section: "100.600", clauseIds: ["edu-fair-housing-harassment-federal"] }, // federal pass rows (added 2026-11-20)
+      { title: "12", section: "1022.42", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "12", section: "1022.43", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "24", section: "100.7", clauseIds: ["edu-fair-housing-harassment-federal"] },
+      { title: "40", section: "61.141", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "40", section: "61.145", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "47", section: "1.4000", clauseIds: ["edu-antenna-rights-federal"] },
+      { title: "24", section: "982.507", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.510", clauseIds: ["edu-voucher-repairs-and-rent"] },
     ],
     federalStatuteChecks: [
       { section: "4852d", clauseIds: ["lead-based-paint"] },
@@ -2293,6 +2737,18 @@ const STATE_CONFIG = {
       { title: "16", section: "682.3", clauseIds: ["edu-fcra-disposal-rule"] }, // federal disposal rule (added 2026-11-20)
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
+      { title: "24", section: "100.600", clauseIds: ["edu-fair-housing-harassment-federal"] }, // federal pass rows (added 2026-11-20)
+      { title: "12", section: "1022.42", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "12", section: "1022.43", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "24", section: "100.7", clauseIds: ["edu-fair-housing-harassment-federal"] },
+      { title: "40", section: "61.141", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "40", section: "61.145", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "47", section: "1.4000", clauseIds: ["edu-antenna-rights-federal"] },
+      { title: "24", section: "982.404", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.451", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.453", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.507", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.510", clauseIds: ["edu-voucher-repairs-and-rent"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
@@ -2347,6 +2803,18 @@ const STATE_CONFIG = {
       { title: "16", section: "682.3", clauseIds: ["edu-fcra-disposal-rule"] }, // federal disposal rule (added 2026-11-20)
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
+      { title: "24", section: "100.600", clauseIds: ["edu-fair-housing-harassment-federal"] }, // federal pass rows (added 2026-11-20)
+      { title: "12", section: "1022.42", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "12", section: "1022.43", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "24", section: "100.7", clauseIds: ["edu-fair-housing-harassment-federal"] },
+      { title: "40", section: "61.141", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "40", section: "61.145", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "47", section: "1.4000", clauseIds: ["edu-antenna-rights-federal"] },
+      { title: "24", section: "982.404", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.451", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.453", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.507", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.510", clauseIds: ["edu-voucher-repairs-and-rent"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
@@ -2387,6 +2855,18 @@ const STATE_CONFIG = {
       { title: "16", section: "682.3", clauseIds: ["edu-fcra-disposal-rule"] }, // federal disposal rule (added 2026-11-20)
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
+      { title: "24", section: "100.600", clauseIds: ["edu-fair-housing-harassment-federal"] }, // federal pass rows (added 2026-11-20)
+      { title: "12", section: "1022.42", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "12", section: "1022.43", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "24", section: "100.7", clauseIds: ["edu-fair-housing-harassment-federal"] },
+      { title: "40", section: "61.141", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "40", section: "61.145", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "47", section: "1.4000", clauseIds: ["edu-antenna-rights-federal"] },
+      { title: "24", section: "982.404", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.451", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.453", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.507", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.510", clauseIds: ["edu-voucher-repairs-and-rent"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
@@ -2433,6 +2913,18 @@ const STATE_CONFIG = {
       { title: "16", section: "682.3", clauseIds: ["edu-fcra-disposal-rule"] }, // federal disposal rule (added 2026-11-20)
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
+      { title: "24", section: "100.600", clauseIds: ["edu-fair-housing-harassment-federal"] }, // federal pass rows (added 2026-11-20)
+      { title: "12", section: "1022.42", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "12", section: "1022.43", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "24", section: "100.7", clauseIds: ["edu-fair-housing-harassment-federal"] },
+      { title: "40", section: "61.141", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "40", section: "61.145", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "47", section: "1.4000", clauseIds: ["edu-antenna-rights-federal"] },
+      { title: "24", section: "982.404", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.451", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.453", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.507", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.510", clauseIds: ["edu-voucher-repairs-and-rent"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-disclosure-ri"] }],
     manualRecheckItems: [
@@ -2478,6 +2970,18 @@ const STATE_CONFIG = {
       { title: "16", section: "682.3", clauseIds: ["edu-fcra-disposal-rule"] }, // federal disposal rule (added 2026-11-20)
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
+      { title: "24", section: "100.600", clauseIds: ["edu-fair-housing-harassment-federal"] }, // federal pass rows (added 2026-11-20)
+      { title: "12", section: "1022.42", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "12", section: "1022.43", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "24", section: "100.7", clauseIds: ["edu-fair-housing-harassment-federal"] },
+      { title: "40", section: "61.141", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "40", section: "61.145", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "47", section: "1.4000", clauseIds: ["edu-antenna-rights-federal"] },
+      { title: "24", section: "982.404", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.451", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.453", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.507", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.510", clauseIds: ["edu-voucher-repairs-and-rent"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
@@ -2518,6 +3022,18 @@ const STATE_CONFIG = {
       { title: "16", section: "682.3", clauseIds: ["edu-fcra-disposal-rule"] }, // federal disposal rule (added 2026-11-20)
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
+      { title: "24", section: "100.600", clauseIds: ["edu-fair-housing-harassment-federal"] }, // federal pass rows (added 2026-11-20)
+      { title: "12", section: "1022.42", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "12", section: "1022.43", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "24", section: "100.7", clauseIds: ["edu-fair-housing-harassment-federal"] },
+      { title: "40", section: "61.141", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "40", section: "61.145", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "47", section: "1.4000", clauseIds: ["edu-antenna-rights-federal"] },
+      { title: "24", section: "982.404", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.451", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.453", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.507", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.510", clauseIds: ["edu-voucher-repairs-and-rent"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
@@ -2565,6 +3081,18 @@ const STATE_CONFIG = {
       { title: "16", section: "682.3", clauseIds: ["edu-fcra-disposal-rule"] }, // federal disposal rule (added 2026-11-20)
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
+      { title: "24", section: "100.600", clauseIds: ["edu-fair-housing-harassment-federal"] }, // federal pass rows (added 2026-11-20)
+      { title: "12", section: "1022.42", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "12", section: "1022.43", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "24", section: "100.7", clauseIds: ["edu-fair-housing-harassment-federal"] },
+      { title: "40", section: "61.141", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "40", section: "61.145", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "47", section: "1.4000", clauseIds: ["edu-antenna-rights-federal"] },
+      { title: "24", section: "982.404", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.451", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.453", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.507", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.510", clauseIds: ["edu-voucher-repairs-and-rent"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
@@ -2615,6 +3143,18 @@ const STATE_CONFIG = {
       { title: "16", section: "682.3", clauseIds: ["edu-fcra-disposal-rule"] }, // federal disposal rule (added 2026-11-20)
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
+      { title: "24", section: "100.600", clauseIds: ["edu-fair-housing-harassment-federal"] }, // federal pass rows (added 2026-11-20)
+      { title: "12", section: "1022.42", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "12", section: "1022.43", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "24", section: "100.7", clauseIds: ["edu-fair-housing-harassment-federal"] },
+      { title: "40", section: "61.141", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "40", section: "61.145", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "47", section: "1.4000", clauseIds: ["edu-antenna-rights-federal"] },
+      { title: "24", section: "982.404", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.451", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.453", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.507", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.510", clauseIds: ["edu-voucher-repairs-and-rent"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
@@ -2660,6 +3200,18 @@ const STATE_CONFIG = {
       { title: "16", section: "682.3", clauseIds: ["edu-fcra-disposal-rule"] }, // federal disposal rule (added 2026-11-20)
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
+      { title: "24", section: "100.600", clauseIds: ["edu-fair-housing-harassment-federal"] }, // federal pass rows (added 2026-11-20)
+      { title: "12", section: "1022.42", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "12", section: "1022.43", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "24", section: "100.7", clauseIds: ["edu-fair-housing-harassment-federal"] },
+      { title: "40", section: "61.141", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "40", section: "61.145", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "47", section: "1.4000", clauseIds: ["edu-antenna-rights-federal"] },
+      { title: "24", section: "982.404", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.451", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.453", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.507", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.510", clauseIds: ["edu-voucher-repairs-and-rent"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
@@ -2699,6 +3251,18 @@ const STATE_CONFIG = {
       { title: "16", section: "682.3", clauseIds: ["edu-fcra-disposal-rule"] }, // federal disposal rule (added 2026-11-20)
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
+      { title: "24", section: "100.600", clauseIds: ["edu-fair-housing-harassment-federal"] }, // federal pass rows (added 2026-11-20)
+      { title: "12", section: "1022.42", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "12", section: "1022.43", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "24", section: "100.7", clauseIds: ["edu-fair-housing-harassment-federal"] },
+      { title: "40", section: "61.141", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "40", section: "61.145", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "47", section: "1.4000", clauseIds: ["edu-antenna-rights-federal"] },
+      { title: "24", section: "982.404", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.451", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.453", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.507", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.510", clauseIds: ["edu-voucher-repairs-and-rent"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
@@ -2760,6 +3324,18 @@ const STATE_CONFIG = {
       { title: "16", section: "682.3", clauseIds: ["edu-fcra-disposal-rule"] }, // federal disposal rule (added 2026-11-20)
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
+      { title: "24", section: "100.600", clauseIds: ["edu-fair-housing-harassment-federal"] }, // federal pass rows (added 2026-11-20)
+      { title: "12", section: "1022.42", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "12", section: "1022.43", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "24", section: "100.7", clauseIds: ["edu-fair-housing-harassment-federal"] },
+      { title: "40", section: "61.141", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "40", section: "61.145", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "47", section: "1.4000", clauseIds: ["edu-antenna-rights-federal"] },
+      { title: "24", section: "982.404", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.451", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.453", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.507", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.510", clauseIds: ["edu-voucher-repairs-and-rent"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
@@ -2799,6 +3375,18 @@ const STATE_CONFIG = {
       { title: "16", section: "682.3", clauseIds: ["edu-fcra-disposal-rule"] }, // federal disposal rule (added 2026-11-20)
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
+      { title: "24", section: "100.600", clauseIds: ["edu-fair-housing-harassment-federal"] }, // federal pass rows (added 2026-11-20)
+      { title: "12", section: "1022.42", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "12", section: "1022.43", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "24", section: "100.7", clauseIds: ["edu-fair-housing-harassment-federal"] },
+      { title: "40", section: "61.141", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "40", section: "61.145", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "47", section: "1.4000", clauseIds: ["edu-antenna-rights-federal"] },
+      { title: "24", section: "982.404", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.451", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.453", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.507", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.510", clauseIds: ["edu-voucher-repairs-and-rent"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
@@ -2838,6 +3426,18 @@ const STATE_CONFIG = {
       { title: "16", section: "682.3", clauseIds: ["edu-fcra-disposal-rule"] }, // federal disposal rule (added 2026-11-20)
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
+      { title: "24", section: "100.600", clauseIds: ["edu-fair-housing-harassment-federal"] }, // federal pass rows (added 2026-11-20)
+      { title: "12", section: "1022.42", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "12", section: "1022.43", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "24", section: "100.7", clauseIds: ["edu-fair-housing-harassment-federal"] },
+      { title: "40", section: "61.141", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "40", section: "61.145", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "47", section: "1.4000", clauseIds: ["edu-antenna-rights-federal"] },
+      { title: "24", section: "982.404", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.451", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.453", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.507", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.510", clauseIds: ["edu-voucher-repairs-and-rent"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
@@ -2884,6 +3484,18 @@ const STATE_CONFIG = {
       { title: "16", section: "682.3", clauseIds: ["edu-fcra-disposal-rule"] }, // federal disposal rule (added 2026-11-20)
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
+      { title: "24", section: "100.600", clauseIds: ["edu-fair-housing-harassment-federal"] }, // federal pass rows (added 2026-11-20)
+      { title: "12", section: "1022.42", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "12", section: "1022.43", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+      { title: "24", section: "100.7", clauseIds: ["edu-fair-housing-harassment-federal"] },
+      { title: "40", section: "61.141", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "40", section: "61.145", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+      { title: "47", section: "1.4000", clauseIds: ["edu-antenna-rights-federal"] },
+      { title: "24", section: "982.404", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.451", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.453", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.507", clauseIds: ["edu-voucher-repairs-and-rent"] },
+      { title: "24", section: "982.510", clauseIds: ["edu-voucher-repairs-and-rent"] },
     ],
     federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
     manualRecheckItems: [
