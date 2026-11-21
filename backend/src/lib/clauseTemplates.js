@@ -1271,7 +1271,7 @@ const CLAUSE_TEMPLATES = [
     id: "early-termination-ks",
     title: "Early Termination",
     group: "Default & Termination",
-    states: ["KS", "TN", "KY", "WV", "MD", "MA", "NH", "VI", "AS", "MP"],
+    states: ["KS", "TN", "WV", "MD", "MA", "NH", "VI", "AS", "MP"],
     supersedes: "early-termination",
     bodyText:
       "Tenant may terminate this Lease before the end of the Term by providing Landlord at least 30 days' written notice. Tenant will pay an early termination fee equal to one month's Rent ({{monthly_rent}}) or 30% of the remaining Rent due under the Term, whichever is greater, and remains responsible for Rent and other obligations up to the termination date. This early-termination option and fee apply only if this Lease has a fixed Term; a month-to-month or other periodic tenancy ends on the notice that applicable law and this Lease provide, without an early termination fee. Landlord may terminate this Lease early in accordance with this Lease's Tenant Default and notice provisions, or if Tenant vacates or abandons the property without notifying Landlord. Nothing in this Section limits any right either party has under applicable law, including a Tenant's right to terminate without penalty due to active military service under the Servicemembers Civil Relief Act, due to the property becoming uninhabitable through no fault of Tenant, or, except as prohibited by law in the case of a Tenant's death, any other termination right or limitation provided by applicable law.",
@@ -7417,7 +7417,7 @@ const CLAUSE_TEMPLATES = [
     id: "rent-installments-or",
     title: "Rent Paid in Installments",
     group: "Rent & Payment",
-    states: ["OR", "CT", "RI", "NH", "ME", "VT", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "WY", "KS", "NE", "TX", "NJ", "AZ", "FL", "GA", "SC", "VA", "PA", "AL", "UT", "IL", "MO", "ID", "IN", "OK", "IA", "NM", "MT", "WI", "NY", "WA"],
+    states: ["OR", "CT", "RI", "NH", "ME", "VT", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "WY", "KS", "NE", "TX", "NJ", "AZ", "FL", "GA", "SC", "VA", "PA", "AL", "UT", "IL", "MO", "ID", "IN", "OK", "IA", "NM", "MT", "WI", "NY", "WA", "KY"],
     bodyText:
       "Landlord and Tenant agree that Monthly Rent will be paid in installments as follows: [state each installment amount and the day of the month it is due]. Installments paid on this schedule are not partial payments of Rent. A late charge applies only as this Lease's late charge provision allows for the rental period.",
   },
@@ -7998,7 +7998,7 @@ const CLAUSE_TEMPLATES = [
     group: "Disclosures",
     states: ["KY"],
     bodyText:
-      "[Use if the property has been determined to be contaminated with methamphetamine under Kentucky law, or a methamphetamine contamination notice has been posted on it, and it has not been decontaminated and released by the Energy and Environment Cabinet. Give Tenant this disclosure in writing before Tenant signs the Lease.] Landlord discloses that the property is contaminated with methamphetamine and has not been decontaminated as Kentucky law requires. Tenant acknowledges that Tenant received this disclosure in writing before signing this Lease.",
+      "[Use if a methamphetamine contamination notice has been posted on the property, or the property has been determined to be contaminated with methamphetamine under Kentucky law, and the Energy and Environment Cabinet has not released it. Attach a copy of the posted Notice of Methamphetamine Contamination. Give Tenant this signed and dated statement before Tenant signs the Lease, and keep a copy for as long as Landlord owns the property.] METHAMPHETAMINE DISCLOSURE STATEMENT. Landlord discloses that the property at {{property_address}} is contaminated with methamphetamine and has not been decontaminated as Kentucky law requires. The part of the property that was used to produce methamphetamine is: [describe the location within the property]. A copy of the Notice of Methamphetamine Contamination posted on the property is attached. On request, Landlord will give Tenant a copy of any documentation about the contamination that Landlord received from law enforcement, the Energy and Environment Cabinet, the Department for Public Health or the local health department. Landlord signature: ______ Date: ______. Tenant acknowledges receiving this written disclosure before signing this Lease.",
   },
   // Rent & Payment
   {
@@ -11128,7 +11128,7 @@ const CLAUSE_TEMPLATES = [
     id: "tax-insurance-escalation-la",
     title: "Tax and Insurance Increases",
     group: "Rent & Payment",
-    states: ["LA", "AR", "MS", "PR", "GU", "VI", "WY", "KS", "NE", "TX", "NJ", "AZ", "FL", "SC", "NC", "PA", "AL", "UT", "MO", "IN", "OK", "WI"],
+    states: ["LA", "AR", "MS", "PR", "GU", "VI", "WY", "KS", "NE", "TX", "NJ", "AZ", "FL", "SC", "NC", "PA", "AL", "UT", "MO", "IN", "OK", "WI", "KY"],
     bodyText:
       "[Optional.] Tax and Insurance Increases: If the ad valorem property taxes assessed on [the Property / the building or parcel of which the Property is a part] for any calendar year during the Term are higher than the taxes for [base year][, or if Landlord's premium for property insurance on [the Property / that building] for any policy year during the Term is higher than the premium for [base policy year]], Tenant will pay Landlord [percent] percent of the increase, which is the Property's share of [the building or parcel]. Landlord will give Tenant written notice of each amount due, with a copy of the tax bill [and premium notice] and the calculation, at least [number] days before it is due, and Tenant may pay it [in one payment / in equal monthly installments with Rent over [number] months]. Tenant will not pay any part of a penalty or interest charged for Landlord's late payment of taxes or premiums. If taxes [or premiums] for a period for which Tenant paid a share are later reduced, abated or refunded, Landlord will credit or refund Tenant the same percentage of the reduction.",
   },
@@ -11153,7 +11153,7 @@ const CLAUSE_TEMPLATES = [
     id: "furnishings-included-la",
     title: "Furnishings",
     group: "Security Deposit",
-    states: ["LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "WY", "MN", "NE", "OH", "NV", "TX", "NJ", "AZ", "FL", "GA", "SC", "NC", "VA", "PA", "AL", "UT", "IL", "MO", "ID", "IN", "IA", "NM", "NY"],
+    states: ["LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO", "WY", "MN", "NE", "OH", "NV", "TX", "NJ", "AZ", "FL", "GA", "SC", "NC", "VA", "PA", "AL", "UT", "IL", "MO", "ID", "IN", "IA", "NM", "NY", "KY"],
     bodyText:
       "[Optional. Use only if the property is rented furnished.] Furnishings: The property is rented furnished. The furniture and furnishings Landlord provides, and their condition at the start of this Lease, are: [list each item and its condition, or attach a signed inventory]. Tenant will keep them at the property, will not remove or dispose of any item without Landlord's written consent, will tell Landlord promptly of any damage to them, and will return them at the end of this Lease in the same condition, except for normal wear and tear.",
   },
@@ -11510,7 +11510,7 @@ const CLAUSE_TEMPLATES = [
     id: "owner-occupancy-termination-ar",
     title: "Owner Occupancy (Optional)",
     group: "Default & Termination",
-    states: ["AR", "MS", "PR", "GU", "VI", "AS", "MP", "WY", "KS", "NE", "OH", "TX", "AZ", "FL", "GA", "SC", "NC", "VA", "PA", "AL", "UT", "ID", "IN", "OK", "MI", "IA", "NM", "WI"],
+    states: ["AR", "MS", "PR", "GU", "VI", "AS", "MP", "WY", "KS", "NE", "OH", "TX", "AZ", "FL", "GA", "SC", "NC", "VA", "PA", "AL", "UT", "ID", "IN", "OK", "MI", "IA", "NM", "WI", "KY"],
     bodyText:
       "[Optional. Use only for a fixed Term.] Owner Occupancy: Landlord may end this Lease before the end of the Term if Landlord, or the following member of Landlord's family, will occupy the property as a residence: [name or relationship]. To do so, Landlord will give Tenant written notice at least [number, not less than 30] days before the termination date, and the termination date will be the last day of a monthly rental period. Tenant owes Rent only through the termination date, and Landlord will refund any Rent paid for a later period. If Tenant does not leave by the termination date, Landlord may regain possession only through a court eviction.",
   },
@@ -12253,7 +12253,7 @@ const CLAUSE_TEMPLATES = [
     id: "pest-cooperation-pr",
     title: "Pest Reporting and Treatment",
     group: "Tenant Responsibilities",
-    states: ["PR", "GU", "AS", "MP", "NE", "SD", "TX", "AZ", "SC", "NC", "PA", "AL", "IL", "MO", "IA", "MT", "NY"],
+    states: ["PR", "GU", "AS", "MP", "NE", "SD", "TX", "AZ", "SC", "NC", "PA", "AL", "IL", "MO", "IA", "MT", "NY", "KY"],
     supersedes: "pest-cooperation-la",
     bodyText:
       "[Optional.] Tenant will promptly tell Landlord if Tenant knows or reasonably suspects that the property has bed bugs or another infestation of insects, rodents or other pests. Tenant will allow Landlord, Landlord's agents and pest control operators to enter the property to inspect for and treat the infestation as this Lease's entry section allows, and will follow the reasonable written preparation instructions Landlord or the pest control operator gives. If the infestation was caused by the fault of Tenant, a member of Tenant's household or a person on the property with Tenant's consent, Tenant will pay the reasonable cost of treatment and of repairing the resulting damage. Otherwise, Landlord will pay for treatment as part of Landlord's repair obligations.",
@@ -12288,7 +12288,7 @@ const CLAUSE_TEMPLATES = [
     id: "prohibited-acts-renter-pr",
     title: "Prohibited Acts by Tenant",
     group: "Tenant Responsibilities",
-    states: ["PR", "NY"],
+    states: ["PR", "NY", "KY"],
     supersedes: "prohibited-acts-renter-wy",
     bodyText:
       "Tenant will not intentionally or negligently destroy, deface, damage or impair any part of the property, or knowingly permit any other person to do so; will not interfere with another person's peaceful enjoyment of the property; and will not refuse or obstruct any entry the Landlord's Right of Entry section allows.",
@@ -12937,7 +12937,7 @@ const CLAUSE_TEMPLATES = [
     id: "animal-care-access-vi",
     title: "Animal Care in Tenant's Absence (Virgin Islands)",
     group: "Pets",
-    states: ["VI", "AS", "MP", "CO", "TX", "NJ", "GA", "NC", "PA", "UT", "IL", "MO", "ID", "OK", "MI", "IA", "NM", "NY"],
+    states: ["VI", "AS", "MP", "CO", "TX", "NJ", "GA", "NC", "PA", "UT", "IL", "MO", "ID", "OK", "MI", "IA", "NM", "NY", "KY"],
     bodyText:
       "[Optional.] Animal Care: Tenant will tell Landlord in writing about every animal kept at the property. Tenant names the following person to care for or remove Tenant's animals if Tenant cannot because Tenant is hospitalized, incapacitated, detained or otherwise absent and an animal is left without care: [name and telephone number]. In that case, after trying to reach Tenant, Landlord may let that person into the property for that purpose only, and if that person cannot be reached Landlord may ask an animal warden, a peace officer, or the Humane Society or an animal shelter to take charge of the animal. Tenant will tell Landlord in writing if this information changes. This permission ends at Tenant's death; after that, Landlord will deal with Tenant's animals only through Tenant's personal representative or heirs or as the law otherwise allows.",
   },
@@ -13053,7 +13053,7 @@ const CLAUSE_TEMPLATES = [
     id: "eminent-domain-vi",
     title: "Condemnation (Optional)",
     group: "Default & Termination",
-    states: ["VI", "MP", "KS", "MN", "NE", "SD", "NV", "TX", "NJ", "AZ", "FL", "GA", "SC", "NC", "VA", "AL", "IL", "MO", "ID", "IN", "IA", "MT", "WI", "NY", "WA", "OR"],
+    states: ["VI", "MP", "KS", "MN", "NE", "SD", "NV", "TX", "NJ", "AZ", "FL", "GA", "SC", "NC", "VA", "AL", "IL", "MO", "ID", "IN", "IA", "MT", "WI", "NY", "WA", "OR", "KY"],
     bodyText:
       "[Optional.] If all of the property is taken by eminent domain, or so much of it is taken that the rest cannot reasonably be lived in, this Lease ends on the date Tenant must give up possession, Rent is apportioned to that date, and Landlord will refund any Rent paid for later days. If a smaller part is taken and the rest can reasonably be lived in, this Lease continues and Rent is reduced in proportion to Tenant's loss of use. Any award for the taking of the property, including any value of this Lease, belongs to Landlord, except any relocation payment or other separate payment made to Tenant for Tenant's own moving costs or personal property. If this Lease ends under this Section, Landlord will return the Security Deposit, less lawful deductions, as this Lease provides.",
   },
@@ -13485,7 +13485,7 @@ const CLAUSE_TEMPLATES = [
     id: "accessory-dwelling-unit-term-co",
     title: "The Premises Is an Accessory Dwelling Unit",
     group: "Notices & General",
-    states: ["CO", "UT", "MO", "IN", "OK", "MI", "MT", "WI", "NY", "WA"],
+    states: ["CO", "UT", "MO", "IN", "OK", "MI", "MT", "WI", "NY", "WA", "KY"],
     bodyText:
       "The Premises is an accessory dwelling unit: a separate dwelling with its own living, sleeping, cooking and bathroom facilities, located on the same lot as the primary residence at {{property_address}}. You acknowledge that [describe who occupies the primary residence on the lot, for example \"the Landlord occupies the primary residence on the lot\"], and that the following areas are shared rather than part of the Premises: [list shared areas - driveway, parking space, yard, walkways, trash enclosure, laundry, storage]. You may use those shared areas for their ordinary purpose, and you will not store property in them, block the driveway or the primary residence's access, or use them in a way that interferes with the occupants of the primary residence. The following utilities serve the Premises and the primary residence through the same meter or connection and are handled as set out in the utilities section of this Lease: [list shared utilities, or write \"none\"]. Because the Premises and the primary residence sit on one lot and share these areas, both households will keep noise, guests, pets, vehicles and outdoor activity to a level that does not unreasonably disturb the other, and we will each give the other reasonable notice before work or deliveries that will block shared access. Nothing in this section reduces your right to exclusive possession of the inside of the Premises or any right you have under law.",
   },
@@ -13632,7 +13632,7 @@ const CLAUSE_TEMPLATES = [
     id: "emergency-contact-co",
     title: "Tenant's Emergency Contact (Optional)",
     group: "Notices & General",
-    states: ["CO", "AZ", "SC", "PA", "UT", "IL", "MO", "ID", "OK", "MI", "IA", "NM", "WI"],
+    states: ["CO", "AZ", "SC", "PA", "UT", "IL", "MO", "ID", "OK", "MI", "IA", "NM", "WI", "KY"],
     bodyText:
       "[Optional.] Tenant will give Landlord the name, relationship and telephone number of at least one person Landlord may try to reach in an emergency affecting Tenant or the Property, and will tell Landlord in writing if that information changes. Landlord may contact that person only in an emergency, or when Landlord cannot reach Tenant about an urgent condition at the Property, and will not use the information for any other purpose or give it to anyone else except as the law requires. Naming a contact does not make that person liable for Rent or for any other obligation under this Lease, does not make that person Tenant's agent, and does not give that person any right to enter the Property. Emergency contact name: [name]. Relationship to Tenant: [relationship]. Telephone: [telephone number].",
   },
@@ -13845,7 +13845,7 @@ const CLAUSE_TEMPLATES = [
     id: "utility-shutoff-notice-authorization-co",
     title: "Authorization for Utility Notices to Landlord (Optional)",
     group: "Notices & General",
-    states: ["CO", "SC", "AL", "UT", "ID", "OK", "MI", "IA", "NM", "MT", "NY", "WA"],
+    states: ["CO", "SC", "AL", "UT", "ID", "OK", "MI", "IA", "NM", "MT", "NY", "WA", "KY"],
     bodyText:
       "[Optional.] Tenant authorizes Landlord to be listed with each utility provider serving the Premises as an additional contact for notices about Tenant's account for the Premises, including any notice of pending disconnection, and will sign any form a provider requires to do that. Tenant also authorizes each provider to confirm to Landlord whether service to the Premises is connected and in Tenant's name. Landlord's receipt of a notice under this Section does not make Landlord responsible for Tenant's utility charges, and nothing in this Section requires any provider to give Landlord notice.",
   },
@@ -13962,7 +13962,7 @@ const CLAUSE_TEMPLATES = [
     id: "cold-weather-vacate-notice-wy",
     title: "Cold Weather Notice Before Vacating",
     group: "Tenant Responsibilities",
-    states: ["WY", "SC", "PA", "IL", "ID", "WI"],
+    states: ["WY", "SC", "PA", "IL", "ID", "WI", "KY"],
     bodyText:
       "Tenant understands that the Premises contain water supply lines, drains and other plumbing that can be damaged by freezing. From October 1 through May 1, Tenant will keep the heat in the Premises on and set no lower than fifty-five (55) degrees Fahrenheit at all times, including while Tenant is away. If during that period Tenant will be away from the Premises for more than three (3) consecutive days, Tenant will give Landlord written notice before leaving, stating the dates Tenant expects to be away and a telephone number at which Tenant can be reached. Tenant will notify Landlord immediately, at any time of year, if the heating system fails, if the Premises lose utility service, or if Tenant discovers a leak or a frozen or burst line. Landlord may enter the Premises during Tenant's absence as permitted by this Lease to protect the Premises from freezing. If Tenant fails to give the notice this paragraph requires or fails to keep the heat on as required, Tenant is responsible to Landlord for freeze damage to the Premises that the notice or the heat would have prevented. This paragraph does not apply where Landlord has agreed to supply or maintain the heating system and the failure is Landlord's to repair, and does not apply at the end of the Term when Tenant is vacating for good.",
   },
@@ -14067,7 +14067,7 @@ const CLAUSE_TEMPLATES = [
     id: "energy-data-release-wy",
     title: "Energy Usage Data Authorization",
     group: "Notices & General",
-    states: ["WY", "SD", "NV", "TX", "FL", "GA", "SC", "NC", "AL", "UT", "IL", "MO", "ID", "IN", "OK", "MI", "IA", "NM", "MT", "WI", "NY", "WA"],
+    states: ["WY", "SD", "NV", "TX", "FL", "GA", "SC", "NC", "AL", "UT", "IL", "MO", "ID", "IN", "OK", "MI", "IA", "NM", "MT", "WI", "NY", "WA", "KY"],
     bodyText:
       "[Optional. Use where the electric, gas or water account for the property is in Tenant's name and Landlord wants usage data for building benchmarking, an energy audit, a rebate application or utility allocation.] Tenant authorizes each electric, gas and water utility serving the property to release to Landlord or Landlord's designated agent the monthly usage and billing history for the property for the period of Tenant's tenancy, for the purpose of benchmarking, auditing or improving the energy or water performance of the building, or applying for a utility or government efficiency program. Tenant will, within ten (10) days of Landlord's written request, sign and deliver whatever release, authorization or online consent the utility requires to give effect to this paragraph. Landlord will use the data only for the purposes stated above, will not disclose Tenant's individual data to any other person except a contractor or consultant performing the benchmarking or audit, or as required by law, and will report the building's data to any third party only in aggregated form. Tenant may withdraw this authorization at any time by written notice to Landlord, and withdrawal is not a breach of this Agreement.",
   },
@@ -15169,7 +15169,7 @@ const CLAUSE_TEMPLATES = [
     id: "tenant-portal-mn",
     title: "Online Tenant Portal",
     group: "Notices & General",
-    states: ["MN", "SD", "TX", "GA", "SC", "NC", "PA", "MO", "OK"],
+    states: ["MN", "SD", "TX", "GA", "SC", "NC", "PA", "MO", "OK", "KY"],
     bodyText:
       "[Optional.] Landlord may make an online tenant portal available for rent payments, maintenance requests and notices. Tenant's use of the portal for notices is voluntary. Tenant may give any notice this Lease or applicable law requires by the methods this Lease sets out, whether or not Tenant uses the portal. If Landlord requires or permits payment through the portal, Landlord will provide an alternative way to pay whenever the portal is not working. Landlord will not charge Tenant any fee for using that alternative. Tenant's email address and other electronic contact details for the portal are [enter or leave blank]. Tenant will tell Landlord promptly if those details change.",
   },
@@ -15384,7 +15384,7 @@ const CLAUSE_TEMPLATES = [
     id: "barred-person-covenant-ne",
     title: "No Admitting a Barred Person",
     group: "Tenant Responsibilities",
-    states: ["NE", "AZ", "NC", "AL", "UT", "MI", "MT"],
+    states: ["NE", "AZ", "NC", "AL", "UT", "MI", "MT", "KY"],
     bodyText:
       "BARRED PERSONS. Landlord may give Tenant written notice that a named person has been barred from the property because of conduct on or about the property that threatened the health or safety of residents, Landlord, or Landlord's employees or agents, or that damaged the property. From the date Tenant receives that notice, Tenant shall not invite, admit, license, or permit that person onto the Premises or any part of the property, and shall not give that person a key, fob, access code, or parking permit. Tenant is responsible for compliance by every person Tenant admits. This paragraph does not apply to a person present to provide emergency, medical, or law-enforcement assistance, and it does not apply to a person Tenant is required by law or court order to admit. Nothing in this paragraph requires Tenant to refuse entry to a person where Tenant or a member of Tenant's household has sought a protective or restraining order against that person, has reported that person's conduct to a law enforcement agency, or has obtained certification of an act of domestic violence from a qualified third party.",
   },
@@ -18573,7 +18573,7 @@ const CLAUSE_TEMPLATES = [
     id: "hunting-fishing-consent-ok",
     title: "Hunting, Trapping and Fishing",
     group: "Rules & Regulations",
-    states: ["OK", "NY"],
+    states: ["OK", "NY", "KY"],
     bodyText:
       "[Optional.] Tenant will not hunt, trap or fish on the Property, and will not give anyone else permission to hunt, trap or fish on the Property, without Landlord's prior written consent. Any consent Landlord gives covers only the persons, areas and period stated in it.",
   },
@@ -19019,7 +19019,7 @@ const CLAUSE_TEMPLATES = [
     id: "portable-cooling-device-ia",
     title: "Cooling Equipment and Window Units",
     group: "Rules & Regulations",
-    states: ["IA", "NY"],
+    states: ["IA", "NY", "KY"],
     bodyText:
       "[Optional.] Cooling equipment. Landlord supplies the following air-conditioning or cooling equipment at the property and will maintain it as the law requires: [list each item, or write \"none\"]. Tenant may use a floor-standing portable air conditioner or fan that plugs into an ordinary outlet. Tenant will not install a window-mounted or through-the-wall air conditioner without Landlord's prior written consent. If Landlord consents, Tenant will install the unit securely so that it cannot fall, will not place it in a window needed for emergency escape, will not overload an electrical circuit, and at the end of the Term will remove it and repair any damage its installation or removal causes. Tenant is responsible for damage caused by a cooling unit Tenant installs or uses. Nothing in this Section limits Tenant's right to a reasonable accommodation or reasonable modification for a disability, or Landlord's duty to maintain equipment Landlord supplies.",
   },
@@ -19747,6 +19747,76 @@ const CLAUSE_TEMPLATES = [
     states: ["OR"],
     bodyText:
       "[Optional. Use only if the property is rented furnished.] Furnishings: The property is rented furnished. The furniture and furnishings Landlord provides, and their condition at the start of this Lease, are: [list each item and its condition, or attach an inventory signed by Landlord and Tenant]. Tenant will keep them at the property, will not remove or dispose of any item without Landlord's written consent, and will tell Landlord promptly of any damage to them. At the end of this Lease, Tenant will leave them at the property. Tenant is responsible for damage to them, other than ordinary wear and tear, only if it is damage that Tenant, or a person Tenant knowingly permits, deliberately or negligently causes, other than damage that results from an act of God or from conduct by a perpetrator relating to domestic violence, sexual assault, bias crime or stalking.",
+  },
+  // Disclosures
+  {
+    id: "association-documents-delivery-ky",
+    title: "Association Documents Given to Tenant",
+    group: "Disclosures",
+    states: ["KY"],
+    bodyText:
+      "[Optional. Use only if the Property is in a condominium or in a planned community with a homeowners' association.] ASSOCIATION DOCUMENTS. Before signing this Lease, Landlord gave Tenant a copy of the association's current rules and regulations and of the recorded declaration, master deed, bylaws, covenants and restrictions that limit or affect the use and occupancy of the Property. Tenant acknowledges receiving them. Tenant will comply with those documents, and with any later change to them that Landlord gives Tenant, as they apply to Tenant's use and occupancy of the Property. Landlord will give Tenant a copy of any later change that affects Tenant's use of the Property within a reasonable time after Landlord receives it. Where Kentucky's Uniform Residential Landlord and Tenant Act applies, a later change that substantially modifies Tenant's bargain binds Tenant under this Lease only if Tenant consents to it in writing.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "common-area-lighting-ky",
+    title: "Common-Area Lighting on Tenant's Meter",
+    group: "Tenant Responsibilities",
+    states: ["KY"],
+    bodyText:
+      "[Optional. Use only if lights or outlets serving a shared area are wired to the electric service that Tenant pays for.] The electric service Tenant pays for also supplies the lighting and electrical outlets in the following shared areas: {{tenant_metered_common_areas}}. Tenant will pay for the electricity those lights and outlets use as part of Tenant's utility obligation under this Lease. Tenant is not responsible for maintaining, repairing or replacing any light fixture, bulb, wiring or other equipment in a shared area. Landlord will maintain that equipment and keep the shared areas clean and safe. Tenant will not disconnect, remove, switch off or otherwise interrupt power to a shared-area light. If Tenant's electric service is disconnected for any reason, Tenant will tell Landlord promptly so that Landlord can keep the shared areas lit.",
+  },
+  {
+    id: "fire-safety-compliance-ky",
+    title: "Fire Safety",
+    group: "Tenant Responsibilities",
+    states: ["KY"],
+    bodyText:
+      "[Optional.] FIRE SAFETY. Tenant will not do anything on the property that violates the Kentucky Standards of Safety (the state fire code), the Kentucky Building Code or any local fire ordinance. Tenant will not store, or allow to accumulate, combustible or explosive material, rubbish, rags or other flammable matter on the property beyond ordinary household quantities. Tenant will not leave anything in shared hallways, stairways, landings, entries or exits. Tenant will keep all exits, stairways and fire escapes clear. Tenant will not disable, remove or obstruct any smoke or carbon monoxide alarm, fire extinguisher, sprinkler head, fire door or exit light. If a fire official orders Tenant to remove material or correct a condition, Tenant will comply within the time the order allows and will tell Landlord at once. If Tenant, a member of Tenant's household or another person on the property with Tenant's consent causes a fire hazard, Landlord may give Tenant written notice describing it. The notice will ask Tenant to correct it within 14 days, or sooner if an emergency requires. If Tenant does not correct it in that time, Landlord may enter as this Lease's entry section allows, have the work done in a workmanlike manner, and charge Tenant the actual and reasonable cost. Landlord will give Tenant an itemized bill, and Tenant will pay it with the next Rent payment or, if this Lease has ended, at once.",
+  },
+  {
+    id: "home-business-permission-ky",
+    title: "Home-Based Business (Landlord's Permission)",
+    group: "Tenant Responsibilities",
+    states: ["KY"],
+    bodyText:
+      "[Optional. Use instead of a flat ban where Landlord is willing to allow a home business. Delete if business use is not permitted.] Landlord gives Tenant permission to operate the following home-based business at the Property: [describe the business, including whether customers, clients or children will come to the Property]. This permission is personal to Tenant, applies only to that business, and may be withdrawn only for a reason stated in this Section. Tenant will keep the Property in use primarily as a residence. Tenant will obtain and keep current every license, registration and permit the business requires, including any local zoning or home occupation permit, and give Landlord a copy on request. Tenant will comply with any rules of a homeowners or condominium association that apply to the business, and with local noise and nuisance rules. Tenant will carry liability insurance covering the business of at least {{tenant_insurance_minimum}}, name Landlord as an interested party on the policy if Landlord asks, and give Landlord a certificate on request. Tenant will not let the business create noise, odors, traffic, parking demand or signage that disturbs other residents or neighbors. Tenant will not make any alteration to the Property for the business without Landlord's written consent. Tenant is responsible for the cost of repairing damage to the Property, beyond normal wear and tear, that the business causes through the deliberate or negligent act or omission of Tenant or of any other person on the Property with Tenant's consent. Landlord may withdraw this permission by [number] days written notice if Tenant loses a required license or permit, if the business is operated in breach of this Section, or if an association or a government authority requires the business to stop. Withdrawing this permission does not end the Lease, and Tenant may continue to occupy the Property as a residence.",
+  },
+  // Access & Entry
+  {
+    id: "showing-notice-non-urlta-ky",
+    title: "Showings Near the End of the Lease (Only Where the URLTA Is Not in Effect)",
+    group: "Access & Entry",
+    states: ["KY"],
+    bodyText:
+      "[Optional. Do NOT use this Section if the property is in a city or county that has adopted Kentucky's Uniform Residential Landlord and Tenant Act; there Landlord must give at least two days' notice before every non-emergency entry, and a shorter notice in the lease is unenforceable.] During the last [number] days of the Term, and at any time after either party gives notice of termination, Landlord, its agents and contractors may enter the property to show it to prospective tenants or purchasers. For those showings Landlord may give [state the shorter notice, for example same-day notice by telephone or text message] instead of the notice required by the Landlord's Right of Entry section, but may enter only between [state hours, for example 9:00 a.m. and 7:00 p.m.]. Every other entry remains subject to the Landlord's Right of Entry section, and Landlord will not use showings to harass Tenant. This Section does not apply if the property is in a city, county or urban-county government where the Uniform Residential Landlord and Tenant Act (KRS 383.505 to 383.705) is in effect.",
+  },
+  // Rent & Payment
+  {
+    id: "utility-allowance-cap-ky",
+    title: "Utility Allowance with Tenant-Paid Overage",
+    group: "Rent & Payment",
+    states: ["KY"],
+    bodyText:
+      "[Optional.] UTILITY ALLOWANCE. [Use only for a utility this Lease lists as paid by Landlord whose account is in Landlord's name and whose provider bills this property alone. Do not use it where Landlord bills water through its own submeters or divides a bill shared with other units.] Landlord will pay for [specify utility] up to {{utility_allowance_amount}} for each of the provider's billing periods. If the provider's charge for the property for a billing period is more than that amount, Tenant will pay Landlord the difference. Landlord will give Tenant a copy of the provider's bill for that period with each request for payment, and Tenant will pay within [number] days after receiving it. Landlord will not interrupt, or cause the interruption of, any utility service to the property because Tenant has not made a payment under this Section.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "utility-transfer-ky",
+    title: "Transfer of Utility Accounts",
+    group: "Tenant Responsibilities",
+    states: ["KY"],
+    bodyText:
+      "For each utility this Lease makes Tenant's responsibility, Tenant will open or transfer the account into Tenant's own name with the provider, effective on or before [insert date, e.g. the first day of the Term], and keep it in Tenant's name until the Term ends and Tenant has vacated. If any such account remains in Landlord's name for any part of the Term, Tenant will reimburse Landlord the amount the provider actually charged for service to the Premises for that period, within [number] days after Landlord gives Tenant a copy of the provider's bill. No late fee applies to this reimbursement. Landlord will not shut off, interrupt or ask a provider to discontinue any utility service to the Premises because Tenant has not transferred an account or has not paid a reimbursement.",
+  },
+  // Default & Termination
+  {
+    id: "early-termination-ky",
+    title: "Early Termination",
+    group: "Default & Termination",
+    states: ["KY"],
+    bodyText:
+      "[Optional.] Tenant may terminate this Lease before the end of the Term by giving Landlord at least 30 days' written notice. Tenant will pay Landlord, by the termination date, an early termination fee equal to one month's Rent ({{monthly_rent}}), and remains responsible for Rent and other obligations up to the termination date. If Tenant gives that notice, pays the fee and delivers possession of the property by the termination date, Tenant owes no Rent for any period after the termination date. If Tenant leaves before the end of the Term without using this option, Tenant's liability is governed by this Lease's Default by Tenant terms and Kentucky law, and Landlord will use reasonable efforts to re-rent the property at a fair rental. This early-termination option and fee apply only if this Lease has a fixed Term; a month-to-month or other periodic tenancy ends on the notice that Kentucky law and this Lease provide, without an early termination fee. Landlord may terminate this Lease early only as this Lease's Default by Tenant terms and Kentucky law allow, and will regain possession only through a court proceeding. Nothing in this Section limits any right either party has under applicable law. No early termination fee is owed when Tenant ends this Lease, or is released from it, under such a right. These rights include a protected tenant's right to terminate under Kentucky's protective-order law; release from this Lease because of a lead hazard to a young child; Tenant's right to terminate because of military service under the Servicemembers Civil Relief Act; and Tenant's right to terminate after a fire or casualty, or because Landlord has not complied with this Lease or applicable law.",
   },
 ];
 

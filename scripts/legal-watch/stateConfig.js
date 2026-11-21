@@ -2140,7 +2140,10 @@ const STATE_CONFIG = {
       { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] }, // federal voucher lease rules (added 2026-11-12)
       { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
     ],
-    federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
+    federalStatuteChecks: [
+      { section: "4852d", clauseIds: ["lead-based-paint"] },
+      { section: "3955", clauseIds: ["early-termination-ky", "edu-servicemember-rights-ky"] }, // the SCRA no-fee rule early-termination-ky relies on (added 2026-11-20, KY gaps sync)
+    ],
     manualRecheckItems: [
       {
         id: "ky-urlta-adoptions",
@@ -2151,8 +2154,14 @@ const STATE_CONFIG = {
       {
         id: "ky-kar-and-escheat",
         label:
-          "Sources LegiScan can't see, and one open question: the building and fire code regulations (815 KAR 7, 815 KAR 10), Public Service Commission disconnection rules (807 KAR 5:006) and the methamphetamine disclosure regulations (902 KAR); and whether KRS 383.580(7)'s 60-day rule or the unclaimed property law (KRS 393.080, chapter 393A) governs an unclaimed deposit refund (KY log §6.3, §7, §10)",
-        clauseIds: ["edu-deposit-escheat-ky", "meth-contamination-disclosure-ky"],
+          "One open question LegiScan can't settle: whether KRS 383.580(7)'s 60-day rule or the unclaimed property law (KRS 393.080, chapter 393A) governs an unclaimed deposit refund (KY log §6.3, §10). The regulations this item once listed as unread were read at the 2026-11-20 gaps sync; they are watched under ky-gaps-kar",
+        clauseIds: ["edu-deposit-escheat-ky"],
+      },
+      {
+        id: "ky-gaps-kar",
+        label:
+          "Administrative regulations LegiScan can't see that the rows rely on since the 2026-11-20 gaps sync, read in the version current on 2026-11-19: the Real Estate Commission's conduct rule (201 KAR 11:121), the Human Rights Commission's notice and record rules (104 KAR 1:010, 1:060), the water submetering rule (401 KAR 8:020), the Public Service Commission's service and metering rules (807 KAR 5:006, 5:046), the Standards of Safety and building code (815 KAR 10:060, 815 KAR 7:120, 7:125), the methamphetamine, lead and boarding-home rules (902 KAR 47:200, 902 KAR 4:090, 902 KAR 20:350) and the other KAR the KY gaps log cites. Check the Administrative Register (apps.legislature.ky.gov/law/kar) for amendments, and re-read the rows that cite an amended one (KY gaps log §1, §6)",
+        clauseIds: ["edu-rent-receipts-ky", "edu-fair-housing-ky", "edu-tenant-records-ky", "edu-utility-submetering-ky", "edu-utility-shutoff-ky", "edu-alarm-duties-ky", "meth-contamination-disclosure-ky", "edu-lead-hazard-release-ky", "edu-security-deposit-standards-ky"],
       },
     ],
   },
