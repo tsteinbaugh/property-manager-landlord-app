@@ -292,6 +292,36 @@ async function legiscanSearch(section, jurisdiction = STATE_CODE) {
     .map((k) => result[k]);
 }
 
+// Subject watch (added 2026-11-20): new laws on subjects the library may not
+// cite yet. The section checks above only see bills that touch a section the
+// citations file already names, so a brand-new landlord-tenant law in a new
+// section would pass unnoticed. This runs a subject query (CONFIG.subjectWatch)
+// and pages through the results. It deliberately passes year=3 ("recent"), not
+// year=1: an all-years subject search returns thousands of old bills, and only
+// new activity matters here (the section searches keep year=1).
+async function legiscanSubjectSearch(query, page) {
+  const url = `https://api.legiscan.com/?key=${LEGISCAN_API_KEY}&op=getSearch&state=${STATE_CODE}&year=3&page=${page}&query=${encodeURIComponent(query)}`;
+  const res = await legiscanFetch(url);
+  if (!res.ok) throw new Error(`LegiScan subject search failed for "${query}" page ${page}: HTTP ${res.status}`);
+  const data = await res.json();
+  if (VERBOSE) {
+    console.log(`\n--- raw getSearch(subject "${query}", page ${page}) ---`);
+    console.log(JSON.stringify(data, null, 2));
+  }
+  if (data.status !== "OK") {
+    throw new Error(data.alert?.message || `unexpected LegiScan response for subject "${query}"`);
+  }
+  const result = data.searchresult || {};
+  const summary = result.summary || {};
+  const hits = Object.keys(result)
+    .filter((k) => k !== "summary")
+    .map((k) => result[k]);
+  return { hits, pageTotal: Number(summary.page_total) || 1 };
+}
+
+// A last action that may mean the bill became law; only these get a getBill call.
+const ENACTMENT_HINT = /sign|chapter|act no|public act|became law|enact|approved by (the )?governor|effective without|law without|session law/i;
+
 async function legiscanGetBill(billId) {
   const url = `https://api.legiscan.com/?key=${LEGISCAN_API_KEY}&op=getBill&id=${billId}`;
   const res = await legiscanFetch(url);
@@ -329,9 +359,10 @@ function loadState() {
     state.federalSections ||= {};
     state.cfr ||= {};
     state.manualRecheck ||= {};
+    state.subjects ||= {};
     return state;
   } catch {
-    return { sections: {}, federalSections: {}, cfr: {}, manualRecheck: {} };
+    return { sections: {}, federalSections: {}, cfr: {}, manualRecheck: {}, subjects: {} };
   }
 }
 
@@ -376,8 +407,18 @@ async function sendPartialNotice(unchecked) {
   await sendEmail(`[Steinoak] Legal watch incomplete: ${STATE_NAME} (${unchecked.length} check(s) failed)`, html);
 }
 
-async function sendAlertEmail({ billFindings = [], cfrFindings = [], reminders = [] }) {
+async function sendAlertEmail({ billFindings = [], cfrFindings = [], reminders = [], subjectFindings = [] }) {
   const sections = [];
+
+  if (subjectFindings.length > 0) {
+    const lines = subjectFindings.map(
+      (f) =>
+        `<li><a href="${f.bill.url}">${f.bill.bill_number}</a>: ${f.bill.title || f.bill.last_action}. Status: ${f.statusLabel}. Last action ${f.bill.last_action_date}: ${f.bill.last_action}. (Matched subject search: ${f.query})</li>`,
+    );
+    sections.push(
+      `<h3>New laws on landlord-tenant subjects (subject watch)</h3><p>These bills became law but touch no section the citations file names. Check whether each one creates a new rule the library should answer, or changes a topic under a section it doesn't cite yet.</p><ul>${lines.join("")}</ul>`,
+    );
+  }
 
   if (billFindings.length > 0) {
     const lines = billFindings.map(
@@ -403,7 +444,7 @@ async function sendAlertEmail({ billFindings = [], cfrFindings = [], reminders =
     );
   }
 
-  const totalRealFindings = billFindings.length + cfrFindings.length;
+  const totalRealFindings = billFindings.length + cfrFindings.length + subjectFindings.length;
   const html = `<p>${STATE_NAME} lease-clause legal watch -- verify anything below against primary text before touching a clause; nothing here is a verified finding.</p>${sections.join("")}<p><i>See lease-clause-citations-${STATE_CODE}.csv for what each clause currently asserts.</i></p>${ATTRIBUTION}`;
 
   await sendEmail(
@@ -565,6 +606,78 @@ async function main() {
     await checkLegiscanSection(section, new Set(clauseIds), "US", state.federalSections);
   }
 
+  // ---- stream 2b: subject watch, new laws on subjects not yet cited (added 2026-11-20) ----
+
+  const subjectFindings = [];
+  const SUBJECT_WATCH = CONFIG.subjectWatch || null;
+  if (SUBJECT_WATCH) {
+    // Bills the section checks already follow are left to them.
+    const sectionBills = new Set(Object.values(state.sections).flatMap((s) => s.billIds || []));
+    const maxPages = SUBJECT_WATCH.maxPages || 10;
+    for (const query of SUBJECT_WATCH.queries) {
+      checksAttempted++;
+      const seeding = !state.subjects[query];
+      const bucket = state.subjects[query] || { seen: {}, flagged: [] };
+      let page = 1;
+      let pageTotal = 1;
+      let failed = false;
+      const hits = [];
+      do {
+        legiscanAttempted++;
+        try {
+          const r = await legiscanSubjectSearch(query, page);
+          hits.push(...r.hits);
+          pageTotal = r.pageTotal;
+        } catch (err) {
+          console.error(`  [subject] "${query}" page ${page}: search error - ${err.message}`);
+          checksErrored++;
+          legiscanErrored++;
+          unchecked.push(`subject "${query}"`);
+          failed = true;
+          break;
+        }
+        page++;
+      } while (page <= Math.min(pageTotal, maxPages));
+      if (failed) continue; // leave the bucket as it was; the next run retries
+      if (pageTotal > maxPages) console.log(`  [subject] "${query}": ${pageTotal} pages, read the first ${maxPages} (most relevant first)`);
+
+      const relevant = hits.filter((c) => Number(c.relevance) >= (SUBJECT_WATCH.minRelevance || 50));
+      console.log(`  [subject] "${query}": ${hits.length} hit(s), ${relevant.length} relevant${seeding ? " (first run: recording, not flagging)" : ""}`);
+      for (const c of relevant) {
+        const id = String(c.bill_id);
+        const marker = changeMarker(c);
+        const changed = bucket.seen[id] !== marker;
+        bucket.seen[id] = marker;
+        if (seeding || !changed || bucket.flagged.includes(id) || sectionBills.has(c.bill_id)) continue;
+        if (!ENACTMENT_HINT.test(c.last_action || "")) continue;
+        let bill;
+        try {
+          bill = await legiscanGetBill(c.bill_id);
+        } catch (err) {
+          console.error(`  [subject] getBill error for ${id} - ${err.message}`);
+          unchecked.push(`subject "${query}" (bill ${id})`);
+          delete bucket.seen[id]; // look again next run
+          continue;
+        }
+        if (bill && ENACTED_STATUSES.has(Number(bill.status))) {
+          bucket.flagged.push(id);
+          subjectFindings.push({
+            query,
+            bill: {
+              bill_number: bill.bill_number,
+              title: bill.title,
+              url: bill.url,
+              last_action: bill.last_action || c.last_action,
+              last_action_date: bill.last_action_date || c.last_action_date,
+            },
+            statusLabel: Number(bill.status) === 4 ? "Passed" : "Enrolled",
+          });
+        }
+      }
+      state.subjects[query] = bucket;
+    }
+  }
+
   // ---- stream 3: federal regulation citations, via eCFR ----
 
   console.log(`\nChecking ${CFR_CHECKS.length} CFR section(s) via eCFR...`);
@@ -619,10 +732,11 @@ async function main() {
   }
 
   console.log(
-    `\n${billFindings.length + cfrFindings.length} real finding(s), ${reminders.length} manual-recheck reminder(s) (${checksErrored}/${checksAttempted} live checks errored):`,
+    `\n${billFindings.length + cfrFindings.length + subjectFindings.length} real finding(s), ${reminders.length} manual-recheck reminder(s) (${checksErrored}/${checksAttempted} live checks errored):`,
   );
   billFindings.forEach((f) => console.log(`  [bill] ${f.jurisdiction} ${f.section} -> ${f.bill.bill_number} (${f.statusLabel}), affects: ${[...f.clauseIds].join(", ")}`));
   cfrFindings.forEach((f) => console.log(`  [cfr] ${f.title} CFR ${f.section} amended ${f.lastAmended}, affects: ${[...f.clauseIds].join(", ")}`));
+  subjectFindings.forEach((f) => console.log(`  [subject] ${f.bill.bill_number} (${f.statusLabel}): ${f.bill.title}`));
   reminders.forEach((r) => console.log(`  [reminder] ${r.label}`));
 
   if (DRY_RUN) {
@@ -639,11 +753,11 @@ async function main() {
     return;
   }
 
-  if (billFindings.length > 0 || cfrFindings.length > 0 || reminders.length > 0) {
+  if (billFindings.length > 0 || cfrFindings.length > 0 || subjectFindings.length > 0 || reminders.length > 0) {
     if (!RESEND_API_KEY || !ALERT_EMAIL_TO) {
       console.error("Findings/reminders exist but RESEND_API_KEY/ALERT_EMAIL_TO not set -- skipping email.");
     } else {
-      await sendAlertEmail({ billFindings, cfrFindings, reminders });
+      await sendAlertEmail({ billFindings, cfrFindings, reminders, subjectFindings });
       console.log("Alert email sent.");
     }
   }

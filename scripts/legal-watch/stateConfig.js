@@ -160,6 +160,9 @@ const NY_LAW_NAMES = {
 
 const STATE_CONFIG = {
   CO: {
+    // Subject watch (added 2026-11-20): new landlord-tenant laws in sections not yet cited.
+    // Rolled out a few states at a time for the LegiScan budget (backlog item 13).
+    subjectWatch: { queries: ["landlord AND tenant"], maxPages: 10, minRelevance: 50 },
     stripPatterns: [],
     sectionPattern: /\b(\d{1,2}-\d{1,3}-\d{2,4}(?:\.\d+)?)\b/g,
     cfrChecks: [
@@ -224,6 +227,9 @@ const STATE_CONFIG = {
   },
 
   WY: {
+    // Subject watch (added 2026-11-20): new landlord-tenant laws in sections not yet cited.
+    // Rolled out a few states at a time for the LegiScan budget (backlog item 13).
+    subjectWatch: { queries: ["landlord AND tenant"], maxPages: 10, minRelevance: 50 },
     stripPatterns: [],
     // Wyo. Stat. citations are 3-part (title-chapter-section), same shape as
     // Colorado's -- confirmed against all 33 monitorable WY rows before shipping.
@@ -260,6 +266,9 @@ const STATE_CONFIG = {
   },
 
   KS: {
+    // Subject watch (added 2026-11-20): new landlord-tenant laws in sections not yet cited.
+    // Rolled out a few states at a time for the LegiScan budget (backlog item 13).
+    subjectWatch: { queries: ["landlord AND tenant"], maxPages: 10, minRelevance: 50 },
     // K.A.R. = Kansas Administrative Regulations -- agency rules, not
     // legislative bills. LegiScan can't see these regardless (same reasoning
     // as ND's admin code and SD's ARSD below), so strip before extracting to
