@@ -399,3 +399,7 @@ Taylor's decision 2026-11-21: a per-jurisdiction count found that topics added b
 - `rights-responsibilities-guide`: Confirmed absent. Row `edu-no-rights-guide-vt` (VERIFIED; Absence: 9 V.S.A. chapters 137, 139; 9 V.S.A. §§ 4454, 4455(b)).
 - `special-district-representation`: Confirmed absent. Row `edu-no-special-district-statement-vt` (VERIFIED; Absence: 9 V.S.A. chapter 137; 24 V.S.A. (selected chapters); 9 V.S.A. §§ 4454, 4455(b)).
 - `communal-land-lease-approval`: Confirmed absent. Row `edu-no-communal-land-lease-approval-vt` (VERIFIED; Absence: 9 V.S.A. chapter 137; 27 V.S.A.; 1 V.S.A. chapter 23; 1 V.S.A. § 851(8); 27 V.S.A. § 342).
+
+### Declined option, 2026-11-21 (Taylor's decision)
+
+- `edu-no-subordination-clause` tagged here and in every jurisdiction: the library offers no clause subordinating the lease to a mortgage (rule 54 row); the tenant's foreclosure protection is the federal PTFA (`edu-ptfa-foreclosure-tenants`).

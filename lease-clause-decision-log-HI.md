@@ -443,3 +443,7 @@ Taylor's decision 2026-11-21: a per-jurisdiction count found that topics added b
 - `limitation-of-actions`: Present. Row `edu-limitation-of-actions-hi` (VERIFIED; HRS §§ 657-1(1), 657-7).
 - `trespass-notice`: Present. Row `edu-trespass-notice-hi` (VERIFIED; HRS §§ 708-800, 708-813, 708-815).
 - `usufructuary-lessor`: Confirmed absent. Row `edu-no-usufructuary-lessor-hi` (VERIFIED; Absence: HRS ch. 521).
+
+### Declined option, 2026-11-21 (Taylor's decision)
+
+- `edu-no-subordination-clause` tagged here and in every jurisdiction: the library offers no clause subordinating the lease to a mortgage (rule 54 row); the tenant's foreclosure protection is the federal PTFA (`edu-ptfa-foreclosure-tenants`).

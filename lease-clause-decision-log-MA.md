@@ -908,3 +908,7 @@ Taylor's decision 2026-11-21: a per-jurisdiction count found that topics added b
 ### Targeted fix, 2026-11-21 (Claude Code, topic-coverage follow-up)
 
 - `edu-no-tenant-purchase-right-ma`: added St. 1983, c. 527, § 4(b), read from official text; the topic-coverage pass found the row omitted it. Quotes in the row's notes.
+
+### Declined option, 2026-11-21 (Taylor's decision)
+
+- `edu-no-subordination-clause` tagged here and in every jurisdiction: the library offers no clause subordinating the lease to a mortgage (rule 54 row); the tenant's foreclosure protection is the federal PTFA (`edu-ptfa-foreclosure-tenants`).

@@ -20037,6 +20037,32 @@ const CLAUSE_TEMPLATES = [
     bodyText:
       "[Use only if a clandestine drug laboratory has been identified on the property, whether or not it has been remediated. Give a copy of this disclosure in writing to Tenant and to every other adult who will live at the property before Tenant signs. Do not let anyone occupy the property after a law-enforcement notice of the laboratory until the Department of Health certifies the remediation or the property has been demolished.] FORMER CLANDESTINE DRUG LABORATORY. Landlord discloses that a clandestine drug laboratory, meaning an area where controlled substances or their immediate precursors were manufactured, processed, cooked, disposed of or stored, or where someone attempted to do so, has been identified on the property. Location of the laboratory: [describe the unit, rooms, structures or other areas involved]. Remediation plans: [describe the remediation plan and its status, or that the affected structure was demolished]. Related enforcement actions: [describe any compliance order, cease and desist order or other enforcement action, or state that Landlord knows of none]. Certificate of remediation completion: [state that the Department of Health issued a certificate of remediation completion and its date, or that none has been issued]. Tenant acknowledges receiving this disclosure before signing this Lease.",
   },
+  // Pets
+  {
+    id: "animal-care-access-ri",
+    title: "Animal Care if Tenant Is Absent (Optional)",
+    group: "Pets",
+    states: ["RI"],
+    bodyText:
+      "[Optional. Use only where an animal is permitted at the property.] Animal Care if Tenant Is Absent. Tenant will tell Landlord in writing about every animal kept at the property. Tenant names the following person to care for or collect Tenant's animals if Tenant cannot do so because Tenant is hospitalized, incapacitated, detained or otherwise absent and an animal is left without care: [name and telephone number]. Tenant will tell Landlord in writing if this information changes. Letting that person into the property to care for or collect an animal is an agreed service under this Lease. Before letting that person in, Landlord will try to reach Tenant and, except in an emergency or where it is impracticable to do so, will give Tenant at least two days' notice of the intended entry, and will let that person in only at a reasonable time and for that purpose only. If Tenant objects when reached, Landlord will not let that person in under this Section. If that person cannot be reached, Landlord may ask the local animal control officer or the police to take charge of the animal. Nothing in this Section requires Landlord to feed, keep or take custody of any animal, and Landlord will not sell, give away or destroy an animal under this Section. This permission ends at Tenant's death; after that, Landlord will deal with Tenant's animals only through Tenant's personal representative or heirs, or as the law otherwise allows. This Section does not limit Landlord's right to enter without Tenant's consent in an emergency.",
+  },
+  {
+    id: "animal-care-access-ct",
+    title: "Animal Care if Tenant Is Absent (Optional)",
+    group: "Pets",
+    states: ["CT"],
+    bodyText:
+      "[Optional. Use only where an animal is permitted at the property.] Animal Care if Tenant Is Absent. Tenant will tell Landlord in writing about every animal kept at the property. Tenant names the following person to care for or collect Tenant's animals if Tenant cannot do so because Tenant is hospitalized, incapacitated, detained or otherwise absent and an animal is left without care: [name and telephone number]. Tenant will tell Landlord in writing if this information changes. Tenant consents to Landlord letting that person into the property to care for or collect an animal, as this Section provides. Before letting that person in, Landlord will try to reach Tenant and, except in an emergency, will give Tenant reasonable written or oral notice of the intended entry, and will let that person in only at a reasonable time and for that purpose only. If Tenant objects when reached, Landlord will not let that person in under this Section. If that person cannot be reached, Landlord may ask the local animal control officer or the police to take charge of the animal. Nothing in this Section requires Landlord to feed, keep or take custody of any animal, and Landlord will not sell, give away or destroy an animal under this Section. This permission ends at Tenant's death; after that, Landlord will deal with Tenant's animals only through Tenant's executor, administrator or heirs, or as the law otherwise allows. This Section does not limit Landlord's right to enter without Tenant's consent in an emergency.",
+  },
+  // Disclosures
+  {
+    id: "special-district-disclosure-ms",
+    title: "Public Improvement District Statement",
+    group: "Disclosures",
+    states: ["MS"],
+    bodyText:
+      "[Include only if the property is within a public improvement district established under Miss. Code Ann. Title 19, Chapter 31; otherwise leave this Section out.] [BUILDER: print this Section immediately above Tenant's signature line, in boldfaced, conspicuous type larger than the type in the rest of this Lease.] Public improvement district statement. Mississippi law requires the following statement for real property within a public improvement district; giving it does not by itself make Tenant responsible for any assessment. THE [name of district] PUBLIC IMPROVEMENT DISTRICT MAY IMPOSE AND LEVY ASSESSMENTS ON THIS PROPERTY. THESE ASSESSMENTS PAY THE CONSTRUCTION, OPERATION AND MAINTENANCE COSTS OF CERTAIN PUBLIC FACILITIES AND SERVICES OF THE DISTRICT AND ARE SET ANNUALLY BY THE GOVERNING BOARD OF THE DISTRICT. THESE ASSESSMENTS ARE IN ADDITION TO COUNTY AND OTHER LOCAL GOVERNMENTAL TAXES AND ASSESSMENTS AND ALL OTHER TAXES AND ASSESSMENTS PROVIDED FOR BY LAW.",
+  },
 ];
 
 module.exports = { CLAUSE_TEMPLATES };

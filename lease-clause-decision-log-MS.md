@@ -1272,3 +1272,11 @@ Taylor's decision 2026-11-21: a per-jurisdiction count found that topics added b
 - `lease-registration`: Present. Row `edu-lease-registration-ms` (VERIFIED; Miss. Code Ann. § 89-5-5).
 - `special-district-representation`: Present. Row `edu-special-district-disclosure-ms` (VERIFIED; Miss. Code Ann. § 19-31-45).
 - `student-housing`: Confirmed absent. Row `edu-no-student-housing-rule-ms` (VERIFIED; Absence: Miss. Code Ann. (whole Code)).
+
+### New clause, 2026-11-21 (Claude Code, Taylor's decision)
+
+- `special-district-disclosure-ms` (Public Improvement District Statement): built from the topic-coverage pass's clause candidate; Miss. Code Ann. § 19-31-45, read from the saved official text. Reasoning and quotes in the row's notes; the education row now points to it.
+
+### Declined option, 2026-11-21 (Taylor's decision)
+
+- `edu-no-subordination-clause` tagged here and in every jurisdiction: the library offers no clause subordinating the lease to a mortgage (rule 54 row); the tenant's foreclosure protection is the federal PTFA (`edu-ptfa-foreclosure-tenants`).

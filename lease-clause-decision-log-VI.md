@@ -468,3 +468,7 @@ Taylor's decision 2026-11-21: a per-jurisdiction count found that topics added b
 
 - `communal-land-lease-approval`: Confirmed absent. Row `edu-no-communal-land-lease-approval-vi` (VERIFIED; Absence: V.I. Code (whole Code)).
 - `lease-registration`: Present. Row `edu-lease-registration-vi` (VERIFIED; 28 V.I.C. §§ 122-124).
+
+### Declined option, 2026-11-21 (Taylor's decision)
+
+- `edu-no-subordination-clause` tagged here and in every jurisdiction: the library offers no clause subordinating the lease to a mortgage (rule 54 row); the tenant's foreclosure protection is the federal PTFA (`edu-ptfa-foreclosure-tenants`).

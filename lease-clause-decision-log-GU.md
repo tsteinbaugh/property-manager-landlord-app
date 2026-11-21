@@ -519,3 +519,7 @@ Taylor's decision 2026-11-21: a per-jurisdiction count found that topics added b
 
 - `communal-land-lease-approval`: Present. Row `edu-communal-land-lease-approval-gu` (VERIFIED; 21 GCA §§ 75107, 75108(b), (e); 21 GCA §§ 75A107(g), 75A108(e); 21 GCA ch. 75, 2021 Note).
 - `lease-registration`: Present. Row `edu-lease-registration-gu` (VERIFIED; 21 GCA §§ 37101-37103, 37105; 21 GCA § 60314(a); 21 GCA §§ 29135(a), 29155).
+
+### Declined option, 2026-11-21 (Taylor's decision)
+
+- `edu-no-subordination-clause` tagged here and in every jurisdiction: the library offers no clause subordinating the lease to a mortgage (rule 54 row); the tenant's foreclosure protection is the federal PTFA (`edu-ptfa-foreclosure-tenants`).

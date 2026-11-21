@@ -1469,3 +1469,7 @@ Taylor's decision 2026-11-20: compare the library's topic list with the uniform 
 ### Browser read, 2026-11-21 (Claude Code)
 
 The official text the shell could not reach overnight was read in Taylor's Chrome through Claude in Chrome, every quotation machine-checked against the saved text (`~/overnight-2026-11-20/browser/TN/`). Redrafted from it: `edu-paid-in-full-checks-tn`, now VERIFIED (Tenn. Code Ann. § 47-3-311; Tenn. Code Ann. § 47-1-308(b)); `edu-good-faith-obligation-tn`, now VERIFIED (Tenn. Code Ann. § 66-28-516; Tenn. Code Ann. § 66-28-102(a)).
+
+### Declined option, 2026-11-21 (Taylor's decision)
+
+- `edu-no-subordination-clause` tagged here and in every jurisdiction: the library offers no clause subordinating the lease to a mortgage (rule 54 row); the tenant's foreclosure protection is the federal PTFA (`edu-ptfa-foreclosure-tenants`).

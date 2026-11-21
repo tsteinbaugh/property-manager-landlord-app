@@ -1732,3 +1732,7 @@ Taylor's decision 2026-11-20: compare the library's topic list with the uniform 
 ### Browser read, 2026-11-21 (Claude Code)
 
 The official text the shell could not reach overnight was read in Taylor's Chrome through Claude in Chrome, every quotation machine-checked against the saved text (`~/overnight-2026-11-20/browser/PA/`). Redrafted from it: `edu-paid-in-full-checks-pa`, now VERIFIED (13 Pa.C.S. § 3311; 13 Pa.C.S. § 1308(b)); `edu-no-good-faith-obligation-pa` (was `edu-good-faith-obligation-pa`), now VERIFIED (Absence: the Landlord and Tenant Act of 1951 (68 P.S. § 250.101 et seq.), which does not use the words 'good faith').
+
+### Declined option, 2026-11-21 (Taylor's decision)
+
+- `edu-no-subordination-clause` tagged here and in every jurisdiction: the library offers no clause subordinating the lease to a mortgage (rule 54 row); the tenant's foreclosure protection is the federal PTFA (`edu-ptfa-foreclosure-tenants`).

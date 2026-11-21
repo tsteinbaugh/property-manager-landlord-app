@@ -1032,3 +1032,7 @@ Taylor's decision 2026-11-21: a per-jurisdiction count found that topics added b
 - `rights-responsibilities-guide`: Confirmed absent. Row `edu-no-rights-guide-me` (VERIFIED; Absence: Me. Rev. Stat. tit. 14, chs. 709, 710, 710-A; tit. 5, ch. 337; tit. 14, § 6002).
 - `special-district-representation`: Confirmed absent. Row `edu-no-special-district-statement-me` (VERIFIED; Absence: Me. Rev. Stat. tit. 14, chs. 709, 710; tit. 33; tit. 14, § 6015).
 - `communal-land-lease-approval`: Present. Row `edu-communal-land-lease-approval-me` (VERIFIED; Me. Rev. Stat. tit. 30, §§ 6203(13), 6205-A(3), 6206(1)).
+
+### Declined option, 2026-11-21 (Taylor's decision)
+
+- `edu-no-subordination-clause` tagged here and in every jurisdiction: the library offers no clause subordinating the lease to a mortgage (rule 54 row); the tenant's foreclosure protection is the federal PTFA (`edu-ptfa-foreclosure-tenants`).

@@ -825,3 +825,7 @@ Taylor's decision 2026-11-21: a per-jurisdiction count found that topics added b
 - `tenant-employee-housing`: Present. Row `edu-tenant-employee-housing-nh` (VERIFIED; RSA 540:1-a, IV(h)).
 - `senior-housing-work-card`: Confirmed absent. Row `edu-no-senior-housing-work-card-nh` (VERIFIED; Absence: RSA 354-A; RSA 540, 540-A; RSA 354-A:15, VIII).
 - `usufructuary-lessor`: Confirmed absent. Row `edu-usufructuary-lessor-nh` (VERIFIED; Absence: RSA 477-479-B; RSA 540, 540-A; RSA 547, 554, 560, 561).
+
+### Declined option, 2026-11-21 (Taylor's decision)
+
+- `edu-no-subordination-clause` tagged here and in every jurisdiction: the library offers no clause subordinating the lease to a mortgage (rule 54 row); the tenant's foreclosure protection is the federal PTFA (`edu-ptfa-foreclosure-tenants`).

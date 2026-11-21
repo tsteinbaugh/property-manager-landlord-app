@@ -939,3 +939,7 @@ Taylor's decision 2026-11-21: a per-jurisdiction count found that topics added b
 
 - `communal-land-lease-approval`: Confirmed absent. Row `edu-no-communal-land-lease-approval-pr` (VERIFIED; Absence: P.R. Civil Code (Ley 55-2020), arts. 1331-1359 and full text; P.R. Civ. Code arts. 1342, 1343).
 - `lease-registration`: Present. Row `edu-lease-registration-pr` (VERIFIED; P.R. Civ. Code arts. 1342, 1245(b), 1343 (as amended by Ley 122-2026, § 1); Ley 122-2026, Exposición de Motivos; Ley 210-2015, art. 5 (as described there)).
+
+### Declined option, 2026-11-21 (Taylor's decision)
+
+- `edu-no-subordination-clause` tagged here and in every jurisdiction: the library offers no clause subordinating the lease to a mortgage (rule 54 row); the tenant's foreclosure protection is the federal PTFA (`edu-ptfa-foreclosure-tenants`).

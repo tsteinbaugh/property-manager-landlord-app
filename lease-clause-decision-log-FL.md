@@ -3110,3 +3110,7 @@ Taylor's decision 2026-11-20 (backlog item 13; scope: private rentals and vouche
 ## Model-law comparison: two new topics (Claude Code, 2026-11-21)
 
 Taylor's decision 2026-11-20: compare the library's topic list with the uniform model laws (the 1972 Uniform Residential Landlord and Tenant Act, the Revised URLTA of 2015, and UCC § 3-311) and answer any topic they raise that the library lacked. Two did: checks marked 'paid in full' (`paid-in-full-payments`) and a general duty of good faith (`good-faith-obligation`). This jurisdiction's rows are `edu-paid-in-full-checks-fl` (VERIFIED; Fla. Stat. § 673.3111; Fla. Stat. § 671.207(2)) and `edu-good-faith-obligation-fl` (VERIFIED; Fla. Stat. § 83.44). Each was researched from official text by an independent agent; every quotation was machine-checked against the saved page and the quotes are in each row's notes. 
+
+### Declined option, 2026-11-21 (Taylor's decision)
+
+- `edu-no-subordination-clause` tagged here and in every jurisdiction: the library offers no clause subordinating the lease to a mortgage (rule 54 row); the tenant's foreclosure protection is the federal PTFA (`edu-ptfa-foreclosure-tenants`).

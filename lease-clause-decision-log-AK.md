@@ -374,3 +374,7 @@ Taylor's decision 2026-11-21: a per-jurisdiction count found that topics added b
 - `student-housing`: Present. Row `edu-student-housing-ak` (VERIFIED; AS 34.03.330(b)(1), (3)).
 - `trespass-notice`: Present. Row `edu-trespass-notice-ak` (VERIFIED; AS 11.46.320; AS 11.46.330; AS 11.46.350; AS 11.81.900(b)).
 - `usufructuary-lessor`: Confirmed absent. Row `edu-no-usufructuary-lessor-ak` (VERIFIED; Absence: AS Title 34 (including AS 34.03)).
+
+### Declined option, 2026-11-21 (Taylor's decision)
+
+- `edu-no-subordination-clause` tagged here and in every jurisdiction: the library offers no clause subordinating the lease to a mortgage (rule 54 row); the tenant's foreclosure protection is the federal PTFA (`edu-ptfa-foreclosure-tenants`).

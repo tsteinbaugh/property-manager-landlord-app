@@ -923,3 +923,11 @@ Taylor's decision 2026-11-21: a per-jurisdiction count found that topics added b
 - `subsidy-habitability-proration`: Confirmed absent. Row `edu-no-subsidy-habitability-proration-ct` (VERIFIED; Absence: Conn. Gen. Stat. chs. 830 and 128-138; Conn. Gen. Stat. §§ 47a-4a, 47a-14).
 - `truth-in-renting`: Confirmed absent. Row `edu-no-truth-in-renting-ct` (VERIFIED; Absence: Conn. Gen. Stat. chs. 830-834; Conn. Gen. Stat. §§ 47a-7d(c)-(d), 47a-23c(e)(1)).
 - `usufructuary-lessor`: Present. Row `edu-life-tenant-landlord-ct` (VERIFIED; Conn. Gen. Stat. § 47a-29).
+
+### New clause, 2026-11-21 (Claude Code, Taylor's decision)
+
+- `animal-care-access-ct` (Animal Care if Tenant Is Absent (Optional)): built from the topic-coverage pass's clause candidate; Conn. Gen. Stat. § 47a-16(a)-(d); Conn. Gen. Stat. § 47a-4(a)(1); Conn. Gen. Stat. § 22-332(a), read from the saved official text. Reasoning and quotes in the row's notes; the education row now points to it.
+
+### Declined option, 2026-11-21 (Taylor's decision)
+
+- `edu-no-subordination-clause` tagged here and in every jurisdiction: the library offers no clause subordinating the lease to a mortgage (rule 54 row); the tenant's foreclosure protection is the federal PTFA (`edu-ptfa-foreclosure-tenants`).

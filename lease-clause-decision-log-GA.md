@@ -1947,3 +1947,7 @@ Taylor's decision 2026-11-20: compare the library's topic list with the uniform 
 ### Browser read, 2026-11-21 (Claude Code)
 
 The official text the shell could not reach overnight was read in Taylor's Chrome through Claude in Chrome, every quotation machine-checked against the saved text (`~/overnight-2026-11-20/browser/GA/`). Redrafted from it: `edu-paid-in-full-checks-ga`, now VERIFIED (O.C.G.A. § 11-3-311; O.C.G.A. § 11-1-308(b); O.C.G.A. § 13-4-103(b)); `edu-no-good-faith-obligation-ga` (was `edu-good-faith-obligation-ga`), now VERIFIED (Absence: O.C.G.A. Title 44, Chapter 7).
+
+### Declined option, 2026-11-21 (Taylor's decision)
+
+- `edu-no-subordination-clause` tagged here and in every jurisdiction: the library offers no clause subordinating the lease to a mortgage (rule 54 row); the tenant's foreclosure protection is the federal PTFA (`edu-ptfa-foreclosure-tenants`).

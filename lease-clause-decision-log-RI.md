@@ -923,3 +923,11 @@ Taylor's decision 2026-11-21: a per-jurisdiction count found that topics added b
 ### Targeted fix, 2026-11-21 (Claude Code, topic-coverage follow-up)
 
 - `edu-tenant-repair-remedies-ri`: added R.I. Gen. Laws § 42-128.1-14(a), (c), (e), read from official text; the topic-coverage pass found the row omitted it. Quotes in the row's notes.
+
+### New clause, 2026-11-21 (Claude Code, Taylor's decision)
+
+- `animal-care-access-ri` (Animal Care if Tenant Is Absent (Optional)): built from the topic-coverage pass's clause candidate; R.I. Gen. Laws § 34-18-26(a)-(c); R.I. Gen. Laws § 34-18-17(a)(1); R.I. Gen. Laws § 4-13-1.2(8), read from the saved official text. Reasoning and quotes in the row's notes; the education row now points to it.
+
+### Declined option, 2026-11-21 (Taylor's decision)
+
+- `edu-no-subordination-clause` tagged here and in every jurisdiction: the library offers no clause subordinating the lease to a mortgage (rule 54 row); the tenant's foreclosure protection is the federal PTFA (`edu-ptfa-foreclosure-tenants`).

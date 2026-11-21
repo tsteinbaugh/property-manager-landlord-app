@@ -968,3 +968,7 @@ Taylor's decision 2026-11-21: a per-jurisdiction count found that topics added b
 - `lease-registration`: Present. Row `edu-lease-registration-ar` (VERIFIED; Ark. Code Ann. § 14-15-404).
 - `special-district-representation`: Confirmed absent. Row `edu-no-special-district-statement-ar` (VERIFIED; Absence: Ark. Code Ann. (whole Code)).
 - `student-housing`: Confirmed absent. Row `edu-no-student-housing-rule-ar` (VERIFIED; Absence: Ark. Code Ann. (whole Code)).
+
+### Declined option, 2026-11-21 (Taylor's decision)
+
+- `edu-no-subordination-clause` tagged here and in every jurisdiction: the library offers no clause subordinating the lease to a mortgage (rule 54 row); the tenant's foreclosure protection is the federal PTFA (`edu-ptfa-foreclosure-tenants`).

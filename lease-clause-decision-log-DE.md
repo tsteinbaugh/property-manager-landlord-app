@@ -430,3 +430,7 @@ Taylor's decision 2026-11-21: a per-jurisdiction count found that topics added b
 - `student-housing`: Present. Row `edu-student-housing-de` (VERIFIED; 25 Del. C. § 5102(1)-(2) (both versions)).
 - `trespass-notice`: Present. Row `edu-trespass-notice-de` (VERIFIED; 11 Del. C. §§ 821, 822, 823, 829(e)).
 - `usufructuary-lessor`: Confirmed absent. Row `edu-no-usufructuary-lessor-de` (VERIFIED; Absence: 25 Del. C. ch. 3, ch. 9 (§§ 303, 901) and ch. 51-57).
+
+### Declined option, 2026-11-21 (Taylor's decision)
+
+- `edu-no-subordination-clause` tagged here and in every jurisdiction: the library offers no clause subordinating the lease to a mortgage (rule 54 row); the tenant's foreclosure protection is the federal PTFA (`edu-ptfa-foreclosure-tenants`).

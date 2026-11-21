@@ -1440,3 +1440,7 @@ Taylor's decision 2026-11-21: a per-jurisdiction count found that topics added b
 - `special-district-representation`: Confirmed absent. Row `edu-no-special-district-representation-la` (VERIFIED; Absence: La. Civ. Code arts. 2668-2729 and La. R.S. (text search)).
 - `student-housing`: Confirmed absent. Row `edu-no-student-housing-la` (VERIFIED; Absence: La. Civ. Code arts. 2668-2729 and La. R.S. (text search); La. R.S. 17:3399.24).
 - `trespass-notice`: Present. Row `edu-trespass-notice-la` (VERIFIED; La. R.S. 14:63.3; La. R.S. 14:63(A)-(D), (F)(3), (G)(1)).
+
+### Declined option, 2026-11-21 (Taylor's decision)
+
+- `edu-no-subordination-clause` tagged here and in every jurisdiction: the library offers no clause subordinating the lease to a mortgage (rule 54 row); the tenant's foreclosure protection is the federal PTFA (`edu-ptfa-foreclosure-tenants`).

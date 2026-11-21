@@ -554,3 +554,7 @@ Taylor's decision 2026-11-21: a per-jurisdiction count found that topics added b
 - `lease-registration`: Present. Row `edu-lease-registration-dc` (VERIFIED; D.C. Code §§ 42-306(b), 42-401, 42-406, 42-1101(3)(B), 42-1103(a)(1)).
 - `special-district-representation`: Confirmed absent. Row `edu-no-special-district-representation-dc` (VERIFIED; Absence: D.C. Code chs. 32, 34 and 35; D.C. Code §§ 42-3502.22(b)(1), 2-1215.02(24), 2-1215.15(c), (g)).
 - `student-housing`: Present. Row `edu-student-housing-dc` (VERIFIED; D.C. Code §§ 42-3502.05(e)(3), 42-3501.03(11)).
+
+### Declined option, 2026-11-21 (Taylor's decision)
+
+- `edu-no-subordination-clause` tagged here and in every jurisdiction: the library offers no clause subordinating the lease to a mortgage (rule 54 row); the tenant's foreclosure protection is the federal PTFA (`edu-ptfa-foreclosure-tenants`).
