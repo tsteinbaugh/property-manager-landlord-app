@@ -375,6 +375,13 @@ All six v1 MVP modules are built (tagged `v1.0.0`), along with v2 Property Specs
 - **Result:** 288 single-state education rows, all VERIFIED, each with a citations line and a log section. Every jurisdiction now has a row for all 369 topics. New guard `scripts/clause-library/check-topic-coverage.py` (run at every sync).
 - **Findings beyond the gaps:** MS § 19-31-45 public improvement district statement may reach leases (row gives the cautious course); MA St. 1983, c. 527 condominium-conversion protections (from the State Library's digitized Acts); HI Hawaiian home lands sublet ban (HHCA § 208(5)); GU Chamorro Land Trust sublet ban; ME Houlton Band Trust Land transfers void; NH RSA 354-A:23 fair housing posting; CT P.A. 26-113 (no charging for utilities not separately metered, from Oct. 1, 2026). Follow-ups in the backlog.
 
+### 2026-11-21: Three targeted fixes from the topic-coverage pass (Claude Code, Taylor's request)
+
+- `edu-lease-option-statements-md`: adds the Real Estate Commission disclosure or disclaimer statement due before a tenant signs a lease with a purchase option, the signed receipt, the rescission right and its end at occupancy (Real Prop. § 10-702(b), (c)(1), (f)(3)-(4), (h)(1), (k)(2)(ii)).
+- `edu-no-tenant-purchase-right-ma`: names the conversion act's tenant purchase right (St. 1983, c. 527, § 4(b)) and points to `edu-condo-conversion-notice-ma`.
+- `edu-tenant-repair-remedies-ri`: adds the lead rent escrow and its anti-retaliation rule (R.I. Gen. Laws § 42-128.1-14(a), (c), (e)).
+- Each read from the saved official text, quotes machine-checked and added to the row's notes; citations lines and logs updated. Guards pass; 446 tests pass.
+
 ## 🗳 Decisions log
 - [2026-09-30] — **Desktop deltas are merged with `merge-delta.py`, never by whole-row replacement.** Passes routinely start from an older library than the one at sync (NE, IN and AZ all did), and three times a whole-row replace would have silently undone another state's merge. The tool makes the safe merge the default and turns any real conflict into a refusal for hand review.
 - [2026-09-30] — **`early-termination-ks` applies only to a fixed-Term lease (Claude Code, uniform shared edit under rule 62).** Its fee is measured on "the remaining Rent due under the Term", which a month-to-month tenancy doesn't have, and every tagged state gives a periodic tenancy its own ending notice. Limiting the option removes nothing the landlord has under law, and the abandonment sentence still covers every lease. The builder-level fix (marking fixed-term-only clauses) stays in the backlog.

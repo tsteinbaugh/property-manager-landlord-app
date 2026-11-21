@@ -919,3 +919,7 @@ Taylor's decision 2026-11-21: a per-jurisdiction count found that topics added b
 - `utilities-paid-by-landlord`: Present. Row `edu-utilities-paid-by-landlord-ri` (VERIFIED; R.I. Gen. Laws §§ 34-18-15(a)(3), (5), 34-18-22(a)(6), 34-18-31, 34-18-34).
 - `utility-disclosure-attachment`: Confirmed absent. Row `edu-no-utility-disclosure-attachment-ri` (VERIFIED; Absence: R.I. Gen. Laws ch. 34-18 (§ 34-18-15(a)(3), (5)); § 39-3-7.1).
 - `utility-submetering-disclosure`: Confirmed absent. Row `edu-no-submetering-disclosure-rule-ri` (VERIFIED; Absence: R.I. Gen. Laws ch. 34-18 (§ 34-18-15(a)); § 39-3-7.1).
+
+### Targeted fix, 2026-11-21 (Claude Code, topic-coverage follow-up)
+
+- `edu-tenant-repair-remedies-ri`: added R.I. Gen. Laws § 42-128.1-14(a), (c), (e), read from official text; the topic-coverage pass found the row omitted it. Quotes in the row's notes.

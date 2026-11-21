@@ -904,3 +904,7 @@ Taylor's decision 2026-11-21: a per-jurisdiction count found that topics added b
 - `usufructuary-lessor`: Confirmed absent. Row `edu-no-usufructuary-lessor-ma` (VERIFIED; Absence: Mass. Gen. Laws ch. 183, ch. 184 and ch. 186; Mass. Gen. Laws ch. 241, § 1).
 - `utility-disconnection-notice-authorization`: Confirmed absent. Row `edu-no-utility-notice-authorization-ma` (VERIFIED; 220 CMR 25.05(2); Absence: Mass. Gen. Laws ch. 164 and 220 CMR 25.00).
 - `utility-landlord-account`: Present. Row `edu-utility-landlord-account-ma` (VERIFIED; Mass. Gen. Laws ch. 164, § 124D; Mass. Gen. Laws ch. 165, § 11E; Mass. Gen. Laws ch. 186, § 14).
+
+### Targeted fix, 2026-11-21 (Claude Code, topic-coverage follow-up)
+
+- `edu-no-tenant-purchase-right-ma`: added St. 1983, c. 527, § 4(b), read from official text; the topic-coverage pass found the row omitted it. Quotes in the row's notes.

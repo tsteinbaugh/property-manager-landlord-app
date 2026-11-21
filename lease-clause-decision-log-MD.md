@@ -1151,3 +1151,7 @@ Taylor's decision 2026-11-21: a per-jurisdiction count found that topics added b
 - `utility-disclosure-attachment`: Present. Row `edu-utility-disclosure-attachment-md` (VERIFIED; Md. Code Ann., Real Prop. §§ 8-205.1, 8-205.2, 8-205.3, 8-212.4).
 - `utility-interruption-submeter`: Confirmed absent. Row `edu-no-submeter-interruption-md` (VERIFIED; Absence: COMAR 20.25.01; Md. Code Ann., Real Prop. § 8-216).
 - `written-notice-required`: Present. Row `edu-written-notice-required-md` (VERIFIED; Md. Code Ann., Real Prop. §§ 8-208(d)(2), 8-209(b), 8-401(c), 8-402(c), 8-402.1(a), 8-221(c), 8-203(f), 8-5A-02).
+
+### Targeted fix, 2026-11-21 (Claude Code, topic-coverage follow-up)
+
+- `edu-lease-option-statements-md`: added Md. Code Ann., Real Prop. § 10-702(b), (c)(1), (f)(3)-(4), (h)(1), (k)(2)(ii), read from official text; the topic-coverage pass found the row omitted it. Quotes in the row's notes.
