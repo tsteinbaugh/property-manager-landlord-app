@@ -1798,3 +1798,7 @@ None.
 - **NEEDS_REVIEW:** none.
 - **Citations:** 240 new lines (120 cited, 120 confirmed absent) and 13 updated. The legal watch now monitors 313 Iowa Code sections (119 before; CITED and PARTIAL lines only); the court-rule and administrative-rule reminder names the 106 gaps rows that rely on them.
 - **SOP 2.12:** all four proposals adopted as [Fwd] rules (14, 26, 27, 80). Proposal 1 also changed the staging: `docs/gaps-template.md` and `stage-gaps.py` now attach the state's earlier decision log, and it was added to the staged NM and MT folders. **Topic questions:** none proposed. No new `{{variables}}`.
+
+## Federal row: disposing of screening reports (Claude Code, 2026-11-20)
+
+Taylor's decision 2026-11-20 (Washington gaps log §7, backlog item 9): one federal education row, `edu-fcra-disposal-rule`, is tagged here and in every jurisdiction, read from the official text (16 C.F.R. part 682 on eCFR; 15 U.S.C. § 1681w on govinfo.gov). It says that anyone who keeps a screening, credit or background report, or a record taken from one, for a business purpose must dispose of it with reasonable measures against unauthorized access (16 C.F.R. § 682.3), with the rule's examples, and that the rule sets no retention period (§ 682.4). This state's existing rows stay; no clause text changed.

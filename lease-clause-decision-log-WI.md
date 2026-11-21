@@ -3711,3 +3711,7 @@ None.
 - **Citations:** 198 new lines (80 cited, 118 confirmed absent) and 5 updated. The legal watch now monitors 240 Wisconsin Statutes sections (107 before); new manual item `wi-admin-code-gaps-rows` (Administrative Code chapters first relied on here, and the unread DFI collection-agency rules: the corpus held no DFI chapters).
 - **SOP 2.15:** all three proposals adopted as [Fwd] text (rule 19 twice, rule 80). **Topic questions:** none proposed. **New `{{variables}}`:** none.
 - **Checks:** guards (`check-gap-discovery.py --all`, checklist reconciliation, clause basis, section pointers, `checkConfigIds.js`) pass; backend tests 446 of 446.
+
+## Federal row: disposing of screening reports (Claude Code, 2026-11-20)
+
+Taylor's decision 2026-11-20 (Washington gaps log §7, backlog item 9): one federal education row, `edu-fcra-disposal-rule`, is tagged here and in every jurisdiction, read from the official text (16 C.F.R. part 682 on eCFR; 15 U.S.C. § 1681w on govinfo.gov). It says that anyone who keeps a screening, credit or background report, or a record taken from one, for a business purpose must dispose of it with reasonable measures against unauthorized access (16 C.F.R. § 682.3), with the rule's examples, and that the rule sets no retention period (§ 682.4). This state's existing rows stay; no clause text changed.

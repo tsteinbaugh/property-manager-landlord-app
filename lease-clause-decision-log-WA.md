@@ -2069,3 +2069,7 @@ All three go under existing keys, so no new gaps open in other states.
 - **SOP 2.16:** all nine proposals adopted as [Fwd] text (rules 12, 19, 24 twice, 27, 36, 59 twice, 79); WA-gaps 4 placed under rule 59 rather than rule 60. **Topic questions:** all three added under existing keys. **New `{{variables}}`:** none.
 - **Consistency:** the state filter shows five same-topic pairs, all present before this pass (a state row beside a federal row, or a fact-driven pair). **Next-corpus items** (WA gaps log §1, §4.4): chapter 194-50 WAC, the model codes WAC Title 51 adopts, chapter 16-228 WAC, the Title 16 EV-fuel electricity rules, chapter 110-300 WAC.
 - **Checks:** guards (`check-gap-discovery.py --all`, checklist reconciliation, clause basis, section pointers, `checkConfigIds.js`) pass; backend tests 446 of 446.
+
+## Federal row: disposing of screening reports (Claude Code, 2026-11-20)
+
+Taylor's decision 2026-11-20 (Washington gaps log §7, backlog item 9): one federal education row, `edu-fcra-disposal-rule`, is tagged here and in every jurisdiction, read from the official text (16 C.F.R. part 682 on eCFR; 15 U.S.C. § 1681w on govinfo.gov). It says that anyone who keeps a screening, credit or background report, or a record taken from one, for a business purpose must dispose of it with reasonable measures against unauthorized access (16 C.F.R. § 682.3), with the rule's examples, and that the rule sets no retention period (§ 682.4). This state's existing rows stay; no clause text changed.

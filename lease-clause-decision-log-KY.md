@@ -1778,3 +1778,7 @@ None
 - **Citations:** 179 new lines (105 cited, 74 confirmed absent), 18 updated, and the `early-termination-ks` line removed; the file now has 401 lines, one for each active KY row. The legal watch now monitors 894 KRS sections (140 before). The `ky-kar-and-escheat` manual item is narrowed to the escheat question; the new `ky-gaps-kar` item watches the regulations first relied on here; a federal check on 50 U.S.C. § 3955 covers `early-termination-ky`.
 - **SOP 2.17:** all three proposals adopted (rules 19, 24, 26). **Topic questions:** all six added under existing keys.
 - **Checks:** guards (`check-gap-discovery.py --all`, checklist reconciliation, clause basis, section pointers, `checkConfigIds.js`) pass; backend tests 446 of 446.
+
+## Federal row: disposing of screening reports (Claude Code, 2026-11-20)
+
+Taylor's decision 2026-11-20 (Washington gaps log §7, backlog item 9): one federal education row, `edu-fcra-disposal-rule`, is tagged here and in every jurisdiction, read from the official text (16 C.F.R. part 682 on eCFR; 15 U.S.C. § 1681w on govinfo.gov). It says that anyone who keeps a screening, credit or background report, or a record taken from one, for a business purpose must dispose of it with reasonable measures against unauthorized access (16 C.F.R. § 682.3), with the rule's examples, and that the rule sets no retention period (§ 682.4). This state's existing rows stay; no clause text changed.

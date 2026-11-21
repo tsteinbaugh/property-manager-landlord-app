@@ -1804,3 +1804,7 @@ Reproducibility: all 24 cited batch-8 batteries re-run identically term by term 
   - All match the rows.
 - **Citations:** 260 new lines (139 cited, 121 confirmed absent) and 16 updated. The legal watch now monitors 423 Indiana Code sections (196 before; CITED and PARTIAL lines only); a manual reminder covers the Administrative Code rules (170 IAC 15 and 4-5; 675 IAC). Indiana's schedule is uncommented after November 26 (CLAUDE.md calendar).
 - **SOP 2.09:** all six proposals adopted as [Fwd] rules (24, 19, 27, 80). **Topic questions:** both added (`dv-deposit-timing`, `early-termination`). No new `{{variables}}`.
+
+## Federal row: disposing of screening reports (Claude Code, 2026-11-20)
+
+Taylor's decision 2026-11-20 (Washington gaps log §7, backlog item 9): one federal education row, `edu-fcra-disposal-rule`, is tagged here and in every jurisdiction, read from the official text (16 C.F.R. part 682 on eCFR; 15 U.S.C. § 1681w on govinfo.gov). It says that anyone who keeps a screening, credit or background report, or a record taken from one, for a business purpose must dispose of it with reasonable measures against unauthorized access (16 C.F.R. § 682.3), with the rule's examples, and that the rule sets no retention period (§ 682.4). This state's existing rows stay; no clause text changed.

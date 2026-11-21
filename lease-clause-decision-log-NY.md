@@ -3555,3 +3555,7 @@ None.
 - **Citations:** 235 new lines (154 cited, 80 confirmed absent, 1 generic) and 20 updated; `early-termination-ks` marked untagged. The legal watch now monitors 658 sections (143 before): `NY_LAW_NAMES` gained every other law the file cites, which had been skipped. New manual items `ny-nycrr-gaps-rows` and `ny-lead-registry-sunset`.
 - **SOP 2.15:** all six proposals adopted as [Fwd] text (rules 12, 16, 19, 27, 74, 80). **Topic questions:** three added (`communal-land-lease-approval`, `utility-disclosure-attachment`, `lead-safe-certification`). **New `{{variables}}`:** none.
 - **Checks:** guards (`check-gap-discovery.py --all`, checklist reconciliation, clause basis, section pointers, `checkConfigIds.js`) pass; backend tests 446 of 446.
+
+## Federal row: disposing of screening reports (Claude Code, 2026-11-20)
+
+Taylor's decision 2026-11-20 (Washington gaps log §7, backlog item 9): one federal education row, `edu-fcra-disposal-rule`, is tagged here and in every jurisdiction, read from the official text (16 C.F.R. part 682 on eCFR; 15 U.S.C. § 1681w on govinfo.gov). It says that anyone who keeps a screening, credit or background report, or a record taken from one, for a business purpose must dispose of it with reasonable measures against unauthorized access (16 C.F.R. § 682.3), with the rule's examples, and that the rule sets no retention period (§ 682.4). This state's existing rows stay; no clause text changed.
