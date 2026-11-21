@@ -545,3 +545,12 @@ Taylor's decision 2026-11-20 (backlog item 13; scope: private rentals and vouche
 ## Model-law comparison: two new topics (Claude Code, 2026-11-21)
 
 Taylor's decision 2026-11-20: compare the library's topic list with the uniform model laws (the 1972 Uniform Residential Landlord and Tenant Act, the Revised URLTA of 2015, and UCC § 3-311) and answer any topic they raise that the library lacked. Two did: checks marked 'paid in full' (`paid-in-full-payments`) and a general duty of good faith (`good-faith-obligation`). This jurisdiction's rows are `edu-paid-in-full-checks-dc` (VERIFIED; D.C. Code § 28:3-311; D.C. Code § 28:1-308(b)) and `edu-no-good-faith-obligation-dc` (VERIFIED; Absence: D.C. Code title 42, chs. 32 and 35). Each was researched from official text by an independent agent; every quotation was machine-checked against the saved page and the quotes are in each row's notes. 
+
+## Topic-coverage pass (Claude Code, 2026-11-21)
+
+Taylor's decision 2026-11-21: a per-jurisdiction count found that topics added by later-researched jurisdictions had been back-filled only in the 37 early states, so this jurisdiction had no row for 4 topic keys. Each was answered from official text by an independent research agent; every quotation was machine-checked against the saved page (`~/topic-coverage-2026-11-21/pages/DC/`), and the search record and quotes are in each row's notes. A new guard, `check-topic-coverage.py`, now fails any jurisdiction short of the full topic list.
+
+- `communal-land-lease-approval`: Confirmed absent. Row `edu-no-communal-land-lease-approval-dc` (VERIFIED; Absence: D.C. Code Title 42 (chapter list), chs. 32, 34 and 35; D.C. Code § 42-306(b)).
+- `lease-registration`: Present. Row `edu-lease-registration-dc` (VERIFIED; D.C. Code §§ 42-306(b), 42-401, 42-406, 42-1101(3)(B), 42-1103(a)(1)).
+- `special-district-representation`: Confirmed absent. Row `edu-no-special-district-representation-dc` (VERIFIED; Absence: D.C. Code chs. 32, 34 and 35; D.C. Code §§ 42-3502.22(b)(1), 2-1215.02(24), 2-1215.15(c), (g)).
+- `student-housing`: Present. Row `edu-student-housing-dc` (VERIFIED; D.C. Code §§ 42-3502.05(e)(3), 42-3501.03(11)).

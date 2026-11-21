@@ -932,3 +932,10 @@ Taylor's decision 2026-11-20: compare the library's topic list with the uniform 
 ### Browser read, 2026-11-21 (Claude Code)
 
 The Civil Code text was found through Taylor's Chrome and downloaded from the Legislature's SUTRA system (Ley 55-2020 as signed; no later amendment of arts. 15 or 1062 found in SUTRA's 2021-2028 records), every quotation machine-checked against the saved text (`~/overnight-2026-11-20/browser/PR/`). Redrafted from it: `edu-good-faith-obligation-pr`, now VERIFIED (P.R. Civil Code 2020 (Ley 55-2020), arts. 15 and 1062).
+
+## Topic-coverage pass (Claude Code, 2026-11-21)
+
+Taylor's decision 2026-11-21: a per-jurisdiction count found that topics added by later-researched jurisdictions had been back-filled only in the 37 early states, so this jurisdiction had no row for 2 topic keys. Each was answered from official text by an independent research agent; every quotation was machine-checked against the saved page (`~/topic-coverage-2026-11-21/pages/PR/`), and the search record and quotes are in each row's notes. A new guard, `check-topic-coverage.py`, now fails any jurisdiction short of the full topic list.
+
+- `communal-land-lease-approval`: Confirmed absent. Row `edu-no-communal-land-lease-approval-pr` (VERIFIED; Absence: P.R. Civil Code (Ley 55-2020), arts. 1331-1359 and full text; P.R. Civ. Code arts. 1342, 1343).
+- `lease-registration`: Present. Row `edu-lease-registration-pr` (VERIFIED; P.R. Civ. Code arts. 1342, 1245(b), 1343 (as amended by Ley 122-2026, § 1); Ley 122-2026, Exposición de Motivos; Ley 210-2015, art. 5 (as described there)).

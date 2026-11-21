@@ -804,3 +804,24 @@ Taylor's decision 2026-11-20 (backlog item 13; scope: private rentals and vouche
 ## Model-law comparison: two new topics (Claude Code, 2026-11-21)
 
 Taylor's decision 2026-11-20: compare the library's topic list with the uniform model laws (the 1972 Uniform Residential Landlord and Tenant Act, the Revised URLTA of 2015, and UCC § 3-311) and answer any topic they raise that the library lacked. Two did: checks marked 'paid in full' (`paid-in-full-payments`) and a general duty of good faith (`good-faith-obligation`). This jurisdiction's rows are `edu-paid-in-full-checks-nh` (VERIFIED; RSA 382-A:3-311; RSA 382-A:1-308(b)) and `edu-no-good-faith-obligation-nh` (VERIFIED; Absence: RSA chs. 540, 540-A and 540-B). Each was researched from official text by an independent agent; every quotation was machine-checked against the saved page and the quotes are in each row's notes. 
+
+## Topic-coverage pass (Claude Code, 2026-11-21)
+
+Taylor's decision 2026-11-21: a per-jurisdiction count found that topics added by later-researched jurisdictions had been back-filled only in the 37 early states, so this jurisdiction had no row for 16 topic keys. Each was answered from official text by an independent research agent; every quotation was machine-checked against the saved page (`~/topic-coverage-2026-11-21/pages/NH/`), and the search record and quotes are in each row's notes. A new guard, `check-topic-coverage.py`, now fails any jurisdiction short of the full topic list.
+
+- `animal-care-access`: Confirmed absent. Row `edu-no-animal-care-entry-right-nh` (VERIFIED; Absence: RSA 540, 540-A, 540-B; RSA 466; RSA 644:8; RSA 540-A:3, IV, V-d, VII).
+- `carpet-cleaning`: Confirmed absent. Row `edu-no-carpet-cleaning-rule-nh` (VERIFIED; Absence: RSA 540, 540-A, 540-B; RSA 540-A:7).
+- `lease-registration`: Present. Row `edu-lease-registration-nh` (VERIFIED; RSA 477:7; RSA 477:7-a).
+- `limitation-of-actions`: Present. Row `edu-limitation-of-actions-nh` (VERIFIED; RSA 508:4, I; RSA 508:5; RSA 508:9).
+- `showing-notice-waiver`: Present. Row `edu-showing-notice-waiver-nh` (VERIFIED; RSA 540-A:3, IV, V, V-d; RSA 540-A:4).
+- `student-housing`: Present. Row `edu-student-housing-nh` (VERIFIED; RSA 540:1-a, IV(c), (g); RSA 540-B:1, II(c)).
+- `trespass-notice`: Present. Row `edu-trespass-notice-nh` (VERIFIED; RSA 635:2; RSA 540-A:3, IX).
+- `farmland-hunting-rights`: Confirmed absent. Row `edu-no-farmland-hunting-rights-nh` (VERIFIED; Absence: RSA 206-215-D, RSA 540, 540-A; RSA 635:4; RSA 207:3-a; RSA 635:2).
+- `energy-data-release`: Present. Row `edu-energy-data-release-nh` (VERIFIED; RSA 363:37, I; RSA 363:38, I(a), V(a)).
+- `prop65-rental-warning`: Confirmed absent. Row `edu-no-chemical-warning-rule-nh` (VERIFIED; Absence: RSA 477:4-g, 477:4-h; RSA 540, 540-A).
+- `rights-responsibilities-guide`: Present. Row `edu-rights-responsibilities-guide-nh` (VERIFIED; RSA 354-A:23; RSA 540-A:3, VIII; RSA 540:5, II).
+- `communal-land-lease-approval`: Confirmed absent. Row `edu-no-communal-land-lease-approval-nh` (VERIFIED; Absence: RSA 477; RSA 540, 540-A; RSA 477:7).
+- `special-district-representation`: Confirmed absent. Row `edu-no-special-district-statement-nh` (VERIFIED; Absence: RSA 540, 540-A, 477; RSA 540-A:7, II).
+- `tenant-employee-housing`: Present. Row `edu-tenant-employee-housing-nh` (VERIFIED; RSA 540:1-a, IV(h)).
+- `senior-housing-work-card`: Confirmed absent. Row `edu-no-senior-housing-work-card-nh` (VERIFIED; Absence: RSA 354-A; RSA 540, 540-A; RSA 354-A:15, VIII).
+- `usufructuary-lessor`: Confirmed absent. Row `edu-usufructuary-lessor-nh` (VERIFIED; Absence: RSA 477-479-B; RSA 540, 540-A; RSA 547, 554, 560, 561).

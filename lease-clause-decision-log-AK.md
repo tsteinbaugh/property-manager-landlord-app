@@ -361,3 +361,16 @@ Taylor's decision 2026-11-20 (backlog item 13; scope: private rentals and vouche
 ## Model-law comparison: two new topics (Claude Code, 2026-11-21)
 
 Taylor's decision 2026-11-20: compare the library's topic list with the uniform model laws (the 1972 Uniform Residential Landlord and Tenant Act, the Revised URLTA of 2015, and UCC § 3-311) and answer any topic they raise that the library lacked. Two did: checks marked 'paid in full' (`paid-in-full-payments`) and a general duty of good faith (`good-faith-obligation`). This jurisdiction's rows are `edu-paid-in-full-checks-ak` (VERIFIED; AS 45.03.311; AS 45.01.308(b)) and `edu-good-faith-obligation-ak` (VERIFIED; AS 34.03.320). Each was researched from official text by an independent agent; every quotation was machine-checked against the saved page and the quotes are in each row's notes. 
+
+## Topic-coverage pass (Claude Code, 2026-11-21)
+
+Taylor's decision 2026-11-21: a per-jurisdiction count found that topics added by later-researched jurisdictions had been back-filled only in the 37 early states, so this jurisdiction had no row for 8 topic keys. Each was answered from official text by an independent research agent; every quotation was machine-checked against the saved page (`~/topic-coverage-2026-11-21/pages/AK/`), and the search record and quotes are in each row's notes. A new guard, `check-topic-coverage.py`, now fails any jurisdiction short of the full topic list.
+
+- `communal-land-lease-approval`: Confirmed absent. Row `edu-no-communal-land-lease-approval-ak` (VERIFIED; Absence: AS 34.03 and AS Title 34; 25 U.S.C. § 415(a); 25 C.F.R. §§ 162.005, 162.023, 162.342, 162.343).
+- `farmland-hunting-rights`: Confirmed absent. Row `edu-no-farmland-hunting-rights-ak` (VERIFIED; Absence: AS 34.03 and AS 16.05; AS 34.03.330(b)(7); AS 11.46.350(b); AS 16.05.790(f)(2)).
+- `lease-registration`: Present. Row `edu-lease-registration-ak` (VERIFIED; AS 40.17.080(a)-(b); AS 40.17.120; AS 40.17.020(a); AS 40.17.030(a)).
+- `limitation-of-actions`: Present. Row `edu-limitation-of-actions-ak` (VERIFIED; AS 09.10.053; AS 09.10.040(a); AS 09.10.050; AS 09.10.200; AS 09.10.210; AS 09.10.130).
+- `special-district-representation`: Confirmed absent. Row `edu-no-special-district-representation-ak` (VERIFIED; Absence: AS 34.03 and AS Title 34; AS 34.03.080).
+- `student-housing`: Present. Row `edu-student-housing-ak` (VERIFIED; AS 34.03.330(b)(1), (3)).
+- `trespass-notice`: Present. Row `edu-trespass-notice-ak` (VERIFIED; AS 11.46.320; AS 11.46.330; AS 11.46.350; AS 11.81.900(b)).
+- `usufructuary-lessor`: Confirmed absent. Row `edu-no-usufructuary-lessor-ak` (VERIFIED; Absence: AS Title 34 (including AS 34.03)).

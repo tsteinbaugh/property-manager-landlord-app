@@ -382,3 +382,20 @@ Taylor's decision 2026-11-20 (backlog item 13; scope: private rentals and vouche
 ## Model-law comparison: two new topics (Claude Code, 2026-11-21)
 
 Taylor's decision 2026-11-20: compare the library's topic list with the uniform model laws (the 1972 Uniform Residential Landlord and Tenant Act, the Revised URLTA of 2015, and UCC § 3-311) and answer any topic they raise that the library lacked. Two did: checks marked 'paid in full' (`paid-in-full-payments`) and a general duty of good faith (`good-faith-obligation`). This jurisdiction's rows are `edu-paid-in-full-checks-vt` (VERIFIED; 9A V.S.A. § 3-311; 9A V.S.A. § 1-308(b); 9A V.S.A. § 3-311(e); 9 V.S.A. § 4467(a)) and `edu-no-good-faith-obligation-vt` (VERIFIED; Absence: 9 V.S.A. ch. 137). Each was researched from official text by an independent agent; every quotation was machine-checked against the saved page and the quotes are in each row's notes. 
+
+## Topic-coverage pass (Claude Code, 2026-11-21)
+
+Taylor's decision 2026-11-21: a per-jurisdiction count found that topics added by later-researched jurisdictions had been back-filled only in the 37 early states, so this jurisdiction had no row for 12 topic keys. Each was answered from official text by an independent research agent; every quotation was machine-checked against the saved page (`~/topic-coverage-2026-11-21/pages/VT/`), and the search record and quotes are in each row's notes. A new guard, `check-topic-coverage.py`, now fails any jurisdiction short of the full topic list.
+
+- `showing-notice-waiver`: Present. Row `edu-showing-notice-waiver-vt` (VERIFIED; 9 V.S.A. §§ 4454, 4460(a), (b)(4)).
+- `carpet-cleaning`: Confirmed absent. Row `edu-no-carpet-cleaning-rule-vt` (VERIFIED; Absence: 9 V.S.A. chapter 137; 9 V.S.A. §§ 4454, 4461(b)-(c)).
+- `student-housing`: Present. Row `edu-student-housing-vt` (VERIFIED; 9 V.S.A. § 4452(a)(1), (3)).
+- `tenant-employee-housing`: Present. Row `edu-tenant-employee-housing-vt` (VERIFIED; 9 V.S.A. § 4469a).
+- `limitation-of-actions`: Present. Row `edu-limitation-of-actions-vt` (VERIFIED; 12 V.S.A. §§ 507, 511, 512(5), 552, 591, 592).
+- `lease-registration`: Present. Row `edu-lease-registration-vt` (VERIFIED; 27 V.S.A. §§ 341(a), (c), 342).
+- `usufructuary-lessor`: Confirmed absent. Row `edu-usufructuary-lessor-vt` (VERIFIED; Absence: 27 V.S.A.; 9 V.S.A. chapter 137; 27 V.S.A. §§ 3, 653).
+- `trespass-notice`: Present. Row `edu-trespass-notice-vt` (VERIFIED; 13 V.S.A. § 3705(a)(1), (b)).
+- `farmland-hunting-rights`: Confirmed absent. Row `edu-no-farmland-hunting-rights-vt` (VERIFIED; Absence: 10 V.S.A. chapters 101-124; 9 V.S.A. chapter 137; 10 V.S.A. §§ 4710(a), 5201).
+- `rights-responsibilities-guide`: Confirmed absent. Row `edu-no-rights-guide-vt` (VERIFIED; Absence: 9 V.S.A. chapters 137, 139; 9 V.S.A. §§ 4454, 4455(b)).
+- `special-district-representation`: Confirmed absent. Row `edu-no-special-district-statement-vt` (VERIFIED; Absence: 9 V.S.A. chapter 137; 24 V.S.A. (selected chapters); 9 V.S.A. §§ 4454, 4455(b)).
+- `communal-land-lease-approval`: Confirmed absent. Row `edu-no-communal-land-lease-approval-vt` (VERIFIED; Absence: 9 V.S.A. chapter 137; 27 V.S.A.; 1 V.S.A. chapter 23; 1 V.S.A. § 851(8); 27 V.S.A. § 342).

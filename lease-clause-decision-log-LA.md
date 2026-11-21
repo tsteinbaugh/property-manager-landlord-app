@@ -1428,3 +1428,15 @@ Taylor's decision 2026-11-20 (backlog item 13; scope: private rentals and vouche
 ## Model-law comparison: two new topics (Claude Code, 2026-11-21)
 
 Taylor's decision 2026-11-20: compare the library's topic list with the uniform model laws (the 1972 Uniform Residential Landlord and Tenant Act, the Revised URLTA of 2015, and UCC § 3-311) and answer any topic they raise that the library lacked. Two did: checks marked 'paid in full' (`paid-in-full-payments`) and a general duty of good faith (`good-faith-obligation`). This jurisdiction's rows are `edu-paid-in-full-checks-la` (VERIFIED; La. R.S. 10:3-311; La. R.S. 10:1-308(b); La. Civ. Code art. 1861) and `edu-good-faith-obligation-la` (VERIFIED; La. Civ. Code art. 1759; La. Civ. Code art. 1983). Each was researched from official text by an independent agent; every quotation was machine-checked against the saved page and the quotes are in each row's notes. 
+
+## Topic-coverage pass (Claude Code, 2026-11-21)
+
+Taylor's decision 2026-11-21: a per-jurisdiction count found that topics added by later-researched jurisdictions had been back-filled only in the 37 early states, so this jurisdiction had no row for 7 topic keys. Each was answered from official text by an independent research agent; every quotation was machine-checked against the saved page (`~/topic-coverage-2026-11-21/pages/LA/`), and the search record and quotes are in each row's notes. A new guard, `check-topic-coverage.py`, now fails any jurisdiction short of the full topic list.
+
+- `communal-land-lease-approval`: Confirmed absent. Row `edu-no-communal-land-lease-approval-la` (VERIFIED; Absence: La. Civ. Code arts. 2668-2729 and La. R.S. (text search); 25 U.S.C. § 415(a); 25 C.F.R. §§ 162.005, 162.023, 162.342).
+- `farmland-hunting-rights`: Confirmed absent. Row `edu-no-farmland-hunting-rights-la` (VERIFIED; Absence: La. Civ. Code arts. 2668-2729 and La. R.S. (text search); La. Civ. Code arts. 2668, 3413; La. R.S. 14:63(B)(1); La. R.S. 14:63.3(A)).
+- `lease-registration`: Present. Row `edu-lease-registration-la` (VERIFIED; La. Civ. Code arts. 2681, 2681.1, 3338, 2711, 2712; La. R.S. 9:2742(A)).
+- `limitation-of-actions`: Present. Row `edu-limitation-of-actions-la` (VERIFIED; La. Civ. Code arts. 3494(2), 3495, 3499, 3493.1, 3464, 3466).
+- `special-district-representation`: Confirmed absent. Row `edu-no-special-district-representation-la` (VERIFIED; Absence: La. Civ. Code arts. 2668-2729 and La. R.S. (text search)).
+- `student-housing`: Confirmed absent. Row `edu-no-student-housing-la` (VERIFIED; Absence: La. Civ. Code arts. 2668-2729 and La. R.S. (text search); La. R.S. 17:3399.24).
+- `trespass-notice`: Present. Row `edu-trespass-notice-la` (VERIFIED; La. R.S. 14:63.3; La. R.S. 14:63(A)-(D), (F)(3), (G)(1)).

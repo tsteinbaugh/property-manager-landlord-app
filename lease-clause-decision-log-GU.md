@@ -512,3 +512,10 @@ Taylor's decision 2026-11-20 (backlog item 13; scope: private rentals and vouche
 ## Model-law comparison: two new topics (Claude Code, 2026-11-21)
 
 Taylor's decision 2026-11-20: compare the library's topic list with the uniform model laws (the 1972 Uniform Residential Landlord and Tenant Act, the Revised URLTA of 2015, and UCC § 3-311) and answer any topic they raise that the library lacked. Two did: checks marked 'paid in full' (`paid-in-full-payments`) and a general duty of good faith (`good-faith-obligation`). This jurisdiction's rows are `edu-paid-in-full-checks-gu` (VERIFIED; 13 GCA § 1207; 18 GCA §§ 82401-82404) and `edu-no-good-faith-obligation-gu` (VERIFIED; Absence: the Guam Landlord and Tenant Rental Act and the Civil Code's lease chapter; 21 GCA § 48102(i)). Each was researched from official text by an independent agent; every quotation was machine-checked against the saved page and the quotes are in each row's notes. 
+
+## Topic-coverage pass (Claude Code, 2026-11-21)
+
+Taylor's decision 2026-11-21: a per-jurisdiction count found that topics added by later-researched jurisdictions had been back-filled only in the 37 early states, so this jurisdiction had no row for 2 topic keys. Each was answered from official text by an independent research agent; every quotation was machine-checked against the saved page (`~/topic-coverage-2026-11-21/pages/GU/`), and the search record and quotes are in each row's notes. A new guard, `check-topic-coverage.py`, now fails any jurisdiction short of the full topic list.
+
+- `communal-land-lease-approval`: Present. Row `edu-communal-land-lease-approval-gu` (VERIFIED; 21 GCA §§ 75107, 75108(b), (e); 21 GCA §§ 75A107(g), 75A108(e); 21 GCA ch. 75, 2021 Note).
+- `lease-registration`: Present. Row `edu-lease-registration-gu` (VERIFIED; 21 GCA §§ 37101-37103, 37105; 21 GCA § 60314(a); 21 GCA §§ 29135(a), 29155).

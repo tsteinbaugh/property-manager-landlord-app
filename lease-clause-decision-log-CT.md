@@ -865,3 +865,61 @@ Taylor's decision 2026-11-20 (backlog item 13; scope: private rentals and vouche
 ## Model-law comparison: two new topics (Claude Code, 2026-11-21)
 
 Taylor's decision 2026-11-20: compare the library's topic list with the uniform model laws (the 1972 Uniform Residential Landlord and Tenant Act, the Revised URLTA of 2015, and UCC § 3-311) and answer any topic they raise that the library lacked. Two did: checks marked 'paid in full' (`paid-in-full-payments`) and a general duty of good faith (`good-faith-obligation`). This jurisdiction's rows are `edu-paid-in-full-checks-ct` (VERIFIED; Conn. Gen. Stat. § 42a-3-311; Conn. Gen. Stat. § 42a-1-308(b)) and `edu-no-good-faith-obligation-ct` (VERIFIED; Absence: Conn. Gen. Stat. chs. 830 and 832). Each was researched from official text by an independent agent; every quotation was machine-checked against the saved page and the quotes are in each row's notes. 
+
+## Topic-coverage pass (Claude Code, 2026-11-21)
+
+Taylor's decision 2026-11-21: a per-jurisdiction count found that topics added by later-researched jurisdictions had been back-filled only in the 37 early states, so this jurisdiction had no row for 53 topic keys. Each was answered from official text by an independent research agent; every quotation was machine-checked against the saved page (`~/topic-coverage-2026-11-21/pages/CT/`), and the search record and quotes are in each row's notes. A new guard, `check-topic-coverage.py`, now fails any jurisdiction short of the full topic list.
+
+- `dv-qualifying-documents`: Present. Row `edu-dv-qualifying-documents-ct` (VERIFIED; Conn. Gen. Stat. § 47a-11e(a), (b), (f); Conn. Gen. Stat. § 47a-7b(a)).
+- `ev-charging-end-of-tenancy`: Present. Row `edu-ev-charging-end-of-tenancy-ct` (VERIFIED; Conn. Gen. Stat. § 47a-13b(e)(1), (4), (7), (8); Conn. Gen. Stat. § 47a-21).
+- `ev-charging-shared-area`: Present. Row `edu-ev-charging-shared-area-ct` (VERIFIED; Conn. Gen. Stat. § 47a-13b(a)(1), (c), (d), (e)(5), (f)).
+- `carpet-cleaning`: Confirmed absent. Row `edu-no-carpet-cleaning-rule-ct` (VERIFIED; Absence: Conn. Gen. Stat. chs. 830 and 831; Conn. Gen. Stat. § 47a-21(a)(11), (a)(14), (d); Conn. Gen. Stat. § 47a-11(b), (f); Conn. Gen. Stat. § 47a-4(a)(1)).
+- `designated-repairer`: Confirmed absent. Row `edu-no-designated-repairer-ct` (VERIFIED; Absence: Conn. Gen. Stat. chs. 830 and 832; Conn. Gen. Stat. § 47a-13(a), (c); Conn. Gen. Stat. § 47a-4(a)(1); Conn. Gen. Stat. § 47a-7(c), (d); Conn. Gen. Stat. § 47a-6(a)).
+- `habitability-statement`: Confirmed absent. Row `edu-no-habitability-lease-statement-ct` (VERIFIED; Absence: Conn. Gen. Stat. chs. 830 and 831; Conn. Gen. Stat. § 47a-7(a); Conn. Gen. Stat. § 47a-4a; Conn. Gen. Stat. § 47a-4(a)(1), (3), (b); Conn. Gen. Stat. § 47a-7d(d); Conn. Gen. Stat. § 47a-3f(b)).
+- `periodic-services-entry`: Confirmed absent. Row `edu-no-periodic-services-entry-ct` (VERIFIED; Absence: Conn. Gen. Stat. ch. 830; Conn. Gen. Stat. § 47a-16; Conn. Gen. Stat. § 47a-4(a)(1), (b); Conn. Gen. Stat. § 47a-18a).
+- `showing-notice-waiver`: Confirmed absent. Row `edu-no-showing-notice-waiver-ct` (VERIFIED; Absence: Conn. Gen. Stat. ch. 830; Conn. Gen. Stat. §§ 47a-16, 47a-16a, 47a-18, 47a-18a; Conn. Gen. Stat. § 47a-4(a)(1), (b)).
+- `nonrefundable-deposit-separate-notice`: Confirmed absent. Row `edu-no-nonrefundable-separate-notice-ct` (VERIFIED; Absence: Conn. Gen. Stat. chs. 830 and 831; Conn. Gen. Stat. § 47a-21(a)(11), (b), (c), (d), (h); Conn. Gen. Stat. § 47a-7d(a), (b)).
+- `repair-escrow-exemption-notice`: Confirmed absent. Row `edu-no-repair-escrow-exemption-ct` (VERIFIED; Absence: Conn. Gen. Stat. chs. 830 and 832; Conn. Gen. Stat. § 47a-14h(a), (b), (h), (i); Conn. Gen. Stat. § 47a-2(a); Conn. Gen. Stat. § 47a-4(a)(1)).
+- `habitability-materiality`: Present. Row `edu-habitability-materiality-ct` (VERIFIED; Conn. Gen. Stat. § 47a-7(a); Conn. Gen. Stat. § 47a-12(a)-(c); Conn. Gen. Stat. § 47a-13(a), (c); Conn. Gen. Stat. § 47a-14(a); Conn. Gen. Stat. § 47a-20(3)).
+- `maintenance-duty-shift`: Present. Row `edu-maintenance-duty-shift-ct` (VERIFIED; Conn. Gen. Stat. § 47a-7(a)(2), (c), (d); Conn. Gen. Stat. § 47a-4(a)(1), (b)).
+- `tenant-repair-remedies`: Present. Row `edu-tenant-repair-remedies-ct` (VERIFIED; Conn. Gen. Stat. § 47a-12; Conn. Gen. Stat. § 47a-13; Conn. Gen. Stat. § 47a-14(a); Conn. Gen. Stat. § 47a-14h(b), (e)-(i)).
+- `seasonal-tenancy`: Present. Row `edu-seasonal-rentals-ct` (VERIFIED; Conn. Gen. Stat. § 47a-2(a)(4), (c); Conn. Gen. Stat. § 47a-23(a)(1)(A); Conn. Gen. Stat. §§ 47a-35(a), 47a-36(3), 47a-39; Conn. Gen. Stat. § 47a-21; Conn. Gen. Stat. § 47a-3b).
+- `tpa-exemption-notice`: Confirmed absent. Row `edu-no-tpa-exemption-notice-ct` (VERIFIED; Absence: Conn. Gen. Stat. chs. 830 and 832; Conn. Gen. Stat. § 47a-23c(a)-(c), (e); Conn. Gen. Stat. § 7-148b(a)-(b)).
+- `tenant-employee-housing`: Present. Row `edu-employee-housing-ct` (VERIFIED; Conn. Gen. Stat. §§ 47a-23(a)(5), 47a-30, 47a-36(1)-(2); Conn. Gen. Stat. § 47a-2(a)(6)).
+- `expedited-criminal-eviction`: Confirmed absent. Row `edu-no-expedited-criminal-eviction-ct` (VERIFIED; Absence: Conn. Gen. Stat. ch. 832; Conn. Gen. Stat. §§ 47a-15, 47a-26c, 47a-26h(c), 47a-31, 47a-35(a), 47a-37(a)).
+- `forfeiture-redemption`: Confirmed absent. Row `edu-no-forfeiture-redemption-ct` (VERIFIED; Absence: Conn. Gen. Stat. chs. 830 and 832; Conn. Gen. Stat. §§ 47a-15a(a), 47a-19, 47a-23(a)(1)(D), (e), 47a-37(a), 47a-39).
+- `lease-type-size`: Present. Row `edu-lease-type-size-ct` (VERIFIED; Conn. Gen. Stat. §§ 42-151(b), 42-152(b), (c), 42-154, 42-155(b), 42-157(a); Conn. Gen. Stat. § 47a-3f(b), (c)).
+- `plain-language-consumer-statement`: Confirmed absent. Row `edu-no-consumer-restrictions-statement-ct` (VERIFIED; Absence: Conn. Gen. Stat. ch. 742; Conn. Gen. Stat. §§ 42-151(b), 42-152, 42-154 to 42-157; Conn. Gen. Stat. § 47a-4(a)(1); Conn. Gen. Stat. § 47a-7d(d)).
+- `communal-land-lease-approval`: Present. Row `edu-reservation-land-leases-ct` (VERIFIED; Conn. Gen. Stat. §§ 47-59a(b), 47-60(a), 47-63, 47-64(a)-(b), 47-66d).
+- `lease-registration`: Present. Row `edu-lease-registration-ct` (VERIFIED; Conn. Gen. Stat. § 47-19).
+- `statute-of-frauds-lease-term`: Present. Row `edu-statute-of-frauds-lease-term-ct` (VERIFIED; Conn. Gen. Stat. § 52-550; Conn. Gen. Stat. § 47-19; Conn. Gen. Stat. § 47a-7d(d)).
+- `entity-landlord-court-representation`: Present. Row `edu-entity-landlord-representation-ct` (VERIFIED; Conn. Gen. Stat. § 51-88(a), (b), (d); Conn. Practice Book §§ 2-44A(a), 24-6; Conn. Gen. Stat. § 47a-23(a)).
+- `farmland-hunting-rights`: Present. Row `edu-farmland-hunting-rights-ct` (VERIFIED; Conn. Gen. Stat. §§ 26-27(b), 26-65(b), 26-72; Conn. Gen. Stat. § 53a-109(a)(2), (b)).
+- `trespass-notice`: Present. Row `edu-trespass-notice-ct` (VERIFIED; Conn. Gen. Stat. §§ 53a-100(a)(1), 53a-107, 53a-110; Conn. Gen. Stat. § 47a-23(a)).
+- `animal-care-access`: Present. Row `edu-animal-care-access-ct` (VERIFIED; Conn. Gen. Stat. § 47a-11b(d); Conn. Gen. Stat. § 53-247(a); Conn. Gen. Stat. §§ 22-327(6), 22-332(a), 22-339d(a); Conn. Gen. Stat. § 47a-16(b)).
+- `fire-sprinkler-duty`: Present. Row `edu-fire-sprinkler-duty-ct` (VERIFIED; Conn. Gen. Stat. § 29-315(a), (c)-(e), (g); Conn. Gen. Stat. §§ 29-252(a)(1), 29-292(a)(1); Conn. Gen. Stat. § 47a-3f(b)).
+- `frozen-standard-incorporation`: Present. Row `edu-frozen-standard-incorporation-ct` (VERIFIED; Conn. Gen. Stat. §§ 29-252(a)(1), 29-256a(a), 29-292(a)(1); Conn. Gen. Stat. § 47a-7(a)(1), (b)).
+- `limitation-of-actions`: Present. Row `edu-limitation-of-actions-ct` (VERIFIED; Conn. Gen. Stat. §§ 52-576(a), 52-577, 52-581(a), 52-584).
+- `eviction-service-party`: Confirmed absent. Row `edu-no-eviction-service-party-ct` (VERIFIED; Absence: Conn. Gen. Stat. chs. 830 and 832; Conn. Gen. Stat. §§ 47a-23(c), 47a-23b, 52-57(a), 54-240l; Conn. Gen. Stat. § 47a-4(a)(1)).
+- `lead-safe-certification`: Confirmed absent. Row `edu-no-lead-safe-certification-ct` (VERIFIED; Absence: Conn. Gen. Stat. chs. 368a, 830 and 833a; Conn. Gen. Stat. §§ 19a-111(b)-(c), 19a-111b(3), 19a-111c(a), 47a-52(d), 47a-54f(b)).
+- `lead-state-notices`: Confirmed absent. Row `edu-no-state-lead-lease-notice-ct` (VERIFIED; Absence: Conn. Gen. Stat. chs. 368a and 830; Conn. Gen. Stat. §§ 19a-111(a), 19a-111b(1), (3), 19a-111c(a)).
+- `landlord-breach-remedy`: Present. Row `edu-landlord-breach-remedy-ct` (VERIFIED; Conn. Gen. Stat. §§ 47a-4a, 47a-12, 47a-13(a), 47a-14(a), 47a-14h, 47a-18a, 47a-20, 47a-43(a), 47a-46; Conn. Gen. Stat. § 19a-111(c)).
+- `rent-demand-bar`: Present. Row `edu-rent-demand-bar-ct` (VERIFIED; Conn. Gen. Stat. §§ 47a-4a, 47a-13(b), 47a-14(a), 47a-14h(h); Conn. Gen. Stat. § 7-148d(a)).
+- `late-fee-limit`: Present. Row `edu-late-fee-limit-ct` (VERIFIED; Conn. Gen. Stat. § 47a-15a(a)-(b); Conn. Gen. Stat. § 47a-4(a)(8)-(9), (b); Conn. Gen. Stat. § 21-83(a)(3)-(4), (b)).
+- `prohibited-acts-renter`: Present. Row `edu-tenant-damage-crimes-ct` (VERIFIED; Conn. Gen. Stat. §§ 53a-117e, 53a-117f, 53a-117g; Conn. Gen. Stat. § 47a-11(f)-(g); Conn. Gen. Stat. § 47a-15).
+- `purpose-limitation`: Present. Row `edu-illegal-use-voids-lease-ct` (VERIFIED; Conn. Gen. Stat. § 47a-31; Conn. Gen. Stat. §§ 47a-15, 47a-20a(1), 47a-23(a)(1)(C); Conn. Gen. Stat. § 19a-345; Conn. Gen. Stat. § 53a-89).
+- `rent-receipt-anti-waiver`: Confirmed absent. Row `edu-no-rent-receipt-anti-waiver-ct` (VERIFIED; Absence: Conn. Gen. Stat. ch. 830; Conn. Gen. Stat. §§ 47a-1(4)-(5), 47a-4a, 47a-6(a)-(b), 47a-10(a)).
+- `emergency-contact`: Confirmed absent. Row `edu-no-emergency-contact-lease-notice-ct` (VERIFIED; Absence: Conn. Gen. Stat. chs. 830-833a; Conn. Gen. Stat. §§ 47a-6(a), 47a-11d(a)).
+- `energy-data-release`: Confirmed absent. Row `edu-no-energy-data-release-ct` (VERIFIED; Absence: Conn. Gen. Stat. chs. 277-298 (title 16 and 16a); Conn. Gen. Stat. §§ 16-245ii, 16-245jj, 16a-37t).
+- `environmental-event-termination`: Confirmed absent. Row `edu-no-environmental-event-termination-ct` (VERIFIED; Absence: Conn. Gen. Stat. ch. 830; Conn. Gen. Stat. §§ 47a-14, 47a-23(a)(1)(B), 47a-52(e)).
+- `ev-charging-requirements`: Present. Row `edu-ev-charging-resale-ct` (VERIFIED; Conn. Gen. Stat. §§ 16-1(c), 16-19f(a)(5)-(7); Conn. Gen. Stat. § 43-3(b)(1); Conn. Gen. Stat. § 12-412(3)(A)).
+- `rights-responsibilities-guide`: Confirmed absent. Row `edu-no-rights-responsibilities-guide-ct` (VERIFIED; Absence: Conn. Gen. Stat. chs. 830-834; Conn. Gen. Stat. §§ 47a-7d(c)-(d), 47a-23c(e)(1); Conn. Gen. Stat. § 46a-54(14)).
+- `shoreline-access-disclosure`: Confirmed absent. Row `edu-no-shoreline-access-disclosure-ct` (VERIFIED; Absence: Conn. Gen. Stat. chs. 830-834; Conn. Gen. Stat. chs. 440-447 (title 22a coastal and tidal chapters)).
+- `special-district-representation`: Confirmed absent. Row `edu-no-special-district-disclosure-ct` (VERIFIED; Absence: Conn. Gen. Stat. chs. 105, 105a and 830-834).
+- `student-housing`: Present. Row `edu-student-housing-exemption-ct` (VERIFIED; Conn. Gen. Stat. § 47a-2(a)(1); Conn. Gen. Stat. § 12-66c).
+- `key-control-policy`: Present. Row `edu-key-control-biometric-entry-ct` (VERIFIED; Conn. Gen. Stat. §§ 42-515(4), (8), (40), 42-520(a)(1)(D) (as amended by P.A. 26-64, §§ 12, 14, eff. Oct. 1, 2026); Conn. Gen. Stat. § 42-516(2) (as amended by P.A. 25-113, § 6, eff. July 1, 2026); Conn. Gen. Stat. § 42-524).
+- `tenant-right-to-organize`: Present. Row `edu-tenant-right-to-organize-ct` (VERIFIED; Conn. Gen. Stat. § 47a-20; Conn. Gen. Stat. §§ 8-41(b), 8-64c(b)).
+- `utility-disclosure-attachment`: Confirmed absent. Row `edu-no-utility-disclosure-attachment-ct` (VERIFIED; Absence: Conn. Gen. Stat. chs. 830 and 283; Conn. Gen. Stat. § 47a-4(a)(10)-(11), (b) (subdivision (11) added by Conn. Pub. Act No. 26-113, § 1, eff. Oct. 1, 2026); Conn. Gen. Stat. § 47a-7d(b)(3)).
+- `subsidy-habitability-proration`: Confirmed absent. Row `edu-no-subsidy-habitability-proration-ct` (VERIFIED; Absence: Conn. Gen. Stat. chs. 830 and 128-138; Conn. Gen. Stat. §§ 47a-4a, 47a-14).
+- `truth-in-renting`: Confirmed absent. Row `edu-no-truth-in-renting-ct` (VERIFIED; Absence: Conn. Gen. Stat. chs. 830-834; Conn. Gen. Stat. §§ 47a-7d(c)-(d), 47a-23c(e)(1)).
+- `usufructuary-lessor`: Present. Row `edu-life-tenant-landlord-ct` (VERIFIED; Conn. Gen. Stat. § 47a-29).

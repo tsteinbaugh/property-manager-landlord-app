@@ -841,3 +841,66 @@ Taylor's decision 2026-11-20 (backlog item 13; scope: private rentals and vouche
 ## Model-law comparison: two new topics (Claude Code, 2026-11-21)
 
 Taylor's decision 2026-11-20: compare the library's topic list with the uniform model laws (the 1972 Uniform Residential Landlord and Tenant Act, the Revised URLTA of 2015, and UCC § 3-311) and answer any topic they raise that the library lacked. Two did: checks marked 'paid in full' (`paid-in-full-payments`) and a general duty of good faith (`good-faith-obligation`). This jurisdiction's rows are `edu-paid-in-full-checks-ma` (VERIFIED; Mass. Gen. Laws c. 106, § 3-311; Mass. Gen. Laws c. 106, § 1-308(b)) and `edu-no-good-faith-obligation-ma` (VERIFIED; Absence: Mass. Gen. Laws c. 186). Each was researched from official text by an independent agent; every quotation was machine-checked against the saved page and the quotes are in each row's notes. 
+
+## Topic-coverage pass (Claude Code, 2026-11-21)
+
+Taylor's decision 2026-11-21: a per-jurisdiction count found that topics added by later-researched jurisdictions had been back-filled only in the 37 early states, so this jurisdiction had no row for 58 topic keys. Each was answered from official text by an independent research agent; every quotation was machine-checked against the saved page (`~/topic-coverage-2026-11-21/pages/MA/`), and the search record and quotes are in each row's notes. A new guard, `check-topic-coverage.py`, now fails any jurisdiction short of the full topic list.
+
+- `animal-care-access`: Present. Row `edu-animal-care-access-ma` (VERIFIED; Mass. Gen. Laws ch. 186, § 30; Mass. Gen. Laws ch. 272, § 77; Mass. Gen. Laws ch. 140, § 136A).
+- `carpet-cleaning`: Confirmed absent. Row `edu-no-carpet-cleaning-ma` (VERIFIED; Absence: Mass. Gen. Laws ch. 186 (no cleaning rule); Mass. Gen. Laws ch. 186, § 15B(1)(b), (4), (6)(c), (8)).
+- `communal-land-lease-approval`: Confirmed absent. Row `edu-no-communal-land-lease-approval-ma` (VERIFIED; Absence: Mass. Gen. Laws ch. 183, ch. 184 and ch. 186; Mass. Gen. Laws ch. 183, §§ 3-4).
+- `confirmed-absences-habitability`: Present. Row `edu-confirmed-absences-habitability-ma` (VERIFIED; Mass. Gen. Laws ch. 111, §§ 127A, 127L; Mass. Gen. Laws ch. 239, § 8A; Mass. Gen. Laws ch. 186, § 14).
+- `conversion-notice`: Present. Row `edu-condo-conversion-notice-ma` (VERIFIED; St. 1983, c. 527, §§ 2-5).
+- `electric-submetering-disclosure`: Confirmed absent. Row `edu-no-electric-submetering-disclosure-ma` (VERIFIED; Absence: Mass. Gen. Laws ch. 164 and ch. 186; Mass. Gen. Laws ch. 164, § 1; Mass. Gen. Laws ch. 186, §§ 14, 22).
+- `employee-screening`: Confirmed absent. Row `edu-no-employee-screening-ma` (VERIFIED; Absence: Mass. Gen. Laws ch. 186 and ch. 111; Mass. Gen. Laws ch. 6, § 172(d)-(e)).
+- `energy-data-release`: Present. Row `edu-energy-data-release-ma` (VERIFIED; Mass. Gen. Laws ch. 25A, § 20).
+- `entity-landlord-court-representation`: Present. Row `edu-entity-landlord-representation-ma` (VERIFIED; Mass. Gen. Laws ch. 221, § 46A; Mass. Gen. Laws ch. 218, § 21).
+- `ev-charging-end-of-tenancy`: Confirmed absent. Row `edu-no-ev-charging-end-of-tenancy-ma` (VERIFIED; Absence: Mass. Gen. Laws ch. 186; Mass. Gen. Laws ch. 183A, § 10A).
+- `ev-charging-requirements`: Present. Row `edu-ev-charging-requirements-ma` (VERIFIED; Mass. Gen. Laws ch. 98, § 59; Mass. Gen. Laws ch. 164, § 1).
+- `ev-charging-shared-area`: Confirmed absent. Row `edu-no-ev-charging-shared-area-ma` (VERIFIED; Absence: Mass. Gen. Laws ch. 186; Mass. Gen. Laws ch. 183A, § 10A; Mass. Gen. Laws ch. 98, § 59).
+- `eviction-service-party`: Present. Row `edu-eviction-service-party-ma` (VERIFIED; Mass. Gen. Laws ch. 9A, § 2(2)(ii); Mass. Gen. Laws ch. 239, § 3).
+- `farmland-hunting-rights`: Present. Row `edu-farmland-hunting-rights-ma` (VERIFIED; Mass. Gen. Laws ch. 131, §§ 32, 36).
+- `foreclosure-disclosure`: Confirmed absent. Row `edu-no-foreclosure-disclosure-ma` (VERIFIED; Absence: Mass. Gen. Laws ch. 186, ch. 186A and ch. 244; Mass. Gen. Laws ch. 186, § 13A; Mass. Gen. Laws ch. 244, § 15A; Mass. Gen. Laws ch. 186A, §§ 2-3).
+- `forfeiture-redemption`: Present. Row `edu-forfeiture-redemption-ma` (VERIFIED; Mass. Gen. Laws ch. 186, §§ 11, 12, 15A; Mass. Gen. Laws ch. 239, § 3).
+- `frozen-standard-incorporation`: Present. Row `edu-frozen-standard-incorporation-ma` (VERIFIED; 780 CMR (tenth edition); Mass. Gen. Laws ch. 143, §§ 93-94).
+- `good-cause-notice`: Confirmed absent. Row `edu-no-good-cause-notice-ma` (VERIFIED; Absence: Mass. Gen. Laws ch. 186 and ch. 239; Mass. Gen. Laws ch. 40P, § 4; Mass. Gen. Laws ch. 186A, §§ 2-3).
+- `guest-rights`: Confirmed absent. Row `edu-no-guest-rights-ma` (VERIFIED; Absence: Mass. Gen. Laws ch. 186; Mass. Gen. Laws ch. 186, §§ 14, 15B(1)(b); Mass. Gen. Laws ch. 266, § 120).
+- `inspection-notice-penalty`: Present. Row `edu-inspection-notice-penalty-ma` (VERIFIED; Mass. Gen. Laws ch. 186, § 15B(1)(a)(iii), (1)(b)(iii), (2)(c), (4)).
+- `late-fee-limit`: Present. Row `edu-late-fee-limit-ma` (VERIFIED; Mass. Gen. Laws ch. 186, § 15B(1)(c), (8); Mass. Gen. Laws ch. 105A, § 5).
+- `lead-safe-certification`: Present. Row `edu-lead-safe-certification-ma` (VERIFIED; Mass. Gen. Laws ch. 111, §§ 197(a), 197A(d)-(e)).
+- `lease-registration`: Present. Row `edu-lease-registration-ma` (VERIFIED; Mass. Gen. Laws ch. 183, § 4).
+- `lease-type-size`: Confirmed absent. Row `edu-no-lease-type-size-ma` (VERIFIED; Absence: Mass. Gen. Laws ch. 186; Mass. Gen. Laws ch. 186, § 15B(2)(c)).
+- `limitation-of-actions`: Present. Row `edu-limitation-of-actions-ma` (VERIFIED; Mass. Gen. Laws ch. 260, §§ 1, 2, 2A, 13, 14).
+- `maintenance-duty-shift`: Present. Row `edu-maintenance-duty-shift-ma` (VERIFIED; Mass. Gen. Laws ch. 111, § 127L; Mass. Gen. Laws ch. 186, § 15).
+- `nonrefundable-deposit-separate-notice`: Present. Row `edu-nonrefundable-deposit-separate-notice-ma` (VERIFIED; Mass. Gen. Laws ch. 186, § 15B(1)(b), (1)(e), (4)).
+- `parking-rules-notice`: Confirmed absent. Row `edu-no-parking-rules-notice-ma` (VERIFIED; Absence: Mass. Gen. Laws ch. 186; Mass. Gen. Laws ch. 266, § 120D).
+- `part5-nonwaivable`: Present. Row `edu-part5-nonwaivable-ma` (VERIFIED; Mass. Gen. Laws ch. 111, § 127L; Mass. Gen. Laws ch. 239, § 8A; Mass. Gen. Laws ch. 186, §§ 14, 15, 15A, 15B(8), 15F, 18, 28; Mass. Gen. Laws ch. 164, § 124D; Mass. Gen. Laws ch. 165, § 11E).
+- `pest-control-notice`: Confirmed absent. Row `edu-no-pest-control-notice-ma` (VERIFIED; Absence: Mass. Gen. Laws ch. 186 and ch. 132B).
+- `plain-language`: Confirmed absent. Row `edu-no-plain-language-lease-ma` (VERIFIED; Absence: Mass. Gen. Laws ch. 186 and ch. 93A; Mass. Gen. Laws ch. 93A, § 2; Mass. Gen. Laws ch. 186, § 22(f)).
+- `prop65-rental-warning`: Confirmed absent. Row `edu-no-prop65-rental-warning-ma` (VERIFIED; Absence: Mass. Gen. Laws ch. 186, ch. 111 and ch. 132B).
+- `religious-cultural-display`: Confirmed absent. Row `edu-no-religious-display-right-ma` (VERIFIED; Absence: Mass. Gen. Laws ch. 186; Mass. Gen. Laws ch. 151B, § 4(6)-(7)).
+- `required-fees`: Present. Row `edu-required-fees-ma` (VERIFIED; Mass. Gen. Laws ch. 186, §§ 15B(1)(b)-(d), 15C, 22(f)).
+- `rights-responsibilities-guide`: Confirmed absent. Row `edu-no-rights-responsibilities-guide-ma` (VERIFIED; Absence: Mass. Gen. Laws ch. 186; Mass. Gen. Laws ch. 186, § 31; Mass. Gen. Laws ch. 111, § 197A(d)(2)).
+- `seasonal-tenancy`: Present. Row `edu-seasonal-tenancy-ma` (VERIFIED; Mass. Gen. Laws ch. 186, §§ 14, 15B(9); Mass. Gen. Laws ch. 239, § 1; Mass. Gen. Laws ch. 64G, § 1).
+- `security-deposit-cap`: Present. Row `edu-security-deposit-cap-ma` (VERIFIED; Mass. Gen. Laws ch. 186, § 15B(1)(b), (1)(d), (9)).
+- `shoreline-access-disclosure`: Confirmed absent. Row `edu-no-shoreline-access-disclosure-ma` (VERIFIED; Absence: Mass. Gen. Laws ch. 186; Mass. Gen. Laws ch. 91, § 1).
+- `showing-notice-waiver`: Confirmed absent. Row `edu-no-showing-notice-waiver-ma` (VERIFIED; Absence: Mass. Gen. Laws ch. 186; Mass. Gen. Laws ch. 186, §§ 14, 15B(1)(a)).
+- `single-family-zone-lease-limit`: Present. Row `edu-single-family-zone-lease-limit-ma` (VERIFIED; Mass. Gen. Laws ch. 40A, § 3).
+- `smoke-drift-waiver`: Present. Row `edu-smoke-drift-waiver-ma` (VERIFIED; Mass. Gen. Laws ch. 270, § 22(a)-(c)).
+- `special-district-representation`: Confirmed absent. Row `edu-no-special-district-representation-ma` (VERIFIED; Absence: Mass. Gen. Laws ch. 186; Mass. Gen. Laws ch. 186, § 15C).
+- `statute-of-frauds-lease-term`: Present. Row `edu-statute-of-frauds-lease-term-ma` (VERIFIED; Mass. Gen. Laws ch. 183, §§ 3-4; Mass. Gen. Laws ch. 259, § 1).
+- `statutory-caps`: Present. Row `edu-statutory-caps-ma` (VERIFIED; Mass. Gen. Laws ch. 186, §§ 14, 15B, 15F, 18, 26(d); Mass. Gen. Laws ch. 111, § 127L; Mass. Gen. Laws ch. 218, § 21; Mass. Gen. Laws ch. 40P, § 4).
+- `stove-refrigerator`: Present. Row `edu-stove-refrigerator-ma` (VERIFIED; 105 CMR 410.100(A)(4)-(6), 410.240(A)(8)-(9); Mass. Gen. Laws ch. 186, § 14).
+- `student-housing`: Present. Row `edu-student-housing-ma` (VERIFIED; Mass. Gen. Laws ch. 186, § 17; St. 1983, c. 527, § 3; Mass. Gen. Laws ch. 270, § 22(a)).
+- `tenant-confidential-information`: Present. Row `edu-tenant-confidential-information-ma` (VERIFIED; Mass. Gen. Laws ch. 186, § 24(f); Mass. Gen. Laws ch. 93H, §§ 2-3; Mass. Gen. Laws ch. 93I, § 2).
+- `tenant-employee-housing`: Confirmed absent. Row `edu-no-tenant-employee-housing-ma` (VERIFIED; Absence: Mass. Gen. Laws ch. 186 and ch. 239; Mass. Gen. Laws ch. 239, § 1; Mass. Gen. Laws ch. 111, § 127A; Mass. Gen. Laws ch. 186, § 14).
+- `tenant-portal`: Present. Row `edu-tenant-portal-ma` (VERIFIED; Mass. Gen. Laws ch. 110G, § 5; Mass. Gen. Laws ch. 140D, § 28A; Mass. Gen. Laws ch. 186, § 15B(1)(b)).
+- `tenant-right-to-organize`: Present. Row `edu-tenant-right-to-organize-ma` (VERIFIED; Mass. Gen. Laws ch. 186, § 18; Mass. Gen. Laws ch. 239, § 2A).
+- `tenant-rights-statement`: Present. Row `edu-tenant-rights-statement-ma` (VERIFIED; Mass. Gen. Laws ch. 186, §§ 15B(2)(c), 31; Mass. Gen. Laws ch. 111, § 197A(d)(2)).
+- `tpa-exemption-notice`: Confirmed absent. Row `edu-no-tpa-exemption-notice-ma` (VERIFIED; Absence: Mass. Gen. Laws ch. 186 and ch. 239; Mass. Gen. Laws ch. 40P, § 4; Mass. Gen. Laws ch. 40T, § 2; St. 1983, c. 527, § 4).
+- `trespass-notice`: Present. Row `edu-trespass-notice-ma` (VERIFIED; Mass. Gen. Laws ch. 266, § 120).
+- `truth-in-renting`: Confirmed absent. Row `edu-no-truth-in-renting-ma` (VERIFIED; Absence: Mass. Gen. Laws ch. 186; Mass. Gen. Laws ch. 186, §§ 15, 15A, 15B(8), 15F, 16).
+- `unbundled-parking`: Confirmed absent. Row `edu-no-unbundled-parking-ma` (VERIFIED; Absence: Mass. Gen. Laws ch. 186 and ch. 40A; Mass. Gen. Laws ch. 186, § 15B(1)(b)).
+- `usufructuary-lessor`: Confirmed absent. Row `edu-no-usufructuary-lessor-ma` (VERIFIED; Absence: Mass. Gen. Laws ch. 183, ch. 184 and ch. 186; Mass. Gen. Laws ch. 241, § 1).
+- `utility-disconnection-notice-authorization`: Confirmed absent. Row `edu-no-utility-notice-authorization-ma` (VERIFIED; 220 CMR 25.05(2); Absence: Mass. Gen. Laws ch. 164 and 220 CMR 25.00).
+- `utility-landlord-account`: Present. Row `edu-utility-landlord-account-ma` (VERIFIED; Mass. Gen. Laws ch. 164, § 124D; Mass. Gen. Laws ch. 165, § 11E; Mass. Gen. Laws ch. 186, § 14).

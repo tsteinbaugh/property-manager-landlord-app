@@ -416,3 +416,17 @@ Taylor's decision 2026-11-20 (backlog item 13; scope: private rentals and vouche
 ## Model-law comparison: two new topics (Claude Code, 2026-11-21)
 
 Taylor's decision 2026-11-20: compare the library's topic list with the uniform model laws (the 1972 Uniform Residential Landlord and Tenant Act, the Revised URLTA of 2015, and UCC § 3-311) and answer any topic they raise that the library lacked. Two did: checks marked 'paid in full' (`paid-in-full-payments`) and a general duty of good faith (`good-faith-obligation`). This jurisdiction's rows are `edu-paid-in-full-checks-de` (VERIFIED; 6 Del. C. § 3-311; 6 Del. C. § 1-308(b)) and `edu-good-faith-obligation-de` (VERIFIED; 25 Del. C. § 5104). Each was researched from official text by an independent agent; every quotation was machine-checked against the saved page and the quotes are in each row's notes. 
+
+## Topic-coverage pass (Claude Code, 2026-11-21)
+
+Taylor's decision 2026-11-21: a per-jurisdiction count found that topics added by later-researched jurisdictions had been back-filled only in the 37 early states, so this jurisdiction had no row for 9 topic keys. Each was answered from official text by an independent research agent; every quotation was machine-checked against the saved page (`~/topic-coverage-2026-11-21/pages/DE/`), and the search record and quotes are in each row's notes. A new guard, `check-topic-coverage.py`, now fails any jurisdiction short of the full topic list.
+
+- `carpet-cleaning`: Confirmed absent. Row `edu-no-carpet-cleaning-de` (VERIFIED; Absence: 25 Del. C. ch. 51-57 (§§ 5101(a), 5514(c), (f))).
+- `communal-land-lease-approval`: Confirmed absent. Row `edu-no-communal-land-lease-approval-de` (VERIFIED; Absence: 25 Del. C. Parts I-III (§ 5101(a))).
+- `farmland-hunting-rights`: Present. Row `edu-farmland-hunting-rights-de` (VERIFIED; 7 Del. C. §§ 502(b), 507(a)(2), 714, 723(a)).
+- `lease-registration`: Present. Row `edu-lease-registration-de` (VERIFIED; 25 Del. C. § 158; 30 Del. C. § 5401(5)-(6)).
+- `limitation-of-actions`: Present. Row `edu-limitation-of-actions-de` (VERIFIED; 10 Del. C. §§ 8106(a), 8108, 8109, 8112).
+- `special-district-representation`: Confirmed absent. Row `edu-no-special-district-statement-de` (VERIFIED; Absence: 25 Del. C. ch. 51-57).
+- `student-housing`: Present. Row `edu-student-housing-de` (VERIFIED; 25 Del. C. § 5102(1)-(2) (both versions)).
+- `trespass-notice`: Present. Row `edu-trespass-notice-de` (VERIFIED; 11 Del. C. §§ 821, 822, 823, 829(e)).
+- `usufructuary-lessor`: Confirmed absent. Row `edu-no-usufructuary-lessor-de` (VERIFIED; Absence: 25 Del. C. ch. 3, ch. 9 (§§ 303, 901) and ch. 51-57).

@@ -461,3 +461,10 @@ Taylor's decision 2026-11-20: compare the library's topic list with the uniform 
 ### Browser read, 2026-11-21 (Claude Code)
 
 The official text the shell could not reach overnight was read in Taylor's Chrome through Claude in Chrome, every quotation machine-checked against the saved text (`~/overnight-2026-11-20/browser/VI/`). Redrafted from it: `edu-paid-in-full-checks-vi`, now VERIFIED (11A V.I.C. § 3-311; 11A V.I.C. § 1-308(b)); `edu-no-good-faith-obligation-vi` (was `edu-good-faith-obligation-vi`), now VERIFIED (Absence: 28 V.I.C. ch. 31).
+
+## Topic-coverage pass (Claude Code, 2026-11-21)
+
+Taylor's decision 2026-11-21: a per-jurisdiction count found that topics added by later-researched jurisdictions had been back-filled only in the 37 early states, so this jurisdiction had no row for 2 topic keys. Each was answered from official text in Taylor's Chrome through Claude in Chrome (the official site blocks the shell); every quotation was machine-checked against the saved page (`~/topic-coverage-2026-11-21/pages/VI/`), and the search record and quotes are in each row's notes. A new guard, `check-topic-coverage.py`, now fails any jurisdiction short of the full topic list.
+
+- `communal-land-lease-approval`: Confirmed absent. Row `edu-no-communal-land-lease-approval-vi` (VERIFIED; Absence: V.I. Code (whole Code)).
+- `lease-registration`: Present. Row `edu-lease-registration-vi` (VERIFIED; 28 V.I.C. §§ 122-124).

@@ -1093,3 +1093,61 @@ Taylor's decision 2026-11-20 (backlog item 13; scope: private rentals and vouche
 ## Model-law comparison: two new topics (Claude Code, 2026-11-21)
 
 Taylor's decision 2026-11-20: compare the library's topic list with the uniform model laws (the 1972 Uniform Residential Landlord and Tenant Act, the Revised URLTA of 2015, and UCC § 3-311) and answer any topic they raise that the library lacked. Two did: checks marked 'paid in full' (`paid-in-full-payments`) and a general duty of good faith (`good-faith-obligation`). This jurisdiction's rows are `edu-paid-in-full-checks-md` (VERIFIED; Md. Code, Com. Law § 3-311; Md. Code, Com. Law § 1-308(b)) and `edu-no-good-faith-obligation-md` (VERIFIED; Absence: Real Property title 8). Each was researched from official text by an independent agent; every quotation was machine-checked against the saved page and the quotes are in each row's notes. 
+
+## Topic-coverage pass (Claude Code, 2026-11-21)
+
+Taylor's decision 2026-11-21: a per-jurisdiction count found that topics added by later-researched jurisdictions had been back-filled only in the 37 early states, so this jurisdiction had no row for 53 topic keys. Each was answered from official text by an independent research agent; every quotation was machine-checked against the saved page (`~/topic-coverage-2026-11-21/pages/MD/`), and the search record and quotes are in each row's notes. A new guard, `check-topic-coverage.py`, now fails any jurisdiction short of the full topic list.
+
+- `actual-notice-method`: Present. Row `edu-actual-notice-md` (VERIFIED; Md. Code Ann., Real Prop. §§ 8-104, 8-208.1(a)(2)(i), 8-211(f)(2), 8-212(f)(1)(ii); Md. Code Ann., Com. Law § 1-202).
+- `animal-care-access`: Present. Row `edu-animal-care-access-md` (VERIFIED; Md. Code Ann., Crim. Law §§ 10-604(a)(5), 10-612; Md. Code Ann., Real Prop. § 14-806).
+- `carpet-cleaning`: Confirmed absent. Row `edu-no-carpet-cleaning-md` (VERIFIED; Absence: Md. Code Ann., Real Prop. title 8, subtitle 2; Md. Code Ann., Real Prop. § 8-203(f), (g), (j), (l)).
+- `common-area-lighting`: Confirmed absent. Row `edu-no-common-area-lighting-md` (VERIFIED; Absence: Md. Code Ann., Real Prop. title 8, subtitle 2; COMAR 20.25.01.01F(1), .02B(3), .05A; Md. Code Ann., Real Prop. § 8-212.4(c)).
+- `communal-land-lease-approval`: Confirmed absent. Row `edu-no-communal-land-lease-approval-md` (VERIFIED; Absence: Md. Code Ann., Real Prop. titles 3, 4, 5, 8 and 14).
+- `confirmed-absences-misc`: Confirmed absent. Row `edu-confirmed-absences-misc-md` (VERIFIED; Absence: Md. Code Ann., Real Prop. titles 3, 4, 5, 8, 8A and 14 (see each topic's row)).
+- `disaster-duties`: Confirmed absent. Row `edu-no-disaster-duties-md` (VERIFIED; Absence: Md. Code Ann., Real Prop. titles 8 and 14; Md. Code Ann., Real Prop. § 8-112).
+- `dv-protection-order-chapter-moved`: Present. Row `edu-dv-law-citations-md` (VERIFIED; Md. Code Ann., Real Prop. §§ 8-5A-01(b), 8-5A-02; Md. Code Ann., Fam. Law §§ 4-501(b), 4-506; Md. Code Ann., Cts. & Jud. Proc. § 3-1505).
+- `energy-data-release`: Present. Row `edu-energy-data-release-md` (VERIFIED; Md. Code Ann., Envir. §§ 2-1601(e), 2-1602(d); COMAR 26.28.02.02-.04).
+- `entity-landlord-court-representation`: Present. Row `edu-entity-landlord-representation-md` (VERIFIED; Md. Code Ann., Bus. Occ. & Prof. § 10-206(b)(1), (4)).
+- `environmental-event-termination`: Present. Row `edu-environmental-event-termination-md` (VERIFIED; Md. Code Ann., Envir. § 9-4A-04(b); Md. Code Ann., Real Prop. § 8-112; Md. Code Ann., Real Prop. § 8-208(d)(2)).
+- `expedited-criminal-eviction`: Present. Row `edu-expedited-criminal-eviction-md` (VERIFIED; Md. Code Ann., Real Prop. § 8-402.1(a)-(b); Md. Code Ann., Real Prop. § 14-120(g)-(h), (l)).
+- `farmland-hunting-rights`: Present. Row `edu-farmland-hunting-rights-md` (VERIFIED; Md. Code Ann., Nat. Res. § 10-411; Md. Code Ann., Crim. Law § 6-406).
+- `forfeiture-redemption`: Present. Row `edu-forfeiture-redemption-md` (VERIFIED; Md. Code Ann., Real Prop. § 8-401(h)).
+- `frozen-standard-incorporation`: Present. Row `edu-frozen-standard-incorporation-md` (VERIFIED; COMAR 29.06.01.06; COMAR 09.12.54.03; COMAR 20.25.01.04A(2)).
+- `habitability-modifiable`: Present. Row `edu-habitability-modifiable-md` (VERIFIED; Md. Code Ann., Real Prop. § 8-208(c)(1)-(2), (d)(2); Md. Code Ann., Real Prop. § 8-211(c), (d)(1); Md. Code Ann., Real Prop. § 8-212(c)).
+- `hazardous-contamination-disclosure`: Present. Row `edu-hazardous-contamination-disclosure-md` (VERIFIED; Md. Code Ann., Envir. § 9-4A-04(a); Md. Code Ann., Envir. §§ 1-802(b)(1), 1-804(a)).
+- `health-district-rental-rules`: Confirmed absent. Row `edu-no-health-district-rental-rules-md` (VERIFIED; Absence: Md. Code Ann., Real Prop. title 8; COMAR 09.12.54.04-.05; Md. Code Ann., Real Prop. § 8-211(f)(2)(iii)).
+- `landlord-registration`: Present. Row `edu-landlord-registration-md` (VERIFIED; Md. Code Ann., Envir. §§ 6-811, 6-812).
+- `late-fee-limit`: Present. Row `edu-late-fee-limit-md` (VERIFIED; Md. Code Ann., Real Prop. § 8-208(d)(3), (g); Md. Code Ann., Real Prop. §§ 8A-201(a)(3)(iii), 8A-404).
+- `lead-safe-certification`: Present. Row `edu-lead-safe-certification-md` (VERIFIED; Md. Code Ann., Envir. §§ 6-818(a), 6-820(b)-(e), 6-811, 6-812).
+- `lease-notice-initial-requirement`: Present. Row `edu-lease-notice-initial-requirement-md` (VERIFIED; Md. Code Ann., Real Prop. § 8-208(e); Md. Code Ann., Real Prop. § 8-402(d)).
+- `lease-registration`: Present. Row `edu-lease-registration-md` (VERIFIED; Md. Code Ann., Real Prop. § 3-101(a), (c)-(e); Md. Code Ann., Real Prop. § 4-101(a)(2)).
+- `lease-term-limitation`: Present. Row `edu-lease-term-limitation-md` (VERIFIED; Md. Code Ann., Real Prop. §§ 5-101, 5-102, 3-101(a), (c), 4-101, 8-208(a)).
+- `limitation-of-actions`: Present. Row `edu-limitation-of-actions-md` (VERIFIED; Md. Code Ann., Cts. & Jud. Proc. §§ 5-101, 5-102, 5-1202; Md. Code Ann., Real Prop. § 8-203(b)(4)).
+- `lockout-for-rent-delinquency`: Present. Row `edu-lockout-prohibited-md` (VERIFIED; Md. Code Ann., Real Prop. § 8-216).
+- `maintenance-duty-shift`: Present. Row `edu-maintenance-duty-shift-md` (VERIFIED; Md. Code Ann., Real Prop. § 8-208(c)(2), (d)(2); Md. Code Ann., Real Prop. § 8-211(d); Md. Code Ann., Real Prop. § 8-212(c)).
+- `nonrefundable-deposit-separate-notice`: Confirmed absent. Row `edu-no-nonrefundable-deposit-separate-notice-md` (VERIFIED; Absence: Md. Code Ann., Real Prop. title 8, subtitle 2; Md. Code Ann., Real Prop. § 8-203(a)(3), (f)(2), (l); Md. Code Ann., Real Prop. § 8-210(c)).
+- `optional-lease-terms`: Present. Row `edu-optional-lease-terms-md` (VERIFIED; Md. Code Ann., Real Prop. §§ 8-402.1(a)(1)(i), 8-208(e), 8-402(d), 8-203(b)(2), 8-221(c)(5), 8-209(b)(2), 8-208.4, 8-202).
+- `possession-bond`: Confirmed absent. Row `edu-no-possession-bond-md` (VERIFIED; Absence: Md. Code Ann., Real Prop. title 8, subtitles 2 and 4; Md. Code Ann., Real Prop. § 8-208(d)(1); Md. Code Ann., Real Prop. § 8-401(i)(2); Md. Code Ann., Real Prop. § 8-402.1(b)(2)).
+- `prop65-rental-warning`: Confirmed absent. Row `edu-no-prop65-rental-warning-md` (VERIFIED; Absence: Md. Code Ann., Real Prop. titles 8 and 14).
+- `repair-escrow-exemption-notice`: Confirmed absent. Row `edu-no-repair-escrow-exemption-notice-md` (VERIFIED; Absence: Md. Code Ann., Real Prop. § 8-211(c); Md. Code Ann., Real Prop. § 8-212(b)).
+- `required-disclosures`: Present. Row `edu-required-disclosures-md` (VERIFIED; Md. Code Ann., Real Prop. §§ 8-208(c), 8-210(a), 8-220(b), 8-202, 10-702; Md. Code Ann., Envir. §§ 6-820, 9-4A-04).
+- `rights-responsibilities-guide`: Present. Row `edu-rights-responsibilities-guide-md` (VERIFIED; Md. Code Ann., Real Prop. § 8-208(c)(4); Md. Code Ann., Hous. & Cmty. Dev. § 5-104; Md. Code Ann., Real Prop. §§ 8-220(b), 14-804).
+- `sanitary-code-variance`: Present. Row `edu-sanitary-code-variance-md` (VERIFIED; COMAR 09.12.54.04A; COMAR 09.12.54.05B).
+- `seasonal-tenancy`: Confirmed absent. Row `edu-no-seasonal-tenancy-md` (VERIFIED; Absence: Md. Code Ann., Real Prop. title 8; Md. Code Ann., Real Prop. §§ 8-402(c), 8-213(c), 14-126(a)(6)).
+- `security-deposit-return`: Present. Row `edu-security-deposit-return-md` (VERIFIED; Md. Code Ann., Real Prop. § 8-203(e)-(h), (j)-(l)).
+- `senior-housing-work-card`: Confirmed absent. Row `edu-no-senior-housing-work-card-md` (VERIFIED; Absence: Md. Code Ann., Real Prop. title 8; Md. Code Ann., Real Prop. § 8-217).
+- `shoreline-access-disclosure`: Confirmed absent. Row `edu-no-shoreline-access-disclosure-md` (VERIFIED; Absence: Md. Code Ann., Real Prop. titles 8 and 14; Md. Code Ann., Real Prop. § 14-117(d)).
+- `showing-notice-waiver`: Present. Row `edu-showing-notice-waiver-md` (VERIFIED; Md. Code Ann., Real Prop. § 8-221(a)(3), (b), (c)(5); Md. Code Ann., Real Prop. § 8-208(d)(2)).
+- `special-district-representation`: Confirmed absent. Row `edu-no-special-district-representation-md` (VERIFIED; Absence: Md. Code Ann., Real Prop. titles 8 and 14; Md. Code Ann., Real Prop. § 14-117(a)).
+- `statutory-caps`: Present. Row `edu-statutory-caps-md` (VERIFIED; Md. Code Ann., Real Prop. §§ 8-203(b), (i)(3), 8-208(d)(3), (11), 8-213, 8-407, 8-208.4(h), 8A-404; Md. Code Ann., Com. Law § 15-802(b); Md. Code Ann., Pub. Util. § 7-303(d)(2)).
+- `student-housing`: Confirmed absent. Row `edu-no-student-housing-md` (VERIFIED; Absence: Md. Code Ann., Real Prop. titles 8 and 14).
+- `subsidy-habitability-proration`: Confirmed absent. Row `edu-no-subsidy-habitability-proration-md` (VERIFIED; Absence: Md. Code Ann., Real Prop. title 8, subtitle 2; Md. Code Ann., Real Prop. §§ 8-211, 8-212).
+- `tax-escalation`: Confirmed absent. Row `edu-no-tax-escalation-md` (VERIFIED; Absence: Md. Code Ann., Real Prop. title 8; Md. Code Ann., Real Prop. §§ 8-203(f), 8-209(b)).
+- `tenant-employee-housing`: Confirmed absent. Row `edu-no-tenant-employee-housing-md` (VERIFIED; Absence: Md. Code Ann., Real Prop. titles 8 and 14; Md. Code Ann., Real Prop. §§ 8-208(c), 8-402(c), 14-132).
+- `term-change-notice`: Present. Row `edu-term-change-notice-md` (VERIFIED; Md. Code Ann., Real Prop. § 8-209; Md. Code Ann., Real Prop. § 8-402(c)(2)).
+- `trespass-notice`: Present. Row `edu-trespass-notice-md` (VERIFIED; Md. Code Ann., Crim. Law §§ 6-402, 6-403).
+- `truth-in-renting`: Confirmed absent. Row `edu-no-truth-in-renting-md` (VERIFIED; Absence: Md. Code Ann., Real Prop. title 8; Md. Code Ann., Real Prop. § 8-208(c)).
+- `usufructuary-lessor`: Present. Row `edu-usufructuary-lessor-md` (VERIFIED; Md. Code Ann., Real Prop. §§ 14-102(a), 14-110(a)).
+- `utility-disclosure-attachment`: Present. Row `edu-utility-disclosure-attachment-md` (VERIFIED; Md. Code Ann., Real Prop. §§ 8-205.1, 8-205.2, 8-205.3, 8-212.4).
+- `utility-interruption-submeter`: Confirmed absent. Row `edu-no-submeter-interruption-md` (VERIFIED; Absence: COMAR 20.25.01; Md. Code Ann., Real Prop. § 8-216).
+- `written-notice-required`: Present. Row `edu-written-notice-required-md` (VERIFIED; Md. Code Ann., Real Prop. §§ 8-208(d)(2), 8-209(b), 8-401(c), 8-402(c), 8-402.1(a), 8-221(c), 8-203(f), 8-5A-02).

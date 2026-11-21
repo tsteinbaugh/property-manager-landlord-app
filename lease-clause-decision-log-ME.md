@@ -1014,3 +1014,21 @@ Taylor's decision 2026-11-20 (backlog item 13; scope: private rentals and vouche
 ## Model-law comparison: two new topics (Claude Code, 2026-11-21)
 
 Taylor's decision 2026-11-20: compare the library's topic list with the uniform model laws (the 1972 Uniform Residential Landlord and Tenant Act, the Revised URLTA of 2015, and UCC § 3-311) and answer any topic they raise that the library lacked. Two did: checks marked 'paid in full' (`paid-in-full-payments`) and a general duty of good faith (`good-faith-obligation`). This jurisdiction's rows are `edu-paid-in-full-checks-me` (VERIFIED; 11 M.R.S. § 3-1311; 11 M.R.S. § 1-1308(2)) and `edu-no-good-faith-obligation-me` (VERIFIED; Absence: 14 M.R.S. chs. 709, 710, 710-A and 710-C). Each was researched from official text by an independent agent; every quotation was machine-checked against the saved page and the quotes are in each row's notes. 
+
+## Topic-coverage pass (Claude Code, 2026-11-21)
+
+Taylor's decision 2026-11-21: a per-jurisdiction count found that topics added by later-researched jurisdictions had been back-filled only in the 37 early states, so this jurisdiction had no row for 13 topic keys. Each was answered from official text by an independent research agent; every quotation was machine-checked against the saved page (`~/topic-coverage-2026-11-21/pages/ME/`), and the search record and quotes are in each row's notes. A new guard, `check-topic-coverage.py`, now fails any jurisdiction short of the full topic list.
+
+- `limitation-of-actions`: Present. Row `edu-limitation-of-actions-me` (VERIFIED; Me. Rev. Stat. tit. 14, §§ 751, 752, 860, 863, 866).
+- `showing-notice-waiver`: Present. Row `edu-showing-notice-waiver-me` (VERIFIED; Me. Rev. Stat. tit. 14, § 6025).
+- `carpet-cleaning`: Confirmed absent. Row `edu-no-carpet-cleaning-rule-me` (VERIFIED; Absence: Me. Rev. Stat. tit. 14, chs. 709, 710, 710-A; tit. 14, §§ 6031(1), 6033(1), 6036).
+- `lease-registration`: Present. Row `edu-lease-registration-me` (VERIFIED; Me. Rev. Stat. tit. 33, § 201).
+- `usufructuary-lessor`: Confirmed absent. Row `edu-usufructuary-lessor-me` (VERIFIED; Absence: Me. Rev. Stat. tit. 33; tit. 14, chs. 709, 710; Me. Rev. Stat. tit. 33, § 157).
+- `trespass-notice`: Present. Row `edu-trespass-notice-me` (VERIFIED; Me. Rev. Stat. tit. 17-A, § 402; tit. 14, § 6002(1)(E)).
+- `tenant-employee-housing`: Present. Row `edu-tenant-employee-housing-me` (VERIFIED; Me. Rev. Stat. tit. 14, §§ 6001(1), 6002).
+- `student-housing`: Confirmed absent. Row `edu-no-student-housing-rule-me` (VERIFIED; Absence: Me. Rev. Stat. tit. 14, chs. 709, 710, 710-A; tit. 14, § 6021(1)(A)).
+- `farmland-hunting-rights`: Confirmed absent. Row `edu-no-farmland-hunting-rights-me` (VERIFIED; Absence: Me. Rev. Stat. tit. 12, Part 13; tit. 14, chs. 709, 710; tit. 12, § 11209(1)(A); tit. 17-A, § 402(4)).
+- `energy-data-release`: Confirmed absent. Row `edu-no-energy-data-release-me` (VERIFIED; Absence: Me. Rev. Stat. tit. 35-A; tit. 14, chs. 709, 710; tit. 35-A, § 704(1-A), (5)(C)).
+- `rights-responsibilities-guide`: Confirmed absent. Row `edu-no-rights-guide-me` (VERIFIED; Absence: Me. Rev. Stat. tit. 14, chs. 709, 710, 710-A; tit. 5, ch. 337; tit. 14, § 6002).
+- `special-district-representation`: Confirmed absent. Row `edu-no-special-district-statement-me` (VERIFIED; Absence: Me. Rev. Stat. tit. 14, chs. 709, 710; tit. 33; tit. 14, § 6015).
+- `communal-land-lease-approval`: Present. Row `edu-communal-land-lease-approval-me` (VERIFIED; Me. Rev. Stat. tit. 30, §§ 6203(13), 6205-A(3), 6206(1)).

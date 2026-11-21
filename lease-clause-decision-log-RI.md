@@ -881,3 +881,41 @@ Taylor's decision 2026-11-20 (backlog item 13; scope: private rentals and vouche
 ## Model-law comparison: two new topics (Claude Code, 2026-11-21)
 
 Taylor's decision 2026-11-20: compare the library's topic list with the uniform model laws (the 1972 Uniform Residential Landlord and Tenant Act, the Revised URLTA of 2015, and UCC § 3-311) and answer any topic they raise that the library lacked. Two did: checks marked 'paid in full' (`paid-in-full-payments`) and a general duty of good faith (`good-faith-obligation`). This jurisdiction's rows are `edu-paid-in-full-checks-ri` (VERIFIED; R.I. Gen. Laws § 6A-3-311; R.I. Gen. Laws § 6A-1-308(b)) and `edu-good-faith-obligation-ri` (VERIFIED; R.I. Gen. Laws § 34-18-12). Each was researched from official text by an independent agent; every quotation was machine-checked against the saved page and the quotes are in each row's notes. 
+
+## Topic-coverage pass (Claude Code, 2026-11-21)
+
+Taylor's decision 2026-11-21: a per-jurisdiction count found that topics added by later-researched jurisdictions had been back-filled only in the 37 early states, so this jurisdiction had no row for 33 topic keys. Each was answered from official text by an independent research agent; every quotation was machine-checked against the saved page (`~/topic-coverage-2026-11-21/pages/RI/`), and the search record and quotes are in each row's notes. A new guard, `check-topic-coverage.py`, now fails any jurisdiction short of the full topic list.
+
+- `animal-care-access`: Present. Row `edu-animal-care-access-ri` (VERIFIED; R.I. Gen. Laws §§ 4-13-1.2(8), 4-13-42(b), 4-1-1(a)(4), 4-1-26(a)-(b), 34-18-26(b)).
+- `carpet-cleaning`: Confirmed absent. Row `edu-no-carpet-cleaning-ri` (VERIFIED; Absence: R.I. Gen. Laws ch. 34-18 (§§ 34-18-19(b), (h), 34-18-11(11))).
+- `communal-land-lease-approval`: Confirmed absent. Row `edu-no-communal-land-lease-approval-ri` (VERIFIED; Absence: R.I. Gen. Laws ch. 34-18 and ch. 37-18 (§§ 37-18-6(e), (p), 37-18-13)).
+- `energy-data-release`: Confirmed absent. Row `edu-no-energy-data-release-ri` (VERIFIED; Absence: R.I. Gen. Laws ch. 34-18 and ch. 42-140 (§§ 42-140-13, 42-140-10)).
+- `entity-landlord-court-representation`: Present. Row `edu-entity-landlord-court-representation-ri` (VERIFIED; R.I. Gen. Laws §§ 11-27-1(b), 11-27-2(1), 11-27-5, 10-16-3.1, 34-18-9; R.I. Dist. Ct. R. Civ. P. 11; R.I. Dist. Ct. Small Claims R. 3.02, 3.03).
+- `farmland-hunting-rights`: Present. Row `edu-farmland-hunting-rights-ri` (VERIFIED; R.I. Gen. Laws §§ 11-44-4, 11-44-26(a), 11-44-30, 20-13-1).
+- `foreclosure-disclosure`: Present. Row `edu-foreclosure-disclosure-ri` (VERIFIED; R.I. Gen. Laws §§ 34-18-20(d), 34-27-7).
+- `forfeiture-redemption`: Present. Row `edu-forfeiture-redemption-ri` (VERIFIED; R.I. Gen. Laws §§ 34-18-35(e), 34-18-41, 34-18-49, 34-18-51).
+- `frozen-standard-incorporation`: Present. Row `edu-code-editions-ri` (VERIFIED; R.I. Gen. Laws §§ 23-28.1-2(a), 23-28.1-6(b), 23-27.3-100.1.5(b), (e), 23-27.3-100.1.5.1(a)).
+- `habitability-materiality`: Present. Row `edu-habitability-materiality-ri` (VERIFIED; R.I. Gen. Laws §§ 34-18-28(a)-(b), 34-18-30, 45-24.3-19(f)).
+- `habitability-modifiable`: Present. Row `edu-habitability-modifiable-ri` (VERIFIED; R.I. Gen. Laws §§ 34-18-17, 34-18-18, 34-18-22(a)(6), (c), 45-24.3-6(g)).
+- `landlord-breach-remedy`: Present. Row `edu-landlord-breach-remedy-ri` (VERIFIED; R.I. Gen. Laws §§ 34-18-28, 34-18-30, 34-18-31, 34-18-32, 42-128.1-10(b), 42-128.1-11(c), 42-128.1-14, 45-24.3-19(f)).
+- `lease-registration`: Present. Row `edu-lease-registration-ri` (VERIFIED; R.I. Gen. Laws §§ 34-11-1, 34-13-1(7), 34-13-2).
+- `limitation-of-actions`: Present. Row `edu-limitation-of-actions-ri` (VERIFIED; R.I. Gen. Laws §§ 9-1-13(a), 9-1-17).
+- `maintenance-duty-shift`: Present. Row `edu-maintenance-duty-shift-ri` (VERIFIED; R.I. Gen. Laws §§ 34-18-22(c), 34-18-17(a)(1), 45-24.3-6(f), (g), (i)).
+- `part5-nonwaivable`: Present. Row `edu-nonwaivable-rights-ri` (VERIFIED; R.I. Gen. Laws §§ 34-18-17, 34-18-18, 34-18-19(h), 34-18-67, 5-80-1, 5-80-6, 5-80-8(3), 5-79-5).
+- `plain-language`: Confirmed absent. Row `edu-no-plain-language-rule-ri` (VERIFIED; Absence: R.I. Gen. Laws ch. 34-18 (§ 34-18-17), § 5-82-1(a), § 6-13.1-1(5)).
+- `rent-receipt-anti-waiver`: Present. Row `edu-rent-receipt-anti-waiver-ri` (VERIFIED; R.I. Gen. Laws §§ 34-18-18, 34-18-19(g), 34-18-20(c)(2), 34-18-23).
+- `required-fees`: Present. Row `edu-required-fees-ri` (VERIFIED; R.I. Gen. Laws §§ 34-18-15(a), 34-18-59, 34-18-61).
+- `rights-responsibilities-guide`: Confirmed absent. Row `edu-no-rights-guide-ri` (VERIFIED; Absence: R.I. Gen. Laws ch. 34-18 and ch. 34-37; R.I. Gen. Laws § 42-167-5(a)(8)).
+- `showing-notice-waiver`: Present. Row `edu-showing-notice-waiver-ri` (VERIFIED; R.I. Gen. Laws §§ 34-18-26(a), (c), 34-18-17(a)(1), (b), 34-18-45).
+- `special-district-representation`: Confirmed absent. Row `edu-no-special-district-statement-ri` (VERIFIED; Absence: R.I. Gen. Laws ch. 34-18 (§§ 34-18-15(a), 34-18-20)).
+- `stove-refrigerator`: Present. Row `edu-stove-refrigerator-ri` (VERIFIED; R.I. Gen. Laws §§ 45-24.3-7(1)(iii), 34-18-22(a)(1), (4)).
+- `student-housing`: Present. Row `edu-student-housing-ri` (VERIFIED; R.I. Gen. Laws §§ 34-18-8(1), (3), 34-18-36(f)).
+- `tenant-employee-housing`: Present. Row `edu-employee-housing-ri` (VERIFIED; R.I. Gen. Laws § 34-18-8(5)).
+- `tenant-repair-agreement`: Present. Row `edu-tenant-repair-agreement-ri` (VERIFIED; R.I. Gen. Laws §§ 34-18-22(c), 34-18-17(a)(1), 34-18-18, 34-18-39).
+- `term-change-notice`: Present. Row `edu-term-change-notice-ri` (VERIFIED; R.I. Gen. Laws §§ 34-18-15(a)(2), 34-18-16.1, 34-18-25(b), 34-18-37).
+- `trespass-notice`: Present. Row `edu-trespass-notice-ri` (VERIFIED; R.I. Gen. Laws §§ 11-44-26, 11-44-30).
+- `unconscionability`: Present. Row `edu-unconscionability-ri` (VERIFIED; R.I. Gen. Laws § 34-18-13).
+- `usufructuary-lessor`: Confirmed absent. Row `edu-no-usufructuary-lessor-ri` (VERIFIED; Absence: R.I. Gen. Laws ch. 34-4 (§§ 34-4-2.1, 34-4-12) and ch. 34-18).
+- `utilities-paid-by-landlord`: Present. Row `edu-utilities-paid-by-landlord-ri` (VERIFIED; R.I. Gen. Laws §§ 34-18-15(a)(3), (5), 34-18-22(a)(6), 34-18-31, 34-18-34).
+- `utility-disclosure-attachment`: Confirmed absent. Row `edu-no-utility-disclosure-attachment-ri` (VERIFIED; Absence: R.I. Gen. Laws ch. 34-18 (§ 34-18-15(a)(3), (5)); § 39-3-7.1).
+- `utility-submetering-disclosure`: Confirmed absent. Row `edu-no-submetering-disclosure-rule-ri` (VERIFIED; Absence: R.I. Gen. Laws ch. 34-18 (§ 34-18-15(a)); § 39-3-7.1).

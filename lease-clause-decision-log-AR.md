@@ -959,3 +959,12 @@ Taylor's decision 2026-11-20: compare the library's topic list with the uniform 
 ### Browser read, 2026-11-21 (Claude Code)
 
 The official text the shell could not reach overnight was read in Taylor's Chrome through Claude in Chrome, every quotation machine-checked against the saved text (`~/overnight-2026-11-20/browser/AR/`). Redrafted from it: `edu-paid-in-full-checks-ar`, now VERIFIED (Ark. Code Ann. § 4-3-311; Ark. Code Ann. § 4-1-308(b)); `edu-good-faith-obligation-ar`, now VERIFIED (Ark. Code Ann. § 18-17-302).
+
+## Topic-coverage pass (Claude Code, 2026-11-21)
+
+Taylor's decision 2026-11-21: a per-jurisdiction count found that topics added by later-researched jurisdictions had been back-filled only in the 37 early states, so this jurisdiction had no row for 4 topic keys. Each was answered from official text in Taylor's Chrome through Claude in Chrome (the official site blocks the shell); every quotation was machine-checked against the saved page (`~/topic-coverage-2026-11-21/pages/AR/`), and the search record and quotes are in each row's notes. A new guard, `check-topic-coverage.py`, now fails any jurisdiction short of the full topic list.
+
+- `communal-land-lease-approval`: Confirmed absent. Row `edu-no-communal-land-lease-approval-ar` (VERIFIED; Absence: Ark. Code Ann. (whole Code)).
+- `lease-registration`: Present. Row `edu-lease-registration-ar` (VERIFIED; Ark. Code Ann. § 14-15-404).
+- `special-district-representation`: Confirmed absent. Row `edu-no-special-district-statement-ar` (VERIFIED; Absence: Ark. Code Ann. (whole Code)).
+- `student-housing`: Confirmed absent. Row `edu-no-student-housing-rule-ar` (VERIFIED; Absence: Ark. Code Ann. (whole Code)).

@@ -430,3 +430,16 @@ Taylor's decision 2026-11-20: compare the library's topic list with the uniform 
 ### Browser read, 2026-11-21 (Claude Code)
 
 The official text the shell could not reach overnight was read in Taylor's Chrome through Claude in Chrome, every quotation machine-checked against the saved text (`~/overnight-2026-11-20/browser/HI/`). Redrafted from it: `edu-paid-in-full-checks-hi`, now VERIFIED (HRS § 490:3-311; HRS § 490:1-308(b)); `edu-good-faith-obligation-hi`, now VERIFIED (HRS § 521-10).
+
+## Topic-coverage pass (Claude Code, 2026-11-21)
+
+Taylor's decision 2026-11-21: a per-jurisdiction count found that topics added by later-researched jurisdictions had been back-filled only in the 37 early states, so this jurisdiction had no row for 8 topic keys. Each was answered from official text in Taylor's Chrome through Claude in Chrome (the official site blocks the shell); every quotation was machine-checked against the saved page (`~/topic-coverage-2026-11-21/pages/HI/`), and the search record and quotes are in each row's notes. A new guard, `check-topic-coverage.py`, now fails any jurisdiction short of the full topic list.
+
+- `communal-land-lease-approval`: Present. Row `edu-communal-land-lease-approval-hi` (VERIFIED; Hawaiian Homes Commission Act, 1920, §§ 207(a)-(b), 208(5)).
+- `lease-registration`: Present. Row `edu-lease-registration-hi` (VERIFIED; HRS § 502-83).
+- `special-district-representation`: Present. Row `edu-special-district-charges-hi` (VERIFIED; HRS § 46-80.1(a)-(c)).
+- `student-housing`: Present. Row `edu-student-housing-hi` (VERIFIED; HRS § 521-7(2)).
+- `farmland-hunting-rights`: Present. Row `edu-farmland-hunting-rights-hi` (VERIFIED; HRS § 183D-26).
+- `limitation-of-actions`: Present. Row `edu-limitation-of-actions-hi` (VERIFIED; HRS §§ 657-1(1), 657-7).
+- `trespass-notice`: Present. Row `edu-trespass-notice-hi` (VERIFIED; HRS §§ 708-800, 708-813, 708-815).
+- `usufructuary-lessor`: Confirmed absent. Row `edu-no-usufructuary-lessor-hi` (VERIFIED; Absence: HRS ch. 521).
