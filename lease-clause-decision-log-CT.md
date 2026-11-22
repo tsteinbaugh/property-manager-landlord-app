@@ -931,3 +931,10 @@ Taylor's decision 2026-11-21: a per-jurisdiction count found that topics added b
 ### Declined option, 2026-11-21 (Taylor's decision)
 
 - `edu-no-subordination-clause` tagged here and in every jurisdiction: the library offers no clause subordinating the lease to a mortgage (rule 54 row); the tenant's foreclosure protection is the federal PTFA (`edu-ptfa-foreclosure-tenants`).
+
+## Small reads (Claude Code, 2026-11-21)
+
+Taylor asked for the backlog's small research items. Read in Taylor's Chrome on eregulations.ct.gov (the shell is refused); passages saved in `~/small-reads-2026-11-21/CT/`.
+
+- **Lead regulations** (Regs. Conn. State Agencies §§ 19a-111-1 to 19a-111-8, 19a-111-11): no certificate, registration or lease-time notice, so both absence rows stand. They add duties triggered by an inspection report: a posted notice on affected entrances within two days, and the report summaries and lead information to residents (§ 19a-111-3(e)). They also bar avoiding abatement by evicting a family with a child (§ 19a-111-2(a)). `edu-no-lead-safe-certification-ct` and `edu-no-state-lead-lease-notice-ct` updated.
+- **Commission on Human Rights and Opportunities regulations** (§§ 46a-54-1 to 46a-54-207): the only posting rules are for employers (§§ 46a-54-201 to -204). `edu-no-rights-responsibilities-guide-ct` updated.

@@ -389,6 +389,10 @@ All six v1 MVP modules are built (tagged `v1.0.0`), along with v2 Property Specs
 - Subordination clause declined; `edu-no-subordination-clause` added in all 56 jurisdictions (topic 370, `lease-subordination`), pointing to the PTFA row.
 - generate.py: 2216 clauses, 17820 education rows; all guards pass; 446 tests pass.
 
+### 2026-11-21: Small research items (Claude Code, Taylor)
+
+- CO SB25-276 read: no change to `edu-immigration-status-co`. In Taylor's Chrome: MA Uniform Summary Process and Small Claims Rules, Mass. R. Civ. P. 4, the fire code and accessibility code editions; CT lead regulations and CHRO regulations. Seven MA and CT rows updated (MA and CT logs). The two PR laws stay unread (the OGP library refuses connections from Chrome too).
+
 ### 2026-11-21: Territory-watch follow-ups fixed (Claude Code, Taylor: fix them)
 
 - **American Samoa:** the official A.S.A.C. 2024 Edition (osas.as) replaced the Bar Association's copy as the source. Title 12 Chapters 2-3, the Power Authority's electric and water rules, had been repealed and replaced by Rule 2-2015, which the Bar copy never picked up. § 2.0202 (registry fees, now $50 for a lease) had been replaced by Rule 2018-0050. 77 AS rows were re-read by three research agents: 38 bodies and 72 citation lines changed, and Claude Code machine-checked all 474 quotes. The main change: the landlord must co-sign the tenant's utility account and is liable for its past-due bills. The AS log's "ASAC 2024 coming soon" line was corrected. New optional clause `utility-cosigner-reimbursement-as` (Taylor's decision): the tenant keeps co-signed Power Authority accounts current and repays the landlord's co-signer payments, with no landlord fee.

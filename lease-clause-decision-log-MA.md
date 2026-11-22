@@ -912,3 +912,10 @@ Taylor's decision 2026-11-21: a per-jurisdiction count found that topics added b
 ### Declined option, 2026-11-21 (Taylor's decision)
 
 - `edu-no-subordination-clause` tagged here and in every jurisdiction: the library offers no clause subordinating the lease to a mortgage (rule 54 row); the tenant's foreclosure protection is the federal PTFA (`edu-ptfa-foreclosure-tenants`).
+
+## Small reads (Claude Code, 2026-11-21)
+
+Taylor asked for the backlog's small research items. Read in Taylor's Chrome (mass.gov blocks the shell); passages saved in `~/small-reads-2026-11-21/MA/`.
+
+- **Court rules:** all 13 Uniform Summary Process Rules and the Uniform Small Claims Rules. Neither says who may appear for an LLC or corporation (Small Claims Rule 7(b) lets non-lawyers assist a party), so `edu-entity-landlord-representation-ma` keeps the attorney course on a case-law basis. Service follows Summary Process Rule 2(b) and Mass. R. Civ. P. 4(c), (d)(1), which allow delivery to an agent authorized by appointment; whether a lease term is such an appointment is a case-law question, so `edu-eviction-service-party-ma` now states the service rules and still offers no clause.
+- **Code editions:** 527 CMR 1.00 is based on the 2021 edition of NFPA 1 (in effect since December 9, 2022), and 521 CMR is the Board's 2006 edition, which adopts no outside model code. `edu-frozen-standard-incorporation-ma` and `edu-applicable-codes-ma` updated.
