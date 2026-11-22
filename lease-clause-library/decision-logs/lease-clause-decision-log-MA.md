@@ -919,3 +919,7 @@ Taylor asked for the backlog's small research items. Read in Taylor's Chrome (ma
 
 - **Court rules:** all 13 Uniform Summary Process Rules and the Uniform Small Claims Rules. Neither says who may appear for an LLC or corporation (Small Claims Rule 7(b) lets non-lawyers assist a party), so `edu-entity-landlord-representation-ma` keeps the attorney course on a case-law basis. Service follows Summary Process Rule 2(b) and Mass. R. Civ. P. 4(c), (d)(1), which allow delivery to an agent authorized by appointment; whether a lease term is such an appointment is a case-law question, so `edu-eviction-service-party-ma` now states the service rules and still offers no clause.
 - **Code editions:** 527 CMR 1.00 is based on the 2021 edition of NFPA 1 (in effect since December 9, 2022), and 521 CMR is the Board's 2006 edition, which adopts no outside model code. `edu-frozen-standard-incorporation-ma` and `edu-applicable-codes-ma` updated.
+
+## Lead-paint applicability (Claude Code, 2026-11-21)
+
+Uniform federal label correction (rule 62): the shared `lead-based-paint` is now CONDITIONAL/REQUIRED (it was REQUIRED), since the federal disclosure applies only to housing built before 1978; no text changed. The app now adds it automatically, locked, when the property was built before 1978 or its year built isn't entered, and leaves it off for 1978 or later (Taylor's decision 2026-11-21).

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useApi } from "../hooks/useApi";
 import BackLink from "../components/BackLink";
+import { sortJurisdictions, sortClausesForDisplay } from "../lib/jurisdictions";
 
 // states is edited as a single comma-separated text field ("CO, NY, TX") and parsed into an
 // array on submit — simpler UI than a multi-select for what's usually 0-1 states, still
@@ -34,8 +35,14 @@ const AVAILABLE_VARIABLES = [
   ["state", "Property's state"],
 ];
 
-function groupByGroup(items, groups) {
-  return groups.map((group) => ({ group, items: items.filter((i) => i.group === group) })).filter((g) => g.items.length > 0);
+// "All states" is for troubleshooting only: it shows in local development and
+// never in a production build (Taylor, 2026-11-21).
+const SHOW_ALL_STATES = import.meta.env.DEV;
+
+function groupByGroup(items, groups, allTemplates) {
+  return groups
+    .map((group) => ({ group, items: sortClausesForDisplay(items.filter((i) => i.group === group), allTemplates) }))
+    .filter((g) => g.items.length > 0);
 }
 
 function VariableHint() {
@@ -56,6 +63,35 @@ function VariableHint() {
   );
 }
 
+// Whether the law requires a provided clause, or it's recommended or optional
+// (generate.py derives it). A clause that applies only in some situations has
+// no tag yet; the applicability work will give it the tag it has once it applies.
+const TAG_STYLES = {
+  REQUIRED: ["Required", "bg-rose-100 text-rose-700"],
+  RECOMMENDED: ["Recommended", "bg-emerald-100 text-emerald-700"],
+  OPTIONAL: ["Optional", "bg-stone-200 text-stone-700"],
+};
+function ClauseTag({ tag }) {
+  if (!TAG_STYLES[tag]) return null;
+  const [label, style] = TAG_STYLES[tag];
+  return <span className={`ml-2 rounded-full px-2 py-0.5 text-xs font-medium ${style}`}>{label}</span>;
+}
+
+// A clause's state tags on their own line, wrapping, so a clause shared by many
+// states doesn't push the card off the screen. Shown only in the "All states" view.
+function StateTags({ states }) {
+  if (!states?.length) return null;
+  return (
+    <div className="mt-2 flex flex-wrap gap-1">
+      {sortJurisdictions(states).map((s) => (
+        <span key={s} className="rounded-full bg-sky-100 px-2 py-0.5 text-xs font-medium text-sky-700">
+          {s}
+        </span>
+      ))}
+    </div>
+  );
+}
+
 export default function ClauseLibraryPage() {
   const api = useApi();
   const [clauses, setClauses] = useState([]);
@@ -68,19 +104,24 @@ export default function ClauseLibraryPage() {
   const [form, setForm] = useState(EMPTY_FORM);
   const [editingId, setEditingId] = useState(null);
   const [submitting, setSubmitting] = useState(false);
-  const [stateFilter, setStateFilter] = useState(ALL_STATES);
+  const [stateFilter, setStateFilter] = useState(null);
+  const [propertyStates, setPropertyStates] = useState([]);
 
   async function load() {
     setLoading(true);
     try {
-      const [clauseData, templateData, groupData] = await Promise.all([
+      const [clauseData, templateData, groupData, propertyData] = await Promise.all([
         api.get("/api/clauses"),
         api.get("/api/clause-templates"),
         api.get("/api/clause-groups"),
+        api.get("/api/properties"),
       ]);
       setClauses(clauseData);
       setTemplates(templateData);
       setGroups(groupData);
+      const states = sortJurisdictions(new Set(propertyData.map((p) => p.state).filter(Boolean)));
+      setPropertyStates(states);
+      setStateFilter((current) => current ?? states[0] ?? (SHOW_ALL_STATES ? ALL_STATES : null));
       setError(null);
     } catch (err) {
       setError(err.message);
@@ -118,9 +159,11 @@ export default function ClauseLibraryPage() {
     setFormOpen(true);
   }
 
-  // Derived from whatever's actually tagged, rather than a fixed 50-state list — most of that
-  // list would be empty in practice, and any new state tag just shows up here automatically.
-  const availableStates = [...new Set([...clauses, ...templates].flatMap((c) => c.states || []))].sort();
+  // Only the states the landlord's own properties are in (Taylor, 2026-11-21). In development,
+  // "All states" and every tagged state are available too, for troubleshooting.
+  const availableStates = SHOW_ALL_STATES
+    ? sortJurisdictions(new Set([...propertyStates, ...[...clauses, ...templates].flatMap((c) => c.states || [])]))
+    : propertyStates;
 
   // `treatBlankAsUniversal` defaults to true for a landlord's own personal clauses — they wrote
   // the text themselves, so a never-tagged clause still means "applies everywhere I use it."
@@ -214,9 +257,10 @@ export default function ClauseLibraryPage() {
       <div>
         <h1 className="text-2xl text-stone-900">Clause Library</h1>
         <p className="text-sm text-stone-500">
-          Provided clauses are locked starting points — copy one to customize it. Your own clauses are fully
-          editable. Either kind attaches directly to a lease from the Lease Builder, or check "Include by
-          default" so it's added automatically whenever you click "Add my default clauses" on a lease.
+          You can't change the wording of a provided clause, but you can copy it and edit your copy. Your own
+          clauses are fully editable. Either kind can be attached to a lease from the Lease Builder, or check "Include by default"
+          to have it added whenever you click "Add my default clauses" on a lease. To write your own clause from
+          scratch, click "Add clause".
         </p>
       </div>
 
@@ -234,22 +278,31 @@ export default function ClauseLibraryPage() {
         <label className="flex items-center gap-2 text-sm">
           <span className="font-medium text-stone-700">State</span>
           <select
-            value={stateFilter}
+            value={stateFilter ?? ""}
             onChange={(e) => setStateFilter(e.target.value)}
             className="rounded-lg border border-stone-300 px-2 py-1.5 text-sm focus:border-emerald-600 focus:outline-none"
           >
-            <option value={ALL_STATES}>All states</option>
-            {availableStates.map((s) => (
+            {propertyStates.map((s) => (
               <option key={s} value={s}>
                 {s}
               </option>
             ))}
+            {SHOW_ALL_STATES && <option value={ALL_STATES}>All states (development only)</option>}
+            {SHOW_ALL_STATES &&
+              availableStates
+                .filter((s) => !propertyStates.includes(s))
+                .map((s) => (
+                  <option key={s} value={s}>
+                    {s} (development only)
+                  </option>
+                ))}
           </select>
         </label>
       </div>
-      {stateFilter !== ALL_STATES && (
-        <p className="text-xs text-stone-500">
-          Showing clauses tagged {stateFilter} plus every clause that applies to all states.
+
+      {availableStates.length === 0 && (
+        <p className="text-sm text-amber-700">
+          Provided clauses are listed by state. Add a property with its state to see the ones for it.
         </p>
       )}
 
@@ -338,7 +391,7 @@ export default function ClauseLibraryPage() {
           </p>
         ) : (
           <div className="space-y-4">
-            {groupByGroup(clauses.filter(matchesStateFilter), groups).map(({ group, items }) => (
+            {groupByGroup(clauses.filter(matchesStateFilter), groups, templates).map(({ group, items }) => (
               <div key={group} className="space-y-2">
                 <h3 className="text-xs font-semibold uppercase tracking-wide text-stone-400">{group}</h3>
                 {items.map((clause) => (
@@ -346,11 +399,6 @@ export default function ClauseLibraryPage() {
                     <div className="flex items-start justify-between gap-2">
                       <p className="text-sm font-medium text-stone-900">
                         {clause.title}
-                        {clause.states?.map((s) => (
-                          <span key={s} className="ml-2 rounded-full bg-sky-100 px-2 py-0.5 text-xs font-medium text-sky-700">
-                            {s}
-                          </span>
-                        ))}
                       </p>
                       <div className="flex shrink-0 items-center gap-3 text-sm">
                         <label className="flex items-center gap-1.5 text-xs text-stone-600">
@@ -370,6 +418,7 @@ export default function ClauseLibraryPage() {
                         </button>
                       </div>
                     </div>
+                    {stateFilter === ALL_STATES && <StateTags states={clause.states} />}
                     <p className="mt-1 whitespace-pre-wrap text-sm text-stone-600">{clause.bodyText}</p>
                   </div>
                 ))}
@@ -386,7 +435,7 @@ export default function ClauseLibraryPage() {
           state.
         </p>
         <div className="space-y-4">
-          {groupByGroup(visibleTemplates(), groups).map(({ group, items }) => (
+          {groupByGroup(visibleTemplates(), groups, templates).map(({ group, items }) => (
             <div key={group} className="space-y-2">
               <h3 className="text-xs font-semibold uppercase tracking-wide text-stone-400">{group}</h3>
               {items.map((template) => (
@@ -394,19 +443,19 @@ export default function ClauseLibraryPage() {
                   <div className="flex items-start justify-between gap-2">
                     <p className="text-sm font-medium text-stone-900">
                       {template.title}
-                      {template.states?.map((s) => (
-                        <span key={s} className="ml-2 rounded-full bg-sky-100 px-2 py-0.5 text-xs font-medium text-sky-700">
-                          {s}
-                        </span>
-                      ))}
+                      <ClauseTag tag={template.tag} />
                     </p>
                     <div className="flex shrink-0 items-center gap-3 text-sm">
-                      <label className="flex items-center gap-1.5 text-xs text-stone-600">
+                      <label
+                        className={`flex items-center gap-1.5 text-xs ${template.autoDefault ? "text-stone-400" : "text-stone-600"}`}
+                        title={template.autoDefaultNote || undefined}
+                      >
                         <input
                           type="checkbox"
                           checked={template.isDefault}
+                          disabled={template.autoDefault}
                           onChange={() => toggleTemplateDefault(template)}
-                          className="h-4 w-4 rounded border-stone-300"
+                          className="h-4 w-4 rounded border-stone-300 disabled:opacity-50"
                         />
                         Include by default
                       </label>
@@ -415,6 +464,7 @@ export default function ClauseLibraryPage() {
                       </button>
                     </div>
                   </div>
+                  {stateFilter === ALL_STATES && <StateTags states={template.states} />}
                   {template.choiceGroup && (
                     <p className="mt-1 text-xs text-amber-700">
                       Use only one of:{" "}

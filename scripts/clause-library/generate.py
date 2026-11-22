@@ -25,6 +25,20 @@ def q(s): return json.dumps(s,ensure_ascii=False)
 def states(r): return [s.strip() for s in re.split(r'[;,]',r['states']) if s.strip()]
 def rt(r): return [x.strip() for x in re.split(r'[/;]',r['rule_type']) if x.strip()]
 def arr(a): return "["+", ".join(q(x) for x in a)+"]"
+# The tag a landlord sees on a provided clause (Taylor, 2026-11-21): REQUIRED,
+# RECOMMENDED or OPTIONAL, derived from rule_type. A clause that applies only in
+# some situations (CONDITIONAL) gets the tag it has once it applies; rule_type
+# says that only for "conditional/required" and "conditional/recommended", so
+# the other conditional clauses get no tag until the applicability work records
+# one (backlog). Pure PROHIBITED rows are ordinary prohibited-acts terms.
+def tag(r):
+    t=set(rt(r))
+    if 'CONDITIONAL' in t:
+        return 'REQUIRED' if 'REQUIRED' in t else 'RECOMMENDED' if 'RECOMMENDED' in t else None
+    if 'REQUIRED' in t: return 'REQUIRED'
+    if 'RECOMMENDED' in t or t=={'PROHIBITED'}: return 'RECOMMENDED'
+    if 'CONSTRAINED' in t: return 'OPTIONAL'
+    return None
 act=[r for r in rows if r['is_active']=='TRUE']
 lc=[r for r in act if r['content_type']=='LEASE_CLAUSE']
 ed=[r for r in act if r['content_type']=='LANDLORD_EDUCATION']
@@ -38,6 +52,12 @@ for r in lc:
     g=REMAP.get(r['group'],r['group']); assert g in GROUPS,(r['id'],g)
     if g!=prev: out.append(f"  // {g}"); prev=g
     e=["  {",f"    id: {q(r['id'])},",f"    title: {q(r['title'])},",f"    group: {q(g)},",f"    states: {arr(states(r))},"]
+    if tag(r): e.append(f"    tag: {q(tag(r))},")
+    # Always required (not conditional, not one of pick-one alternatives, and
+    # verified for at least one state): the
+    # app always includes it by default, and the landlord can't untick it.
+    if tag(r)=='REQUIRED' and 'CONDITIONAL' not in rt(r) and not r['choice_group'] and states(r):
+        e.append("    alwaysDefault: true,")
     if r['supersedes']: e.append(f"    supersedes: {q(r['supersedes'])},")
     if r['choice_group']:
         e.append(f"    choiceGroup: {q(r['choice_group'])},"); e.append(f"    choiceGroupDefault: {'true' if r['is_default']=='TRUE' else 'false'},")

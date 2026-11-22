@@ -30900,7 +30900,7 @@ const LANDLORD_EDUCATION = [
   // Default & Termination
   {
     id: "edu-tenant-caused-damage-ut",
-    title: "Damage Caused by Tenant (Utah)",
+    title: "Damage Caused by Tenant",
     group: "Default & Termination",
     states: ["UT"],
     ruleTypes: ["RECOMMENDED"],
@@ -71255,7 +71255,7 @@ const LANDLORD_EDUCATION = [
   // Tenant Responsibilities
   {
     id: "edu-no-snow-removal-hi",
-    title: "Snow and Ice Removal (Hawaii)",
+    title: "Snow and Ice Removal",
     group: "Tenant Responsibilities",
     states: ["HI"],
     ruleTypes: ["RECOMMENDED"],
@@ -71268,7 +71268,7 @@ const LANDLORD_EDUCATION = [
   // Disclosures
   {
     id: "edu-lease-option-disclosure-hi",
-    title: "Lease with an Option to Buy: Seller Disclosure (Hawaii)",
+    title: "Lease with an Option to Buy: Seller Disclosure",
     group: "Disclosures",
     states: ["HI"],
     ruleTypes: ["CONDITIONAL"],
@@ -98849,7 +98849,7 @@ const LANDLORD_EDUCATION = [
   // Default & Termination
   {
     id: "edu-owner-move-in-gu",
-    title: "Ending a Lease Early to Move In (Guam)",
+    title: "Ending a Lease Early to Move In",
     group: "Default & Termination",
     states: ["GU"],
     ruleTypes: ["RECOMMENDED"],
@@ -98924,7 +98924,7 @@ const LANDLORD_EDUCATION = [
   // Other / Miscellaneous
   {
     id: "edu-rental-application-accuracy-gu",
-    title: "False Information in a Rental Application (Guam)",
+    title: "False Information in a Rental Application",
     group: "Other / Miscellaneous",
     states: ["GU"],
     ruleTypes: ["RECOMMENDED"],
@@ -98937,7 +98937,7 @@ const LANDLORD_EDUCATION = [
   // Landlord Responsibilities
   {
     id: "edu-no-repair-cost-termination-gu",
-    title: "No Termination Because Repairs Cost Too Much (Guam)",
+    title: "No Termination Because Repairs Cost Too Much",
     group: "Landlord Responsibilities",
     states: ["GU"],
     ruleTypes: ["PROHIBITED"],
@@ -99038,7 +99038,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-tenant-bankruptcy-gu",
-    title: "When a Tenant Files for Bankruptcy (Guam)",
+    title: "When a Tenant Files for Bankruptcy",
     group: "Default & Termination",
     states: ["GU"],
     ruleTypes: ["RECOMMENDED"],
@@ -99050,7 +99050,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-tenant-death-gu",
-    title: "When a Tenant Dies (Guam)",
+    title: "When a Tenant Dies",
     group: "Default & Termination",
     states: ["GU"],
     ruleTypes: ["RECOMMENDED"],
@@ -99223,7 +99223,7 @@ const LANDLORD_EDUCATION = [
   // Notices & General
   {
     id: "edu-lease-copy-gu",
-    title: "Giving the Tenant a Copy of the Lease (Guam)",
+    title: "Giving the Tenant a Copy of the Lease",
     group: "Notices & General",
     states: ["GU"],
     ruleTypes: ["RECOMMENDED"],
@@ -101755,7 +101755,7 @@ const LANDLORD_EDUCATION = [
   // Tenant Responsibilities
   {
     id: "edu-no-alterations-rule-vi",
-    title: "Tenant alterations (Virgin Islands)",
+    title: "Tenant alterations",
     group: "Tenant Responsibilities",
     states: ["VI"],
     ruleTypes: ["CONSTRAINED"],
@@ -101767,7 +101767,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-bed-bug-rule-vi",
-    title: "Bed bugs and pests (Virgin Islands)",
+    title: "Bed bugs and pests",
     group: "Tenant Responsibilities",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -101779,7 +101779,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-carpet-cleaning-rule-vi",
-    title: "Carpet cleaning at move-out (Virgin Islands)",
+    title: "Carpet cleaning at move-out",
     group: "Tenant Responsibilities",
     states: ["VI"],
     ruleTypes: ["CONSTRAINED"],
@@ -101791,7 +101791,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-cold-weather-vacate-notice-na-vi",
-    title: "Cold-weather vacate notice (Virgin Islands)",
+    title: "Cold-weather vacate notice",
     group: "Tenant Responsibilities",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -101803,7 +101803,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-existing-condition-rule-vi",
-    title: "Move-in condition (Virgin Islands)",
+    title: "Move-in condition",
     group: "Tenant Responsibilities",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -101815,7 +101815,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-extended-absence-notice-vi",
-    title: "Tenant absence (Virgin Islands)",
+    title: "Tenant absence",
     group: "Tenant Responsibilities",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -101827,7 +101827,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-joint-liability-rule-vi",
-    title: "Co-tenant liability (Virgin Islands)",
+    title: "Co-tenant liability",
     group: "Tenant Responsibilities",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -101839,7 +101839,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-landscaping-irrigation-rule-vi",
-    title: "Yard and irrigation (Virgin Islands)",
+    title: "Yard and irrigation",
     group: "Tenant Responsibilities",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -101851,7 +101851,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-permitted-occupants-vi",
-    title: "Occupancy limits (Virgin Islands)",
+    title: "Occupancy limits",
     group: "Tenant Responsibilities",
     states: ["VI"],
     ruleTypes: ["CONSTRAINED"],
@@ -101875,7 +101875,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-tenant-maintenance-vi",
-    title: "Tenant upkeep duties (Virgin Islands)",
+    title: "Tenant upkeep duties",
     group: "Tenant Responsibilities",
     states: ["VI"],
     ruleTypes: ["CONSTRAINED"],
@@ -101887,7 +101887,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-prohibited-acts-renter-vi",
-    title: "Acts the law forbids tenants (Virgin Islands)",
+    title: "Acts the law forbids tenants",
     group: "Tenant Responsibilities",
     states: ["VI"],
     ruleTypes: ["CONSTRAINED"],
@@ -101899,7 +101899,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-tenant-repair-agreement-vi",
-    title: "Shifting repairs to the tenant (Virgin Islands)",
+    title: "Shifting repairs to the tenant",
     group: "Tenant Responsibilities",
     states: ["VI"],
     ruleTypes: ["CONSTRAINED"],
@@ -101911,7 +101911,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-residential-use-remedy-vi",
-    title: "Residential-use covenant (Virgin Islands)",
+    title: "Residential-use covenant",
     group: "Tenant Responsibilities",
     states: ["VI"],
     ruleTypes: ["CONSTRAINED"],
@@ -101923,7 +101923,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-sublet-assign-rule-vi",
-    title: "Subletting and assignment (Virgin Islands)",
+    title: "Subletting and assignment",
     group: "Tenant Responsibilities",
     states: ["VI"],
     ruleTypes: ["CONSTRAINED"],
@@ -101935,7 +101935,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-tenant-forward-proceedings-vi",
-    title: "Tenant forwarding legal papers (Virgin Islands)",
+    title: "Tenant forwarding legal papers",
     group: "Tenant Responsibilities",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -101947,7 +101947,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-tenant-insurance-claims-vi",
-    title: "Tenant insurance claims (Virgin Islands)",
+    title: "Tenant insurance claims",
     group: "Tenant Responsibilities",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -101959,7 +101959,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-utilities-responsibility-vi",
-    title: "Utilities and tenants (Virgin Islands)",
+    title: "Utilities and tenants",
     group: "Tenant Responsibilities",
     states: ["VI"],
     ruleTypes: ["CONSTRAINED"],
@@ -101971,7 +101971,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-utility-meter-vi",
-    title: "Meters and utility charges (Virgin Islands)",
+    title: "Meters and utility charges",
     group: "Tenant Responsibilities",
     states: ["VI"],
     ruleTypes: ["CONSTRAINED"],
@@ -101983,7 +101983,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-utility-payment-evidence-rule-vi",
-    title: "Proof of utility payment (Virgin Islands)",
+    title: "Proof of utility payment",
     group: "Tenant Responsibilities",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -101995,7 +101995,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-utility-service-continuity-rule-vi",
-    title: "Keeping utilities on (Virgin Islands)",
+    title: "Keeping utilities on",
     group: "Tenant Responsibilities",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -102007,7 +102007,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-smoking-policy-vi",
-    title: "Smoking rules in rentals (Virgin Islands)",
+    title: "Smoking rules in rentals",
     group: "Tenant Responsibilities",
     states: ["VI"],
     ruleTypes: ["CONSTRAINED"],
@@ -102020,7 +102020,7 @@ const LANDLORD_EDUCATION = [
   // Access & Entry
   {
     id: "edu-landlord-entry-vi",
-    title: "Landlord entry (Virgin Islands)",
+    title: "Landlord entry",
     group: "Access & Entry",
     states: ["VI"],
     ruleTypes: ["CONSTRAINED"],
@@ -102032,7 +102032,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-inspection-rights-rule-vi",
-    title: "Periodic inspections (Virgin Islands)",
+    title: "Periodic inspections",
     group: "Access & Entry",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -102044,7 +102044,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-periodic-services-entry-rule-vi",
-    title: "Entry for scheduled services (Virgin Islands)",
+    title: "Entry for scheduled services",
     group: "Access & Entry",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -102056,7 +102056,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-showing-notice-waiver-rule-vi",
-    title: "Showing the home (Virgin Islands)",
+    title: "Showing the home",
     group: "Access & Entry",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -102068,7 +102068,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-smart-access-law-vi",
-    title: "Smart locks and app entry (Virgin Islands)",
+    title: "Smart locks and app entry",
     group: "Access & Entry",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -102080,7 +102080,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-key-control-mandate-vi",
-    title: "Key control (Virgin Islands)",
+    title: "Key control",
     group: "Access & Entry",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -102092,7 +102092,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-dv-lock-change-vi",
-    title: "Lock changes for abuse victims (Virgin Islands)",
+    title: "Lock changes for abuse victims",
     group: "Access & Entry",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -102105,7 +102105,7 @@ const LANDLORD_EDUCATION = [
   // Pets
   {
     id: "edu-assistance-animals-vi",
-    title: "Assistance animals (Virgin Islands)",
+    title: "Assistance animals",
     group: "Pets",
     states: ["VI"],
     ruleTypes: ["REQUIRED"],
@@ -102117,7 +102117,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-service-animal-denial-penalty-vi",
-    title: "Penalty for refusing a dog guide (Virgin Islands)",
+    title: "Penalty for refusing a dog guide",
     group: "Pets",
     states: ["VI"],
     ruleTypes: ["PROHIBITED"],
@@ -102129,7 +102129,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-service-animal-misrepresentation-vi",
-    title: "Fake service animals (Virgin Islands)",
+    title: "Fake service animals",
     group: "Pets",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -102141,7 +102141,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-pet-eviction-fact-sheet-vi",
-    title: "Pet fact sheet (Virgin Islands)",
+    title: "Pet fact sheet",
     group: "Pets",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -102153,7 +102153,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-pet-fee-rule-vi",
-    title: "Pet deposits and pet rent (Virgin Islands)",
+    title: "Pet deposits and pet rent",
     group: "Pets",
     states: ["VI"],
     ruleTypes: ["CONSTRAINED"],
@@ -102165,7 +102165,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-pet-insurance-rule-vi",
-    title: "Pet liability insurance (Virgin Islands)",
+    title: "Pet liability insurance",
     group: "Pets",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -102178,7 +102178,7 @@ const LANDLORD_EDUCATION = [
   // Parking & Storage
   {
     id: "edu-towing-vi",
-    title: "Towing and abandoned vehicles (Virgin Islands)",
+    title: "Towing and abandoned vehicles",
     group: "Parking & Storage",
     states: ["VI"],
     ruleTypes: ["CONSTRAINED"],
@@ -102190,7 +102190,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-parking-vehicle-rules-vi",
-    title: "Vehicle rules (Virgin Islands)",
+    title: "Vehicle rules",
     group: "Parking & Storage",
     states: ["VI"],
     ruleTypes: ["CONSTRAINED"],
@@ -102202,7 +102202,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-parking-statute-vi",
-    title: "Parking terms (Virgin Islands)",
+    title: "Parking terms",
     group: "Parking & Storage",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -102214,7 +102214,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-assigned-parking-rule-vi",
-    title: "Assigned parking (Virgin Islands)",
+    title: "Assigned parking",
     group: "Parking & Storage",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -102226,7 +102226,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-parking-rules-notice-vi",
-    title: "Parking rules notice (Virgin Islands)",
+    title: "Parking rules notice",
     group: "Parking & Storage",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -102238,7 +102238,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-unbundled-parking-rule-vi",
-    title: "Unbundled parking (Virgin Islands)",
+    title: "Unbundled parking",
     group: "Parking & Storage",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -102250,7 +102250,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-self-storage-act-vi",
-    title: "Storage space (Virgin Islands)",
+    title: "Storage space",
     group: "Parking & Storage",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -102262,7 +102262,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-ev-charging-right-vi",
-    title: "EV charging right (Virgin Islands)",
+    title: "EV charging right",
     group: "Parking & Storage",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -102274,7 +102274,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-ev-charging-requirements-vi",
-    title: "EV charger installation terms (Virgin Islands)",
+    title: "EV charger installation terms",
     group: "Parking & Storage",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -102286,7 +102286,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-ev-charging-end-of-tenancy-vi",
-    title: "EV charger at move-out (Virgin Islands)",
+    title: "EV charger at move-out",
     group: "Parking & Storage",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -102298,7 +102298,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-ev-charging-shared-area-vi",
-    title: "EV charging in shared areas (Virgin Islands)",
+    title: "EV charging in shared areas",
     group: "Parking & Storage",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -102311,7 +102311,7 @@ const LANDLORD_EDUCATION = [
   // Tenant Responsibilities
   {
     id: "edu-construction-liens-vi",
-    title: "Contractor liens from tenant work (Virgin Islands)",
+    title: "Contractor liens from tenant work",
     group: "Tenant Responsibilities",
     states: ["VI"],
     ruleTypes: ["CONSTRAINED"],
@@ -102323,7 +102323,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-disturbance-vi",
-    title: "Noise and disturbance (Virgin Islands)",
+    title: "Noise and disturbance",
     group: "Tenant Responsibilities",
     states: ["VI"],
     ruleTypes: ["CONSTRAINED"],
@@ -102335,7 +102335,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-home-business-rule-vi",
-    title: "Home businesses (Virgin Islands)",
+    title: "Home businesses",
     group: "Tenant Responsibilities",
     states: ["VI"],
     ruleTypes: ["CONSTRAINED"],
@@ -102347,7 +102347,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-family-child-care-rule-vi",
-    title: "Child care in a rented home (Virgin Islands)",
+    title: "Child care in a rented home",
     group: "Tenant Responsibilities",
     states: ["VI"],
     ruleTypes: ["CONSTRAINED"],
@@ -102359,7 +102359,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-municipal-utility-lien-vi",
-    title: "Utility liens for tenant bills (Virgin Islands)",
+    title: "Utility liens for tenant bills",
     group: "Tenant Responsibilities",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -102372,7 +102372,7 @@ const LANDLORD_EDUCATION = [
   // Pets
   {
     id: "edu-no-animal-care-entry-right-vi",
-    title: "Caring for a tenant's animal (Virgin Islands)",
+    title: "Caring for a tenant's animal",
     group: "Pets",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -102384,7 +102384,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-pet-policy-vi",
-    title: "Pets in rentals (Virgin Islands)",
+    title: "Pets in rentals",
     group: "Pets",
     states: ["VI"],
     ruleTypes: ["CONSTRAINED"],
@@ -102397,7 +102397,7 @@ const LANDLORD_EDUCATION = [
   // Landlord Responsibilities
   {
     id: "edu-no-habitability-statement-vi",
-    title: "No required habitability statement in the lease (Virgin Islands)",
+    title: "No required habitability statement in the lease",
     group: "Landlord Responsibilities",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -102409,7 +102409,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-health-district-rental-rules-vi",
-    title: "Health rules for rentals (Virgin Islands)",
+    title: "Health rules for rentals",
     group: "Landlord Responsibilities",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -102421,7 +102421,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-heating-na-vi",
-    title: "Heating and cooling (Virgin Islands)",
+    title: "Heating and cooling",
     group: "Landlord Responsibilities",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -102433,7 +102433,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-statutory-tenant-remedies-vi",
-    title: "Tenant's remedies when a landlord breaches (Virgin Islands)",
+    title: "Tenant's remedies when a landlord breaches",
     group: "Landlord Responsibilities",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -102445,7 +102445,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-landlord-maintenance-vi",
-    title: "Landlord's repair and maintenance duties (Virgin Islands)",
+    title: "Landlord's repair and maintenance duties",
     group: "Landlord Responsibilities",
     states: ["VI"],
     ruleTypes: ["REQUIRED"],
@@ -102457,7 +102457,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-maintenance-duty-shift-vi",
-    title: "Shifting maintenance duties to the tenant (Virgin Islands)",
+    title: "Shifting maintenance duties to the tenant",
     group: "Landlord Responsibilities",
     states: ["VI"],
     ruleTypes: ["CONSTRAINED"],
@@ -102469,7 +102469,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-other-landlord-facilities-vi",
-    title: "Facilities you must provide (Virgin Islands)",
+    title: "Facilities you must provide",
     group: "Landlord Responsibilities",
     states: ["VI"],
     ruleTypes: ["REQUIRED"],
@@ -102481,7 +102481,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-promises-to-repair-rule-vi",
-    title: "Promises to repair (Virgin Islands)",
+    title: "Promises to repair",
     group: "Landlord Responsibilities",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -102493,7 +102493,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-quiet-possession-statute-vi",
-    title: "Quiet possession (Virgin Islands)",
+    title: "Quiet possession",
     group: "Landlord Responsibilities",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -102505,7 +102505,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-rent-receipt-anti-waiver-vi",
-    title: "Who keeps the repair duty when rent is collected by someone else (Virgin Islands)",
+    title: "Who keeps the repair duty when rent is collected by someone else",
     group: "Landlord Responsibilities",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -102517,7 +102517,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-rental-inspection-vi",
-    title: "Government inspections of rentals (Virgin Islands)",
+    title: "Government inspections of rentals",
     group: "Landlord Responsibilities",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -102529,7 +102529,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-repair-escrow-exemption-vi",
-    title: "No small-landlord repair-remedy exemption (Virgin Islands)",
+    title: "No small-landlord repair-remedy exemption",
     group: "Landlord Responsibilities",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -102541,7 +102541,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-repair-notice-rule-vi",
-    title: "How tenants give repair notice (Virgin Islands)",
+    title: "How tenants give repair notice",
     group: "Landlord Responsibilities",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -102553,7 +102553,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-security-device-rule-vi",
-    title: "No security-device or re-keying statute (Virgin Islands)",
+    title: "No security-device or re-keying statute",
     group: "Landlord Responsibilities",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -102565,7 +102565,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-senior-housing-work-card-vi",
-    title: "No staff work card for senior housing (Virgin Islands)",
+    title: "No staff work card for senior housing",
     group: "Landlord Responsibilities",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -102577,7 +102577,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-services-utilities-provided-vi",
-    title: "Services and utilities you provide (Virgin Islands)",
+    title: "Services and utilities you provide",
     group: "Landlord Responsibilities",
     states: ["VI"],
     ruleTypes: ["CONSTRAINED"],
@@ -102589,7 +102589,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-stove-refrigerator-rule-vi",
-    title: "No stove or refrigerator requirement (Virgin Islands)",
+    title: "No stove or refrigerator requirement",
     group: "Landlord Responsibilities",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -102601,7 +102601,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-repair-orders-no-receivership-vi",
-    title: "Repair orders for substandard rentals; no receivership (Virgin Islands)",
+    title: "Repair orders for substandard rentals; no receivership",
     group: "Landlord Responsibilities",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -102613,7 +102613,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-telecom-access-vi",
-    title: "Cable television and antennas (Virgin Islands)",
+    title: "Cable television and antennas",
     group: "Landlord Responsibilities",
     states: ["VI"],
     ruleTypes: ["PROHIBITED", "CONSTRAINED"],
@@ -102625,7 +102625,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-tenant-repair-remedies-vi",
-    title: "No statutory tenant repair remedy (Virgin Islands)",
+    title: "No statutory tenant repair remedy",
     group: "Landlord Responsibilities",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -102637,7 +102637,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-utilities-paid-by-landlord-vi",
-    title: "Utilities you pay (Virgin Islands)",
+    title: "Utilities you pay",
     group: "Landlord Responsibilities",
     states: ["VI"],
     ruleTypes: ["CONSTRAINED"],
@@ -102649,7 +102649,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-utility-apportionment-vi",
-    title: "Dividing shared utility bills (Virgin Islands)",
+    title: "Dividing shared utility bills",
     group: "Landlord Responsibilities",
     states: ["VI"],
     ruleTypes: ["PROHIBITED", "CONSTRAINED"],
@@ -102661,7 +102661,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-utility-notice-designee-vi",
-    title: "Utility disconnection notices: the tenant may name you (Virgin Islands)",
+    title: "Utility disconnection notices: the tenant may name you",
     group: "Landlord Responsibilities",
     states: ["VI"],
     ruleTypes: ["CONDITIONAL"],
@@ -102673,7 +102673,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-utility-landlord-account-rule-vi",
-    title: "When you hold the utility account (Virgin Islands)",
+    title: "When you hold the utility account",
     group: "Landlord Responsibilities",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -102685,7 +102685,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-utility-shutoff-rules-vi",
-    title: "Utility shut-off limits (Virgin Islands)",
+    title: "Utility shut-off limits",
     group: "Landlord Responsibilities",
     states: ["VI"],
     ruleTypes: ["PROHIBITED", "CONDITIONAL"],
@@ -102697,7 +102697,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-submetering-disclosure-rule-vi",
-    title: "No utility submetering disclosure rule (Virgin Islands)",
+    title: "No utility submetering disclosure rule",
     group: "Landlord Responsibilities",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -102709,7 +102709,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-utility-transfer-cutoff-vi",
-    title: "No landlord utility cut-off for non-transfer (Virgin Islands)",
+    title: "No landlord utility cut-off for non-transfer",
     group: "Landlord Responsibilities",
     states: ["VI"],
     ruleTypes: ["PROHIBITED", "RECOMMENDED"],
@@ -102721,7 +102721,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-smoke-co-alarm-statute-vi",
-    title: "Smoke and carbon monoxide alarms (Virgin Islands)",
+    title: "Smoke and carbon monoxide alarms",
     group: "Landlord Responsibilities",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -102733,7 +102733,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-alt-housing-duty-vi",
-    title: "Alternate housing during repairs (Virgin Islands)",
+    title: "Alternate housing during repairs",
     group: "Landlord Responsibilities",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -102745,7 +102745,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-appliances-excluded-rule-vi",
-    title: "Appliances you leave but do not supply (Virgin Islands)",
+    title: "Appliances you leave but do not supply",
     group: "Landlord Responsibilities",
     states: ["VI"],
     ruleTypes: ["CONSTRAINED"],
@@ -102757,7 +102757,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-appliances-included-vi",
-    title: "Appliances you supply (Virgin Islands)",
+    title: "Appliances you supply",
     group: "Landlord Responsibilities",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -102769,7 +102769,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-common-area-lighting-vi",
-    title: "Lighting of halls and stairways (Virgin Islands)",
+    title: "Lighting of halls and stairways",
     group: "Landlord Responsibilities",
     states: ["VI"],
     ruleTypes: ["REQUIRED"],
@@ -102781,7 +102781,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-condemned-rent-bar-vi",
-    title: "Rent after a repair, vacate or closing order (Virgin Islands)",
+    title: "Rent after a repair, vacate or closing order",
     group: "Landlord Responsibilities",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -102805,7 +102805,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-designated-repairer-rule-vi",
-    title: "Who makes repairs (Virgin Islands)",
+    title: "Who makes repairs",
     group: "Landlord Responsibilities",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -102817,7 +102817,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-disability-accommodation-vi",
-    title: "Disability: accommodations and modifications (Virgin Islands)",
+    title: "Disability: accommodations and modifications",
     group: "Landlord Responsibilities",
     states: ["VI"],
     ruleTypes: ["PROHIBITED"],
@@ -102829,7 +102829,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-double-letting-rule-vi",
-    title: "Renting part of a room (Virgin Islands)",
+    title: "Renting part of a room",
     group: "Landlord Responsibilities",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -102841,7 +102841,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-employee-screening-rule-vi",
-    title: "Screening staff who enter units (Virgin Islands)",
+    title: "Screening staff who enter units",
     group: "Landlord Responsibilities",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -102853,7 +102853,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-habitability-materiality-rule-vi",
-    title: "How serious a defect must be (Virgin Islands)",
+    title: "How serious a defect must be",
     group: "Landlord Responsibilities",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -102865,7 +102865,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-habitability-waiver-rule-vi",
-    title: "Can a lease change Housing Code duties? (Virgin Islands)",
+    title: "Can a lease change Housing Code duties?",
     group: "Landlord Responsibilities",
     states: ["VI"],
     ruleTypes: ["CONSTRAINED"],
@@ -102877,7 +102877,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-habitability-presumption-vi",
-    title: "No presumption of repair breach (Virgin Islands)",
+    title: "No presumption of repair breach",
     group: "Landlord Responsibilities",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -103611,7 +103611,7 @@ const LANDLORD_EDUCATION = [
   // Disclosures
   {
     id: "edu-no-association-disclosure-vi",
-    title: "Condominium and association documents: no lease disclosure duty (Virgin Islands)",
+    title: "Condominium and association documents: no lease disclosure duty",
     group: "Disclosures",
     states: ["VI"],
     ruleTypes: ["CONDITIONAL", "RECOMMENDED"],
@@ -103623,7 +103623,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-flood-disclosure-vi",
-    title: "Flood zones and past flooding: no disclosure statute (Virgin Islands)",
+    title: "Flood zones and past flooding: no disclosure statute",
     group: "Disclosures",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -103635,7 +103635,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-military-zone-disclosure-vi",
-    title: "Military installations and airport zones: no disclosure statute (Virgin Islands)",
+    title: "Military installations and airport zones: no disclosure statute",
     group: "Disclosures",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -103647,7 +103647,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-ordnance-demolition-meter-disclosure-vi",
-    title: "Former ordnance sites, planned demolition and shared meters: no pre-lease disclosure (Virgin Islands)",
+    title: "Former ordnance sites, planned demolition and shared meters: no pre-lease disclosure",
     group: "Disclosures",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -103659,7 +103659,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-owner-identity-disclosure-vi",
-    title: "Landlord's and manager's identity: no disclosure statute (Virgin Islands)",
+    title: "Landlord's and manager's identity: no disclosure statute",
     group: "Disclosures",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -103671,7 +103671,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-rights-guide-vi",
-    title: "Government tenant rights guide: none required (Virgin Islands)",
+    title: "Government tenant rights guide: none required",
     group: "Disclosures",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -103683,7 +103683,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-tenant-rights-statement-vi",
-    title: "Statement of tenant rights: none required (Virgin Islands)",
+    title: "Statement of tenant rights: none required",
     group: "Disclosures",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -103695,7 +103695,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-truth-in-renting-vi",
-    title: "No truth-in-renting act (Virgin Islands)",
+    title: "No truth-in-renting act",
     group: "Disclosures",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -103707,7 +103707,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-bed-bug-disclosure-vi",
-    title: "Bed bugs: no disclosure statute (Virgin Islands)",
+    title: "Bed bugs: no disclosure statute",
     group: "Disclosures",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -103719,7 +103719,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-mold-disclosure-vi",
-    title: "Mold: no disclosure statute (Virgin Islands)",
+    title: "Mold: no disclosure statute",
     group: "Disclosures",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -103731,7 +103731,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-radon-disclosure-vi",
-    title: "Radon: no disclosure statute (Virgin Islands)",
+    title: "Radon: no disclosure statute",
     group: "Disclosures",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -103743,7 +103743,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-drywall-disclosure-vi",
-    title: "Defective drywall: no disclosure statute (Virgin Islands)",
+    title: "Defective drywall: no disclosure statute",
     group: "Disclosures",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -103755,7 +103755,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-meth-disclosure-vi",
-    title: "Former drug labs: no disclosure or cleanup statute (Virgin Islands)",
+    title: "Former drug labs: no disclosure or cleanup statute",
     group: "Disclosures",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -103767,7 +103767,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-condemnation-disclosure-vi",
-    title: "Outstanding code orders and condemnation: no pre-lease disclosure statute (Virgin Islands)",
+    title: "Outstanding code orders and condemnation: no pre-lease disclosure statute",
     group: "Disclosures",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -103779,7 +103779,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-certificate-of-occupancy-disclosure-vi",
-    title: "Certificate of occupancy: no lease disclosure (Virgin Islands)",
+    title: "Certificate of occupancy: no lease disclosure",
     group: "Disclosures",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -103791,7 +103791,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-code-variance-notice-vi",
-    title: "Housing or building code variances: no tenant notice (Virgin Islands)",
+    title: "Housing or building code variances: no tenant notice",
     group: "Disclosures",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -103803,7 +103803,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-sprinkler-disclosure-vi",
-    title: "Fire sprinklers: no disclosure statute (Virgin Islands)",
+    title: "Fire sprinklers: no disclosure statute",
     group: "Disclosures",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -103815,7 +103815,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-landlord-insurance-mandate-vi",
-    title: "Landlord liability insurance: not required (Virgin Islands)",
+    title: "Landlord liability insurance: not required",
     group: "Disclosures",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -103827,7 +103827,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-electric-submeter-disclosure-vi",
-    title: "Electric submetering: no disclosure regime; utility-status question open (Virgin Islands)",
+    title: "Electric submetering: no disclosure regime; utility-status question open",
     group: "Disclosures",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -103839,7 +103839,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-meter-conservation-charge-vi",
-    title: "Meter conservation charges: none in the territory (Virgin Islands)",
+    title: "Meter conservation charges: none in the territory",
     group: "Disclosures",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -103851,7 +103851,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-utility-disclosure-attachment-vi",
-    title: "Utility billing disclosure attachment: none required (Virgin Islands)",
+    title: "Utility billing disclosure attachment: none required",
     group: "Disclosures",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -103863,7 +103863,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-well-testing-rule-vi",
-    title: "Wells and cisterns: no test-result disclosure (Virgin Islands)",
+    title: "Wells and cisterns: no test-result disclosure",
     group: "Disclosures",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -103875,7 +103875,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-property-tax-rent-statement-vi",
-    title: "Property tax share of rent: no statement required (Virgin Islands)",
+    title: "Property tax share of rent: no statement required",
     group: "Disclosures",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -103887,7 +103887,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-hoa-vi",
-    title: "Condominium associations and rentals (Virgin Islands)",
+    title: "Condominium associations and rentals",
     group: "Disclosures",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -103899,7 +103899,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-hoa-compliance-vi",
-    title: "Tenants and condominium rules (Virgin Islands)",
+    title: "Tenants and condominium rules",
     group: "Disclosures",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -103911,7 +103911,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-lead-based-paint-vi",
-    title: "Lead-based paint: federal rules only (Virgin Islands)",
+    title: "Lead-based paint: federal rules only",
     group: "Disclosures",
     states: ["VI"],
     ruleTypes: ["CONDITIONAL", "REQUIRED"],
@@ -103923,7 +103923,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-lead-safe-certification-vi",
-    title: "Lead-safe certificate: none required (Virgin Islands)",
+    title: "Lead-safe certificate: none required",
     group: "Disclosures",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -103935,7 +103935,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-lead-state-notices-vi",
-    title: "Territorial lead notices: none beyond federal law (Virgin Islands)",
+    title: "Territorial lead notices: none beyond federal law",
     group: "Disclosures",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -103947,7 +103947,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-sex-offender-disclosure-vi",
-    title: "Sex offender registry: no landlord disclosure duty (Virgin Islands)",
+    title: "Sex offender registry: no landlord disclosure duty",
     group: "Disclosures",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -103959,7 +103959,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-stigmatized-property-vi",
-    title: "Deaths, crimes and other stigmas: no disclosure statute (Virgin Islands)",
+    title: "Deaths, crimes and other stigmas: no disclosure statute",
     group: "Disclosures",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -103971,7 +103971,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-good-cause-notice-vi",
-    title: "Notice of eviction-protection coverage: none required (Virgin Islands)",
+    title: "Notice of eviction-protection coverage: none required",
     group: "Disclosures",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -103983,7 +103983,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-tenant-purchase-right-vi",
-    title: "Tenant opportunity to purchase: none (Virgin Islands)",
+    title: "Tenant opportunity to purchase: none",
     group: "Disclosures",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -103995,7 +103995,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-tpa-exemption-notice-vi",
-    title: "Exemption notices for rent caps, just cause or purchase rights: none (Virgin Islands)",
+    title: "Exemption notices for rent caps, just cause or purchase rights: none",
     group: "Disclosures",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -104007,7 +104007,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-student-housing-rule-vi",
-    title: "Student housing: no special regime (Virgin Islands)",
+    title: "Student housing: no special regime",
     group: "Disclosures",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -104019,7 +104019,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-usufructuary-lessor-vi",
-    title: "Leasing when you are not the full owner (Virgin Islands)",
+    title: "Leasing when you are not the full owner",
     group: "Disclosures",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -104031,7 +104031,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-pesticide-notice-vi",
-    title: "Pesticide applications in dwellings: notice to occupants (Virgin Islands)",
+    title: "Pesticide applications in dwellings: notice to occupants",
     group: "Disclosures",
     states: ["VI"],
     ruleTypes: ["CONDITIONAL", "RECOMMENDED"],
@@ -104043,7 +104043,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-sfr-occupancy-disclosure-vi",
-    title: "Single-family occupancy notice and lease font rules (Virgin Islands)",
+    title: "Single-family occupancy notice and lease font rules",
     group: "Disclosures",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -104055,7 +104055,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-special-district-statement-vi",
-    title: "Special districts: no lease statement (Virgin Islands)",
+    title: "Special districts: no lease statement",
     group: "Disclosures",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -104079,7 +104079,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-foreclosure-disclosure-vi",
-    title: "Pending foreclosure: no disclosure statute (Virgin Islands)",
+    title: "Pending foreclosure: no disclosure statute",
     group: "Disclosures",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -104091,7 +104091,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-contamination-disclosure-vi",
-    title: "Contaminated sites and environmental covenants: no lease disclosure (Virgin Islands)",
+    title: "Contaminated sites and environmental covenants: no lease disclosure",
     group: "Disclosures",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -104103,7 +104103,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-chemical-warning-rule-vi",
-    title: "California Proposition 65 warnings: not applicable (Virgin Islands)",
+    title: "California Proposition 65 warnings: not applicable",
     group: "Disclosures",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -104115,7 +104115,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-shoreline-disclosure-vi",
-    title: "Shorelines and public beach access: no lease disclosure (Virgin Islands)",
+    title: "Shorelines and public beach access: no lease disclosure",
     group: "Disclosures",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -104272,7 +104272,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-lease-copy-vi",
-    title: "Giving the Tenant a Copy of the Lease (Virgin Islands)",
+    title: "Giving the Tenant a Copy of the Lease",
     group: "Notices & General",
     states: ["VI"],
     ruleTypes: ["RECOMMENDED"],
@@ -104525,7 +104525,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-disaster-guest-rule-vi",
-    title: "Guests Displaced by a Hurricane or Other Disaster (Virgin Islands)",
+    title: "Guests Displaced by a Hurricane or Other Disaster",
     group: "Rules & Regulations",
     states: ["VI"],
     ruleTypes: ["CONDITIONAL"],
@@ -106068,7 +106068,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-family-child-care-rule-as",
-    title: "Child Care in a Rented Home (American Samoa)",
+    title: "Child Care in a Rented Home",
     group: "Tenant Responsibilities",
     states: ["AS"],
     ruleTypes: ["RECOMMENDED"],
@@ -106321,7 +106321,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-alt-housing-duty-as",
-    title: "Alternate Housing During Repairs (American Samoa)",
+    title: "Alternate Housing During Repairs",
     group: "Landlord Responsibilities",
     states: ["AS"],
     ruleTypes: ["RECOMMENDED"],
@@ -106333,7 +106333,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-appliances-excluded-rule-as",
-    title: "Appliances You Leave but Will Not Maintain (American Samoa)",
+    title: "Appliances You Leave but Will Not Maintain",
     group: "Landlord Responsibilities",
     states: ["AS"],
     ruleTypes: ["RECOMMENDED"],
@@ -106345,7 +106345,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-appliances-included-rule-as",
-    title: "Appliances You Supply (American Samoa)",
+    title: "Appliances You Supply",
     group: "Landlord Responsibilities",
     states: ["AS"],
     ruleTypes: ["RECOMMENDED"],
@@ -106369,7 +106369,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-condemned-rent-bar-as",
-    title: "Rent After a Closing or Unsafe-Building Order (American Samoa)",
+    title: "Rent After a Closing or Unsafe-Building Order",
     group: "Landlord Responsibilities",
     states: ["AS"],
     ruleTypes: ["RECOMMENDED"],
@@ -106393,7 +106393,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-habitability-materiality-rule-as",
-    title: "How Serious a Defect Must Be (American Samoa)",
+    title: "How Serious a Defect Must Be",
     group: "Landlord Responsibilities",
     states: ["AS"],
     ruleTypes: ["RECOMMENDED"],
@@ -106405,7 +106405,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-habitability-waiver-rule-as",
-    title: "Can a Lease Change Repair Duties? (American Samoa)",
+    title: "Can a Lease Change Repair Duties?",
     group: "Landlord Responsibilities",
     states: ["AS"],
     ruleTypes: ["CONSTRAINED"],
@@ -106417,7 +106417,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-habitability-presumption-as",
-    title: "No Presumption of Repair Breach (American Samoa)",
+    title: "No Presumption of Repair Breach",
     group: "Landlord Responsibilities",
     states: ["AS"],
     ruleTypes: ["RECOMMENDED"],
@@ -106429,7 +106429,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-habitability-statement-as",
-    title: "No Required Habitability Statement (American Samoa)",
+    title: "No Required Habitability Statement",
     group: "Landlord Responsibilities",
     states: ["AS"],
     ruleTypes: ["RECOMMENDED"],
@@ -106441,7 +106441,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-landlord-breach-remedy-as",
-    title: "Tenant Remedies When You Breach (American Samoa)",
+    title: "Tenant Remedies When You Breach",
     group: "Landlord Responsibilities",
     states: ["AS"],
     ruleTypes: ["CONSTRAINED"],
@@ -106465,7 +106465,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-designated-repairer-rule-as",
-    title: "Who Makes Repairs (American Samoa)",
+    title: "Who Makes Repairs",
     group: "Landlord Responsibilities",
     states: ["AS"],
     ruleTypes: ["RECOMMENDED"],
@@ -106489,7 +106489,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-double-letting-rule-as",
-    title: "Renting the Same Home or Room Twice (American Samoa)",
+    title: "Renting the Same Home or Room Twice",
     group: "Landlord Responsibilities",
     states: ["AS"],
     ruleTypes: ["RECOMMENDED"],
@@ -106501,7 +106501,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-employee-screening-rule-as",
-    title: "Screening Staff Who Enter Units (American Samoa)",
+    title: "Screening Staff Who Enter Units",
     group: "Landlord Responsibilities",
     states: ["AS"],
     ruleTypes: ["RECOMMENDED"],
@@ -107355,7 +107355,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-owner-move-in-as",
-    title: "Ending a Lease Early to Move In (American Samoa)",
+    title: "Ending a Lease Early to Move In",
     group: "Default & Termination",
     states: ["AS"],
     ruleTypes: ["RECOMMENDED"],
@@ -107439,7 +107439,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-rental-application-accuracy-as",
-    title: "False Information in a Rental Application (American Samoa)",
+    title: "False Information in a Rental Application",
     group: "Default & Termination",
     states: ["AS"],
     ruleTypes: ["RECOMMENDED"],
@@ -107463,7 +107463,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-repair-cost-termination-as",
-    title: "No Termination Because Repairs Cost Too Much (American Samoa)",
+    title: "No Termination Because Repairs Cost Too Much",
     group: "Default & Termination",
     states: ["AS"],
     ruleTypes: ["RECOMMENDED"],
@@ -107571,7 +107571,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-tenant-bankruptcy-rule-as",
-    title: "When a Tenant Files for Bankruptcy (American Samoa)",
+    title: "When a Tenant Files for Bankruptcy",
     group: "Default & Termination",
     states: ["AS"],
     ruleTypes: ["RECOMMENDED"],
@@ -107848,7 +107848,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-lease-copy-as",
-    title: "Giving the Tenant a Copy of the Lease (American Samoa)",
+    title: "Giving the Tenant a Copy of the Lease",
     group: "Notices & General",
     states: ["AS"],
     ruleTypes: ["RECOMMENDED"],
@@ -107860,7 +107860,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-lease-initials-requirement-as",
-    title: "No Lease Initials Requirement (American Samoa)",
+    title: "No Lease Initials Requirement",
     group: "Notices & General",
     states: ["AS"],
     ruleTypes: ["RECOMMENDED"],
@@ -107896,7 +107896,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-lease-type-size-as",
-    title: "No Lease Type-Size Rule (American Samoa)",
+    title: "No Lease Type-Size Rule",
     group: "Notices & General",
     states: ["AS"],
     ruleTypes: ["RECOMMENDED"],
@@ -107932,7 +107932,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-nonresident-owner-agent-as",
-    title: "Owners Living Off-Island (American Samoa)",
+    title: "Owners Living Off-Island",
     group: "Notices & General",
     states: ["AS"],
     ruleTypes: ["CONDITIONAL", "RECOMMENDED"],
@@ -107980,7 +107980,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-notice-to-vacate-terms-rule-as",
-    title: "No Rule on Move-Out Notice Forms or Work During a Notice Period (American Samoa)",
+    title: "No Rule on Move-Out Notice Forms or Work During a Notice Period",
     group: "Notices & General",
     states: ["AS"],
     ruleTypes: ["RECOMMENDED"],
@@ -108052,7 +108052,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-sale-or-management-change-as",
-    title: "Selling the Property or Changing Managers (American Samoa)",
+    title: "Selling the Property or Changing Managers",
     group: "Notices & General",
     states: ["AS"],
     ruleTypes: ["CONDITIONAL", "RECOMMENDED"],
@@ -108137,7 +108137,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-service-animal-denial-penalty-as",
-    title: "Penalty for Refusing an Assistance Animal (American Samoa)",
+    title: "Penalty for Refusing an Assistance Animal",
     group: "Pets",
     states: ["AS"],
     ruleTypes: ["PROHIBITED"],
@@ -108149,7 +108149,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-service-animal-misrepresentation-as",
-    title: "No Penalty for Misrepresenting an Assistance Animal (American Samoa)",
+    title: "No Penalty for Misrepresenting an Assistance Animal",
     group: "Pets",
     states: ["AS"],
     ruleTypes: ["RECOMMENDED"],
@@ -108173,7 +108173,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-pet-fee-rule-as",
-    title: "Pet Deposits and Pet Rent (American Samoa)",
+    title: "Pet Deposits and Pet Rent",
     group: "Pets",
     states: ["AS"],
     ruleTypes: ["CONSTRAINED"],
@@ -108185,7 +108185,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-pet-insurance-rule-as",
-    title: "Pet Liability Insurance (American Samoa)",
+    title: "Pet Liability Insurance",
     group: "Pets",
     states: ["AS"],
     ruleTypes: ["RECOMMENDED"],
@@ -108197,7 +108197,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-pet-eviction-fact-sheet-as",
-    title: "No Pet and Eviction Fact Sheet (American Samoa)",
+    title: "No Pet and Eviction Fact Sheet",
     group: "Pets",
     states: ["AS"],
     ruleTypes: ["RECOMMENDED"],
@@ -108209,7 +108209,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-animal-care-entry-right-as",
-    title: "Caring for a Tenant's Animal (American Samoa)",
+    title: "Caring for a Tenant's Animal",
     group: "Pets",
     states: ["AS"],
     ruleTypes: ["CONSTRAINED", "RECOMMENDED"],
@@ -108258,7 +108258,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-assigned-parking-rule-as",
-    title: "Assigned Parking (American Samoa)",
+    title: "Assigned Parking",
     group: "Parking & Storage",
     states: ["AS"],
     ruleTypes: ["RECOMMENDED"],
@@ -108270,7 +108270,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-parking-rules-notice-as",
-    title: "Parking Rules Notice (American Samoa)",
+    title: "Parking Rules Notice",
     group: "Parking & Storage",
     states: ["AS"],
     ruleTypes: ["RECOMMENDED"],
@@ -108282,7 +108282,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-unbundled-parking-rule-as",
-    title: "Unbundled Parking (American Samoa)",
+    title: "Unbundled Parking",
     group: "Parking & Storage",
     states: ["AS"],
     ruleTypes: ["RECOMMENDED"],
@@ -108294,7 +108294,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-self-storage-act-as",
-    title: "Storage Space (American Samoa)",
+    title: "Storage Space",
     group: "Parking & Storage",
     states: ["AS"],
     ruleTypes: ["CONSTRAINED"],
@@ -108306,7 +108306,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-ev-charging-right-as",
-    title: "EV Charging Right (American Samoa)",
+    title: "EV Charging Right",
     group: "Parking & Storage",
     states: ["AS"],
     ruleTypes: ["RECOMMENDED"],
@@ -108318,7 +108318,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-ev-charging-requirements-as",
-    title: "EV Charger Installation Terms (American Samoa)",
+    title: "EV Charger Installation Terms",
     group: "Parking & Storage",
     states: ["AS"],
     ruleTypes: ["RECOMMENDED"],
@@ -108330,7 +108330,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-ev-charging-end-of-tenancy-as",
-    title: "EV Charger at Move-Out (American Samoa)",
+    title: "EV Charger at Move-Out",
     group: "Parking & Storage",
     states: ["AS"],
     ruleTypes: ["RECOMMENDED"],
@@ -108342,7 +108342,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-ev-charging-shared-area-as",
-    title: "EV Charging in Shared Areas (American Samoa)",
+    title: "EV Charging in Shared Areas",
     group: "Parking & Storage",
     states: ["AS"],
     ruleTypes: ["RECOMMENDED"],
@@ -108367,7 +108367,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-common-area-use-as",
-    title: "Use of the Property and Common Areas (American Samoa)",
+    title: "Use of the Property and Common Areas",
     group: "Rules & Regulations",
     states: ["AS"],
     ruleTypes: ["RECOMMENDED"],
@@ -108379,7 +108379,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-disaster-guest-rule-as",
-    title: "Guests Displaced by a Disaster (American Samoa)",
+    title: "Guests Displaced by a Disaster",
     group: "Rules & Regulations",
     states: ["AS"],
     ruleTypes: ["CONDITIONAL", "RECOMMENDED"],
@@ -109197,7 +109197,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-children-occupancy-as",
-    title: "Children in the Household (American Samoa)",
+    title: "Children in the Household",
     group: "Other / Miscellaneous",
     states: ["AS"],
     ruleTypes: ["PROHIBITED"],
@@ -109221,7 +109221,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-consumer-protection-act-as",
-    title: "The Consumer Protection Act and Your Lease (American Samoa)",
+    title: "The Consumer Protection Act and Your Lease",
     group: "Other / Miscellaneous",
     states: ["AS"],
     ruleTypes: ["PROHIBITED", "RECOMMENDED"],
@@ -109233,7 +109233,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-dv-confidentiality-as",
-    title: "Keeping Domestic Violence Information Confidential (American Samoa)",
+    title: "Keeping Domestic Violence Information Confidential",
     group: "Other / Miscellaneous",
     states: ["AS"],
     ruleTypes: ["CONDITIONAL", "RECOMMENDED"],
@@ -109245,7 +109245,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-emergency-assistance-right-as",
-    title: "Tenants' Calls for Police or Emergency Help (American Samoa)",
+    title: "Tenants' Calls for Police or Emergency Help",
     group: "Other / Miscellaneous",
     states: ["AS"],
     ruleTypes: ["RECOMMENDED"],
@@ -109461,7 +109461,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-protected-class-inquiry-as",
-    title: "Questions You Should Not Ask Applicants (American Samoa)",
+    title: "Questions You Should Not Ask Applicants",
     group: "Other / Miscellaneous",
     states: ["AS"],
     ruleTypes: ["PROHIBITED"],
@@ -109485,7 +109485,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-no-single-family-zone-lease-limit-as",
-    title: "Renting Homes in Single Dwelling Zones (American Samoa)",
+    title: "Renting Homes in Single Dwelling Zones",
     group: "Other / Miscellaneous",
     states: ["AS"],
     ruleTypes: ["RECOMMENDED"],
@@ -117191,7 +117191,7 @@ const LANDLORD_EDUCATION = [
   // Rent & Payment
   {
     id: "edu-utility-apportionment-co",
-    title: "Charging Tenants for Utilities That Are Not Metered to Their Unit (Colorado)",
+    title: "Charging Tenants for Utilities That Are Not Metered to Their Unit",
     group: "Rent & Payment",
     states: ["CO"],
     ruleTypes: ["CONDITIONAL"],
@@ -131324,7 +131324,7 @@ const LANDLORD_EDUCATION = [
   // Tenant Responsibilities
   {
     id: "repairs-in-lieu-of-rent-sd",
-    title: "Repairs or Maintenance in Lieu of Rent (South Dakota)",
+    title: "Repairs or Maintenance in Lieu of Rent",
     group: "Tenant Responsibilities",
     states: ["SD"],
     ruleTypes: ["CONSTRAINED"],
@@ -197419,7 +197419,7 @@ const LANDLORD_EDUCATION = [
   },
   {
     id: "edu-confirmed-absences-outside-title-mi",
-    title: "Checked Outside the Landlord-Tenant Statutes (Michigan)",
+    title: "Checked Outside the Landlord-Tenant Statutes",
     group: "Notices & General",
     states: ["MI"],
     ruleTypes: ["RECOMMENDED"],
@@ -197549,7 +197549,7 @@ const LANDLORD_EDUCATION = [
   // Notices & General
   {
     id: "edu-confirmed-absences-misc-mi",
-    title: "Confirmed Absences, Miscellaneous (Michigan)",
+    title: "Confirmed Absences, Miscellaneous",
     group: "Notices & General",
     states: ["MI"],
     ruleTypes: ["RECOMMENDED"],
@@ -210386,7 +210386,7 @@ const LANDLORD_EDUCATION = [
   // Default & Termination
   {
     id: "edu-no-repair-cost-termination-wa",
-    title: "No Ending the Tenancy Because Repairs Cost Too Much (Washington)",
+    title: "No Ending the Tenancy Because Repairs Cost Too Much",
     group: "Default & Termination",
     states: ["WA"],
     ruleTypes: ["RECOMMENDED"],

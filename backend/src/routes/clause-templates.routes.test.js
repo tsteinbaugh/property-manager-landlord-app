@@ -83,9 +83,34 @@ describe("clause templates route", () => {
     expect(earlyTermination.group).toBe("Default & Termination");
   });
 
-  it("annotates templates as not-default by default", async () => {
+  it("annotates templates as not-default by default, except clauses the law always requires", async () => {
     const res = await request(app).get("/api/clause-templates");
-    expect(res.body.every((t) => t.isDefault === false)).toBe(true);
+    expect(res.body.some((t) => t.alwaysDefault)).toBe(true);
+    expect(res.body.every((t) => t.isDefault === t.autoDefault)).toBe(true);
+    expect(res.body.filter((t) => t.autoDefault).every((t) => t.autoDefaultNote)).toBe(true);
+  });
+
+  it("treats the lead-paint disclosure as required where it applies, not always", async () => {
+    const lead = (await request(app).get("/api/clause-templates")).body.find((t) => t.id === "lead-based-paint");
+    expect(lead.tag).toBe("REQUIRED");
+    expect(lead.alwaysDefault).toBeUndefined();
+    expect(lead.autoDefault).toBe(true);
+    expect(lead.autoDefaultNote).toMatch(/before 1978/);
+  });
+
+  it("only marks an always-required clause that is tagged Required and isn't a pick-one alternative", async () => {
+    const res = await request(app).get("/api/clause-templates");
+    for (const t of res.body.filter((x) => x.alwaysDefault)) {
+      expect(t.tag).toBe("REQUIRED");
+      expect(t.choiceGroup).toBeUndefined();
+      expect(t.states.length).toBeGreaterThan(0);
+    }
+  });
+
+  it("refuses to unmark an always-required clause as a default", async () => {
+    const required = (await request(app).get("/api/clause-templates")).body.find((t) => t.alwaysDefault);
+    const res = await request(app).delete(`/api/clause-templates/${required.id}/default`);
+    expect(res.status).toBe(409);
   });
 
   it("marks a template as default without modifying its wording", async () => {

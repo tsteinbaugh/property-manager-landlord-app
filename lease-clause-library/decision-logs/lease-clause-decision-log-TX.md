@@ -2286,3 +2286,7 @@ Taylor's decision 2026-11-20: compare the library's topic list with the uniform 
 ### Declined option, 2026-11-21 (Taylor's decision)
 
 - `edu-no-subordination-clause` tagged here and in every jurisdiction: the library offers no clause subordinating the lease to a mortgage (rule 54 row); the tenant's foreclosure protection is the federal PTFA (`edu-ptfa-foreclosure-tenants`).
+
+## Lead-paint applicability (Claude Code, 2026-11-21)
+
+Uniform federal label correction (rule 62): the shared `lead-based-paint` is now CONDITIONAL/REQUIRED (it was REQUIRED), since the federal disclosure applies only to housing built before 1978; no text changed. The app now adds it automatically, locked, when the property was built before 1978 or its year built isn't entered, and leaves it off for 1978 or later (Taylor's decision 2026-11-21).

@@ -5,6 +5,8 @@ import { useEffect, useRef, useState } from "react";
 // those cases, same interaction shape as GlobalSearch (input + filtered
 // list + click-outside-to-close), just scoped to one field instead of a
 // page-wide search.
+// Options may carry a `group`: consecutive options with the same group are
+// shown under a shaded heading, indented (pass them already sorted by group).
 export default function SearchableSelect({ value, onChange, options, placeholder = "Search..." }) {
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
@@ -60,15 +62,23 @@ export default function SearchableSelect({ value, onChange, options, placeholder
           {filtered.length === 0 ? (
             <p className="px-3 py-2 text-sm text-stone-400">No matches</p>
           ) : (
-            filtered.map((opt) => (
-              <button
-                key={opt.value}
-                type="button"
-                onClick={() => select(opt.value)}
-                className="block w-full px-3 py-2 text-left text-sm text-stone-700 hover:bg-stone-50"
-              >
-                {opt.label}
-              </button>
+            filtered.map((opt, i) => (
+              <div key={opt.value}>
+                {opt.group && opt.group !== filtered[i - 1]?.group && (
+                  <p className="bg-stone-100 px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-stone-500">
+                    {opt.group}
+                  </p>
+                )}
+                <button
+                  type="button"
+                  onClick={() => select(opt.value)}
+                  className={`block w-full py-2 pr-3 text-left text-sm text-stone-700 hover:bg-stone-50 ${
+                    opt.group ? "pl-7" : "pl-3"
+                  }`}
+                >
+                  {opt.label}
+                </button>
+              </div>
             ))
           )}
         </div>

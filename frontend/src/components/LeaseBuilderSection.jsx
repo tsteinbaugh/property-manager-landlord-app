@@ -4,9 +4,9 @@ import { useApi } from "../hooks/useApi";
 import SearchableSelect from "./SearchableSelect";
 import LeaseAttachmentsPanel from "./LeaseAttachmentsPanel";
 import { isWrongForCauseVariant } from "../lib/forCauseEvictionVariant";
+import { pickerTitle, sortClausesForDisplay } from "../lib/jurisdictions";
 
 const EMPTY_CLAUSE_FORM = { title: "", bodyText: "", group: "" };
-const ALL_STATES = "ALL";
 
 // Encodes which pool an attach-picker option came from into its value, so a
 // single combined SearchableSelect can drive either POST body shape
@@ -35,9 +35,9 @@ export default function LeaseBuilderSection({ lease, onChange }) {
   const [submitting, setSubmitting] = useState(false);
   const [generating, setGenerating] = useState(false);
   const [error, setError] = useState(null);
-  // Defaults to this lease's own property state (if tagged), so the picker starts scoped to what
-  // actually applies here — still overridable to browse everything or another state's clauses.
-  const [stateFilter, setStateFilter] = useState(lease.property?.state || ALL_STATES);
+  // The picker offers only clauses for this lease's own property state (Taylor, 2026-11-21: a
+  // lease never needs another state's clauses; browsing every state is the Clause Library's job).
+  const stateFilter = lease.property?.state || null;
 
   useEffect(() => {
     Promise.all([api.get("/api/clauses"), api.get("/api/clause-templates"), api.get("/api/clause-groups")])
@@ -56,12 +56,10 @@ export default function LeaseBuilderSection({ lease, onChange }) {
   // `treatBlankAsUniversal` defaults to true for a landlord's own personal clauses — they wrote
   // the text themselves, so a never-tagged clause still means "applies everywhere I use it."
   // Provided-library templates pass `false`: per clauseTemplates.js's header, blank `states`
-  // there means "not yet verified for any state," so it should only surface when actually
-  // browsing "All states," not silently stand in as a verified-looking clause for a specific
-  // state nobody's checked it against (see the security-deposit-return latent-trap finding
+  // there means "not yet verified for any state," so it never stands in as a verified-looking
+  // clause for a state nobody's checked it against (see the security-deposit-return latent-trap finding
   // Ohio's research surfaced and Taylor decided to fix, 2026-09-18).
   function matchesStateFilter(item, { treatBlankAsUniversal = true } = {}) {
-    if (stateFilter === ALL_STATES) return true;
     if (!item.states || item.states.length === 0) return treatBlankAsUniversal;
     return item.states.includes(stateFilter);
   }
@@ -71,8 +69,7 @@ export default function LeaseBuilderSection({ lease, onChange }) {
   // ClauseLibraryPage, so the picker doesn't offer both a generic and a more-specific version
   // of the same clause at once.
   const matchingTemplates = templates.filter((t) => matchesStateFilter(t, { treatBlankAsUniversal: false }));
-  const supersededTemplateIds =
-    stateFilter === ALL_STATES ? new Set() : new Set(matchingTemplates.filter((t) => t.supersedes).map((t) => t.supersedes));
+  const supersededTemplateIds = new Set(matchingTemplates.filter((t) => t.supersedes).map((t) => t.supersedes));
 
   // Two CO clause templates (month-to-month-notice-co-exempt / -covered) cover mutually
   // exclusive legal situations for the same property fact — which one applies is a property
@@ -87,13 +84,11 @@ export default function LeaseBuilderSection({ lease, onChange }) {
     templates.filter((t) => t.choiceGroup && attachedTemplateIds.has(t.id)).map((t) => t.choiceGroup),
   );
 
-  const pickerOptions = [
+  // Grouped by lease section (in the lease's own section order), then sorted by title.
+  const pickerItems = [
     ...library
       .filter((c) => !attachedClauseIds.has(c.id) && matchesStateFilter(c))
-      .map((c) => ({
-        value: encodeOption("clause", c.id),
-        label: `${c.title} — ${c.group}${c.states?.length ? ` [${c.states.join(", ")}]` : ""}`,
-      })),
+      .map((c) => ({ ...c, optionValue: encodeOption("clause", c.id) })),
     ...matchingTemplates
       .filter(
         (t) =>
@@ -102,15 +97,15 @@ export default function LeaseBuilderSection({ lease, onChange }) {
           !isWrongForCauseVariant(t.id, forCauseExemption) &&
           !(t.choiceGroup && attachedChoiceGroups.has(t.choiceGroup)),
       )
-      .map((t) => ({
-        value: encodeOption("template", t.id),
-        label: `${t.title} — ${t.group}${t.states?.length ? ` [${t.states.join(", ")}]` : ""} (Provided${
-          t.choiceGroup ? `, pick one of ${templates.filter((o) => o.choiceGroup === t.choiceGroup).length}` : ""
-        })`,
-      })),
+      .map((t) => ({ ...t, optionValue: encodeOption("template", t.id) })),
   ];
+  const pickerOptions = groups.flatMap((group) =>
+    sortClausesForDisplay(
+      pickerItems.filter((item) => item.group === group),
+      templates,
+    ).map((item) => ({ value: item.optionValue, label: pickerTitle(item.title), group })),
+  );
 
-  const availableStates = [...new Set([...library, ...templates].flatMap((c) => c.states || []))].sort();
 
   async function handleAttach(e) {
     e.preventDefault();
@@ -350,21 +345,12 @@ export default function LeaseBuilderSection({ lease, onChange }) {
           onSubmit={handleAttach}
           className="flex flex-wrap items-end gap-3 rounded-xl border border-stone-200 bg-white p-4 shadow-sm"
         >
-          <div>
-            <span className="mb-1 block text-sm font-medium text-stone-700">State</span>
-            <select
-              value={stateFilter}
-              onChange={(e) => setStateFilter(e.target.value)}
-              className="rounded-lg border border-stone-300 px-2 py-2 text-sm focus:border-emerald-600 focus:outline-none"
-            >
-              <option value={ALL_STATES}>All states</option>
-              {availableStates.map((s) => (
-                <option key={s} value={s}>
-                  {s}
-                </option>
-              ))}
-            </select>
-          </div>
+          {!stateFilter && (
+            <p className="w-full text-sm text-amber-700">
+              This lease's property has no state set, so only your own untagged clauses are listed. Set the
+              property's state to see the provided clauses for it.
+            </p>
+          )}
           <div className="min-w-64 flex-1">
             <span className="mb-1 block text-sm font-medium text-stone-700">Clause</span>
             {pickerOptions.length === 0 ? (

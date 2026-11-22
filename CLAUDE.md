@@ -9,6 +9,7 @@
 - **Other dated checks:** LegiScan totals after November's (IL, ID) and December's (MO, IN) first runs; the subject watch (on in CO, WY, KS) after two monthly runs: cost and noise, then add two or three states a month; Oregon's first manual item, December 18, 2026; DC's 2027 checks (backlog item 33); the SCRA rent limit each January (backlog item 13); retry Puerto Rico's OGP library (bvirtualogp.pr.gov) now and then for Ley 208-1995 and Ley 210-2015.
 - **Parked for Taylor:** the LegiScan budget question (backlog item 10); the Virgin Islands plain-language front page (M.15); a land-status attribute for American Samoa and Northern Mariana Islands properties (M.16); the lease PDF first-page layout (M.12); Spanish leases (multi-language support). Deploying is deliberately on hold.
 - **Desktop staging:** don't stage further Desktop folders until Taylor says (usage, 2026-10-31).
+- **Next focus (Taylor, 2026-11-21): automatic clause applicability** in the lease builder. Each conditional clause records the facts it depends on and its tag once it applies (Required, Recommended or Optional); the builder then shows only clauses that apply and adds the required ones. The lead disclosure is the first rule (`clauseApplicability.js`). Plan in `docs/backlog.md`.
 - **Standing backlog** (no fixed order; ask Taylor what's next): `docs/backlog.md`.
 
 ## Project
@@ -21,7 +22,7 @@ A SaaS web app for landlords to manage rental properties end to end, built from 
 
 React + Vite + Tailwind v4 + React Router (`frontend/`); Node + Express + Prisma + PostgreSQL (`backend/`); Clerk auth; Cloudflare R2 storage. Vercel/Railway hosting not set up yet.
 
-- Backend tests: `cd backend && npm test` (Vitest against the real `property_hq_test` Postgres database, never SQLite). 446 tests at last count.
+- Backend tests: `cd backend && npm test` (Vitest against the real `property_hq_test` Postgres database, never SQLite). 451 tests at last count.
 - Frontend build: `cd frontend && npm run build`.
 - Schema change: `npx prisma migrate dev`, then `npx prisma generate` (not automatic here), then apply to the test DB with `DATABASE_URL=<test db url> npx prisma migrate deploy`. Rename an enum value with a hand-written `ALTER TYPE ... RENAME VALUE` migration. [Aug 2026]
 - Clause library (files in `lease-clause-library/`; scripts run from the repo root): `python3 scripts/clause-library/generate.py lease-clause-library/lease-clauses.csv backend/src/lib backend/src/lib` rebuilds `clauseTemplates.js`, `clauseResearchMetadata.js` and `landlordEducation.js`; `python3 scripts/clause-library/build-topic-reference.py` rebuilds `lease-clause-topics.md`. Never hand-edit those four files. New state: `python3 scripts/clause-library/stage-kickoff.py <ST> "<State Name>"` stages `~/Desktop/<state>-kickoff/` from `docs/kickoff-template.md`; fill in the citation format and leads by hand before handing it to Taylor. Targeted checks for [Retro] rules: `python3 scripts/clause-library/stage-retro-checks.py [ST ...]` stages `~/Desktop/retro-checks/` from the conformance table's "·" cells plus `scripts/clause-library/retro-extras.csv`; restage only states Taylor hasn't started. Merge any Desktop delta with `python3 scripts/clause-library/merge-delta.py DELTA.csv ST --base <rev>` (base = the commit whose CSV the pass was given; `--dry-run` first): it applies only that state's tag and note segment to shared rows and refuses anything else.
@@ -63,7 +64,10 @@ React + Vite + Tailwind v4 + React Router (`frontend/`); Node + Express + Prisma
   - `group` is a string validated against `clauseGroups.js`, and numbering is computed at read time.
   - No single-clause special flags; prefer self-conditional clause text plus the default-clause mechanism.
   - `{{variables}}` resolve only from real linked data; `[bracketed prompts]` are for hand fill-in.
-  - Research metadata stays in `clauseResearchMetadata.js`, never on the template objects, which `GET /api/clause-templates` exposes.
+  - Research metadata stays in `clauseResearchMetadata.js`, never on the template objects, which `GET /api/clause-templates` exposes. The exception is the display tag `generate.py` derives from rule_type (`tag`: REQUIRED, RECOMMENDED or OPTIONAL; none yet for most conditional clauses) and `alwaysDefault`. [2026-11-21]
+  - Tags show only in the Clause Library, never in the picker or the PDF. Clause titles never name a jurisdiction or say "(Optional)"; the tags carry that. [2026-11-21]
+  - A clause the law requires is always included by "Add my default clauses" and can't be unticked: `alwaysDefault` (required, not conditional, not a pick-one alternative), or an applicability rule in `clauseApplicability.js` that says this property needs it (the lead disclosure: built before 1978 or year unknown). A missing fact counts as "applies". [2026-11-21]
+  - The lease builder's picker lists only the lease's own state, grouped by section. The Clause Library offers only the landlord's property states; "All states" and other states are development-only (`import.meta.env.DEV`). [2026-11-21]
   - Blank `states` on a provided template means "verified nowhere" (`treatBlankAsUniversal: false`); personal clauses keep blank = everywhere.
   - `supersedes` hides the parent in a matching state.
   - Choice groups are enforced even on manual attach. The CO for-cause variants are picked by a property-fact filter on the automated paths, and since 2026-10-01 share choice group `co-part13-coverage`. Fact-driven pairs share a choice group (SOP rule 6). [Aug 2026, 2026-09-18/19, 2026-09-24, 2026-10-01]
@@ -100,6 +104,7 @@ React + Vite + Tailwind v4 + React Router (`frontend/`); Node + Express + Prisma
   - `python3 scripts/clause-library/check-clause-basis.py`
   - `python3 scripts/clause-library/check-section-pointers.py` [2026-10-01]
   - `python3 scripts/clause-library/check-topic-coverage.py` (every jurisdiction has a row for every topic) [2026-11-21]
+  - `python3 scripts/clause-library/check-clause-titles.py` (no title names a jurisdiction or says "(Optional)"; `--fix` cleans them) [2026-11-21]
   - `node scripts/legal-watch/checkConfigIds.js`
   - Plus the statute spot-check: about 5 high-stakes rules read against official text. [2026-09-27 to 2026-09-29]
 

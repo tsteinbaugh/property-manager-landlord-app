@@ -10,6 +10,7 @@ const { buildVariableContext, substituteVariables } = require("../lib/clauseVari
 const { orderAndLabelClauses } = require("../lib/leaseClauseOrdering");
 const { isWrongForCauseVariant } = require("../lib/forCauseEvictionVariant");
 const { choiceGroupOf, findChoiceGroupConflict } = require("../lib/clauseChoiceGroups");
+const { requiredForProperty } = require("../lib/clauseApplicability");
 const {
   buildRentTracker,
   suggestPaymentAllocation,
@@ -611,12 +612,24 @@ function createLeasesRoutes({ r2 = defaultR2 } = {}) {
 
     const takenChoiceGroups = new Set([...alreadyAttachedTemplateIds].map(choiceGroupOf).filter(Boolean));
 
+    // Clauses the law requires are defaults whether or not the landlord marked them (Taylor,
+    // 2026-11-21): those it always requires, and those whose applicability rule says this
+    // property needs them (clauseApplicability.js; e.g. the lead disclosure for a home built
+    // before 1978). Only ones verified for this lease's state, and not one that a
+    // state-specific clause for this state replaces (`supersedes`).
+    const forThisState = CLAUSE_TEMPLATES.filter((t) => appliesToThisLease(t.states, { treatBlankAsUniversal: false }));
+    const supersededHere = new Set(forThisState.map((t) => t.supersedes).filter(Boolean));
+    const requiredIds = forThisState
+      .filter((t) => (t.alwaysDefault || requiredForProperty(t.id, lease.property)) && !supersededHere.has(t.id))
+      .map((t) => t.id);
+    const defaultTemplateIds = [...new Set([...requiredIds, ...defaultTemplateLinks.map((link) => link.templateId)])];
+
     const snapshots = [
       ...defaultClauses
         .filter((c) => !alreadyAttachedClauseIds.has(c.id) && appliesToThisLease(c.states))
         .map((c) => ({ sourceClauseId: c.id, title: c.title, bodyText: c.bodyText, group: c.group })),
-      ...defaultTemplateLinks
-        .map((link) => CLAUSE_TEMPLATES.find((t) => t.id === link.templateId))
+      ...defaultTemplateIds
+        .map((templateId) => CLAUSE_TEMPLATES.find((t) => t.id === templateId))
         .filter(
           (t) =>
             t &&

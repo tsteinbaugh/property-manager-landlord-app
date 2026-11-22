@@ -1,6 +1,20 @@
 const request = require("supertest");
 const createApp = require("../app");
 const prisma = require("../lib/prisma");
+const { CLAUSE_TEMPLATES } = require("../lib/clauseTemplates");
+const { requiredForProperty } = require("../lib/clauseApplicability");
+
+// The provided clauses "Add my default clauses" includes on its own for a state:
+// those the law always requires or that a property fact makes required (by
+// default a property with no year built, so the lead disclosure applies), less
+// any a state version replaces.
+function requiredFor(state, property = { yearBuilt: null }) {
+  const here = CLAUSE_TEMPLATES.filter((t) => t.states.includes(state));
+  const replaced = new Set(here.map((t) => t.supersedes).filter(Boolean));
+  return here
+    .filter((t) => (t.alwaysDefault || requiredForProperty(t.id, property)) && !replaced.has(t.id))
+    .map((t) => t.id);
+}
 
 const mockGetAuth = vi.fn(() => ({ userId: "clerk_test_user_1" }));
 const mockGetUser = vi.fn(() =>
@@ -1006,18 +1020,46 @@ describe("leases routes", () => {
       const res = await request(app).post(`/api/leases/${lease.id}/clauses/add-defaults`);
 
       expect(res.status).toBe(201);
-      expect(res.body.leaseClauses).toHaveLength(2);
+      expect(res.body.leaseClauses).toHaveLength(2 + requiredFor("CO").length);
       const titles = res.body.leaseClauses.map((c) => c.title);
       expect(titles).toContain("My Standard Late Fee");
       expect(titles).toContain("Rent Payment");
       expect(titles).not.toContain("Not a default");
     });
 
-    it("does nothing when there are no defaults", async () => {
+    it("adds only the clauses the law always requires when the landlord marked no defaults", async () => {
       const res = await request(app).post(`/api/leases/${lease.id}/clauses/add-defaults`);
 
       expect(res.status).toBe(201);
-      expect(res.body.leaseClauses).toEqual([]);
+      const required = requiredFor("CO");
+      expect(required.length).toBeGreaterThan(0);
+      expect(res.body.leaseClauses.map((c) => c.sourceTemplateId).sort()).toEqual(required.sort());
+    });
+
+    it("adds the lead-paint disclosure for a home built before 1978 or with no year, not for a newer one", async () => {
+      const ids = async () =>
+        (await request(app).post(`/api/leases/${lease.id}/clauses/add-defaults`)).body.leaseClauses.map(
+          (c) => c.sourceTemplateId,
+        );
+
+      await prisma.property.update({ where: { id: property.id }, data: { yearBuilt: 1995 } });
+      expect(await ids()).not.toContain("lead-based-paint");
+
+      await prisma.property.update({ where: { id: property.id }, data: { yearBuilt: 1977 } });
+      expect(await ids()).toContain("lead-based-paint");
+    });
+
+    it("never adds an always-required clause from another state, or one a state version replaces", async () => {
+      const res = await request(app).post(`/api/leases/${lease.id}/clauses/add-defaults`);
+
+      const ids = res.body.leaseClauses.map((c) => c.sourceTemplateId);
+      for (const id of ids) {
+        expect(CLAUSE_TEMPLATES.find((t) => t.id === id).states).toContain("CO");
+      }
+      const replacedForCo = new Set(
+        CLAUSE_TEMPLATES.filter((t) => t.states.includes("CO") && t.supersedes).map((t) => t.supersedes),
+      );
+      expect(ids.some((id) => replacedForCo.has(id))).toBe(false);
     });
 
     it("is safe to click twice — does not duplicate already-attached defaults", async () => {
@@ -1029,7 +1071,7 @@ describe("leases routes", () => {
       await request(app).post(`/api/leases/${lease.id}/clauses/add-defaults`);
       const res = await request(app).post(`/api/leases/${lease.id}/clauses/add-defaults`);
 
-      expect(res.body.leaseClauses).toHaveLength(2);
+      expect(res.body.leaseClauses).toHaveLength(2 + requiredFor("CO").length);
     });
 
     it("only adds defaults still missing, if some were already attached individually", async () => {
@@ -1041,7 +1083,7 @@ describe("leases routes", () => {
       await request(app).post(`/api/leases/${lease.id}/clauses`).send({ templateId: "rent-payment" });
       const res = await request(app).post(`/api/leases/${lease.id}/clauses/add-defaults`);
 
-      expect(res.body.leaseClauses).toHaveLength(2);
+      expect(res.body.leaseClauses).toHaveLength(2 + requiredFor("CO").length);
       expect(res.body.leaseClauses.filter((c) => c.sourceTemplateId === "rent-payment")).toHaveLength(1);
     });
 

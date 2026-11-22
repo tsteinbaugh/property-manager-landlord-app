@@ -536,3 +536,7 @@ Prompted by the probes for the territory legal watch (backlog item 34). Since th
 - The other laws (38-147 to 38-150, 38-152 to 38-159, 38-161) concern mental-health petitions, teacher pay, beach warnings, psychologists, a veterans' cemetery fund, government land for sports, juror pay, drones, veterans' benefits and two sets of agency rules: none touches a cited chapter.
 
 Result: no row changes. The nine GU-only rows citing §§ 61531, 61541 and 75A122 carry a dated note.
+
+## Lead-paint applicability (Claude Code, 2026-11-21)
+
+Uniform federal label correction (rule 62): the shared `lead-based-paint` is now CONDITIONAL/REQUIRED (it was REQUIRED), since the federal disclosure applies only to housing built before 1978; no text changed. The app now adds it automatically, locked, when the property was built before 1978 or its year built isn't entered, and leaves it off for 1978 or later (Taylor's decision 2026-11-21).

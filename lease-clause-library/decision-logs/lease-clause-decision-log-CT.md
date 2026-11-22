@@ -938,3 +938,7 @@ Taylor asked for the backlog's small research items. Read in Taylor's Chrome on 
 
 - **Lead regulations** (Regs. Conn. State Agencies §§ 19a-111-1 to 19a-111-8, 19a-111-11): no certificate, registration or lease-time notice, so both absence rows stand. They add duties triggered by an inspection report: a posted notice on affected entrances within two days, and the report summaries and lead information to residents (§ 19a-111-3(e)). They also bar avoiding abatement by evicting a family with a child (§ 19a-111-2(a)). `edu-no-lead-safe-certification-ct` and `edu-no-state-lead-lease-notice-ct` updated.
 - **Commission on Human Rights and Opportunities regulations** (§§ 46a-54-1 to 46a-54-207): the only posting rules are for employers (§§ 46a-54-201 to -204). `edu-no-rights-responsibilities-guide-ct` updated.
+
+## Lead-paint applicability (Claude Code, 2026-11-21)
+
+Uniform federal label correction (rule 62): the shared `lead-based-paint` is now CONDITIONAL/REQUIRED (it was REQUIRED), since the federal disclosure applies only to housing built before 1978; no text changed. The app now adds it automatically, locked, when the property was built before 1978 or its year built isn't entered, and leaves it off for 1978 or later (Taylor's decision 2026-11-21).

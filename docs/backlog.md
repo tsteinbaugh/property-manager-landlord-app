@@ -190,6 +190,12 @@ Taylor wants the clause library to cover Washington, DC, and the five inhabited 
 
 ## Standing backlog
 
+**Next focus (Taylor, 2026-11-21): automatic clause applicability.**
+- For each of the 1,080 untagged conditional clauses (and the 17 conditional/required ones), record (1) the facts it depends on (pets, year built, condo, flood zone, submetering, communal land...) and (2) its tag once it applies: Required, Recommended or Optional. The research notes usually say which; read the statute where they don't. Rule types were labeled inconsistently (the federal lead disclosure was REQUIRED though it applies only before 1978; CA's and TX's flood disclosures are REQUIRED, FL's CONDITIONAL; ME's bed-bug disclosure is required/conditional, CT's conditional), so don't trust a label without the notes.
+- Facts mostly belong on the property, tenant and lease records; the builder asks for any it doesn't know. The rules extend `backend/src/lib/clauseApplicability.js` (first rule: the lead disclosure, built before 1978 or year unknown; the zero-bedroom and elderly-housing exceptions aren't modeled yet).
+- Then: show only applicable clauses in the picker, a starter lease per state, and builder warnings for a missing or removed required clause (rather than tags in the builder). Landlord education is still unused by the app (`landlordEducation.js`); show it beside each topic.
+- Also from the 2026-11-21 builder review: 181 of 196 `{{variable}}` names have no resolver (481 uses, see M.14), 1,419 clauses have `[bracketed prompts]` with no fill-in step, the templates API sends all 2,217 clauses (about 2.5 MB) on every load, attached clauses don't record the library version, and CLAUDE.md's `ROLE_GRANTS` doesn't exist in code (every account is a landlord; "All states" is development-only for now).
+
 **Added 2026-11-20 (Taylor), not started:**
 - **Overnight 2026-11-21 follow-ups (Claude Code):**
   - *Browser reads for the model-law comparison's NEEDS_REVIEW rows:* 19 of 20 closed 2026-11-21 (history). One left: `edu-paid-in-full-checks-pr` (Ley 208-1995 Sección 2-311(c)(1), the organization's designated-office exception, is still unread: the OGP library refuses connections, its www address has a certificate error, and SUTRA starts in 2017). Builder: `~/overnight-2026-11-20/build/`.
