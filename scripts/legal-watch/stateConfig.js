@@ -61,6 +61,11 @@ const STATE_NAMES = {
   AR: "Arkansas",
   MS: "Mississippi",
   DC: "District of Columbia",
+  PR: "Puerto Rico",
+  GU: "Guam",
+  VI: "U.S. Virgin Islands",
+  AS: "American Samoa",
+  MP: "Northern Mariana Islands",
 };
 
 // New York consolidated-law abbreviations (as cited in the NY rows) and the
@@ -157,6 +162,124 @@ const NY_LAW_NAMES = {
   "Correct. Law": "correction law",
   "Gen. Constr. Law": "general construction law",
 };
+
+const { fetchText, fetchFileStamp, tableRows, htmlToText, htmlToLines, csvRecords, viCodeSections, LANDLORD_TENANT_WORDS } = require("./officialSources");
+
+// The federal checks every jurisdiction carries (the same list as DC's),
+// shared by the territories' entries below (added 2026-11-21).
+const FEDERAL_CFR_CHECKS = [
+  { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
+  { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-federal-enforcement"] },
+  { title: "16", section: "682.3", clauseIds: ["edu-fcra-disposal-rule"] },
+  { title: "24", section: "982.308", clauseIds: ["edu-voucher-tenancy-addendum"] },
+  { title: "24", section: "982.310", clauseIds: ["edu-voucher-tenancy-addendum"] },
+  { title: "24", section: "100.600", clauseIds: ["edu-fair-housing-harassment-federal"] },
+  { title: "12", section: "1022.42", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+  { title: "12", section: "1022.43", clauseIds: ["edu-credit-reporting-furnisher-duties"] },
+  { title: "24", section: "100.7", clauseIds: ["edu-fair-housing-harassment-federal"] },
+  { title: "40", section: "61.141", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+  { title: "40", section: "61.145", clauseIds: ["edu-asbestos-demolition-renovation-federal"] },
+  { title: "47", section: "1.4000", clauseIds: ["edu-antenna-rights-federal"] },
+  { title: "24", section: "982.404", clauseIds: ["edu-voucher-repairs-and-rent"] },
+  { title: "24", section: "982.451", clauseIds: ["edu-voucher-repairs-and-rent"] },
+  { title: "24", section: "982.453", clauseIds: ["edu-voucher-repairs-and-rent"] },
+  { title: "24", section: "982.507", clauseIds: ["edu-voucher-repairs-and-rent"] },
+  { title: "24", section: "982.510", clauseIds: ["edu-voucher-repairs-and-rent"] },
+];
+const FEDERAL_STATUTE_CHECKS = [{ section: "4852d", clauseIds: ["lead-based-paint"] }];
+
+// The file name of a Wix document field (a "wix:document://..." string, or
+// an object carrying one).
+function wixFileName(doc) {
+  const s = typeof doc === "string" ? doc : doc?.url || doc?.src || doc?.fileName || JSON.stringify(doc || "");
+  try { return decodeURIComponent(s.split("/").pop() || ""); } catch { return s.split("/").pop() || ""; }
+}
+
+// A Wix page's embedded table data: the first dataset's record count and the
+// records embedded in the HTML (Wix embeds only the first rows).
+function wixWarmup(html) {
+  const m = html.match(/<script type="application\/json" id="wix-warmup-data">([\s\S]*?)<\/script>/);
+  if (!m) return { total: null, records: [] };
+  const data = JSON.parse(m[1]);
+  let total = null;
+  const records = [];
+  (function walk(o) {
+    if (!o || typeof o !== "object") return;
+    if (o.datasetSize && total === null) total = o.datasetSize.total;
+    // Rows carry a "wix:document://" string; field definitions (same names,
+    // object values) are skipped.
+    const named = [o.title, o.publicLawNo, o.title_fld].some((v) => typeof v === "string");
+    if (typeof o.document === "string" && o.document.startsWith("wix:document") && named) records.push(o);
+    for (const v of Object.values(o)) walk(v);
+  })(data.appsWarmupData || data);
+  return { total, records: [...new Map(records.map((r) => [r._id || JSON.stringify(r), r])).values()] };
+}
+
+// Guam Code chapters the citations cite ("title:chapter"), built once from
+// lease-clause-citations-GU.csv on 2026-11-21 (see the GU entry).
+const GU_CITED_CHAPTERS = new Set(
+  (
+      "1:4 1:7 3:3 3:8 5:1 5:10 5:17 5:32 5:33 5:34 5:40 5:56 5:63 6:5 6:6 7:4 7:11 7:12 7:20 " +
+      "7:22 7:23 7:32 7:33 7:35 7:40 7:50 7:9A 7:39A 7:40A 7:40B 7:42A 7:42B 7:42C 8:11 8:160 " +
+      "9:7 9:19 9:28 9:30 9:34 9:37 9:46 9:48 9:61 9:69 9:70 9:89 10:2 10:7 10:12 10:20 10:26 " +
+      "10:29 10:33 10:34 10:36 10:37 10:39 10:44 10:48 10:53 10:60 10:67 10:73 10:90 10:26A " +
+      "10:51A 11:8 11:24 11:26 11:30 11:70 11:71 11:72 11:76 11:100 11:104 11:106 11:127 12:3 " +
+      "12:4 12:5 12:6 12:8 12:12 12:58 13:1 13:2 14:2 14:3 14:5 15:22 15:23 15:31 16:3 16:7 " +
+      "16:12 16:28 17:3 17:7 18:7 18:15 18:25 18:31 18:32 18:36 18:41 18:47 18:50 18:51 18:80 " +
+      "18:82 18:85 18:86 18:87 18:88 18:89 18:90 18:91 19:1 19:2 19:5 19:6 19:13 20:2 20:6 " +
+      "20:10 21:1 21:4 21:5 21:9 21:11 21:15 21:17 21:20 21:21 21:23 21:29 21:37 21:43 21:45 " +
+      "21:47 21:48 21:60 21:61 21:65 21:66 21:67 21:68 21:69 21:75 21:104 21:75A 22:3 22:5 22:7 " +
+      "22:9 22:32 22:57"
+  ).split(" ").filter(Boolean),
+);
+
+// Where the VI bill tracker check starts (2026-11-21): the page after the
+// highest bill page in the 36th Legislature's list that day, and the 18
+// pending 36th-Legislature bills whose subjects matter (from the tracker's
+// list that day, relevance as in viRelevance).
+const VI_SEED = {
+  next: 38655,
+  following: [36608, 36628, 36682, 36734, 36735, 36748, 36759, 36809, 36871, 36893, 36897, 37032, 37063, 37426, 37924, 38159, 38229, 38373],
+};
+
+// One Virgin Islands bill detail page (billtracking.legvi.org/bill_detail/<n>/),
+// or null for an empty page.
+function viBill(html) {
+  if (!html) return null;
+  const t = htmlToLines(html);
+  const head = t.match(/Governor's No\.\n([\s\S]*?)\nSubject:\n([\s\S]*?)\nIntroduced\n/);
+  if (!head) return null;
+  const vals = head[1].split("\n");
+  const leg = vals[0];
+  const subject = head[2].trim();
+  if (!subject || subject === "None") return null;
+  const enacted = (t.match(/\nEnacted\n(\d{2}-\d{2}-\d{4})\nVetoed/) || [])[1] || "";
+  return {
+    legislature: leg,
+    bill: vals.find((v) => new RegExp(`^${leg}-\\d+$`).test(v)) || "",
+    act: vals.find((v) => /^\d{4,5}$/.test(v) && Number(v) >= 8000) || "",
+    subject,
+    enacted,
+  };
+}
+
+// Whether a Virgin Islands bill subject matters to the library: it names a
+// cited section ("title 28 ... section 752") or a landlord-tenant subject.
+function viRelevance(subject, sectionMap) {
+  const clauseIds = idsFor(sectionMap, viCodeSections(subject));
+  const words = new RegExp(`${LANDLORD_TENANT_WORDS.source}|rent control|rent freeze|international (building|residential|property|fire|plumbing|mechanical) code|\\b1005\\b`, "i");
+  const skip = /zoning map|\brezon|approving the (lease|sublease|amended lease|lease agreement)|lease agreement between the government|^\s*(to commend|subpoena|a resolution)/i.test(subject);
+  const relevant = clauseIds.size > 0 || (!skip && words.test(subject));
+  return { relevant, clauseIds, why: clauseIds.size ? "Its subject names a cited section." : "Its subject names a landlord-tenant subject." };
+}
+
+// Clause ids for a set of cited section keys ("4 CMC § 5142"), from the
+// citations file's section map.
+function idsFor(sectionMap, keys) {
+  const ids = new Set();
+  for (const k of keys) for (const id of sectionMap.get(k) || []) ids.add(id);
+  return ids;
+}
 
 const STATE_CONFIG = {
   CO: {
@@ -3528,6 +3651,567 @@ const STATE_CONFIG = {
       },
     ],
   },
+  PR: {
+    // Puerto Rico (added 2026-11-21). LegiScan has no Puerto Rico bills and
+    // the OGP library (bvirtualogp.pr.gov) refuses connections, so the watch
+    // reads SUTRA (sutra.oslpr.org), the Legislature's system: its list of
+    // laws signed in the current four-year term. A law is flagged when its
+    // title names a law the citations cite ("Ley 129-2020"), a cited Civil
+    // Code article, or a landlord-tenant subject. It also watches the
+    // Department of State's copy of each cited regulation (app.estado.pr.gov)
+    // for a replaced file. New regulations are scanned PDFs listed only
+    // through a POST search form, so they are a manual item. Keys: "Ley
+    // 129-2020" for a law, "Ley 55-2020 art. 1343" for a Civil Code article.
+    legiscanSections: false,
+    extractSections(text) {
+      // "Ley 129-2020, art. 17" -> "Ley 129-2020 art. 17"; a law cited with
+      // no article -> "Ley 129-2020"; "P.R. Civ. Code art. 1343" -> "Ley
+      // 55-2020 art. 1343" (the Civil Code is Ley 55-2020).
+      const out = [];
+      for (const part of text.split(";").map((p) => p.trim()).filter(Boolean)) {
+        let m = part.match(/^Ley (\d+)-(\d{4})(?:, (?:arts?\.|§§?) ?([\d., -]+))?/);
+        if (m) {
+          const law = `Ley ${Number(m[1])}-${m[2]}`;
+          const arts = (m[3] || "").match(/\d+(?:\.\d+)?/g);
+          if (arts) for (const n of arts) out.push(`${law} art. ${n}`);
+          else out.push(law);
+        }
+        m = part.match(/^P\.R\. Civ\. Code arts?\. ([\d,\s-]+)/);
+        if (m) for (const n of m[1].match(/\d+/g) || []) out.push(`Ley 55-2020 art. ${n}`);
+      }
+      return [...new Set(out)];
+    },
+    sourceChecks: [
+      {
+        id: "pr-laws-signed",
+        label: "Puerto Rico laws signed (SUTRA)",
+        async run({ sectionMap }) {
+          const now = new Date();
+          const year = now.getUTCFullYear();
+          const term = 2025 + 4 * Math.floor((year - 2025) / 4);
+          const terms = now.getUTCMonth() < 3 && year === term ? [term - 4, term] : [term];
+          const since = new Date(now.getTime() - 180 * 86400000).toISOString().slice(0, 10);
+          const today = now.toISOString().slice(0, 10);
+          const block = /\nLey (\d+)-(\d{4})\n[\s\S]*?\nFecha de Firma:\n([\d/]+)\nFecha de Efectividad:\n([\d/]*)\n?(Para [\s\S]*?)\nTema:/g;
+          const cites = /Ley(?:\s+N[úu]m\.?)?\s+(\d+)\s*(?:-\s*(\d{4})|\s+de\s+\d+\s+de\s+\w+\s+de\s+(\d{4}))/gi;
+          const items = [];
+          for (const cuatrienio of terms) {
+            for (let page = 1; page <= 20; page++) {
+              const url = `https://sutra.oslpr.org/prontuarios/leyes-aprobadas?cuatrienio=${cuatrienio}&firma_desde=${since}&firma_hasta=${today}&per_page=50&page=${page}`;
+              const text = `\n${htmlToLines(await fetchText(url))}`;
+              const found = [...text.matchAll(block)];
+              for (const [, num, yr, signed, effective, title] of found) {
+                // Every law the title names, alone and with every article
+                // number it names; a key counts only if the citations use it.
+                const laws = new Set([...title.matchAll(cites)].map((c) => `Ley ${Number(c[1])}-${c[2] || c[3]}`));
+                if (/C[óo]digo Civil/i.test(title)) laws.add("Ley 55-2020");
+                const arts = [...title.matchAll(/Art[íi]culos?\s+((?:\d+(?:\.\d+)?[A-Z]?(?:-[A-Z])?(?:\s*\([^)]*\))*(?:\s*(?:,|;|y|e|al|a)\s*)?)+)/gi)]
+                  .flatMap((x) => x[1].match(/\d+(?:\.\d+)?/g) || []);
+                const keys = new Set();
+                for (const law of laws) {
+                  keys.add(law);
+                  for (const n of arts) keys.add(`${law} art. ${n}`);
+                }
+                const clauseIds = idsFor(sectionMap, keys);
+                const t = title.replace(/\s+/g, " ");
+                items.push({
+                  key: `Ley ${num}-${yr}`,
+                  text: `Ley ${num}-${yr} (signed ${signed}${effective ? `, effective ${effective}` : ""}): ${t.length > 300 ? `${t.slice(0, 300)}...` : t}`,
+                  url: `https://sutra.oslpr.org/prontuarios/leyes-aprobadas?cuatrienio=${cuatrienio}&num_ley=${num}`,
+                  clauseIds,
+                  relevant: clauseIds.size > 0 || LANDLORD_TENANT_WORDS.test(t),
+                  why: clauseIds.size ? "It amends a law or article the citations cite." : "Its title names a landlord-tenant subject.",
+                });
+              }
+              if (found.length < 50) break;
+            }
+          }
+          return items;
+        },
+      },
+      {
+        id: "pr-cited-regulations",
+        label: "Cited Puerto Rico regulations (Department of State registry files)",
+        async run() {
+          const items = [];
+          for (const n of ["5876", "6451", "6628", "6811", "6827", "8618", "8701", "9121", "9158", "9182", "9593", "9622"]) {
+            const url = `https://app.estado.pr.gov/ReglamentosOnLine/Reglamentos/${n}.pdf`;
+            const r = await fetchFileStamp(url);
+            if (r.status !== 200 && r.status !== 206) throw new Error(`${url}: HTTP ${r.status}`);
+            const stamp = `${r.lastModified || "no date"}, ${r.size || "?"} bytes`;
+            items.push({ key: `${n} ${stamp}`, text: `Reg. No. ${n}: the registry's file now dated ${stamp}`, url, why: "The registry replaced this regulation's file; check whether it was amended or corrected." });
+          }
+          return items;
+        },
+      },
+    ],
+    cfrChecks: FEDERAL_CFR_CHECKS,
+    federalStatuteChecks: FEDERAL_STATUTE_CHECKS,
+    manualRecheckItems: [
+      {
+        id: "pr-new-regulations",
+        label:
+          "New Puerto Rico regulations (Department of State registry, app.estado.pr.gov; searchable only by form, and filed as scanned PDFs numbered in sequence, about 15-20 a month; 9818 was the newest on 2026-11-21): skim new filings by DACO, the Energy Bureau, Vivienda and the condominium office for rules that replace or amend Reg. Nos. 6451, 9158, 8618 and the other regulations the citations cite. Also retry the OGP library (bvirtualogp.pr.gov, unreachable 2026-11-21) for the consolidated texts",
+        clauseIds: ["end-of-term-pr", "collection-fee-pr", "edu-collection-fee-pr", "early-termination-pr"],
+      },
+    ],
+  },
+  GU: {
+    // Guam (added 2026-11-21). LegiScan has no Guam bills, so the watch reads
+    // the Compiler of Laws (col.guamcourts.gov) and the Legislature
+    // (guamlegislature.gov). The Compiler's index links every Guam Code
+    // Annotated chapter's PDF; a recompiled chapter gets a new file name, so a
+    // new link for a chapter the citations cite is flagged. Its "updated
+    // through P.L." line and the Table of Code Sections Affected (TOCSA, which
+    // runs ahead of recompiled chapters) are watched as values, and each new
+    // public law is flagged when its title names a cited chapter or a
+    // landlord-tenant subject. GU_CITED_CHAPTERS ("title:chapter") was built
+    // once from lease-clause-citations-GU.csv on 2026-11-21, each chapter
+    // confirmed to contain the cited sections; rebuild it when a sync cites a
+    // new chapter.
+    legiscanSections: false,
+    sourceChecks: [
+      {
+        id: "gu-code-chapters",
+        label: "Guam Code Annotated chapter files (Compiler of Laws index)",
+        async run() {
+          const url = "https://col.guamcourts.gov/guam-code-annotated/guam-code-annotated";
+          const html = (await fetchText(url)).replace(/&nbsp;/g, " ");
+          const items = [];
+          const parts = html.split(/<a href="#faq\d+">Title (\d+):/);
+          for (let i = 1; i < parts.length; i += 2) {
+            const title = parts[i];
+            for (const m of parts[i + 1].matchAll(/<a href="(\/sites\/default\/files\/[^"]+\.pdf)"[^>]*>(?:<[^>]+>)*([^<]*)/g)) {
+              const c = m[2].match(/^\s*(Chapter|Division)\s+([0-9]+[A-Za-z]?(?:\.\d+)?)\s*[:.\-]/i);
+              if (!c) continue;
+              const ch = c[2];
+              const cited = GU_CITED_CHAPTERS.has(`${title}:${ch}`);
+              items.push({
+                key: `${title} GCA ${c[1]} ${ch} -> ${m[1]}`,
+                text: `${title} GCA ${c[1]} ${ch} has a new file (${m[1].split("/").pop()})`,
+                url: `https://col.guamcourts.gov${m[1]}`,
+                relevant: cited,
+                why: "A cited chapter was recompiled; compare it with the cited sections.",
+              });
+            }
+          }
+          return items;
+        },
+      },
+      {
+        id: "gu-compiled-through",
+        label: "Guam Code Annotated \"updated through\" public law (Compiler of Laws)",
+        kind: "value",
+        async run() {
+          const url = "https://col.guamcourts.gov/guam-code-annotated/guam-code-annotated";
+          const m = htmlToText(await fetchText(url)).match(/Updated through P\.L\. (\d+-\d+)(?: \(([^)]+)\))?/i);
+          return m ? [{ key: `P.L. ${m[1]}`, text: `P.L. ${m[1]}${m[2] ? ` (${m[2]})` : ""}`, url, why: "The Compiler has codified more laws; the chapter and TOCSA checks show which." }] : [];
+        },
+      },
+      {
+        id: "gu-tocsa",
+        label: "Guam Table of Code Sections Affected (latest edition)",
+        kind: "value",
+        async run() {
+          const url = "https://col.guamcourts.gov/guam-code-annotated/table-code-sections-affected";
+          const all = [...(await fetchText(url)).matchAll(/href="(\/sites\/default\/files\/TOCSA%20(\d+)-(\d+)\.pdf)"/g)];
+          if (!all.length) return [];
+          const last = all.reduce((a, b) => (Number(b[2]) * 10000 + Number(b[3]) > Number(a[2]) * 10000 + Number(a[3]) ? b : a));
+          return [{ key: `TOCSA ${last[2]}-${last[3]}`, text: `TOCSA through P.L. ${last[2]}-${last[3]}`, url: `https://col.guamcourts.gov${last[1]}`, why: "New entries: look for cited sections (it runs ahead of recompiled chapters)." }];
+        },
+      },
+      {
+        id: "gu-public-laws",
+        label: "Guam public laws (Legislature)",
+        async run() {
+          const url = "https://guamlegislature.gov/public-laws/";
+          const html = await fetchText(url);
+          const links = [...html.matchAll(/<a href="([^"]*\/Public[ %20]+Law[ %20]+\d+-\d+\.pdf)"[^>]*>\s*<strong>\s*Public Law (\d+)-(\d+)\s*<\/strong>\s*<\/a>/gi)];
+          const items = [];
+          links.forEach((m, i) => {
+            const end = i + 1 < links.length ? links[i + 1].index : m.index + 6000;
+            const text = htmlToText(html.slice(m.index + m[0].length, end));
+            const title = text.split(/\b\d+-\d+ \((?:COR|LS|EC)\)/)[0].trim();
+            const status = [...text.matchAll(/(SIGNED|LAPSED|OVERRIDDEN)[^:]*:\s*(\d{1,2}\/\d{1,2}\/\d{2})/gi)].pop();
+            const chapters = new Set();
+            for (const c of title.matchAll(/CHAPTERS? ([\dA-Z.,\s&AND]+?)(?:,|\s)(?:[^.;]*?)TITLE (\d+[A-Z]?),? GUAM CODE ANNOTATED/gi))
+              for (const n of c[1].match(/\d+[A-Z]?(?:\.\d+)?/g) || []) chapters.add(`${c[2]}:${n}`);
+            const hit = [...chapters].filter((k) => GU_CITED_CHAPTERS.has(k));
+            const t = title.length > 300 ? `${title.slice(0, 300)}...` : title;
+            items.push({
+              key: `P.L. ${m[2]}-${m[3]}`,
+              text: `P.L. ${m[2]}-${m[3]}${status ? ` (${status[1].toLowerCase()} ${status[2]})` : ""}: ${t}`,
+              url: new URL(m[1], url).href,
+              relevant: hit.length > 0 || LANDLORD_TENANT_WORDS.test(title),
+              why: hit.length ? `It names cited chapter(s) ${hit.map((k) => k.replace(":", " GCA Ch. ")).join(", ")}.` : "Its title names a landlord-tenant subject.",
+            });
+          });
+          return items;
+        },
+      },
+    ],
+    cfrChecks: FEDERAL_CFR_CHECKS,
+    federalStatuteChecks: FEDERAL_STATUTE_CHECKS,
+    manualRecheckItems: [
+      {
+        id: "gu-rules-and-register",
+        label:
+          "Guam Administrative Rules and Regulations the citations cite (col.guamcourts.gov, 254 rule PDFs with irregular names, not mapped to the cited rule sections): check for re-issued files, and for new rules approved by public law that the public-law check did not flag",
+        clauseIds: [],
+      },
+    ],
+  },
+  VI: {
+    // U.S. Virgin Islands (added 2026-11-21). LegiScan has no VI bills and the
+    // V.I. Code is only on Lexis, so the watch reads the Legislature's bill
+    // tracker (billtracking.legvi.org): its CSV export lists every bill of the
+    // current Legislature with its act number once passed. A new act is
+    // flagged when its title names a cited section (titles often say "title
+    // 28 Virgin Islands Code, ... section 752") or a landlord-tenant subject.
+    // Act numbers run on across Legislatures (the 36th began at 8982), so a
+    // new Legislature's acts are new keys too. Act text is scanned PDF, so
+    // nothing reads the act itself. Keys are "28 V.I.C. § 752".
+    legiscanSections: false,
+    extractSections(text) {
+      const out = [];
+      for (const part of text.split(";").map((p) => p.trim()).filter(Boolean)) {
+        const m = part.match(/^(\d+[A-Z]?) V\.I\.C\. § (\d+[a-z]?)/);
+        if (m) out.push(`${m[1]} V.I.C. § ${m[2]}`);
+      }
+      return [...new Set(out)];
+    },
+    sourceChecks: [
+      {
+        id: "vi-acts",
+        label: "Virgin Islands bills and acts (Legislature bill tracker)",
+        // Bill detail pages are numbered in one increasing sequence
+        // (bill_detail/<n>/; other documents share it, so there are gaps).
+        // Each run reads the pages above the highest one seen, until 25 empty
+        // ones in a row; a bill whose subject names a cited section or a
+        // landlord-tenant subject is followed until it is enacted, and its
+        // enactment is the finding. (The site's CSV export can't be used: it
+        // returns whatever search was last run on the server.)
+        async run({ sectionMap, memory }) {
+          memory.next ||= VI_SEED.next;
+          memory.following ||= [...VI_SEED.following];
+          const items = [];
+          const record = (doc, bill) => {
+            const rel = viRelevance(bill.subject, sectionMap);
+            const enacted = Boolean(bill.enacted);
+            if (rel.relevant && !enacted && !memory.following.includes(doc)) memory.following.push(doc);
+            if (enacted) memory.following = memory.following.filter((d) => d !== doc);
+            items.push({
+              key: enacted ? `Act ${bill.act || `of bill ${bill.bill}`}` : `bill ${bill.bill || doc} pending`,
+              text: `${enacted ? `Act ${bill.act || "(no number yet)"}, enacted ${bill.enacted}` : "Pending"} (Bill ${bill.bill || "?"}): ${bill.subject.length > 300 ? `${bill.subject.slice(0, 300)}...` : bill.subject}`,
+              url: `https://billtracking.legvi.org/bill_detail/${doc}/`,
+              clauseIds: rel.clauseIds,
+              relevant: enacted && rel.relevant,
+              why: rel.why,
+            });
+          };
+          // Bills already followed, until enacted.
+          for (const doc of [...memory.following]) {
+            const bill = viBill(await fetchText(`https://billtracking.legvi.org/bill_detail/${doc}/`, { allow404: true }));
+            if (bill) record(doc, bill);
+          }
+          // New pages.
+          let empty = 0;
+          let n = memory.next;
+          while (empty < 25 && n < memory.next + 400) {
+            const bill = viBill(await fetchText(`https://billtracking.legvi.org/bill_detail/${n}/`, { allow404: true }));
+            if (bill && bill.subject) {
+              empty = 0;
+              record(n, bill);
+              memory.highest = n;
+            } else empty++;
+            n++;
+          }
+          memory.next = (memory.highest || memory.next - 1) + 1;
+          // A run that read nothing at all is still a successful run.
+          if (!items.length) items.push({ key: `checked to ${memory.next - 1}`, text: `no new bills (checked to page ${memory.next - 1})`, relevant: false });
+          return items;
+        },
+      },
+      {
+        id: "vi-bill-36-0022",
+        label: "Bill 36-0022 (28 V.I.C. § 752 notice periods), latest action",
+        kind: "value",
+        async run() {
+          const url = "https://billtracking.legvi.org/bill_detail/36748/";
+          const html = await fetchText(url);
+          const rows = [...html.matchAll(/<td[^>]*status-cell">([\s\S]*?)<\/td>\s*<td[^>]*date-cell">([\s\S]*?)<\/td>\s*<td[^>]*committee-cell">([\s\S]*?)<\/td>\s*<td[^>]*description-cell">([\s\S]*?)<\/td>/g)]
+            .map((m) => m.slice(1).map(htmlToText).filter(Boolean).join(", "));
+          // The history table isn't in date order; report the latest-dated row.
+          const dated = (r) => { const d = r.match(/(\d{2})-(\d{2})-(\d{4})/); return d ? `${d[3]}${d[1]}${d[2]}` : ""; };
+          const last = rows.reduce((a, b) => (dated(b) >= dated(a) ? b : a), rows[0] || "");
+          return rows.length ? [{ key: `${rows.length} actions; latest: ${last}`, text: `${rows.length} actions; latest: ${last}`, url, why: "If it moved out of committee or passed, re-read the rows citing 28 V.I.C. § 752 (`default-by-tenant`, `edu-rent-increase-notice-vi`)." }] : [];
+        },
+      },
+      {
+        id: "vi-legislature",
+        label: "Virgin Islands Legislature in session (bill tracker home page)",
+        kind: "value",
+        async run() {
+          const url = "https://billtracking.legvi.org/";
+          const m = htmlToText(await fetchText(url)).match(/(\d+)(?:st|nd|rd|th) Legislature of (?:the )?United States Virgin Islands/i);
+          return m ? [{ key: `${m[1]}th Legislature`, text: `${m[1]}th Legislature`, url, why: "A new Legislature: check that the CSV export now lists its bills, and that the previous Legislature's last acts were all seen." }] : [];
+        },
+      },
+    ],
+    cfrChecks: FEDERAL_CFR_CHECKS,
+    federalStatuteChecks: FEDERAL_STATUTE_CHECKS,
+    manualRecheckItems: [
+      {
+        id: "vi-code-and-rules",
+        label:
+          "Virgin Islands sources the bill tracker can't show (VI log §10): the V.I. Code text on Lexis (acts are scanned PDFs), the 1947 rent-control emergency (28 V.I.C. §§ 831-846), emergency rent freezes (23 V.I.C. § 1005(g)(10)), new International Code editions (29 V.I.C. §§ 292(d), 292a), the V.I. Rules and Regulations and the Superior Court rules. Check for changes since the last look",
+        clauseIds: ["default-by-tenant", "edu-rent-control-vi", "rent-increase-midterm-ky", "fire-safety-grilling", "edu-rent-increase-notice-vi"],
+      },
+    ],
+  },
+  AS: {
+    // American Samoa (added 2026-11-21). LegiScan has no American Samoa bills
+    // and the Government publishes no Code (the Bar Association's compilation
+    // is current to August 2021), so the watch reads the Secretary of American
+    // Samoa (osas.as, a Wix site) and the Governor's pages
+    // (americansamoa.gov), plain page reads only. A Wix page embeds its
+    // table's record count and first 12 rows in the HTML (wix-warmup-data), so
+    // the public-law check reports a higher count (open the page for the new
+    // laws) and any new embedded row. The A.S.A.C. 2024 page embeds only
+    // Titles 2-20, so its row count is watched and the cited titles (25, 26,
+    // 27, 37, 43) are a manual item. A new
+    // Legislature shows up as a new page in the site map; add its page to
+    // AS_LAW_PAGES below.
+    legiscanSections: false,
+    sectionPattern: /A\.S\.C\.A\. § \d+\.\d+/g,
+    sourceChecks: [
+      {
+        id: "as-public-laws",
+        label: "American Samoa public laws (osas.as)",
+        async run() {
+          const AS_LAW_PAGES = { "39th": "https://www.osas.as/39th" };
+          const titles = /\b(43\.14|Title 43|37\.\d|Title 37|27\.04|27\.09|Title 2[567]|2[567]\.\d)/i;
+          const items = [];
+          for (const [leg, url] of Object.entries(AS_LAW_PAGES)) {
+            const { total, records } = wixWarmup(await fetchText(url));
+            if (total === null) throw new Error(`${url}: no record count in the page (has the page changed?)`);
+            items.push({ key: `${leg} count ${total}`, text: `${leg} Legislature: ${total} public law(s) posted`, url, why: "More laws are posted than last month; open the page and check the new ones." });
+            for (const d of records) {
+              const no = d.publicLawNo || d.title_fld;
+              if (!no) continue;
+              const about = `${d.aSCA || ""} ${d.summary || ""}`.trim();
+              const file = wixFileName(d.document);
+              items.push({
+                key: no,
+                text: `${no} (approved ${d.dateApproved || "?"}, ${d.senateHouseBillNo || "no bill no."}): ${about || `no summary posted; file ${file}`}`,
+                url,
+                relevant: !about || titles.test(about) || LANDLORD_TENANT_WORDS.test(about),
+                why: about ? "It names a title or subject the library relies on." : "No summary is posted; open the PDF to see what it changes.",
+              });
+            }
+          }
+          return items;
+        },
+      },
+      {
+        id: "as-site-pages",
+        label: "New pages on osas.as (a new Legislature's laws, a new code edition)",
+        async run() {
+          const xml = await fetchText("https://www.osas.as/pages-sitemap.xml");
+          return [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => ({ key: m[1], text: m[1], url: m[1], why: "A new page; if it lists a new Legislature's public laws, add it to the AS public-law check." }));
+        },
+      },
+      {
+        id: "as-asac-2024",
+        label: "American Samoa Administrative Code, 2024 edition (osas.as/asac-2024)",
+        async run() {
+          const url = "https://www.osas.as/asac-2024";
+          const { total, records } = wixWarmup(await fetchText(url));
+          const items = records.filter((d) => d.title).map((d) => {
+            const file = wixFileName(d.document);
+            return {
+              key: `${d.title}|${d.url}|${wixFileName(d.document)}`,
+              text: `${d.title.replace(/\s+/g, " ")}: online research "${d.url}", file ${file}`,
+              url,
+              // The page embeds only the first 12 rows by title (Titles 2-20),
+              // none of them cited; recorded quietly, the count is the signal
+              // and the cited titles are a manual item.
+              relevant: false,
+            };
+          });
+          if (total !== null) items.push({ key: `count ${total}`, text: `${total} rows in the A.S.A.C. table`, url, why: "Rows were added or removed." });
+          return items;
+        },
+      },
+      {
+        id: "as-executive-orders",
+        label: "Governor's executive orders naming a disaster or emergency (americansamoa.gov)",
+        async run() {
+          const url = "https://www.americansamoa.gov/executiveorders";
+          return htmlToLines(await fetchText(url)).replace(/\u200b/g, "").split("\n")
+            .filter((l) => /disaster|emergenc/i.test(l) && l.length < 400)
+            .map((l) => ({ key: l, text: l, url, why: "A disaster declaration under A.S.C.A. § 26.0105 starts the § 27.0903 rent cap." }));
+        },
+      },
+      {
+        id: "as-declarations",
+        label: "Governor's declarations (americansamoa.gov)",
+        async run() {
+          const url = "https://www.americansamoa.gov/declarations";
+          return [...htmlToLines(await fetchText(url)).replace(/\u200b/g, "").matchAll(/^\s*((?:[A-Z][a-z]+ Amendment to )?Declaration[^\n]*?)\s*-\s*(\d{2}\/\d{2}\/\d{4})\s*$/gm)]
+            .map((m) => ({ key: `${m[1]} - ${m[2]}`, text: `${m[1]} (${m[2]})`, url, why: "Check whether it is a disaster declaration that starts the § 27.0903 rent cap." }));
+        },
+      },
+      {
+        id: "as-rule-notices",
+        label: "Rulemaking notices (osas.as feed)",
+        async run() {
+          const xml = await fetchText("https://www.osas.as/blog-feed.xml");
+          return [...xml.matchAll(/<item>([\s\S]*?)<\/item>/g)].map((m) => {
+            const title = htmlToText(((m[1].match(/<title>([\s\S]*?)<\/title>/) || [])[1] || "").replace(/<!\[CDATA\[|\]\]>/g, ""));
+            const link = ((m[1].match(/<link>([\s\S]*?)<\/link>/) || [])[1] || "").trim();
+            const date = ((m[1].match(/<pubDate>([\s\S]*?)<\/pubDate>/) || [])[1] || "").trim();
+            return { key: link || title, text: `${title}${date ? ` (${date})` : ""}`, url: link, relevant: /Title\s+(25|26|27|37|43)\b/i.test(title) || LANDLORD_TENANT_WORDS.test(title), why: "A rule change in a title the library cites." };
+          });
+        },
+      },
+      {
+        id: "as-asbar-code",
+        label: "Bar Association A.S.C.A. compilation date (asbar.org)",
+        kind: "value",
+        async run() {
+          const url = "https://asbar.org/wp-content/uploads/2022/01/TitleASBAHTML-1.html";
+          const m = htmlToText(await fetchText(url)).match(/A\.S\.C\.A\. Titles \(Updated: ([A-Za-z]+ \d{4})\)/);
+          return m ? [{ key: m[1], text: m[1], url, why: "A new compilation of the Code: re-read the cited sections." }] : [];
+        },
+      },
+    ],
+    cfrChecks: FEDERAL_CFR_CHECKS,
+    federalStatuteChecks: FEDERAL_STATUTE_CHECKS,
+    manualRecheckItems: [
+      {
+        id: "as-asac-cited-titles",
+        label:
+          "A.S.A.C. 2024 edition titles the library cites (osas.as/asac-2024: Titles 25, 26, 27, 37 and 43, PDFs dated Oct. 2024 and, for Title 25, amended 7-28-2025): the page's plain HTML shows only Titles 2-20, so open it and check whether any cited title has a newer file, and whether \"Online Research\" has gone live",
+        clauseIds: [],
+      },
+    ],
+  },
+  MP: {
+    // Northern Mariana Islands (added 2026-11-21). LegiScan has no CNMI bills,
+    // so the watch reads the Law Revision Commission (cnmilaw.gov) directly:
+    // its Code Update Table lists every public-law section and the CMC
+    // section it was codified at, which is matched against the cited
+    // sections; its public-law lists are scanned for landlord-tenant titles
+    // (laws not codified, or on sections not yet cited). Keys are "4 CMC §
+    // 5142" (title, section; subsection dropped). NMIAC rules, the Governor's
+    // emergency orders (governor.cnmi.gov refuses automated requests) and the
+    // Commonwealth Register are left to the manual items below.
+    legiscanSections: false,
+    extractSections(text) {
+      const out = [];
+      for (const part of text.split(";").map((p) => p.trim()).filter(Boolean)) {
+        const m = part.match(/^(\d+) CMC § (\d+)/);
+        if (m) out.push(`${m[1]} CMC § ${m[2]}`);
+      }
+      return [...new Set(out)];
+    },
+    sourceChecks: [
+      {
+        id: "mp-update-table",
+        label: "CNMI Code Update Table (cnmilaw.gov)",
+        async run({ sectionMap }) {
+          const url = "https://cnmilaw.gov/update-table";
+          const html = await fetchText(url);
+          const items = [];
+          // Ranges the library relies on as a whole, cited or not: the
+          // Commercial Lease and Holdover Tenancy chapters (2 CMC Div. 4) and
+          // the Residential Landlord and Tenant Act (4 CMC §§ 5101-5173).
+          const watched = [[2, 40101, 40299], [4, 5101, 5199]];
+          for (const row of tableRows(html)) {
+            if (row.length < 4 || !/^PL \d+-\d+/.test(row[0].text)) continue;
+            const [pl, sec, at, date, note] = row.map((c) => c.text);
+            const m = at.match(/^(\d+) CMC §+ ?(\d+)(?:\s*-\s*(\d+))?/);
+            const keys = [];
+            let inWatched = false;
+            if (m) {
+              const t = Number(m[1]);
+              const a = Number(m[2]);
+              const b = m[3] ? Number(m[3]) : a;
+              for (let n = a; n <= Math.min(b, a + 500); n++) keys.push(`${t} CMC § ${n}`);
+              inWatched = watched.some(([wt, lo, hi]) => wt === t && b >= lo && a <= hi);
+            }
+            const clauseIds = idsFor(sectionMap, keys);
+            items.push({
+              key: `${pl} ${sec} -> ${at}`,
+              text: `${pl} ${sec} codified at ${at} (${note || "no note"}, ${date})`,
+              url,
+              clauseIds,
+              relevant: clauseIds.size > 0 || inWatched,
+              why: clauseIds.size ? "A cited section was amended, added or repealed." : inWatched ? "In a chapter the library relies on." : "",
+            });
+          }
+          return items;
+        },
+      },
+      {
+        id: "mp-public-laws",
+        label: "CNMI public laws (cnmilaw.gov)",
+        async run() {
+          // The Nth Legislature sits from January of odd year 2025 + 2(N-24);
+          // read the one before and after too, so a new Legislature's first
+          // laws are never missed.
+          const year = new Date().getUTCFullYear();
+          const n = 24 + Math.floor((year - 2025) / 2);
+          const items = [];
+          for (const leg of [n - 1, n, n + 1]) {
+            const url = `https://cnmilaw.gov/documents?type=public_law&leg=${leg}`;
+            const html = await fetchText(url, { allow404: true });
+            for (const row of tableRows(html)) {
+              const num = row[0]?.text.match(/^PL (\d+-\d+)$/);
+              if (!num || row.length < 2) continue;
+              const title = row[1].text;
+              const date = row.find((c) => /^\d{4}-\d{2}-\d{2}$/.test(c.text))?.text || "";
+              items.push({
+                key: `PL ${num[1]}`,
+                text: `PL ${num[1]}${date ? ` (${date})` : ""}: ${title.length > 300 ? `${title.slice(0, 300)}...` : title}`,
+                url: row[0].hrefs[0] || url,
+                relevant: LANDLORD_TENANT_WORDS.test(title),
+                why: "Its title names a landlord-tenant subject.",
+              });
+            }
+          }
+          return items;
+        },
+      },
+      {
+        id: "mp-update-table-archive",
+        label: "CNMI historical Code Update Table (archived PDF) last-updated date",
+        kind: "value",
+        async run() {
+          const url = "https://cnmilaw.gov/update-table";
+          const m = htmlToText(await fetchText(url)).match(/Last updated ([A-Z][a-z]+ \d{1,2}, \d{4})/);
+          return m ? [{ key: m[1], text: m[1], url, why: "The archived table was revised; skim it for cited sections." }] : [];
+        },
+      },
+    ],
+    cfrChecks: FEDERAL_CFR_CHECKS,
+    federalStatuteChecks: FEDERAL_STATUTE_CHECKS,
+    manualRecheckItems: [
+      {
+        id: "mp-emergency-orders",
+        label:
+          "The Governor's price-freeze and emergency orders (governor.cnmi.gov refuses automated requests; 4 CMC § 5142; a significant-emergency declaration lapses after 30 days unless renewed, 1 CMC § 20144(g)(2)). Check whether a declaration or price freeze is in force or has lapsed, and update the rent rows that state the freeze",
+        clauseIds: ["rent-increase-midterm-mp", "rent-escalation-mp", "edu-rent-control-mp", "edu-rent-increase-notice-mp"],
+      },
+      {
+        id: "mp-register-rules",
+        label:
+          "Commonwealth Register issues since the last check (cnmilaw.gov, Register by Year): proposed and adopted amendments to the NMIAC rules the citations cite (housing voucher rules, NMIAC ch. 100-80 and 100-90; business license fees, ch. 155-10.1)",
+        clauseIds: ["edu-voucher-lease-move-out-mp", "government-fee-reimbursement-mp", "edu-subsidy-habitability-proration-mp"],
+      },
+    ],
+  },
 };
 
 // Monthly schedule (2026-09-29; LegiScan's free tier drops to 10,000 queries
@@ -3542,6 +4226,7 @@ const SCHEDULE_ORDER = [
   "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI",
   "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD",
   "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA", "AR", "MS", "DC",
+  "PR", "GU", "VI", "AS", "MP", // territories (2026-11-21): official-source checks, no LegiScan sections
 ];
 function cronFor(code) {
   const n = SCHEDULE_ORDER.indexOf(code);

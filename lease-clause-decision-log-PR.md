@@ -161,7 +161,7 @@ The class decisions below were recorded once and applied to every shared clause 
     - The art. 1257 "cálculo anticipado del daño" variety, which bars the tenant from proving a smaller loss, is not written into a form lease.
     - So there is no preset schedule of cleaning or repair deductions. `deposit-cost-schedule-pr` is delivered switched off, and the education row says such a schedule is lawful between negotiating parties.
 21. **Ley 128-1941 § 5(b):** renting a dwelling the Health Secretary declared unfit, before repairs are made, forfeits rent.
-22. **Ley 157-2026:** in force about 29 Oct 2026 (§1.2).
+22. **Ley 157-2026:** in force about 29 Oct 2026 (§1.2). **Update 2026-11-21:** now in force (SUTRA lists it signed 31 Jul 2026, effective 28 Oct 2026). `edu-recycling-pr` and `edu-no-tenant-law-sunset-pr` now state it in the past tense; the rows that give both article numbers keep them, since leases and notices from before the changeover may still cite the old numbers.
 23. **Ley 57-2014 art. 1.3(l):** resale of electricity makes a person an electric service company (see 31).
 24. **Scanned 2026 laws:** currency caveat (§1.2).
 25. **Section titles used across rows:** "Landlord's Right of Entry", "Ending the Lease at or After the End of the Term", "Holding Over After the Lease Ends", "Default by Tenant", "move-in condition report".

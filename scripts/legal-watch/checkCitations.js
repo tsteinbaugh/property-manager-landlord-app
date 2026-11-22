@@ -214,6 +214,12 @@ function buildSectionMap(rows) {
 const CFR_CHECKS = CONFIG.cfrChecks || [];
 const FEDERAL_STATUTE_CHECKS = CONFIG.federalStatuteChecks || [];
 const MANUAL_RECHECK_ITEMS = CONFIG.manualRecheckItems || [];
+// Official-source checks (added 2026-11-21 for the territories, which LegiScan
+// doesn't cover): each reads an official website directly; see
+// officialSources.js. A jurisdiction with `legiscanSections: false` skips the
+// LegiScan section search, since LegiScan has none of its bills.
+const SOURCE_CHECKS = CONFIG.sourceChecks || [];
+const LEGISCAN_SECTIONS = CONFIG.legiscanSections !== false;
 const MANUAL_RECHECK_INTERVAL_DAYS = 180;
 // Every request gets a timeout (added 2026-09-28). Without one, a single hung
 // LegiScan request left North Carolina's first dry-run stalled indefinitely.
@@ -360,9 +366,10 @@ function loadState() {
     state.cfr ||= {};
     state.manualRecheck ||= {};
     state.subjects ||= {};
+    state.sources ||= {};
     return state;
   } catch {
-    return { sections: {}, federalSections: {}, cfr: {}, manualRecheck: {}, subjects: {} };
+    return { sections: {}, federalSections: {}, cfr: {}, manualRecheck: {}, subjects: {}, sources: {} };
   }
 }
 
@@ -407,8 +414,21 @@ async function sendPartialNotice(unchecked) {
   await sendEmail(`[Steinoak] Legal watch incomplete: ${STATE_NAME} (${unchecked.length} check(s) failed)`, html);
 }
 
-async function sendAlertEmail({ billFindings = [], cfrFindings = [], reminders = [], subjectFindings = [] }) {
+async function sendAlertEmail({ billFindings = [], cfrFindings = [], reminders = [], subjectFindings = [], sourceFindings = [] }) {
   const sections = [];
+
+  if (sourceFindings.length > 0) {
+    const lines = sourceFindings.map((f) => {
+      const what = f.previous !== undefined ? `changed from <b>${f.previous || "(nothing recorded)"}</b> to <b>${f.item.text}</b>` : f.item.text;
+      const ids = [...(f.item.clauseIds || [])];
+      const affects = ids.length ? ` (affects: ${ids.slice(0, 8).join(", ")}${ids.length > 8 ? ` and ${ids.length - 8} more` : ""})` : "";
+      const why = f.item.why ? ` <i>${f.item.why}</i>` : "";
+      return `<li><b>${f.check.label}</b>: ${what}${affects}.${why}${f.item.url ? ` <a href="${f.item.url}">Source</a>` : ""}</li>`;
+    });
+    sections.push(
+      `<h3>Changes on official sites</h3><p>Read directly from the official websites (LegiScan doesn't cover this jurisdiction). Each is new since the last run; check what it changes before touching a clause.</p><ul>${lines.join("")}</ul>`,
+    );
+  }
 
   if (subjectFindings.length > 0) {
     const lines = subjectFindings.map(
@@ -444,7 +464,7 @@ async function sendAlertEmail({ billFindings = [], cfrFindings = [], reminders =
     );
   }
 
-  const totalRealFindings = billFindings.length + cfrFindings.length + subjectFindings.length;
+  const totalRealFindings = billFindings.length + cfrFindings.length + subjectFindings.length + sourceFindings.length;
   const html = `<p>${STATE_NAME} lease-clause legal watch -- verify anything below against primary text before touching a clause; nothing here is a verified finding.</p>${sections.join("")}<p><i>See lease-clause-citations-${STATE_CODE}.csv for what each clause currently asserts.</i></p>${ATTRIBUTION}`;
 
   await sendEmail(
@@ -493,7 +513,8 @@ async function main() {
     return;
   }
 
-  if (!LEGISCAN_API_KEY) {
+  const needsLegiscan = LEGISCAN_SECTIONS || FEDERAL_STATUTE_CHECKS.length > 0 || CONFIG.subjectWatch;
+  if (needsLegiscan && !LEGISCAN_API_KEY) {
     console.error("Missing LEGISCAN_API_KEY");
     process.exit(1);
   }
@@ -507,7 +528,7 @@ async function main() {
 
   // ---- stream 1: state statute sections, via LegiScan ----
 
-  console.log(`Checking ${sectionMap.size} distinct ${STATE_NAME} statute sections cited by ${STATE_CODE} clauses...`);
+  if (LEGISCAN_SECTIONS) console.log(`Checking ${sectionMap.size} distinct ${STATE_NAME} statute sections cited by ${STATE_CODE} clauses...`);
   const billFindings = [];
 
   let legiscanAttempted = 0;
@@ -595,8 +616,12 @@ async function main() {
     stateBucket[section] = seen;
   }
 
-  for (const [section, clauseIds] of sectionMap) {
-    await checkLegiscanSection(section, clauseIds, STATE_CODE, state.sections);
+  if (LEGISCAN_SECTIONS) {
+    for (const [section, clauseIds] of sectionMap) {
+      await checkLegiscanSection(section, clauseIds, STATE_CODE, state.sections);
+    }
+  } else {
+    console.log(`  (skipped: LegiScan doesn't cover ${STATE_NAME}; the official-source checks below stand in for it)`);
   }
 
   // ---- stream 2: the one federal statute citation, via LegiScan against Congress ----
@@ -678,6 +703,52 @@ async function main() {
     }
   }
 
+  // ---- stream 2c: official sources read directly (added 2026-11-21) ----
+
+  const sourceFindings = [];
+  if (SOURCE_CHECKS.length) console.log(`\nChecking ${SOURCE_CHECKS.length} official-source check(s)...`);
+  for (const check of SOURCE_CHECKS) {
+    checksAttempted++;
+    let items;
+    // `memory` is the check's own state between runs (e.g. bills it is
+    // following); it is saved only when the check succeeds.
+    const memory = JSON.parse(JSON.stringify(state.sources[check.id]?.memory || {}));
+    try {
+      items = await check.run({ sectionMap, verbose: VERBOSE, memory });
+    } catch (err) {
+      console.error(`  [source] ${check.label}: error - ${err.message}`);
+      checksErrored++;
+      unchecked.push(check.label);
+      continue;
+    }
+    // A page that parses to nothing has most likely changed its layout; that
+    // must not pass as "nothing new".
+    if (!Array.isArray(items) || items.length === 0) {
+      console.error(`  [source] ${check.label}: parsed no items (has the page changed?)`);
+      checksErrored++;
+      unchecked.push(`${check.label} (the page parsed to nothing; its layout may have changed)`);
+      continue;
+    }
+    const seeding = !state.sources[check.id];
+    const bucket = state.sources[check.id] || { seen: [] };
+    const seen = new Set(bucket.seen);
+    const previous = bucket.seen[bucket.seen.length - 1];
+    let fresh = 0;
+    for (const item of items) {
+      if (seen.has(item.key)) continue;
+      fresh++;
+      if (!seeding && item.relevant !== false) {
+        sourceFindings.push({ check, item, previous: check.kind === "value" ? previous : undefined });
+      }
+      seen.add(item.key);
+      bucket.seen.push(item.key);
+    }
+    if (check.kind === "value") bucket.seen = bucket.seen.slice(-20);
+    if (Object.keys(memory).length) bucket.memory = memory;
+    state.sources[check.id] = bucket;
+    console.log(`  [source] ${check.label}: ${items.length} item(s), ${fresh} new${seeding ? " (first run: recording, not flagging)" : ""}`);
+  }
+
   // ---- stream 3: federal regulation citations, via eCFR ----
 
   console.log(`\nChecking ${CFR_CHECKS.length} CFR section(s) via eCFR...`);
@@ -709,7 +780,10 @@ async function main() {
   // Same for LegiScan on its own (added 2026-09-28): when the monthly query
   // limit ran out, every LegiScan search failed but the eCFR checks still
   // worked, so the run reported "success" having checked no statutes at all.
-  if (legiscanAttempted > 0 && legiscanErrored === legiscanAttempted) {
+  // A jurisdiction LegiScan doesn't cover (legiscanSections: false) makes
+  // only the one federal search there, so a LegiScan outage alone doesn't
+  // void its run: the failed search is reported as unchecked instead.
+  if (LEGISCAN_SECTIONS && legiscanAttempted > 0 && legiscanErrored === legiscanAttempted) {
     console.error(`\nAll ${legiscanAttempted} LegiScan search(es) failed -- treating this as a failed run, not a clean result. Not sending an email, not updating state.`);
     process.exit(1);
   }
@@ -732,11 +806,12 @@ async function main() {
   }
 
   console.log(
-    `\n${billFindings.length + cfrFindings.length + subjectFindings.length} real finding(s), ${reminders.length} manual-recheck reminder(s) (${checksErrored}/${checksAttempted} live checks errored):`,
+    `\n${billFindings.length + cfrFindings.length + subjectFindings.length + sourceFindings.length} real finding(s), ${reminders.length} manual-recheck reminder(s) (${checksErrored}/${checksAttempted} live checks errored):`,
   );
   billFindings.forEach((f) => console.log(`  [bill] ${f.jurisdiction} ${f.section} -> ${f.bill.bill_number} (${f.statusLabel}), affects: ${[...f.clauseIds].join(", ")}`));
   cfrFindings.forEach((f) => console.log(`  [cfr] ${f.title} CFR ${f.section} amended ${f.lastAmended}, affects: ${[...f.clauseIds].join(", ")}`));
   subjectFindings.forEach((f) => console.log(`  [subject] ${f.bill.bill_number} (${f.statusLabel}): ${f.bill.title}`));
+  sourceFindings.forEach((f) => console.log(`  [source] ${f.check.label}: ${f.previous !== undefined ? `${f.previous} -> ` : ""}${f.item.text}`));
   reminders.forEach((r) => console.log(`  [reminder] ${r.label}`));
 
   if (DRY_RUN) {
@@ -753,11 +828,11 @@ async function main() {
     return;
   }
 
-  if (billFindings.length > 0 || cfrFindings.length > 0 || subjectFindings.length > 0 || reminders.length > 0) {
+  if (billFindings.length > 0 || cfrFindings.length > 0 || subjectFindings.length > 0 || sourceFindings.length > 0 || reminders.length > 0) {
     if (!RESEND_API_KEY || !ALERT_EMAIL_TO) {
       console.error("Findings/reminders exist but RESEND_API_KEY/ALERT_EMAIL_TO not set -- skipping email.");
     } else {
-      await sendAlertEmail({ billFindings, cfrFindings, reminders, subjectFindings });
+      await sendAlertEmail({ billFindings, cfrFindings, reminders, subjectFindings, sourceFindings });
       console.log("Alert email sent.");
     }
   }

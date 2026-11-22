@@ -20063,6 +20063,15 @@ const CLAUSE_TEMPLATES = [
     bodyText:
       "[Include only if the property is within a public improvement district established under Miss. Code Ann. Title 19, Chapter 31; otherwise leave this Section out.] [BUILDER: print this Section immediately above Tenant's signature line, in boldfaced, conspicuous type larger than the type in the rest of this Lease.] Public improvement district statement. Mississippi law requires the following statement for real property within a public improvement district; giving it does not by itself make Tenant responsible for any assessment. THE [name of district] PUBLIC IMPROVEMENT DISTRICT MAY IMPOSE AND LEVY ASSESSMENTS ON THIS PROPERTY. THESE ASSESSMENTS PAY THE CONSTRUCTION, OPERATION AND MAINTENANCE COSTS OF CERTAIN PUBLIC FACILITIES AND SERVICES OF THE DISTRICT AND ARE SET ANNUALLY BY THE GOVERNING BOARD OF THE DISTRICT. THESE ASSESSMENTS ARE IN ADDITION TO COUNTY AND OTHER LOCAL GOVERNMENTAL TAXES AND ASSESSMENTS AND ALL OTHER TAXES AND ASSESSMENTS PROVIDED FOR BY LAW.",
   },
+  // Tenant Responsibilities
+  {
+    id: "utility-cosigner-reimbursement-as",
+    title: "Utility Accounts Landlord Co-signs (Optional)",
+    group: "Tenant Responsibilities",
+    states: ["AS"],
+    bodyText:
+      "[Optional. Use where Tenant will hold electric, water or solid waste service in Tenant's own name with the American Samoa Power Authority.] UTILITY ACCOUNTS LANDLORD CO-SIGNS. Tenant understands that the American Samoa Power Authority requires Landlord, as owner, to co-sign Tenant's application for service or the transfer of an account to Tenant, and holds Landlord responsible for Tenant's past-due bills on that account. Tenant will keep every such account current and will not leave a balance owing on it when Tenant moves out. If Landlord pays the Authority any amount owed on an account Landlord co-signed for Tenant, for service during the Term or until Tenant returns possession of the property, Tenant will repay Landlord that amount within [number of days Landlord chooses, for example 14] days after Landlord gives Tenant written notice of the payment with a copy of the Authority's bill or receipt. This repayment returns the Authority's own charges to Landlord: it is not a fee or charge of Landlord's, and Landlord will add nothing to it. An amount Tenant does not repay when due is a default under this Lease, and Landlord may apply the Security Deposit to it as this Lease allows.",
+  },
 ];
 
 module.exports = { CLAUSE_TEMPLATES };

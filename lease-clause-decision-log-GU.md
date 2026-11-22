@@ -523,3 +523,16 @@ Taylor's decision 2026-11-21: a per-jurisdiction count found that topics added b
 ### Declined option, 2026-11-21 (Taylor's decision)
 
 - `edu-no-subordination-clause` tagged here and in every jurisdiction: the library offers no clause subordinating the lease to a mortgage (rule 54 row); the tenant's foreclosure protection is the federal PTFA (`edu-ptfa-foreclosure-tenants`).
+
+## Post-sync law screen (Claude Code, 2026-11-21)
+
+Prompted by the probes for the territory legal watch (backlog item 34). Since the sync the Compiler's code files are updated through P.L. 38-143 (this log's §1 has 38-133), and the 38th Legislature has enacted through P.L. 38-161. Each public law the corpus lacked (P.L. 38-146 to 38-161) and P.L. 38-138 was downloaded from guamlegislature.gov (saved in `~/territory-watch-build/probe/GU/pl/`) and screened by title and by the Code sections it amends against the sections the GU rows cite:
+
+- **P.L. 38-138** adds 21 GCA § 61531(o): Public Works sets the minimum parking for buildings used only as homeless shelters. The rows rely on § 61531(a) (one off-street space per dwelling unit), which is unchanged.
+- **P.L. 38-146** rewrites § 61541(b), (c) and (f) (commercial, industrial and Tumon resort-zone signs) and adds § 61548. The rows (`edu-tenant-display-rights-gu`, `edu-no-political-access-rule-gu`, and `common-area-use`'s GU tag) rely on the residential-zone rules in § 61541(a), which were not amended.
+- **P.L. 38-151** adds § 61527 (residential buildings on commercial lots built by the stated dates are lawful conforming uses, with parking and setback nonconformances legalized) and a commercial-mixed zone. No row says such buildings are nonconforming; the one-space-per-unit rule stays the general rule for new building permits.
+- **P.L. 38-160** adds §§ 75A122(d) and 75A124(d): financing-driven extensions of Chamorro Land Trust commercial leases. The rows citing § 75A122 concern its other provisions; unchanged.
+- **P.L. 38-136** (the FY2027 budget act, already screened at sync) added 10 GCA § 12206(m) and amended §§ 12206.3 and 12206.6; no GU row cites § 12206.
+- The other laws (38-147 to 38-150, 38-152 to 38-159, 38-161) concern mental-health petitions, teacher pay, beach warnings, psychologists, a veterans' cemetery fund, government land for sports, juror pay, drones, veterans' benefits and two sets of agency rules: none touches a cited chapter.
+
+Result: no row changes. The nine GU-only rows citing §§ 61531, 61541 and 75A122 carry a dated note.
