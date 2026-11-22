@@ -28,7 +28,7 @@ if len(args) != 4 or args[2] != "--base":
     sys.exit("usage: merge-delta.py DELTA.csv ST --base <git-rev> [--dry-run]")
 delta_path, st, _, base_rev = args
 st = st.upper()
-MASTER = "lease-clauses.csv"
+MASTER = "lease-clause-library/lease-clauses.csv"
 
 
 def read(data):
@@ -45,7 +45,12 @@ master_bytes = open(MASTER, "rb").read()
 master = read(master_bytes)
 if write(master) != master_bytes:
     sys.exit("FAIL - lease-clauses.csv does not round-trip byte-exactly; stop")
-base = read(subprocess.run(["git", "show", f"{base_rev}:{MASTER}"], capture_output=True, check=True).stdout)
+# The library moved from the repo root into lease-clause-library/ on 2026-11-21;
+# a base commit from before then has the CSV at the old path.
+_shown = subprocess.run(["git", "show", f"{base_rev}:{MASTER}"], capture_output=True)
+if _shown.returncode != 0:
+    _shown = subprocess.run(["git", "show", f"{base_rev}:lease-clauses.csv"], capture_output=True, check=True)
+base = read(_shown.stdout)
 delta_bytes = open(delta_path, "rb").read()
 delta = read(delta_bytes)
 header = master[0]

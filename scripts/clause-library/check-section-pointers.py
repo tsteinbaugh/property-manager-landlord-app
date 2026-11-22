@@ -7,13 +7,13 @@ Rule 78 asks for this sweep whenever a pass switches off or renames a
 clause; done by hand it missed six of seven states (WY retro, 2026-10-01),
 so it runs as a guard at every sync.
 
-Usage: python3 scripts/clause-library/check-section-pointers.py [lease-clauses.csv]
+Usage: python3 scripts/clause-library/check-section-pointers.py [lease-clause-library/lease-clauses.csv]
 """
 import csv
 import sys
 from collections import defaultdict
 
-path = sys.argv[1] if len(sys.argv) > 1 else "lease-clauses.csv"
+path = sys.argv[1] if len(sys.argv) > 1 else "lease-clause-library/lease-clauses.csv"
 rows = list(csv.DictReader(open(path, newline="", encoding="utf-8")))
 clauses = [r for r in rows if r["content_type"] == "LEASE_CLAUSE"]
 active = [r for r in clauses if r["is_active"] == "TRUE"]

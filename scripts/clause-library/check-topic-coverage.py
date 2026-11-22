@@ -3,7 +3,7 @@
 # cover every topic_key used by any active row.
 #
 # Usage (from the repo root):
-#   python3 scripts/clause-library/check-topic-coverage.py [lease-clauses.csv]
+#   python3 scripts/clause-library/check-topic-coverage.py [lease-clause-library/lease-clauses.csv]
 #
 # Added 2026-11-21 after a check found 17 later-researched jurisdictions
 # (MD to VI) missing 288 state-topic pairs: topics that later states added had
@@ -12,7 +12,7 @@
 import csv, sys
 from collections import defaultdict
 
-path = sys.argv[1] if len(sys.argv) > 1 else "lease-clauses.csv"
+path = sys.argv[1] if len(sys.argv) > 1 else "lease-clause-library/lease-clauses.csv"
 rows = [r for r in csv.DictReader(open(path, newline="", encoding="utf-8"))
         if r["is_active"].strip().upper() == "TRUE"]
 keys = {r["topic_key"] for r in rows if r["topic_key"].strip()}

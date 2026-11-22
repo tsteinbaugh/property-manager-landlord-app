@@ -389,6 +389,10 @@ All six v1 MVP modules are built (tagged `v1.0.0`), along with v2 Property Specs
 - Subordination clause declined; `edu-no-subordination-clause` added in all 56 jurisdictions (topic 370, `lease-subordination`), pointing to the PTFA row.
 - generate.py: 2216 clauses, 17820 education rows; all guards pass; 446 tests pass.
 
+### 2026-11-21: Lease clause library moved into its own folder (Claude Code, Taylor)
+
+- The 117 library files left the repo root for `lease-clause-library/`: `lease-clauses.csv`, the SOP and the topic reference at its top, the 56 citations files in `citations/`, the 58 decision logs in `decision-logs/`. Taylor's choice of name: Legal Tracker may get its own content later, so the folder names what's in it. Every script under `scripts/` now reads the new paths; `merge-delta.py` falls back to the old root path for a base commit from before the move. Generated files came out byte-identical, and every guard, the staging scripts and the 446 tests pass. The scripts folder keeps its name (`scripts/clause-library/`). Older entries in this file and in the logs name files by their old root paths; they are the same files.
+
 ### 2026-11-21: Small research items (Claude Code, Taylor)
 
 - CO SB25-276 read: no change to `edu-immigration-status-co`. In Taylor's Chrome: MA Uniform Summary Process and Small Claims Rules, Mass. R. Civ. P. 4, the fire code and accessibility code editions; CT lead regulations and CHRO regulations. Seven MA and CT rows updated (MA and CT logs). The two PR laws stay unread (the OGP library refuses connections from Chrome too).

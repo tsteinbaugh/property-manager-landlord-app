@@ -14,7 +14,7 @@ if len(sys.argv) < 3:
 st, name = sys.argv[1].upper(), sys.argv[2]
 out = sys.argv[3] if len(sys.argv) > 3 else os.path.expanduser(f"~/Desktop/{name.lower().replace(' ', '-')}-kickoff")
 
-rows = list(csv.DictReader(open("lease-clauses.csv", newline="", encoding="utf-8")))
+rows = list(csv.DictReader(open("lease-clause-library/lease-clauses.csv", newline="", encoding="utf-8")))
 states_of = lambda r: [s.strip() for s in re.split("[;,]", r["states"]) if s.strip()]
 active = [r for r in rows if r["is_active"] == "TRUE"]
 per_state = collections.Counter(s for r in active for s in states_of(r))
@@ -62,7 +62,7 @@ if left:
     sys.exit(f"unfilled placeholders: {left}")
 
 os.makedirs(out, exist_ok=True)
-for f in ["lease-clause-sop.md", "lease-clause-topics.md", "lease-clauses.csv"]:
+for f in ["lease-clause-library/lease-clause-sop.md", "lease-clause-library/lease-clause-topics.md", "lease-clause-library/lease-clauses.csv"]:
     shutil.copy(f, out)
 
 
@@ -70,7 +70,7 @@ def format_extract(state, max_lines=2, max_bytes=30000):
     """A short example of the log format (SOP rule 71): every heading of the
     most recent state's log with the first few lines under it, so Desktop
     sees the shape without reading a 200 KB log (usage budget, 2026-10-08)."""
-    lines = open(f"lease-clause-decision-log-{state}.md", encoding="utf-8").read().splitlines()
+    lines = open(f"lease-clause-library/decision-logs/lease-clause-decision-log-{state}.md", encoding="utf-8").read().splitlines()
     kept, under = [], 0
     for line in lines:
         if line.startswith("#"):

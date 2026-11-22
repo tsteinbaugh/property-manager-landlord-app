@@ -60,7 +60,7 @@ LOOK = {
     "53": r"maximum (amount )?permitted|as permitted by (applicable )?law|allowed by law|to the extent (permitted|allowed)|\bnot (to )?exceed",
 }
 
-sop = open("lease-clause-sop.md", encoding="utf-8").read()
+sop = open("lease-clause-library/lease-clause-sop.md", encoding="utf-8").read()
 version = re.search(r"\*\*Version ([\d.]+)", sop).group(1)
 lines = sop.split("\n")
 start = next((i for i, l in enumerate(lines) if l.startswith("| Rule |")), None)
@@ -91,7 +91,7 @@ extras = collections.defaultdict(list)
 for e in csv.DictReader(open("scripts/clause-library/retro-extras.csv", newline="", encoding="utf-8")):
     extras[e["state"]].append(e["item"])
 
-rows = list(csv.DictReader(open("lease-clauses.csv", newline="", encoding="utf-8")))
+rows = list(csv.DictReader(open("lease-clause-library/lease-clauses.csv", newline="", encoding="utf-8")))
 import datetime
 staged_at = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
 clauses = [r for r in rows if r["is_active"] == "TRUE" and r["content_type"] == "LEASE_CLAUSE"]
@@ -105,7 +105,7 @@ def secondary_rows(st):
     # mention a secondary basis and no primary read. Keyword-based, so it misses
     # rows and flags some that are fine.
     hits = []
-    path = f"lease-clause-citations-{st}.csv"
+    path = f"lease-clause-library/citations/lease-clause-citations-{st}.csv"
     if not os.path.exists(path):
         return hits
     for c in csv.DictReader(open(path, newline="", encoding="utf-8")):
@@ -136,8 +136,8 @@ index = []
 for st in states:
     d = os.path.join(out, st)
     os.makedirs(d, exist_ok=True)
-    files = ["lease-clause-sop.md", "lease-clause-topics.md", "lease-clauses.csv",
-             f"lease-clause-decision-log-{st}.md", f"lease-clause-citations-{st}.csv"]
+    files = ["lease-clause-library/lease-clause-sop.md", "lease-clause-library/lease-clause-topics.md", "lease-clause-library/lease-clauses.csv",
+             f"lease-clause-library/decision-logs/lease-clause-decision-log-{st}.md", f"lease-clause-library/citations/lease-clause-citations-{st}.csv"]
     for f in files:
         shutil.copy(f, d)
     checks = "\n".join(f"{n}. **Rule {r}.** {ASK[r]}{pointers(st, r)}" for n, r in enumerate(due[st], 1))

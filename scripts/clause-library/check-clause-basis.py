@@ -4,7 +4,7 @@
 # every state from Ohio on classified rows without it.
 #
 # Usage (from the repo root):
-#   python3 scripts/clause-library/check-clause-basis.py [lease-clauses.csv]
+#   python3 scripts/clause-library/check-clause-basis.py [lease-clause-library/lease-clauses.csv]
 #
 # Valid `lease_clause_basis` values, one or more separated by " | ":
 #   REQUIRED_DISCLOSURE: <statute>   a statute requires the text (citation required)
@@ -16,7 +16,7 @@
 # scrub finished the same day; it now fails like any other invalid basis.
 import csv, sys
 
-path = sys.argv[1] if len(sys.argv) > 1 else "lease-clauses.csv"
+path = sys.argv[1] if len(sys.argv) > 1 else "lease-clause-library/lease-clauses.csv"
 rows = list(csv.DictReader(open(path, newline="", encoding="utf-8")))
 if rows and "lease_clause_basis" not in rows[0]:
     sys.exit("FAIL - lease-clauses.csv has no lease_clause_basis column")

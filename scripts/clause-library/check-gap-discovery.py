@@ -3,7 +3,7 @@
 # state sync done; it is item 1 of the sync completion list in CLAUDE.md.
 #
 # Usage (from the repo root):
-#   python3 scripts/clause-library/check-gap-discovery.py lease-clause-decision-log-AZ.md [more logs...]
+#   python3 scripts/clause-library/check-gap-discovery.py lease-clause-library/decision-logs/lease-clause-decision-log-AZ.md [more logs...]
 #   python3 scripts/clause-library/check-gap-discovery.py --all
 #
 # What it looks for: a markdown table row per source, e.g.
@@ -40,7 +40,7 @@ def check(path):
     return problems
 
 
-paths = sorted(glob.glob("lease-clause-decision-log-[A-Z][A-Z].md")) if sys.argv[1:] == ["--all"] else sys.argv[1:]
+paths = sorted(glob.glob("lease-clause-library/decision-logs/lease-clause-decision-log-[A-Z][A-Z].md")) if sys.argv[1:] == ["--all"] else sys.argv[1:]
 if not paths:
     sys.exit(__doc__ or "usage: check-gap-discovery.py <log>... | --all")
 failed = 0

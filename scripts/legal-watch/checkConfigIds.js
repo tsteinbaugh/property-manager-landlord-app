@@ -25,7 +25,7 @@ function clauseIds(file) {
 const root = path.join(__dirname, "..", "..");
 let problems = 0;
 for (const [st, cfg] of Object.entries(STATE_CONFIG)) {
-  const ids = clauseIds(path.join(root, `lease-clause-citations-${st}.csv`));
+  const ids = clauseIds(path.join(root, "lease-clause-library", "citations", `lease-clause-citations-${st}.csv`));
   for (const key of Object.keys(cfg.extraSectionAliases || {})) {
     if (!ids.has(key)) {
       problems++;

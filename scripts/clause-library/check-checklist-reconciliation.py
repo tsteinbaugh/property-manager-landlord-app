@@ -11,8 +11,8 @@
 #   python3 scripts/clause-library/check-checklist-reconciliation.py
 import csv, re, sys
 
-CHECKLIST = "lease-clause-decision-log-named-topic-checklist.md"
-rows = {r["id"]: r for r in csv.DictReader(open("lease-clauses.csv", encoding="utf-8"))}
+CHECKLIST = "lease-clause-library/decision-logs/lease-clause-decision-log-named-topic-checklist.md"
+rows = {r["id"]: r for r in csv.DictReader(open("lease-clause-library/lease-clauses.csv", encoding="utf-8"))}
 groups = {r["choice_group"] for r in rows.values() if r["choice_group"]}
 named = set(re.findall(r"`([a-z0-9]+(?:-[a-z0-9]+)+)`", open(CHECKLIST, encoding="utf-8").read()))
 missing = sorted(i for i in named if i not in rows and i not in groups)

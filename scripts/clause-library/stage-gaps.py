@@ -16,8 +16,8 @@ out = sys.argv[3] if len(sys.argv) > 3 else os.path.expanduser(f"~/Desktop/{name
 if os.path.exists(out):
     sys.exit(f"{out} exists; never restage a folder Taylor may be using")
 
-csv_bytes = open("lease-clauses.csv", "rb").read()
-rows = list(csv.DictReader(open("lease-clauses.csv", newline="", encoding="utf-8")))
+csv_bytes = open("lease-clause-library/lease-clauses.csv", "rb").read()
+rows = list(csv.DictReader(open("lease-clause-library/lease-clauses.csv", newline="", encoding="utf-8")))
 states_of = lambda r: [s.strip() for s in re.split("[;,]", r["states"]) if s.strip()]
 active = [r for r in rows if r["is_active"] == "TRUE"]
 topics = sorted({r["topic_key"] for r in active if r["topic_key"]})
@@ -35,7 +35,7 @@ for r in active:
     by_topic[r["topic_key"]].append(r)
 
 # Topic sections from the generated reference (heading, coverage line, questions).
-ref = open("lease-clause-topics.md", encoding="utf-8").read()
+ref = open("lease-clause-library/lease-clause-topics.md", encoding="utf-8").read()
 sections = {}
 for m in re.finditer(r"^### [^\n]*\(`([^`]+)`\)\n(.*?)(?=^### |^## |\Z)", ref, re.S | re.M):
     sections[m.group(1)] = m.group(0).strip()
@@ -57,7 +57,7 @@ fill = {
     "ROW_COUNT": f"{len(rows):,}", "ACTIVE_COUNT": f"{len(active):,}",
     "CSV_SHA": __import__("hashlib").sha256(csv_bytes).hexdigest(), "CSV_BYTES": f"{len(csv_bytes):,}",
     "ST_ACTIVE": str(sum(st in states_of(r) for r in active)),
-    "SOP_VERSION": re.search(r"\*\*Version ([0-9.]+),", open("lease-clause-sop.md", encoding="utf-8").read()).group(1),
+    "SOP_VERSION": re.search(r"\*\*Version ([0-9.]+),", open("lease-clause-library/lease-clause-sop.md", encoding="utf-8").read()).group(1),
     "TOPIC_COUNT": str(len(topics)), "HAVE_COUNT": str(len(have)), "MISSING_COUNT": str(len(missing)),
     "CORPUS_LINE": f"`corpus-{st}-*.tar.xz`, when present: official text Claude Code downloaded; its `README.txt` says what it holds and how to verify it. If your own tools reach the official site, the corpus is an optional cross-check; otherwise use it.",
     "CITATION_FORMAT": "[FILL IN]",
@@ -71,7 +71,7 @@ if left:
     sys.exit(f"unfilled placeholders: {left}")
 
 os.makedirs(out)
-for f in ["lease-clause-sop.md", "lease-clause-topics.md", f"lease-clause-decision-log-{st}.md"]:
+for f in ["lease-clause-library/lease-clause-sop.md", "lease-clause-library/lease-clause-topics.md", f"lease-clause-library/decision-logs/lease-clause-decision-log-{st}.md"]:
     shutil.copy(f, out)
 # The CSV passed the 30 MB attachment limit in October 2026, so it ships compressed.
 import lzma

@@ -68,7 +68,7 @@ if (!CONFIG) {
   process.exit(1);
 }
 
-const CITATIONS_CSV = path.join(__dirname, "..", "..", `lease-clause-citations-${STATE_CODE}.csv`);
+const CITATIONS_CSV = path.join(__dirname, "..", "..", "lease-clause-library", "citations", `lease-clause-citations-${STATE_CODE}.csv`);
 const STATE_FILE = path.join(__dirname, "state", `${STATE_CODE}.json`);
 
 const LEGISCAN_API_KEY = process.env.LEGISCAN_API_KEY;

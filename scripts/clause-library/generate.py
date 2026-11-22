@@ -3,7 +3,7 @@
 # Committed 2026-09-26 after being lost twice with old scratchpads.
 #
 # Usage (from the repo root):
-#   python3 scripts/clause-library/generate.py lease-clauses.csv backend/src/lib backend/src/lib
+#   python3 scripts/clause-library/generate.py lease-clause-library/lease-clauses.csv backend/src/lib backend/src/lib
 # Args: <csv> <output dir> <dir holding the current files, whose header comments are kept>.
 # Each file's header comment (everything before the data) is carried over
 # unchanged; add a dated refresh note to the headers by hand after a state sync.

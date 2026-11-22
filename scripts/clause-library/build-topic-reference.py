@@ -11,9 +11,9 @@
 #   python3 scripts/clause-library/build-topic-reference.py
 import csv, collections, re
 
-CSV = "lease-clauses.csv"
+CSV = "lease-clause-library/lease-clauses.csv"
 QUESTIONS = "scripts/clause-library/topic-questions.csv"
-OUT = "lease-clause-topics.md"
+OUT = "lease-clause-library/lease-clause-topics.md"
 GROUP_ORDER = [
     "Rent & Payment", "Security Deposit", "Tenant Responsibilities",
     "Landlord Responsibilities", "Access & Entry", "Default & Termination",
