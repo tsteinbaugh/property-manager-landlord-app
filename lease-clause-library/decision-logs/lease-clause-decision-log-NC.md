@@ -1520,3 +1520,64 @@ Taylor's decision 2026-11-20: compare the library's topic list with the uniform 
 ## Lead-paint applicability (Claude Code, 2026-11-21)
 
 Uniform federal label correction (rule 62): the shared `lead-based-paint` is now CONDITIONAL/REQUIRED (it was REQUIRED), since the federal disclosure applies only to housing built before 1978; no text changed. The app now adds it automatically, locked, when the property was built before 1978 or its year built isn't entered, and leaves it off for 1978 or later (Taylor's decision 2026-11-21).
+
+## Required-label correction (Claude Code, 2026-11-21)
+
+Taylor's decision 2026-11-21: a clause is REQUIRED only when a statute requires it in the lease (SOP rule 56). Rows labeled REQUIRED whose research found no such statute (basis SERVES_LANDLORD or CONSTRAINED_TERM) are now RECOMMENDED; required text that applies only to some properties is CONDITIONAL/REQUIRED. No clause text changed. This jurisdiction's rows:
+
+- `ev-charging-end-of-tenancy-co` (REQUIRED to RECOMMENDED)
+- `security-deposit-use-nc` (REQUIRED/PROHIBITED to RECOMMENDED/PROHIBITED)
+- `assistance-animal-accommodation-nc` (REQUIRED to RECOMMENDED)
+- `default-by-tenant-nc` (REQUIRED to RECOMMENDED/CONSTRAINED)
+
+## Required and Legal duty labels (Claude Code, 2026-11-22)
+
+Taylor's decision 2026-11-22 (SOP 2.19, rule 56): a clause is REQUIRED only when the law requires the text in the lease itself; LEGAL_DUTY when the law requires the landlord to give the tenant the information but not in the lease (the clause is one way to do it); text required only if the landlord uses a term is CONSTRAINED. Each row below was read against its notes' statutory text; the reason is in the row. No clause text changed.
+
+- `security-deposit-holding-nc`: REQUIRED to LEGAL_DUTY
+- `lease-copy-receipt-hi`: CONDITIONAL to LEGAL_DUTY
+- `hazardous-contamination-disclosure-nc`: CONDITIONAL to CONDITIONAL/REQUIRED
+- `utility-disclosure-attachment-nc`: CONDITIONAL to CONDITIONAL/LEGAL_DUTY
+- `rent-tax-nc`: CONDITIONAL to CONDITIONAL/LEGAL_DUTY
+
+## Tags for situational clauses (Claude Code, 2026-11-22)
+
+Taylor's decision 2026-11-22: every clause shows a tag. A clause that applies only in some situations now carries the label it has when it applies (SOP rule 56): Recommended where the research found no statute requiring it and it serves the landlord, Optional where it is a term the landlord chooses within the law's limits, Required or Legal duty where its notes' statute was read and requires it. No clause text changed.
+
+- `extended-absence-notice-ks`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `eviction-fees-nc`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `partial-payment-nonwaiver-nc`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `criminal-activity-nc`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `casualty-termination-nc`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `renters-insurance-nc`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `emergency-contact-nc`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `utility-billing-nc`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `periodic-tenancy-notice-nc`: CONDITIONAL to CONDITIONAL/CONSTRAINED
+- `holdover-rate-nc`: CONDITIONAL to CONDITIONAL/CONSTRAINED
+- `tenant-caused-damage-nc`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `rules-wi`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `rent-concession-wi`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `government-fee-reimbursement-ky`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `cannabis-restrictions-ak`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `arbitration-agreement`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `rent-escalation-la`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `tax-insurance-escalation-la`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `furnishings-included-la`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `scheduled-services-entry-la`: CONDITIONAL to CONDITIONAL/CONSTRAINED
+- `showing-notice-la`: CONDITIONAL to CONDITIONAL/CONSTRAINED
+- `association-approval-la`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `no-liens-ar`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `owner-occupancy-termination-ar`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `pest-cooperation-pr`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `animal-care-access-vi`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `tenant-caused-fines-as`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `association-documents-delivery-ks`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `rental-inspection-cooperation-mn`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `tenant-portal-mn`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `waterbed-mn`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `firearms-nc`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `nonrefundable-deposit-notice-nc`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `tenant-repair-agreement-nc`: CONDITIONAL to CONDITIONAL/CONSTRAINED
+- `ev-charging-requirements-nc`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `utility-disconnection-notice-authorization-nc`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `rent-installments-nc`: CONDITIONAL to CONDITIONAL/CONSTRAINED

@@ -63,18 +63,30 @@ function VariableHint() {
   );
 }
 
-// Whether the law requires a provided clause, or it's recommended or optional
-// (generate.py derives it). A clause that applies only in some situations has
-// no tag yet; the applicability work will give it the tag it has once it applies.
+// Whether the law requires a provided clause in the lease, requires the
+// landlord to give the tenant the information some way (a legal duty), or it's
+// recommended or optional (generate.py derives it; SOP rule 56). A clause that
+// applies only in some situations shows the tag it has when it applies.
 const TAG_STYLES = {
   REQUIRED: ["Required", "bg-rose-100 text-rose-700"],
+  LEGAL_DUTY: ["Legal duty", "bg-amber-100 text-amber-800"],
   RECOMMENDED: ["Recommended", "bg-emerald-100 text-emerald-700"],
   OPTIONAL: ["Optional", "bg-stone-200 text-stone-700"],
+};
+const TAG_HINTS = {
+  REQUIRED: "The law requires this text in the lease.",
+  LEGAL_DUTY: "The law requires you to give the tenant this information. This clause is one way to do it; leave it out only if you give it another way.",
+  RECOMMENDED: "Not required by law. A common lease term you may choose to include.",
+  OPTIONAL: "Not required by law. A term you may choose to use, within the limits the law sets.",
 };
 function ClauseTag({ tag }) {
   if (!TAG_STYLES[tag]) return null;
   const [label, style] = TAG_STYLES[tag];
-  return <span className={`ml-2 rounded-full px-2 py-0.5 text-xs font-medium ${style}`}>{label}</span>;
+  return (
+    <span title={TAG_HINTS[tag]} className={`ml-2 rounded-full px-2 py-0.5 text-xs font-medium ${style}`}>
+      {label}
+    </span>
+  );
 }
 
 // A clause's state tags on their own line, wrapping, so a clause shared by many

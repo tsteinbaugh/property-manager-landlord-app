@@ -3718,3 +3718,41 @@ Taylor's decision 2026-11-20: compare the library's topic list with the uniform 
 ## Lead-paint applicability (Claude Code, 2026-11-21)
 
 Uniform federal label correction (rule 62): the shared `lead-based-paint` is now CONDITIONAL/REQUIRED (it was REQUIRED), since the federal disclosure applies only to housing built before 1978; no text changed. The app now adds it automatically, locked, when the property was built before 1978 or its year built isn't entered, and leaves it off for 1978 or later (Taylor's decision 2026-11-21).
+
+## Required-label correction (Claude Code, 2026-11-21)
+
+Taylor's decision 2026-11-21: a clause is REQUIRED only when a statute requires it in the lease (SOP rule 56). Rows labeled REQUIRED whose research found no such statute (basis SERVES_LANDLORD or CONSTRAINED_TERM) are now RECOMMENDED; required text that applies only to some properties is CONDITIONAL/REQUIRED. No clause text changed. This jurisdiction's rows:
+
+- `security-deposit-use` (REQUIRED/PROHIBITED to RECOMMENDED/PROHIBITED/CONSTRAINED)
+- `default-by-tenant-ks-ne` (REQUIRED to RECOMMENDED)
+- `assistance-animal-accommodation-oh` (REQUIRED to RECOMMENDED)
+- `services-utilities-provided-ks-oh` (REQUIRED to RECOMMENDED)
+- `drug-activity-prohibition-oh` (REQUIRED/PROHIBITED to RECOMMENDED/PROHIBITED)
+- `tenant-caused-damage-oh` (REQUIRED to RECOMMENDED)
+- `student-housing-oh` (REQUIRED to CONDITIONAL/REQUIRED, applies only to some properties)
+
+## Tags for situational clauses (Claude Code, 2026-11-22)
+
+Taylor's decision 2026-11-22: every clause shows a tag. A clause that applies only in some situations now carries the label it has when it applies (SOP rule 56): Recommended where the research found no statute requiring it and it serves the landlord, Optional where it is a term the landlord chooses within the law's limits, Required or Legal duty where its notes' statute was read and requires it. No clause text changed.
+
+- `extended-absence-notice-ks`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `repair-escrow-exemption-notice-oh`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `rent-concession-wi`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `casualty-landlord-termination-oh`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `arbitration-agreement`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `furnishings-included-la`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `owner-occupancy-termination-ar`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `designated-repairer-oh`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `tenant-appliance-maintenance-oh`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `collection-fee-oh`: CONDITIONAL to CONDITIONAL/CONSTRAINED
+- `government-fee-reimbursement-oh`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `notice-service-fee-oh`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `rent-escalation-oh`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `rent-installments-oh`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `tax-escalation-oh`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `utility-shutoff-notice-designee-oh`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `appliances-excluded-oh`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `pest-cooperation-oh`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `carpet-cleaning-oh`: CONDITIONAL/CONSTRAINED to CONDITIONAL/RECOMMENDED/CONSTRAINED
+- `animal-care-access-oh`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `tenant-caused-fines-oh`: CONDITIONAL to CONDITIONAL/RECOMMENDED

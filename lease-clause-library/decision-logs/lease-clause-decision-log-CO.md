@@ -4271,3 +4271,62 @@ Taylor's decision 2026-11-20: compare the library's topic list with the uniform 
 ## Lead-paint applicability (Claude Code, 2026-11-21)
 
 Uniform federal label correction (rule 62): the shared `lead-based-paint` is now CONDITIONAL/REQUIRED (it was REQUIRED), since the federal disclosure applies only to housing built before 1978; no text changed. The app now adds it automatically, locked, when the property was built before 1978 or its year built isn't entered, and leaves it off for 1978 or later (Taylor's decision 2026-11-21).
+
+## Required-label correction (Claude Code, 2026-11-21)
+
+Taylor's decision 2026-11-21: a clause is REQUIRED only when a statute requires it in the lease (SOP rule 56). Rows labeled REQUIRED whose research found no such statute (basis SERVES_LANDLORD or CONSTRAINED_TERM) are now RECOMMENDED; required text that applies only to some properties is CONDITIONAL/REQUIRED. No clause text changed. This jurisdiction's rows:
+
+- `security-deposit-use` (REQUIRED/PROHIBITED to RECOMMENDED/PROHIBITED/CONSTRAINED)
+- `default-by-tenant-co` (REQUIRED to RECOMMENDED)
+- `ev-charging-end-of-tenancy-co` (REQUIRED to RECOMMENDED)
+- `assistance-animal-accommodation-co` (REQUIRED to RECOMMENDED)
+- `bed-bug-cooperation-co` (REQUIRED to RECOMMENDED/CONSTRAINED)
+- `dv-lock-change-co` (REQUIRED/PROHIBITED to RECOMMENDED/PROHIBITED)
+- `parking-rules-notice-co` (REQUIRED to RECOMMENDED)
+- `tenant-statutory-duties-co` (REQUIRED to RECOMMENDED)
+
+## Required and Legal duty labels (Claude Code, 2026-11-22)
+
+Taylor's decision 2026-11-22 (SOP 2.19, rule 56): a clause is REQUIRED only when the law requires the text in the lease itself; LEGAL_DUTY when the law requires the landlord to give the tenant the information but not in the lease (the clause is one way to do it); text required only if the landlord uses a term is CONSTRAINED. Each row below was read against its notes' statutory text; the reason is in the row. No clause text changed.
+
+- `radon-disclosure-co`: REQUIRED to LEGAL_DUTY
+- `source-of-income-statement-co`: CONDITIONAL to CONDITIONAL/REQUIRED
+- `environmental-covenant-incorporation-co`: CONDITIONAL to CONDITIONAL/REQUIRED
+- `parking-rules-notice-co`: RECOMMENDED to CONDITIONAL/LEGAL_DUTY
+
+## Tags for situational clauses (Claude Code, 2026-11-22)
+
+Taylor's decision 2026-11-22: every clause shows a tag. A clause that applies only in some situations now carries the label it has when it applies (SOP rule 56): Recommended where the research found no statute requiring it and it serves the landlord, Optional where it is a term the landlord chooses within the law's limits, Required or Legal duty where its notes' statute was read and requires it. No clause text changed.
+
+- `utility-submetering-disclosure-co`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `extended-absence-notice-ks`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `environmental-event-termination-co`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `rules-wi`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `rent-concession-wi`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `cannabis-restrictions-ak`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `furnishings-included-la`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `scheduled-services-entry-la`: CONDITIONAL to CONDITIONAL/CONSTRAINED
+- `showing-notice-la`: CONDITIONAL to CONDITIONAL/CONSTRAINED
+- `animal-care-access-vi`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `appliances-excluded-co`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `automatic-renewal-co`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `no-liens-co`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `conversion-notice-co`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `dv-qualifying-documents-co`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `electric-submeter-billing-co`: CONDITIONAL/CONSTRAINED to CONDITIONAL/RECOMMENDED/CONSTRAINED
+- `energy-data-release-co`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `governmental-fines-co`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `association-approval-co`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `holdover-rate-co`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `home-business-permission-co`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `exempt-residential-agreement-notice-co`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `shared-facilities-closure-co`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `portable-cooling-restriction-co`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `portable-solar-device-rules-co`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `subsidy-inspection-access-co`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `towing-co`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `unbundled-parking-co`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `utility-deposit-co`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `utility-shutoff-notice-authorization-co`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `utility-transfer-reimbursement-co`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `waterbed-co`: CONDITIONAL to CONDITIONAL/RECOMMENDED

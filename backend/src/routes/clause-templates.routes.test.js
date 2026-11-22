@@ -86,7 +86,7 @@ describe("clause templates route", () => {
   it("annotates templates as not-default by default, except clauses the law always requires", async () => {
     const res = await request(app).get("/api/clause-templates");
     expect(res.body.some((t) => t.alwaysDefault)).toBe(true);
-    expect(res.body.every((t) => t.isDefault === t.autoDefault)).toBe(true);
+    expect(res.body.every((t) => t.isDefault === (t.autoDefault || Boolean(t.defaultOn)))).toBe(true);
     expect(res.body.filter((t) => t.autoDefault).every((t) => t.autoDefaultNote)).toBe(true);
   });
 
@@ -105,6 +105,31 @@ describe("clause templates route", () => {
       expect(t.choiceGroup).toBeUndefined();
       expect(t.states.length).toBeGreaterThan(0);
     }
+  });
+
+  it("turns on by default only a legal duty that always applies and isn't a pick-one alternative", async () => {
+    const res = await request(app).get("/api/clause-templates");
+    const on = res.body.filter((x) => x.defaultOn);
+    expect(on.length).toBeGreaterThan(0);
+    for (const t of on) {
+      expect(t.tag).toBe("LEGAL_DUTY");
+      expect(t.autoDefault).toBe(false);
+      expect(t.choiceGroup).toBeUndefined();
+      expect(t.states.length).toBeGreaterThan(0);
+      expect(t.autoDefaultNote).toMatch(/another way/);
+    }
+  });
+
+  it("lets the landlord untick and re-tick a legal duty that is on by default", async () => {
+    const duty = (await request(app).get("/api/clause-templates")).body.find((t) => t.defaultOn);
+    const off = await request(app).delete(`/api/clause-templates/${duty.id}/default`);
+    expect(off.status).toBe(204);
+    let list = (await request(app).get("/api/clause-templates")).body;
+    expect(list.find((t) => t.id === duty.id).isDefault).toBe(false);
+
+    await request(app).post(`/api/clause-templates/${duty.id}/default`);
+    list = (await request(app).get("/api/clause-templates")).body;
+    expect(list.find((t) => t.id === duty.id).isDefault).toBe(true);
   });
 
   it("refuses to unmark an always-required clause as a default", async () => {

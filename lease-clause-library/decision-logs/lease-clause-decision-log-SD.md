@@ -3347,3 +3347,29 @@ Taylor's decision 2026-11-20: compare the library's topic list with the uniform 
 ## Lead-paint applicability (Claude Code, 2026-11-21)
 
 Uniform federal label correction (rule 62): the shared `lead-based-paint` is now CONDITIONAL/REQUIRED (it was REQUIRED), since the federal disclosure applies only to housing built before 1978; no text changed. The app now adds it automatically, locked, when the property was built before 1978 or its year built isn't entered, and leaves it off for 1978 or later (Taylor's decision 2026-11-21).
+
+## Required-label correction (Claude Code, 2026-11-21)
+
+Taylor's decision 2026-11-21: a clause is REQUIRED only when a statute requires it in the lease (SOP rule 56). Rows labeled REQUIRED whose research found no such statute (basis SERVES_LANDLORD or CONSTRAINED_TERM) are now RECOMMENDED; required text that applies only to some properties is CONDITIONAL/REQUIRED. No clause text changed. This jurisdiction's rows:
+
+- `security-deposit-use` (REQUIRED/PROHIBITED to RECOMMENDED/PROHIBITED/CONSTRAINED)
+- `assistance-animal-accommodation-sd` (REQUIRED to RECOMMENDED)
+- `default-by-tenant-sd` (REQUIRED to RECOMMENDED)
+- `landlords-access-sd` (REQUIRED to RECOMMENDED/CONSTRAINED)
+
+## Tags for situational clauses (Claude Code, 2026-11-22)
+
+Taylor's decision 2026-11-22: every clause shows a tag. A clause that applies only in some situations now carries the label it has when it applies (SOP rule 56): Recommended where the research found no statute requiring it and it serves the landlord, Optional where it is a term the landlord chooses within the law's limits, Required or Legal duty where its notes' statute was read and requires it. No clause text changed.
+
+- `abandoned-property-sd`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `tenant-caused-damage-sd`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `holdover-rate-sd`: CONDITIONAL to CONDITIONAL/CONSTRAINED
+- `criminal-activity-ky`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `arbitration-agreement`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `association-approval-la`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `carpet-cleaning-ar`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `no-liens-ar`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `pest-cooperation-pr`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `tenant-caused-fines-as`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `tenant-portal-mn`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `showing-notice-sd`: CONDITIONAL to CONDITIONAL/CONSTRAINED

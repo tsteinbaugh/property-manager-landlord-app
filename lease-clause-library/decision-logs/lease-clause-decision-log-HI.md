@@ -451,3 +451,47 @@ Taylor's decision 2026-11-21: a per-jurisdiction count found that topics added b
 ## Lead-paint applicability (Claude Code, 2026-11-21)
 
 Uniform federal label correction (rule 62): the shared `lead-based-paint` is now CONDITIONAL/REQUIRED (it was REQUIRED), since the federal disclosure applies only to housing built before 1978; no text changed. The app now adds it automatically, locked, when the property was built before 1978 or its year built isn't entered, and leaves it off for 1978 or later (Taylor's decision 2026-11-21).
+
+## Required-label correction (Claude Code, 2026-11-21)
+
+Taylor's decision 2026-11-21: a clause is REQUIRED only when a statute requires it in the lease (SOP rule 56). Rows labeled REQUIRED whose research found no such statute (basis SERVES_LANDLORD or CONSTRAINED_TERM) are now RECOMMENDED; required text that applies only to some properties is CONDITIONAL/REQUIRED. No clause text changed. This jurisdiction's rows:
+
+- `assistance-animal-accommodation` (REQUIRED to RECOMMENDED)
+- `services-utilities-provided-ks-oh` (REQUIRED to RECOMMENDED)
+
+## Required and Legal duty labels (Claude Code, 2026-11-22)
+
+Taylor's decision 2026-11-22 (SOP 2.19, rule 56): a clause is REQUIRED only when the law requires the text in the lease itself; LEGAL_DUTY when the law requires the landlord to give the tenant the information but not in the lease (the clause is one way to do it); text required only if the landlord uses a term is CONSTRAINED. Each row below was read against its notes' statutory text; the reason is in the row. No clause text changed.
+
+- `existing-condition-hi`: RECOMMENDED to LEGAL_DUTY
+- `nonresident-owner-agent-hi`: CONDITIONAL to CONDITIONAL/REQUIRED
+- `owner-manager-disclosure-hi`: REQUIRED to LEGAL_DUTY
+- `excise-tax-number-disclosure-hi`: REQUIRED to LEGAL_DUTY
+- `lease-copy-receipt-hi`: CONDITIONAL to LEGAL_DUTY
+
+## Tags for situational clauses (Claude Code, 2026-11-22)
+
+Taylor's decision 2026-11-22: every clause shows a tag. A clause that applies only in some situations now carries the label it has when it applies (SOP rule 56): Recommended where the research found no statute requiring it and it serves the landlord, Optional where it is a term the landlord chooses within the law's limits, Required or Legal duty where its notes' statute was read and requires it. No clause text changed.
+
+- `rules-ia`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `rent-concession-wi`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `arbitration-agreement`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `extended-absence-notice-hi`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `tenant-death-designation-hi`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `electronic-notice-hi`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `holdover-rate-hi`: CONDITIONAL to CONDITIONAL/CONSTRAINED
+- `tenant-repair-agreement-hi`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `tenant-caused-damage-hi`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `casualty-termination-hi`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `criminal-activity-hi`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `rent-increase-midterm-hi`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `unpaid-amounts-interest-hi`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `ev-charger-installation-hi`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `scheduled-grounds-service-hi`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `appliances-excluded-hi`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `disability-modification-restoration-hi`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `onsite-renewable-power-disclosure-hi`: CONDITIONAL to CONDITIONAL/CONSTRAINED
+- `firearms-restriction-hi`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `owner-occupancy-termination-hi`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `automatic-renewal-hi`: CONDITIONAL to CONDITIONAL/CONSTRAINED
+- `employee-housing-occupancy-hi`: CONDITIONAL to CONDITIONAL/RECOMMENDED

@@ -10529,3 +10529,90 @@ Taylor's decision 2026-11-20: compare the library's topic list with the uniform 
 ## Lead-paint applicability (Claude Code, 2026-11-21)
 
 Uniform federal label correction (rule 62): the shared `lead-based-paint` is now CONDITIONAL/REQUIRED (it was REQUIRED), since the federal disclosure applies only to housing built before 1978; no text changed. The app now adds it automatically, locked, when the property was built before 1978 or its year built isn't entered, and leaves it off for 1978 or later (Taylor's decision 2026-11-21).
+
+## Required-label correction (Claude Code, 2026-11-21)
+
+Taylor's decision 2026-11-21: a clause is REQUIRED only when a statute requires it in the lease (SOP rule 56). Rows labeled REQUIRED whose research found no such statute (basis SERVES_LANDLORD or CONSTRAINED_TERM) are now RECOMMENDED; required text that applies only to some properties is CONDITIONAL/REQUIRED. No clause text changed. This jurisdiction's rows:
+
+- `security-deposit-use` (REQUIRED/PROHIBITED to RECOMMENDED/PROHIBITED/CONSTRAINED)
+- `default-by-tenant` (REQUIRED to RECOMMENDED)
+- `ev-charging-end-of-tenancy-co` (REQUIRED to RECOMMENDED)
+- `termination-death-of-tenant-mn` (REQUIRED to RECOMMENDED)
+- `assistance-animal-accommodation-mn` (REQUIRED to RECOMMENDED)
+- `smoke-detector-duty-mn` (REQUIRED to RECOMMENDED)
+- `carbon-monoxide-alarm-duty-mn` (REQUIRED to RECOMMENDED)
+- `deposit-last-month-rent-mn` (REQUIRED to RECOMMENDED)
+- `lease-copy-receipt-mn` (REQUIRED to RECOMMENDED)
+- `surrender-end-of-term-mn-nd` (REQUIRED to RECOMMENDED)
+- `fire-code-compliance-mn` (REQUIRED to RECOMMENDED)
+- `heating-mn` (REQUIRED to RECOMMENDED)
+- `key-control-exempt-setting-mn` (REQUIRED to CONDITIONAL/REQUIRED, applies only to some properties)
+- `garage-door-opener-duty-mn` (REQUIRED to RECOMMENDED)
+- `spa-pool-notice-mn` (REQUIRED to CONDITIONAL/REQUIRED, applies only to some properties)
+- `smoke-drift-and-common-areas-mn` (REQUIRED to RECOMMENDED)
+- `garage-door-reporting-duty-mn` (REQUIRED to RECOMMENDED)
+- `utility-transfer-mn` (REQUIRED to RECOMMENDED)
+
+## Required and Legal duty labels (Claude Code, 2026-11-22)
+
+Taylor's decision 2026-11-22 (SOP 2.19, rule 56): a clause is REQUIRED only when the law requires the text in the lease itself; LEGAL_DUTY when the law requires the landlord to give the tenant the information but not in the lease (the clause is one way to do it); text required only if the landlord uses a term is CONSTRAINED. Each row below was read against its notes' statutory text; the reason is in the row. No clause text changed.
+
+- `foreclosure-disclosure-mn`: RECOMMENDED to CONDITIONAL/LEGAL_DUTY
+- `landlord-disclosure-mn`: REQUIRED to LEGAL_DUTY
+- `lease-copy-receipt-mn`: RECOMMENDED to LEGAL_DUTY
+- `utility-billing-schedule-mn`: REQUIRED to CONDITIONAL/LEGAL_DUTY
+- `electric-submetering-disclosure-mn`: REQUIRED to LEGAL_DUTY
+- `energy-data-release-mn`: REQUIRED to CONDITIONAL/LEGAL_DUTY
+- `spa-pool-notice-mn`: CONDITIONAL/REQUIRED to CONDITIONAL/LEGAL_DUTY
+- `formaldehyde-health-notice-mn`: CONDITIONAL to CONDITIONAL/LEGAL_DUTY
+- `prorated-rent-mn`: REQUIRED to CONDITIONAL/REQUIRED
+
+## Tags for situational clauses (Claude Code, 2026-11-22)
+
+Taylor's decision 2026-11-22: every clause shows a tag. A clause that applies only in some situations now carries the label it has when it applies (SOP rule 56): Recommended where the research found no statute requiring it and it serves the landlord, Optional where it is a term the landlord chooses within the law's limits, Required or Legal duty where its notes' statute was read and requires it. No clause text changed.
+
+- `abandoned-property-mn`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `tenant-caused-damage-mn`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `partial-payment-nonwaiver-mn`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `rules-wi`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `rent-concession-wi`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `arbitration-agreement`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `rent-escalation-la`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `furnishings-included-la`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `association-approval-la`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `no-liens-ar`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `tenant-caused-fines-as`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `accessory-dwelling-unit-term-mn`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `alarm-tampering-fee-mn`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `animal-care-access-mn`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `appliances-excluded-mn`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `automatic-renewal-mn`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `bed-bug-cooperation-mn`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `carpet-cleaning-mn`: CONDITIONAL to CONDITIONAL/CONSTRAINED
+- `children-occupancy-mn`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `cure-and-eviction-grounds-mn`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `deposit-cost-schedule-mn`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `designated-repairer-mn`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `disability-modification-restoration-mn`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `ev-charging-requirements-mn`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `eviction-service-party-mn`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `extended-absence-notice-mn`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `firearm-rules-mn`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `government-fee-reimbursement-mn`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `holdover-rate-mn`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `owner-move-in-reservation-mn`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `parking-rules-notice-mn`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `periodic-services-entry-mn`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `rent-increase-midterm-mn`: CONDITIONAL to CONDITIONAL/CONSTRAINED
+- `rent-installments-mn`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `rental-inspection-cooperation-mn`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `showing-notice-mn`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `smart-access-system-mn`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `stove-refrigerator-mn`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `telecom-access-mn`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `tenant-employee-housing-mn`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `tenant-portal-mn`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `tenant-repair-agreement-mn`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `utility-disconnection-notice-authorization-mn`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `utility-interruption-submeter-mn`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `waterbed-mn`: CONDITIONAL to CONDITIONAL/RECOMMENDED

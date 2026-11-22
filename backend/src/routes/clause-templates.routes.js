@@ -13,20 +13,41 @@ function isAutoDefault(template) {
 
 const router = express.Router();
 
+// Whether this landlord has the template as a default: a required clause
+// always; a legal duty (`defaultOn`) unless the landlord unticked it; any other
+// clause only if the landlord ticked it.
+function isDefaultFor(template, rowsByTemplateId) {
+  if (isAutoDefault(template)) return true;
+  const row = rowsByTemplateId.get(template.id);
+  if (template.defaultOn) return !row?.excluded;
+  return Boolean(row && !row.excluded);
+}
+
+const LEGAL_DUTY_NOTE =
+  "The law requires you to give the tenant this information. It's included by default; untick it only if you give the tenant this another way.";
+const CONDITIONAL_LEGAL_DUTY_NOTE =
+  "When it applies, the law requires you to give the tenant this information. This clause is one way to do it.";
+
+function defaultNote(template) {
+  if (template.alwaysDefault) return "Required by law, so it's always included by default.";
+  if (applicabilityNote(template.id)) return applicabilityNote(template.id);
+  if (template.defaultOn) return LEGAL_DUTY_NOTE;
+  if (template.tag === "LEGAL_DUTY") return CONDITIONAL_LEGAL_DUTY_NOTE;
+  return null;
+}
+
 router.get("/", async (req, res) => {
   const defaults = await prisma.defaultClauseTemplate.findMany({
     where: { userId: req.currentUser.id },
   });
-  const defaultIds = new Set(defaults.map((d) => d.templateId));
+  const rowsByTemplateId = new Map(defaults.map((d) => [d.templateId, d]));
 
   res.json(
     CLAUSE_TEMPLATES.map((template) => ({
       ...template,
       autoDefault: isAutoDefault(template),
-      autoDefaultNote: template.alwaysDefault
-        ? "Required by law, so it's always included by default."
-        : applicabilityNote(template.id),
-      isDefault: isAutoDefault(template) || defaultIds.has(template.id),
+      autoDefaultNote: defaultNote(template),
+      isDefault: isDefaultFor(template, rowsByTemplateId),
     })),
   );
 });
@@ -55,7 +76,7 @@ router.post("/:templateId/default", async (req, res) => {
   await prisma.defaultClauseTemplate.upsert({
     where: { userId_templateId: { userId: req.currentUser.id, templateId: template.id } },
     create: { userId: req.currentUser.id, templateId: template.id },
-    update: {},
+    update: { excluded: false },
   });
 
   res.status(201).json({ templateId: template.id, isDefault: true });
@@ -65,6 +86,16 @@ router.delete("/:templateId/default", async (req, res) => {
   const template = CLAUSE_TEMPLATES.find((t) => t.id === req.params.templateId);
   if (template && isAutoDefault(template)) {
     return res.status(409).json({ error: "This clause is required by law, so it's included by default automatically." });
+  }
+  // Unticking a clause that is on by default records the opt-out; any other
+  // clause just loses its default row.
+  if (template?.defaultOn) {
+    await prisma.defaultClauseTemplate.upsert({
+      where: { userId_templateId: { userId: req.currentUser.id, templateId: template.id } },
+      create: { userId: req.currentUser.id, templateId: template.id, excluded: true },
+      update: { excluded: true },
+    });
+    return res.status(204).send();
   }
   await prisma.defaultClauseTemplate.deleteMany({
     where: { userId: req.currentUser.id, templateId: req.params.templateId },

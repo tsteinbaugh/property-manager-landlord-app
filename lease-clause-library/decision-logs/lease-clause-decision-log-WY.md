@@ -3352,3 +3352,83 @@ Taylor's decision 2026-11-20: compare the library's topic list with the uniform 
 ## Lead-paint applicability (Claude Code, 2026-11-21)
 
 Uniform federal label correction (rule 62): the shared `lead-based-paint` is now CONDITIONAL/REQUIRED (it was REQUIRED), since the federal disclosure applies only to housing built before 1978; no text changed. The app now adds it automatically, locked, when the property was built before 1978 or its year built isn't entered, and leaves it off for 1978 or later (Taylor's decision 2026-11-21).
+
+## Required-label correction (Claude Code, 2026-11-21)
+
+Taylor's decision 2026-11-21: a clause is REQUIRED only when a statute requires it in the lease (SOP rule 56). Rows labeled REQUIRED whose research found no such statute (basis SERVES_LANDLORD or CONSTRAINED_TERM) are now RECOMMENDED; required text that applies only to some properties is CONDITIONAL/REQUIRED. No clause text changed. This jurisdiction's rows:
+
+- `security-deposit-use` (REQUIRED/PROHIBITED to RECOMMENDED/PROHIBITED/CONSTRAINED)
+- `default-by-tenant` (REQUIRED to RECOMMENDED)
+- `renter-duties-wy` (REQUIRED to RECOMMENDED)
+- `security-deposit-return-wy` (REQUIRED to RECOMMENDED)
+- `abandoned-property-wy` (REQUIRED to RECOMMENDED)
+- `assistance-animal-accommodation-wy` (REQUIRED to RECOMMENDED)
+- `notice-to-quit-preserved-wy` (REQUIRED to RECOMMENDED)
+- `rent-paid-without-deduction-wy` (REQUIRED to RECOMMENDED)
+
+## Required and Legal duty labels (Claude Code, 2026-11-22)
+
+Taylor's decision 2026-11-22 (SOP 2.19, rule 56): a clause is REQUIRED only when the law requires the text in the lease itself; LEGAL_DUTY when the law requires the landlord to give the tenant the information but not in the lease (the clause is one way to do it); text required only if the landlord uses a term is CONSTRAINED. Each row below was read against its notes' statutory text; the reason is in the row. No clause text changed.
+
+- `holding-deposit-credited-wy`: REQUIRED to CONDITIONAL/REQUIRED
+- `nonrefundable-deposit-disclosure-wy`: REQUIRED to CONDITIONAL/REQUIRED
+- `security-deposit-holding-wy`: CONDITIONAL to CONDITIONAL/LEGAL_DUTY
+
+## Tags for situational clauses (Claude Code, 2026-11-22)
+
+Taylor's decision 2026-11-22: every clause shows a tag. A clause that applies only in some situations now carries the label it has when it applies (SOP rule 56): Recommended where the research found no statute requiring it and it serves the landlord, Optional where it is a term the landlord chooses within the law's limits, Required or Legal duty where its notes' statute was read and requires it. No clause text changed.
+
+- `periodic-tenancy-notice-wy`: CONDITIONAL to CONDITIONAL/CONSTRAINED
+- `agent-capacity-designation-wy`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `casualty-termination-wy`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `tenant-caused-damage-wy`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `utility-deposit-identification-wy`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `duty-reassignment-wy`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `rent-escalation-la`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `tax-insurance-escalation-la`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `furnishings-included-la`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `showing-notice-la`: CONDITIONAL to CONDITIONAL/CONSTRAINED
+- `no-liens-ar`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `owner-occupancy-termination-ar`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `tenant-caused-fines-as`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `appliances-excluded-wy`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `lease-renewal-and-holdover-wy`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `arbitration-agreement-wy`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `carpet-cleaning-wy`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `collection-fee-wy`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `common-area-lighting-tenant-meter-wy`: CONDITIONAL to CONDITIONAL/CONSTRAINED
+- `communal-land-lease-approval-wy`: CONDITIONAL to CONDITIONAL/CONSTRAINED
+- `criminal-activity-wy`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `deposit-cost-schedule-wy`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `designated-repairer-wy`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `eminent-domain-wy`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `environmental-event-termination-wy`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `extended-absence-notice-wy`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `family-child-care-wy`: CONDITIONAL to CONDITIONAL/CONSTRAINED
+- `firearm-rules-wy`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `government-fee-reimbursement-wy`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `guaranty-wy`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `tenant-supplied-heat-wy`: CONDITIONAL to CONDITIONAL/CONSTRAINED
+- `holdover-rate-wy`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `home-business-wy`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `lease-term-and-recording-wy`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `maintenance-duty-shift-wy`: CONDITIONAL to CONDITIONAL/CONSTRAINED
+- `scheduled-services-entry-wy`: CONDITIONAL to CONDITIONAL/CONSTRAINED
+- `pool-and-spa-use-wy`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `portable-cooling-device-wy`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `portable-solar-consent-wy`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `rent-concession-wy`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `rental-inspection-access-wy`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `rules-regulations-wy`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `seasonal-tenancy-wy`: CONDITIONAL to CONDITIONAL/CONSTRAINED
+- `sex-offender-occupancy-wy`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `telecom-access-wy`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `holdover-tenancy-by-sufferance-wy`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `tenant-employee-housing-wy`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `tenant-repair-agreement-wy`: CONDITIONAL to CONDITIONAL/CONSTRAINED
+- `unbundled-parking-wy`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `life-tenant-lessor-status-wy`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `utility-landlord-account-wy`: CONDITIONAL to CONDITIONAL/CONSTRAINED
+- `utility-responsibility-and-allocation-wy`: CONDITIONAL to CONDITIONAL/CONSTRAINED
+- `utility-transfer-wy`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `waterbed-and-liquid-filled-furniture-wy`: CONDITIONAL to CONDITIONAL/RECOMMENDED

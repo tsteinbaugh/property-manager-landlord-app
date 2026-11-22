@@ -25,18 +25,21 @@ def q(s): return json.dumps(s,ensure_ascii=False)
 def states(r): return [s.strip() for s in re.split(r'[;,]',r['states']) if s.strip()]
 def rt(r): return [x.strip() for x in re.split(r'[/;]',r['rule_type']) if x.strip()]
 def arr(a): return "["+", ".join(q(x) for x in a)+"]"
-# The tag a landlord sees on a provided clause (Taylor, 2026-11-21): REQUIRED,
-# RECOMMENDED or OPTIONAL, derived from rule_type. A clause that applies only in
-# some situations (CONDITIONAL) gets the tag it has once it applies; rule_type
-# says that only for "conditional/required" and "conditional/recommended", so
-# the other conditional clauses get no tag until the applicability work records
-# one (backlog). Pure PROHIBITED rows are ordinary prohibited-acts terms.
+# The tag a landlord sees on a provided clause, derived from rule_type (Taylor,
+# 2026-11-21 and 2026-11-22; SOP rule 56):
+#   REQUIRED     the law requires this text in the lease itself
+#   LEGAL_DUTY   the law requires the landlord to give the tenant this
+#                information, and this clause is one way to do it
+#   RECOMMENDED  no law requires it, but it protects the landlord
+#   OPTIONAL     a term the landlord may choose, within the law's limits
+# A clause that applies only in some situations (CONDITIONAL) carries the tag
+# it has when it applies (CONDITIONAL/RECOMMENDED and so on). Pure PROHIBITED
+# rows are ordinary prohibited-acts terms.
 def tag(r):
     t=set(rt(r))
-    if 'CONDITIONAL' in t:
-        return 'REQUIRED' if 'REQUIRED' in t else 'RECOMMENDED' if 'RECOMMENDED' in t else None
-    if 'REQUIRED' in t: return 'REQUIRED'
-    if 'RECOMMENDED' in t or t=={'PROHIBITED'}: return 'RECOMMENDED'
+    for k in ('REQUIRED','LEGAL_DUTY','RECOMMENDED'):
+        if k in t: return k
+    if t=={'PROHIBITED'}: return 'RECOMMENDED'
     if 'CONSTRAINED' in t: return 'OPTIONAL'
     return None
 act=[r for r in rows if r['is_active']=='TRUE']
@@ -56,8 +59,13 @@ for r in lc:
     # Always required (not conditional, not one of pick-one alternatives, and
     # verified for at least one state): the
     # app always includes it by default, and the landlord can't untick it.
-    if tag(r)=='REQUIRED' and 'CONDITIONAL' not in rt(r) and not r['choice_group'] and states(r):
+    always=tag(r) in ('REQUIRED','LEGAL_DUTY') and 'CONDITIONAL' not in rt(r) and not r['choice_group'] and states(r)
+    if always and tag(r)=='REQUIRED':
         e.append("    alwaysDefault: true,")
+    # A legal duty that always applies: included by default, but the landlord
+    # may untick it if they give the tenant this information another way.
+    if always and tag(r)=='LEGAL_DUTY':
+        e.append("    defaultOn: true,")
     if r['supersedes']: e.append(f"    supersedes: {q(r['supersedes'])},")
     if r['choice_group']:
         e.append(f"    choiceGroup: {q(r['choice_group'])},"); e.append(f"    choiceGroupDefault: {'true' if r['is_default']=='TRUE' else 'false'},")

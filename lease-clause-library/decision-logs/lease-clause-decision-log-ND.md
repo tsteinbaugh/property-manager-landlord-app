@@ -4049,3 +4049,46 @@ Taylor's decision 2026-11-20: compare the library's topic list with the uniform 
 ## Lead-paint applicability (Claude Code, 2026-11-21)
 
 Uniform federal label correction (rule 62): the shared `lead-based-paint` is now CONDITIONAL/REQUIRED (it was REQUIRED), since the federal disclosure applies only to housing built before 1978; no text changed. The app now adds it automatically, locked, when the property was built before 1978 or its year built isn't entered, and leaves it off for 1978 or later (Taylor's decision 2026-11-21).
+
+## Required-label correction (Claude Code, 2026-11-21)
+
+Taylor's decision 2026-11-21: a clause is REQUIRED only when a statute requires it in the lease (SOP rule 56). Rows labeled REQUIRED whose research found no such statute (basis SERVES_LANDLORD or CONSTRAINED_TERM) are now RECOMMENDED; required text that applies only to some properties is CONDITIONAL/REQUIRED. No clause text changed. This jurisdiction's rows:
+
+- `default-by-tenant` (REQUIRED to RECOMMENDED)
+- `assistance-animal-accommodation-nd` (REQUIRED to RECOMMENDED)
+- `smoke-detector-duty-nd` (REQUIRED to RECOMMENDED)
+- `tenant-maintenance-nd` (REQUIRED to RECOMMENDED)
+- `surrender-end-of-term-mn-nd` (REQUIRED to RECOMMENDED)
+- `pest-bed-bug-cooperation-nd` (REQUIRED to RECOMMENDED)
+- `security-deposit-use-nd` (REQUIRED/PROHIBITED to RECOMMENDED/PROHIBITED/CONSTRAINED)
+
+## Tags for situational clauses (Claude Code, 2026-11-22)
+
+Taylor's decision 2026-11-22: every clause shows a tag. A clause that applies only in some situations now carries the label it has when it applies (SOP rule 56): Recommended where the research found no statute requiring it and it serves the landlord, Optional where it is a term the landlord chooses within the law's limits, Required or Legal duty where its notes' statute was read and requires it. No clause text changed.
+
+- `abandoned-property-nd`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `lease-notice-initial-requirement-nd`: CONDITIONAL to CONDITIONAL/CONSTRAINED
+- `maintenance-allocation-nd`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `automatic-renewal-nd`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `tenant-caused-damage-nd`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `arbitration-agreement`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `substitute-premises-after-damage-nd`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `criminal-activity-nd`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `surrender-and-forwarding-address-nd`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `ev-charger-removal-restoration-nd`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `ev-charger-installation-conditions-nd`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `family-child-care-consent-nd`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `farmland-hunting-rights-reserved-nd`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `environmental-covenant-notice-and-compliance-nd`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `informal-dispute-resolution-nd`: CONDITIONAL to CONDITIONAL/CONSTRAINED
+- `owner-occupancy-termination-nd`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `scheduled-services-entry-nd`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `pest-control-cooperation-nd`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `rent-concession-nd`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `rent-escalation-nd`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `rent-installments-nd`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `tax-insurance-escalation-nd`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `insurance-claims-and-losses-nd`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `interest-on-unpaid-amounts-nd`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `utility-disconnection-notice-authorization-nd`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `utility-transfer-nd`: CONDITIONAL to CONDITIONAL/RECOMMENDED

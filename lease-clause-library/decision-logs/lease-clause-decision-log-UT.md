@@ -2502,3 +2502,90 @@ Taylor's decision 2026-11-20: compare the library's topic list with the uniform 
 ## Lead-paint applicability (Claude Code, 2026-11-21)
 
 Uniform federal label correction (rule 62): the shared `lead-based-paint` is now CONDITIONAL/REQUIRED (it was REQUIRED), since the federal disclosure applies only to housing built before 1978; no text changed. The app now adds it automatically, locked, when the property was built before 1978 or its year built isn't entered, and leaves it off for 1978 or later (Taylor's decision 2026-11-21).
+
+## Required-label correction (Claude Code, 2026-11-21)
+
+Taylor's decision 2026-11-21: a clause is REQUIRED only when a statute requires it in the lease (SOP rule 56). Rows labeled REQUIRED whose research found no such statute (basis SERVES_LANDLORD or CONSTRAINED_TERM) are now RECOMMENDED; required text that applies only to some properties is CONDITIONAL/REQUIRED. No clause text changed. This jurisdiction's rows:
+
+- `security-deposit-use` (REQUIRED/PROHIBITED to RECOMMENDED/PROHIBITED/CONSTRAINED)
+- `default-by-tenant` (REQUIRED to RECOMMENDED)
+- `assistance-animal-accommodation` (REQUIRED to RECOMMENDED)
+- `services-utilities-provided-ks-oh` (REQUIRED to RECOMMENDED)
+- `security-deposit-return-ut` (REQUIRED to RECOMMENDED)
+
+## Required and Legal duty labels (Claude Code, 2026-11-22)
+
+Taylor's decision 2026-11-22 (SOP 2.19, rule 56): a clause is REQUIRED only when the law requires the text in the lease itself; LEGAL_DUTY when the law requires the landlord to give the tenant the information but not in the lease (the clause is one way to do it); text required only if the landlord uses a term is CONSTRAINED. Each row below was read against its notes' statutory text; the reason is in the row. No clause text changed.
+
+- `landlord-disclosure-ut`: REQUIRED to LEGAL_DUTY
+- `meth-disclosure-ut`: CONDITIONAL to CONDITIONAL/REQUIRED
+
+## Tags for situational clauses (Claude Code, 2026-11-22)
+
+Taylor's decision 2026-11-22: every clause shows a tag. A clause that applies only in some situations now carries the label it has when it applies (SOP rule 56): Recommended where the research found no statute requiring it and it serves the landlord, Optional where it is a term the landlord chooses within the law's limits, Required or Legal duty where its notes' statute was read and requires it. No clause text changed.
+
+- `extended-absence-notice-ks`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `nonrefundable-deposit-notice-ut`: CONDITIONAL to CONDITIONAL/CONSTRAINED
+- `casualty-termination-ut`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `tenant-repair-agreement-ut`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `smoke-drift-waiver-ut`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `collection-fee-ut`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `notice-service-fee-ut`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `rent-concession-wi`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `tenant-caused-damage-ut`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `holdover-rate-ut`: CONDITIONAL to CONDITIONAL/CONSTRAINED
+- `criminal-activity-ky`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `rent-escalation-la`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `tax-insurance-escalation-la`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `furnishings-included-la`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `scheduled-services-entry-la`: CONDITIONAL to CONDITIONAL/CONSTRAINED
+- `showing-notice-la`: CONDITIONAL to CONDITIONAL/CONSTRAINED
+- `owner-occupancy-termination-ar`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `animal-care-access-vi`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `tenant-caused-fines-as`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `home-business-permission-co`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `utility-shutoff-notice-authorization-co`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `common-area-lighting-ks`: CONDITIONAL to CONDITIONAL/CONSTRAINED
+- `disability-modification-restoration-mn`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `telecom-access-mn`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `waterbed-mn`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `early-termination-ut`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `utility-transfer-nj`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `deposit-cost-schedule-ut`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `carpet-cleaning-ut`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `deposit-trust-account-exemption-ut`: CONDITIONAL to CONDITIONAL/CONSTRAINED
+- `fees-and-charges-ut`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `government-fee-reimbursement-ut`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `detector-care-ut`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `sex-offender-registry-notice-ut`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `rent-reporting-negative-notice-ut`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `rental-inspection-cooperation-ut`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `fire-code-compliance-ut`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `family-child-care-consent-ut`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `heat-freeze-protection-ut`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `appliances-excluded-ut`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `promised-repairs-ut`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `landlord-self-cure-ut`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `designated-repairer-ut`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `pool-and-spa-use-ut`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `smart-access-system-ut`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `pest-cooperation-ut`: CONDITIONAL to CONDITIONAL/CONSTRAINED
+- `portable-cooling-device-ut`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `environmental-covenant-notice-ut`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `environmental-event-termination-ut`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `automatic-renewal-ut`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `eminent-domain-ut`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `agreed-notice-methods-ut`: CONDITIONAL to CONDITIONAL/CONSTRAINED
+- `tenant-portal-ut`: CONDITIONAL to CONDITIONAL/CONSTRAINED
+- `rules-ut`: CONDITIONAL to CONDITIONAL/CONSTRAINED
+- `utility-allowance-cap-ut`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `utility-apportionment-ut`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `utility-interruption-repairs-ut`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `ev-charging-shared-area-ut`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `portable-solar-device-ut`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `parking-rules-notice-ut`: CONDITIONAL to CONDITIONAL/CONSTRAINED
+- `unbundled-parking-ut`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `tenant-work-liens-ut`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `term-change-notice-ut`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `ev-charger-installation-ut`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `sale-termination-ut`: CONDITIONAL to CONDITIONAL/RECOMMENDED

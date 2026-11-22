@@ -6,13 +6,14 @@ const { requiredForProperty } = require("../lib/clauseApplicability");
 
 // The provided clauses "Add my default clauses" includes on its own for a state:
 // those the law always requires or that a property fact makes required (by
-// default a property with no year built, so the lead disclosure applies), less
-// any a state version replaces.
+// default a property with no year built, so the lead disclosure applies), and
+// the legal duties on by default (`defaultOn`), less any a state version
+// replaces.
 function requiredFor(state, property = { yearBuilt: null }) {
   const here = CLAUSE_TEMPLATES.filter((t) => t.states.includes(state));
   const replaced = new Set(here.map((t) => t.supersedes).filter(Boolean));
   return here
-    .filter((t) => (t.alwaysDefault || requiredForProperty(t.id, property)) && !replaced.has(t.id))
+    .filter((t) => (t.alwaysDefault || t.defaultOn || requiredForProperty(t.id, property)) && !replaced.has(t.id))
     .map((t) => t.id);
 }
 
@@ -1034,6 +1035,18 @@ describe("leases routes", () => {
       const required = requiredFor("CO");
       expect(required.length).toBeGreaterThan(0);
       expect(res.body.leaseClauses.map((c) => c.sourceTemplateId).sort()).toEqual(required.sort());
+    });
+
+    it("adds a legal duty that is on by default unless the landlord unticked it", async () => {
+      const duty = CLAUSE_TEMPLATES.find((t) => t.defaultOn && t.states.includes("CO"));
+      const ids = async () =>
+        (await request(app).post(`/api/leases/${lease.id}/clauses/add-defaults`)).body.leaseClauses.map(
+          (c) => c.sourceTemplateId,
+        );
+      await request(app).delete(`/api/clause-templates/${duty.id}/default`);
+      expect(await ids()).not.toContain(duty.id);
+      await request(app).post(`/api/clause-templates/${duty.id}/default`);
+      expect(await ids()).toContain(duty.id);
     });
 
     it("adds the lead-paint disclosure for a home built before 1978 or with no year, not for a newer one", async () => {

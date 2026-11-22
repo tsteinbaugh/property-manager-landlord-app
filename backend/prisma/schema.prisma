@@ -401,6 +401,9 @@ model DefaultClauseTemplate {
   id         String   @id @default(cuid())
   userId     String
   templateId String
+  // True when the landlord unticked a clause that is on by default (a legal
+  // duty, `defaultOn` in clauseTemplates.js): the row records the opt-out.
+  excluded   Boolean  @default(false)
   createdAt  DateTime @default(now())
 
   user User @relation(fields: [userId], references: [id])

@@ -3493,3 +3493,47 @@ Taylor's decision 2026-11-20: compare the library's topic list with the uniform 
 ## Lead-paint applicability (Claude Code, 2026-11-21)
 
 Uniform federal label correction (rule 62): the shared `lead-based-paint` is now CONDITIONAL/REQUIRED (it was REQUIRED), since the federal disclosure applies only to housing built before 1978; no text changed. The app now adds it automatically, locked, when the property was built before 1978 or its year built isn't entered, and leaves it off for 1978 or later (Taylor's decision 2026-11-21).
+
+## Required-label correction (Claude Code, 2026-11-21)
+
+Taylor's decision 2026-11-21: a clause is REQUIRED only when a statute requires it in the lease (SOP rule 56). Rows labeled REQUIRED whose research found no such statute (basis SERVES_LANDLORD or CONSTRAINED_TERM) are now RECOMMENDED; required text that applies only to some properties is CONDITIONAL/REQUIRED. No clause text changed. This jurisdiction's rows:
+
+- `default-by-tenant` (REQUIRED to RECOMMENDED)
+- `bed-bug-cooperation-ca` (REQUIRED to RECOMMENDED)
+- `assistance-animal-accommodation-ca` (REQUIRED to RECOMMENDED)
+- `landlord-entry-ca` (REQUIRED to RECOMMENDED/CONSTRAINED)
+- `payment-methods-ca` (REQUIRED to RECOMMENDED/CONSTRAINED)
+- `alarm-duties-ca` (REQUIRED to RECOMMENDED)
+
+## Required and Legal duty labels (Claude Code, 2026-11-22)
+
+Taylor's decision 2026-11-22 (SOP 2.19, rule 56): a clause is REQUIRED only when the law requires the text in the lease itself; LEGAL_DUTY when the law requires the landlord to give the tenant the information but not in the lease (the clause is one way to do it); text required only if the landlord uses a term is CONSTRAINED. Each row below was read against its notes' statutory text; the reason is in the row. No clause text changed.
+
+- `bed-bug-disclosure-ca`: RECOMMENDED to LEGAL_DUTY
+- `meth-disclosure-ca`: RECOMMENDED to CONDITIONAL/REQUIRED
+- `sex-offender-registry-notice-ca`: CONDITIONAL to CONDITIONAL/REQUIRED
+- `tpa-notice-ca`: REQUIRED to CONDITIONAL/LEGAL_DUTY
+- `pest-control-notice-ca`: CONDITIONAL to CONDITIONAL/LEGAL_DUTY
+- `mold-booklet-disclosure-ca`: RECOMMENDED to LEGAL_DUTY
+- `common-area-lighting-ca`: CONDITIONAL to CONDITIONAL/LEGAL_DUTY
+
+## Tags for situational clauses (Claude Code, 2026-11-22)
+
+Taylor's decision 2026-11-22: every clause shows a tag. A clause that applies only in some situations now carries the label it has when it applies (SOP rule 56): Recommended where the research found no statute requiring it and it serves the landlord, Optional where it is a term the landlord chooses within the law's limits, Required or Legal duty where its notes' statute was read and requires it. No clause text changed.
+
+- `tpa-exemption-notice-ca`: CONDITIONAL to CONDITIONAL/CONSTRAINED
+- `rent-increase-cap-ca`: CONDITIONAL to CONDITIONAL/CONSTRAINED
+- `waterbed-ca`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `ev-charging-ca`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `stove-refrigerator-ca`: CONDITIONAL to CONDITIONAL/CONSTRAINED
+- `auto-renewal-formatting-ca`: CONDITIONAL to CONDITIONAL/CONSTRAINED
+- `unbundled-parking-ca`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `service-member-additional-security-ca`: CONDITIONAL to CONDITIONAL/CONSTRAINED
+- `tenant-repair-agreement-ca`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `criminal-activity-ca`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `extended-absence-notice-ca`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `term-change-notice-ca`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `tenant-death-notice-ca`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `furnishings-included-ca`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `guaranty-of-lease-ca`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+- `rules-regulations-ca`: CONDITIONAL to CONDITIONAL/RECOMMENDED

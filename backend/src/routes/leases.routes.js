@@ -619,10 +619,18 @@ function createLeasesRoutes({ r2 = defaultR2 } = {}) {
     // state-specific clause for this state replaces (`supersedes`).
     const forThisState = CLAUSE_TEMPLATES.filter((t) => appliesToThisLease(t.states, { treatBlankAsUniversal: false }));
     const supersededHere = new Set(forThisState.map((t) => t.supersedes).filter(Boolean));
+    // Legal duties that always apply (`defaultOn`) are included too unless the landlord unticked
+    // them (Taylor, 2026-11-22); an `excluded` row records that opt-out.
+    const excludedIds = new Set(defaultTemplateLinks.filter((link) => link.excluded).map((link) => link.templateId));
     const requiredIds = forThisState
-      .filter((t) => (t.alwaysDefault || requiredForProperty(t.id, lease.property)) && !supersededHere.has(t.id))
+      .filter(
+        (t) =>
+          (t.alwaysDefault || requiredForProperty(t.id, lease.property) || (t.defaultOn && !excludedIds.has(t.id))) &&
+          !supersededHere.has(t.id),
+      )
       .map((t) => t.id);
-    const defaultTemplateIds = [...new Set([...requiredIds, ...defaultTemplateLinks.map((link) => link.templateId)])];
+    const markedIds = defaultTemplateLinks.filter((link) => !link.excluded).map((link) => link.templateId);
+    const defaultTemplateIds = [...new Set([...requiredIds, ...markedIds])];
 
     const snapshots = [
       ...defaultClauses
