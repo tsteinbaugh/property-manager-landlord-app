@@ -89,36 +89,43 @@ const always = () => true;
 const LEAD_NOTE = "when the property was built before 1978 or its year built isn't entered";
 const DEPOSIT_NOTE = "when you take a security deposit (unless the lease answers No)";
 
+// The facts each hand-written rule reads (the paths ruleConditions.js uses),
+// so the builder can ask for the blank ones.
+const LEAD_READS = ["property.yearBuilt"];
+const DEPOSIT_READS = ["lease.depositTaken"];
+const TERM_READS = ["lease.leaseType", "lease.endDate"];
+
 const RULES = {
   // Lead paint (year built).
-  "lead-based-paint": { applies: builtBefore1978OrUnknown, note: LEAD_NOTE },
-  "lead-based-paint-dc": { applies: builtBefore1978OrUnknown, note: LEAD_NOTE },
-  "lead-disclosure-ri": { applies: builtBefore1978OrUnknown, note: LEAD_NOTE },
-  "lead-law-certification-ma": { applies: builtBefore1978OrUnknown, note: LEAD_NOTE },
+  "lead-based-paint": { applies: builtBefore1978OrUnknown, note: LEAD_NOTE, reads: LEAD_READS },
+  "lead-based-paint-dc": { applies: builtBefore1978OrUnknown, note: LEAD_NOTE, reads: LEAD_READS },
+  "lead-disclosure-ri": { applies: builtBefore1978OrUnknown, note: LEAD_NOTE, reads: LEAD_READS },
+  "lead-law-certification-ma": { applies: builtBefore1978OrUnknown, note: LEAD_NOTE, reads: LEAD_READS },
   // 25 Del. C. § 5406(a), implemented by March 1, 2028 at the latest (85 Del.
   // Laws c. 98, § 5(2)); an earlier Housing Authority notice would bring the
   // date forward (legal watch).
   "lead-certification-de": {
     applies: both(builtBefore1978OrUnknown, onOrAfter("2028-03-01")),
+    reads: LEAD_READS,
     note: "from March 1, 2028, when the property was built before 1978 or its year built isn't entered",
   },
 
   // Security deposit taken.
-  "security-deposit-use-wa": { applies: depositTaken, note: DEPOSIT_NOTE },
-  "security-deposit-use-md": { applies: depositTaken, note: DEPOSIT_NOTE },
-  "security-deposit-use-ma": { applies: depositTaken, note: DEPOSIT_NOTE },
-  "security-deposit-return-ma": { applies: depositTaken, note: DEPOSIT_NOTE },
-  "security-deposit-use-or": { applies: depositTaken, note: DEPOSIT_NOTE },
-  "security-deposit-use-ak": { applies: depositTaken, note: DEPOSIT_NOTE },
-  "security-deposit-use-dc": { applies: depositTaken, note: DEPOSIT_NOTE },
-  "nonrefundable-deposit-disclosure-wy": { applies: depositTaken, note: DEPOSIT_NOTE },
-  "security-deposit-holding-wy": { applies: depositTaken, note: DEPOSIT_NOTE },
-  "security-deposit-notice-mi": { applies: depositTaken, note: DEPOSIT_NOTE },
-  "deposit-depository-wa": { applies: depositTaken, note: DEPOSIT_NOTE },
+  "security-deposit-use-wa": { applies: depositTaken, note: DEPOSIT_NOTE, reads: DEPOSIT_READS },
+  "security-deposit-use-md": { applies: depositTaken, note: DEPOSIT_NOTE, reads: DEPOSIT_READS },
+  "security-deposit-use-ma": { applies: depositTaken, note: DEPOSIT_NOTE, reads: DEPOSIT_READS },
+  "security-deposit-return-ma": { applies: depositTaken, note: DEPOSIT_NOTE, reads: DEPOSIT_READS },
+  "security-deposit-use-or": { applies: depositTaken, note: DEPOSIT_NOTE, reads: DEPOSIT_READS },
+  "security-deposit-use-ak": { applies: depositTaken, note: DEPOSIT_NOTE, reads: DEPOSIT_READS },
+  "security-deposit-use-dc": { applies: depositTaken, note: DEPOSIT_NOTE, reads: DEPOSIT_READS },
+  "nonrefundable-deposit-disclosure-wy": { applies: depositTaken, note: DEPOSIT_NOTE, reads: DEPOSIT_READS },
+  "security-deposit-holding-wy": { applies: depositTaken, note: DEPOSIT_NOTE, reads: DEPOSIT_READS },
+  "security-deposit-notice-mi": { applies: depositTaken, note: DEPOSIT_NOTE, reads: DEPOSIT_READS },
+  "deposit-depository-wa": { applies: depositTaken, note: DEPOSIT_NOTE, reads: DEPOSIT_READS },
   // Fla. Stat. § 83.49(2) reaches a landlord with five or more units; the
   // notice is harmless for a smaller landlord (Taylor, 2026-11-22), so it
   // follows the deposit alone.
-  "security-deposit-notice-fl": { applies: depositTaken, note: DEPOSIT_NOTE },
+  "security-deposit-notice-fl": { applies: depositTaken, note: DEPOSIT_NOTE, reads: DEPOSIT_READS },
 
   // Colorado's statement is required unless the landlord has five or fewer
   // single-family rentals and five or fewer units (C.R.S. § 38-12-801(2.5));
@@ -150,10 +157,12 @@ const RULES = {
   // Lease length.
   "flood-disclosure-fl": {
     applies: termOneYearOrUnknown,
+    reads: TERM_READS,
     note: "to a lease of a year or longer (or one without an end date)",
   },
   "rent-tax-nc": {
     applies: termUnder90Days,
+    reads: TERM_READS,
     note: "when the lease's dates are fewer than 90 days apart",
   },
 };
@@ -162,7 +171,7 @@ const RULES = {
 // evaluated by ruleConditions.js), added 2026-11-22. A hand-written rule above
 // wins if a clause has both.
 const { FACT_RULES } = require("./factRules");
-const { evaluate, UNKNOWN } = require("./ruleConditions");
+const { evaluate, factsIn, resolve, UNKNOWN } = require("./ruleConditions");
 
 for (const [id, rule] of Object.entries(FACT_RULES)) {
   if (RULES[id]) continue;
@@ -171,7 +180,9 @@ for (const [id, rule] of Object.entries(FACT_RULES)) {
       const r = evaluate(rule.condition, ctx);
       return r === UNKNOWN ? rule.unknownMeans !== false : r;
     },
+    state: (ctx) => evaluate(rule.condition, ctx),
     note: rule.note,
+    reads: [...new Set(factsIn(rule.condition))],
   };
 }
 
@@ -189,4 +200,27 @@ function applicabilityNote(templateId) {
   return RULES[templateId]?.note || null;
 }
 
-module.exports = { ruleApplies, applicabilityNote, APPLICABILITY_RULE_IDS: Object.keys(RULES) };
+// Whether a rule's answer is settled for this lease: true, false, or UNKNOWN
+// while a fact it reads is blank (even if blank currently counts as applies).
+function ruleState(templateId, ctx) {
+  const rule = RULES[templateId];
+  if (!rule) return false;
+  if (rule.state) return rule.state(ctx);
+  const blank = (rule.reads || []).some((path) => {
+    const v = resolve(path, ctx);
+    return v === null || v === undefined;
+  });
+  return blank ? UNKNOWN : rule.applies(ctx);
+}
+
+function ruleReads(templateId) {
+  return RULES[templateId]?.reads || [];
+}
+
+module.exports = {
+  ruleApplies,
+  ruleState,
+  ruleReads,
+  applicabilityNote,
+  APPLICABILITY_RULE_IDS: Object.keys(RULES),
+};

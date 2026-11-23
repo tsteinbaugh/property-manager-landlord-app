@@ -10,8 +10,9 @@ const { buildVariableContext, substituteVariables } = require("../lib/clauseVari
 const { orderAndLabelClauses } = require("../lib/leaseClauseOrdering");
 const { isWrongForCauseVariant } = require("../lib/forCauseEvictionVariant");
 const { choiceGroupOf, findChoiceGroupConflict } = require("../lib/clauseChoiceGroups");
-const { ruleApplies } = require("../lib/clauseApplicability");
+const { ruleApplies, applicabilityNote } = require("../lib/clauseApplicability");
 const { validateFacts, mergeFacts } = require("../lib/factCatalog");
+const { missingFacts } = require("../lib/missingFacts");
 const {
   buildRentTracker,
   suggestPaymentAllocation,
@@ -166,6 +167,50 @@ function withComputedLeaseFields(lease) {
     resolvedBodyText: substituteVariables(clause.bodyText, context),
   }));
   return { ...lease, leaseClauses };
+}
+
+// What the applicability rules can see about a lease: its property, the
+// landlord's account answers and how many properties they have (each unit is
+// a property), in all and by state.
+async function ruleContext(lease, userId) {
+  const [owner, ownedStates] = await Promise.all([
+    prisma.user.findUnique({ where: { id: userId }, select: { facts: true } }),
+    prisma.property.findMany({ where: { userId }, select: { state: true } }),
+  ]);
+  const propertyCountByState = {};
+  for (const { state } of ownedStates) propertyCountByState[state] = (propertyCountByState[state] || 0) + 1;
+  return {
+    property: lease.property,
+    lease,
+    account: owner?.facts || {},
+    landlord: { propertyCount: ownedStates.length, propertyCountByState },
+  };
+}
+
+// The provided clauses the law requires for this lease right now (Taylor,
+// 2026-11-21/22): `required` are locked in (a Required clause that always
+// applies, or whose rule applies), `legalDuty` are on by default unless the
+// landlord unticked them. Each says whether the lease has it; a clause counts as
+// there when it, or another member of its pick-one group, is attached.
+async function requiredClauses(lease, userId, ctx) {
+  const state = lease.property?.state ?? null;
+  const forThisState = CLAUSE_TEMPLATES.filter((t) => (t.states || []).includes(state));
+  const supersededHere = new Set(forThisState.map((t) => t.supersedes).filter(Boolean));
+  const links = await prisma.defaultClauseTemplate.findMany({ where: { userId, excluded: true } });
+  const excludedIds = new Set(links.map((l) => l.templateId));
+  const attachedIds = new Set((lease.leaseClauses || []).map((lc) => lc.sourceTemplateId).filter(Boolean));
+  const attachedGroups = new Set([...attachedIds].map(choiceGroupOf).filter(Boolean));
+  const has = (t) => attachedIds.has(t.id) || (t.choiceGroup && attachedGroups.has(t.choiceGroup));
+  const required = [];
+  const legalDuty = [];
+  for (const t of forThisState) {
+    if (supersededHere.has(t.id) || isWrongForCauseVariant(t.id, lease.property?.forCauseEvictionExemption)) continue;
+    const applies = ruleApplies(t.id, ctx);
+    const entry = { templateId: t.id, title: t.title, note: applicabilityNote(t.id), attached: Boolean(has(t)) };
+    if (t.alwaysDefault || (applies && t.tag === "REQUIRED")) required.push(entry);
+    else if ((applies || t.defaultOn) && !excludedIds.has(t.id)) legalDuty.push(entry);
+  }
+  return { required, legalDuty };
 }
 
 function createLeasesRoutes({ r2 = defaultR2 } = {}) {
@@ -633,6 +678,20 @@ function createLeasesRoutes({ r2 = defaultR2 } = {}) {
   // attaching their usual set by hand on every new lease. Already-attached
   // defaults (by sourceClauseId/sourceTemplateId) are skipped rather than
   // duplicated, so this is safe to click more than once.
+  // For the lease builder: the blank answers this lease's Required and Legal
+  // duty rules still wait on (missingFacts.js), and the clauses the law
+  // requires for it now, each marked attached or missing.
+  router.get("/:id/applicability", async (req, res) => {
+    const lease = await prisma.lease.findUnique({ where: { id: req.params.id }, include: leaseInclude });
+    if (!lease || lease.userId !== req.currentUser.id) {
+      return res.status(404).json({ error: "Lease not found" });
+    }
+    const state = lease.property?.state;
+    const templates = CLAUSE_TEMPLATES.filter((t) => (t.states || []).includes(state));
+    const ctx = await ruleContext(lease, req.currentUser.id);
+    res.json({ questions: missingFacts(templates, ctx), clauses: await requiredClauses(lease, req.currentUser.id, ctx) });
+  });
+
   router.post("/:id/clauses/add-defaults", async (req, res) => {
     const lease = await prisma.lease.findUnique({ where: { id: req.params.id }, include: leaseInclude });
     if (!lease || lease.userId !== req.currentUser.id) {
@@ -678,18 +737,7 @@ function createLeasesRoutes({ r2 = defaultR2 } = {}) {
     // included too unless the landlord unticked them (Taylor, 2026-11-22); an `excluded` row
     // records that opt-out.
     const excludedIds = new Set(defaultTemplateLinks.filter((link) => link.excluded).map((link) => link.templateId));
-    const [owner, ownedStates] = await Promise.all([
-      prisma.user.findUnique({ where: { id: req.currentUser.id }, select: { facts: true } }),
-      prisma.property.findMany({ where: { userId: req.currentUser.id }, select: { state: true } }),
-    ]);
-    const propertyCountByState = {};
-    for (const { state } of ownedStates) propertyCountByState[state] = (propertyCountByState[state] || 0) + 1;
-    const ctx = {
-      property: lease.property,
-      lease,
-      account: owner?.facts || {},
-      landlord: { propertyCount: ownedStates.length, propertyCountByState },
-    };
+    const ctx = await ruleContext(lease, req.currentUser.id);
     const isRequiredHere = (t) => {
       if (t.alwaysDefault) return true;
       const optedOut = excludedIds.has(t.id);
@@ -787,6 +835,15 @@ function createLeasesRoutes({ r2 = defaultR2 } = {}) {
       return res.status(404).json({ error: "Clause not found on this lease" });
     }
 
+    // A clause the law requires for this lease is locked in (Taylor, 2026-11-22).
+    if (leaseClause.sourceTemplateId) {
+      const full = await prisma.lease.findUnique({ where: { id: lease.id }, include: leaseInclude });
+      const { required } = await requiredClauses(full, req.currentUser.id, await ruleContext(full, req.currentUser.id));
+      if (required.some((c) => c.templateId === leaseClause.sourceTemplateId)) {
+        return res.status(409).json({ error: "The law requires this clause in this lease, so it can't be removed" });
+      }
+    }
+
     await prisma.leaseClause.delete({ where: { id: leaseClause.id } });
 
     res.status(204).send();
@@ -805,6 +862,28 @@ function createLeasesRoutes({ r2 = defaultR2 } = {}) {
     });
     if (!lease || lease.userId !== req.currentUser.id) {
       return res.status(404).json({ error: "Lease not found" });
+    }
+
+    // The PDF waits until every question that decides a Required clause is
+    // answered, and then for every Required clause that applies to be on the
+    // lease; Legal duty questions and clauses only warn, in the builder
+    // (Taylor, 2026-11-22).
+    const ruleCtx = await ruleContext(lease, req.currentUser.id);
+    const forState = CLAUSE_TEMPLATES.filter((t) => (t.states || []).includes(lease.property?.state));
+    const blockingQuestions = missingFacts(forState, ruleCtx).filter((q) => q.blocks);
+    if (blockingQuestions.length > 0) {
+      return res.status(409).json({
+        error: `Answer ${blockingQuestions.length === 1 ? "the question" : `the ${blockingQuestions.length} questions`} at the top of the Lease Builder first; ${blockingQuestions.length === 1 ? "it decides" : "they decide"} which required clauses this lease needs.`,
+        blockingQuestions: blockingQuestions.map((q) => ({ key: q.key, label: q.label })),
+      });
+    }
+    const { required } = await requiredClauses(lease, req.currentUser.id, ruleCtx);
+    const missingRequired = required.filter((c) => !c.attached);
+    if (missingRequired.length > 0) {
+      return res.status(409).json({
+        error: `This lease is missing clauses the law requires: ${missingRequired.map((c) => c.title).join("; ")}. Add them in the Lease Builder first.`,
+        missingRequired,
+      });
     }
 
     const property = lease.property;

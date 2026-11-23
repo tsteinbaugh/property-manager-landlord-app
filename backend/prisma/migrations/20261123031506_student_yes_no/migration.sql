@@ -1,0 +1,7 @@
+-- AlterTable
+ALTER TABLE "Occupant" ALTER COLUMN "isStudent" DROP NOT NULL,
+ALTER COLUMN "isStudent" DROP DEFAULT;
+
+-- AlterTable
+ALTER TABLE "Tenant" ALTER COLUMN "isStudent" DROP NOT NULL,
+ALTER COLUMN "isStudent" DROP DEFAULT;

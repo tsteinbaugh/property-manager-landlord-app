@@ -233,8 +233,8 @@ model Tenant {
   employmentStatus String?
   monthlyIncome    Decimal? @db.Decimal(10, 2)
 
-  isStudent        Boolean @default(false)
-  isServicemember  Boolean @default(false)
+  isStudent        Boolean? // full-time student; Yes/No that starts blank (2026-11-22)
+  isServicemember  Boolean? // active-duty servicemember; Yes/No that starts blank (2026-11-22)
   nonresidentAlien Boolean? // for U.S. tax purposes; Yes/No that starts blank, asked for Alaska leases
 
   emergencyContactName     String?
@@ -516,8 +516,8 @@ model Occupant {
   phone    String?
   email    String?
 
-  isStudent       Boolean @default(false)
-  isServicemember Boolean @default(false)
+  isStudent       Boolean? // full-time student; Yes/No that starts blank (2026-11-22)
+  isServicemember Boolean? // active-duty servicemember; Yes/No that starts blank (2026-11-22)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

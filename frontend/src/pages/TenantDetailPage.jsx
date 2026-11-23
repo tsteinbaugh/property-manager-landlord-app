@@ -25,8 +25,6 @@ const BOOL_FIELDS = [
   "idVerified",
   "rentersInsuranceLandlordAdditionalInsured",
   "rentersInsuranceCertificateOnFile",
-  "isStudent",
-  "isServicemember",
 ];
 
 const DOCUMENT_CATEGORIES = [
@@ -42,8 +40,8 @@ const OCCUPANT_FIELDS = [
   { key: "age", label: "Age", type: "number" },
   { key: "phone", label: "Phone" },
   { key: "email", label: "Email", type: "email" },
-  { key: "isStudent", label: "Full-time student", type: "checkbox" },
-  { key: "isServicemember", label: "Active-duty servicemember", type: "checkbox" },
+  { key: "isStudent", label: "Full-time student?", type: "yesno" },
+  { key: "isServicemember", label: "Active-duty servicemember?", type: "yesno" },
 ];
 
 const PET_FIELDS = [
@@ -76,6 +74,8 @@ function toForm(tenant) {
   for (const f of NUMBER_FIELDS) form[f] = tenant[f] ?? "";
   for (const f of BOOL_FIELDS) form[f] = !!tenant[f];
   form.nonresidentAlien = tenant.nonresidentAlien ?? null;
+  form.isStudent = tenant.isStudent ?? null;
+  form.isServicemember = tenant.isServicemember ?? null;
   return form;
 }
 
@@ -398,23 +398,29 @@ export default function TenantDetailPage() {
                 />
                 <span className="font-medium text-stone-700">ID verified</span>
               </label>
-              <label className="flex items-center gap-2 self-end pb-2 text-sm">
-                <input
-                  type="checkbox"
-                  checked={form.isStudent}
-                  onChange={(e) => setForm({ ...form, isStudent: e.target.checked })}
-                  className="h-4 w-4 rounded border-stone-300"
-                />
-                <span className="font-medium text-stone-700">Full-time student</span>
+              <label className="block text-sm">
+                <span className="mb-1 block font-medium text-stone-700">Is the tenant a full-time student?</span>
+                <select
+                  value={form.isStudent === null ? "" : String(form.isStudent)}
+                  onChange={(e) => setForm({ ...form, isStudent: e.target.value === "" ? null : e.target.value === "true" })}
+                  className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
+                >
+                  <option value="">Not answered</option>
+                  <option value="true">Yes</option>
+                  <option value="false">No</option>
+                </select>
               </label>
-              <label className="flex items-center gap-2 self-end pb-2 text-sm">
-                <input
-                  type="checkbox"
-                  checked={form.isServicemember}
-                  onChange={(e) => setForm({ ...form, isServicemember: e.target.checked })}
-                  className="h-4 w-4 rounded border-stone-300"
-                />
-                <span className="font-medium text-stone-700">Active-duty servicemember</span>
+              <label className="block text-sm">
+                <span className="mb-1 block font-medium text-stone-700">Is the tenant an active-duty servicemember?</span>
+                <select
+                  value={form.isServicemember === null ? "" : String(form.isServicemember)}
+                  onChange={(e) => setForm({ ...form, isServicemember: e.target.value === "" ? null : e.target.value === "true" })}
+                  className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
+                >
+                  <option value="">Not answered</option>
+                  <option value="true">Yes</option>
+                  <option value="false">No</option>
+                </select>
               </label>
               {(tenant.property?.state === "AK" || form.nonresidentAlien !== null) && (
                 <label className="block text-sm">
@@ -660,8 +666,14 @@ export default function TenantDetailPage() {
               value={tenant.dateOfBirth ? new Date(tenant.dateOfBirth).toLocaleDateString() : null}
             />
             <DetailRow label="ID verified" value={tenant.idVerified ? "Yes" : "No"} />
-            {tenant.isStudent && <DetailRow label="Full-time student" value="Yes" />}
-            {tenant.isServicemember && <DetailRow label="Active-duty servicemember" value="Yes" />}
+            <DetailRow
+              label="Full-time student"
+              value={tenant.isStudent === true ? "Yes" : tenant.isStudent === false ? "No" : "Not answered"}
+            />
+            <DetailRow
+              label="Active-duty servicemember"
+              value={tenant.isServicemember === true ? "Yes" : tenant.isServicemember === false ? "No" : "Not answered"}
+            />
             {tenant.property?.state === "AK" && (
               <DetailRow
                 label="Nonresident alien (tax)"
@@ -774,8 +786,8 @@ export default function TenantDetailPage() {
             o.name,
             o.age ? `age ${o.age}` : null,
             [o.phone, o.email].filter(Boolean).join(", ") || null,
-            o.isStudent ? "student" : null,
-            o.isServicemember ? "servicemember" : null,
+            o.isStudent === true ? "student" : null,
+            o.isServicemember === true ? "servicemember" : null,
           ]
             .filter(Boolean)
             .join(" · ")

@@ -1301,6 +1301,31 @@ describe("leases routes", () => {
       await request(app).post(`/api/leases/${lease.id}/tenants`).send({ tenantId: tenant.id, role: "PRIMARY" });
       await request(app).post(`/api/leases/${lease.id}/clauses`).send({ templateId: "rent-payment" });
       await request(app).post(`/api/leases/${lease.id}/clauses`).send({ templateId: "early-termination" });
+      await prisma.property.update({ where: { id: property.id }, data: { yearBuilt: 1950 } });
+      const answers = await request(app).get(`/api/leases/${lease.id}/applicability`);
+      const facts = Object.fromEntries(
+        answers.body.questions.filter((q) => q.target === "property").map((q) => [q.id, q.type === "yesno" ? false : q.options?.[0]?.value]),
+      );
+      if (Object.keys(facts).length) await request(app).put(`/api/properties/${property.id}/facts`).send({ facts });
+      await request(app).post(`/api/leases/${lease.id}/clauses/add-defaults`);
+    });
+
+    it("refuses to generate while a question that decides a required clause is blank", async () => {
+      await prisma.property.update({ where: { id: property.id }, data: { yearBuilt: null } });
+      const res = await request(app).post(`/api/leases/${lease.id}/generate-document`);
+      expect(res.status).toBe(409);
+      expect(res.body.blockingQuestions.map((q) => q.key)).toContain("property.yearBuilt");
+    });
+
+    it("refuses to generate while a clause the law requires is missing, naming it", async () => {
+      const bare = await prisma.lease.create({
+        data: { propertyId: property.id, userId: property.userId, startDate: new Date("2026-09-01"), monthlyRent: "1800.00" },
+      });
+      await request(app).post(`/api/leases/${bare.id}/clauses`).send({ templateId: "rent-payment" });
+      const res = await request(app).post(`/api/leases/${bare.id}/generate-document`);
+      expect(res.status).toBe(409);
+      expect(res.body.missingRequired.length).toBeGreaterThan(0);
+      expect(res.body.missingRequired.map((c) => c.templateId)).toContain("lead-based-paint");
     });
 
     it("generates and attaches a PDF document", async () => {
@@ -1552,4 +1577,95 @@ describe("leases routes", () => {
       expect(res.status).toBe(400);
     });
   });
+
+  describe("fill-in-the-gaps questions (GET /:id/missing-facts)", () => {
+    const keys = (res) => res.body.questions.map((q) => q.key);
+
+    it("asks the blank answers this lease's rules wait on, with the clauses each decides", async () => {
+      await prisma.property.update({ where: { id: property.id }, data: { state: "WA" } });
+      const created = await request(app).post("/api/leases").send({ propertyId: property.id, startDate: "2027-01-01", monthlyRent: "1500.00" });
+      const res = await request(app).get(`/api/leases/${created.body.id}/applicability`);
+      expect(res.status).toBe(200);
+      expect(keys(res)).toContain("property.yearBuilt");
+      expect(keys(res)).toContain("lease.depositTaken");
+      const lead = res.body.questions.find((q) => q.key === "property.yearBuilt");
+      expect(lead.target).toBe("propertyField");
+      expect(lead.clauses.length).toBeGreaterThan(0);
+    });
+
+    it("drops a question once it's answered, and shows a follow-up once its answer is in", async () => {
+      await prisma.property.update({ where: { id: property.id }, data: { state: "NJ", yearBuilt: 1990 } });
+      const created = await request(app)
+        .post("/api/leases")
+        .send({ propertyId: property.id, startDate: "2027-01-01", monthlyRent: "1500.00", securityDepositTaken: false });
+      let res = await request(app).get(`/api/leases/${created.body.id}/applicability`);
+      expect(keys(res)).not.toContain("property.yearBuilt");
+      expect(keys(res)).not.toContain("lease.depositTaken");
+      expect(keys(res)).toContain("property.propertyType");
+      expect(keys(res)).not.toContain("property.unitsInBuilding");
+
+      await request(app).put(`/api/properties/${property.id}/facts`).send({ facts: { propertyType: "APARTMENT" } });
+      res = await request(app).get(`/api/leases/${created.body.id}/applicability`);
+      expect(keys(res)).toContain("property.unitsInBuilding");
+
+      await request(app).put(`/api/properties/${property.id}/facts`).send({ facts: { propertyType: "SINGLE_FAMILY" } });
+      res = await request(app).get(`/api/leases/${created.body.id}/applicability`);
+      expect(keys(res)).not.toContain("property.unitsInBuilding");
+      expect(keys(res)).not.toContain("property.propertyType");
+    });
+
+    it("404s for another user's lease", async () => {
+      const res = await request(app).get("/api/leases/not-a-lease/missing-facts");
+      expect(res.status).toBe(404);
+    });
+  });
+
+  describe("required clauses are locked in", () => {
+    it("won't remove a clause the law requires for this lease, but removes it once it no longer applies", async () => {
+      const lease = await prisma.lease.create({
+        data: { propertyId: property.id, userId: property.userId, startDate: new Date("2027-01-01"), monthlyRent: "1800.00" },
+      });
+      await request(app).post(`/api/leases/${lease.id}/clauses/add-defaults`);
+      const full = await request(app).get(`/api/leases/${lease.id}`);
+      const lead = full.body.leaseClauses.find((c) => c.sourceTemplateId === "lead-based-paint");
+      expect(lead).toBeTruthy();
+      let res = await request(app).delete(`/api/leases/${lease.id}/clauses/${lead.id}`);
+      expect(res.status).toBe(409);
+
+      await prisma.property.update({ where: { id: property.id }, data: { yearBuilt: 2005 } });
+      res = await request(app).delete(`/api/leases/${lease.id}/clauses/${lead.id}`);
+      expect(res.status).toBe(204);
+    });
+
+    it("lists the required clauses for the lease, marking which are attached", async () => {
+      const lease = await prisma.lease.create({
+        data: { propertyId: property.id, userId: property.userId, startDate: new Date("2027-01-01"), monthlyRent: "1800.00" },
+      });
+      let res = await request(app).get(`/api/leases/${lease.id}/applicability`);
+      const lead = res.body.clauses.required.find((c) => c.templateId === "lead-based-paint");
+      expect(lead.attached).toBe(false);
+      await request(app).post(`/api/leases/${lease.id}/clauses/add-defaults`);
+      res = await request(app).get(`/api/leases/${lease.id}/applicability`);
+      expect(res.body.clauses.required.every((c) => c.attached)).toBe(true);
+    });
+  });
+
+  describe("questions about the people on the lease", () => {
+    it("asks each tenant a blank nonresident question in Alaska, saved to the tenant", async () => {
+      await prisma.property.update({ where: { id: property.id }, data: { state: "AK" } });
+      const lease = await prisma.lease.create({
+        data: { propertyId: property.id, userId: property.userId, startDate: new Date("2027-01-01"), monthlyRent: "1800.00" },
+      });
+      await request(app).post(`/api/leases/${lease.id}/tenants`).send({ tenantId: tenant.id, role: "PRIMARY" });
+      let res = await request(app).get(`/api/leases/${lease.id}/applicability`);
+      const key = `tenant.${tenant.id}.nonresidentAlien`;
+      const q = res.body.questions.find((x) => x.key === key);
+      expect(q.label).toContain("Jamie Rivera");
+
+      await request(app).put(`/api/tenants/${tenant.id}`).send({ nonresidentAlien: false });
+      res = await request(app).get(`/api/leases/${lease.id}/applicability`);
+      expect(res.body.questions.map((x) => x.key)).not.toContain(key);
+    });
+  });
 });
+

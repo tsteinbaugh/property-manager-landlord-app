@@ -74,7 +74,7 @@ function YesNo({ value, onChange, name }) {
   );
 }
 
-function Question({ question, value, onChange, catalog }) {
+export function Question({ question, value, onChange, catalog }) {
   const q = question;
   switch (q.type) {
     case "yesno":

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import MissingFactsPanel from "./MissingFactsPanel";
 import { Link } from "react-router-dom";
 import { useApi } from "../hooks/useApi";
 import SearchableSelect from "./SearchableSelect";
@@ -38,6 +39,34 @@ export default function LeaseBuilderSection({ lease, onChange }) {
   // The picker offers only clauses for this lease's own property state (Taylor, 2026-11-21: a
   // lease never needs another state's clauses; browsing every state is the Clause Library's job).
   const stateFilter = lease.property?.state || null;
+
+  // The fill-in-the-gaps questions and the clauses the law requires for this
+  // lease now (GET /api/leases/:id/applicability), refreshed whenever the lease changes.
+  const [applicability, setApplicability] = useState(null);
+  useEffect(() => {
+    api
+      .get(`/api/leases/${lease.id}/applicability`)
+      .then(setApplicability)
+      .catch(() => setApplicability(null));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lease]);
+  const lockedTemplateIds = new Set((applicability?.clauses.required || []).map((c) => c.templateId));
+  const missingRequired = (applicability?.clauses.required || []).filter((c) => !c.attached);
+  const missingLegalDuty = (applicability?.clauses.legalDuty || []).filter((c) => !c.attached);
+  const blockingQuestions = (applicability?.questions || []).filter((q) => q.blocks);
+
+  async function handleAddMissing(templateId) {
+    setSubmitting(true);
+    setError(null);
+    try {
+      await api.post(`/api/leases/${lease.id}/clauses`, { templateId });
+      await onChange();
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setSubmitting(false);
+    }
+  }
 
   useEffect(() => {
     Promise.all([api.get("/api/clauses"), api.get("/api/clause-templates"), api.get("/api/clause-groups")])
@@ -212,6 +241,19 @@ export default function LeaseBuilderSection({ lease, onChange }) {
 
       {error && <p className="text-sm text-red-700">{error}</p>}
 
+      {applicability?.questions.length > 0 && (
+        <MissingFactsPanel lease={lease} questions={applicability.questions} onSaved={onChange} />
+      )}
+
+      {lease.leaseClauses.length > 0 && (missingRequired.length > 0 || missingLegalDuty.length > 0) && (
+        <MissingClausesNotice
+          required={missingRequired}
+          legalDuty={missingLegalDuty}
+          disabled={submitting}
+          onAdd={handleAddMissing}
+        />
+      )}
+
       {lease.leaseClauses.length === 0 ? (
         <p className="rounded-xl border border-dashed border-stone-300 bg-white p-6 text-sm text-stone-500">
           No clauses attached yet.
@@ -302,9 +344,15 @@ export default function LeaseBuilderSection({ lease, onChange }) {
                         <button onClick={() => startEdit(clause)} className="text-emerald-700 hover:underline">
                           Edit
                         </button>
-                        <button onClick={() => handleRemove(clause.id)} className="text-red-600 hover:underline">
-                          Remove
-                        </button>
+                        {lockedTemplateIds.has(clause.sourceTemplateId) ? (
+                          <span className="text-stone-400" title="The law requires this clause in this lease">
+                            Required, can't be removed
+                          </span>
+                        ) : (
+                          <button onClick={() => handleRemove(clause.id)} className="text-red-600 hover:underline">
+                            Remove
+                          </button>
+                        )}
                       </div>
                     </div>
                     <p className="mt-1 whitespace-pre-wrap text-sm text-stone-600">{clause.resolvedBodyText}</p>
@@ -456,13 +504,25 @@ export default function LeaseBuilderSection({ lease, onChange }) {
       <div className="rounded-xl border border-stone-200 bg-white p-4 shadow-sm">
         <button
           onClick={handleGenerate}
-          disabled={generating || lease.leaseClauses.length === 0}
+          disabled={generating || lease.leaseClauses.length === 0 || missingRequired.length > 0 || blockingQuestions.length > 0}
           className="rounded-lg bg-emerald-700 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-800 disabled:opacity-50"
         >
           {generating ? "Generating..." : "Generate Lease PDF"}
         </button>
         {lease.leaseClauses.length === 0 && (
           <p className="mt-2 text-xs text-stone-400">Attach at least one clause to generate a lease document.</p>
+        )}
+        {lease.leaseClauses.length > 0 && blockingQuestions.length > 0 && (
+          <p className="mt-2 text-xs text-red-700">
+            Answer the {blockingQuestions.length === 1 ? "question" : `${blockingQuestions.length} questions`} marked
+            "Needed for the lease" at the top of the Lease Builder before generating the lease.
+          </p>
+        )}
+        {lease.leaseClauses.length > 0 && blockingQuestions.length === 0 && missingRequired.length > 0 && (
+          <p className="mt-2 text-xs text-red-700">
+            Add the {missingRequired.length === 1 ? "clause" : `${missingRequired.length} clauses`} the law requires
+            (listed above) before generating the lease.
+          </p>
         )}
         <p className="mt-2 text-xs text-stone-400">
           Assembles the lease's key terms and attached clauses (with variables filled in) into a PDF, which shows
@@ -472,3 +532,46 @@ export default function LeaseBuilderSection({ lease, onChange }) {
     </section>
   );
 }
+
+// The clauses the law requires for this lease now that it doesn't have, for
+// example after an answer changed once clauses were added (Taylor, 2026-11-22):
+// a missing Required clause blocks the PDF, a missing Legal duty clause warns.
+function MissingClausesNotice({ required, legalDuty, disabled, onAdd }) {
+  const row = (c) => (
+    <li key={c.templateId} className="flex items-start justify-between gap-3">
+      <span>
+        <span className="font-medium">{c.title}</span>
+        {c.note && <span className="text-stone-600">: applies {c.note}</span>}
+      </span>
+      <button
+        type="button"
+        disabled={disabled}
+        onClick={() => onAdd(c.templateId)}
+        className="shrink-0 rounded-lg border border-stone-300 bg-white px-2 py-1 text-xs font-medium text-stone-700 hover:bg-stone-50 disabled:opacity-50"
+      >
+        Add it
+      </button>
+    </li>
+  );
+  return (
+    <div className="space-y-3">
+      {required.length > 0 && (
+        <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-900">
+          <p className="font-semibold">This lease is missing {required.length === 1 ? "a clause" : "clauses"} the law requires for it</p>
+          <p className="mt-1 text-xs">The lease PDF can't be generated until {required.length === 1 ? "it's" : "they're"} added.</p>
+          <ul className="mt-2 space-y-2">{required.map(row)}</ul>
+        </div>
+      )}
+      {legalDuty.length > 0 && (
+        <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+          <p className="font-semibold">The law requires you to give the tenant this information</p>
+          <p className="mt-1 text-xs">
+            Add the clause, or untick it in the Clause Library if you give the tenant this another way.
+          </p>
+          <ul className="mt-2 space-y-2">{legalDuty.map(row)}</ul>
+        </div>
+      )}
+    </div>
+  );
+}
+

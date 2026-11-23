@@ -42,6 +42,15 @@ function anyPerson(lease, field) {
   return all.some((p) => p[field] === true);
 }
 
+// For a Yes/No that starts blank, kept on each tenant and occupant.
+function anyPersonYesNo(lease, field) {
+  const ps = people(lease);
+  if (ps.length === 0) return null;
+  const all = [...ps, ...ps.flatMap((p) => p.occupants || [])];
+  if (all.some((p) => p[field] === true)) return true;
+  return all.every((p) => p[field] === false) ? false : null;
+}
+
 function utilityWhoPays(property, kind) {
   return property?.facts?.utilities?.[kind]?.whoPays ?? null;
 }
@@ -120,8 +129,9 @@ const DERIVED = {
     const ps = people(lease);
     return ps.length ? ps.length + ps.reduce((n, p) => n + (p.occupants?.length || 0), 0) : null;
   },
-  "lease.anyStudent": ({ lease }) => anyPerson(lease, "isStudent"),
-  "lease.anyServicemember": ({ lease }) => anyPerson(lease, "isServicemember"),
+  // True if anyone on the lease is; false only when everyone answered No.
+  "lease.anyStudent": ({ lease }) => anyPersonYesNo(lease, "isStudent"),
+  "lease.anyServicemember": ({ lease }) => anyPersonYesNo(lease, "isServicemember"),
   // True if any tenant is; false only when every tenant answered No.
   "lease.anyNonresidentAlien": ({ lease }) => {
     const ps = people(lease);
