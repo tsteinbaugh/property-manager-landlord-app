@@ -158,8 +158,28 @@ const RULES = {
   },
 };
 
+// Rules written as data over the Lease questions' answers (factRules.js,
+// evaluated by ruleConditions.js), added 2026-11-22. A hand-written rule above
+// wins if a clause has both.
+const { FACT_RULES } = require("./factRules");
+const { evaluate, UNKNOWN } = require("./ruleConditions");
+
+for (const [id, rule] of Object.entries(FACT_RULES)) {
+  if (RULES[id]) continue;
+  RULES[id] = {
+    applies: (ctx) => {
+      const r = evaluate(rule.condition, ctx);
+      return r === UNKNOWN ? rule.unknownMeans !== false : r;
+    },
+    note: rule.note,
+  };
+}
+
 // True if templateId has an applicability rule and it applies to this lease.
-// ctx: { property, lease, today? }; lease.leaseTenants[].tenant.pets for pets.
+// ctx: { property, lease, account?, landlord?, today? }; lease.leaseTenants[].tenant
+// (with pets and occupants) for facts about the people on the lease; account is
+// the user's Your account answers; landlord.propertyCount the number of their
+// properties.
 function ruleApplies(templateId, ctx) {
   const rule = RULES[templateId];
   return Boolean(rule && rule.applies(ctx || {}));

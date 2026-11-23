@@ -678,7 +678,18 @@ function createLeasesRoutes({ r2 = defaultR2 } = {}) {
     // included too unless the landlord unticked them (Taylor, 2026-11-22); an `excluded` row
     // records that opt-out.
     const excludedIds = new Set(defaultTemplateLinks.filter((link) => link.excluded).map((link) => link.templateId));
-    const ctx = { property: lease.property, lease };
+    const [owner, ownedStates] = await Promise.all([
+      prisma.user.findUnique({ where: { id: req.currentUser.id }, select: { facts: true } }),
+      prisma.property.findMany({ where: { userId: req.currentUser.id }, select: { state: true } }),
+    ]);
+    const propertyCountByState = {};
+    for (const { state } of ownedStates) propertyCountByState[state] = (propertyCountByState[state] || 0) + 1;
+    const ctx = {
+      property: lease.property,
+      lease,
+      account: owner?.facts || {},
+      landlord: { propertyCount: ownedStates.length, propertyCountByState },
+    };
     const isRequiredHere = (t) => {
       if (t.alwaysDefault) return true;
       const optedOut = excludedIds.has(t.id);

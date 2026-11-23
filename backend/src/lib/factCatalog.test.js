@@ -11,7 +11,7 @@ describe("factCatalog", () => {
   it("points every showIf at a question in the same set", () => {
     for (const questions of Object.values(CATALOG)) {
       const ids = new Set(questions.map((q) => q.id));
-      for (const q of questions.filter((x) => x.showIf)) expect(ids.has(q.showIf.id)).toBe(true);
+      for (const q of questions.filter((x) => x.showIf)) for (const id of [].concat(q.showIf.id)) expect(ids.has(id)).toBe(true);
     }
   });
 

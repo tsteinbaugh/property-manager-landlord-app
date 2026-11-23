@@ -22,11 +22,17 @@ export function useFactCatalog() {
 }
 
 export function isVisible(question, states, answers) {
+  if (question.builderOnly) return false;
   if (question.states && !question.states.some((s) => states.includes(s))) return false;
   if (question.showIf) {
-    const other = answers?.[question.showIf.id];
-    const values = Array.isArray(other) ? other : [other];
-    if (!values.some((v) => question.showIf.in.includes(v))) return false;
+    if (question.showIf.isSet) {
+      const ids = [].concat(question.showIf.id);
+      if (!ids.some((id) => answers?.[id] !== undefined && answers?.[id] !== null && answers?.[id] !== "")) return false;
+    } else {
+      const other = answers?.[question.showIf.id];
+      const values = Array.isArray(other) ? other : [other];
+      if (!values.some((v) => question.showIf.in.includes(v))) return false;
+    }
   }
   return true;
 }

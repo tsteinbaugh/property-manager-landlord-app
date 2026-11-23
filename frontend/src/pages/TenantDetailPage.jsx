@@ -27,7 +27,6 @@ const BOOL_FIELDS = [
   "rentersInsuranceCertificateOnFile",
   "isStudent",
   "isServicemember",
-  "nonresidentAlien",
 ];
 
 const DOCUMENT_CATEGORIES = [
@@ -76,6 +75,7 @@ function toForm(tenant) {
   for (const f of DATE_FIELDS) form[f] = tenant[f] ? tenant[f].slice(0, 10) : "";
   for (const f of NUMBER_FIELDS) form[f] = tenant[f] ?? "";
   for (const f of BOOL_FIELDS) form[f] = !!tenant[f];
+  form.nonresidentAlien = tenant.nonresidentAlien ?? null;
   return form;
 }
 
@@ -416,15 +416,18 @@ export default function TenantDetailPage() {
                 />
                 <span className="font-medium text-stone-700">Active-duty servicemember</span>
               </label>
-              {(tenant.property?.state === "AK" || form.nonresidentAlien) && (
-                <label className="flex items-center gap-2 self-end pb-2 text-sm">
-                  <input
-                    type="checkbox"
-                    checked={form.nonresidentAlien}
-                    onChange={(e) => setForm({ ...form, nonresidentAlien: e.target.checked })}
-                    className="h-4 w-4 rounded border-stone-300"
-                  />
-                  <span className="font-medium text-stone-700">Nonresident alien for U.S. tax purposes</span>
+              {(tenant.property?.state === "AK" || form.nonresidentAlien !== null) && (
+                <label className="block text-sm">
+                  <span className="mb-1 block font-medium text-stone-700">Is the tenant a nonresident alien for U.S. tax purposes?</span>
+                  <select
+                    value={form.nonresidentAlien === null ? "" : String(form.nonresidentAlien)}
+                    onChange={(e) => setForm({ ...form, nonresidentAlien: e.target.value === "" ? null : e.target.value === "true" })}
+                    className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
+                  >
+                    <option value="">Not answered</option>
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                  </select>
                 </label>
               )}
               <UploadButton
@@ -659,7 +662,12 @@ export default function TenantDetailPage() {
             <DetailRow label="ID verified" value={tenant.idVerified ? "Yes" : "No"} />
             {tenant.isStudent && <DetailRow label="Full-time student" value="Yes" />}
             {tenant.isServicemember && <DetailRow label="Active-duty servicemember" value="Yes" />}
-            {tenant.nonresidentAlien && <DetailRow label="Nonresident alien (tax)" value="Yes" />}
+            {tenant.property?.state === "AK" && (
+              <DetailRow
+                label="Nonresident alien (tax)"
+                value={tenant.nonresidentAlien === true ? "Yes" : tenant.nonresidentAlien === false ? "No" : "Not answered"}
+              />
+            )}
             <DetailRow label="Credit check" value={tenant.creditCheckStatus} />
             <DetailRow
               label="Credit check date"

@@ -175,3 +175,27 @@ No question needed. Colorado's and Florida's radon disclosures apply to every le
 
 - **Clauses that may apply to every lease:** 40 of them, to be checked one by one before relabeling.
 - **The landlord's-choice clauses:** 699 of them stay in the picker. No question decides them.
+
+## Added with the rules (2026-11-22)
+
+Yes/No questions the clause rules needed, each asked only in its states. Builder-only ones are asked by the lease builder, not on the account page.
+
+- **To your best knowledge, is or was the property (or the ground under it) contaminated with radioactive or other hazardous material, or used to store, treat or dispose of hazardous waste?** (property; MO, WV)
+- **To your best knowledge, does the unit lack hot or cold running water, safe heat (67 degrees in all living areas), safe electricity, or working plumbing or sewage disposal, or have any structural or other condition that is a substantial hazard to health or safety?** (property; WI)
+- **Is the property owned by a public facility corporation or a housing finance corporation that claims a property tax exemption for it?** (property; TX)
+- **To your best knowledge, has any part of the land been contaminated by a release of hazardous substances or petroleum (for example, from a leaking underground storage tank), or is it listed as a contaminated site?** (property; MI, WI)
+- **Do you or your staff apply pesticide in common areas on a regular schedule, without a licensed pest control company?** (property; CA)
+- **Has a claim of exemption from municipal rent control been filed with the construction official for this newly built building?** (property; NJ)
+- **Does the owner keep an office in the building, or employ a manager or agent who lives or keeps an office there?** (property; IL)
+- **Is the property subject to Columbia Association covenants?** (property; MD)
+- **Have you received indoor air contamination test results for the property from a party doing an environmental cleanup, or from the Department of Environmental Conservation?** (property; NY)
+- **To your best knowledge, is the property listed in EPA's Superfund site database (CERCLIS, now called SEMS)?** (property; IA)
+- **Are you the developer (declarant) of this community, or a successor declarant, or acting for one?** (property; CT)
+- **Does the tenant receive a rent subsidy from Puerto Rico's Rent Subsidy Program for Low-Income Older Adults or the Veterans' Rent Matching Program?** (lease; PR)
+- **Is a real estate broker or agent providing brokerage services to you or the tenant for this lease (for example, finding the tenant, showing the property or negotiating the terms)?** (lease; OK)
+- **Have you received a notice cancelling the contract for deed you bought this property under?** (lease; MN)
+- **Counting rental units owned by you, your spouse and your minor children, do you own more than 10 rental units?** (your account; GA; builder only)
+- **Are you a college or university renting housing to your own students?** (your account; OH; builder only)
+- **Do you own six or more residential rental units in Maryland?** (your account; MD; builder only)
+
+Changed to Yes/No that starts blank: employee housing (L4), the manager signs leases and holds a license (P35, shown once a manager is named), and the Alaska nonresident question (T3).

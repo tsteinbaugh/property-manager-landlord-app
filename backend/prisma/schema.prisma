@@ -235,7 +235,7 @@ model Tenant {
 
   isStudent        Boolean @default(false)
   isServicemember  Boolean @default(false)
-  nonresidentAlien Boolean @default(false) // for U.S. tax purposes; asked only for an Alaska lease over a year
+  nonresidentAlien Boolean? // for U.S. tax purposes; Yes/No that starts blank, asked for Alaska leases
 
   emergencyContactName     String?
   emergencyContactPhone    String?
