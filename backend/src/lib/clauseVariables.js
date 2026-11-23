@@ -5,9 +5,11 @@ function money(amount) {
   return `$${Number(amount).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 }
 
+// Lease dates are date-only (stored at midnight UTC), so read them in UTC; the
+// server's own timezone would show them a day early west of UTC (2026-11-23).
 function formatDate(date) {
   if (!date) return null;
-  return new Date(date).toLocaleDateString();
+  return new Date(date).toLocaleDateString("en-US", { timeZone: "UTC" });
 }
 
 function formatAddress(property) {
