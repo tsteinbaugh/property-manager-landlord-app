@@ -5,7 +5,7 @@ import BackLink from "../components/BackLink";
 import LeaseBuilderSection from "../components/LeaseBuilderSection";
 import { useFactCatalog, YesNo } from "../components/FactQuestions";
 import { FactFieldsEdit, FactFieldsView, factPatch } from "../components/FactFields";
-import { FirstMonthSection, NoticesSection } from "../components/LeaseTermsSections";
+import { FirstMonthSection, NoticesSection, RentPaymentSection } from "../components/LeaseTermsSections";
 import { formatDay } from "../lib/dates";
 
 const LEASE_STATUSES = ["ACTIVE", "EXPIRED", "MONTH_TO_MONTH", "TERMINATED"];
@@ -115,6 +115,15 @@ export default function LeaseDetailPage() {
 
     if (form.lateFeeCharged === true && !(Number(form.lateFeeAmount) > 0)) {
       setError("Enter the late fee amount (more than $0), or answer No.");
+      setSubmitting(false);
+      return;
+    }
+
+    // Checked before anything saves, so the lease isn't half saved (the server checks too).
+    const spaces = lease.property?.facts?.parkingSpaces;
+    const assigned = form.facts?.parkingAssigned;
+    if (spaces != null && assigned !== "" && assigned != null && Number(assigned) > Number(spaces)) {
+      setError(`The property has ${spaces} parking space${Number(spaces) === 1 ? "" : "s"}, so this lease can't assign more.`);
       setSubmitting(false);
       return;
     }
@@ -572,6 +581,7 @@ export default function LeaseDetailPage() {
 
       <FirstMonthSection lease={lease} onSaved={load} />
       <NoticesSection lease={lease} onSaved={load} />
+      <RentPaymentSection lease={lease} onSaved={load} />
 
       <section className="space-y-3">
         <h2 className="text-lg font-medium text-stone-900">Deposits</h2>

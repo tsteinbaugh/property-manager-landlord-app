@@ -171,10 +171,7 @@ function sanitizeFileName(fileName) {
 // substitution the generated PDF uses, so on-screen display can never drift
 // from what generate-document actually produces.
 function withComputedLeaseFields(lease) {
-  const tenants = (lease.leaseTenants || []).map((lt) => ({
-    firstName: lt.tenant.firstName,
-    lastName: lt.tenant.lastName,
-  }));
+  const tenants = (lease.leaseTenants || []).map((lt) => ({ ...lt.tenant, role: lt.role }));
   const occupants = (lease.leaseTenants || []).flatMap((lt) => lt.tenant.occupants || []);
   const petDeposit = (lease.deposits || []).find((d) => d.type === "PET");
   const context = buildVariableContext({
@@ -335,9 +332,18 @@ function createLeasesRoutes({ r2 = defaultR2 } = {}) {
     }
     const { facts, error } = validateFacts("lease", req.body?.facts);
     if (error) return res.status(400).json({ error });
+    const merged = mergeFacts(existing.facts, facts);
+    // A lease can't assign more parking spaces than the property has (Taylor, 2026-11-23).
+    if (merged.parkingAssigned != null) {
+      const property = await prisma.property.findUnique({ where: { id: existing.propertyId }, select: { facts: true } });
+      const spaces = property?.facts?.parkingSpaces;
+      if (spaces != null && Number(merged.parkingAssigned) > Number(spaces)) {
+        return res.status(400).json({ error: `The property has ${spaces} parking space${Number(spaces) === 1 ? "" : "s"}, so this lease can't assign more.` });
+      }
+    }
     const lease = await prisma.lease.update({
       where: { id: existing.id },
-      data: { facts: mergeFacts(existing.facts, facts) },
+      data: { facts: merged },
       include: leaseInclude,
     });
     res.json(withComputedLeaseFields(lease));
@@ -924,11 +930,7 @@ function createLeasesRoutes({ r2 = defaultR2 } = {}) {
     const property = lease.property;
     const entity = property.entity;
 
-    const tenants = lease.leaseTenants.map((lt) => ({
-      firstName: lt.tenant.firstName,
-      lastName: lt.tenant.lastName,
-      role: lt.role,
-    }));
+    const tenants = lease.leaseTenants.map((lt) => ({ ...lt.tenant, role: lt.role }));
     const occupants = lease.leaseTenants.flatMap((lt) => lt.tenant.occupants || []);
     const petDeposit = (lease.deposits || []).find((d) => d.type === "PET");
 

@@ -238,3 +238,119 @@ export function NoticesSection({ lease, onSaved }) {
     </section>
   );
 }
+
+// Who rent is paid to, where and how; it fills the rent payment {{variables}}.
+// A blank field uses the default shown (the entity's name and phone, the
+// lease's notice address), as Notices does (Taylor, 2026-11-23).
+const RENT_PAYMENT_FIELDS = [
+  { id: "rentPayeeName", label: "Rent is paid to", defaultOf: (l, e) => e?.legalName, placeholder: "Name" },
+  { id: "rentPaymentAddress", label: "Where rent is paid", defaultOf: (l, e) => l.facts?.noticeAddress || e?.mailingAddress, placeholder: "Street, city, state and ZIP", rows: 2 },
+  { id: "rentPayeePhone", label: "Phone for rent", defaultOf: (l, e) => e?.contactPhone, placeholder: "Phone" },
+  { id: "rentPaymentForms", label: "Forms of payment accepted", placeholder: "For example: check, money order or online portal" },
+  { id: "rentPaymentDaysHours", label: "Days and hours rent can be paid in person", placeholder: "For example: weekdays 9 a.m. to 5 p.m. (leave blank if not paid in person)" },
+];
+
+export function RentPaymentSection({ lease, onSaved }) {
+  const api = useApi();
+  const entity = lease.property?.entity;
+  const facts = lease.facts || {};
+  const [editing, setEditing] = useState(false);
+  const [values, setValues] = useState({});
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState(null);
+
+  function startEdit() {
+    setValues(Object.fromEntries(RENT_PAYMENT_FIELDS.map((f) => [f.id, facts[f.id] || ""])));
+    setEditing(true);
+  }
+
+  async function save(e) {
+    e.preventDefault();
+    setSaving(true);
+    setError(null);
+    try {
+      const patch = Object.fromEntries(RENT_PAYMENT_FIELDS.map((f) => [f.id, values[f.id]?.trim() || null]));
+      await api.put(`/api/leases/${lease.id}/facts`, { facts: patch });
+      setEditing(false);
+      await onSaved();
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  const rows = RENT_PAYMENT_FIELDS.map((f) => {
+    const own = facts[f.id];
+    const fallback = f.defaultOf?.(lease, entity);
+    return { ...f, value: own || fallback || null, isDefault: !own && !!fallback };
+  });
+  const anything = rows.some((r) => r.value);
+
+  return (
+    <section className="space-y-3">
+      <h2 className="text-lg font-medium text-stone-900">Rent payment</h2>
+      <div className="rounded-xl border border-stone-200 bg-white p-5 shadow-sm text-sm">
+        <p className="text-stone-600">Who the tenant pays, where and how. The lease clauses fill it in; a blank uses the default shown.</p>
+        {error && <p className="mt-2 text-red-700">{error}</p>}
+        {editing ? (
+          <form onSubmit={save} className="mt-3 space-y-3">
+            {rows.map((f) => (
+              <label key={f.id} className="block">
+                <span className="mb-1 block font-medium text-stone-700">{f.label}</span>
+                {f.rows ? (
+                  <textarea
+                    rows={f.rows}
+                    value={values[f.id]}
+                    onChange={(e) => setValues({ ...values, [f.id]: e.target.value })}
+                    className={inputClass}
+                    placeholder={f.defaultOf?.(lease, entity) || f.placeholder}
+                  />
+                ) : (
+                  <input
+                    value={values[f.id]}
+                    onChange={(e) => setValues({ ...values, [f.id]: e.target.value })}
+                    className={inputClass}
+                    placeholder={f.defaultOf?.(lease, entity) || f.placeholder}
+                  />
+                )}
+              </label>
+            ))}
+            <div className="flex gap-2">
+              <button type="submit" disabled={saving} className="rounded-lg bg-emerald-700 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-800 disabled:opacity-50">
+                {saving ? "Saving..." : "Save"}
+              </button>
+              <button type="button" onClick={() => setEditing(false)} className="rounded-lg border border-stone-300 px-4 py-2 text-sm font-medium text-stone-700 hover:bg-stone-50">
+                Cancel
+              </button>
+            </div>
+          </form>
+        ) : (
+          <div className="mt-3 flex items-start justify-between gap-4">
+            {!anything && <p className="text-stone-500">Nothing entered yet.</p>}
+            <dl className={`grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-[max-content_1fr] ${anything ? "" : "hidden"}`}>
+              {rows
+                .filter((r) => r.value)
+                .map((r) => (
+                  <div key={r.id} className="contents">
+                    <dt className="text-stone-500">{r.label}</dt>
+                    <dd className="whitespace-pre-wrap text-stone-800">
+                      {r.value}
+                      {r.isDefault && <span className="ml-2 text-xs text-stone-500">(default)</span>}
+                    </dd>
+                  </div>
+                ))}
+            </dl>
+            <button
+              type="button"
+              onClick={startEdit}
+              className="shrink-0 rounded-lg border border-stone-300 px-3 py-1.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
+            >
+              Edit
+            </button>
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}

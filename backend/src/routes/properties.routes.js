@@ -320,9 +320,21 @@ router.put("/:id/facts", async (req, res) => {
   }
   const { facts, error } = validateFacts("property", req.body?.facts);
   if (error) return res.status(400).json({ error });
+  const merged = mergeFacts(existing.facts, facts);
+  // The parking spaces can't drop below what a current lease assigns (Taylor, 2026-11-23).
+  if (merged.parkingSpaces != null) {
+    const leases = await prisma.lease.findMany({
+      where: { propertyId: existing.id, deleted: false, status: { in: ["ACTIVE", "MONTH_TO_MONTH"] } },
+      select: { facts: true },
+    });
+    const most = Math.max(0, ...leases.map((l) => Number(l.facts?.parkingAssigned) || 0));
+    if (most > Number(merged.parkingSpaces)) {
+      return res.status(400).json({ error: `A current lease assigns ${most} parking spaces, so the property can't have fewer.` });
+    }
+  }
   const property = await prisma.property.update({
     where: { id: existing.id },
-    data: { facts: mergeFacts(existing.facts, facts) },
+    data: { facts: merged },
   });
   res.json({ ...property, factsFromSpecs: await factsFromSpecs(property.id) });
 });

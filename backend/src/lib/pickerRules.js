@@ -392,11 +392,11 @@ const PICKER_RULES = {
     note: "when the tenant has no water, gas or electric account in their own name",
   },
   "unbundled-parking-nd": {
-    condition: {"all":[{"fact":"property.parkingTypes","op":"includesAny","value":["GARAGE","DRIVEWAY","ASSIGNED","LOT"]},{"fact":"property.parkingChargedSeparately","op":"eq","value":true}]},
+    condition: {"all":[{"fact":"property.parkingTypes","op":"includesAny","value":["GARAGE","DRIVEWAY","ASSIGNED","LOT"]},{"fact":"lease.parkingCharged","op":"eq","value":true}]},
     note: "when the property has no on-site parking or parking isn't charged separately",
   },
   "unbundled-parking-oh": {
-    condition: {"all":[{"fact":"property.parkingTypes","op":"includesAny","value":["GARAGE","DRIVEWAY","ASSIGNED","LOT"]},{"fact":"property.parkingChargedSeparately","op":"eq","value":true}]},
+    condition: {"all":[{"fact":"property.parkingTypes","op":"includesAny","value":["GARAGE","DRIVEWAY","ASSIGNED","LOT"]},{"fact":"lease.parkingCharged","op":"eq","value":true}]},
     note: "when the property has no on-site parking or parking isn't charged separately",
   },
   "energy-data-consent-ca": {
@@ -408,7 +408,7 @@ const PICKER_RULES = {
     note: "when no guarantor is on the lease",
   },
   "unbundled-parking-il": {
-    condition: {"all":[{"fact":"property.parkingTypes","op":"includesAny","value":["GARAGE","DRIVEWAY","ASSIGNED","LOT"]},{"fact":"property.parkingChargedSeparately","op":"eq","value":true}]},
+    condition: {"all":[{"fact":"property.parkingTypes","op":"includesAny","value":["GARAGE","DRIVEWAY","ASSIGNED","LOT"]},{"fact":"lease.parkingCharged","op":"eq","value":true}]},
     note: "when the property has no on-site parking or parking isn't charged separately",
   },
   "farmland-hunting-rights-il": {
@@ -740,7 +740,7 @@ const PICKER_RULES = {
     note: "when the property has no garage",
   },
   "unbundled-parking-mn": {
-    condition: {"all":[{"fact":"property.parkingChargedSeparately","op":"eq","value":true},{"fact":"property.parkingTypes","op":"includesAny","value":["GARAGE","DRIVEWAY","ASSIGNED","LOT"]}]},
+    condition: {"all":[{"fact":"lease.parkingCharged","op":"eq","value":true},{"fact":"property.parkingTypes","op":"includesAny","value":["GARAGE","DRIVEWAY","ASSIGNED","LOT"]}]},
     note: "when parking isn't charged separately or the property has no on-site parking",
   },
   "utility-transfer-ne": {
@@ -848,7 +848,7 @@ const PICKER_RULES = {
     note: "when the property isn't a single-family home",
   },
   "unbundled-parking-co": {
-    condition: {"all":[{"fact":"property.parkingTypes","op":"includesAny","value":["GARAGE","DRIVEWAY","ASSIGNED","LOT"]},{"fact":"property.parkingChargedSeparately","op":"eq","value":true}]},
+    condition: {"all":[{"fact":"property.parkingTypes","op":"includesAny","value":["GARAGE","DRIVEWAY","ASSIGNED","LOT"]},{"fact":"lease.parkingCharged","op":"eq","value":true}]},
     note: "when the property has no off-street parking (street parking only or none)",
   },
   "pool-and-spa-use-wy": {
@@ -856,7 +856,7 @@ const PICKER_RULES = {
     note: "when the property has no pool or hot tub",
   },
   "unbundled-parking-wy": {
-    condition: {"all":[{"fact":"property.parkingTypes","op":"includesAny","value":["GARAGE","DRIVEWAY","ASSIGNED","LOT"]},{"fact":"property.parkingChargedSeparately","op":"eq","value":true}]},
+    condition: {"all":[{"fact":"property.parkingTypes","op":"includesAny","value":["GARAGE","DRIVEWAY","ASSIGNED","LOT"]},{"fact":"lease.parkingCharged","op":"eq","value":true}]},
     note: "when the property has no off-street parking (street parking only or none)",
   },
   "common-area-lighting-ks": {
@@ -1132,7 +1132,7 @@ const PICKER_RULES = {
     note: "when the lease is month-to-month",
   },
   "unbundled-parking-ny": {
-    condition: {"all":[{"fact":"property.parkingTypes","op":"includesAny","value":["GARAGE","DRIVEWAY","ASSIGNED","LOT"]},{"fact":"property.parkingChargedSeparately","op":"eq","value":true}]},
+    condition: {"all":[{"fact":"property.parkingTypes","op":"includesAny","value":["GARAGE","DRIVEWAY","ASSIGNED","LOT"]},{"fact":"lease.parkingCharged","op":"eq","value":true}]},
     note: "when the property has no off-street parking (street parking only or none)",
   },
   "smoke-drift-disclosure-wv": {

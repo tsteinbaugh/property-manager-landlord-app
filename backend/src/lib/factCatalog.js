@@ -151,7 +151,6 @@ const PROPERTY = [
     ],
   },
   { id: "parkingSpaces", section: "Water, sewer and site", type: "number", label: "How many parking spaces does the property have?", counts: false },
-  { id: "parkingChargedSeparately", section: "Water, sewer and site", type: "yesno", label: "Do you charge for parking separately from rent?" },
   { id: "enforcesParkingRules", section: "Water, sewer and site", type: "yesno", label: "Do you enforce parking or towing rules?", states: ["CO", "SC", "TX"] },
   { id: "hasYard", section: "Water, sewer and site", type: "yesno", label: "Is there a yard or landscaping the tenant can use?" },
   { id: "ruralLand", section: "Water, sewer and site", type: "yesno", label: "Is it rural or farm land where hunting, fishing or grazing is possible?" },
@@ -301,6 +300,14 @@ const PROPERTY = [
   { id: "managerPhone", section: "Property manager", type: "text", label: "Phone", counts: false },
   { id: "managerEmail", section: "Property manager", type: "text", label: "Email", counts: false },
   { id: "managerAddress", section: "Property manager", type: "text", label: "Address", counts: false },
+  {
+    id: "emergencyPhone",
+    section: "Property manager",
+    type: "text",
+    label: "Emergency phone for tenants",
+    help: "The number tenants call about an emergency at the property. Leave it blank to use the property manager's phone, or your entity's phone if there's no manager. Nevada requires a responsible person who lives in the property's county or within 60 miles (NRS 118A.260); Texas requires it to be answered around the clock if there's an on-site office (Tex. Prop. Code § 92.020).",
+    counts: false,
+  },
   { id: "managerSignsLeases", section: "Property manager", type: "yesno", label: "Does the manager sign leases for you?", showIf: { id: ["managerCompany", "managerName"], isSet: true } },
   { id: "managerLicensed", section: "Property manager", type: "yesno", label: "Does the manager hold a real estate license?", showIf: { id: ["managerCompany", "managerName"], isSet: true } },
   {
@@ -397,7 +404,12 @@ const LEASE = [
     showIf: { id: "firstMonthRent", in: ["PRORATED"] },
   },
 
+  // Parking for this lease; the property page records only what's physically
+  // there (Taylor, 2026-11-23).
   { id: "parkingAssigned", section: "This lease", type: "number", label: "Parking spaces assigned to this lease", counts: false },
+  { id: "parkingSpaceNumbers", section: "This lease", type: "text", label: "Which spaces (numbers or locations)", counts: false },
+  { id: "parkingCharged", section: "This lease", type: "yesno", label: "Do you charge for parking separately from rent?" },
+  { id: "parkingFeePerSpace", section: "This lease", type: "number", label: "Monthly parking fee per space", counts: false, showIf: { id: "parkingCharged", in: [true] } },
   { id: "storageUnitAssigned", section: "This lease", type: "text", label: "Storage unit assigned to this lease", counts: false },
   { id: "storageUnitFee", section: "This lease", type: "number", label: "Storage unit monthly fee", counts: false },
   {
@@ -433,6 +445,13 @@ const LEASE = [
     help: "A studio, or housing for seniors or people with disabilities, needs the federal lead paint disclosure only if a child under 6 lives there.",
     builderOnly: true,
   },
+  // The lease page's Rent payment section (ownSection); a blank field uses the
+  // default the section shows (the entity's name and phone, the notice address).
+  { id: "rentPayeeName", section: "This lease", type: "text", label: "Rent is paid to", counts: false, ownSection: true },
+  { id: "rentPaymentAddress", section: "This lease", type: "text", label: "Where rent is paid", counts: false, ownSection: true },
+  { id: "rentPayeePhone", section: "This lease", type: "text", label: "Phone for rent", counts: false, ownSection: true },
+  { id: "rentPaymentForms", section: "This lease", type: "text", label: "Forms of payment accepted", counts: false, ownSection: true },
+  { id: "rentPaymentDaysHours", section: "This lease", type: "text", label: "Days and hours rent can be paid in person", counts: false, ownSection: true },
   // Shown in the lease page's Notices section, not the Lease questions card (ownSection).
   { id: "noticeAddress", section: "This lease", type: "text", label: "Address for lease notices", counts: false, ownSection: true },
   // Added with the second rule batch (2026-11-22).
@@ -513,7 +532,7 @@ const STATE_CODES = [
 // "<page>.<section>": property.address, property.structural,
 // property.parking, property.utilities, property.legal, property.manager,
 // property.disclosures, specs.furnishings, specs.flooring, lease.details,
-// lease.firstMonth, lease.notices, account.residence, account.rentals.
+// lease.firstMonth, lease.notices, lease.rentPayment, account.residence, account.rentals.
 const PLACE_BY_SECTION = {
   "The building": "property.structural",
   Association: "property.legal",
@@ -534,7 +553,6 @@ const PLACE_BY_ID = {
   sewerType: "property.utilities",
   parkingTypes: "property.parking",
   parkingSpaces: "property.parking",
-  parkingChargedSeparately: "property.parking",
   enforcesParkingRules: "property.parking",
   storage: "property.parking",
   storageUnitCount: "property.parking",
@@ -542,6 +560,11 @@ const PLACE_BY_ID = {
   firstMonthRent: "lease.firstMonth",
   firstMonthAmount: "lease.firstMonth",
   noticeAddress: "lease.notices",
+  rentPayeeName: "lease.rentPayment",
+  rentPaymentAddress: "lease.rentPayment",
+  rentPayeePhone: "lease.rentPayment",
+  rentPaymentForms: "lease.rentPayment",
+  rentPaymentDaysHours: "lease.rentPayment",
 };
 for (const list of [PROPERTY, LEASE, ACCOUNT]) {
   for (const q of list) q.place = PLACE_BY_ID[q.id] || PLACE_BY_SECTION[q.section];
@@ -566,7 +589,12 @@ const SHORT_LABELS = {
   waterFeatures: "Water features",
   parkingTypes: "Parking",
   parkingSpaces: "Parking spaces",
-  parkingChargedSeparately: "Parking charged separately",
+  emergencyPhone: "Emergency phone",
+  rentPayeeName: "Rent paid to",
+  rentPaymentAddress: "Where rent is paid",
+  rentPayeePhone: "Phone for rent",
+  rentPaymentForms: "Payment forms",
+  rentPaymentDaysHours: "In-person days and hours",
   enforcesParkingRules: "Parking or towing rules enforced",
   hasYard: "Yard for tenant use",
   ruralLand: "Rural or farm land",
@@ -645,6 +673,9 @@ const SHORT_LABELS = {
   firstMonthRent: "First month",
   firstMonthAmount: "First month's rent",
   parkingAssigned: "Parking spaces assigned",
+  parkingSpaceNumbers: "Parking spaces",
+  parkingCharged: "Parking charged separately",
+  parkingFeePerSpace: "Parking fee per space",
   storageUnitAssigned: "Storage unit",
   storageUnitFee: "Storage unit fee",
   yardCare: "Yard care",

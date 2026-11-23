@@ -1578,6 +1578,22 @@ describe("leases routes", () => {
     });
   });
 
+  describe("parking spaces", () => {
+    it("won't assign a lease more spaces than the property has, or drop the property below a current lease", async () => {
+      await prisma.property.update({ where: { id: property.id }, data: { facts: { parkingSpaces: 2 } } });
+      const created = await request(app).post("/api/leases").send({ propertyId: property.id, startDate: "2027-01-01", monthlyRent: "1500.00" });
+      const tooMany = await request(app).put(`/api/leases/${created.body.id}/facts`).send({ facts: { parkingAssigned: 3 } });
+      expect(tooMany.status).toBe(400);
+      expect(tooMany.body.error).toMatch(/2 parking spaces/);
+      const ok = await request(app).put(`/api/leases/${created.body.id}/facts`).send({ facts: { parkingAssigned: 2 } });
+      expect(ok.status).toBe(200);
+      const fewer = await request(app).put(`/api/properties/${property.id}/facts`).send({ facts: { parkingSpaces: 1 } });
+      expect(fewer.status).toBe(400);
+      const more = await request(app).put(`/api/properties/${property.id}/facts`).send({ facts: { parkingSpaces: 4 } });
+      expect(more.status).toBe(200);
+    });
+  });
+
   describe("fill-in-the-gaps questions (GET /:id/missing-facts)", () => {
     const keys = (res) => res.body.questions.map((q) => q.key);
 
