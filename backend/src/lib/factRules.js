@@ -12,10 +12,36 @@
 // except where the clause would be wrong in a lease that doesn't need it).
 //
 // Drafted 2026-11-22 from each clause's bodyText and research notes and
-// reviewed by Claude Code. Left without a rule: key-control-exempt-setting-mn
-// (whether a building is a Minnesota "exempt setting" is a licensing question).
+// reviewed by Claude Code. The last three without a rule got one 2026-11-23.
 
 const FACT_RULES = {
+  // NRS 118A.275(1): a written disclosure to a prospective tenant if the
+  // property is the subject of any foreclosure proceedings. Nevada only: the
+  // clause's other states record no duty (stateScopedTags.js). A blank answer
+  // counts as applies; the clause states either way.
+  "foreclosure-disclosure-nv": {
+    condition: {
+      all: [
+        { fact: "property.state", op: "eq", value: "NV" },
+        { fact: "lease.foreclosureUnderway", op: "eq", value: true },
+      ],
+    },
+    note: "in Nevada, when the property is the subject of foreclosure proceedings",
+  },
+  // Every District lease: the application packet, the ch. 3 copy and the signed
+  // copy apply to every tenancy (D.C. Code § 42-3502.22(b); 14 DCMR §§ 300.1,
+  // 303.1); items (b) and (c) are bracketed by whether the unit is rent-stabilized.
+  "required-disclosures-dc": {
+    condition: { fact: "property.state", op: "eq", value: "DC" },
+    note: "to every District of Columbia lease",
+  },
+  // Minn. Stat. § 325F.722, subd. 2(c)(5): only an exempt setting's contract
+  // needs the statement, so the clause waits for a Yes.
+  "key-control-exempt-setting-mn": {
+    condition: { fact: "property.mnExemptSetting", op: "eq", value: true },
+    note: "when the property is a Minnesota exempt setting (housing with services exempt from assisted living licensure)",
+    unknownMeans: false,
+  },
   "access-control-lease-statement-pr": {
     condition: {
       fact: "property.accessControlledCommunity",
@@ -2536,9 +2562,10 @@ const FACT_RULES = {
   },
   "tenant-employee-de": {
     condition: {
-      fact: "lease.employeeHousing",
-      op: "eq",
-      value: true,
+      all: [
+        { fact: "lease.tenantIsEmployee", op: "eq", value: true },
+        { fact: "lease.employeeHousingLink", op: "eq", value: "PART_OF_PAY" },
+      ],
     },
     note: "when the tenant is your (or your manager's) employee and the housing is part of the job's pay",
     unknownMeans: false,

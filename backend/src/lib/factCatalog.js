@@ -207,7 +207,10 @@ const PROPERTY = [
   { id: "mold", section: "What you know about the property", type: "yesno", label: `${KNOW}is there mold, or has the building been tested for mold?`, states: ["MT"] },
   { id: "codeViolations", section: "What you know about the property", type: "yesno", label: `${KNOW}are there open housing or building code violations at the property?`, states: ["RI", "WI"] },
   { id: "leadHazardOrder", section: "What you know about the property", type: "yesno", label: "Has a lead hazard order or lead mitigation notice been issued for the property?", states: ["NH", "IL"] },
-  { id: "certifiedLeadFree", section: "What you know about the property", type: "yesno", label: "Has the unit been certified lead-free by an accredited inspector?", states: ["MD", "NJ"] },
+  // Every state since 2026-11-23: a unit found lead-based paint free by a
+  // certified inspector is exempt from the federal lead disclosure (40 C.F.R.
+  // § 745.101(b)); Maryland and New Jersey rules read it too.
+  { id: "certifiedLeadFree", section: "What you know about the property", type: "yesno", label: "Has the unit been certified lead-free by an accredited inspector?" },
   { id: "leadServiceLineNotice", section: "What you know about the property", type: "yesno", label: "Has your water system sent you a notice that the property has a lead service line?", states: ["NJ"] },
   { id: "floodZone", section: "What you know about the property", type: "yesno", label: "Is the property in a FEMA special flood hazard area?", help: "FEMA's flood map: msc.fema.gov.", states: ["OR"] },
   {
@@ -267,8 +270,29 @@ const PROPERTY = [
       { value: "PROJECT_SUBSIDY", label: "Project-based subsidy" },
       { value: "LIHTC", label: "Low-income housing tax credit (LIHTC)" },
       { value: "SENIOR", label: "Senior housing" },
+      { value: "DISABILITY", label: "Housing for people with disabilities" },
       { value: "STUDENT", label: "Student housing" },
     ],
+  },
+  // The federal lead disclosure's exception for "housing for the elderly"
+  // (households with someone 62 or older at first occupancy) or for people with
+  // disabilities (40 C.F.R. § 745.103); "Senior housing" alone may be 55+.
+  {
+    id: "elderlyOrDisabledHousing",
+    section: "Program housing",
+    type: "yesno",
+    label: "Is the housing reserved for households with someone 62 or older at move-in, or for people with disabilities?",
+    showIf: { id: "programHousing", in: ["SENIOR", "DISABILITY"] },
+  },
+  // Minn. Stat. § 325F.722: housing with services exempt from assisted living
+  // licensure must put the lockable-door statement in its contract.
+  {
+    id: "mnExemptSetting",
+    section: "Program housing",
+    type: "yesno",
+    label: "Is this housing with services that's exempt from assisted living licensure (a Minnesota \"exempt setting\")?",
+    help: "Minn. Stat. § 325F.722. Most rentals aren't; answer No unless you provide services under that law.",
+    states: ["MN"],
   },
 
   // Property manager and notices
@@ -333,7 +357,22 @@ const PROPERTY = [
 
 const LEASE = [
   { id: "seasonal", section: "This lease", type: "yesno", label: "Is this a seasonal or vacation rental?", states: ["NJ", "DE", "WY"] },
-  { id: "employeeHousing", section: "This lease", type: "yesno", label: "Is the tenant your employee, with the housing part of the job's pay?" },
+  // Two parts (2026-11-23): most employee-housing clauses need the housing
+  // tied to the job; Delaware's needs it to be part of the pay (25 Del. C.
+  // § 5314); Minnesota's is for an employee whose housing isn't a job term.
+  { id: "tenantIsEmployee", section: "This lease", type: "yesno", label: "Is the tenant your employee, or your property manager's?" },
+  {
+    id: "employeeHousingLink",
+    section: "This lease",
+    type: "pickOne",
+    label: "How is the housing tied to the job?",
+    options: [
+      { value: "PART_OF_PAY", label: "It's part of the pay" },
+      { value: "BECAUSE_OF_JOB", label: "It's provided because of the job, at a separate rent" },
+      { value: "NOT_TIED", label: "It isn't tied to the job" },
+    ],
+    showIf: { id: "tenantIsEmployee", in: [true] },
+  },
   { id: "holdingDeposit", section: "This lease", type: "yesno", label: "Did the tenant pay a holding deposit before signing?", states: ["WY"] },
   { id: "holdingDepositAmount", section: "This lease", type: "number", label: "Holding deposit amount", counts: false, states: ["WY"], showIf: { id: "holdingDeposit", in: [true] } },
   { id: "utilityDeposit", section: "This lease", type: "yesno", label: "Is there a utility deposit?", states: ["CO"] },
@@ -382,7 +421,18 @@ const LEASE = [
       { value: "NOT_NEEDED", label: "Not needed here" },
     ],
   },
-  { id: "foreclosureUnderway", section: "This lease", type: "yesno", label: "Is a foreclosure under way on this property right now?", help: "Count a notice of default, a trustee's sale notice, a contract forfeiture or a tax-lien foreclosure.", states: ["AZ", "LA", "MN", "OR"] },
+  { id: "foreclosureUnderway", section: "This lease", type: "yesno", label: "Is a foreclosure under way on this property right now?", help: "Count a notice of default, a trustee's sale notice, a contract forfeiture or a tax-lien foreclosure.", states: ["AZ", "LA", "MN", "NV", "OR"] },
+  // Asked only in the lease builder, when a 0-bedroom unit or elderly or
+  // disability housing could be exempt from the federal lead disclosure; a child
+  // under 6 living there, or expected to, removes the exemption (40 C.F.R. § 745.103).
+  {
+    id: "childUnder6",
+    section: "This lease",
+    type: "yesno",
+    label: "Will a child under 6 live in the rental, or is one expected to?",
+    help: "A studio, or housing for seniors or people with disabilities, needs the federal lead paint disclosure only if a child under 6 lives there.",
+    builderOnly: true,
+  },
   // Shown in the lease page's Notices section, not the Lease questions card (ownSection).
   { id: "noticeAddress", section: "This lease", type: "text", label: "Address for lease notices", counts: false, ownSection: true },
   // Added with the second rule batch (2026-11-22).
@@ -587,7 +637,8 @@ const SHORT_LABELS = {
   superfundListed: "Superfund site",
   landlordIsDeclarant: "You are the community's declarant",
   seasonal: "Seasonal or vacation rental",
-  employeeHousing: "Employee housing",
+  tenantIsEmployee: "Tenant is your (or your manager's) employee",
+  employeeHousingLink: "Housing and the job",
   holdingDeposit: "Holding deposit",
   holdingDepositAmount: "Holding deposit amount",
   utilityDeposit: "Utility deposit",
@@ -600,6 +651,9 @@ const SHORT_LABELS = {
   snowRemoval: "Snow removal",
   foreclosureUnderway: "Foreclosure under way",
   noticeAddress: "Notice address",
+  childUnder6: "Child under 6 living in the rental",
+  elderlyOrDisabledHousing: "Reserved for 62+ or people with disabilities",
+  mnExemptSetting: "Minnesota exempt setting (housing with services)",
   prRentSubsidy: "Rent subsidy (older adults or veterans)",
   brokerInvolved: "Broker or agent involved",
   contractForDeedCancellation: "Contract for deed cancellation notice",
@@ -614,8 +668,8 @@ const SHORT_LABELS = {
 // would only add clutter (every disclosure, and rare situations).
 const SHOW_ONLY_WHEN_YES = new Set([
   "condoConversion", "ruralLand", "energyChargeOnBill", "sellsOnsitePower", "landlordCosignsUtility",
-  "seasonal", "employeeHousing", "holdingDeposit", "utilityDeposit", "foreclosureUnderway",
-  "prRentSubsidy", "brokerInvolved", "contractForDeedCancellation", "pmPermitNV",
+  "seasonal", "tenantIsEmployee", "holdingDeposit", "utilityDeposit", "foreclosureUnderway",
+  "prRentSubsidy", "brokerInvolved", "contractForDeedCancellation", "pmPermitNV", "mnExemptSetting",
 ]);
 for (const list of [PROPERTY, LEASE, ACCOUNT]) {
   for (const q of list) {

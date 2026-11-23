@@ -20,11 +20,9 @@ function date(value) {
   return value ? new Date(value) : null;
 }
 
-// Federal lead-based paint disclosure: "target housing" is housing built
-// before 1978 (42 U.S.C. § 4851b; 24 C.F.R. § 35.86; 40 C.F.R. § 745.103). The
-// zero-bedroom and elderly or disabled housing exceptions aren't modeled yet,
-// so those properties still get the clause, which is harmless. Massachusetts
-// (105 CMR 460.725(A)) and Delaware (25 Del. C. § 5406(a)) use the same year.
+// Lead paint: housing built before 1978. Massachusetts (105 CMR 460.725(A))
+// and Delaware (25 Del. C. § 5406(a)) use the same year; the federal rule's
+// exceptions are below.
 function builtBefore1978OrUnknown({ property }) {
   const year = property?.yearBuilt;
   return year === null || year === undefined || year < 1978;
@@ -84,6 +82,31 @@ function termUnder90Days({ lease }) {
 const both = (...tests) => (ctx) => tests.every((test) => test(ctx));
 const always = () => true;
 
+// The federal lead disclosure (read on eCFR 2026-11-23). "Target housing" is
+// housing built before 1978 "except housing for the elderly or persons with
+// disabilities or any 0-bedroom dwelling (unless any child who is less than 6
+// years of age resides or is expected to reside in such housing)" (40 C.F.R. §
+// 745.103), and a lease of a unit "found to be lead-based paint free by an
+// inspector certified" is exempt (§ 745.101(b)). Not modeled, so the clause
+// stays: a lease of 100 days or less that can't be renewed or extended
+// (§ 745.101(c)) and a renewal with nothing new to disclose (§ 745.101(d)).
+// Returns true, false, or UNKNOWN while a fact that decides it is blank.
+function federalLeadState(ctx) {
+  const { property } = ctx;
+  const year = property?.yearBuilt;
+  if (year === null || year === undefined) return UNKNOWN_LEAD;
+  if (year >= 1978) return false;
+  if (property?.facts?.certifiedLeadFree === true) return false;
+  if (!mayBeExemptHousing(property)) return true;
+  const child = resolve("lease.childUnder6", ctx);
+  if (child === null) return UNKNOWN_LEAD;
+  return child;
+}
+function mayBeExemptHousing(property) {
+  return property?.bedrooms === 0 || property?.facts?.elderlyOrDisabledHousing === true;
+}
+const UNKNOWN_LEAD = Symbol("unknown");
+
 // Each note says when the rule applies, completing "This applies ..."; the
 // Clause Library adds what the tag means.
 const LEAD_NOTE = "when the property was built before 1978 or its year built isn't entered";
@@ -97,7 +120,15 @@ const TERM_READS = ["lease.leaseType", "lease.endDate"];
 
 const RULES = {
   // Lead paint (year built).
-  "lead-based-paint": { applies: builtBefore1978OrUnknown, note: LEAD_NOTE, reads: LEAD_READS },
+  "lead-based-paint": {
+    applies: (ctx) => federalLeadState(ctx) !== false,
+    state: (ctx) => {
+      const r = federalLeadState(ctx);
+      return r === UNKNOWN_LEAD ? UNKNOWN : r;
+    },
+    note: "when the property was built before 1978 or its year built isn't entered, unless it's certified lead-free, or it's a studio or housing for seniors or people with disabilities where no child under 6 lives",
+    reads: (ctx) => (mayBeExemptHousing(ctx?.property) ? [...LEAD_READS, "lease.childUnder6"] : LEAD_READS),
+  },
   "lead-based-paint-dc": { applies: builtBefore1978OrUnknown, note: LEAD_NOTE, reads: LEAD_READS },
   "lead-disclosure-ri": { applies: builtBefore1978OrUnknown, note: LEAD_NOTE, reads: LEAD_READS },
   "lead-law-certification-ma": { applies: builtBefore1978OrUnknown, note: LEAD_NOTE, reads: LEAD_READS },
@@ -206,15 +237,18 @@ function ruleState(templateId, ctx) {
   const rule = RULES[templateId];
   if (!rule) return false;
   if (rule.state) return rule.state(ctx);
-  const blank = (rule.reads || []).some((path) => {
+  const blank = ruleReads(templateId, ctx).some((path) => {
     const v = resolve(path, ctx);
     return v === null || v === undefined;
   });
   return blank ? UNKNOWN : rule.applies(ctx);
 }
 
-function ruleReads(templateId) {
-  return RULES[templateId]?.reads || [];
+// The facts a rule reads; a hand-written rule may read more in some cases
+// (the federal lead rule asks about a child under 6 only when an exemption is possible).
+function ruleReads(templateId, ctx) {
+  const reads = RULES[templateId]?.reads || [];
+  return typeof reads === "function" ? reads(ctx || {}) : reads;
 }
 
 module.exports = {

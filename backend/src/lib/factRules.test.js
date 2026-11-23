@@ -23,7 +23,12 @@ describe("factRules", () => {
         const q = CATALOG[target]?.find((x) => x.id === qid);
         expect(q, `${id}: ${path}`).toBeTruthy();
         if (q.states) {
-          const missing = byId[id].states.filter((s) => !q.states.includes(s));
+          // A rule that first narrows to some states (property.state eq) needs
+          // its facts asked only there.
+          const top = rule.condition.all || [];
+          const only = top.find((c) => c.fact === "property.state" && c.op === "eq");
+          const covered = only ? [only.value] : byId[id].states;
+          const missing = covered.filter((s) => !q.states.includes(s));
           expect(missing, `${id}: ${path} isn't asked in ${missing}`).toEqual([]);
         }
         expect(q.type === "checkbox" && !q.default, `${id}: ${path} is a checkbox`).toBe(false);

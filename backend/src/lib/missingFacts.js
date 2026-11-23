@@ -9,6 +9,7 @@
 const { CATALOG, isVisible } = require("./factCatalog");
 const { resolve, UNKNOWN } = require("./ruleConditions");
 const { ruleState, ruleReads } = require("./clauseApplicability");
+const { tagIn } = require("./stateScopedTags");
 
 // Questions that save to a record's own field rather than its Lease questions.
 const FIELD_QUESTIONS = {
@@ -43,6 +44,7 @@ const DERIVED_FROM = {
   "property.chargeBackMethods": ["property.utilities"],
   "property.meterServesOutsideUnit": ["property.electricMeterOutsideUnit", "property.gasMeterOutsideUnit", "property.waterMeterOutsideUnit"],
   "property.electricOrGasMeterOutsideUnit": ["property.electricMeterOutsideUnit", "property.gasMeterOutsideUnit"],
+  "lease.childUnder6": ["lease.childUnder6"],
   ...Object.fromEntries(
     ["electric", "gas", "water", "sewer", "trash"].flatMap((k) => [
       [`property.utility.${k}.whoPays`, ["property.utilities"]],
@@ -129,12 +131,12 @@ function missingFacts(templates, ctx) {
     if (!byKey.has(q.key)) byKey.set(q.key, { ...q, clauses: [], blocks: false });
     const entry = byKey.get(q.key);
     entry.clauses.push(t.title);
-    if (t.tag === "REQUIRED") entry.blocks = true;
+    if (tagIn(t, state) === "REQUIRED") entry.blocks = true;
   };
   for (const t of templates) {
-    if (!["REQUIRED", "LEGAL_DUTY"].includes(t.tag)) continue;
+    if (!["REQUIRED", "LEGAL_DUTY"].includes(tagIn(t, state))) continue;
     if (ruleState(t.id, ctx) !== UNKNOWN) continue;
-    const paths = ruleReads(t.id).flatMap((p) => DERIVED_FROM[p] || [p]);
+    const paths = ruleReads(t.id, ctx).flatMap((p) => DERIVED_FROM[p] || [p]);
     for (const path of new Set(paths)) {
       if (PERSON_QUESTIONS[path]) {
         for (const q of personQuestions(path, ctx)) add(q, t);

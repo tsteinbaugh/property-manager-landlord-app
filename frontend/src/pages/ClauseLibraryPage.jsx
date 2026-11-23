@@ -247,6 +247,13 @@ export default function ClauseLibraryPage() {
   // Toggling a provided template's default status never copies or edits its
   // wording — it's just remembered separately (DefaultClauseTemplate) and
   // resolved fresh from the static template each time it's attached.
+  // A shared clause that is a legal duty only in some states shows its other
+  // tag when the library is showing one of the other states.
+  function dutyHere(template) {
+    if (!template.dutyStates || !stateFilter || stateFilter === ALL_STATES) return true;
+    return template.dutyStates.includes(stateFilter);
+  }
+
   async function toggleTemplateDefault(template) {
     setError(null);
     try {
@@ -456,12 +463,12 @@ export default function ClauseLibraryPage() {
                   <div className="flex items-start justify-between gap-2">
                     <p className="text-sm font-medium text-stone-900">
                       {template.title}
-                      <ClauseTag tag={template.tag} />
+                      <ClauseTag tag={dutyHere(template) ? template.tag : template.tagElsewhere} />
                     </p>
                     <div className="flex shrink-0 items-center gap-3 text-sm">
                       <label
                         className={`flex items-center gap-1.5 text-xs ${template.autoDefault ? "text-stone-400" : "text-stone-600"}`}
-                        title={template.autoDefaultNote || undefined}
+                        title={(dutyHere(template) ? template.autoDefaultNote : template.noteElsewhere) || undefined}
                       >
                         <input
                           type="checkbox"

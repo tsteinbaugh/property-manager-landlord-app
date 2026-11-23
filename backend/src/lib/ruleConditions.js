@@ -80,6 +80,20 @@ const DERIVED = {
     if (vals.includes(true)) return true;
     return vals.includes(null) ? null : false;
   },
+  // A child under 6 on the lease (an occupant's age, or a tenant's birth date
+  // at the lease start), else the lease's own answer.
+  "lease.childUnder6": ({ lease }) => {
+    const start = lease?.startDate ? new Date(lease.startDate) : new Date();
+    const sixYearsBefore = new Date(start);
+    sixYearsBefore.setUTCFullYear(sixYearsBefore.getUTCFullYear() - 6);
+    for (const lt of lease?.leaseTenants || []) {
+      const t = lt.tenant || {};
+      if (t.dateOfBirth && new Date(t.dateOfBirth) > sixYearsBefore) return true;
+      if ((t.occupants || []).some((o) => o.age !== null && o.age !== undefined && o.age < 6)) return true;
+    }
+    const v = lease?.facts?.childUnder6;
+    return v === true || v === false ? v : null;
+  },
   "property.electricOrGasMeterOutsideUnit": ({ property }) => {
     const f = property?.facts || {};
     const vals = [f.electricMeterOutsideUnit ?? null, f.utilities?.gas?.whoPays === "NOT_PROVIDED" ? false : f.gasMeterOutsideUnit ?? null];

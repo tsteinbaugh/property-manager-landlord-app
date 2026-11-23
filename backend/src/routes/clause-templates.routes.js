@@ -4,6 +4,8 @@ const { CLAUSE_TEMPLATES } = require("../lib/clauseTemplates");
 const { choiceGroupMembers } = require("../lib/clauseChoiceGroups");
 const { applicabilityNote, APPLICABILITY_RULE_IDS } = require("../lib/clauseApplicability");
 
+const { STATE_SCOPED_TAGS } = require("../lib/stateScopedTags");
+
 const hasRule = (template) => APPLICABILITY_RULE_IDS.includes(template.id);
 
 // A clause "Add my default clauses" includes on its own, which the landlord
@@ -59,6 +61,14 @@ router.get("/", async (req, res) => {
       autoDefault: isAutoDefault(template),
       autoDefaultNote: defaultNote(template),
       isDefault: isDefaultFor(template, rowsByTemplateId),
+      // A shared clause that is a duty only in some of its states (stateScopedTags.js).
+      ...(STATE_SCOPED_TAGS[template.id] && {
+        dutyStates: STATE_SCOPED_TAGS[template.id].states,
+        tagElsewhere: STATE_SCOPED_TAGS[template.id].elsewhere,
+        noteElsewhere: template.defaultOn
+          ? "Not required in this state, but included by default as a record that the tenant received a copy; untick it if you don't want it."
+          : null,
+      }),
     })),
   );
 });

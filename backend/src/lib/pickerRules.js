@@ -9,6 +9,76 @@
 const { evaluate } = require("./ruleConditions");
 
 const PICKER_RULES = {
+  // Added 2026-11-23: the employee-housing clauses (two-part question) and five
+  // of the low-confidence drafts, reviewed against each clause's text.
+  "employer-housing-pr": {
+    condition: {"all":[{"fact":"lease.tenantIsEmployee","op":"eq","value":true},{"fact":"lease.employeeHousingLink","op":"in","value":["PART_OF_PAY","BECAUSE_OF_JOB"]}]},
+    note: "when the tenant isn't your employee, or the housing isn't tied to the job",
+  },
+  "employee-occupancy-conditional-nm": {
+    condition: {"all":[{"fact":"lease.tenantIsEmployee","op":"eq","value":true},{"fact":"lease.employeeHousingLink","op":"in","value":["PART_OF_PAY","BECAUSE_OF_JOB"]}]},
+    note: "when the tenant isn't your employee, or the housing isn't tied to the job",
+  },
+  "employee-housing-ny": {
+    condition: {"all":[{"fact":"lease.tenantIsEmployee","op":"eq","value":true},{"fact":"lease.employeeHousingLink","op":"in","value":["PART_OF_PAY","BECAUSE_OF_JOB"]}]},
+    note: "when the tenant isn't your employee, or the housing isn't tied to the job",
+  },
+  "employee-housing-la": {
+    condition: {"all":[{"fact":"lease.tenantIsEmployee","op":"eq","value":true},{"fact":"lease.employeeHousingLink","op":"in","value":["PART_OF_PAY","BECAUSE_OF_JOB"]}]},
+    note: "when the tenant isn't your employee, or the housing isn't tied to the job",
+  },
+  "employee-housing-ar": {
+    condition: {"all":[{"fact":"lease.tenantIsEmployee","op":"eq","value":true},{"fact":"lease.employeeHousingLink","op":"in","value":["PART_OF_PAY","BECAUSE_OF_JOB"]}]},
+    note: "when the tenant isn't your employee, or the housing isn't tied to the job",
+  },
+  "tenant-employee-housing-wy": {
+    condition: {"all":[{"fact":"lease.tenantIsEmployee","op":"eq","value":true},{"fact":"lease.employeeHousingLink","op":"in","value":["PART_OF_PAY","BECAUSE_OF_JOB"]}]},
+    note: "when the tenant isn't your employee, or the housing isn't tied to the job",
+  },
+  "employee-housing-occupancy-ks": {
+    condition: {"all":[{"fact":"lease.tenantIsEmployee","op":"eq","value":true},{"fact":"lease.employeeHousingLink","op":"in","value":["PART_OF_PAY","BECAUSE_OF_JOB"]}]},
+    note: "when the tenant isn't your employee, or the housing isn't tied to the job",
+  },
+  "employee-housing-fl": {
+    condition: {"all":[{"fact":"lease.tenantIsEmployee","op":"eq","value":true},{"fact":"lease.employeeHousingLink","op":"in","value":["PART_OF_PAY","BECAUSE_OF_JOB"]}]},
+    note: "when the tenant isn't your employee, or the housing isn't tied to the job",
+  },
+  "employee-housing-mo": {
+    condition: {"all":[{"fact":"lease.tenantIsEmployee","op":"eq","value":true},{"fact":"lease.employeeHousingLink","op":"in","value":["PART_OF_PAY","BECAUSE_OF_JOB"]}]},
+    note: "when the tenant isn't your employee, or the housing isn't tied to the job",
+  },
+  "employee-housing-nj": {
+    condition: {"all":[{"fact":"lease.tenantIsEmployee","op":"eq","value":true},{"fact":"lease.employeeHousingLink","op":"in","value":["PART_OF_PAY","BECAUSE_OF_JOB"]}]},
+    note: "when the tenant isn't your employee, or the housing isn't tied to the job",
+  },
+  "employee-housing-occupancy-hi": {
+    condition: {"all":[{"fact":"lease.tenantIsEmployee","op":"eq","value":true},{"fact":"lease.employeeHousingLink","op":"in","value":["PART_OF_PAY","BECAUSE_OF_JOB"]}]},
+    note: "when the tenant isn't your employee, or the housing isn't tied to the job",
+  },
+  "tenant-employee-housing-mn": {
+    condition: {"fact":"lease.tenantIsEmployee","op":"eq","value":true},
+    note: "when the tenant isn't your employee",
+  },
+  "hotel-occupancy-tax-as": {
+    condition: {"fact":"property.propertyType","op":"nin","value":["SINGLE_FAMILY","MANUFACTURED_HOME"]},
+    note: "when the property is a single-family or manufactured home rather than an apartment, rooming or lodging house",
+  },
+  "vehicle-removal-wv": {
+    condition: {"any":[{"fact":"property.parkingTypes","op":"includesAny","value":["ASSIGNED","LOT"]},{"fact":"property.propertyType","op":"in","value":["APARTMENT","CONDO","COOP","TOWNHOUSE","ADU","ROOM_IN_OWNER_HOME"]}]},
+    note: "when the property is a single home whose only parking is its own driveway, garage or the street",
+  },
+  "pet-fees-mn": {
+    condition: {"all":[{"fact":"property.programHousing","op":"includesAny","value":["VOUCHER","PROJECT_SUBSIDY"]},{"fact":"property.propertyType","op":"in","value":["APARTMENT","CONDO","COOP","TOWNHOUSE"]},{"fact":"property.unitsInBuilding","op":"gt","value":1}]},
+    note: "when the unit isn't subsidized housing in a multiunit building",
+  },
+  "parking-tag-towing-or": {
+    condition: {"all":[{"fact":"property.parkingTypes","op":"includes","value":"LOT"},{"fact":"property.enforcesParkingRules","op":"eq","value":true}]},
+    note: "when the property has no parking lot with tenant spaces, or you don't enforce parking or towing rules",
+  },
+  "utility-allowance-cap-il": {
+    condition: {"any":[{"fact":"property.utility.electric.whoPays","op":"in","value":["INCLUDED","CHARGED_BACK"]},{"fact":"property.utility.gas.whoPays","op":"in","value":["INCLUDED","CHARGED_BACK"]},{"fact":"property.utility.water.whoPays","op":"in","value":["INCLUDED","CHARGED_BACK"]},{"fact":"property.utility.sewer.whoPays","op":"in","value":["INCLUDED","CHARGED_BACK"]}]},
+    note: "when the tenant pays every metered utility directly",
+  },
   "security-deposit-interest-ct": {
     condition: {"fact":"lease.depositTaken","op":"eq","value":true},
     note: "when the lease takes no security deposit",

@@ -1,4 +1,6 @@
-const { ruleApplies, applicabilityNote, APPLICABILITY_RULE_IDS } = require("./clauseApplicability");
+const { ruleApplies, ruleState, ruleReads, applicabilityNote, APPLICABILITY_RULE_IDS } = require("./clauseApplicability");
+const { UNKNOWN } = require("./ruleConditions");
+const { tagIn } = require("./stateScopedTags");
 const { CLAUSE_TEMPLATES } = require("./clauseTemplates");
 
 const before = new Date("2026-11-22T12:00:00Z");
@@ -19,6 +21,46 @@ describe("clause applicability rules", () => {
     expect(ruleApplies("lead-based-paint", { property: { yearBuilt: null } })).toBe(true);
     expect(ruleApplies("lead-based-paint", { property: { yearBuilt: 1978 } })).toBe(false);
     expect(ruleApplies("lead-law-certification-ma", { property: { yearBuilt: 1950 } })).toBe(true);
+  });
+
+  it("federal lead: the lead-free, 0-bedroom and elderly or disability exceptions (40 C.F.R. §§ 745.101, 745.103)", () => {
+    const p = (fields, facts = {}) => ({ yearBuilt: 1950, bedrooms: 2, facts, ...fields });
+    const ctx = (property, leaseFields = {}) => ({ property, lease: { facts: {}, leaseTenants: [], ...leaseFields } });
+    expect(ruleApplies("lead-based-paint", ctx(p({}, { certifiedLeadFree: true })))).toBe(false);
+    // A studio: asks about a child under 6, and the clause stays until answered No.
+    expect(ruleState("lead-based-paint", ctx(p({ bedrooms: 0 })))).toBe(UNKNOWN);
+    expect(ruleReads("lead-based-paint", ctx(p({ bedrooms: 0 })))).toContain("lease.childUnder6");
+    expect(ruleReads("lead-based-paint", ctx(p({})))).not.toContain("lease.childUnder6");
+    expect(ruleApplies("lead-based-paint", ctx(p({ bedrooms: 0 })))).toBe(true);
+    expect(ruleApplies("lead-based-paint", ctx(p({ bedrooms: 0 }), { facts: { childUnder6: false } }))).toBe(false);
+    expect(ruleApplies("lead-based-paint", ctx(p({}, { elderlyOrDisabledHousing: true }), { facts: { childUnder6: false } }))).toBe(false);
+    // An occupant under 6 settles it without asking.
+    const withChild = { leaseTenants: [{ tenant: { occupants: [{ age: 3 }] } }] };
+    expect(ruleState("lead-based-paint", ctx(p({ bedrooms: 0 }), withChild))).toBe(true);
+    // The state lead rules keep the plain year test.
+    expect(ruleApplies("lead-law-certification-ma", ctx(p({}, { certifiedLeadFree: true })))).toBe(true);
+  });
+
+  it("Nevada foreclosure, every DC lease, Minnesota exempt setting", () => {
+    const nv = (foreclosureUnderway) => ({ property: { state: "NV", facts: {} }, lease: { facts: { foreclosureUnderway } } });
+    expect(ruleApplies("foreclosure-disclosure-nv", nv(true))).toBe(true);
+    expect(ruleApplies("foreclosure-disclosure-nv", nv(undefined))).toBe(true);
+    expect(ruleApplies("foreclosure-disclosure-nv", nv(false))).toBe(false);
+    expect(ruleApplies("foreclosure-disclosure-nv", { property: { state: "SC", facts: {} }, lease: { facts: { foreclosureUnderway: true } } })).toBe(false);
+    expect(ruleApplies("required-disclosures-dc", { property: { state: "DC", facts: {} }, lease: { facts: {} } })).toBe(true);
+    const mn = (mnExemptSetting) => ({ property: { state: "MN", facts: { mnExemptSetting } }, lease: { facts: {} } });
+    expect(ruleApplies("key-control-exempt-setting-mn", mn(undefined))).toBe(false);
+    expect(ruleApplies("key-control-exempt-setting-mn", mn(true))).toBe(true);
+  });
+
+  it("shared clauses that are a duty in only some states take their other tag elsewhere", () => {
+    const t = (id) => CLAUSE_TEMPLATES.find((x) => x.id === id);
+    expect(tagIn(t("foreclosure-disclosure-nv"), "NV")).toBe("LEGAL_DUTY");
+    expect(tagIn(t("foreclosure-disclosure-nv"), "SC")).toBe("RECOMMENDED");
+    expect(tagIn(t("lease-copy-receipt-hi"), "AZ")).toBe("LEGAL_DUTY");
+    expect(tagIn(t("lease-copy-receipt-hi"), "KS")).toBe("RECOMMENDED");
+    expect(tagIn(t("parking-rules-notice-co"), "SC")).toBe("RECOMMENDED");
+    expect(tagIn(t("lead-based-paint"), "KS")).toBe("REQUIRED");
   });
 
   it("deposit: applies unless the lease's deposit is $0", () => {

@@ -1,4 +1,5 @@
 const express = require("express");
+const { tagIn } = require("../lib/stateScopedTags");
 const crypto = require("crypto");
 const prisma = require("../lib/prisma");
 const { pickFields } = require("../lib/pickFields");
@@ -229,9 +230,10 @@ async function requiredClauses(lease, userId, ctx) {
   for (const t of forThisState) {
     if (supersededHere.has(t.id) || isWrongForCauseVariant(t.id, lease.property?.forCauseEvictionExemption)) continue;
     const applies = ruleApplies(t.id, ctx);
+    const tag = tagIn(t, state);
     const entry = { templateId: t.id, title: t.title, note: applicabilityNote(t.id), attached: Boolean(has(t)) };
-    if (t.alwaysDefault || (applies && t.tag === "REQUIRED")) required.push(entry);
-    else if ((applies || t.defaultOn) && !excludedIds.has(t.id)) legalDuty.push(entry);
+    if (t.alwaysDefault || (applies && tag === "REQUIRED")) required.push(entry);
+    else if (["REQUIRED", "LEGAL_DUTY"].includes(tag) && (applies || t.defaultOn) && !excludedIds.has(t.id)) legalDuty.push(entry);
   }
   return { required, legalDuty };
 }
@@ -769,7 +771,7 @@ function createLeasesRoutes({ r2 = defaultR2 } = {}) {
     const isRequiredHere = (t) => {
       if (t.alwaysDefault) return true;
       const optedOut = excludedIds.has(t.id);
-      if (ruleApplies(t.id, ctx)) return t.tag === "REQUIRED" || !optedOut;
+      if (ruleApplies(t.id, ctx)) return tagIn(t, lease.property?.state) === "REQUIRED" || !optedOut;
       return Boolean(t.defaultOn) && !optedOut;
     };
     const requiredIds = forThisState
