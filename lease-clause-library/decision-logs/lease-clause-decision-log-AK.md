@@ -418,3 +418,7 @@ Taylor's decision 2026-11-22: every clause shows a tag. A clause that applies on
 - `criminal-activity-ak`: CONDITIONAL to CONDITIONAL/RECOMMENDED
 - `early-termination-ak`: CONDITIONAL to CONDITIONAL/RECOMMENDED
 - `utility-shutoff-notice-copy-ak`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+
+## Pet rent wording (Claude Code, 2026-11-22)
+
+Taylor's decision 2026-11-22: the 2026-11-22 applicability read found that `pet-policy-ak` stated pet rent unconditionally, so a lease with an approved pet but no pet rent would state a pet rent of nothing. The pet rent is now 'if applicable', as most states' pet clauses already say. Uniform edit; no claim or condition changed (SOP rule 78). Pet clauses stay Recommended: a landlord includes one only by choosing it.

@@ -4,11 +4,19 @@ const { CLAUSE_TEMPLATES } = require("../lib/clauseTemplates");
 const { choiceGroupMembers } = require("../lib/clauseChoiceGroups");
 const { applicabilityNote, APPLICABILITY_RULE_IDS } = require("../lib/clauseApplicability");
 
+const hasRule = (template) => APPLICABILITY_RULE_IDS.includes(template.id);
+
 // A clause "Add my default clauses" includes on its own, which the landlord
-// can't untick: one the law always requires, or one with an applicability rule
-// (included whenever the rule says the property needs it).
+// can't untick: one the law always requires, or a Required clause with an
+// applicability rule (included whenever the rule says the lease needs it).
 function isAutoDefault(template) {
-  return Boolean(template.alwaysDefault) || APPLICABILITY_RULE_IDS.includes(template.id);
+  return Boolean(template.alwaysDefault) || (hasRule(template) && template.tag === "REQUIRED");
+}
+
+// A clause that is on by default but can be unticked: a Legal duty that
+// always applies, or one with an applicability rule (Taylor, 2026-11-22).
+function isOptOutDefault(template) {
+  return Boolean(template.defaultOn) || (hasRule(template) && template.tag === "LEGAL_DUTY");
 }
 
 const router = express.Router();
@@ -19,7 +27,7 @@ const router = express.Router();
 function isDefaultFor(template, rowsByTemplateId) {
   if (isAutoDefault(template)) return true;
   const row = rowsByTemplateId.get(template.id);
-  if (template.defaultOn) return !row?.excluded;
+  if (isOptOutDefault(template)) return !row?.excluded;
   return Boolean(row && !row.excluded);
 }
 
@@ -30,7 +38,10 @@ const CONDITIONAL_LEGAL_DUTY_NOTE =
 
 function defaultNote(template) {
   if (template.alwaysDefault) return "Required by law, so it's always included by default.";
-  if (applicabilityNote(template.id)) return applicabilityNote(template.id);
+  const when = applicabilityNote(template.id);
+  if (when && template.tag === "REQUIRED") return `Required by law. It applies ${when}, so it's added automatically then.`;
+  if (when)
+    return `The law requires you to give the tenant this information. It applies ${when}, so it's added automatically then; untick it only if you give the tenant this another way.`;
   if (template.defaultOn) return LEGAL_DUTY_NOTE;
   if (template.tag === "LEGAL_DUTY") return CONDITIONAL_LEGAL_DUTY_NOTE;
   return null;
@@ -89,7 +100,7 @@ router.delete("/:templateId/default", async (req, res) => {
   }
   // Unticking a clause that is on by default records the opt-out; any other
   // clause just loses its default row.
-  if (template?.defaultOn) {
+  if (template && isOptOutDefault(template)) {
     await prisma.defaultClauseTemplate.upsert({
       where: { userId_templateId: { userId: req.currentUser.id, templateId: template.id } },
       create: { userId: req.currentUser.id, templateId: template.id, excluded: true },

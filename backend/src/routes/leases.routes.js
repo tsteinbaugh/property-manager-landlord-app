@@ -10,7 +10,7 @@ const { buildVariableContext, substituteVariables } = require("../lib/clauseVari
 const { orderAndLabelClauses } = require("../lib/leaseClauseOrdering");
 const { isWrongForCauseVariant } = require("../lib/forCauseEvictionVariant");
 const { choiceGroupOf, findChoiceGroupConflict } = require("../lib/clauseChoiceGroups");
-const { requiredForProperty } = require("../lib/clauseApplicability");
+const { ruleApplies } = require("../lib/clauseApplicability");
 const {
   buildRentTracker,
   suggestPaymentAllocation,
@@ -90,7 +90,7 @@ function validateLeaseBody(body) {
 }
 
 const leaseInclude = {
-  leaseTenants: { include: { tenant: { include: { occupants: true } } } },
+  leaseTenants: { include: { tenant: { include: { occupants: true, pets: true } } } },
   leaseClauses: true,
   property: { include: { entity: true, appliances: { where: { active: true } } } },
   deposits: { where: { type: "PET" } },
@@ -619,15 +619,19 @@ function createLeasesRoutes({ r2 = defaultR2 } = {}) {
     // state-specific clause for this state replaces (`supersedes`).
     const forThisState = CLAUSE_TEMPLATES.filter((t) => appliesToThisLease(t.states, { treatBlankAsUniversal: false }));
     const supersededHere = new Set(forThisState.map((t) => t.supersedes).filter(Boolean));
-    // Legal duties that always apply (`defaultOn`) are included too unless the landlord unticked
-    // them (Taylor, 2026-11-22); an `excluded` row records that opt-out.
+    // Legal duties that always apply (`defaultOn`), or whose rule says this lease needs them, are
+    // included too unless the landlord unticked them (Taylor, 2026-11-22); an `excluded` row
+    // records that opt-out.
     const excludedIds = new Set(defaultTemplateLinks.filter((link) => link.excluded).map((link) => link.templateId));
+    const ctx = { property: lease.property, lease };
+    const isRequiredHere = (t) => {
+      if (t.alwaysDefault) return true;
+      const optedOut = excludedIds.has(t.id);
+      if (ruleApplies(t.id, ctx)) return t.tag === "REQUIRED" || !optedOut;
+      return Boolean(t.defaultOn) && !optedOut;
+    };
     const requiredIds = forThisState
-      .filter(
-        (t) =>
-          (t.alwaysDefault || requiredForProperty(t.id, lease.property) || (t.defaultOn && !excludedIds.has(t.id))) &&
-          !supersededHere.has(t.id),
-      )
+      .filter((t) => isRequiredHere(t) && !supersededHere.has(t.id))
       .map((t) => t.id);
     const markedIds = defaultTemplateLinks.filter((link) => !link.excluded).map((link) => link.templateId);
     const defaultTemplateIds = [...new Set([...requiredIds, ...markedIds])];

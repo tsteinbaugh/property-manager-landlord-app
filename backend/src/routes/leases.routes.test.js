@@ -2,18 +2,18 @@ const request = require("supertest");
 const createApp = require("../app");
 const prisma = require("../lib/prisma");
 const { CLAUSE_TEMPLATES } = require("../lib/clauseTemplates");
-const { requiredForProperty } = require("../lib/clauseApplicability");
+const { ruleApplies } = require("../lib/clauseApplicability");
 
 // The provided clauses "Add my default clauses" includes on its own for a state:
-// those the law always requires or that a property fact makes required (by
-// default a property with no year built, so the lead disclosure applies), and
-// the legal duties on by default (`defaultOn`), less any a state version
-// replaces.
-function requiredFor(state, property = { yearBuilt: null }) {
+// those the law always requires, those an applicability rule says this lease
+// needs (by default a property with no year built and a lease with nothing
+// entered, so missing facts count as applying), and the legal duties on by
+// default (`defaultOn`), less any a state version replaces.
+function requiredFor(state, ctx = { property: { yearBuilt: null }, lease: {} }) {
   const here = CLAUSE_TEMPLATES.filter((t) => t.states.includes(state));
   const replaced = new Set(here.map((t) => t.supersedes).filter(Boolean));
   return here
-    .filter((t) => (t.alwaysDefault || t.defaultOn || requiredForProperty(t.id, property)) && !replaced.has(t.id))
+    .filter((t) => (t.alwaysDefault || t.defaultOn || ruleApplies(t.id, ctx)) && !replaced.has(t.id))
     .map((t) => t.id);
 }
 
@@ -1060,6 +1060,28 @@ describe("leases routes", () => {
 
       await prisma.property.update({ where: { id: property.id }, data: { yearBuilt: 1977 } });
       expect(await ids()).toContain("lead-based-paint");
+    });
+
+    it("adds a deposit clause only when a deposit is taken, and lets the landlord untick a legal duty one", async () => {
+      await prisma.property.update({ where: { id: property.id }, data: { state: "WA" } });
+      const ids = async () =>
+        (await request(app).post(`/api/leases/${lease.id}/clauses/add-defaults`)).body.leaseClauses.map(
+          (c) => c.sourceTemplateId,
+        );
+
+      await prisma.lease.update({ where: { id: lease.id }, data: { securityDepositAmount: "0.00" } });
+      let added = await ids();
+      expect(added).not.toContain("security-deposit-use-wa");
+      expect(added).not.toContain("deposit-depository-wa");
+
+      await prisma.lease.update({ where: { id: lease.id }, data: { securityDepositAmount: "1000.00" } });
+      await request(app).delete(`/api/clause-templates/deposit-depository-wa/default`);
+      added = await ids();
+      expect(added).toContain("security-deposit-use-wa");
+      expect(added).not.toContain("deposit-depository-wa");
+
+      await request(app).post(`/api/clause-templates/deposit-depository-wa/default`);
+      expect(await ids()).toContain("deposit-depository-wa");
     });
 
     it("never adds an always-required clause from another state, or one a state version replaces", async () => {

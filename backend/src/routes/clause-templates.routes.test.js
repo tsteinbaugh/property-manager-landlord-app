@@ -1,6 +1,7 @@
 const request = require("supertest");
 const createApp = require("../app");
 const prisma = require("../lib/prisma");
+const { APPLICABILITY_RULE_IDS } = require("../lib/clauseApplicability");
 
 const mockGetAuth = vi.fn(() => ({ userId: "clerk_test_user_1" }));
 const mockGetUser = vi.fn(() =>
@@ -86,7 +87,8 @@ describe("clause templates route", () => {
   it("annotates templates as not-default by default, except clauses the law always requires", async () => {
     const res = await request(app).get("/api/clause-templates");
     expect(res.body.some((t) => t.alwaysDefault)).toBe(true);
-    expect(res.body.every((t) => t.isDefault === (t.autoDefault || Boolean(t.defaultOn)))).toBe(true);
+    const optOut = (t) => Boolean(t.defaultOn) || (APPLICABILITY_RULE_IDS.includes(t.id) && t.tag === "LEGAL_DUTY");
+    expect(res.body.every((t) => t.isDefault === (t.autoDefault || optOut(t)))).toBe(true);
     expect(res.body.filter((t) => t.autoDefault).every((t) => t.autoDefaultNote)).toBe(true);
   });
 
@@ -118,6 +120,20 @@ describe("clause templates route", () => {
       expect(t.states.length).toBeGreaterThan(0);
       expect(t.autoDefaultNote).toMatch(/another way/);
     }
+  });
+
+  it("treats a legal duty with an applicability rule as on by default but untickable", async () => {
+    const list = (await request(app).get("/api/clause-templates")).body;
+    const duty = list.find((t) => t.id === "deposit-depository-wa");
+    expect(duty.tag).toBe("LEGAL_DUTY");
+    expect(duty.autoDefault).toBe(false);
+    expect(duty.isDefault).toBe(true);
+    expect(duty.autoDefaultNote).toMatch(/security deposit/);
+    expect(duty.autoDefaultNote).toMatch(/another way/);
+    const required = list.find((t) => t.id === "security-deposit-use-wa");
+    expect(required.autoDefault).toBe(true);
+    expect(required.autoDefaultNote).toMatch(/^Required by law/);
+    expect((await request(app).delete(`/api/clause-templates/security-deposit-use-wa/default`)).status).toBe(409);
   });
 
   it("lets the landlord untick and re-tick a legal duty that is on by default", async () => {
