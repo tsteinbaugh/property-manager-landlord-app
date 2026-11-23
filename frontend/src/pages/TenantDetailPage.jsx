@@ -21,7 +21,14 @@ const TEXT_FIELDS = [
 ];
 const DATE_FIELDS = ["dateOfBirth", "creditCheckDate", "backgroundCheckDate", "rentersInsuranceExpirationDate"];
 const NUMBER_FIELDS = ["monthlyIncome", "rentersInsuranceCoverageAmount"];
-const BOOL_FIELDS = ["idVerified", "rentersInsuranceLandlordAdditionalInsured", "rentersInsuranceCertificateOnFile"];
+const BOOL_FIELDS = [
+  "idVerified",
+  "rentersInsuranceLandlordAdditionalInsured",
+  "rentersInsuranceCertificateOnFile",
+  "isStudent",
+  "isServicemember",
+  "nonresidentAlien",
+];
 
 const DOCUMENT_CATEGORIES = [
   { value: "CREDIT_REPORT", label: "Credit report" },
@@ -36,6 +43,8 @@ const OCCUPANT_FIELDS = [
   { key: "age", label: "Age", type: "number" },
   { key: "phone", label: "Phone" },
   { key: "email", label: "Email", type: "email" },
+  { key: "isStudent", label: "Full-time student", type: "checkbox" },
+  { key: "isServicemember", label: "Active-duty servicemember", type: "checkbox" },
 ];
 
 const PET_FIELDS = [
@@ -389,6 +398,35 @@ export default function TenantDetailPage() {
                 />
                 <span className="font-medium text-stone-700">ID verified</span>
               </label>
+              <label className="flex items-center gap-2 self-end pb-2 text-sm">
+                <input
+                  type="checkbox"
+                  checked={form.isStudent}
+                  onChange={(e) => setForm({ ...form, isStudent: e.target.checked })}
+                  className="h-4 w-4 rounded border-stone-300"
+                />
+                <span className="font-medium text-stone-700">Full-time student</span>
+              </label>
+              <label className="flex items-center gap-2 self-end pb-2 text-sm">
+                <input
+                  type="checkbox"
+                  checked={form.isServicemember}
+                  onChange={(e) => setForm({ ...form, isServicemember: e.target.checked })}
+                  className="h-4 w-4 rounded border-stone-300"
+                />
+                <span className="font-medium text-stone-700">Active-duty servicemember</span>
+              </label>
+              {(tenant.property?.state === "AK" || form.nonresidentAlien) && (
+                <label className="flex items-center gap-2 self-end pb-2 text-sm">
+                  <input
+                    type="checkbox"
+                    checked={form.nonresidentAlien}
+                    onChange={(e) => setForm({ ...form, nonresidentAlien: e.target.checked })}
+                    className="h-4 w-4 rounded border-stone-300"
+                  />
+                  <span className="font-medium text-stone-700">Nonresident alien for U.S. tax purposes</span>
+                </label>
+              )}
               <UploadButton
                 label="ID"
                 category="ID"
@@ -619,6 +657,9 @@ export default function TenantDetailPage() {
               value={tenant.dateOfBirth ? new Date(tenant.dateOfBirth).toLocaleDateString() : null}
             />
             <DetailRow label="ID verified" value={tenant.idVerified ? "Yes" : "No"} />
+            {tenant.isStudent && <DetailRow label="Full-time student" value="Yes" />}
+            {tenant.isServicemember && <DetailRow label="Active-duty servicemember" value="Yes" />}
+            {tenant.nonresidentAlien && <DetailRow label="Nonresident alien (tax)" value="Yes" />}
             <DetailRow label="Credit check" value={tenant.creditCheckStatus} />
             <DetailRow
               label="Credit check date"
@@ -721,7 +762,13 @@ export default function TenantDetailPage() {
         showTenantLabel={false}
         onChange={load}
         renderSummary={(o) =>
-          [o.name, o.age ? `age ${o.age}` : null, [o.phone, o.email].filter(Boolean).join(", ") || null]
+          [
+            o.name,
+            o.age ? `age ${o.age}` : null,
+            [o.phone, o.email].filter(Boolean).join(", ") || null,
+            o.isStudent ? "student" : null,
+            o.isServicemember ? "servicemember" : null,
+          ]
             .filter(Boolean)
             .join(" · ")
         }

@@ -25,6 +25,8 @@ describe("clause applicability rules", () => {
     expect(ruleApplies("security-deposit-use-wa", { lease: lease({ securityDepositAmount: "1000.00" }) })).toBe(true);
     expect(ruleApplies("security-deposit-use-wa", { lease: lease({ securityDepositAmount: null }) })).toBe(true);
     expect(ruleApplies("security-deposit-use-wa", { lease: lease({ securityDepositAmount: "0.00" }) })).toBe(false);
+    expect(ruleApplies("security-deposit-use-wa", { lease: lease({ securityDepositTaken: false }) })).toBe(false);
+    expect(ruleApplies("security-deposit-use-wa", { lease: lease({ securityDepositTaken: true, securityDepositAmount: "500.00" }) })).toBe(true);
   });
 
   it("Maryland pet fact sheet: a dog or cat recorded for a tenant on the lease", () => {

@@ -179,7 +179,6 @@ describe("properties routes", () => {
       city: "Frederick",
       state: "CO",
       zip: "80530",
-      propertyType: "Single-family",
       stories: 2,
       basement: "Unfinished",
       lotSize: "0.25 acres",
@@ -209,7 +208,6 @@ describe("properties routes", () => {
     });
 
     expect(createRes.status).toBe(201);
-    expect(createRes.body.propertyType).toBe("Single-family");
     expect(createRes.body.stories).toBe(2);
     expect(createRes.body.acceptsSection8).toBe(true);
     expect(createRes.body.hoaOrMetroDistrict).toBe("Maple Grove Metro District");
@@ -665,6 +663,72 @@ describe("properties routes", () => {
 
       const check = await prisma.property.findUnique({ where: { id: property.id } });
       expect(check).not.toBeNull();
+    });
+  });
+
+  describe("applicability answers (PUT /:id/facts)", () => {
+    async function makeProperty() {
+      const res = await request(app)
+        .post("/api/properties")
+        .send({ entityId: entity.id, address1: "1 Elm St", city: "Denver", state: "CO", zip: "80202" });
+      return res.body;
+    }
+
+    it("starts with no answers, saves them, and clears one with null", async () => {
+      const property = await makeProperty();
+      expect(property.facts).toEqual({});
+
+      let res = await request(app)
+        .put(`/api/properties/${property.id}/facts`)
+        .send({ facts: { propertyType: "APARTMENT", unitsInBuilding: 4, waterFeatures: ["POOL", "SPA"], county: " Adams " } });
+      expect(res.status).toBe(200);
+      expect(res.body.facts).toEqual({ propertyType: "APARTMENT", unitsInBuilding: 4, waterFeatures: ["POOL", "SPA"], county: "Adams" });
+
+      res = await request(app).put(`/api/properties/${property.id}/facts`).send({ facts: { unitsInBuilding: null, environmentalRestriction: false } });
+      expect(res.body.facts).toEqual({ propertyType: "APARTMENT", waterFeatures: ["POOL", "SPA"], county: "Adams", environmentalRestriction: false });
+    });
+
+    it("rejects unknown questions and invalid answers", async () => {
+      const property = await makeProperty();
+      const bad = [
+        { madeUp: true },
+        { propertyType: "CASTLE" },
+        { environmentalRestriction: "yes" },
+        { waterFeatures: ["NONE", "POOL"] },
+        { unitsInBuilding: -1 },
+        { utilities: { water: { whoPays: "SOMEONE" } } },
+        { appliancesProvided: { refrigerator: "TENANT_OWNED" } },
+      ];
+      for (const facts of bad) {
+        const res = await request(app).put(`/api/properties/${property.id}/facts`).send({ facts });
+        expect(res.status).toBe(400);
+      }
+    });
+
+    it("saves utilities and appliances", async () => {
+      const property = await makeProperty();
+      const facts = {
+        utilities: { water: { whoPays: "CHARGED_BACK", method: "SHARED_SPLIT" }, electric: { whoPays: "TENANT_DIRECT" } },
+        appliancesProvided: { refrigerator: "COVERED", freezer: "AS_IS", dishwasher: "NOT_PROVIDED" },
+      };
+      const res = await request(app).put(`/api/properties/${property.id}/facts`).send({ facts });
+      expect(res.status).toBe(200);
+      expect(res.body.facts).toEqual(facts);
+    });
+
+    it("refuses another user's property and an archived one", async () => {
+      const property = await makeProperty();
+      await prisma.property.update({ where: { id: property.id }, data: { archived: true } });
+      let res = await request(app).put(`/api/properties/${property.id}/facts`).send({ facts: { county: "Adams" } });
+      expect(res.status).toBe(400);
+
+      const otherUser = await prisma.user.create({ data: { clerkId: "clerk_other_user", email: "other@example.com" } });
+      const otherEntity = await prisma.entity.create({ data: { userId: otherUser.id, legalName: "Someone Else LLC", entityType: "LLC" } });
+      const otherProperty = await prisma.property.create({
+        data: { entityId: otherEntity.id, userId: otherUser.id, address1: "456 Oak St", city: "Frederick", state: "CO", zip: "80530" },
+      });
+      res = await request(app).put(`/api/properties/${otherProperty.id}/facts`).send({ facts: { county: "Adams" } });
+      expect(res.status).toBe(404);
     });
   });
 });

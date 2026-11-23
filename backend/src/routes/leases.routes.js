@@ -11,6 +11,7 @@ const { orderAndLabelClauses } = require("../lib/leaseClauseOrdering");
 const { isWrongForCauseVariant } = require("../lib/forCauseEvictionVariant");
 const { choiceGroupOf, findChoiceGroupConflict } = require("../lib/clauseChoiceGroups");
 const { ruleApplies } = require("../lib/clauseApplicability");
+const { validateFacts, mergeFacts } = require("../lib/factCatalog");
 const {
   buildRentTracker,
   suggestPaymentAllocation,
@@ -61,6 +62,8 @@ const ASSIGNABLE_FIELDS = [
   "endDate",
   "monthlyRent",
   "securityDepositAmount",
+  "securityDepositTaken",
+  "leaseType",
   "lateFeeAmount",
   "lateFeeGraceDays",
   "petPolicy",
@@ -79,6 +82,35 @@ const ATTACHMENT_TYPES = ["application/pdf", "image/jpeg", "image/png"];
 
 function pickAssignableFields(body) {
   return pickFields(body, ASSIGNABLE_FIELDS, DATE_FIELDS);
+}
+
+const LEASE_TYPES = ["FIXED", "MONTH_TO_MONTH"];
+
+// The deposit is a Yes/No answer plus an amount (Taylor, 2026-11-22): Yes needs
+// an amount over $0, No clears the amount, and an amount of $0 is never stored
+// (it means No). An amount over $0 with no answer yet answers Yes.
+function normalizeLeaseAnswers(data, existing = null) {
+  if (data.leaseType !== undefined && data.leaseType !== null && !LEASE_TYPES.includes(data.leaseType)) {
+    return { error: `leaseType must be one of: ${LEASE_TYPES.join(", ")}` };
+  }
+  if (data.securityDepositTaken !== undefined && data.securityDepositTaken !== null && typeof data.securityDepositTaken !== "boolean") {
+    return { error: "securityDepositTaken must be true, false or null" };
+  }
+  if (data.securityDepositAmount !== undefined && data.securityDepositAmount !== null) {
+    const amount = Number(data.securityDepositAmount);
+    if (!Number.isFinite(amount) || amount < 0) return { error: "securityDepositAmount must be a positive amount" };
+    if (amount === 0) {
+      if (data.securityDepositTaken === true) return { error: "A security deposit must be more than $0; answer No if there's no deposit" };
+      data.securityDepositAmount = null;
+      data.securityDepositTaken = false;
+    } else if (data.securityDepositTaken === undefined && (existing?.securityDepositTaken ?? null) === null) {
+      data.securityDepositTaken = true;
+    } else if (data.securityDepositTaken === undefined && existing?.securityDepositTaken === false) {
+      data.securityDepositTaken = true;
+    }
+  }
+  if (data.securityDepositTaken === false) data.securityDepositAmount = null;
+  return { data };
 }
 
 function validateLeaseBody(body) {
@@ -155,11 +187,14 @@ function createLeasesRoutes({ r2 = defaultR2 } = {}) {
       return res.status(400).json({ error: "Property is archived — unarchive it before adding new records" });
     }
 
+    const answers = normalizeLeaseAnswers(pickAssignableFields(req.body));
+    if (answers.error) return res.status(400).json({ error: answers.error });
+
     const lease = await prisma.lease.create({
       data: {
         propertyId,
         userId: req.currentUser.id,
-        ...pickAssignableFields(req.body),
+        ...answers.data,
       },
       include: leaseInclude,
     });
@@ -209,12 +244,32 @@ function createLeasesRoutes({ r2 = defaultR2 } = {}) {
       return res.status(404).json({ error: "Lease not found" });
     }
 
+    const answers = normalizeLeaseAnswers(pickAssignableFields(req.body), existing);
+    if (answers.error) return res.status(400).json({ error: answers.error });
+
     const lease = await prisma.lease.update({
       where: { id: req.params.id },
-      data: pickAssignableFields(req.body),
+      data: answers.data,
       include: leaseInclude,
     });
 
+    res.json(withComputedLeaseFields(lease));
+  });
+
+  // Saves answers to the lease's applicability questions (factCatalog.js);
+  // a null answer clears it.
+  router.put("/:id/facts", async (req, res) => {
+    const existing = await prisma.lease.findUnique({ where: { id: req.params.id } });
+    if (!existing || existing.userId !== req.currentUser.id) {
+      return res.status(404).json({ error: "Lease not found" });
+    }
+    const { facts, error } = validateFacts("lease", req.body?.facts);
+    if (error) return res.status(400).json({ error });
+    const lease = await prisma.lease.update({
+      where: { id: existing.id },
+      data: { facts: mergeFacts(existing.facts, facts) },
+      include: leaseInclude,
+    });
     res.json(withComputedLeaseFields(lease));
   });
 

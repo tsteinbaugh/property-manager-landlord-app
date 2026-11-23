@@ -1499,4 +1499,57 @@ describe("leases routes", () => {
       expect(trackerRes.body[0].expectedLateFee).toBe(150);
     });
   });
+
+  describe("deposit and lease type answers", () => {
+    const base = () => ({ propertyId: property.id, startDate: "2027-01-01", monthlyRent: "1500.00" });
+
+    it("leaves the deposit unanswered when nothing is entered (never fills in $0)", async () => {
+      const res = await request(app).post("/api/leases").send(base());
+      expect(res.status).toBe(201);
+      expect(res.body.securityDepositTaken).toBeNull();
+      expect(res.body.securityDepositAmount).toBeNull();
+      expect(res.body.leaseType).toBeNull();
+    });
+
+    it("an amount over $0 answers Yes; $0 answers No and stores no amount", async () => {
+      let res = await request(app).post("/api/leases").send({ ...base(), securityDepositAmount: "1500.00" });
+      expect(res.body.securityDepositTaken).toBe(true);
+
+      res = await request(app).post("/api/leases").send({ ...base(), securityDepositAmount: "0" });
+      expect(res.body.securityDepositTaken).toBe(false);
+      expect(res.body.securityDepositAmount).toBeNull();
+    });
+
+    it("refuses Yes with a $0 deposit", async () => {
+      const res = await request(app).post("/api/leases").send({ ...base(), securityDepositTaken: true, securityDepositAmount: 0 });
+      expect(res.status).toBe(400);
+    });
+
+    it("No clears the amount, and clearing the amount on edit doesn't keep the old one", async () => {
+      const created = await request(app).post("/api/leases").send({ ...base(), securityDepositAmount: "1500.00" });
+      let res = await request(app).put(`/api/leases/${created.body.id}`).send({ securityDepositAmount: null });
+      expect(res.body.securityDepositAmount).toBeNull();
+      expect(res.body.securityDepositTaken).toBe(true);
+
+      res = await request(app).put(`/api/leases/${created.body.id}`).send({ securityDepositTaken: false });
+      expect(res.body.securityDepositTaken).toBe(false);
+      expect(res.body.securityDepositAmount).toBeNull();
+    });
+
+    it("validates the lease type", async () => {
+      let res = await request(app).post("/api/leases").send({ ...base(), leaseType: "MONTH_TO_MONTH" });
+      expect(res.body.leaseType).toBe("MONTH_TO_MONTH");
+      res = await request(app).post("/api/leases").send({ ...base(), leaseType: "WEEKLY" });
+      expect(res.status).toBe(400);
+    });
+
+    it("saves the lease's own answers", async () => {
+      const created = await request(app).post("/api/leases").send(base());
+      let res = await request(app).put(`/api/leases/${created.body.id}/facts`).send({ facts: { firstMonthRent: "PRORATED", yardCare: "TENANT" } });
+      expect(res.status).toBe(200);
+      expect(res.body.facts).toEqual({ firstMonthRent: "PRORATED", yardCare: "TENANT" });
+      res = await request(app).put(`/api/leases/${created.body.id}/facts`).send({ facts: { firstMonthRent: "HALF" } });
+      expect(res.status).toBe(400);
+    });
+  });
 });

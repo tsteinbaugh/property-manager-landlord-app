@@ -97,4 +97,26 @@ describe("me routes", () => {
 
     expect(res.status).toBe(401);
   });
+
+  describe("account answers (/api/me/facts)", () => {
+    it("returns the answers and the states the landlord's properties are in", async () => {
+      await prisma.property.create({
+        data: { userId: user.id, entityId: defaultEntity.id, address1: "1 A St", city: "Hilo", state: "HI", zip: "96720" },
+      });
+      const res = await request(app).get("/api/me/facts");
+      expect(res.status).toBe(200);
+      expect(res.body).toEqual({ facts: {}, propertyStates: ["HI"] });
+    });
+
+    it("saves the primary residence, including the island for Hawaii", async () => {
+      const res = await request(app)
+        .put("/api/me/facts")
+        .send({ facts: { residenceAddress: "12 Ocean Rd, Hilo, HI", residenceState: "HI", residenceIsland: "Hawaiʻi" } });
+      expect(res.status).toBe(200);
+      expect(res.body.facts.residenceIsland).toBe("Hawaiʻi");
+
+      const bad = await request(app).put("/api/me/facts").send({ facts: { residenceState: "ZZ" } });
+      expect(bad.status).toBe(400);
+    });
+  });
 });

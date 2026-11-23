@@ -21,6 +21,9 @@ const ASSIGNABLE_FIELDS = [
   "employer",
   "employmentStatus",
   "monthlyIncome",
+  "isStudent",
+  "isServicemember",
+  "nonresidentAlien",
   "emergencyContactName",
   "emergencyContactPhone",
   "emergencyContactRelation",
@@ -142,6 +145,7 @@ function createTenantsRoutes({ r2 = defaultR2 } = {}) {
       include: {
         previousTenant: { select: { id: true, firstName: true, lastName: true, propertyId: true, property: { select: { name: true, address1: true } } } },
         nextTenants: { select: { id: true, firstName: true, lastName: true, propertyId: true, property: { select: { name: true, address1: true } } } },
+        property: { select: { state: true } },
       },
     });
     if (!tenant || tenant.userId !== req.currentUser.id) {

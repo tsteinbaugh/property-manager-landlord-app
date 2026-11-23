@@ -7,6 +7,7 @@ import FinancesSnapshotCard from "../components/FinancesSnapshotCard";
 import MaintenanceSnapshotCard from "../components/MaintenanceSnapshotCard";
 import BackLink from "../components/BackLink";
 import { FOR_CAUSE_EVICTION_EXEMPTION_OPTIONS } from "../lib/forCauseEvictionVariant";
+import FactQuestionsCard from "../components/FactQuestions";
 
 // amenities is edited as a comma-separated text field, same convention as
 // ClauseLibraryPage's `states` field and PropertiesPage's create form.
@@ -61,7 +62,6 @@ function ContactPairField({ label, providerPlaceholder, form, setForm, providerK
 }
 
 const DETAIL_FACT_FIELDS = [
-  ["propertyType", "Type"],
   ["stories", "Stories"],
   ["basement", "Basement"],
   ["lotSize", "Lot size"],
@@ -504,17 +504,6 @@ export default function PropertyDetailPage() {
             <div className="border-t border-stone-200 pt-4">
               <h3 className="mb-3 text-sm font-semibold text-stone-800">Structural</h3>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <TextField
-                  label="Property type"
-                  placeholder="Single-family, duplex, apartment building, ADU, condo..."
-                  value={form.propertyType}
-                  onChange={(v) => setForm({ ...form, propertyType: v })}
-                >
-                  <span className="mt-1 block text-xs text-stone-400">
-                    For one unit in a larger building, use Address line 2 for the unit number and this field for
-                    the building type.
-                  </span>
-                </TextField>
                 <TextField label="Stories" type="number" value={form.stories} onChange={(v) => setForm({ ...form, stories: v })} />
                 <TextField label="Basement" placeholder="Finished, unfinished, crawlspace, none..." value={form.basement} onChange={(v) => setForm({ ...form, basement: v })} />
                 <TextField label="Lot size" placeholder="0.25 acres or 6,500 sq ft" value={form.lotSize} onChange={(v) => setForm({ ...form, lotSize: v })} />
@@ -659,6 +648,20 @@ export default function PropertyDetailPage() {
           </>
         )}
       </div>
+
+      <FactQuestionsCard
+        title="Lease questions"
+        intro="The lease builder uses these answers to decide which clauses this property's leases need. Questions only some states ask show for this property's state."
+        target="property"
+        states={[property.state]}
+        answers={property.facts}
+        disabled={property.archived}
+        onSave={async (facts) => {
+          const updated = await api.put(`/api/properties/${id}/facts`, { facts });
+          setProperty(updated);
+          setForm(updated);
+        }}
+      />
 
       <TenantSection propertyId={id} items={tenants} onChange={load} />
       <LeaseSection propertyId={id} items={leases} onChange={load} />

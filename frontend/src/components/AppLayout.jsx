@@ -13,6 +13,7 @@ const NAV_ITEMS = [
   { to: "/leases", label: "Leases" },
   { to: "/finances", label: "Finances" },
   { to: "/maintenance", label: "Maintenance" },
+  { to: "/account", label: "Your account" },
 ];
 
 function navLinkClass({ isActive }) {

@@ -30,9 +30,13 @@ function builtBefore1978OrUnknown({ property }) {
   return year === null || year === undefined || year < 1978;
 }
 
-// A security deposit is taken unless the lease says $0. A blank amount
-// counts as taken (not answered).
+// A security deposit is taken unless the lease's "Do you take a security
+// deposit?" is answered No (Taylor, 2026-11-22). Not answered counts as taken,
+// and the builder asks. An older lease with a $0 amount and no answer counts
+// as No.
 function depositTaken({ lease }) {
+  if (lease?.securityDepositTaken === false) return false;
+  if (lease?.securityDepositTaken === true) return true;
   const amount = lease?.securityDepositAmount;
   return amount === null || amount === undefined || Number(amount) > 0;
 }
@@ -83,7 +87,7 @@ const always = () => true;
 // Each note says when the rule applies, completing "This applies ..."; the
 // Clause Library adds what the tag means.
 const LEAD_NOTE = "when the property was built before 1978 or its year built isn't entered";
-const DEPOSIT_NOTE = "when you take a security deposit (unless the lease's deposit is $0)";
+const DEPOSIT_NOTE = "when you take a security deposit (unless the lease answers No)";
 
 const RULES = {
   // Lead paint (year built).

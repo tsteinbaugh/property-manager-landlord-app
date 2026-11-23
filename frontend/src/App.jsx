@@ -4,6 +4,7 @@ import AppLayout from "./components/AppLayout";
 import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
 import DashboardPage from "./pages/DashboardPage";
+import AccountPage from "./pages/AccountPage";
 import EntitiesPage from "./pages/EntitiesPage";
 import EntityDetailPage from "./pages/EntityDetailPage";
 import PropertiesPage from "./pages/PropertiesPage";
@@ -35,6 +36,7 @@ export default function App() {
       >
         <Route index element={<Navigate to="/dashboard" replace />} />
         <Route path="dashboard" element={<DashboardPage />} />
+        <Route path="account" element={<AccountPage />} />
         <Route path="entities" element={<EntitiesPage />} />
         <Route path="entities/:id" element={<EntityDetailPage />} />
         <Route path="properties" element={<PropertiesPage />} />

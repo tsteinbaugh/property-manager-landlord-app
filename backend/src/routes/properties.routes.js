@@ -1,6 +1,7 @@
 const express = require("express");
 const prisma = require("../lib/prisma");
 const { pickFields } = require("../lib/pickFields");
+const { validateFacts, mergeFacts } = require("../lib/factCatalog");
 
 const REQUIRED_FIELDS = ["entityId", "address1", "city", "state", "zip"];
 
@@ -13,7 +14,6 @@ const ATTRIBUTE_FIELDS = [
   "sqFt",
   "amenities",
   // Second pass (2026-08-20) — Taylor's curated list off a larger brainstorm.
-  "propertyType",
   "stories",
   "basement",
   "lotSize",
@@ -302,6 +302,25 @@ router.delete("/:id", async (req, res) => {
   await prisma.property.delete({ where: { id: req.params.id } });
 
   res.status(204).send();
+});
+
+// Saves answers to the property's applicability questions (factCatalog.js);
+// a null answer clears it. Locked while archived, like every other edit.
+router.put("/:id/facts", async (req, res) => {
+  const existing = await prisma.property.findUnique({ where: { id: req.params.id } });
+  if (!existing || existing.userId !== req.currentUser.id) {
+    return res.status(404).json({ error: "Property not found" });
+  }
+  if (existing.archived) {
+    return res.status(400).json({ error: "Property is archived — unarchive it before making changes" });
+  }
+  const { facts, error } = validateFacts("property", req.body?.facts);
+  if (error) return res.status(400).json({ error });
+  const property = await prisma.property.update({
+    where: { id: existing.id },
+    data: { facts: mergeFacts(existing.facts, facts) },
+  });
+  res.json(property);
 });
 
 module.exports = router;

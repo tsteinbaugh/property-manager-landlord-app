@@ -28,6 +28,7 @@ const exteriorFeaturesRoutes = require("./routes/exterior-features.routes");
 const clausesRoutes = require("./routes/clauses.routes");
 const clauseTemplatesRoutes = require("./routes/clause-templates.routes");
 const clauseGroupsRoutes = require("./routes/clause-groups.routes");
+const factCatalogRoutes = require("./routes/fact-catalog.routes");
 
 function createApp(overrides = {}) {
   const clerk = require("@clerk/express");
@@ -75,6 +76,7 @@ function createApp(overrides = {}) {
   app.use("/api/clauses", clausesRoutes);
   app.use("/api/clause-templates", clauseTemplatesRoutes);
   app.use("/api/clause-groups", clauseGroupsRoutes);
+  app.use("/api/fact-catalog", factCatalogRoutes);
 
   app.use((err, req, res, next) => {
     console.error(err);

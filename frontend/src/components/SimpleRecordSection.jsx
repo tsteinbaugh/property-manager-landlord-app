@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useApi } from "../hooks/useApi";
 
 function emptyFormFor(fields) {
-  return Object.fromEntries(fields.map((f) => [f.key, ""]));
+  return Object.fromEntries(fields.map((f) => [f.key, f.type === "checkbox" ? false : ""]));
 }
 
 // Shared add/edit/delete UI for Occupant/Pet/Vehicle records, which are
@@ -36,7 +36,7 @@ export default function SimpleRecordSection({
   function openForm(item) {
     if (item) {
       const f = {};
-      for (const field of fields) f[field.key] = item[field.key] ?? "";
+      for (const field of fields) f[field.key] = item[field.key] ?? (field.type === "checkbox" ? false : "");
       setForm(f);
       setTenantId(item.tenant?.id || defaultTenantId);
       setEditingId(item.id);
@@ -125,7 +125,18 @@ export default function SimpleRecordSection({
                 </select>
               </label>
             )}
-            {fields.map((field) => (
+            {fields.map((field) =>
+              field.type === "checkbox" ? (
+                <label key={field.key} className="flex items-center gap-2 self-end pb-2 text-sm">
+                  <input
+                    type="checkbox"
+                    checked={!!form[field.key]}
+                    onChange={(e) => setForm({ ...form, [field.key]: e.target.checked })}
+                    className="h-4 w-4 rounded border-stone-300"
+                  />
+                  <span className="font-medium text-stone-700">{field.label}</span>
+                </label>
+              ) : (
               <label key={field.key} className="block text-sm">
                 <span className="mb-1 block font-medium text-stone-700">
                   {field.label}
@@ -140,7 +151,8 @@ export default function SimpleRecordSection({
                   className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
                 />
               </label>
-            ))}
+              ),
+            )}
           </div>
           <div className="flex gap-2">
             <button

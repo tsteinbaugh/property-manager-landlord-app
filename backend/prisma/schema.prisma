@@ -17,6 +17,8 @@ model User {
   email     String   @unique
   name      String?
   role      String   @default("landlord")
+  // Account-level applicability answers: primary residence and the like (src/lib/factCatalog.js).
+  facts     Json     @default("{}")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -123,7 +125,6 @@ model Property {
   // (ExteriorFeature.size, FlooringSpec.type) — these are quick-reference facts, not a new
   // structured domain. Water heater type/age and heating/cooling type were explicitly left
   // out — they already fit as Appliance rows in Property Specs; no need to duplicate.
-  propertyType            String? // single-family, duplex, apartment building, ADU, condo, etc. — free text, no fixed list. For a unit within a multi-unit building, this Property row represents that one unit (see address2 for the unit number) — the multi-unit-building-as-one-entity question is still open, see memory `project_multiunit_property_model_question`.
   stories                 Int?
   basement                String? // finished, unfinished, crawlspace, none — free text
   lotSize                 String? // free text, e.g. "0.25 acres" or "6,500 sq ft" — units vary, same convention as ExteriorFeature.size
@@ -151,6 +152,10 @@ model Property {
   // (the "neither" / not-exempt case) — the safer default, since it never asserts an exemption
   // right the landlord may not actually have.
   forCauseEvictionExemption String @default("STANDARD_LONG_TERM")
+
+  // Answers to the applicability questions (src/lib/factCatalog.js), keyed by
+  // question id; the lease builder's rules read them (2026-11-22).
+  facts Json @default("{}")
 
   // Utilities (2026-08-20 follow-up) — each split into provider name + a contact/account
   // field, replacing the earlier single freeform `utilityProviders` blob. Telephone/cable
@@ -227,6 +232,10 @@ model Tenant {
   employer         String?
   employmentStatus String?
   monthlyIncome    Decimal? @db.Decimal(10, 2)
+
+  isStudent        Boolean @default(false)
+  isServicemember  Boolean @default(false)
+  nonresidentAlien Boolean @default(false) // for U.S. tax purposes; asked only for an Alaska lease over a year
 
   emergencyContactName     String?
   emergencyContactPhone    String?
@@ -317,6 +326,12 @@ model Lease {
 
   monthlyRent           Decimal  @db.Decimal(10, 2)
   securityDepositAmount Decimal? @db.Decimal(10, 2)
+  // Yes/No that starts blank (null = not answered); true needs an amount over $0 (2026-11-22).
+  securityDepositTaken  Boolean?
+  // FIXED or MONTH_TO_MONTH; null = not answered (a blank end date can't tell the two apart).
+  leaseType             String?
+  // Answers to the lease's applicability questions (src/lib/factCatalog.js).
+  facts                 Json     @default("{}")
 
   lateFeeAmount    Decimal? @db.Decimal(10, 2)
   lateFeeGraceDays Int?
@@ -500,6 +515,9 @@ model Occupant {
   age      Int?
   phone    String?
   email    String?
+
+  isStudent       Boolean @default(false)
+  isServicemember Boolean @default(false)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
