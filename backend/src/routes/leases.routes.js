@@ -13,6 +13,7 @@ const { choiceGroupOf, findChoiceGroupConflict } = require("../lib/clauseChoiceG
 const { ruleApplies, applicabilityNote } = require("../lib/clauseApplicability");
 const { validateFacts, mergeFacts } = require("../lib/factCatalog");
 const { missingFacts } = require("../lib/missingFacts");
+const { hiddenTemplates } = require("../lib/pickerRules");
 const {
   buildRentTracker,
   suggestPaymentAllocation,
@@ -689,7 +690,12 @@ function createLeasesRoutes({ r2 = defaultR2 } = {}) {
     const state = lease.property?.state;
     const templates = CLAUSE_TEMPLATES.filter((t) => (t.states || []).includes(state));
     const ctx = await ruleContext(lease, req.currentUser.id);
-    res.json({ questions: missingFacts(templates, ctx), clauses: await requiredClauses(lease, req.currentUser.id, ctx) });
+    res.json({
+      questions: missingFacts(templates, ctx),
+      clauses: await requiredClauses(lease, req.currentUser.id, ctx),
+      // Recommended and Optional clauses this lease's answers rule out, hidden in the picker.
+      hidden: hiddenTemplates(templates, ctx),
+    });
   });
 
   router.post("/:id/clauses/add-defaults", async (req, res) => {
@@ -747,7 +753,12 @@ function createLeasesRoutes({ r2 = defaultR2 } = {}) {
     const requiredIds = forThisState
       .filter((t) => isRequiredHere(t) && !supersededHere.has(t.id))
       .map((t) => t.id);
-    const markedIds = defaultTemplateLinks.filter((link) => !link.excluded).map((link) => link.templateId);
+    // A clause the landlord marked as a default is skipped when this lease's
+    // answers rule it out (pool rules for a property without a pool).
+    const ruledOut = new Set(hiddenTemplates(forThisState, ctx).map((h) => h.templateId));
+    const markedIds = defaultTemplateLinks
+      .filter((link) => !link.excluded && !ruledOut.has(link.templateId))
+      .map((link) => link.templateId);
     const defaultTemplateIds = [...new Set([...requiredIds, ...markedIds])];
 
     const snapshots = [

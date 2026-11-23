@@ -24,6 +24,11 @@ describe("ruleConditions", () => {
     expect(resolve("property.furnished", ctx())).toBe(false);
   });
 
+  it("treats an unticked checkbox as unanswered when deciding whether to hide a clause", () => {
+    expect(resolve("property.furnished", { ...ctx(), strictCheckboxes: true })).toBe(null);
+    expect(resolve("property.furnished", { ...ctx({ facts: { furnished: true } }), strictCheckboxes: true })).toBe(true);
+  });
+
   it("derives the deposit, lease length and the people on the lease", () => {
     expect(resolve("lease.depositTaken", ctx({}, { securityDepositTaken: false }))).toBe(false);
     expect(resolve("lease.depositTaken", ctx({}, { securityDepositAmount: "500" }))).toBe(true);

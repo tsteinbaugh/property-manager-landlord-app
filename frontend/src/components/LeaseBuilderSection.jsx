@@ -54,6 +54,10 @@ export default function LeaseBuilderSection({ lease, onChange }) {
   const missingRequired = (applicability?.clauses.required || []).filter((c) => !c.attached);
   const missingLegalDuty = (applicability?.clauses.legalDuty || []).filter((c) => !c.attached);
   const blockingQuestions = (applicability?.questions || []).filter((q) => q.blocks);
+  // Recommended and Optional clauses this lease's answers rule out (pool rules
+  // without a pool) are hidden from the picker unless the landlord asks to see them.
+  const ruledOutIds = new Set((applicability?.hidden || []).map((h) => h.templateId));
+  const [showRuledOut, setShowRuledOut] = useState(false);
 
   async function handleAddMissing(templateId) {
     setSubmitting(true);
@@ -124,7 +128,8 @@ export default function LeaseBuilderSection({ lease, onChange }) {
           !attachedTemplateIds.has(t.id) &&
           !supersededTemplateIds.has(t.id) &&
           !isWrongForCauseVariant(t.id, forCauseExemption) &&
-          !(t.choiceGroup && attachedChoiceGroups.has(t.choiceGroup)),
+          !(t.choiceGroup && attachedChoiceGroups.has(t.choiceGroup)) &&
+          (showRuledOut || !ruledOutIds.has(t.id)),
       )
       .map((t) => ({ ...t, optionValue: encodeOption("template", t.id) })),
   ];
@@ -401,6 +406,17 @@ export default function LeaseBuilderSection({ lease, onChange }) {
           )}
           <div className="min-w-64 flex-1">
             <span className="mb-1 block text-sm font-medium text-stone-700">Clause</span>
+            {ruledOutIds.size > 0 && (
+              <button
+                type="button"
+                onClick={() => setShowRuledOut(!showRuledOut)}
+                className="mb-2 text-xs text-stone-500 hover:text-stone-700 hover:underline"
+              >
+                {showRuledOut
+                  ? "Hide clauses your answers rule out"
+                  : `${ruledOutIds.size} clause${ruledOutIds.size === 1 ? "" : "s"} hidden because your answers rule ${ruledOutIds.size === 1 ? "it" : "them"} out (for example, pool rules for a property without a pool). Show them`}
+              </button>
+            )}
             {pickerOptions.length === 0 ? (
               <p className="text-sm text-stone-500">
                 Nothing left to attach —{" "}

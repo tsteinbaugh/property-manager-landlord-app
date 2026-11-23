@@ -62,7 +62,10 @@ const DERIVED = {
   "property.bedrooms": ({ property }) => property?.bedrooms ?? null,
   // A manager is "used" when the property names one (the manager fields are
   // optional, so blank means none).
-  "property.hasManager": ({ property }) => Boolean(property?.facts?.managerCompany || property?.facts?.managerName),
+  // No manager named reads as "no manager", except when deciding whether to
+  // hide a clause: blank fields aren't an answer.
+  "property.hasManager": ({ property, strictCheckboxes }) =>
+    property?.facts?.managerCompany || property?.facts?.managerName ? true : strictCheckboxes ? null : false,
   "property.anyUtilityChargedBack": ({ property }) => {
     const u = property?.facts?.utilities;
     if (!u) return null;
@@ -123,7 +126,12 @@ const DERIVED = {
     return new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate() + 1)).getUTCDate() !== 1;
   },
   "lease.petPolicy": ({ lease }) => (typeof lease?.petPolicy === "boolean" ? lease.petPolicy : null),
-  "lease.hasGuarantor": ({ lease }) => (lease?.leaseTenants ? lease.leaseTenants.some((lt) => lt.role === "GUARANTOR") : null),
+  // Unknown until someone is on the lease: the guarantor is often added with the tenants.
+  "lease.hasGuarantor": ({ lease }) => {
+    const lts = lease?.leaseTenants;
+    if (!lts || lts.length === 0) return null;
+    return lts.some((lt) => lt.role === "GUARANTOR");
+  },
   // People on the lease: non-guarantor tenants plus their occupants.
   "lease.peopleCount": ({ lease }) => {
     const ps = people(lease);
@@ -151,7 +159,9 @@ function resolve(path, ctx) {
   const facts = ctx[target]?.facts || {};
   const v = facts[id];
   const q = CATALOG[target].find((x) => x.id === id);
-  if (isBlank(v) && q.type === "checkbox") return q.default ?? false;
+  // An unticked checkbox reads as its default, except when deciding whether to
+  // hide a clause (ctx.strictCheckboxes), where nobody-ticked counts as unanswered.
+  if (isBlank(v) && q.type === "checkbox") return ctx.strictCheckboxes ? null : q.default ?? false;
   return isBlank(v) ? null : v;
 }
 
