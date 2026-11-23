@@ -182,14 +182,10 @@ describe("properties routes", () => {
       stories: 2,
       basement: "Unfinished",
       lotSize: "0.25 acres",
-      parking: "2-car garage",
-      storage: "Shed in backyard",
       mailboxLocation: "Curbside, cluster box #4",
       trashPickupDay: "Tuesday",
       trashCanStorageLocation: "Side yard, behind gate",
-      hoaOrMetroDistrict: "Maple Grove Metro District",
       hoaContact: "hoa@maplegrove.example",
-      acceptsSection8: true,
       mortgageCompany: "Frederick Community Bank",
       mortgageContact: "555-0111",
       insuranceNotes: "State Farm, policy #12345, agent Jane Doe 555-0100",
@@ -209,8 +205,6 @@ describe("properties routes", () => {
 
     expect(createRes.status).toBe(201);
     expect(createRes.body.stories).toBe(2);
-    expect(createRes.body.acceptsSection8).toBe(true);
-    expect(createRes.body.hoaOrMetroDistrict).toBe("Maple Grove Metro District");
     expect(createRes.body.trashPickupDay).toBe("Tuesday");
     expect(createRes.body.insuranceNotes).toBe("State Farm, policy #12345, agent Jane Doe 555-0100");
     expect(createRes.body.electricityProvider).toBe("Xcel Energy");
@@ -220,26 +214,12 @@ describe("properties routes", () => {
 
     const updateRes = await request(app)
       .put(`/api/properties/${createRes.body.id}`)
-      .send({ acceptsSection8: false, mortgageCompany: "New Lender" });
+      .send({ mortgageCompany: "New Lender" });
 
     expect(updateRes.status).toBe(200);
-    expect(updateRes.body.acceptsSection8).toBe(false);
     expect(updateRes.body.mortgageCompany).toBe("New Lender");
     // untouched fields survive a partial update
-    expect(updateRes.body.hoaOrMetroDistrict).toBe("Maple Grove Metro District");
-  });
-
-  it("defaults acceptsSection8 to false when not specified", async () => {
-    const res = await request(app).post("/api/properties").send({
-      entityId: entity.id,
-      address1: "123 Maple St",
-      city: "Frederick",
-      state: "CO",
-      zip: "80530",
-    });
-
-    expect(res.status).toBe(201);
-    expect(res.body.acceptsSection8).toBe(false);
+    expect(updateRes.body.hoaContact).toBe("hoa@maplegrove.example");
   });
 
   it("defaults forCauseEvictionExemption to STANDARD_LONG_TERM when not specified", async () => {

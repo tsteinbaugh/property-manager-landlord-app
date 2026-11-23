@@ -7,7 +7,21 @@ import FinancesSnapshotCard from "../components/FinancesSnapshotCard";
 import MaintenanceSnapshotCard from "../components/MaintenanceSnapshotCard";
 import BackLink from "../components/BackLink";
 import { FOR_CAUSE_EVICTION_EXEMPTION_OPTIONS } from "../lib/forCauseEvictionVariant";
-import FactQuestionsCard from "../components/FactQuestions";
+import { useFactCatalog } from "../components/FactQuestions";
+import { FactFieldsEdit, factViewRows, factPatch, questionsAt } from "../components/FactFields";
+import { IN_UTILITY_ROWS, UtilityRowsEdit, utilityViewRows } from "../components/UtilityFields";
+
+// The property's Lease questions, built into this page's sections (Taylor,
+// 2026-11-22); the furnishings and flooring ones live on Property Specs.
+const PROPERTY_PLACES = [
+  "property.address",
+  "property.structural",
+  "property.parking",
+  "property.utilities",
+  "property.legal",
+  "property.manager",
+  "property.disclosures",
+];
 
 // amenities is edited as a comma-separated text field, same convention as
 // ClauseLibraryPage's `states` field and PropertiesPage's create form.
@@ -20,6 +34,8 @@ function parseAmenitiesInput(value) {
 
 // Local field helper — the second attributes batch (2026-08-20) added enough plain
 // text/number inputs that spelling each one out inline would dwarf the rest of this file.
+const TRASH_DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", "No curbside pickup"];
+
 function TextField({ label, value, onChange, type = "text", placeholder, span, children }) {
   return (
     <label className={`block text-sm ${span ? "sm:col-span-2" : ""}`}>
@@ -65,29 +81,16 @@ const DETAIL_FACT_FIELDS = [
   ["stories", "Stories"],
   ["basement", "Basement"],
   ["lotSize", "Lot size"],
-  ["parking", "Parking"],
-  ["storage", "Storage"],
   ["mailboxLocation", "Mailbox"],
   ["trashPickupDay", "Trash pickup"],
   ["trashCanStorageLocation", "Trash cans"],
-  ["hoaOrMetroDistrict", "HOA / metro district"],
-  ["hoaContact", "HOA contact"],
+  ["hoaContact", "Association contact"],
   ["insuranceNotes", "Insurance"],
 ];
 
 // Each utility is a provider + contact pair, collapsed into one display line —
 // "Electricity: Xcel Energy — 1-800-895-4999, acct #555" — rather than two
 // separate facts, since they're only ever meaningful together.
-const UTILITY_FIELDS = [
-  ["electricityProvider", "electricityContact", "Electricity"],
-  ["gasProvider", "gasContact", "Gas"],
-  ["waterProvider", "waterContact", "Water"],
-  ["sewerProvider", "sewerContact", "Sewer"],
-  ["trashProvider", "trashContact", "Trash"],
-  ["internetProvider", "internetContact", "Internet"],
-  ["mortgageCompany", "mortgageContact", "Mortgage"],
-];
-
 function utilityLine(property, providerKey, contactKey) {
   const provider = property[providerKey];
   const contact = property[contactKey];
@@ -96,44 +99,63 @@ function utilityLine(property, providerKey, contactKey) {
   return provider || contact;
 }
 
-// Read-only rollup of the second attributes batch — only renders facts that are
-// actually set, so a property nobody's filled these in for shows nothing extra.
-function PropertyDetailFacts({ property }) {
-  const facts = DETAIL_FACT_FIELDS.filter(([key]) => property[key]);
-  const utilities = UTILITY_FIELDS.map(([providerKey, contactKey, label]) => [
-    label,
-    utilityLine(property, providerKey, contactKey),
-  ]).filter(([, line]) => line);
-  // Only surfaced when it's the exceptional case, same instinct as acceptsSection8 below —
-  // STANDARD_LONG_TERM is the default/expected value for most properties, not worth a line.
-  const exemptionLabel = FOR_CAUSE_EVICTION_EXEMPTION_OPTIONS.find(
-    (opt) => opt.value === property.forCauseEvictionExemption,
+function Group({ title, children }) {
+  const items = [children].flat(Infinity).filter(Boolean);
+  if (items.length === 0) return null;
+  return (
+    <div className="border-t border-stone-100 pt-3">
+      <h3 className="mb-2 text-sm font-semibold text-stone-800">{title}</h3>
+      <div className="grid grid-cols-1 gap-x-6 gap-y-2 text-sm sm:grid-cols-2">{children}</div>
+    </div>
   );
+}
+
+// A free-text field as a row, or nothing when it's blank (so Group can tell).
+function Line({ label, value }) {
+  return (
+    <p className={`text-stone-600 ${String(value).length > 60 ? "sm:col-span-2" : ""}`}>
+      <span className="font-medium text-stone-700">{label}:</span> {value}
+    </p>
+  );
+}
+const line = (label, value) => (value ? <Line key={label} label={label} value={value} /> : null);
+
+// The property's details, grouped like the edit form. Free-text fields show
+// only when set, and so do Lease questions: the lease builder's fill-in-the-gaps
+// box asks whatever a lease still needs (Taylor, 2026-11-23).
+function PropertyDetailFacts({ property, catalog }) {
+  const states = [property.state];
+  const view = (place) =>
+    factViewRows({ catalog, target: "property", place, states, answers: property.facts, fromSpecs: property.factsFromSpecs });
+  const text = (key) => DETAIL_FACT_FIELDS.find(([k]) => k === key);
+  const lines = (keys) => keys.map((k) => line(text(k)[1], property[k]));
+  const utilities = utilityViewRows({ catalog, states, property });
+  // Only surfaced when it's the exceptional case: STANDARD_LONG_TERM is the
+  // default/expected value for most properties, not worth a line.
+  const exemptionLabel = FOR_CAUSE_EVICTION_EXEMPTION_OPTIONS.find((opt) => opt.value === property.forCauseEvictionExemption);
   const showExemptionFact = exemptionLabel && property.forCauseEvictionExemption !== "STANDARD_LONG_TERM";
-  if (facts.length === 0 && utilities.length === 0 && !property.acceptsSection8 && !showExemptionFact) return null;
 
   return (
-    <div className="mt-3 grid grid-cols-1 gap-x-6 gap-y-1 border-t border-stone-100 pt-3 text-sm sm:grid-cols-2">
-      {property.acceptsSection8 && (
-        <p className="text-stone-600 sm:col-span-2">
-          <span className="font-medium text-stone-700">Accepts Section 8</span>
-        </p>
-      )}
-      {showExemptionFact && (
-        <p className="text-stone-600 sm:col-span-2">
-          <span className="font-medium text-stone-700">For-cause eviction status:</span> {exemptionLabel.label}
-        </p>
-      )}
-      {facts.map(([key, label]) => (
-        <p key={key} className="text-stone-600">
-          <span className="font-medium text-stone-700">{label}:</span> {property[key]}
-        </p>
-      ))}
-      {utilities.map(([label, line]) => (
-        <p key={label} className="text-stone-600">
-          <span className="font-medium text-stone-700">{label}:</span> {line}
-        </p>
-      ))}
+    <div className="mt-3 space-y-4">
+      <Group title="Structural">
+        {lines(["stories", "basement", "lotSize"])}
+        {view("property.structural")}
+      </Group>
+      <Group title="Parking and storage">{view("property.parking")}</Group>
+      <Group title="Utilities">
+        {utilities}
+        {factViewRows({ catalog, target: "property", place: "property.utilities", states, answers: property.facts, exclude: IN_UTILITY_ROWS })}
+      </Group>
+      <Group title="Access and trash">{lines(["mailboxLocation", "trashPickupDay", "trashCanStorageLocation"])}</Group>
+      <Group title="Legal and financial">
+        {view("property.legal")}
+        {lines(["hoaContact"])}
+        {line("Mortgage", utilityLine(property, "mortgageCompany", "mortgageContact"))}
+        {lines(["insuranceNotes"])}
+        {showExemptionFact && line("For-cause eviction status", exemptionLabel.label)}
+      </Group>
+      <Group title="Property manager">{view("property.manager")}</Group>
+      <Group title="Disclosures">{view("property.disclosures")}</Group>
     </div>
   );
 }
@@ -152,6 +174,7 @@ export default function PropertyDetailPage() {
 
   const [editing, setEditing] = useState(false);
   const [form, setForm] = useState(null);
+  const catalog = useFactCatalog();
   const [submitting, setSubmitting] = useState(false);
 
   const [archiving, setArchiving] = useState(false);
@@ -199,6 +222,18 @@ export default function PropertyDetailPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
+  // Props for a group of Lease questions in the edit form, kept in form.facts.
+  function factProps(place) {
+    return {
+      catalog,
+      target: "property",
+      place,
+      states: [form.state],
+      answers: form.facts || {},
+      onChange: (facts) => setForm({ ...form, facts }),
+    };
+  }
+
   async function handleSave(e) {
     e.preventDefault();
     setSubmitting(true);
@@ -212,7 +247,10 @@ export default function PropertyDetailPage() {
         sqFt: form.sqFt === "" || form.sqFt === null ? undefined : Number(form.sqFt),
         stories: form.stories === "" || form.stories === null ? undefined : Number(form.stories),
       };
-      const updated = await api.put(`/api/properties/${id}`, payload);
+      delete payload.facts;
+      let updated = await api.put(`/api/properties/${id}`, payload);
+      const patch = factPatch(catalog, "property", property.facts, form.facts, PROPERTY_PLACES);
+      if (Object.keys(patch).length) updated = await api.put(`/api/properties/${id}/facts`, { facts: patch });
       setProperty(updated);
       setForm(updated);
       setEditing(false);
@@ -299,6 +337,11 @@ export default function PropertyDetailPage() {
               {property.address2 ? `, ${property.address2}` : ""}, {property.city}, {property.state}{" "}
               {property.zip}
             </p>
+            {(property.facts?.county || property.facts?.island) && (
+              <p className="text-sm text-stone-500">
+                {[property.facts.county && `${property.facts.county.replace(/ County$/i, "")} County`, property.facts.island].filter(Boolean).join(" · ")}
+              </p>
+            )}
             <Link to={`/properties/${id}/specs`} className="text-xs text-emerald-700 hover:underline">
               Property Specs →
             </Link>
@@ -445,6 +488,9 @@ export default function PropertyDetailPage() {
                   />
                 </label>
               </div>
+              <div className="sm:col-span-2">
+                <FactFieldsEdit {...factProps("property.address")} />
+              </div>
 
               <label className="block text-sm">
                 <span className="mb-1 block font-medium text-stone-700">Year built</span>
@@ -507,31 +553,26 @@ export default function PropertyDetailPage() {
                 <TextField label="Stories" type="number" value={form.stories} onChange={(v) => setForm({ ...form, stories: v })} />
                 <TextField label="Basement" placeholder="Finished, unfinished, crawlspace, none..." value={form.basement} onChange={(v) => setForm({ ...form, basement: v })} />
                 <TextField label="Lot size" placeholder="0.25 acres or 6,500 sq ft" value={form.lotSize} onChange={(v) => setForm({ ...form, lotSize: v })} />
-                <TextField label="Parking" placeholder="2-car garage, driveway + street..." value={form.parking} onChange={(v) => setForm({ ...form, parking: v })} />
-                <TextField label="Storage" placeholder="Shed in backyard, none..." value={form.storage} onChange={(v) => setForm({ ...form, storage: v })} />
+              </div>
+              <div className="mt-4">
+                <FactFieldsEdit {...factProps("property.structural")} />
               </div>
             </div>
 
             <div className="border-t border-stone-200 pt-4">
-              <h3 className="mb-3 text-sm font-semibold text-stone-800">Utilities</h3>
+              <h3 className="mb-3 text-sm font-semibold text-stone-800">Parking and storage</h3>
+              <FactFieldsEdit {...factProps("property.parking")} />
+            </div>
+
+            <div className="border-t border-stone-200 pt-4">
+              <h3 className="mb-1 text-sm font-semibold text-stone-800">Utilities</h3>
               <p className="mb-3 text-xs text-stone-400">
-                Provider + who to call, for taking over service or troubleshooting at turnover. No phone/cable —
-                that's the tenant's own choice, not tracked here.
+                Who pays, plus the provider and who to call for taking over service or troubleshooting at turnover. No
+                phone/cable — that's the tenant's own choice, not tracked here.
               </p>
-              <div className="grid grid-cols-1 gap-4">
-                <ContactPairField label="Electricity" form={form} setForm={setForm} providerKey="electricityProvider" contactKey="electricityContact" />
-                <ContactPairField label="Gas" form={form} setForm={setForm} providerKey="gasProvider" contactKey="gasContact" />
-                <ContactPairField label="Water" form={form} setForm={setForm} providerKey="waterProvider" contactKey="waterContact" />
-                <ContactPairField label="Sewer" form={form} setForm={setForm} providerKey="sewerProvider" contactKey="sewerContact" />
-                <ContactPairField label="Trash" form={form} setForm={setForm} providerKey="trashProvider" contactKey="trashContact" />
-                <ContactPairField
-                  label="Internet"
-                  providerPlaceholder="Leave blank if tenant's choice"
-                  form={form}
-                  setForm={setForm}
-                  providerKey="internetProvider"
-                  contactKey="internetContact"
-                />
+              <UtilityRowsEdit catalog={catalog} states={[form.state]} form={form} setForm={setForm} />
+              <div className="mt-4">
+                <FactFieldsEdit {...factProps("property.utilities")} exclude={IN_UTILITY_ROWS} />
               </div>
             </div>
 
@@ -539,7 +580,22 @@ export default function PropertyDetailPage() {
               <h3 className="mb-3 text-sm font-semibold text-stone-800">Access & trash</h3>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <TextField label="Mailbox location" value={form.mailboxLocation} onChange={(v) => setForm({ ...form, mailboxLocation: v })} />
-                <TextField label="Trash pickup day" placeholder="Tuesday" value={form.trashPickupDay} onChange={(v) => setForm({ ...form, trashPickupDay: v })} />
+                <label className="block text-sm">
+                  <span className="mb-1 block font-medium text-stone-700">Trash pickup day</span>
+                  <select
+                    value={form.trashPickupDay ?? ""}
+                    onChange={(e) => setForm({ ...form, trashPickupDay: e.target.value })}
+                    className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
+                  >
+                    <option value="">Select…</option>
+                    {/* An older free-text answer stays selectable until it's changed. */}
+                    {[...(form.trashPickupDay && !TRASH_DAYS.includes(form.trashPickupDay) ? [form.trashPickupDay] : []), ...TRASH_DAYS].map((d) => (
+                      <option key={d} value={d}>
+                        {d}
+                      </option>
+                    ))}
+                  </select>
+                </label>
                 <TextField
                   span
                   label="Trash can storage location"
@@ -552,28 +608,19 @@ export default function PropertyDetailPage() {
 
             <div className="border-t border-stone-200 pt-4">
               <h3 className="mb-3 text-sm font-semibold text-stone-800">Legal & financial</h3>
-              <div className="grid grid-cols-1 gap-4">
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  <TextField label="HOA / metro district" placeholder="Maple Grove Metro District" value={form.hoaOrMetroDistrict} onChange={(v) => setForm({ ...form, hoaOrMetroDistrict: v })} />
-                  <TextField label="HOA contact" value={form.hoaContact} onChange={(v) => setForm({ ...form, hoaContact: v })} />
-                </div>
-                <ContactPairField label="Mortgage" form={form} setForm={setForm} providerKey="mortgageCompany" contactKey="mortgageContact" providerPlaceholder="Lender name" />
-                <label className="flex items-center gap-2 text-sm">
-                  <input
-                    type="checkbox"
-                    checked={!!form.acceptsSection8}
-                    onChange={(e) => setForm({ ...form, acceptsSection8: e.target.checked })}
-                    className="h-4 w-4 rounded border-stone-300"
-                  />
-                  <span className="font-medium text-stone-700">Accepts Section 8</span>
-                </label>
+              <div className="mb-4">
+                <FactFieldsEdit {...factProps("property.legal")} />
+              </div>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <TextField label="Association contact" value={form.hoaContact} onChange={(v) => setForm({ ...form, hoaContact: v })} />
                 <TextField
                   label="Insurance notes"
                   placeholder="Insurer, policy #, agent contact..."
                   value={form.insuranceNotes}
                   onChange={(v) => setForm({ ...form, insuranceNotes: v })}
                 />
-                <div>
+                <ContactPairField label="Mortgage" form={form} setForm={setForm} providerKey="mortgageCompany" contactKey="mortgageContact" providerPlaceholder="Lender name" />
+                <div className="sm:col-span-2">
                   <p className="mb-2 text-sm font-medium text-stone-700">Colorado for-cause eviction status</p>
                   <p className="mb-2 text-xs text-stone-500">
                     Determines which month-to-month termination-notice clause the Lease Builder offers for this property —
@@ -597,6 +644,19 @@ export default function PropertyDetailPage() {
                 </div>
               </div>
             </div>
+
+            <div className="border-t border-stone-200 pt-4">
+              <h3 className="mb-3 text-sm font-semibold text-stone-800">Property manager</h3>
+              <FactFieldsEdit {...factProps("property.manager")} />
+            </div>
+
+            {questionsAt(catalog, "property", "property.disclosures", [form.state], form.facts).length > 0 && (
+              <div className="border-t border-stone-200 pt-4">
+                <h3 className="mb-1 text-sm font-semibold text-stone-800">Disclosures</h3>
+                <p className="mb-3 text-xs text-stone-400">What you know about the property that the law in {form.state} makes you tell a tenant.</p>
+                <FactFieldsEdit {...factProps("property.disclosures")} />
+              </div>
+            )}
 
             <div className="flex gap-2">
               <button
@@ -644,25 +704,11 @@ export default function PropertyDetailPage() {
                 ))}
               </div>
             )}
-            <PropertyDetailFacts property={property} />
+            {catalog && <PropertyDetailFacts property={property} catalog={catalog} />}
           </>
         )}
       </div>
 
-      <FactQuestionsCard
-        title="Lease questions"
-        intro="The lease builder uses these answers to decide which clauses this property's leases need. Questions only some states ask show for this property's state."
-        target="property"
-        states={[property.state]}
-        answers={property.facts}
-        fromSpecs={property.factsFromSpecs}
-        disabled={property.archived}
-        onSave={async (facts) => {
-          const updated = await api.put(`/api/properties/${id}/facts`, { facts });
-          setProperty(updated);
-          setForm(updated);
-        }}
-      />
 
       <TenantSection propertyId={id} items={tenants} onChange={load} />
       <LeaseSection propertyId={id} items={leases} onChange={load} />

@@ -3,7 +3,8 @@ import { Link, useParams } from "react-router-dom";
 import { useApi } from "../hooks/useApi";
 import BackLink from "../components/BackLink";
 import LeaseBuilderSection from "../components/LeaseBuilderSection";
-import FactQuestionsCard from "../components/FactQuestions";
+import { useFactCatalog, YesNo } from "../components/FactQuestions";
+import { FactFieldsEdit, FactFieldsView, factPatch } from "../components/FactFields";
 import { FirstMonthSection, NoticesSection } from "../components/LeaseTermsSections";
 import { formatDay } from "../lib/dates";
 
@@ -33,6 +34,7 @@ function toForm(lease) {
     securityDepositTaken: lease.securityDepositTaken ?? null,
     lateFeeCharged: lease.lateFeeCharged ?? null,
     leaseType: lease.leaseType ?? "",
+    facts: lease.facts || {},
   };
   for (const f of TEXT_FIELDS) form[f] = lease[f] || "";
   for (const f of NUMBER_FIELDS) form[f] = lease[f] ?? "";
@@ -56,6 +58,7 @@ export default function LeaseDetailPage() {
   const [error, setError] = useState(null);
   const [editing, setEditing] = useState(false);
   const [form, setForm] = useState(null);
+  const catalog = useFactCatalog();
   const [submitting, setSubmitting] = useState(false);
 
   const [attachTenantId, setAttachTenantId] = useState("");
@@ -117,6 +120,7 @@ export default function LeaseDetailPage() {
     }
 
     const body = { ...form, leaseType: form.leaseType || null };
+    delete body.facts;
     for (const key of [...TEXT_FIELDS, ...NUMBER_FIELDS, ...DATE_FIELDS]) {
       if (body[key] === "") {
         if (REQUIRED_FIELDS.includes(key)) delete body[key];
@@ -133,7 +137,9 @@ export default function LeaseDetailPage() {
     }
 
     try {
-      const updated = await api.put(`/api/leases/${id}`, body);
+      let updated = await api.put(`/api/leases/${id}`, body);
+      const patch = factPatch(catalog, "lease", lease.facts, form.facts, ["lease.details"]);
+      if (Object.keys(patch).length) updated = await api.put(`/api/leases/${id}/facts`, { facts: patch });
       setLease(updated);
       setForm(toForm(updated));
       setEditing(false);
@@ -371,7 +377,7 @@ export default function LeaseDetailPage() {
                   onChange={(e) => setForm({ ...form, leaseType: e.target.value })}
                   className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
                 >
-                  <option value="">Not answered</option>
+                  <option value="">Select…</option>
                   <option value="FIXED">Fixed term</option>
                   <option value="MONTH_TO_MONTH">Month-to-month</option>
                 </select>
@@ -379,24 +385,12 @@ export default function LeaseDetailPage() {
               <div className="text-sm sm:col-span-2">
                 <span className="mb-1 block font-medium text-stone-700">Do you take a security deposit?</span>
                 <div className="flex flex-wrap items-center gap-4">
-                  {[
-                    [true, "Yes"],
-                    [false, "No"],
-                  ].map(([v, label]) => (
-                    <label key={label} className="flex items-center gap-1.5">
-                      <input
-                        type="radio"
-                        name="securityDepositTaken"
-                        checked={form.securityDepositTaken === v}
-                        onChange={() =>
-                          setForm({ ...form, securityDepositTaken: v, securityDepositAmount: v ? form.securityDepositAmount : "" })
-                        }
-                        className="h-4 w-4 border-stone-300"
-                      />
-                      <span className="text-stone-700">{label}</span>
-                    </label>
-                  ))}
-                  {form.securityDepositTaken === null && <span className="text-xs text-amber-700">Not answered</span>}
+                  <YesNo
+                    value={form.securityDepositTaken}
+                    onChange={(v) =>
+                      setForm(v === true ? { ...form, securityDepositTaken: true } : { ...form, securityDepositTaken: v, securityDepositAmount: "" })
+                    }
+                  />
                   {form.securityDepositTaken === true && (
                     <input
                       type="number"
@@ -414,29 +408,12 @@ export default function LeaseDetailPage() {
               <div className="text-sm sm:col-span-2">
                 <span className="mb-1 block font-medium text-stone-700">Do you charge a late fee?</span>
                 <div className="flex flex-wrap items-center gap-4">
-                  {[
-                    [true, "Yes"],
-                    [false, "No"],
-                  ].map(([v, label]) => (
-                    <label key={label} className="flex items-center gap-1.5">
-                      <input
-                        type="radio"
-                        name="lateFeeCharged"
-                        checked={form.lateFeeCharged === v}
-                        onChange={() =>
-                          setForm({
-                            ...form,
-                            lateFeeCharged: v,
-                            lateFeeAmount: v ? form.lateFeeAmount : "",
-                            lateFeeGraceDays: v ? form.lateFeeGraceDays : "",
-                          })
-                        }
-                        className="h-4 w-4 border-stone-300"
-                      />
-                      <span className="text-stone-700">{label}</span>
-                    </label>
-                  ))}
-                  {form.lateFeeCharged === null && <span className="text-xs text-amber-700">Not answered</span>}
+                  <YesNo
+                    value={form.lateFeeCharged}
+                    onChange={(v) =>
+                      setForm(v === true ? { ...form, lateFeeCharged: true } : { ...form, lateFeeCharged: v, lateFeeAmount: "", lateFeeGraceDays: "" })
+                    }
+                  />
                 </div>
                 {form.lateFeeCharged === true && (
                   <div className="mt-2 grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -507,6 +484,16 @@ export default function LeaseDetailPage() {
                   placeholder="e.g. 3% max annually"
                 />
               </label>
+              <div className="sm:col-span-2">
+                <FactFieldsEdit
+                  catalog={catalog}
+                  target="lease"
+                  place="lease.details"
+                  states={lease.property?.state ? [lease.property.state] : []}
+                  answers={form.facts}
+                  onChange={(facts) => setForm({ ...form, facts })}
+                />
+              </div>
               <label className="block text-sm sm:col-span-2">
                 <span className="mb-1 block font-medium text-stone-700">Notes</span>
                 <textarea
@@ -540,7 +527,7 @@ export default function LeaseDetailPage() {
         ) : (
           <div className="mt-4 grid grid-cols-1 gap-x-8 gap-y-2 border-t border-stone-200 pt-4 text-sm sm:grid-cols-2">
             <DetailRow label="Status" value={lease.status} />
-            <DetailRow label="Lease type" value={LEASE_TYPE_LABELS[lease.leaseType] ?? "Not answered"} />
+            <DetailRow label="Lease type" value={LEASE_TYPE_LABELS[lease.leaseType]} />
             <DetailRow
               label="Security deposit"
               value={
@@ -548,7 +535,7 @@ export default function LeaseDetailPage() {
                   ? "None"
                   : lease.securityDepositTaken === true
                     ? money(lease.securityDepositAmount) ?? "Yes (amount not entered)"
-                    : "Not answered"
+                    : null
               }
             />
             <DetailRow
@@ -558,7 +545,7 @@ export default function LeaseDetailPage() {
                   ? "None"
                   : lease.lateFeeCharged === true
                     ? money(lease.lateFeeAmount) ?? "Yes (amount not entered)"
-                    : "Not answered"
+                    : null
               }
             />
             {lease.lateFeeCharged === true && <DetailRow label="Late fee grace days" value={lease.lateFeeGraceDays} />}
@@ -566,6 +553,13 @@ export default function LeaseDetailPage() {
             <DetailRow label="Pet rent" value={money(lease.petRentAmount)} />
             <DetailRow label="Tenant insurance minimum coverage" value={money(lease.tenantInsuranceMinimumCoverage)} />
             <DetailRow label="Renewal rent increase cap" value={lease.renewalRentIncreaseCap} />
+            <FactFieldsView
+              catalog={catalog}
+              target="lease"
+              place="lease.details"
+              states={lease.property?.state ? [lease.property.state] : []}
+              answers={lease.facts}
+            />
             {lease.notes && (
               <div className="sm:col-span-2">
                 <span className="text-stone-400">Notes: </span>
@@ -716,17 +710,6 @@ export default function LeaseDetailPage() {
         }
       />
 
-      <FactQuestionsCard
-        title="Lease questions"
-        intro="The lease builder uses these answers, with the property's, to decide which clauses this lease needs."
-        target="lease"
-        states={lease.property?.state ? [lease.property.state] : []}
-        answers={lease.facts}
-        onSave={async (facts) => {
-          const updated = await api.put(`/api/leases/${id}/facts`, { facts });
-          setLease(updated);
-        }}
-      />
 
       <LeaseBuilderSection lease={lease} onChange={load} />
 

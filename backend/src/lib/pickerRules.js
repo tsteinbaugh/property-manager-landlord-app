@@ -114,7 +114,7 @@ const PICKER_RULES = {
     note: "when no utility is billed to the tenant by you",
   },
   "common-area-lighting-ok": {
-    condition: {"all":[{"fact":"property.meterServesOutsideUnit","op":"eq","value":true},{"fact":"property.utility.electric.whoPays","op":"in","value":["TENANT_DIRECT","CHARGED_BACK"]}]},
+    condition: {"all":[{"fact":"property.electricMeterOutsideUnit","op":"eq","value":true},{"fact":"property.utility.electric.whoPays","op":"in","value":["TENANT_DIRECT","CHARGED_BACK"]}]},
     note: "when the unit's meter serves only the unit, or the tenant doesn't pay for electricity",
   },
   "association-documents-delivery-mi": {
@@ -422,7 +422,7 @@ const PICKER_RULES = {
     note: "when you don't enforce parking or towing rules",
   },
   "common-area-lighting-tenant-meter-wy": {
-    condition: {"all":[{"fact":"property.meterServesOutsideUnit","op":"eq","value":true},{"fact":"property.utility.electric.whoPays","op":"eq","value":"TENANT_DIRECT"}]},
+    condition: {"all":[{"fact":"property.electricMeterOutsideUnit","op":"eq","value":true},{"fact":"property.utility.electric.whoPays","op":"eq","value":"TENANT_DIRECT"}]},
     note: "when the tenant doesn't pay the electric company directly or the meter serves nothing outside the unit",
   },
   "tenant-supplied-heat-wy": {
@@ -506,8 +506,8 @@ const PICKER_RULES = {
     note: "when water, sewer and trash aren't charged back to the tenant",
   },
   "shared-meter-agreement-ny": {
-    condition: {"all":[{"fact":"property.meterServesOutsideUnit","op":"eq","value":true},{"any":[{"fact":"property.utility.gas.whoPays","op":"eq","value":"TENANT_DIRECT"},{"fact":"property.utility.electric.whoPays","op":"eq","value":"TENANT_DIRECT"}]}]},
-    note: "when the unit's meter serves nothing outside the unit, or the tenant holds neither the gas nor the electric account",
+    condition: {"any":[{"all":[{"fact":"property.gasMeterOutsideUnit","op":"eq","value":true},{"fact":"property.utility.gas.whoPays","op":"eq","value":"TENANT_DIRECT"}]},{"all":[{"fact":"property.electricMeterOutsideUnit","op":"eq","value":true},{"fact":"property.utility.electric.whoPays","op":"eq","value":"TENANT_DIRECT"}]}]},
+    note: "when neither a gas nor an electric meter the tenant holds also serves areas outside the unit",
   },
   "association-documents-delivery-ky": {
     condition: {"fact":"property.associationType","op":"in","value":["HOA","CONDO","COOP"]},
@@ -678,7 +678,7 @@ const PICKER_RULES = {
     note: "when the tenant pays no utility directly to the provider",
   },
   "common-area-lighting-tenant-metered-nd": {
-    condition: {"all":[{"fact":"property.meterServesOutsideUnit","op":"eq","value":true},{"fact":"property.utility.electric.whoPays","op":"eq","value":"TENANT_DIRECT"}]},
+    condition: {"all":[{"fact":"property.electricMeterOutsideUnit","op":"eq","value":true},{"fact":"property.utility.electric.whoPays","op":"eq","value":"TENANT_DIRECT"}]},
     note: "when the tenant doesn't pay the electric company directly or the meter serves nothing outside the unit",
   },
   "parking-rules-notice-nd": {
@@ -790,8 +790,8 @@ const PICKER_RULES = {
     note: "when the property has no off-street parking (street parking only or none)",
   },
   "common-area-lighting-ks": {
-    condition: {"fact":"property.meterServesOutsideUnit","op":"eq","value":true},
-    note: "when the unit's meter serves only the unit",
+    condition: {"fact":"property.electricMeterOutsideUnit","op":"eq","value":true},
+    note: "when the tenant's electric meter serves only the unit",
   },
   "accessory-dwelling-unit-term-mn": {
     condition: {"fact":"property.propertyType","op":"eq","value":"ADU"},
@@ -866,8 +866,8 @@ const PICKER_RULES = {
     note: "when no energy savings charge is on the utility bill",
   },
   "common-area-lighting-ky": {
-    condition: {"fact":"property.meterServesOutsideUnit","op":"eq","value":true},
-    note: "when the unit's meter serves only the unit",
+    condition: {"fact":"property.electricMeterOutsideUnit","op":"eq","value":true},
+    note: "when the tenant's electric meter serves only the unit",
   },
   "furnishings-wv": {
     condition: {"fact":"property.furnished","op":"eq","value":true},
@@ -1186,7 +1186,7 @@ const PICKER_RULES = {
     note: "when the property isn't in a condo, co-op or homeowners' association",
   },
   "common-area-lighting-mt": {
-    condition: {"all":[{"fact":"property.meterServesOutsideUnit","op":"eq","value":true},{"fact":"property.utility.electric.whoPays","op":"in","value":["TENANT_DIRECT","CHARGED_BACK"]}]},
+    condition: {"all":[{"fact":"property.electricMeterOutsideUnit","op":"eq","value":true},{"fact":"property.utility.electric.whoPays","op":"in","value":["TENANT_DIRECT","CHARGED_BACK"]}]},
     note: "when the tenant's electric meter doesn't serve any area outside the unit, or the tenant doesn't pay for electricity",
   },
   "pool-use-mt": {

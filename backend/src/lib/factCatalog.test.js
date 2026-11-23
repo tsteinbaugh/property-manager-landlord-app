@@ -8,6 +8,19 @@ describe("factCatalog", () => {
     }
   });
 
+  it("gives every question a short name for the pages", () => {
+    for (const [target, list] of Object.entries(CATALOG)) {
+      for (const q of list.filter((x) => !x.builderOnly)) expect(q.short, `${target}.${q.id}`).toBeTruthy();
+    }
+  });
+
+  it("gives every question a home on the pages", () => {
+    const places = ["property.address", "property.structural", "property.parking", "property.utilities", "property.legal", "property.manager", "property.disclosures", "specs.furnishings", "specs.flooring", "lease.details", "lease.firstMonth", "lease.notices", "account.residence", "account.rentals"];
+    for (const [target, list] of Object.entries(CATALOG)) {
+      for (const q of list) expect(places, `${target}.${q.id}`).toContain(q.place);
+    }
+  });
+
   it("points every showIf at a question in the same set", () => {
     for (const questions of Object.values(CATALOG)) {
       const ids = new Set(questions.map((q) => q.id));

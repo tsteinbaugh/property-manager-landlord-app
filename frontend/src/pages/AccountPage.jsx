@@ -29,7 +29,7 @@ export default function AccountPage() {
       </div>
       <FactQuestionsCard
         title="About you"
-        intro="Some states' leases depend on where the landlord lives, for example whether you live in the same state or on the same island as the rental."
+        intro="Where you live and how you run your rentals. Some states' leases depend on these, for example whether you live in the same state or on the same island as the rental."
         target="account"
         states={data.propertyStates}
         answers={data.facts}

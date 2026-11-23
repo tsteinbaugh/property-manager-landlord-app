@@ -18,14 +18,10 @@ const ATTRIBUTE_FIELDS = [
   "stories",
   "basement",
   "lotSize",
-  "parking",
-  "storage",
   "mailboxLocation",
   "trashPickupDay",
   "trashCanStorageLocation",
-  "hoaOrMetroDistrict",
   "hoaContact",
-  "acceptsSection8",
   "insuranceNotes",
   // Utilities follow-up (2026-08-20) — provider + contact pairs, replacing the earlier
   // single freeform utilityProviders field. No telephone/cable — tenant-chosen, not tracked.

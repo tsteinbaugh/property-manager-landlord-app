@@ -11,6 +11,15 @@ describe("ruleConditions", () => {
     expect(evaluate(multi, ctx({ facts: { unitsInBuilding: 2 } }))).toBe(false);
   });
 
+  it("combines the per-meter answers: any Yes is Yes, all No (or not provided) is No", () => {
+    const any = (facts) => resolve("property.meterServesOutsideUnit", ctx({ facts }));
+    expect(any({})).toBe(null);
+    expect(any({ gasMeterOutsideUnit: true })).toBe(true);
+    expect(any({ electricMeterOutsideUnit: false, gasMeterOutsideUnit: false })).toBe(null);
+    expect(any({ electricMeterOutsideUnit: false, waterMeterOutsideUnit: false, utilities: { gas: { whoPays: "NOT_PROVIDED" } } })).toBe(false);
+    expect(resolve("property.electricOrGasMeterOutsideUnit", ctx({ facts: { electricMeterOutsideUnit: false, gasMeterOutsideUnit: false } }))).toBe(false);
+  });
+
   it("uses three-valued all / any / not", () => {
     const rule = { all: [multi, { not: ownerIn }] };
     expect(evaluate(rule, ctx({ facts: { unitsInBuilding: 2 } }))).toBe(false);

@@ -181,7 +181,7 @@ const PROPERTY = [
   { id: "appliancesProvided", section: "Heat, appliances and furnishings", type: "appliances", label: "Which appliances does the rental provide?" },
   {
     id: "hasCarpet",
-    section: "Heat, appliances and furnishings",
+    section: "Flooring",
     type: "yesno",
     label: "Does the rental have carpet?",
     help: "If Property Specs lists carpet flooring, this is answered Yes for you.",
@@ -291,7 +291,11 @@ const PROPERTY = [
 
   // Utilities
   { id: "utilities", section: "Utilities", type: "utilities", label: "Who pays each utility?" },
-  { id: "meterServesOutsideUnit", section: "Utilities", type: "yesno", label: "Does this unit's meter also serve areas outside the unit (hallway or outdoor lights, a shared laundry)?" },
+  // One per meter, shown in that utility's block (Taylor, 2026-11-22); the laws
+  // differ in which meters they cover (factRules.js / pickerRules.js).
+  { id: "electricMeterOutsideUnit", section: "Utilities", type: "yesno", label: "Does this unit's electric meter also serve areas outside the unit (hallway or outdoor lights, a shared laundry)?" },
+  { id: "gasMeterOutsideUnit", section: "Utilities", type: "yesno", label: "Does this unit's gas meter also serve areas outside the unit (a shared furnace or water heater, a shared laundry)?" },
+  { id: "waterMeterOutsideUnit", section: "Utilities", type: "yesno", label: "Does this unit's water meter also serve areas outside the unit (another unit, a shared laundry, a common spigot)?" },
   {
     id: "energyChargeOnBill",
     section: "Utilities",
@@ -453,6 +457,172 @@ const STATE_CODES = [
   "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VA", "VT", "WA", "WI", "WV", "WY", "DC", "AS", "GU", "MP",
   "PR", "VI",
 ];
+
+// Where each question lives on the pages (Taylor, 2026-11-22: built into the
+// pages, not a separate Lease questions card). `place` is
+// "<page>.<section>": property.address, property.structural,
+// property.parking, property.utilities, property.legal, property.manager,
+// property.disclosures, specs.furnishings, specs.flooring, lease.details,
+// lease.firstMonth, lease.notices, account.residence, account.rentals.
+const PLACE_BY_SECTION = {
+  "The building": "property.structural",
+  Association: "property.legal",
+  "Water, sewer and site": "property.structural",
+  "Heat, appliances and furnishings": "specs.furnishings",
+  "What you know about the property": "property.disclosures",
+  "Program housing": "property.legal",
+  "Property manager": "property.manager",
+  Utilities: "property.utilities",
+  "This lease": "lease.details",
+  "Your primary residence": "account.residence",
+  "How you run your rentals": "account.rentals",
+};
+const PLACE_BY_ID = {
+  county: "property.address",
+  island: "property.address",
+  waterSource: "property.utilities",
+  sewerType: "property.utilities",
+  parkingTypes: "property.parking",
+  parkingSpaces: "property.parking",
+  parkingChargedSeparately: "property.parking",
+  enforcesParkingRules: "property.parking",
+  storage: "property.parking",
+  storageUnitCount: "property.parking",
+  hasCarpet: "specs.flooring",
+  firstMonthRent: "lease.firstMonth",
+  firstMonthAmount: "lease.firstMonth",
+  noticeAddress: "lease.notices",
+};
+for (const list of [PROPERTY, LEASE, ACCOUNT]) {
+  for (const q of list) q.place = PLACE_BY_ID[q.id] || PLACE_BY_SECTION[q.section];
+}
+
+// The short name a page shows beside an answer ("Property type: Single-family
+// house", Taylor, 2026-11-23); the full question is for the forms.
+const SHORT_LABELS = {
+  propertyType: "Property type",
+  unitsInBuilding: "Units in building",
+  ownerLivesInBuilding: "Owner lives in building",
+  unitFloor: "Floor",
+  highRise: "Four or more stories (or over 45 ft)",
+  completeSprinklers: "Complete sprinkler system",
+  county: "County",
+  island: "Island",
+  associationType: "Association",
+  associationApprovesLeases: "Association approves leases",
+  condoConversion: "Condo or co-op conversion",
+  waterSource: "Water source",
+  sewerType: "Sewer type",
+  waterFeatures: "Water features",
+  parkingTypes: "Parking",
+  parkingSpaces: "Parking spaces",
+  parkingChargedSeparately: "Parking charged separately",
+  enforcesParkingRules: "Parking or towing rules enforced",
+  hasYard: "Yard for tenant use",
+  ruralLand: "Rural or farm land",
+  storage: "On-site storage",
+  storageUnitCount: "Storage units",
+  tenantControlsThermostat: "Tenant controls thermostat",
+  fireplace: "Fireplace or wood stove",
+  appliancesProvided: "Appliances provided",
+  hasCarpet: "Carpet",
+  furnished: "Furnished",
+  smartLock: "Smart lock or electronic entry",
+  environmentalRestriction: "Recorded environmental restriction",
+  drugContamination: "Drug lab or drug-use contamination",
+  mold: "Mold or mold testing",
+  codeViolations: "Open code violations",
+  leadHazardOrder: "Lead hazard order",
+  certifiedLeadFree: "Certified lead-free",
+  leadServiceLineNotice: "Lead service line notice",
+  floodZone: "FEMA flood hazard area",
+  belowFloodElevationIN: "Lowest floor at or below 100-year flood elevation",
+  floodProneZonePR: "Flood-prone zone",
+  floodedRecently: "Flooded in the last 5 years",
+  bedBugs: "Bed bugs",
+  pestControlContract: "Scheduled pest control contract",
+  shoreline: "Shoreline or shoreline right of way",
+  nearMilitaryInstallation: "Within 3 miles of a military installation",
+  militaryAirZone: "Military air noise or accident zone",
+  specialDistrict: "Special or business improvement district",
+  groundwaterArea: "Groundwater management area",
+  asbestosDisposalSite: "Asbestos disposal site",
+  noiseWaiver: "Recorded noise waiver",
+  uncoveredSteamRadiators: "Uncovered steam radiators",
+  sanitaryCodeVariance: "Sanitary code variance",
+  stateSafetyException: "State safety-code exception",
+  ureaFormaldehyde: "Urea-formaldehyde materials",
+  accessControlledCommunity: "Access-controlled community",
+  defectiveDrywall: "Defective drywall",
+  nearSchool: "Within 1,000 ft of a school or child care",
+  smokingNearby: "Smoking allowed in nearby units",
+  localRentalFee: "Local rental registration or inspection fee",
+  energyBenchmarking: "Energy benchmarking law",
+  programHousing: "Housing programs",
+  managerCompany: "Company",
+  managerName: "Contact",
+  managerPhone: "Phone",
+  managerEmail: "Email",
+  managerAddress: "Address",
+  managerSignsLeases: "Signs leases for you",
+  managerLicensed: "Real estate license",
+  pmPermitNV: "Nevada property management permit",
+  utilities: "Who pays",
+  electricMeterOutsideUnit: "Electric meter serves areas outside the unit",
+  gasMeterOutsideUnit: "Gas meter serves areas outside the unit",
+  waterMeterOutsideUnit: "Water meter serves areas outside the unit",
+  energyChargeOnBill: "Energy-efficiency charge on the bill",
+  sellsOnsitePower: "Sells on-site power to the tenant",
+  trashHauling: "Trash removal",
+  landlordCosignsUtility: "You co-sign the utility account",
+  hazardousContamination: "Hazardous material contamination",
+  habitabilityProblem: "Habitability problem",
+  publicCorporationOwned: "Owned by a public facility or housing finance corporation",
+  knownContamination: "Contaminated land",
+  routineCommonAreaPesticide: "Staff apply pesticide in common areas",
+  rentControlExemptionClaimed: "Rent control exemption claimed",
+  onsiteManagerOrOffice: "On-site office or manager",
+  columbiaAssociation: "Columbia Association covenants",
+  indoorAirTestResults: "Indoor air test results received",
+  superfundListed: "Superfund site",
+  landlordIsDeclarant: "You are the community's declarant",
+  seasonal: "Seasonal or vacation rental",
+  employeeHousing: "Employee housing",
+  holdingDeposit: "Holding deposit",
+  holdingDepositAmount: "Holding deposit amount",
+  utilityDeposit: "Utility deposit",
+  firstMonthRent: "First month",
+  firstMonthAmount: "First month's rent",
+  parkingAssigned: "Parking spaces assigned",
+  storageUnitAssigned: "Storage unit",
+  storageUnitFee: "Storage unit fee",
+  yardCare: "Yard care",
+  snowRemoval: "Snow removal",
+  foreclosureUnderway: "Foreclosure under way",
+  noticeAddress: "Notice address",
+  prRentSubsidy: "Rent subsidy (older adults or veterans)",
+  brokerInvolved: "Broker or agent involved",
+  contractForDeedCancellation: "Contract for deed cancellation notice",
+  residenceAddress: "Primary residence",
+  residenceState: "State or territory",
+  residenceIsland: "Island",
+  landlordLicensed: "Real estate license",
+  offersTenantPortal: "Online tenant portal",
+};
+
+// Shown on a page only when the answer is Yes: a No is the ordinary case and
+// would only add clutter (every disclosure, and rare situations).
+const SHOW_ONLY_WHEN_YES = new Set([
+  "condoConversion", "ruralLand", "energyChargeOnBill", "sellsOnsitePower", "landlordCosignsUtility",
+  "seasonal", "employeeHousing", "holdingDeposit", "utilityDeposit", "foreclosureUnderway",
+  "prRentSubsidy", "brokerInvolved", "contractForDeedCancellation", "pmPermitNV",
+]);
+for (const list of [PROPERTY, LEASE, ACCOUNT]) {
+  for (const q of list) {
+    if (SHORT_LABELS[q.id]) q.short = SHORT_LABELS[q.id];
+    if (SHOW_ONLY_WHEN_YES.has(q.id) || q.place === "property.disclosures") q.showOnlyWhenYes = true;
+  }
+}
 
 const CATALOG = { property: PROPERTY, lease: LEASE, account: ACCOUNT };
 

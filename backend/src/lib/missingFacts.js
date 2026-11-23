@@ -41,6 +41,8 @@ const DERIVED_FROM = {
   "landlord.sameIsland": ["account.residenceState", "account.residenceIsland", "property.island"],
   "property.anyUtilityChargedBack": ["property.utilities"],
   "property.chargeBackMethods": ["property.utilities"],
+  "property.meterServesOutsideUnit": ["property.electricMeterOutsideUnit", "property.gasMeterOutsideUnit", "property.waterMeterOutsideUnit"],
+  "property.electricOrGasMeterOutsideUnit": ["property.electricMeterOutsideUnit", "property.gasMeterOutsideUnit"],
   ...Object.fromEntries(
     ["electric", "gas", "water", "sewer", "trash"].flatMap((k) => [
       [`property.utility.${k}.whoPays`, ["property.utilities"]],

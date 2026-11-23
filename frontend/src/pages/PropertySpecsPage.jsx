@@ -5,6 +5,7 @@ import PropertySpecSection from "../components/PropertySpecSection";
 import SpecItemDetailFields from "../components/SpecItemDetailFields";
 import BackLink from "../components/BackLink";
 import { formatDay } from "../lib/dates";
+import FactQuestionsCard from "../components/FactQuestions";
 
 function money(amount) {
   if (amount === null || amount === undefined) return null;
@@ -312,6 +313,22 @@ export default function PropertySpecsPage() {
           </div>
         </div>
       </div>
+
+      {/* The furnishings, appliance and carpet questions live here (Taylor, 2026-11-22). */}
+      <FactQuestionsCard
+        title="Furnishings, appliances and carpet"
+        intro="The lease builder uses these answers to decide which clauses this property's leases need."
+        target="property"
+        places={["specs.furnishings", "specs.flooring"]}
+        states={[property.state]}
+        answers={property.facts}
+        fromSpecs={property.factsFromSpecs}
+        disabled={property.archived}
+        onSave={async (facts) => {
+          const updated = await api.put(`/api/properties/${id}/facts`, { facts });
+          setProperty(updated);
+        }}
+      />
 
       {view === "room" ? (
         <div className="space-y-6">

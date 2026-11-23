@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useApi } from "../hooks/useApi";
-import { Question, useFactCatalog } from "./FactQuestions";
+import { Question, useFactCatalog, YesNo } from "./FactQuestions";
 
 // The lease builder's fill-in-the-gaps questions (agreed with Taylor
 // 2026-11-22): only the blank answers this lease's required clauses still wait
@@ -21,15 +21,7 @@ function DepositQuestion({ value, onChange }) {
   const v = value || {};
   return (
     <div className="flex flex-wrap items-center gap-4 text-sm">
-      {[
-        [true, "Yes"],
-        [false, "No"],
-      ].map(([taken, label]) => (
-        <label key={label} className="flex items-center gap-1.5">
-          <input type="radio" checked={v.taken === taken} onChange={() => onChange({ ...v, taken })} className="h-4 w-4 border-stone-300" />
-          <span className="text-stone-700">{label}</span>
-        </label>
-      ))}
+      <YesNo value={v.taken ?? null} onChange={(taken) => onChange({ ...v, taken })} />
       {v.taken === true && (
         <input
           type="number"

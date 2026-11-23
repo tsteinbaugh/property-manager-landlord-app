@@ -4,7 +4,7 @@ import { JURISDICTION_NAMES as STATE_NAMES } from "../lib/jurisdictions";
 
 // The applicability questions (backend/src/lib/factCatalog.js) for one record:
 // a property, a lease or the landlord's account. Mirrors the backend's
-// visibility and "unanswered" rules so the count shown here matches.
+// visibility rules.
 
 let catalogPromise = null;
 export function useFactCatalog() {
@@ -37,42 +37,11 @@ export function isVisible(question, states, answers) {
   return true;
 }
 
-export function isUnanswered(question, answers, catalog) {
-  if (question.counts === false || question.type === "checkbox" || question.type === "appliances") return false;
-  const value = answers?.[question.id];
-  if (question.type === "pickAny") return !Array.isArray(value) || value.length === 0;
-  if (question.type === "utilities") return catalog.utilityKinds.some((u) => !value?.[u.value]?.whoPays);
-  return value === undefined || value === null || value === "";
-}
-
-export function unansweredCount(catalog, target, states, answers) {
-  if (!catalog) return 0;
-  return catalog.questions[target].filter((q) => isVisible(q, states, answers) && isUnanswered(q, answers, catalog)).length;
-}
-
 const inputClass =
   "w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none";
 
-function YesNo({ value, onChange, name }) {
-  return (
-    <div className="flex gap-4 text-sm">
-      {[
-        [true, "Yes"],
-        [false, name.startsWith("To your best knowledge") ? "No, not to my knowledge" : "No"],
-      ].map(([v, label]) => (
-        <label key={String(v)} className="flex items-center gap-1.5">
-          <input type="radio" checked={value === v} onChange={() => onChange(v)} className="h-4 w-4 border-stone-300" />
-          <span className="text-stone-700">{label}</span>
-        </label>
-      ))}
-      {value !== undefined && value !== null && (
-        <button type="button" onClick={() => onChange(null)} className="text-xs text-stone-400 hover:text-stone-600">
-          Clear
-        </button>
-      )}
-    </div>
-  );
-}
+export { default as YesNo } from "./YesNo";
+import YesNo from "./YesNo";
 
 export function Question({ question, value, onChange, catalog }) {
   const q = question;
@@ -84,7 +53,7 @@ export function Question({ question, value, onChange, catalog }) {
     case "pickOne":
       return (
         <select value={value ?? ""} onChange={(e) => onChange(e.target.value || null)} className={inputClass}>
-          <option value="">Not answered</option>
+          <option value="">Select…</option>
           {q.options.map((o) => (
             <option key={o.value} value={o.value}>
               {o.label}
@@ -95,7 +64,7 @@ export function Question({ question, value, onChange, catalog }) {
     case "state":
       return (
         <select value={value ?? ""} onChange={(e) => onChange(e.target.value || null)} className={inputClass}>
-          <option value="">Not answered</option>
+          <option value="">Select…</option>
           {Object.entries(STATE_NAMES).map(([code, name]) => (
             <option key={code} value={code}>
               {name}
@@ -152,7 +121,7 @@ export function Question({ question, value, onChange, catalog }) {
             <div key={u.value} className="grid grid-cols-1 gap-2 sm:grid-cols-[6rem_1fr_1fr] sm:items-center">
               <span className="text-sm font-medium text-stone-700">{u.label}</span>
               <select value={current[u.value]?.whoPays ?? ""} onChange={(e) => set(u.value, { whoPays: e.target.value || null })} className={inputClass}>
-                <option value="">Not answered</option>
+                <option value="">Select…</option>
                 {catalog.utilityWhoPays.map((o) => (
                   <option key={o.value} value={o.value}>
                     {o.label}
@@ -161,7 +130,7 @@ export function Question({ question, value, onChange, catalog }) {
               </select>
               {current[u.value]?.whoPays === "CHARGED_BACK" ? (
                 <select value={current[u.value]?.method ?? ""} onChange={(e) => set(u.value, { method: e.target.value || null })} className={inputClass}>
-                  <option value="">How is it charged?</option>
+                  <option value="">Select…</option>
                   {catalog.utilityMethods.map((o) => (
                     <option key={o.value} value={o.value}>
                       {o.label}
@@ -193,7 +162,7 @@ export function Question({ question, value, onChange, catalog }) {
                 }}
                 className={inputClass}
               >
-                <option value="">Not answered</option>
+                <option value="">Select…</option>
                 {catalog.applianceTerms.map((o) => (
                   <option key={o.value} value={o.value}>
                     {o.label}
@@ -210,7 +179,7 @@ export function Question({ question, value, onChange, catalog }) {
   }
 }
 
-function displayValue(q, value, catalog) {
+export function displayValue(q, value, catalog) {
   if (value === undefined || value === null || value === "") return null;
   switch (q.type) {
     case "yesno":
@@ -248,7 +217,8 @@ function displayValue(q, value, catalog) {
 // mode. `onSave(patch)` receives only the answers that changed (null = cleared).
 // fromSpecs: answers Property Specs supply when the landlord hasn't answered
 // (carpet flooring answers "Does the rental have carpet?"), shown but not saved.
-export default function FactQuestionsCard({ title, target, states, answers, onSave, disabled, intro, fromSpecs = {} }) {
+// places: show only the questions that live in these page sections (factCatalog.js `place`).
+export default function FactQuestionsCard({ title, target, states, answers, onSave, disabled, intro, fromSpecs = {}, places = null }) {
   const catalog = useFactCatalog();
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState(answers || {});
@@ -262,9 +232,9 @@ export default function FactQuestionsCard({ title, target, states, answers, onSa
   if (!catalog) return null;
 
   const source = editing ? draft : answers || {};
-  const questions = catalog.questions[target].filter((q) => isVisible(q, states, source));
+  const inPlace = (q) => !places || places.includes(q.place);
+  const questions = catalog.questions[target].filter((q) => inPlace(q) && isVisible(q, states, source));
   const sections = [...new Set(questions.map((q) => q.section))];
-  const missing = unansweredCount(catalog, target, states, { ...fromSpecs, ...(answers || {}) });
 
   function valueOf(q) {
     const v = source[q.id];
@@ -275,7 +245,7 @@ export default function FactQuestionsCard({ title, target, states, answers, onSa
   async function handleSave(e) {
     e.preventDefault();
     const patch = {};
-    for (const q of catalog.questions[target]) {
+    for (const q of catalog.questions[target].filter(inPlace)) {
       const before = answers?.[q.id] ?? null;
       let after = draft[q.id] ?? null;
       if (after === null && q.type === "checkbox" && before === null) continue;
@@ -300,9 +270,6 @@ export default function FactQuestionsCard({ title, target, states, answers, onSa
         <div>
           <h2 className="text-lg font-semibold text-stone-900">{title}</h2>
           {intro && <p className="mt-1 text-sm text-stone-500">{intro}</p>}
-          <p className={`mt-1 text-sm ${missing ? "text-amber-700" : "text-stone-400"}`}>
-            {missing ? `${missing} unanswered` : "All answered"}
-          </p>
         </div>
         {!editing && !disabled && (
           <button
@@ -310,7 +277,7 @@ export default function FactQuestionsCard({ title, target, states, answers, onSa
             onClick={() => setEditing(true)}
             className="rounded-lg border border-stone-300 px-3 py-1.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
           >
-            {missing ? "Answer" : "Edit"}
+            Edit
           </button>
         )}
       </div>
@@ -339,7 +306,6 @@ export default function FactQuestionsCard({ title, target, states, answers, onSa
                       <div key={q.id}>
                         <p className="mb-1 text-sm font-medium text-stone-700">
                           {q.label}
-                          {isUnanswered(q, draft, catalog) && <span className="ml-2 text-xs font-normal text-amber-700">Not answered</span>}
                         </p>
                         {q.help && <p className="mb-2 text-xs text-stone-500">{q.help}</p>}
                         <Question question={q} value={draft[q.id]} catalog={catalog} onChange={(v) => setDraft({ ...draft, [q.id]: v })} />
@@ -372,22 +338,29 @@ export default function FactQuestionsCard({ title, target, states, answers, onSa
       ) : (
         <dl className="mt-4 space-y-4 border-t border-stone-200 pt-4 text-sm">
           {sections.map((section) => {
-            const rows = questions.filter((q) => q.section === section);
+            // Answered rows only; an unticked checkbox and an ordinary No aren't shown.
+            const rows = questions
+              .filter((q) => q.section === section)
+              .map((q) => {
+                const v = source[q.id] ?? fromSpecs[q.id];
+                if (q.type === "checkbox" && !v) return null;
+                if (q.showOnlyWhenYes && v !== true) return null;
+                const own = displayValue(q, valueOf(q), catalog);
+                const shown = own ?? (fromSpecs[q.id] !== undefined ? `${displayValue(q, fromSpecs[q.id], catalog)} (from Property Specs)` : null);
+                return shown === null ? null : { q, shown };
+              })
+              .filter(Boolean);
+            if (rows.length === 0) return null;
             return (
               <div key={section}>
                 <h3 className="mb-2 text-sm font-semibold text-stone-800">{section}</h3>
                 <div className="space-y-1">
-                  {rows.map((q) => {
-                    const own = displayValue(q, valueOf(q), catalog);
-                    const shown = own ?? (fromSpecs[q.id] !== undefined ? `${displayValue(q, fromSpecs[q.id], catalog)} (from Property Specs)` : null);
-                    if (shown === null && q.counts === false) return null;
-                    return (
-                      <div key={q.id} className="grid grid-cols-1 gap-1 sm:grid-cols-[1fr_1fr] sm:gap-4">
-                        <dt className="text-stone-500">{q.label}</dt>
-                        <dd className={shown === null ? "text-amber-700" : "text-stone-800"}>{shown ?? "Not answered"}</dd>
-                      </div>
-                    );
-                  })}
+                  {rows.map(({ q, shown }) => (
+                    <div key={q.id} className="grid grid-cols-1 gap-1 sm:grid-cols-[1fr_1fr] sm:gap-4">
+                      <dt className="text-stone-500">{q.short || q.label}</dt>
+                      <dd className="text-stone-800">{shown}</dd>
+                    </div>
+                  ))}
                 </div>
               </div>
             );

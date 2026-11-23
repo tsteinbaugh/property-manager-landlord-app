@@ -200,7 +200,7 @@ const FACT_RULES = {
     condition: {
       all: [
         {
-          fact: "property.meterServesOutsideUnit",
+          fact: "property.electricOrGasMeterOutsideUnit",
           op: "eq",
           value: true,
         },
@@ -252,7 +252,7 @@ const FACT_RULES = {
           ],
         },
         {
-          fact: "property.meterServesOutsideUnit",
+          fact: "property.electricMeterOutsideUnit",
           op: "eq",
           value: true,
         },

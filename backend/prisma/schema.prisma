@@ -128,14 +128,10 @@ model Property {
   stories                 Int?
   basement                String? // finished, unfinished, crawlspace, none — free text
   lotSize                 String? // free text, e.g. "0.25 acres" or "6,500 sq ft" — units vary, same convention as ExteriorFeature.size
-  parking                 String? // e.g. "2-car garage", "driveway + street" — type/count/assigned spot together in one field
-  storage                 String? // e.g. "Shed in backyard", "None" — physical storage available to a tenant, distinct from spec-item leftover-storage locations
   mailboxLocation         String?
   trashPickupDay          String?
   trashCanStorageLocation String?
-  hoaOrMetroDistrict      String? // HOA, metro district, or covenant name — null if none applies. Rules/covenant documents themselves go through the existing LeaseAttachment upload, not a new field here.
   hoaContact              String?
-  acceptsSection8         Boolean @default(false)
   // Lightweight stopgap only — insurer/policy #/contact jotted down as free text.
   // CLAUDE.md already has a full v2 Insurance module planned (policy, claims, premium
   // history, coverage adequacy); this field gets superseded by that when it's built,

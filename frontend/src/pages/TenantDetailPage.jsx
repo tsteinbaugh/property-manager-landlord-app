@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { useApi } from "../hooks/useApi";
 import SimpleRecordSection from "../components/SimpleRecordSection";
 import BackLink from "../components/BackLink";
+import YesNo from "../components/YesNo";
 import { formatDay } from "../lib/dates";
 
 const APPLICATION_STATUSES = ["PENDING", "APPROVED", "REJECTED"];
@@ -390,6 +391,14 @@ export default function TenantDetailPage() {
                   className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
                 />
               </label>
+              <div className="text-sm">
+                <span className="mb-1 block font-medium text-stone-700">Is the tenant an active-duty servicemember?</span>
+                <YesNo value={form.isServicemember} onChange={(v) => setForm({ ...form, isServicemember: v })} />
+              </div>
+              <div className="text-sm">
+                <span className="mb-1 block font-medium text-stone-700">Is the tenant a full-time student?</span>
+                <YesNo value={form.isStudent} onChange={(v) => setForm({ ...form, isStudent: v })} />
+              </div>
               <label className="flex items-center gap-2 self-end pb-2 text-sm">
                 <input
                   type="checkbox"
@@ -399,43 +408,11 @@ export default function TenantDetailPage() {
                 />
                 <span className="font-medium text-stone-700">ID verified</span>
               </label>
-              <label className="block text-sm">
-                <span className="mb-1 block font-medium text-stone-700">Is the tenant a full-time student?</span>
-                <select
-                  value={form.isStudent === null ? "" : String(form.isStudent)}
-                  onChange={(e) => setForm({ ...form, isStudent: e.target.value === "" ? null : e.target.value === "true" })}
-                  className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
-                >
-                  <option value="">Not answered</option>
-                  <option value="true">Yes</option>
-                  <option value="false">No</option>
-                </select>
-              </label>
-              <label className="block text-sm">
-                <span className="mb-1 block font-medium text-stone-700">Is the tenant an active-duty servicemember?</span>
-                <select
-                  value={form.isServicemember === null ? "" : String(form.isServicemember)}
-                  onChange={(e) => setForm({ ...form, isServicemember: e.target.value === "" ? null : e.target.value === "true" })}
-                  className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
-                >
-                  <option value="">Not answered</option>
-                  <option value="true">Yes</option>
-                  <option value="false">No</option>
-                </select>
-              </label>
               {(tenant.property?.state === "AK" || form.nonresidentAlien !== null) && (
-                <label className="block text-sm">
+                <div className="text-sm">
                   <span className="mb-1 block font-medium text-stone-700">Is the tenant a nonresident alien for U.S. tax purposes?</span>
-                  <select
-                    value={form.nonresidentAlien === null ? "" : String(form.nonresidentAlien)}
-                    onChange={(e) => setForm({ ...form, nonresidentAlien: e.target.value === "" ? null : e.target.value === "true" })}
-                    className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
-                  >
-                    <option value="">Not answered</option>
-                    <option value="true">Yes</option>
-                    <option value="false">No</option>
-                  </select>
-                </label>
+                  <YesNo value={form.nonresidentAlien} onChange={(v) => setForm({ ...form, nonresidentAlien: v })} />
+                </div>
               )}
               <UploadButton
                 label="ID"
@@ -666,19 +643,19 @@ export default function TenantDetailPage() {
               label="Date of birth"
               value={tenant.dateOfBirth ? formatDay(tenant.dateOfBirth) : null}
             />
-            <DetailRow label="ID verified" value={tenant.idVerified ? "Yes" : "No"} />
-            <DetailRow
-              label="Full-time student"
-              value={tenant.isStudent === true ? "Yes" : tenant.isStudent === false ? "No" : "Not answered"}
-            />
             <DetailRow
               label="Active-duty servicemember"
-              value={tenant.isServicemember === true ? "Yes" : tenant.isServicemember === false ? "No" : "Not answered"}
+              value={tenant.isServicemember === true ? "Yes" : tenant.isServicemember === false ? "No" : null}
             />
+            <DetailRow
+              label="Full-time student"
+              value={tenant.isStudent === true ? "Yes" : tenant.isStudent === false ? "No" : null}
+            />
+            <DetailRow label="ID verified" value={tenant.idVerified ? "Yes" : "No"} />
             {tenant.property?.state === "AK" && (
               <DetailRow
                 label="Nonresident alien (tax)"
-                value={tenant.nonresidentAlien === true ? "Yes" : tenant.nonresidentAlien === false ? "No" : "Not answered"}
+                value={tenant.nonresidentAlien === true ? "Yes" : tenant.nonresidentAlien === false ? "No" : null}
               />
             )}
             <DetailRow label="Credit check" value={tenant.creditCheckStatus} />

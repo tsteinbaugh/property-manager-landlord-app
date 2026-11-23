@@ -70,6 +70,22 @@ const DERIVED = {
   // hide a clause: blank fields aren't an answer.
   // Answered on the property, or Yes when Property Specs lists carpet flooring
   // (no carpet in the specs isn't a No: the specs may be incomplete).
+  // Any of the unit's meters (electric, gas, water) also serves areas outside
+  // the unit; a utility not provided counts as No.
+  "property.meterServesOutsideUnit": ({ property }) => {
+    const f = property?.facts || {};
+    const vals = [["electric", "electricMeterOutsideUnit"], ["gas", "gasMeterOutsideUnit"], ["water", "waterMeterOutsideUnit"]].map(([k, id]) =>
+      f.utilities?.[k]?.whoPays === "NOT_PROVIDED" ? false : f[id] ?? null,
+    );
+    if (vals.includes(true)) return true;
+    return vals.includes(null) ? null : false;
+  },
+  "property.electricOrGasMeterOutsideUnit": ({ property }) => {
+    const f = property?.facts || {};
+    const vals = [f.electricMeterOutsideUnit ?? null, f.utilities?.gas?.whoPays === "NOT_PROVIDED" ? false : f.gasMeterOutsideUnit ?? null];
+    if (vals.includes(true)) return true;
+    return vals.includes(null) ? null : false;
+  },
   "property.hasCarpet": ({ property }) => {
     const v = property?.facts?.hasCarpet;
     if (v === true || v === false) return v;

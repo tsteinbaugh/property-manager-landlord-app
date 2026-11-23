@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useApi } from "../hooks/useApi";
+import YesNo from "./YesNo";
 
 function emptyFormFor(fields) {
   return Object.fromEntries(fields.map((f) => [f.key, f.type === "checkbox" ? false : f.type === "yesno" ? null : ""]));
@@ -127,18 +128,10 @@ export default function SimpleRecordSection({
             )}
             {fields.map((field) =>
               field.type === "yesno" ? (
-                <label key={field.key} className="block text-sm">
+                <div key={field.key} className="text-sm">
                   <span className="mb-1 block font-medium text-stone-700">{field.label}</span>
-                  <select
-                    value={form[field.key] === null || form[field.key] === undefined ? "" : String(form[field.key])}
-                    onChange={(e) => setForm({ ...form, [field.key]: e.target.value === "" ? null : e.target.value === "true" })}
-                    className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
-                  >
-                    <option value="">Not answered</option>
-                    <option value="true">Yes</option>
-                    <option value="false">No</option>
-                  </select>
-                </label>
+                  <YesNo value={form[field.key] ?? null} onChange={(v) => setForm({ ...form, [field.key]: v })} />
+                </div>
               ) : field.type === "checkbox" ? (
                 <label key={field.key} className="flex items-center gap-2 self-end pb-2 text-sm">
                   <input

@@ -12,7 +12,6 @@ export default function DashboardPage() {
   const [rentStatuses, setRentStatuses] = useState([]);
   const [maintenanceStatuses, setMaintenanceStatuses] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [accountFacts, setAccountFacts] = useState(null);
 
   useEffect(() => {
     Promise.all([
@@ -20,10 +19,8 @@ export default function DashboardPage() {
       api.get("/api/properties"),
       api.get("/api/rent-status"),
       api.get("/api/maintenance-status"),
-      api.get("/api/me/facts").catch(() => null),
     ])
-      .then(([entityData, propertyData, rentStatusData, maintenanceStatusData, meFacts]) => {
-        setAccountFacts(meFacts?.facts ?? null);
+      .then(([entityData, propertyData, rentStatusData, maintenanceStatusData]) => {
         setEntities(entityData);
         setProperties(propertyData);
         setRentStatuses(rentStatusData);
@@ -62,17 +59,6 @@ export default function DashboardPage() {
         <p className="text-sm text-stone-500">Loading...</p>
       ) : (
         <>
-          {accountFacts && (!accountFacts.residenceAddress || !accountFacts.residenceState) && (
-            <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm">
-              <p className="font-medium text-amber-900">Add your primary residence</p>
-              <p className="mt-1 text-amber-800">
-                Some states' leases depend on where the landlord lives. It takes a minute and applies to all your properties.
-              </p>
-              <Link to="/account" className="mt-2 inline-block font-medium text-emerald-800 hover:underline">
-                Go to Your account
-              </Link>
-            </div>
-          )}
           {propertyCards.length > 0 && (
             <div className="space-y-2">
               <h2 className="text-sm font-medium text-stone-700">Your properties</h2>

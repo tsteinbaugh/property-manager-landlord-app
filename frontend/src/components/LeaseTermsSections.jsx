@@ -124,8 +124,8 @@ export function FirstMonthSection({ lease, onSaved }) {
                   {current.value === "PRORATED" && `: ${money(shownAmount)}`}
                 </p>
               ) : (
-                <p className="text-amber-700">
-                  Not answered. Suggested: {CHOICES.find((c) => c.value === suggested).label.split(":")[0]}
+                <p className="text-stone-500">
+                  Suggested: {CHOICES.find((c) => c.value === suggested).label.split(":")[0]}
                   {suggested === "PRORATED" && ` (${money(info.prorated)})`}.
                 </p>
               )}
