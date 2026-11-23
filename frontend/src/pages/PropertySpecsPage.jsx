@@ -4,6 +4,7 @@ import { useApi } from "../hooks/useApi";
 import PropertySpecSection from "../components/PropertySpecSection";
 import SpecItemDetailFields from "../components/SpecItemDetailFields";
 import BackLink from "../components/BackLink";
+import { formatDay } from "../lib/dates";
 
 function money(amount) {
   if (amount === null || amount === undefined) return null;
@@ -239,7 +240,7 @@ export default function PropertySpecsPage() {
 
   const expenseOptions = expenses.map((e) => ({
     value: e.id,
-    label: `${money(e.amount)} · ${new Date(e.date).toLocaleDateString()}${e.payee ? ` · ${e.payee}` : ""}`,
+    label: `${money(e.amount)} · ${formatDay(e.date)}${e.payee ? ` · ${e.payee}` : ""}`,
   }));
   const resolvedFlooringFields = flooringFields(expenseOptions);
   const resolvedCountertopFields = countertopFields(expenseOptions);

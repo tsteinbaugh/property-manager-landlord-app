@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { useApi } from "../hooks/useApi";
 import SimpleRecordSection from "../components/SimpleRecordSection";
 import BackLink from "../components/BackLink";
+import { formatDay } from "../lib/dates";
 
 const APPLICATION_STATUSES = ["PENDING", "APPROVED", "REJECTED"];
 
@@ -663,7 +664,7 @@ export default function TenantDetailPage() {
             <DetailRow label="Email" value={tenant.email} />
             <DetailRow
               label="Date of birth"
-              value={tenant.dateOfBirth ? new Date(tenant.dateOfBirth).toLocaleDateString() : null}
+              value={tenant.dateOfBirth ? formatDay(tenant.dateOfBirth) : null}
             />
             <DetailRow label="ID verified" value={tenant.idVerified ? "Yes" : "No"} />
             <DetailRow
@@ -683,12 +684,12 @@ export default function TenantDetailPage() {
             <DetailRow label="Credit check" value={tenant.creditCheckStatus} />
             <DetailRow
               label="Credit check date"
-              value={tenant.creditCheckDate ? new Date(tenant.creditCheckDate).toLocaleDateString() : null}
+              value={tenant.creditCheckDate ? formatDay(tenant.creditCheckDate) : null}
             />
             <DetailRow label="Background check" value={tenant.backgroundCheckStatus} />
             <DetailRow
               label="Background check date"
-              value={tenant.backgroundCheckDate ? new Date(tenant.backgroundCheckDate).toLocaleDateString() : null}
+              value={tenant.backgroundCheckDate ? formatDay(tenant.backgroundCheckDate) : null}
             />
             <DetailRow label="Employer" value={tenant.employer} />
             <DetailRow label="Employment status" value={tenant.employmentStatus} />
@@ -715,7 +716,7 @@ export default function TenantDetailPage() {
               label="Insurance expires"
               value={
                 tenant.rentersInsuranceExpirationDate
-                  ? new Date(tenant.rentersInsuranceExpirationDate).toLocaleDateString()
+                  ? formatDay(tenant.rentersInsuranceExpirationDate)
                   : null
               }
             />

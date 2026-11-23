@@ -2,6 +2,7 @@ const express = require("express");
 const prisma = require("../lib/prisma");
 const { pickFields } = require("../lib/pickFields");
 const { validateFacts, mergeFacts } = require("../lib/factCatalog");
+const { carpetInSpecs } = require("../lib/ruleConditions");
 
 const REQUIRED_FIELDS = ["entityId", "address1", "city", "state", "zip"];
 
@@ -122,6 +123,13 @@ router.get("/", async (req, res) => {
   res.json(properties);
 });
 
+// Lease-question answers Property Specs supply when the landlord hasn't answered
+// them (carpet flooring means "Does the rental have carpet?" is Yes).
+async function factsFromSpecs(propertyId) {
+  const flooring = await prisma.flooringSpec.findMany({ where: { propertyId, active: true }, select: { type: true } });
+  return carpetInSpecs(flooring) ? { hasCarpet: true } : {};
+}
+
 router.get("/:id", async (req, res) => {
   const property = await prisma.property.findUnique({
     where: { id: req.params.id },
@@ -139,7 +147,7 @@ router.get("/:id", async (req, res) => {
   // DELETE endpoint's own dependent check below is unchanged and still the actual guard.
   const dependentCount = await countPropertyDependents(req.params.id);
 
-  res.json({ ...property, canDelete: dependentCount === 0 });
+  res.json({ ...property, canDelete: dependentCount === 0, factsFromSpecs: await factsFromSpecs(property.id) });
 });
 
 router.put("/:id", async (req, res) => {
@@ -183,7 +191,7 @@ router.put("/:id", async (req, res) => {
   // Same computed canDelete as GET /:id — keeps the frontend's Delete-button visibility
   // consistent after an edit, without a full page refetch.
   const dependentCount = await countPropertyDependents(req.params.id);
-  res.json({ ...property, canDelete: dependentCount === 0 });
+  res.json({ ...property, canDelete: dependentCount === 0, factsFromSpecs: await factsFromSpecs(property.id) });
 });
 
 // Every direct Property relation, for the "does this property have anything attached"
@@ -256,7 +264,7 @@ router.post("/:id/archive", async (req, res) => {
   });
 
   const dependentCount = await countPropertyDependents(req.params.id);
-  res.json({ ...property, canDelete: dependentCount === 0 });
+  res.json({ ...property, canDelete: dependentCount === 0, factsFromSpecs: await factsFromSpecs(property.id) });
 });
 
 router.post("/:id/unarchive", async (req, res) => {
@@ -276,7 +284,7 @@ router.post("/:id/unarchive", async (req, res) => {
   });
 
   const dependentCount = await countPropertyDependents(req.params.id);
-  res.json({ ...property, canDelete: dependentCount === 0 });
+  res.json({ ...property, canDelete: dependentCount === 0, factsFromSpecs: await factsFromSpecs(property.id) });
 });
 
 router.delete("/:id", async (req, res) => {
@@ -320,7 +328,7 @@ router.put("/:id/facts", async (req, res) => {
     where: { id: existing.id },
     data: { facts: mergeFacts(existing.facts, facts) },
   });
-  res.json(property);
+  res.json({ ...property, factsFromSpecs: await factsFromSpecs(property.id) });
 });
 
 module.exports = router;

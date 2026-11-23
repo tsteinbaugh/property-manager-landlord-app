@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useApi } from "../hooks/useApi";
+import { formatDay } from "../lib/dates";
 
 const LEASE_STATUS_STYLES = {
   ACTIVE: "bg-emerald-100 text-emerald-800",
@@ -184,8 +185,8 @@ export default function LeaseSection({ items, onChange, propertyId, properties, 
               </div>
               {isPickerMode && <p className="text-xs text-stone-400">{propertyLabel(lease.propertyId)}</p>}
               <p className="text-sm text-stone-500">
-                {new Date(lease.startDate).toLocaleDateString()}
-                {lease.endDate ? ` – ${new Date(lease.endDate).toLocaleDateString()}` : " – open"}
+                {formatDay(lease.startDate)}
+                {lease.endDate ? ` – ${formatDay(lease.endDate)}` : " – open"}
               </p>
               <p className="text-xs text-stone-400">
                 {lease.leaseTenants.length === 0

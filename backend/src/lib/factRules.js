@@ -754,13 +754,16 @@ const FACT_RULES = {
     },
     note: "when the property is part of a building or lot with more than one dwelling unit (apartment, condo, co-op, ADU, or townhouse in a multi-unit building), or the property type isn't entered",
   },
+  // Ind. Code § 32-31-1-21: the lowest floor at or below the 100-year flood
+  // elevation on a DNR, FEMA or FEMA-approved local map (read 2026-11-22; the
+  // FEMA flood-zone question was a stand-in).
   "flood-disclosure-in": {
     condition: {
-      fact: "property.floodZone",
+      fact: "property.belowFloodElevationIN",
       op: "eq",
       value: true,
     },
-    note: "when the property is in a FEMA special flood hazard area",
+    note: "when the building's lowest floor is at or below the 100-year flood elevation",
     unknownMeans: false,
   },
   "flood-disclosure-ok": {
@@ -887,9 +890,11 @@ const FACT_RULES = {
     },
     note: "when the building has three or more units, unless the owner lives in a building of three units, and it isn't a seasonal rental of under 120 days",
   },
+  // Ley 3-1961 art. 8(b): land in a zone the Planning Board declared flood-prone,
+  // provisional zones included (read 2026-11-22; was the FEMA question).
   "flood-zone-notice-pr": {
     condition: {
-      fact: "property.floodZone",
+      fact: "property.floodProneZonePR",
       op: "eq",
       value: true,
     },
@@ -1258,6 +1263,10 @@ const FACT_RULES = {
       op: "eq",
       value: "KY",
     },
+    // KRS 383.585 binds only where the URLTA (KRS 383.505-383.705) was adopted
+    // locally, and there's no official list of adopting cities and counties, so
+    // a landlord can't reliably answer it; the clause is lawful everywhere and
+    // only a Legal duty. Kept as is after a second look (2026-11-22).
     note: "in every Kentucky lease, because the duty applies wherever the city or county has adopted the uniform landlord-tenant act and the clause is harmless elsewhere",
   },
   "landlord-disclosure-tn": {
@@ -2115,6 +2124,10 @@ const FACT_RULES = {
     },
     note: "when you, or a licensed manager who signs leases, hold a real estate license",
   },
+  // NRS 118A.200(4): the exception is signing by an agent who holds a permit to
+  // engage in property management under NRS chapter 645, not just a license
+  // (read 2026-11-22). (10): a structure of four or fewer units, not a
+  // manufactured home.
   "sfr-occupancy-disclosure-nv": {
     condition: {
       all: [
@@ -2153,7 +2166,7 @@ const FACT_RULES = {
                 value: true,
               },
               {
-                fact: "property.managerLicensed",
+                fact: "property.pmPermitNV",
                 op: "eq",
                 value: true,
               },
@@ -2345,6 +2358,12 @@ const FACT_RULES = {
     note: "when the property is in a special district (the Convention Center District or the Science, Technology and Research District)",
     unknownMeans: false,
   },
+  // § 47a-3f(b) applies where § 29-315 or the fire codes require sprinklers:
+  // buildings over four stories, some elderly housing, and what the building
+  // and fire codes require; the Fire Safety Code doesn't reach one- and
+  // two-family dwellings (§ 29-292(a)(1)). Three or more units over-includes
+  // (older buildings), which only adds an accurate notice; kept after a second
+  // look (2026-11-22).
   "sprinkler-notice-ct": {
     condition: {
       all: [

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useApi } from "../hooks/useApi";
 import { SPEC_LINK_FIELD_NAMES, fetchSpecLinkOptions, encodeSpecLink, decodeSpecLink } from "../lib/specLinks";
+import { formatDay } from "../lib/dates";
 
 const EMPTY_SCHEDULE_FORM = {
   title: "",
@@ -296,7 +297,7 @@ export default function MaintenanceScheduleSection({ items, vendors, onChange, p
                   <p className="text-xs text-stone-400">
                     Every {schedule.intervalDays} days
                     {vendorLabel(schedule.vendorId) ? ` · ${vendorLabel(schedule.vendorId)}` : ""}
-                    {schedule.nextDueDate ? ` · Next due ${new Date(schedule.nextDueDate).toLocaleDateString()}` : ""}
+                    {schedule.nextDueDate ? ` · Next due ${formatDay(schedule.nextDueDate)}` : ""}
                   </p>
                 </div>
                 <div className="flex gap-3 text-sm">
@@ -338,7 +339,7 @@ export default function MaintenanceScheduleSection({ items, vendors, onChange, p
                   ) : (
                     <div className="space-y-1">
                       {schedule.completions.map((completion) => (
-                        <p key={completion.id}>Marked done on {new Date(completion.completedDate).toLocaleDateString()}</p>
+                        <p key={completion.id}>Marked done on {formatDay(completion.completedDate)}</p>
                       ))}
                     </div>
                   )}

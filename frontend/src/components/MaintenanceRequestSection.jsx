@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useApi } from "../hooks/useApi";
 import { SPEC_LINK_FIELD_NAMES, fetchSpecLinkOptions, encodeSpecLink, decodeSpecLink } from "../lib/specLinks";
+import { formatDay } from "../lib/dates";
 
 const MAINTENANCE_STATUSES = ["OPEN", "IN_PROGRESS", "CLOSED"];
 const MAINTENANCE_STATUS_STYLES = {
@@ -390,7 +391,7 @@ export default function MaintenanceRequestSection({ items, vendors, onChange, pr
                     </span>
                   )}
                   <p className="text-xs text-stone-400">
-                    {new Date(request.reportedDate).toLocaleDateString()}
+                    {formatDay(request.reportedDate)}
                     {request.reportedBy ? ` · ${request.reportedBy}` : ""}
                     {vendorLabel(request.vendorId) ? ` · ${vendorLabel(request.vendorId)}` : ""}
                     {request.actualCost ? ` · ${money(request.actualCost)}` : ""}

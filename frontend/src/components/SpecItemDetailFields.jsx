@@ -1,4 +1,5 @@
 import { formatFieldValue } from "../lib/specFieldFormat";
+import { formatDay } from "../lib/dates";
 
 // Read-only "everything about this item" detail block — shared by Room
 // view's click-to-expand cards (PropertySpecsPage) and Category view's
@@ -29,13 +30,13 @@ export default function SpecItemDetailFields({ item, fields }) {
           <div className="space-y-1 text-xs text-stone-500">
             {(item.maintenanceRequests || []).map((r) => (
               <p key={`req-${r.id}`}>
-                {r.title} — {r.status.replace("_", " ")} ({new Date(r.reportedDate).toLocaleDateString()})
+                {r.title} — {r.status.replace("_", " ")} ({formatDay(r.reportedDate)})
               </p>
             ))}
             {(item.maintenanceSchedules || []).map((s) => (
               <p key={`sched-${s.id}`}>
                 {s.title} — every {s.intervalDays} days
-                {s.lastDoneDate ? `, last done ${new Date(s.lastDoneDate).toLocaleDateString()}` : ""}
+                {s.lastDoneDate ? `, last done ${formatDay(s.lastDoneDate)}` : ""}
               </p>
             ))}
           </div>

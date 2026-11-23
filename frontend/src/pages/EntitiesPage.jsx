@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useApi } from "../hooks/useApi";
+import { formatDay } from "../lib/dates";
 
 const ENTITY_TYPES = [
   { value: "LLC", label: "LLC" },
@@ -175,7 +176,7 @@ export default function EntitiesPage() {
               {entity.stateOfFormation && <p className="text-sm text-stone-500">{entity.stateOfFormation}</p>}
               {entity.annualReportDueDate && (
                 <p className={`text-sm ${isDueSoon(entity.annualReportDueDate) ? "font-medium text-amber-700" : "text-stone-500"}`}>
-                  Annual report due {new Date(entity.annualReportDueDate).toLocaleDateString()}
+                  Annual report due {formatDay(entity.annualReportDueDate)}
                   {isDueSoon(entity.annualReportDueDate) ? " — due soon" : ""}
                 </p>
               )}

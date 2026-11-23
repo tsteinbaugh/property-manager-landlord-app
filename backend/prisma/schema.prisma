@@ -333,6 +333,8 @@ model Lease {
   // Answers to the lease's applicability questions (src/lib/factCatalog.js).
   facts                 Json     @default("{}")
 
+  // Yes/No that starts blank, like the deposit: true needs an amount over $0 (2026-11-22).
+  lateFeeCharged   Boolean?
   lateFeeAmount    Decimal? @db.Decimal(10, 2)
   lateFeeGraceDays Int?
 

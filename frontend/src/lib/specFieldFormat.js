@@ -1,3 +1,4 @@
+import { formatDay } from "./dates";
 function money(amount) {
   if (amount === null || amount === undefined) return null;
   return `$${Number(amount).toLocaleString()}`;
@@ -9,11 +10,11 @@ function money(amount) {
 // keeping a dynamic option list in sync just for read-only display.
 export function formatFieldValue(field, item) {
   if (field.key === "expenseId") {
-    return item.expense ? `${money(item.expense.amount)} · ${new Date(item.expense.date).toLocaleDateString()}` : null;
+    return item.expense ? `${money(item.expense.amount)} · ${formatDay(item.expense.date)}` : null;
   }
   const value = item[field.key];
   if (value === null || value === undefined || value === "") return null;
-  if (field.type === "date") return new Date(value).toLocaleDateString();
+  if (field.type === "date") return formatDay(value);
   if (field.type === "select" || field.type === "searchable-select") {
     return field.options.find((o) => o.value === value)?.label || value;
   }

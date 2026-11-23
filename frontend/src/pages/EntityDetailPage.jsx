@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useApi } from "../hooks/useApi";
 import BackLink from "../components/BackLink";
+import { formatDay } from "../lib/dates";
 
 const ENTITY_TYPES = [
   { value: "LLC", label: "LLC" },
@@ -155,7 +156,7 @@ export default function EntityDetailPage() {
 
         {entity.annualReportDueDate && (
           <p className={`mt-3 text-sm ${isDueSoon(entity.annualReportDueDate) ? "font-medium text-amber-700" : "text-stone-500"}`}>
-            Annual report due {new Date(entity.annualReportDueDate).toLocaleDateString()}
+            Annual report due {formatDay(entity.annualReportDueDate)}
             {isDueSoon(entity.annualReportDueDate) ? " — due soon" : ""}
           </p>
         )}
@@ -312,7 +313,7 @@ export default function EntityDetailPage() {
             <DetailRow label="Bank account" value={entity.bankAccount} />
             <DetailRow
               label="Formation date"
-              value={entity.formationDate ? new Date(entity.formationDate).toLocaleDateString() : null}
+              value={entity.formationDate ? formatDay(entity.formationDate) : null}
             />
           </div>
         )}

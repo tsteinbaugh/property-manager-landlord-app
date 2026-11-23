@@ -65,6 +65,7 @@ const ASSIGNABLE_FIELDS = [
   "monthlyRent",
   "securityDepositAmount",
   "securityDepositTaken",
+  "lateFeeCharged",
   "leaseType",
   "lateFeeAmount",
   "lateFeeGraceDays",
@@ -112,6 +113,25 @@ function normalizeLeaseAnswers(data, existing = null) {
     }
   }
   if (data.securityDepositTaken === false) data.securityDepositAmount = null;
+  // The late fee works the same way: Yes needs an amount over $0, $0 means No.
+  if (data.lateFeeCharged !== undefined && data.lateFeeCharged !== null && typeof data.lateFeeCharged !== "boolean") {
+    return { error: "lateFeeCharged must be true, false or null" };
+  }
+  if (data.lateFeeAmount !== undefined && data.lateFeeAmount !== null) {
+    const amount = Number(data.lateFeeAmount);
+    if (!Number.isFinite(amount) || amount < 0) return { error: "lateFeeAmount must be a positive amount" };
+    if (amount === 0) {
+      if (data.lateFeeCharged === true) return { error: "A late fee must be more than $0; answer No if there's no late fee" };
+      data.lateFeeAmount = null;
+      data.lateFeeCharged = false;
+    } else if (data.lateFeeCharged === undefined && existing?.lateFeeCharged !== true) {
+      data.lateFeeCharged = true;
+    }
+  }
+  if (data.lateFeeCharged === false) {
+    data.lateFeeAmount = null;
+    data.lateFeeGraceDays = null;
+  }
   return { data };
 }
 
@@ -126,7 +146,9 @@ function validateLeaseBody(body) {
 const leaseInclude = {
   leaseTenants: { include: { tenant: { include: { occupants: true, pets: true } } } },
   leaseClauses: true,
-  property: { include: { entity: true, appliances: { where: { active: true } } } },
+  property: {
+    include: { entity: true, appliances: { where: { active: true } }, flooringSpecs: { where: { active: true }, select: { type: true } } },
+  },
   deposits: { where: { type: "PET" } },
   attachments: { orderBy: { createdAt: "asc" } },
 };

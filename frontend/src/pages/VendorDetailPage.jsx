@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useApi } from "../hooks/useApi";
 import BackLink from "../components/BackLink";
+import { formatDay } from "../lib/dates";
 
 const STATUS_STYLES = {
   OPEN: "bg-amber-100 text-amber-800",
@@ -236,7 +237,7 @@ export default function VendorDetailPage() {
                   </span>
                 </div>
                 <p className="text-xs text-stone-400">
-                  {new Date(request.reportedDate).toLocaleDateString()}
+                  {formatDay(request.reportedDate)}
                   {request.actualCost ? ` · ${money(request.actualCost)}` : ""}
                 </p>
               </div>

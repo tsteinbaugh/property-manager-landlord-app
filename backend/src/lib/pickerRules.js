@@ -357,10 +357,6 @@ const PICKER_RULES = {
     condition: {"fact":"property.localRentalFee","op":"eq","value":true},
     note: "when no local government charges a rental registration, permit or inspection fee",
   },
-  "carpet-cleaning-wv": {
-    condition: {"fact":"lease.depositTaken","op":"eq","value":true},
-    note: "when the lease takes no security deposit",
-  },
   "utility-submetering-disclosure-co": {
     condition: {"fact":"property.chargeBackMethods","op":"includesAny","value":["SHARED_SPLIT","FLAT"]},
     note: "when no utility is charged back by a shared split or flat amount (only submetered or none charged back)",
@@ -568,10 +564,6 @@ const PICKER_RULES = {
   "flood-disclosure-ga": {
     condition: {"fact":"property.floodedRecently","op":"eq","value":true},
     note: "when the property hasn't flooded in the last five years",
-  },
-  "late-fee-tn-other": {
-    condition: {"not":{"fact":"property.county","op":"matches","value":["Anderson","Blount","Bradley","Davidson","Hamilton","Knox","Madison","Maury","Montgomery","Rutherford","Sevier","Shelby","Sullivan","Sumner","Washington","Williamson","Wilson"]}},
-    note: "when the property is in one of the 17 Tennessee counties covered by the landlord-tenant act",
   },
   "defective-drywall-disclosure-va": {
     condition: {"fact":"property.defectiveDrywall","op":"eq","value":true},
@@ -962,10 +954,6 @@ const PICKER_RULES = {
     note: "when no security deposit is taken",
   },
   "security-deposit-return-wa": {
-    condition: {"fact":"lease.depositTaken","op":"eq","value":true},
-    note: "when no security deposit is taken",
-  },
-  "carpet-cleaning-deduction-or": {
     condition: {"fact":"lease.depositTaken","op":"eq","value":true},
     note: "when no security deposit is taken",
   },
@@ -1416,6 +1404,231 @@ const PICKER_RULES = {
   "guaranty-or": {
     condition: {"fact":"lease.hasGuarantor","op":"eq","value":true},
     note: "when no guarantor is on the lease",
+  },
+  // Added 2026-11-22 with the portal, carpet and late fee questions.
+  "late-fee": {
+    condition: {"fact":"lease.lateFeeCharged","op":"eq","value":true},
+    note: "when the lease charges no late fee",
+  },
+  "late-fee-limit-md": {
+    condition: {"fact":"lease.lateFeeCharged","op":"eq","value":true},
+    note: "when the lease charges no late fee",
+  },
+  "late-fee-limit-mn": {
+    condition: {"fact":"lease.lateFeeCharged","op":"eq","value":true},
+    note: "when the lease charges no late fee",
+  },
+  "late-fee-limit-tn": {
+    condition: {"fact":"lease.lateFeeCharged","op":"eq","value":true},
+    note: "when the lease charges no late fee",
+  },
+  "late-fee-limit-va": {
+    condition: {"fact":"lease.lateFeeCharged","op":"eq","value":true},
+    note: "when the lease charges no late fee",
+  },
+  "late-fee-limit-nc": {
+    condition: {"fact":"lease.lateFeeCharged","op":"eq","value":true},
+    note: "when the lease charges no late fee",
+  },
+  "late-fee-safe-harbor-tx": {
+    condition: {"fact":"lease.lateFeeCharged","op":"eq","value":true},
+    note: "when the lease charges no late fee",
+  },
+  "late-fee-limit-de": {
+    condition: {"fact":"lease.lateFeeCharged","op":"eq","value":true},
+    note: "when the lease charges no late fee",
+  },
+  "late-fee-limit-or": {
+    condition: {"fact":"lease.lateFeeCharged","op":"eq","value":true},
+    note: "when the lease charges no late fee",
+  },
+  "late-fee-safe-harbor-ca": {
+    condition: {"fact":"lease.lateFeeCharged","op":"eq","value":true},
+    note: "when the lease charges no late fee",
+  },
+  "late-fee-ks": {
+    condition: {"fact":"lease.lateFeeCharged","op":"eq","value":true},
+    note: "when the lease charges no late fee",
+  },
+  "late-fee-ne": {
+    condition: {"fact":"lease.lateFeeCharged","op":"eq","value":true},
+    note: "when the lease charges no late fee",
+  },
+  "late-fee-nv": {
+    condition: {"fact":"lease.lateFeeCharged","op":"eq","value":true},
+    note: "when the lease charges no late fee",
+  },
+  "late-fee-nj": {
+    condition: {"fact":"lease.lateFeeCharged","op":"eq","value":true},
+    note: "when the lease charges no late fee",
+  },
+  "late-fee-az": {
+    condition: {"fact":"lease.lateFeeCharged","op":"eq","value":true},
+    note: "when the lease charges no late fee",
+  },
+  "late-fee-fl": {
+    condition: {"fact":"lease.lateFeeCharged","op":"eq","value":true},
+    note: "when the lease charges no late fee",
+  },
+  "late-fee-tn-other": {
+    condition: {"all":[{"fact":"lease.lateFeeCharged","op":"eq","value":true},{"not":{"fact":"property.county","op":"matches","value":["Anderson","Blount","Bradley","Davidson","Hamilton","Knox","Madison","Maury","Montgomery","Rutherford","Sevier","Shelby","Sullivan","Sumner","Washington","Williamson","Wilson"]}}]},
+    note: "when the lease charges no late fee, or the property is in one of the 17 Tennessee counties covered by the landlord-tenant act",
+  },
+  "deposit-carpet-cleaning-mo": {
+    condition: {"fact":"property.hasCarpet","op":"eq","value":true},
+    note: "when the rental has no carpet",
+  },
+  "late-fee-ia": {
+    condition: {"fact":"lease.lateFeeCharged","op":"eq","value":true},
+    note: "when the lease charges no late fee",
+  },
+  "late-fee-nm": {
+    condition: {"fact":"lease.lateFeeCharged","op":"eq","value":true},
+    note: "when the lease charges no late fee",
+  },
+  "late-fee-wa": {
+    condition: {"fact":"lease.lateFeeCharged","op":"eq","value":true},
+    note: "when the lease charges no late fee",
+  },
+  "carpet-cleaning-deduction-or": {
+    condition: {"all":[{"fact":"property.hasCarpet","op":"eq","value":true},{"fact":"lease.depositTaken","op":"eq","value":true}]},
+    note: "when the rental has no carpet, or no security deposit is taken",
+  },
+  "late-fee-ky": {
+    condition: {"fact":"lease.lateFeeCharged","op":"eq","value":true},
+    note: "when the lease charges no late fee",
+  },
+  "late-fee-ma": {
+    condition: {"fact":"lease.lateFeeCharged","op":"eq","value":true},
+    note: "when the lease charges no late fee",
+  },
+  "late-fee-ct": {
+    condition: {"fact":"lease.lateFeeCharged","op":"eq","value":true},
+    note: "when the lease charges no late fee",
+  },
+  "late-fee-ri": {
+    condition: {"fact":"lease.lateFeeCharged","op":"eq","value":true},
+    note: "when the lease charges no late fee",
+  },
+  "late-fee-nh": {
+    condition: {"fact":"lease.lateFeeCharged","op":"eq","value":true},
+    note: "when the lease charges no late fee",
+  },
+  "late-fee-me": {
+    condition: {"fact":"lease.lateFeeCharged","op":"eq","value":true},
+    note: "when the lease charges no late fee",
+  },
+  "carpet-cleaning-ak": {
+    condition: {"fact":"property.hasCarpet","op":"eq","value":true},
+    note: "when the rental has no carpet",
+  },
+  "carpet-cleaning-la": {
+    condition: {"fact":"property.hasCarpet","op":"eq","value":true},
+    note: "when the rental has no carpet",
+  },
+  "carpet-cleaning-ar": {
+    condition: {"fact":"property.hasCarpet","op":"eq","value":true},
+    note: "when the rental has no carpet",
+  },
+  "late-fee-dc": {
+    condition: {"fact":"lease.lateFeeCharged","op":"eq","value":true},
+    note: "when the lease charges no late fee",
+  },
+  "late-fee-pr": {
+    condition: {"fact":"lease.lateFeeCharged","op":"eq","value":true},
+    note: "when the lease charges no late fee",
+  },
+  "late-fee-gu": {
+    condition: {"fact":"lease.lateFeeCharged","op":"eq","value":true},
+    note: "when the lease charges no late fee",
+  },
+  "carpet-cleaning-gu": {
+    condition: {"fact":"property.hasCarpet","op":"eq","value":true},
+    note: "when the rental has no carpet",
+  },
+  "carpet-condition-at-move-out-co": {
+    condition: {"fact":"property.hasCarpet","op":"eq","value":true},
+    note: "when the rental has no carpet",
+  },
+  "carpet-cleaning-wy": {
+    condition: {"fact":"property.hasCarpet","op":"eq","value":true},
+    note: "when the rental has no carpet",
+  },
+  "carpet-cleaning-mn": {
+    condition: {"fact":"property.hasCarpet","op":"eq","value":true},
+    note: "when the rental has no carpet",
+  },
+  "tenant-portal-mn": {
+    condition: {"fact":"account.offersTenantPortal","op":"eq","value":true},
+    note: "when you don’t offer tenants an online portal",
+  },
+  "portal-rent-payment-ne": {
+    condition: {"fact":"account.offersTenantPortal","op":"eq","value":true},
+    note: "when you don’t offer tenants an online portal",
+  },
+  "tenant-portal-nd": {
+    condition: {"fact":"account.offersTenantPortal","op":"eq","value":true},
+    note: "when you don’t offer tenants an online portal",
+  },
+  "carpet-cleaning-oh": {
+    condition: {"fact":"property.hasCarpet","op":"eq","value":true},
+    note: "when the rental has no carpet",
+  },
+  "tenant-portal-oh": {
+    condition: {"fact":"account.offersTenantPortal","op":"eq","value":true},
+    note: "when you don’t offer tenants an online portal",
+  },
+  "carpet-cleaning-nv": {
+    condition: {"fact":"property.hasCarpet","op":"eq","value":true},
+    note: "when the rental has no carpet",
+  },
+  "tenant-portal-nv": {
+    condition: {"fact":"account.offersTenantPortal","op":"eq","value":true},
+    note: "when you don’t offer tenants an online portal",
+  },
+  "tenant-portal-fl": {
+    condition: {"fact":"account.offersTenantPortal","op":"eq","value":true},
+    note: "when you don’t offer tenants an online portal",
+  },
+  "carpet-cleaning-ut": {
+    condition: {"fact":"property.hasCarpet","op":"eq","value":true},
+    note: "when the rental has no carpet",
+  },
+  "tenant-portal-ut": {
+    condition: {"fact":"account.offersTenantPortal","op":"eq","value":true},
+    note: "when you don’t offer tenants an online portal",
+  },
+  "tenant-portal-il": {
+    condition: {"fact":"account.offersTenantPortal","op":"eq","value":true},
+    note: "when you don’t offer tenants an online portal",
+  },
+  "carpet-cleaning-id": {
+    condition: {"fact":"property.hasCarpet","op":"eq","value":true},
+    note: "when the rental has no carpet",
+  },
+  "tenant-portal-mi": {
+    condition: {"fact":"account.offersTenantPortal","op":"eq","value":true},
+    note: "when you don’t offer tenants an online portal",
+  },
+  "carpet-cleaning-nm": {
+    condition: {"fact":"property.hasCarpet","op":"eq","value":true},
+    note: "when the rental has no carpet",
+  },
+  "carpet-cleaning-mt": {
+    condition: {"fact":"property.hasCarpet","op":"eq","value":true},
+    note: "when the rental has no carpet",
+  },
+  "tenant-portal-mt": {
+    condition: {"fact":"account.offersTenantPortal","op":"eq","value":true},
+    note: "when you don’t offer tenants an online portal",
+  },
+  "carpet-cleaning-wv": {
+    condition: {"all":[{"fact":"property.hasCarpet","op":"eq","value":true},{"fact":"lease.depositTaken","op":"eq","value":true}]},
+    note: "when the rental has no carpet, or the lease takes no security deposit",
+  },
+  "tenant-portal-wv": {
+    condition: {"fact":"account.offersTenantPortal","op":"eq","value":true},
+    note: "when you don’t offer tenants an online portal",
   },
 };
 

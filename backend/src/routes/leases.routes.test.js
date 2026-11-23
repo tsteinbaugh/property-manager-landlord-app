@@ -1667,5 +1667,22 @@ describe("leases routes", () => {
       expect(res.body.questions.map((x) => x.key)).not.toContain(key);
     });
   });
+
+  describe("late fee and notices", () => {
+    it("treats a $0 late fee as No and clears the fee when the answer is No", async () => {
+      const lease = await prisma.lease.create({
+        data: { propertyId: property.id, userId: property.userId, startDate: new Date("2027-01-01"), monthlyRent: "1800.00" },
+      });
+      let res = await request(app).put(`/api/leases/${lease.id}`).send({ lateFeeAmount: 0 });
+      expect(res.body.lateFeeCharged).toBe(false);
+      res = await request(app).put(`/api/leases/${lease.id}`).send({ lateFeeAmount: 75, lateFeeGraceDays: 5 });
+      expect(res.body.lateFeeCharged).toBe(true);
+      res = await request(app).put(`/api/leases/${lease.id}`).send({ lateFeeCharged: false });
+      expect(res.body.lateFeeAmount).toBe(null);
+      expect(res.body.lateFeeGraceDays).toBe(null);
+      res = await request(app).put(`/api/leases/${lease.id}`).send({ lateFeeCharged: true, lateFeeAmount: 0 });
+      expect(res.status).toBe(400);
+    });
+  });
 });
 

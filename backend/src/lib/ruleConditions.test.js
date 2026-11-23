@@ -21,12 +21,12 @@ describe("ruleConditions", () => {
   });
 
   it("reads a checkbox's default when it isn't answered", () => {
-    expect(resolve("property.furnished", ctx())).toBe(false);
+    expect(resolve("property.fireplace", ctx())).toBe(false);
   });
 
   it("treats an unticked checkbox as unanswered when deciding whether to hide a clause", () => {
-    expect(resolve("property.furnished", { ...ctx(), strictCheckboxes: true })).toBe(null);
-    expect(resolve("property.furnished", { ...ctx({ facts: { furnished: true } }), strictCheckboxes: true })).toBe(true);
+    expect(resolve("property.fireplace", { ...ctx(), strictCheckboxes: true })).toBe(null);
+    expect(resolve("property.fireplace", { ...ctx({ facts: { fireplace: true } }), strictCheckboxes: true })).toBe(true);
   });
 
   it("derives the deposit, lease length and the people on the lease", () => {
@@ -67,6 +67,15 @@ describe("ruleConditions", () => {
     const c = { fact: "property.county", op: "matches", value: ["Davidson", "Knox"] };
     expect(evaluate(c, ctx({ facts: { county: "davidson county" } }))).toBe(true);
     expect(evaluate(c, ctx({ facts: { county: "Polk" } }))).toBe(false);
+  });
+
+  it("takes carpet from Property Specs unless the landlord answered, and derives the late fee", () => {
+    expect(resolve("property.hasCarpet", ctx({ flooringSpecs: [{ type: "Carpet", active: true }] }))).toBe(true);
+    expect(resolve("property.hasCarpet", ctx({ facts: { hasCarpet: false }, flooringSpecs: [{ type: "carpet" }] }))).toBe(false);
+    expect(resolve("property.hasCarpet", ctx({ flooringSpecs: [{ type: "LVP" }] }))).toBe(null);
+    expect(resolve("lease.lateFeeCharged", ctx({}, { lateFeeAmount: "50" }))).toBe(true);
+    expect(resolve("lease.lateFeeCharged", ctx({}, { lateFeeCharged: false }))).toBe(false);
+    expect(resolve("lease.lateFeeCharged", ctx())).toBe(null);
   });
 
   it("refuses an unknown fact", () => {

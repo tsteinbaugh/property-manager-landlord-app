@@ -4,6 +4,8 @@ import { useApi } from "../hooks/useApi";
 import BackLink from "../components/BackLink";
 import LeaseBuilderSection from "../components/LeaseBuilderSection";
 import FactQuestionsCard from "../components/FactQuestions";
+import { FirstMonthSection, NoticesSection } from "../components/LeaseTermsSections";
+import { formatDay } from "../lib/dates";
 
 const LEASE_STATUSES = ["ACTIVE", "EXPIRED", "MONTH_TO_MONTH", "TERMINATED"];
 const LEASE_TENANT_ROLES = ["PRIMARY", "CO_TENANT", "GUARANTOR"];
@@ -29,6 +31,7 @@ function toForm(lease) {
     status: lease.status,
     petPolicy: !!lease.petPolicy,
     securityDepositTaken: lease.securityDepositTaken ?? null,
+    lateFeeCharged: lease.lateFeeCharged ?? null,
     leaseType: lease.leaseType ?? "",
   };
   for (const f of TEXT_FIELDS) form[f] = lease[f] || "";
@@ -107,6 +110,12 @@ export default function LeaseDetailPage() {
       return;
     }
 
+    if (form.lateFeeCharged === true && !(Number(form.lateFeeAmount) > 0)) {
+      setError("Enter the late fee amount (more than $0), or answer No.");
+      setSubmitting(false);
+      return;
+    }
+
     const body = { ...form, leaseType: form.leaseType || null };
     for (const key of [...TEXT_FIELDS, ...NUMBER_FIELDS, ...DATE_FIELDS]) {
       if (body[key] === "") {
@@ -118,6 +127,10 @@ export default function LeaseDetailPage() {
       if (body[key] !== undefined && body[key] !== null) body[key] = Number(body[key]);
     }
     if (body.securityDepositTaken === false) body.securityDepositAmount = null;
+    if (body.lateFeeCharged === false) {
+      body.lateFeeAmount = null;
+      body.lateFeeGraceDays = null;
+    }
 
     try {
       const updated = await api.put(`/api/leases/${id}`, body);
@@ -289,8 +302,8 @@ export default function LeaseDetailPage() {
           <div>
             <h1 className="text-2xl text-stone-900">{money(lease.monthlyRent)}/mo</h1>
             <p className="text-sm text-stone-500">
-              {new Date(lease.startDate).toLocaleDateString()}
-              {lease.endDate ? ` – ${new Date(lease.endDate).toLocaleDateString()}` : " – open"}
+              {formatDay(lease.startDate)}
+              {lease.endDate ? ` – ${formatDay(lease.endDate)}` : " – open"}
             </p>
           </div>
           {!editing && !lease.deleted && (
@@ -398,28 +411,61 @@ export default function LeaseDetailPage() {
                   )}
                 </div>
               </div>
-              <label className="block text-sm">
-                <span className="mb-1 block font-medium text-stone-700">Late fee amount</span>
-                <input
-                  type="number"
-                  min="0"
-                  step="0.01"
-                  value={form.lateFeeAmount}
-                  onChange={(e) => setForm({ ...form, lateFeeAmount: e.target.value })}
-                  className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
-                />
-              </label>
-              <label className="block text-sm">
-                <span className="mb-1 block font-medium text-stone-700">Late fee grace days</span>
-                <input
-                  type="number"
-                  min="0"
-                  step="1"
-                  value={form.lateFeeGraceDays}
-                  onChange={(e) => setForm({ ...form, lateFeeGraceDays: e.target.value })}
-                  className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
-                />
-              </label>
+              <div className="text-sm sm:col-span-2">
+                <span className="mb-1 block font-medium text-stone-700">Do you charge a late fee?</span>
+                <div className="flex flex-wrap items-center gap-4">
+                  {[
+                    [true, "Yes"],
+                    [false, "No"],
+                  ].map(([v, label]) => (
+                    <label key={label} className="flex items-center gap-1.5">
+                      <input
+                        type="radio"
+                        name="lateFeeCharged"
+                        checked={form.lateFeeCharged === v}
+                        onChange={() =>
+                          setForm({
+                            ...form,
+                            lateFeeCharged: v,
+                            lateFeeAmount: v ? form.lateFeeAmount : "",
+                            lateFeeGraceDays: v ? form.lateFeeGraceDays : "",
+                          })
+                        }
+                        className="h-4 w-4 border-stone-300"
+                      />
+                      <span className="text-stone-700">{label}</span>
+                    </label>
+                  ))}
+                  {form.lateFeeCharged === null && <span className="text-xs text-amber-700">Not answered</span>}
+                </div>
+                {form.lateFeeCharged === true && (
+                  <div className="mt-2 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    <label className="block">
+                      <span className="mb-1 block text-stone-600">Late fee amount</span>
+                      <input
+                        type="number"
+                        min="0.01"
+                        step="0.01"
+                        required
+                        value={form.lateFeeAmount}
+                        onChange={(e) => setForm({ ...form, lateFeeAmount: e.target.value })}
+                        className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
+                      />
+                    </label>
+                    <label className="block">
+                      <span className="mb-1 block text-stone-600">Grace days before it's charged</span>
+                      <input
+                        type="number"
+                        min="0"
+                        step="1"
+                        value={form.lateFeeGraceDays}
+                        onChange={(e) => setForm({ ...form, lateFeeGraceDays: e.target.value })}
+                        className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
+                      />
+                    </label>
+                  </div>
+                )}
+              </div>
               <label className="flex items-center gap-2 self-end pb-2 text-sm">
                 <input
                   type="checkbox"
@@ -505,8 +551,17 @@ export default function LeaseDetailPage() {
                     : "Not answered"
               }
             />
-            <DetailRow label="Late fee" value={money(lease.lateFeeAmount)} />
-            <DetailRow label="Late fee grace days" value={lease.lateFeeGraceDays} />
+            <DetailRow
+              label="Late fee"
+              value={
+                lease.lateFeeCharged === false
+                  ? "None"
+                  : lease.lateFeeCharged === true
+                    ? money(lease.lateFeeAmount) ?? "Yes (amount not entered)"
+                    : "Not answered"
+              }
+            />
+            {lease.lateFeeCharged === true && <DetailRow label="Late fee grace days" value={lease.lateFeeGraceDays} />}
             <DetailRow label="Pets allowed" value={lease.petPolicy ? "Yes" : "No"} />
             <DetailRow label="Pet rent" value={money(lease.petRentAmount)} />
             <DetailRow label="Tenant insurance minimum coverage" value={money(lease.tenantInsuranceMinimumCoverage)} />
@@ -520,6 +575,9 @@ export default function LeaseDetailPage() {
           </div>
         )}
       </div>
+
+      <FirstMonthSection lease={lease} onSaved={load} />
+      <NoticesSection lease={lease} onSaved={load} />
 
       <section className="space-y-3">
         <h2 className="text-lg font-medium text-stone-900">Deposits</h2>
@@ -940,13 +998,13 @@ function DepositCard({ leaseId, type, label, deposit, onChange }) {
         deposit && (
           <div className="mt-2 space-y-1 text-sm">
             <DetailRow label="Amount held" value={money(deposit.amountHeld)} />
-            <DetailRow label="Date received" value={new Date(deposit.dateReceived).toLocaleDateString()} />
+            <DetailRow label="Date received" value={formatDay(deposit.dateReceived)} />
             <DetailRow label="Storage method" value={deposit.storageMethod} />
             <DetailRow label="Status" value={deposit.status.replaceAll("_", " ")} />
             <DetailRow label="Returned amount" value={money(deposit.returnedAmount)} />
             <DetailRow
               label="Returned date"
-              value={deposit.returnedDate ? new Date(deposit.returnedDate).toLocaleDateString() : null}
+              value={deposit.returnedDate ? formatDay(deposit.returnedDate) : null}
             />
 
             <div className="pt-2">

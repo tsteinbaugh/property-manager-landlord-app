@@ -96,9 +96,8 @@ const PROPERTY = [
   {
     id: "associationApprovesLeases",
     section: "Association",
-    type: "checkbox",
-    default: false,
-    label: "The association must approve leases or tenants",
+    type: "yesno",
+    label: "Must the association approve leases or tenants?",
     showIf: { id: "associationType", in: ["HOA", "CONDO", "COOP", "METRO_DISTRICT"] },
   },
   {
@@ -152,10 +151,10 @@ const PROPERTY = [
     ],
   },
   { id: "parkingSpaces", section: "Water, sewer and site", type: "number", label: "How many parking spaces does the property have?", counts: false },
-  { id: "parkingChargedSeparately", section: "Water, sewer and site", type: "checkbox", default: false, label: "You charge for parking separately from rent" },
+  { id: "parkingChargedSeparately", section: "Water, sewer and site", type: "yesno", label: "Do you charge for parking separately from rent?" },
   { id: "enforcesParkingRules", section: "Water, sewer and site", type: "yesno", label: "Do you enforce parking or towing rules?", states: ["CO", "SC", "TX"] },
-  { id: "hasYard", section: "Water, sewer and site", type: "checkbox", default: false, label: "There's a yard or landscaping the tenant can use" },
-  { id: "ruralLand", section: "Water, sewer and site", type: "checkbox", default: false, label: "Rural or farm land where hunting, fishing or grazing is possible" },
+  { id: "hasYard", section: "Water, sewer and site", type: "yesno", label: "Is there a yard or landscaping the tenant can use?" },
+  { id: "ruralLand", section: "Water, sewer and site", type: "yesno", label: "Is it rural or farm land where hunting, fishing or grazing is possible?" },
   {
     id: "storage",
     section: "Water, sewer and site",
@@ -177,11 +176,18 @@ const PROPERTY = [
   },
 
   // Heat, appliances and furnishings
-  { id: "tenantControlsThermostat", section: "Heat, appliances and furnishings", type: "checkbox", default: true, label: "The tenant controls the thermostat" },
+  { id: "tenantControlsThermostat", section: "Heat, appliances and furnishings", type: "yesno", label: "Does the tenant control the thermostat?" },
   { id: "fireplace", section: "Heat, appliances and furnishings", type: "checkbox", default: false, label: "Fireplace or wood stove" },
   { id: "appliancesProvided", section: "Heat, appliances and furnishings", type: "appliances", label: "Which appliances does the rental provide?" },
-  { id: "furnished", section: "Heat, appliances and furnishings", type: "checkbox", default: false, label: "Furnished" },
-  { id: "smartLock", section: "Heat, appliances and furnishings", type: "checkbox", default: false, label: "Smart lock or electronic entry (keypad, fob, app)" },
+  {
+    id: "hasCarpet",
+    section: "Heat, appliances and furnishings",
+    type: "yesno",
+    label: "Does the rental have carpet?",
+    help: "If Property Specs lists carpet flooring, this is answered Yes for you.",
+  },
+  { id: "furnished", section: "Heat, appliances and furnishings", type: "yesno", label: "Is the rental furnished?" },
+  { id: "smartLock", section: "Heat, appliances and furnishings", type: "yesno", label: "Is there a smart lock or electronic entry (keypad, fob, app)?" },
 
   // What you know about the property
   {
@@ -203,7 +209,23 @@ const PROPERTY = [
   { id: "leadHazardOrder", section: "What you know about the property", type: "yesno", label: "Has a lead hazard order or lead mitigation notice been issued for the property?", states: ["NH", "IL"] },
   { id: "certifiedLeadFree", section: "What you know about the property", type: "yesno", label: "Has the unit been certified lead-free by an accredited inspector?", states: ["MD", "NJ"] },
   { id: "leadServiceLineNotice", section: "What you know about the property", type: "yesno", label: "Has your water system sent you a notice that the property has a lead service line?", states: ["NJ"] },
-  { id: "floodZone", section: "What you know about the property", type: "yesno", label: "Is the property in a FEMA special flood hazard area?", help: "FEMA's flood map: msc.fema.gov.", states: ["IN", "OR", "PR"] },
+  { id: "floodZone", section: "What you know about the property", type: "yesno", label: "Is the property in a FEMA special flood hazard area?", help: "FEMA's flood map: msc.fema.gov.", states: ["OR"] },
+  {
+    id: "belowFloodElevationIN",
+    section: "What you know about the property",
+    type: "yesno",
+    label: "Is the building's lowest floor, including a basement, at or below the 100-year flood elevation?",
+    help: "Use FEMA's flood map (msc.fema.gov), the Indiana Department of Natural Resources' floodplain map, or a FEMA-approved local floodplain map.",
+    states: ["IN"],
+  },
+  {
+    id: "floodProneZonePR",
+    section: "What you know about the property",
+    type: "yesno",
+    label: "Is the land in a flood-prone zone (Zona Susceptible a Inundaciones) the Planning Board has declared, including a provisional zone?",
+    help: "The Junta de Planificación's flood zone maps show these zones.",
+    states: ["PR"],
+  },
   { id: "floodedRecently", section: "What you know about the property", type: "yesno", label: `${KNOW}has the property flooded in the last 5 years?`, states: ["OK", "GA"] },
   { id: "bedBugs", section: "What you know about the property", type: "yesno", label: `${KNOW}does this unit, or a unit next to it, have bed bugs, or is one being treated now?`, states: ["ME"] },
   {
@@ -258,12 +280,13 @@ const PROPERTY = [
   { id: "managerSignsLeases", section: "Property manager", type: "yesno", label: "Does the manager sign leases for you?", showIf: { id: ["managerCompany", "managerName"], isSet: true } },
   { id: "managerLicensed", section: "Property manager", type: "yesno", label: "Does the manager hold a real estate license?", showIf: { id: ["managerCompany", "managerName"], isSet: true } },
   {
-    id: "noticeAddress",
+    id: "pmPermitNV",
     section: "Property manager",
-    type: "text",
-    label: "Address for lease notices",
-    help: "Leave blank to use the owning entity's mailing address. A lease can override it.",
-    counts: false,
+    type: "yesno",
+    label: "Does the manager hold a Nevada property management permit (NRS chapter 645)?",
+    help: "A real estate license alone isn't the permit.",
+    states: ["NV"],
+    showIf: { id: ["managerCompany", "managerName"], isSet: true },
   },
 
   // Utilities
@@ -309,18 +332,28 @@ const LEASE = [
   { id: "employeeHousing", section: "This lease", type: "yesno", label: "Is the tenant your employee, with the housing part of the job's pay?" },
   { id: "holdingDeposit", section: "This lease", type: "yesno", label: "Did the tenant pay a holding deposit before signing?", states: ["WY"] },
   { id: "holdingDepositAmount", section: "This lease", type: "number", label: "Holding deposit amount", counts: false, states: ["WY"], showIf: { id: "holdingDeposit", in: [true] } },
-  { id: "utilityDeposit", section: "This lease", type: "checkbox", default: false, label: "There's a utility deposit", states: ["CO"] },
+  { id: "utilityDeposit", section: "This lease", type: "yesno", label: "Is there a utility deposit?", states: ["CO"] },
   {
     id: "firstMonthRent",
     section: "This lease",
     type: "pickOne",
-    label: "First month's rent",
+    label: "How is the first month's rent handled?",
+    ownSection: true, // the lease page's First month section
     options: [
       { value: "FULL", label: "Full month" },
       { value: "PRORATED", label: "Prorated" },
       { value: "WAIVED", label: "Waived for the days before the first full month" },
     ],
+  },  {
+    id: "firstMonthAmount",
+    section: "This lease",
+    type: "number",
+    label: "First month's prorated rent",
+    counts: false,
+    ownSection: true,
+    showIf: { id: "firstMonthRent", in: ["PRORATED"] },
   },
+
   { id: "parkingAssigned", section: "This lease", type: "number", label: "Parking spaces assigned to this lease", counts: false },
   { id: "storageUnitAssigned", section: "This lease", type: "text", label: "Storage unit assigned to this lease", counts: false },
   { id: "storageUnitFee", section: "This lease", type: "number", label: "Storage unit monthly fee", counts: false },
@@ -346,7 +379,8 @@ const LEASE = [
     ],
   },
   { id: "foreclosureUnderway", section: "This lease", type: "yesno", label: "Is a foreclosure under way on this property right now?", help: "Count a notice of default, a trustee's sale notice, a contract forfeiture or a tax-lien foreclosure.", states: ["AZ", "LA", "MN", "OR"] },
-  { id: "noticeAddress", section: "This lease", type: "text", label: "Address for lease notices (only if different from the property's)", counts: false },
+  // Shown in the lease page's Notices section, not the Lease questions card (ownSection).
+  { id: "noticeAddress", section: "This lease", type: "text", label: "Address for lease notices", counts: false, ownSection: true },
   // Added with the second rule batch (2026-11-22).
   {"id": "prRentSubsidy", "section": "This lease", "type": "yesno", "label": "Does the tenant receive a rent subsidy from Puerto Rico's Rent Subsidy Program for Low-Income Older Adults or the Veterans' Rent Matching Program?", "help": "These are Puerto Rico Department of Housing and Veterans Advocate programs (Ley 173-1996), not federal Section 8.", "states": ["PR"]},
   {"id": "brokerInvolved", "section": "This lease", "type": "yesno", "label": "Is a real estate broker or agent providing brokerage services to you or the tenant for this lease (for example, finding the tenant, showing the property or negotiating the terms)?", "states": ["OK"]},
@@ -366,6 +400,13 @@ const ACCOUNT = [
     showIf: { id: "residenceState", in: ["HI"] },
   },
   { id: "landlordLicensed", section: "Your primary residence", type: "yesno", label: "Do you hold a real estate license?", states: ["IL", "IN", "OK", "SC", "WI", "LA"] },
+  {
+    id: "offersTenantPortal",
+    section: "How you run your rentals",
+    type: "yesno",
+    label: "Do you offer tenants an online portal?",
+    help: "A website or app where tenants pay rent, send repair requests or get notices, such as TurboTenant, Avail, Zillow Rental Manager, Buildium or AppFolio.",
+  },
   // Added with the second rule batch (2026-11-22).
   {"id": "moreThanTenRentalUnits", "section": "Your primary residence", "type": "yesno", "label": "Counting rental units owned by you, your spouse and your minor children, do you own more than 10 rental units?", "help": "Count every rental unit, including ones not entered in this app.", "states": ["GA"], "builderOnly": true},
   {"id": "isCollegeOrUniversity", "section": "Your primary residence", "type": "yesno", "label": "Are you a college or university renting housing to your own students?", "states": ["OH"], "builderOnly": true},

@@ -5,6 +5,7 @@ import ReceiptsPanel from "../components/ReceiptsPanel";
 import RentTrackerSection from "../components/RentTrackerSection";
 import { categoryLabel, INCOME_CATEGORIES, EXPENSE_CATEGORIES } from "../lib/financeLabels";
 import BackLink from "../components/BackLink";
+import { formatDay } from "../lib/dates";
 
 function money(amount) {
   return `$${Number(amount).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
@@ -294,7 +295,7 @@ export default function PropertyLedgerPage() {
                 <tbody className="divide-y divide-stone-100">
                   {deletedEntries.map((entry) => (
                     <tr key={`${entry.kind}-${entry.id}`}>
-                      <td className="px-4 py-2">{new Date(entry.date).toLocaleDateString()}</td>
+                      <td className="px-4 py-2">{formatDay(entry.date)}</td>
                       <td className="px-4 py-2 capitalize">{entry.kind}</td>
                       <td className="px-4 py-2">{categoryLabel(entry.category)}</td>
                       <td className="px-4 py-2 text-right">{money(entry.amount)}</td>
@@ -425,7 +426,7 @@ export default function PropertyLedgerPage() {
                       <option value="">None</option>
                       {leases.map((lease) => (
                         <option key={lease.id} value={lease.id}>
-                          {money(lease.monthlyRent)}/mo — {new Date(lease.startDate).toLocaleDateString()}
+                          {money(lease.monthlyRent)}/mo — {formatDay(lease.startDate)}
                         </option>
                       ))}
                     </select>
@@ -524,7 +525,7 @@ export default function PropertyLedgerPage() {
                           }`}
                         >
                           <td className="whitespace-nowrap px-4 py-2 text-stone-500">
-                            {new Date(entry.date).toLocaleDateString()}
+                            {formatDay(entry.date)}
                           </td>
                           <td className="whitespace-nowrap px-4 py-2 text-stone-700">
                             {categoryLabel(entry.category)}

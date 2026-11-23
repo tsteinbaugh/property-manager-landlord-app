@@ -655,6 +655,7 @@ export default function PropertyDetailPage() {
         target="property"
         states={[property.state]}
         answers={property.facts}
+        fromSpecs={property.factsFromSpecs}
         disabled={property.archived}
         onSave={async (facts) => {
           const updated = await api.put(`/api/properties/${id}/facts`, { facts });

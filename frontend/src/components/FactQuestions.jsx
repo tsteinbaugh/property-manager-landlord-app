@@ -22,7 +22,7 @@ export function useFactCatalog() {
 }
 
 export function isVisible(question, states, answers) {
-  if (question.builderOnly) return false;
+  if (question.builderOnly || question.ownSection) return false;
   if (question.states && !question.states.some((s) => states.includes(s))) return false;
   if (question.showIf) {
     if (question.showIf.isSet) {
@@ -246,7 +246,9 @@ function displayValue(q, value, catalog) {
 
 // A card listing the questions for `target`, grouped by section, with an Edit
 // mode. `onSave(patch)` receives only the answers that changed (null = cleared).
-export default function FactQuestionsCard({ title, target, states, answers, onSave, disabled, intro }) {
+// fromSpecs: answers Property Specs supply when the landlord hasn't answered
+// (carpet flooring answers "Does the rental have carpet?"), shown but not saved.
+export default function FactQuestionsCard({ title, target, states, answers, onSave, disabled, intro, fromSpecs = {} }) {
   const catalog = useFactCatalog();
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState(answers || {});
@@ -262,7 +264,7 @@ export default function FactQuestionsCard({ title, target, states, answers, onSa
   const source = editing ? draft : answers || {};
   const questions = catalog.questions[target].filter((q) => isVisible(q, states, source));
   const sections = [...new Set(questions.map((q) => q.section))];
-  const missing = unansweredCount(catalog, target, states, answers || {});
+  const missing = unansweredCount(catalog, target, states, { ...fromSpecs, ...(answers || {}) });
 
   function valueOf(q) {
     const v = source[q.id];
@@ -376,7 +378,8 @@ export default function FactQuestionsCard({ title, target, states, answers, onSa
                 <h3 className="mb-2 text-sm font-semibold text-stone-800">{section}</h3>
                 <div className="space-y-1">
                   {rows.map((q) => {
-                    const shown = displayValue(q, valueOf(q), catalog);
+                    const own = displayValue(q, valueOf(q), catalog);
+                    const shown = own ?? (fromSpecs[q.id] !== undefined ? `${displayValue(q, fromSpecs[q.id], catalog)} (from Property Specs)` : null);
                     if (shown === null && q.counts === false) return null;
                     return (
                       <div key={q.id} className="grid grid-cols-1 gap-1 sm:grid-cols-[1fr_1fr] sm:gap-4">

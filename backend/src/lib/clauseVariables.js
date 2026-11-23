@@ -64,6 +64,9 @@ function buildVariableContext({ lease, property, entity, tenants, occupants = []
     appliance_list: formatApplianceList(appliances),
     property_address: formatAddress(property),
     landlord_name: entity?.legalName ?? null,
+    // Where the tenant sends notices: the lease's own address, else the owning
+    // entity's mailing address (Taylor, 2026-11-22).
+    landlord_notice_address: lease.facts?.noticeAddress || entity?.mailingAddress || null,
     state: property?.state ?? null,
   };
 }

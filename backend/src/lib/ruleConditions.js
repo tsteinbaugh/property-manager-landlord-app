@@ -51,6 +51,10 @@ function anyPersonYesNo(lease, field) {
   return all.every((p) => p[field] === false) ? false : null;
 }
 
+function carpetInSpecs(specs) {
+  return (specs || []).some((f) => f.active !== false && /carpet/i.test(f.type || ""));
+}
+
 function utilityWhoPays(property, kind) {
   return property?.facts?.utilities?.[kind]?.whoPays ?? null;
 }
@@ -64,6 +68,19 @@ const DERIVED = {
   // optional, so blank means none).
   // No manager named reads as "no manager", except when deciding whether to
   // hide a clause: blank fields aren't an answer.
+  // Answered on the property, or Yes when Property Specs lists carpet flooring
+  // (no carpet in the specs isn't a No: the specs may be incomplete).
+  "property.hasCarpet": ({ property }) => {
+    const v = property?.facts?.hasCarpet;
+    if (v === true || v === false) return v;
+    return carpetInSpecs(property?.flooringSpecs) ? true : null;
+  },
+  // A late fee: Yes needs an amount over $0; an amount alone counts as Yes.
+  "lease.lateFeeCharged": ({ lease }) => {
+    if (lease?.lateFeeCharged === true || lease?.lateFeeCharged === false) return lease.lateFeeCharged;
+    if (lease?.lateFeeAmount !== undefined && lease?.lateFeeAmount !== null && Number(lease.lateFeeAmount) > 0) return true;
+    return null;
+  },
   "property.hasManager": ({ property, strictCheckboxes }) =>
     property?.facts?.managerCompany || property?.facts?.managerName ? true : strictCheckboxes ? null : false,
   "property.anyUtilityChargedBack": ({ property }) => {
@@ -219,4 +236,5 @@ const FACT_PATHS = [
   ...["property", "lease", "account"].flatMap((t) => CATALOG[t].map((q) => `${t}.${q.id}`)),
 ];
 
-module.exports = { evaluate, factsIn, resolve, UNKNOWN, FACT_PATHS, DERIVED };
+module.exports = {
+  carpetInSpecs, evaluate, factsIn, resolve, UNKNOWN, FACT_PATHS, DERIVED };
