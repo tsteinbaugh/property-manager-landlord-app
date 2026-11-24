@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useApi } from "../hooks/useApi";
 import BackLink from "../components/BackLink";
+import LeaseFieldSections from "../components/LeaseFieldSections";
 import LeaseBuilderSection from "../components/LeaseBuilderSection";
 import { useFactCatalog, YesNo } from "../components/FactQuestions";
 import { FactFieldsEdit, FactFieldsView, factPatch } from "../components/FactFields";
@@ -581,6 +582,7 @@ export default function LeaseDetailPage() {
       <FirstMonthSection lease={lease} onSaved={load} />
       <NoticesSection lease={lease} onSaved={load} />
       <RentPaymentSection lease={lease} onSaved={load} />
+      <LeaseFieldSections lease={lease} onSaved={load} />
 
       <section className="space-y-3">
         <h2 className="text-lg font-medium text-stone-900">Deposits</h2>

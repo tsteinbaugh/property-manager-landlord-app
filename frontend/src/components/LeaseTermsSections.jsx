@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useApi } from "../hooks/useApi";
+import { useFactCatalog } from "./FactQuestions";
 
 // The lease page's First month and Notices sections (Taylor, 2026-11-22).
 // Both save to the lease's Lease questions answers (PUT /api/leases/:id/facts).
@@ -248,10 +249,18 @@ const RENT_PAYMENT_FIELDS = [
   { id: "rentPayeePhone", label: "Phone for rent", defaultOf: (l, e) => e?.contactPhone, placeholder: "Phone" },
   { id: "rentPaymentForms", label: "Forms of payment accepted", placeholder: "For example: check, money order or online portal" },
   { id: "rentPaymentDaysHours", label: "Days and hours rent can be paid in person", placeholder: "For example: weekdays 9 a.m. to 5 p.m. (leave blank if not paid in person)" },
+  { id: "nonelectronicPayment", label: "Non-electronic way to pay rent", placeholder: "For example: check or money order by mail" },
+  { id: "paymentPortalUrl", label: "Payment portal web address", placeholder: "https://" },
 ];
 
 export function RentPaymentSection({ lease, onSaved }) {
   const api = useApi();
+  const catalog = useFactCatalog();
+  // A field the catalog limits to some states shows only there.
+  const fields = RENT_PAYMENT_FIELDS.filter((f) => {
+    const states = catalog?.questions.lease.find((q) => q.id === f.id)?.states;
+    return catalog && (!states || states.includes(lease.property?.state));
+  });
   const entity = lease.property?.entity;
   const facts = lease.facts || {};
   const [editing, setEditing] = useState(false);
@@ -260,7 +269,7 @@ export function RentPaymentSection({ lease, onSaved }) {
   const [error, setError] = useState(null);
 
   function startEdit() {
-    setValues(Object.fromEntries(RENT_PAYMENT_FIELDS.map((f) => [f.id, facts[f.id] || ""])));
+    setValues(Object.fromEntries(fields.map((f) => [f.id, facts[f.id] || ""])));
     setEditing(true);
   }
 
@@ -269,7 +278,7 @@ export function RentPaymentSection({ lease, onSaved }) {
     setSaving(true);
     setError(null);
     try {
-      const patch = Object.fromEntries(RENT_PAYMENT_FIELDS.map((f) => [f.id, values[f.id]?.trim() || null]));
+      const patch = Object.fromEntries(fields.map((f) => [f.id, values[f.id]?.trim() || null]));
       await api.put(`/api/leases/${lease.id}/facts`, { facts: patch });
       setEditing(false);
       await onSaved();
@@ -280,7 +289,7 @@ export function RentPaymentSection({ lease, onSaved }) {
     }
   }
 
-  const rows = RENT_PAYMENT_FIELDS.map((f) => {
+  const rows = fields.map((f) => {
     const own = facts[f.id];
     const fallback = f.defaultOf?.(lease, entity);
     return { ...f, value: own || fallback || null, isDefault: !own && !!fallback };

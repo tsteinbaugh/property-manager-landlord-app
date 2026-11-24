@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import MissingFactsPanel from "./MissingFactsPanel";
+import { ClauseBlanksPanel, ClauseTerms } from "./ClauseBlanks";
 import { Link } from "react-router-dom";
 import { useApi } from "../hooks/useApi";
 import SearchableSelect from "./SearchableSelect";
@@ -249,6 +250,7 @@ export default function LeaseBuilderSection({ lease, onChange }) {
       {applicability?.questions.length > 0 && (
         <MissingFactsPanel lease={lease} questions={applicability.questions} onSaved={onChange} />
       )}
+      <ClauseBlanksPanel lease={lease} onSaved={onChange} />
 
       {lease.leaseClauses.length > 0 && (missingRequired.length > 0 || missingLegalDuty.length > 0) && (
         <MissingClausesNotice
@@ -361,6 +363,7 @@ export default function LeaseBuilderSection({ lease, onChange }) {
                       </div>
                     </div>
                     <p className="mt-1 whitespace-pre-wrap text-sm text-stone-600">{clause.resolvedBodyText}</p>
+                    <ClauseTerms clause={clause} lease={lease} onSaved={onChange} />
                   </div>
                 )}
               </div>

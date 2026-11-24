@@ -23,7 +23,7 @@ export function factPatch(catalog, target, before, draft, places = null) {
     let now = draft?.[q.id] ?? null;
     if (now === null && q.type === "checkbox" && was === null) continue;
     if ((q.type === "appliances" || q.type === "utilities") && now && Object.keys(now).length === 0) now = null;
-    if (q.type === "number" && now !== null && now !== "") now = Number(now);
+    if (["number", "money"].includes(q.type) && now !== null && now !== "") now = Number(now);
     if (now === "") now = null;
     if (JSON.stringify(was) !== JSON.stringify(now)) patch[q.id] = now;
   }

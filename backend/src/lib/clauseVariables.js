@@ -1,3 +1,5 @@
+const { PROPERTY_FIELDS, LEASE_FIELDS } = require("./clauseFields");
+
 const VARIABLE_PATTERN = /\{\{\s*([a-z_]+)\s*\}\}/g;
 
 function money(amount) {
@@ -77,6 +79,22 @@ function joinOrNull(values) {
   return values.length > 0 && values.every(Boolean) ? values.join(", ") : null;
 }
 
+function formatField(q, value) {
+  if (value === undefined || value === null || value === "") return null;
+  if (q.type === "money") return money(value);
+  if (q.type === "date") return formatDate(value);
+  return String(value);
+}
+
+// Variables filled straight from a stored clause field (clauseFields.js).
+function clauseFieldValues(propertyFacts, leaseFacts) {
+  const out = {};
+  for (const [fields, facts] of [[PROPERTY_FIELDS, propertyFacts], [LEASE_FIELDS, leaseFacts]]) {
+    for (const q of fields) for (const v of q.vars) out[v] = formatField(q, facts[q.id]);
+  }
+  return out;
+}
+
 // Flat dict of {{variable}} values resolved from data the lease already has
 // linked (Property/Entity/Tenant/Occupant/Appliance/Deposit), not new
 // structured fields invented just to back a variable. Anything not already
@@ -93,7 +111,11 @@ function buildVariableContext({ lease, property, entity, tenants, occupants = []
   const lf = lease.facts || {};
   const noticeAddress = lf.noticeAddress || entity?.mailingAddress || null;
   return {
+    ...clauseFieldValues(pf, lf),
     ...utilityLists(pf),
+    // Cal OES's MyHazards tool, named in Cal. Gov. Code § 8589.45.
+    myhazards_url: "https://myhazards.caloes.ca.gov",
+    renters_liability_limit: money(lease.tenantInsuranceMinimumCoverage),
     monthly_rent: money(lease.monthlyRent),
     security_deposit: money(lease.securityDepositAmount),
     pet_deposit: money(petDepositAmount),
@@ -156,15 +178,120 @@ function buildVariableContext({ lease, property, entity, tenants, occupants = []
   };
 }
 
-// Unresolved or unknown placeholders are left visible as-is rather than
-// silently blanked — a landlord should notice a typo'd variable or an unset
-// value (e.g. no security deposit on this lease), not lose text from the
-// generated document.
-function substituteVariables(bodyText, context) {
+const isBlank = (value) => value === null || value === undefined || value === "";
+
+// What a blank prints as, to be filled in by hand (Taylor, 2026-11-23: a blank
+// warns in the Lease Builder and never holds the PDF).
+const BLANK_LINE = "____________";
+
+// A blank variable prints as a line. On screen (`named`) the line also says what
+// it's for, so a landlord notices an unset value or a typo'd variable.
+function substituteVariables(bodyText, context, { named = false } = {}) {
   return bodyText.replace(VARIABLE_PATTERN, (match, key) => {
-    const value = context[key];
-    return value === null || value === undefined || value === "" ? match : String(value);
+    if (!isBlank(context[key])) return String(context[key]);
+    return named ? `${BLANK_LINE} [${blankLabel(key)}]` : BLANK_LINE;
   });
 }
 
-module.exports = { buildVariableContext, substituteVariables };
+// Where the variables that aren't clause fields come from, for the blank list.
+const SOURCE = {
+  monthly_rent: ["Monthly rent", "this lease"],
+  security_deposit: ["Security deposit", "this lease"],
+  pet_deposit: ["Pet deposit", "this lease's Deposits"],
+  late_fee_amount: ["Late fee", "this lease"],
+  late_fee_grace_days: ["Late fee grace days", "this lease"],
+  pet_rent_amount: ["Pet rent", "this lease"],
+  renewal_rent_increase_cap: ["Renewal rent increase cap", "this lease"],
+  tenant_insurance_minimum: ["Renter's insurance minimum", "this lease"],
+  renters_liability_limit: ["Renter's insurance minimum", "this lease"],
+  start_date: ["Start date", "this lease"],
+  end_date: ["End date", "this lease"],
+  tenant_names: ["Tenant names", "this lease's Tenants"],
+  tenant_email: ["Tenant email (every tenant)", "the tenant's page"],
+  tenant_emergency_contact_name: ["Tenant's emergency contact", "the tenant's page"],
+  tenant_emergency_contact_phone: ["Tenant's emergency contact phone", "the tenant's page"],
+  guarantor_name: ["Guarantor", "this lease's Tenants"],
+  appliance_list: ["Appliances", "Property Specs"],
+  property_address: ["Property address", "the property page"],
+  landlord_name: ["Landlord name", "the entity's page"],
+  landlord_notice_name: ["Landlord name", "the entity's page"],
+  landlord_notice_address: ["Notice address", "this lease's Notices"],
+  landlord_email: ["Landlord email", "the entity's page"],
+  owner_name: ["Owner name", "the entity's page"],
+  owner_address: ["Owner address", "the entity's page"],
+  rent_payee_name: ["Rent payee", "this lease's Rent payment"],
+  rent_payee_address: ["Rent payment address", "this lease's Rent payment"],
+  payment_address: ["Rent payment address", "this lease's Rent payment"],
+  rent_payee_phone: ["Phone for rent", "this lease's Rent payment"],
+  rent_payment_forms: ["Forms of payment", "this lease's Rent payment"],
+  rent_payment_days_hours: ["In-person payment days and hours", "this lease's Rent payment"],
+  emergency_phone: ["Emergency phone", "the property's Property manager section"],
+  parking_fee_amount: ["Parking fee", "this lease"],
+  parking_space_number: ["Parking spaces", "this lease"],
+  county: ["County", "the property page"],
+  manager_name: ["Property manager", "the property's Property manager section"],
+  manager_phone: ["Property manager's phone", "the property's Property manager section"],
+  manager_address: ["Property manager's address", "the property's Property manager section"],
+  manager_street_address: ["Property manager's address", "the property's Property manager section"],
+  management_company_name: ["Management company", "the property's Property manager section"],
+  management_company_street_address: ["Management company's address", "the property's Property manager section"],
+  wy_manager_name: ["Wyoming property manager", "the property's Property manager section"],
+  wy_manager_address: ["Wyoming property manager's address", "the property's Property manager section"],
+  wy_manager_phone: ["Wyoming property manager's phone", "the property's Property manager section"],
+  tenant_utilities: ["Utilities the tenant pays", "the property's Utilities section"],
+  included_utilities: ["Utilities included in rent", "the property's Utilities section"],
+  separately_charged_utilities: ["Utilities charged back", "the property's Utilities section"],
+  utility_billing_method: ["Utility billing method", "the property's Utilities section"],
+  state: ["State", "the property page"],
+};
+
+const FIELD_BY_VARIABLE = {};
+for (const [target, fields] of [["property", PROPERTY_FIELDS], ["lease", LEASE_FIELDS]]) {
+  for (const q of fields) for (const v of q.vars) FIELD_BY_VARIABLE[v] = { target, q };
+}
+
+// Lease columns a blank can be answered into from the blanks box (Taylor, 2026-11-23).
+for (const [v, id, type] of [["late_fee_amount", "lateFeeAmount", "money"], ["late_fee_grace_days", "lateFeeGraceDays", "number"]]) {
+  FIELD_BY_VARIABLE[v] = { target: "leaseField", q: { id, type, label: SOURCE[v][0], short: SOURCE[v][0] } };
+}
+
+function blankLabel(variable) {
+  return FIELD_BY_VARIABLE[variable]?.q.short || SOURCE[variable]?.[0] || variable.replace(/_/g, " ");
+}
+
+const variablesIn = (bodyText) => [...new Set([...bodyText.matchAll(VARIABLE_PATTERN)].map((m) => m[1]))];
+
+// The blanks in a lease's clauses, one entry per answer, each with the clauses
+// it's in. A clause field comes with its question; any other blank says where
+// its answer is kept.
+function clauseBlanks(clauses, context) {
+  const byKey = new Map();
+  for (const clause of clauses) {
+    for (const v of variablesIn(clause.bodyText)) {
+      if (!isBlank(context[v])) continue;
+      const field = FIELD_BY_VARIABLE[v];
+      const key = field ? `${field.target}.${field.q.id}` : blankLabel(v);
+      if (!byKey.has(key)) {
+        byKey.set(key, {
+          key,
+          label: blankLabel(v),
+          ...(field ? { target: field.target, question: field.q } : { where: SOURCE[v]?.[1] || null }),
+          clauses: [],
+        });
+      }
+      const entry = byKey.get(key);
+      if (!entry.clauses.includes(clause.title)) entry.clauses.push(clause.title);
+    }
+  }
+  return [...byKey.values()];
+}
+
+// The terms asked under this clause (place "lease.clause"), filled or not.
+function clauseTerms(bodyText) {
+  const seen = new Set();
+  return variablesIn(bodyText)
+    .map((v) => FIELD_BY_VARIABLE[v]?.q)
+    .filter((q) => q?.place === "lease.clause" && !seen.has(q.id) && seen.add(q.id));
+}
+
+module.exports = { buildVariableContext, substituteVariables, clauseBlanks, clauseTerms, SOURCE, FIELD_BY_VARIABLE, BLANK_LINE };

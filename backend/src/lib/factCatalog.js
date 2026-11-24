@@ -15,6 +15,8 @@
 //   pickAny   any of `options`; an option with `exclusive: true` (None) is an
 //             answer on its own. An empty list means not answered.
 //   number    a whole number >= 0, starts blank.
+//   money     a dollar amount >= 0, starts blank.
+//   date      a day, "YYYY-MM-DD", starts blank.
 //   text      free text.
 //   utilities who pays each utility, and how a charge-back works.
 //   appliances which appliances the rental provides, and on what terms.
@@ -24,10 +26,14 @@
 // `showIf`: { id, in: [...] } shows the question only when another answer in the
 // same set is one of those values (for pickAny, includes one of them).
 // `showIf`: { id: [ids], isSet: true } shows it once any of those has an answer.
+// `showIf`: { id: "utilities", whoPays: [...] } shows it when any utility is paid
+// that way.
 // `builderOnly`: asked by the lease builder when a lease needs it, not on the
 // account page (the per-rule unit-count questions, agreed 2026-11-22).
 // `counts`: false keeps a question out of the "unanswered" count (contact
 // details, optional amounts).
+
+const { PROPERTY_FIELDS, LEASE_FIELDS } = require("./clauseFields");
 
 const NONE = { value: "NONE", label: "None", exclusive: true };
 const MULTI_UNIT = ["APARTMENT", "CONDO", "COOP", "TOWNHOUSE"];
@@ -566,8 +572,11 @@ const PLACE_BY_ID = {
   rentPaymentForms: "lease.rentPayment",
   rentPaymentDaysHours: "lease.rentPayment",
 };
+// Fields that only fill clause variables (clauseFields.js) bring their own place.
+PROPERTY.push(...PROPERTY_FIELDS);
+LEASE.push(...LEASE_FIELDS);
 for (const list of [PROPERTY, LEASE, ACCOUNT]) {
-  for (const q of list) q.place = PLACE_BY_ID[q.id] || PLACE_BY_SECTION[q.section];
+  for (const q of list) q.place ||= PLACE_BY_ID[q.id] || PLACE_BY_SECTION[q.section];
 }
 
 // The short name a page shows beside an answer ("Property type: Single-family
@@ -718,6 +727,9 @@ function isVisible(question, states, answers) {
     if (question.showIf.isSet) {
       const ids = [].concat(question.showIf.id);
       if (!ids.some((id) => answers?.[id] !== undefined && answers?.[id] !== null && answers?.[id] !== "")) return false;
+    } else if (question.showIf.whoPays) {
+      const entries = Object.values(answers?.[question.showIf.id] || {});
+      if (!entries.some((u) => question.showIf.whoPays.includes(u?.whoPays))) return false;
     } else {
       const other = answers?.[question.showIf.id];
       const values = Array.isArray(other) ? other : [other];
@@ -774,7 +786,11 @@ function validateFacts(target, patch) {
         if (value.some((v) => exclusive.includes(v)) && value.length > 1) return bad();
         break;
       }
+      case "date":
+        if (typeof value !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(value) || Number.isNaN(Date.parse(value))) return bad();
+        break;
       case "number":
+      case "money":
         if (typeof value !== "number" || !Number.isFinite(value) || value < 0) return bad();
         break;
       case "text":

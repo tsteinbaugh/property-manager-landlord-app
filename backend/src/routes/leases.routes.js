@@ -7,7 +7,7 @@ const defaultR2 = require("../lib/r2");
 const { buildLeasePdf } = require("../lib/generateLeasePdf");
 const { isValidGroup } = require("../lib/clauseGroups");
 const { CLAUSE_TEMPLATES } = require("../lib/clauseTemplates");
-const { buildVariableContext, substituteVariables } = require("../lib/clauseVariables");
+const { buildVariableContext, substituteVariables, clauseBlanks, clauseTerms } = require("../lib/clauseVariables");
 const { orderAndLabelClauses } = require("../lib/leaseClauseOrdering");
 const { isWrongForCauseVariant } = require("../lib/forCauseEvictionVariant");
 const { choiceGroupOf, findChoiceGroupConflict } = require("../lib/clauseChoiceGroups");
@@ -185,9 +185,10 @@ function withComputedLeaseFields(lease) {
   });
   const leaseClauses = orderAndLabelClauses(lease.leaseClauses || []).map((clause) => ({
     ...clause,
-    resolvedBodyText: substituteVariables(clause.bodyText, context),
+    resolvedBodyText: substituteVariables(clause.bodyText, context, { named: true }),
+    terms: clauseTerms(clause.bodyText),
   }));
-  return { ...lease, leaseClauses };
+  return { ...lease, leaseClauses, clauseBlanks: clauseBlanks(leaseClauses, context) };
 }
 
 // What the applicability rules can see about a lease: its property, the

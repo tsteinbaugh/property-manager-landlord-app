@@ -20,6 +20,9 @@ const PROPERTY_PLACES = [
   "property.utilities",
   "property.legal",
   "property.manager",
+  "property.repairs",
+  "property.access",
+  "property.facilities",
   "property.disclosures",
 ];
 
@@ -134,7 +137,7 @@ function propertySections(property, catalog) {
         factViewRows({ catalog, target: "property", place: "property.utilities", states, answers: property.facts, exclude: IN_UTILITY_ROWS }),
       ],
     },
-    { key: "access", title: "Access and trash", items: [lines(["mailboxLocation", "trashPickupDay", "trashCanStorageLocation"])] },
+    { key: "access", title: "Access and trash", items: [lines(["mailboxLocation", "trashPickupDay", "trashCanStorageLocation"]), view("property.access")] },
     {
       key: "legal",
       title: "Legal and financial",
@@ -148,6 +151,12 @@ function propertySections(property, catalog) {
     },
     { key: "manager", title: "Property manager", items: [view("property.manager")] },
   ];
+  // Fields that only fill clauses, where this state's clauses use some.
+  for (const [key, title] of [["repairs", "Repairs and services"], ["facilities", "Shared facilities"]]) {
+    if (questionsAt(catalog, "property", `property.${key}`, states, property.facts).length > 0) {
+      sections.push({ key, title, note: "The lease clauses fill these in.", items: [view(`property.${key}`)] });
+    }
+  }
   // Disclosures only where the state's law asks some.
   if (questionsAt(catalog, "property", "property.disclosures", states, property.facts).length > 0) {
     sections.push({
@@ -402,6 +411,7 @@ export default function PropertyDetailPage() {
                 value={form.trashCanStorageLocation}
                 onChange={(v) => setForm({ ...form, trashCanStorageLocation: v })}
               />
+              <FactFieldsEdit {...factProps("property.access")} flow />
             </div>
       </>
     ),
@@ -447,6 +457,8 @@ export default function PropertyDetailPage() {
             <FactFieldsEdit {...factProps("property.manager")} />
       </>
     ),
+    repairs: <FactFieldsEdit {...factProps("property.repairs")} />,
+    facilities: <FactFieldsEdit {...factProps("property.facilities")} />,
     disclosures: (
       <>
               <FactFieldsEdit {...factProps("property.disclosures")} />

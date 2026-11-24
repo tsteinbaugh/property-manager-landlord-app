@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useApi } from "../hooks/useApi";
+import { formatDay } from "../lib/dates";
 import { JURISDICTION_NAMES as STATE_NAMES } from "../lib/jurisdictions";
 
 // The applicability questions (backend/src/lib/factCatalog.js) for one record:
@@ -28,6 +29,9 @@ export function isVisible(question, states, answers) {
     if (question.showIf.isSet) {
       const ids = [].concat(question.showIf.id);
       if (!ids.some((id) => answers?.[id] !== undefined && answers?.[id] !== null && answers?.[id] !== "")) return false;
+    } else if (question.showIf.whoPays) {
+      const entries = Object.values(answers?.[question.showIf.id] || {});
+      if (!entries.some((u) => question.showIf.whoPays.includes(u?.whoPays))) return false;
     } else {
       const other = answers?.[question.showIf.id];
       const values = Array.isArray(other) ? other : [other];
@@ -106,6 +110,22 @@ export function Question({ question, value, onChange, catalog }) {
           className={inputClass}
         />
       );
+    case "money":
+      return (
+        <div className="flex items-center gap-2">
+          <span className="text-stone-500">$</span>
+          <input
+            type="number"
+            min="0"
+            step="0.01"
+            value={value ?? ""}
+            onChange={(e) => onChange(e.target.value === "" ? null : Number(e.target.value))}
+            className={inputClass}
+          />
+        </div>
+      );
+    case "date":
+      return <input type="date" value={value ?? ""} onChange={(e) => onChange(e.target.value || null)} className={inputClass} />;
     case "text":
       return <input type="text" value={value ?? ""} onChange={(e) => onChange(e.target.value || null)} className={inputClass} />;
     case "utilities": {
@@ -188,6 +208,10 @@ export function displayValue(q, value, catalog) {
       return value ? "Yes" : "No";
     case "pickOne":
       return q.options.find((o) => o.value === value)?.label ?? value;
+    case "money":
+      return `$${Number(value).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    case "date":
+      return formatDay(value);
     case "state":
       return STATE_NAMES[value] ?? value;
     case "pickAny":
