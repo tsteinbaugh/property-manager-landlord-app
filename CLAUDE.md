@@ -4,12 +4,12 @@
 
 ## 🎯 Current focus
 
-- **Where things stand (2026-11-21):** the lease clause library covers all 50 states, DC, Puerto Rico, Guam, the U.S. Virgin Islands, American Samoa and the Northern Mariana Islands. Every jurisdiction has a VERIFIED row for each of the 370 topics; the one open row is `edu-paid-in-full-checks-pr`. SOP 2.18. Every jurisdiction has a monthly legal watch; the five territories' watches read official sites (days 24-28, from December 2026). Each state's research history is in `docs/history.md`; open items are in `docs/backlog.md`.
+- **Where things stand (2026-11-23):** the lease clause library covers all 50 states, DC, Puerto Rico, Guam, the U.S. Virgin Islands, American Samoa and the Northern Mariana Islands. Every jurisdiction has a VERIFIED row for each of the 370 topics; the one open row is `edu-paid-in-full-checks-pr`. SOP 2.18. Every jurisdiction has a monthly legal watch; the five territories' watches read official sites (days 24-28, from December 2026). Each state's research history is in `docs/history.md`; open items are in `docs/backlog.md`.
 - **Legal-watch calendar:** **IL's schedule is on (2026-11-12); after November 25, uncomment MO's; after November 26, IN's; after December 27, OK's; after January 28, MI's; after February 1, IA's; after March 2, NM's; after April 3, MT's; after May 4, NY's; after June 5, 2027, WI's; after July 6, 2027, WA's; after August 7, 2027, OR's; after September 8, 2027, KY's; after October 9, 2027, WV's; after November 10, 2027, MD's; after December 11, 2027, MA's; after January 12, 2028, CT's; after February 13, 2028, RI's; after March 14, 2028, NH's; after April 15, 2028, ME's; after May 16, 2028, VT's; after June 17, 2028, DE's; after July 18, 2028, AK's; after August 19, 2028, HI's; after September 20, 2028, LA's; after October 21, 2028, AR's; after November 22, 2028, MS's; after December 23, 2028, DC's.** Missouri's run after November 25 is the first from the moved `lease-clause-library/citations/`; check its result.
 - **Other dated checks:** LegiScan totals after November's (IL, ID) and December's (MO, IN) first runs; the subject watch (on in CO, WY, KS) after two monthly runs: cost and noise, then add two or three states a month; Oregon's first manual item, December 18, 2026; DC's 2027 checks (backlog item 33); the SCRA rent limit each January (backlog item 13); retry Puerto Rico's OGP library (bvirtualogp.pr.gov) now and then for Ley 208-1995 and Ley 210-2015.
 - **Parked for Taylor:** the LegiScan budget question (backlog item 10); the Virgin Islands plain-language front page (M.15); a land-status attribute for American Samoa and Northern Mariana Islands properties (M.16); the lease PDF first-page layout (M.12); Spanish leases (multi-language support). Deploying is deliberately on hold.
 - **Desktop staging:** don't stage further Desktop folders until Taylor says (usage, 2026-10-31).
-- **Next focus (Taylor, 2026-11-21): automatic clause applicability** in the lease builder. Each conditional clause records the facts it depends on and its tag once it applies (Required, Legal duty, Recommended or Optional); the builder then shows only clauses that apply and adds the required ones. The lead disclosure is the first rule (`clauseApplicability.js`). Plan in `docs/backlog.md`.
+- **Next focus (Taylor, 2026-11-23): the clause `[bracketed prompts]`.** They print in the lease PDF as plain text, instructions to the landlord included. First step, agreed: sort and count them by kind (instruction to the landlord, blank to fill in, choice), then bring Taylor a plan before changing anything (`docs/backlog.md`, "Bracketed prompts"). Automatic clause applicability and the `{{variables}}` are done.
 - **Standing backlog** (no fixed order; ask Taylor what's next): `docs/backlog.md`.
 
 ## Project
@@ -50,6 +50,7 @@ React + Vite + Tailwind v4 + React Router (`frontend/`); Node + Express + Prisma
 - **Deleting:** Tenant, Lease, Income, Expense, MaintenanceRequest and MaintenanceSchedule soft-delete (`deleted`/`deletedAt`, `POST /:id/restore`); never reintroduce delete-blocking. Property Specs hard-delete (they have retire/replace). Property archiving is a live flag, and child records are hidden by query-time joins, never a copied flag. `?deleted=all` bypasses every hiding filter. Property Delete shows only when `canDelete`. [Aug 2026]
 - **Tenants:** no separate Applicant model (a Tenant applies to one property); moving a tenant copies it with `previousTenantId`, never re-points `propertyId`. Occupants, pets and vehicles belong to the Tenant. [Aug 2026]
 - **Pages:** full CRUD for a domain lives in one place; the property page shows a read-only snapshot plus a link. The Dashboard and property page share status computation (`domainStatus.js`), not UI. Back links use `BackLink` (browser history). [Aug 2026]
+- **Page sections:** the property and lease pages use one headed card per section, each with its own Edit; the property page's top Edit opens every section. [2026-11-23]
 - **Data-model conventions:**
   - `Deposit` is the held-money ledger (`SECURITY`/`PET`, one of each per lease), separate from the lease's promised amount.
   - Expense categories keep REPAIRS separate from MAINTENANCE, and use LANDSCAPING (not lawn) and LEGAL.
@@ -60,6 +61,7 @@ React + Vite + Tailwind v4 + React Router (`frontend/`); Node + Express + Prisma
 - **Property attributes** are free text, except `forCauseEvictionExemption`, which is a validated fixed set because code reads it. [Aug 2026]
 - **Search:** `word_similarity()`, a nickname dictionary for first names, no GIN indexes at this scale. [Aug 2026]
 - **Lease builder:**
+  - Parking: what's physically there is on the property; spaces assigned, charge and fee are on the lease, which can't assign more spaces than the property has. [2026-11-23]
   - `LeaseClause` snapshots the clause at attach time; never make it a live reference.
   - `group` is a string validated against `clauseGroups.js`, and numbering is computed at read time.
   - No single-clause special flags; prefer self-conditional clause text plus the default-clause mechanism.
@@ -161,4 +163,4 @@ Do not add to this list without Taylor's input.
 
 Keep this file short: if a section grows past a few lines of rules, move the detail to `docs/` and leave a pointer.
 
-*Last updated: 2026-11-21 (lease clause library moved into `lease-clause-library/`; Current focus trimmed to what's open, finished work left to `docs/history.md`).*
+*Last updated: 2026-11-23 (clause variables all have a source; next focus is the bracketed prompts).*
