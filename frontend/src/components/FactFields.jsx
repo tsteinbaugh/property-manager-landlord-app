@@ -30,14 +30,18 @@ export function factPatch(catalog, target, before, draft, places = null) {
   return patch;
 }
 
-export function FactFieldsEdit({ catalog, target, place, states, answers, onChange, exclude = [] }) {
+// `flow` drops the component's own grid so its questions join the page's
+// two-column grid, after the page's own fields, with no half-empty rows.
+export function FactFieldsEdit({ catalog, target, place, states, answers, onChange, exclude = [], flow = false }) {
   const questions = questionsAt(catalog, target, place, states, answers, exclude);
   if (questions.length === 0) return null;
   const set = (id, v) => onChange({ ...answers, [id]: v });
   return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+    <div className={flow ? "contents" : "grid grid-cols-1 gap-4 sm:grid-cols-2"}>
       {questions.map((q) => {
-        const wide = ["utilities", "appliances", "pickAny"].includes(q.type) || (q.label || "").length > 60;
+        // Only lists of options and very long questions take the full width; a
+        // longer label wraps in its column, as on the lease form.
+        const wide = ["utilities", "appliances", "pickAny"].includes(q.type) || (q.label || "").length > 100;
         if (q.type === "checkbox") {
           const v = answers?.[q.id];
           return (

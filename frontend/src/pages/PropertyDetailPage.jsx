@@ -99,17 +99,6 @@ function utilityLine(property, providerKey, contactKey) {
   return provider || contact;
 }
 
-function Group({ title, children }) {
-  const items = [children].flat(Infinity).filter(Boolean);
-  if (items.length === 0) return null;
-  return (
-    <div className="border-t border-stone-100 pt-3">
-      <h3 className="mb-2 text-sm font-semibold text-stone-800">{title}</h3>
-      <div className="grid grid-cols-1 gap-x-6 gap-y-2 text-sm sm:grid-cols-2">{children}</div>
-    </div>
-  );
-}
-
 // A free-text field as a row, or nothing when it's blank (so Group can tell).
 function Line({ label, value }) {
   return (
@@ -120,43 +109,100 @@ function Line({ label, value }) {
 }
 const line = (label, value) => (value ? <Line key={label} label={label} value={value} /> : null);
 
-// The property's details, grouped like the edit form. Free-text fields show
-// only when set, and so do Lease questions: the lease builder's fill-in-the-gaps
-// box asks whatever a lease still needs (Taylor, 2026-11-23).
-function PropertyDetailFacts({ property, catalog }) {
+// The property's details, one card per section (like the lease page's
+// Notices). Free-text fields show only when set, and so do Lease questions:
+// the lease builder's fill-in-the-gaps box asks whatever a lease still needs.
+function propertySections(property, catalog) {
   const states = [property.state];
   const view = (place) =>
     factViewRows({ catalog, target: "property", place, states, answers: property.facts, fromSpecs: property.factsFromSpecs });
   const text = (key) => DETAIL_FACT_FIELDS.find(([k]) => k === key);
   const lines = (keys) => keys.map((k) => line(text(k)[1], property[k]));
-  const utilities = utilityViewRows({ catalog, states, property });
   // Only surfaced when it's the exceptional case: STANDARD_LONG_TERM is the
   // default/expected value for most properties, not worth a line.
   const exemptionLabel = FOR_CAUSE_EVICTION_EXEMPTION_OPTIONS.find((opt) => opt.value === property.forCauseEvictionExemption);
   const showExemptionFact = exemptionLabel && property.forCauseEvictionExemption !== "STANDARD_LONG_TERM";
+  const sections = [
+    { key: "structural", title: "Structural", items: [lines(["stories", "basement", "lotSize"]), view("property.structural")] },
+    { key: "parking", title: "Parking and storage", items: [view("property.parking")] },
+    {
+      key: "utilities",
+      title: "Utilities",
+      note: "Who pays, plus the provider and who to call for taking over service or troubleshooting at turnover. No phone/cable — that's the tenant's own choice, not tracked here.",
+      items: [
+        utilityViewRows({ catalog, states, property }),
+        factViewRows({ catalog, target: "property", place: "property.utilities", states, answers: property.facts, exclude: IN_UTILITY_ROWS }),
+      ],
+    },
+    { key: "access", title: "Access and trash", items: [lines(["mailboxLocation", "trashPickupDay", "trashCanStorageLocation"])] },
+    {
+      key: "legal",
+      title: "Legal and financial",
+      items: [
+        view("property.legal"),
+        lines(["hoaContact"]),
+        line("Mortgage", utilityLine(property, "mortgageCompany", "mortgageContact")),
+        lines(["insuranceNotes"]),
+        showExemptionFact && line("For-cause eviction status", exemptionLabel.label),
+      ],
+    },
+    { key: "manager", title: "Property manager", items: [view("property.manager")] },
+  ];
+  // Disclosures only where the state's law asks some.
+  if (questionsAt(catalog, "property", "property.disclosures", states, property.facts).length > 0) {
+    sections.push({
+      key: "disclosures",
+      title: "Disclosures",
+      note: `What you know about the property that the law in ${property.state} makes you tell a tenant.`,
+      items: [view("property.disclosures")],
+    });
+  }
+  return sections;
+}
 
+function PropertySection({ title, note, items, editing, canEdit, submitting, onEdit, onCancel, onSave, children }) {
+  const rows = [items].flat(Infinity).filter(Boolean);
   return (
-    <div className="mt-3 space-y-4">
-      <Group title="Structural">
-        {lines(["stories", "basement", "lotSize"])}
-        {view("property.structural")}
-      </Group>
-      <Group title="Parking and storage">{view("property.parking")}</Group>
-      <Group title="Utilities">
-        {utilities}
-        {factViewRows({ catalog, target: "property", place: "property.utilities", states, answers: property.facts, exclude: IN_UTILITY_ROWS })}
-      </Group>
-      <Group title="Access and trash">{lines(["mailboxLocation", "trashPickupDay", "trashCanStorageLocation"])}</Group>
-      <Group title="Legal and financial">
-        {view("property.legal")}
-        {lines(["hoaContact"])}
-        {line("Mortgage", utilityLine(property, "mortgageCompany", "mortgageContact"))}
-        {lines(["insuranceNotes"])}
-        {showExemptionFact && line("For-cause eviction status", exemptionLabel.label)}
-      </Group>
-      <Group title="Property manager">{view("property.manager")}</Group>
-      <Group title="Disclosures">{view("property.disclosures")}</Group>
-    </div>
+    <section className="space-y-3">
+      <h2 className="text-lg font-medium text-stone-900">{title}</h2>
+      <div className="rounded-xl border border-stone-200 bg-white p-5 text-sm shadow-sm">
+        {note && <p className="mb-3 text-stone-600">{note}</p>}
+        {editing ? (
+          <form onSubmit={onSave} className="space-y-4">
+            {children}
+            <div className="flex gap-2">
+              <button
+                type="submit"
+                disabled={submitting}
+                className="rounded-lg bg-emerald-700 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-800 disabled:opacity-50"
+              >
+                {submitting ? "Saving..." : "Save"}
+              </button>
+              <button type="button" onClick={onCancel} className="rounded-lg border border-stone-300 px-4 py-2 text-sm font-medium text-stone-700 hover:bg-stone-50">
+                Cancel
+              </button>
+            </div>
+          </form>
+        ) : (
+          <div className="flex items-start justify-between gap-4">
+            {rows.length > 0 ? (
+              <div className="grid min-w-0 flex-1 grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-2">{rows}</div>
+            ) : (
+              <p className="text-stone-500">Nothing entered yet.</p>
+            )}
+            {canEdit && (
+              <button
+                type="button"
+                onClick={onEdit}
+                className="shrink-0 rounded-lg border border-stone-300 px-3 py-1.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
+              >
+                Edit
+              </button>
+            )}
+          </div>
+        )}
+      </div>
+    </section>
   );
 }
 
@@ -302,6 +348,112 @@ export default function PropertyDetailPage() {
   if (loading) return <p className="text-sm text-stone-500">Loading...</p>;
   if (!property) return <p className="text-sm text-red-700">{error || "Property not found."}</p>;
 
+  // Each section of the property's details is its own card with its own Edit,
+  // like the lease page's Notices (Taylor, 2026-11-23). One section edits at a
+  // time; Save saves the whole form, which differs from the property only there.
+  const sectionEdits = {
+    structural: (
+      <>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <TextField label="Stories" type="number" value={form.stories} onChange={(v) => setForm({ ...form, stories: v })} />
+              <TextField label="Basement" placeholder="Finished, unfinished, crawlspace, none..." value={form.basement} onChange={(v) => setForm({ ...form, basement: v })} />
+              <TextField label="Lot size" placeholder="0.25 acres or 6,500 sq ft" value={form.lotSize} onChange={(v) => setForm({ ...form, lotSize: v })} />
+              <FactFieldsEdit {...factProps("property.structural")} flow />
+            </div>
+      </>
+    ),
+    parking: (
+      <>
+            <FactFieldsEdit {...factProps("property.parking")} />
+      </>
+    ),
+    utilities: (
+      <>
+            <UtilityRowsEdit catalog={catalog} states={[form.state]} form={form} setForm={setForm} />
+            <div className="mt-4">
+              <FactFieldsEdit {...factProps("property.utilities")} exclude={IN_UTILITY_ROWS} />
+            </div>
+      </>
+    ),
+    access: (
+      <>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <TextField label="Mailbox location" value={form.mailboxLocation} onChange={(v) => setForm({ ...form, mailboxLocation: v })} />
+              <label className="block text-sm">
+                <span className="mb-1 block font-medium text-stone-700">Trash pickup day</span>
+                <select
+                  value={form.trashPickupDay ?? ""}
+                  onChange={(e) => setForm({ ...form, trashPickupDay: e.target.value })}
+                  className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
+                >
+                  <option value="">Select…</option>
+                  {/* An older free-text answer stays selectable until it's changed. */}
+                  {[...(form.trashPickupDay && !TRASH_DAYS.includes(form.trashPickupDay) ? [form.trashPickupDay] : []), ...TRASH_DAYS].map((d) => (
+                    <option key={d} value={d}>
+                      {d}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <TextField
+                span
+                label="Trash can storage location"
+                placeholder="Side yard, behind gate"
+                value={form.trashCanStorageLocation}
+                onChange={(v) => setForm({ ...form, trashCanStorageLocation: v })}
+              />
+            </div>
+      </>
+    ),
+    legal: (
+      <>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <FactFieldsEdit {...factProps("property.legal")} flow />
+              <TextField label="Association contact" value={form.hoaContact} onChange={(v) => setForm({ ...form, hoaContact: v })} />
+              <TextField
+                label="Insurance notes"
+                placeholder="Insurer, policy #, agent contact..."
+                value={form.insuranceNotes}
+                onChange={(v) => setForm({ ...form, insuranceNotes: v })}
+              />
+              <ContactPairField label="Mortgage" form={form} setForm={setForm} providerKey="mortgageCompany" contactKey="mortgageContact" providerPlaceholder="Lender name" />
+              <div className="sm:col-span-2">
+                <p className="mb-2 text-sm font-medium text-stone-700">Colorado for-cause eviction status</p>
+                <p className="mb-2 text-xs text-stone-500">
+                  Determines which month-to-month termination-notice clause the Lease Builder offers for this property —
+                  see C.R.S. § 38-12-1302.
+                </p>
+                <div className="space-y-2">
+                  {FOR_CAUSE_EVICTION_EXEMPTION_OPTIONS.map((opt) => (
+                    <label key={opt.value} className="flex items-start gap-2 text-sm">
+                      <input
+                        type="radio"
+                        name="forCauseEvictionExemption"
+                        value={opt.value}
+                        checked={(form.forCauseEvictionExemption || "STANDARD_LONG_TERM") === opt.value}
+                        onChange={(e) => setForm({ ...form, forCauseEvictionExemption: e.target.value })}
+                        className="mt-0.5 h-4 w-4 border-stone-300"
+                      />
+                      <span className="text-stone-600">{opt.label}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            </div>
+      </>
+    ),
+    manager: (
+      <>
+            <FactFieldsEdit {...factProps("property.manager")} />
+      </>
+    ),
+    disclosures: (
+      <>
+              <FactFieldsEdit {...factProps("property.disclosures")} />
+      </>
+    ),
+  };
+
   return (
     <div className="space-y-8">
       <BackLink fallback="/properties" />
@@ -348,7 +500,10 @@ export default function PropertyDetailPage() {
           </div>
           {!editing && !archiving && !property.archived && (
             <div className="flex shrink-0 gap-3 text-sm">
-              <button onClick={() => setEditing(true)} className="text-emerald-700 hover:underline">
+              <button onClick={() => {
+                  setForm(property);
+                  setEditing("main");
+                }} className="text-emerald-700 hover:underline">
                 Edit
               </button>
               <button onClick={() => setArchiving(true)} className="text-stone-500 hover:underline">
@@ -416,7 +571,7 @@ export default function PropertyDetailPage() {
           </form>
         )}
 
-        {editing ? (
+        {editing === "main" ? (
           <form onSubmit={handleSave} className="mt-4 space-y-4 border-t border-stone-200 pt-4">
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <label className="block text-sm">
@@ -488,9 +643,7 @@ export default function PropertyDetailPage() {
                   />
                 </label>
               </div>
-              <div className="sm:col-span-2">
-                <FactFieldsEdit {...factProps("property.address")} />
-              </div>
+              <FactFieldsEdit {...factProps("property.address")} flow />
 
               <label className="block text-sm">
                 <span className="mb-1 block font-medium text-stone-700">Year built</span>
@@ -547,117 +700,6 @@ export default function PropertyDetailPage() {
               </label>
             </div>
 
-            <div className="border-t border-stone-200 pt-4">
-              <h3 className="mb-3 text-sm font-semibold text-stone-800">Structural</h3>
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <TextField label="Stories" type="number" value={form.stories} onChange={(v) => setForm({ ...form, stories: v })} />
-                <TextField label="Basement" placeholder="Finished, unfinished, crawlspace, none..." value={form.basement} onChange={(v) => setForm({ ...form, basement: v })} />
-                <TextField label="Lot size" placeholder="0.25 acres or 6,500 sq ft" value={form.lotSize} onChange={(v) => setForm({ ...form, lotSize: v })} />
-              </div>
-              <div className="mt-4">
-                <FactFieldsEdit {...factProps("property.structural")} />
-              </div>
-            </div>
-
-            <div className="border-t border-stone-200 pt-4">
-              <h3 className="mb-3 text-sm font-semibold text-stone-800">Parking and storage</h3>
-              <FactFieldsEdit {...factProps("property.parking")} />
-            </div>
-
-            <div className="border-t border-stone-200 pt-4">
-              <h3 className="mb-1 text-sm font-semibold text-stone-800">Utilities</h3>
-              <p className="mb-3 text-xs text-stone-400">
-                Who pays, plus the provider and who to call for taking over service or troubleshooting at turnover. No
-                phone/cable — that's the tenant's own choice, not tracked here.
-              </p>
-              <UtilityRowsEdit catalog={catalog} states={[form.state]} form={form} setForm={setForm} />
-              <div className="mt-4">
-                <FactFieldsEdit {...factProps("property.utilities")} exclude={IN_UTILITY_ROWS} />
-              </div>
-            </div>
-
-            <div className="border-t border-stone-200 pt-4">
-              <h3 className="mb-3 text-sm font-semibold text-stone-800">Access & trash</h3>
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <TextField label="Mailbox location" value={form.mailboxLocation} onChange={(v) => setForm({ ...form, mailboxLocation: v })} />
-                <label className="block text-sm">
-                  <span className="mb-1 block font-medium text-stone-700">Trash pickup day</span>
-                  <select
-                    value={form.trashPickupDay ?? ""}
-                    onChange={(e) => setForm({ ...form, trashPickupDay: e.target.value })}
-                    className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
-                  >
-                    <option value="">Select…</option>
-                    {/* An older free-text answer stays selectable until it's changed. */}
-                    {[...(form.trashPickupDay && !TRASH_DAYS.includes(form.trashPickupDay) ? [form.trashPickupDay] : []), ...TRASH_DAYS].map((d) => (
-                      <option key={d} value={d}>
-                        {d}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-                <TextField
-                  span
-                  label="Trash can storage location"
-                  placeholder="Side yard, behind gate"
-                  value={form.trashCanStorageLocation}
-                  onChange={(v) => setForm({ ...form, trashCanStorageLocation: v })}
-                />
-              </div>
-            </div>
-
-            <div className="border-t border-stone-200 pt-4">
-              <h3 className="mb-3 text-sm font-semibold text-stone-800">Legal & financial</h3>
-              <div className="mb-4">
-                <FactFieldsEdit {...factProps("property.legal")} />
-              </div>
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <TextField label="Association contact" value={form.hoaContact} onChange={(v) => setForm({ ...form, hoaContact: v })} />
-                <TextField
-                  label="Insurance notes"
-                  placeholder="Insurer, policy #, agent contact..."
-                  value={form.insuranceNotes}
-                  onChange={(v) => setForm({ ...form, insuranceNotes: v })}
-                />
-                <ContactPairField label="Mortgage" form={form} setForm={setForm} providerKey="mortgageCompany" contactKey="mortgageContact" providerPlaceholder="Lender name" />
-                <div className="sm:col-span-2">
-                  <p className="mb-2 text-sm font-medium text-stone-700">Colorado for-cause eviction status</p>
-                  <p className="mb-2 text-xs text-stone-500">
-                    Determines which month-to-month termination-notice clause the Lease Builder offers for this property —
-                    see C.R.S. § 38-12-1302.
-                  </p>
-                  <div className="space-y-2">
-                    {FOR_CAUSE_EVICTION_EXEMPTION_OPTIONS.map((opt) => (
-                      <label key={opt.value} className="flex items-start gap-2 text-sm">
-                        <input
-                          type="radio"
-                          name="forCauseEvictionExemption"
-                          value={opt.value}
-                          checked={(form.forCauseEvictionExemption || "STANDARD_LONG_TERM") === opt.value}
-                          onChange={(e) => setForm({ ...form, forCauseEvictionExemption: e.target.value })}
-                          className="mt-0.5 h-4 w-4 border-stone-300"
-                        />
-                        <span className="text-stone-600">{opt.label}</span>
-                      </label>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="border-t border-stone-200 pt-4">
-              <h3 className="mb-3 text-sm font-semibold text-stone-800">Property manager</h3>
-              <FactFieldsEdit {...factProps("property.manager")} />
-            </div>
-
-            {questionsAt(catalog, "property", "property.disclosures", [form.state], form.facts).length > 0 && (
-              <div className="border-t border-stone-200 pt-4">
-                <h3 className="mb-1 text-sm font-semibold text-stone-800">Disclosures</h3>
-                <p className="mb-3 text-xs text-stone-400">What you know about the property that the law in {form.state} makes you tell a tenant.</p>
-                <FactFieldsEdit {...factProps("property.disclosures")} />
-              </div>
-            )}
-
             <div className="flex gap-2">
               <button
                 type="submit"
@@ -704,11 +746,36 @@ export default function PropertyDetailPage() {
                 ))}
               </div>
             )}
-            {catalog && <PropertyDetailFacts property={property} catalog={catalog} />}
           </>
         )}
       </div>
 
+
+      {catalog &&
+        propertySections(property, catalog).map((section) => (
+          <PropertySection
+            key={section.key}
+            title={section.title}
+            note={section.note}
+            items={section.items}
+            // The top card's Edit opens every section at once; each card's own
+            // Edit opens just that one. Any Save saves the whole form.
+            editing={editing === section.key || editing === "main"}
+            canEdit={!editing && !archiving && !property.archived}
+            submitting={submitting}
+            onEdit={() => {
+              setForm(property);
+              setEditing(section.key);
+            }}
+            onCancel={() => {
+              setForm(property);
+              setEditing(false);
+            }}
+            onSave={handleSave}
+          >
+            {sectionEdits[section.key]}
+          </PropertySection>
+        ))}
 
       <TenantSection propertyId={id} items={tenants} onChange={load} />
       <LeaseSection propertyId={id} items={leases} onChange={load} />

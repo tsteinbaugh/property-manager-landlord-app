@@ -493,16 +493,15 @@ export default function LeaseDetailPage() {
                   placeholder="e.g. 3% max annually"
                 />
               </label>
-              <div className="sm:col-span-2">
-                <FactFieldsEdit
-                  catalog={catalog}
-                  target="lease"
-                  place="lease.details"
-                  states={lease.property?.state ? [lease.property.state] : []}
-                  answers={form.facts}
-                  onChange={(facts) => setForm({ ...form, facts })}
-                />
-              </div>
+              <FactFieldsEdit
+                catalog={catalog}
+                target="lease"
+                place="lease.details"
+                states={lease.property?.state ? [lease.property.state] : []}
+                answers={form.facts}
+                onChange={(facts) => setForm({ ...form, facts })}
+                flow
+              />
               <label className="block text-sm sm:col-span-2">
                 <span className="mb-1 block font-medium text-stone-700">Notes</span>
                 <textarea
