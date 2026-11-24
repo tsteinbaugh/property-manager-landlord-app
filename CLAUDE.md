@@ -10,6 +10,7 @@
 - **Parked for Taylor:** the LegiScan budget question (backlog item 10); the Virgin Islands plain-language front page (M.15); a land-status attribute for American Samoa and Northern Mariana Islands properties (M.16); the lease PDF first-page layout (M.12); Spanish leases (multi-language support). Deploying is deliberately on hold.
 - **Desktop staging:** don't stage further Desktop folders until Taylor says (usage, 2026-10-31).
 - **Next focus (Taylor, 2026-11-23): the clause `[bracketed prompts]`.** They print in the lease PDF as plain text, instructions to the landlord included. First step, agreed: sort and count them by kind (instruction to the landlord, blank to fill in, choice), then bring Taylor a plan before changing anything (`docs/backlog.md`, "Bracketed prompts"). Automatic clause applicability and the `{{variables}}` are done.
+- **Local law, Tuesday evening to Wednesday 10 PM only (Taylor, 2026-11-24):** when Taylor says "local day", work from `docs/local-law.md`: Colorado first (Denver, Boulder, Frederick pilot), until the weekly limit or the reset, in its own git worktree; overnight, log what needs Taylor and work on something else. First session: 2026-11-24, about 9:30 PM. Other days stay on the focus above.
 - **Standing backlog** (no fixed order; ask Taylor what's next): `docs/backlog.md`.
 
 ## Project
