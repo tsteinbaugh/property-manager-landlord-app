@@ -17,7 +17,7 @@ YES/NO counts are the agents' and not comparable between places (NEW rows; stret
 4. Adopted model codes (IPMC, IFC) aren't in any download. Weld deletes the IPMC's maintenance chapters; Frederick and Boulder keep them.
 5. Downloads by Taylor work for Municode and frederick.municipal.codes, which block the tools. This is the slow step for the rest of Colorado.
 
-## Not done under Phase 3
+## Not done under Phase 3 (the report is a draft until these are)
 Drafted rows; independent check (rule 80); spot-check of five high-stakes rules per place against a second source; Denver's ordinances since the export beyond those read; conflict-with-state-law check on each rule; Boulder County blind pass and septic rules; model-code text.
 
 ## Recommendation (for Taylor)

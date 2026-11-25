@@ -193,3 +193,6 @@ Read whole: 6-9-1 to 6-9-6, 6-5-3, 5-4-13, 10-12-27, 10-12-28. Read in part: 11-
 - Agent's leads, not checked by me: pet limits differ between 14-4-20 and zoning; 14-9-70 fines don't cover 14-9-30; correction periods 30 days (23-10-20.C) and 10 days (23-10-40.C).
 - Read by me after: 23-1-90 (derelict manufactured home, noncommercial junkyard, RV, dwelling unit), 14-4-20, 15-2-40, -60, 14-1-30, 23-4-600, 14-3-20. They match the agent's summaries in what was read. 14-4-20 doesn't apply inside city limits.
 - 14-3-20: the cistern article covers buildings without a permit before May 1, 1993 (kept in effect).
+
+## Denver 33-53 to 33-55 (2026-11-25)
+33-53, 33-54 whole, 33-55(a) and (b)(1) to (4) read: denial when not the primary residence or for cause; same grounds for suspension; licensee keeps nights and dates rented for the past year.

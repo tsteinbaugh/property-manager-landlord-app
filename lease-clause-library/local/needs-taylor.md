@@ -6,4 +6,4 @@
 5. 2026-11-25: all four code downloads received (Denver, Boulder, Frederick, Weld County). Items 1 and 3 above are done; nothing to download now.
 6. Decide when back: the pilot comparison (being written) and whether to go past the pilot.
 7. Questions for Taylor: full pass first (recommended) or word search first; Frederick business license question (to the town); whether you can keep saving codes by hand for other Municode places.
-8. No row has been drafted and no independent check run. Both wait for item 6.
+8. No row has been drafted and no independent check run yet. The plan puts both before the stop (Phase 3, step 4), so they don't wait for Taylor.
