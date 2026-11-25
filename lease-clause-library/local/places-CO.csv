@@ -7,7 +7,7 @@ Jefferson County,08059,county,Jefferson County,,70545,,,NOT_STARTED,,,
 Adams County,08001,county,Adams County,,57572,,,NOT_STARTED,,,
 Larimer County,08069,county,Larimer County,,54080,,,NOT_STARTED,,,
 Aurora city,0804000,municipality,Adams County; Arapahoe County; Douglas County,,52603,,,NOT_STARTED,,,
-Boulder County,08013,county,Boulder County,,50769,,,NOT_STARTED,,,pilot
+Boulder County,08013,county,Boulder County,,50769,bouldercounty.gov ordinance PDFs + Land Use Code PDF,https://bouldercounty.gov/government/ordinances/,CHECKING,2026-11-24,Ordinance PDFs + land use code (6 scans OCRd); partial; known-positives not yet run,"pilot; read OCR pages as images before quoting; health code, building code adoptions, ordinances since PDF dates; meth ordinance 404"
 Fort Collins city,0827425,municipality,Larimer County,,33897,,,NOT_STARTED,,,
 Douglas County,08035,county,Douglas County,,30265,,,NOT_STARTED,,,
 Weld County,08123,county,Weld County,,29345,,,NOT_STARTED,,,pilot
