@@ -1,6 +1,11 @@
 # Local law: weekly track, Colorado pilot first
 
-*Approved plan (Taylor, 2026-11-24). Nothing started yet. Phase 1 adds the procedure to this file.*
+*Approved plan (Taylor, 2026-11-24). Started 2026-11-24.*
+
+## Usage log
+| Session | Weekly usage at start | at end | Done |
+|---|---|---|---|
+| 2026-11-24 | 53% | | Phase 1 files, Colorado state step (pilot blocked on code access) |
 
 ## Context
 The library covers federal and state law only (SOP rule 3 flags local law without resolving it). Taylor wants cities and counties covered the same way, everything everywhere. It is low priority and token-heavy, so it runs Tuesday evening through Wednesday on usage that would otherwise go unused; the bracketed prompts stay the focus on other days.
