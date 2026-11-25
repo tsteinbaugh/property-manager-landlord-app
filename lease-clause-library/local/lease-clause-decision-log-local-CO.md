@@ -204,3 +204,6 @@ Five education rows in `local-clauses-CO.csv`, all NEEDS_REVIEW and `is_active` 
 No row passed unchanged; all five redrafted after reading 6-9-7, 30-1-20, 30-2-10, 30-4-160, 30-4-170, 30-3-10 definitions, C.R.S. 38-12-506, 38-12-801(1), 38-12-103(1)(a), 38-12-505 (parts). Kinds of error found: dropped conditions (30-4-140(D), 12-2-6(a)), a neighboring stricter rule not mentioned (12-2-4 with 12-2-3), a penalty section unread (6-9-7), a scope answer already in the code (30-1-20(A)).
 Not adopted: the city page's 2.08 percent; 25-10-106(1)(j) (not read by me). Round 2 needed on the rewritten text.
 **Open design point:** REPLACES drops every part of the parent row, including parts still true; `docs/local-law.md` doesn't define it.
+
+### Round 2 (2026-11-25, same agent, so not a fresh read)
+Remaining errors in every row except solid fuel heat; fixed: a citation, dropped qualifiers (12-2-5, 12-2-8, 38-12-801(1), 30-1-20(F), 30-4-160(B), 30-4-170(C)), one overstatement that came from the agent's own round 1 wording, and the 38-12-511 exclusions. Round 3, by a fresh agent, is the last allowed (rule 80).
