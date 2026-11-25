@@ -71,3 +71,13 @@ New: `docs/local-law.md`, `lease-clause-library/local/*`, `scripts/clause-librar
 - `check-local.py`: every queue row has a valid status; `HAS_RULES`/`RESEARCHED` rows have citations; `NO_RULES_FOUND` rows record code version, date and searches with known-positives passing; topic keys and groups are valid.
 - All existing sync guards still pass, `generate.py` output is unchanged, backend tests pass.
 - Pilot comparison shows zero unexplained misses before Phase 4.
+
+## Procedure (Phase 1; applies with the SOP)
+Reuses the SOP: official text only (rule 11), no summaries as VERIFIED (12), saved sources and quote checks (14), search as proof with limits stated (19), three-bucket test, rule 56 tags, independent check (80). Differences:
+1. **Sources:** the place's own website first, then its publisher. Before reading a publisher, check robots.txt and its terms. A block, CAPTCHA or bot refusal is logged and not worked around (no changed user agent, no API or data endpoint, no mirror). Keep "refuses the shell" and "refuses Chrome" separate in the log.
+2. **Corpus:** every file is checked for extractable text. A file under 20 words is scanned: OCR it, mark the hits as OCR, and read the page image before quoting it. A file that can't be read makes the place `COULD_NOT_CHECK`, never `NO_RULES_FOUND`. A link that 404s is recorded the same way. (Boulder County, 2026-11-24: five scanned ordinances, including short-term rental licensing, would have shown as no hits.)
+3. **Search:** every subject in `subjects-CO.csv` over the whole corpus, with the nonsense control ("zzqqxx" = 0). A place also needs a known positive found in its own text, since the CSV's positive only tests the pattern. Read every hit in a rental context.
+4. **Scope per place:** codes, charter, uncodified ordinances since the code's date, building and housing code adoptions (with local amendments), land use code, and health-department rules. Record the code's currency date.
+5. **Rows:** `jurisdiction` is the GEOID; `relation` is ADDS or REPLACES; `parent_row` is the state row. A place row never edits a state row (SOP rule 3).
+6. **Overlap:** county rules usually cover unincorporated land only; record each rule's territory. A city's record lists every county and district it overlaps.
+
