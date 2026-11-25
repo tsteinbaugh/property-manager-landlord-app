@@ -79,8 +79,12 @@ function joinOrNull(values) {
   return values.length > 0 && values.every(Boolean) ? values.join(", ") : null;
 }
 
-function formatField(q, value) {
+function formatField(q, value, variable) {
   if (value === undefined || value === null || value === "") return null;
+  if (q.choice) {
+    const option = q.options.find((o) => o.value === value);
+    return option ? option.printIn?.[variable] ?? option.print : null;
+  }
   if (q.type === "money") return money(value);
   if (q.type === "date") return formatDate(value);
   return String(value);
@@ -90,7 +94,17 @@ function formatField(q, value) {
 function clauseFieldValues(propertyFacts, leaseFacts) {
   const out = {};
   for (const [fields, facts] of [[PROPERTY_FIELDS, propertyFacts], [LEASE_FIELDS, leaseFacts]]) {
-    for (const q of fields) for (const v of q.vars) out[v] = formatField(q, facts[q.id]);
+    for (const q of fields) for (const v of q.vars) out[v] = formatField(q, facts[q.id], v);
+  }
+  return out;
+}
+
+// The picked value of each choice, by variable, for {{#name:value}} passages.
+const PICKED = Symbol("picked");
+function pickedValues(propertyFacts, leaseFacts) {
+  const out = {};
+  for (const [fields, facts] of [[PROPERTY_FIELDS, propertyFacts], [LEASE_FIELDS, leaseFacts]]) {
+    for (const q of fields) if (q.choice) for (const v of q.vars) out[v] = facts[q.id] ?? null;
   }
   return out;
 }
@@ -112,6 +126,7 @@ function buildVariableContext({ lease, property, entity, tenants, occupants = []
   const noticeAddress = lf.noticeAddress || entity?.mailingAddress || null;
   return {
     ...clauseFieldValues(pf, lf),
+    [PICKED]: pickedValues(pf, lf),
     ...utilityLists(pf),
     // Cal OES's MyHazards tool, named in Cal. Gov. Code § 8589.45.
     myhazards_url: "https://myhazards.caloes.ca.gov",
@@ -184,10 +199,37 @@ const isBlank = (value) => value === null || value === undefined || value === ""
 // warns in the Lease Builder and never holds the PDF).
 const BLANK_LINE = "____________";
 
+// {{#name:value}}passage{{/name}} prints only when the choice `name` was answered
+// `value`. Before it's answered, its passages are left out and one blank stands
+// for the choice.
+const PASSAGE = /\{\{#([a-z_]+):([^}]*)\}\}((?:(?!\{\{#\1:|\{\{\/\1\}\})[\s\S])*)\{\{\/\1\}\}/;
+function choosePassages(bodyText, context) {
+  const asked = new Set();
+  let text = bodyText;
+  for (let m; (m = text.match(PASSAGE)); ) {
+    const [whole, name, value, inner] = m;
+    const picked = context[PICKED]?.[name];
+    let out = picked === value ? inner : "";
+    if (isBlank(picked) && !asked.has(name)) {
+      asked.add(name);
+      if (!bodyText.includes(`{{${name}}}`)) out = `{{${name}}}`;
+    }
+    text = text.replace(whole, () => out);
+  }
+  return text;
+}
+
+// The text with its passages decided and picked options' wording in place.
+function expandChoices(bodyText, context) {
+  return choosePassages(bodyText, context).replace(VARIABLE_PATTERN, (match, key) =>
+    context[PICKED]?.[key] != null && !isBlank(context[key]) ? context[key] : match,
+  );
+}
+
 // A blank variable prints as a line. On screen (`named`) the line also says what
 // it's for, so a landlord notices an unset value or a typo'd variable.
 function substituteVariables(bodyText, context, { named = false } = {}) {
-  return bodyText.replace(VARIABLE_PATTERN, (match, key) => {
+  return expandChoices(bodyText, context).replace(VARIABLE_PATTERN, (match, key) => {
     if (!isBlank(context[key])) return String(context[key]);
     return named ? `${BLANK_LINE} [${blankLabel(key)}]` : BLANK_LINE;
   });
@@ -267,7 +309,7 @@ const variablesIn = (bodyText) => [...new Set([...bodyText.matchAll(VARIABLE_PAT
 function clauseBlanks(clauses, context) {
   const byKey = new Map();
   for (const clause of clauses) {
-    for (const v of variablesIn(clause.bodyText)) {
+    for (const v of variablesIn(expandChoices(clause.bodyText, context))) {
       if (!isBlank(context[v])) continue;
       const field = FIELD_BY_VARIABLE[v];
       const key = field ? `${field.target}.${field.q.id}` : blankLabel(v);
@@ -286,12 +328,26 @@ function clauseBlanks(clauses, context) {
   return [...byKey.values()];
 }
 
-// The terms asked under this clause (place "lease.clause"), filled or not.
+// The terms asked under this clause (place "lease.clause"), filled or not, each
+// follow-up after its choice; the page shows a follow-up once it applies.
 function clauseTerms(bodyText) {
-  const seen = new Set();
-  return variablesIn(bodyText)
-    .map((v) => FIELD_BY_VARIABLE[v]?.q)
-    .filter((q) => q?.place === "lease.clause" && !seen.has(q.id) && seen.add(q.id));
+  const named = new Set([...bodyText.matchAll(/\{\{\s*#?([a-z_]+)/g)].map((m) => m[1]));
+  const direct = LEASE_FIELDS.filter((q) => q.place === "lease.clause" && q.vars.some((v) => named.has(v)));
+  const ids = new Set(direct.map((q) => q.id));
+  const order = [...named].flatMap((v) => direct.filter((q) => q.vars.includes(v)));
+  const terms = [];
+  const add = (q) => {
+    if (terms.includes(q)) return;
+    terms.push(q);
+    for (const f of LEASE_FIELDS) if (f.showIf?.id === q.id && f.place === "lease.clause" && !ids.has(f.id)) add(f);
+  };
+  order.forEach(add);
+  return terms;
 }
 
-module.exports = { buildVariableContext, substituteVariables, clauseBlanks, clauseTerms, SOURCE, FIELD_BY_VARIABLE, BLANK_LINE };
+// Choices still to be picked; the PDF waits for them (Taylor, 2026-11-24).
+function unpickedChoices(clauses, context) {
+  return clauseBlanks(clauses, context).filter((b) => b.question?.choice);
+}
+
+module.exports = { buildVariableContext, substituteVariables, clauseBlanks, clauseTerms, unpickedChoices, SOURCE, FIELD_BY_VARIABLE, BLANK_LINE };

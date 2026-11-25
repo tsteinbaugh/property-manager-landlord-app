@@ -8,7 +8,8 @@
 // section of the property, Property Specs or lease page.
 const { CLAUSE_TEMPLATES } = require("./clauseTemplates");
 
-const VARIABLE = /\{\{\s*([a-z_]+)\s*\}\}/g;
+// Also reads the name in a conditional passage tag, {{#name:value}}.
+const VARIABLE = /\{\{\s*#?([a-z_]+)(?::[^}]*)?\s*\}\}/g;
 const statesByVariable = {};
 for (const t of CLAUSE_TEMPLATES) {
   for (const [, v] of t.bodyText.matchAll(VARIABLE)) {
@@ -20,6 +21,16 @@ for (const t of CLAUSE_TEMPLATES) {
 // [id, type, label, vars, extra]. `label` is also the short name on the page.
 const when = (id, ...values) => ({ showIf: { id, in: values } });
 const chargedBack = { showIf: { id: "utilities", whoPays: ["CHARGED_BACK"] } };
+
+// A choice: only the picked option's wording prints, and an unpicked choice
+// holds the PDF (Taylor, 2026-11-24). [value, label, what prints, { variable:
+// what prints there instead }]; the wording may use a follow-up's variable.
+const choice = (...rows) => ({
+  choice: true,
+  options: rows.map(([value, label, print, printIn]) => ({ value, label, print, ...(printIn ? { printIn } : {}) })),
+});
+// `limits`: a legal limit by state, refused with its reason. Read the statute first.
+const CO_BILLING_FEE = { CO: { max: 10, why: "Colorado limits this fee to $10.00 a month (or 2% instead)." } }; // C.R.S. 38-12-801(3)(a)(VI)
 
 const PROPERTY = {
   "property.manager": [
@@ -184,7 +195,7 @@ const LEASE = {
     ["exhibitLetter", "text", "Exhibit letter", "exhibit_letter"],
     ["expeditedDepositFee", "money", "Fee for an early deposit return", "expedited_deposit_fee"],
     ["flotationInsurance", "money", "Waterbed insurance", "flotation_insurance_amount"],
-    ["inspectionHours", "number", "Hours' notice of a program inspection", "inspection_notice_hours"],
+    ["inspectionHours", "number", "Hours' notice of a program inspection", "inspection_notice_hours", { help: "48 hours is a common choice." }],
     ["insuranceProofDays", "number", "Days to show proof of renter's insurance", "insurance_proof_days"],
     ["judgmentInterest", "text", "Interest rate on an award (per year)", "judgment_interest_rate", { help: "For example: 8% per year." }],
     ["lienReleaseDays", "number", "Days to release a lien", "lien_release_days"],
@@ -201,14 +212,75 @@ const LEASE = {
     ["pestNoticeDays", "number", "Days to report pests", "pest_notice_days"],
     ["utilityBillCopyFee", "money", "Fee for a utility bill copy", "utility_bill_copy_fee"],
     ["utilityTransferDays", "number", "Days to put utilities in the tenant's name", "utility_transfer_days"],
+    // Colorado's bracketed prompts (Taylor, 2026-11-24).
+    ["bedBugEntryHours", "number", "Hours' notice before a bed bug inspection or treatment", "bed_bug_entry_hours", { help: "Colorado's minimum is 48 unless the lease sets a different one." }],
+    ["bedBugHistory", "longtext", "Bed bug history", "bed_bug_history", { help: 'Any known infestation in the past 8 months, its treatment and the last inspection date, or "none known".' }],
+    ["utilityAllocationMethod", "longtext", "How the utility bill is split", "utility_allocation_method", { help: "For example: divided by the number of people living in each unit." }],
+    ["allocationFee", "pickOne", "Administrative fee", "allocation_fee", choice(
+      ["percent", "2% of the utility charge", "2% of the utility charge"],
+      ["flat", "A flat amount each month", "a flat amount of {{allocation_fee_flat}} per month"],
+      ["none", "No fee", "none"])],
+    ["allocationFeeFlat", "money", "Fee per month", "allocation_fee_flat", { ...when("allocationFee", "flat"), limits: CO_BILLING_FEE }],
+    ["submeterFee", "pickOne", "Administrative charge for electricity", "submeter_fee", choice(
+      ["none", "No charge", "none"],
+      ["percent", "2% of the utility's bill for the tenant's electricity", "2% of the amount the utility provider billed Landlord for Tenant's electricity"],
+      ["flat", "A flat amount each month", "a flat amount of {{submeter_fee_flat}} per month"])],
+    ["submeterFeeFlat", "money", "Charge per month", "submeter_fee_flat", { ...when("submeterFee", "flat"), limits: CO_BILLING_FEE }],
+    ["depositReturnDays", "number", "Days to return the security deposit", "deposit_return_days", { help: "30 unless the lease sets a longer time.", limits: { CO: { max: 60, why: "Colorado allows no more than 60 days to return a security deposit." } } }],
+    ["tenancyEndNoticeDays", "number", "Days' notice to end the tenancy", "tenancy_end_notice_days", { help: "If the law requires more for the length of the tenancy, the longer notice applies." }],
+    ["forCauseExemption", "pickOne", "For-cause eviction exemption you rely on", "for_cause_exemption", choice(
+      ["a", "Short-term rental property", "a short-term rental property (C.R.S. section 38-12-1302(1)(a))"],
+      ["b", "You live in or next to the property (single-family home, duplex or triplex)", "the owner or master tenant lives in the residential premises, or the owner lives in an adjacent property, as a primary residence, and the premises or adjacent property is a single-family home, duplex or triplex (C.R.S. section 38-12-1302(1)(b))"],
+      ["d", "Employer-provided housing", "an employer-provided housing agreement (C.R.S. section 38-12-1302(1)(d))"],
+      ["e", "Tenant has lived there less than 12 months", "Tenant has not been a tenant of the premises for at least twelve months (C.R.S. section 38-12-1302(1)(e))"],
+      ["f", "Tenant not known to you as a tenant", "Tenant is not known to Landlord to be a tenant of the premises (C.R.S. section 38-12-1302(1)(f))"])],
+    ["evChargerRequirements", "longtext", "EV charger safety and appearance requirements", "ev_charger_requirements"],
+    ["noticePortal", "pickOne", "Online tenant portal for habitability notices", "notice_portal notice_portal_es", choice(
+      ["none", "No portal", "not applicable", { notice_portal_es: "no aplica" }],
+      ["portal", "Yes", "{{notice_portal_url}}"])],
+    ["noticePortalUrl", "text", "Portal web address", "notice_portal_url", when("noticePortal", "portal")],
+    ["rentIncreaseNoticeDays", "number", "Days' notice before a rent increase", "rent_increase_notice_days", { help: "For example: 60." }],
+    ["noticeForwardingMethod", "text", "How the tenant sends you notices received", "notice_forwarding_method", { help: "An email address, portal or mailing address." }],
+    ["alarmList", "longtext", "Alarms and where they are", "alarm_list", { help: "Each carbon monoxide alarm and smoke alarm." }],
+    ["excludedItems", "longtext", "Items not provided, and who owns each", "excluded_items_list"],
+    ["associationName", "text", "Association's name", "association_name"],
+    ["associationDocuments", "longtext", "Association documents you gave the tenant", "association_documents_list", { help: "For example: declaration, bylaws, rules, parking rules, pet rules." }],
+    ["renewalTerm", "text", "Length of each renewal term", "renewal_term", { help: "One year or less, for example: six months." }],
+    ["renewalCancelMethod", "text", "Simplest way to cancel a renewal", "renewal_cancel_method", { help: "For example: a reply to the reminder email." }],
+    ["workNoticeDays", "number", "Days' notice before the tenant's work begins", "work_notice_days"],
+    ["condoDeclarationDate", "date", "Date the condominium declaration was recorded", "condo_declaration_date"],
+    ["conversionNoticeDays", "number", "Days' notice to move out for a conversion", "conversion_notice_days"],
+    ["depositCharges", "longtext", "Charges that can come out of the deposit", "deposit_charge_list", { help: "For example: unpaid rent; unpaid utility charges; the late fee in this Lease; replacing keys not returned." }],
+    ["accommodationContact", "text", "Where to send accommodation requests", "accommodation_contact", { help: "A mailing address, email or portal; not only a phone number." }],
+    ["finePaymentDays", "number", "Days to pay abatement costs and fines", "fine_payment_days"],
+    ["minimumTemperature", "text", "Lowest indoor temperature", "minimum_indoor_temperature", { help: "For example: 55 degrees Fahrenheit." }],
+    ["absenceNoticeDays", "number", "Days away before the tenant must tell you", "absence_notice_days"],
+    ["coolingRestricted", "pickOne", "Do you restrict portable cooling devices?", "cooling_restricted", choice(["no", "No", "no"], ["yes", "Yes", "yes"])],
+    ["coolingRestriction", "longtext", "The restriction", "cooling_restriction", when("coolingRestricted", "yes")],
+    ["coolingGround", "pickOne", "Legal ground for it", "cooling_ground", { ...when("coolingRestricted", "yes"), ...choice(
+      ["code", "It would violate a building code or the law", "it would violate a building code or state or federal law"],
+      ["safety", "It would violate the manufacturer's safety guidelines", "it would violate the manufacturer's written safety guidelines for installing or using the device"],
+      ["damage", "It would damage the premises or make them uninhabitable", "it would damage the premises or render them uninhabitable"],
+      ["amperage", "It needs more power than the property can supply", "it would require more amperage than the electrical capacity of the property, the unit or the circuit can accommodate"]) }],
+    ["coolingCommonSpace", "pickOne", "Will you run a cooled common space during extreme heat?", "cooling_common_space", { ...when("coolingRestricted", "yes"), ...choice(["does", "Yes", "does"], ["does not", "No", "does not"]) }],
+    ["coolingSpaces", "longtext", "Cooled common spaces", "cooling_space_list", when("coolingCommonSpace", "does")],
+    ["communityCooling", "longtext", "Community cooling spaces nearby", "community_cooling_list", { ...when("coolingCommonSpace", "does not"), help: 'Recreation centers, community centers or libraries, or "none known within ten miles".' }],
+    ["requiredFees", "longtext", "Fees and charges", "required_fees_list", { help: 'For each: amount or how it is calculated, when due, what it is for, whether refundable and who receives it. Mark optional fees. Or "None".' }],
+    ["displaySize", "text", "Largest item on display", "display_item_size", { help: "For example: 4 square feet." }],
+    ["utilityTransferDate", "date", "Utilities in the tenant's name by", "utility_transfer_date", { help: "For example: the start date." }],
+    ["utilityReimbursementDays", "number", "Days to reimburse utility bills", "utility_reimbursement_days", { help: "For example: 15." }],
+    ["aquariumSize", "text", "Aquarium size that needs consent", "aquarium_size_limit", { help: "For example: 20 gallons." }],
   ],
 };
 
 function build(byPlace) {
+  // A follow-up named only in an option's wording shows where its parent does.
+  const varsOf = Object.fromEntries(Object.values(byPlace).flat().map((r) => [r[0], r[3].split(" ")]));
   return Object.entries(byPlace).flatMap(([place, rows]) =>
     rows.map(([id, type, label, vars, extra = {}]) => {
       const list = vars.split(" ");
-      const states = [...new Set(list.flatMap((v) => [...(statesByVariable[v] || [])]))].sort();
+      const named = list.some((v) => statesByVariable[v]) ? list : varsOf[extra.showIf?.id] || [];
+      const states = [...new Set(named.flatMap((v) => [...(statesByVariable[v] || [])]))].sort();
       return {
         id, type, label, short: label.replace(/\?$/, ""), place, section: "Clause fields", counts: false,
         states, vars: list, ...extra, ...(place === "lease.clause" ? { builderOnly: true } : {}),

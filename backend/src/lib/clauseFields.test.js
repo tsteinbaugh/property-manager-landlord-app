@@ -1,9 +1,10 @@
 const { CLAUSE_TEMPLATES } = require("./clauseTemplates");
 const { PROPERTY_FIELDS, LEASE_FIELDS } = require("./clauseFields");
 const { CATALOG, isVisible, validateFacts } = require("./factCatalog");
-const { buildVariableContext, substituteVariables, clauseBlanks, clauseTerms, SOURCE, FIELD_BY_VARIABLE } = require("./clauseVariables");
+const { buildVariableContext, substituteVariables, clauseBlanks, clauseTerms, unpickedChoices, SOURCE, FIELD_BY_VARIABLE } = require("./clauseVariables");
 
-const used = new Set(CLAUSE_TEMPLATES.flatMap((t) => [...t.bodyText.matchAll(/\{\{\s*([a-z_]+)\s*\}\}/g)].map((m) => m[1])));
+const used = new Set(CLAUSE_TEMPLATES.flatMap((t) => [...t.bodyText.matchAll(/\{\{\s*#?([a-z_]+)(?::[^}]*)?\s*\}\}/g)].map((m) => m[1])));
+const inOptions = [...PROPERTY_FIELDS, ...LEASE_FIELDS].flatMap((q) => (q.options || []).flatMap((o) => [...(o.print || "").matchAll(/\{\{([a-z_]+)\}\}/g)].map((m) => m[1])));
 const context = (propertyFacts = {}, leaseFacts = {}) =>
   buildVariableContext({ lease: { facts: leaseFacts }, property: { facts: propertyFacts }, entity: null, tenants: [] });
 
@@ -17,7 +18,7 @@ describe("clauseFields", () => {
   it("only has fields some clause uses, each filling a variable once", () => {
     const vars = [...PROPERTY_FIELDS, ...LEASE_FIELDS].flatMap((q) => q.vars);
     expect(new Set(vars).size).toBe(vars.length);
-    expect(vars.filter((v) => !used.has(v))).toEqual([]);
+    expect(vars.filter((v) => !used.has(v) && !inOptions.includes(v))).toEqual([]);
     for (const q of [...PROPERTY_FIELDS, ...LEASE_FIELDS]) expect(q.states.length, q.id).toBeGreaterThan(0);
   });
 
@@ -73,5 +74,48 @@ describe("clauseFields", () => {
     const q = CATALOG.property.find((x) => x.id === "utilityAvgBill");
     expect(isVisible(q, ["TX"], { utilities: { water: { whoPays: "INCLUDED" } } })).toBe(false);
     expect(isVisible(q, ["TX"], { utilities: { water: { whoPays: "CHARGED_BACK" } } })).toBe(true);
+  });
+
+  it("prints only the picked option, asking its follow-up once picked", () => {
+    const t = CLAUSE_TEMPLATES.find((x) => x.id === "utility-submetering-disclosure-co");
+    const text = (f) => substituteVariables(t.bodyText, context({}, f));
+    expect(text({})).toContain("billing method is ____________.");
+    expect(text({ allocationFee: "none" })).toContain("billing method is none.");
+    expect(text({ allocationFee: "flat", allocationFeeFlat: 8 })).toContain("is a flat amount of $8.00 per month.");
+    expect(unpickedChoices([t], context()).map((b) => b.question.id)).toEqual(["allocationFee"]);
+    expect(unpickedChoices([t], context({}, { allocationFee: "flat" }))).toEqual([]);
+    expect(clauseBlanks([t], context({}, { allocationFee: "flat" })).map((b) => b.label)).toContain("Fee per month");
+    expect(clauseTerms(t.bodyText).map((q) => q.id)).toEqual(["utilityAllocationMethod", "allocationFee", "allocationFeeFlat"]);
+  });
+
+  it("prints a passage only for its answer, and asks only what still prints", () => {
+    const t = CLAUSE_TEMPLATES.find((x) => x.id === "portable-cooling-restriction-co");
+    const text = (f) => substituteVariables(t.bodyText, context({}, f));
+    const labels = (f) => clauseBlanks([t], context({}, f)).map((b) => b.question.id);
+    expect(labels({})).toEqual(["coolingRestricted"]);
+    expect(text({ coolingRestricted: "no" })).toContain("unit - at the property. Landlord places no restriction on portable cooling devices. Nothing in this section");
+    expect(labels({ coolingRestricted: "no" })).toEqual([]);
+    expect(labels({ coolingRestricted: "yes" })).toEqual(["coolingRestriction", "coolingGround", "coolingCommonSpace"]);
+    const yes = { coolingRestricted: "yes", coolingRestriction: "R", coolingGround: "code", coolingCommonSpace: "does not", communityCooling: "Library" };
+    expect(text(yes)).toContain("Landlord does not intend to operate one or more common spaces at the property that will be cooled and available to Tenant during an extreme heat event. Information about");
+    expect(text({ ...yes, coolingCommonSpace: "does", coolingSpaces: "Lobby" })).toContain("extreme heat event: Lobby. Where Landlord");
+    for (const f of [{}, yes, { coolingRestricted: "no" }]) expect(text(f)).not.toMatch(/\{\{/);
+  });
+
+  it("prints the portal answer in both languages", () => {
+    const t = CLAUSE_TEMPLATES.find((x) => x.id === "habitability-notice-co");
+    const text = substituteVariables(t.bodyText, context({}, { noticePortal: "none" }));
+    expect(text).toContain("portal at: not applicable.");
+    expect(text).toContain("en: no aplica.");
+  });
+
+  it("refuses an answer over the state's legal limit, and says why", () => {
+    expect(validateFacts("lease", { depositReturnDays: 75 }, "CO").error).toBe("Colorado allows no more than 60 days to return a security deposit.");
+    expect(validateFacts("lease", { depositReturnDays: 60 }, "CO").error).toBeUndefined();
+    expect(validateFacts("lease", { allocationFeeFlat: 15 }, "CO").error).toContain("$10.00");
+  });
+
+  it("leaves no bracketed prompt in a Colorado-only clause", () => {
+    expect(CLAUSE_TEMPLATES.filter((t) => t.states?.join() === "CO" && t.bodyText.includes("[")).map((t) => t.id)).toEqual([]);
   });
 });

@@ -7,7 +7,7 @@ const defaultR2 = require("../lib/r2");
 const { buildLeasePdf } = require("../lib/generateLeasePdf");
 const { isValidGroup } = require("../lib/clauseGroups");
 const { CLAUSE_TEMPLATES } = require("../lib/clauseTemplates");
-const { buildVariableContext, substituteVariables, clauseBlanks, clauseTerms } = require("../lib/clauseVariables");
+const { buildVariableContext, substituteVariables, clauseBlanks, clauseTerms, unpickedChoices } = require("../lib/clauseVariables");
 const { orderAndLabelClauses } = require("../lib/leaseClauseOrdering");
 const { isWrongForCauseVariant } = require("../lib/forCauseEvictionVariant");
 const { choiceGroupOf, findChoiceGroupConflict } = require("../lib/clauseChoiceGroups");
@@ -327,11 +327,11 @@ function createLeasesRoutes({ r2 = defaultR2 } = {}) {
   // Saves answers to the lease's applicability questions (factCatalog.js);
   // a null answer clears it.
   router.put("/:id/facts", async (req, res) => {
-    const existing = await prisma.lease.findUnique({ where: { id: req.params.id } });
+    const existing = await prisma.lease.findUnique({ where: { id: req.params.id }, include: { property: { select: { state: true } } } });
     if (!existing || existing.userId !== req.currentUser.id) {
       return res.status(404).json({ error: "Lease not found" });
     }
-    const { facts, error } = validateFacts("lease", req.body?.facts);
+    const { facts, error } = validateFacts("lease", req.body?.facts, existing.property?.state);
     if (error) return res.status(400).json({ error });
     const merged = mergeFacts(existing.facts, facts);
     // A lease can't assign more parking spaces than the property has (Taylor, 2026-11-23).
@@ -950,6 +950,13 @@ function createLeasesRoutes({ r2 = defaultR2 } = {}) {
       appliances: property?.appliances || [],
       petDepositAmount: petDeposit?.amountHeld ?? null,
     });
+    const unpicked = unpickedChoices(lease.leaseClauses, context);
+    if (unpicked.length > 0) {
+      return res.status(409).json({
+        error: `Choose an option in the Lease Builder first: ${unpicked.map((b) => `${b.label} (${b.clauses.join("; ")})`).join(", ")}.`,
+        unpickedChoices: unpicked.map((b) => ({ key: b.key, label: b.label, clauses: b.clauses })),
+      });
+    }
     const clauses = orderAndLabelClauses(lease.leaseClauses).map((clause) => ({
       ...clause,
       resolvedBodyText: substituteVariables(clause.bodyText, context),

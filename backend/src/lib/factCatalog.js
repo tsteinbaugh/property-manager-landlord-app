@@ -757,7 +757,7 @@ const optionValues = (q) => q.options.map((o) => o.value);
 
 // Validates and normalizes a patch of answers for `target`. Returns
 // { facts } or { error }. A null value clears an answer.
-function validateFacts(target, patch) {
+function validateFacts(target, patch, state = null) {
   if (!patch || typeof patch !== "object" || Array.isArray(patch)) return { error: "facts must be an object" };
   const byId = Object.fromEntries(CATALOG[target].map((q) => [q.id, q]));
   const facts = {};
@@ -792,7 +792,9 @@ function validateFacts(target, patch) {
       case "number":
       case "money":
         if (typeof value !== "number" || !Number.isFinite(value) || value < 0) return bad();
+        if (q.limits?.[state] && value > q.limits[state].max) return { error: q.limits[state].why };
         break;
+      case "longtext":
       case "text":
         if (typeof value !== "string") return bad();
         break;

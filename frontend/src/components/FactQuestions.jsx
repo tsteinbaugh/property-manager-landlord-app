@@ -55,6 +55,18 @@ export function Question({ question, value, onChange, catalog }) {
     case "checkbox":
       return null;
     case "pickOne":
+      if (q.choice) {
+        return (
+          <div className="space-y-1">
+            {q.options.map((o) => (
+              <label key={o.value} className="flex items-start gap-2 text-sm text-stone-700">
+                <input type="radio" name={q.id} checked={value === o.value} onChange={() => onChange(o.value)} className="mt-0.5" />
+                <span>{o.label}</span>
+              </label>
+            ))}
+          </div>
+        );
+      }
       return (
         <select value={value ?? ""} onChange={(e) => onChange(e.target.value || null)} className={inputClass}>
           <option value="">Select…</option>
@@ -128,6 +140,8 @@ export function Question({ question, value, onChange, catalog }) {
       return <input type="date" value={value ?? ""} onChange={(e) => onChange(e.target.value || null)} className={inputClass} />;
     case "text":
       return <input type="text" value={value ?? ""} onChange={(e) => onChange(e.target.value || null)} className={inputClass} />;
+    case "longtext":
+      return <textarea rows={2} value={value ?? ""} onChange={(e) => onChange(e.target.value || null)} className={inputClass} />;
     case "utilities": {
       const current = value || {};
       const set = (kind, patch) => {

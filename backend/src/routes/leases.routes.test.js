@@ -1321,6 +1321,20 @@ describe("leases routes", () => {
       );
       if (Object.keys(facts).length) await request(app).put(`/api/properties/${property.id}/facts`).send({ facts });
       await request(app).post(`/api/leases/${lease.id}/clauses/add-defaults`);
+      await request(app).put(`/api/leases/${lease.id}/facts`).send({ facts: { noticePortal: "none" } });
+    });
+
+    it("refuses to generate while a clause's choice isn't picked, naming it", async () => {
+      await request(app).put(`/api/leases/${lease.id}/facts`).send({ facts: { noticePortal: null } });
+      const res = await request(app).post(`/api/leases/${lease.id}/generate-document`);
+      expect(res.status).toBe(409);
+      expect(res.body.unpickedChoices.map((c) => c.key)).toEqual(["lease.noticePortal"]);
+    });
+
+    it("refuses a deposit return longer than Colorado allows", async () => {
+      const res = await request(app).put(`/api/leases/${lease.id}/facts`).send({ facts: { depositReturnDays: 75 } });
+      expect(res.status).toBe(400);
+      expect(res.body.error).toContain("60 days");
     });
 
     it("refuses to generate while a question that decides a required clause is blank", async () => {

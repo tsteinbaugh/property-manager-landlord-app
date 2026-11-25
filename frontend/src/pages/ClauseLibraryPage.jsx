@@ -7,6 +7,9 @@ import { sortJurisdictions, sortClausesForDisplay } from "../lib/jurisdictions";
 // states is edited as a single comma-separated text field ("CO, NY, TX") and parsed into an
 // array on submit — simpler UI than a multi-select for what's usually 0-1 states, still
 // supports the multi-state case (several states sharing identical clause language).
+// Passages that print only for one answer, {{#name:value}}...{{/name}}, read as "[If yes: ...]".
+const readable = (text) => text.replace(/\{\{#[a-z_]+:([^}]*)\}\}\s*/g, " [If $1: ").replace(/\{\{\/[a-z_]+\}\}/g, "]");
+
 const EMPTY_FORM = { title: "", bodyText: "", group: "", states: "" };
 const ALL_STATES = "ALL";
 
@@ -419,7 +422,7 @@ export default function ClauseLibraryPage() {
                   <div key={clause.id} className="rounded-xl border border-stone-200 bg-white p-4 shadow-sm">
                     <p className="text-sm font-medium text-stone-900">{clause.title}</p>
                     {stateFilter === ALL_STATES && <StateTags states={clause.states} />}
-                    <p className="mt-1 whitespace-pre-wrap text-sm text-stone-600">{clause.bodyText}</p>
+                    <p className="mt-1 whitespace-pre-wrap text-sm text-stone-600">{readable(clause.bodyText)}</p>
                     <div className="mt-2 flex items-center justify-end gap-3 text-sm">
                       <label className="flex items-center gap-1.5 text-xs text-stone-600">
                         <input
@@ -471,7 +474,7 @@ export default function ClauseLibraryPage() {
                         .join(" · ")}
                     </p>
                   )}
-                  <p className="mt-1 whitespace-pre-wrap text-sm text-stone-600">{template.bodyText}</p>
+                  <p className="mt-1 whitespace-pre-wrap text-sm text-stone-600">{readable(template.bodyText)}</p>
                   <AboutClause
                     key={stateFilter}
                     template={template}
