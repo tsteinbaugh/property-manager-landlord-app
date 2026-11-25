@@ -1,5 +1,5 @@
 place,geoid,type,counties,home_rule,renter_homes,code_source,code_url,status,checked_date,searched,next_step
-Denver city,0820000,city-county,Denver County,,167670,City publications only (Municode not read),https://www.denvergov.org/,HAS_RULES,2026-11-24,"PARTIAL: city pages, 2025 handbook, checklist, Nov 2025 notice, 2016 health rules, 2021 HOST rules; whole code not searched","HOLD: denvergov.org terms bar commercial use and copying without written permission; nothing more read until Taylor decides; county GEOID 08031; pilot; council ordinances (legistar), read rules whole, resolve 27-201/27-240"
+Denver city,0820000,city-county,Denver County,,167670,Municode export downloaded by Taylor 2026-11-24 + city publications,https://www.denvergov.org/,HAS_RULES,2026-11-24,"PARTIAL: city pages, 2025 handbook, checklist, Nov 2025 notice, 2016 health rules, 2021 HOST rules; whole code not searched","nothing more read until Taylor decides; county GEOID 08031; pilot; council ordinances (legistar), read rules whole, resolve 27-201/27-240"
 El Paso County,08041,county,El Paso County,,95198,,,NOT_STARTED,,,
 Arapahoe County,08005,county,Arapahoe County,,88547,,,NOT_STARTED,,,
 Colorado Springs city,0816000,municipality,El Paso County,,76599,,,NOT_STARTED,,,
@@ -10,7 +10,7 @@ Aurora city,0804000,municipality,Adams County; Arapahoe County; Douglas County,,
 Boulder County,08013,county,Boulder County,,50769,bouldercounty.gov ordinance PDFs + Land Use Code PDF,https://bouldercounty.gov/government/ordinances/,HAS_RULES,2026-11-24,"21 ordinance/rules PDFs + land use code; 6 OCRd; control zzqqxx 0; own-text positives: nuisance 20, short-term rental 54, parking 639. Counts only; hits read in context only for landlord/tenant terms in 5 files (first 12 of 56 land use code hits: mineral lessees) and Ord. 2023-02","pilot; read OCR pages as images before quoting; health code, building code adoptions, ordinances since PDF dates; meth ordinance 404"
 Fort Collins city,0827425,municipality,Larimer County,,33897,,,NOT_STARTED,,,
 Douglas County,08035,county,Douglas County,,30265,,,NOT_STARTED,,,
-Weld County,08123,county,Weld County,,29345,"Adopted ordinances on weld.gov (code on Municode, not read)",https://www.weld.gov/,COULD_NOT_CHECK,2026-11-24,PARTIAL: Ord. 2026-04 only; no rental-term hits in the saved text (not proof of absence),"HOLD: weld.gov disclaimer says using site information for personal or commercial purposes is prohibited; pilot; other code-change ordinances, 2026-19 (ch. 12 licenses)"
+Weld County,08123,county,Weld County,,29345,"Adopted ordinances on weld.gov (code on Municode, not read)",https://www.weld.gov/,CHECKING,2026-11-24,PARTIAL: Ord. 2026-04 only; no rental-term hits in the saved text (not proof of absence),"pilot; other code-change ordinances, 2026-19 (ch. 12 licenses)"
 Lakewood city,0843000,municipality,Jefferson County,,29046,,,NOT_STARTED,,,
 Boulder city,0807850,municipality,Boulder County,,22844,"City pages only (code is on Municode, not read)",https://bouldercolorado.gov/,HAS_RULES,2026-11-24,"PARTIAL: 5 city pages, search lines only; whole code not searched","pilot; read model lease and sample disclosure PDFs, council ordinances"
 Pueblo County,08101,county,Pueblo County,,21487,,,NOT_STARTED,,,
@@ -166,7 +166,7 @@ Idaho Springs city,0838370,municipality,Clear Creek County,,236,,,NOT_STARTED,,,
 Akron town,0800925,municipality,Washington County,,233,,,NOT_STARTED,,,
 Lochbuie town,0845530,municipality,Adams County; Weld County,,232,,,NOT_STARTED,,,
 Orchard City town,0855980,municipality,Delta County,,231,,,NOT_STARTED,,,
-Frederick town,0828360,municipality,Weld County,,228,,,COULD_NOT_CHECK,2026-11-24,Town site runs on CivicPlus (footer/markup); terms bar AI use without consent; not read further,pilot; CivicPlus consent
+Frederick town,0828360,municipality,Weld County,,228,,,NOT_STARTED,,,pilot
 Fraser town,0828305,municipality,Grand County,,222,,,NOT_STARTED,,,
 Severance town,0869150,municipality,Weld County,,219,,,NOT_STARTED,,,
 Springfield town,0873330,municipality,Baca County,,219,,,NOT_STARTED,,,
