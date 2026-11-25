@@ -31,3 +31,9 @@ Read from saved text: § 31-15-401(1)(a)-(d)(III)(A), § 30-15-401(1)(s)(I)-(V) 
 
 ## Denver code (2026-11-24)
 Whole-code search run on the export (3,541 section headings parsed incl. contents-page duplicates). The text dump interleaves columns, so section attribution is approximate and the section after a hit may be the true one. § 59-4 hits are the appendices and comparative tables after the last section heading. The 27-201/27-240 conflict is resolved by the editor's note to § 27-201 (Ord. 617-22). Lesson: city handbooks cite stale sections (27-31 for 27-30; 27-201 for 27-240); the code text is what counts.
+
+## Boulder, second read (2026-11-24)
+Model lease (dated June 10, 2025) read whole; nothing local beyond deposit interest and the no-short-term-rental line. Its attorney-fee clause and 21-day notice are drafting choices by the city's committee, not local law. Leads only. The city page and the model lease conflict on last month's rent (see citations). Next: the city's code text.
+
+## Boulder County, second read
+Hits containing landlord, tenant, rental or lease outside the short-term rental rules are county-property, mineral, agricultural, sign and vehicle-lot uses. Not a finding for the health, building or meth rules, which are still unread.
