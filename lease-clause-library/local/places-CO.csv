@@ -1,5 +1,5 @@
 place,geoid,type,counties,home_rule,renter_homes,code_source,code_url,status,checked_date,searched,next_step
-Denver city,0820000,city-county,Denver County,,167670,Municode export downloaded by Taylor 2026-11-24 + city publications,https://www.denvergov.org/,HAS_RULES,2026-11-24,"PARTIAL: city pages, 2025 handbook, checklist, Nov 2025 notice, 2016 health rules, 2021 HOST rules; whole code not searched","nothing more read until Taylor decides; county GEOID 08031; pilot; council ordinances (legistar), read rules whole, resolve 27-201/27-240"
+Denver city,0820000,city-county,Denver County,,167670,Municode export downloaded by Taylor 2026-11-24 + city publications,https://www.denvergov.org/,HAS_RULES,2026-11-24,"Whole code (3,380 pp., through Ord. 1634-25): 16 subjects, control 0; hits listed by section (attribution approximate: two-column text); rental sections read; other hits not all read. 2016 health rules in part","county GEOID 08031; pilot; blind pass; ordinances after Nov 24 2025; read remaining hits (33-46, 37-50, ch. 8, 36, 48, 10-403)"
 El Paso County,08041,county,El Paso County,,95198,,,NOT_STARTED,,,
 Arapahoe County,08005,county,Arapahoe County,,88547,,,NOT_STARTED,,,
 Colorado Springs city,0816000,municipality,El Paso County,,76599,,,NOT_STARTED,,,
@@ -166,7 +166,7 @@ Idaho Springs city,0838370,municipality,Clear Creek County,,236,,,NOT_STARTED,,,
 Akron town,0800925,municipality,Washington County,,233,,,NOT_STARTED,,,
 Lochbuie town,0845530,municipality,Adams County; Weld County,,232,,,NOT_STARTED,,,
 Orchard City town,0855980,municipality,Delta County,,231,,,NOT_STARTED,,,
-Frederick town,0828360,municipality,Weld County,,228,,,NOT_STARTED,,,pilot
+Frederick town,0828360,municipality,Weld County,,228,,,COULD_NOT_CHECK,2026-11-24,frederick.municipal.codes shows a bot check in Chrome and 403 in the shell; stopped,pilot; Taylor downloads the code
 Fraser town,0828305,municipality,Grand County,,222,,,NOT_STARTED,,,
 Severance town,0869150,municipality,Weld County,,219,,,NOT_STARTED,,,
 Springfield town,0873330,municipality,Baca County,,219,,,NOT_STARTED,,,
