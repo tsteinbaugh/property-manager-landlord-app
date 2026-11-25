@@ -4092,3 +4092,14 @@ Taylor's decision 2026-11-22: every clause shows a tag. A clause that applies on
 - `interest-on-unpaid-amounts-nd`: CONDITIONAL to CONDITIONAL/RECOMMENDED
 - `utility-disconnection-notice-authorization-nd`: CONDITIONAL to CONDITIONAL/RECOMMENDED
 - `utility-transfer-nd`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+
+## Advice split out of lease clauses (Claude Code, 2026-11-24)
+
+Found while sorting the bracketed prompts: 12 lease clauses carried unbracketed advice to the landlord, which prints in the lease. Each clause is cut back to its lease text; the advice moved word for word to a new LANDLORD_EDUCATION row with the same topic_key, notes, verification status and dates.
+
+- Split: `accessory-dwelling-unit-premises-nd`, `appliances-excluded-nd`, `children-occupancy-limit-nd`, `family-child-care-consent-nd`, `furnishings-included-nd`, `guest-rights-nd`, `home-business-use-restriction-nd`, `other-landlord-facilities-nd`, `parking-rules-notice-nd`, `unbundled-parking-nd`, `waterbed-permission-nd`, `tenant-caused-fines-nd` (one closing note). New rows: the 12 `edu-...-nd` rows that follow each clause.
+- The script checked that every word of each of the 11 long rows is in the clause or the education row before the wording edits below. The indemnity limit (N.D.C.C. §§ 9-08-01, 9-08-02) that closed the child care and home business rows stays in the clauses.
+- Wording edits in the education rows: references such as "the clause below" now name the lease clause. `edu-waterbed-nd` said ch. 54-21.3 "could not be read here"; replaced with what § 54-21.3-03(1) says, read on ndlegis.gov 2026-11-24. The caution about floor loading is unchanged.
+- `other-landlord-facilities-nd` and `parking-rules-notice-nd` gained a bracketed mobile home park warning, so the limit on the thirty-day sentence stays with the clause. `waterbed-permission-nd` keeps its choose-one instruction in brackets.
+- 37 clause titles written as advice were replaced with plain section titles, because titles print as headings. No pointer used an old title.
+- Wyoming's 86 clauses were read in the same pass: they cite statutes heavily but are lease terms, and their notes to the landlord are bracketed. No change.
