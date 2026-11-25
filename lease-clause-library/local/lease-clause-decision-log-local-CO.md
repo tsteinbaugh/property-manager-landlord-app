@@ -171,3 +171,9 @@ Public API, bills introduced from 2025-11-01: 324; listed by title where the tit
 - 26-0921 (chs. 6, 7, 12, 28, 32, 53 licences) and 26-1216, 26-1305 (ch. 28): titles only; ch. 28's housing discrimination article isn't named in the truncated titles seen.
 - Pending: 26-1451 (ch. 57 trees), 26-1808 (animals).
 The search reads titles, so a bill whose title doesn't name the code would be missed.
+
+## Boulder: blind-pass-only sections read (2026-11-25)
+Read whole: 6-9-1 to 6-9-6, 6-5-3, 5-4-13, 10-12-27, 10-12-28. Read in part: 11-1-25.5 and 11-1-36 (shown text), 6-6-2 (a) to (d), 8-2-26 (a) to (c), 9-3-12 (a) to (e), 9-9-21(a), 9-13-13 (first lines shown), 10-12-4, 10-12-29 (a) to (e).
+- **6-9-6 is a rule aimed at landlords that the word search should have shown ("rent", "owner", "tenant") and I hadn't read**: a word-search hit list is only as good as reading every hit.
+- 9-13-13 and 9-3-12 concern affordable-program units and one census tract. 8-2-26: a transportation maintenance fee on owners.
+- The earlier "not re-read" list for Boulder is now down to 9-13-12 and the unread parts above.
