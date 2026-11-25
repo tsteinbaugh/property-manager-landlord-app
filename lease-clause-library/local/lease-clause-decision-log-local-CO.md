@@ -127,3 +127,7 @@ Blind pass (`blind-pass-boulder.csv`): 372 topics, 71 YES, 19 UNSURE, 282 NO, 37
 - Penalties for trash breaches differ: 6-3-18 ($500/$1,000/$2,000) against 6-3-3(e) ($100/$250/$500). Not resolved.
 - Stale references in 10-3, 4-20-18, 4-23-2 and 3-20-6 are in the agent's report (not all re-checked). 4-23-2(c) cites 10-11-3, which the download doesn't contain.
 - Not read: 10-5, 10-5.5, 10-9, 9-9-6, most of 9-13 and title 11, manager's rules, model codes.
+
+## Weld County: code read (2026-11-25)
+Right book this time: `~/local-corpus-build/CO/weld-county/code/wc1-wc4.pdf`, 1,698 section headings. Ordinances cited through 2026-11, with 2026-08 and 2026-09 not cited; 2026-04 is cited, so that rewrite passed. The text shows no date it is current through. The history table in part 4 lists 691 section numbers absent from the text; repealed, renumbered or reserved sections are the likely reason but this is not checked.
+No landlord, tenant, eviction, deposit, rental license, rental registration or short-term rental rule found by word search of the whole code. 'landlord' appears once in prose, in an economic incentive (ch. 5).
