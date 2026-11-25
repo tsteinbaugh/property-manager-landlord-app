@@ -216,3 +216,6 @@ Boulder's 68-degree rule contradicts the state heating row's "no minimum tempera
 
 ## Second batch of four rows, round 1 (2026-11-25)
 Agent's points checked against 27-195(d), 27-200, 27-203, 2-293(b), 48-133(c), 12-2-9(a), 10-2-2 107.1(a)-(b), 1-2-1 and applied. Most serious: the Denver row gave only citations as the penalty. Denver city form wording, the Boulder form gaps and 48-137(h) not checked by me. Denver's lease-copy rule (27-240(a)) may need its own lease-copy row. Round 2 not run.
+
+### Second batch, round 2 (2026-11-25, a different fresh agent)
+Applied after reading 6-3-3(b), 107.1(a)(6), 107.1(c), 48-137(g)-(h). Denver 2-283(c) (daily citations) not applied: not read by me. The Boulder form (m16435) has no "odor", "10-2.5" or "24 months" hit in my word search. Round 3 not run.
