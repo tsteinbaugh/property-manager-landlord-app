@@ -80,3 +80,12 @@ Read whole (2026 C.R.S.): §§ 38-12-202, 38-12-1204, 29-4-1202, 6-1-1312, 25-12
 
 ## Denver: CB25-0854 (2026-11-25)
 Signed bill text read from the definitions through § 10-142(c) (part) and keyword search elsewhere; no landlord-tenant notice or lease duty seen. Strikeouts not compared with images.
+
+## Frederick (2026-11-25)
+Sources: Taylor's PDF (463 pages, chapters 1, 4, 6-8, 10, 11, 13, 18 and tables, current through Ord. 1410 of Feb. 4, 2026; no blank pages) and the 2026 Land Use Code (486 pages, town PDF, effective June 1, 2026). Saved in `~/local-corpus-build/CO/frederick/code/` with a manifest.
+- Found by reading, not by any landlord heading: water sub-billing disclosures and caps (13-3-319), heat at 68 F (18-14-20(f)), medical-marijuana landlord duty (10-303(a)(11)).
+- No rental license, security deposit, eviction, discrimination or tenant-screening rule surfaced in a search of both files for rent, tenant, landlord, lease, lessee, lessor, evict and dwelling unit (plus snow, noise, short-term, smoke, discriminat in the code). The hits in the code were listed; not every Land Use Code hit was opened. Chapters 2, 3 and 5 were not downloaded.
+- The 'Family' cap of three unrelated people conflicts with the HOME Act (29-20-111) and no operative rule using it was found.
+- Open: business license for rentals; which IPMC 2024 text applies to section 602.3's exceptions and others (model code not read); whether 13-3-319 reaches buildings under 3 units; ordinances after 1410 (town agenda portal is a script-built page, not read); Building, Fire and Wildfire codes in ch. 18 read only by keyword; the Frederick-Firestone fire district.
+- Two requests went to the town's /Search page before its robots file was read; the file disallows /Search. Nothing used from them; not repeated.
+- The first two Desktop PDFs (9:15 AM) were missed when checked; Boulder and Weld are contents lists only.
