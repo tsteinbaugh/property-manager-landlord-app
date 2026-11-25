@@ -89,3 +89,9 @@ Sources: Taylor's PDF (463 pages, chapters 1, 4, 6-8, 10, 11, 13, 18 and tables,
 - Open: business license for rentals; which IPMC 2024 text applies to section 602.3's exceptions and others (model code not read); whether 13-3-319 reaches buildings under 3 units; ordinances after 1410 (town agenda portal is a script-built page, not read); Building, Fire and Wildfire codes in ch. 18 read only by keyword; the Frederick-Firestone fire district.
 - Two requests went to the town's /Search page before its robots file was read; the file disallows /Search. Nothing used from them; not repeated.
 - The first two Desktop PDFs (9:15 AM) were missed when checked; Boulder and Weld are contents lists only.
+
+## Denver: more sections read (2026-11-25, afternoon)
+- The export's two columns interleave in plain extraction; `tools/cols.py` finds each page's gutter and prints the left column, then the right.
+- 10-16 to 10-19: adoption of 2024 building and fire codes by filed amendments (read in part); the amendments themselves (City Clerk files 20250180, 20250181) not obtained. 10-20 read in part: replacement-equipment rules, not a lease duty.
+- CB26-0565 changed 10-400 to 10-407: the export's LED dates and penalty are out of date. CB25-2164 (former ch. 59): only ADU lines found by keyword. CB25-2163: 17-page draft attachment, ADU pages read.
+- 27-211 to 27-215 read whole: program duties of the city; landlord notice is at 27-240 (already read).
