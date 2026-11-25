@@ -117,3 +117,13 @@ Read: chs. 12-2 and 12-5 (12-5 binds the city only), 12-1-1, -2, -5, -8, -10, -1
 - City pages vs code: page says owner-occupied with up to two roomers is exempt; 10-3-2(b)(1) has no number. Not resolved.
 - The last-month's-rent conflict noted on 2026-11-24 isn't settled by these sections.
 - Weld.pdf: first copy truncated; the second (11,259,394 bytes, 202 pages) is whole but is the Department of Human Services Policies, not the county code. Nothing used; the Charter and County Code is still needed.
+
+## Boulder: check against blind pass (2026-11-25)
+Blind pass (`blind-pass-boulder.csv`): 372 topics, 71 YES, 19 UNSURE, 282 NO, 37 NEW rows. Agent's script found every quote in its section; the sections named here were re-read by me.
+- Both: lease and disclosure rules, deposit interest, counsel notice, discrimination, license and inspection, pesticide notice, snow, trash, nuisance, short-term rentals, excise tax, conversion notice.
+- Only the blind pass, read after: 5-4-14(d), 9-3-3(a)(10), 10-2.5-3, 5-11-3, 6-4-3, 10-8-2 parts, 10-12-3 and -25. Not re-read by me: 6-9-6, 6-5-3, 5-4-13 (first lines shown), 11-1-25.5, 11-1-36, 8-2-26, 6-6-2, 9-9-21, 9-13-12/13, 9-3-12, 10-12-4, -27 to -29.
+- **Correction to my notes:** 10-12-31 to -34 (park notices, receipts) don't bind every park: 10-12-3(a) exempts lawful pre-1973 parks from most of the chapter, and 'landlord' is undefined there.
+- Overstated blind YES: tenant-right-to-organize, translation-duty, rent-receipts, landlord-entry, informal-dispute-resolution are park-only and subject to 10-12-3; eviction-process, nonpayment-notice, termination-notice and notices repeat one counsel-notice duty; rent-control is the affordable ADU overcharge penalty only.
+- Penalties for trash breaches differ: 6-3-18 ($500/$1,000/$2,000) against 6-3-3(e) ($100/$250/$500). Not resolved.
+- Stale references in 10-3, 4-20-18, 4-23-2 and 3-20-6 are in the agent's report (not all re-checked). 4-23-2(c) cites 10-11-3, which the download doesn't contain.
+- Not read: 10-5, 10-5.5, 10-9, 9-9-6, most of 9-13 and title 11, manager's rules, model codes.
