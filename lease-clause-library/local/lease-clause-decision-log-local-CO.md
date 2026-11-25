@@ -185,3 +185,11 @@ Read whole: 6-9-1 to 6-9-6, 6-5-3, 5-4-13, 10-12-27, 10-12-28. Read in part: 11-
 - 23-1-90 rules in definitions (derelict home, RV as dwelling, screening) unread.
 - 7-1-10 (2025 Colorado Wildfire Resiliency Code, July 1, 2026) and the IPMC, IFC, IRC and pool code texts aren't in the download.
 - Status set to HAS_RULES.
+
+### Weld blind pass: agent's final report (2026-11-25)
+- Of the 40 YES, 8 are topics and 32 are NEW rows. Its notification shows about 6 minutes and 119,000 tokens.
+- Most NO rows rest on word searches: the agent didn't read whole ch. 12 arts. I, II, VIII (it was asked to), ch. 14 arts. V-VII, ch. 23 C/I zones and procedures, ch. 24, chs. 1-5, 8, 9, 17, 19-22, 27, the charter or tables.
+- The 24-1-40 quote in `blind-pass-weld.csv` begins after "No new" and so reads as the opposite of the rule. Use the section (read by me).
+- Agent's leads, not checked by me: pet limits differ between 14-4-20 and zoning; 14-9-70 fines don't cover 14-9-30; correction periods 30 days (23-10-20.C) and 10 days (23-10-40.C).
+- Read by me after: 23-1-90 (derelict manufactured home, noncommercial junkyard, RV, dwelling unit), 14-4-20, 15-2-40, -60, 14-1-30, 23-4-600, 14-3-20. They match the agent's summaries in what was read. 14-4-20 doesn't apply inside city limits.
+- 14-3-20: the cistern article covers buildings without a permit before May 1, 1993 (kept in effect).
