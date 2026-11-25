@@ -69,3 +69,14 @@ Titles of every document on the Board of Health page read: minutes, budgets, 202
 
 ## Weld County (2026-11-25)
 weld.gov now returns a bot check, as Municode does. Legistar has no client for Weld, Boulder, Boulder County or Frederick under the names tried. Waits on Taylor's download.
+
+## State step, third read (2026-11-25)
+Read whole (2026 C.R.S.): §§ 38-12-202, 38-12-1204, 29-4-1202, 6-1-1312, 25-12-108, 31-15-501. § 30-15-401 read through (1)(l) only; §§ 38-1-101, 24-36-122, 18-9-122 not read (title lines concern condemnation and other matters).
+- § 38-12-202(4): shorter local compliance periods displace the notice and cure periods only for a violation under § 38-12-203(1)(a), in a mobile home park.
+- § 29-4-1202(9): local right-of-first-refusal laws stand if they at least comply with part 12; on conflict the provision more favorable to the local government applies, except (7) and § 29-4-1206. § 29-4-1202(5)(c): state notice to residents within 7 days of a sale to the local government. Denver's 27-47 to 27-49 overlap this; compare before drafting.
+- § 31-15-501(1)(c) has a second version from January 1, 2028 (occupational privilege tax; state not taxable).
+- § 6-1-1312 bars local laws on "processing of personal data by controllers or processors" under the privacy act: part 13's scope still to be read before relying on it.
+- Still open in the state step: case law on local versus statewide concern; rest of § 30-15-401; § 29-4-1201.
+
+## Denver: CB25-0854 (2026-11-25)
+Signed bill text read from the definitions through § 10-142(c) (part) and keyword search elsewhere; no landlord-tenant notice or lease duty seen. Strikeouts not compared with images.
