@@ -163,3 +163,11 @@ Limits: a YES row isn't proof of a landlord rule (some are general conduct rules
 
 ## Boulder County septic regulations (2026-11-25)
 `onsite-wastewater-treatment-system-regulations.pdf` (40 pages, effective September 24, 2026) saved in `boulder-county/pdf/`. Sections 4.3 to 4.8, 6 (part), 8.3, 9.4, 10, 12.1 read; 7, 8.1, 8.2, 8.4, 11, 13 on not read. The earlier attempt failed on two guessed page addresses; the county's SepticSmart pages were reached from its water page.
+
+## Denver council bills since the export (2026-11-25)
+Public API, bills introduced from 2025-11-01: 324; listed by title where the title names the Municipal Code, Zoning Code or building code (rezonings, map and pay bills excluded). Passed and possibly relevant, beyond 26-0561, 26-0565 and 26-0007 (effective date of Ord. 2025-0854) already noted:
+- 26-0328 (chs. 1, 34, 38 offense classes and penalties; passed July 1, 2026): affects the general penalty in 1-13; not read.
+- 25-2163 and 25-2164 (zoning, Feb. 18, 2026) and 26-0344 (zoning approvals): draft attachment of the first only.
+- 26-0921 (chs. 6, 7, 12, 28, 32, 53 licences) and 26-1216, 26-1305 (ch. 28): titles only; ch. 28's housing discrimination article isn't named in the truncated titles seen.
+- Pending: 26-1451 (ch. 57 trees), 26-1808 (animals).
+The search reads titles, so a bill whose title doesn't name the code would be missed.
