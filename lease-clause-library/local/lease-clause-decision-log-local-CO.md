@@ -37,3 +37,5 @@ Model lease (dated June 10, 2025) read whole; nothing local beyond deposit inter
 
 ## Boulder County, second read
 Hits containing landlord, tenant, rental or lease outside the short-term rental rules are county-property, mineral, agricultural, sign and vehicle-lot uses. Not a finding for the health, building or meth rules, which are still unread.
+
+**Boulder County, third read (2026-11-24):** Ord. 2023-02 pages 2-4 compared by eye with the page images (Sections 1-5(A)(2)(a) start): sense matches. Sections after that still from OCR. County building code amendments: the 101.4.5 text says the International Property Maintenance Code is not adopted, so the county has no IPMC rental standard for the unincorporated area; check edition before citing. Board of Health page saved; its regulations not read. Meth ordinance 2019-2 link is 404: ask for the copy.
