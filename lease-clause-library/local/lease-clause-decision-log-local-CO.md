@@ -207,3 +207,9 @@ Not adopted: the city page's 2.08 percent; 25-10-106(1)(j) (not read by me). Rou
 
 ### Round 2 (2026-11-25, same agent, so not a fresh read)
 Remaining errors in every row except solid fuel heat; fixed: a citation, dropped qualifiers (12-2-5, 12-2-8, 38-12-801(1), 30-1-20(F), 30-4-160(B), 30-4-170(C)), one overstatement that came from the agent's own round 1 wording, and the 38-12-511 exclusions. Round 3, by a fresh agent, is the last allowed (rule 80).
+
+### Round 3 (2026-11-25, fresh agent): the last round allowed
+No misstatement; omissions added after reading 30-4-30, 30-4-120, C.R.S. 25-10-106(1)(j)-(k), 25-10-112, 25-10-113, 18-1.3-503(1.6), 38-12-212.3(1)(a) (start), 38-12-207, B.R.C. 5-2-4, 12-2-2.
+**Edited after the last check (read against the sections by me only; rule 80):** deposit definition and 12-2-4 penalty, holder liability, mobile home park sentence; written-lease penalty sentences; sewage repair permit, appeal, civil infraction, "at most 30 days"; septic "specific tasks", park sentence, cleaner and permit sentence.
+Not adopted: last month's rent exclusion (city page only; the conflict with the code's definition is open).
+Boulder's 68-degree rule contradicts the state heating row's "no minimum temperature" for Boulder homes: needs its own REPLACES row with the IPMC text and exceptions (101.3) read.
