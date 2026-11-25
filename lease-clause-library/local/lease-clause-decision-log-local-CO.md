@@ -177,3 +177,11 @@ Read whole: 6-9-1 to 6-9-6, 6-5-3, 5-4-13, 10-12-27, 10-12-28. Read in part: 11-
 - **6-9-6 is a rule aimed at landlords that the word search should have shown ("rent", "owner", "tenant") and I hadn't read**: a word-search hit list is only as good as reading every hit.
 - 9-13-13 and 9-3-12 concern affordable-program units and one census tract. 8-2-26: a transportation maintenance fee on owners.
 - The earlier "not re-read" list for Boulder is now down to 9-13-12 and the unread parts above.
+
+## Weld County: blind pass compared (2026-11-25)
+`blind-pass-weld.csv`: 404 rows, 40 YES, 21 UNSURE, 343 NO (agent's counts; its final report not yet in).
+- **My earlier "no landlord-tenant rule by word search" was wrong.** 30-4-10 (owner, sanitary sewage), 30-13-10 (septic upkeep, names tenant), 23-4-170(A)(3) and 23-4-1000(C) were missed. 30-13-10 and the others contain the searched words, so the hits were not all read.
+- Read since: 30-4-10, -60, -140 (A to F), 30-13-10, 14-8-50 (A to E), 23-4-1000, 14-3-30, 23-4-170 (A, B), 24-1-40 (one definition). 21-5-350 and 8-9-70 in part. The other blind YES rows not read by me.
+- 23-1-90 rules in definitions (derelict home, RV as dwelling, screening) unread.
+- 7-1-10 (2025 Colorado Wildfire Resiliency Code, July 1, 2026) and the IPMC, IFC, IRC and pool code texts aren't in the download.
+- Status set to HAS_RULES.
