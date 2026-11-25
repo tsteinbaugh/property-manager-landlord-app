@@ -9,7 +9,7 @@
 - **Other dated checks:** LegiScan totals after November's (IL, ID) and December's (MO, IN) first runs; the subject watch (on in CO, WY, KS) after two monthly runs: cost and noise, then add two or three states a month; Oregon's first manual item, December 18, 2026; DC's 2027 checks (backlog item 33); the SCRA rent limit each January (backlog item 13); retry Puerto Rico's OGP library (bvirtualogp.pr.gov) now and then for Ley 208-1995 and Ley 210-2015.
 - **Parked for Taylor:** the LegiScan budget question (backlog item 10); the Virgin Islands plain-language front page (M.15); a land-status attribute for American Samoa and Northern Mariana Islands properties (M.16); the lease PDF first-page layout (M.12); Spanish leases (multi-language support). Deploying is deliberately on hold.
 - **Desktop staging:** don't stage further Desktop folders until Taylor says (usage, 2026-10-31).
-- **Next focus (Taylor, 2026-11-23): the clause `[bracketed prompts]`.** They print in the lease PDF as plain text, instructions to the landlord included. First step, agreed: sort and count them by kind (instruction to the landlord, blank to fill in, choice), then bring Taylor a plan before changing anything (`docs/backlog.md`, "Bracketed prompts"). Automatic clause applicability and the `{{variables}}` are done.
+- **Next focus (Taylor, 2026-11-23): the clause `[bracketed prompts]`** (plan and progress in `docs/backlog.md`, "Bracketed prompts"). Colorado: notes, "About this clause", and the blanks and choices of its Colorado-only clauses are done (2026-11-24; the new questions haven't been checked on screen yet). **Next step:** Colorado's formatting notes (bold, capitals, first page, separate document): list them and bring Taylor a plan first. Then the other states (each with the brackets of the clauses it shares), the sync guard, and a browse page for education with no clause. Automatic clause applicability and the `{{variables}}` are done.
 - **Local law, Tuesday evening to Wednesday 10 PM only (Taylor, 2026-11-24):** when Taylor says "local day", work from `docs/local-law.md`: Colorado first (Denver, Boulder, Frederick pilot), until the weekly limit or the reset, in its own git worktree; overnight, log what needs Taylor and work on something else. First session: 2026-11-24, about 9:30 PM. Other days stay on the focus above.
 - **Standing backlog** (no fixed order; ask Taylor what's next): `docs/backlog.md`.
 
@@ -23,7 +23,7 @@ A SaaS web app for landlords to manage rental properties end to end, built from 
 
 React + Vite + Tailwind v4 + React Router (`frontend/`); Node + Express + Prisma + PostgreSQL (`backend/`); Clerk auth; Cloudflare R2 storage. Vercel/Railway hosting not set up yet.
 
-- Backend tests: `cd backend && npm test` (Vitest against the real `property_hq_test` Postgres database, never SQLite). 534 tests at last count.
+- Backend tests: `cd backend && npm test` (Vitest against the real `property_hq_test` Postgres database, never SQLite). 548 tests at last count.
 - Frontend build: `cd frontend && npm run build`.
 - Schema change: `npx prisma migrate dev`, then `npx prisma generate` (not automatic here), then apply to the test DB with `DATABASE_URL=<test db url> npx prisma migrate deploy`. Rename an enum value with a hand-written `ALTER TYPE ... RENAME VALUE` migration. [Aug 2026]
 - Clause library (files in `lease-clause-library/`; scripts run from the repo root): `python3 scripts/clause-library/generate.py lease-clause-library/lease-clauses.csv backend/src/lib backend/src/lib` rebuilds `clauseTemplates.js`, `clauseResearchMetadata.js`, `clauseGuidance.js` and `education/<ST>.json` (it also reads `clause-guidance.csv`: each clause's "Use when" line and its education links); `python3 scripts/clause-library/build-topic-reference.py` rebuilds `lease-clause-topics.md`. Never hand-edit those files. New state: `python3 scripts/clause-library/stage-kickoff.py <ST> "<State Name>"` stages `~/Desktop/<state>-kickoff/` from `docs/kickoff-template.md`; fill in the citation format and leads by hand before handing it to Taylor. Targeted checks for [Retro] rules: `python3 scripts/clause-library/stage-retro-checks.py [ST ...]` stages `~/Desktop/retro-checks/` from the conformance table's "·" cells plus `scripts/clause-library/retro-extras.csv`; restage only states Taylor hasn't started. Merge any Desktop delta with `python3 scripts/clause-library/merge-delta.py DELTA.csv ST --base <rev>` (base = the commit whose CSV the pass was given; `--dry-run` first): it applies only that state's tag and note segment to shared rows and refuses anything else.
@@ -63,10 +63,14 @@ React + Vite + Tailwind v4 + React Router (`frontend/`); Node + Express + Prisma
 - **Search:** `word_similarity()`, a nickname dictionary for first names, no GIN indexes at this scale. [Aug 2026]
 - **Lease builder:**
   - Parking: what's physically there is on the property; spaces assigned, charge and fee are on the lease, which can't assign more spaces than the property has. [2026-11-23]
-  - `LeaseClause` snapshots the clause at attach time; never make it a live reference.
+  - `LeaseClause` snapshots the clause at attach time; never make it a live reference. (To be replaced by drafts that stay current and a lock at signing, built together: `docs/backlog.md`, "Draft leases stay current". In force until then.) [Aug 2026, 2026-11-24]
+  - A provided clause on a lease can't be edited; "Copy to customize" is the way to change one. [2026-11-24]
+  - **Bracketed prompts:** a note to the landlord never prints. A blank or choice becomes a `{{variable}}` in `clauseFields.js`: filled from stored data if it exists, else asked under the clause (place `lease.clause`), with no new property-page fields. An unpicked `choice` holds the PDF; a blank only warns. A legal limit (`limits`, by state) is refused with its reason, only after reading its statute. A passage that prints for one answer is `{{#name:value}}...{{/name}}`. [2026-11-24]
+  - "About this clause" (the "When to use this clause" line and the state's linked education, from `clause-guidance.csv`; a state joins `REVIEWED` in `generate.py` once its notes and links are reviewed) shows in the picker, on attached clauses and in the Clause Library, never in the PDF. [2026-11-24]
+  - Education text carries no "not legal advice" or "not reviewed by a lawyer" lines, and nothing in the app may imply a provided clause meets the law. The Clause Library page's one line stays. [2026-11-24]
   - `group` is a string validated against `clauseGroups.js`, and numbering is computed at read time.
   - No single-clause special flags; prefer self-conditional clause text plus the default-clause mechanism.
-  - `{{variables}}` resolve only from real linked data; `[bracketed prompts]` are for hand fill-in.
+  - `{{variables}}` resolve only from real linked data or an answer asked under the clause.
   - A blank `{{variable}}` only warns, in the builder's blanks box, and prints as a line; it never holds the PDF. Every variable in the library needs a field in `clauseFields.js` or a `SOURCE` entry in `clauseVariables.js`, and one name means one thing in every state. [2026-11-23]
   - Research metadata stays in `clauseResearchMetadata.js`, never on the template objects, which `GET /api/clause-templates` exposes. The exception is the display tag `generate.py` derives from rule_type (`tag`: REQUIRED, LEGAL_DUTY, RECOMMENDED or OPTIONAL; every clause has one, a conditional clause the one it has when it applies), `alwaysDefault` and `defaultOn`. [2026-11-21, 2026-11-22]
   - A shared clause that is a duty in only some of its states is listed in `backend/src/lib/stateScopedTags.js` (elsewhere it counts as Recommended); a sync that tags such a clause in a new state checks it. [2026-11-23]
@@ -96,6 +100,7 @@ React + Vite + Tailwind v4 + React Router (`frontend/`); Node + Express + Prisma
 - Federal education rows are tagged in every jurisdiction (a new jurisdiction tags them at research). When reading a statute, keep its exceptions: the 2026-11-21 accuracy check found rows that dropped them. [2026-10-04, 2026-11-20, 2026-11-21]
 - A library-wide rewrite (scrub, split, consolidation) is diffed against its sources and must not change what the text claims or drop a condition (SOP rule 78). [2026-09-30]
 - A lawful option the library declines still gets an education row saying it exists, why it isn't offered, and that the landlord can add their own clause (SOP rule 54). [2026-10-01]
+- Read the statute itself before changing a legal row, even to correct one that looks unsupported (a right penalty was removed on 2026-11-24). [2026-11-24]
 - Re-read a section before trusting a summary of it, and attach each qualifier to its own sentence (SOP rule 79). [2026-10-01]
 - New rows use existing group names: lease clauses only `CLAUSE_GROUPS`, education rows the groups already in use; remap any other at sync. [2026-10-01]
 - Desktop may create new `{{variables}}`; the kickoff lists existing ones for reuse, and new ones go to backlog M.14 at sync. [2026-09-30]
@@ -164,4 +169,4 @@ Do not add to this list without Taylor's input.
 
 Keep this file short: if a section grows past a few lines of rules, move the detail to `docs/` and leave a pointer.
 
-*Last updated: 2026-11-23 (clause variables all have a source; next focus is the bracketed prompts).*
+*Last updated: 2026-11-24 (Colorado's bracketed prompts are questions; next focus is Colorado's formatting notes).*
