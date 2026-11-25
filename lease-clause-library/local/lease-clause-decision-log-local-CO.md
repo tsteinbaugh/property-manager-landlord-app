@@ -95,3 +95,9 @@ Sources: Taylor's PDF (463 pages, chapters 1, 4, 6-8, 10, 11, 13, 18 and tables,
 - 10-16 to 10-19: adoption of 2024 building and fire codes by filed amendments (read in part); the amendments themselves (City Clerk files 20250180, 20250181) not obtained. 10-20 read in part: replacement-equipment rules, not a lease duty.
 - CB26-0565 changed 10-400 to 10-407: the export's LED dates and penalty are out of date. CB25-2164 (former ch. 59): only ADU lines found by keyword. CB25-2163: 17-page draft attachment, ADU pages read.
 - 27-211 to 27-215 read whole: program duties of the city; landlord notice is at 27-240 (already read).
+
+## Boulder County healthy-home pages and state step, fourth read (2026-11-25)
+- Boulder County lead, mold, radon, tobacco and carbon-monoxide pages searched for landlord, tenant, renter, rental, ordinance, regulation: state law (habitability, carbon monoxide alarms) and advice only; no county rule named. The septic (OWTS) page address tried is a 404; the OWTS regulations remain unread.
+- § 29-35-403 read whole: a subject jurisdiction may not require an ADU or other dwelling on the lot to be owner-occupied, except showing the owner lives on the parcel when applying to build or convert one (not when built with a new house) or for a short-term rental license. Denver's 11.8.2.2.B (as read in the draft) fits that exception by its text. Whether Frederick or others are "subject jurisdictions" not checked.
+- § 30-15-401(1)(a)(II part) to (n.7) and (o) read; (p) on still unread. County noise ordinances don't reach manufacturing, industrial or commercial business property ((m)(II)); counties may compel sidewalk snow removal ((n)).
+- § 29-4-1201 (1) to (11) read; (12) on not.
