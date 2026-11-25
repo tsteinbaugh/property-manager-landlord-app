@@ -131,3 +131,10 @@ Blind pass (`blind-pass-boulder.csv`): 372 topics, 71 YES, 19 UNSURE, 282 NO, 37
 ## Weld County: code read (2026-11-25)
 Right book this time: `~/local-corpus-build/CO/weld-county/code/wc1-wc4.pdf`, 1,698 section headings. Ordinances cited through 2026-11, with 2026-08 and 2026-09 not cited; 2026-04 is cited, so that rewrite passed. The text shows no date it is current through. The history table in part 4 lists 691 section numbers absent from the text; repealed, renumbered or reserved sections are the likely reason but this is not checked.
 No landlord, tenant, eviction, deposit, rental license, rental registration or short-term rental rule found by word search of the whole code. 'landlord' appears once in prose, in an economic incentive (ch. 5).
+
+## Denver: nuisance remedies and remaining hits (2026-11-25, Taylor away)
+Read: 37-75 (first part), -77, -78, -79 whole, -80 (part), -82 to -85, 57-44, -45, -46, 48-130, 33-46 to 33-52, 36-6 (first part), 8-2 (part). 37-76 and 37-81 are Reserved.
+- 57-44: weeds notice to owner and known responsible party, 10 days to abate or appeal. 57-46: civil action and criminal penalty.
+- **Correction to what Taylor was told earlier today** (that with 4+ units a court can exclude named people instead of closing): that comes from the temporary-order section only; after judgment, 37-79 closes the property for 1 to 3 years unless the owner proves non-involvement.
+- Chapter 8 landlord words: only 8-57, 8-73, 8-137, none a landlord duty by the words shown; sections not read whole. Ch. 36: 36-2, 36-6 only.
+- 48-19 (trash containers), 48-33, 33-53 to -55: hit lines seen, not read.
