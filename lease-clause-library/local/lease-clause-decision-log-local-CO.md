@@ -108,4 +108,4 @@ Blind pass (`blind-pass-frederick.csv`): 372 topics, 37 YES, 32 UNSURE, 303 NO, 
 - Only the blind pass: 10-152(e), 10-76(g), 6-46, 13-3-305, 18-2-20(f), 13-4-400, 10-270, and minor owner duties (meter access 13-3-311, fences, lighting, landmarks). **The check's landlord words miss a duty on whoever "controls" or "owns" a place**: add "control over", "person in charge" and "owner shall" to the search terms.
 - Only the check: the HOME Act conflict on the 'Family' definition and the 30-day rodent notice (the blind pass listed both sections without those points).
 - Blind YES rows that aren't landlord-tenant rules: trespass-notice, firearms, rent-tax, seasonal-tenancy, family-child-care, prohibited-acts-renter.
-- Marijuana plant counts: code 10-120(f), 10-305(e) say 6 a dwelling; the Land Use Code passage the agent read as 12 isn't re-read. State the lower number.
+- Marijuana plant counts: code 10-120(f), 10-305(e) say 6 a dwelling; Land Use Code 16-2-40(F)(1) says 12 for medical growers (read). They conflict; state the lower number.
