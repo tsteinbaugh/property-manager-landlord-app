@@ -135,7 +135,7 @@ No landlord, tenant, eviction, deposit, rental license, rental registration or s
 ## Denver: nuisance remedies and remaining hits (2026-11-25, Taylor away)
 Read: 37-75 (first part), -77, -78, -79 whole, -80 (part), -82 to -85, 57-44, -45, -46, 48-130, 33-46 to 33-52, 36-6 (first part), 8-2 (part). 37-76 and 37-81 are Reserved.
 - 57-44: weeds notice to owner and known responsible party, 10 days to abate or appeal. 57-46: civil action and criminal penalty.
-- **Correction to what Taylor was told earlier today** (that with 4+ units a court can exclude named people instead of closing): that comes from the temporary-order section only; after judgment, 37-79 closes the property for 1 to 3 years unless the owner proves non-involvement.
+- **What Taylor was told earlier today left things out** ("where rentals have four or more units, a court can exclude named people instead of closing the building"): in 37-75(c)(6)d that is a temporary order, only at the city's request, and a receiver takes the building over from the owner. After judgment, 37-79 closes the property for 1 to 3 years unless the owner shows non-involvement and no breach of an abatement plan, with a receivership alternative.
 - Chapter 8 landlord words: only 8-57, 8-73, 8-137, none a landlord duty by the words shown; sections not read whole. Ch. 36: 36-2, 36-6 only.
 - 48-19 (trash containers), 48-33, 33-53 to -55: hit lines seen, not read.
 - 37-75(c) now read whole: closure takes effect 10 days after posting and service unless a motion is filed and heard; (c)(6)d: with four or more units, at the city's request, named people removed and a receiver appointed in lieu of closure. 37-79(c) allows receivership for 1 to 3 years in lieu of closure after judgment. So the temporary and final stages both have a receivership alternative; the owner's non-involvement test is 37-71(l).
@@ -155,14 +155,14 @@ Limits: a YES row isn't proof of a landlord rule (some are general conduct rules
 - **Conclusion for Phase 3:** the added words roughly double the reading and still miss sections. Under the plan ("drop the check for full research if misses can't be fixed"), the full pass looks like the default wherever a code can be got, with the word search as a cross-check. Taylor's decision.
 
 ## State step: C.R.S. § 30-15-401(1)(p) to (1.7), § 29-4-1201 (2026-11-25)
-(1)(p) to (t) and (1.5) to (1.7) read; (2) read in part; (3) on only seen as headings; § 29-4-1201 now read whole, but parts 1202 and 1203 not.
+(1)(p) to (t) and (1.5) to (1.7) read; (2) read in part; (3) on only seen as headings; § 29-4-1201 now read whole; 1202 and 1203 only their first subsections (1202: local right of first refusal, existing affordable housing of 5 or more units; 1203: right of first offer, 15 to 100 units; both bind sellers).
 - (s): a county may license an owner or owner's agent renting a lodging unit for under 30 days. This subsection names no power over longer rentals. Not proof that no other statute gives one.
 - (t): registration of businesses only, no license, fee or fines. (q): removal or securing of dangerous buildings at the owner's cost, with a lien and a court warrant. (r): foreclosed, vacant or abandoned property.
-- Weld and Boulder are treated differently: Weld is a home rule county (art. 30-35), so its powers aren't limited to this list; not researched.
+- Weld is a home rule county (its code and charter say so). Under Colo. Const. art. XIV, § 16(4) (see the state step above) that gives it only the powers statutes authorise; article 30-35 not read, so whether it adds to this list is open. (An earlier version of this line said its powers aren't limited to the list; that was unsupported.)
 - 38-1-101 (first part), 18-9-122, 24-36-122 (first part): no local rental rule in what was read. 29-35-402 read in part.
 
 ## Boulder County septic regulations (2026-11-25)
-`onsite-wastewater-treatment-system-regulations.pdf` (40 pages, effective September 24, 2026) saved in `boulder-county/pdf/`. Sections 4.3 to 4.8, 6 (part), 8.3, 9.4, 10, 12.1 read; 7, 8.1, 8.2, 8.4, 11, 13 on not read. The earlier attempt failed on two guessed page addresses; the county's SepticSmart pages were reached from its water page.
+`onsite-wastewater-treatment-system-regulations.pdf` (40 pages, effective September 24, 2026) saved in `boulder-county/pdf/`. Sections 4.3 to 4.8, 6 (part), 8.3, 9.4, 10, 12.1 read; 7 read since (change of use permit only where the county finds the system too small); 8.1, 8.2, 8.4, 11, 13 on not read. The earlier attempt failed on two guessed page addresses; the county's SepticSmart pages were reached from its water page.
 
 ## Denver council bills since the export (2026-11-25)
 Public API, bills introduced from 2025-11-01: 324; listed by title where the title names the Municipal Code, Zoning Code or building code (rezonings, map and pay bills excluded). Passed and possibly relevant, beyond 26-0561, 26-0565 and 26-0007 (effective date of Ord. 2025-0854) already noted:
