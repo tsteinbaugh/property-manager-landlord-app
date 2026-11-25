@@ -7,3 +7,4 @@
 6. Decide when back: the pilot comparison (being written) and whether to go past the pilot.
 7. Questions for Taylor: full pass first (recommended) or word search first; Frederick business license question (to the town); whether you can keep saving codes by hand for other Municode places.
 8. No row has been drafted and no independent check run yet. The plan puts both before the stop (Phase 3, step 4), so they don't wait for Taylor.
+9. What REPLACES should mean for a place row: hide the whole state row (the state row's other points are then lost), or only its conflicting part. Recommendation: hide it, and have the place row repeat what still matters. Nothing depends on it until rows ship.

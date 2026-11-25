@@ -199,3 +199,8 @@ Read whole: 6-9-1 to 6-9-6, 6-5-3, 5-4-13, 10-12-27, 10-12-28. Read in part: 11-
 
 ## First drafted rows (2026-11-25)
 Five education rows in `local-clauses-CO.csv`, all NEEDS_REVIEW and `is_active` FALSE: Boulder deposit interest (REPLACES the state "no interest" row), written lease, solid fuel heat; Weld sewage system, septic maintenance. Controlling text re-read for each. Independent check (rule 80) not run. The 12-2-4 disclosure row waits on the repealed 5-10-6 reference.
+
+## Independent check of the five rows, round 1 (2026-11-25)
+No row passed unchanged; all five redrafted after reading 6-9-7, 30-1-20, 30-2-10, 30-4-160, 30-4-170, 30-3-10 definitions, C.R.S. 38-12-506, 38-12-801(1), 38-12-103(1)(a), 38-12-505 (parts). Kinds of error found: dropped conditions (30-4-140(D), 12-2-6(a)), a neighboring stricter rule not mentioned (12-2-4 with 12-2-3), a penalty section unread (6-9-7), a scope answer already in the code (30-1-20(A)).
+Not adopted: the city page's 2.08 percent; 25-10-106(1)(j) (not read by me). Round 2 needed on the rewritten text.
+**Open design point:** REPLACES drops every part of the parent row, including parts still true; `docs/local-law.md` doesn't define it.
