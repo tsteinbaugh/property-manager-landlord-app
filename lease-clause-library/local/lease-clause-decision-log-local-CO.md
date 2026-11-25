@@ -138,3 +138,8 @@ Read: 37-75 (first part), -77, -78, -79 whole, -80 (part), -82 to -85, 57-44, -4
 - **Correction to what Taylor was told earlier today** (that with 4+ units a court can exclude named people instead of closing): that comes from the temporary-order section only; after judgment, 37-79 closes the property for 1 to 3 years unless the owner proves non-involvement.
 - Chapter 8 landlord words: only 8-57, 8-73, 8-137, none a landlord duty by the words shown; sections not read whole. Ch. 36: 36-2, 36-6 only.
 - 48-19 (trash containers), 48-33, 33-53 to -55: hit lines seen, not read.
+- 37-75(c) now read whole: closure takes effect 10 days after posting and service unless a motion is filed and heard; (c)(6)d: with four or more units, at the city's request, named people removed and a receiver appointed in lieu of closure. 37-79(c) allows receivership for 1 to 3 years in lieu of closure after judgment. So the temporary and final stages both have a receivership alternative; the owner's non-involvement test is 37-71(l).
+- 48-19 read: closed container of up to 40 gallons, provided at the owner's, tenant's or keeper's expense. 48-33 is commercial garbage (includes roominghouses).
+
+## Boulder handbook (2026-11-25)
+Every sentence naming the city, Boulder or the code read; the other sentences not read. It says it is current to March 2025. No city rule in it that isn't in the code rows. It says repairs under the housing code are the landlord's unless the lease says otherwise; the code section (10-2-2, 107.1(a)(3)) makes owner, tenant and occupant jointly liable to the city, so a lease term doesn't end the owner's liability to the city.
