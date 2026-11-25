@@ -143,3 +143,20 @@ Read: 37-75 (first part), -77, -78, -79 whole, -80 (part), -82 to -85, 57-44, -4
 
 ## Boulder handbook (2026-11-25)
 Every sentence naming the city, Boulder or the code read; the other sentences not read. It says it is current to March 2025. No city rule in it that isn't in the code rows. It says repairs under the housing code are the landlord's unless the lease says otherwise; the code section (10-2-2, 107.1(a)(3)) makes owner, tenant and occupant jointly liable to the city, so a lease term doesn't end the owner's liability to the city.
+
+## Search-term test (2026-11-25)
+Rerun over the saved codes: which sections cited in blind YES rows contain the search words at all.
+| Place | Cited sections located | Old words (landlord, tenant, lessor, rent, lease, evict) | Added words (owner shall, control, in possession, person in charge, occupant, dwelling...) | Sections to read, old / new |
+|---|---|---|---|---|
+| Denver | 102 | 35 | 57 | 215 / 498 |
+| Boulder | 67 | 53 | 63 | 267 / 536 |
+| Frederick | 69 | 17 | 38 | 33 / 122 |
+Limits: a YES row isn't proof of a landlord rule (some are general conduct rules, and Denver had overstated rows), and section text is cut by script; in Denver columns interleave (48-130, which does name license holders, shows as missed), so its counts are low. Not verified section by section.
+- **Conclusion for Phase 3:** the added words roughly double the reading and still miss sections. Under the plan ("drop the check for full research if misses can't be fixed"), the full pass looks like the default wherever a code can be got, with the word search as a cross-check. Taylor's decision.
+
+## State step: C.R.S. § 30-15-401(1)(p) to (1.7), § 29-4-1201 (2026-11-25)
+(1)(p) to (t) and (1.5) to (1.7) read; (2) read in part; (3) on only seen as headings; § 29-4-1201 now read whole, but parts 1202 and 1203 not.
+- (s): a county may license an owner or owner's agent renting a lodging unit for under 30 days. This subsection names no power over longer rentals. Not proof that no other statute gives one.
+- (t): registration of businesses only, no license, fee or fines. (q): removal or securing of dangerous buildings at the owner's cost, with a lien and a court warrant. (r): foreclosed, vacant or abandoned property.
+- Weld and Boulder are treated differently: Weld is a home rule county (art. 30-35), so its powers aren't limited to this list; not researched.
+- 38-1-101 (first part), 18-9-122, 24-36-122 (first part): no local rental rule in what was read. 29-35-402 read in part.
