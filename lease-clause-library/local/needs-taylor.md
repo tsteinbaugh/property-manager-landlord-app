@@ -1,2 +1,2 @@
 # Needs Taylor
-1. **Code access (pilot blocked until settled).** Chrome 158 is installed but not restarted. If Municode still blocks after a restart, stop: the choice is to ask the clerks for copies (recommended) or download by hand. Depends on it: every place whose code is on Municode, American Legal, eCode360 or municipal.codes.
+1. **Code access (pilot blocked).** 2026-11-24, about 10:15 PM: Chrome 158, restarted, still gets "Access blocked" on library.municode.com's terms page. Stopped, not worked around. Recommendation: send the request in `clerk-request-draft.md` to the Denver, Boulder, Frederick and Weld County clerks. Depends on it: every place on Municode (and probably American Legal, eCode360 and municipal.codes, whose robots.txt or 403 also refuse).
