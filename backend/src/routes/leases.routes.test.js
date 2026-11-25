@@ -934,6 +934,19 @@ describe("leases routes", () => {
       expect(sourceStillIntact.group).toBe("Rent & Payment");
     });
 
+    it("rejects editing a provided clause on a lease", async () => {
+      const attach = await request(app).post(`/api/leases/${lease.id}/clauses`).send({ templateId: "rent-payment" });
+      const provided = attach.body.leaseClauses[0];
+
+      const res = await request(app)
+        .put(`/api/leases/${lease.id}/clauses/${provided.id}`)
+        .send({ bodyText: "Changed." });
+      expect(res.status).toBe(400);
+
+      const stored = await prisma.leaseClause.findUnique({ where: { id: provided.id } });
+      expect(stored.bodyText).toBe(provided.bodyText);
+    });
+
     it("rejects editing a lease clause to an invalid group", async () => {
       const attach = await request(app).post(`/api/leases/${lease.id}/clauses`).send({ clauseId: clause.id });
       const leaseClauseId = attach.body.leaseClauses[0].id;

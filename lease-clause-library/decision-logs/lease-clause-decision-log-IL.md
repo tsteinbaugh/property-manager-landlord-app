@@ -2118,3 +2118,7 @@ Taylor's decision 2026-11-22: every clause shows a tag. A clause that applies on
 - `municipal-utility-lien-il`: CONDITIONAL to CONDITIONAL/RECOMMENDED
 - `lessee-property-tax-liability-il`: CONDITIONAL to CONDITIONAL/CONSTRAINED
 - `nonrefundable-fees-il`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+
+## Notes to the landlord moved out of clause text (Claude Code, 2026-11-24)
+
+The bracketed note that opened each clause below was removed from its text, so it no longer prints in the lease; no lease term changed. A note saying when the clause fits is now its "Use when" line in `lease-clause-library/clause-guidance.csv`; a bare "[Optional.]" was dropped (the tag says it). Clauses: `scheduled-services-entry-la`, `animal-care-access-vi`, `emergency-contact-co`, `furnishings-included-la`.

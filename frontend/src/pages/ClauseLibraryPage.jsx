@@ -1,3 +1,4 @@
+import AboutClause from "../components/AboutClause";
 import { useEffect, useState } from "react";
 import { useApi } from "../hooks/useApi";
 import BackLink from "../components/BackLink";
@@ -416,30 +417,26 @@ export default function ClauseLibraryPage() {
                 <h3 className="text-xs font-semibold uppercase tracking-wide text-stone-400">{group}</h3>
                 {items.map((clause) => (
                   <div key={clause.id} className="rounded-xl border border-stone-200 bg-white p-4 shadow-sm">
-                    <div className="flex items-start justify-between gap-2">
-                      <p className="text-sm font-medium text-stone-900">
-                        {clause.title}
-                      </p>
-                      <div className="flex shrink-0 items-center gap-3 text-sm">
-                        <label className="flex items-center gap-1.5 text-xs text-stone-600">
-                          <input
-                            type="checkbox"
-                            checked={clause.isDefault}
-                            onChange={() => toggleClauseDefault(clause)}
-                            className="h-4 w-4 rounded border-stone-300"
-                          />
-                          Include by default
-                        </label>
-                        <button onClick={() => openForm(clause)} className="text-emerald-700 hover:underline">
-                          Edit
-                        </button>
-                        <button onClick={() => handleDelete(clause.id)} className="text-red-600 hover:underline">
-                          Delete
-                        </button>
-                      </div>
-                    </div>
+                    <p className="text-sm font-medium text-stone-900">{clause.title}</p>
                     {stateFilter === ALL_STATES && <StateTags states={clause.states} />}
                     <p className="mt-1 whitespace-pre-wrap text-sm text-stone-600">{clause.bodyText}</p>
+                    <div className="mt-2 flex items-center justify-end gap-3 text-sm">
+                      <label className="flex items-center gap-1.5 text-xs text-stone-600">
+                        <input
+                          type="checkbox"
+                          checked={clause.isDefault}
+                          onChange={() => toggleClauseDefault(clause)}
+                          className="h-4 w-4 rounded border-stone-300"
+                        />
+                        Include by default
+                      </label>
+                      <button onClick={() => openForm(clause)} className="text-emerald-700 hover:underline">
+                        Edit
+                      </button>
+                      <button onClick={() => handleDelete(clause.id)} className="text-red-600 hover:underline">
+                        Delete
+                      </button>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -460,30 +457,10 @@ export default function ClauseLibraryPage() {
               <h3 className="text-xs font-semibold uppercase tracking-wide text-stone-400">{group}</h3>
               {items.map((template) => (
                 <div key={template.id} className="rounded-xl border border-stone-200 bg-stone-50 p-4">
-                  <div className="flex items-start justify-between gap-2">
-                    <p className="text-sm font-medium text-stone-900">
-                      {template.title}
-                      <ClauseTag tag={dutyHere(template) ? template.tag : template.tagElsewhere} />
-                    </p>
-                    <div className="flex shrink-0 items-center gap-3 text-sm">
-                      <label
-                        className={`flex items-center gap-1.5 text-xs ${template.autoDefault ? "text-stone-400" : "text-stone-600"}`}
-                        title={(dutyHere(template) ? template.autoDefaultNote : template.noteElsewhere) || undefined}
-                      >
-                        <input
-                          type="checkbox"
-                          checked={template.isDefault}
-                          disabled={template.autoDefault}
-                          onChange={() => toggleTemplateDefault(template)}
-                          className="h-4 w-4 rounded border-stone-300 disabled:opacity-50"
-                        />
-                        Include by default
-                      </label>
-                      <button onClick={() => copyTemplate(template)} className="text-emerald-700 hover:underline">
-                        Copy to customize
-                      </button>
-                    </div>
-                  </div>
+                  <p className="text-sm font-medium text-stone-900">
+                    {template.title}
+                    <ClauseTag tag={dutyHere(template) ? template.tag : template.tagElsewhere} />
+                  </p>
                   {stateFilter === ALL_STATES && <StateTags states={template.states} />}
                   {template.choiceGroup && (
                     <p className="mt-1 text-xs text-amber-700">
@@ -495,6 +472,31 @@ export default function ClauseLibraryPage() {
                     </p>
                   )}
                   <p className="mt-1 whitespace-pre-wrap text-sm text-stone-600">{template.bodyText}</p>
+                  <AboutClause
+                    key={stateFilter}
+                    template={template}
+                    state={stateFilter === ALL_STATES ? null : stateFilter}
+                    actions={
+                      <div className="flex shrink-0 items-center gap-3 text-sm">
+                        <label
+                          className={`flex items-center gap-1.5 text-xs ${template.autoDefault ? "text-stone-400" : "text-stone-600"}`}
+                          title={(dutyHere(template) ? template.autoDefaultNote : template.noteElsewhere) || undefined}
+                        >
+                          <input
+                            type="checkbox"
+                            checked={template.isDefault}
+                            disabled={template.autoDefault}
+                            onChange={() => toggleTemplateDefault(template)}
+                            className="h-4 w-4 rounded border-stone-300 disabled:opacity-50"
+                          />
+                          Include by default
+                        </label>
+                        <button onClick={() => copyTemplate(template)} className="text-emerald-700 hover:underline">
+                          Copy to customize
+                        </button>
+                      </div>
+                    }
+                  />
                 </div>
               ))}
             </div>

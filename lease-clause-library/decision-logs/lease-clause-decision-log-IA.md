@@ -1873,3 +1873,11 @@ Taylor's decision 2026-11-22: every clause shows a tag. A clause that applies on
 - `association-rules-receipt-ia`: CONDITIONAL to CONDITIONAL/RECOMMENDED
 - `no-liens-ia`: CONDITIONAL to CONDITIONAL/RECOMMENDED
 - `ev-charger-installation-ia`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+
+## Notes to the landlord moved out of clause text (Claude Code, 2026-11-24)
+
+The bracketed note that opened each clause below was removed from its text, so it no longer prints in the lease; no lease term changed. A note saying when the clause fits is now its "Use when" line in `lease-clause-library/clause-guidance.csv`; a bare "[Optional.]" was dropped (the tag says it). Clauses: `animal-care-access-vi`, `emergency-contact-co`, `utility-shutoff-notice-authorization-co`, `furnishings-included-la`, `guaranty-as`.
+
+## Disclaimers removed from education (Claude Code, 2026-11-24)
+
+Taylor, 2026-11-24: sentences saying a row is not legal advice or that no lawyer has reviewed it are removed from the text. Advice to see a lawyer on a specific step, and statutory text about lawyers, are unchanged. Rows: `edu-tenant-bankruptcy-ia`.

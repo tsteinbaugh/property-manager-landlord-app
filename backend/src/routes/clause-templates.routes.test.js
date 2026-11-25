@@ -44,6 +44,18 @@ describe("clause templates route", () => {
     expect(res.status).toBe(401);
   });
 
+  it("serves the education linked to a clause in one state", async () => {
+    const res = await request(app).get("/api/clause-templates/holdover-rate-co/education?state=CO");
+    expect(res.status).toBe(200);
+    expect(res.body[0]).toMatchObject({ id: "edu-no-holdover-multiplier-rule-co" });
+    expect(Object.keys(res.body[0]).sort()).toEqual(["bodyText", "id", "title"]);
+
+    const other = await request(app).get("/api/clause-templates/holdover-rate-co/education?state=WY");
+    expect(other.body).toEqual([]);
+    const missing = await request(app).get("/api/clause-templates/nope/education?state=CO");
+    expect(missing.status).toBe(404);
+  });
+
   it("returns a large static template list, each with a valid group", async () => {
     const { CLAUSE_GROUPS } = require("../lib/clauseGroups");
     const res = await request(app).get("/api/clause-templates");

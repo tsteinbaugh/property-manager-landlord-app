@@ -849,6 +849,12 @@ function createLeasesRoutes({ r2 = defaultR2 } = {}) {
     if (!leaseClause || leaseClause.leaseId !== lease.id) {
       return res.status(404).json({ error: "Clause not found on this lease" });
     }
+    // A provided clause's wording is fixed; a landlord changes it by copying it (Taylor, 2026-11-24).
+    if (leaseClause.sourceTemplateId) {
+      return res.status(400).json({
+        error: "A provided clause can't be edited. Copy it in the Clause Library to customize it.",
+      });
+    }
     if (req.body.group !== undefined && !isValidGroup(req.body.group)) {
       return res.status(400).json({ error: `Invalid group: ${req.body.group}` });
     }

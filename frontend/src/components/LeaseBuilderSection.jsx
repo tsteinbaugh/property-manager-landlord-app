@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import MissingFactsPanel from "./MissingFactsPanel";
+import AboutClause from "./AboutClause";
 import { ClauseBlanksPanel, ClauseTerms } from "./ClauseBlanks";
 import { Link } from "react-router-dom";
 import { useApi } from "../hooks/useApi";
@@ -234,6 +235,9 @@ export default function LeaseBuilderSection({ lease, onChange }) {
     }
   }
 
+  const templatesById = new Map(templates.map((t) => [t.id, t]));
+  const selected = selectedOption ? decodeOption(selectedOption) : null;
+  const selectedTemplate = selected?.kind === "template" ? templatesById.get(selected.id) : null;
   let lastGroup = null;
 
   return (
@@ -338,32 +342,38 @@ export default function LeaseBuilderSection({ lease, onChange }) {
                   </form>
                 ) : (
                   <div className="rounded-xl border border-stone-200 bg-white p-4 shadow-sm">
-                    <div className="flex items-start justify-between gap-2">
-                      <p className="text-sm font-medium text-stone-900">
-                        {clause.sectionLabel} {clause.title}
-                        {clause.sourceTemplateId && (
-                          <span className="ml-2 rounded-full bg-stone-100 px-2 py-0.5 text-xs font-medium text-stone-600">
-                            Provided
-                          </span>
-                        )}
-                      </p>
-                      <div className="flex shrink-0 gap-3 text-sm">
-                        <button onClick={() => startEdit(clause)} className="text-emerald-700 hover:underline">
-                          Edit
-                        </button>
-                        {lockedTemplateIds.has(clause.sourceTemplateId) ? (
-                          <span className="text-stone-400" title="The law requires this clause in this lease">
-                            Required, can't be removed
-                          </span>
-                        ) : (
-                          <button onClick={() => handleRemove(clause.id)} className="text-red-600 hover:underline">
-                            Remove
-                          </button>
-                        )}
-                      </div>
-                    </div>
+                    <p className="text-sm font-medium text-stone-900">
+                      {clause.sectionLabel} {clause.title}
+                      {clause.sourceTemplateId && (
+                        <span className="ml-2 rounded-full bg-stone-100 px-2 py-0.5 text-xs font-medium text-stone-600">
+                          Provided
+                        </span>
+                      )}
+                    </p>
                     <p className="mt-1 whitespace-pre-wrap text-sm text-stone-600">{clause.resolvedBodyText}</p>
                     <ClauseTerms clause={clause} lease={lease} onSaved={onChange} />
+                    <AboutClause
+                      template={templatesById.get(clause.sourceTemplateId)}
+                      state={stateFilter}
+                      actions={
+                        <div className="flex shrink-0 gap-3 text-sm">
+                          {!clause.sourceTemplateId && (
+                            <button onClick={() => startEdit(clause)} className="text-emerald-700 hover:underline">
+                              Edit
+                            </button>
+                          )}
+                          {lockedTemplateIds.has(clause.sourceTemplateId) ? (
+                            <span className="text-stone-400" title="The law requires this clause in this lease">
+                              Required, can't be removed
+                            </span>
+                          ) : (
+                            <button onClick={() => handleRemove(clause.id)} className="text-red-600 hover:underline">
+                              Remove
+                            </button>
+                          )}
+                        </div>
+                      }
+                    />
                   </div>
                 )}
               </div>
@@ -451,6 +461,11 @@ export default function LeaseBuilderSection({ lease, onChange }) {
           >
             Cancel
           </button>
+          {selectedTemplate && (
+            <div className="w-full">
+              <AboutClause key={selectedTemplate.id} template={selectedTemplate} state={stateFilter} />
+            </div>
+          )}
         </form>
       )}
 

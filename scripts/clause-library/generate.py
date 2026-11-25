@@ -1,5 +1,7 @@
-# Compiles lease-clauses.csv into the three shipped backend data files:
-# clauseTemplates.js, clauseResearchMetadata.js, landlordEducation.js.
+# Compiles lease-clauses.csv into the shipped backend data: clauseTemplates.js,
+# clauseResearchMetadata.js, clauseGuidance.js (each clause's "Use when" line and
+# linked education, with clause-guidance.csv) and education/<ST>.json
+# (shared.json holds rows tagged in more than one place).
 # Committed 2026-09-26 after being lost twice with old scratchpads.
 #
 # Usage (from the repo root):
@@ -46,7 +48,7 @@ act=[r for r in rows if r['is_active']=='TRUE']
 lc=[r for r in act if r['content_type']=='LEASE_CLAUSE']
 ed=[r for r in act if r['content_type']=='LANDLORD_EDUCATION']
 _H={}
-for _f,_m in [("clauseTemplates.js","const CLAUSE_TEMPLATES = ["),("clauseResearchMetadata.js","const CLAUSE_RESEARCH_METADATA = {"),("landlordEducation.js","const LANDLORD_EDUCATION = [")]:
+for _f,_m in [("clauseTemplates.js","const CLAUSE_TEMPLATES = ["),("clauseResearchMetadata.js","const CLAUSE_RESEARCH_METADATA = {")]:
     _t=open(f"{libdir}/{_f}",encoding='utf-8').read(); _H[_f]=_t[:_t.index(_m)]
 def header(f,marker): return _H[f]
 # templates
@@ -75,10 +77,51 @@ out=[]
 for r in lc:
     out+=[f"  {q(r['id'])}: {{",f"    ruleTypes: {arr(rt(r))},",'    contentType: "LEASE_CLAUSE",',f"    verificationStatus: {q(r['verification_status'])},",f"    effectiveFrom: {q(r['effective_from'])},",f"    lastChecked: {q(r['last_checked'])},",f"    topicKey: {q(r['topic_key'])},",f"    notes: {q(r['notes'])},","  },"]
 open(f"{outdir}/clauseResearchMetadata.js","w",encoding='utf-8').write(header("clauseResearchMetadata.js","const CLAUSE_RESEARCH_METADATA = {")+"const CLAUSE_RESEARCH_METADATA = {\n"+"\n".join(out)+"\n};\n\nmodule.exports = { CLAUSE_RESEARCH_METADATA };\n")
-out=[];prev=None
+# Landlord education, one JSON file per place, so the app loads only the
+# lease's own state. The research notes stay in the CSV.
+import os
+edir=f"{outdir}/education"; os.makedirs(edir,exist_ok=True)
+files={}
 for r in ed:
-    g=r['group']
-    if g!=prev: out.append(f"  // {g}"); prev=g
-    out+=["  {",f"    id: {q(r['id'])},",f"    title: {q(r['title'])},",f"    group: {q(g)},",f"    states: {arr(states(r))},",f"    ruleTypes: {arr(rt(r))},",f"    verificationStatus: {q(r['verification_status'])},",f"    topicKey: {q(r['topic_key'])},","    bodyText:",f"      {q(r['bodyText'])},",f"    notes: {q(r['notes'])},","  },"]
-open(f"{outdir}/landlordEducation.js","w",encoding='utf-8').write(header("landlordEducation.js","const LANDLORD_EDUCATION = [")+"const LANDLORD_EDUCATION = [\n"+"\n".join(out)+"\n];\n\nmodule.exports = { LANDLORD_EDUCATION };\n")
+    st=states(r)
+    files.setdefault(st[0] if len(st)==1 else "shared",[]).append({"id":r['id'],"title":r['title'],"group":r['group'],"topicKey":r['topic_key'],**({"states":st} if len(st)!=1 else {}),"bodyText":r['bodyText']})
+for f in os.listdir(edir):
+    if f.endswith(".json") and f[:-5] not in files: os.remove(f"{edir}/{f}")
+for k,v in files.items():
+    open(f"{edir}/{k}.json","w",encoding='utf-8').write("[\n"+",\n".join(json.dumps(x,ensure_ascii=False) for x in v)+"\n]\n")
+# The "About this clause" panel. Education links by state and topic, corrected
+# by clause-guidance.csv (education_add / education_hide), only for states whose
+# links have been reviewed; a Use when line shows wherever the clause does.
+REVIEWED=["CO"]
+gpath=os.path.join(os.path.dirname(csvp),"clause-guidance.csv")
+guide=list(csv.DictReader(open(gpath,newline='',encoding='utf-8')))
+lcid={r['id']:r for r in lc}; edid={r['id']:r for r in ed}
+use={};add={};hide={}
+ids=lambda v:[x.strip() for x in v.split(';') if x.strip()]
+for g in guide:
+    if g['id'] not in lcid: sys.exit(f"clause-guidance.csv: {g['id']} is not an active lease clause")
+    if g['use_when']:
+        if g['state']: sys.exit(f"clause-guidance.csv: {g['id']}: use_when rows have no state")
+        use[g['id']]=g['use_when']
+    for col,d in (('education_add',add),('education_hide',hide)):
+        for e in ids(g[col]):
+            if g['state'] not in states(lcid[g['id']]) or e not in edid or g['state'] not in states(edid[e]):
+                sys.exit(f"clause-guidance.csv: {g['id']}: {e} is not active in {g['state']}")
+            d.setdefault((g['id'],g['state']),[]).append(e)
+bytopic={}
+for r in ed:
+    for st in states(r):
+        if st in REVIEWED: bytopic.setdefault((st,r['topic_key']),[]).append(r['id'])
+out=[]
+for r in lc:
+    links={}
+    for st in REVIEWED:
+        if st not in states(r): continue
+        k=(r['id'],st)
+        l=[e for e in bytopic.get((st,r['topic_key']),[]) if e not in hide.get(k,[])]
+        l+=[e for e in add.get(k,[]) if e not in l]
+        if l: links[st]=l
+    if use.get(r['id']) or links:
+        out.append(f"  {q(r['id'])}: "+json.dumps({**({"useWhen":use[r['id']]} if r['id'] in use else {}),"education":links},ensure_ascii=False)+",")
+open(f"{outdir}/clauseGuidance.js","w",encoding='utf-8').write("// Generated by scripts/clause-library/generate.py from lease-clauses.csv and\n// clause-guidance.csv; never hand-edit. What \"About this clause\" shows: when to\n// use the clause, and the landlord education linked to it, by state.\nconst CLAUSE_GUIDANCE = {\n"+"\n".join(out)+"\n};\n\nmodule.exports = { CLAUSE_GUIDANCE };\n")
 print(len(lc),len(ed))

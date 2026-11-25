@@ -71,7 +71,7 @@
 // `contentType` is always `LEASE_CLAUSE` here, since only LEASE_CLAUSE
 // items from the research ever make it into `clauseTemplates.js` in the
 // first place -- LANDLORD_EDUCATION findings from the same research live in
-// `landlordEducation.js` instead, and OUT_OF_SCOPE findings live only in the
+// `education/<ST>.json` instead, and OUT_OF_SCOPE findings live only in the
 // decision logs, not in shipped code.
 //
 // Only clauses currently shipped in `clauseTemplates.js` (`is_active: TRUE`

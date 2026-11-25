@@ -1326,3 +1326,7 @@ Taylor's decision 2026-11-22: every clause shows a tag. A clause that applies on
 ## Pet rent wording (Claude Code, 2026-11-22)
 
 Taylor's decision 2026-11-22: the 2026-11-22 applicability read found that `pet-policy-or` stated pet rent unconditionally, so a lease with an approved pet but no pet rent would state a pet rent of nothing. The pet rent is now 'if applicable', as most states' pet clauses already say. Uniform edit; no claim or condition changed (SOP rule 78). Pet clauses stay Recommended: a landlord includes one only by choosing it.
+
+## Notes to the landlord moved out of clause text (Claude Code, 2026-11-24)
+
+The bracketed note that opened each clause below was removed from its text, so it no longer prints in the lease; no lease term changed. A note saying when the clause fits is now its "Use when" line in `lease-clause-library/clause-guidance.csv`; a bare "[Optional.]" was dropped (the tag says it). Clauses: `rent-concession-wi`, `cannabis-restrictions-ak`, `scheduled-services-entry-la`, `showing-notice-la`, `animal-care-access-vi`, `furnishings-included-la`, `guaranty-as`.

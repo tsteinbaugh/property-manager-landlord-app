@@ -4330,3 +4330,20 @@ Taylor's decision 2026-11-22: every clause shows a tag. A clause that applies on
 - `utility-shutoff-notice-authorization-co`: CONDITIONAL to CONDITIONAL/RECOMMENDED
 - `utility-transfer-reimbursement-co`: CONDITIONAL to CONDITIONAL/RECOMMENDED
 - `waterbed-co`: CONDITIONAL to CONDITIONAL/RECOMMENDED
+
+## Notes to the landlord moved out of clause text (Claude Code, 2026-11-24)
+
+The bracketed note that opened each clause below was removed from its text, so it no longer prints in the lease; no lease term changed. A note saying when the clause fits is now its "Use when" line in `lease-clause-library/clause-guidance.csv`; a bare "[Optional.]" was dropped (the tag says it). Clauses: `rent-concession-wi`, `cannabis-restrictions-ak`, `scheduled-services-entry-la`, `showing-notice-la`, `animal-care-access-vi`, `no-liens-co`, `emergency-contact-co`, `eminent-domain-co`, `firearms-co`, `governmental-fines-co`, `tenant-display-rules-co`, `utility-shutoff-notice-authorization-co`, `waterbed-co`, `furnishings-included-la`, `guaranty-as`, `appliances-excluded-co`, `automatic-renewal-co`, `conversion-notice-co`, `energy-data-release-co`, `farmland-sporting-rights-co`, `environmental-covenant-incorporation-co`, `heat-freeze-protection-co`, `association-approval-co`, `holdover-rate-co`, `home-business-permission-co`, `exempt-residential-agreement-notice-co`, `shared-facilities-closure-co`, `portable-solar-device-rules-co`, `subsidy-inspection-access-co`, `unbundled-parking-co`.
+
+## Education linked to clauses: layout and two corrections (Claude Code, 2026-11-24)
+
+Taylor approved showing linked education under "About this clause". The linked Colorado rows (90 of 97) were broken into paragraphs and bullets. A word comparison confirmed that beyond list words ("First") and the edits here, no word changed: sentences about the research itself ("this library did not search") were cut, or reworded where they carry a caution; "no lawyer has reviewed it" is removed (Taylor).
+
+Two rows contradicted the rest of the library and were corrected to the readings already in this log:
+
+- `edu-waiver-by-acceptance-co` said the nonpayment notice is three days for most tenancies; § 13-40-104(1)(d) makes it ten days (five for an exempt residential agreement).
+- `edu-voucher-acceptance-co` said HB 25-1240 removed the small-landlord exemption; it did not (§ 24-34-502(1.5)(a), (1.7), as corrected 2026-10-24 in `edu-source-of-income-exemption-trap-co`). Its "$5,000 to $50,000" penalty: see the reread section below.
+
+## Disclaimers removed, and the two corrections reread against the statute (Claude Code, 2026-11-24)
+
+Taylor asked for the disclaimers out and for both corrections above to be reread. Read in the official 2026 C.R.S. (olls.info, titles 13, 24 and 38): § 13-40-104(1)(d) (ten days; five exempt; three nonresidential or employer-provided), § 24-34-502(1.5)(a), (1.7) and (1)(r), § 24-34-505.6(6)(a), § 24-34-508(1)(f), § 38-12-1502. The notice correction stands, now with the employer-provided period and the section cited. The exemption correction stands. The penalty edit earlier today was wrong: § 24-34-508(1)(f) does set a commission civil penalty of at least $5,000 for housing-subsidy discrimination, capped at $10,000, $25,000 or $50,000 by prior violations, so the old $5,000 to $50,000 had a source; it is restored with the tiers. The $5,000 court floor applies only if the court awards damages; `edu-voucher-acceptance-co` and `edu-source-of-income-exemption-trap-co` now say so.

@@ -4,6 +4,7 @@ const { CLAUSE_TEMPLATES } = require("../lib/clauseTemplates");
 const { choiceGroupMembers } = require("../lib/clauseChoiceGroups");
 const { applicabilityNote, APPLICABILITY_RULE_IDS } = require("../lib/clauseApplicability");
 
+const { aboutSummary, clauseEducation } = require("../lib/clauseAbout");
 const { STATE_SCOPED_TAGS } = require("../lib/stateScopedTags");
 
 const hasRule = (template) => APPLICABILITY_RULE_IDS.includes(template.id);
@@ -58,6 +59,7 @@ router.get("/", async (req, res) => {
   res.json(
     CLAUSE_TEMPLATES.map((template) => ({
       ...template,
+      ...aboutSummary(template.id),
       autoDefault: isAutoDefault(template),
       autoDefaultNote: defaultNote(template),
       isDefault: isDefaultFor(template, rowsByTemplateId),
@@ -71,6 +73,15 @@ router.get("/", async (req, res) => {
       }),
     })),
   );
+});
+
+// The landlord education "About this clause" shows for one state.
+router.get("/:templateId/education", (req, res) => {
+  const template = CLAUSE_TEMPLATES.find((t) => t.id === req.params.templateId);
+  if (!template) {
+    return res.status(404).json({ error: "Template not found" });
+  }
+  res.json(clauseEducation(template.id, String(req.query.state || "")));
 });
 
 // Marks a provided template as one of this landlord's defaults without
