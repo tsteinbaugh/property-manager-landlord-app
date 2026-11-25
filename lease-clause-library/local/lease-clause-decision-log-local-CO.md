@@ -21,3 +21,6 @@ Taylor saved CivicPlus's Terms of Use (last revised March 20, 2026; linked from 
 
 ## City-source findings (2026-11-24)
 Boulder's disclosure PDF and Denver's November 2025 required notice show both cities require landlords to give tenants specific written information, which the state rows don't carry. Boulder's deposit interest rule appears to ADD to the state deposit rows. All are leads until the ordinance or code text is read. Weld County: no county rental rule found in the one ordinance read; unresolved. Next: council records for Denver and Boulder enacting ordinances (Boulder Ord. 8122), Boulder model lease, Weld ordinances.
+
+## State step, second read (2026-11-24, overnight)
+Read from saved text: § 31-15-401(1)(a)-(d)(III)(A), § 30-15-401(1)(s)(I)-(V) (part), § 25-1-508(5)(e)-(i). § 32-1-1004(8): a metropolitan district may furnish covenant enforcement under a declaration's own terms; by this section it's a covenant enforcer, not a source of rental ordinances. § 32-1-1001 has general power to adopt rules not in conflict with law (search lines). A search of all 45 files for preemption wording lists sections not yet read: §§ 38-12-202, 38-1-101, 24-36-122, 29-4-1201, 29-4-1202, 18-9-122 and others. **The state step stays open**: those, case law, and the part-read sections above.
