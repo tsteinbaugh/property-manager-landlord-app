@@ -1,11 +1,11 @@
-# Colorado pilot: draft comparison (2026-11-25; Weld blind pass pending)
+# Colorado pilot: draft comparison (2026-11-25)
 
 | Place | Code got how | Check | Blind pass | Found only by the blind pass |
 |---|---|---|---|---|
 | Denver | Taylor's download; scans and garbled pages had to be decoded | words + read sections | 134 YES, 21 UNSURE, 244 NO | several owner duties; 11 YES rows named as overstated in the log |
 | Frederick | Taylor, chapter by chapter | 17 leads | 59 YES, 32 UNSURE, 303 NO (with NEW rows) | prostitution control, graffiti, park fee, permits, fire lines |
 | Boulder | Taylor, 4 PDFs | main landlord sections | 108 YES, 19 UNSURE, 282 NO (with NEW rows) | graffiti, flood sign, nuisance duty, odor, stove heat |
-| Weld County | Taylor, 4 PDFs | whole-code word search | pending | pending |
+| Weld County | Taylor, 4 PDFs | whole-code word search | 40 YES, 21 UNSURE, 343 NO (404 rows) | owner's sewage duty, septic upkeep, oil and gas notice to lessees, farm-home rental limit, home-business permit; some contain the searched words, so hits weren't all read |
 | Boulder County | its website | pages, ordinances, land use code; septic unread | not run | - |
 
 YES/NO counts are the agents' and not comparable between places (NEW rows; stretched topics).
