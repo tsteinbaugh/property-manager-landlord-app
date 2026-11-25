@@ -160,3 +160,6 @@ Limits: a YES row isn't proof of a landlord rule (some are general conduct rules
 - (t): registration of businesses only, no license, fee or fines. (q): removal or securing of dangerous buildings at the owner's cost, with a lien and a court warrant. (r): foreclosed, vacant or abandoned property.
 - Weld and Boulder are treated differently: Weld is a home rule county (art. 30-35), so its powers aren't limited to this list; not researched.
 - 38-1-101 (first part), 18-9-122, 24-36-122 (first part): no local rental rule in what was read. 29-35-402 read in part.
+
+## Boulder County septic regulations (2026-11-25)
+`onsite-wastewater-treatment-system-regulations.pdf` (40 pages, effective September 24, 2026) saved in `boulder-county/pdf/`. Sections 4.3 to 4.8, 6 (part), 8.3, 9.4, 10, 12.1 read; 7, 8.1, 8.2, 8.4, 11, 13 on not read. The earlier attempt failed on two guessed page addresses; the county's SepticSmart pages were reached from its water page.
