@@ -56,3 +56,16 @@ Hits containing landlord, tenant, rental or lease outside the short-term rental 
 - Read against the decoded text: ch. 27 arts. II (27-19 to 27-30), VIII, 27-49, 27-240; 28-92, 28-95, 28-98 to 28-105; 37-50 to 37-53; 48-130 to 48-137; 49-551; the smaller sections in the citation rows. Page images not compared except as noted earlier; rows stay NEEDS_REVIEW.
 - Blind YES rows that overstate the section: tenant-screening, expedited-criminal-eviction, drug-free-housing-addendum (37-53(c) is a suspended-sentence condition); retaliation (28-98 covers discrimination rights only); smoking-policy and smoke-drift (24-302, 24-309 concern smoking in places open to the public); owner-identity-disclosure (24-153 answers a health inspector); mold-disclosure (37-8 is a nuisance rule); possession-delay (27-28(3) is an unfit-dwelling order); inspection-condemnation-disclosure (recording and placards, no landlord disclosure); eviction-process (27-211 to 27-215 is a city-funded lawyer program; the landlord duty is 27-240(b)).
 - Not yet read whole: 10-16 to 10-20, 10-138 to 10-142, 10-402 to 10-407, 27-217 to 27-230, 33-46 to 33-55, 37-71 to 37-84, 48-42.5, 54-419, 56-96, 56-118, 57-41 to 57-44, ch. 8, ch. 59.
+
+## Denver: ordinances newer than the export (2026-11-25)
+- Source: Legistar public web API (webapi.legistar.com/v1/denver/matters), 370 bills introduced Oct. 15, 2025 to Nov. 24, 2026 and 471 from June 2024 to Oct. 14, 2025; titles listed and read by keyword and by remainder. Saved in `denver/council/`.
+- **An export's "current through" date is not enough.** It misses later ordinances (27-50.5) and earlier ones with a delayed effective date (Ord. 2025-0854). Every place needs a check of council records against the code's ordinance notes. The 2024-25 check found six passed code bills with no matching note: 24-0909, 24-1050, 25-0553, 25-0599, 25-0854, 25-1003; only 25-0854 touches rentals by title.
+- Bill text layers lose strikeouts: read the page image.
+- Read and no landlord rule: 26-1305 (city data only), 26-0007, 26-0921 (keyword search only). Not read whole: 25-0854, 26-0565, 25-2163, 25-2164, 25-1634, 26-0852, 26-0328.
+- Read since the last entry: 33-46 to 33-53, 48-42.5 and 48-43 (part), 54-419 (part), 56-96 and 56-118 (part): owner-billed or account-based city charges, no landlord-to-tenant rule seen in the parts read.
+
+## Boulder County: Board of Health (2026-11-25)
+Titles of every document on the Board of Health page read: minutes, budgets, 2020-21 COVID orders and OWTS (septic) matters; no rental rule by title. The OWTS regulations and healthy-home pages are not read.
+
+## Weld County (2026-11-25)
+weld.gov now returns a bot check, as Municode does. Legistar has no client for Weld, Boulder, Boulder County or Frederick under the names tried. Waits on Taylor's download.
