@@ -1,0 +1,11 @@
+# Local law decision log: Colorado
+
+## State step (2026-11-24)
+**Read (official 2026 C.R.S., olls.info PDFs, all 45 files, SHA-256 in `~/local-corpus-build/CO/_state/statutes/MANIFEST.sha256`):** § 38-12-301 and § 29-20-111 whole; § 29-20-104 whole; Colo. Const. art. XX, § 6 and art. XIV, § 16 (text only; annotations not used); § 31-15-402 whole. **Read in part, by search hits:** §§ 30-15-401(1)(s), 30-11-101, 31-15-401, 31-15-501(1)(a)-(c), 31-15-601, 30-28-201, 30-28-205(1), 25-1-508, 25-1-518(1)-(2), 24-34-502, 25-7-142, 25-14-207, 29-11.7-103, 35-10-112.5, 29-35-403, 38-12-1204. A subject relying on a part-read section is re-read whole before any row cites it.
+
+**Who can make rental rules:** home rule cities and towns (art. XX, § 6: charter and ordinances supersede state law in local and municipal matters; state law continues to apply except where superseded); statutory cities and towns (Title 31 powers, § 31-15-501(1)(c) licensing "subject to any law of this state"); counties, by enumerated ordinance powers (§ 30-15-401; short-term rentals at (1)(s)), building codes (§ 30-28-201) and county or district boards of health (§ 25-1-508); home rule counties, only as statutes authorise (art. XIV, § 16(4)); Denver and Broomfield as city-counties. Not yet checked: special districts (§ 32-1-1001), and the local-court/case-law boundary between local and statewide concern.
+
+**Barred:** rent control (§ 38-12-301(1)). The 2000 and 2010 annotation summaries were not relied on. **Limited:** occupancy limits (§ 29-20-111(3)), nuisance liability of owners (§ 31-15-401(1)(c)), fees and taxes. **Everything else stays in the search.** `topics-CO.csv` covers all 372 Colorado topic keys. Its `local_power` value is per subject, not a researched answer for each topic.
+
+## Sources (2026-11-24)
+Municode serves Denver (redirect from denvergov.org) and Weld County (redirect from weld.gov). It refused the shell (403) and Chrome 157 ("Access blocked ... update your browser"). Its robots.txt disallows ClaudeBot, Claude-Web and anthropic-ai by name, as do codelibrary.amlegal.com and ecode360.com. Frederick: codepublishing.com/CO/Frederick redirects to municipal.codes, which gave the shell a 403 challenge. Boulder: publisher not yet found. Boulder County publishes ordinance PDFs on its own site. Taylor chose: update Chrome, read the terms, then decide.
