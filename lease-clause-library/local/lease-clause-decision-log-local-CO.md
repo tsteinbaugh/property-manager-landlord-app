@@ -213,3 +213,6 @@ No misstatement; omissions added after reading 30-4-30, 30-4-120, C.R.S. 25-10-1
 **Edited after the last check (read against the sections by me only; rule 80):** deposit definition and 12-2-4 penalty, holder liability, mobile home park sentence; written-lease penalty sentences; sewage repair permit, appeal, civil infraction, "at most 30 days"; septic "specific tasks", park sentence, cleaner and permit sentence.
 Not adopted: last month's rent exclusion (city page only; the conflict with the code's definition is open).
 Boulder's 68-degree rule contradicts the state heating row's "no minimum temperature" for Boulder homes: needs its own REPLACES row with the IPMC text and exceptions (101.3) read.
+
+## Second batch of four rows, round 1 (2026-11-25)
+Agent's points checked against 27-195(d), 27-200, 27-203, 2-293(b), 48-133(c), 12-2-9(a), 10-2-2 107.1(a)-(b), 1-2-1 and applied. Most serious: the Denver row gave only citations as the penalty. Denver city form wording, the Boulder form gaps and 48-137(h) not checked by me. Denver's lease-copy rule (27-240(a)) may need its own lease-copy row. Round 2 not run.
