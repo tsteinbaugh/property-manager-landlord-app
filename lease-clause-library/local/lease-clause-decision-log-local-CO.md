@@ -18,3 +18,6 @@ Taylor saved CivicPlus's Terms of Use (last revised March 20, 2026; linked from 
 **Search lessons:** `tenant` matched "appurtenant" (fixed with a word boundary); the "other" subject was too broad (flood terms narrowed to disclosure and renter context, flag and conversion narrowed). Counts in the first run are not reported as findings.
 
 **2026-11-24, Taylor:** clerk requests dropped; pilot goes on from the cities' own websites and council records; CivicPlus consent email drafted. Taylor asked to use the Denver download as a guide; Claude Code declined under the terms and left it unopened.
+
+## City-source findings (2026-11-24)
+Boulder's disclosure PDF and Denver's November 2025 required notice show both cities require landlords to give tenants specific written information, which the state rows don't carry. Boulder's deposit interest rule appears to ADD to the state deposit rows. All are leads until the ordinance or code text is read. Weld County: no county rental rule found in the one ordinance read; unresolved. Next: council records for Denver and Boulder enacting ordinances (Boulder Ord. 8122), Boulder model lease, Weld ordinances.
