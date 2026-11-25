@@ -101,3 +101,11 @@ Sources: Taylor's PDF (463 pages, chapters 1, 4, 6-8, 10, 11, 13, 18 and tables,
 - § 29-35-403 read whole: a subject jurisdiction may not require an ADU or other dwelling on the lot to be owner-occupied, except showing the owner lives on the parcel when applying to build or convert one (not when built with a new house) or for a short-term rental license. Denver's 11.8.2.2.B (as read in the draft) fits that exception by its text. Whether Frederick or others are "subject jurisdictions" not checked.
 - § 30-15-401(1)(a)(II part) to (n.7) and (o) read; (p) on still unread. County noise ordinances don't reach manufacturing, industrial or commercial business property ((m)(II)); counties may compel sidewalk snow removal ((n)).
 - § 29-4-1201 (1) to (11) read; (12) on not.
+
+## Frederick: check against blind pass (2026-11-25)
+Blind pass (`blind-pass-frederick.csv`): 372 topics, 37 YES, 32 UNSURE, 303 NO, 22 NEW rows. Agent's quotes checked by its own script; four sections re-read here.
+- Same on the main rules: water sub-billing, heat, utility liens and owner billing, snow, weeds, common-area smoking, medical-marijuana landlord duty, parking, licences and lodging tax; both found no rental license, deposit, eviction or discrimination rule.
+- Only the blind pass: 10-152(e), 10-76(g), 6-46, 13-3-305, 18-2-20(f), 13-4-400, 10-270, and minor owner duties (meter access 13-3-311, fences, lighting, landmarks). **The check's landlord words miss a duty on whoever "controls" or "owns" a place**: add "control over", "person in charge" and "owner shall" to the search terms.
+- Only the check: the HOME Act conflict on the 'Family' definition and the 30-day rodent notice (the blind pass listed both sections without those points).
+- Blind YES rows that aren't landlord-tenant rules: trespass-notice, firearms, rent-tax, seasonal-tenancy, family-child-care, prohibited-acts-renter.
+- Marijuana plant counts: code 10-120(f), 10-305(e) say 6 a dwelling; the Land Use Code passage the agent read as 12 isn't re-read. State the lower number.
