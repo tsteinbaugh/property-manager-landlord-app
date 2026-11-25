@@ -116,4 +116,4 @@ Read: chs. 12-2 and 12-5 (12-5 binds the city only), 12-1-1, -2, -5, -8, -10, -1
 - **The disclosure section points at repealed law:** 12-2-4(a)(1)(H) names 5-10-6 (repealed 2020).
 - City pages vs code: page says owner-occupied with up to two roomers is exempt; 10-3-2(b)(1) has no number. Not resolved.
 - The last-month's-rent conflict noted on 2026-11-24 isn't settled by these sections.
-- Weld.pdf (2:44 PM, 7,802,880 bytes) has no end-of-file marker and can't be opened; nothing used.
+- Weld.pdf: first copy truncated; the second (11,259,394 bytes, 202 pages) is whole but is the Department of Human Services Policies, not the county code. Nothing used; the Charter and County Code is still needed.
