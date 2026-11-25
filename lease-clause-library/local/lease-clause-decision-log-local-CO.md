@@ -196,3 +196,6 @@ Read whole: 6-9-1 to 6-9-6, 6-5-3, 5-4-13, 10-12-27, 10-12-28. Read in part: 11-
 
 ## Denver 33-53 to 33-55 (2026-11-25)
 33-53, 33-54 whole, 33-55(a) and (b)(1) to (4) read: denial when not the primary residence or for cause; same grounds for suspension; licensee keeps nights and dates rented for the past year.
+
+## First drafted rows (2026-11-25)
+Five education rows in `local-clauses-CO.csv`, all NEEDS_REVIEW and `is_active` FALSE: Boulder deposit interest (REPLACES the state "no interest" row), written lease, solid fuel heat; Weld sewage system, septic maintenance. Controlling text re-read for each. Independent check (rule 80) not run. The 12-2-4 disclosure row waits on the repealed 5-10-6 reference.
