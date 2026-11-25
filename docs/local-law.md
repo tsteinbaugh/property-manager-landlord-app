@@ -81,3 +81,5 @@ Reuses the SOP: official text only (rule 11), no summaries as VERIFIED (12), sav
 5. **Rows:** `jurisdiction` is the GEOID; `relation` is ADDS or REPLACES; `parent_row` is the state row. A place row never edits a state row (SOP rule 3).
 6. **Overlap:** county rules usually cover unincorporated land only; record each rule's territory. A city's record lists every county and district it overlaps.
 
+- **A code download is never enough by itself (2026-11-25, Denver):** check its "current through" date, then list the council's later ordinances and the earlier ones with delayed effective dates (compare bill numbers with the code's ordinance notes). Denver's newest landlord rule (§ 27-50.5) was in neither the download nor the blind pass.
+- Read amending bills on the page image: text extraction loses strikeouts. A matching quote doesn't show a reading is right; read the whole section before calling a YES row a rule.
