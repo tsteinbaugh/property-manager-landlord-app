@@ -109,3 +109,11 @@ Blind pass (`blind-pass-frederick.csv`): 372 topics, 37 YES, 32 UNSURE, 303 NO, 
 - Only the check: the HOME Act conflict on the 'Family' definition and the 30-day rodent notice (the blind pass listed both sections without those points).
 - Blind YES rows that aren't landlord-tenant rules: trespass-notice, firearms, rent-tax, seasonal-tenancy, family-child-care, prohibited-acts-renter.
 - Marijuana plant counts: code 10-120(f), 10-305(e) say 6 a dwelling; Land Use Code 16-2-40(F)(1) says 12 for medical growers (read). They conflict; state the lower number.
+
+## Boulder: code read (2026-11-25)
+Code from Taylor: four PDFs (`~/local-corpus-build/CO/boulder/code/p1-p4.pdf`, SHA-256 in the manifest). Every one of the 2,106 section numbers in the contents list is present; the latest ordinance number cited is 8767 (2026). Ordinances since are not checked. Earlier leads from city pages stay; the new READ rows replace them where they differ.
+Read: chs. 12-2 and 12-5 (12-5 binds the city only), 12-1-1, -2, -5, -8, -10, -14, -15; ch. 10-3 except the last listing; 10-2-2 whole; 10-2.5-2, -5, -6, -7, -9, -15, -17; 10-4-2, -3; 10-12-30 to -35; 10-7.7-1, -2, -6 (commercial only); the trash, weed, snow, noise, towing and water sections in the rows.
+- **The disclosure section points at repealed law:** 12-2-4(a)(1)(H) names 5-10-6 (repealed 2020).
+- City pages vs code: page says owner-occupied with up to two roomers is exempt; 10-3-2(b)(1) has no number. Not resolved.
+- The last-month's-rent conflict noted on 2026-11-24 isn't settled by these sections.
+- Weld.pdf (2:44 PM, 7,802,880 bytes) has no end-of-file marker and can't be opened; nothing used.

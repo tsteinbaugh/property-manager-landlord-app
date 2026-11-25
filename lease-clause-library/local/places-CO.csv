@@ -12,7 +12,7 @@ Fort Collins city,0827425,municipality,Larimer County,,33897,,,NOT_STARTED,,,
 Douglas County,08035,county,Douglas County,,30265,,,NOT_STARTED,,,
 Weld County,08123,county,Weld County,,29345,"Adopted ordinances on weld.gov (code on Municode, not read)",https://www.weld.gov/,CHECKING,2026-11-24,PARTIAL: Ord. 2026-04 only; no rental-term hits in the saved text (not proof of absence),"pilot; other code-change ordinances, 2026-19 (ch. 12 licenses)"
 Lakewood city,0843000,municipality,Jefferson County,,29046,,,NOT_STARTED,,,
-Boulder city,0807850,municipality,Boulder County,,22844,"City pages only (code is on Municode, not read)",https://bouldercolorado.gov/,HAS_RULES,2026-11-24,"PARTIAL: 9 city pages, model lease (whole) and forms; landlord-tenant handbook only passages citing city law; whole code not searched",pilot; Taylor downloads code (Municode); read handbook whole; discrimination categories; settle last-month-rent conflict
+Boulder city,0807850,municipality,Boulder County,,22844,"Municode download 2026-11-25 (4 PDFs, all 2,106 listed sections present)",https://bouldercolorado.gov/,HAS_RULES,2026-11-24,"PARTIAL: main landlord sections of the code read, whole code not searched; 9 city pages, model lease (whole) and forms; handbook only passages citing city law",pilot; blind pass; rest of code; read handbook whole; discrimination categories; settle last-month-rent conflict
 Pueblo County,08101,county,Pueblo County,,21487,,,NOT_STARTED,,,
 Mesa County,08077,county,Mesa County,,18146,,,NOT_STARTED,,,
 Pueblo city,0862000,municipality,Pueblo County,,18068,,,NOT_STARTED,,,
