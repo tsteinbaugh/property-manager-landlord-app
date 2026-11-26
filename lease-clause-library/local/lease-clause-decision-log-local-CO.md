@@ -292,3 +292,10 @@ Result: 14 rules checked, one phrase removed (Denver), no misstatement found.
   - **Senior housing (H.2):** a project's plan must require at least one occupant aged 55 or older in each unit. A rental unit advertised for 270 consecutive days without a qualified tenant may then go to anyone, and the 270 days start again once a non-senior leaves.
   - **Short-term rental licensing** (LDC23-001, amended by 26-132, May 12, 2026): not read.
 - **Not yet:** search of the OCR text; building code adoption; Arapahoe County Public Health rules; drafting and checks.
+
+## Douglas County: first read (2026-11-25, evening)
+- **Corpus:** 20 ordinance PDFs from douglasco.gov. 17 are scans with no text layer; OCR is still to do.
+  - O-23-001 returned 403. It's logged and wasn't retried another way.
+  - The zoning resolution sections on douglas.co.us aren't saved yet.
+- **Read:** O-007-003 (sidewalk snow), whole, from its OCR layer. Everyone who controls property must clear the abutting sidewalk within 24 hours after the snow stops. The county may extend that by a website posting. The county may clear it and assess the cost, as a lien and with the property taxes. The fine is up to $50, a class 2 petty offense. Row drafted: edu-sidewalk-snow-douglas-county, unchecked.
+- **To check:** O-996-003, "increasing the maximum fine", is scanned and unread; it may change the $50.
