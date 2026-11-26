@@ -299,3 +299,10 @@ Result: 14 rules checked, one phrase removed (Denver), no misstatement found.
   - The zoning resolution sections on douglas.co.us aren't saved yet.
 - **Read:** O-007-003 (sidewalk snow), whole, from its OCR layer. Everyone who controls property must clear the abutting sidewalk within 24 hours after the snow stops. The county may extend that by a website posting. The county may clear it and assess the cost, as a lien and with the property taxes. The fine is up to $50, a class 2 petty offense. Row drafted: edu-sidewalk-snow-douglas-county, unchecked.
 - **To check:** O-996-003, "increasing the maximum fine", is scanned and unread; it may change the $50.
+- **Jefferson solid-fuel row, round 2 (a different fresh agent):** no misstatement. Applied:
+  - Other heaters framed as caution.
+  - Gas-fired logs excluded (A.4).
+  - B.3 to B.5 reasoning corrected: the Purpose itself is limited to areas below 7,000 feet; B.5 covers operation, not renting. "We found no county guidance."
+  - The tenants' high-pollution-day burn ban and its exemption added.
+  - The penalty record follows F.3.
+  - Not added: C.R.C.P. 106 by name.
