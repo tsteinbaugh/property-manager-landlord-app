@@ -68,6 +68,7 @@ Recommendation: Taylor downloads the four before the next local day. Claude Code
 - **Adams County (added 9:20 PM):** the ordinances page loads its list by script, alongside a reCAPTCHA. The sitemap lists only Ordinance 1 and 2. The 2023 book PDF address returns 404. Move it to Taylor's list: save the page's documents from Chrome.
 
 ## Next local day: start here (2026-11-25, 9:40 PM)
+- **First, finish the pilot (Taylor, 2026-11-25):** work through the list at the end of `pilot-report-CO.md` and confirm zero unexplained misses. Only then go on with the county items below.
 - **Arapahoe OCR:** it was still running at the cutoff, writing to `~/local-corpus-build/CO/arapahoe-county/ocr/`. Finish it if needed, then search the OCR text.
 - **Douglas County:** its 17 scanned ordinances need OCR.
 - **Rows with unchecked edits:**

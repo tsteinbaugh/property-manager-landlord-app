@@ -23,7 +23,7 @@ Denver's ordinances since the export beyond those read; conflict-with-state-law 
 ## Recommendation (for Taylor)
 Use the full pass first wherever a code can be got, words as a cross-check; draft rows only after the second read. Projection of length: not yet possible (needs the usage figure and the download time per place).
 
-## Phase 3 results (2026-11-25, evening)
+## Phase 3 results (2026-11-25, evening): report done, pilot NOT finished
 - **Rows drafted (all inactive, NEEDS_REVIEW):**
   - Boulder: 5 education rows and 1 lease clause (city disclosures, Legal duty)
   - Frederick: 8 education rows
@@ -46,3 +46,12 @@ Use the full pass first wherever a code can be got, words as a cross-check; draf
   - Whether Frederick is home rule.
   - Boulder County's blind pass and septic rules.
   - The model-code base text.
+
+## Pilot places still open (2026-11-25, 10 PM; Taylor: finish the pilot first next local day)
+Phase 4 was started early, before these were finished. The plan requires zero unexplained misses before Phase 4.
+- **Boulder County:** blind full pass not run; septic regulations read in part.
+- **Denver:** found but not drafted: short-term rentals, nuisance, sidewalk, vegetation, the 27-240(a) lease copy. 2-283(c) unread.
+- **Boulder (city):** whole code not searched (main landlord sections only); other rules not drafted.
+- **Weld County:** search partial; not every word hit read.
+- **Frederick:** insect screens wait on the IPMC base text; home rule unsettled.
+- **All five:** recheck the earlier rows for other required local lease clauses (e.g. Denver's tenant rights notice, Boulder's written lease); confirm zero unexplained misses in the comparison.
