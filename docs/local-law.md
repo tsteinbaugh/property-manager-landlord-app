@@ -1,6 +1,11 @@
 # Local law: weekly track, Colorado pilot first
 
-*Approved plan (Taylor, 2026-11-24). Nothing started yet. Phase 1 adds the procedure to this file.*
+*Approved plan (Taylor, 2026-11-24). Started 2026-11-24.*
+
+## Usage log
+| Session | Weekly usage at start | at end | Done |
+|---|---|---|---|
+| 2026-11-24 | 53% (54% at 9:15 AM Nov 25; 56% Nov 25 afternoon, mid-session) | 56% at about 9 PM Nov 25 (last reading); the weekly reset at 10 PM came before an end reading, so Phase 4's evening work (four counties, six rows, five checks) isn't measured | Phase 1 files; state step drafted, open; Boulder and Boulder County have rules (city/county sources); Denver and Weld held on site terms; Frederick could not check |; Phase 3 report done (spot-check, pilot report), but the pilot places are still open (see the pilot report's list); Phase 4 begun early, before the pilot finished: Jefferson, Arapahoe, Douglas, Mesa Counties saved and searched (6 rows drafted, 5 checked); Taylor's download list for the next 21 places |
 
 ## Context
 The library covers federal and state law only (SOP rule 3 flags local law without resolving it). Taylor wants cities and counties covered the same way, everything everywhere. It is low priority and token-heavy, so it runs Tuesday evening through Wednesday on usage that would otherwise go unused; the bracketed prompts stay the focus on other days.
@@ -11,6 +16,20 @@ The library covers federal and state law only (SOP rule 3 flags local law withou
 - **Start:** Colorado, piloted on Denver, Boulder, Frederick. Finish all of Colorado first, to learn from every size, type and overlap; then the rest of the country, largest first regardless of state.
 - **Who:** Claude Code (Taylor had no preference). Desktop is the fallback for a place Claude Code can't handle.
 
+## How local rows show (Taylor, 2026-11-25 night)
+- **Layered, never hidden.** State and federal rows stay exactly as vetted: never reworded and never hidden, for anyone. Local rows show only for a property inside that place, in their own section headed with where they apply. Landlords elsewhere never see them.
+- **Local rows only add.** "REPLACES" is dropped. A local lease clause is an extra clause, never an edit to a state clause. A local Required clause holds the PDF for properties in that place, as state Required clauses do.
+- **Exception flag.** A local rule never overrides state law, and a state row is never untrue because of one. Where a local rule doesn't easily mesh with a state row (for example, the state row says state law doesn't require something and the place does require it), the app shows a fixed note on the state row, for that place's properties only. The state row stays as written; the note never changes or overrides it. It begins "Exception due to local rule" (Taylor's wording, used everywhere), then names the place, the sentence affected and the local section, and points to the local row.
+  - A flag may mark only a sentence that states silence ("state law does not require X").
+  - It may never mark a requirement, prohibition, deadline or penalty; a guard enforces this. So a local rule can make a state rule stricter but can never switch off a state duty.
+  - Where a place allows what the state forbids, the local row says the state rule still controls.
+  - Taylor accepts that the layers still read as somewhat conflicting; there's no way around it.
+- **Before a place goes live:**
+  - Taylor reads that place's review sheet: every local row, every flagged state sentence, and every local lease clause.
+  - The landlord confirms the property is inside the place's limits.
+  - A way to watch that place's code for changes exists.
+- **Open:** Taylor reviewing every place may not scale. Decide later, for example by Taylor reading every flag and local clause but only a sample of education rows, or by an attorney batch per state.
+
 ## Phase 1: Set up (first local day; small)
 1. `docs/local-law.md`: the procedure. It reuses the SOP's standing and source rules (official text only, quotes checked, verification statuses, three-bucket test, rule 56 tags) and adds only what differs. Rule 3 is amended to point to it: local text still never enters state rows.
 2. `lease-clause-library/local/`, separate from `lease-clauses.csv` so state files and guards are untouched:
@@ -19,7 +38,7 @@ The library covers federal and state law only (SOP rule 3 flags local law withou
    - `citations-local-CO.csv`, and one decision log for the state with a section per place.
    - `topics-CO.csv`: subjects from the state step, with search terms and a known-positive for each.
 3. Queue built from the Census place and county lists, ordered by renter-occupied housing units (Census ACS; order only, never whether a place is checked), and checked against Colorado's official local-government list. Statuses: `NOT_STARTED`, `CHECKING`, `NO_RULES_FOUND`, `HAS_RULES`, `RESEARCHED`, `COULD_NOT_CHECK`.
-4. Corpora in `~/local-corpus-build/CO/<place>/` (resumable; one worker, pauses, back-off; never work around a block; read blocked sites through Taylor's Chrome one page at a time, checking the publisher's terms first).
+4. Corpora in `~/local-corpus-build/CO/<place>/` (resumable; one worker, pauses, back-off; never work around a block; read blocked sites through Taylor's Chrome one page at a time).
 
 ## Phase 2: Colorado state step
 Use the `topic_key`s and Colorado's verified rows to sort every topic: local rules barred, limited, or allowed. Read the controlling statutes and the home-rule provision (Colo. Const. art. XX) from official text. List which kinds of body can make rental rules (cities, towns, counties, Denver and Broomfield as city-counties, health departments, others found). A subject stays in the search unless it is clearly barred.
@@ -29,7 +48,7 @@ For Denver, Boulder and Frederick, with Boulder and Weld Counties:
 1. **Check:** search the whole code and recent uncodified ordinances; read hits; record the result.
 2. **Blind full pass:** a fresh agent answers every topic for the place without seeing the check's findings.
 3. Compare. Every rule only the full pass found is a miss: fix the search terms and rerun. Drop the check for full research if misses can't be fixed.
-4. Draft rows for real rules, marked as adding to or replacing the state row. Independent check by a fresh agent (at most 3 rounds, rule 80), then a spot-check of about five high-stakes rules per place.
+4. Draft rows for real rules, each adding to the state row (never replacing it; REPLACES dropped 2026-11-25). Independent check by a fresh agent (at most 3 rounds, rule 80), then a spot-check of about five high-stakes rules per place.
 5. Report to Taylor: misses, usage and time per place, a projected length for Colorado and the country. **Stop for Taylor's go-ahead.**
 
 ## Phase 4: Rest of Colorado
@@ -66,3 +85,15 @@ New: `docs/local-law.md`, `lease-clause-library/local/*`, `scripts/clause-librar
 - `check-local.py`: every queue row has a valid status; `HAS_RULES`/`RESEARCHED` rows have citations; `NO_RULES_FOUND` rows record code version, date and searches with known-positives passing; topic keys and groups are valid.
 - All existing sync guards still pass, `generate.py` output is unchanged, backend tests pass.
 - Pilot comparison shows zero unexplained misses before Phase 4.
+
+## Procedure (Phase 1; applies with the SOP)
+Reuses the SOP: official text only (rule 11), no summaries as VERIFIED (12), saved sources and quote checks (14), search as proof with limits stated (19), three-bucket test, rule 56 tags, independent check (80). Differences:
+1. **Sources:** the place's own website first, then its publisher. Site terms of use are not looked up and don't stop the work; Taylor accepts that risk (Taylor, 2026-11-24). Where a publisher blocks Claude Code, Taylor downloads the code and it is read from the file. Rows are written in our own words with citations. A block, CAPTCHA or bot refusal is logged and not worked around (no changed user agent, no API or data endpoint, no mirror). Keep "refuses the shell" and "refuses Chrome" separate in the log.
+2. **Corpus:** every file is checked for extractable text. A file under 20 words is scanned: OCR it, mark the hits as OCR, and read the page image before quoting it. A file that can't be read makes the place `COULD_NOT_CHECK`, never `NO_RULES_FOUND`. A link that 404s is recorded the same way. (Boulder County, 2026-11-24: six scanned ordinances, including short-term rental licensing, would have shown as no hits.)
+3. **Search:** every subject in `subjects-CO.csv` over the whole corpus, with the nonsense control ("zzqqxx" = 0). A place also needs a known positive found in its own text, since the CSV's positive only tests the pattern. Read every hit in a rental context.
+4. **Scope per place:** codes, charter, uncodified ordinances since the code's date, building and housing code adoptions (with local amendments), land use code, and health-department rules. Record the code's currency date.
+5. **Rows:** `jurisdiction` is the GEOID; `relation` is ADDS (REPLACES was dropped 2026-11-25; the one REPLACES row is changed next local day); `parent_row` is the state row. A place row never edits a state row (SOP rule 3).
+6. **Overlap:** county rules usually cover unincorporated land only; record each rule's territory. A city's record lists every county and district it overlaps.
+
+- **A code download is never enough by itself (2026-11-25, Denver):** check its "current through" date, then list the council's later ordinances and the earlier ones with delayed effective dates (compare bill numbers with the code's ordinance notes). Denver's newest landlord rule (§ 27-50.5) was in neither the download nor the blind pass.
+- Read amending bills on the page image: text extraction loses strikeouts. A matching quote doesn't show a reading is right; read the whole section before calling a YES row a rule.
