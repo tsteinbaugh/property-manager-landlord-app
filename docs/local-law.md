@@ -19,7 +19,7 @@ The library covers federal and state law only (SOP rule 3 flags local law withou
 ## How local rows show (Taylor, 2026-11-25 night)
 - **Layered, never hidden.** State and federal rows stay exactly as vetted: never reworded and never hidden, for anyone. Local rows show only for a property inside that place, in their own section headed with where they apply. Landlords elsewhere never see them.
 - **Local rows only add.** "REPLACES" is dropped. A local lease clause is an extra clause, never an edit to a state clause. A local Required clause holds the PDF for properties in that place, as state Required clauses do.
-- **Exception flag.** Where a local rule makes a state sentence untrue, the app shows a fixed note on the state row, for that place's properties only. It begins "Exception due to local ordinance", then names the place, the sentence affected and the local section, and points to the local row.
+- **Exception flag.** Where a local rule makes a state sentence untrue, the app shows a fixed note on the state row, for that place's properties only. It begins "Exception due to local rule" (Taylor's wording, used everywhere), then names the place, the sentence affected and the local section, and points to the local row.
   - A flag may mark only a sentence that states silence ("state law does not require X").
   - It may never mark a requirement, prohibition, deadline or penalty; a guard enforces this. So a local rule can make a state rule stricter but can never switch off a state duty.
   - Where a place allows what the state forbids, the local row says the state rule still controls.
