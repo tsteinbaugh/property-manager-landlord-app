@@ -255,3 +255,17 @@ Read by me against the code text, with a second official source where one exists
   - The town's website has no detail on these rules beyond general code enforcement, so the code is the only official source.
 
 Result: 14 rules checked, one phrase removed (Denver), no misstatement found.
+
+## Jefferson County: first read (2026-11-25, 9 PM; Phase 4 begins)
+- **Corpus:** saved from jeffco.us by the shell, in `~/local-corpus-build/CO/jefferson-county/`:
+  - 88 Zoning Resolution and Land Development Regulation section PDFs.
+  - 29 Policy Manual Part 3 regulations and ordinances.
+  - One "Reserved" section is legitimately under 20 words; nothing else is scanned.
+- **Search:** every subject searched; control 0; the own-text positive (STR licensing) found.
+- **Read:**
+  - Solid fuel policy, whole. Part C bars renting a building whose sole heat is a woodstove or fireplace (owner liable; $100/$200/$300). Row drafted: edu-solid-fuel-heat-jefferson-county.
+  - Building code policy (CC26-095, effective June 30, 2026): construction codes only, no IPMC, so no county rental upkeep standard.
+  - Distressed real property ordinance: vacant property only, so not a leasing rule.
+  - Vacation rental services ordinance: about platforms listing STRs.
+- **Exceptions:** the 7,000-foot, permit and Phase III exceptions (B.3 to B.5) read as written for the high-pollution-day ban. The row treats the rental rule as applying regardless.
+- **Not yet:** zoning hits, including STR section 46 and the mobile home park district; Jefferson County Public Health rules (septic); the independent check.
