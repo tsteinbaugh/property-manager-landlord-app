@@ -327,3 +327,9 @@ Result: 14 rules checked, one phrase removed (Denver), no misstatement found.
   - Landlord/tenant lines read: only Ordinance 15 binds tenants. Its definition of the responsible person includes "any lessee, occupant, manager or person in control". Ordinance 15 isn't read whole yet.
   - Most hits are in the Nov. 2026 LDC update packet (short-term rental, rental licensing). Whether that update was adopted decides which LDC is current.
 - **Mesa Ordinance 15 (rubbish):** read whole. Row drafted: edu-rubbish-mesa-county, unchecked. It covers the unincorporated area only, and its "owner" includes the lessee and occupant.
+- **Mesa infestation row, round 1 (fresh agent):** applied after reading the statutes myself:
+  - Area: excludes a city with its own health agency (25-1-506(2)(a)(I)).
+  - 4.06 scope.
+  - Lease-term waiver void (503(10)); the 506 single-family route; tenant misconduct (503(9)) with its domestic-violence exception; the bed bug cost split (1004(4)); tenant duties (504(1)).
+  - The penalty: a class 2 misdemeanor (25-1-516). The cite is 518(3), not "quoting".
+  - Not added: 25-1-518(4) (24-hour order, $100).
