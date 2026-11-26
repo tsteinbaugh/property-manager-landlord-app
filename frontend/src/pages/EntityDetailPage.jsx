@@ -3,6 +3,12 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useApi } from "../hooks/useApi";
 import BackLink from "../components/BackLink";
 import { formatDay } from "../lib/dates";
+import FactQuestionsCard from "../components/FactQuestions";
+
+// Shown beside the field, since most small landlords won't know the term
+// (Taylor, 2026-11-26).
+const REGISTERED_AGENT_HELP =
+  "The person or company your LLC (or other business) has named to receive lawsuits and official government mail for it. Most states require every LLC to have one, with an address in that state. It can be you, someone you trust, or a paid registered-agent service.";
 
 const ENTITY_TYPES = [
   { value: "LLC", label: "LLC" },
@@ -18,6 +24,7 @@ const EDITABLE_FIELDS = [
   "stateOfFormation",
   "ein",
   "registeredAgent",
+  "registeredAgentAddress",
   "bankAccount",
   "formationDate",
   "annualReportDueDate",
@@ -51,15 +58,18 @@ export default function EntityDetailPage() {
   const [form, setForm] = useState({});
   const [nameForm, setNameForm] = useState({ legalName: "", entityType: "LLC" });
   const [submitting, setSubmitting] = useState(false);
+  const [ownerFacts, setOwnerFacts] = useState(null);
 
   async function load() {
     setLoading(true);
     try {
-      const [entityData, propertyData] = await Promise.all([
+      const [entityData, propertyData, factData] = await Promise.all([
         api.get(`/api/entities/${id}`),
         api.get(`/api/properties?entityId=${id}`),
+        api.get(`/api/entities/${id}/facts`),
       ]);
       setEntity(entityData);
+      setOwnerFacts(factData);
       setProperties(propertyData);
       setForm(emptyForm(entityData));
       setNameForm({ legalName: entityData.legalName, entityType: entityData.entityType });
@@ -109,7 +119,8 @@ export default function EntityDetailPage() {
   }
 
   if (loading) return <p className="text-sm text-stone-500">Loading...</p>;
-  if (!entity) return <p className="text-sm text-red-700">{error || "Entity not found."}</p>;
+  const isPerson = entity?.entityType === "PERSONAL";
+  if (!entity) return <p className="text-sm text-red-700">{error || "Owner not found."}</p>;
 
   return (
     <div className="space-y-6">
@@ -175,7 +186,7 @@ export default function EntityDetailPage() {
                   />
                 </label>
                 <label className="block text-sm">
-                  <span className="mb-1 block font-medium text-stone-700">Entity type *</span>
+                  <span className="mb-1 block font-medium text-stone-700">Owner type *</span>
                   <select
                     required
                     value={nameForm.entityType}
@@ -244,14 +255,31 @@ export default function EntityDetailPage() {
                     className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
                   />
                 </label>
-                <label className="block text-sm">
-                  <span className="mb-1 block font-medium text-stone-700">Registered agent</span>
-                  <input
-                    value={form.registeredAgent}
-                    onChange={(e) => setForm({ ...form, registeredAgent: e.target.value })}
-                    className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
-                  />
-                </label>
+{!isPerson && (
+                  <div className="space-y-2 rounded-lg border border-stone-200 bg-stone-50 p-3 sm:col-span-2">
+                    <p className="text-sm font-medium text-stone-700">Registered agent</p>
+                    <p className="text-xs text-stone-500">{REGISTERED_AGENT_HELP}</p>
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                      <label className="block text-sm">
+                        <span className="mb-1 block text-stone-700">Name</span>
+                        <input
+                          value={form.registeredAgent}
+                          onChange={(e) => setForm({ ...form, registeredAgent: e.target.value })}
+                          className="w-full rounded-lg border border-stone-300 bg-white px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
+                        />
+                      </label>
+                      <label className="block text-sm">
+                        <span className="mb-1 block text-stone-700">Address</span>
+                        <input
+                          value={form.registeredAgentAddress}
+                          onChange={(e) => setForm({ ...form, registeredAgentAddress: e.target.value })}
+                          className="w-full rounded-lg border border-stone-300 bg-white px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
+                          placeholder="Street address, city, state, ZIP"
+                        />
+                      </label>
+                    </div>
+                  </div>
+                )}
                 <label className="block text-sm">
                   <span className="mb-1 block font-medium text-stone-700">Bank account</span>
                   <input
@@ -309,7 +337,12 @@ export default function EntityDetailPage() {
             <DetailRow label="Mailing address" value={entity.mailingAddress} />
             <DetailRow label="State of formation" value={entity.stateOfFormation} />
             <DetailRow label="EIN" value={entity.ein} />
-            <DetailRow label="Registered agent" value={entity.registeredAgent} />
+            {!isPerson && (
+              <DetailRow
+                label="Registered agent"
+                value={[entity.registeredAgent, entity.registeredAgentAddress].filter(Boolean).join(", ")}
+              />
+            )}
             <DetailRow label="Bank account" value={entity.bankAccount} />
             <DetailRow
               label="Formation date"
@@ -319,11 +352,30 @@ export default function EntityDetailPage() {
         )}
       </div>
 
+      {ownerFacts && (
+        <FactQuestionsCard
+          title={isPerson ? "Where this owner lives" : "Principal office"}
+          intro={
+            isPerson
+              ? "Where this person lives, which can differ from the mailing address. Some states' leases depend on whether the owner lives in the same state, or on the same island, as the rental."
+              : "Where this business is actually run from, which can differ from its mailing address (a PO box, for example). Some states' leases depend on whether the owner is in the same state, or on the same island, as the rental."
+          }
+          target="owner"
+          ownerKind={isPerson ? "person" : "business"}
+          states={ownerFacts.propertyStates}
+          answers={ownerFacts.facts}
+          onSave={async (facts) => {
+            const updated = await api.put(`/api/entities/${id}/facts`, { facts });
+            setOwnerFacts({ ...ownerFacts, facts: updated.facts });
+          }}
+        />
+      )}
+
       <div className="space-y-3">
         <h2 className="text-lg font-medium text-stone-900">Properties</h2>
         {properties.length === 0 ? (
           <p className="rounded-xl border border-dashed border-stone-300 bg-white p-6 text-sm text-stone-500">
-            No properties assigned to this entity yet.{" "}
+            No properties assigned to this owner yet.{" "}
             <Link to="/properties" className="text-emerald-700 hover:underline">
               Add one
             </Link>

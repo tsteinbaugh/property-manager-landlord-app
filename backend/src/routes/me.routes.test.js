@@ -108,15 +108,14 @@ describe("me routes", () => {
       expect(res.body).toEqual({ facts: {}, propertyStates: ["HI"] });
     });
 
-    it("saves the primary residence, including the island for Hawaii", async () => {
-      const res = await request(app)
-        .put("/api/me/facts")
-        .send({ facts: { residenceAddress: "12 Ocean Rd, Hilo, HI", residenceState: "HI", residenceIsland: "Hawaiʻi" } });
+    it("saves answers about the user, and no longer takes where the owner lives", async () => {
+      const res = await request(app).put("/api/me/facts").send({ facts: { offersTenantPortal: true } });
       expect(res.status).toBe(200);
-      expect(res.body.facts.residenceIsland).toBe("Hawaiʻi");
+      expect(res.body.facts.offersTenantPortal).toBe(true);
 
-      const bad = await request(app).put("/api/me/facts").send({ facts: { residenceState: "ZZ" } });
-      expect(bad.status).toBe(400);
+      // Where an owner lives is on the owner (an LLC doesn't live anywhere).
+      const moved = await request(app).put("/api/me/facts").send({ facts: { residenceState: "HI" } });
+      expect(moved.status).toBe(400);
     });
   });
 });

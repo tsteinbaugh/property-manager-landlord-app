@@ -20,10 +20,11 @@
 // use only these):
 //   property.<question id>   an answer from the property's Lease questions (factCatalog.js)
 //   lease.<question id>      an answer from the lease's Lease questions
-//   account.<question id>    an answer on Your account
+//   account.<question id>    an answer on Your account (about the user personally)
+//   owner.<question id>      an answer on the property's owner (its Entity)
 //   plus the derived facts in DERIVED.
 
-const { CATALOG, UTILITY_KINDS } = require("./factCatalog");
+const { CATALOG, UTILITY_KINDS, ownerKindOf } = require("./factCatalog");
 
 const UNKNOWN = "unknown";
 const DAY_MS = 24 * 60 * 60 * 1000;
@@ -60,6 +61,16 @@ function utilityWhoPays(property, kind) {
 }
 
 // Derived facts: computed from stored records rather than asked.
+// Where the property's owner is: a person's home, a business's principal office.
+function ownerLocation(property) {
+  const entity = property?.entity;
+  const f = entity?.facts || {};
+  const kind = ownerKindOf(entity);
+  if (kind === "person") return { state: f.homeState || null, island: f.homeIsland || null };
+  if (kind === "business") return { state: f.officeState || null, island: f.officeIsland || null };
+  return { state: null, island: null };
+}
+
 const DERIVED = {
   "property.state": ({ property }) => property?.state ?? null,
   "property.yearBuilt": ({ property }) => property?.yearBuilt ?? null,
@@ -144,14 +155,24 @@ const DERIVED = {
   "landlord.propertyCount": ({ landlord }) => landlord?.propertyCount ?? null,
   // How many of them are in this property's state.
   "landlord.propertyCountInState": ({ landlord, property }) => landlord?.propertyCountByState?.[property?.state] ?? null,
-  "landlord.livesInPropertyState": ({ property, account }) =>
-    account?.residenceState ? account.residenceState === property?.state : null,
-  "landlord.sameIsland": ({ property, account }) => {
-    if (!account?.residenceState) return null;
-    if (account.residenceState !== "HI" || property?.state !== "HI") return false;
-    const island = property?.facts?.island;
-    if (!account.residenceIsland || !island) return null;
-    return account.residenceIsland === island;
+  // Whether the property's owner is in the property's state: where a person
+  // owner lives, or a business owner's principal office (Taylor, 2026-11-26:
+  // only a person lives somewhere). Read by Virginia's rule, which covers only
+  // individual owners.
+  "landlord.livesInPropertyState": ({ property }) => {
+    const { state } = ownerLocation(property);
+    return state ? state === property?.state : null;
+  },
+  // Hawaii (HRS § 521-43(f)): an owner who "resides" on the property's island.
+  // For a business, "resides" is undefined; its principal office is used, and
+  // a blank one counts as not answered (the clause is then included).
+  "landlord.sameIsland": ({ property }) => {
+    const { state, island } = ownerLocation(property);
+    if (!state) return null;
+    if (state !== "HI" || property?.state !== "HI") return false;
+    const propertyIsland = property?.facts?.island;
+    if (!island || !propertyIsland) return null;
+    return island === propertyIsland;
   },
   "lease.depositTaken": ({ lease }) => {
     if (lease?.securityDepositTaken === true || lease?.securityDepositTaken === false) return lease.securityDepositTaken;
@@ -196,14 +217,14 @@ const DERIVED = {
   today: ({ today }) => iso(today || new Date()),
 };
 
-const TARGET_SOURCE = { property: "property", lease: "lease", account: "account" };
+const TARGET_SOURCE = { property: "property", lease: "lease", account: "account", owner: "owner" };
 
 function resolve(path, ctx) {
   if (DERIVED[path]) return DERIVED[path](ctx);
   const [target, id] = path.split(".");
   if (!TARGET_SOURCE[target] || !CATALOG[target].some((q) => q.id === id)) throw new Error(`Unknown fact: ${path}`);
   if (target === "account") return ctx.account?.[id] ?? null;
-  const facts = ctx[target]?.facts || {};
+  const facts = (target === "owner" ? ctx.property?.entity?.facts : ctx[target]?.facts) || {};
   const v = facts[id];
   const q = CATALOG[target].find((x) => x.id === id);
   // An unticked checkbox reads as its default, except when deciding whether to
@@ -263,7 +284,7 @@ function factsIn(cond) {
 
 const FACT_PATHS = [
   ...Object.keys(DERIVED),
-  ...["property", "lease", "account"].flatMap((t) => CATALOG[t].map((q) => `${t}.${q.id}`)),
+  ...["property", "lease", "account", "owner"].flatMap((t) => CATALOG[t].map((q) => `${t}.${q.id}`)),
 ];
 
 module.exports = {

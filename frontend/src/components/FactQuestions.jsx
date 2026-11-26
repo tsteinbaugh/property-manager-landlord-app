@@ -4,7 +4,7 @@ import { formatDay } from "../lib/dates";
 import { JURISDICTION_NAMES as STATE_NAMES } from "../lib/jurisdictions";
 
 // The applicability questions (backend/src/lib/factCatalog.js) for one record:
-// a property, a lease or the landlord's account. Mirrors the backend's
+// a property, a lease, a property's owner or the landlord's account. Mirrors the backend's
 // visibility rules.
 
 let catalogPromise = null;
@@ -22,8 +22,11 @@ export function useFactCatalog() {
   return catalog;
 }
 
-export function isVisible(question, states, answers) {
+// ownerKind: "person" or "business", for an owner's questions (a question with
+// `kind` fits only one of them: only a person lives somewhere).
+export function isVisible(question, states, answers, ownerKind = null) {
   if (question.builderOnly || question.ownSection) return false;
+  if (question.kind && question.kind !== ownerKind) return false;
   if (question.states && !question.states.some((s) => states.includes(s))) return false;
   if (question.showIf) {
     if (question.showIf.isSet) {
@@ -256,7 +259,7 @@ export function displayValue(q, value, catalog) {
 // fromSpecs: answers Property Specs supply when the landlord hasn't answered
 // (carpet flooring answers "Does the rental have carpet?"), shown but not saved.
 // places: show only the questions that live in these page sections (factCatalog.js `place`).
-export default function FactQuestionsCard({ title, target, states, answers, onSave, disabled, intro, fromSpecs = {}, places = null }) {
+export default function FactQuestionsCard({ title, target, states, answers, onSave, disabled, intro, fromSpecs = {}, places = null, ownerKind = null }) {
   const catalog = useFactCatalog();
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState(answers || {});
@@ -271,7 +274,7 @@ export default function FactQuestionsCard({ title, target, states, answers, onSa
 
   const source = editing ? draft : answers || {};
   const inPlace = (q) => !places || places.includes(q.place);
-  const questions = catalog.questions[target].filter((q) => inPlace(q) && isVisible(q, states, source));
+  const questions = catalog.questions[target].filter((q) => inPlace(q) && isVisible(q, states, source, ownerKind));
   const sections = [...new Set(questions.map((q) => q.section))];
 
   function valueOf(q) {

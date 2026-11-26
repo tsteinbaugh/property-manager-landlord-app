@@ -82,4 +82,22 @@ describe("clauseVariables", () => {
     expect(buildVariableContext({ ...base, lease, entity }).landlord_notice_address).toBe("PO Box 9, Boulder, CO 80301");
     expect(buildVariableContext({ ...base, entity: {} }).landlord_notice_address).toBe(null);
   });
+
+  it("names a business owner's registered agent as its agent for service, only with an address in the property's state", () => {
+    const llc = { entityType: "LLC", legalName: "Acme LLC", registeredAgent: "Agents Inc.", registeredAgentAddress: "1 Main St, Reno, NV 89501" };
+    const nv = { ...base, property: { state: "NV", facts: {} }, entity: llc };
+    expect(buildVariableContext(nv).owner_agent_name).toBe("Agents Inc.");
+    expect(buildVariableContext(nv).owner_agent_address).toBe("1 Main St, Reno, NV 89501");
+    // Not Virginia's agent: that clause covers only individual owners.
+    expect(buildVariableContext({ ...nv, property: { state: "VA", facts: {} } }).va_resident_agent_name ?? null).toBe(null);
+    // An agent elsewhere (or on a street named for the state) isn't in the state.
+    expect(buildVariableContext({ ...nv, property: { state: "CA", facts: {} } }).owner_agent_name ?? null).toBe(null);
+    const street = { ...llc, registeredAgentAddress: "9 California St, Reno, NV 89501" };
+    expect(buildVariableContext({ ...nv, property: { state: "CA", facts: {} }, entity: street }).owner_agent_name ?? null).toBe(null);
+    // A person owner has no registered agent; the property's own agent comes first.
+    expect(buildVariableContext({ ...nv, entity: { ...llc, entityType: "PERSONAL" } }).owner_agent_name ?? null).toBe(null);
+    const own = { ...nv, property: { state: "NV", facts: { serviceAgentName: "Pat Lee", serviceAgentAddress: "2 B St, Reno, NV" } } };
+    expect(buildVariableContext(own).owner_agent_name).toBe("Pat Lee");
+    expect(buildVariableContext(own).owner_agent_address).toBe("2 B St, Reno, NV");
+  });
 });

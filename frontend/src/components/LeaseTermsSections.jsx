@@ -211,7 +211,7 @@ export function NoticesSection({ lease, onSaved }) {
                 </>
               ) : (
                 <p className="text-amber-700">
-                  {entity?.legalName || "The owning entity"} has no mailing address yet. Add one on the entity's page, or enter an
+                  {entity?.legalName || "The owner"} has no mailing address yet. Add one on the owner's page, or enter an
                   address for this lease.
                 </p>
               )}
@@ -229,7 +229,7 @@ export function NoticesSection({ lease, onSaved }) {
               </button>
               {own && (
                 <button type="button" disabled={saving} onClick={() => save(null)} className="text-xs text-stone-500 hover:underline">
-                  Use the entity's address instead
+                  Use the owner's address instead
                 </button>
               )}
             </div>

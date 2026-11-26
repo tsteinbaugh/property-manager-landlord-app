@@ -2,6 +2,7 @@ const express = require("express");
 const prisma = require("../lib/prisma");
 const { pickFields } = require("../lib/pickFields");
 const { encrypt, decrypt } = require("../lib/crypto");
+const { validateFacts, mergeFacts } = require("../lib/factCatalog");
 
 const FIELDS = [
   "legalName",
@@ -12,6 +13,7 @@ const FIELDS = [
   "stateOfFormation",
   "ein",
   "registeredAgent",
+  "registeredAgentAddress",
   "formationDate",
   "annualReportDueDate",
   "bankAccount",
@@ -57,23 +59,42 @@ router.get("/:id", async (req, res) => {
   const entity = await prisma.entity.findUnique({ where: { id: req.params.id } });
 
   if (!entity || entity.userId !== req.currentUser.id) {
-    return res.status(404).json({ error: "Entity not found" });
+    return res.status(404).json({ error: "Owner not found" });
   }
 
   res.json(serialize(entity));
 });
 
+// The owner's applicability answers (where a person owner lives, a business
+// owner's principal office, unit counts; factCatalog.js OWNER) and the states
+// its properties are in, which decide which owner questions show.
+router.get("/:id/facts", async (req, res) => {
+  const entity = await prisma.entity.findUnique({ where: { id: req.params.id } });
+  if (!entity || entity.userId !== req.currentUser.id) return res.status(404).json({ error: "Owner not found" });
+  const properties = await prisma.property.findMany({ where: { entityId: entity.id, archived: false }, select: { state: true } });
+  res.json({ facts: entity.facts || {}, propertyStates: [...new Set(properties.map((p) => p.state))] });
+});
+
+router.put("/:id/facts", async (req, res) => {
+  const entity = await prisma.entity.findUnique({ where: { id: req.params.id } });
+  if (!entity || entity.userId !== req.currentUser.id) return res.status(404).json({ error: "Owner not found" });
+  const { facts, error } = validateFacts("owner", req.body?.facts);
+  if (error) return res.status(400).json({ error });
+  const updated = await prisma.entity.update({ where: { id: entity.id }, data: { facts: mergeFacts(entity.facts, facts) } });
+  res.json({ facts: updated.facts });
+});
+
 router.put("/:id", async (req, res) => {
   const existing = await prisma.entity.findUnique({ where: { id: req.params.id } });
   if (!existing || existing.userId !== req.currentUser.id) {
-    return res.status(404).json({ error: "Entity not found" });
+    return res.status(404).json({ error: "Owner not found" });
   }
 
   if (existing.isDefault) {
     const lockedFieldSent = LOCKED_FIELDS_ON_DEFAULT.some((field) => req.body[field] !== undefined);
     if (lockedFieldSent) {
       return res.status(400).json({
-        error: "Your default Self / Personal entity's name and type follow your account name and can't be changed directly. Other details, like contact info, can still be edited.",
+        error: "Your default Self / Personal owner's name and type follow your account name and can't be changed directly. Other details, like contact info, can still be edited.",
       });
     }
   }
@@ -96,16 +117,16 @@ router.put("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   const existing = await prisma.entity.findUnique({ where: { id: req.params.id } });
   if (!existing || existing.userId !== req.currentUser.id) {
-    return res.status(404).json({ error: "Entity not found" });
+    return res.status(404).json({ error: "Owner not found" });
   }
 
   if (existing.isDefault) {
-    return res.status(400).json({ error: "Your default Self / Personal entity can't be deleted." });
+    return res.status(400).json({ error: "Your default Self / Personal owner can't be deleted." });
   }
 
   const propertyCount = await prisma.property.count({ where: { entityId: req.params.id } });
   if (propertyCount > 0) {
-    return res.status(400).json({ error: "Cannot delete an entity that still owns properties" });
+    return res.status(400).json({ error: "Cannot delete an owner that still owns properties" });
   }
 
   await prisma.entity.delete({ where: { id: req.params.id } });

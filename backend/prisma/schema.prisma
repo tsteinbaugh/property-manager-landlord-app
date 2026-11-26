@@ -58,7 +58,13 @@ model Entity {
   mailingAddress      String?
   stateOfFormation    String?
   ein                 String? // encrypted at rest at the app layer
-  registeredAgent     String?
+  // The registered agent's name (a person or a registered-agent service) and
+  // address: who accepts lawsuits and official mail for a business owner.
+  registeredAgent        String?
+  registeredAgentAddress String?
+  // Owner-level applicability answers (factCatalog.js OWNER): where a person
+  // owner lives, or a business owner's principal office, and unit counts.
+  facts               Json       @default("{}")
   formationDate       DateTime?
   annualReportDueDate DateTime? // reminder fires 60 days before this date
   bankAccount         String? // which account rent flows into

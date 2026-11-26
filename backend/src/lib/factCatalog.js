@@ -466,19 +466,13 @@ const LEASE = [
   {"id": "contractForDeedCancellation", "section": "This lease", "type": "yesno", "label": "Have you received a notice cancelling the contract for deed you bought this property under?", "help": "Only matters if you are buying the property on a contract for deed.", "states": ["MN"]},
 ];
 
-// Account questions show when any of the landlord's properties is in `states`.
+const HAWAII_ISLANDS = ["Hawaiʻi", "Maui", "Oʻahu", "Kauaʻi", "Molokaʻi", "Lānaʻi", "Niʻihau"].map((v) => ({ value: v, label: v }));
+
+// Account questions are about the user personally (not about a property's
+// owner, which can be an LLC); they show when any of the user's properties is
+// in `states`.
 const ACCOUNT = [
-  { id: "residenceAddress", section: "Your primary residence", type: "text", label: "Primary residence address" },
-  { id: "residenceState", section: "Your primary residence", type: "state", label: "State or territory" },
-  {
-    id: "residenceIsland",
-    section: "Your primary residence",
-    type: "pickOne",
-    label: "Island",
-    options: ["Hawaiʻi", "Maui", "Oʻahu", "Kauaʻi", "Molokaʻi", "Lānaʻi", "Niʻihau"].map((v) => ({ value: v, label: v })),
-    showIf: { id: "residenceState", in: ["HI"] },
-  },
-  { id: "landlordLicensed", section: "Your primary residence", type: "yesno", label: "Do you hold a real estate license?", states: ["IL", "IN", "OK", "SC", "WI", "LA"] },
+  { id: "landlordLicensed", section: "About you", type: "yesno", label: "Do you hold a real estate license?", states: ["IL", "IN", "OK", "SC", "WI", "LA"] },
   {
     id: "offersTenantPortal",
     section: "How you run your rentals",
@@ -486,11 +480,65 @@ const ACCOUNT = [
     label: "Do you offer tenants an online portal?",
     help: "A website or app where tenants pay rent, send repair requests or get notices, such as TurboTenant, Avail, Zillow Rental Manager, Buildium or AppFolio.",
   },
-  // Added with the second rule batch (2026-11-22).
-  {"id": "moreThanTenRentalUnits", "section": "Your primary residence", "type": "yesno", "label": "Counting rental units owned by you, your spouse and your minor children, do you own more than 10 rental units?", "help": "Count every rental unit, including ones not entered in this app.", "states": ["GA"], "builderOnly": true},
-  {"id": "isCollegeOrUniversity", "section": "Your primary residence", "type": "yesno", "label": "Are you a college or university renting housing to your own students?", "states": ["OH"], "builderOnly": true},
-  {"id": "ownsSixPlusUnitsMD", "section": "Your primary residence", "type": "yesno", "label": "Do you own six or more residential rental units in Maryland?", "help": "Count every unit you own in Maryland, including any not set up in Steinoak.", "states": ["MD"], "builderOnly": true},
+  {"id": "isCollegeOrUniversity", "section": "About you", "type": "yesno", "label": "Are you a college or university renting housing to your own students?", "states": ["OH"], "builderOnly": true},
 ];
+
+// Owner questions are about the property's owner (an Entity: the landlord
+// personally, or an LLC or other business), saved on the owner (Taylor,
+// 2026-11-26). `kind` limits a question to a person owner (PERSONAL) or a
+// business owner (every other entity type): only a person lives somewhere; a
+// business has a principal office. They show when any of the owner's
+// properties is in `states`. "this owner" in a label is replaced with the
+// owner's name in the lease builder.
+const OWNER = [
+  {
+    id: "homeAddress",
+    section: "Where this owner lives",
+    kind: "person",
+    type: "text",
+    label: "Home address",
+    help: "Where this person lives. Some states' leases depend on whether the owner lives in the same state, or on the same island, as the rental.",
+  },
+  { id: "homeState", section: "Where this owner lives", kind: "person", type: "state", label: "State or territory where this owner lives" },
+  {
+    id: "homeIsland",
+    section: "Where this owner lives",
+    kind: "person",
+    type: "pickOne",
+    label: "Island where this owner lives",
+    options: HAWAII_ISLANDS,
+    showIf: { id: "homeState", in: ["HI"] },
+  },
+  {
+    id: "officeAddress",
+    section: "Principal office",
+    kind: "business",
+    type: "text",
+    label: "Principal office address",
+    help: "Where the business is actually run from, which can differ from its mailing address (a PO box, for example). Some states' leases depend on whether the owner is in the same state, or on the same island, as the rental.",
+  },
+  { id: "officeState", section: "Principal office", kind: "business", type: "state", label: "State or territory of this owner's principal office" },
+  {
+    id: "officeIsland",
+    section: "Principal office",
+    kind: "business",
+    type: "pickOne",
+    label: "Island of this owner's principal office",
+    options: HAWAII_ISLANDS,
+    showIf: { id: "officeState", in: ["HI"] },
+  },
+  {"id": "moreThanTenRentalUnits", "section": "Rentals this owner has", "kind": "person", "type": "yesno", "label": "Counting rental units owned by this owner, their spouse and their minor children, do they own more than 10 rental units?", "help": "Count every rental unit, including ones not entered in this app.", "states": ["GA"], "builderOnly": true},
+  {"id": "ownsSixPlusUnitsMD", "section": "Rentals this owner has", "type": "yesno", "label": "Does this owner own six or more residential rental units in Maryland?", "help": "Count every unit this owner has in Maryland, including any not set up in Steinoak.", "states": ["MD"], "builderOnly": true},
+];
+
+// Whether an owner question fits this owner: a person or a business.
+function ownerKindOf(entity) {
+  if (!entity?.entityType) return null;
+  return entity.entityType === "PERSONAL" ? "person" : "business";
+}
+function fitsOwner(question, entity) {
+  return !question.kind || question.kind === ownerKindOf(entity);
+}
 
 const UTILITY_KINDS = [
   { value: "electric", label: "Electric" },
@@ -538,7 +586,8 @@ const STATE_CODES = [
 // "<page>.<section>": property.address, property.structural,
 // property.parking, property.utilities, property.legal, property.manager,
 // property.disclosures, specs.furnishings, specs.flooring, lease.details,
-// lease.firstMonth, lease.notices, lease.rentPayment, account.residence, account.rentals.
+// lease.firstMonth, lease.notices, lease.rentPayment, account.about, account.rentals,
+// owner.location, owner.rentals.
 const PLACE_BY_SECTION = {
   "The building": "property.structural",
   Association: "property.legal",
@@ -549,8 +598,11 @@ const PLACE_BY_SECTION = {
   "Property manager": "property.manager",
   Utilities: "property.utilities",
   "This lease": "lease.details",
-  "Your primary residence": "account.residence",
+  "About you": "account.about",
   "How you run your rentals": "account.rentals",
+  "Where this owner lives": "owner.location",
+  "Principal office": "owner.location",
+  "Rentals this owner has": "owner.rentals",
 };
 const PLACE_BY_ID = {
   county: "property.address",
@@ -575,7 +627,7 @@ const PLACE_BY_ID = {
 // Fields that only fill clause variables (clauseFields.js) bring their own place.
 PROPERTY.push(...PROPERTY_FIELDS);
 LEASE.push(...LEASE_FIELDS);
-for (const list of [PROPERTY, LEASE, ACCOUNT]) {
+for (const list of [PROPERTY, LEASE, ACCOUNT, OWNER]) {
   for (const q of list) q.place ||= PLACE_BY_ID[q.id] || PLACE_BY_SECTION[q.section];
 }
 
@@ -697,9 +749,12 @@ const SHORT_LABELS = {
   prRentSubsidy: "Rent subsidy (older adults or veterans)",
   brokerInvolved: "Broker or agent involved",
   contractForDeedCancellation: "Contract for deed cancellation notice",
-  residenceAddress: "Primary residence",
-  residenceState: "State or territory",
-  residenceIsland: "Island",
+  homeAddress: "Home address",
+  homeState: "Lives in",
+  homeIsland: "Island",
+  officeAddress: "Principal office",
+  officeState: "Principal office state",
+  officeIsland: "Principal office island",
   landlordLicensed: "Real estate license",
   offersTenantPortal: "Online tenant portal",
 };
@@ -711,14 +766,14 @@ const SHOW_ONLY_WHEN_YES = new Set([
   "seasonal", "tenantIsEmployee", "holdingDeposit", "utilityDeposit", "foreclosureUnderway",
   "prRentSubsidy", "brokerInvolved", "contractForDeedCancellation", "pmPermitNV", "mnExemptSetting",
 ]);
-for (const list of [PROPERTY, LEASE, ACCOUNT]) {
+for (const list of [PROPERTY, LEASE, ACCOUNT, OWNER]) {
   for (const q of list) {
     if (SHORT_LABELS[q.id]) q.short = SHORT_LABELS[q.id];
     if (SHOW_ONLY_WHEN_YES.has(q.id) || q.place === "property.disclosures") q.showOnlyWhenYes = true;
   }
 }
 
-const CATALOG = { property: PROPERTY, lease: LEASE, account: ACCOUNT };
+const CATALOG = { property: PROPERTY, lease: LEASE, account: ACCOUNT, owner: OWNER };
 
 // Whether `question` shows for these states and these answers.
 function isVisible(question, states, answers) {
@@ -839,6 +894,8 @@ module.exports = {
   APPLIANCE_TERMS,
   STATE_CODES,
   isVisible,
+  fitsOwner,
+  ownerKindOf,
   unansweredQuestions,
   validateFacts,
   mergeFacts,

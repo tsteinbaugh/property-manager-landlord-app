@@ -15,7 +15,7 @@ describe("factCatalog", () => {
   });
 
   it("gives every question a home on the pages", () => {
-    const places = ["property.address", "property.structural", "property.parking", "property.utilities", "property.legal", "property.manager", "property.disclosures", "specs.furnishings", "specs.flooring", "lease.details", "lease.firstMonth", "lease.notices", "lease.rentPayment", "property.repairs", "property.access", "property.facilities", "lease.fees", "lease.deposit", "lease.noticePeriods", "lease.maintenance", "lease.contacts", "lease.clause", "account.residence", "account.rentals"];
+    const places = ["property.address", "property.structural", "property.parking", "property.utilities", "property.legal", "property.manager", "property.disclosures", "specs.furnishings", "specs.flooring", "lease.details", "lease.firstMonth", "lease.notices", "lease.rentPayment", "property.repairs", "property.access", "property.facilities", "lease.fees", "lease.deposit", "lease.noticePeriods", "lease.maintenance", "lease.contacts", "lease.clause", "account.about", "account.rentals", "owner.location", "owner.rentals"];
     for (const [target, list] of Object.entries(CATALOG)) {
       for (const q of list) expect(places, `${target}.${q.id}`).toContain(q.place);
     }

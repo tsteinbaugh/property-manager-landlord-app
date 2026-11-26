@@ -67,23 +67,23 @@ export default function EntitiesPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl text-stone-900">Entities</h1>
+          <h1 className="text-2xl text-stone-900">Owners</h1>
           <p className="text-sm text-stone-500">The legal owner behind each of your properties.</p>
         </div>
         <button
           onClick={() => setFormOpen(true)}
           className="rounded-lg bg-emerald-700 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-800"
         >
-          Add entity
+          Add owner
         </button>
       </div>
 
       <p className="rounded-xl border border-stone-200 bg-white p-4 text-sm text-stone-600">
-        An entity is who legally owns a property on paper — either an LLC, or just you personally
-        ("Self / Personal"). You were set up with a default Self / Personal entity when you signed up, so
-        you don't need one of these to add a property. If you form an LLC later, add it as a new entity
-        here, then go to that property and reassign it to the LLC — don't try to convert your Self /
-        Personal entity into the LLC, since that would carry over any other properties still using it.
+        An owner is who legally owns a property on paper: you personally, or an LLC or other business
+        that owns a property. You were set up with a default Self / Personal owner (you) when you signed up,
+        so you don't need to add one to add a property. If you form an LLC later, add it here as a new
+        owner, then go to that property and reassign it to the LLC. Don't try to convert your Self /
+        Personal owner into the LLC, since that would carry over any other properties still using it.
       </p>
 
       {error && (
@@ -92,7 +92,7 @@ export default function EntitiesPage() {
 
       {formOpen && (
         <form onSubmit={handleSubmit} className="space-y-4 rounded-xl border border-stone-200 bg-white p-5 shadow-sm">
-          <h2 className="text-lg font-medium text-stone-900">New entity</h2>
+          <h2 className="text-lg font-medium text-stone-900">New owner</h2>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <label className="block text-sm">
@@ -107,7 +107,7 @@ export default function EntitiesPage() {
             </label>
 
             <label className="block text-sm">
-              <span className="mb-1 block font-medium text-stone-700">Entity type *</span>
+              <span className="mb-1 block font-medium text-stone-700">Owner type *</span>
               <select
                 required
                 value={form.entityType}
@@ -124,7 +124,7 @@ export default function EntitiesPage() {
           </div>
 
           <p className="text-xs text-stone-400">
-            You can add contact info, EIN, and other details after creating it, from the entity's page.
+            You can add contact info, EIN, and other details after creating it, from the owner's page.
           </p>
 
           <div className="flex gap-2">
@@ -133,7 +133,7 @@ export default function EntitiesPage() {
               disabled={submitting}
               className="rounded-lg bg-emerald-700 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-800 disabled:opacity-50"
             >
-              {submitting ? "Saving..." : "Create entity"}
+              {submitting ? "Saving..." : "Create owner"}
             </button>
             <button
               type="button"
@@ -150,7 +150,7 @@ export default function EntitiesPage() {
         <p className="text-sm text-stone-500">Loading...</p>
       ) : entities.length === 0 ? (
         <p className="rounded-xl border border-dashed border-stone-300 bg-white p-6 text-sm text-stone-500">
-          No entities yet. Add one to start attaching properties to it.
+          No owners yet. Add one to start attaching properties to it.
         </p>
       ) : (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">

@@ -587,7 +587,7 @@ export default function PropertyDetailPage() {
           <form onSubmit={handleSave} className="mt-4 space-y-4 border-t border-stone-200 pt-4">
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <label className="block text-sm">
-                <span className="mb-1 block font-medium text-stone-700">Entity *</span>
+                <span className="mb-1 block font-medium text-stone-700">Owner *</span>
                 <select
                   required
                   value={form.entityId}

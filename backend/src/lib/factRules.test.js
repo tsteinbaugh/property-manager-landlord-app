@@ -76,10 +76,15 @@ describe("factRules", () => {
       ...extra,
     });
     expect(ruleApplies("security-deposit-escrow-ga", ga())).toBe(true);
-    expect(ruleApplies("security-deposit-escrow-ga", ga({ account: { moreThanTenRentalUnits: false } }))).toBe(false);
-    expect(ruleApplies("security-deposit-escrow-ga", ga({ account: { moreThanTenRentalUnits: false }, landlord: { propertyCount: 11 } }))).toBe(true);
-    const llc = ga({ account: { moreThanTenRentalUnits: false } });
-    llc.property.entity = { entityType: "LLC" };
+    const answered = () => {
+      const c = ga();
+      c.property.entity = { entityType: "PERSONAL", facts: { moreThanTenRentalUnits: false } };
+      return c;
+    };
+    expect(ruleApplies("security-deposit-escrow-ga", answered())).toBe(false);
+    expect(ruleApplies("security-deposit-escrow-ga", { ...answered(), landlord: { propertyCount: 11 } })).toBe(true);
+    const llc = answered();
+    llc.property.entity = { entityType: "LLC", facts: { moreThanTenRentalUnits: false } };
     expect(ruleApplies("security-deposit-escrow-ga", llc)).toBe(true);
   });
 

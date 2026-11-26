@@ -1,12 +1,12 @@
 // The lease builder's fill-in-the-gaps questions (agreed with Taylor
 // 2026-11-22): for one lease, the blank answers that its state's Required and
 // Legal duty rules still wait on. Each comes with the clauses it decides, and
-// saves back to where it lives (the property's, the lease's or the account's
+// saves back to where it lives (the property's, the lease's, the owner's or the account's
 // Lease questions, or a property or lease field). A question whose follow-up
 // depends on another answer (units in the building, after the property type)
 // shows once that answer is in.
 
-const { CATALOG, isVisible } = require("./factCatalog");
+const { CATALOG, isVisible, fitsOwner } = require("./factCatalog");
 const { resolve, UNKNOWN } = require("./ruleConditions");
 const { ruleState, ruleReads } = require("./clauseApplicability");
 const { tagIn } = require("./stateScopedTags");
@@ -38,8 +38,9 @@ const FIELD_QUESTIONS = {
 const DERIVED_FROM = {
   "lease.termDays": ["lease.leaseType", "lease.endDate"],
   "lease.endsMidMonth": ["lease.leaseType", "lease.endDate"],
-  "landlord.livesInPropertyState": ["account.residenceState"],
-  "landlord.sameIsland": ["account.residenceState", "account.residenceIsland", "property.island"],
+  // Each owner question fits only a person or only a business (questionFor).
+  "landlord.livesInPropertyState": ["owner.homeState", "owner.officeState"],
+  "landlord.sameIsland": ["owner.homeState", "owner.homeIsland", "owner.officeState", "owner.officeIsland", "property.island"],
   "property.anyUtilityChargedBack": ["property.utilities"],
   "property.chargeBackMethods": ["property.utilities"],
   "property.meterServesOutsideUnit": ["property.electricMeterOutsideUnit", "property.gasMeterOutsideUnit", "property.waterMeterOutsideUnit"],
@@ -55,6 +56,7 @@ const DERIVED_FROM = {
 
 function answersFor(target, ctx) {
   if (target === "account") return ctx.account || {};
+  if (target === "owner") return ctx.property?.entity?.facts || {};
   return ctx[target]?.facts || {};
 }
 
@@ -69,6 +71,13 @@ function questionFor(path, ctx, state) {
   if (!q) return null;
   // builderOnly questions are asked here; isVisible's other checks still apply.
   if (!isVisible(q, [state], answersFor(target, ctx))) return null;
+  if (target === "owner") {
+    const entity = ctx.property?.entity;
+    if (!entity || !fitsOwner(q, entity)) return null;
+    // Name the owner, since it may not be the landlord using the app (an LLC).
+    const name = entity.legalName || "the owner";
+    return { key: path, target, ...q, recordId: entity.id, label: q.label.replace(/this owner/g, name) };
+  }
   return { key: path, target, ...q };
 }
 
@@ -148,7 +157,7 @@ function missingFacts(templates, ctx) {
       add(q, t);
     }
   }
-  const order = { leaseField: 0, lease: 1, tenant: 2, occupant: 2, propertyField: 3, property: 4, account: 5 };
+  const order = { leaseField: 0, lease: 1, tenant: 2, occupant: 2, propertyField: 3, property: 4, owner: 5, account: 6 };
   return [...byKey.values()].sort((a, b) => order[a.target] - order[b.target]);
 }
 

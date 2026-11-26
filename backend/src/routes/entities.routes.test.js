@@ -38,6 +38,55 @@ describe("entities routes", () => {
     await prisma.$disconnect();
   });
 
+  describe("owner answers (/api/entities/:id/facts)", () => {
+    async function makeOwner(entityType) {
+      const res = await request(app).post("/api/entities").send({ legalName: "Owner", entityType });
+      return res.body;
+    }
+
+    it("saves where a person owner lives and returns its property states", async () => {
+      const owner = await makeOwner("PERSONAL");
+      const user = await prisma.user.findUnique({ where: { clerkId: "clerk_test_user_1" } });
+      await prisma.property.create({
+        data: { userId: user.id, entityId: owner.id, address1: "1 A St", city: "Hilo", state: "HI", zip: "96720" },
+      });
+      const res = await request(app)
+        .put(`/api/entities/${owner.id}/facts`)
+        .send({ facts: { homeAddress: "12 Ocean Rd, Hilo, HI", homeState: "HI", homeIsland: "Hawaiʻi" } });
+      expect(res.status).toBe(200);
+      expect(res.body.facts.homeIsland).toBe("Hawaiʻi");
+
+      const got = await request(app).get(`/api/entities/${owner.id}/facts`);
+      expect(got.body).toEqual({ facts: res.body.facts, propertyStates: ["HI"] });
+
+      const bad = await request(app).put(`/api/entities/${owner.id}/facts`).send({ facts: { homeState: "ZZ" } });
+      expect(bad.status).toBe(400);
+    });
+
+    it("keeps another user's owner private", async () => {
+      const owner = await makeOwner("LLC");
+      mockGetAuth.mockReturnValue({ userId: "clerk_test_user_2" });
+      mockGetUser.mockResolvedValueOnce({
+        id: "clerk_test_user_2",
+        primaryEmailAddressId: "e2",
+        emailAddresses: [{ id: "e2", emailAddress: "other@example.com" }],
+        firstName: "Other",
+        lastName: null,
+      });
+      const res = await request(app).put(`/api/entities/${owner.id}/facts`).send({ facts: { officeState: "CO" } });
+      expect(res.status).toBe(404);
+    });
+
+    it("stores a registered agent's name and address", async () => {
+      const owner = await makeOwner("LLC");
+      const res = await request(app)
+        .put(`/api/entities/${owner.id}`)
+        .send({ registeredAgent: "Agents Inc.", registeredAgentAddress: "1 Main St, Reno, NV 89501" });
+      expect(res.status).toBe(200);
+      expect(res.body.registeredAgentAddress).toBe("1 Main St, Reno, NV 89501");
+    });
+  });
+
   it("rejects unauthenticated requests", async () => {
     mockGetAuth.mockReturnValue({ userId: null });
 

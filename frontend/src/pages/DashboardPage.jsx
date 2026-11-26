@@ -96,9 +96,9 @@ export default function DashboardPage() {
         <p className="rounded-xl border border-dashed border-stone-300 bg-white p-6 text-sm text-stone-500">
           Start by adding an{" "}
           <Link to="/entities" className="text-emerald-700 hover:underline">
-            entity
+            owner
           </Link>{" "}
-          — the LLC (or "Self / Personal") that owns your properties.
+          (you personally, or the LLC or other business that owns your properties).
         </p>
       )}
     </div>

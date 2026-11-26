@@ -1725,7 +1725,7 @@ const FACT_RULES = {
       op: "eq",
       value: false,
     },
-    note: "when you live outside Hawaii or on a different island from the property, or your residence or the property's island isn't entered",
+    note: "when the owner lives (for a business, has its principal office) outside Hawaii or on a different island from the property, or that or the property's island isn't entered",
   },
   "nonresident-owner-agent-va": {
     condition: {
@@ -1742,7 +1742,7 @@ const FACT_RULES = {
         },
       ],
     },
-    note: "when the owner is an individual (not a company) who doesn't live in Virginia, or your residence isn't entered",
+    note: "when the owner is an individual (not a company) who doesn't live in Virginia, or where they live isn't entered",
   },
   "parking-rules-notice-co": {
     condition: {
@@ -1915,7 +1915,7 @@ const FACT_RULES = {
               value: 6,
             },
             {
-              fact: "account.ownsSixPlusUnitsMD",
+              fact: "owner.ownsSixPlusUnitsMD",
               op: "eq",
               value: true,
             },
@@ -1928,7 +1928,7 @@ const FACT_RULES = {
         },
       ],
     },
-    note: "to a lease starting on or after October 1, 2026 when you own six or more rental units in Maryland",
+    note: "to a lease starting on or after October 1, 2026 when the owner has six or more rental units in Maryland (or your properties in Steinoak there, across all your owners, reach six: the cautious course, since including the offer is harmless)",
   },
   "renters-insurance-advisory-tn": {
     condition: {
@@ -2033,7 +2033,7 @@ const FACT_RULES = {
               value: 10,
             },
             {
-              fact: "account.moreThanTenRentalUnits",
+              fact: "owner.moreThanTenRentalUnits",
               op: "eq",
               value: true,
             },
@@ -2041,7 +2041,7 @@ const FACT_RULES = {
         },
       ],
     },
-    note: "when you take a security deposit, unless you are an individual who (with spouse and minor children) owns 10 or fewer rental units and doesn't use a paid manager",
+    note: "when you take a security deposit, unless the owner is an individual who (with spouse and minor children) owns 10 or fewer rental units and doesn't use a paid manager",
   },
   "security-deposit-receipt-nh": {
     condition: {

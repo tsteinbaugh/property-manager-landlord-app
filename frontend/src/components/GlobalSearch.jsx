@@ -7,7 +7,7 @@ const DEBOUNCE_MS = 300;
 
 const GROUP_LABELS = {
   property: "Properties",
-  entity: "Entities",
+  entity: "Owners",
   tenant: "Tenants",
   vendor: "Vendors",
   occupant: "Occupants",

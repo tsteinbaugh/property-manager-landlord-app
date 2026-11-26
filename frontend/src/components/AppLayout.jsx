@@ -7,7 +7,7 @@ import GlobalSearch from "./GlobalSearch";
 
 const NAV_ITEMS = [
   { to: "/dashboard", label: "Dashboard" },
-  { to: "/entities", label: "Entities" },
+  { to: "/entities", label: "Owners" },
   { to: "/properties", label: "Properties" },
   { to: "/tenants", label: "Tenants" },
   { to: "/leases", label: "Leases" },

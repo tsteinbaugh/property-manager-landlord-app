@@ -60,7 +60,7 @@ export default function MissingFactsPanel({ lease, questions, onSaved }) {
 
   async function handleSave(e) {
     e.preventDefault();
-    const facts = { property: {}, lease: {}, account: {} };
+    const facts = { property: {}, lease: {}, account: {}, owner: {} };
     const propertyFields = {};
     const leaseFields = {};
     const people = [];
@@ -83,6 +83,7 @@ export default function MissingFactsPanel({ lease, questions, onSaved }) {
       if (Object.keys(propertyFields).length) calls.push(api.put(`/api/properties/${lease.propertyId}`, propertyFields));
       if (Object.keys(facts.property).length) calls.push(api.put(`/api/properties/${lease.propertyId}/facts`, { facts: facts.property }));
       if (Object.keys(facts.account).length) calls.push(api.put("/api/me/facts", { facts: facts.account }));
+      if (Object.keys(facts.owner).length) calls.push(api.put(`/api/entities/${lease.property.entityId}/facts`, { facts: facts.owner }));
       for (const [q, v] of people) calls.push(api.put(`/api/${q.target === "tenant" ? "tenants" : "occupants"}/${q.recordId}`, { [q.id]: v }));
       // Lease saves run one after the other: both return the whole lease.
       await Promise.all(calls);
@@ -106,8 +107,8 @@ export default function MissingFactsPanel({ lease, questions, onSaved }) {
           Before adding clauses, answer {questions.length === 1 ? "this question" : `these ${questions.length} questions`}
         </h3>
         <p className="mt-1 text-xs text-amber-800">
-          They decide which required clauses this lease needs. Each answer is saved to the property, the lease or your
-          account, so you won't be asked again. Questions marked "Needed for the lease" decide a clause the law requires
+          They decide which required clauses this lease needs. Each answer is saved to the property, the lease, the owner or
+          your account, so you won't be asked again. Questions marked "Needed for the lease" decide a clause the law requires
           in the lease, so the lease PDF waits for them; the others decide information the law requires you to give the
           tenant. You can add clauses before answering, and the builder adds what applies so far.
         </p>

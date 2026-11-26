@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { useApi } from "../hooks/useApi";
 import FactQuestionsCard from "../components/FactQuestions";
 
-// The landlord's own answers that apply to every property, whichever entity
-// owns it: the primary residence (and the island, for Hawaii), plus any
-// account question a property's state asks. Name and email stay in Clerk's
-// account menu.
+// The landlord's own answers that apply to every property, whichever owner
+// holds it: questions about the user personally (a real estate license, a
+// tenant portal). Where an owner lives is on each owner's page, since an owner
+// can be an LLC (Taylor, 2026-11-26). Name and email stay in Clerk's account menu.
 export default function AccountPage() {
   const api = useApi();
   const [data, setData] = useState(null);
@@ -29,7 +29,7 @@ export default function AccountPage() {
       </div>
       <FactQuestionsCard
         title="About you"
-        intro="Where you live and how you run your rentals. Some states' leases depend on these, for example whether you live in the same state or on the same island as the rental."
+        intro="How you run your rentals. Some states' leases depend on these. Where an owner lives (or a business's principal office) is on each owner's page."
         target="account"
         states={data.propertyStates}
         answers={data.facts}

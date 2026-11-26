@@ -109,6 +109,39 @@ function pickedValues(propertyFacts, leaseFacts) {
   return out;
 }
 
+const STATE_NAMES = {
+  AL: "Alabama", AK: "Alaska", AZ: "Arizona", AR: "Arkansas", CA: "California", CO: "Colorado", CT: "Connecticut",
+  DE: "Delaware", FL: "Florida", GA: "Georgia", HI: "Hawaii", ID: "Idaho", IL: "Illinois", IN: "Indiana", IA: "Iowa",
+  KS: "Kansas", KY: "Kentucky", LA: "Louisiana", ME: "Maine", MD: "Maryland", MA: "Massachusetts", MI: "Michigan",
+  MN: "Minnesota", MS: "Mississippi", MO: "Missouri", MT: "Montana", NE: "Nebraska", NV: "Nevada", NH: "New Hampshire",
+  NJ: "New Jersey", NM: "New Mexico", NY: "New York", NC: "North Carolina", ND: "North Dakota", OH: "Ohio", OK: "Oklahoma",
+  OR: "Oregon", PA: "Pennsylvania", RI: "Rhode Island", SC: "South Carolina", SD: "South Dakota", TN: "Tennessee",
+  TX: "Texas", UT: "Utah", VT: "Vermont", VA: "Virginia", WA: "Washington", WV: "West Virginia", WI: "Wisconsin",
+  WY: "Wyoming", DC: "District of Columbia", PR: "Puerto Rico", GU: "Guam", VI: "Virgin Islands",
+  AS: "American Samoa", MP: "Northern Mariana Islands",
+};
+
+// Whether a typed address is in this state: it ends with the state's code or
+// name, then an optional ZIP and country ("..., Reno, NV 89501"), so a street
+// named for a state ("California St") doesn't count.
+function addressInState(address, state) {
+  if (!address || !STATE_NAMES[state]) return false;
+  return new RegExp(`\\b(${state}|${STATE_NAMES[state]})\\.?,?\\s*(\\d{5}(-\\d{4})?)?\\s*(,?\\s*(USA|United States))?\\s*$`).test(address.trim());
+}
+
+// A business owner's registered agent accepts lawsuits ("service of process")
+// for it, so it can fill the clauses that name the owner's agent for service
+// (California Civ. Code § 1962, NRS 118A.260), but only when the agent's
+// address is in the property's state: both laws want a person in the state, at
+// an address where papers can be handed over. Not Virginia's agent, whose
+// clause applies only to individual owners. The property's own agent field
+// comes first.
+function registeredAgentFor(entity, property) {
+  if (!entity || entity.entityType === "PERSONAL") return null;
+  if (!entity.registeredAgent || !addressInState(entity.registeredAgentAddress, property?.state)) return null;
+  return { name: entity.registeredAgent, address: entity.registeredAgentAddress };
+}
+
 // Flat dict of {{variable}} values resolved from data the lease already has
 // linked (Property/Entity/Tenant/Occupant/Appliance/Deposit), not new
 // structured fields invented just to back a variable. Anything not already
@@ -124,8 +157,17 @@ function buildVariableContext({ lease, property, entity, tenants, occupants = []
   const managerName = pf.managerName || pf.managerCompany || null;
   const lf = lease.facts || {};
   const noticeAddress = lf.noticeAddress || entity?.mailingAddress || null;
+  const agent = pf.serviceAgentName ? null : registeredAgentFor(entity, property);
+  const fields = clauseFieldValues(pf, lf);
   return {
-    ...clauseFieldValues(pf, lf),
+    ...fields,
+    ...(agent
+      ? {
+          owner_agent_name: agent.name,
+          owner_agent_address: fields.owner_agent_address || agent.address,
+          owner_agent_street_address: fields.owner_agent_street_address || agent.address,
+        }
+      : {}),
     [PICKED]: pickedValues(pf, lf),
     ...utilityLists(pf),
     // Cal OES's MyHazards tool, named in Cal. Gov. Code § 8589.45.
@@ -255,12 +297,12 @@ const SOURCE = {
   guarantor_name: ["Guarantor", "this lease's Tenants"],
   appliance_list: ["Appliances", "Property Specs"],
   property_address: ["Property address", "the property page"],
-  landlord_name: ["Landlord name", "the entity's page"],
-  landlord_notice_name: ["Landlord name", "the entity's page"],
+  landlord_name: ["Landlord name", "the owner's page"],
+  landlord_notice_name: ["Landlord name", "the owner's page"],
   landlord_notice_address: ["Notice address", "this lease's Notices"],
-  landlord_email: ["Landlord email", "the entity's page"],
-  owner_name: ["Owner name", "the entity's page"],
-  owner_address: ["Owner address", "the entity's page"],
+  landlord_email: ["Landlord email", "the owner's page"],
+  owner_name: ["Owner name", "the owner's page"],
+  owner_address: ["Owner address", "the owner's page"],
   rent_payee_name: ["Rent payee", "this lease's Rent payment"],
   rent_payee_address: ["Rent payment address", "this lease's Rent payment"],
   payment_address: ["Rent payment address", "this lease's Rent payment"],

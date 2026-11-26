@@ -113,7 +113,7 @@ export default function PropertiesPage() {
       <div className="space-y-4">
         <h1 className="text-2xl text-stone-900">Properties</h1>
         <p className="rounded-xl border border-dashed border-stone-300 bg-white p-6 text-sm text-stone-500">
-          You need at least one entity before adding a property.{" "}
+          You need at least one owner before adding a property.{" "}
           <Link to="/entities" className="text-emerald-700 hover:underline">
             Add one first
           </Link>
@@ -131,7 +131,7 @@ export default function PropertiesPage() {
           <p className="text-sm text-stone-500">
             {showArchived
               ? "Locked and hidden from normal browsing — unarchive one to bring it back."
-              : "Every property is owned by one of your entities."}
+              : "Every property is owned by one of your owners."}
           </p>
         </div>
         {!showArchived && (
@@ -150,13 +150,13 @@ export default function PropertiesPage() {
 
       <div className="flex flex-wrap items-end justify-between gap-4">
         <label className="block max-w-xs text-sm">
-          <span className="mb-1 block font-medium text-stone-700">Filter by entity</span>
+          <span className="mb-1 block font-medium text-stone-700">Filter by owner</span>
           <select
             value={entityFilter}
             onChange={(e) => setEntityFilter(e.target.value)}
             className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
           >
-            <option value="">All entities</option>
+            <option value="">All owners</option>
             {entities.map((entity) => (
               <option key={entity.id} value={entity.id}>
                 {entity.legalName}
@@ -179,7 +179,7 @@ export default function PropertiesPage() {
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <label className="block text-sm">
-              <span className="mb-1 block font-medium text-stone-700">Entity *</span>
+              <span className="mb-1 block font-medium text-stone-700">Owner *</span>
               <select
                 required
                 value={form.entityId}

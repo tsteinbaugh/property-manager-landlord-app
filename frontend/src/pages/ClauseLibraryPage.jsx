@@ -35,8 +35,8 @@ const AVAILABLE_VARIABLES = [
   ["occupant_names", "Additional occupants linked to the lease's tenant(s)"],
   ["appliance_list", "Property's active appliances (from Property Specs)"],
   ["property_address", "Property address"],
-  ["landlord_name", "Landlord / entity name"],
-  ["landlord_notice_address", "Where the tenant sends notices: the lease's Notices address, else the entity's mailing address"],
+  ["landlord_name", "Landlord name (the property's owner)"],
+  ["landlord_notice_address", "Where the tenant sends notices: the lease's Notices address, else the owner's mailing address"],
   ["state", "Property's state"],
 ];
 

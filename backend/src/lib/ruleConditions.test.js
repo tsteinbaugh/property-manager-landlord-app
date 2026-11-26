@@ -64,12 +64,24 @@ describe("ruleConditions", () => {
     expect(resolve("property.anyUtilityChargedBack", ctx())).toBe(null);
   });
 
-  it("derives where the landlord lives", () => {
-    const account = { residenceState: "NY" };
-    expect(resolve("landlord.livesInPropertyState", ctx({}, {}, { account }))).toBe(false);
-    expect(resolve("landlord.livesInPropertyState", ctx({}, {}, { account: {} }))).toBe(null);
-    const hi = ctx({ state: "HI", facts: { island: "Maui" } }, {}, { account: { residenceState: "HI", residenceIsland: "Oʻahu" } });
-    expect(resolve("landlord.sameIsland", hi)).toBe(false);
+  it("derives where the owner is: a person's home, a business's principal office", () => {
+    const person = (facts) => ({ entityType: "PERSONAL", facts });
+    const llc = (facts) => ({ entityType: "LLC", facts });
+    expect(resolve("landlord.livesInPropertyState", ctx({ entity: person({ homeState: "NY" }) }))).toBe(false);
+    expect(resolve("landlord.livesInPropertyState", ctx({ entity: person({ homeState: "NJ" }) }))).toBe(true);
+    expect(resolve("landlord.livesInPropertyState", ctx({ entity: person({}) }))).toBe(null);
+    // A business doesn't live anywhere: its home state is never read.
+    expect(resolve("landlord.livesInPropertyState", ctx({ entity: llc({ homeState: "NJ" }) }))).toBe(null);
+    expect(resolve("landlord.livesInPropertyState", ctx({ entity: llc({ officeState: "NJ" }) }))).toBe(true);
+    // Your account's answers no longer decide it.
+    expect(resolve("landlord.livesInPropertyState", ctx({}, {}, { account: { residenceState: "NJ" } }))).toBe(null);
+
+    const hi = (entity) => ctx({ state: "HI", facts: { island: "Maui" }, entity });
+    expect(resolve("landlord.sameIsland", hi(person({ homeState: "HI", homeIsland: "Oʻahu" })))).toBe(false);
+    expect(resolve("landlord.sameIsland", hi(person({ homeState: "HI", homeIsland: "Maui" })))).toBe(true);
+    expect(resolve("landlord.sameIsland", hi(llc({ officeState: "HI", officeIsland: "Maui" })))).toBe(true);
+    expect(resolve("landlord.sameIsland", hi(llc({ homeState: "HI", homeIsland: "Maui" })))).toBe(null);
+    expect(resolve("landlord.sameIsland", hi(llc({ officeState: "CA" })))).toBe(false);
   });
 
   it("matches county names regardless of case and a trailing County", () => {
