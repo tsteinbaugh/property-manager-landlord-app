@@ -311,3 +311,15 @@ Result: 14 rules checked, one phrase removed (Denver), no misstatement found.
   - **The library's snow clause:** it doesn't name the public sidewalk, which may not be part of the lot. The earlier wording implied it fails only in multi-unit buildings.
   - **Small additions:** "or have someone clear", and notice for snow put in the street.
 - **Frederick snow row:** the same snow-clause sentence corrected (scalpel fix).
+
+## Mesa County: first read (2026-11-25, evening)
+- **Saved from mesacounty.us:**
+  - Public Health Rule 18-01-01 (infestation and rodent harborage)
+  - Ordinance 15 and the rubbish code
+  - The Land Development Code (2020, amended 04-23-24) and the update packet for the Nov. 17, 2026 hearing
+  - All have text layers.
+- **Read whole: 18-01-01.** It is a duty on owners and occupants. Section 4.03 puts pest control on the occupant unless the owner's failure caused the infestation. State law requires the landlord to provide extermination (C.R.S. 38-12-505(1)(b)(VIII), read; the bed bug part sets the landlord's own duties). So the row tells landlords to follow the state rule and not to rely on 4.03. Row drafted: edu-infestation-rodent-harborage-mesa-county, unchecked. Its area is inferred from the board of health's jurisdiction.
+- **Not yet:**
+  - the subject search over the files
+  - the rubbish rules
+  - whether the LDC update was adopted
