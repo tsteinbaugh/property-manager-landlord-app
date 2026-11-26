@@ -238,3 +238,20 @@ Three education rows, ADDS: weeds, brush and rubbish (7-31 to 7-36), graffiti (1
 - Round 1 check of the second Frederick rows (fresh agent): applied after reading C.R.S. 31-15-401(1)(c), 31-15-402(4), F.M.C. 1-71, 1-76, 7-38, 13-3-323. Main fixes: "and/or" assessments (either or both, each liable for all), the lien, daily violations, the state notice-to-both rule, and the recovery right narrowed to 31-15-402(4)'s words. **Open: is Frederick home rule?** The code's resolution list has 09-R-13 "Home Rule Charter Setting Date" and 09-R-34 "HR Charter Acceptance/Election Date"; whether a charter passed is not confirmed (places-CO home_rule is blank). It matters to how 31-15-401 binds the town.
 - Round 2 check of the Boulder clause (a different fresh agent): no conflict with state law; all of (A)-(I) met. Applied: the for-cause qualifier moved to the opening so it covers the whole form (the form's signature line says any listed violation can end the tenancy); item 4 limited to notices concerning the Premises; citation pairs corrected; item 1 reads cleanly with one tenant or no occupants. 9-8-5 read: Boulder's legal occupancy limit is chapter 10-2's. Round 3 not run.
 - Round 2 check of the second Frederick rows (a different fresh agent): applied after reading 7-39, 13-3-325, 13-3-328. Main fixes: irrigation's seven-day residential limit (13-3-325(e)), noxious weeds' five-day certified-mail rule and civil penalty (7-39), the 1-76 lien limited to the owner's land, parent repetition cut. Round 3 not run.
+
+## Spot-check of high-stakes rules (2026-11-25, evening)
+Read by me against the code text, with a second official source where one exists. Boulder County has no rows, so nothing was checked there.
+- **Denver (both rows):** 27-240(a), (b), (d) re-read. The city's renters handbook (Sept 2025) and its tenant rights notice (Nov 2025) agree on timing (signing, rent demand) and on the executed-lease rule. "Give it however you serve the demand" isn't in the code, so it was removed. 48-130(a) to (c) and 48-134 re-read: 8 or more units, September 1, 2026, notice posted and given to each new tenant, records kept, English and Spanish. Confirmed. No council bill in the saved lists mentions 27-240 or 48-130 to 48-137.
+- **Weld (both rows):** 30-1-20(A) and (F), 30-1-30, 30-4-10, 30-13-10, 30-4-30 and C.R.S. 25-10-106(1)(j), 25-10-113 and 18-1.3-503 re-read: countywide, 2,000 gallons a day, owner's duty, contract exception, two business days, $50 a day, $100 civil infraction. C.R.S. 38-12-506 re-read. Confirmed. The county's septic page only points to the code and says repairs need a permit. 30-1-30 says the regulations take effect June 30, 2026 "upon adoption", and Ord. 2026-07 is cited, but its adoption date still hasn't been seen.
+- **Boulder (5):**
+  - 12-2-3 (30 days, 7 or 15 working days, 5 working days), 12-2-5 and 12-2-7, 6-9-6 and 602.3 as amended (68 F, no portable heaters) re-read. Confirmed.
+  - The city's deposit-interest page supports "simple interest on the full deposit": multiply the whole deposit by the rate, divide by 12, then multiply by the months held. Its 2026 rate is 2.08%. It also says pet deposits count and last month's rent doesn't.
+  - The handbook gives "15 days" where the code says fifteen working days; the row follows the code.
+  - The disclosure clause and its education row were checked in two rounds today, so they weren't re-read.
+- **Frederick (5):**
+  - 11-76 and 11-2 re-read. "Sidewalk" means the surfaced pedestrian part of the street, so "paved public sidewalk" holds.
+  - 18-14-20(f) re-read: 602.3 as amended (September to April, 68 F, where heat is furnished) and 18-1-60(b). 10-304 re-read: (d) is the real cross-reference, (c) is reserved.
+  - 13-3-319(a) and (b) re-read against C.R.S. 6-1-737(4) and (4.5). The no-late-fee, no-common-area and no-markup limits match the row. Confirmed.
+  - The town's website has no detail on these rules beyond general code enforcement, so the code is the only official source.
+
+Result: 14 rules checked, one phrase removed (Denver), no misstatement found.

@@ -1,4 +1,4 @@
-# Colorado pilot: draft comparison (2026-11-25)
+# Colorado pilot report (2026-11-25)
 
 | Place | Code got how | Check | Blind pass | Found only by the blind pass |
 |---|---|---|---|---|
@@ -18,7 +18,31 @@ YES/NO counts are the agents' and not comparable between places (NEW rows; stret
 5. Downloads by Taylor work for Municode and frederick.municipal.codes, which block the tools. This is the slow step for the rest of Colorado.
 
 ## Not done under Phase 3 (the report is a draft until these are)
-Drafted rows; independent check (rule 80); spot-check of five high-stakes rules per place against a second source; Denver's ordinances since the export beyond those read; conflict-with-state-law check on each rule; Boulder County blind pass and septic rules; model-code text.
+Denver's ordinances since the export beyond those read; conflict-with-state-law check on each rule; Boulder County blind pass and septic rules; model-code text.
 
 ## Recommendation (for Taylor)
 Use the full pass first wherever a code can be got, words as a cross-check; draft rows only after the second read. Projection of length: not yet possible (needs the usage figure and the download time per place).
+
+## Phase 3 results (2026-11-25, evening)
+- **Rows drafted (all inactive, NEEDS_REVIEW):**
+  - Boulder: 5 education rows and 1 lease clause (city disclosures, Legal duty)
+  - Frederick: 8 education rows
+  - Denver: 2 education rows
+  - Weld County: 2 education rows
+  - Boulder County: none
+- **Independent check:** every row had at least 2 rounds by fresh agents; the first five rows had 3. Each round found real errors: wrong subsections, overstated penalties or eviction grounds, missing deadlines, renumbered sections. No row was right after one round.
+- **Spot-check:** 14 rules read against the code and, where one existed, a city or county page. One unsupported phrase was removed and no misstatements were found (decision log).
+- **Misses the process caught:**
+  - Boulder's lease clause under 12-2-4 (Taylor caught it, not the passes).
+  - Section numbers cited by an old ordinance (Boulder 12-2-4 points to repealed and renumbered sections).
+  - A town permitting what state law forbids (Frederick water sub-billing).
+  - Model-code text not in any download (IPMC base text).
+- **Usage:** weekly usage was 53% at the start (Nov 24 evening) and 56% mid-afternoon Nov 25; the end figure is Taylor's to read. A check round cost about 85,000 to 130,000 tokens per agent.
+- **Time per place:** the commit times can't show it, because commits were made in batches. Denver's blind pass took about 42 minutes; the others weren't timed.
+- **Projection:** not reliable yet. The pilot covered 5 places, 18 rows, in about one local day, and Colorado has about 270 municipalities and 64 counties. Most small places will have few or no rental rules, but each still needs its code downloaded and read. At the pilot's pace, Colorado alone would take many local days. The slow steps are Taylor's manual downloads and the 2 to 3 check rounds per row.
+- **Still open before any row goes live:**
+  - How city and state rows show (needs-taylor item 10).
+  - The app knowing whether a property is inside city limits.
+  - Whether Frederick is home rule.
+  - Boulder County's blind pass and septic rules.
+  - The model-code base text.
