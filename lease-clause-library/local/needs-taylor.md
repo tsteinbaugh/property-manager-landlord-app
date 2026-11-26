@@ -1,3 +1,43 @@
+# Download list for Taylor (built 2026-11-25, 9:30 PM; queue order, most renters first)
+
+**What to save:** the whole code as PDF, with the "current through" or supplement line, plus any separate land use or zoning code and any list of ordinances not yet in the code. Put each in `~/Downloads/<place>/` or tell Claude Code where.
+
+**Your download needed**
+| # | Place | Publisher | Where |
+|---|---|---|---|
+| 1 | El Paso County | Municode (Land Development Code and ordinances) | library.municode.com/co/el_paso_county |
+| 2 | Colorado Springs | American Legal | codelibrary.amlegal.com/codes/coloradospringsco |
+| 3 | Adams County | own site, list loads by script | adamscountyco.gov, County Attorney, County Ordinances & Regulations (save each document) |
+| 4 | Larimer County | outside publisher, probably Municode (Code of Ordinances) | larimer.gov/policies-ordinances-resolutions has the link |
+| 5 | Aurora | municipal.codes (Code Publishing) | aurora.municipal.codes (code, Unified Development Ordinance, charter) |
+| 6 | Fort Collins | Municode (code; the 1997 Land Use Code is also there) | library.municode.com/co/fort_collins; the current Land Use Code is on fortcollins.gov |
+| 7 | Lakewood | Municode | library.municode.com/co/lakewood |
+| 8 | Pueblo County | own site, blocks the shell (403) | county.pueblo.org/pueblo-county-code (Titles 1-17) |
+| 9 | Pueblo (city) | Municode | library.municode.com/co/pueblo |
+| 10 | Westminster | Municode (also a Residential Rental Code PDF on the city site) | library.municode.com/co/westminster |
+| 11 | Longmont | Municode | library.municode.com/co/longmont |
+| 12 | Greeley | Municode | library.municode.com/co/greeley |
+| 13 | Thornton | Municode (Development Code, Chapter 18, may be separate) | library.municode.com/co/thornton |
+| 14 | Loveland | own site blocks the shell (403); publisher not confirmed | lovgov.org, Municipal Code page |
+| 15 | Arvada | Municode | library.municode.com/co/arvada |
+| 16 | Broomfield (city and county) | Municode | library.municode.com/co/broomfield |
+| 17 | Grand Junction | eCode360 (code and Zoning and Development Code) | ecode360.com/GR4464 |
+| 18 | Englewood | Municode | linked from englewoodco.gov, Englewood Municipal Code |
+| 19 | Centennial | Municode | library.municode.com/co/centennial |
+| 20 | Wheat Ridge | Municode (not confirmed from the city's page) | library.municode.com, search Wheat Ridge |
+
+**Claude Code gets these itself (skip them)**
+- Jefferson County (done)
+- Arapahoe County (arapahoeco.gov)
+- El Paso County's ordinance PDFs (clerk's site)
+- Larimer County's Land Use Code
+- Douglas County (douglasco.gov ordinances, douglas.co.us zoning sections)
+- Mesa County (mesacounty.us)
+- Garfield County (garfieldcountyco.gov, Land Use and Development Code)
+- Littleton and Eagle County (enCodePlus; reachable, try first)
+
+Publishers came from web search and the places' own pages, so check the place name on each site before downloading. County health department rules (septic and others) are separate from these codes and come later.
+
 # Needs Taylor
 1. Download by hand, as with Denver: **Boulder city and Weld County** (Municode), **Frederick** (https://frederick.municipal.codes/MC shows a bot check that Claude Code must not complete). Put them on the Desktop.
 2. Denver PDF is on the Desktop and copied to ~/local-corpus-build/CO/denver/code/.
