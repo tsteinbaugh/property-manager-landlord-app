@@ -24,3 +24,4 @@ Taylor gave the go-ahead after the pilot report. Code sources for the first plac
   - Larimer's Land Use Code
 
 Recommendation: Taylor downloads the four before the next local day. Claude Code starts with the county sites.
+- **Adams County (added 9:20 PM):** the ordinances page loads its list by script, alongside a reCAPTCHA. The sitemap lists only Ordinance 1 and 2. The 2023 book PDF address returns 404. Move it to Taylor's list: save the page's documents from Chrome.
