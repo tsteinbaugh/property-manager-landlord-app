@@ -219,3 +219,10 @@ Agent's points checked against 27-195(d), 27-200, 27-203, 2-293(b), 48-133(c), 1
 
 ### Second batch, round 2 (2026-11-25, a different fresh agent)
 Applied after reading 6-3-3(b), 107.1(a)(6), 107.1(c), 48-137(g)-(h). Denver 2-283(c) (daily citations) not applied: not read by me. The Boulder form (m16435) has no "odor", "10-2.5" or "24 months" hit in my word search. Round 3 not run.
+
+## Frederick: first rows (2026-11-25, afternoon)
+Five education rows drafted, all ADDS, inactive and NEEDS_REVIEW: water sub-billing (13-3-319), furnished heat at 68 F (18-14-20(f)), medical-marijuana landlord duty (10-303(a)(11)), sidewalk snow (11-76), town utility billing and liens (13-3-320, -321, 1-76). Every section cited was read by me first.
+- **First case of a town allowing what the state forbids:** 13-3-319 permits an administrative fee at actual cost, "lawful late fees", a deposit and a tenant share of common-area water; C.R.S. 6-1-737(4), (4.5) and 38-12-801(3)(a)(VI) forbid or cap those. The row states the town's duties and says the state limits still govern (stricter rule each time). Example for needs-taylor item 10.
+- No Frederick rule found that requires text in the lease itself, so no local lease clause yet. The written sub-billing explanation can be given in the lease or separately.
+- Not drafted yet: insect screens (18-14-20(e); IPMC base text missing), weeds and rubbish (7-33, 7-34; noncriminal), graffiti 7 days (10-76(g)), water leaks (13-3-326(b)), smoking in common areas (10-253), pet licensing, sidewalk repair (11-74, -75), the business-license question.
+- Taylor's design discussion on how city and state rows show is in needs-taylor item 10; Taylor found that local Required lease clauses are needed (Boulder 12-2-4(a)(1)(F)), still to draft.
