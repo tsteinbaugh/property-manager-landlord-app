@@ -25,13 +25,14 @@
 | 18 | Englewood | Municode | linked from englewoodco.gov, Englewood Municipal Code |
 | 19 | Centennial | Municode | library.municode.com/co/centennial |
 | 20 | Wheat Ridge | Municode (not confirmed from the city's page) | library.municode.com, search Wheat Ridge |
+| 21 | Douglas County | eCode360 (Zoning Resolution; county links now redirect there); also Ordinance O-23-001 (403 on douglasco.gov) | ecode360.com/DO6971 |
 
 **Claude Code gets these itself (skip them)**
 - Jefferson County (done)
 - Arapahoe County (arapahoeco.gov)
 - El Paso County's ordinance PDFs (clerk's site)
 - Larimer County's Land Use Code
-- Douglas County (douglasco.gov ordinances, douglas.co.us zoning sections)
+- Douglas County's ordinances (done, except O-23-001)
 - Mesa County (mesacounty.us)
 - Garfield County (garfieldcountyco.gov, Land Use and Development Code)
 - Littleton and Eagle County (enCodePlus; reachable, try first)
