@@ -66,3 +66,20 @@ Taylor gave the go-ahead after the pilot report. Code sources for the first plac
 
 Recommendation: Taylor downloads the four before the next local day. Claude Code starts with the county sites.
 - **Adams County (added 9:20 PM):** the ordinances page loads its list by script, alongside a reCAPTCHA. The sitemap lists only Ordinance 1 and 2. The 2023 book PDF address returns 404. Move it to Taylor's list: save the page's documents from Chrome.
+
+## Next local day: start here (2026-11-25, 9:40 PM)
+- **Arapahoe OCR:** it was still running at the cutoff, writing to `~/local-corpus-build/CO/arapahoe-county/ocr/`. Finish it if needed, then search the OCR text.
+- **Douglas County:** its 17 scanned ordinances need OCR.
+- **Rows with unchecked edits:**
+  - Jefferson solid fuel: round 2 edits.
+  - Douglas snow: round 2 edits.
+  - Mesa infestation and Mesa rubbish: round 1 edits.
+  - Frederick snow: the snow-clause sentence.
+- **Arapahoe, to draft:**
+  - The ADU owner-occupancy rule, once C.R.S. 29-35-403 is settled with census places of 40,000 or more.
+  - The pet limits.
+  - Senior housing.
+- **Mesa:**
+  - Was the LDC update adopted Nov. 17, 2026?
+  - Read the health department's Rubbish, Refuse and Garbage Code.
+- **Then:** Larimer's Land Use Code, Garfield County, Littleton and Eagle County (enCodePlus), El Paso County's ordinance PDFs; then Taylor's downloads.
