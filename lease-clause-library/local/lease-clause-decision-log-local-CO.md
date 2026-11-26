@@ -326,3 +326,4 @@ Result: 14 rules checked, one phrase removed (Denver), no misstatement found.
 - **Mesa search:** every subject searched over the 5 files; control 0; positive (short-term rental) found in the LDC.
   - Landlord/tenant lines read: only Ordinance 15 binds tenants. Its definition of the responsible person includes "any lessee, occupant, manager or person in control". Ordinance 15 isn't read whole yet.
   - Most hits are in the Nov. 2026 LDC update packet (short-term rental, rental licensing). Whether that update was adopted decides which LDC is current.
+- **Mesa Ordinance 15 (rubbish):** read whole. Row drafted: edu-rubbish-mesa-county, unchecked. It covers the unincorporated area only, and its "owner" includes the lessee and occupant.
