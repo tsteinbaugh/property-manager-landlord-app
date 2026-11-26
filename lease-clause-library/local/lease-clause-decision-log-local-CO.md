@@ -269,3 +269,11 @@ Result: 14 rules checked, one phrase removed (Denver), no misstatement found.
   - Vacation rental services ordinance: about platforms listing STRs.
 - **Exceptions:** the 7,000-foot, permit and Phase III exceptions (B.3 to B.5) read as written for the high-pollution-day ban. The row treats the rental rule as applying regardless.
 - **Not yet:** zoning hits, including STR section 46 and the mobile home park district; Jefferson County Public Health rules (septic); the independent check.
+- **Round 1 check (fresh agent):** no misstatements. Adopted:
+  - Dropped "in effect since 1990"; the text only says renting after January 1, 1990, and the current policy dates from May 8, 2007.
+  - Other solid-fuel heaters to be treated the same.
+  - The B.3 to B.5 reasoning stated honestly: literally "these regulations", but the purpose is the burn ban.
+  - Inspectors issue citations; who hears a case and court review.
+  - A narrower title.
+  - Not adopted: F.2 (date of violation controls), as minor.
+  - County authority (C.R.S. 30-15-401(1)(a)(V)(C)) noted, not put in the row.
