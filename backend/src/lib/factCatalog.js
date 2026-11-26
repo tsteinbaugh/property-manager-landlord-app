@@ -497,7 +497,7 @@ const OWNER = [
     kind: "person",
     type: "text",
     label: "Home address",
-    help: "Where this person lives. Some states' leases depend on whether the owner lives in the same state, or on the same island, as the rental.",
+    help: "Where this person lives, which can differ from the owner's mailing address.",
   },
   { id: "homeState", section: "Where this owner lives", kind: "person", type: "state", label: "State or territory where this owner lives" },
   {
@@ -515,7 +515,7 @@ const OWNER = [
     kind: "business",
     type: "text",
     label: "Principal office address",
-    help: "Where the business is actually run from, which can differ from its mailing address (a PO box, for example). Some states' leases depend on whether the owner is in the same state, or on the same island, as the rental.",
+    help: "Where the business is actually run from, which can differ from its mailing address (a PO box, for example).",
   },
   { id: "officeState", section: "Principal office", kind: "business", type: "state", label: "State or territory of this owner's principal office" },
   {

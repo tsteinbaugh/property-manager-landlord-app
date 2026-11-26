@@ -357,8 +357,8 @@ export default function EntityDetailPage() {
           title={isPerson ? "Where this owner lives" : "Principal office"}
           intro={
             isPerson
-              ? "Where this person lives, which can differ from the mailing address. Some states' leases depend on whether the owner lives in the same state, or on the same island, as the rental."
-              : "Where this business is actually run from, which can differ from its mailing address (a PO box, for example). Some states' leases depend on whether the owner is in the same state, or on the same island, as the rental."
+              ? "Some states' leases depend on whether the owner lives in the same state, or on the same island, as the rental."
+              : "Some states' leases depend on whether the owner is in the same state, or on the same island, as the rental."
           }
           target="owner"
           ownerKind={isPerson ? "person" : "business"}

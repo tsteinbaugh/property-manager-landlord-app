@@ -283,6 +283,17 @@ export default function FactQuestionsCard({ title, target, states, answers, onSa
     return v;
   }
 
+  // One answered row for the read-only view, or null (an unticked checkbox and
+  // an ordinary No aren't shown).
+  function rowFor(q) {
+    const v = source[q.id] ?? fromSpecs[q.id];
+    if (q.type === "checkbox" && !v) return null;
+    if (q.showOnlyWhenYes && v !== true) return null;
+    const own = displayValue(q, valueOf(q), catalog);
+    const shown = own ?? (fromSpecs[q.id] !== undefined ? `${displayValue(q, fromSpecs[q.id], catalog)} (from Property Specs)` : null);
+    return shown === null ? null : { q, shown };
+  }
+
   async function handleSave(e) {
     e.preventDefault();
     const patch = {};
@@ -328,7 +339,9 @@ export default function FactQuestionsCard({ title, target, states, answers, onSa
         <form onSubmit={handleSave} className="mt-4 space-y-6 border-t border-stone-200 pt-4">
           {sections.map((section) => (
             <div key={section}>
-              <h3 className="mb-3 text-sm font-semibold text-stone-800">{section}</h3>
+              {!(sections.length === 1 && section === title) && (
+                <h3 className="mb-3 text-sm font-semibold text-stone-800">{section}</h3>
+              )}
               <div className="space-y-4">
                 {questions
                   .filter((q) => q.section === section)
@@ -378,23 +391,19 @@ export default function FactQuestionsCard({ title, target, states, answers, onSa
         </form>
       ) : (
         <dl className="mt-4 space-y-4 border-t border-stone-200 pt-4 text-sm">
+          {!questions.some(rowFor) && <p className="text-stone-500">Nothing answered yet.</p>}
           {sections.map((section) => {
             // Answered rows only; an unticked checkbox and an ordinary No aren't shown.
             const rows = questions
               .filter((q) => q.section === section)
-              .map((q) => {
-                const v = source[q.id] ?? fromSpecs[q.id];
-                if (q.type === "checkbox" && !v) return null;
-                if (q.showOnlyWhenYes && v !== true) return null;
-                const own = displayValue(q, valueOf(q), catalog);
-                const shown = own ?? (fromSpecs[q.id] !== undefined ? `${displayValue(q, fromSpecs[q.id], catalog)} (from Property Specs)` : null);
-                return shown === null ? null : { q, shown };
-              })
+              .map(rowFor)
               .filter(Boolean);
             if (rows.length === 0) return null;
             return (
               <div key={section}>
-                <h3 className="mb-2 text-sm font-semibold text-stone-800">{section}</h3>
+                {!(sections.length === 1 && section === title) && (
+                  <h3 className="mb-2 text-sm font-semibold text-stone-800">{section}</h3>
+                )}
                 <div className="space-y-1">
                   {rows.map(({ q, shown }) => (
                     <div key={q.id} className="grid grid-cols-1 gap-1 sm:grid-cols-[1fr_1fr] sm:gap-4">

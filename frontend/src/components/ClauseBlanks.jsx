@@ -39,8 +39,20 @@ export function ClauseBlanksPanel({ lease, onSaved }) {
   if (blanks.length === 0 || !catalog) return null;
   const state = lease.property?.state;
   const choices = blanks.filter((b) => b.question?.choice).length;
-  const blocked = blanks.some((b) => overLimit(b.question, draft[b.key], state));
-  const answered = blanks.filter((b) => b.question && !empty(draft[b.key]));
+  // A choice's follow-up ("A flat amount each month" asks the amount) shows as
+  // soon as it's picked, not only after saving (checked on screen 2026-11-26).
+  const allTerms = (lease.leaseClauses || []).flatMap((c) => c.terms || []);
+  const followUps = (b) => {
+    if (!b.question?.choice) return [];
+    const seen = new Set();
+    return allTerms
+      .filter((t) => t.showIf?.id === b.question.id && !seen.has(t.id) && seen.add(t.id))
+      .filter((t) => t.showIf.in.includes(draft[b.key]))
+      .map((t) => ({ key: `${b.target}.${t.id}`, target: b.target, question: t }));
+  };
+  const entries = blanks.flatMap((b) => [b, ...followUps(b)]);
+  const blocked = entries.some((b) => overLimit(b.question, draft[b.key], state));
+  const answered = entries.filter((b) => b.question && !empty(draft[b.key]));
 
   async function save(e) {
     e.preventDefault();
@@ -85,6 +97,16 @@ export function ClauseBlanksPanel({ lease, onSaved }) {
                 {overLimit(b.question, draft[b.key], state) && (
                   <p className="mt-1 text-sm text-red-700">{overLimit(b.question, draft[b.key], state)} Enter a smaller number to save.</p>
                 )}
+                {followUps(b).map((f) => (
+                  <div key={f.key} className="mt-3">
+                    <p className="mb-1 text-sm font-medium text-stone-700">{f.question.label}</p>
+                    {f.question.help && <p className="mb-2 text-xs text-stone-500">{f.question.help}</p>}
+                    <Question question={f.question} value={draft[f.key]} catalog={catalog} onChange={(v) => setDraft({ ...draft, [f.key]: v })} />
+                    {overLimit(f.question, draft[f.key], state) && (
+                      <p className="mt-1 text-sm text-red-700">{overLimit(f.question, draft[f.key], state)} Enter a smaller number to save.</p>
+                    )}
+                  </div>
+                ))}
               </>
             ) : (
               <p className="text-sm text-stone-600">
