@@ -1,0 +1,165 @@
+{
+  "sections": {},
+  "federalSections": {},
+  "cfr": {
+    "40-745.113": {
+      "lastSeenAmendment": "2025-01-13"
+    },
+    "24-100.204": {
+      "lastSeenAmendment": "2017-01-03"
+    },
+    "16-682.3": {
+      "lastSeenAmendment": "2016-12-22"
+    },
+    "24-982.308": {
+      "lastSeenAmendment": "2016-12-22"
+    },
+    "24-982.310": {
+      "lastSeenAmendment": "2016-12-22"
+    },
+    "24-100.600": {
+      "lastSeenAmendment": "2017-01-03"
+    },
+    "12-1022.42": {
+      "lastSeenAmendment": "2017-01-01"
+    },
+    "12-1022.43": {
+      "lastSeenAmendment": "2017-01-01"
+    },
+    "24-100.7": {
+      "lastSeenAmendment": "2017-01-03"
+    },
+    "40-61.141": {
+      "lastSeenAmendment": "2016-12-02"
+    },
+    "40-61.145": {
+      "lastSeenAmendment": "2016-12-02"
+    },
+    "47-1.4000": {
+      "lastSeenAmendment": "2023-04-10"
+    },
+    "24-982.404": {
+      "lastSeenAmendment": "2024-06-06"
+    },
+    "24-982.451": {
+      "lastSeenAmendment": "2024-06-06"
+    },
+    "24-982.453": {
+      "lastSeenAmendment": "2016-12-22"
+    },
+    "24-982.507": {
+      "lastSeenAmendment": "2025-04-20"
+    },
+    "24-982.510": {
+      "lastSeenAmendment": "2016-12-22"
+    }
+  },
+  "manualRecheck": {
+    "vi-code-and-rules": {
+      "lastReminded": "2026-11-26"
+    }
+  },
+  "subjects": {},
+  "sources": {
+    "vi-acts": {
+      "seen": [
+        "bill 36-0109 pending",
+        "bill 36-0008 pending",
+        "bill 36-0046 pending",
+        "bill 36-0019 pending",
+        "bill 36-0396 pending",
+        "bill 36-0022 pending",
+        "bill 36-0074 pending",
+        "bill 36-0025 pending",
+        "bill 36-0103 pending",
+        "bill 36-0081 pending",
+        "bill 36-0032 pending",
+        "bill 36-0245 pending",
+        "bill 36-398 pending",
+        "bill 36-0195 pending",
+        "bill 36-702 pending",
+        "bill 36-0304 pending",
+        "bill 36-0313 pending",
+        "bill 36-0402 pending",
+        "bill 38655 pending",
+        "bill 36-1006 pending",
+        "bill 38657 pending",
+        "bill 38659 pending",
+        "bill 36-1007 pending",
+        "bill 36-1008 pending",
+        "bill 36-1009 pending",
+        "bill 38663 pending",
+        "bill 38664 pending",
+        "bill 38665 pending",
+        "bill 36-1010 pending",
+        "bill 36-1011 pending",
+        "bill 36-1012 pending",
+        "bill 36-1013 pending",
+        "bill 36-1014 pending",
+        "bill 36-1015 pending",
+        "bill 36-1016 pending",
+        "bill 36-1017 pending",
+        "bill 36-1018 pending",
+        "bill 36-1020 pending",
+        "bill 36-1021 pending",
+        "bill 36-1022 pending",
+        "bill 38681 pending",
+        "bill 38682 pending",
+        "bill 38685 pending",
+        "bill 38687 pending",
+        "bill 36-1023 pending",
+        "bill 36-1024 pending",
+        "bill 36-1025 pending",
+        "bill 36-1026 pending",
+        "bill 36-1027 pending",
+        "bill 36-1028 pending",
+        "bill 38697 pending",
+        "bill 36-1029 pending",
+        "bill 36-1030 pending",
+        "bill 38700 pending"
+      ],
+      "memory": {
+        "next": 38701,
+        "following": [
+          36608,
+          36628,
+          36682,
+          36734,
+          36735,
+          36748,
+          36759,
+          36809,
+          36871,
+          36893,
+          36897,
+          37032,
+          37063,
+          37426,
+          37924,
+          38159,
+          38229,
+          38373,
+          38661,
+          38663,
+          38664,
+          38668,
+          38670,
+          38685,
+          38691,
+          38698
+        ],
+        "highest": 38700
+      }
+    },
+    "vi-bill-36-0022": {
+      "seen": [
+        "7 actions; latest: Committee Action, 05-14-2025, Committee Housing, Transportation and Telecommunications, 05/14/25 - HELD IN COMMITTEE"
+      ]
+    },
+    "vi-legislature": {
+      "seen": [
+        "36th Legislature"
+      ]
+    }
+  }
+}
