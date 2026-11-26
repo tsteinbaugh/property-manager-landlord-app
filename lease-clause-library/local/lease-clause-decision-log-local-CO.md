@@ -277,3 +277,18 @@ Result: 14 rules checked, one phrase removed (Denver), no misstatement found.
   - A narrower title.
   - Not adopted: F.2 (date of violation controls), as minor.
   - County authority (C.R.S. 30-15-401(1)(a)(V)(C)) noted, not put in the row.
+
+## Arapahoe County: first read (2026-11-25, evening)
+- **Corpus:** saved from arapahoeco.gov by the shell, in `~/local-corpus-build/CO/arapahoe-county/`:
+  - 16 current ordinances (repealed ones skipped).
+  - The Land Development Code: the page says updated Nov. 9, 2026, though the file name says Rev 12-10-2024.
+  - The Development Application Manual and the obsolete zone sections 3-100 to 3-700.
+  - 13 of the ordinances are scans with no text layer; OCR was run (`ocr/`). Read the page image before quoting.
+- **Search:** run on the text layers, every subject; control 0; positive (short-term rental) found in the LDC. The OCR text still needs searching.
+- **Rental rules found in the LDC (§ 3-3.2), not yet drafted:**
+  - **ADU owner occupancy (D.4.d, D.18, D.19):** the owner of record must live in the house or the ADU. The certificate of occupancy for the ADU lasts only while that's true, and a deed restriction records it. So an owner can't rent out both. An ADU may not be a short-term rental unless the parcel is 9 acres or more (D.2.g).
+    - **Conflict to settle:** C.R.S. 29-35-403(2)(b), from June 30, 2025, bars a "subject jurisdiction" from requiring owner occupancy. For a county, that means the part of it inside a census designated place of 40,000 or more that is also within a metropolitan planning organization (29-35-402(21)(b)). Which unincorporated Arapahoe areas, if any, qualify needs the census list. Until then the row must say both.
+  - **Pets (E):** at most three pets per dwelling unit in the listed residential zones and at densities above one unit per 2.41 acres. Four in A-1, RR-A and RR-B. No limit in A-E. This matters for the pet clause.
+  - **Senior housing (H.2):** a project's plan must require at least one occupant aged 55 or older in each unit. A rental unit advertised for 270 consecutive days without a qualified tenant may then go to anyone, and the 270 days start again once a non-senior leaves.
+  - **Short-term rental licensing** (LDC23-001, amended by 26-132, May 12, 2026): not read.
+- **Not yet:** search of the OCR text; building code adoption; Arapahoe County Public Health rules; drafting and checks.
