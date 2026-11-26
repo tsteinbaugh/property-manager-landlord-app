@@ -16,6 +16,20 @@ The library covers federal and state law only (SOP rule 3 flags local law withou
 - **Start:** Colorado, piloted on Denver, Boulder, Frederick. Finish all of Colorado first, to learn from every size, type and overlap; then the rest of the country, largest first regardless of state.
 - **Who:** Claude Code (Taylor had no preference). Desktop is the fallback for a place Claude Code can't handle.
 
+## How local rows show (Taylor, 2026-11-25 night)
+- **Layered, never hidden.** State and federal rows stay exactly as vetted: never reworded and never hidden, for anyone. Local rows show only for a property inside that place, in their own section headed with where they apply. Landlords elsewhere never see them.
+- **Local rows only add.** "REPLACES" is dropped. A local lease clause is an extra clause, never an edit to a state clause. A local Required clause holds the PDF for properties in that place, as state Required clauses do.
+- **Exception flag.** Where a local rule makes a state sentence untrue, the app shows a fixed note on the state row, for that place's properties only. It begins "Exception due to local ordinance", then names the place, the sentence affected and the local section, and points to the local row.
+  - A flag may mark only a sentence that states silence ("state law does not require X").
+  - It may never mark a requirement, prohibition, deadline or penalty; a guard enforces this. So a local rule can make a state rule stricter but can never switch off a state duty.
+  - Where a place allows what the state forbids, the local row says the state rule still controls.
+  - Taylor accepts that the layers still read as somewhat conflicting; there's no way around it.
+- **Before a place goes live:**
+  - Taylor reads that place's review sheet: every local row, every flagged state sentence, and every local lease clause.
+  - The landlord confirms the property is inside the place's limits.
+  - A way to watch that place's code for changes exists.
+- **Open:** Taylor reviewing every place may not scale. Decide later, for example by Taylor reading every flag and local clause but only a sample of education rows, or by an attorney batch per state.
+
 ## Phase 1: Set up (first local day; small)
 1. `docs/local-law.md`: the procedure. It reuses the SOP's standing and source rules (official text only, quotes checked, verification statuses, three-bucket test, rule 56 tags) and adds only what differs. Rule 3 is amended to point to it: local text still never enters state rows.
 2. `lease-clause-library/local/`, separate from `lease-clauses.csv` so state files and guards are untouched:
