@@ -306,3 +306,7 @@ Result: 14 rules checked, one phrase removed (Denver), no misstatement found.
   - The tenants' high-pollution-day burn ban and its exemption added.
   - The penalty record follows F.3.
   - Not added: C.R.C.P. 106 by name.
+- **Douglas snow row, round 1 (fresh agent):** applied:
+  - **Penalty:** a civil infraction under C.R.S. 30-15-402(1), which I read, plus the $10 surcharge in (2)(a). The ordinance's class 2 petty offense is out of date. O-996-003 doesn't change the $50.
+  - **The library's snow clause:** it doesn't name the public sidewalk, which may not be part of the lot. The earlier wording implied it fails only in multi-unit buildings.
+  - **Small additions:** "or have someone clear", and notice for snow put in the street.
