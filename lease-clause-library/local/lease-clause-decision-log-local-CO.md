@@ -333,3 +333,4 @@ Result: 14 rules checked, one phrase removed (Denver), no misstatement found.
   - Lease-term waiver void (503(10)); the 506 single-family route; tenant misconduct (503(9)) with its domestic-violence exception; the bed bug cost split (1004(4)); tenant duties (504(1)).
   - The penalty: a class 2 misdemeanor (25-1-516). The cite is 518(3), not "quoting".
   - Not added: 25-1-518(4) (24-hour order, $100).
+- **Douglas snow row, round 2 (a different fresh agent):** the no-further-action condition and "whole cost plus related costs" added; the cost falls on the owner; the penalty wording clarified; the snow clause's "unless Landlord provides snow removal" condition added here and in the Frederick row.
