@@ -334,3 +334,10 @@ Result: 14 rules checked, one phrase removed (Denver), no misstatement found.
   - The penalty: a class 2 misdemeanor (25-1-516). The cite is 518(3), not "quoting".
   - Not added: 25-1-518(4) (24-hour order, $100).
 - **Douglas snow row, round 2 (a different fresh agent):** the no-further-action condition and "whole cost plus related costs" added; the cost falls on the owner; the penalty wording clarified; the snow clause's "unless Landlord provides snow removal" condition added here and in the Frederick row.
+- **Mesa rubbish row, round 1 (fresh agent):** applied:
+  - Scope of 3.1; notices and liens go to the owner.
+  - "Used" furniture; work paused.
+  - The manure exception narrowed.
+  - Notice service (4.2.3) and no repeat notice (4.2.2).
+  - The lien's priority and tax sale (6.3); "each violation" plus the $10 surcharge.
+  - Not adopted: the agent's unverified claim that 30-15-402 was amended in 2026.
