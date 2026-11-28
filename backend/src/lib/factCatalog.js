@@ -314,6 +314,13 @@ const PROPERTY = [
       { value: "DISABILITY", label: "Housing for people with disabilities" },
       { value: "STUDENT", label: "Student housing" },
     ],
+    // Taylor, 2026-11-27 (from the New York scope row, now backend only).
+    warnWhen: {
+      NY: {
+        values: ["RENT_CONTROLLED"],
+        text: "New York's rent-stabilized and rent-controlled apartments need the state's own lease riders, lease forms and renewal rules, which leases built here don't supply. Use those forms for this unit.",
+      },
+    },
   },
   // The federal lead disclosure's exception for "housing for the elderly"
   // (households with someone 62 or older at first occupancy) or for people with

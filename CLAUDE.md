@@ -137,6 +137,7 @@ React + Vite + Tailwind v4 + React Router (`frontend/`); Node + Express + Prisma
 
 ## Scope boundaries
 - No separate landscaping module (Property Specs → Exterior, plus Maintenance). Tenant renter's insurance lives on the Tenant, not in Insurance. No billing/Stripe or tenant-portal UI yet, but keep `userId`/`organizationId` on records and design for a tenant portal. No plant database. Property Specs supports the landlord workflow and mustn't become its own app.
+- Manufactured-home park lot (site) rentals are permanently out of scope; renting out a manufactured home the landlord owns is an ordinary lease and is covered. [2026-11-27]
 - Backend first: build and test routes before UI. Sensitive files go to R2, and the EIN and similar identifiers are encrypted at rest.
 - Legal Tracker is last in the v2 order (legal-accuracy risk) and starts Colorado-only.
 

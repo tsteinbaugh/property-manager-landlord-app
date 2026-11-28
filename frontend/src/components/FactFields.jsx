@@ -1,4 +1,4 @@
-import { Question, displayValue, helpFor, isVisible } from "./FactQuestions";
+import { Question, displayValue, helpFor, isVisible, warningFor } from "./FactQuestions";
 
 // Lease-question answers shown inside a page's own sections (Taylor,
 // 2026-11-22: built into the pages, not a separate Lease questions card).
@@ -63,6 +63,9 @@ export function FactFieldsEdit({ catalog, target, place, states, answers, onChan
             </p>
             {helpFor(q, states) && <p className="mb-2 text-xs text-stone-500">{helpFor(q, states)}</p>}
             <Question question={q} value={answers?.[q.id]} catalog={catalog} onChange={(v) => set(q.id, v)} />
+            {warningFor(q, states, answers?.[q.id]) && (
+              <p className="mt-2 rounded-lg border border-amber-300 bg-amber-50 px-3 py-2 text-xs text-amber-900">{warningFor(q, states, answers?.[q.id])}</p>
+            )}
           </div>
         );
       })}
@@ -90,10 +93,13 @@ export function factViewRows({ catalog, target, place, states, answers, fromSpec
       return { q, shown, value: v ?? fromSpecs[q.id] };
     })
     .filter(({ q, shown, value }) => shown !== null && (!q.showOnlyWhenYes || value === true));
-  return rows.map(({ q, shown }) => (
+  return rows.map(({ q, shown, value }) => (
     <p key={q.id} className={`text-stone-600 ${["utilities", "appliances", "pickAny"].includes(q.type) || viewLabel(q).length + String(shown).length > 60 ? "sm:col-span-2" : ""}`}>
       <span className="font-medium text-stone-700">{viewLabel(q)}:</span>{" "}
       {shown}
+      {warningFor(q, states, value) && (
+        <span className="mt-1 block rounded-lg border border-amber-300 bg-amber-50 px-3 py-2 text-xs text-amber-900">{warningFor(q, states, value)}</span>
+      )}
     </p>
   ));
 }

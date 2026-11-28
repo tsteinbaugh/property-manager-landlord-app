@@ -992,8 +992,8 @@ const PICKER_RULES = {
     note: "when no security deposit is taken",
   },
   "security-deposit-return-tn-other": {
-    condition: {"fact":"lease.depositTaken","op":"eq","value":true},
-    note: "when no security deposit is taken",
+    condition: {"all":[{"fact":"lease.depositTaken","op":"eq","value":true},{"not":{"fact":"property.county","op":"matches","value":["Anderson","Blount","Bradley","Davidson","Hamilton","Knox","Madison","Maury","Montgomery","Rutherford","Sevier","Shelby","Sullivan","Sumner","Washington","Williamson","Wilson"]}}]},
+    note: "when no security deposit is taken, or the property is in one of the 17 Tennessee counties covered by the landlord-tenant act",
   },
   "military-air-zone-disclosure-va": {
     condition: {"fact":"property.militaryAirZone","op":"eq","value":true},
@@ -1489,8 +1489,8 @@ const PICKER_RULES = {
     note: "when the lease charges no late fee",
   },
   "late-fee-limit-tn": {
-    condition: {"fact":"lease.lateFeeCharged","op":"eq","value":true},
-    note: "when the lease charges no late fee",
+    condition: {"all":[{"fact":"lease.lateFeeCharged","op":"eq","value":true},{"fact":"property.county","op":"matches","value":["Anderson","Blount","Bradley","Davidson","Hamilton","Knox","Madison","Maury","Montgomery","Rutherford","Sevier","Shelby","Sullivan","Sumner","Washington","Williamson","Wilson"]}]},
+    note: "when the lease charges no late fee, or the property is outside Tennessee's 17 landlord-tenant act counties",
   },
   "late-fee-limit-va": {
     condition: {"fact":"lease.lateFeeCharged","op":"eq","value":true},

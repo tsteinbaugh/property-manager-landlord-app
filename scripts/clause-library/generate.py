@@ -46,7 +46,13 @@ def tag(r):
     return None
 act=[r for r in rows if r['is_active']=='TRUE']
 lc=[r for r in act if r['content_type']=='LEASE_CLAUSE']
-ed=[r for r in act if r['content_type']=='LANDLORD_EDUCATION']
+# Topics kept in the CSV as a research record but never shown to the landlord
+# (Taylor, 2026-11-27: the scope rows confused more than they helped).
+BACKEND_ONLY_TOPICS={"scope"}
+# Except these, about particular rental situations a landlord may be in
+# (Taylor, 2026-11-27: "good info for a landlord to know, add them all back").
+SHOWN_ANYWAY={"edu-shared-facility-rentals-nh","edu-rooming-houses-me","edu-recovery-residences-me","edu-farm-employee-housing-vt","edu-recovery-residences-vt"}
+ed=[r for r in act if r['content_type']=='LANDLORD_EDUCATION' and (r['topic_key'] not in BACKEND_ONLY_TOPICS or r['id'] in SHOWN_ANYWAY)]
 _H={}
 for _f,_m in [("clauseTemplates.js","const CLAUSE_TEMPLATES = ["),("clauseResearchMetadata.js","const CLAUSE_RESEARCH_METADATA = {")]:
     _t=open(f"{libdir}/{_f}",encoding='utf-8').read(); _H[_f]=_t[:_t.index(_m)]

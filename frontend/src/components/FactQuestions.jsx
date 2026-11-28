@@ -32,6 +32,18 @@ export function helpFor(q, states) {
   return q?.help || null;
 }
 
+// A warning shown under a question when the answer picks a value that a
+// state's rule flags (`warnWhen: { ST: { values, text } }`, Taylor, 2026-11-27:
+// New York's rent-stabilized units need the state's own lease forms).
+export function warningFor(q, states, value) {
+  const picked = [].concat(value ?? []);
+  for (const s of [].concat(states || [])) {
+    const w = q?.warnWhen?.[s];
+    if (w && w.values.some((v) => picked.includes(v))) return w.text;
+  }
+  return null;
+}
+
 export function isVisible(question, states, answers, ownerKind = null) {
   if (question.builderOnly || question.ownSection) return false;
   if (question.kind && question.kind !== ownerKind) return false;
