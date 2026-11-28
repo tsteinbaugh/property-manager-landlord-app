@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useApi } from "../hooks/useApi";
-import { Question, useFactCatalog, YesNo } from "./FactQuestions";
+import { Question, helpFor, useFactCatalog, YesNo } from "./FactQuestions";
 
 // The lease builder's fill-in-the-gaps questions (agreed with Taylor
 // 2026-11-22): only the blank answers this lease's required clauses still wait
@@ -121,7 +121,7 @@ export default function MissingFactsPanel({ lease, questions, onSaved }) {
               {q.label}
               {q.blocks && <span className="ml-2 rounded bg-red-100 px-1.5 py-0.5 text-xs font-medium text-red-800">Needed for the lease</span>}
             </p>
-            {q.help && <p className="mb-2 text-xs text-stone-500">{q.help}</p>}
+            {helpFor(q, lease.property?.state) && <p className="mb-2 text-xs text-stone-500">{helpFor(q, lease.property?.state)}</p>}
             {q.type === "deposit" ? (
               <DepositQuestion value={draft[q.key]} onChange={(v) => setDraft({ ...draft, [q.key]: v })} />
             ) : q.type === "date" ? (

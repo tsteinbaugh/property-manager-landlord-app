@@ -26,6 +26,18 @@ function aboutSummary(templateId) {
   };
 }
 
+// Education text names other clauses and rows by id in backticks
+// (`guest-policy`, `edu-required-fees-or`); the landlord sees the title in
+// quotes instead (2026-11-27). An id the app doesn't know loses its backticks.
+let titles = null;
+function readableIds(text, state) {
+  if (!titles) titles = new Map(require("./clauseTemplates").CLAUSE_TEMPLATES.map((t) => [t.id, t.title]));
+  const titleOf = (id) => titles.get(id) || educationFile(state).get(id)?.title || educationFile("shared").get(id)?.title;
+  return text
+    .replace(/`([a-z0-9]+(?:-[a-z0-9]+)+)`/g, (m, id) => (titleOf(id) ? `"${titleOf(id)}"` : id))
+    .replace(/\b[a-z0-9]+(?:-[a-z0-9]+)+\b/g, (id) => (titleOf(id) ? `"${titleOf(id)}"` : id));
+}
+
 function clauseEducation(templateId, state) {
   const links = CLAUSE_GUIDANCE[templateId]?.education || {};
   // Only a state the map names is ever read, so `state` can't reach another file.
@@ -33,7 +45,7 @@ function clauseEducation(templateId, state) {
   return links[state]
     .map((id) => educationFile(state).get(id) || educationFile("shared").get(id))
     .filter(Boolean)
-    .map(({ id, title, bodyText }) => ({ id, title, bodyText }));
+    .map(({ id, title, bodyText }) => ({ id, title, bodyText: readableIds(bodyText, state) }));
 }
 
 module.exports = { aboutSummary, clauseEducation };

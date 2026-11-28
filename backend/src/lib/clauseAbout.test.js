@@ -38,4 +38,10 @@ describe("About this clause", () => {
     expect(files).toContain("shared.json");
     for (const s of new Set(CLAUSE_TEMPLATES.flatMap((t) => t.states))) expect(files).toContain(`${s}.json`);
   });
+
+  it("names other clauses and rows by title, never by id (2026-11-27)", () => {
+    const text = clauseEducation("guest-policy", "OR").map((r) => r.bodyText).join("\n");
+    expect(text).toContain('"Guest Policy"');
+    expect(text).not.toMatch(/`|\bedu-[a-z0-9-]+/);
+  });
 });

@@ -5,6 +5,7 @@ import SimpleRecordSection from "../components/SimpleRecordSection";
 import BackLink from "../components/BackLink";
 import YesNo from "../components/YesNo";
 import { formatDay } from "../lib/dates";
+import TextsQuestion, { withTexts } from "../components/TextsQuestion";
 
 const APPLICATION_STATUSES = ["PENDING", "APPROVED", "REJECTED"];
 
@@ -41,6 +42,7 @@ const OCCUPANT_FIELDS = [
   { key: "name", label: "Name", required: true },
   { key: "age", label: "Age", type: "number" },
   { key: "phone", label: "Phone" },
+  { key: "phoneTexts", label: "Can that phone receive text messages?", type: "yesno" },
   { key: "email", label: "Email", type: "email" },
   { key: "isStudent", label: "Full-time student?", type: "yesno" },
   { key: "isServicemember", label: "Active-duty servicemember?", type: "yesno" },
@@ -77,6 +79,8 @@ function toForm(tenant) {
   for (const f of BOOL_FIELDS) form[f] = !!tenant[f];
   form.nonresidentAlien = tenant.nonresidentAlien ?? null;
   form.isStudent = tenant.isStudent ?? null;
+  form.phoneTexts = tenant.phoneTexts ?? null;
+  form.emergencyContactPhoneTexts = tenant.emergencyContactPhoneTexts ?? null;
   form.isServicemember = tenant.isServicemember ?? null;
   return form;
 }
@@ -365,14 +369,17 @@ export default function TenantDetailPage() {
                   ))}
                 </select>
               </label>
-              <label className="block text-sm">
-                <span className="mb-1 block font-medium text-stone-700">Phone</span>
-                <input
-                  value={form.phone}
-                  onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                  className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
-                />
-              </label>
+              <div>
+                <label className="block text-sm">
+                  <span className="mb-1 block font-medium text-stone-700">Phone</span>
+                  <input
+                    value={form.phone}
+                    onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                    className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
+                  />
+                </label>
+                <TextsQuestion value={form.phoneTexts} onChange={(v) => setForm({ ...form, phoneTexts: v })} />
+              </div>
               <label className="block text-sm">
                 <span className="mb-1 block font-medium text-stone-700">Email</span>
                 <input
@@ -528,14 +535,17 @@ export default function TenantDetailPage() {
                     className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
                   />
                 </label>
-                <label className="block text-sm">
-                  <span className="mb-1 block font-medium text-stone-700">Phone</span>
-                  <input
-                    value={form.emergencyContactPhone}
-                    onChange={(e) => setForm({ ...form, emergencyContactPhone: e.target.value })}
-                    className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
-                  />
-                </label>
+                <div>
+                  <label className="block text-sm">
+                    <span className="mb-1 block font-medium text-stone-700">Phone</span>
+                    <input
+                      value={form.emergencyContactPhone}
+                      onChange={(e) => setForm({ ...form, emergencyContactPhone: e.target.value })}
+                      className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
+                    />
+                  </label>
+                  <TextsQuestion value={form.emergencyContactPhoneTexts} onChange={(v) => setForm({ ...form, emergencyContactPhoneTexts: v })} />
+                </div>
                 <label className="block text-sm">
                   <span className="mb-1 block font-medium text-stone-700">Relation</span>
                   <input
@@ -637,7 +647,7 @@ export default function TenantDetailPage() {
           </form>
         ) : (
           <div className="mt-4 grid grid-cols-1 gap-x-8 gap-y-2 border-t border-stone-200 pt-4 text-sm sm:grid-cols-2">
-            <DetailRow label="Phone" value={tenant.phone} />
+            <DetailRow label="Phone" value={withTexts(tenant.phone, tenant.phoneTexts)} />
             <DetailRow label="Email" value={tenant.email} />
             <DetailRow
               label="Date of birth"
@@ -679,7 +689,7 @@ export default function TenantDetailPage() {
               label="Emergency phone"
               value={
                 tenant.emergencyContactPhone
-                  ? `${tenant.emergencyContactPhone}${tenant.emergencyContactRelation ? ` (${tenant.emergencyContactRelation})` : ""}`
+                  ? `${withTexts(tenant.emergencyContactPhone, tenant.emergencyContactPhoneTexts)}${tenant.emergencyContactRelation ? ` (${tenant.emergencyContactRelation})` : ""}`
                   : null
               }
             />
@@ -763,7 +773,7 @@ export default function TenantDetailPage() {
           [
             o.name,
             o.age ? `age ${o.age}` : null,
-            [o.phone, o.email].filter(Boolean).join(", ") || null,
+            [withTexts(o.phone, o.phoneTexts), o.email].filter(Boolean).join(", ") || null,
             o.isStudent === true ? "student" : null,
             o.isServicemember === true ? "servicemember" : null,
           ]

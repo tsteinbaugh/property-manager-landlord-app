@@ -18,14 +18,18 @@ export function isWrongForCauseVariant(templateId, forCauseEvictionExemption) {
   return templateId !== correctForCauseVariantId(forCauseEvictionExemption);
 }
 
-export const FOR_CAUSE_EVICTION_EXEMPTION_OPTIONS = [
-  {
-    value: "OWNER_OCCUPIED_OR_ADJACENT",
-    label: "I (or a family member) live in this property, or in a property directly next door to it, as my own home",
-  },
-  {
-    value: "SHORT_TERM_RENTAL",
-    label: "This is a short-term rental (Airbnb/VRBO-style), not a long-term residential lease",
-  },
-  { value: "STANDARD_LONG_TERM", label: "Neither — this is a standard long-term rental" },
-];
+// Which C.R.S. § 38-12-1302(1) exemption the facts show; mirrors the backend's
+// coForCauseExemption (worked out, never picked; 2026-11-27).
+const SINGLE = ["SINGLE_FAMILY", "ADU", "ROOM_IN_OWNER_HOME"];
+function smallBuilding(facts) {
+  if (facts.unitsInBuilding != null && facts.unitsInBuilding !== "") return Number(facts.unitsInBuilding) <= 3;
+  return SINGLE.includes(facts.propertyType) ? true : null;
+}
+export function coForCauseExemption(property, lease) {
+  const f = property?.facts || {};
+  if (lease?.startDate && lease?.endDate && (new Date(lease.endDate) - new Date(lease.startDate)) / 86400000 < 30) return "SHORT_TERM_RENTAL";
+  const resides = f.coOwnerResides || (f.ownerLivesInBuilding === true ? "here" : null);
+  if (resides !== "here" && resides !== "next_door") return "STANDARD_LONG_TERM";
+  if (smallBuilding(f) === true || (resides === "next_door" && f.coAdjacentSmall === true)) return "OWNER_OCCUPIED_OR_ADJACENT";
+  return "STANDARD_LONG_TERM";
+}

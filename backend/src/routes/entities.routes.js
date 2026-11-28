@@ -9,6 +9,7 @@ const FIELDS = [
   "entityType",
   "contactEmail",
   "contactPhone",
+  "contactPhoneTexts",
   "mailingAddress",
   "stateOfFormation",
   "ein",

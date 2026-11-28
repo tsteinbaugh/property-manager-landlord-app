@@ -3377,3 +3377,15 @@ Taylor's decision 2026-11-22: every clause shows a tag. A clause that applies on
 ## Notes to the landlord moved out of clause text (Claude Code, 2026-11-24)
 
 The bracketed note that opened each clause below was removed from its text, so it no longer prints in the lease; no lease term changed. A note saying when the clause fits is now its "Use when" line in `lease-clause-library/clause-guidance.csv`; a bare "[Optional.]" was dropped (the tag says it). Clauses: `farmland-sporting-rights-co`.
+
+## Bracketed prompts cleared (Claude Code, 2026-11-27)
+
+Taylor approved. Every bracket in this state's own clause text was handled as in Colorado's pilot: formatting moved to `docs/pdf-formatting.md`, a note to the landlord moved to the clause's "Use when" line, its education or a field's help, and a blank or choice became a `{{variable}}` asked under the clause. No lease term changed. Bracketed prompts cleared 2026-11-27 (bracket sweep). 2 clauses, 4 brackets. The methamphetamine disclosure's "state one" became a pick-one (meth_knowledge) whose two options print the clause's own two statements. The showing-notice clause's three blanks use the fields made for Michigan's identical clause the same day (showing_period_days, showing_notice, showing_hours). No legal limit applies (SDCL 43-32-32 sets a reasonableness standard, not a figure; edu-showing-notice-waiver-sd covers it); nothing held.
+
+Clauses: `meth-disclosure-sd`, `showing-notice-sd`.
+
+## Bracketed prompts cleared in shared clauses (Claude Code, 2026-11-27)
+
+Taylor approved. Every bracket in the clauses this state shares with others was handled as in Colorado's pilot: formatting moved to `docs/pdf-formatting.md`, a note to the landlord moved to the clause's "Use when" line, its education or a field's help, and a blank or choice became a `{{variable}}` asked under the clause. No lease term changed. Shared clauses (one text tagged in several states): every bracket cleared so the text reads correctly in each tagged state. Blanks became existing variables wherever one meant the same thing (stored rent, payment, utility, parking, contact and guarantor data first), "Optional. Use only if" notes became Use when lines, and a choice became a pick-one whose wording is the bracket's own. Help that is one state's rule went to that state's help only (field_help with a state). Limits: Montana and Mississippi month-to-month (30) and week-to-week (7) floors on the periodic-tenancy notice, written from the statute quotes in the research notes and marked unread (mca.legmt.gov and Lexis not read this session). Every other number the brackets named (14, 30, 7) is a drafting choice, so it is help. Nothing held.
+
+Clauses: `due-at-signing`, `acceptable-payment-methods`, `utilities-paid-by-landlord`, `assigned-parking-space`, `storage-space`, `lead-based-paint`, `arbitration-agreement`, `association-approval-la`, `carpet-cleaning-ar`, `no-liens-ar`, `tenant-caused-fines-as`, `energy-data-release-wy`, `tenant-portal-mn`.

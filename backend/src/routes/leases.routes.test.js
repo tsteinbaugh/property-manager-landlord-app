@@ -1225,7 +1225,8 @@ describe("leases routes", () => {
     });
 
     it("only auto-attaches the month-to-month notice variant matching the property's for-cause-eviction exemption", async () => {
-      await prisma.property.update({ where: { id: property.id }, data: { forCauseEvictionExemption: "OWNER_OCCUPIED_OR_ADJACENT" } });
+      // Worked out from facts (2026-11-27): the owner lives in this single-family home.
+      await prisma.property.update({ where: { id: property.id }, data: { facts: { propertyType: "SINGLE_FAMILY", coOwnerResides: "here" } } });
       await prisma.defaultClauseTemplate.create({
         data: { userId: property.userId, templateId: "month-to-month-notice-co-exempt" },
       });
@@ -1241,7 +1242,8 @@ describe("leases routes", () => {
     });
 
     it("auto-attaches the covered variant for a standard long-term rental (the default)", async () => {
-      // property.forCauseEvictionExemption already defaults to STANDARD_LONG_TERM
+      // A family member living there doesn't make it exempt (C.R.S. § 38-12-1302(1)(b)).
+      await prisma.property.update({ where: { id: property.id }, data: { facts: { propertyType: "SINGLE_FAMILY", coOwnerResides: "no" } } });
       await prisma.defaultClauseTemplate.create({
         data: { userId: property.userId, templateId: "month-to-month-notice-co-exempt" },
       });
@@ -1321,14 +1323,29 @@ describe("leases routes", () => {
       );
       if (Object.keys(facts).length) await request(app).put(`/api/properties/${property.id}/facts`).send({ facts });
       await request(app).post(`/api/leases/${lease.id}/clauses/add-defaults`);
-      await request(app).put(`/api/leases/${lease.id}/facts`).send({ facts: { noticePortal: "none" } });
+      // The 1950 house gets the Required federal lead disclosure, whose questions must be answered.
+      await request(app).put(`/api/leases/${lease.id}/facts`).send({
+        facts: { noticePortal: "none", leadPaintKnowledge: "none", leadPaintRecords: "none", leasingAgentInvolved: "no" },
+      });
+      // The Required habitability notice prints the owner's notice address and email.
+      await prisma.entity.update({
+        where: { id: property.entityId },
+        data: { mailingAddress: "PO Box 1, Frederick, CO 80530", contactEmail: "owner@example.com" },
+      });
     });
 
     it("refuses to generate while a clause's choice isn't picked, naming it", async () => {
       await request(app).put(`/api/leases/${lease.id}/facts`).send({ facts: { noticePortal: null } });
       const res = await request(app).post(`/api/leases/${lease.id}/generate-document`);
       expect(res.status).toBe(409);
-      expect(res.body.unpickedChoices.map((c) => c.key)).toEqual(["lease.noticePortal"]);
+      expect(res.body.holdingBlanks.map((c) => c.key)).toEqual(["lease.noticePortal"]);
+    });
+
+    it("refuses to generate while a Required clause has a blank (Taylor, 2026-11-27)", async () => {
+      await prisma.entity.update({ where: { id: property.entityId }, data: { contactEmail: null } });
+      const res = await request(app).post(`/api/leases/${lease.id}/generate-document`);
+      expect(res.status).toBe(409);
+      expect(res.body.holdingBlanks.map((c) => c.label)).toEqual(["Landlord email"]);
     });
 
     it("refuses a deposit return longer than Colorado allows", async () => {

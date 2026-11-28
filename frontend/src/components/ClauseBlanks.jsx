@@ -1,20 +1,28 @@
 import { useState } from "react";
 import { useApi } from "../hooks/useApi";
-import { Question, displayValue, useFactCatalog } from "./FactQuestions";
+import { Question, displayValue, helpFor, useFactCatalog } from "./FactQuestions";
 
 const empty = (v) => v === undefined || v === null || v === "";
 
-// A legal limit the answer is over in this lease's state, as its reason.
-function overLimit(q, value, state) {
+// A legal limit the answer breaks in this lease's state, as its reason: a most,
+// a least, or a number of months' rent (`maxMonthsRent`). A text answer such as
+// "8%" is read by its first number. Mirrors limitError in factCatalog.js.
+function overLimit(q, value, state, rent = null) {
   const limit = q?.limits?.[state];
-  return limit && !empty(value) && Number(value) > limit.max ? limit.why : null;
+  if (!limit || empty(value)) return null;
+  const n = typeof value === "number" ? value : Number.parseFloat(String(value).replace(/[^0-9.]+/g, " ").trim());
+  if (!Number.isFinite(n)) return null;
+  if (limit.max != null && n > limit.max) return limit.why;
+  if (limit.min != null && n < limit.min) return limit.why;
+  if (limit.maxMonthsRent != null && rent != null && n > limit.maxMonthsRent * Number(rent)) return limit.why;
+  return null;
 }
 
 // Whether a follow-up applies, given the answers so far (its parent must too).
-function applies(q, answers, terms) {
-  if (!q.showIf) return true;
+function applies(q, answers, terms, state) {
+  if (!q.showIf || (q.showIf.states && !q.showIf.states.includes(state))) return true;
   const parent = terms.find((t) => t.id === q.showIf.id);
-  return q.showIf.in.includes(answers[q.showIf.id]) && (!parent || applies(parent, answers, terms));
+  return q.showIf.in.includes(answers[q.showIf.id]) && (!parent || applies(parent, answers, terms, state));
 }
 
 // Saves answers where they're kept: the property's or lease's answers, or the
@@ -27,8 +35,9 @@ async function saveFacts(api, lease, entries) {
   if (Object.keys(facts.lease).length) await api.put(`/api/leases/${lease.id}/facts`, { facts: facts.lease });
 }
 
-// Blanks in the lease's clauses: a warning only, like Legal duty questions; the
-// PDF prints a line for each (Taylor, 2026-11-23).
+// Blanks in the lease's clauses. The PDF waits for a choice and for any blank in
+// a Required clause (`holds`, Taylor, 2026-11-24 and 2026-11-27); any other
+// blank only warns and prints as a line (Taylor, 2026-11-23).
 export function ClauseBlanksPanel({ lease, onSaved }) {
   const api = useApi();
   const catalog = useFactCatalog();
@@ -38,7 +47,7 @@ export function ClauseBlanksPanel({ lease, onSaved }) {
   const blanks = lease.clauseBlanks || [];
   if (blanks.length === 0 || !catalog) return null;
   const state = lease.property?.state;
-  const choices = blanks.filter((b) => b.question?.choice).length;
+  const holding = blanks.filter((b) => b.holds).length;
   // A choice's follow-up ("A flat amount each month" asks the amount) shows as
   // soon as it's picked, not only after saving (checked on screen 2026-11-26).
   const allTerms = (lease.leaseClauses || []).flatMap((c) => c.terms || []);
@@ -51,7 +60,7 @@ export function ClauseBlanksPanel({ lease, onSaved }) {
       .map((t) => ({ key: `${b.target}.${t.id}`, target: b.target, question: t }));
   };
   const entries = blanks.flatMap((b) => [b, ...followUps(b)]);
-  const blocked = entries.some((b) => overLimit(b.question, draft[b.key], state));
+  const blocked = entries.some((b) => overLimit(b.question, draft[b.key], state, lease.monthlyRent));
   const answered = entries.filter((b) => b.question && !empty(draft[b.key]));
 
   async function save(e) {
@@ -76,8 +85,8 @@ export function ClauseBlanksPanel({ lease, onSaved }) {
           {blanks.length === 1 ? "1 blank" : `${blanks.length} blanks`} in this lease's clauses
         </h3>
         <p className="mt-1 text-xs text-amber-800">
-          {choices > 0
-            ? "The lease PDF waits until every choice marked below is made. Any other blank prints as a line to fill in by hand."
+          {holding > 0
+            ? "The lease PDF waits until every blank marked below is filled in. Any other blank prints as a line to fill in by hand."
             : "You can still generate the lease PDF. Any blank left here prints as a line to fill in by hand."}{" "}
           Answers are saved to the property or the lease, so each is asked once.
         </p>
@@ -88,22 +97,28 @@ export function ClauseBlanksPanel({ lease, onSaved }) {
           <div key={b.key} className="rounded-lg bg-white p-3">
             <p className="mb-1 text-sm font-medium text-stone-700">
               {b.label}
-              {b.question?.choice && <span className="ml-2 text-xs font-normal text-red-700">Choose before generating the PDF</span>}
+              {b.holds && (
+                <span className="ml-2 text-xs font-normal text-red-700">
+                  {b.question?.choice ? "Choose before generating the PDF" : "Fill in before generating the PDF"}
+                </span>
+              )}
             </p>
-            {b.question ? (
+            {b.question?.derivedOnly ? (
+              <p className="text-sm text-stone-600">Worked out from your answers under the clause, once they're all in.</p>
+            ) : b.question ? (
               <>
-                {b.question.help && <p className="mb-2 text-xs text-stone-500">{b.question.help}</p>}
+                {helpFor(b.question, state) && <p className="mb-2 text-xs text-stone-500">{helpFor(b.question, state)}</p>}
                 <Question question={b.question} value={draft[b.key]} catalog={catalog} onChange={(v) => setDraft({ ...draft, [b.key]: v })} />
-                {overLimit(b.question, draft[b.key], state) && (
-                  <p className="mt-1 text-sm text-red-700">{overLimit(b.question, draft[b.key], state)} Enter a smaller number to save.</p>
+                {overLimit(b.question, draft[b.key], state, lease.monthlyRent) && (
+                  <p className="mt-1 text-sm text-red-700">{overLimit(b.question, draft[b.key], state, lease.monthlyRent)} Change it to save.</p>
                 )}
                 {followUps(b).map((f) => (
                   <div key={f.key} className="mt-3">
                     <p className="mb-1 text-sm font-medium text-stone-700">{f.question.label}</p>
-                    {f.question.help && <p className="mb-2 text-xs text-stone-500">{f.question.help}</p>}
+                    {helpFor(f.question, state) && <p className="mb-2 text-xs text-stone-500">{helpFor(f.question, state)}</p>}
                     <Question question={f.question} value={draft[f.key]} catalog={catalog} onChange={(v) => setDraft({ ...draft, [f.key]: v })} />
-                    {overLimit(f.question, draft[f.key], state) && (
-                      <p className="mt-1 text-sm text-red-700">{overLimit(f.question, draft[f.key], state)} Enter a smaller number to save.</p>
+                    {overLimit(f.question, draft[f.key], state, lease.monthlyRent) && (
+                      <p className="mt-1 text-sm text-red-700">{overLimit(f.question, draft[f.key], state, lease.monthlyRent)} Change it to save.</p>
                     )}
                   </div>
                 ))}
@@ -138,17 +153,22 @@ export function ClauseTerms({ clause, lease, onSaved }) {
   const [error, setError] = useState(null);
   const terms = clause.terms || [];
   if (terms.length === 0 || !catalog) return null;
-  const facts = lease.facts || {};
+  // Answers the app takes from data it already stores (owner phone, deposit
+  // date, pets, year built, units, utilities, parking; 2026-11-27): shown with
+  // where they come from, never asked.
+  const derived = lease.derivedFacts || {};
+  const facts = { ...(lease.facts || {}), ...Object.fromEntries(Object.entries(derived).map(([id, d]) => [id, d.value])) };
   const state = lease.property?.state;
-  const shownNow = (answers) => terms.filter((q) => applies(q, answers, terms));
-  const blocked = draft && shownNow(draft).some((q) => overLimit(q, draft[q.id], state));
+  const shownNow = (answers) => terms.filter((q) => applies(q, answers, terms, state));
+  const askable = (answers) => shownNow(answers).filter((q) => !derived[q.id] && !q.derivedOnly);
+  const blocked = draft && askable(draft).some((q) => overLimit(q, draft[q.id], state, lease.monthlyRent));
 
   async function save(e) {
     e.preventDefault();
     setSaving(true);
     setError(null);
     try {
-      const changed = shownNow(draft).filter((q) => (draft[q.id] ?? null) !== (facts[q.id] ?? null));
+      const changed = askable(draft).filter((q) => (draft[q.id] ?? null) !== (facts[q.id] ?? null));
       await saveFacts(api, lease, changed.map((q) => ["lease", q.id, empty(draft[q.id]) ? null : draft[q.id]]));
       setDraft(null);
       await onSaved();
@@ -165,13 +185,13 @@ export function ClauseTerms({ clause, lease, onSaved }) {
       {draft ? (
         <form onSubmit={save} className="space-y-3">
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-            {shownNow(draft).map((q) => (
+            {askable(draft).map((q) => (
               <div key={q.id} className={q.choice || q.type === "longtext" ? "sm:col-span-2" : ""}>
                 <p className="mb-1 font-medium text-stone-700">{q.label}</p>
-                {q.help && <p className="mb-1 text-xs text-stone-500">{q.help}</p>}
+                {helpFor(q, state) && <p className="mb-1 text-xs text-stone-500">{helpFor(q, state)}</p>}
                 <Question question={q} value={draft[q.id]} catalog={catalog} onChange={(v) => setDraft({ ...draft, [q.id]: v })} />
-                {overLimit(q, draft[q.id], state) && (
-                  <p className="mt-1 text-red-700">{overLimit(q, draft[q.id], state)} Enter a smaller number to save.</p>
+                {overLimit(q, draft[q.id], state, lease.monthlyRent) && (
+                  <p className="mt-1 text-red-700">{overLimit(q, draft[q.id], state, lease.monthlyRent)} Change it to save.</p>
                 )}
               </div>
             ))}
@@ -191,15 +211,24 @@ export function ClauseTerms({ clause, lease, onSaved }) {
             {shownNow(facts).map((q) => (
               <p key={q.id} className="text-stone-600">
                 <span className="font-medium text-stone-700">{q.label}:</span>{" "}
+                {derived[q.id] && <span className="text-xs text-stone-400">(from {derived[q.id].from}) </span>}
                 {displayValue(q, facts[q.id], catalog) ?? (
-                  <span className={q.choice ? "text-red-700" : "text-amber-700"}>{q.choice ? "choose before generating the PDF" : "blank"}</span>
+                  q.derivedOnly ? (
+                    <span className="text-amber-700">worked out once the questions here are answered</span>
+                  ) : (
+                    <span className={q.choice || clause.required ? "text-red-700" : "text-amber-700"}>
+                      {q.choice ? "choose before generating the PDF" : clause.required ? "fill in before generating the PDF" : "blank"}
+                    </span>
+                  )
                 )}
               </p>
             ))}
           </div>
-          <button type="button" onClick={() => setDraft({ ...facts })} className="shrink-0 text-emerald-700 hover:underline">
-            Fill in
-          </button>
+          {askable(facts).length > 0 && (
+            <button type="button" onClick={() => setDraft({ ...facts })} className="shrink-0 text-emerald-700 hover:underline">
+              Fill in
+            </button>
+          )}
         </div>
       )}
     </div>

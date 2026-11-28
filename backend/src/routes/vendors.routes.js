@@ -4,7 +4,7 @@ const { pickFields } = require("../lib/pickFields");
 
 const REQUIRED_FIELDS = ["name"];
 
-const ASSIGNABLE_FIELDS = ["name", "trade", "phone", "email", "preferred", "notes"];
+const ASSIGNABLE_FIELDS = ["name", "trade", "phone", "phoneTexts", "email", "preferred", "notes"];
 
 function pickAssignableFields(body) {
   return pickFields(body, ASSIGNABLE_FIELDS);

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useApi } from "../hooks/useApi";
-import { useFactCatalog } from "./FactQuestions";
+import { useFactCatalog, helpFor } from "./FactQuestions";
 
 // The lease page's First month and Notices sections (Taylor, 2026-11-22).
 // Both save to the lease's Lease questions answers (PUT /api/leases/:id/facts).
@@ -307,6 +307,11 @@ export function RentPaymentSection({ lease, onSaved }) {
             {rows.map((f) => (
               <label key={f.id} className="block">
                 <span className="mb-1 block font-medium text-stone-700">{f.label}</span>
+                {(() => {
+                  // A state's own rule for this field (2026-11-27), from the catalog.
+                  const help = helpFor(catalog?.questions.lease.find((q) => q.id === f.id), [lease.property?.state]);
+                  return help ? <span className="mb-1 block text-xs text-stone-500">{help}</span> : null;
+                })()}
                 {f.rows ? (
                   <textarea
                     rows={f.rows}

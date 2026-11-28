@@ -7,9 +7,9 @@ const defaultR2 = require("../lib/r2");
 const { buildLeasePdf } = require("../lib/generateLeasePdf");
 const { isValidGroup } = require("../lib/clauseGroups");
 const { CLAUSE_TEMPLATES } = require("../lib/clauseTemplates");
-const { buildVariableContext, substituteVariables, clauseBlanks, clauseTerms, unpickedChoices } = require("../lib/clauseVariables");
+const { buildVariableContext, substituteVariables, clauseBlanks, clauseTerms, blanksHoldingPdf, isRequiredClause, derivedFacts } = require("../lib/clauseVariables");
 const { orderAndLabelClauses } = require("../lib/leaseClauseOrdering");
-const { isWrongForCauseVariant } = require("../lib/forCauseEvictionVariant");
+const { isWrongForCauseVariant, coForCauseExemption } = require("../lib/forCauseEvictionVariant");
 const { choiceGroupOf, findChoiceGroupConflict } = require("../lib/clauseChoiceGroups");
 const { ruleApplies, applicabilityNote } = require("../lib/clauseApplicability");
 const { validateFacts, mergeFacts } = require("../lib/factCatalog");
@@ -150,7 +150,9 @@ const leaseInclude = {
   property: {
     include: { entity: true, appliances: { where: { active: true } }, flooringSpecs: { where: { active: true }, select: { type: true } } },
   },
-  deposits: { where: { type: "PET" } },
+  // The pet deposit fills its amount; the security deposit's received date
+  // answers a receipt clause (2026-11-27).
+  deposits: { where: { type: { in: ["PET", "SECURITY"] } } },
   attachments: { orderBy: { createdAt: "asc" } },
 };
 
@@ -187,8 +189,9 @@ function withComputedLeaseFields(lease) {
     ...clause,
     resolvedBodyText: substituteVariables(clause.bodyText, context, { named: true }),
     terms: clauseTerms(clause.bodyText),
+    required: isRequiredClause(clause),
   }));
-  return { ...lease, leaseClauses, clauseBlanks: clauseBlanks(leaseClauses, context) };
+  return { ...lease, leaseClauses, clauseBlanks: clauseBlanks(leaseClauses, context), derivedFacts: derivedFacts(context) };
 }
 
 // What the applicability rules can see about a lease: its property, the
@@ -226,7 +229,7 @@ async function requiredClauses(lease, userId, ctx) {
   const required = [];
   const legalDuty = [];
   for (const t of forThisState) {
-    if (supersededHere.has(t.id) || isWrongForCauseVariant(t.id, lease.property?.forCauseEvictionExemption)) continue;
+    if (supersededHere.has(t.id) || isWrongForCauseVariant(t.id, coForCauseExemption(lease.property, lease))) continue;
     const applies = ruleApplies(t.id, ctx);
     const tag = tagIn(t, state);
     const entry = { templateId: t.id, title: t.title, note: applicabilityNote(t.id), attached: Boolean(has(t)) };
@@ -331,7 +334,7 @@ function createLeasesRoutes({ r2 = defaultR2 } = {}) {
     if (!existing || existing.userId !== req.currentUser.id) {
       return res.status(404).json({ error: "Lease not found" });
     }
-    const { facts, error } = validateFacts("lease", req.body?.facts, existing.property?.state);
+    const { facts, error } = validateFacts("lease", req.body?.facts, existing.property?.state, { monthlyRent: existing.monthlyRent });
     if (error) return res.status(400).json({ error });
     const merged = mergeFacts(existing.facts, facts);
     // A lease can't assign more parking spaces than the property has (Taylor, 2026-11-23).
@@ -803,7 +806,7 @@ function createLeasesRoutes({ r2 = defaultR2 } = {}) {
             t &&
             !alreadyAttachedTemplateIds.has(t.id) &&
             appliesToThisLease(t.states, { treatBlankAsUniversal: false }) &&
-            !isWrongForCauseVariant(t.id, lease.property?.forCauseEvictionExemption),
+            !isWrongForCauseVariant(t.id, coForCauseExemption(lease.property, lease)),
         )
         // At most one member per choice group: skip any whose group is
         // already on the lease or already picked in this batch, preferring
@@ -950,11 +953,11 @@ function createLeasesRoutes({ r2 = defaultR2 } = {}) {
       appliances: property?.appliances || [],
       petDepositAmount: petDeposit?.amountHeld ?? null,
     });
-    const unpicked = unpickedChoices(lease.leaseClauses, context);
-    if (unpicked.length > 0) {
+    const holding = blanksHoldingPdf(lease.leaseClauses, context);
+    if (holding.length > 0) {
       return res.status(409).json({
-        error: `Choose an option in the Lease Builder first: ${unpicked.map((b) => `${b.label} (${b.clauses.join("; ")})`).join(", ")}.`,
-        unpickedChoices: unpicked.map((b) => ({ key: b.key, label: b.label, clauses: b.clauses })),
+        error: `Fill these in in the Lease Builder first: ${holding.map((b) => `${b.label} (${b.clauses.join("; ")})`).join(", ")}.`,
+        holdingBlanks: holding.map((b) => ({ key: b.key, label: b.label, clauses: b.clauses })),
       });
     }
     const clauses = orderAndLabelClauses(lease.leaseClauses).map((clause) => ({

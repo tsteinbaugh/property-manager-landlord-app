@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useApi } from "../hooks/useApi";
 import BackLink from "../components/BackLink";
 import { formatDay } from "../lib/dates";
+import TextsQuestion, { withTexts } from "../components/TextsQuestion";
 
 const STATUS_STYLES = {
   OPEN: "bg-amber-100 text-amber-800",
@@ -146,14 +147,17 @@ export default function VendorDetailPage() {
                   className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
                 />
               </label>
-              <label className="block text-sm">
-                <span className="mb-1 block font-medium text-stone-700">Phone</span>
-                <input
-                  value={form.phone || ""}
-                  onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                  className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
-                />
-              </label>
+              <div>
+                <label className="block text-sm">
+                  <span className="mb-1 block font-medium text-stone-700">Phone</span>
+                  <input
+                    value={form.phone || ""}
+                    onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                    className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
+                  />
+                </label>
+                <TextsQuestion value={form.phoneTexts} onChange={(v) => setForm({ ...form, phoneTexts: v })} />
+              </div>
               <label className="block text-sm">
                 <span className="mb-1 block font-medium text-stone-700">Email</span>
                 <input
@@ -203,7 +207,7 @@ export default function VendorDetailPage() {
           </form>
         ) : (
           <div className="mt-4 space-y-1 border-t border-stone-200 pt-4 text-sm">
-            {vendor.phone && <p className="text-stone-700">{vendor.phone}</p>}
+            {vendor.phone && <p className="text-stone-700">{withTexts(vendor.phone, vendor.phoneTexts)}</p>}
             {vendor.email && <p className="text-stone-700">{vendor.email}</p>}
             {vendor.notes && <p className="text-stone-500">{vendor.notes}</p>}
           </div>

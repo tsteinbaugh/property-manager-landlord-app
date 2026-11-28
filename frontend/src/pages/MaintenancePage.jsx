@@ -4,8 +4,9 @@ import { useApi } from "../hooks/useApi";
 import MaintenanceRequestSection from "../components/MaintenanceRequestSection";
 import MaintenanceScheduleSection from "../components/MaintenanceScheduleSection";
 import BackLink from "../components/BackLink";
+import TextsQuestion, { withTexts } from "../components/TextsQuestion";
 
-const EMPTY_VENDOR_FORM = { name: "", trade: "", phone: "", email: "", preferred: false, notes: "" };
+const EMPTY_VENDOR_FORM = { name: "", trade: "", phone: "", phoneTexts: null, email: "", preferred: false, notes: "" };
 
 export default function MaintenancePage() {
   const api = useApi();
@@ -61,6 +62,7 @@ export default function MaintenancePage() {
     const body = { ...vendorForm };
     if (!body.trade) delete body.trade;
     if (!body.phone) delete body.phone;
+    if (body.phoneTexts === null) delete body.phoneTexts;
     if (!body.email) delete body.email;
     if (!body.notes) delete body.notes;
 
@@ -181,14 +183,17 @@ export default function MaintenancePage() {
                   placeholder="Plumber, electrician, HVAC..."
                 />
               </label>
-              <label className="block text-sm">
-                <span className="mb-1 block font-medium text-stone-700">Phone</span>
-                <input
-                  value={vendorForm.phone}
-                  onChange={(e) => setVendorForm({ ...vendorForm, phone: e.target.value })}
-                  className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
-                />
-              </label>
+              <div>
+                <label className="block text-sm">
+                  <span className="mb-1 block font-medium text-stone-700">Phone</span>
+                  <input
+                    value={vendorForm.phone}
+                    onChange={(e) => setVendorForm({ ...vendorForm, phone: e.target.value })}
+                    className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
+                  />
+                </label>
+                <TextsQuestion value={vendorForm.phoneTexts} onChange={(v) => setVendorForm({ ...vendorForm, phoneTexts: v })} />
+              </div>
               <label className="block text-sm">
                 <span className="mb-1 block font-medium text-stone-700">Email</span>
                 <input
@@ -258,7 +263,7 @@ export default function MaintenancePage() {
                 {vendor.trade && <p className="text-sm text-stone-500">{vendor.trade}</p>}
                 {(vendor.phone || vendor.email) && (
                   <p className="text-xs text-stone-400">
-                    {[vendor.phone, vendor.email].filter(Boolean).join(" · ")}
+                    {[withTexts(vendor.phone, vendor.phoneTexts), vendor.email].filter(Boolean).join(" · ")}
                   </p>
                 )}
               </Link>

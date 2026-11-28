@@ -24,11 +24,19 @@ export function useFactCatalog() {
 
 // ownerKind: "person" or "business", for an owner's questions (a question with
 // `kind` fits only one of them: only a person lives somewhere).
+// A question's help, with a state's own wording where it has one
+// (`helpByState`, 2026-11-27): one state's rule never shows in another.
+export function helpFor(q, states) {
+  const list = [].concat(states || []);
+  for (const s of list) if (q?.helpByState?.[s]) return q.helpByState[s];
+  return q?.help || null;
+}
+
 export function isVisible(question, states, answers, ownerKind = null) {
   if (question.builderOnly || question.ownSection) return false;
   if (question.kind && question.kind !== ownerKind) return false;
   if (question.states && !question.states.some((s) => states.includes(s))) return false;
-  if (question.showIf) {
+  if (question.showIf && (!question.showIf.states || question.showIf.states.some((s) => states.includes(s)))) {
     if (question.showIf.isSet) {
       const ids = [].concat(question.showIf.id);
       if (!ids.some((id) => answers?.[id] !== undefined && answers?.[id] !== null && answers?.[id] !== "")) return false;
@@ -361,7 +369,7 @@ export default function FactQuestionsCard({ title, target, states, answers, onSa
                         <p className="mb-1 text-sm font-medium text-stone-700">
                           {q.label}
                         </p>
-                        {q.help && <p className="mb-2 text-xs text-stone-500">{q.help}</p>}
+                        {helpFor(q, states) && <p className="mb-2 text-xs text-stone-500">{helpFor(q, states)}</p>}
                         <Question question={q} value={draft[q.id]} catalog={catalog} onChange={(v) => setDraft({ ...draft, [q.id]: v })} />
                       </div>
                     ),

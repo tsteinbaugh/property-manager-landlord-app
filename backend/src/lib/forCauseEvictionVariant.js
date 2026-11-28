@@ -24,6 +24,30 @@ function correctForCauseVariantId(forCauseEvictionExemption) {
 // either one; this only shapes what gets auto-suggested/auto-attached. Since the CO retro
 // (2026-10-01) the pair is also choice group `co-part13-coverage`, so attaching the second
 // one to a lease that already has the first is refused (clauseChoiceGroups.js).
+// Which C.R.S. § 38-12-1302(1) exemption a lease's facts show (read in HB 24-1098
+// as signed, 2026-11-27; Taylor, 2026-11-27: worked out from facts, never picked):
+// - (a) a short-term rental: leased for less than thirty consecutive days
+//   (§ 38-12-1301(12)(a)), from the lease dates;
+// - (b) the owner or master tenant lives in the premises, or the owner lives in
+//   the adjacent property, as a primary residence, and the premises or that
+//   adjacent property is a single-family home (with or without an accessory
+//   dwelling unit), a duplex or a triplex, not four or more units.
+// A family member living there is not the owner (the old radio button said it
+// was). Anything else, or a fact not yet answered, is the covered default.
+const SINGLE = ["SINGLE_FAMILY", "ADU", "ROOM_IN_OWNER_HOME"];
+function smallBuilding(facts) {
+  if (facts.unitsInBuilding != null && facts.unitsInBuilding !== "") return Number(facts.unitsInBuilding) <= 3;
+  return SINGLE.includes(facts.propertyType) ? true : null;
+}
+function coForCauseExemption(property, lease) {
+  const f = property?.facts || {};
+  if (lease?.startDate && lease?.endDate && (new Date(lease.endDate) - new Date(lease.startDate)) / 86400000 < 30) return "SHORT_TERM_RENTAL";
+  const resides = f.coOwnerResides || (f.ownerLivesInBuilding === true ? "here" : null);
+  if (resides !== "here" && resides !== "next_door") return "STANDARD_LONG_TERM";
+  if (smallBuilding(f) === true || (resides === "next_door" && f.coAdjacentSmall === true)) return "OWNER_OCCUPIED_OR_ADJACENT";
+  return "STANDARD_LONG_TERM";
+}
+
 function isWrongForCauseVariant(templateId, forCauseEvictionExemption) {
   if (!FOR_CAUSE_VARIANT_TEMPLATE_IDS.includes(templateId)) return false;
   return templateId !== correctForCauseVariantId(forCauseEvictionExemption);
@@ -34,5 +58,6 @@ module.exports = {
   COVERED_TEMPLATE_ID,
   FOR_CAUSE_VARIANT_TEMPLATE_IDS,
   correctForCauseVariantId,
+  coForCauseExemption,
   isWrongForCauseVariant,
 };

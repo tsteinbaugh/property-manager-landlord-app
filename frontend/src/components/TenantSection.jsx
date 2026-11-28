@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useApi } from "../hooks/useApi";
 import SearchableSelect from "./SearchableSelect";
+import TextsQuestion from "./TextsQuestion";
 
 const APPLICATION_STATUS_STYLES = {
   PENDING: "bg-amber-100 text-amber-800",
@@ -72,6 +73,7 @@ export default function TenantSection({ items, onChange, propertyId, properties,
           firstName: source.firstName || "",
           lastName: source.lastName || "",
           phone: source.phone || "",
+          phoneTexts: source.phoneTexts ?? null,
           email: source.email || "",
         })),
       )
@@ -169,14 +171,17 @@ export default function TenantSection({ items, onChange, propertyId, properties,
                 className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
               />
             </label>
-            <label className="block text-sm">
-              <span className="mb-1 block font-medium text-stone-700">Phone</span>
-              <input
-                value={form.phone}
-                onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
-              />
-            </label>
+            <div>
+              <label className="block text-sm">
+                <span className="mb-1 block font-medium text-stone-700">Phone</span>
+                <input
+                  value={form.phone}
+                  onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                  className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
+                />
+              </label>
+              <TextsQuestion value={form.phoneTexts} onChange={(v) => setForm({ ...form, phoneTexts: v })} />
+            </div>
             <label className="block text-sm">
               <span className="mb-1 block font-medium text-stone-700">Email</span>
               <input

@@ -6,7 +6,7 @@ import LeaseSection from "../components/LeaseSection";
 import FinancesSnapshotCard from "../components/FinancesSnapshotCard";
 import MaintenanceSnapshotCard from "../components/MaintenanceSnapshotCard";
 import BackLink from "../components/BackLink";
-import { FOR_CAUSE_EVICTION_EXEMPTION_OPTIONS } from "../lib/forCauseEvictionVariant";
+import { coForCauseExemption } from "../lib/forCauseEvictionVariant";
 import { useFactCatalog } from "../components/FactQuestions";
 import { FactFieldsEdit, factViewRows, factPatch, questionsAt } from "../components/FactFields";
 import { IN_UTILITY_ROWS, UtilityRowsEdit, utilityViewRows } from "../components/UtilityFields";
@@ -123,8 +123,8 @@ function propertySections(property, catalog) {
   const lines = (keys) => keys.map((k) => line(text(k)[1], property[k]));
   // Only surfaced when it's the exceptional case: STANDARD_LONG_TERM is the
   // default/expected value for most properties, not worth a line.
-  const exemptionLabel = FOR_CAUSE_EVICTION_EXEMPTION_OPTIONS.find((opt) => opt.value === property.forCauseEvictionExemption);
-  const showExemptionFact = exemptionLabel && property.forCauseEvictionExemption !== "STANDARD_LONG_TERM";
+  // Worked out from the facts above (C.R.S. § 38-12-1302(1)(b); 2026-11-27).
+  const showExemptionFact = property.state === "CO" && coForCauseExemption(property) === "OWNER_OCCUPIED_OR_ADJACENT";
   const sections = [
     { key: "structural", title: "Structural", items: [lines(["stories", "basement", "lotSize"]), view("property.structural")] },
     { key: "parking", title: "Parking and storage", items: [view("property.parking")] },
@@ -146,7 +146,7 @@ function propertySections(property, catalog) {
         lines(["hoaContact"]),
         line("Mortgage", utilityLine(property, "mortgageCompany", "mortgageContact")),
         lines(["insuranceNotes"]),
-        showExemptionFact && line("For-cause eviction status", exemptionLabel.label),
+        showExemptionFact && line("For-cause eviction", "Exempt: the owner lives here or next door, and it has three or fewer units"),
       ],
     },
     { key: "manager", title: "Property manager", items: [view("property.manager")] },
@@ -427,28 +427,6 @@ export default function PropertyDetailPage() {
                 onChange={(v) => setForm({ ...form, insuranceNotes: v })}
               />
               <ContactPairField label="Mortgage" form={form} setForm={setForm} providerKey="mortgageCompany" contactKey="mortgageContact" providerPlaceholder="Lender name" />
-              <div className="sm:col-span-2">
-                <p className="mb-2 text-sm font-medium text-stone-700">Colorado for-cause eviction status</p>
-                <p className="mb-2 text-xs text-stone-500">
-                  Determines which month-to-month termination-notice clause the Lease Builder offers for this property —
-                  see C.R.S. § 38-12-1302.
-                </p>
-                <div className="space-y-2">
-                  {FOR_CAUSE_EVICTION_EXEMPTION_OPTIONS.map((opt) => (
-                    <label key={opt.value} className="flex items-start gap-2 text-sm">
-                      <input
-                        type="radio"
-                        name="forCauseEvictionExemption"
-                        value={opt.value}
-                        checked={(form.forCauseEvictionExemption || "STANDARD_LONG_TERM") === opt.value}
-                        onChange={(e) => setForm({ ...form, forCauseEvictionExemption: e.target.value })}
-                        className="mt-0.5 h-4 w-4 border-stone-300"
-                      />
-                      <span className="text-stone-600">{opt.label}</span>
-                    </label>
-                  ))}
-                </div>
-              </div>
             </div>
       </>
     ),

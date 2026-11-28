@@ -41,35 +41,37 @@ enum EntityType {
 // Every property is owned by an Entity, never directly by a User.
 // "Self / Personal" (entityType = PERSONAL) is a valid entity for landlords without an LLC.
 model Entity {
-  id                  String     @id @default(cuid())
-  userId              String
-  legalName           String
-  entityType          EntityType
+  id                     String     @id @default(cuid())
+  userId                 String
+  legalName              String
+  entityType             EntityType
   // The one Self / Personal entity auto-created at signup so every property
   // always has somewhere to default to. Locked from edit/delete at the app
   // layer (see entities.routes.js) — a user can still add other PERSONAL
   // entities (e.g. tracking a property they don't personally own), those
   // are ordinary editable/deletable entities with isDefault left false.
-  isDefault           Boolean    @default(false)
+  isDefault              Boolean    @default(false)
   // Correspondence for this entity specifically — e.g. a business email for
   // an LLC, separate from the landlord's own account email/phone in Clerk.
-  contactEmail        String?
-  contactPhone        String?
-  mailingAddress      String?
-  stateOfFormation    String?
-  ein                 String? // encrypted at rest at the app layer
+  contactEmail           String?
+  contactPhone           String?
+  // Whether the phone can receive text messages; null = not known yet (Taylor, 2026-11-27).
+  contactPhoneTexts      Boolean?
+  mailingAddress         String?
+  stateOfFormation       String?
+  ein                    String? // encrypted at rest at the app layer
   // The registered agent's name (a person or a registered-agent service) and
   // address: who accepts lawsuits and official mail for a business owner.
   registeredAgent        String?
   registeredAgentAddress String?
   // Owner-level applicability answers (factCatalog.js OWNER): where a person
   // owner lives, or a business owner's principal office, and unit counts.
-  facts               Json       @default("{}")
-  formationDate       DateTime?
-  annualReportDueDate DateTime? // reminder fires 60 days before this date
-  bankAccount         String? // which account rent flows into
-  createdAt           DateTime   @default(now())
-  updatedAt           DateTime   @updatedAt
+  facts                  Json       @default("{}")
+  formationDate          DateTime?
+  annualReportDueDate    DateTime? // reminder fires 60 days before this date
+  bankAccount            String? // which account rent flows into
+  createdAt              DateTime   @default(now())
+  updatedAt              DateTime   @updatedAt
 
   user                 User                  @relation(fields: [userId], references: [id])
   properties           Property[]
@@ -90,15 +92,15 @@ model Entity {
 }
 
 model Property {
-  id        String   @id @default(cuid())
-  userId    String
-  entityId  String
-  name      String? // optional nickname, e.g. "The Maple St duplex"
-  address1  String
-  address2  String?
-  city      String
-  state     String // drives legal notice-period rules in v2
-  zip       String
+  id       String  @id @default(cuid())
+  userId   String
+  entityId String
+  name     String? // optional nickname, e.g. "The Maple St duplex"
+  address1 String
+  address2 String?
+  city     String
+  state    String // drives legal notice-period rules in v2
+  zip      String
 
   // Archiving (2026-08-21) — properties are never hard-deleted (memory
   // project_property_archiving_not_delete). Archived + archivedAt mirrors the
@@ -114,16 +116,16 @@ model Property {
   archived       Boolean   @default(false)
   archivedAt     DateTime?
   archivedReason String?
-  yearBuilt Int? // drives lead-based-paint disclosure applicability (federal law: pre-1978 only); not auto-enforced, just surfaced as context
+  yearBuilt      Int? // drives lead-based-paint disclosure applicability (federal law: pre-1978 only); not auto-enforced, just surfaced as context
   // bedrooms/bathrooms double as the seed counts for Property Specs' By Room
   // placeholder rooms ("Bedroom 1".."Bedroom N", "Bathroom 1".."Bathroom N",
   // plus a "Half Bathroom" for a .5 remainder) — see PropertySpecsPage.jsx.
   // Taylor's call: these should visibly show up as room slots to fill in,
   // not just sit as a disconnected number.
-  bedrooms  Int?
-  bathrooms Decimal? @db.Decimal(3, 1) // supports half baths, e.g. 2.5
-  sqFt      Int?
-  amenities String[] @default([])
+  bedrooms       Int?
+  bathrooms      Decimal?  @db.Decimal(3, 1) // supports half baths, e.g. 2.5
+  sqFt           Int?
+  amenities      String[]  @default([])
 
   // Second attributes pass (2026-08-20), from Taylor's own curated list off a larger
   // ChatGPT brainstorm — deliberately not the whole brainstorm. Free text over structured
@@ -222,6 +224,7 @@ model Tenant {
   firstName         String
   lastName          String
   phone             String?
+  phoneTexts        Boolean? // can receive text messages; null = not known yet
   email             String?
   dateOfBirth       DateTime?
 
@@ -239,9 +242,10 @@ model Tenant {
   isServicemember  Boolean? // active-duty servicemember; Yes/No that starts blank (2026-11-22)
   nonresidentAlien Boolean? // for U.S. tax purposes; Yes/No that starts blank, asked for Alaska leases
 
-  emergencyContactName     String?
-  emergencyContactPhone    String?
-  emergencyContactRelation String?
+  emergencyContactName       String?
+  emergencyContactPhone      String?
+  emergencyContactPhoneTexts Boolean? // can receive text messages; null = not known yet
+  emergencyContactRelation   String?
 
   // Renter's insurance lives on the tenant, not the landlord Insurance module (v2).
   rentersInsuranceInsurer                   String?
@@ -264,8 +268,8 @@ model Tenant {
   // and linked back to the prior record so their history isn't re-typed from scratch or lost.
   // Traceability only, like Clause.sourceTemplateId — not a live data source.
   previousTenantId String?
-  previousTenant    Tenant?  @relation("TenantHistory", fields: [previousTenantId], references: [id], onDelete: SetNull)
-  nextTenants       Tenant[] @relation("TenantHistory")
+  previousTenant   Tenant?  @relation("TenantHistory", fields: [previousTenantId], references: [id], onDelete: SetNull)
+  nextTenants      Tenant[] @relation("TenantHistory")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -514,11 +518,12 @@ model Occupant {
   id     String @id @default(cuid())
   tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
 
-  tenantId String
-  name     String
-  age      Int?
-  phone    String?
-  email    String?
+  tenantId   String
+  name       String
+  age        Int?
+  phone      String?
+  phoneTexts Boolean? // can receive text messages; null = not known yet
+  email      String?
 
   isStudent       Boolean? // full-time student; Yes/No that starts blank (2026-11-22)
   isServicemember Boolean? // active-duty servicemember; Yes/No that starts blank (2026-11-22)
@@ -720,8 +725,8 @@ model Expense {
   deleted   Boolean   @default(false)
   deletedAt DateTime?
 
-  createdAt  DateTime        @default(now())
-  updatedAt  DateTime        @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   entity          Entity            @relation(fields: [entityId], references: [id])
   property        Property          @relation(fields: [propertyId], references: [id])
@@ -808,16 +813,17 @@ model DepositDeduction {
 // rows for this vendor, same computed-not-stored approach as Finances'
 // "expected vs collected."
 model Vendor {
-  id        String   @id @default(cuid())
-  userId    String
-  name      String
-  trade     String? // free text — plumber, electrician, HVAC, etc. No fixed list yet.
-  phone     String?
-  email     String?
-  preferred Boolean  @default(false)
-  notes     String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id         String   @id @default(cuid())
+  userId     String
+  name       String
+  trade      String? // free text — plumber, electrician, HVAC, etc. No fixed list yet.
+  phone      String?
+  phoneTexts Boolean? // can receive text messages; null = not known yet
+  email      String?
+  preferred  Boolean  @default(false)
+  notes      String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
   user                 User                  @relation(fields: [userId], references: [id])
   maintenanceRequests  MaintenanceRequest[]

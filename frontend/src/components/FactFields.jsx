@@ -1,4 +1,4 @@
-import { Question, displayValue, isVisible } from "./FactQuestions";
+import { Question, displayValue, helpFor, isVisible } from "./FactQuestions";
 
 // Lease-question answers shown inside a page's own sections (Taylor,
 // 2026-11-22: built into the pages, not a separate Lease questions card).
@@ -61,7 +61,7 @@ export function FactFieldsEdit({ catalog, target, place, states, answers, onChan
             <p className="mb-1 font-medium text-stone-700">
               {q.label}
             </p>
-            {q.help && <p className="mb-2 text-xs text-stone-500">{q.help}</p>}
+            {helpFor(q, states) && <p className="mb-2 text-xs text-stone-500">{helpFor(q, states)}</p>}
             <Question question={q} value={answers?.[q.id]} catalog={catalog} onChange={(v) => set(q.id, v)} />
           </div>
         );

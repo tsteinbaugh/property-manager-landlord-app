@@ -1,4 +1,12 @@
 const { PROPERTY_FIELDS, LEASE_FIELDS } = require("./clauseFields");
+const { CLAUSE_TEMPLATES } = require("./clauseTemplates");
+const { isVisible } = require("./factCatalog");
+
+// A provided clause the law requires in the lease itself: its blanks must be
+// filled before the PDF, since a line isn't the text the law asks for (Taylor,
+// 2026-11-27). A copy the landlord customized has no template and only warns.
+const REQUIRED_TEMPLATE_IDS = new Set(CLAUSE_TEMPLATES.filter((t) => t.tag === "REQUIRED").map((t) => t.id));
+const isRequiredClause = (clause) => REQUIRED_TEMPLATE_IDS.has(clause.sourceTemplateId);
 
 const VARIABLE_PATTERN = /\{\{\s*([a-z_]+)\s*\}\}/g;
 
@@ -101,6 +109,209 @@ function clauseFieldValues(propertyFacts, leaseFacts) {
 
 // The picked value of each choice, by variable, for {{#name:value}} passages.
 const PICKED = Symbol("picked");
+// The raw answers and the state, so a blank whose question is hidden (its
+// showIf not met) is neither listed nor held (2026-11-27).
+const ANSWERS = Symbol("answers");
+
+// Clause questions the app answers itself from data it already stores (Taylor,
+// 2026-11-27). Each returns the question's answer, or null when the stored
+// data is missing, in which case the question is asked as before. A stored
+// value wins over an answer typed under the clause earlier.
+const DERIVED = Symbol("derived");
+const PAYER = { TENANT_DIRECT: "tenant", INCLUDED: "landlord", NOT_PROVIDED: "none" };
+function unitsIn(property) {
+  const pf = property?.facts || {};
+  if (pf.unitsInBuilding != null && pf.unitsInBuilding !== "") return Number(pf.unitsInBuilding);
+  return pf.propertyType === "SINGLE_FAMILY" ? 1 : null;
+}
+function petList(tenants) {
+  const pets = tenants.filter((t) => t.role !== "GUARANTOR").flatMap((t) => t.pets || []);
+  if (pets.length === 0) return null;
+  return pets.map((p) => [`a ${p.type}`, p.name, p.breed].filter(Boolean).join(", ")).join("; ");
+}
+const DERIVE = {
+  landlordPhone: { from: "the owner's page", get: ({ entity }) => entity?.contactPhone || null },
+  // Only a number known to take texts (Taylor, 2026-11-27).
+  landlordMobileNumber: { from: "the owner's page", get: ({ entity }) => (entity?.contactPhoneTexts === true ? entity.contactPhone || null : null) },
+  tenantMobileNumber: {
+    from: "the tenant's page",
+    get: ({ tenants }) => {
+      const t = tenants.find((x) => x.role === "PRIMARY") || tenants.find((x) => x.role !== "GUARANTOR");
+      return t?.phoneTexts === true ? t.phone || null : null;
+    },
+  },
+  heatPayer: {
+    from: "the property's Utilities",
+    get: ({ property }) => {
+      const f = property?.facts || {};
+      const kind = { gas: "gas", electric: "electric" }[f.heatingFuel];
+      return kind ? ({ TENANT_DIRECT: "tenant", INCLUDED: "landlord" })[f.utilities?.[kind]?.whoPays] || null : null;
+    },
+  },
+  ownerPhone: { from: "the owner's page", get: ({ entity }) => entity?.contactPhone || null },
+  depositReceivedDate: {
+    from: "this lease's Deposits",
+    get: ({ deposits }) => {
+      const d = deposits.find((x) => x.type === "SECURITY");
+      return d?.dateReceived ? new Date(d.dateReceived).toISOString().slice(0, 10) : null;
+    },
+  },
+  approvedPets: { from: "the tenants' pets", get: ({ tenants }) => petList(tenants) },
+  approvedPetsList: { from: "the tenants' pets", get: ({ tenants }) => petList(tenants) },
+  builtPreSeventyEight: {
+    from: "the property's year built",
+    get: ({ property }) => (property?.yearBuilt ? (property.yearBuilt < 1978 ? "yes" : "no") : null),
+  },
+  buildingSixPlusUnits: { from: "the property page", get: ({ property }) => (unitsIn(property) == null ? null : unitsIn(property) >= 6 ? "yes" : "no") },
+  multiUnitDwelling: { from: "the property page", get: ({ property }) => (unitsIn(property) == null ? null : unitsIn(property) >= 2 ? "yes" : "no") },
+  gasPayer: { from: "the property's Utilities", get: ({ property }) => PAYER[property?.facts?.utilities?.gas?.whoPays] || null },
+  electricityPayer: {
+    from: "the property's Utilities",
+    get: ({ property }) => ({ TENANT_DIRECT: "tenant", INCLUDED: "landlord" })[property?.facts?.utilities?.electric?.whoPays] || null,
+  },
+  waterSewerPayer: {
+    from: "the property's Utilities",
+    get: ({ property }) => {
+      const u = property?.facts?.utilities || {};
+      const pick = { TENANT_DIRECT: "tenant", INCLUDED: "landlord" };
+      return pick[u.water?.whoPays] && pick[u.water?.whoPays] === pick[u.sewer?.whoPays] ? pick[u.water.whoPays] : null;
+    },
+  },
+  parkingProvided: {
+    from: "this lease's Parking",
+    get: ({ lease }) => (lease.facts?.parkingAssigned == null || lease.facts.parkingAssigned === "" ? null : Number(lease.facts.parkingAssigned) > 0 ? "yes" : "no"),
+  },
+  parkingFeeCharged: {
+    from: "this lease's Parking",
+    get: ({ lease }) => (typeof lease.facts?.parkingCharged === "boolean" ? (lease.facts.parkingCharged ? "yes" : "no") : null),
+  },
+  foreclosurePending: {
+    from: "this lease's foreclosure question",
+    get: ({ lease }) => (typeof lease.facts?.foreclosureUnderway === "boolean" ? (lease.facts.foreclosureUnderway ? "yes" : "no") : null),
+  },
+  foreclosureProceedings: {
+    from: "this lease's foreclosure question",
+    get: ({ lease }) => (typeof lease.facts?.foreclosureUnderway === "boolean" ? (lease.facts.foreclosureUnderway ? "yes" : "no") : null),
+  },
+  seasonalNonPrimary: {
+    from: "this lease's seasonal question",
+    get: ({ lease }) => (typeof lease.facts?.seasonal === "boolean" ? (lease.facts.seasonal ? "yes" : "no") : null),
+  },
+};
+// New York's Good Cause Eviction Law (Real Prop. Law §§ 211, 213, 214, read
+// 2026-11-27): the exemptions stored data settles, and "covered", worked out.
+const NYC_COUNTIES = ["new york", "kings", "queens", "bronx", "richmond", "manhattan", "brooklyn", "staten island", "the bronx"];
+const GOOD_CAUSE_EXEMPTIONS = [
+  "goodCauseExemptSmallLandlord", "goodCauseExemptOwnerOccupied", "goodCauseExemptRegulated", "goodCauseExemptAffordable",
+  "goodCauseExemptCondoCoop", "goodCauseExemptNewBuilding", "goodCauseExemptSeasonal", "goodCauseExemptCareFacility",
+  "goodCauseExemptManufacturedHome", "goodCauseExemptHotel", "goodCauseExemptDormitory", "goodCauseExemptReligious",
+  "goodCauseExemptHighRent",
+];
+const NY = (property) => property?.state === "NY";
+Object.assign(DERIVE, {
+  goodCauseExemptNotAdopted: {
+    from: "the property's county",
+    get: ({ property }) => {
+      const c = String(property?.facts?.county || "").toLowerCase().replace(/\s+county$/, "").trim();
+      return NY(property) && NYC_COUNTIES.includes(c) ? "nyc" : null;
+    },
+  },
+  goodCauseExemptOwnerOccupied: {
+    from: "the property page",
+    get: ({ property }) => {
+      if (!NY(property)) return null;
+      const lives = property.facts?.ownerLivesInBuilding;
+      if (lives === false) return "no";
+      const units = unitsIn(property);
+      if (units != null && units > 10) return "no";
+      return lives === true && units != null ? "yes" : null;
+    },
+  },
+  goodCauseExemptCondoCoop: {
+    from: "the property type",
+    get: ({ property }) => (NY(property) && ["CONDO", "COOP"].includes(property.facts?.propertyType) ? "yes" : null),
+  },
+  goodCauseExemptNewBuilding: {
+    // A building built in 2009 or later got its certificate of occupancy then,
+    // under 30 years ago; an older one may have a newer certificate, so it's asked.
+    from: "the property's year built",
+    get: ({ property }) => (NY(property) && property.yearBuilt >= 2009 ? "yes" : null),
+  },
+  goodCauseExemptManufacturedHome: {
+    from: "the property type",
+    get: ({ property }) => (NY(property) && property.facts?.propertyType && property.facts.propertyType !== "MANUFACTURED_HOME" ? "no" : null),
+  },
+  goodCauseExemptSeasonal: {
+    from: "this lease's seasonal question",
+    get: ({ property, lease }) => (NY(property) && lease.facts?.seasonal === false ? "no" : null),
+  },
+});
+Object.assign(DERIVE, {
+  // Colorado's exemption the exempt month-to-month clause names (2026-11-27).
+  forCauseExemption: {
+    from: "the property page and the lease dates",
+    get: ({ property, lease }) => {
+      if (property?.state !== "CO") return null;
+      const e = require("./forCauseEvictionVariant").coForCauseExemption(property, lease);
+      return { OWNER_OCCUPIED_OR_ADJACENT: "b", SHORT_TERM_RENTAL: "a" }[e] || null;
+    },
+  },
+});
+Object.assign(DERIVE, {
+  // HRS § 515-4(a), read 2026-11-27: a two-unit building the owner or lessor
+  // lives in, or rooms rented in the owner's own home. Anything else, or facts
+  // not yet answered, means the promise prints.
+  fairHousingExempt: {
+    from: "the property page",
+    get: ({ property }) => {
+      if (property?.state !== "HI") return null;
+      const f = property.facts || {};
+      const exempt = f.propertyType === "ROOM_IN_OWNER_HOME" || (unitsIn(property) === 2 && f.ownerLivesInBuilding === true);
+      return exempt ? null : "no";
+    },
+  },
+});
+Object.assign(DERIVE, {
+  // Iowa Admin. Code r. 481-280.17(2), read 2026-11-27: a fuel-burning heater,
+  // furnace, appliance or fireplace, or an attached garage. Only a Yes can be
+  // worked out from stored facts (an electric heat answer says nothing about
+  // a gas stove or a garage), so a No is still asked.
+  coAlarmsRequired: {
+    from: "the property page",
+    get: ({ property }) => {
+      if (property?.state !== "IA") return null;
+      const f = property.facts || {};
+      return ["gas", "oil", "propane", "wood"].includes(f.heatingFuel) || f.fireplace === true ? "yes" : null;
+    },
+  },
+});
+// Answers worked out from the others, stored and typed alike.
+const COMPUTE = {
+  goodCauseCovered: {
+    from: "your answers under the clause",
+    get: (a) => {
+      const where = a.goodCauseExemptNotAdopted;
+      if (where === "not_adopted") return "no";
+      if (where !== "nyc" && where !== "adopted") return null;
+      const values = GOOD_CAUSE_EXEMPTIONS.map((id) => a[id]);
+      if (values.includes("yes")) return "no";
+      return values.every((v) => v === "no") ? "yes" : null;
+    },
+  },
+};
+function derivedAnswers(sources) {
+  const out = {};
+  for (const [id, d] of Object.entries(DERIVE)) {
+    const value = d.get(sources);
+    if (value !== null && value !== undefined && value !== "") out[id] = { value, from: d.from };
+  }
+  const answers = { ...(sources.property?.facts || {}), ...(sources.lease.facts || {}), ...Object.fromEntries(Object.entries(out).map(([id, d]) => [id, d.value])) };
+  for (const [id, d] of Object.entries(COMPUTE)) {
+    const value = d.get(answers);
+    if (value !== null && value !== undefined) out[id] = { value, from: d.from };
+  }
+  return out;
+}
 function pickedValues(propertyFacts, leaseFacts) {
   const out = {};
   for (const [fields, facts] of [[PROPERTY_FIELDS, propertyFacts], [LEASE_FIELDS, leaseFacts]]) {
@@ -153,9 +364,11 @@ function buildVariableContext({ lease, property, entity, tenants, occupants = []
   const guarantors = tenants.filter((t) => t.role === "GUARANTOR");
   const fullName = (t) => `${t.firstName} ${t.lastName}`;
   const primary = renters.find((t) => t.role === "PRIMARY") || renters[0];
-  const pf = property?.facts || {};
+  const derived = derivedAnswers({ lease, property, entity, tenants, deposits: lease.deposits || [] });
+  const answered = Object.fromEntries(Object.entries(derived).map(([id, d]) => [id, d.value]));
+  const pf = { ...(property?.facts || {}), ...answered };
   const managerName = pf.managerName || pf.managerCompany || null;
-  const lf = lease.facts || {};
+  const lf = { ...(lease.facts || {}), ...answered };
   const noticeAddress = lf.noticeAddress || entity?.mailingAddress || null;
   const agent = pf.serviceAgentName ? null : registeredAgentFor(entity, property);
   const fields = clauseFieldValues(pf, lf);
@@ -169,6 +382,8 @@ function buildVariableContext({ lease, property, entity, tenants, occupants = []
         }
       : {}),
     [PICKED]: pickedValues(pf, lf),
+    [ANSWERS]: { answers: { ...pf, ...lf }, state: property?.state ?? null },
+    [DERIVED]: derived,
     ...utilityLists(pf),
     // Cal OES's MyHazards tool, named in Cal. Gov. Code § 8589.45.
     myhazards_url: "https://myhazards.caloes.ca.gov",
@@ -192,6 +407,13 @@ function buildVariableContext({ lease, property, entity, tenants, occupants = []
     occupant_names: formatOccupantNames(occupants),
     appliance_list: formatApplianceList(appliances),
     property_address: formatAddress(property),
+    // Address parts, for forms that ask them one by one (New York's Good Cause
+    // notice, 2026-11-27). A unit-less property reads "None".
+    property_street: property?.address1 || null,
+    property_unit: property ? property.address2 || "None" : null,
+    property_city: property?.city || null,
+    property_zip: property?.zip || null,
+    year_built: property?.yearBuilt ? String(property.yearBuilt) : null,
     landlord_name: entity?.legalName ?? null,
     // Where the tenant sends notices: the lease's own address, else the owning
     // entity's mailing address (Taylor, 2026-11-22).
@@ -252,7 +474,7 @@ function choosePassages(bodyText, context) {
     const [whole, name, value, inner] = m;
     const picked = context[PICKED]?.[name];
     let out = picked === value ? inner : "";
-    if (isBlank(picked) && !asked.has(name)) {
+    if (isBlank(picked) && !asked.has(name) && !isHiddenBlank(name, context)) {
       asked.add(name);
       if (!bodyText.includes(`{{${name}}}`)) out = `{{${name}}}`;
     }
@@ -273,6 +495,7 @@ function expandChoices(bodyText, context) {
 function substituteVariables(bodyText, context, { named = false } = {}) {
   return expandChoices(bodyText, context).replace(VARIABLE_PATTERN, (match, key) => {
     if (!isBlank(context[key])) return String(context[key]);
+    if (isHiddenBlank(key, context)) return "";
     return named ? `${BLANK_LINE} [${blankLabel(key)}]` : BLANK_LINE;
   });
 }
@@ -327,6 +550,11 @@ const SOURCE = {
   separately_charged_utilities: ["Utilities charged back", "the property's Utilities section"],
   utility_billing_method: ["Utility billing method", "the property's Utilities section"],
   state: ["State", "the property page"],
+  property_street: ["Street address", "the property page"],
+  property_unit: ["Unit number", "the property page"],
+  property_city: ["City", "the property page"],
+  property_zip: ["ZIP code", "the property page"],
+  year_built: ["Year built", "the property page"],
 };
 
 const FIELD_BY_VARIABLE = {};
@@ -334,9 +562,24 @@ for (const [target, fields] of [["property", PROPERTY_FIELDS], ["lease", LEASE_F
   for (const q of fields) for (const v of q.vars) FIELD_BY_VARIABLE[v] = { target, q };
 }
 
-// Lease columns a blank can be answered into from the blanks box (Taylor, 2026-11-23).
-for (const [v, id, type] of [["late_fee_amount", "lateFeeAmount", "money"], ["late_fee_grace_days", "lateFeeGraceDays", "number"]]) {
+// Lease columns a blank can be answered into from the blanks box (Taylor,
+// 2026-11-23; rent, deposit and dates added 2026-11-27). Each answer is saved
+// on the lease itself, so the lease page shows it too.
+for (const [v, id, type] of [
+  ["late_fee_amount", "lateFeeAmount", "money"],
+  ["late_fee_grace_days", "lateFeeGraceDays", "number"],
+  ["monthly_rent", "monthlyRent", "money"],
+  ["security_deposit", "securityDepositAmount", "money"],
+  ["start_date", "startDate", "date"],
+  ["end_date", "endDate", "date"],
+]) {
   FIELD_BY_VARIABLE[v] = { target: "leaseField", q: { id, type, label: SOURCE[v][0], short: SOURCE[v][0] } };
+}
+// Property questions a blank can be answered into (Taylor, 2026-11-27: the
+// county asked under the arbitration clause couldn't be answered there). The
+// answer is saved to the property, so the property page shows it too.
+for (const [v, id] of [["county", "county"]]) {
+  FIELD_BY_VARIABLE[v] = { target: "property", q: { id, type: "text", label: SOURCE[v][0], short: SOURCE[v][0] } };
 }
 
 function blankLabel(variable) {
@@ -348,12 +591,21 @@ const variablesIn = (bodyText) => [...new Set([...bodyText.matchAll(VARIABLE_PAT
 // The blanks in a lease's clauses, one entry per answer, each with the clauses
 // it's in. A clause field comes with its question; any other blank says where
 // its answer is kept.
+// Whether a variable's question is hidden by its showIf on this lease: its
+// blank is then neither listed, held nor printed as a line (2026-11-27).
+function isHiddenBlank(v, context) {
+  const field = FIELD_BY_VARIABLE[v];
+  const seen = context[ANSWERS];
+  return Boolean(field?.q.showIf && seen && !isVisible({ showIf: field.q.showIf }, [seen.state], seen.answers));
+}
+
 function clauseBlanks(clauses, context) {
   const byKey = new Map();
   for (const clause of clauses) {
     for (const v of variablesIn(expandChoices(clause.bodyText, context))) {
       if (!isBlank(context[v])) continue;
       const field = FIELD_BY_VARIABLE[v];
+      if (isHiddenBlank(v, context)) continue;
       const key = field ? `${field.target}.${field.q.id}` : blankLabel(v);
       if (!byKey.has(key)) {
         byKey.set(key, {
@@ -365,6 +617,7 @@ function clauseBlanks(clauses, context) {
       }
       const entry = byKey.get(key);
       if (!entry.clauses.includes(clause.title)) entry.clauses.push(clause.title);
+      if (field?.q.choice || isRequiredClause(clause)) entry.holds = true;
     }
   }
   return [...byKey.values()];
@@ -387,9 +640,16 @@ function clauseTerms(bodyText) {
   return terms;
 }
 
-// Choices still to be picked; the PDF waits for them (Taylor, 2026-11-24).
-function unpickedChoices(clauses, context) {
-  return clauseBlanks(clauses, context).filter((b) => b.question?.choice);
+// What the PDF waits for: a choice still to be picked (Taylor, 2026-11-24) and
+// any blank in a Required clause (Taylor, 2026-11-27). Other blanks only warn.
+function blanksHoldingPdf(clauses, context) {
+  return clauseBlanks(clauses, context).filter((b) => b.holds);
 }
 
-module.exports = { buildVariableContext, substituteVariables, clauseBlanks, clauseTerms, unpickedChoices, SOURCE, FIELD_BY_VARIABLE, BLANK_LINE };
+// The questions this lease's stored data answers, for the builder to show as
+// answered (with where the answer came from) instead of asking.
+function derivedFacts(context) {
+  return context[DERIVED] || {};
+}
+
+module.exports = { derivedFacts, DERIVE, buildVariableContext, substituteVariables, clauseBlanks, clauseTerms, blanksHoldingPdf, isRequiredClause, SOURCE, FIELD_BY_VARIABLE, BLANK_LINE };

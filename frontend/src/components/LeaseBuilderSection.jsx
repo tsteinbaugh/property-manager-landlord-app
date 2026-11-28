@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { useApi } from "../hooks/useApi";
 import SearchableSelect from "./SearchableSelect";
 import LeaseAttachmentsPanel from "./LeaseAttachmentsPanel";
-import { isWrongForCauseVariant } from "../lib/forCauseEvictionVariant";
+import { isWrongForCauseVariant, coForCauseExemption } from "../lib/forCauseEvictionVariant";
 import { pickerTitle, sortClausesForDisplay } from "../lib/jurisdictions";
 
 const EMPTY_CLAUSE_FORM = { title: "", bodyText: "", group: "" };
@@ -108,9 +108,9 @@ export default function LeaseBuilderSection({ lease, onChange }) {
 
   // Two CO clause templates (month-to-month-notice-co-exempt / -covered) cover mutually
   // exclusive legal situations for the same property fact — which one applies is a property
-  // attribute (forCauseEvictionExemption), not a landlord judgment call, so hide whichever one
-  // doesn't match this lease's property rather than making the landlord pick correctly by hand.
-  const forCauseExemption = lease.property?.forCauseEvictionExemption;
+  // fact, not a landlord judgment call, so hide whichever one doesn't match: worked out from the
+  // property's facts and the lease dates (2026-11-27), never picked by hand.
+  const forCauseExemption = coForCauseExemption(lease.property, lease);
 
   // Templates sharing a `choiceGroup` are mutually exclusive alternatives (e.g. California's
   // TPA-covered vs TPA-exempt notice) — once one is attached, stop offering the others. The

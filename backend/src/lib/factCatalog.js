@@ -72,6 +72,30 @@ const PROPERTY = [
     label: "Does the owner live in the building?",
     showIf: { id: "propertyType", in: MULTI_UNIT },
   },
+  // Colorado's for-cause eviction law exempts an owner-occupied or owner-adjacent
+  // small property (C.R.S. § 38-12-1302(1)(b)); the app works the exemption out
+  // from these facts (2026-11-27).
+  {
+    id: "coOwnerResides",
+    section: "The building",
+    type: "pickOne",
+    label: "Does the owner live at this property, or in the property directly next to it, as their primary residence?",
+    help: "Count the owner, or a master tenant who lives here; a family member doesn't count. A primary residence is the address on the person's Colorado driver's license, ID card or voter registration, or the one used for taxes or public-school registration (C.R.S. § 38-12-1301(7)).",
+    states: ["CO"],
+    options: [
+      { value: "here", label: "Yes, here" },
+      { value: "next_door", label: "Yes, directly next door" },
+      { value: "no", label: "No" },
+    ],
+  },
+  {
+    id: "coAdjacentSmall",
+    section: "The building",
+    type: "yesno",
+    label: "Is the owner's home next door a single-family home (with or without an accessory unit), a duplex or a triplex?",
+    states: ["CO"],
+    showIf: { id: "coOwnerResides", in: ["next_door"] },
+  },
   { id: "unitFloor", section: "The building", type: "number", label: "Which floor is this unit on?", help: "The ground floor is 1.", states: ["IL", "MD"] },
   { id: "highRise", section: "The building", type: "yesno", label: "Is the building four or more stories, or taller than 45 feet?", states: ["MD"] },
   { id: "completeSprinklers", section: "The building", type: "yesno", label: "Does the building have a complete sprinkler system?", states: ["MD", "CT"] },
@@ -247,7 +271,7 @@ const PROPERTY = [
   { id: "shoreline", section: "What you know about the property", type: "yesno", label: "Is the property on the shoreline, or does it have a shoreline right of way?", states: ["RI", "GU"] },
   { id: "nearMilitaryInstallation", section: "What you know about the property", type: "yesno", label: "Is the property within 3 miles of a military installation?", states: ["IN"] },
   { id: "militaryAirZone", section: "What you know about the property", type: "yesno", label: "Is the property in a military air installation noise or accident potential zone?", states: ["VA"] },
-  { id: "specialDistrict", section: "What you know about the property", type: "yesno", label: "Is the property in a special or business improvement district?", help: "In Puerto Rico: the Convention Center District or the Science, Technology and Research District.", states: ["ID", "MS", "PR", "WV"] },
+  { id: "specialDistrict", section: "What you know about the property", type: "yesno", label: "Is the property in a special or business improvement district?", helpByState: { PR: "In Puerto Rico: the Convention Center District or the Science, Technology and Research District." }, states: ["ID", "MS", "PR", "WV"] },
   { id: "groundwaterArea", section: "What you know about the property", type: "yesno", label: "Is the property in a groundwater management area?", states: ["OR"] },
   { id: "asbestosDisposalSite", section: "What you know about the property", type: "yesno", label: `${KNOW}is there an asbestos disposal site on the property?`, states: ["NH"] },
   { id: "noiseWaiver", section: "What you know about the property", type: "yesno", label: "Is a noise waiver recorded against the property?", states: ["IL"] },
@@ -260,7 +284,19 @@ const PROPERTY = [
   { id: "nearSchool", section: "What you know about the property", type: "yesno", label: "Is the property within 1,000 feet of a school or child care facility?", states: ["OH"] },
   { id: "smokingNearby", section: "What you know about the property", type: "yesno", label: "Is smoking allowed in nearby units?", states: ["UT", "WV"] },
   { id: "localRentalFee", section: "What you know about the property", type: "yesno", label: "Does the local government charge a rental registration, permit or inspection fee?", states: ["NY"] },
-  { id: "energyBenchmarking", section: "What you know about the property", type: "yesno", label: "Is the building covered by an energy benchmarking law?", states: ["CA", "DC"] },
+  {
+    id: "energyBenchmarking",
+    section: "What you know about the property",
+    type: "yesno",
+    label: "Does the building meet the size test for energy benchmarking described below?",
+    helpByState: {
+      // D.C. Code § 6-1451.03(c)(2)(B)(vi), read 2026-11-27.
+      DC: "Yes if the building has 10,000 square feet or more of gross floor area (D.C. Code § 6-1451.03(c)(2)(B)(vi), in force since January 1, 2025).",
+      // Pub. Resources Code § 25402.10 couldn't be read on 2026-11-27 (leginfo blocked); backlog.
+      CA: "Yes if the building is covered by California's building energy benchmarking program (Pub. Resources Code § 25402.10).",
+    },
+    states: ["CA", "DC"],
+  },
 
   // Program housing
   {
@@ -295,8 +331,10 @@ const PROPERTY = [
     id: "mnExemptSetting",
     section: "Program housing",
     type: "yesno",
-    label: "Is this housing with services that's exempt from assisted living licensure (a Minnesota \"exempt setting\")?",
-    help: "Minn. Stat. § 325F.722. Most rentals aren't; answer No unless you provide services under that law.",
+    // The facts Minn. Stat. § 325F.722, subd. 1(b) and § 144G.08, subd. 7(10)-(13)
+    // turn on (read 2026-11-27), not "is this an exempt setting".
+    label: "Is this government-financed rental housing where assisted living services (such as help with bathing, dressing, eating or medications) are offered to residents?",
+    help: "Count only housing financed or developed under one of these programs: Minnesota Housing Finance Agency housing bonds (§§ 462A.37, 462A.375) or units it finances to serve people with disabilities or who are homeless; low-income housing tax credit units; public housing or Section 202 elderly housing; housing designated for elderly or elderly and disabled residents under 42 U.S.C. § 1437e, or project-based voucher units under 24 C.F.R. § 983.56; or housing funded under the McKinney-Vento Act or 42 U.S.C. § 8011 (Minn. Stat. § 144G.08, subd. 7(10)-(13)). Housing that markets itself as assisted living and provides those services doesn't count. Most rentals: No.",
     states: ["MN"],
   },
 
@@ -304,6 +342,7 @@ const PROPERTY = [
   { id: "managerCompany", section: "Property manager", type: "text", label: "Property manager company", counts: false },
   { id: "managerName", section: "Property manager", type: "text", label: "Contact name", counts: false },
   { id: "managerPhone", section: "Property manager", type: "text", label: "Phone", counts: false },
+  { id: "managerPhoneTexts", section: "Property manager", type: "yesno", label: "Can that phone receive text messages?", counts: false, showIf: { id: "managerPhone", isSet: true } },
   { id: "managerEmail", section: "Property manager", type: "text", label: "Email", counts: false },
   { id: "managerAddress", section: "Property manager", type: "text", label: "Address", counts: false },
   {
@@ -311,9 +350,14 @@ const PROPERTY = [
     section: "Property manager",
     type: "text",
     label: "Emergency phone for tenants",
-    help: "The number tenants call about an emergency at the property. Leave it blank to use the property manager's phone, or your entity's phone if there's no manager. Nevada requires a responsible person who lives in the property's county or within 60 miles (NRS 118A.260); Texas requires it to be answered around the clock if there's an on-site office (Tex. Prop. Code § 92.020).",
+    help: "The number tenants call about an emergency at the property. Leave it blank to use the property manager's phone, or your entity's phone if there's no manager.",
+    helpByState: {
+      NV: "The number tenants call about an emergency at the property. Leave it blank to use the property manager's phone, or your entity's phone if there's no manager. Nevada requires a responsible person who lives in the property's county or within 60 miles (NRS 118A.260).",
+      TX: "The number tenants call about an emergency at the property. Leave it blank to use the property manager's phone, or your entity's phone if there's no manager. If you have an on-site management or superintendent's office, Texas requires this number to be answered 24 hours a day (Tex. Prop. Code § 92.020).",
+    },
     counts: false,
   },
+  { id: "emergencyPhoneTexts", section: "Property manager", type: "yesno", label: "Can that phone receive text messages?", counts: false, showIf: { id: "emergencyPhone", isSet: true } },
   { id: "managerSignsLeases", section: "Property manager", type: "yesno", label: "Does the manager sign leases for you?", showIf: { id: ["managerCompany", "managerName"], isSet: true } },
   { id: "managerLicensed", section: "Property manager", type: "yesno", label: "Does the manager hold a real estate license?", showIf: { id: ["managerCompany", "managerName"], isSet: true } },
   {
@@ -328,6 +372,23 @@ const PROPERTY = [
 
   // Utilities
   { id: "utilities", section: "Utilities", type: "utilities", label: "Who pays each utility?" },
+  // How the property is heated, so "who pays for heat" comes from the payer of
+  // that fuel (Maryland's utilities clause; Taylor, 2026-11-27).
+  {
+    id: "heatingFuel",
+    section: "Utilities",
+    type: "pickOne",
+    label: "How is the property heated?",
+    counts: false,
+    options: [
+      { value: "gas", label: "Natural gas" },
+      { value: "electric", label: "Electricity" },
+      { value: "oil", label: "Heating oil" },
+      { value: "propane", label: "Propane" },
+      { value: "wood", label: "Wood or pellets" },
+      { value: "other", label: "Something else, or more than one" },
+    ],
+  },
   // One per meter, shown in that utility's block (Taylor, 2026-11-22); the laws
   // differ in which meters they cover (factRules.js / pickerRules.js).
   { id: "electricMeterOutsideUnit", section: "Utilities", type: "yesno", label: "Does this unit's electric meter also serve areas outside the unit (hallway or outdoor lights, a shared laundry)?" },
@@ -369,7 +430,8 @@ const PROPERTY = [
 ];
 
 const LEASE = [
-  { id: "seasonal", section: "This lease", type: "yesno", label: "Is this a seasonal or vacation rental?", states: ["NJ", "DE", "WY"] },
+  // Every state, on the lease, since a property can switch between long and short stays (Taylor, 2026-11-27); groundwork for short-term rentals.
+  { id: "seasonal", section: "This lease", type: "yesno", label: "Is this a seasonal or vacation rental?" },
   // Two parts (2026-11-23): most employee-housing clauses need the housing
   // tied to the job; Delaware's needs it to be part of the pay (25 Del. C.
   // § 5314); Minnesota's is for an employee whose housing isn't a job term.
@@ -386,8 +448,7 @@ const LEASE = [
     ],
     showIf: { id: "tenantIsEmployee", in: [true] },
   },
-  { id: "holdingDeposit", section: "This lease", type: "yesno", label: "Did the tenant pay a holding deposit before signing?", states: ["WY"] },
-  { id: "holdingDepositAmount", section: "This lease", type: "number", label: "Holding deposit amount", counts: false, states: ["WY"], showIf: { id: "holdingDeposit", in: [true] } },
+  { id: "holdingDeposit", section: "This lease", type: "yesno", label: "Did the tenant pay a holding deposit before signing?", help: "Money paid to take the rental off the market while the lease is being signed. It is not the security deposit, though the lease may move it into the security deposit at signing.", states: ["WY"] },
   { id: "utilityDeposit", section: "This lease", type: "yesno", label: "Is there a utility deposit?", states: ["CO"] },
   {
     id: "firstMonthRent",
@@ -456,7 +517,7 @@ const LEASE = [
   { id: "rentPayeeName", section: "This lease", type: "text", label: "Rent is paid to", counts: false, ownSection: true },
   { id: "rentPaymentAddress", section: "This lease", type: "text", label: "Where rent is paid", counts: false, ownSection: true },
   { id: "rentPayeePhone", section: "This lease", type: "text", label: "Phone for rent", counts: false, ownSection: true },
-  { id: "rentPaymentForms", section: "This lease", type: "text", label: "Forms of payment accepted", counts: false, ownSection: true },
+  { id: "rentPaymentForms", section: "This lease", type: "text", label: "Forms of payment accepted", counts: false, ownSection: true, helpByState: { CA: "Include at least one way that is neither cash nor an electronic transfer, such as a check or money order.", NV: "Include at least one way to pay that costs the tenant no fee and needs no bank account information, such as a personal check delivered in person or by mail.", NY: "Include at least one way that is not electronic, such as check or money order.", TX: "If you will not accept cash, list only check, money order or another traceable or negotiable instrument. Otherwise Texas requires you to accept timely cash rent.", VI: "If your rental business takes in $50,000 or more a year, include cash and a credit or debit card." } },
   { id: "rentPaymentDaysHours", section: "This lease", type: "text", label: "Days and hours rent can be paid in person", counts: false, ownSection: true },
   // Shown in the lease page's Notices section, not the Lease questions card (ownSection).
   { id: "noticeAddress", section: "This lease", type: "text", label: "Address for lease notices", counts: false, ownSection: true },
@@ -637,6 +698,8 @@ const SHORT_LABELS = {
   propertyType: "Property type",
   unitsInBuilding: "Units in building",
   ownerLivesInBuilding: "Owner lives in building",
+  coOwnerResides: "Owner lives here or next door",
+  coAdjacentSmall: "Owner's home next door is small",
   unitFloor: "Floor",
   highRise: "Four or more stories (or over 45 ft)",
   completeSprinklers: "Complete sprinkler system",
@@ -651,6 +714,7 @@ const SHORT_LABELS = {
   parkingTypes: "Parking",
   parkingSpaces: "Parking spaces",
   emergencyPhone: "Emergency phone",
+  emergencyPhoneTexts: "Emergency phone takes texts",
   rentPayeeName: "Rent paid to",
   rentPaymentAddress: "Where rent is paid",
   rentPayeePhone: "Phone for rent",
@@ -701,12 +765,14 @@ const SHORT_LABELS = {
   managerCompany: "Company",
   managerName: "Contact",
   managerPhone: "Phone",
+  managerPhoneTexts: "Phone takes texts",
   managerEmail: "Email",
   managerAddress: "Address",
   managerSignsLeases: "Signs leases for you",
   managerLicensed: "Real estate license",
   pmPermitNV: "Nevada property management permit",
   utilities: "Who pays",
+  heatingFuel: "Heating fuel",
   electricMeterOutsideUnit: "Electric meter serves areas outside the unit",
   gasMeterOutsideUnit: "Gas meter serves areas outside the unit",
   waterMeterOutsideUnit: "Water meter serves areas outside the unit",
@@ -778,7 +844,7 @@ const CATALOG = { property: PROPERTY, lease: LEASE, account: ACCOUNT, owner: OWN
 // Whether `question` shows for these states and these answers.
 function isVisible(question, states, answers) {
   if (question.states && !question.states.some((s) => states.includes(s))) return false;
-  if (question.showIf) {
+  if (question.showIf && (!question.showIf.states || question.showIf.states.some((s) => states.includes(s)))) {
     if (question.showIf.isSet) {
       const ids = [].concat(question.showIf.id);
       if (!ids.some((id) => answers?.[id] !== undefined && answers?.[id] !== null && answers?.[id] !== "")) return false;
@@ -812,7 +878,22 @@ const optionValues = (q) => q.options.map((o) => o.value);
 
 // Validates and normalizes a patch of answers for `target`. Returns
 // { facts } or { error }. A null value clears an answer.
-function validateFacts(target, patch, state = null) {
+// A state's legal limit on an answer, as its reason, or null (2026-11-27):
+// `max`/`min` numbers, or `maxMonthsRent` (a cap in months of this lease's
+// rent, checked only when the rent is known). A text answer like "8%" is read
+// by its first number.
+function limitError(q, value, state, { monthlyRent = null } = {}) {
+  const limit = q.limits?.[state];
+  if (!limit || value === null || value === undefined || value === "") return null;
+  const n = typeof value === "number" ? value : Number.parseFloat(String(value).replace(/[^0-9.]+/g, " ").trim());
+  if (!Number.isFinite(n)) return null;
+  if (limit.max != null && n > limit.max) return limit.why;
+  if (limit.min != null && n < limit.min) return limit.why;
+  if (limit.maxMonthsRent != null && monthlyRent != null && n > limit.maxMonthsRent * Number(monthlyRent)) return limit.why;
+  return null;
+}
+
+function validateFacts(target, patch, state = null, context = {}) {
   if (!patch || typeof patch !== "object" || Array.isArray(patch)) return { error: "facts must be an object" };
   const byId = Object.fromEntries(CATALOG[target].map((q) => [q.id, q]));
   const facts = {};
@@ -847,11 +928,12 @@ function validateFacts(target, patch, state = null) {
       case "number":
       case "money":
         if (typeof value !== "number" || !Number.isFinite(value) || value < 0) return bad();
-        if (q.limits?.[state] && value > q.limits[state].max) return { error: q.limits[state].why };
+        if (limitError(q, value, state, context)) return { error: limitError(q, value, state, context) };
         break;
       case "longtext":
       case "text":
         if (typeof value !== "string") return bad();
+        if (limitError(q, value, state, context)) return { error: limitError(q, value, state, context) };
         break;
       case "utilities":
         if (typeof value !== "object" || Array.isArray(value)) return bad();
@@ -886,6 +968,7 @@ function mergeFacts(existing, patch) {
 }
 
 module.exports = {
+  limitError,
   CATALOG,
   UTILITY_KINDS,
   UTILITY_WHO_PAYS,

@@ -92,7 +92,7 @@ for k,v in files.items():
 # The "About this clause" panel. Education links by state and topic, corrected
 # by clause-guidance.csv (education_add / education_hide), only for states whose
 # links have been reviewed; a Use when line shows wherever the clause does.
-REVIEWED=["CO"]
+REVIEWED=["CO","ME","NM","FL","OK","WV","MT","IN","DC","NY","TX","PR","KY","OH","LA","VT","MO","ND","VA","AL","AR","NE","NC","KS","RI","ID","AS","CA","IA","VI","DE","NV","MI","AZ","HI","UT","SC","NH","GU","WI","AK","MS","MA","MD","MP","OR","CT","MN","WA","PA","WY","TN","SD","IL","GA","NJ"]
 gpath=os.path.join(os.path.dirname(csvp),"clause-guidance.csv")
 guide=list(csv.DictReader(open(gpath,newline='',encoding='utf-8')))
 lcid={r['id']:r for r in lc}; edid={r['id']:r for r in ed}
