@@ -157,6 +157,15 @@ const DERIVE = {
     },
   },
   approvedPets: { from: "the tenants' pets", get: ({ tenants }) => petList(tenants) },
+  // Each occupant's name and birth date, once every occupant has one (2026-11-28).
+  occupantDetails: {
+    from: "the tenants' occupants",
+    get: ({ occupants = [] }) => {
+      if (occupants.length === 0 || occupants.some((o) => !o.dateOfBirth)) return null;
+      const born = (d) => new Date(d).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" });
+      return occupants.map((o) => `${o.name}, born ${born(o.dateOfBirth)}`).join("; ");
+    },
+  },
   approvedPetsList: { from: "the tenants' pets", get: ({ tenants }) => petList(tenants) },
   builtPreSeventyEight: {
     from: "the property's year built",
@@ -364,7 +373,7 @@ function buildVariableContext({ lease, property, entity, tenants, occupants = []
   const guarantors = tenants.filter((t) => t.role === "GUARANTOR");
   const fullName = (t) => `${t.firstName} ${t.lastName}`;
   const primary = renters.find((t) => t.role === "PRIMARY") || renters[0];
-  const derived = derivedAnswers({ lease, property, entity, tenants, deposits: lease.deposits || [] });
+  const derived = derivedAnswers({ lease, property, entity, tenants, occupants, deposits: lease.deposits || [] });
   const answered = Object.fromEntries(Object.entries(derived).map(([id, d]) => [id, d.value]));
   const pf = { ...(property?.facts || {}), ...answered };
   const managerName = pf.managerName || pf.managerCompany || null;

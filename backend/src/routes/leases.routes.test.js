@@ -760,8 +760,8 @@ describe("leases routes", () => {
     });
 
     it("resolves occupant_names from the primary tenant's linked Occupant records", async () => {
-      await prisma.occupant.create({ data: { tenantId: tenant.id, name: "Sam Rivera", age: 9 } });
-      await prisma.occupant.create({ data: { tenantId: tenant.id, name: "Alex Rivera", age: 5 } });
+      await prisma.occupant.create({ data: { tenantId: tenant.id, name: "Sam Rivera", dateOfBirth: new Date("2017-03-04") } });
+      await prisma.occupant.create({ data: { tenantId: tenant.id, name: "Alex Rivera", dateOfBirth: new Date("2021-06-01") } });
       await prisma.leaseTenant.create({ data: { leaseId: lease.id, tenantId: tenant.id, role: "PRIMARY" } });
       const occupantClause = await prisma.clause.create({
         data: {

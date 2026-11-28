@@ -3,11 +3,12 @@ const prisma = require("../lib/prisma");
 const { pickFields } = require("../lib/pickFields");
 
 const REQUIRED_FIELDS = ["tenantId", "name"];
-const ASSIGNABLE_FIELDS = ["name", "age", "phone", "phoneTexts", "email", "isStudent", "isServicemember"];
+const ASSIGNABLE_FIELDS = ["name", "dateOfBirth", "phone", "phoneTexts", "email", "isStudent", "isServicemember"];
+const DATE_FIELDS = ["dateOfBirth"];
 const TENANT_SELECT = { select: { id: true, firstName: true, lastName: true } };
 
 function pickAssignableFields(body) {
-  return pickFields(body, ASSIGNABLE_FIELDS);
+  return pickFields(body, ASSIGNABLE_FIELDS, DATE_FIELDS);
 }
 
 function validateOccupantBody(body) {

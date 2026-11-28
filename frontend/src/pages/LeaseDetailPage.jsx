@@ -688,7 +688,7 @@ export default function LeaseDetailPage() {
         emptyLabel="No occupants linked to a tenant on this lease yet — add them from the tenant's page (anyone living here who isn't a tenant on the lease: kids, an aging parent, etc.)."
         items={occupants}
         renderSummary={(o) =>
-          [o.name, o.age ? `age ${o.age}` : null, [o.phone, o.email].filter(Boolean).join(", ") || null]
+          [o.name, o.dateOfBirth ? `born ${formatDay(o.dateOfBirth)}` : null, [o.phone, o.email].filter(Boolean).join(", ") || null]
             .filter(Boolean)
             .join(" · ")
         }

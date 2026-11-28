@@ -20,6 +20,7 @@ for (const t of CLAUSE_TEMPLATES) {
 
 // [id, type, label, vars, extra]. `label` is also the short name on the page.
 const when = (id, ...values) => ({ showIf: { id, in: values } });
+const HOLDING_DEPOSIT_STATES = ["AK", "AL", "AR", "AZ", "CA", "CO", "DE", "FL", "GA", "HI", "IA", "ID", "IL", "IN", "KS", "KY", "LA", "MD", "ME", "MI", "MN", "MO", "MS", "MT", "NC", "ND", "NE", "NH", "NJ", "NM", "NV", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VA", "VT", "WA", "WI", "WV", "WY", "DC", "AS", "GU", "MP", "PR", "VI"];
 const chargedBack = { showIf: { id: "utilities", whoPays: ["CHARGED_BACK"] } };
 
 // A choice: only the picked option's wording prints, and an unpicked choice
@@ -127,9 +128,6 @@ const LEASE = {
     ["depositLocation", "text", "Where the deposit is held, as the notice states it", "deposit_location_statement", { help: "For example: in a separate account at First Bank, 1 Main St.", helpByState: { FL: "Reads after the advance rent amount: for example, \"in a separate account at First Bank, 1 Main St, Tampa, FL\", or \"under a surety bond Landlord has posted as provided by law\"." } }],
     ["depositInterest", "pickOne", "Does the tenant get interest on the deposit?", "deposit_interest_statement", { options: [{ value: "is", label: "Yes" }, { value: "is not", label: "No" }] }],
     ["advanceRent", "money", "Advance rent held", "advance_rent"],
-    // Asked on the lease page once a holding deposit is answered Yes (Wyoming, 2026-11-27).
-    ["holdingDepositAmount", "money", "Holding deposit amount", "holding_deposit_amount", when("holdingDeposit", true)],
-    ["holdingDepositDate", "date", "Date the holding deposit was paid", "holding_deposit_date", when("holdingDeposit", true)],
   ],
   "lease.noticePeriods": [
     ["renewalNoticeDays", "number", "Days' notice before renewal or non-renewal", "renewal_notice_days", { limits: { IA: { min: 30, why: "Iowa requires written notice at least 30 days before the end of a term to end a tenancy longer than month to month." }, NM: { min: 30, why: "In New Mexico a rent increase for a fixed-term tenancy needs written notice at least 30 days before the term ends, and this clause uses the same period for the rent notice." }, ID: { min: 30, why: "Idaho requires a landlord to give written notice at least 30 days before not renewing a residential lease; the clause uses the same period for both of you." }, MD: { min: 60, why: "Maryland requires at least 60 days' written notice from the landlord to end a written lease of more than a week, and the lease may not require a longer notice from the tenant than from the landlord." } }, helpByState: { RI: "Your choice; Rhode Island sets no notice period for ending a fixed term. You remind the tenant in writing at least 30 days before this deadline. For example: 60.", IA: "Your notice of non-renewal only. At least 30: Iowa requires 30 days before the end of the term. The tenant's notice stays at 30.", NM: "At least 30: the same period sets the deadline for your notice of a rent increase, which New Mexico requires at least 30 days before the term ends.", ID: "At least 30: Idaho requires 30 days' written notice before you decline to renew.", HI: "For example: 30.", MD: "At least 60.", LA: "For example: 30." } }],
@@ -144,6 +142,10 @@ const LEASE = {
     ["maintenanceRentCredit", "money", "Monthly rent reduction for that work", "tenant_maintenance_rent_credit"],
   ],
   "lease.details": [
+    // Beside the security deposit once a holding deposit is answered Yes, in every
+    // jurisdiction but CT, NY and MA (Taylor, 2026-11-27).
+    ["holdingDepositAmount", "money", "Holding deposit amount", "holding_deposit_amount", { ...when("holdingDeposit", true), states: HOLDING_DEPOSIT_STATES, limits: { WA: { maxMonthsRent: 0.25, why: "Washington allows a fee or deposit to hold a unit of no more than 25% of the first month's rent." } } }],
+    ["holdingDepositDate", "date", "Date the holding deposit was paid", "holding_deposit_date", { ...when("holdingDeposit", true), states: HOLDING_DEPOSIT_STATES }],
     ["employmentPosition", "text", "Employee's position", "employment_position employee_position", when("tenantIsEmployee", true)],
     ["employeeDuties", "text", "Employee's duties", "employee_duties", when("tenantIsEmployee", true)],
     ["employeeHousingConsideration", "text", "What the housing is given in exchange for", "employee_housing_consideration", { ...when("tenantIsEmployee", true), helpByState: { HI: "Reads after \"Tenant's charge for occupying the Premises is\": a monthly amount, for example \"$800 per month\", or \"nothing; no rent is charged\".", LA: "Reads after \"Tenant's rent is\": the monthly amount, or a description of the services that are the rent." } }],

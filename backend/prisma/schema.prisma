@@ -519,8 +519,8 @@ model Occupant {
   tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
 
   tenantId   String
-  name       String
-  age        Int?
+  name        String
+  dateOfBirth DateTime? // replaces age (Taylor, 2026-11-28)
   phone      String?
   phoneTexts Boolean? // can receive text messages; null = not known yet
   email      String?

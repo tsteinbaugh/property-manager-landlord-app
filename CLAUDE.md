@@ -169,7 +169,7 @@ Do not add to this list without Taylor's input.
 1. Update Current focus.
 2. Add a dated "what we built" entry to `docs/history.md`, not here.
 3. Add each new decision to `docs/history.md`'s decisions log with its reasoning. If it's a rule still in force, add one line here too, with its date.
-4. Put new open items in `docs/backlog.md`.
+4. Put new open items in `docs/backlog.md`, and move finished ones, word for word, to `docs/history.md`'s "Done backlog items" (the backlog holds only open work; Taylor, 2026-11-28).
 5. Update the date below and remind Taylor to commit.
 
 Keep this file short: if a section grows past a few lines of rules, move the detail to `docs/` and leave a pointer.

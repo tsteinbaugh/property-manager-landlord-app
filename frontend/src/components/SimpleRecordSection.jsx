@@ -37,7 +37,10 @@ export default function SimpleRecordSection({
   function openForm(item) {
     if (item) {
       const f = {};
-      for (const field of fields) f[field.key] = item[field.key] ?? (field.type === "checkbox" ? false : field.type === "yesno" ? null : "");
+      for (const field of fields) {
+        const v = item[field.key];
+        f[field.key] = field.type === "date" && v ? String(v).slice(0, 10) : v ?? (field.type === "checkbox" ? false : field.type === "yesno" ? null : "");
+      }
       setForm(f);
       setTenantId(item.tenant?.id || defaultTenantId);
       setEditingId(item.id);

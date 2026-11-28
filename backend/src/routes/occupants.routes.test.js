@@ -104,12 +104,12 @@ describe("occupants routes", () => {
     const res = await request(app).post("/api/occupants").send({
       tenantId: tenant.id,
       name: "Riley Steinbaugh",
-      age: 9,
+      dateOfBirth: "2017-03-04",
     });
 
     expect(res.status).toBe(201);
     expect(res.body.name).toBe("Riley Steinbaugh");
-    expect(res.body.age).toBe(9);
+    expect(res.body.dateOfBirth.slice(0, 10)).toBe("2017-03-04");
     expect(res.body.tenant.id).toBe(tenant.id);
   });
 

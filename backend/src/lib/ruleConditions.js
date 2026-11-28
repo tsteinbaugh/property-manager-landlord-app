@@ -91,8 +91,8 @@ const DERIVED = {
     if (vals.includes(true)) return true;
     return vals.includes(null) ? null : false;
   },
-  // A child under 6 on the lease (an occupant's age, or a tenant's birth date
-  // at the lease start), else the lease's own answer.
+  // A child under 6 on the lease (a tenant's or occupant's birth date at the
+  // lease start), else the lease's own answer.
   "lease.childUnder6": ({ lease }) => {
     const start = lease?.startDate ? new Date(lease.startDate) : new Date();
     const sixYearsBefore = new Date(start);
@@ -100,7 +100,7 @@ const DERIVED = {
     for (const lt of lease?.leaseTenants || []) {
       const t = lt.tenant || {};
       if (t.dateOfBirth && new Date(t.dateOfBirth) > sixYearsBefore) return true;
-      if ((t.occupants || []).some((o) => o.age !== null && o.age !== undefined && o.age < 6)) return true;
+      if ((t.occupants || []).some((o) => o.dateOfBirth && new Date(o.dateOfBirth) > sixYearsBefore)) return true;
     }
     const v = lease?.facts?.childUnder6;
     return v === true || v === false ? v : null;

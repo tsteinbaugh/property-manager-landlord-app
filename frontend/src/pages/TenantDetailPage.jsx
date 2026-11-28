@@ -40,7 +40,7 @@ const ALLOWED_DOCUMENT_TYPES = ["application/pdf", "image/jpeg", "image/png"];
 
 const OCCUPANT_FIELDS = [
   { key: "name", label: "Name", required: true },
-  { key: "age", label: "Age", type: "number" },
+  { key: "dateOfBirth", label: "Date of birth", type: "date" },
   { key: "phone", label: "Phone" },
   { key: "phoneTexts", label: "Can that phone receive text messages?", type: "yesno" },
   { key: "email", label: "Email", type: "email" },
@@ -772,7 +772,7 @@ export default function TenantDetailPage() {
         renderSummary={(o) =>
           [
             o.name,
-            o.age ? `age ${o.age}` : null,
+            o.dateOfBirth ? `born ${formatDay(o.dateOfBirth)}` : null,
             [withTexts(o.phone, o.phoneTexts), o.email].filter(Boolean).join(", ") || null,
             o.isStudent === true ? "student" : null,
             o.isServicemember === true ? "servicemember" : null,

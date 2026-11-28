@@ -34,9 +34,11 @@ describe("clause applicability rules", () => {
     expect(ruleApplies("lead-based-paint", ctx(p({ bedrooms: 0 })))).toBe(true);
     expect(ruleApplies("lead-based-paint", ctx(p({ bedrooms: 0 }), { facts: { childUnder6: false } }))).toBe(false);
     expect(ruleApplies("lead-based-paint", ctx(p({}, { elderlyOrDisabledHousing: true }), { facts: { childUnder6: false } }))).toBe(false);
-    // An occupant under 6 settles it without asking.
-    const withChild = { leaseTenants: [{ tenant: { occupants: [{ age: 3 }] } }] };
+    // An occupant under 6 at the lease start (by birth date) settles it without asking.
+    const withChild = { startDate: "2027-01-01", leaseTenants: [{ tenant: { occupants: [{ dateOfBirth: "2024-05-01" }] } }] };
     expect(ruleState("lead-based-paint", ctx(p({ bedrooms: 0 }), withChild))).toBe(true);
+    const olderChild = { startDate: "2027-01-01", leaseTenants: [{ tenant: { occupants: [{ dateOfBirth: "2019-05-01" }] } }] };
+    expect(ruleState("lead-based-paint", ctx(p({ bedrooms: 0 }), olderChild))).toBe(UNKNOWN);
     // The state lead rules keep the plain year test.
     expect(ruleApplies("lead-law-certification-ma", ctx(p({}, { certifiedLeadFree: true })))).toBe(true);
   });
