@@ -21,8 +21,9 @@ function overLimit(q, value, state, rent = null) {
 // Whether a follow-up applies, given the answers so far (its parent must too).
 function applies(q, answers, terms, state) {
   if (!q.showIf || (q.showIf.states && !q.showIf.states.includes(state))) return true;
-  const parent = terms.find((t) => t.id === q.showIf.id);
-  return q.showIf.in.includes(answers[q.showIf.id]) && (!parent || applies(parent, answers, terms, state));
+  const ids = [].concat(q.showIf.id);
+  const parent = ids.length === 1 ? terms.find((t) => t.id === ids[0]) : null;
+  return ids.some((id) => q.showIf.in.includes(answers[id])) && (!parent || applies(parent, answers, terms, state));
 }
 
 // Saves answers where they're kept: the property's or lease's answers, or the

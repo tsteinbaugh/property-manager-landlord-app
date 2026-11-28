@@ -24,7 +24,8 @@
 // `states`: the question shows only for those states (null = everyone). When a
 // rule reads a question, its states must be covered here.
 // `showIf`: { id, in: [...] } shows the question only when another answer in the
-// same set is one of those values (for pickAny, includes one of them).
+// same set is one of those values (for pickAny, includes one of them); `id` may be
+// a list, and any one of those answers counts (2026-11-27: the shared-meter areas).
 // `showIf`: { id: [ids], isSet: true } shows it once any of those has an answer.
 // `showIf`: { id: "utilities", whoPays: [...] } shows it when any utility is paid
 // that way.
@@ -859,8 +860,8 @@ function isVisible(question, states, answers) {
       const entries = Object.values(answers?.[question.showIf.id] || {});
       if (!entries.some((u) => question.showIf.whoPays.includes(u?.whoPays))) return false;
     } else {
-      const other = answers?.[question.showIf.id];
-      const values = Array.isArray(other) ? other : [other];
+      // `id` may list several answers; any one of them in `in` shows it.
+      const values = [].concat(question.showIf.id).flatMap((id) => [].concat(answers?.[id]));
       if (!values.some((v) => question.showIf.in.includes(v))) return false;
     }
   }

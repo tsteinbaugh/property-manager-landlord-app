@@ -56,8 +56,8 @@ export function isVisible(question, states, answers, ownerKind = null) {
       const entries = Object.values(answers?.[question.showIf.id] || {});
       if (!entries.some((u) => question.showIf.whoPays.includes(u?.whoPays))) return false;
     } else {
-      const other = answers?.[question.showIf.id];
-      const values = Array.isArray(other) ? other : [other];
+      // `id` may list several answers; any one of them in `in` shows it.
+      const values = [].concat(question.showIf.id).flatMap((id) => [].concat(answers?.[id]));
       if (!values.some((v) => question.showIf.in.includes(v))) return false;
     }
   }
